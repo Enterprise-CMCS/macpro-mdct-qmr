@@ -25,7 +25,7 @@ module.exports = {
   test_settings: {
     default: {
       disable_error_log: false,
-      launch_url: "https://nightwatchjs.org",
+      launch_url: process.env.APPLICATION_ENDPOINT,
 
       screenshots: {
         enabled: false,
