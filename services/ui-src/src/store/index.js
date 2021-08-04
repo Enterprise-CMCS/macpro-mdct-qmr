@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "development") {
   // eslint-disable-next-line global-require
   const { logger } = require("redux-logger");
 
-  middlewareArray = [...middlewareArray, logger];
+  middlewareArray.push(logger);
 }
 const middleware = composeWithDevTools(applyMiddleware(...middlewareArray));
 
