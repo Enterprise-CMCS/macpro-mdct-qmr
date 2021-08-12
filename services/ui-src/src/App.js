@@ -9,7 +9,11 @@ import { Auth } from "aws-amplify";
 import { onError } from "./libs/errorLib";
 import { loginLocalUser } from "./libs/user";
 import config from "./config";
+import { useDispatch } from "react-redux";
+import { setUser, unsetUser } from "./store/actions/userActions";
+
 function App() {
+  const dispatch = useDispatch();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const history = useHistory();
@@ -34,6 +38,8 @@ function App() {
   async function handleLogout() {
     await Auth.signOut();
 
+    // Remove user from redux
+    dispatch(unsetUser());
     userHasAuthenticated(false);
 
     history.push("/");
@@ -53,6 +59,9 @@ function App() {
           },
         };
         loginLocalUser(alice);
+
+        // Add user to redux
+        dispatch(setUser(alice));
         userHasAuthenticated(true);
       } else {
         const authConfig = Auth.configure();
