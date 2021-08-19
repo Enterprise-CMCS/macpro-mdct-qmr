@@ -11,6 +11,9 @@ import { loginLocalUser } from "./libs/user";
 import config from "./config";
 import { useDispatch } from "react-redux";
 import { setUser, unsetUser } from "./store/actions/userActions";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +81,7 @@ function App() {
   return (
     !isAuthenticating && (
       <div className="App container">
+        <Header/>
         <Navbar fluid collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
@@ -106,6 +110,7 @@ function App() {
         </Navbar>
         <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
           <Routes />
+          <Footer/>
         </AppContext.Provider>
       </div>
     )
