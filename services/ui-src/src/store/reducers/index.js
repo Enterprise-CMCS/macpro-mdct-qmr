@@ -4,7 +4,7 @@
 
 import { combineReducers } from "redux";
 import formReducer from "./formReducer";
-import userReducer from "./userReducer";
+import userReducer from "./user/userReducer";
 
 const rootReducer = combineReducers({ form: formReducer, user: userReducer });
 

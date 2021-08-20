@@ -10,7 +10,7 @@ import { onError } from "./libs/errorLib";
 import { loginLocalUser } from "./libs/user";
 import config from "./config";
 import { useDispatch } from "react-redux";
-import { setUser, unsetUser } from "./store/actions/userActions";
+import { setUser, unsetUser } from "./store/reducers/user/userSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -77,11 +77,11 @@ function App() {
 
   return (
     !isAuthenticating && (
-      <div className="App container">
+      <div className='App container'>
         <Navbar fluid collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">APS Home</Link>
+              <Link to='/'>APS Home</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -89,8 +89,8 @@ function App() {
             <Nav pullRight>
               {isAuthenticated ? (
                 <>
-                  <NavDropdown id="User" title="My Account">
-                    <LinkContainer to="/profile">
+                  <NavDropdown id='User' title='My Account'>
+                    <LinkContainer to='/profile'>
                       <NavItem>User Profile</NavItem>
                     </LinkContainer>
                     <NavItem onClick={handleLogout}>Logout</NavItem>
