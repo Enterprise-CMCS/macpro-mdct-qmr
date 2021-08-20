@@ -7,7 +7,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import config from "./config";
 import { Provider } from "react-redux";
-import store from "./store/index";
+// import store from "./store/index";
+import { store } from './store/reduxToolkitStore'
 
 Amplify.configure({
   Auth: {
