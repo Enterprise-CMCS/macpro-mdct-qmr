@@ -1,5 +1,4 @@
-import { store } from "../../index";
-import { setUser, unsetUser } from "./userSlice";
+import userReducer, { setUser, unsetUser } from "./userSlice";
 
 describe("User Reducer", () => {
   //user object being used in the below tests
@@ -13,22 +12,17 @@ describe("User Reducer", () => {
   };
 
   test("User has initial state", () => {
-    const state = store.getState();
-    expect(state.rootReducer.user).toEqual({});
+    const state = userReducer(undefined, {});
+    expect(state).toEqual({});
   });
 
   test("Able to set user", () => {
-    store.dispatch(setUser(testUser));
-
-    expect(store.getState().user).toEqual(testUser);
+    const state = userReducer(undefined, setUser(testUser));
+    expect(state).toEqual(testUser);
   });
 
   test("Able to unset user", () => {
-    //set a user first
-    store.dispatch(setUser(testUser));
-
-    store.dispatch(unsetUser());
-
-    expect(store.getState().user).toEqual({});
+    const state = userReducer(testUser, unsetUser());
+    expect(state).toEqual({});
   });
 });
