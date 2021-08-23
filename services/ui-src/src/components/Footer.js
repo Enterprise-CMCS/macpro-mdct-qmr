@@ -1,9 +1,11 @@
 import React from "react";
 import { helpDeskContact } from "../libs/helpDeskContact";
+import HelpSection from "./HelpSection";
 
 function Footer() {
   return (
     <>
+      <HelpSection />
       <section className="footer-top-container">
         <div className="footer-wrapper footer-top-wrapper">
           <div>

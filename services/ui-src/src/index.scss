@@ -988,6 +988,9 @@ article.form-container {
     }
   }
 }
+#User{
+  background-color: white;
+}
 .activeLink,
 .activeLink:hover,
 .activeLink:focus {
@@ -1161,15 +1164,14 @@ article.form-container {
 .nav-bar,
 .page-title-bar,
 .footer-top-container,
+.home-footer-container,
 .footer-bottom-container {
   @extend .ds-u-display--flex;
-  @extend .ds-u-justify-content--around;
   padding-left: 7.2rem;
   padding-right: 7.2rem;
 
   .header-wrapper,
   .footer-wrapper {
-    @include max-width-ultra-wide;
     @extend .ds-u-display--flex;
     @extend .ds-u-align-items--center;
     @extend .ds-u-justify-content--between;
@@ -1218,7 +1220,6 @@ article.form-container {
   min-width: 80px;
 }
 .footer-fed-gov-text {
-  padding-left: 10px;
   font-family: Open Sans;
   font-size: 14px;
   font-style: normal;
@@ -1233,7 +1234,6 @@ article.form-container {
 
 .usa-banner-custom {
   @extend .ds-u-display--flex;
-  @extend .ds-u-justify-content--around;
   background-color: #f0f0f0;
   padding-left: 7.2rem;
   padding-right: 7.2rem;
@@ -1299,17 +1299,18 @@ article.form-container {
   @extend .ds-u-display--flex;
   @extend .ds-u-flex-direction--column;
   @extend .ds-u-align-items--center;
-  background: $color-primary-alt-lightest;
-  height: 295px;
-
-  .home-footer-faq-callout {
+  margin-bottom: 10px;
+  max-width: 1256px;
+    .home-footer-faq-callout {
     @extend .ds-u-margin-bottom--6;
     @extend .ds-u-display--flex;
     @extend .ds-u-align-items--center;
     @extend .ds-u-justify-content--between;
-    @include max-width-ultra-wide;
+    max-width: 1256px;
     width: 100%;
     font-size: 24px;
+    margin-bottom: 0px !important;
+
   }
 }
 
