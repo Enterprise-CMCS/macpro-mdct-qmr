@@ -36,7 +36,7 @@ function Header(props) {
                                     </>
                                 ) : (
                                     <>
-                                        <NavItem onClick={()=>props.handleLogin()}>Login</NavItem>
+                                        <NavItem id ="loginButton" onClick={()=>props.handleLogin()}>Login</NavItem>
                                     </>
                                 )}
                             </Nav>

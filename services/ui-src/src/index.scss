@@ -978,9 +978,12 @@ article.form-container {
     }
 
     a {
+      color: black;
+      text-decoration: none;
       background-color: white;
       &:hover {
-        text-decoration: none;
+        text-decoration: underline;
+        background-color: $color-gray-lightest;
       }
     }
 
@@ -993,8 +996,24 @@ article.form-container {
     }
   }
 }
-#User {
+li[role="presentation"] a{
   background-color: white;
+}
+#loginButton{
+  color: white;
+  text-decoration: none;
+  background-color: $color-primary;
+  &:hover {
+    text-decoration: underline;
+    background-color: $color-primary;
+  }
+}
+#User {
+  color: white;
+  background-color: $color-primary;
+}
+#User :hover{
+  text-decoration: underline;  
 }
 .activeLink,
 .activeLink:hover,
