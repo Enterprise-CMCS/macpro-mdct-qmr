@@ -526,7 +526,12 @@ article.form-container {
     }
   }
 }
-
+.Home, .Profile{
+  width: 50%;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 50px;
+}
 .summary-field {
   height: 300px;
   font-size: 2rem;
@@ -973,7 +978,7 @@ article.form-container {
     }
 
     a {
-      background-color: $color-primary;
+      background-color: white;
       &:hover {
         text-decoration: none;
       }
@@ -988,7 +993,7 @@ article.form-container {
     }
   }
 }
-#User{
+#User {
   background-color: white;
 }
 .activeLink,
@@ -996,10 +1001,25 @@ article.form-container {
 .activeLink:focus {
   text-decoration: underline;
   text-decoration-style: solid;
-  text-decoration-color: $color-white;
+  text-decoration-color: $color-gray-lightest;
   text-decoration-thickness: 4px;
   text-decoration-skip-ink: none;
 }
+
+.dropdown-menu > .active > a:hover {
+  text-decoration: none;
+  outline: 0;
+  background-color: #f5f5f5;
+  color: black;
+}
+
+.dropdown-menu > .active > a {
+  text-decoration: underline;
+  outline: 0;
+  background-color: none;
+  color: black;
+}
+
 .usa-bar {
   @extend .app-bar;
   background-color: $color-gray-lightest;
@@ -1058,6 +1078,10 @@ article.form-container {
 }
 
 // Account dropdown
+
+.dropdown-toggle::after {
+  display: none;
+}
 
 .dropdown-content {
   position: absolute;
@@ -1301,7 +1325,7 @@ article.form-container {
   @extend .ds-u-align-items--center;
   margin-bottom: 10px;
   max-width: 1256px;
-    .home-footer-faq-callout {
+  .home-footer-faq-callout {
     @extend .ds-u-margin-bottom--6;
     @extend .ds-u-display--flex;
     @extend .ds-u-align-items--center;
@@ -1310,7 +1334,6 @@ article.form-container {
     width: 100%;
     font-size: 24px;
     margin-bottom: 0px !important;
-
   }
 }
 
