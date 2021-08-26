@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function StateHome() {
-    return <h2>State Home</h2>;
+  return <h2>State Home</h2>;
 }
