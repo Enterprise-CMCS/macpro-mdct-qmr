@@ -1,6 +1,6 @@
 import React from "react";
 import { UsaBanner } from "@cmsgov/design-system";
-import { QMRLogo } from "../header/QMRLogo";
+import { QMRLogo } from "./QMRLogo";
 import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, NavItem, NavDropdown } from "react-bootstrap";
 
@@ -12,7 +12,6 @@ import { Nav, Navbar, NavItem, NavDropdown } from "react-bootstrap";
  */
 
 function Header(props) {
-    console.log(props);
     return (<>
         <div className="usa-banner-custom">
             <UsaBanner />

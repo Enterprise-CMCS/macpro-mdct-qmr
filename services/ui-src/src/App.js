@@ -77,7 +77,7 @@ function App() {
 
   return (
     !isAuthenticating && (
-      <div className="">
+      <div>
         <Header isAuthenticated={isAuthenticated} handleLogin={() => handleLogin()} handleLogout={() => handleLogout()}/>
         <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
           <Routes />
