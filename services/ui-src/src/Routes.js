@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-
 import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import AdminHome from "./containers/AdminHome";
@@ -11,7 +10,9 @@ import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import ContactUs from "./containers/ContactUs";
 import UserManagement from "./containers/UserManagement";
+
 // Todo: Uncomment this segment when need to run S3 locally
+///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";
 // import {
 //   s3AmplifyUpload,
@@ -23,7 +24,7 @@ import UserManagement from "./containers/UserManagement";
 
 export default function Routes() {
   // Todo: Uncomment this segment when need to run S3 locally
-
+  ///////////////////////////////////////////////////////////
   // // This might not be quite the right place for it, but I'm doing
   // // dependency injection here, on the component level.
   // // Local Login
