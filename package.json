@@ -8,7 +8,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd tests/cypress && npm test && cd -",
+    "test:ci": "cd tests/cypress && npm test:ci && cd -"
   },
   "repository": {
     "type": "git",

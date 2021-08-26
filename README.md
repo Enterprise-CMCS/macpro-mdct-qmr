@@ -48,7 +48,7 @@ Building the app locally
 
 Running tests locally
 
-- todo
+- npm test
 
 ## Requirements
 
@@ -76,6 +76,10 @@ brew install yarn
 # run dev
 ./dev local
 ```
+
+## Cypress Testing
+
+[See here](./tests/cypress/README.md)
 
 ## Dependencies
 
@@ -138,3 +142,4 @@ This project made possible by the [Serverless Stack](https://serverless-stack.co
 [dial_avatar]: https://avatars.githubusercontent.com/mdial89f?size=150
 [sacher_homepage]: https://github.com/sethsacher
 [sacher_avatar]: https://avatars.githubusercontent.com/sethsacher?size=150
+
