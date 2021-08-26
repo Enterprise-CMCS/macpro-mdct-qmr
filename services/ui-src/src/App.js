@@ -12,7 +12,6 @@ import { setUser, unsetUser } from "./store/actions/userActions";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-
 function App() {
   const dispatch = useDispatch();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
@@ -78,10 +77,14 @@ function App() {
   return (
     !isAuthenticating && (
       <div>
-        <Header isAuthenticated={isAuthenticated} handleLogin={() => handleLogin()} handleLogout={() => handleLogout()}/>
+        <Header
+          isAuthenticated={isAuthenticated}
+          handleLogin={() => handleLogin()}
+          handleLogout={() => handleLogout()}
+        />
         <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
           <Routes />
-          <Footer/>
+          <Footer />
         </AppContext.Provider>
       </div>
     )

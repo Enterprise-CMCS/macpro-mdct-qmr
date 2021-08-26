@@ -526,7 +526,8 @@ article.form-container {
     }
   }
 }
-.Home, .Profile{
+.Home,
+.Profile {
   width: 50%;
   text-align: center;
   margin: auto;
@@ -996,10 +997,10 @@ article.form-container {
     }
   }
 }
-li[role="presentation"] a{
+li[role="presentation"] a {
   background-color: white;
 }
-#loginButton{
+#loginButton {
   color: white;
   text-decoration: none;
   background-color: $color-primary;
@@ -1012,8 +1013,8 @@ li[role="presentation"] a{
   color: white;
   background-color: $color-primary;
 }
-#User :hover{
-  text-decoration: underline;  
+#User :hover {
+  text-decoration: underline;
 }
 .activeLink,
 .activeLink:hover,

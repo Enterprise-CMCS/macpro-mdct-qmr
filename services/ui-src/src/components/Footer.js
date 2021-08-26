@@ -9,10 +9,7 @@ function Footer() {
       <section className="footer-top-container">
         <div className="footer-wrapper footer-top-wrapper">
           <div>
-            <img
-              src="/footer/logo-MedicaidGov.svg"
-              alt="Medicaid.gov logo"
-            />
+            <img src="/footer/logo-MedicaidGov.svg" alt="Medicaid.gov logo" />
           </div>
           <div className="footer-government-blurb">
             <div className="footer-fed-gov-container">

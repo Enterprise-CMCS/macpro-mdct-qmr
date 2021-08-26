@@ -3,11 +3,11 @@ name: Pre-commit
 on: [pull_request]
 
 jobs:
-  eslint:
+  prettier:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install modules
-      run: yarn
-    - name: Run ESLint
-      run: yarn run eslint --fix --ext .js,.jsx
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: pre-commit/action@v2.0.2
+        with:
+          extra_args: --all-files
