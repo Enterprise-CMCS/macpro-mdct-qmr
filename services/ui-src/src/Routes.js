@@ -3,10 +3,13 @@ import { Route, Switch } from "react-router-dom";
 import AWS from "aws-sdk";
 import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
-import NewAmendment from "./containers/NewAmendment";
-import Amendments from "./containers/Amendments";
-import Profile from "./containers/Profile";
+import AdminHome from "./containers/AdminHome";
+import BOHome from "./containers/BOHome";
+import CoreSet from "./containers/CoreSet";
+import Measure from "./containers/Measure";
+import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import ContactUs from "./containers/ContactUs";
 import {
   s3AmplifyUpload,
   s3LocalUploader,
@@ -44,14 +47,23 @@ export default function Routes() {
       <Route exact path="/">
         <Home />
       </Route>
-      <AuthenticatedRoute exact path="/profile">
-        <Profile />
+      <Route exact path="/contactus">
+        <ContactUs />
+      </Route>
+      <AuthenticatedRoute exact path="/adminhome">
+        <AdminHome />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/amendments/new">
-        <NewAmendment fileUpload={s3Upload} />
+      <AuthenticatedRoute exact path="/statehome">
+        <StateHome />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/amendments/:id">
-        <Amendments fileUpload={s3Upload} fileURLResolver={s3URLResolver} />
+      <AuthenticatedRoute exact path="/bohome">
+        <BOHome />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/coreset">
+        <CoreSet />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/measure">
+        <Measure />
       </AuthenticatedRoute>
       <Route>
         <NotFound />
