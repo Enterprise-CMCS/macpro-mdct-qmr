@@ -10,6 +10,7 @@ import Measure from "./containers/Measure";
 import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import ContactUs from "./containers/ContactUs";
+import UserManagement from "./containers/UserManagement";
 // Todo: Uncomment this segment when need to run S3 locally
 // import AWS from "aws-sdk";
 // import {
@@ -57,9 +58,6 @@ export default function Routes() {
       <AuthenticatedRoute exact path="/adminhome">
         <AdminHome />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/statehome">
-        <StateHome />
-      </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/bohome">
         <BOHome />
       </AuthenticatedRoute>
@@ -68,6 +66,12 @@ export default function Routes() {
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/measure">
         <Measure />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/statehome">
+        <StateHome />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/usermanagement">
+        <UserManagement />
       </AuthenticatedRoute>
       <Route>
         <NotFound />
