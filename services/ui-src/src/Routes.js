@@ -5,7 +5,7 @@ import NotFound from "./containers/NotFound";
 import AdminHome from "./containers/AdminHome";
 import BOHome from "./containers/BOHome";
 import CoreSet from "./containers/CoreSet";
-import Measure from "./containers/Measure";
+import Measure from "./containers/Measure/Measure";
 import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import ContactUs from "./containers/ContactUs";
@@ -50,28 +50,28 @@ export default function Routes() {
 
   return (
     <Switch>
-      <Route exact path="/">
+      <Route exact path='/'>
         <Home />
       </Route>
-      <Route exact path="/contactus">
+      <Route exact path='/contactus'>
         <ContactUs />
       </Route>
-      <AuthenticatedRoute exact path="/adminhome">
+      <AuthenticatedRoute exact path='/adminhome'>
         <AdminHome />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/bohome">
+      <AuthenticatedRoute exact path='/bohome'>
         <BOHome />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/coreset">
+      <AuthenticatedRoute exact path='/coreset'>
         <CoreSet />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/measure">
+      <AuthenticatedRoute exact path='/measure'>
         <Measure />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/statehome">
+      <AuthenticatedRoute exact path='/statehome'>
         <StateHome />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/usermanagement">
+      <AuthenticatedRoute exact path='/usermanagement'>
         <UserManagement />
       </AuthenticatedRoute>
       <Route>
