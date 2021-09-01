@@ -5,7 +5,7 @@ import NotFound from "./containers/NotFound";
 import AdminHome from "./containers/AdminHome";
 import BOHome from "./containers/BOHome";
 import CoreSet from "./containers/CoreSet";
-import Measure from "./containers/Measure";
+import Measure from "./containers/Measure/Measure";
 import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import ContactUs from "./containers/ContactUs";
