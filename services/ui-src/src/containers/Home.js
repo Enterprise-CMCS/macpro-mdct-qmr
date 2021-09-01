@@ -48,7 +48,7 @@ export default function Home() {
           </ListGroupItem>
         </LinkContainer>
       ) : (
-        <LinkContainer key='new' to='/amendments/new'>
+        <LinkContainer key="new" to="/amendments/new">
           <ListGroupItem>
             <h4>
               <b>{"\uFF0B"}</b> Submit New APS
@@ -61,7 +61,7 @@ export default function Home() {
 
   function renderLander() {
     return (
-      <div className='lander'>
+      <div className="lander">
         <h1>APS Submission App</h1>
         <p>
           ACME's Amendment to Planned Settlement (APS) submission application
@@ -72,16 +72,16 @@ export default function Home() {
 
   function renderAmendments() {
     return (
-      <div className='amendments'>
+      <div className="amendments">
         <PageHeader>Your APS Submissions</PageHeader>
-        <Link to='/measure'>Sample Measure With Breadcrumbs</Link>
+        <Link to="/measure">Sample Measure With Breadcrumbs</Link>
         <ListGroup>{!isLoading && renderAmendmentsList(amendments)}</ListGroup>
       </div>
     );
   }
 
   return (
-    <div className='Home' data-testid='Home-Container'>
+    <div className="Home" data-testid="Home-Container">
       {isAuthenticated ? renderAmendments() : renderLander()}
     </div>
   );

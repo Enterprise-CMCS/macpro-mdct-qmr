@@ -8,13 +8,13 @@ export default function Measure() {
       {/* Breadcrumbs are hard coded till we get real data to populate them */}
       <section className={styles.breadcrumbsMeasureContainer}>
         <div className={styles.breadcrumb}>
-          <Link to='/'>Home</Link>
+          <Link to="/">Home</Link>
         </div>
         <div>{">"}</div>
         <div className={styles.breadcrumb}>State - Year</div>
         <div>{">"}</div>
         <div className={styles.breadcrumb}>
-          <Link to='/coreset'>Sample Core Set</Link>
+          <Link to="/coreset">Sample Core Set</Link>
         </div>
         <div>{">"}</div>
         <div className={styles.breadcrumb}>Sample Measure / Form</div>
