@@ -1,7 +1,5 @@
-import { LinkContainer } from "react-router-bootstrap";
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { Nav, Navbar, NavItem, NavDropdown } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import "./App.css";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
@@ -11,6 +9,8 @@ import { loginLocalUser } from "./libs/user";
 import config from "./config";
 import { useDispatch } from "react-redux";
 import { setUser, unsetUser } from "./store/actions/userActions";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,8 +45,7 @@ function App() {
     history.push("/");
   }
 
-  async function handleLogin(event) {
-    event.preventDefault();
+  async function handleLogin() {
     try {
       const localLogin = config.LOCAL_LOGIN === "true";
       if (localLogin) {
@@ -77,35 +76,15 @@ function App() {
 
   return (
     !isAuthenticating && (
-      <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">APS Home</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-              {isAuthenticated ? (
-                <>
-                  <NavDropdown id="User" title="My Account">
-                    <LinkContainer to="/profile">
-                      <NavItem>User Profile</NavItem>
-                    </LinkContainer>
-                    <NavItem onClick={handleLogout}>Logout</NavItem>
-                  </NavDropdown>
-                </>
-              ) : (
-                <>
-                  <NavItem onClick={handleLogin}>Login</NavItem>
-                </>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+      <div>
+        <Header
+          isAuthenticated={isAuthenticated}
+          handleLogin={() => handleLogin()}
+          handleLogout={() => handleLogout()}
+        />
         <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
           <Routes />
+          <Footer />
         </AppContext.Provider>
       </div>
     )

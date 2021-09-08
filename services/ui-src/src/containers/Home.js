@@ -5,6 +5,7 @@ import { onError } from "../libs/errorLib";
 import "./Home.css";
 import { listAmendments } from "../libs/api";
 import { LinkContainer } from "react-router-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [amendments, setAmendments] = useState([]);
@@ -73,6 +74,7 @@ export default function Home() {
     return (
       <div className="amendments">
         <PageHeader>Your APS Submissions</PageHeader>
+        <Link to="/measure">Sample Measure With Breadcrumbs</Link>
         <ListGroup>{!isLoading && renderAmendmentsList(amendments)}</ListGroup>
       </div>
     );
