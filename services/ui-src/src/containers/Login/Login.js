@@ -18,47 +18,14 @@ export default function Login() {
     return false;
   });
   const [isLoading, setIsLoading] = useState(false);
-  // const [isLoadingOkta, setIsLoadingOkta] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: "",
   });
 
-  // const onLoad = async () => {
-  //   // console.log("auth: ", Auth);
-  //   // if (Auth !== undefined && Auth !== null) {
-  //   //   //await Auth.signOut();
-  //   // }
-  // };
-
-  // useEffect(() => {
-  //   // onLoad().then();
-  // }, []);
-
   function validateForm() {
     return fields.email.length > 0 && fields.password.length > 0;
   }
-
-  // function signInWithOkta() {
-  //   const authConfig = Auth.configure();
-  //   const { domain, redirectSignIn, responseType } = authConfig.oauth;
-  //   const clientId = authConfig.userPoolWebClientId;
-  //   const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
-  //   window.location.assign(url);
-  // }
-
-  // async function handleSubmitOkta(event) {
-  //   event.preventDefault();
-
-  //   setIsLoadingOkta(true);
-
-  //   try {
-  //     signInWithOkta();
-  //   } catch (e) {
-  //     onError(e);
-  //     setIsLoadingOkta(false);
-  //   }
-  // }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -85,21 +52,8 @@ export default function Login() {
       data-testid="Login"
     >
       <br />
-      {/* <div className="padding-y-9" data-testid="OktaLogin">
-        <LoaderButton
-          type="button"
-          onClick={handleSubmitOkta}
-          isLoading={isLoadingOkta}
-          outline={true}
-        >
-          Login with EUA ID
-          <FontAwesomeIcon icon={faSignInAlt} className="margin-left-2" />
-        </LoaderButton>
-      </div> */}
-
       <br />
       <h3> Login (Cognito)</h3>
-
       <section className="ds-l-container preview__grid">
         <div className="ds-l-row ds-u-justify-content--leftt ds-u-padding--1 ds-u-margin-y--2">
           <div className="ds-l-col--7">
