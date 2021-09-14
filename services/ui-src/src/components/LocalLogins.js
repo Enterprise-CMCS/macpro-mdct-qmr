@@ -5,6 +5,7 @@ import { setUser } from "../store/actions/userActions";
 import { roles } from "../libs/authHelpers";
 import { useHistory } from "react-router-dom";
 import { getRedirectRoute } from "../libs/routeHelpers";
+import "../containers/Login/Login.scss";
 
 function LocalLogins() {
   const dispatch = useDispatch();
@@ -27,47 +28,43 @@ function LocalLogins() {
     history.push(redirectRoute);
   }
   return (
-    <section className="ds-l-container preview__grid">
-      <div className="ds-l-row ds-u-justify-content--center ds-u-padding--1 ds-u-margin-y--2">
-        <div className="ds-l-col--6">
-          <br />
-          <br />
-          <div>
-            <h3>Local Login</h3>
-          </div>
-          <br />
-          <button
-            onClick={() => localLogin(roles.approver)}
-            className="ds-c-button ds-c-button--primary"
-          >
-            Login as an Admin
-          </button>
-        </div>
-      </div>
-
-      <div className="ds-l-row ds-u-justify-content--center ds-u-padding--1 ds-u-margin-y--2">
-        <div className="ds-l-col--6">
-          <button
-            onClick={() => localLogin(roles.stateUser)}
-            className="ds-c-button ds-c-button--primary"
-          >
-            Login as a State User
-          </button>
-        </div>
-      </div>
-
-      <div className="ds-l-row ds-u-justify-content--center ds-u-padding--1 ds-u-margin-y--2">
-        <div className="ds-l-col--6">
-          <button
-            onClick={() => localLogin(roles.businessOwner)}
-            className="ds-c-button ds-c-button--primary"
-          >
-            Login as a BO
-          </button>
-        </div>
-      </div>
-    </section>
+    <div className="local-login">
+      <h3 className="local-login-title">Local Login</h3>
+      <section className="ds-l-container preview__grid">
+        {loginAs(roles.approver, localLogin)}
+        {loginAs(roles.businessOwner, localLogin)}
+        {loginAs(roles.stateUser, localLogin)}
+      </section>
+    </div>
   );
 }
-
+function loginAs(role, localLogin) {
+  let label;
+  switch (role) {
+    case roles.approver:
+      label = "Login as an Admin";
+      break;
+    case roles.businessOwner:
+      label = "Login as a BO";
+      break;
+    case roles.stateUser:
+      label = "Login as a State user";
+      break;
+    default:
+      label = "";
+      break;
+  }
+  return (
+    <div className="ds-l-row ds-u-justify-content--center ds-u-padding--1 ds-u-margin-y--2">
+      <div className="ds-l-col--6">
+        <button
+          onClick={() => localLogin(role)}
+          className="ds-c-button ds-c-button--primary"
+        >
+          {label}
+        </button>
+      </div>
+    </div>
+  );
+}
 export default LocalLogins;
