@@ -17,9 +17,8 @@ export default function Login() {
     email: "",
     password: "",
   });
-  function validateForm() {
-    return fields.email.length > 0 && fields.password.length > 0;
-  }
+  const validateForm = () =>
+    fields.email.length > 0 && fields.password.length > 0;
   async function handleSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
