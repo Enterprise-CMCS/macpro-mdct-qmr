@@ -31,7 +31,6 @@ export default function Home() {
       </div>
     );
   }
-
   return (
     <div className="Home" data-testid="Home-Container">
       {renderLander()}

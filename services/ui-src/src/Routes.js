@@ -6,7 +6,7 @@ import NotFound from "./containers/NotFound";
 import AdminHome from "./containers/AdminHome";
 import BOHome from "./containers/BOHome";
 import CoreSet from "./containers/CoreSet";
-import Measure from "./containers/Measure";
+import Measure from "./containers/Measure/Measure";
 import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import ContactUs from "./containers/ContactUs";
@@ -14,7 +14,6 @@ import UserManagement from "./containers/UserManagement";
 import Login from "./containers/Login/Login";
 import { useSelector } from "react-redux";
 import { getRedirectRoute } from "./libs/routeHelpers";
-
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";

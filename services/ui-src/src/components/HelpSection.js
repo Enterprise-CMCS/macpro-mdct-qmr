@@ -14,7 +14,7 @@ function HelpSection() {
               <a href={`mailto:${helpDeskContact.email}`}>
                 {helpDeskContact.email}
               </a>
-              . For content-related questions such as about measure
+              . For content-related questions, such as about measure
               specifications or what information to enter in each field, please
               reach out to{" "}
               <a href={`mailto:${qualityContact.email}`}>
