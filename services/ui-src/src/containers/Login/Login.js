@@ -39,8 +39,7 @@ export default function Login() {
           <div className="ds-l-col--7">
             {renderLoginForm(
               { handleSubmit, handleFieldChange, validateForm },
-              fields,
-              isLoading
+              { isLoading, fields }
             )}
           </div>
         </div>
@@ -49,8 +48,7 @@ export default function Login() {
     </div>
   );
 }
-
-function renderLoginForm(functions, fields, isLoading) {
+function renderLoginForm(functions, params) {
   return (
     <form
       onSubmit={functions.handleSubmit}
@@ -59,19 +57,19 @@ function renderLoginForm(functions, fields, isLoading) {
       <FormInput
         label="Email"
         type="email"
-        value={fields.email}
+        value={params.fields.email}
         handleFieldChange={functions.handleFieldChange}
       />
       <FormInput
         label="Password"
         type="password"
-        value={fields.password}
+        value={params.fields.password}
         handleFieldChange={functions.handleFieldChange}
       />
       <div style={{ paddingLeft: 326 }}>
         <LoaderButton
           type="submit"
-          isLoading={isLoading}
+          isLoading={params.isLoading}
           disabled={!functions.validateForm()}
         >
           Login
