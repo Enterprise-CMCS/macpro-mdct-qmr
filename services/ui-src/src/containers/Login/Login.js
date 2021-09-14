@@ -17,11 +17,9 @@ export default function Login() {
     email: "",
     password: "",
   });
-
   function validateForm() {
     return fields.email.length > 0 && fields.password.length > 0;
   }
-
   async function handleSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
@@ -34,61 +32,47 @@ export default function Login() {
     }
   }
   return (
-    <div
-      className="login-wrapper react-transition flip-in-y text-center"
-      data-testid="Login"
-    >
-      <br />
-      <br />
-      <h3> Login (Cognito)</h3>
+    <div className="login-wrapper react-transition flip-in-y text-center">
+      <h3 className="login-title"> Login (Cognito)</h3>
       <section className="ds-l-container preview__grid">
         <div className="ds-l-row ds-u-padding--1 ds-u-margin-y--2">
           <div className="ds-l-col--7">
             {renderLoginForm(
-              handleSubmit,
+              { handleSubmit, handleFieldChange, validateForm },
               fields,
-              handleFieldChange,
-              isLoading,
-              validateForm
+              isLoading
             )}
           </div>
         </div>
       </section>
-      <br />
-      <br />
       {!isAuthenticated ? <LocalLogins /> : ""}
     </div>
   );
 }
 
-function renderLoginForm(
-  handleSubmit,
-  fields,
-  handleFieldChange,
-  isLoading,
-  validateForm
-) {
+function renderLoginForm(functions, fields, isLoading) {
   return (
-    <form onSubmit={handleSubmit} className="developer-login text-center">
+    <form
+      onSubmit={functions.handleSubmit}
+      className="developer-login text-center"
+    >
       <FormInput
         label="Email"
-        id="email"
         type="email"
         value={fields.email}
-        handleFieldChange={handleFieldChange}
+        handleFieldChange={functions.handleFieldChange}
       />
       <FormInput
         label="Password"
-        id="password"
         type="password"
         value={fields.password}
-        handleFieldChange={handleFieldChange}
+        handleFieldChange={functions.handleFieldChange}
       />
       <div style={{ paddingLeft: 326 }}>
         <LoaderButton
           type="submit"
           isLoading={isLoading}
-          disabled={!validateForm()}
+          disabled={!functions.validateForm()}
         >
           Login
           <FontAwesomeIcon icon={faSignInAlt} className="margin-left-2" />
@@ -100,7 +84,7 @@ function renderLoginForm(
 
 function FormInput(props) {
   return (
-    <FormGroup controlId={props.id} bsSize="large">
+    <FormGroup controlId={props.type} bsSize="large">
       <ControlLabel>{props.label}</ControlLabel>
       <FormControl
         type={props.type}
