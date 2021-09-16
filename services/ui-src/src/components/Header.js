@@ -13,13 +13,7 @@ import { useSelector } from "react-redux";
 
 function Header(props) {
   const history = useHistory();
-  const isAuthenticated = useSelector((state) => {
-    if (state.user.attributes) {
-      return true;
-    }
-    return false;
-  });
-
+  const isAuthenticated = useSelector((state) => state.user.attributes);
   return (
     <>
       <div className="usa-banner-custom">
