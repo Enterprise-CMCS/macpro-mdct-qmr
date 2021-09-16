@@ -4,12 +4,7 @@ import { useSelector } from "react-redux";
 
 export default function AuthenticatedRoute({ children, ...rest }) {
   const { pathname, search } = useLocation();
-  const isAuthenticated = useSelector((state) => {
-    if (state.user.attributes) {
-      return true;
-    }
-    return false;
-  });
+  const isAuthenticated = useSelector((state) => state.user.attributes);
   return (
     <Route {...rest}>
       {isAuthenticated ? (
