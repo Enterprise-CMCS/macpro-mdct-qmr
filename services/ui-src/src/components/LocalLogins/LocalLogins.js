@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { loginLocalUser } from "../libs/user";
-import { setUser } from "../store/actions/userActions";
-import { roles } from "../libs/authHelpers";
+import { loginLocalUser } from "../../libs/user";
+import { setUser } from "../../store/actions/userActions";
+import { roles } from "../../libs/authHelpers";
 import { useHistory } from "react-router-dom";
-import { getRedirectRoute } from "../libs/routeHelpers";
+import { getRedirectRoute } from "../../libs/routeHelpers";
 import "../containers/Login/Login.scss";
 
 function LocalLogins() {
