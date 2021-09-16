@@ -8,7 +8,7 @@ import "./Login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons/faSignInAlt";
 import { useSelector } from "react-redux";
-import LocalLogins from "../../components/LocalLogins";
+import LocalLogins from "../../components/LocalLogins/LocalLogins";
 
 export default function Login() {
   const isAuthenticated = useSelector((state) => state.user.attributes);
