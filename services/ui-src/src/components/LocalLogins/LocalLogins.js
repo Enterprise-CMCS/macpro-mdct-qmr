@@ -5,7 +5,7 @@ import { setUser } from "../../store/actions/userActions";
 import { roles } from "../../libs/authHelpers";
 import { useHistory } from "react-router-dom";
 import { getRedirectRoute } from "../../libs/routeHelpers";
-import "../containers/Login/Login.scss";
+import "../../containers/Login/Login.scss";
 
 function LocalLogins() {
   const dispatch = useDispatch();
