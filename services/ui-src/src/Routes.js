@@ -46,7 +46,7 @@ export default function Routes() {
         <Route exact path="/login">
           <Login />
         </Route>
-        {authunticatedRoutes()}
+        {authenticatedRoutes()}
         <Route>
           <NotFound />
         </Route>
@@ -90,7 +90,7 @@ function redirectTo(role) {
   return redirectRoute;
 }
 
-function authunticatedRoutes() {
+function authenticatedRoutes() {
   return (
     <>
       <AuthenticatedRoute exact path="/adminhome">
