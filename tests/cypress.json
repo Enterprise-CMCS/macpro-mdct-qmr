@@ -5,7 +5,7 @@
     "retries": 5,
     "watchForFileChanges": true,
     "testFiles": "**/*.feature",
-    "fixturesFolder": "fixtures",
+    "fixturesFolder": "cypress/fixtures",
     "pluginsFile": "cypress/plugins/index.js",
     "screenshotsFolder": "screenshots",
     "videosFolder": "videos",
