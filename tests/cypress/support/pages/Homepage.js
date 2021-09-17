@@ -65,6 +65,7 @@ export class Homepage {
     
    
 }
-export default HomePage
+export default Homepage;
+
 
     
