@@ -1,6 +1,6 @@
 import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
-import Homepage from '../../../support/pages/Homepage';
-import LoginPage from '../../../support/pages/LoginPage';
+import Homepage from '../../support/pages/Homepage';
+import LoginPage from '../../support/pages/LoginPage';
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();

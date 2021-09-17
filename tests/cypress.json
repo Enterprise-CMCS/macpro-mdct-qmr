@@ -1,6 +1,6 @@
 {
     "nodeVersion": "system",
-    "baseUrl": "http://localhost:3000",
+    "baseUrl": "https://mdctqmrdev.cms.gov/",
     "redirectionLimit": 20,
     "retries": 5,
     "watchForFileChanges": true,
