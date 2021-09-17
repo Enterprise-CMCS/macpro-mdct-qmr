@@ -1,15 +1,15 @@
 {
   "nodeVersion": "system",
-  "baseUrl": "http://localhost:3000",
+  "baseUrl": "https://google.com",
   "redirectionLimit": 20,
   "retries": 5,
   "watchForFileChanges": true,
-  "testFiles": "**/*.spec.js",
-  "integrationFolder": "tests",
+  "testFiles": "**/*.feature",
   "fixturesFolder": "fixtures",
   "pluginsFile": "plugins/index.js",
   "screenshotsFolder": "screenshots",
   "videosFolder": "videos",
   "downloadsFolder": "downloads",
-  "supportFile": "support/index.js"
+  "supportFile": "support/index.js",
+  "defaultCommandTimeout": 15000
 }
