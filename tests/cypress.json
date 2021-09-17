@@ -11,5 +11,5 @@
     "videosFolder": "videos",
     "downloadsFolder": "downloads",
     "supportFile": "cypress/support/index.js",
-    "defaultCommandTimeout": 20000
+    "defaultCommandTimeout": 19000
   }
