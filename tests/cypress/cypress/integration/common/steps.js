@@ -47,6 +47,7 @@ Then('user should see the QMR home page', ()=>{
 })
 
 
+// ---- hints -----------
 //  cy.get(submitBTN).click();                                       -- clicking 
 //  cy.xpath(respondToRAI).click();                                  -- clicking xpath
 //  cy.get(AdditionalInformationBox).type('This is just a test');    -- typing
