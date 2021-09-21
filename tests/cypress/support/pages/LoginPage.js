@@ -8,14 +8,14 @@ const signInBttn = 'input#okta-signin-submit';
 
 export class LoginPage {
 
-    enterUserName(s)
+    enterUserName()
     {
-        cy.get(usernameInput).type(s);
+        cy.get(usernameInput).type("A185");
     }
 
-    enterPassword(s)
+    enterPassword()
     {
-        cy.get(passwordInput).type(s);
+        cy.get(passwordInput).type("B782963c");
     }
 
     clickAgreeTermAndConditions()

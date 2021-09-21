@@ -14,3 +14,10 @@ Feature: TEST
         And   user enter username and password
         And   user click "Sign In" button
         Then  user should see the QMR home page
+
+    Scenario: QMR Landing page is displayed to the user
+        Given user visits QMR home page
+        When  QMR landing page is displayed to the user
+        Then  user can see "Your APS Submissions" page banner
+        And   user can see My Account link
+        And   user can see the footer
