@@ -10,12 +10,12 @@ export class LoginPage {
 
     enterUserName()
     {
-        cy.get(usernameInput).type('');
+        cy.get(usernameInput).type( );
     }
 
     enterPassword()
     {
-        cy.get(passwordInput).type('');
+        cy.get(passwordInput).type( );
     }
 
     clickAgreeTermAndConditions()
