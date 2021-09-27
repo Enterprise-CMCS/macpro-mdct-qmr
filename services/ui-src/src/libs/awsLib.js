@@ -1,4 +1,6 @@
 import { Storage } from "aws-amplify";
+import AWS from "aws-sdk";
+import config from "./config";
 
 export async function s3AmplifyUpload(file) {
   const filename = `${Date.now()}-${file.name}`;
@@ -42,4 +44,29 @@ export function s3LocalGetURL(s3Client) {
     var params = { Key: s3key };
     return s3Client.getSignedUrl("getObject", params);
   };
+}
+
+export function enableLocalS3(shouldEnable) {
+  if (shouldEnable) {
+    // Local Login
+    const localLogin = config.LOCAL_LOGIN === "true";
+    // Local s3
+    const localEndpoint = config.s3.LOCAL_ENDPOINT;
+    let s3Upload = s3AmplifyUpload;
+    let s3URLResolver = s3AmplifyGetURL;
+    if (localLogin && localEndpoint !== "") {
+      // Amplify doesn't allow you to configure the AWS Endpoint, so for local dev we need our own S3Client configured.
+      let s3Client = new AWS.S3({
+        s3ForcePathStyle: true,
+        apiVersion: "2006-03-01",
+        accessKeyId: "S3RVER", // This specific key is required when working offline   pragma: allowlist secret
+        secretAccessKey: "S3RVER", // pragma: allowlist secret
+        params: { Bucket: config.s3.BUCKET },
+        endpoint: new AWS.Endpoint(localEndpoint),
+      });
+      s3Upload = s3LocalUploader(s3Client);
+      s3URLResolver = s3LocalGetURL(s3Client);
+      return { s3Upload, s3URLResolver };
+    }
+  }
 }

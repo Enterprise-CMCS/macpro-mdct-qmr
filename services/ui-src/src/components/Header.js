@@ -3,6 +3,8 @@ import { UsaBanner } from "@cmsgov/design-system";
 import { QMRLogo } from "./QMRLogo";
 import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, NavItem, NavDropdown } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 /**
  * Component containing header
@@ -10,6 +12,8 @@ import { Nav, Navbar, NavItem, NavDropdown } from "react-bootstrap";
  */
 
 function Header(props) {
+  const history = useHistory();
+  const isAuthenticated = useSelector((state) => state.user.attributes);
   return (
     <>
       <div className="usa-banner-custom">
@@ -23,7 +27,7 @@ function Header(props) {
           <div className="nav-right">
             <Navbar.Collapse>
               <Nav pullRight>
-                {props.isAuthenticated ? (
+                {isAuthenticated ? (
                   <>
                     <NavDropdown id="User" title="My Account">
                       <LinkContainer to="/profile">
@@ -38,7 +42,7 @@ function Header(props) {
                   <>
                     <NavItem
                       id="loginButton"
-                      onClick={() => props.handleLogin()}
+                      onClick={() => history.push("/login")}
                     >
                       Login
                     </NavItem>
