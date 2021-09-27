@@ -1,6 +1,6 @@
 
-const usernameInput = 'input#okta-signin-username';
-const passwordInput = 'input#okta-signin-password';
+const bypassInput1 = '';
+const bypassInput = '';
 const agreeTermCondition = 'input#tandc';
 const signInBttn = 'input#okta-signin-submit';
 
@@ -10,12 +10,12 @@ export class LoginPage {
 
     enterUserName()
     {
-        cy.get(usernameInput).type( );
+        cy.get(bypassInput1).type( );
     }
 
     enterPassword()
     {
-        cy.get(passwordInput).type( );
+        cy.get(bypassInput).type( );
     }
 
     clickAgreeTermAndConditions()
