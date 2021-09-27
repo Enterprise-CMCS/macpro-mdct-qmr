@@ -48,7 +48,7 @@ export class Homepage {
 
     validateEmail() 
     {
-        cy.get(emailBottomLeft).contains('MDCT_Help@cms.hhs.gov'); 
+        cy.get(emailBottomLeft).contains(''); 
     }
 
     validateFederalLogo()
@@ -58,7 +58,7 @@ export class Homepage {
 
     validateAddress()
     {
-        cy.get(addressBottomRight).contains('7500 Security Boulevard Baltimore, MD 21244'); 
+        cy.get(addressBottomRight).contains(''); 
     }
     
    
