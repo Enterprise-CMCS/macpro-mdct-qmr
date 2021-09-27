@@ -34,8 +34,8 @@ When('user clicks on "Login" link',()=>{
 })
 
 And('user enter username and password', ()=>{
-   loginPage.enterUserName("A185");
-   loginPage.enterPassword("B782963c");
+   loginPage.enterUserName();
+   loginPage.enterPassword();
 })
 
 And('user click "Sign In" button', ()=>{
