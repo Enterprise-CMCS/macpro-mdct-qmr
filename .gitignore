@@ -12,5 +12,4 @@ services/uploads/local_buckets
 tests_output
 *.log
 package-lock.json
-yarn.lock
 videos
