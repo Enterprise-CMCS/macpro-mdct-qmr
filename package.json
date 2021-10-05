@@ -38,7 +38,7 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "2.x",
-    "prettier": "^2.3.2",
+    "prettier": "^2.4.1",
     "serverless": "^2.43.1",
     "serverless-bundle": "^4.3.1",
     "serverless-dotenv-plugin": "^3.0.0",
