@@ -30,6 +30,7 @@ function App() {
       if (user) {
         const cmsRoleAttribute =
           user?.attributes ?? user?.signInUserSession?.idToken?.payload;
+        if (user.attributes) user.attributes = {};
         // *** make sure attributes exist and are in standard format
         user.attributes["app-role"] = determineRole(
           cmsRoleAttribute ? cmsRoleAttribute["custom:cms_roles"] : ""
