@@ -11,3 +11,5 @@ services/uploads/local_buckets
 /.env
 tests_output
 *.log
+package-lock.json
+videos
