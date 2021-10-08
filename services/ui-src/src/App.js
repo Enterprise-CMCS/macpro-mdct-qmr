@@ -28,6 +28,7 @@ function App() {
         setIsAuthenticating(false);
       }
       if (user) {
+        console.log("User: ", user);
         // *** make sure attributes exist and are in standard format
         user.attributes["app-role"] = determineRole(
           user.attributes["custom:cms_roles"]
