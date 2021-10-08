@@ -28,10 +28,11 @@ function App() {
         setIsAuthenticating(false);
       }
       if (user) {
-        console.log("User: ", user);
+        const cmsRoleAttribute =
+          user?.attributes ?? user?.signInUserSession?.idToken?.payload;
         // *** make sure attributes exist and are in standard format
         user.attributes["app-role"] = determineRole(
-          user.attributes["custom:cms_roles"]
+          cmsRoleAttribute ? cmsRoleAttribute["custom:cms_roles"] : ""
         );
         dispatch(setUser(user));
         setIsAuthenticating(false);
