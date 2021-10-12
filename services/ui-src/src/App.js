@@ -49,9 +49,8 @@ function App() {
     userHasAuthenticated(false);
     logoutLocalUser();
     try {
-      Auth.signOut().then(() => {
-        window.location.href = Auth.configure().oauth.redirectSignOut;
-      });
+      await Auth.signOut();
+      window.location.href = Auth.configure().oauth.redirectSignOut;
     } catch (error) {
       console.log("error signing out: ", error);
     }
