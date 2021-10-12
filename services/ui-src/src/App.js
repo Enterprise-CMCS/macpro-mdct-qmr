@@ -45,11 +45,17 @@ function App() {
   }, [dispatch]);
 
   async function handleLogout() {
-    await Auth.signOut();
-    // Remove user from redux
     dispatch(unsetUser());
     userHasAuthenticated(false);
     logoutLocalUser();
+    try {
+      Auth.signOut().then(() => {
+        window.location.href = Auth.configure().oauth.redirectSignOut;
+      });
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+    // Remove user from redux
     history.push("/");
   }
   return (
