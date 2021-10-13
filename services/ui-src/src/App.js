@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { setUser, unsetUser } from "./store/actions/userActions";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import "@okta/okta-auth-js/polyfill";
+import { useOktaAuth } from "@okta/okta-react";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +20,8 @@ function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [, setLocalLogin] = useState(false);
   const history = useHistory();
+  const oktaAuth = useOktaAuth();
+  console.log("oktaAuth: ", oktaAuth);
 
   useEffect(() => {
     (async () => {
@@ -44,12 +48,13 @@ function App() {
     })();
   }, [dispatch]);
 
-  async function handleLogout() {
+  async function handleLogout(oktaAuth) {
     dispatch(unsetUser());
     userHasAuthenticated(false);
     logoutLocalUser();
     try {
       await Auth.signOut();
+      await oktaAuth.signOut();
       window.location.href = Auth.configure().oauth.redirectSignOut;
     } catch (error) {
       console.log("error signing out: ", error);
@@ -62,7 +67,7 @@ function App() {
       <div>
         <Header
           isAuthenticated={isAuthenticated}
-          handleLogout={() => handleLogout()}
+          handleLogout={() => handleLogout(oktaAuth)}
         />
         <AppContext.Provider
           value={{
