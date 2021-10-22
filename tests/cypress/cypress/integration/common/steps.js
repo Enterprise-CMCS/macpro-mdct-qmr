@@ -19,7 +19,7 @@ When('QMR landing page is displayed to the user',()=>{
     landingPage.validateCoreSetReportingIcon();
 })
 
-Then('user can see "Your APS Submissions" page banner',()=>{
+And('user can see "Your APS Submissions" page banner',()=>{
     landingPage.validatePageBanner();
 })
 
@@ -47,11 +47,19 @@ When('user clicks on "Login" link',()=>{
     homePage.clickLoginButton();
 })
 
-And('user enter username and password', ()=>{
-   //loginPage.enterUserName("A185");
-   //loginPage.enterPassword("B782963c");
-   loginPage.enterUserName();
-   loginPage.enterPassword();
+// And('user enter username and password', ()=>{
+//    //loginPage.enterUserName("A185");
+//    //loginPage.enterPassword("B782963c");
+//    loginPage.enterUserName();
+//    loginPage.enterPassword();
+// })
+
+When('user enter username and password', ()=>{
+    //loginPage.enterUserName("A185");
+    //loginPage.enterPassword("B782963c");
+    loginPage.enterUserName();
+    loginPage.enterPassword();
+    loginPage.clickAgreeTermAndConditions();
 })
 
 And('user click "Sign In" button', ()=>{

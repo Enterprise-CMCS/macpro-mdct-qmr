@@ -10,16 +10,17 @@ export class LoginPage {
 
     enterUserName()
     {
-        cy.get(usernameInput).type("A185");
+        cy.get(usernameInput).type("State_QMR");
     }
 
     enterPassword()
     {
-        cy.get(passwordInput).type("B782963c");
+        cy.get(passwordInput).type("Passw0rd!");
     }
 
     clickAgreeTermAndConditions()
     {
+        cy.wait(2000);
         cy.get(agreeTermCondition).click(); 
     }
 

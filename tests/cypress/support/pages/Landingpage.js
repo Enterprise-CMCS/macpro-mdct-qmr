@@ -10,7 +10,7 @@ const federalLogo = "img[alt='Department of Health and Human Services logo']";
 const addressBottomRight = '.footer-bottom-container > div > div:nth-of-type(2)';
 
 
-export class Homepage {
+export class Landingpage {
 
 
     launch() 

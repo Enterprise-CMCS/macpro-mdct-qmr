@@ -20,6 +20,7 @@ export class Homepage {
 
     validateCoreSetReportingIcon() 
     {
+        cy.wait(3000);
         cy.get(logoAtTopLeft).should('be.visible');
     }
 
