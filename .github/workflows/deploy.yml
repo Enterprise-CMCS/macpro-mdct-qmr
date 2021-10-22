@@ -87,11 +87,6 @@ jobs:
           fi
           npm run test:ci
           popd
-<<<<<<< HEAD
-          
-=======
-
->>>>>>> master
       # - name: Run Nightwatch suite
       #   run: |
       #     pushd services
