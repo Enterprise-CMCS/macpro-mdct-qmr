@@ -14,4 +14,4 @@ tests_output
 tests/cypress/videos
 tests/cypress/screenshots
 tests/cypress/package-lock.json
-
+package-lock.json
