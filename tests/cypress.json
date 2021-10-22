@@ -1,1 +1,15 @@
-{}
+{
+  "nodeVersion": "system",
+  "baseUrl": "https://mdctqmrdev.cms.gov/",
+  "redirectionLimit": 20,
+  "retries": 5,
+  "watchForFileChanges": true,
+  "testFiles": "**/*.feature",
+  "fixturesFolder": "cypress/fixtures",
+  "pluginsFile": "cypress/plugins/index.js",
+  "screenshotsFolder": "screenshots",
+  "videosFolder": "videos",
+  "downloadsFolder": "downloads",
+  "supportFile": "cypress/support/index.js",
+  "defaultCommandTimeout": 20000
+}
