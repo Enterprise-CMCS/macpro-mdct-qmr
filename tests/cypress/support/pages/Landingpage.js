@@ -1,13 +1,11 @@
-import { createYield } from "typescript";
-
 const logoAtTopLeft = 'img[alt="QMR Logo"]';
 const myAccountButton = 'a#User';
 const yourAPSSubmissionsTxt = "//h1";
-const sentence = '.home-footer-container > div > div:nth-of-type(1)';
+const sentence = '(//div[@class="footer-fed-gov-text"])[1]';
 const medicaidLogo = "img[alt='Medicaid.gov logo']";
 const emailBottomLeft = '.footer-email';
 const federalLogo = "img[alt='Department of Health and Human Services logo']";
-const addressBottomRight = '.footer-bottom-container > div > div:nth-of-type(2)';
+const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
 
 
 export class Landingpage {
@@ -35,7 +33,7 @@ export class Landingpage {
 
     validateSupportSenence()
     {
-        cy.get(sentence).should('be.visible');
+        cy.xpath(sentence).should('be.visible');
     }
 
     validateMedicaidLogo()
@@ -55,7 +53,7 @@ export class Landingpage {
 
     validateAddress()
     {
-        cy.get(addressBottomRight).contains('7500 Security Boulevard Baltimore, MD 21244'); 
+        cy.xpath(addressBottomRight).contains('7500 Security Boulevard Baltimore, MD 21244'); 
     }
     
    

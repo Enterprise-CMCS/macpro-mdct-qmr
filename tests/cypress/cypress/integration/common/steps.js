@@ -47,16 +47,7 @@ When('user clicks on "Login" link',()=>{
     homePage.clickLoginButton();
 })
 
-// And('user enter username and password', ()=>{
-//    //loginPage.enterUserName("A185");
-//    //loginPage.enterPassword("B782963c");
-//    loginPage.enterUserName();
-//    loginPage.enterPassword();
-// })
-
 When('user enter username and password', ()=>{
-    //loginPage.enterUserName("A185");
-    //loginPage.enterPassword("B782963c");
     loginPage.enterUserName();
     loginPage.enterPassword();
     loginPage.clickAgreeTermAndConditions();
@@ -69,16 +60,3 @@ And('user click "Sign In" button', ()=>{
 Then('user should see the QMR home page', ()=>{
   
 })
-
-
-// ---- hints -----------
-//  cy.get(submitBTN).click();                                       -- clicking 
-//  cy.xpath(respondToRAI).click();                                  -- clicking xpath
-//  cy.get(AdditionalInformationBox).type('This is just a test');    -- typing
-//  cy.get(errorMessageForWaiverNumber).should('be.visible');        -- visible
-//  cy.xpath(submissionList).should('be.visible')                    -- visible xpath
-//  cy.get(errorMessageForWaiverNumber).should('not.exist');         -- assert not visible
-//  cy.get(waiverNumberInputBox).clear();                            -- clear text
-//  cy.get(successMessage).contains('Submission Completed');         -- text assertion 
-//  cy.xpath(location).contains('word');                             -- text assertion xpath
-//  cy.wait(5000);                                                   -- waiting

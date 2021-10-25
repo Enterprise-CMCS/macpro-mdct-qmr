@@ -1,4 +1,3 @@
-
 const usernameInput = 'input#okta-signin-username';
 const passwordInput = 'input#okta-signin-password';
 const agreeTermCondition = 'input#tandc';
@@ -20,7 +19,7 @@ export class LoginPage {
 
     clickAgreeTermAndConditions()
     {
-        cy.wait(2000);
+        //cy.wait(2000);
         cy.get(agreeTermCondition).click(); 
     }
 
