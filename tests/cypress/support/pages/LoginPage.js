@@ -1,5 +1,5 @@
 const usernameInput = "input#okta-signin-username";
-const passwordInput = "input#okta-signin-password";
+const passwordInput = "input#okta-signin-password"; //pragma: allowlist secret
 const agreeTermCondition = "input#tandc";
 const signInBttn = "input#okta-signin-submit";
 
