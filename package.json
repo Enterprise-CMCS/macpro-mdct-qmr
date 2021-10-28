@@ -1,14 +1,15 @@
 {
   "name": "macpro-quickstart-serverless",
-  "type": "module",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd tests/cypress && npm test && cd -",
+    "test:ci": "cd tests && npm run test:ci"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,9 @@
     "@typescript-eslint/eslint-plugin": "2.x",
     "@typescript-eslint/parser": "2.x",
     "aws-sdk": "^2.923.0",
+    "cypress": "^8.4.0",
+    "cypress-cucumber-preprocessor": "^4.2.0",
+    "cypress-xpath": "^1.6.2",
     "dotenv": "^8.2.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -34,7 +38,7 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "2.x",
-    "prettier": "^2.3.2",
+    "prettier": "^2.4.1",
     "serverless": "^2.43.1",
     "serverless-bundle": "^4.3.1",
     "serverless-dotenv-plugin": "^3.0.0",
@@ -52,5 +56,8 @@
     "babel-eslint": "10.x",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-flowtype": "4.x"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
   }
 }
