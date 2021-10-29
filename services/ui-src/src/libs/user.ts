@@ -1,5 +1,5 @@
 import { Auth } from "aws-amplify";
-import config from "../config";
+import config from "@/src/config";
 
 const userKey = "userKey";
 
@@ -15,9 +15,13 @@ export async function updateCurrentUserAttributes(userAttributes) {
 
 export function updateLocalCurrentUserAttributes(userAttributes) {
   const store = window.localStorage;
-  var info = JSON.parse(store.getItem(userKey));
-  info.attributes = { ...info.attributes, ...userAttributes };
-  store.setItem(userKey, JSON.stringify(info));
+  const localStorageItem = store.getItem(userKey);
+
+  if (localStorageItem) {
+    var info = JSON.parse(localStorageItem);
+    info.attributes = { ...info.attributes, ...userAttributes };
+    store.setItem(userKey, JSON.stringify(info));
+  }
 }
 
 export async function currentUserInfo() {
@@ -32,10 +36,13 @@ export async function currentUserInfo() {
 
 export function getLocalUserInfo() {
   const store = window.localStorage;
+  const localStorageItem = store.getItem(userKey);
 
-  const info = JSON.parse(store.getItem(userKey));
+  if (localStorageItem) {
+    return JSON.parse(localStorageItem);
+  }
 
-  return info;
+  return undefined;
 }
 
 export async function loginLocalUser(userInfo) {

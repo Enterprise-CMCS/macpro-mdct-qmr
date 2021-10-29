@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@trussworks/react-uswds";
-import "./LoaderButton.scss";
+import "@/src/components/LoaderButton/LoaderButton.scss";
 
 export default function LoaderButton({
   isLoading,

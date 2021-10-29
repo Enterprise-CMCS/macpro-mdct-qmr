@@ -1,6 +1,6 @@
 import React from "react";
 import { UsaBanner } from "@cmsgov/design-system";
-import { QMRLogo } from "./QMRLogo";
+import { QMRLogo } from "@/src/components/QMRLogo";
 import { LinkContainer } from "react-router-bootstrap";
 import { Nav, Navbar, NavItem, NavDropdown } from "react-bootstrap";
 import { useHistory } from "react-router-dom";

@@ -1,19 +1,19 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
-import { onError } from "../libs/errorLib";
-import "./NewAmendment.css";
-import { createAmendment } from "../libs/api";
-import { currentUserInfo } from "../libs/user";
+import LoaderButton from "@/src/components/LoaderButton";
+import { onError } from "@/src/libs/errorLib";
+import "@/src/constainers/NewAmendment.css";
+import { createAmendment } from "@/src/libs/api";
+import { currentUserInfo } from "@/src/libs/user";
 import Select from "react-select";
 import Switch from "react-ios-switch";
-import { territoryList } from "../libs/territoryLib";
+import { territoryList } from "@/src/libs/territoryLib";
 import {
   capitalize,
   validateAmendmentForm,
   validateFileAttachment,
-} from "../libs/helpers";
+} from "@/src/libs/helpers";
 
 export default function NewAmendment({ fileUpload }) {
   const file = useRef(null);

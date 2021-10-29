@@ -1,8 +1,8 @@
 import { API } from "aws-amplify";
-import config from "../config";
-import { getLocalUserInfo } from "./user";
+import config from "@/src/config";
+import { getLocalUserInfo } from "@/src/libs/user";
 
-function requestOptions() {
+function requestOptions(): any {
   const localLogin = config.LOCAL_LOGIN === "true";
 
   if (localLogin) {

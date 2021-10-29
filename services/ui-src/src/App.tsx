@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "./App.css";
-import Routes from "./Routes";
-import { AppContext } from "./libs/contextLib";
-import { determineRole } from "./libs/authHelpers";
+import "@/src/App.scss";
+import Routes from "@/src/Routes";
+import { AppContext } from "@/src/libs/contextLib";
+import { determineRole } from "@/src/libs/authHelpers";
 import { Auth } from "aws-amplify";
-import { logoutLocalUser } from "./libs/user";
-import config from "./config";
+import { logoutLocalUser } from "@/src/libs/user";
+import config from "@/src/config";
 import { useDispatch } from "react-redux";
-import { setUser, unsetUser } from "./store/actions/userActions";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { setUser, unsetUser } from "@/src/store/actions/userActions";
+import Header from "@/src/components/Header";
+import Footer from "@/src/components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function App() {
     logoutLocalUser();
     try {
       await Auth.signOut();
-      window.location.href = Auth.configure().oauth.redirectSignOut;
+      // window.location.href = Auth.configure()?.oauth?.redirectSignOut; // !Typescript does not find this property will revisit
     } catch (error) {
       console.log("error signing out: ", error);
     }
@@ -58,7 +58,7 @@ function App() {
     history.push("/");
   }
   return (
-    !isAuthenticating && (
+    isAuthenticating && (
       <div>
         <Header
           isAuthenticated={isAuthenticated}

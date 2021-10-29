@@ -1,6 +1,6 @@
 import React from "react";
-import { helpDeskContact } from "../libs/contacts";
-import HelpSection from "./HelpSection";
+import { helpDeskContact } from "@/src/libs/contacts";
+import HelpSection from "@/src/components/Footer";
 
 function Footer() {
   return (

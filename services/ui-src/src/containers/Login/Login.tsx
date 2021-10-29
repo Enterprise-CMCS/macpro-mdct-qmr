@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import LoaderButton from "../../components/LoaderButton/LoaderButton";
-import { useFormFields } from "../../libs/hooksLib";
-import { onError } from "../../libs/errorLib";
-import "./Login.scss";
+import LoaderButton from "@/src/components/LoaderButton/LoaderButton";
+import { useFormFields } from "@/src/libs/hooksLib";
+import { onError } from "@/src/libs/errorLib";
+import "@/src/containers/Long.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons/faSignInAlt";
 import { useSelector } from "react-redux";
-import LocalLogins from "../../components/LocalLogins/LocalLogins";
+import LocalLogins from "@/src/components/LocalLogins/LocalLogins";
 
 export default function Login() {
   const isAuthenticated = useSelector((state) => state.user.attributes);

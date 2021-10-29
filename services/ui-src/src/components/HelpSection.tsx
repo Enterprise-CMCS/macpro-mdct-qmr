@@ -1,5 +1,5 @@
 import React from "react";
-import { helpDeskContact, qualityContact } from "../libs/contacts";
+import { helpDeskContact, qualityContact } from "@/src/libs/contacts";
 
 function HelpSection() {
   return (

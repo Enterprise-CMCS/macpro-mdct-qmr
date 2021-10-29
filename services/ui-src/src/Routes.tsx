@@ -1,19 +1,19 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import Home from "./containers/Home";
-import NotFound from "./containers/NotFound";
-import AdminHome from "./containers/AdminHome";
-import BOHome from "./containers/BOHome";
-import CoreSet from "./containers/CoreSet";
-import Measure from "./containers/Measure/Measure";
-import StateHome from "./containers/StateHome";
-import AuthenticatedRoute from "./components/AuthenticatedRoute";
-import ContactUs from "./containers/ContactUs";
-import UserManagement from "./containers/UserManagement";
-import Login from "./containers/Login/Login";
+import Home from "@/src/containers/Home";
+import NotFound from "@/src/containers/NotFound";
+import AdminHome from "@/src/containers/AdminHome";
+import BOHome from "@/src/containers/BOHome";
+import CoreSet from "@/src/containers/CoreSet";
+import Measure from "@/src/containers/Measure/Measure";
+import StateHome from "@/src/containers/StateHome";
+import AuthenticatedRoute from "@/src/components/AuthenticatedRoute";
+import ContactUs from "@/src/containers/ContactUs";
+import UserManagement from "@/src/containers/UserManagement";
+import Login from "@/src/containers/Login/Login";
 import { useSelector } from "react-redux";
-import { getRedirectRoute } from "./libs/routeHelpers";
+import { getRedirectRoute } from "@/src/libs/routeHelpers";
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";
@@ -22,8 +22,8 @@ import { getRedirectRoute } from "./libs/routeHelpers";
 //   s3LocalUploader,
 //   s3AmplifyGetURL,
 //   s3LocalGetURL,
-// } from "./libs/awsLib";
-// import config from "./config";
+// } from "@/src/libs/awsLib";
+// import config from "@/src/config";
 
 export default function Routes() {
   let redirectRoute = "/";
@@ -77,10 +77,13 @@ function redirectTo(role) {
   if (!role) {
     if (isStage()) {
       const authConfig = Auth.configure();
-      const { domain, redirectSignIn, responseType } = authConfig.oauth;
-      const clientId = authConfig.userPoolWebClientId;
-      const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
-      window.location.assign(url);
+
+      if (authConfig?.oauth) {
+        const { domain, redirectSignIn, responseType } = authConfig.oauth;
+        const clientId = authConfig.userPoolWebClientId;
+        const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
+        window.location.assign(url);
+      }
     } else {
       redirectRoute = "/login";
     }

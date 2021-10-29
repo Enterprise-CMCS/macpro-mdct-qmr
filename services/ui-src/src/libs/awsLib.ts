@@ -1,8 +1,8 @@
 import { Storage } from "aws-amplify";
 import AWS from "aws-sdk";
-import config from "./config";
+import config from "@/src/config";
 
-export async function s3AmplifyUpload(file) {
+export async function s3AmplifyUpload(file): Promise<any> {
   const filename = `${Date.now()}-${file.name}`;
 
   const stored = await Storage.vault.put(filename, file, {
@@ -22,7 +22,7 @@ export function s3LocalUploader(s3Client) {
           Key: filename,
           Body: file,
         },
-        (err, data) => {
+        (err) => {
           if (err) {
             reject(err);
           }
@@ -69,4 +69,5 @@ export function enableLocalS3(shouldEnable) {
       return { s3Upload, s3URLResolver };
     }
   }
+  return undefined;
 }

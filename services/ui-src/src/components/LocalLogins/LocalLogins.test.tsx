@@ -2,11 +2,11 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import LocalLogins from "./LocalLogins";
-import userReducer from "../../store/reducers/userReducer";
+import LocalLogins from "@/src/components/LocalLogins/LocalLogins";
+import userReducer from  "src/store/reducers/userReducer";
 import { BrowserRouter as Router } from "react-router-dom";
 
-function renderWithProviders(ui, { reduxState } = {}) {
+function renderWithProviders(ui, { reduxState }: any = {}) { // ! Will need a reactState interface or type
   const store = createStore(userReducer, reduxState || {});
   return render(<Provider store={store}>{ui}</Provider>);
 }

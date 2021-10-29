@@ -1,4 +1,4 @@
-export const determineRole = (specRole = []) => {
+export const determineRole = (specRole: Array<string> = []) => {
   let role;
   if (!specRole) {
     return "";
