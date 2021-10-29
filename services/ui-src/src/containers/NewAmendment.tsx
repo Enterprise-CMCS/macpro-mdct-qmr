@@ -73,7 +73,7 @@ export default function NewAmendment({ fileUpload }) {
           <FormControl
             value={email}
             disabled={true}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
           />
         </FormGroup>
         <FormGroup controlId="firstName">
@@ -81,7 +81,7 @@ export default function NewAmendment({ fileUpload }) {
           <FormControl
             value={firstName}
             disabled={true}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName((e.target as HTMLInputElement).value)}
           />
         </FormGroup>
         <FormGroup controlId="lastName">
@@ -89,7 +89,7 @@ export default function NewAmendment({ fileUpload }) {
           <FormControl
             value={lastName}
             disabled={true}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(e) => setLastName((e.target as HTMLInputElement).value)}
           />
         </FormGroup>
         <FormGroup controlId="territory">
@@ -108,7 +108,7 @@ export default function NewAmendment({ fileUpload }) {
           <Switch
             controlId="urgent"
             checked={urgent}
-            onChange={(e) => setUrgent(!urgent)}
+            onChange={() => setUrgent(!urgent)}
           />
         </FormGroup>
         <FormGroup controlId="file">
@@ -120,7 +120,7 @@ export default function NewAmendment({ fileUpload }) {
             componentClass="textarea"
             placeholder="Additional comments here"
             value={comments}
-            onChange={(e) => setComments(e.target.value)}
+            onChange={(e) => setComments((e.target as HTMLInputElement).value)}
           />
         </FormGroup>
         <LoaderButton

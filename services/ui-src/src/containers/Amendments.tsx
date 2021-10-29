@@ -19,7 +19,7 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
   const file = useRef(null);
   const { id } = useParams<{id: string}>();
   const history = useHistory();
-  const [amendment, setAmendment] = useState(null);
+  const [amendment, setAmendment] = useState<any>(null); //! Need an Amednment Interface type
   const [transmittalNumber, setTransmittalNumber] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -167,7 +167,7 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
             <FormControl
               disabled={true}
               value={transmittalNumber}
-              onChange={(e) => setTransmittalNumber(e.target.value)}
+              onChange={(e) => setTransmittalNumber((e.target as HTMLInputElement).value)}
             />
           </FormGroup>
           <FormGroup controlId="name">
@@ -195,7 +195,7 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
             <FormControl
               value={email}
               disabled={true}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail((e.target as HTMLInputElement).value)}
             />
           </FormGroup>
           <FormGroup controlId="territory">
@@ -240,7 +240,7 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
             <FormControl
               componentClass="textarea"
               value={comments}
-              onChange={(e) => setComments(e.target.value)}
+              onChange={(e) => setComments((e.target as HTMLInputElement).value)}
             />
           </FormGroup>
           <LoaderButton
