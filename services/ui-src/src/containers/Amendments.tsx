@@ -17,7 +17,7 @@ import {
 
 export default function Amendments({ fileUpload, fileURLResolver }) {
   const file = useRef(null);
-  const { id } = useParams();
+  const { id } = useParams<{id: string}>();
   const history = useHistory();
   const [amendment, setAmendment] = useState(null);
   const [transmittalNumber, setTransmittalNumber] = useState("");
@@ -102,7 +102,7 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
         transmittalNumber,
         urgent,
         comments,
-        attachment: attachment || amendment.attachment,
+        attachment: attachment || amendment?.attachment,
       });
       history.push("/");
     } catch (e) {
@@ -215,7 +215,7 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
             <Switch
               controlId="urgent"
               checked={urgent}
-              onChange={(e) => setUrgent(!urgent)}
+              onChange={() => setUrgent(!urgent)}
             />
           </FormGroup>
           {amendment.attachment && (
