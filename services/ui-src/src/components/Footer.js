@@ -4,7 +4,7 @@ import HelpSection from "./HelpSection";
 
 function Footer() {
   return (
-    <>
+    <footer id="page-footer">
       <HelpSection />
       <section className="footer-top-container">
         <div className="footer-wrapper footer-top-wrapper">
@@ -42,7 +42,7 @@ function Footer() {
           <div>7500 Security Boulevard Baltimore, MD 21244</div>
         </div>
       </div>
-    </>
+    </footer>
   );
 }
 

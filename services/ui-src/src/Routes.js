@@ -32,7 +32,7 @@ export default function Routes() {
   );
   redirectRoute = redirectTo(role);
   return (
-    <>
+    <main id="main-wrapper">
       <Switch>
         <Route exact path="/">
           <Home />
@@ -52,7 +52,7 @@ export default function Routes() {
         </Route>
       </Switch>
       <Redirect to={redirectRoute} />
-    </>
+    </main>
   );
 }
 

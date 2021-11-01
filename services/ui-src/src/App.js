@@ -59,7 +59,7 @@ function App() {
   }
   return (
     !isAuthenticating && (
-      <div>
+      <div id="app-wrapper">
         <Header
           isAuthenticated={isAuthenticated}
           handleLogout={() => handleLogout()}
