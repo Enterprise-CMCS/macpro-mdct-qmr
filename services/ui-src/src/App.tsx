@@ -12,7 +12,7 @@ import { setUser, unsetUser } from "@/src/store/actions/userActions";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
 
-function App() {
+function App(): JSX.Element | null  {
   const dispatch = useDispatch();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
@@ -57,8 +57,9 @@ function App() {
     // Remove user from redux
     history.push("/");
   }
+  
   return (
-    isAuthenticating && (
+    !isAuthenticating ? (
       <div>
         <Header
           isAuthenticated={isAuthenticated}
@@ -74,7 +75,7 @@ function App() {
           <Footer />
         </AppContext.Provider>
       </div>
-    )
+    ) : null
   );
 }
 
