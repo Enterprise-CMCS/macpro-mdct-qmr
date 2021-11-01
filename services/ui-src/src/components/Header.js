@@ -4,16 +4,11 @@ import { QMRLogo } from "./QMRLogo";
 import * as Bootstrap from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-/**
- * Component containing header
- * @param {Object} props - component properties
- */
-
-function Header(props) {
+function Header({ handleLogout }) {
   const isAuthenticated = useSelector((state) => state.user.attributes);
   return (
     <>
-      <UsaBanner/>
+      <UsaBanner />
       <Bootstrap.Navbar className="nav-bar">
         <Bootstrap.Container>
           <Bootstrap.Navbar.Brand href="/">
@@ -26,7 +21,7 @@ function Header(props) {
                 <Bootstrap.NavDropdown.Item href="/profile">
                   Profile
                 </Bootstrap.NavDropdown.Item>
-                <Bootstrap.NavDropdown.Item onClick={() => props.handleLogout()}>
+                <Bootstrap.NavDropdown.Item onClick={handleLogout}>
                   Logout
                 </Bootstrap.NavDropdown.Item>
               </Bootstrap.NavDropdown>

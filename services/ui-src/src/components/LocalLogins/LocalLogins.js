@@ -36,6 +36,7 @@ function LocalLogins() {
     </div>
   );
 }
+
 function LoginAsButton({ role, handleSelect }) {
   let label;
   switch (role) {

@@ -4,7 +4,7 @@ import HelpSection from "./HelpSection";
 
 function Footer() {
   return (
-    <footer id="page-footer">
+    <footer>
       <HelpSection />
       <section className="footer-top-container">
         <div className="footer-wrapper footer-top-wrapper">
