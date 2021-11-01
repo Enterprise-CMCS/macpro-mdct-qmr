@@ -45,7 +45,7 @@ export default function Login() {
         </Bootstrap.Col>
         <Bootstrap.Row className="mt-4">
           <Bootstrap.Col>
-            {!isAuthenticated ? <LocalLogins /> : ""}
+            {!isAuthenticated && <LocalLogins />}
           </Bootstrap.Col>
         </Bootstrap.Row>
       </Bootstrap.Row>
