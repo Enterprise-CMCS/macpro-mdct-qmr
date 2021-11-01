@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-import { FormGroup, FormControl} from "react-bootstrap";
-import LoaderButton from "../../components/LoaderButton/LoaderButton";
 import { useFormFields } from "../../libs/hooksLib";
+import { useHistory } from "react-router-dom";
 import { onError } from "../../libs/errorLib";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons/faSignInAlt";
@@ -13,6 +12,7 @@ import * as Bootstrap from "react-bootstrap";
 export default function Login() {
   const isAuthenticated = useSelector((state) => state.user.attributes);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory()
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: "",
@@ -24,7 +24,7 @@ export default function Login() {
     setIsLoading(true);
     try {
       await Auth.signIn(fields.email, fields.password);
-      window.location.href = "/";
+      history.push("/")
     } catch (e) {
       onError(e);
       setIsLoading(false);
@@ -52,6 +52,7 @@ export default function Login() {
     </Bootstrap.Container>
   );
 }
+
 function LoginForm(props) {
   return (
     <section>
@@ -84,13 +85,13 @@ function LoginForm(props) {
 
 function FormInput(props) {
   return (
-    <FormGroup controlId={props.type}>
-      <FormControl
+    <Bootstrap.FormGroup controlId={props.type}>
+      <Bootstap.FormControl
         placeholder={props.label}
         type={props.type}
         value={props.value}
         onChange={props.handleFieldChange}
       />
-    </FormGroup>
+    </Bootstrap.FormGroup>
   );
 }
