@@ -28,18 +28,19 @@ $input-border-radius: 3px;
   border-radius: 3px;
 }
 
-#root {
-  min-height: 100vh;
+html, body, #root {
+  height: 100%;
+  font-size: 16px; // sets the value of 1rem
+}
+
+#app-wrapper {
   display: flex;
   flex-direction: column;
+  min-height: 100%;
+}
 
-  .header-and-content {
-    flex: 1 0 auto;
-  }
-
-  > footer {
-    flex-shrink: 0;
-  }
+#main-wrapper {
+  flex: 1;
 }
 
 .faq-table {
@@ -292,9 +293,7 @@ form label.required:after {
 }
 select.form-control,
 textarea.form-control,
-input.form-control {
-  font-size: 2rem;
-}
+
 
 input[type="file"] {
   width: 100%;
@@ -303,7 +302,6 @@ input[type="file"] {
 .ds-c-review:not(.original-review-component) {
   .ds-c-review__body {
     @extend .ds-u-margin-top--1;
-    font-size: 2rem;
     color: $color-gray;
   }
 }
@@ -404,7 +402,6 @@ input[type="file"] {
   }
 
   .phone-text {
-    font-size: 2rem;
     color: $color-gray;
     margin-right: 1rem;
   }
@@ -535,7 +532,6 @@ article.form-container {
 }
 .summary-field {
   height: 300px;
-  font-size: 2rem;
   width: 100%;
   max-width: 100%;
   resize: none;
