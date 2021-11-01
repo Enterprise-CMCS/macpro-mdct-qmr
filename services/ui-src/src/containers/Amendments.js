@@ -253,11 +253,7 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
           >
             Save
           </LoaderButton>
-          <LoaderButton
-            block
-            onClick={handleDelete}
-            isLoading={isDeleting}
-          >
+          <LoaderButton block onClick={handleDelete} isLoading={isDeleting}>
             Delete
           </LoaderButton>
         </form>

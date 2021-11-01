@@ -30,11 +30,13 @@ function LocalLogins() {
   return (
     <div>
       <h3>Local Login</h3>
-        {Object.values(roles).map(r => <LoginAsButton key={r} role={r} handleSelect={localLogin} />)}
+      {Object.values(roles).map((r) => (
+        <LoginAsButton key={r} role={r} handleSelect={localLogin} />
+      ))}
     </div>
   );
 }
-function LoginAsButton({role, handleSelect}) {
+function LoginAsButton({ role, handleSelect }) {
   let label;
   switch (role) {
     case roles.approver:
@@ -51,9 +53,13 @@ function LoginAsButton({role, handleSelect}) {
       break;
   }
   return (
-      <Bootstrap.Button variant="outline-primary" className="me-2 mb-2" onClick={() => handleSelect(role)}>
-        {label}
-      </Bootstrap.Button>
+    <Bootstrap.Button
+      variant="outline-primary"
+      className="me-2 mb-2"
+      onClick={() => handleSelect(role)}
+    >
+      {label}
+    </Bootstrap.Button>
   );
 }
 export default LocalLogins;

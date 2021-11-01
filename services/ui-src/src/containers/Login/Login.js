@@ -12,7 +12,7 @@ import * as Bootstrap from "react-bootstrap";
 export default function Login() {
   const isAuthenticated = useSelector((state) => state.user.attributes);
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory()
+  const history = useHistory();
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: "",
@@ -24,7 +24,7 @@ export default function Login() {
     setIsLoading(true);
     try {
       await Auth.signIn(fields.email, fields.password);
-      history.push("/")
+      history.push("/");
     } catch (e) {
       onError(e);
       setIsLoading(false);
@@ -34,19 +34,17 @@ export default function Login() {
     <Bootstrap.Container className="mt-4">
       <Bootstrap.Row>
         <Bootstrap.Col xs lg="6">
-      <h3>Login (Cognito)</h3>
-      <LoginForm
-        isLoading={isLoading}
-        fields={fields}
-        handleSubmit={handleSubmit}
-        handleFieldChange={handleFieldChange}
-        validateForm={validateForm}
-        />
+          <h3>Login (Cognito)</h3>
+          <LoginForm
+            isLoading={isLoading}
+            fields={fields}
+            handleSubmit={handleSubmit}
+            handleFieldChange={handleFieldChange}
+            validateForm={validateForm}
+          />
         </Bootstrap.Col>
         <Bootstrap.Row className="mt-4">
-          <Bootstrap.Col>
-            {!isAuthenticated && <LocalLogins />}
-          </Bootstrap.Col>
+          <Bootstrap.Col>{!isAuthenticated && <LocalLogins />}</Bootstrap.Col>
         </Bootstrap.Row>
       </Bootstrap.Row>
     </Bootstrap.Container>
@@ -69,15 +67,14 @@ function LoginForm(props) {
           value={props.fields.password}
           handleFieldChange={props.handleFieldChange}
         />
-          <Bootstrap.Button
-            variant="primary"
-            type="submit"
-            isLoading={props.isLoading}
-            disabled={!props.validateForm()}
-          >
-            Login{' '}
-            <FontAwesomeIcon icon={faSignInAlt} />
-          </Bootstrap.Button>
+        <Bootstrap.Button
+          variant="primary"
+          type="submit"
+          isLoading={props.isLoading}
+          disabled={!props.validateForm()}
+        >
+          Login <FontAwesomeIcon icon={faSignInAlt} />
+        </Bootstrap.Button>
       </form>
     </section>
   );
