@@ -1,11 +1,11 @@
 import config from "@/src/config";
 
-export function capitalize(s) {
+export function capitalize(s: string): string {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export function validateAmendmentForm(email, firstName, lastName, territory) {
+export function validateAmendmentForm(email: string, firstName: string, lastName: string, territory: string): boolean {
   return (
     email.length > 0 &&
     firstName.length > 0 &&

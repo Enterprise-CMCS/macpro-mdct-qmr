@@ -1,5 +1,5 @@
 import { roles } from "./authHelpers";
-export const getRedirectRoute = (role) => {
+export const getRedirectRoute = (role: string) => {
   let redirectRoute = "/";
   switch (role) {
     case roles.approver:
