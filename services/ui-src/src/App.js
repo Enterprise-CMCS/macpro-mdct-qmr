@@ -16,7 +16,6 @@ function App() {
   const dispatch = useDispatch();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [, setLocalLogin] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -38,7 +37,6 @@ function App() {
         dispatch(setUser(user));
         setIsAuthenticating(false);
         userHasAuthenticated(true);
-        setLocalLogin(config.LOCAL_LOGIN === "true");
       }
       setIsAuthenticating(false);
     })();

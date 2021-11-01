@@ -86,7 +86,7 @@ function LoginForm(props) {
 function FormInput(props) {
   return (
     <Bootstrap.FormGroup controlId={props.type}>
-      <Bootstap.FormControl
+      <Bootstrap.FormControl
         placeholder={props.label}
         type={props.type}
         value={props.value}
