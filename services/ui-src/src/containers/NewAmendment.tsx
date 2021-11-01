@@ -15,7 +15,7 @@ import {
   validateFileAttachment,
 } from "@/src/libs/helpers";
 
-export default function NewAmendment({ fileUpload }) {
+export default function NewAmendment({ fileUpload }): JSX.Element  {
   const file = useRef(null);
   const history = useHistory();
   const [email, setEmail] = useState("");

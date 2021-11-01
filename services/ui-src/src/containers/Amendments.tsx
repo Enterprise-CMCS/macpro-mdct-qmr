@@ -15,7 +15,7 @@ import {
   validateFileAttachment,
 } from "@/src/libs/helpers";
 
-export default function Amendments({ fileUpload, fileURLResolver }) {
+export default function Amendments({ fileUpload, fileURLResolver }): JSX.Element  {
   const file = useRef(null);
   const { id } = useParams<{id: string}>();
   const history = useHistory();

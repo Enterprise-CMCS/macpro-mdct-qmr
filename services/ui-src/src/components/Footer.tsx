@@ -2,7 +2,7 @@ import React from "react";
 import { helpDeskContact } from "@/src/libs/contacts";
 import HelpSection from "@/src/components/Footer";
 
-function Footer() {
+function Footer(): JSX.Element  {
   return (
     <>
       <HelpSection />

@@ -7,7 +7,7 @@ export default function LoaderButton({
   className = "",
   disabled = false,
   ...props
-}) {
+}): JSX.Element  {
   return (
     <Button
       className={`LoaderButton ${className}`}

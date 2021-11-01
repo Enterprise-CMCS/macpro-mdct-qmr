@@ -1,7 +1,7 @@
 import React from "react";
 import { helpDeskContact, qualityContact } from "@/src/libs/contacts";
 
-function HelpSection() {
+function HelpSection(): JSX.Element  {
   return (
     <>
       <section className="home-footer-container">

@@ -25,7 +25,7 @@ import { getRedirectRoute } from "@/src/libs/routeHelpers";
 // } from "@/src/libs/awsLib";
 // import config from "@/src/config";
 
-export default function Routes() {
+export default function Routes(): JSX.Element  {
   let redirectRoute = "/";
   const role = useSelector((state) =>
     state.user.attributes ? state.user.attributes["app-role"] : undefined

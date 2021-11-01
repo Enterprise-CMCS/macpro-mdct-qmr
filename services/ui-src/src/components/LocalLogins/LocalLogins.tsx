@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { getRedirectRoute } from "@/src/libs/routeHelpers";
 import "@/containers/Login/Login.scss";
 
-function LocalLogins() {
+function LocalLogins(): JSX.Element  {
   const dispatch = useDispatch();
   const history = useHistory();
   function localLogin(role) {

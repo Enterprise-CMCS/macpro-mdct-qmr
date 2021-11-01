@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
  * @param {Object} props - component properties
  */
 
-function Header(props) {
+function Header(props): JSX.Element  {
   const history = useHistory();
   const isAuthenticated = useSelector((state) => state.user.attributes);
   return (

@@ -9,7 +9,7 @@ import "react-phone-input-2/lib/style.css";
 import { currentUserInfo, updateCurrentUserAttributes } from "@/src/libs/user";
 import { capitalize } from "@/src/libs/helpers";
 
-export default function Profile() {
+export default function Profile(): JSX.Element  {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
