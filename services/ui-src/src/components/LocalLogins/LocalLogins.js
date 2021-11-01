@@ -51,7 +51,7 @@ function LoginAsButton({role, handleSelect}) {
       break;
   }
   return (
-      <Bootstrap.Button variant="outline-primary" className="me-2" onClick={() => handleSelect(role)}>
+      <Bootstrap.Button variant="outline-primary" className="me-2 mb-2" onClick={() => handleSelect(role)}>
         {label}
       </Bootstrap.Button>
   );

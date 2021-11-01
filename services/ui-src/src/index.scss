@@ -87,6 +87,23 @@ h4 {
   @extend .white-link;
 }
 
+a.nav-link {
+  color: $color-white;
+  &:hover {
+    color: $color-gray-lighter;
+  }
+  &::after {
+    color: $color-gray-lighter;
+  }
+  &:focus {
+    color: $color-gray-lighter;
+  }
+}
+
+.dropdown-menu a {
+  color: $color-base
+}
+
 .white-link {
   a {
     color: $color-white;
@@ -994,23 +1011,7 @@ article.form-container {
 li[role="presentation"] a {
   background-color: white;
 }
-#loginButton {
-  color: white;
-  text-decoration: none;
-  background-color: $color-primary;
-  &:hover {
-    text-decoration: underline;
-    background-color: $color-primary;
-  }
-  padding-left: 150px;
-}
-#User {
-  color: white;
-  background-color: $color-primary;
-}
-#User :hover {
-  text-decoration: underline;
-}
+
 .activeLink,
 .activeLink:hover,
 .activeLink:focus {
