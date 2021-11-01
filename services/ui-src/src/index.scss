@@ -28,7 +28,9 @@ $input-border-radius: 3px;
   border-radius: 3px;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   font-size: 16px; // sets the value of 1rem
 }
@@ -101,7 +103,7 @@ a.nav-link {
 }
 
 .dropdown-menu a {
-  color: $color-base
+  color: $color-base;
 }
 
 .white-link {
