@@ -21,7 +21,7 @@ export default function LoaderButton({
           src="preloaders/spheres.gif"
           alt="Loading... Please wait..."
           title="Loading... Please wait..."
-          className="display-inline margin-left-2"
+          className="display-inline"
         />
       )}
     </Button>

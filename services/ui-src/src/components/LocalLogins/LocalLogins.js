@@ -5,7 +5,7 @@ import { setUser } from "../../store/actions/userActions";
 import { roles } from "../../libs/authHelpers";
 import { useHistory } from "react-router-dom";
 import { getRedirectRoute } from "../../libs/routeHelpers";
-import "../../containers/Login/Login.scss";
+import * as Bootstrap from "react-bootstrap";
 
 function LocalLogins() {
   const dispatch = useDispatch();
@@ -28,17 +28,16 @@ function LocalLogins() {
     history.push(redirectRoute);
   }
   return (
-    <div className="local-login">
-      <h3 className="local-login-title">Local Login</h3>
-      <section className="ds-l-container preview__grid">
-        {loginAs(roles.approver, localLogin)}
-        {loginAs(roles.businessOwner, localLogin)}
-        {loginAs(roles.stateUser, localLogin)}
-      </section>
+    <div>
+      <h3>Local Login</h3>
+      {Object.values(roles).map((r) => (
+        <LoginAsButton key={r} role={r} handleSelect={localLogin} />
+      ))}
     </div>
   );
 }
-function loginAs(role, localLogin) {
+
+function LoginAsButton({ role, handleSelect }) {
   let label;
   switch (role) {
     case roles.approver:
@@ -55,16 +54,13 @@ function loginAs(role, localLogin) {
       break;
   }
   return (
-    <div className="ds-l-row ds-u-justify-content--center ds-u-padding--1 ds-u-margin-y--2">
-      <div className="ds-l-col--6">
-        <button
-          onClick={() => localLogin(role)}
-          className="ds-c-button ds-c-button--primary"
-        >
-          {label}
-        </button>
-      </div>
-    </div>
+    <Bootstrap.Button
+      variant="outline-primary"
+      className="me-2 mb-2"
+      onClick={() => handleSelect(role)}
+    >
+      {label}
+    </Bootstrap.Button>
   );
 }
 export default LocalLogins;

@@ -6,7 +6,6 @@ import { AppContext } from "./libs/contextLib";
 import { determineRole } from "./libs/authHelpers";
 import { Auth } from "aws-amplify";
 import { logoutLocalUser } from "./libs/user";
-import config from "./config";
 import { useDispatch } from "react-redux";
 import { setUser, unsetUser } from "./store/actions/userActions";
 import Header from "./components/Header";
@@ -16,7 +15,6 @@ function App() {
   const dispatch = useDispatch();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [, setLocalLogin] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -38,7 +36,6 @@ function App() {
         dispatch(setUser(user));
         setIsAuthenticating(false);
         userHasAuthenticated(true);
-        setLocalLogin(config.LOCAL_LOGIN === "true");
       }
       setIsAuthenticating(false);
     })();
@@ -59,7 +56,7 @@ function App() {
   }
   return (
     !isAuthenticating && (
-      <div>
+      <div id="app-wrapper">
         <Header
           isAuthenticated={isAuthenticated}
           handleLogout={() => handleLogout()}
