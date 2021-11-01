@@ -26,7 +26,7 @@ function Header(props) {
           </div>
           <div className="nav-right">
             <Navbar.Collapse>
-              <Nav pullRight>
+              <Nav>
                 {isAuthenticated ? (
                   <>
                     <NavDropdown id="User" title="My Account">
