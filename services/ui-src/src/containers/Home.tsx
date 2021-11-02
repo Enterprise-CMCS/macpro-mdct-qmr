@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "@/src/containers/Home/Home.scss";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 export default function Home(): JSX.Element  {
-  const isAuthenticated = useSelector((state) => {
+  const isAuthenticated = useSelector((state: RootStateOrAny) => {
     if (state.user.attributes) {
       return true;
     }

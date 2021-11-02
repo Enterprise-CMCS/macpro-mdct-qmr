@@ -12,7 +12,7 @@ import AuthenticatedRoute from "@/src/components/AuthenticatedRoute";
 import ContactUs from "@/src/containers/ContactUs";
 import UserManagement from "@/src/containers/UserManagement";
 import Login from "@/src/containers/Login/Login";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 import { getRedirectRoute } from "@/src/libs/routeHelpers";
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -27,12 +27,12 @@ import { getRedirectRoute } from "@/src/libs/routeHelpers";
 
 export default function Routes(): JSX.Element  {
   let redirectRoute = "/";
-  const role = useSelector((state) =>
+  const role = useSelector((state: RootStateOrAny) =>
     state.user.attributes ? state.user.attributes["app-role"] : undefined
   );
   redirectRoute = redirectTo(role);
   return (
-    <>
+    <main id="main-wrapper">
       <Switch>
         <Route exact path="/">
           <Home />
@@ -52,7 +52,7 @@ export default function Routes(): JSX.Element  {
         </Route>
       </Switch>
       <Redirect to={redirectRoute} />
-    </>
+    </main>
   );
 }
 

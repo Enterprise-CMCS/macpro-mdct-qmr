@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 export default function AuthenticatedRoute({ children, ...rest }): JSX.Element  {
   const { pathname, search } = useLocation();
-  const isAuthenticated = useSelector((state) => state.user.attributes);
+  const isAuthenticated = useSelector((state: RootStateOrAny) => state.user.attributes);
   return (
     <Route {...rest}>
       {isAuthenticated ? (

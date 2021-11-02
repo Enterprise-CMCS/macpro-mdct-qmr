@@ -1,58 +1,36 @@
 import React from "react";
 import { UsaBanner } from "@cmsgov/design-system";
 import { QMRLogo } from "@/src/components/QMRLogo";
-import { LinkContainer } from "react-router-bootstrap";
-import { Nav, Navbar, NavItem, NavDropdown } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import * as Bootstrap from "react-bootstrap";
+import { RootStateOrAny, useSelector } from "react-redux";
 
-/**
- * Component containing header
- * @param {Object} props - component properties
- */
-
-function Header(props): JSX.Element  {
-  const history = useHistory();
-  const isAuthenticated = useSelector((state) => state.user.attributes);
+function Header({ handleLogout }) {
+  const isAuthenticated = useSelector((state: RootStateOrAny) => state.user.attributes);
   return (
     <>
-      <div className="usa-banner-custom">
-        <UsaBanner />
-      </div>
-      <div className="nav-bar">
-        <div className="header-wrapper">
-          <div className="nav-left">
+      <UsaBanner />
+      <Bootstrap.Navbar className="nav-bar">
+        <Bootstrap.Container>
+          <Bootstrap.Navbar.Brand href="/">
             <QMRLogo />
-          </div>
-          <div className="nav-right">
-            <Navbar.Collapse>
-              <Nav pullRight>
-                {isAuthenticated ? (
-                  <>
-                    <NavDropdown id="User" title="My Account">
-                      <LinkContainer to="/profile">
-                        <NavItem>User Profile</NavItem>
-                      </LinkContainer>
-                      <NavItem onClick={() => props.handleLogout()}>
-                        Logout
-                      </NavItem>
-                    </NavDropdown>
-                  </>
-                ) : (
-                  <>
-                    <NavItem
-                      id="loginButton"
-                      onClick={() => history.push("/login")}
-                    >
-                      Login
-                    </NavItem>
-                  </>
-                )}
-              </Nav>
-            </Navbar.Collapse>
-          </div>
-        </div>
-      </div>
+          </Bootstrap.Navbar.Brand>
+          <Bootstrap.Navbar.Toggle />
+          <Bootstrap.Navbar.Collapse className="justify-content-end">
+            {isAuthenticated ? (
+              <Bootstrap.NavDropdown title="My Account">
+                <Bootstrap.NavDropdown.Item href="/profile">
+                  Profile
+                </Bootstrap.NavDropdown.Item>
+                <Bootstrap.NavDropdown.Item onClick={handleLogout}>
+                  Logout
+                </Bootstrap.NavDropdown.Item>
+              </Bootstrap.NavDropdown>
+            ) : (
+              <Bootstrap.Nav.Link href="/login">Login</Bootstrap.Nav.Link>
+            )}
+          </Bootstrap.Navbar.Collapse>
+        </Bootstrap.Container>
+      </Bootstrap.Navbar>
     </>
   );
 }
