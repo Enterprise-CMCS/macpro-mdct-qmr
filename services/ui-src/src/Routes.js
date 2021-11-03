@@ -47,7 +47,7 @@ export default function Routes() {
         <Route exact path="/login">
           <Login />
         </Route>
-        <Route exact path="/component">
+        <Route exact path="/components">
           <Components />
         </Route>
         {authenticatedRoutes()}
@@ -60,26 +60,14 @@ export default function Routes() {
   );
 }
 
-function isStage() {
-  const stages = [
-    "cms.gov",
-    "d3oa1modhpamdr", // Develop cloudfront subdomain
-    "d2trmwuh71fc6", // Val cloudfront subdomain
-    "d3f1ohm9wse9tc", // Prod cloudfront subdomain
-  ];
-  const hostName = window.location.hostname;
-  return (
-    hostName.indexOf(stages[0]) >= 0 ||
-    hostName.indexOf(stages[1]) >= 0 ||
-    hostName.indexOf(stages[2]) >= 0 ||
-    hostName.indexOf(stages[3]) >= 0
-  );
+function isIntegrationBranch() {
+  return window.location.hostname.includes("cms.gov");
 }
 
 function redirectTo(role) {
   let redirectRoute = "/";
   if (!role) {
-    if (isStage()) {
+    if (isIntegrationBranch()) {
       const authConfig = Auth.configure();
       const { domain, redirectSignIn, responseType } = authConfig.oauth;
       const clientId = authConfig.userPoolWebClientId;
@@ -90,6 +78,9 @@ function redirectTo(role) {
     }
   } else {
     redirectRoute = getRedirectRoute(role);
+  }
+  if (window.location.pathname === "/components") {
+    redirectRoute = "/components";
   }
   return redirectRoute;
 }
