@@ -1,5 +1,5 @@
 export const determineRole = (specRole: Array<string> = []): string => {
-  let role;
+  let role = "";
   if (!specRole) {
     return "";
   }

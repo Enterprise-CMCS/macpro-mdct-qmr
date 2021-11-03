@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-import { useFormFields } from "@/src/libs/hooksLib";
-import { onError } from "@/src/libs/errorLib";
-import "@/src/containers/Long.scss"
+import { useFormFields } from "@/libs/hooksLib";
+import { onError } from "@/libs/errorLib";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons/faSignInAlt";
 import { RootStateOrAny, useSelector } from "react-redux";
-import LocalLogins from "@/src/components/LocalLogins/LocalLogins";
+import LocalLogins from "@/components/LocalLogins/LocalLogins";
 import { useHistory } from "react-router-dom";
 import * as Bootstrap from "react-bootstrap";
-
+import { LoginFormProps } from "@/containers/Login/LoginFormProps";
+import { FormInputProps } from "@/containers/Login/FormInputProps";
 export default function Login() {
   const isAuthenticated = useSelector((state: RootStateOrAny) => state.user.attributes);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,7 @@ export default function Login() {
   });
   const validateForm = () =>
     fields.email.length > 0 && fields.password.length > 0;
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setIsLoading(true);
     try {
@@ -31,6 +31,7 @@ export default function Login() {
       setIsLoading(false);
     }
   }
+
   return (
     <Bootstrap.Container className="mt-4">
       <Bootstrap.Row>
@@ -52,10 +53,10 @@ export default function Login() {
   );
 }
 
-function LoginForm(props) {
+function LoginForm(props: LoginFormProps) {
   return (
     <section>
-      <form onSubmit={props.handleSubmit} className="d-grid gap-2">
+      <form onSubmit={() => props.handleSubmit()} className="d-grid gap-2">
         <FormInput
           label="Email"
           type="email"
@@ -81,14 +82,14 @@ function LoginForm(props) {
   );
 }
 
-function FormInput(props) {
+function FormInput(props: FormInputProps) {
   return (
     <Bootstrap.FormGroup controlId={props.type}>
       <Bootstrap.FormControl
         placeholder={props.label}
         type={props.type}
         value={props.value}
-        onChange={props.handleFieldChange}
+        onChange={() => props.handleFieldChange()}
       />
     </Bootstrap.FormGroup>
   );

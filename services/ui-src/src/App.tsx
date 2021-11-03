@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "@/src/App.scss";
-import Routes from "@/src/Routes";
-import { AppContext } from "@/src/libs/contextLib";
-import { determineRole } from "@/src/libs/authHelpers";
+import "@/App.scss";
+import Routes from "@/Routes";
+import { AppContext } from "@/libs/contextLib";
+import { determineRole } from "@/libs/authHelpers";
 import { Auth } from "aws-amplify";
-import { logoutLocalUser } from "@/src/libs/user";
+import { logoutLocalUser } from "@/libs/user";
 import { useDispatch } from "react-redux";
-import { setUser, unsetUser } from "@/src/store/actions/userActions";
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
+import { setUser, unsetUser } from "@/store/actions/userActions";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 function App(): JSX.Element | null  {
   const dispatch = useDispatch();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [isAuthenticated, userHasAuthenticated]= useState<boolean>(false);
   const history = useHistory();
 
   useEffect(() => {

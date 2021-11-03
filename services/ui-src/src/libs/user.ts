@@ -1,9 +1,9 @@
 import { Auth } from "aws-amplify";
-import config from "@/src/config";
+import config from "@/config";
 
 const userKey = "userKey";
 
-export async function updateCurrentUserAttributes(userAttributes) {
+export async function updateCurrentUserAttributes(userAttributes: object) { // ! May need stricter type check but libarary only descrips as an object
   const localLogin = config.LOCAL_LOGIN === "true";
   if (localLogin) {
     return updateLocalCurrentUserAttributes(userAttributes);
@@ -13,7 +13,7 @@ export async function updateCurrentUserAttributes(userAttributes) {
   }
 }
 
-export function updateLocalCurrentUserAttributes(userAttributes) {
+export function updateLocalCurrentUserAttributes(userAttributes: object) {// ! May need stricter type check but libarary only descrips as an object
   const store = window.localStorage;
   const localStorageItem = store.getItem(userKey);
 
@@ -45,7 +45,7 @@ export function getLocalUserInfo() {
   return undefined;
 }
 
-export async function loginLocalUser(userInfo) {
+export async function loginLocalUser(userInfo: string) {
   const store = window.localStorage;
 
   store.setItem(userKey, userInfo);

@@ -1,3 +1,5 @@
+// @ts-nocheck
+// ! Ignoring typechecking here may have to revisit
 const configToExport = {
   MAX_ATTACHMENT_SIZE: 5000000,
   LOCAL_LOGIN: window._env_.LOCAL_LOGIN,

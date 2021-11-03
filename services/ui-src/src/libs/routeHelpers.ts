@@ -1,4 +1,4 @@
-import { roles } from "./authHelpers";
+import { roles } from "@/libs/authHelpers";
 export const getRedirectRoute = (role: string) => {
   let redirectRoute = "/";
   switch (role) {

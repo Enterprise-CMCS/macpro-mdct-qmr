@@ -1,4 +1,4 @@
-export function onError(error): void {
+export function onError(error: Error | any): void { 
   let message = error.toString();
 
   // Auth errors

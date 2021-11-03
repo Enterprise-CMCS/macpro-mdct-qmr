@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { onError } from "@/src/libs/errorLib";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import LoaderButton from "@/src/components/LoaderButton";
-import "@/src/containers/Profile.scss";
+import { onError } from "@/libs/errorLib";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import LoaderButton from "@/components/LoaderButton";
+import "@/containers/Profile.scss";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { currentUserInfo, updateCurrentUserAttributes } from "@/src/libs/user";
-import { capitalize } from "@/src/libs/helpers";
+import { currentUserInfo, updateCurrentUserAttributes } from "@/libs/user";
+import { capitalize } from "@/libs/helpers";
 
 export default function Profile(): JSX.Element  {
   const history = useHistory();
@@ -35,7 +35,7 @@ export default function Profile(): JSX.Element  {
     onLoad();
   }, []);
 
-  function validatePhoneNumber(phone) {
+  function validatePhoneNumber(phone: string) {
     if (phone === "1" || phone === "") return true;
     return phone.length === 11;
   }
@@ -48,16 +48,16 @@ export default function Profile(): JSX.Element  {
     );
   }
 
-  function formatPhoneNumberForForm(phone) {
+  function formatPhoneNumberForForm(phone: string) {
     if (phone == null) return "";
     return phone.replace("+", "");
   }
 
-  function formatPhoneNumberForSubmission(phone) {
+  function formatPhoneNumberForSubmission(phone: string) {
     if (phone === "1" || phone === "" || phone == null) return "";
     return "+" + phone.replace("+", "");
   }
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     try {
@@ -77,19 +77,19 @@ export default function Profile(): JSX.Element  {
     <div className="Profile">
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="email">
-          <ControlLabel>Email</ControlLabel>
+          <FormLabel>Email</FormLabel>
           <FormControl value={email} disabled={true} />
         </FormGroup>
         <FormGroup controlId="firstName">
-          <ControlLabel>First Name</ControlLabel>
+          <FormLabel>First Name</FormLabel>
           <FormControl value={firstName} disabled={true} />
         </FormGroup>
         <FormGroup controlId="lastName">
-          <ControlLabel>Last Name</ControlLabel>
+          <FormLabel>Last Name</FormLabel>
           <FormControl value={lastName} disabled={true} />
         </FormGroup>
         <FormGroup controlId="phoneNumber">
-          <ControlLabel>Phone</ControlLabel>
+          <FormLabel>Phone</FormLabel>
           <PhoneInput
             value={phoneNumber}
             country="us"

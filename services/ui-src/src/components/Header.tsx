@@ -1,10 +1,10 @@
 import React from "react";
 import { UsaBanner } from "@cmsgov/design-system";
-import { QMRLogo } from "@/src/components/QMRLogo";
+import { QMRLogo } from "@/components/QMRLogo";
 import * as Bootstrap from "react-bootstrap";
 import { RootStateOrAny, useSelector } from "react-redux";
 
-function Header({ handleLogout }) {
+function Header({ handleLogout } : { handleLogout : Function}) {
   const isAuthenticated = useSelector((state: RootStateOrAny) => state.user.attributes);
   return (
     <>
@@ -21,7 +21,7 @@ function Header({ handleLogout }) {
                 <Bootstrap.NavDropdown.Item href="/profile">
                   Profile
                 </Bootstrap.NavDropdown.Item>
-                <Bootstrap.NavDropdown.Item onClick={handleLogout}>
+                <Bootstrap.NavDropdown.Item onClick={handleLogout()}>
                   Logout
                 </Bootstrap.NavDropdown.Item>
               </Bootstrap.NavDropdown>

@@ -1,4 +1,4 @@
-import config from "@/src/config";
+import config from "@/config";
 
 export function capitalize(s: string): string {
   if (typeof s !== "string") return "";
@@ -14,7 +14,7 @@ export function validateAmendmentForm(email: string, firstName: string, lastName
   );
 }
 
-export function validateFileAttachment(file) {
+export function validateFileAttachment(file: File) {
   if (file.current) {
     if (file.current.size > config.MAX_ATTACHMENT_SIZE) {
       alert(

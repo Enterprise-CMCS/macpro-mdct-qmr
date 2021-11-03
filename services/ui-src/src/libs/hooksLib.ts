@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-export function useFormFields(initialState) {
+export function useFormFields(initialState: { [key: string]: string; }) {
   const [fields, setValues] = useState(initialState);
 
   return [
     fields,
-    function (event) {
+    function (event: Event) {
       setValues({
         ...fields,
-        [event.target.id]: event.target.value,
+        [(event.target as HTMLTextAreaElement).id]: (event.target as HTMLTextAreaElement).value,
       });
     },
   ];

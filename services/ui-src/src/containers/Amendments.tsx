@@ -1,25 +1,27 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { onError } from "@/src/libs/errorLib";
+import { onError } from "@/libs/errorLib";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "@/src/components/LoaderButton";
-import "@/src/containers/Amendments.scss";
+import LoaderButton from "@/components/LoaderButton";
+import "@/containers/Amendments.scss";
 import Select from "react-select";
 import Switch from "react-ios-switch";
-import { territoryList } from "@/src/libs/territoryLib";
+import { territoryList } from "@/libs/territoryLib";
 import * as url from "url";
-import { getAmendment, updateAmendment, deleteAmendment } from "@/src/libs/api";
+import { getAmendment, updateAmendment, deleteAmendment } from "@/libs/api";
 import {
   capitalize,
   validateAmendmentForm,
   validateFileAttachment,
-} from "@/src/libs/helpers";
+} from "@/libs/helpers";
+import { AmendmentInterface } from "@/containers/AmendmentInterface";
+import { AmendmentProps } from "@/containers/AmendmentProps";
 
-export default function Amendments({ fileUpload, fileURLResolver }): JSX.Element  {
+export default function Amendments({ fileUpload, fileURLResolver }: AmendmentProps): JSX.Element  {
   const file = useRef(null);
   const { id } = useParams<{id: string}>();
   const history = useHistory();
-  const [amendment, setAmendment] = useState<any>(null); //! Need an Amednment Interface type
+  const [amendment, setAmendment] = useState<AmendmentInterface>();
   const [transmittalNumber, setTransmittalNumber] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -69,19 +71,19 @@ export default function Amendments({ fileUpload, fileURLResolver }): JSX.Element
     onLoad();
   }, [id, fileURLResolver]);
 
-  function formatFilename(str) {
+  function formatFilename(str: string): string {
     return str.replace(/^\w+-/, "");
   }
 
-  function handleFileChange(event) {
-    file.current = event.target.files[0];
+  function handleFileChange(event: React.MouseEvent<HTMLFormElement>): void {
+    file.current = (event.target as HTMLInputElement).files[0];
   }
 
-  function saveAmendment(amendment) {
+  function saveAmendment(amendment: AmendmentInterface) {
     return updateAmendment(id, amendment);
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     let attachment;
 
     event.preventDefault();
@@ -105,13 +107,13 @@ export default function Amendments({ fileUpload, fileURLResolver }): JSX.Element
         attachment: attachment || amendment?.attachment,
       });
       history.push("/");
-    } catch (e) {
+    } catch (e: any) { // Catch clauses are not allowed to have a type in typescript
       onError(e);
       setIsLoading(false);
     }
   }
 
-  async function handleDelete(event) {
+  async function handleDelete(event: React.MouseEvent) {
     event.preventDefault();
 
     const confirmed = window.confirm(
@@ -133,7 +135,7 @@ export default function Amendments({ fileUpload, fileURLResolver }): JSX.Element
     }
   }
 
-  function openAttachment(event, attachmentURL) {
+  function openAttachment(event: React.MouseEvent, attachmentURL: string) {
     event.preventDefault();
     var http = require("http");
     const uri = url.parse(attachmentURL);
@@ -144,7 +146,7 @@ export default function Amendments({ fileUpload, fileURLResolver }): JSX.Element
       protocol: uri.protocol,
       method: "GET",
     };
-    var req = http.request(options, function (res) {
+    var req = http.request(options, function (res: any) { // !Response needs typing
       req.abort(); // The presigned S3 URL is only valid for GET requests, but we only want the headers.
       if (res.statusCode.toString() === "403") {
         window.open(
@@ -206,7 +208,7 @@ export default function Amendments({ fileUpload, fileURLResolver }): JSX.Element
                 return option.value === territory;
               })}
               isDisabled={true}
-              onChange={(e) => setTerritory(e.value)}
+              onChange={(e: Event) => setTerritory((e.target as HTMLSelectElement).value)}
               options={territoryList}
             />
           </FormGroup>

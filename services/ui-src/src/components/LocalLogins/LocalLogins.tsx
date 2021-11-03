@@ -7,11 +7,12 @@ import { useHistory } from "react-router-dom";
 import { getRedirectRoute } from "@/src/libs/routeHelpers";
 import "@/containers/Login/Login.scss";
 import * as Bootstrap from "react-bootstrap";
+import { LoginAsButtonProps } from "@/src/components/LocalLogins/LoginAsButtonsProps";
 
 function LocalLogins(): JSX.Element  {
   const dispatch = useDispatch();
   const history = useHistory();
-  function localLogin(role) {
+  function localLogin(role: string) {
     const alice = {
       username: "alice",
       attributes: {
@@ -38,7 +39,7 @@ function LocalLogins(): JSX.Element  {
   );
 }
 
-function LoginAsButton({ role, handleSelect }) {
+function LoginAsButton({ role, handleSelect }: LoginAsButtonProps) {
   let label;
   switch (role) {
     case roles.approver:

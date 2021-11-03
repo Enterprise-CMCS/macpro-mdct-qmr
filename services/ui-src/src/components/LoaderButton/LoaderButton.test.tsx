@@ -1,10 +1,10 @@
 import React from "react";
-import LoaderButton from "@/src/components/LoaderButton";
+import LoaderButton from "@/components/LoaderButton";
 import { render } from "@testing-library/react";
 
 describe("Test LoaderButton.js", () => {
   test("Check the main element, with classname LoaderButton, exists", () => {
-    const { getByTestId } = render(<LoaderButton  isLoading={true}/>);
+    const { getByTestId } = render(<LoaderButton children={undefined} isLoading={true}/>);
 
     expect(getByTestId("LoaderButton")).toBeVisible();
   });

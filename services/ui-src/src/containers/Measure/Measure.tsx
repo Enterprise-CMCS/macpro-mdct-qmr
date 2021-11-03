@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "@/src/containers/Measure/Measure.module.scss";
+import styles from "@/containers/Measure/Measure.module.scss";
 
 export default function Measure() {
   return (

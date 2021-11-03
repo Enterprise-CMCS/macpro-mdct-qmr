@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "@/src/containers/Home/Home.scss";
+import "@/containers/Home/Home.scss";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 export default function Home(): JSX.Element  {

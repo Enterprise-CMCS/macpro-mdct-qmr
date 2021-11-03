@@ -1,19 +1,19 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "@/src/components/LoaderButton";
-import { onError } from "@/src/libs/errorLib";
-import "@/src/constainers/NewAmendment.css";
-import { createAmendment } from "@/src/libs/api";
-import { currentUserInfo } from "@/src/libs/user";
+import LoaderButton from "@/components/LoaderButton";
+import { onError } from "@/libs/errorLib";
+import "@/constainers/NewAmendment.css";
+import { createAmendment } from "@/libs/api";
+import { currentUserInfo } from "@/libs/user";
 import Select from "react-select";
 import Switch from "react-ios-switch";
-import { territoryList } from "@/src/libs/territoryLib";
+import { territoryList } from "@/libs/territoryLib";
 import {
   capitalize,
   validateAmendmentForm,
   validateFileAttachment,
-} from "@/src/libs/helpers";
+} from "@/libs/helpers";
 
 export default function NewAmendment({ fileUpload }): JSX.Element  {
   const file = useRef(null);
@@ -36,11 +36,11 @@ export default function NewAmendment({ fileUpload }): JSX.Element  {
 
   populateUserInfo();
 
-  function handleFileChange(event) {
+  function handleFileChange(event: React.ChangeEvent) {
     file.current = event.target.files[0];
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: React.FormEventHandler<HTMLFormElement>) {
     event.preventDefault();
 
     if (!validateFileAttachment(file)) return;
@@ -99,7 +99,7 @@ export default function NewAmendment({ fileUpload }): JSX.Element  {
             value={territoryList.filter(function (option) {
               return option.value === territory;
             })}
-            onChange={(e) => setTerritory(e.value)}
+            onChange={(e: Event) => setTerritory((e.target as HTMLSelectElement).value)}
             options={territoryList}
           />
         </FormGroup>

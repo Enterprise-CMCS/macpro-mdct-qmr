@@ -1,8 +1,9 @@
 import { Storage } from "aws-amplify";
 import AWS from "aws-sdk";
-import config from "@/src/config";
+import config from "@/config";
+import { S3Key } from "aws-sdk/clients/codedeploy";
 
-export async function s3AmplifyUpload(file): Promise<any> {
+export async function s3AmplifyUpload(file): Promise<string> {
   const filename = `${Date.now()}-${file.name}`;
 
   const stored = await Storage.vault.put(filename, file, {
@@ -13,7 +14,7 @@ export async function s3AmplifyUpload(file): Promise<any> {
 }
 
 export function s3LocalUploader(s3Client) {
-  return async function (file) {
+  return async function (file: File) {
     const filename = `${Date.now()}-${file.name}`;
 
     return new Promise((resolve, reject) => {
@@ -22,7 +23,7 @@ export function s3LocalUploader(s3Client) {
           Key: filename,
           Body: file,
         },
-        (err) => {
+        (err: Error) => {
           if (err) {
             reject(err);
           }
@@ -34,19 +35,19 @@ export function s3LocalUploader(s3Client) {
 }
 
 // In Amplify you call get to get a url to the given resource
-export async function s3AmplifyGetURL(s3key) {
+export async function s3AmplifyGetURL(s3key: S3Key) {
   return Storage.vault.get(s3key);
 }
 
 // locally we do what
 export function s3LocalGetURL(s3Client) {
-  return function (s3key) {
+  return function (s3key: S3Key) {
     var params = { Key: s3key };
     return s3Client.getSignedUrl("getObject", params);
   };
 }
 
-export function enableLocalS3(shouldEnable) {
+export function enableLocalS3(shouldEnable: boolean) {
   if (shouldEnable) {
     // Local Login
     const localLogin = config.LOCAL_LOGIN === "true";

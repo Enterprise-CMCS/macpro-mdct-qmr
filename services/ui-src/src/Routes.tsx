@@ -1,19 +1,19 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import Home from "@/src/containers/Home";
-import NotFound from "@/src/containers/NotFound";
-import AdminHome from "@/src/containers/AdminHome";
-import BOHome from "@/src/containers/BOHome";
-import CoreSet from "@/src/containers/CoreSet";
-import Measure from "@/src/containers/Measure/Measure";
-import StateHome from "@/src/containers/StateHome";
-import AuthenticatedRoute from "@/src/components/AuthenticatedRoute";
-import ContactUs from "@/src/containers/ContactUs";
-import UserManagement from "@/src/containers/UserManagement";
-import Login from "@/src/containers/Login/Login";
+import Home from "@/containers/Home";
+import NotFound from "@/containers/NotFound";
+import AdminHome from "@/containers/AdminHome";
+import BOHome from "@/containers/BOHome";
+import CoreSet from "@/containers/CoreSet";
+import Measure from "@/containers/Measure/Measure";
+import StateHome from "@/containers/StateHome";
+import AuthenticatedRoute from "@/components/AuthenticatedRoute";
+import ContactUs from "@/containers/ContactUs";
+import UserManagement from "@/containers/UserManagement";
+import Login from "@/containers/Login/Login";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { getRedirectRoute } from "@/src/libs/routeHelpers";
+import { getRedirectRoute } from "@/libs/routeHelpers";
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";
@@ -22,8 +22,8 @@ import { getRedirectRoute } from "@/src/libs/routeHelpers";
 //   s3LocalUploader,
 //   s3AmplifyGetURL,
 //   s3LocalGetURL,
-// } from "@/src/libs/awsLib";
-// import config from "@/src/config";
+// } from "@/libs/awsLib";
+// import config from "@/config";
 
 export default function Routes(): JSX.Element  {
   let redirectRoute = "/";
@@ -72,7 +72,7 @@ function isStage() {
   );
 }
 
-function redirectTo(role) {
+function redirectTo(role: string) {
   let redirectRoute = "/";
   if (!role) {
     if (isStage()) {

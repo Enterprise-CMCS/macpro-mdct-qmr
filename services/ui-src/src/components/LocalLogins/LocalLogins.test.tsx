@@ -6,9 +6,23 @@ import LocalLogins from "@/src/components/LocalLogins/LocalLogins";
 import userReducer from  "src/store/reducers/userReducer";
 import { BrowserRouter as Router } from "react-router-dom";
 
-function renderWithProviders(ui, { reduxState }: any = {}) { // ! Will need a reactState interface or type
+function renderWithProviders(ui: React.ReactNode, { reduxState }: ReduxStateInterface) {
   const store = createStore(userReducer, reduxState || {});
   return render(<Provider store={store}>{ui}</Provider>);
+}
+
+interface ReduxStateInterface {
+  reduxState: {
+    user: {
+      username: string,
+      attributes: {
+        given_name: string,
+        family_name: string,
+        email: string,
+        "custom:cms_roles": string,
+      },
+    }
+  }
 }
 
 describe("static local login button list", () => {
