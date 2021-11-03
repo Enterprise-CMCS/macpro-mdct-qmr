@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Components() {
+export default function DemoComponents() {
   return <h2>Components</h2>;
 }

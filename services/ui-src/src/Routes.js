@@ -10,7 +10,7 @@ import Measure from "./containers/Measure/Measure";
 import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import ContactUs from "./containers/ContactUs";
-import Components from "./containers/Components";
+import DemoComponents from "./components/DemoComponents";
 import UserManagement from "./containers/UserManagement";
 import Login from "./containers/Login/Login";
 import { useSelector } from "react-redux";
@@ -28,10 +28,11 @@ import { getRedirectRoute } from "./libs/routeHelpers";
 
 export default function Routes() {
   let redirectRoute = "/";
+  const isIntegrationBranch = window.location.hostname.includes("cms.gov");
   const role = useSelector((state) =>
     state.user.attributes ? state.user.attributes["app-role"] : undefined
   );
-  redirectRoute = redirectTo(role);
+  redirectRoute = redirectTo(role, isIntegrationBranch);
   return (
     <main id="main-wrapper">
       <Switch>
@@ -48,7 +49,7 @@ export default function Routes() {
           <Login />
         </Route>
         <Route exact path="/components">
-          <Components />
+          <DemoComponents />
         </Route>
         {authenticatedRoutes()}
         <Route>
@@ -60,17 +61,13 @@ export default function Routes() {
   );
 }
 
-function isIntegrationBranch() {
-  return window.location.hostname.includes("cms.gov");
-}
-
-function redirectTo(role) {
+function redirectTo(role, isIntegrationBranch) {
   let redirectRoute = "/";
   if (window.location.pathname === "/components") {
     return "/components";
   }
   if (!role) {
-    if (isIntegrationBranch()) {
+    if (isIntegrationBranch) {
       const authConfig = Auth.configure();
       const { domain, redirectSignIn, responseType } = authConfig.oauth;
       const clientId = authConfig.userPoolWebClientId;
