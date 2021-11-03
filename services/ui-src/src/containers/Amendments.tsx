@@ -18,7 +18,7 @@ import { AmendmentInterface } from "@/containers/AmendmentInterface";
 import { AmendmentProps } from "@/containers/AmendmentProps";
 
 export default function Amendments({ fileUpload, fileURLResolver }: AmendmentProps): JSX.Element  {
-  const file = useRef(null);
+  const file = useRef<File | null>(null);
   const { id } = useParams<{id: string}>();
   const history = useHistory();
   const [amendment, setAmendment] = useState<AmendmentInterface>();
@@ -75,8 +75,10 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
     return str.replace(/^\w+-/, "");
   }
 
-  function handleFileChange(event: React.MouseEvent<HTMLFormElement>): void {
-    file.current = (event.target as HTMLInputElement).files[0];
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    if (event.target?.files?.[0]) {
+      file.current = event.target.files[0];
+    }
   }
 
   function saveAmendment(amendment: AmendmentInterface) {
@@ -226,7 +228,7 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
               <FormControl>
                 <button
                   className="link-lookalike"
-                  onClick={(e) => openAttachment(e, amendment.attachmentURL)}
+                  onClick={(e) =>  amendment.attachmentURL ? openAttachment(e, amendment.attachmentURL) : undefined}
                 >
                   {formatFilename(amendment.attachment)}
                 </button>

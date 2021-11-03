@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import LocalLogins from "@/src/components/LocalLogins/LocalLogins";
+import LocalLogins from "@/components/LocalLogins/LocalLogins";
 import userReducer from  "src/store/reducers/userReducer";
 import { BrowserRouter as Router } from "react-router-dom";
 

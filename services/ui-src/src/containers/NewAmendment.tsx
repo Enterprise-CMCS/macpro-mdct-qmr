@@ -15,8 +15,8 @@ import {
   validateFileAttachment,
 } from "@/libs/helpers";
 
-export default function NewAmendment({ fileUpload }): JSX.Element  {
-  const file = useRef(null);
+export default function NewAmendment({ fileUpload }: { fileUpload: Function}): JSX.Element  {
+  const file = useRef<File | null>(null);
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -36,11 +36,13 @@ export default function NewAmendment({ fileUpload }): JSX.Element  {
 
   populateUserInfo();
 
-  function handleFileChange(event: React.ChangeEvent) {
-    file.current = event.target.files[0];
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    if (event.target.files) {
+      file.current = event.target.files?.[0];
+    }
   }
 
-  async function handleSubmit(event: React.FormEventHandler<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!validateFileAttachment(file)) return;

@@ -1,9 +1,9 @@
 import { Storage } from "aws-amplify";
-import AWS from "aws-sdk";
+import AWS, { S3 } from "aws-sdk";
 import config from "@/config";
 import { S3Key } from "aws-sdk/clients/codedeploy";
 
-export async function s3AmplifyUpload(file): Promise<string> {
+export async function s3AmplifyUpload(file: File): Promise<string> {
   const filename = `${Date.now()}-${file.name}`;
 
   const stored = await Storage.vault.put(filename, file, {
@@ -13,7 +13,7 @@ export async function s3AmplifyUpload(file): Promise<string> {
   return stored.key;
 }
 
-export function s3LocalUploader(s3Client) {
+export function s3LocalUploader(s3Client: S3): any {
   return async function (file: File) {
     const filename = `${Date.now()}-${file.name}`;
 
@@ -22,6 +22,7 @@ export function s3LocalUploader(s3Client) {
         {
           Key: filename,
           Body: file,
+          Bucket: "" // Typescript asks for a property "bucket" string type here will have to revisit
         },
         (err: Error) => {
           if (err) {
@@ -35,12 +36,12 @@ export function s3LocalUploader(s3Client) {
 }
 
 // In Amplify you call get to get a url to the given resource
-export async function s3AmplifyGetURL(s3key: S3Key) {
+export async function s3AmplifyGetURL(s3key: S3Key): Promise<string> {
   return Storage.vault.get(s3key);
 }
 
 // locally we do what
-export function s3LocalGetURL(s3Client) {
+export function s3LocalGetURL(s3Client: S3): any {
   return function (s3key: S3Key) {
     var params = { Key: s3key };
     return s3Client.getSignedUrl("getObject", params);

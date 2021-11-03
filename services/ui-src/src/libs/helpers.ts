@@ -14,7 +14,7 @@ export function validateAmendmentForm(email: string, firstName: string, lastName
   );
 }
 
-export function validateFileAttachment(file: File) {
+export function validateFileAttachment(file: File | any): boolean {
   if (file.current) {
     if (file.current.size > config.MAX_ATTACHMENT_SIZE) {
       alert(

@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { loginLocalUser } from "@/src/libs/user";
-import { setUser } from  "@/src/store/actions/userActions";
-import { roles } from "@/src/libs/authHelpers";
+import { loginLocalUser } from "@/libs/user";
+import { setUser } from  "@/store/actions/userActions";
+import { roles } from "@/libs/authHelpers";
 import { useHistory } from "react-router-dom";
-import { getRedirectRoute } from "@/src/libs/routeHelpers";
+import { getRedirectRoute } from "@/libs/routeHelpers";
 import "@/containers/Login/Login.scss";
 import * as Bootstrap from "react-bootstrap";
-import { LoginAsButtonProps } from "@/src/components/LocalLogins/LoginAsButtonsProps";
+import { LoginAsButtonProps } from "@/components/LocalLogins/LoginAsButtonsProps";
 
 function LocalLogins(): JSX.Element  {
   const dispatch = useDispatch();
