@@ -10,6 +10,7 @@ import Measure from "./containers/Measure/Measure";
 import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import ContactUs from "./containers/ContactUs";
+import Components from "./containers/Components";
 import UserManagement from "./containers/UserManagement";
 import Login from "./containers/Login/Login";
 import { useSelector } from "react-redux";
@@ -45,6 +46,9 @@ export default function Routes() {
         </Route>
         <Route exact path="/login">
           <Login />
+        </Route>
+        <Route exact path="/component">
+          <Components />
         </Route>
         {authenticatedRoutes()}
         <Route>
