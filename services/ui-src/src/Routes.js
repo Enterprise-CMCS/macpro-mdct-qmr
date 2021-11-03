@@ -66,6 +66,9 @@ function isIntegrationBranch() {
 
 function redirectTo(role) {
   let redirectRoute = "/";
+  if (window.location.pathname === "/components") {
+    return "/components";
+  }
   if (!role) {
     if (isIntegrationBranch()) {
       const authConfig = Auth.configure();
@@ -78,9 +81,6 @@ function redirectTo(role) {
     }
   } else {
     redirectRoute = getRedirectRoute(role);
-  }
-  if (window.location.pathname === "/components") {
-    redirectRoute = "/components";
   }
   return redirectRoute;
 }
