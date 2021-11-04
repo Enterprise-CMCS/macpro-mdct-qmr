@@ -1,32 +1,27 @@
 const logoAtTopLeft = 'img[alt="QMR Logo"]';
-const loginButton = "a#loginButton";
-const apsSubmissionAppTxt = "//div[@class='Home']//h1[.='APS Submission App']";
+const myAccountButton = '//a[@class="dropdown-toggle nav-link"]';
+const yourAPSSubmissionsTxt = "//h1";
 const sentence = '(//div[@class="footer-fed-gov-text"])[1]';
 const medicaidLogo = "img[alt='Medicaid.gov logo']";
 const emailBottomLeft = ".footer-email";
 const federalLogo = "img[alt='Department of Health and Human Services logo']";
 const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
 
-export class Homepage {
+export class Landingpage {
   launch() {
     cy.visit("https://mdctqmrdev.cms.gov/");
   }
 
   validateCoreSetReportingIcon() {
-    //cy.wait(3000);
     cy.get(logoAtTopLeft).should("be.visible");
   }
 
   validatePageBanner() {
-    cy.xpath(apsSubmissionAppTxt).should("be.visible");
+    cy.xpath(yourAPSSubmissionsTxt).should("be.visible");
   }
 
-  validateLoginButton() {
-    cy.get(loginButton).should("be.visible");
-  }
-
-  clickLoginButton() {
-    cy.get(loginButton).click();
+  validateMyAccountButton() {
+    cy.xpath(myAccountButton).should("be.visible");
   }
 
   validateSupportSenence() {
@@ -51,4 +46,4 @@ export class Homepage {
     );
   }
 }
-export default Homepage;
+export default Landingpage;

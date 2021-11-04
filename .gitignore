@@ -11,5 +11,7 @@ services/uploads/local_buckets
 /.env
 tests_output
 *.log
+tests/cypress/videos
+tests/cypress/screenshots
+tests/cypress/package-lock.json
 package-lock.json
-videos

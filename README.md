@@ -48,7 +48,7 @@ Building the app locally
 
 Running tests locally
 
-- todo
+- npm test
 
 ## Requirements
 
@@ -76,6 +76,10 @@ brew install yarn
 # run dev
 ./dev local
 ```
+
+## Cypress Testing
+
+[See here](./tests/cypress/README.md)
 
 ## Dependencies
 
