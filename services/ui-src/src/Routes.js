@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
@@ -27,12 +27,13 @@ import { getRedirectRoute } from "./libs/routeHelpers";
 // import config from "./config";
 
 export default function Routes() {
+  const location = useLocation();
   let redirectRoute = "/";
   const isIntegrationBranch = window.location.hostname.includes("cms.gov");
   const role = useSelector((state) =>
     state.user.attributes ? state.user.attributes["app-role"] : undefined
   );
-  redirectRoute = redirectTo(role, isIntegrationBranch);
+  redirectRoute = redirectTo(role, isIntegrationBranch, location);
   return (
     <main id="main-wrapper">
       <Switch>
@@ -61,9 +62,9 @@ export default function Routes() {
   );
 }
 
-function redirectTo(role, isIntegrationBranch) {
+function redirectTo(role, isIntegrationBranch, location) {
   let redirectRoute = "/";
-  if (window.location.pathname === "/components") {
+  if (location.pathname === "/components") {
     return "/components";
   }
   if (!role) {
