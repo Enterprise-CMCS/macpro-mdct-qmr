@@ -1,7 +1,7 @@
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
-import { ServiceWorkerConfigObject } from "ServiceWorkerConfigObject";
+import { IServiceWorkerConfig } from "IServiceWorkerConfig";
 
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
@@ -22,7 +22,7 @@ const isLocalhost = Boolean(
     )
 );
 
-export function register(config: ServiceWorkerConfigObject) {
+export function register(config: IServiceWorkerConfig) {
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
 
@@ -59,7 +59,7 @@ export function register(config: ServiceWorkerConfigObject) {
   }
 }
 
-function registerValidSW(swUrl: string, config: ServiceWorkerConfigObject) {
+function registerValidSW(swUrl: string, config: IServiceWorkerConfig) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
@@ -103,7 +103,7 @@ function registerValidSW(swUrl: string, config: ServiceWorkerConfigObject) {
     });
 }
 
-function checkValidServiceWorker(swUrl: string, config: ServiceWorkerConfigObject) {
+function checkValidServiceWorker(swUrl: string, config: IServiceWorkerConfig) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl, {
     headers: { "Service-Worker": "script" },
