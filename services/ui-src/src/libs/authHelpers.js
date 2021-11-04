@@ -18,6 +18,5 @@ export const determineRole = (specRole = []) => {
 export const roles = {
   businessOwner: "BUSINESS_OWNER",
   approver: "APPROVER",
-  hepdesk: "HELPDESK",
   stateUser: "STATE_USER",
 };

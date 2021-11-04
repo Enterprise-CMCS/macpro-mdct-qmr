@@ -246,8 +246,6 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
           <LoaderButton
             block
             type="submit"
-            bsSize="large"
-            bsStyle="primary"
             isLoading={isLoading}
             disabled={
               !validateAmendmentForm(email, firstName, lastName, territory)
@@ -255,13 +253,7 @@ export default function Amendments({ fileUpload, fileURLResolver }) {
           >
             Save
           </LoaderButton>
-          <LoaderButton
-            block
-            bsSize="large"
-            bsStyle="danger"
-            onClick={handleDelete}
-            isLoading={isDeleting}
-          >
+          <LoaderButton block onClick={handleDelete} isLoading={isDeleting}>
             Delete
           </LoaderButton>
         </form>

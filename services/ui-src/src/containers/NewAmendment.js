@@ -126,8 +126,6 @@ export default function NewAmendment({ fileUpload }) {
         <LoaderButton
           block
           type="submit"
-          bsSize="large"
-          bsStyle="primary"
           isLoading={isLoading}
           disabled={
             !validateAmendmentForm(email, firstName, lastName, territory)
