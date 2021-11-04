@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import * as dotenv from "dotenv";
-import LabeledProcessRunner from "./runner";
+import LabeledProcessRunner from "./runner.js";
 
 // load .env
 dotenv.config();
