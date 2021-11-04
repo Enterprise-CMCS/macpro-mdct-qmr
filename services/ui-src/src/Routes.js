@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
@@ -10,6 +10,7 @@ import Measure from "./containers/Measure/Measure";
 import StateHome from "./containers/StateHome";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import ContactUs from "./containers/ContactUs";
+import DemoComponents from "./components/DemoComponents";
 import UserManagement from "./containers/UserManagement";
 import Login from "./containers/Login/Login";
 import { useSelector } from "react-redux";
@@ -26,11 +27,13 @@ import { getRedirectRoute } from "./libs/routeHelpers";
 // import config from "./config";
 
 export default function Routes() {
+  const location = useLocation();
   let redirectRoute = "/";
+  const isIntegrationBranch = window.location.hostname.includes("cms.gov");
   const role = useSelector((state) =>
     state.user.attributes ? state.user.attributes["app-role"] : undefined
   );
-  redirectRoute = redirectTo(role);
+  redirectRoute = redirectTo(role, isIntegrationBranch, location);
   return (
     <main id="main-wrapper">
       <Switch>
@@ -46,6 +49,9 @@ export default function Routes() {
         <Route exact path="/login">
           <Login />
         </Route>
+        <Route exact path="/components">
+          <DemoComponents />
+        </Route>
         {authenticatedRoutes()}
         <Route>
           <NotFound />
@@ -56,26 +62,13 @@ export default function Routes() {
   );
 }
 
-function isStage() {
-  const stages = [
-    "cms.gov",
-    "d3oa1modhpamdr", // Develop cloudfront subdomain
-    "d2trmwuh71fc6", // Val cloudfront subdomain
-    "d3f1ohm9wse9tc", // Prod cloudfront subdomain
-  ];
-  const hostName = window.location.hostname;
-  return (
-    hostName.indexOf(stages[0]) >= 0 ||
-    hostName.indexOf(stages[1]) >= 0 ||
-    hostName.indexOf(stages[2]) >= 0 ||
-    hostName.indexOf(stages[3]) >= 0
-  );
-}
-
-function redirectTo(role) {
+function redirectTo(role, isIntegrationBranch, location) {
   let redirectRoute = "/";
+  if (location.pathname === "/components") {
+    return "/components";
+  }
   if (!role) {
-    if (isStage()) {
+    if (isIntegrationBranch) {
       const authConfig = Auth.configure();
       const { domain, redirectSignIn, responseType } = authConfig.oauth;
       const clientId = authConfig.userPoolWebClientId;
