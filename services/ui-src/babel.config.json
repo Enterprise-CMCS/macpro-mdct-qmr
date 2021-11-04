@@ -1,7 +1,7 @@
 {
   "presets": [
-    [
-      "@babel/env",
+    "@babel/preset-react",
+    ["@babel/env",
       {
         "targets": {
           "edge": "17",
@@ -11,15 +11,8 @@
         },
         "useBuiltIns": "usage",
         "corejs": "3.6.5"
-      },
-      "@babel/preset-react",
-      "@babel/preset-env",
-      ["@babel/preset-typescript",
-        {
-          "isTSX": true
-        }
-      ]
-    ]
+      }],
+      "@babel/preset-typescript"
   ],
   "plugins": [
     "@babel/plugin-transform-react-jsx",

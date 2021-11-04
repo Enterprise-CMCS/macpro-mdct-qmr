@@ -72,7 +72,6 @@ function LoginForm(props: ILoginFormProps) {
         <Bootstrap.Button
           variant="primary"
           type="submit"
-          // isLoading={props.isLoading}
           disabled={!props.validateForm()}
         >
           Login <FontAwesomeIcon icon={faSignInAlt} />

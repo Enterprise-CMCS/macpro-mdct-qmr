@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import "components/LoaderButtons.scss";
 import { ILoaderButtonProps } from "components/LoaderButton/ILoaderButtonProps";
 
+// Todo Glyphicon no longer works in this component we need to fix the loading icon
 export default function LoaderButton({
   isLoading,
   className = "",
@@ -16,7 +16,6 @@ export default function LoaderButton({
       disabled={disabled || isLoading}
       {...props}
     >
-      {isLoading && <Glyphicon glyph="refresh" className="spinning" />}
       {props.children}
     </Button>
   );

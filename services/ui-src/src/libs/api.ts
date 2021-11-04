@@ -24,7 +24,7 @@ export function listAmendments() {
   return API.get("amendments", "/amendments", opts);
 }
 
-export function getAmendment(id: string) { // ? Could be a number? Need data to confirm
+export function getAmendment(id: string) {
   const opts = requestOptions();
   return API.get("amendments", `/amendments/${id}`, opts);
 }

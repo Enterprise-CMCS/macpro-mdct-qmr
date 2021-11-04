@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "components/LoaderButton";
 import { onError } from "libs/errorLib";
-import "constainers/NewAmendment.css";
+import "containers/NewAmendment.css";
 import { createAmendment } from "libs/api";
 import { currentUserInfo } from "libs/user";
 import Select from "react-select";
