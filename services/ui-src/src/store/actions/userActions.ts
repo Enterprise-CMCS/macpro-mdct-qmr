@@ -1,7 +1,7 @@
 /**
  * Location of all actions for user reducers
  */
-import { UserInterface } from "@/components/LocalLogins/UserInterface";
+import { UserInterface } from "components/LocalLogins/UserInterface";
 
 // Action Types
 export const SET_USER = "SET_USER";

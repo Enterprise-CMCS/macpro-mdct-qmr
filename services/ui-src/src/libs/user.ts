@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
-import config from "@/config";
-import { UserInterface } from "@/components/LocalLogins/UserInterface";
+import config from "config";
+import { UserInterface } from "components/LocalLogins/UserInterface";
 
 const userKey = "userKey";
 

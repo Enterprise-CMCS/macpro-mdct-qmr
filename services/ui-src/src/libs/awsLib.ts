@@ -1,6 +1,6 @@
 import { Storage } from "aws-amplify";
 import AWS, { S3 } from "aws-sdk";
-import config from "@/config";
+import config from "config";
 import { S3Key } from "aws-sdk/clients/codedeploy";
 
 export async function s3AmplifyUpload(file: File): Promise<string> {

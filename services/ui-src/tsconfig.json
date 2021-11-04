@@ -9,10 +9,7 @@
     "jsx": "react-jsx",
     "sourceMap": true,
     "module": "esnext",
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["./src/*"]
-      },    
+    "baseUrl": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

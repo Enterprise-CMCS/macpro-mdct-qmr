@@ -1,5 +1,5 @@
 import React from "react";
-import "@/containers/NotFound.scss";
+import "containers/NotFound.scss";
 
 export default function NotFound(): JSX.Element  {
   return (

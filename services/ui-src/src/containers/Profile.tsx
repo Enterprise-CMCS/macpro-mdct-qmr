@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { onError } from "@/libs/errorLib";
+import { onError } from "libs/errorLib";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "@/components/LoaderButton";
-import "@/containers/Profile.scss";
+import LoaderButton from "components/LoaderButton";
+import "containers/Profile.scss";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { currentUserInfo, updateCurrentUserAttributes } from "@/libs/user";
-import { capitalize } from "@/libs/helpers";
+import { currentUserInfo, updateCurrentUserAttributes } from "libs/user";
+import { capitalize } from "libs/helpers";
 
 export default function Profile(): JSX.Element  {
   const history = useHistory();

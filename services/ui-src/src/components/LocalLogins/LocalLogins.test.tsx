@@ -2,8 +2,8 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import LocalLogins from "@/components/LocalLogins/LocalLogins";
-import userReducer from  "@/store/reducers/userReducer";
+import LocalLogins from "components/LocalLogins/LocalLogins";
+import userReducer from  "store/reducers/userReducer";
 import { BrowserRouter as Router } from "react-router-dom";
 
 function renderWithProviders(ui: React.ReactNode, { reduxState }: ReduxStateInterface) {

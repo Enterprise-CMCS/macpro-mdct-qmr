@@ -1,5 +1,5 @@
-import { getRedirectRoute } from "@/libs/routeHelpers";
-import { roles } from "@/libs/authHelpers";
+import { getRedirectRoute } from "libs/routeHelpers";
+import { roles } from "libs/authHelpers";
 
 describe("get routes by role", () => {
   it("should output correct route", () => {

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "@/App.scss";
-import Routes from "@/Routes";
-import { AppContext } from "@/libs/contextLib";
-import { determineRole } from "@/libs/authHelpers";
+import "App.scss";
+import Routes from "Routes";
+import { AppContext } from "libs/contextLib";
+import { determineRole } from "libs/authHelpers";
 import { Auth } from "aws-amplify";
-import { logoutLocalUser } from "@/libs/user";
+import { logoutLocalUser } from "libs/user";
 import { useDispatch } from "react-redux";
-import { setUser, unsetUser } from "@/store/actions/userActions";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { setUser, unsetUser } from "store/actions/userActions";
+import Header from "components/Header";
+import Footer from "components/Footer";
 
 function App(): JSX.Element | null  {
   const dispatch = useDispatch();

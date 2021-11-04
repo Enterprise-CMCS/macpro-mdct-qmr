@@ -1,5 +1,5 @@
 import { useContext, createContext } from "react";
-import { AppContextInterface } from "@/libs/AppContextInterface";
+import { AppContextInterface } from "libs/AppContextInterface";
 
 export const AppContext = createContext<AppContextInterface>({});
 

@@ -1,4 +1,4 @@
-import config from "@/config";
+import config from "config";
 
 export function capitalize(s: string): string {
   if (typeof s !== "string") return "";

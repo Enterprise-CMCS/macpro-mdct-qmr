@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-import { useFormFields } from "@/libs/hooksLib";
-import { onError } from "@/libs/errorLib";
+import { useFormFields } from "libs/hooksLib";
+import { onError } from "libs/errorLib";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons/faSignInAlt";
 import { RootStateOrAny, useSelector } from "react-redux";
-import LocalLogins from "@/components/LocalLogins/LocalLogins";
+import LocalLogins from "components/LocalLogins/LocalLogins";
 import { useHistory } from "react-router-dom";
 import * as Bootstrap from "react-bootstrap";
-import { LoginFormProps } from "@/containers/Login/LoginFormProps";
-import { FormInputProps } from "@/containers/Login/FormInputProps";
+import { LoginFormProps } from "containers/Login/LoginFormProps";
+import { FormInputProps } from "containers/Login/FormInputProps";
 export default function Login() {
   const isAuthenticated = useSelector((state: RootStateOrAny) => state.user.attributes);
   const [isLoading, setIsLoading] = useState(false);

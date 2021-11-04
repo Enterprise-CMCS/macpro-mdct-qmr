@@ -2,7 +2,7 @@
  * Location of all reducers for form modifications
  */
 
-import { ActionInterface } from "@/store/reducers/ActionInterface";
+import { ActionInterface } from "store/reducers/ActionInterface";
 
 // Action Types
 export const UPDATE_FORM = "UPDATE_FORM";

@@ -1,6 +1,6 @@
 import React from "react";
-import { helpDeskContact } from "@/libs/contacts";
-import HelpSection from "@/components/Footer";
+import { helpDeskContact } from "libs/contacts";
+import HelpSection from "components/Footer";
 import * as Bootstrap from "react-bootstrap";
 
 function Footer(): JSX.Element  {

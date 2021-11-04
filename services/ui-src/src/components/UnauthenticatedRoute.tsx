@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useAppContext } from "@/libs/contextLib";
-import { UnauthenticatedRouteProps } from "@/components/UnathenticatedRouteProps";
+import { useAppContext } from "libs/contextLib";
+import { UnauthenticatedRouteProps } from "components/UnathenticatedRouteProps";
 
 function querystring(name: string, url = window.location.href) {
   name = name.replace(/[[]]/g, "\\$&");
