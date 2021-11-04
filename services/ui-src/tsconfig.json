@@ -6,7 +6,7 @@
       "es6",
       "dom"
     ],
-    "jsx": "react-jsx",
+    "jsx": "react",
     "sourceMap": true,
     "module": "esnext",
     "baseUrl": "src",
