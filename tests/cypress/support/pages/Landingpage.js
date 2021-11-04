@@ -1,5 +1,5 @@
 const logoAtTopLeft = 'img[alt="QMR Logo"]';
-const myAccountButton = "a#User";
+const myAccountButton = '//a[@class="dropdown-toggle nav-link"]';
 const yourAPSSubmissionsTxt = "//h1";
 const sentence = '(//div[@class="footer-fed-gov-text"])[1]';
 const medicaidLogo = "img[alt='Medicaid.gov logo']";
@@ -21,7 +21,7 @@ export class Landingpage {
   }
 
   validateMyAccountButton() {
-    cy.get(myAccountButton).should("be.visible");
+    cy.xpath(myAccountButton).should("be.visible");
   }
 
   validateSupportSenence() {
