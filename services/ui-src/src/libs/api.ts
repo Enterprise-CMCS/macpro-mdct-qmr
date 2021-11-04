@@ -1,7 +1,7 @@
 import { API } from "aws-amplify";
 import config from "config";
 import { getLocalUserInfo } from "libs/user";
-import { AmendmentInterface } from "containers/AmendmentInterface";
+import { IAmendmentInterface } from "containers/IAmendment";
 
 function requestOptions(): any {
   const localLogin = config.LOCAL_LOGIN === "true";
@@ -29,13 +29,13 @@ export function getAmendment(id: string) { // ? Could be a number? Need data to 
   return API.get("amendments", `/amendments/${id}`, opts);
 }
 
-export function createAmendment(body: AmendmentInterface) {
+export function createAmendment(body: IAmendmentInterface) {
   const opts = requestOptions();
   opts.body = body;
   return API.post("amendments", "/amendments", opts);
 }
 
-export function updateAmendment(id: string, body: AmendmentInterface) {
+export function updateAmendment(id: string, body: IAmendmentInterface) {
   const opts = requestOptions();
   opts.body = body;
   return API.put("amendments", `/amendments/${id}`, opts);

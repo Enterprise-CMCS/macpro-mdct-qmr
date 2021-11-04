@@ -1,7 +1,7 @@
 import { useContext, createContext } from "react";
-import { AppContextInterface } from "libs/AppContextInterface";
+import { IAppContextInterface } from "libs/IAppContext";
 
-export const AppContext = createContext<AppContextInterface>({});
+export const AppContext = createContext<IAppContextInterface>({});
 
 export function useAppContext() {
   return useContext(AppContext);

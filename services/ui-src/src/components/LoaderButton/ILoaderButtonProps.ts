@@ -1,4 +1,4 @@
-export interface LoaderButtonProps {
+export interface ILoaderButtonProps {
     isLoading: boolean;
     className?: string;
     disabled?: boolean;

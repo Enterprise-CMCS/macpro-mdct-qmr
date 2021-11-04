@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
 import config from "config";
-import { UserInterface } from "components/LocalLogins/UserInterface";
+import { IUser } from "components/LocalLogins/IUser";
 
 const userKey = "userKey";
 
@@ -46,7 +46,7 @@ export function getLocalUserInfo() {
   return undefined;
 }
 
-export async function loginLocalUser(userInfo: UserInterface) {
+export async function loginLocalUser(userInfo: IUser) {
   const store = window.localStorage;
 
   store.setItem(userKey, userInfo.toString());

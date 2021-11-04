@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useAppContext } from "libs/contextLib";
-import { UnauthenticatedRouteProps } from "components/UnathenticatedRouteProps";
+import { IUnauthenticatedRouteProps } from "components/IUnathenticatedRouteProps";
 
 function querystring(name: string, url = window.location.href) {
   name = name.replace(/[[]]/g, "\\$&");
@@ -19,7 +19,7 @@ function querystring(name: string, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-export default function UnauthenticatedRoute({ children, ...rest }: UnauthenticatedRouteProps): JSX.Element  {
+export default function UnauthenticatedRoute({ children, ...rest }: IUnauthenticatedRouteProps): JSX.Element  {
   const { isAuthenticated } = useAppContext();
   const redirect = querystring("redirect");
   return (

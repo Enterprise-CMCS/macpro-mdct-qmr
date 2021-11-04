@@ -1,4 +1,4 @@
-export interface AmendmentInterface {
+export interface IAmendmentInterface {
     email: string;
     firstName: string;
     lastName: string;

@@ -8,8 +8,8 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import LocalLogins from "components/LocalLogins/LocalLogins";
 import { useHistory } from "react-router-dom";
 import * as Bootstrap from "react-bootstrap";
-import { LoginFormProps } from "containers/Login/LoginFormProps";
-import { FormInputProps } from "containers/Login/FormInputProps";
+import { ILoginFormProps } from "containers/Login/ILoginFormProps";
+import { IFormInputProps } from "containers/Login/IFormInputProps";
 export default function Login() {
   const isAuthenticated = useSelector((state: RootStateOrAny) => state.user.attributes);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +53,7 @@ export default function Login() {
   );
 }
 
-function LoginForm(props: LoginFormProps) {
+function LoginForm(props: ILoginFormProps) {
   return (
     <section>
       <form onSubmit={() => props.handleSubmit()} className="d-grid gap-2">
@@ -82,7 +82,7 @@ function LoginForm(props: LoginFormProps) {
   );
 }
 
-function FormInput(props: FormInputProps) {
+function FormInput(props: IFormInputProps) {
   return (
     <Bootstrap.FormGroup controlId={props.type}>
       <Bootstrap.FormControl

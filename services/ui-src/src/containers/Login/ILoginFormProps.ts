@@ -1,4 +1,4 @@
-export interface LoginFormProps {
+export interface ILoginFormProps {
     isLoading: boolean;
     fields: {
       password: string;

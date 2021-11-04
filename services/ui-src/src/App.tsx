@@ -47,7 +47,8 @@ function App(): JSX.Element | null  {
     logoutLocalUser();
     try {
       await Auth.signOut();
-      // window.location.href = Auth.configure()?.oauth?.redirectSignOut; // !Typescript does not find this property will revisit
+      // @ts-ignore:next-line
+      window.location.href = Auth.configure()?.oauth?.redirectSignOut; // Typescript does not believe this propert exsists will have to revisit
     } catch (error) {
       console.log("error signing out: ", error);
     }

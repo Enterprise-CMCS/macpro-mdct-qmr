@@ -2,14 +2,14 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import "components/LoaderButtons.scss";
-import { LoaderButtonProps } from "components/LoaderButton/LoaderButtonProps";
+import { ILoaderButtonProps } from "components/LoaderButton/ILoaderButtonProps";
 
 export default function LoaderButton({
   isLoading,
   className = "",
   disabled = false,
   ...props
-}: LoaderButtonProps): JSX.Element  {
+}: ILoaderButtonProps): JSX.Element  {
   return (
     <Button
       className={`LoaderButton ${className}`}

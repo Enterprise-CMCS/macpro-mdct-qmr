@@ -1,14 +1,14 @@
 import React from "react";
 import { Button } from "@trussworks/react-uswds";
 import "components/LoaderButton/LoaderButton.scss";
-import { LoaderButtonProps } from "components/LoaderButton/LoaderButtonProps";
+import { ILoaderButtonProps } from "components/LoaderButton/ILoaderButtonProps";
 
 export default function LoaderButton({
   isLoading,
   className = "",
   disabled = false,
   ...props
-}: LoaderButtonProps ): JSX.Element  {
+}: ILoaderButtonProps ): JSX.Element  {
   return (
     <Button
       className="login-button"
