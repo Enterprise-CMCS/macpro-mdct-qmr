@@ -59,7 +59,6 @@ function App(): JSX.Element | null  {
     !isAuthenticating ? (
       <div id="app-wrapper">
         <Header
-          // isAuthenticated={isAuthenticated}
           handleLogout={() => handleLogout()}
         />
         <AppContext.Provider
