@@ -8,7 +8,7 @@
       "es6",
       "dom"
     ] /* Specify library files to be included in the compilation. */,
-    "jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
+    "jsx": "preserve" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
     "outDir": "build_dev" /* Redirect output structure to the directory. */,
 
     /* Strict Type-Checking Options */

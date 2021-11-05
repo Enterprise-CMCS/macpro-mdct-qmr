@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useAppContext } from "libs/contextLib";
 import { IUnauthenticatedRouteProps } from "components/IUnathenticatedRouteProps";

@@ -1,5 +1,3 @@
-import React from "react";
-
 export function QMRLogo(): JSX.Element {
   return (
     <div>
