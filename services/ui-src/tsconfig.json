@@ -2,8 +2,11 @@
   "compilerOptions": {
     "incremental": true,
     "target": "ES2020",
-    "lib": ["es6", "dom"],
-    "jsx": "react",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "jsx": "react-jsx",
     "sourceMap": true,
     "module": "esnext",
     "baseUrl": "src",
@@ -31,5 +34,7 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
