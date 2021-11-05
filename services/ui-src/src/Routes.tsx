@@ -14,7 +14,7 @@ import UserManagement from "containers/UserManagement";
 import Login from "containers/Login/Login";
 import { RootStateOrAny, useSelector } from "react-redux";
 import { getRedirectRoute } from "libs/routeHelpers";
-import DemoComponents from "./components/DemoComponents";
+import DemoComponents from "components/DemoComponents";
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";
