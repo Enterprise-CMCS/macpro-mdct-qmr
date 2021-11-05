@@ -1,4 +1,5 @@
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { Location } from 'history'
 import { Auth } from "aws-amplify";
 import Home from "containers/Home";
 import NotFound from "containers/NotFound";
@@ -26,7 +27,7 @@ import DemoComponents from "components/DemoComponents";
 // import config from "config";
 
 export default function Routes() {
-  const location = useLocation();
+  const location = useLocation<Location>();
   let redirectRoute = "/";
   const isIntegrationBranch = window.location.hostname.includes("cms.gov");
   const role = useSelector((state: RootStateOrAny) =>
@@ -61,7 +62,7 @@ export default function Routes() {
   );
 }
 
-function redirectTo(role: string, isIntegrationBranch: boolean, location: any) {
+function redirectTo(role: string, isIntegrationBranch: boolean, location: Location) {
   let redirectRoute = "/";
   if (location.pathname === "/components") {
     return "/components";
@@ -71,7 +72,8 @@ function redirectTo(role: string, isIntegrationBranch: boolean, location: any) {
       const authConfig = Auth.configure();
 
       if (authConfig?.oauth) {
-        const { domain, redirectSignIn, responseType }: any = authConfig.oauth;
+        // @ts-ignore
+        const { domain, redirectSignIn, responseType } = authConfig.oauth
         const clientId = authConfig.userPoolWebClientId;
         const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
         window.location.assign(url);
