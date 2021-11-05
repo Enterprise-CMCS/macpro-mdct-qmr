@@ -1,7 +1,7 @@
 /**
  * Location of all reducers for User modifications
  */
- import { ActionInterface } from "store/reducers/ActionInterface";
+import { ActionInterface } from "store/reducers/ActionInterface";
 
 // Action Types
 export const SET_USER = "SET_USER";

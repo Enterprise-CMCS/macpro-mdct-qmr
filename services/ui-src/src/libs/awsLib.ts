@@ -22,7 +22,7 @@ export function s3LocalUploader(s3Client: S3): any {
         {
           Key: filename,
           Body: file,
-          Bucket: "" // Typescript asks for a property "bucket" string type here will have to revisit
+          Bucket: "", // Typescript asks for a property "bucket" string type here will have to revisit
         },
         (err: Error) => {
           if (err) {

@@ -11,10 +11,10 @@ import { setUser, unsetUser } from "store/actions/userActions";
 import Header from "components/Header";
 import Footer from "components/Footer";
 
-function App(): JSX.Element | null  {
+function App(): JSX.Element | null {
   const dispatch = useDispatch();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [isAuthenticated, userHasAuthenticated]= useState<boolean>(false);
+  const [isAuthenticated, userHasAuthenticated] = useState<boolean>(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -55,25 +55,21 @@ function App(): JSX.Element | null  {
     // Remove user from redux
     history.push("/");
   }
-  
-  return (
-    !isAuthenticating ? (
-      <div id="app-wrapper">
-        <Header
-          handleLogout={() => handleLogout()}
-        />
-        <AppContext.Provider
-          value={{
-            isAuthenticated,
-            userHasAuthenticated,
-          }}
-        >
-          <Routes />
-          <Footer />
-        </AppContext.Provider>
-      </div>
-    ) : null
-  );
+
+  return !isAuthenticating ? (
+    <div id="app-wrapper">
+      <Header handleLogout={() => handleLogout()} />
+      <AppContext.Provider
+        value={{
+          isAuthenticated,
+          userHasAuthenticated,
+        }}
+      >
+        <Routes />
+        <Footer />
+      </AppContext.Provider>
+    </div>
+  ) : null;
 }
 
 export default App;

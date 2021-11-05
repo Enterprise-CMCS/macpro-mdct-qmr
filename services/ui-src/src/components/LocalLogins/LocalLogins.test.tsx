@@ -3,10 +3,13 @@ import { render, fireEvent } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import LocalLogins from "components/LocalLogins/LocalLogins";
-import userReducer from  "store/reducers/userReducer";
+import userReducer from "store/reducers/userReducer";
 import { BrowserRouter as Router } from "react-router-dom";
 
-function renderWithProviders(ui: React.ReactNode, { reduxState }: ReduxStateInterface) {
+function renderWithProviders(
+  ui: React.ReactNode,
+  { reduxState }: ReduxStateInterface
+) {
   const store = createStore(userReducer, reduxState || {});
   return render(<Provider store={store}>{ui}</Provider>);
 }
@@ -14,15 +17,15 @@ function renderWithProviders(ui: React.ReactNode, { reduxState }: ReduxStateInte
 interface ReduxStateInterface {
   reduxState: {
     user: {
-      username: string,
+      username: string;
       attributes: {
-        given_name: string,
-        family_name: string,
-        email: string,
-        "custom:cms_roles": string,
-      },
-    }
-  }
+        given_name: string;
+        family_name: string;
+        email: string;
+        "custom:cms_roles": string;
+      };
+    };
+  };
 }
 
 describe("static local login button list", () => {

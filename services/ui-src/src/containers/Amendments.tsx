@@ -17,9 +17,12 @@ import {
 import { IAmendmentInterface } from "containers/IAmendment";
 import { AmendmentProps } from "containers/AmendmentProps";
 
-export default function Amendments({ fileUpload, fileURLResolver }: AmendmentProps): JSX.Element  {
+export default function Amendments({
+  fileUpload,
+  fileURLResolver,
+}: AmendmentProps): JSX.Element {
   const file = useRef<File | null>(null);
-  const { id } = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const [amendment, setAmendment] = useState<IAmendmentInterface>();
   const [transmittalNumber, setTransmittalNumber] = useState("");
@@ -85,7 +88,9 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
     return updateAmendment(id, amendment);
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+  async function handleSubmit(
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
     let attachment;
 
     event.preventDefault();
@@ -109,7 +114,8 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
         attachment: attachment || amendment?.attachment,
       });
       history.push("/");
-    } catch (e: any) { // Catch clauses are not allowed to have a type in typescript
+    } catch (e: any) {
+      // Catch clauses are not allowed to have a type in typescript
       onError(e);
       setIsLoading(false);
     }
@@ -148,7 +154,8 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
       protocol: uri.protocol,
       method: "GET",
     };
-    var req = http.request(options, function (res: any) { // !Response needs typing
+    var req = http.request(options, function (res: any) {
+      // !Response needs typing
       req.abort(); // The presigned S3 URL is only valid for GET requests, but we only want the headers.
       if (res.statusCode.toString() === "403") {
         window.open(
@@ -171,7 +178,9 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
             <FormControl
               disabled={true}
               value={transmittalNumber}
-              onChange={(e) => setTransmittalNumber((e.target as HTMLInputElement).value)}
+              onChange={(e) =>
+                setTransmittalNumber((e.target as HTMLInputElement).value)
+              }
             />
           </FormGroup>
           <FormGroup controlId="name">
@@ -210,7 +219,9 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
                 return option.value === territory;
               })}
               isDisabled={true}
-              onChange={(e: Event) => setTerritory((e.target as HTMLSelectElement).value)}
+              onChange={(e: Event) =>
+                setTerritory((e.target as HTMLSelectElement).value)
+              }
               options={territoryList}
             />
           </FormGroup>
@@ -228,7 +239,11 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
               <FormControl>
                 <button
                   className="link-lookalike"
-                  onClick={(e) =>  amendment.attachmentURL ? openAttachment(e, amendment.attachmentURL) : undefined}
+                  onClick={(e) =>
+                    amendment.attachmentURL
+                      ? openAttachment(e, amendment.attachmentURL)
+                      : undefined
+                  }
                 >
                   {formatFilename(amendment.attachment)}
                 </button>
@@ -244,7 +259,9 @@ export default function Amendments({ fileUpload, fileURLResolver }: AmendmentPro
             <FormControl
               as="textarea"
               value={comments}
-              onChange={(e) => setComments((e.target as HTMLInputElement).value)}
+              onChange={(e) =>
+                setComments((e.target as HTMLInputElement).value)
+              }
             />
           </FormGroup>
           <LoaderButton

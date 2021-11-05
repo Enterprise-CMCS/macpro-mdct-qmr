@@ -15,7 +15,11 @@ import {
   validateFileAttachment,
 } from "libs/helpers";
 
-export default function NewAmendment({ fileUpload }: { fileUpload: Function}): JSX.Element  {
+export default function NewAmendment({
+  fileUpload,
+}: {
+  fileUpload: Function;
+}): JSX.Element {
   const file = useRef<File | null>(null);
   const history = useHistory();
   const [email, setEmail] = useState("");
@@ -101,7 +105,9 @@ export default function NewAmendment({ fileUpload }: { fileUpload: Function}): J
             value={territoryList.filter(function (option) {
               return option.value === territory;
             })}
-            onChange={(e: Event) => setTerritory((e.target as HTMLSelectElement).value)}
+            onChange={(e: Event) =>
+              setTerritory((e.target as HTMLSelectElement).value)
+            }
             options={territoryList}
           />
         </FormGroup>

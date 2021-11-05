@@ -1,3 +1,3 @@
-declare module '*.scss';
-declare module 'react-select';
-declare module 'react-ios-switch';
+declare module "*.scss";
+declare module "react-select";
+declare module "react-ios-switch";

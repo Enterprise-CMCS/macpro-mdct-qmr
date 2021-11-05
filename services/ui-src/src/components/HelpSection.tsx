@@ -2,7 +2,7 @@ import React from "react";
 import { helpDeskContact, qualityContact } from "libs/contacts";
 import * as Bootstrap from "react-bootstrap";
 
-function HelpSection(): JSX.Element  {
+function HelpSection(): JSX.Element {
   return (
     <Bootstrap.Container className="mb-4">
       <h3>Do you have questions or need support?</h3>

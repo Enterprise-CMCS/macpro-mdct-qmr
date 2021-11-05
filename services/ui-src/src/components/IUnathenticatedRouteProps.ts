@@ -1,3 +1,3 @@
 export interface IUnauthenticatedRouteProps {
-    children: React.ReactNode
+  children: React.ReactNode;
 }

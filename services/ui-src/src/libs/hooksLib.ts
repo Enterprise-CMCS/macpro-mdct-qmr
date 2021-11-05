@@ -8,7 +8,9 @@ export function useFormFields(initialState: any) {
     function (event: Event) {
       setValues({
         ...fields,
-        [(event.target as HTMLTextAreaElement).id]: (event.target as HTMLTextAreaElement).value,
+        [(event.target as HTMLTextAreaElement).id]: (
+          event.target as HTMLTextAreaElement
+        ).value,
       });
     },
   ];

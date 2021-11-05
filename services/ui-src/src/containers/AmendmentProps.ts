@@ -1,4 +1,4 @@
 export interface AmendmentProps {
-    fileUpload: Function;
-    fileURLResolver: Function;
+  fileUpload: Function;
+  fileURLResolver: Function;
 }

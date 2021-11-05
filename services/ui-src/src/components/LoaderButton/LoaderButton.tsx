@@ -8,7 +8,7 @@ export default function LoaderButton({
   className = "",
   disabled = false,
   ...props
-}: ILoaderButtonProps ): JSX.Element  {
+}: ILoaderButtonProps): JSX.Element {
   return (
     <Button
       className="login-button"

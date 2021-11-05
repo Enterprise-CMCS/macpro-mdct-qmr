@@ -1,7 +1,7 @@
 import React from "react";
 import "containers/NotFound.scss";
 
-export default function NotFound(): JSX.Element  {
+export default function NotFound(): JSX.Element {
   return (
     <div className="NotFound">
       <h3>Sorry, page not found!</h3>

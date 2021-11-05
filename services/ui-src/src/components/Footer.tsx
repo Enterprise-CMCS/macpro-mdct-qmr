@@ -3,7 +3,7 @@ import { helpDeskContact } from "libs/contacts";
 import HelpSection from "components/HelpSection";
 import * as Bootstrap from "react-bootstrap";
 
-function Footer(): JSX.Element  {
+function Footer(): JSX.Element {
   return (
     <footer>
       <HelpSection />

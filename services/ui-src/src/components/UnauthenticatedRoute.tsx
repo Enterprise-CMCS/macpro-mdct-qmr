@@ -19,7 +19,10 @@ function querystring(name: string, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-export default function UnauthenticatedRoute({ children, ...rest }: IUnauthenticatedRouteProps): JSX.Element  {
+export default function UnauthenticatedRoute({
+  children,
+  ...rest
+}: IUnauthenticatedRouteProps): JSX.Element {
   const { isAuthenticated } = useAppContext();
   const redirect = querystring("redirect");
   return (

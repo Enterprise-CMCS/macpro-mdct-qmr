@@ -1,4 +1,4 @@
 export interface LoginAsButtonProps {
-    role: string;
-    handleSelect: Function;
+  role: string;
+  handleSelect: Function;
 }

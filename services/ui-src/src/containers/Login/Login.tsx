@@ -11,7 +11,9 @@ import * as Bootstrap from "react-bootstrap";
 import { ILoginFormProps } from "containers/Login/ILoginFormProps";
 import { IFormInputProps } from "containers/Login/IFormInputProps";
 export default function Login() {
-  const isAuthenticated = useSelector((state: RootStateOrAny) => state.user.attributes);
+  const isAuthenticated = useSelector(
+    (state: RootStateOrAny) => state.user.attributes
+  );
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const [fields, handleFieldChange] = useFormFields({

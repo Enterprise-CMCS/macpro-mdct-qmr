@@ -1,4 +1,4 @@
 export interface IServiceWorkerConfig {
-    onUpdate: Function;
-    onSuccess: Function
+  onUpdate: Function;
+  onSuccess: Function;
 }
