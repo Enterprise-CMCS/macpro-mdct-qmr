@@ -48,7 +48,7 @@ function App(): JSX.Element | null {
     try {
       await Auth.signOut();
       // @ts-ignore:next-line
-      window.location.href = Auth.configure()?.oauth?.redirectSignOut; // Typescript does not believe this propert exsists will have to revisit
+      window.location.href = Auth.configure()?.oauth?.redirectSignOut; // Typescript does not believe this property exsists will have to revisit
     } catch (error) {
       console.log("error signing out: ", error);
     }
@@ -56,7 +56,11 @@ function App(): JSX.Element | null {
     history.push("/");
   }
 
-  return !isAuthenticating ? (
+  if (isAuthenticating) {
+    return null;
+  }
+
+  return (
     <div id="app-wrapper">
       <Header handleLogout={() => handleLogout()} />
       <AppContext.Provider
@@ -69,7 +73,7 @@ function App(): JSX.Element | null {
         <Footer />
       </AppContext.Provider>
     </div>
-  ) : null;
+  );
 }
 
 export default App;
