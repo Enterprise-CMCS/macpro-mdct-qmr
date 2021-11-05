@@ -47,8 +47,11 @@ function App(): JSX.Element | null {
     logoutLocalUser();
     try {
       await Auth.signOut();
-      // @ts-ignore:next-line
-      window.location.href = Auth.configure()?.oauth?.redirectSignOut; // Typescript does not believe this property exsists will have to revisit
+      const oAuthOpts = Auth.configure()?.oauth;
+
+      if (oAuthOpts && "redirectSignOut" in oAuthOpts) {
+        window.location.href = oAuthOpts.redirectSignOut;
+      }
     } catch (error) {
       console.log("error signing out: ", error);
     }
@@ -62,7 +65,7 @@ function App(): JSX.Element | null {
 
   return (
     <div id="app-wrapper">
-      <Header handleLogout={() => handleLogout()} />
+      <Header handleLogout={handleLogout} />
       <AppContext.Provider
         value={{
           isAuthenticated,
