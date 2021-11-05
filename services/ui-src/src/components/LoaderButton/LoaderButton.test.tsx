@@ -1,5 +1,5 @@
 import React from "react";
-import LoaderButton from "./LoaderButton";
+import LoaderButton from "components/LoaderButton/LoaderButton";
 import { render } from "@testing-library/react";
 
 describe("Test LoaderButton.js", () => {
