@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useFormFields } from "libs/hooksLib";
 import { onError } from "libs/errorLib";

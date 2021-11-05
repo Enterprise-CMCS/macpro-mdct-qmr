@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@trussworks/react-uswds";
 import "components/LoaderButton/LoaderButton.scss";
 import { ILoaderButtonProps } from "components/LoaderButton/ILoaderButtonProps";

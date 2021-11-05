@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { loginLocalUser } from "libs/user";
 import { setUser } from "store/actions/userActions";

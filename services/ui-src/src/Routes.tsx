@@ -1,4 +1,3 @@
-import React from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import Home from "containers/Home";

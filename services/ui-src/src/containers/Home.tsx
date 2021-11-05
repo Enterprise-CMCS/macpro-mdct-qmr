@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "containers/Home.scss";
 import { RootStateOrAny, useSelector } from "react-redux";
 

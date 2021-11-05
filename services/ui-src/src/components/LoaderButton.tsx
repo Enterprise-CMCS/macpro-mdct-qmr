@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "react-bootstrap";
 import "components/LoaderButtons.scss";
 import { ILoaderButtonProps } from "components/LoaderButton/ILoaderButtonProps";
