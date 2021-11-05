@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
-import { Location } from 'history'
+import { Location } from "history";
 import { Auth } from "aws-amplify";
 import Home from "containers/Home";
 import NotFound from "containers/NotFound";
@@ -62,7 +62,11 @@ export default function Routes() {
   );
 }
 
-function redirectTo(role: string, isIntegrationBranch: boolean, location: Location) {
+function redirectTo(
+  role: string,
+  isIntegrationBranch: boolean,
+  location: Location
+) {
   let redirectRoute = "/";
   if (location.pathname === "/components") {
     return "/components";
@@ -73,7 +77,7 @@ function redirectTo(role: string, isIntegrationBranch: boolean, location: Locati
 
       if (authConfig?.oauth) {
         // @ts-ignore
-        const { domain, redirectSignIn, responseType } = authConfig.oauth
+        const { domain, redirectSignIn, responseType } = authConfig.oauth;
         const clientId = authConfig.userPoolWebClientId;
         const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
         window.location.assign(url);
