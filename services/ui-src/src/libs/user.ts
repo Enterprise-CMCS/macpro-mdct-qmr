@@ -1,6 +1,5 @@
 import { Auth } from "aws-amplify";
 import config from "config";
-import { IUser } from "components/LocalLogins/IUser";
 
 const userKey = "userKey";
 
@@ -57,4 +56,14 @@ export async function loginLocalUser(userInfo: IUser) {
 export async function logoutLocalUser() {
   const store = window.localStorage;
   store.removeItem(userKey);
+}
+
+interface IUser {
+  username: string;
+  attributes: {
+    given_name: string;
+    family_name: string;
+    email: string;
+    "custom:cms_roles": string;
+  };
 }

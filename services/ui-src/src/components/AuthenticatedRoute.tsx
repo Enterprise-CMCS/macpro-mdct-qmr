@@ -1,6 +1,5 @@
 import { Route, Redirect, useLocation } from "react-router-dom";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { IAuthenticatedRouteProps } from "components/IAuthenticatedRouteProps";
 
 export default function AuthenticatedRoute({
   children,
@@ -19,4 +18,9 @@ export default function AuthenticatedRoute({
       )}
     </Route>
   );
+}
+interface IAuthenticatedRouteProps {
+  exact: boolean;
+  path: string;
+  children: JSX.Element;
 }

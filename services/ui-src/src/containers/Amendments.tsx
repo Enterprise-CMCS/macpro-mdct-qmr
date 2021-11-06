@@ -14,13 +14,11 @@ import {
   validateAmendmentForm,
   validateFileAttachment,
 } from "libs/helpers";
-import { IAmendmentInterface } from "containers/IAmendment";
-import { AmendmentProps } from "containers/AmendmentProps";
 
 export default function Amendments({
   fileUpload,
   fileURLResolver,
-}: AmendmentProps): JSX.Element {
+}: IAmendmentProps): JSX.Element {
   const file = useRef<File | null>(null);
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
@@ -281,4 +279,21 @@ export default function Amendments({
       )}
     </div>
   );
+}
+
+interface IAmendmentProps {
+  fileUpload: Function;
+  fileURLResolver: Function;
+}
+
+interface IAmendmentInterface {
+  email: string;
+  firstName: string;
+  lastName: string;
+  territory: string;
+  transmittalNumber?: string;
+  urgent: boolean;
+  comments: string;
+  attachment: string;
+  attachmentURL?: string;
 }

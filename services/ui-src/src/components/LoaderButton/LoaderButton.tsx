@@ -1,6 +1,5 @@
 import { Button } from "@trussworks/react-uswds";
 import "components/LoaderButton/LoaderButton.scss";
-import { ILoaderButtonProps } from "components/LoaderButton/ILoaderButtonProps";
 
 export default function LoaderButton({
   isLoading,
@@ -27,4 +26,14 @@ export default function LoaderButton({
       )}
     </Button>
   );
+}
+
+interface ILoaderButtonProps {
+  isLoading: boolean;
+  className?: string;
+  disabled?: boolean;
+  children?: React.ReactNode;
+  block?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: "button" | "submit" | "reset";
 }

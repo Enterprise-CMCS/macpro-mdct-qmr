@@ -5,7 +5,6 @@ import { roles } from "libs/authHelpers";
 import { useHistory } from "react-router-dom";
 import { getRedirectRoute } from "libs/routeHelpers";
 import * as Bootstrap from "react-bootstrap";
-import { LoginAsButtonProps } from "components/LocalLogins/LoginAsButtonsProps";
 
 function LocalLogins(): JSX.Element {
   const dispatch = useDispatch();
@@ -64,3 +63,8 @@ function LoginAsButton({ role, handleSelect }: LoginAsButtonProps) {
   );
 }
 export default LocalLogins;
+
+interface LoginAsButtonProps {
+  role: string;
+  handleSelect: Function;
+}

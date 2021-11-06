@@ -1,6 +1,5 @@
 import { Route, Redirect } from "react-router-dom";
 import { useAppContext } from "libs/contextLib";
-import { IUnauthenticatedRouteProps } from "components/IUnathenticatedRouteProps";
 
 function querystring(name: string, url = window.location.href) {
   name = name.replace(/[[]]/g, "\\$&");
@@ -33,4 +32,7 @@ export default function UnauthenticatedRoute({
       )}
     </Route>
   );
+}
+interface IUnauthenticatedRouteProps {
+  children: React.ReactNode;
 }

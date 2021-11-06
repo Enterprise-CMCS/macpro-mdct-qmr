@@ -8,8 +8,7 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import LocalLogins from "components/LocalLogins/LocalLogins";
 import { useHistory } from "react-router-dom";
 import * as Bootstrap from "react-bootstrap";
-import { ILoginFormProps } from "containers/Login/ILoginFormProps";
-import { IFormInputProps } from "containers/Login/IFormInputProps";
+
 export default function Login() {
   const isAuthenticated = useSelector(
     (state: RootStateOrAny) => state.user.attributes
@@ -94,4 +93,22 @@ function FormInput(props: IFormInputProps) {
       />
     </Bootstrap.FormGroup>
   );
+}
+
+interface ILoginFormProps {
+  isLoading: boolean;
+  fields: {
+    password: string;
+    email: string;
+  };
+  handleSubmit: Function;
+  handleFieldChange: Function;
+  validateForm: Function;
+}
+
+interface IFormInputProps {
+  label: string;
+  type: string;
+  value: string;
+  handleFieldChange: Function;
 }
