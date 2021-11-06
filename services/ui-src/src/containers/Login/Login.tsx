@@ -90,7 +90,7 @@ function FormInput(props: IFormInputProps) {
         placeholder={props.label}
         type={props.type}
         value={props.value}
-        onChange={() => props.handleFieldChange()}
+        onChange={(e) => props.handleFieldChange(e)}
       />
     </Bootstrap.FormGroup>
   );
