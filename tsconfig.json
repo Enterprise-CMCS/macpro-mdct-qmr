@@ -10,6 +10,7 @@
     ] /* Specify library files to be included in the compilation. */,
     "jsx": "preserve" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
     "outDir": "build_dev" /* Redirect output structure to the directory. */,
+    "rootDir": "src",
 
     /* Strict Type-Checking Options */
     "strict": true /* Enable all strict type-checking options. */,
@@ -29,16 +30,11 @@
 
     /* Module Resolution Options */
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
-    "paths": {
-      "*": ["./services/ui-src/src/*"]
-    } /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */,
-    "types": [
-      "@types/jest"
-    ] /* Type declaration files to be included in compilation. */,
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
 
     /* Advanced Options */
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
-  }
+  },
+  "exclude": ["./services/ui-src/*"]
 }
