@@ -4,7 +4,6 @@ import config from "config";
 const userKey = "userKey";
 
 export async function updateCurrentUserAttributes(userAttributes: object) {
-  // ! May need stricter type check but libarary only descrips as an object
   const localLogin = config.LOCAL_LOGIN === "true";
   if (localLogin) {
     return updateLocalCurrentUserAttributes(userAttributes);
@@ -15,7 +14,6 @@ export async function updateCurrentUserAttributes(userAttributes: object) {
 }
 
 export function updateLocalCurrentUserAttributes(userAttributes: object) {
-  // ! May need stricter type check but libarary only descrips as an object
   const store = window.localStorage;
   const localStorageItem = store.getItem(userKey);
 

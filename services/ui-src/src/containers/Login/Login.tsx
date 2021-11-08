@@ -57,7 +57,7 @@ export default function Login() {
 function LoginForm(props: ILoginFormProps) {
   return (
     <section>
-      <form onSubmit={() => props.handleSubmit()} className="d-grid gap-2">
+      <form onSubmit={(e) => props.handleSubmit(e)} className="d-grid gap-2">
         <FormInput
           label="Email"
           type="email"
