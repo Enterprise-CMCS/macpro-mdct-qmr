@@ -22,7 +22,7 @@ function Header({ handleLogout }: { handleLogout: Function }) {
                 <Bootstrap.NavDropdown.Item href="/profile">
                   Profile
                 </Bootstrap.NavDropdown.Item>
-                <Bootstrap.NavDropdown.Item onClick={handleLogout()}>
+                <Bootstrap.NavDropdown.Item onClick={() => handleLogout()}>
                   Logout
                 </Bootstrap.NavDropdown.Item>
               </Bootstrap.NavDropdown>
