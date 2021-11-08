@@ -58,7 +58,7 @@ export async function logoutLocalUser() {
   store.removeItem(userKey);
 }
 
-interface IUser {
+export interface IUser {
   username: string;
   attributes: {
     given_name: string;

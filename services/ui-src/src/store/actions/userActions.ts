@@ -1,7 +1,7 @@
 /**
  * Location of all actions for user reducers
  */
-import { IUser } from "components/LocalLogins/IUser";
+import { IUser } from "libs/user";
 
 // Action Types
 export const SET_USER = "SET_USER";

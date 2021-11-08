@@ -1,7 +1,7 @@
 import { API } from "aws-amplify";
 import config from "config";
 import { getLocalUserInfo } from "libs/user";
-import { IAmendmentInterface } from "containers/IAmendment";
+import { IAmendmentInterface } from "containers/Amendments";
 
 function requestOptions(): any {
   const localLogin = config.LOCAL_LOGIN === "true";

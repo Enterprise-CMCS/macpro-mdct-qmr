@@ -286,7 +286,7 @@ interface IAmendmentProps {
   fileURLResolver: Function;
 }
 
-interface IAmendmentInterface {
+export interface IAmendmentInterface {
   email: string;
   firstName: string;
   lastName: string;
