@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import "components/LoaderButtons.scss";
-import { ILoaderButtonProps } from "components/LoaderButton/ILoaderButtonProps";
+import { ILoaderButtonProps } from "components/LoaderButton/LoaderButton";
 
 export default function LoaderButton({
   isLoading,

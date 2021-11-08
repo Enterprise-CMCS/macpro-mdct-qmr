@@ -28,7 +28,7 @@ export default function LoaderButton({
   );
 }
 
-interface ILoaderButtonProps {
+export interface ILoaderButtonProps {
   isLoading: boolean;
   className?: string;
   disabled?: boolean;
