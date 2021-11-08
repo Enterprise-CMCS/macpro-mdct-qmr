@@ -1,9 +1,7 @@
-import { API } from "aws-amplify";
 import config from "config";
 import { getLocalUserInfo } from "libs/user";
-import { IAmendmentInterface } from "containers/Amendments";
 
-function requestOptions(): any {
+export function requestOptions(): any {
   const localLogin = config.LOCAL_LOGIN === "true";
 
   if (localLogin) {
@@ -19,29 +17,29 @@ function requestOptions(): any {
   }
 }
 
-export function listAmendments() {
-  const opts = requestOptions();
-  return API.get("amendments", "/amendments", opts);
-}
+// export function listAmendments() {
+//   const opts = requestOptions();
+//   return API.get("amendments", "/amendments", opts);
+// }
 
-export function getAmendment(id: string) {
-  const opts = requestOptions();
-  return API.get("amendments", `/amendments/${id}`, opts);
-}
+// export function getAmendment(id: string) {
+//   const opts = requestOptions();
+//   return API.get("amendments", `/amendments/${id}`, opts);
+// }
 
-export function createAmendment(body: IAmendmentInterface) {
-  const opts = requestOptions();
-  opts.body = body;
-  return API.post("amendments", "/amendments", opts);
-}
+// export function createAmendment(body: IAmendmentInterface) {
+//   const opts = requestOptions();
+//   opts.body = body;
+//   return API.post("amendments", "/amendments", opts);
+// }
 
-export function updateAmendment(id: string, body: IAmendmentInterface) {
-  const opts = requestOptions();
-  opts.body = body;
-  return API.put("amendments", `/amendments/${id}`, opts);
-}
+// export function updateAmendment(id: string, body: IAmendmentInterface) {
+//   const opts = requestOptions();
+//   opts.body = body;
+//   return API.put("amendments", `/amendments/${id}`, opts);
+// }
 
-export function deleteAmendment(id: string) {
-  const opts = requestOptions();
-  return API.del("amendments", `/amendments/${id}`, opts);
-}
+// export function deleteAmendment(id: string) {
+//   const opts = requestOptions();
+//   return API.del("amendments", `/amendments/${id}`, opts);
+// }

@@ -52,7 +52,7 @@ export default function Routes() {
         <Route exact path="/components">
           <DemoComponents />
         </Route>
-        {authenticatedRoutes()}
+        {<AuthenticatedRoutes />}
         <Route>
           <NotFound />
         </Route>
@@ -98,7 +98,7 @@ function redirectTo(
   return redirectRoute;
 }
 
-function authenticatedRoutes() {
+function AuthenticatedRoutes() {
   return (
     <>
       <AuthenticatedRoute exact path="/adminhome">
