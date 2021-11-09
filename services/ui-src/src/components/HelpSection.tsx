@@ -3,7 +3,7 @@ import * as Bootstrap from "react-bootstrap";
 
 function HelpSection(): JSX.Element {
   return (
-    <Bootstrap.Container className="mb-4">
+    <Bootstrap.Container className="mb-4" data-testid="help-section">
       <h3>Do you have questions or need support?</h3>
       <div className="footer-fed-gov-text">
         For technical questions regarding use of this application, please reach

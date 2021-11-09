@@ -8,7 +8,7 @@ function Header({ handleLogout }: { handleLogout: Function }) {
     (state: RootStateOrAny) => state.user.attributes
   );
   return (
-    <>
+    <div data-testid="header">
       <UsaBanner />
       <Bootstrap.Navbar className="nav-bar">
         <Bootstrap.Container>
@@ -32,7 +32,7 @@ function Header({ handleLogout }: { handleLogout: Function }) {
           </Bootstrap.Navbar.Collapse>
         </Bootstrap.Container>
       </Bootstrap.Navbar>
-    </>
+    </div>
   );
 }
 

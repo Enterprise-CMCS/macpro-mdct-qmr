@@ -4,7 +4,7 @@ import * as Bootstrap from "react-bootstrap";
 
 function Footer(): JSX.Element {
   return (
-    <footer>
+    <footer data-testid="footer">
       <HelpSection />
       <section className="footer-top-container">
         <Bootstrap.Container>
