@@ -19,4 +19,5 @@ export const roles = {
   businessOwner: "BUSINESS_OWNER",
   approver: "APPROVER",
   stateUser: "STATE_USER",
+  helpDesk: "mdctqmr-help-desk"
 };

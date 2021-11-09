@@ -7,7 +7,7 @@ jest.mock("react-redux", () => ({
 }));
 
 describe("Test Header.tsx", () => {
-  test("Check the main element, with classname for the footer, exists", () => {
+  test("Check that the header exists", () => {
     const { getByTestId } = render(<Header handleLogout={() => {}} />);
 
     expect(getByTestId("header")).toBeVisible();

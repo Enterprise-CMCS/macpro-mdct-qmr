@@ -12,9 +12,11 @@ import AuthenticatedRoute from "components/AuthenticatedRoute";
 import ContactUs from "containers/ContactUs";
 import UserManagement from "containers/UserManagement";
 import Login from "containers/Login/Login";
+import Profile from "containers/Profile";
 import { RootStateOrAny, useSelector } from "react-redux";
 import { getRedirectRoute } from "libs/routeHelpers";
 import DemoComponents from "components/DemoComponents";
+import HelpDeskHome from "containers/HelpDeskHome";
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";
@@ -118,6 +120,12 @@ function authenticatedRoutes() {
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/usermanagement">
         <UserManagement />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/helpdeskhome">
+        <HelpDeskHome />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/profile">
+        <Profile />
       </AuthenticatedRoute>
     </>
   );

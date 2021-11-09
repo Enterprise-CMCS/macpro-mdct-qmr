@@ -11,6 +11,9 @@ export const getRedirectRoute = (role: string) => {
     case roles.stateUser:
       redirectRoute = "/statehome";
       break;
+    case roles.helpDesk:
+      redirectRoute = "/helpdeskhome";
+      break;
     default:
       redirectRoute = "/";
       break;

@@ -48,6 +48,9 @@ function LoginAsButton({ role, handleSelect }: LoginAsButtonProps) {
     case roles.stateUser:
       label = "Login as a State user";
       break;
+    case roles.helpDesk:
+      label = "Login as a Help Desk";
+      break;
     default:
       label = "";
       break;
