@@ -21,7 +21,9 @@ function Header({ handleLogout }: { handleLogout: Function }) {
           <Bootstrap.Navbar.Collapse className="justify-content-end">
             {isAuthenticated ? (
               <Bootstrap.NavDropdown title="My Account">
-                <Bootstrap.NavDropdown.Item onClick={() => history.push("/profile")}>
+                <Bootstrap.NavDropdown.Item
+                  onClick={() => history.push("/profile")}
+                >
                   Profile
                 </Bootstrap.NavDropdown.Item>
                 <Bootstrap.NavDropdown.Item onClick={() => handleLogout()}>
