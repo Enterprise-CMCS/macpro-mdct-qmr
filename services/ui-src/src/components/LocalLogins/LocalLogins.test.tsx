@@ -13,20 +13,6 @@ function renderWithProviders(
   return render(<Provider store={store}>{ui}</Provider>);
 }
 
-interface ReduxStateInterface {
-  reduxState: {
-    user: {
-      username: string;
-      attributes: {
-        given_name: string;
-        family_name: string;
-        email: string;
-        "custom:cms_roles": string;
-      };
-    };
-  };
-}
-
 describe("static local login button list", () => {
   it("display local login link for different roles", async () => {
     const result = renderWithProviders(
@@ -57,3 +43,17 @@ describe("static local login button list", () => {
     fireEvent.click(adminLogin);
   });
 });
+
+export interface ReduxStateInterface {
+  reduxState: {
+    user: {
+      username: string;
+      attributes: {
+        given_name: string;
+        family_name: string;
+        email: string;
+        "custom:cms_roles": string;
+      };
+    };
+  };
+}

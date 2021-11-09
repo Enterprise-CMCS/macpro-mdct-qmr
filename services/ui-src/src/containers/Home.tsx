@@ -23,7 +23,7 @@ export default function Home(): JSX.Element {
 
   function renderLander() {
     return (
-      <div className="lander">
+      <div className="lander" data-testid="lander">
         <h1>APS Submission App</h1>
         <p>
           ACME's Amendment to Planned Settlement (APS) submission application
