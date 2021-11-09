@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { onError } from "libs/errorLib";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "components/LoaderButton";
+import LoaderButton from "components/LoaderButton/LoaderButton";
 import "containers/Amendments.scss";
 import Select from "react-select";
 import Switch from "react-ios-switch";
