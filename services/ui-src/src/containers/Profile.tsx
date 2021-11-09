@@ -21,12 +21,14 @@ export default function Profile(): JSX.Element {
     async function onLoad() {
       try {
         var userInfo = await currentUserInfo();
-        setEmail(userInfo.attributes.email);
-        setFirstName(capitalize(userInfo.attributes.given_name));
-        setLastName(capitalize(userInfo.attributes.family_name));
-        setPhoneNumber(
-          formatPhoneNumberForForm(userInfo.attributes.phone_number)
-        );
+        if (userInfo.attributes) {
+          setEmail(userInfo.attributes.email);
+          setFirstName(capitalize(userInfo.attributes.given_name));
+          setLastName(capitalize(userInfo.attributes.family_name));
+          setPhoneNumber(
+            formatPhoneNumberForForm(userInfo.attributes.phone_number)
+          );
+        }
       } catch (e) {
         onError(e);
       }
