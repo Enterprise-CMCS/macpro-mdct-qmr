@@ -36,8 +36,8 @@ fi
 
 # have to ensure that yarn install is up to date.
 # we use .yarn_install as a marker for the last time `yarn install` was run. Rerun the command when yarn.lock is updated
+yarn install
 if [ "yarn.lock" -nt ".yarn_install" ]; then
-	yarn install
 	touch .yarn_install
 fi
 
