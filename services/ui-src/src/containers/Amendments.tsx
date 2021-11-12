@@ -185,22 +185,6 @@ export default function Amendments({
             <FormLabel>Submitter</FormLabel>
             <FormControl value={firstName + " " + lastName} disabled={true} />
           </FormGroup>
-          {/*<FormGroup controlId="firstName">*/}
-          {/*    <FormLabel>First Name</FormLabel>*/}
-          {/*    <FormControl*/}
-          {/*        value={firstName}*/}
-          {/*        disabled={true}*/}
-          {/*        onChange={e => setFirstName(e.target.value)}*/}
-          {/*    />*/}
-          {/*</FormGroup>*/}
-          {/*<FormGroup controlId="lastName">*/}
-          {/*    <FormLabel>Last Name</FormLabel>*/}
-          {/*    <FormControl*/}
-          {/*        value={lastName}*/}
-          {/*        disabled={true}*/}
-          {/*        onChange={e => setLastName(e.target.value)}*/}
-          {/*    />*/}
-          {/*</FormGroup>*/}
           <FormGroup controlId="email">
             <FormLabel>Submitter Email</FormLabel>
             <FormControl
