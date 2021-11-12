@@ -1,3 +1,9 @@
+import { TextArea } from "components/Inputs/TextArea";
+
+
 export default function DemoComponents(): JSX.Element {
-  return <h2>Components</h2>;
+  return (<>
+  <TextArea/>
+  <h2>Components</h2>
+  </>)
 }
