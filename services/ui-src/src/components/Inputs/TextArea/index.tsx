@@ -8,8 +8,8 @@ interface TextAreaProps {
   textAreaProps?: CUI.TextareaProps;
   placeholder?: string;
   value: string;
-  isInvalid?: boolean;
   errorMessage?: string;
+  isInvalidFunc?: (v: string) => boolean;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
@@ -22,9 +22,13 @@ export const TextArea = ({
   formLabelProps,
   placeholder,
   textAreaProps,
-  isInvalid,
+  isInvalidFunc,
   errorMessage,
 }: TextAreaProps) => {
+  let isInvalid = false;
+  if (isInvalidFunc) {
+    isInvalid ?? isInvalidFunc(value);
+  }
   return (
     <CUI.FormControl {...formControlProps} isInvalid={isInvalid}>
       {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}

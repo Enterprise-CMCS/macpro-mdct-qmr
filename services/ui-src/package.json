@@ -10,7 +10,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^12.1.0",
     "@testing-library/user-event": "^7.2.1",
     "@trussworks/react-uswds": "^1.14.0",
@@ -67,7 +67,7 @@
       "^.+\\.(css|less|scss)$": "identity-obj-proxy"
     },
     "setupFilesAfterEnv": [
-      "<rootDir>/setupJest.js"
+      "<rootDir>/setupJest.ts"
     ],
     "globals": {
       "_env_": {}

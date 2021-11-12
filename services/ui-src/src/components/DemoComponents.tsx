@@ -13,7 +13,6 @@ export default function DemoComponents(): JSX.Element {
         onChange={(e) => setTextAreaValue(e.target.value)}
         label="test text area"
         helperText="put in something here"
-        errorMessage="You dum"
       />
     </CUI.Container>
   );
