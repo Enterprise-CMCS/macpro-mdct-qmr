@@ -1,9 +1,11 @@
 import React from "react";
 import { TextArea } from "components/Inputs/TextArea";
 import * as CUI from "@chakra-ui/react";
+import { RadioButton } from "components/Inputs/RadioButton";
 
 export default function DemoComponents(): JSX.Element {
   const [textAreaValue, setTextAreaValue] = React.useState("");
+  const [radioButtonValue, setRadioButtonValue] = React.useState("");
 
   return (
     <CUI.Container>
@@ -14,6 +16,15 @@ export default function DemoComponents(): JSX.Element {
         label="test text area"
         helperText="put in something here"
       />
+      <RadioButton
+        onChange={(value) => setRadioButtonValue(value)}
+        value={radioButtonValue}
+        options={[
+          { displayValue: "test1", value: "test1" },
+          { displayValue: "test2", value: "test2" },
+        ]}
+      />
+      {radioButtonValue}
     </CUI.Container>
   );
 }
