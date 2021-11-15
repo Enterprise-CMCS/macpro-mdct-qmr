@@ -1,14 +1,15 @@
 import * as CUI from "@chakra-ui/react";
 
-interface RadioButtonOption {
+// This interface will be needed in other files to setup the RadioButtonOptions Array
+export interface RadioButtonOption {
   displayValue: string;
   value: string | number;
 }
 
 interface RadioButtonProps {
   value: string;
-  options: RadioButtonOption[];
   onChange: (nextValue: string) => void;
+  options: RadioButtonOption[];
   formControlProps?: CUI.FormControlProps;
   formLabelProps?: CUI.FormLabelProps;
   label?: string;
@@ -26,13 +27,7 @@ export const RadioButton = ({
   formControlProps,
   formLabelProps,
 }: RadioButtonProps) => {
-  //   let isInvalid = false;
-  //   if (isInvalidFunc) {
-  //     isInvalid ?? isInvalidFunc(value);
-  //   }
-
   return (
-    //   {...formControlProps} isInvalid={isInvalid}
     <CUI.FormControl {...formControlProps}>
       {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
       <CUI.RadioGroup value={value} onChange={onChange}>

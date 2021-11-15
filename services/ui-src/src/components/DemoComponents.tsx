@@ -17,8 +17,10 @@ export default function DemoComponents(): JSX.Element {
         helperText="put in something here"
       />
       <RadioButton
+        label="hello world"
         onChange={(value) => setRadioButtonValue(value)}
         value={radioButtonValue}
+        errorMessage=""
         options={[
           { displayValue: "test1", value: "test1" },
           { displayValue: "test2", value: "test2" },
