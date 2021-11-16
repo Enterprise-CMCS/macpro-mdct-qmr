@@ -7,11 +7,13 @@ interface NumberInputProps {
   formLabelProps?: CUI.FormLabelProps;
   textAreaProps?: CUI.TextareaProps;
   placeholder?: string;
-  value: number;
+  value: string;
   errorMessage?: string;
-  isInvalidFunc?: (v: number) => boolean;
-  onChange: React.ChangeEventHandler<HTMLElement>;
+  isInvalidFunc?: (v: string) => boolean;
+  onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
+
+
 
 export const NumberInput = ({
   label,
@@ -33,7 +35,7 @@ export const NumberInput = ({
   return (
     <CUI.FormControl {...formControlProps} isInvalid={isInvalid}>
       {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
-      <CUI.Textarea
+      <CUI.Input
         placeholder={placeholder}
         onChange={onChange}
         value={value}

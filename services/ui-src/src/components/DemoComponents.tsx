@@ -3,9 +3,10 @@ import { TextArea } from "components/Inputs/TextArea";
 import * as CUI from "@chakra-ui/react";
 import { RadioButton } from "components/Inputs/RadioButton";
 import { NumberInput } from "components/Inputs/NumberInput";
+import { AnyLengthString } from "aws-sdk/clients/comprehend";
 
 export default function DemoComponents(): JSX.Element {
-  const [numberInputValue, setNumberInputValue] = React.useState(12);
+  const [numberInputValue, setNumberInputValue] = React.useState("");
   const [textAreaValue, setTextAreaValue] = React.useState("");
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
 
@@ -13,11 +14,17 @@ export default function DemoComponents(): JSX.Element {
     return !value;
   };
 
+  const numberInvalidFunc = (value: string) => {
+    var validNumber = new RegExp(/^\d*(\.\d+)?$/);
+    return !validNumber.test(value)
+  }
+
+
   return (
     <CUI.Container>
       <CUI.Heading size="md">Components</CUI.Heading>
       <NumberInput
-        isInvalidFunc={invalidFunc}
+        isInvalidFunc={numberInvalidFunc}
         placeholder="test"
         value={numberInputValue}
         onChange={(e) => setNumberInputValue(e.target.value)}
