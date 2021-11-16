@@ -102,8 +102,6 @@ export default function Profile() {
         <LoaderButton
           block
           type="submit"
-          bsSize="large"
-          bsStyle="primary"
           isLoading={isLoading}
           disabled={!validateForm()}
         >

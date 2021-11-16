@@ -1,0 +1,21 @@
+/**
+ * Location of all actions for user reducers
+ */
+
+// Action Types
+export const SET_USER = "SET_USER";
+export const UNSET_USER = "UNSET_USER";
+
+// Action Creators
+export const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+};
+
+export const unsetUser = () => {
+  return {
+    type: UNSET_USER,
+  };
+};

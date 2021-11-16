@@ -7,7 +7,11 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: us-east-1
-  
+  iam:
+    role:
+      path: ${ssm:/configuration/${self:custom.stage}/iam/path~true, ssm:/configuration/default/iam/path~true, "/"}
+      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy~true, ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
+
 plugins:
   - serverless-plugin-scripts
   - serverless-stack-termination-protection
@@ -243,7 +247,7 @@ resources:
         Value:
           Fn::If:
             - CreateCustomCloudFrontDomain
-            - https://${env:CLOUDFRONT_DOMAIN_NAME, ""}/
+            - https://${self:custom.cloudfrontDomainName, ""}/
             - Fn::Join:
                 - ""
                 - - https://
