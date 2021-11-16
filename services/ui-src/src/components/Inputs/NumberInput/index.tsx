@@ -2,30 +2,28 @@ import * as CUI from "@chakra-ui/react";
 
 interface NumberInputProps {
   label?: string;
+  placeholder?: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  errorMessage?: string;
   helperText?: string;
   formControlProps?: CUI.FormControlProps;
   formLabelProps?: CUI.FormLabelProps;
-  textAreaProps?: CUI.TextareaProps;
-  placeholder?: string;
-  value: string;
-  errorMessage?: string;
+  numberInputProps?: CUI.InputProps;
   isInvalidFunc?: (v: string) => boolean;
-  onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
-
-
 
 export const NumberInput = ({
   label,
-  helperText,
-  value,
-  onChange,
-  formControlProps,
   formLabelProps,
+  numberInputProps,
   placeholder,
-  textAreaProps,
+  onChange,
+  value,
   isInvalidFunc,
+  helperText,
   errorMessage,
+  formControlProps,
 }: NumberInputProps) => {
   let isInvalid = false;
   if (isInvalidFunc) {
@@ -33,13 +31,14 @@ export const NumberInput = ({
   }
 
   return (
-    <CUI.FormControl {...formControlProps} isInvalid={isInvalid}>
+    <CUI.FormControl isInvalid={isInvalid} {...formControlProps}>
       {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
       <CUI.Input
-        placeholder={placeholder}
+        type="number"
+        placeholder={placeholder ?? ""}
         onChange={onChange}
         value={value}
-        {...textAreaProps}
+        {...numberInputProps}
       />
       <CUI.FormErrorMessage>
         {errorMessage || "An Error Occured"}

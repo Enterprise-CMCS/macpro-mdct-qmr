@@ -3,7 +3,6 @@ import { TextArea } from "components/Inputs/TextArea";
 import * as CUI from "@chakra-ui/react";
 import { RadioButton } from "components/Inputs/RadioButton";
 import { NumberInput } from "components/Inputs/NumberInput";
-import { AnyLengthString } from "aws-sdk/clients/comprehend";
 
 export default function DemoComponents(): JSX.Element {
   const [numberInputValue, setNumberInputValue] = React.useState("");
@@ -25,7 +24,7 @@ export default function DemoComponents(): JSX.Element {
       <CUI.Heading size="md">Components</CUI.Heading>
       <NumberInput
         isInvalidFunc={numberInvalidFunc}
-        placeholder="test"
+        placeholder="123"
         value={numberInputValue}
         onChange={(e) => setNumberInputValue(e.target.value)}
         label="Number Input Question Here"
