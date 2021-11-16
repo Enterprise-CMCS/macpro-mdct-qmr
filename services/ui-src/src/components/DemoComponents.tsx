@@ -2,11 +2,12 @@ import React from "react";
 import { TextArea } from "components/Inputs/TextArea";
 import * as CUI from "@chakra-ui/react";
 import { RadioButton } from "components/Inputs/RadioButton";
+import { TextInput } from "./Inputs/TextInput";
 
 export default function DemoComponents(): JSX.Element {
   const [textAreaValue, setTextAreaValue] = React.useState("");
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
-
+  const [textInputValue, setTextInputValue] = React.useState("");
   const invalidFunc = (value: string) => {
     return !value;
   };
@@ -33,6 +34,14 @@ export default function DemoComponents(): JSX.Element {
         ]}
       />
       {radioButtonValue}
+      <TextInput
+        label="Label for Text Input"
+        value={textInputValue}
+        onChange={(e) => setTextInputValue(e.target.value)}
+        isInvalidFunc={(value) => value.length > 3}
+        helperText="Your text can't exceed 3 characters"
+        errorMessage="Text is too long"
+      />
     </CUI.Container>
   );
 }
