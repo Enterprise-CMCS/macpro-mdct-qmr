@@ -27,8 +27,9 @@ export const TextArea = ({
 }: TextAreaProps) => {
   let isInvalid = false;
   if (isInvalidFunc) {
-    isInvalid ?? isInvalidFunc(value);
+    isInvalid = isInvalidFunc(value);
   }
+
   return (
     <CUI.FormControl {...formControlProps} isInvalid={isInvalid}>
       {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
