@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import config from "config";
 import { Provider } from "react-redux";
+import { ChakraProvider } from "@chakra-ui/react";
 import store from "store/index";
 
 Amplify.configure({
@@ -42,7 +43,9 @@ Amplify.configure({
 ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
     </Provider>
   </Router>,
   document.getElementById("root")
