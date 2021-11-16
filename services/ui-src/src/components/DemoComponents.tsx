@@ -24,7 +24,7 @@ export default function DemoComponents(): JSX.Element {
       />
       <RadioButton
         label="hello world"
-        onChange={(value) => setRadioButtonValue(value)}
+        onChange={setRadioButtonValue}
         value={radioButtonValue}
         errorMessage=""
         options={[
