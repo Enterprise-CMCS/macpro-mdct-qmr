@@ -30,6 +30,7 @@ export default function DemoComponents(): JSX.Element {
           onChange={(e) => setTextAreaValue(e.target.value)}
           label="test text area"
           helperText="put in something here"
+          errorMessage="Text must be less that 3000 characters"
         />
         <CUI.Divider />
         <CUI.Heading size="sm" as="h3">
