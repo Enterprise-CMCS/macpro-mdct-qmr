@@ -1,10 +1,15 @@
 import { render } from "@testing-library/react";
 import { NumberInput } from "components/Inputs/NumberInput";
+import { truncate } from "fs";
 
 describe("Test the NumberInput component", () => {
   test("Check that component renders", () => {
-    const { getByText } = render(<NumberInput value="123" onChange={() => {}} />);
-    expect(getByText("123")).toBeVisible();
+    const { getByDisplayValue } = render(
+    <NumberInput 
+    value="1234" 
+    onChange={() => {}}
+    />);
+    expect(getByDisplayValue("1234")).toBeVisible();
   });
 
   test("Check that label and helper texts get rendered correctly", () => {
@@ -31,5 +36,16 @@ describe("Test the NumberInput component", () => {
     );
 
     expect(getByText(/An Error Occured/i)).toBeVisible();
+  });
+
+  test("Check that percent symbol is rendered correctly", () => {
+    const { getByText } = render(
+      <NumberInput
+        value=""
+        displayPercent={true}
+        onChange={() => {}}
+      />
+    );
+    expect(getByText("%")).toBeVisible();
   });
 });
