@@ -1,29 +1,26 @@
 import * as CUI from "@chakra-ui/react";
+import { InputWrapper } from "components/InputWrapper";
 
 interface TextAreaProps {
   label?: string;
   helperText?: string;
   formControlProps?: CUI.FormControlProps;
   formLabelProps?: CUI.FormLabelProps;
-  textAreaProps?: CUI.TextareaProps;
   placeholder?: string;
   value: string;
   errorMessage?: string;
   isInvalidFunc?: (v: string) => boolean;
+  textAreaProps?: CUI.TextareaProps;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
 export const TextArea = ({
-  label,
-  helperText,
   value,
   onChange,
-  formControlProps,
-  formLabelProps,
   placeholder,
   textAreaProps,
   isInvalidFunc,
-  errorMessage,
+  ...rest
 }: TextAreaProps) => {
   let isInvalid = false;
   if (isInvalidFunc) {
@@ -31,18 +28,13 @@ export const TextArea = ({
   }
 
   return (
-    <CUI.FormControl {...formControlProps} isInvalid={isInvalid}>
-      {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
+    <InputWrapper {...rest} isInvalid={isInvalid}>
       <CUI.Textarea
         placeholder={placeholder}
         onChange={onChange}
         value={value}
         {...textAreaProps}
       />
-      <CUI.FormErrorMessage>
-        {errorMessage || "An Error Occured"}
-      </CUI.FormErrorMessage>
-      {helperText && <CUI.FormHelperText>{helperText}</CUI.FormHelperText>}
-    </CUI.FormControl>
+    </InputWrapper>
   );
 };
