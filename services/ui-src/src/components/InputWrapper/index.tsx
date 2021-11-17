@@ -34,7 +34,7 @@ export const InputWrapper = ({
       <CUI.Flex>
         {helperText && <CUI.FormHelperText>{helperText}</CUI.FormHelperText>}
         <CUI.Spacer />
-        <CUI.FormErrorMessage fontSize="xs">
+        <CUI.FormErrorMessage>
           {errorMessage || "An Error Occured"}
         </CUI.FormErrorMessage>
       </CUI.Flex>
