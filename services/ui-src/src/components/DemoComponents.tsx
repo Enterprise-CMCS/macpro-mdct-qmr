@@ -19,11 +19,14 @@ export default function DemoComponents(): JSX.Element {
   }
 
   // this is the mask for the number input component
-const displayValueMask = (inputValue: String, numberOfDecimals: number) => {
+const displayValueMask = (inputValue: String) => {
+  // The max number of decimal places to display for this component
+  // We got this information from Stephanie
+  const numberOfDecimals: number = 5;
   let displayValue : number = +inputValue;
   displayValue = displayValue*Math.pow(10, numberOfDecimals)
-  displayValue = Math.round(displayValue)/Math.pow(10, numberOfDecimals)
-  return `${displayValue.toFixed(numberOfDecimals)}`
+  displayValue = Math.floor(displayValue)/Math.pow(10, numberOfDecimals)
+  return `${displayValue}`
 }
 
   return (
@@ -33,7 +36,7 @@ const displayValueMask = (inputValue: String, numberOfDecimals: number) => {
         isInvalidFunc={numberInvalidFunc}
         placeholder="123"
         value={numberInputValue}
-        onBlur={(e) => setNumberInputValue(displayValueMask(e.target.value, 5))}
+        onBlur={(e) => setNumberInputValue(displayValueMask(e.target.value))}
         onChange={(e) => setNumberInputValue(e.target.value)}
         label="Number Input Question Here"
         helperText="Enter a number"
