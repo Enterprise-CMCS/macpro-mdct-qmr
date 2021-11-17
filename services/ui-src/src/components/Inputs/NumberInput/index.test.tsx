@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react";
 import { NumberInput } from "components/Inputs/NumberInput";
-import { truncate } from "fs";
 
 describe("Test the NumberInput component", () => {
   test("Check that component renders", () => {
