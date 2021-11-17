@@ -42,7 +42,7 @@ export const NumberInput = ({
     <CUI.FormControl isInvalid={isInvalid} {...formControlProps}>
       {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
       <CUI.Input
-        type="string"
+        type="number"
         placeholder={placeholder ?? ""}
         onBlur={onBlur}
         onChange={onChange}

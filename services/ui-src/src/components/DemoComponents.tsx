@@ -18,14 +18,11 @@ export default function DemoComponents(): JSX.Element {
     return !validNumber.test(value)
   }
 
-  // could be moved to a utils file
-const displayValueMask = (inputValue: String, numberOfDecimals: number, displayPercent: boolean, ) => {
+  // this is the mask for the number input component
+const displayValueMask = (inputValue: String, numberOfDecimals: number) => {
   let displayValue : number = +inputValue;
   displayValue = displayValue*Math.pow(10, numberOfDecimals)
   displayValue = Math.round(displayValue)/Math.pow(10, numberOfDecimals)
-  if(displayPercent){
-    return `${displayValue.toFixed(numberOfDecimals)}%`
-  }
   return `${displayValue.toFixed(numberOfDecimals)}`
 }
 
@@ -36,7 +33,7 @@ const displayValueMask = (inputValue: String, numberOfDecimals: number, displayP
         isInvalidFunc={numberInvalidFunc}
         placeholder="123"
         value={numberInputValue}
-        onBlur={(e) => setNumberInputValue(displayValueMask(e.target.value, 5, true))}
+        onBlur={(e) => setNumberInputValue(displayValueMask(e.target.value, 5))}
         onChange={(e) => setNumberInputValue(e.target.value)}
         label="Number Input Question Here"
         helperText="Enter a number"
