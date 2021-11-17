@@ -24,7 +24,6 @@ export const NumberInput = ({
   if (isInvalidFunc) {
     isInvalid = isInvalidFunc(value);
   }
-  displayPercent = displayPercent ? displayPercent : false;
 
   return (
     <InputWrapper {...rest} isInvalid={isInvalid}>
