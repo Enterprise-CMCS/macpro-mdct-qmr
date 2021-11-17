@@ -1,5 +1,5 @@
 import { render, fireEvent } from "@testing-library/react";
-import { RadioButton, RadioButtonOption } from "components/Inputs/RadioButton";
+import { RadioButton, RadioButtonOption } from "components/Inputs";
 
 describe("Test RadioButton", () => {
   test("Check that the Radio Button renders", () => {

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { TextInput } from "./index";
+import { TextInput } from "components/Inputs";
 
 describe("Test for TextInput Component", () => {
   it("Renders properly", () => {
