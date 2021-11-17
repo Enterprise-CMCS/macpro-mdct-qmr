@@ -4,10 +4,8 @@ import { NumberInput } from "components/Inputs/NumberInput";
 describe("Test the NumberInput component", () => {
   test("Check that component renders", () => {
     const { getByDisplayValue } = render(
-    <NumberInput 
-    value="1234" 
-    onChange={() => {}}
-    />);
+      <NumberInput value="1234" onChange={() => {}} />
+    );
     expect(getByDisplayValue("1234")).toBeVisible();
   });
 
@@ -39,11 +37,7 @@ describe("Test the NumberInput component", () => {
 
   test("Check that percent symbol is rendered correctly", () => {
     const { getByText } = render(
-      <NumberInput
-        value=""
-        displayPercent={true}
-        onChange={() => {}}
-      />
+      <NumberInput value="" displayPercent={true} onChange={() => {}} />
     );
     expect(getByText("%")).toBeVisible();
   });
