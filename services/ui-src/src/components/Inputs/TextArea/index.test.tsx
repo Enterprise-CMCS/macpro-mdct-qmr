@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { TextArea } from "components/Inputs/TextArea";
+import { TextArea } from "components/Inputs";
 
 describe("Test the TextArea component", () => {
   test("Check that component renders", () => {
@@ -23,12 +23,8 @@ describe("Test the TextArea component", () => {
   });
 
   test("Check that we can set the textarea to an error/invalid state", () => {
-    const invalidFunc = (value: string) => {
-      return !value;
-    };
-
     const { getByText } = render(
-      <TextArea value="" isInvalidFunc={invalidFunc} onChange={() => {}} />
+      <TextArea value="" isInvalidFunc={() => true} onChange={() => {}} />
     );
 
     expect(getByText(/An Error Occured/i)).toBeVisible();

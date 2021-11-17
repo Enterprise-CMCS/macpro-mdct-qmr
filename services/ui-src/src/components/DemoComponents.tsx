@@ -1,18 +1,20 @@
 import React from "react";
-import { TextArea } from "components/Inputs/TextArea";
+import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
-import { RadioButton } from "components/Inputs/RadioButton";
-import { NumberInput } from "components/Inputs/NumberInput";
 import { decimalMask } from "utils/masks";
+
+const selectOptions = [
+  { displayValue: "option1", value: "option1" },
+  { displayValue: "option2", value: "option2" },
+  { displayValue: "invalid", value: "invalid" },
+];
 
 export default function DemoComponents(): JSX.Element {
   const [numberInputValue, setNumberInputValue] = React.useState("");
   const [textAreaValue, setTextAreaValue] = React.useState("");
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
-
-  const invalidFunc = (value: string) => {
-    return !value;
-  };
+  const [textInputValue, setTextInputValue] = React.useState("");
+  const [selectInputValue, setInputValue] = React.useState("");
 
   const numberInvalidFunc = (value: string) => {
     var validNumber = new RegExp(/^\d*(\.\d+)?$/);
@@ -20,37 +22,77 @@ export default function DemoComponents(): JSX.Element {
   };
 
   return (
-    <CUI.Container>
-      <CUI.Heading size="md">Components</CUI.Heading>
-      <NumberInput
-        isInvalidFunc={numberInvalidFunc}
-        placeholder="123"
-        value={numberInputValue}
-        onBlur={(e) => setNumberInputValue(decimalMask(e.target.value))}
-        onChange={(e) => setNumberInputValue(e.target.value)}
-        label="Number Input Question Here"
-        helperText="Enter a number"
-        displayPercent={true}
-      />
-      <TextArea
-        isInvalidFunc={invalidFunc}
-        placeholder="test"
-        value={textAreaValue}
-        onChange={(e) => setTextAreaValue(e.target.value)}
-        label="test text area"
-        helperText="put in something here"
-      />
-      <RadioButton
-        label="hello world"
-        onChange={setRadioButtonValue}
-        value={radioButtonValue}
-        errorMessage=""
-        options={[
-          { displayValue: "test1", value: "test1" },
-          { displayValue: "test2", value: "test2" },
-        ]}
-      />
-      {radioButtonValue}
+    <CUI.Container mb="6">
+      <form>
+        <CUI.Stack spacing="4">
+          <CUI.Heading size="md">Components</CUI.Heading>
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Text Area
+          </CUI.Heading>
+          <Inputs.TextArea
+            isInvalidFunc={(value) => !value}
+            placeholder="test"
+            value={textAreaValue}
+            onChange={(e) => setTextAreaValue(e.target.value)}
+            label="test text area"
+            helperText="put in something here"
+          />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Radio Button
+          </CUI.Heading>
+          <Inputs.RadioButton
+            label="hello world"
+            onChange={setRadioButtonValue}
+            value={radioButtonValue}
+            errorMessage=""
+            options={[
+              { displayValue: "test1", value: "test1" },
+              { displayValue: "test2", value: "test2" },
+            ]}
+          />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Text Input
+          </CUI.Heading>
+          <Inputs.TextInput
+            label="Label for Text Input"
+            value={textInputValue}
+            onChange={(e) => setTextInputValue(e.target.value)}
+            isInvalidFunc={(value) => String(value).length > 3}
+            helperText="Your text can't exceed 3 characters"
+            errorMessage="Text is too long"
+          />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Select Input
+          </CUI.Heading>
+          <Inputs.Select
+            value={selectInputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Select option"
+            options={selectOptions}
+            helperText="pick something please"
+            label="this is a select (drop down) input"
+            isInvalidFunc={(v) => v === "invalid"}
+          />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Select Input
+          </CUI.Heading>
+          <Inputs.NumberInput
+            isInvalidFunc={numberInvalidFunc}
+            placeholder="123"
+            value={numberInputValue}
+            onBlur={(e) => setNumberInputValue(decimalMask(e.target.value))}
+            onChange={(e) => setNumberInputValue(e.target.value)}
+            label="Number Input Question Here"
+            helperText="Enter a number"
+            displayPercent={true}
+          />
+        </CUI.Stack>
+      </form>
     </CUI.Container>
   );
 }

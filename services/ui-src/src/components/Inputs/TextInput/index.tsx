@@ -1,33 +1,33 @@
 import * as CUI from "@chakra-ui/react";
 import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
 
-interface TextAreaProps extends InputWrapperProps {
+interface TextInputProps extends InputWrapperProps {
   placeholder?: string;
   value: string;
-  textAreaProps?: CUI.TextareaProps;
-  onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  textInputProps?: CUI.InputProps;
 }
 
-export const TextArea = ({
-  value,
-  onChange,
+export const TextInput = ({
+  textInputProps,
   placeholder,
-  textAreaProps,
+  onChange,
+  value,
   isInvalidFunc,
   ...rest
-}: TextAreaProps) => {
+}: TextInputProps) => {
   let isInvalid = false;
   if (isInvalidFunc) {
     isInvalid = isInvalidFunc(value);
   }
-
   return (
-    <InputWrapper {...rest} isInvalid={isInvalid}>
-      <CUI.Textarea
-        placeholder={placeholder}
+    <InputWrapper isInvalid={isInvalid} {...rest}>
+      <CUI.Input
+        type="text"
+        placeholder={placeholder ?? ""}
         onChange={onChange}
         value={value}
-        {...textAreaProps}
+        {...textInputProps}
       />
     </InputWrapper>
   );

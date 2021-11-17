@@ -8,6 +8,7 @@ import config from "config";
 import { Provider } from "react-redux";
 import { ChakraProvider } from "@chakra-ui/react";
 import store from "store/index";
+import { theme } from "theme";
 
 Amplify.configure({
   Auth: {
@@ -43,7 +44,7 @@ Amplify.configure({
 ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
     </Provider>
