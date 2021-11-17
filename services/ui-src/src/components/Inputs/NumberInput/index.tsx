@@ -1,65 +1,51 @@
 import * as CUI from "@chakra-ui/react";
-//import { String } from "aws-sdk/clients/chimesdkmeetings";
-//import { number } from "yargs";
+import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
 
-interface NumberInputProps {
-  label?: string;
+interface NumberInputProps extends InputWrapperProps {
   placeholder?: string;
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.ChangeEventHandler<HTMLInputElement>;
-  errorMessage?: string;
-  helperText?: string;
-  formControlProps?: CUI.FormControlProps;
-  formLabelProps?: CUI.FormLabelProps;
   numberInputProps?: CUI.InputProps;
-  isInvalidFunc?: (v: string) => boolean;
   displayPercent?: boolean;
 }
 
 export const NumberInput = ({
-  label,
-  formLabelProps,
   numberInputProps,
   placeholder,
   onChange,
   onBlur,
   value,
   isInvalidFunc,
-  helperText,
-  errorMessage,
-  formControlProps,
-  displayPercent
+  displayPercent,
+  ...rest
 }: NumberInputProps) => {
-  //Set default values for optional props
-  let isInvalid = isInvalidFunc ? isInvalidFunc(value) : false;
-  // numberOfDecimals = numberOfDecimals ? numberOfDecimals : 0;
+  let isInvalid = false;
+  if (isInvalidFunc) {
+    isInvalid = isInvalidFunc(value);
+  }
   displayPercent = displayPercent ? displayPercent : false;
 
   return (
-    <CUI.FormControl isInvalid={isInvalid} {...formControlProps}>
-      {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
+    <InputWrapper {...rest} isInvalid={isInvalid}>
       <CUI.InputGroup>
-      <CUI.Input
-        type="number"
-        placeholder={placeholder ?? ""}
-        onBlur={onBlur}
-        onChange={onChange}
-        value={value}
-        {...numberInputProps}
-      />
-      {displayPercent &&
-      <CUI.InputRightElement
-        pointerEvents="none"
-        color="black.300"
-        fontSize="1.3em"
-        children="%"
-      />}
-     </CUI.InputGroup>
-      <CUI.FormErrorMessage>
-        {errorMessage || "An Error Occured"}
-      </CUI.FormErrorMessage>
-      {helperText && <CUI.FormHelperText>{helperText}</CUI.FormHelperText>}
-    </CUI.FormControl>
+        <CUI.Input
+          type="number"
+          placeholder={placeholder ?? ""}
+          onBlur={onBlur}
+          onChange={onChange}
+          value={value}
+          {...numberInputProps}
+        />
+        {displayPercent && (
+          <CUI.InputRightElement
+            pointerEvents="none"
+            color="black.300"
+            fontSize="1.3em"
+            children="%"
+          />
+        )}
+      </CUI.InputGroup>
+    </InputWrapper>
   );
 };

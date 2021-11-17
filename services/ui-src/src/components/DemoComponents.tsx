@@ -16,11 +16,6 @@ export default function DemoComponents(): JSX.Element {
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
 
-  const numberInvalidFunc = (value: string) => {
-    var validNumber = new RegExp(/^\d*(\.\d+)?$/);
-    return !validNumber.test(value);
-  };
-
   return (
     <CUI.Container mb="6">
       <form>
@@ -79,10 +74,9 @@ export default function DemoComponents(): JSX.Element {
           />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
-            Select Input
+            Number Input With Mask
           </CUI.Heading>
           <Inputs.NumberInput
-            isInvalidFunc={numberInvalidFunc}
             placeholder="123"
             value={numberInputValue}
             onBlur={(e) => setNumberInputValue(decimalMask(e.target.value))}
