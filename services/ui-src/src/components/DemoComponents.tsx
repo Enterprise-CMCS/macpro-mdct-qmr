@@ -26,7 +26,7 @@ export default function DemoComponents(): JSX.Element {
           Text Area
         </CUI.Heading>
         <TextArea
-          isInvalidFunc={(value: string) => !value}
+          isInvalidFunc={(value) => !value}
           placeholder="test"
           value={textAreaValue}
           onChange={(e) => setTextAreaValue(e.target.value)}
