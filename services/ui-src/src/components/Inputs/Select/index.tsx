@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
+import { TiArrowUnsorted } from "react-icons/ti";
 
 export interface SelectOption {
   displayValue: string;
@@ -36,6 +37,7 @@ export const Select = ({
         onChange={onChange}
         placeholder={placeholder}
         isInvalid={isInvalid}
+        icon={<TiArrowUnsorted />}
       >
         {options.map(({ displayValue, value }) => (
           <option value={value} key={value}>
