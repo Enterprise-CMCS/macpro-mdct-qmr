@@ -1,7 +1,7 @@
 import React from "react";
 import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
-
+import { Rate } from "components/Rate/Rate";
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
   { displayValue: "option2", value: "option2" },
@@ -69,6 +69,7 @@ export default function DemoComponents(): JSX.Element {
           label="this is a select (drop down) input"
           isInvalidFunc={(v) => v === "invalid"}
         />
+        <Rate />
       </CUI.Stack>
     </CUI.Container>
   );
