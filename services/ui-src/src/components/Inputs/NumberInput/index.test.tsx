@@ -1,16 +1,15 @@
 import { render } from "@testing-library/react";
-import { TextArea } from "components/Inputs/TextArea";
+import { NumberInput } from "components/Inputs/NumberInput";
 
-describe("Test the TextArea component", () => {
+describe("Test the NumberInput component", () => {
   test("Check that component renders", () => {
-    const { getByText } = render(<TextArea value="test" onChange={() => {}} />);
-
-    expect(getByText("test")).toBeVisible();
+    const { getByText } = render(<NumberInput value="123" onChange={() => {}} />);
+    expect(getByText("123")).toBeVisible();
   });
 
   test("Check that label and helper texts get rendered correctly", () => {
     const { getByText } = render(
-      <TextArea
+      <NumberInput
         value=""
         label="label"
         helperText="helper"
@@ -22,13 +21,13 @@ describe("Test the TextArea component", () => {
     expect(getByText("helper")).toBeVisible();
   });
 
-  test("Check that we can set the textarea to an error/invalid state", () => {
+  test("Check that we can set the NumberInput to an error/invalid state", () => {
     const invalidFunc = (value: string) => {
       return !value;
     };
 
     const { getByText } = render(
-      <TextArea value="" isInvalidFunc={invalidFunc} onChange={() => {}} />
+      <NumberInput value="" isInvalidFunc={invalidFunc} onChange={() => {}} />
     );
 
     expect(getByText(/An Error Occured/i)).toBeVisible();

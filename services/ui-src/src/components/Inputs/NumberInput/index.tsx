@@ -14,7 +14,6 @@ interface NumberInputProps {
   formLabelProps?: CUI.FormLabelProps;
   numberInputProps?: CUI.InputProps;
   isInvalidFunc?: (v: string) => boolean;
-  numberOfDecimals?: number;
   displayPercent?: boolean;
 }
 
@@ -30,17 +29,17 @@ export const NumberInput = ({
   helperText,
   errorMessage,
   formControlProps,
-  numberOfDecimals,
   displayPercent
 }: NumberInputProps) => {
   //Set default values for optional props
   let isInvalid = isInvalidFunc ? isInvalidFunc(value) : false;
-  numberOfDecimals = numberOfDecimals ? numberOfDecimals : 0;
+  // numberOfDecimals = numberOfDecimals ? numberOfDecimals : 0;
   displayPercent = displayPercent ? displayPercent : false;
 
   return (
     <CUI.FormControl isInvalid={isInvalid} {...formControlProps}>
       {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
+      <CUI.InputGroup>
       <CUI.Input
         type="number"
         placeholder={placeholder ?? ""}
@@ -49,6 +48,14 @@ export const NumberInput = ({
         value={value}
         {...numberInputProps}
       />
+      {displayPercent &&
+      <CUI.InputRightElement
+        pointerEvents="none"
+        color="black.300"
+        fontSize="1.3em"
+        children="%"
+      />}
+     </CUI.InputGroup>
       <CUI.FormErrorMessage>
         {errorMessage || "An Error Occured"}
       </CUI.FormErrorMessage>

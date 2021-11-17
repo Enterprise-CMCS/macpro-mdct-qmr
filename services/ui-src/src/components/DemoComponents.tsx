@@ -3,6 +3,7 @@ import { TextArea } from "components/Inputs/TextArea";
 import * as CUI from "@chakra-ui/react";
 import { RadioButton } from "components/Inputs/RadioButton";
 import { NumberInput } from "components/Inputs/NumberInput";
+import { decimalMask } from "utils/masks";
 
 export default function DemoComponents(): JSX.Element {
   const [numberInputValue, setNumberInputValue] = React.useState("");
@@ -15,19 +16,8 @@ export default function DemoComponents(): JSX.Element {
 
   const numberInvalidFunc = (value: string) => {
     var validNumber = new RegExp(/^\d*(\.\d+)?$/);
-    return !validNumber.test(value)
-  }
-
-  // this is the mask for the number input component
-const displayValueMask = (inputValue: String) => {
-  // The max number of decimal places to display for this component
-  // We got this information from Stephanie
-  const numberOfDecimals: number = 5;
-  let displayValue : number = +inputValue;
-  displayValue = displayValue*Math.pow(10, numberOfDecimals)
-  displayValue = Math.floor(displayValue)/Math.pow(10, numberOfDecimals)
-  return `${displayValue}`
-}
+    return !validNumber.test(value);
+  };
 
   return (
     <CUI.Container>
@@ -36,11 +26,10 @@ const displayValueMask = (inputValue: String) => {
         isInvalidFunc={numberInvalidFunc}
         placeholder="123"
         value={numberInputValue}
-        onBlur={(e) => setNumberInputValue(displayValueMask(e.target.value))}
+        onBlur={(e) => setNumberInputValue(decimalMask(e.target.value))}
         onChange={(e) => setNumberInputValue(e.target.value)}
         label="Number Input Question Here"
         helperText="Enter a number"
-        numberOfDecimals={5}
         displayPercent={true}
       />
       <TextArea
