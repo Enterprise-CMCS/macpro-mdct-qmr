@@ -1,9 +1,6 @@
 import React from "react";
-import { TextArea } from "components/Inputs/TextArea";
+import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
-import { RadioButton } from "components/Inputs/RadioButton";
-import { TextInput } from "./Inputs/TextInput";
-import { Select } from "./Inputs/Select";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -25,7 +22,7 @@ export default function DemoComponents(): JSX.Element {
         <CUI.Heading size="sm" as="h3">
           Text Area
         </CUI.Heading>
-        <TextArea
+        <Inputs.TextArea
           isInvalidFunc={(value) => !value}
           placeholder="test"
           value={textAreaValue}
@@ -37,7 +34,7 @@ export default function DemoComponents(): JSX.Element {
         <CUI.Heading size="sm" as="h3">
           Radio Button
         </CUI.Heading>
-        <RadioButton
+        <Inputs.RadioButton
           label="hello world"
           onChange={setRadioButtonValue}
           value={radioButtonValue}
@@ -51,7 +48,7 @@ export default function DemoComponents(): JSX.Element {
         <CUI.Heading size="sm" as="h3">
           Text Input
         </CUI.Heading>
-        <TextInput
+        <Inputs.TextInput
           label="Label for Text Input"
           value={textInputValue}
           onChange={(e) => setTextInputValue(e.target.value)}
@@ -63,7 +60,7 @@ export default function DemoComponents(): JSX.Element {
         <CUI.Heading size="sm" as="h3">
           Select Input
         </CUI.Heading>
-        <Select
+        <Inputs.Select
           value={selectInputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Select option"
