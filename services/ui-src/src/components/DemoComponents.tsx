@@ -18,6 +18,16 @@ export default function DemoComponents(): JSX.Element {
     return !validNumber.test(value)
   }
 
+  // could be moved to a utils file
+const displayValueMask = (inputValue: String, numberOfDecimals: number, displayPercent: boolean, ) => {
+  let displayValue : number = +inputValue;
+  displayValue = displayValue*Math.pow(10, numberOfDecimals)
+  displayValue = Math.round(displayValue)/Math.pow(10, numberOfDecimals)
+  if(displayPercent){
+    return `${displayValue.toFixed(numberOfDecimals)}%`
+  }
+  return `${displayValue.toFixed(numberOfDecimals)}`
+}
 
   return (
     <CUI.Container>
@@ -26,6 +36,7 @@ export default function DemoComponents(): JSX.Element {
         isInvalidFunc={numberInvalidFunc}
         placeholder="123"
         value={numberInputValue}
+        onBlur={(e) => setNumberInputValue(displayValueMask(e.target.value, 5, true))}
         onChange={(e) => setNumberInputValue(e.target.value)}
         label="Number Input Question Here"
         helperText="Enter a number"
