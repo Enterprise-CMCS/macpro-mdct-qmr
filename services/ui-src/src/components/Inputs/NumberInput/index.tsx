@@ -1,4 +1,6 @@
 import * as CUI from "@chakra-ui/react";
+import { String } from "aws-sdk/clients/chimesdkmeetings";
+//import { number } from "yargs";
 
 interface NumberInputProps {
   label?: string;
@@ -11,6 +13,8 @@ interface NumberInputProps {
   formLabelProps?: CUI.FormLabelProps;
   numberInputProps?: CUI.InputProps;
   isInvalidFunc?: (v: string) => boolean;
+  numberOfDecimals?: number;
+  displayPercent?: boolean;
 }
 
 export const NumberInput = ({
@@ -24,11 +28,13 @@ export const NumberInput = ({
   helperText,
   errorMessage,
   formControlProps,
+  numberOfDecimals,
+  displayPercent
 }: NumberInputProps) => {
-  let isInvalid = false;
-  if (isInvalidFunc) {
-    isInvalid = isInvalidFunc(value);
-  }
+  //Set default values for optional props
+  let isInvalid = isInvalidFunc ? isInvalidFunc(value) : false;
+  numberOfDecimals = numberOfDecimals ? numberOfDecimals : 0;
+  displayPercent = displayPercent ? displayPercent : false;
 
   return (
     <CUI.FormControl isInvalid={isInvalid} {...formControlProps}>
@@ -37,7 +43,7 @@ export const NumberInput = ({
         type="number"
         placeholder={placeholder ?? ""}
         onChange={onChange}
-        value={value}
+        value={displayValue(value, numberOfDecimals, displayPercent)}
         {...numberInputProps}
       />
       <CUI.FormErrorMessage>
@@ -47,3 +53,15 @@ export const NumberInput = ({
     </CUI.FormControl>
   );
 };
+
+
+// could be moved to a utils file
+const displayValue = (inputValue: String, numberOfDecimals: number, displayPercent: boolean, ) => {
+  let displayValue : number = +inputValue;
+  displayValue = displayValue*Math.pow(10, numberOfDecimals)
+  displayValue = Math.round(displayValue)/Math.pow(10, numberOfDecimals)
+  if(displayPercent){
+    return `${displayValue.toFixed(numberOfDecimals)}%`
+  }
+  return `${displayValue.toFixed(numberOfDecimals)}`
+}

@@ -29,6 +29,8 @@ export default function DemoComponents(): JSX.Element {
         onChange={(e) => setNumberInputValue(e.target.value)}
         label="Number Input Question Here"
         helperText="Enter a number"
+        numberOfDecimals={5}
+        displayPercent={true}
       />
       <TextArea
         isInvalidFunc={invalidFunc}
