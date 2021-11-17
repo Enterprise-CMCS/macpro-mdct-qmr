@@ -23,7 +23,7 @@ export default function DemoComponents(): JSX.Element {
           Text Area
         </CUI.Heading>
         <Inputs.TextArea
-          isInvalidFunc={(value) => !value}
+          isInvalidFunc={(value) => String(value).length > 3000}
           placeholder="test"
           value={textAreaValue}
           onChange={(e) => setTextAreaValue(e.target.value)}

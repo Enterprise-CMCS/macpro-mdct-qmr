@@ -4,6 +4,7 @@ import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
 interface TextAreaProps extends InputWrapperProps {
   placeholder?: string;
   value: string;
+  isRequired?: boolean;
   textAreaProps?: CUI.TextareaProps;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
