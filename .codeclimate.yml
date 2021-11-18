@@ -6,3 +6,4 @@ checks:
 exclude_patterns:
   - "tests/"
   - "__tests__/"
+  - "**/*test*"
