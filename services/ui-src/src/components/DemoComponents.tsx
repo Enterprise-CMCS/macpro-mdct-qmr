@@ -14,10 +14,7 @@ export default function DemoComponents(): JSX.Element {
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
-  const decimalMask = (inputValue: string): boolean => {
-    const mask = new RegExp("^[0-9]*.?[0-9]{0,4}$");
-    return mask.test(inputValue);
-  };
+  
 
   return (
     <CUI.Container mb="6">
@@ -82,11 +79,7 @@ export default function DemoComponents(): JSX.Element {
           <Inputs.NumberInput
             placeholder="123"
             value={numberInputValue}
-            onChange={(e) =>
-              decimalMask(e.target.value)
-                ? setNumberInputValue(e.target.value)
-                : null
-            }
+            onChange={setNumberInputValue}
             label="Number Input Question Here"
             helperText="Enter a number"
             displayPercent={true}
