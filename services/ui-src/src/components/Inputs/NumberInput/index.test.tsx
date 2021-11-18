@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { NumberInput } from "components/Inputs/NumberInput";
-import {decimalMask} from "components/Inputs/NumberInput";
+import { decimalMask } from "components/Inputs/NumberInput";
 
 describe("Test the NumberInput component", () => {
   test("Check that component renders", () => {
@@ -25,17 +25,17 @@ describe("Test the NumberInput component", () => {
   });
 
   test("Check that the regex works with valid values", () => {
-    const value=decimalMask("123.546");
+    const value = decimalMask("123.546");
     expect(value).toBe(true);
   });
 
   test("Check that the regex works with invalid values", () => {
-    const value=decimalMask("abcdefg");
+    const value = decimalMask("abcdefg");
     expect(value).toBe(false);
   });
 
   test("Check that we can set the NumberInput to an error/invalid state", () => {
-    const invalidFunc = (value: string|number) => {
+    const invalidFunc = (value: string | number) => {
       return !value;
     };
 
