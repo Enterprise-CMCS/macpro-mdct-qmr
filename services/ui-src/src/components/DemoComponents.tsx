@@ -15,7 +15,7 @@ export default function DemoComponents(): JSX.Element {
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
   const decimalMask = (inputValue: string): boolean => {
-    const mask = new RegExp('^[0-9]*\.?[0-9]{0,4}$');
+    const mask = new RegExp("^[0-9]*\.?[0-9]{0,4}$");
     return mask.test(inputValue);
   };
 
@@ -82,9 +82,9 @@ export default function DemoComponents(): JSX.Element {
           <Inputs.NumberInput
             placeholder="123"
             value={numberInputValue}
-            onChange={(e) => 
-              decimalMask(e.target.value) 
-                ? setNumberInputValue(e.target.value) 
+            onChange={(e) =>
+              decimalMask(e.target.value)
+                ? setNumberInputValue(e.target.value)
                 : null
             }
             label="Number Input Question Here"
