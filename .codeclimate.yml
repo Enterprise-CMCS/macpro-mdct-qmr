@@ -7,3 +7,6 @@ exclude_patterns:
   - "tests/"
   - "__tests__/"
   - "**/*test*"
+  - "**/components/index.tsx"
+  - "**/pages/index.tsx"
+  - "**/libs/index.tsx"
