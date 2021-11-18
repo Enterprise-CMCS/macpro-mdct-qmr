@@ -2021,6 +2021,10 @@ serverless-offline@^6.5.0:
     velocityjs "^2.0.0"
     ws "^7.2.1"
 
+"serverless-s3-bucket-helper@https://github.com/cmsgov/serverless-s3-bucket-helper":
+  version "1.0.0"
+  resolved "https://github.com/cmsgov/serverless-s3-bucket-helper#f0f6d6a1ffe54e292f0afc93777764bce16a4037"
+
 serverless-s3-local@^0.6.7:
   version "0.6.7"
   resolved "https://registry.yarnpkg.com/serverless-s3-local/-/serverless-s3-local-0.6.7.tgz#ee833078024d9711dacd221320d0b14facd879b2"
