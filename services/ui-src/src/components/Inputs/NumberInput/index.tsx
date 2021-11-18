@@ -4,11 +4,16 @@ import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
 interface NumberInputProps extends InputWrapperProps {
   placeholder?: string;
   value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onBlur?: React.ChangeEventHandler<HTMLInputElement>;
+  onChange: React.ChangeEvent<HTMLInputElement>;
+  onBlur?: React.FormEvent<HTMLInputElement>;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
 }
+
+const decimalMask = (inputValue: string): boolean => {
+  const mask = new RegExp("^[0-9]*.?[0-9]{0,4}$");
+  return mask.test(inputValue);
+};
 
 export const NumberInput = ({
   numberInputProps,
@@ -24,6 +29,12 @@ export const NumberInput = ({
   if (isInvalidFunc) {
     isInvalid = isInvalidFunc(value);
   }
+  
+    const handleChange = (v : React.ChangeEvent<HTMLInputElement>) => {
+      if (decimalMask(v.target.value)) {
+      onChange(v.target.value)
+  }
+}
 
   return (
     <InputWrapper {...rest} isInvalid={isInvalid}>
@@ -32,7 +43,7 @@ export const NumberInput = ({
           type="number"
           placeholder={placeholder ?? ""}
           onBlur={onBlur}
-          onChange={onChange}
+          onChange={handleChange}
           value={value}
           {...numberInputProps}
         />
