@@ -1,4 +1,4 @@
-import BOHome from "pages/BOHome";
+import { BOHome } from "./index";
 import { render } from "@testing-library/react";
 
 describe("Test BOHome.tsx", () => {

@@ -1,4 +1,4 @@
-import AdminHome from "pages/AdminHome";
+import { AdminHome } from "./index";
 import { render } from "@testing-library/react";
 
 describe("Test Admin Home.tsx", () => {

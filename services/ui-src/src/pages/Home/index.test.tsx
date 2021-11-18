@@ -1,4 +1,4 @@
-import Measure from "pages/Measure";
+import { Home } from "./index";
 import { render } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
@@ -14,11 +14,11 @@ function renderWithProviders(
   return render(<Provider store={store}>{ui}</Provider>);
 }
 
-describe("Test measure.tsx", () => {
-  test("Check that the measure renders", () => {
+describe("Test Home.tsx", () => {
+  test("Check that the Home renders", () => {
     const result = renderWithProviders(
       <Router>
-        <Measure />
+        <Home />
       </Router>,
       {
         reduxState: {
@@ -35,6 +35,9 @@ describe("Test measure.tsx", () => {
       }
     );
 
-    expect(result.getByTestId("measure")).toBeVisible();
+    const homeContainer = result.getByTestId("Home-Container");
+    const landerDiv = result.getByTestId("lander");
+    expect(homeContainer).toBeVisible();
+    expect(landerDiv).toBeVisible();
   });
 });

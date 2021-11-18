@@ -1,4 +1,4 @@
-import ContactUs from "pages/ContactUs";
+import { ContactUs } from "./index";
 import { render } from "@testing-library/react";
 
 describe("Test ContactUs.tsx", () => {
