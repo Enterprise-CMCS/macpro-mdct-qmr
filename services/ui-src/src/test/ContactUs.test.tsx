@@ -1,4 +1,4 @@
-import ContactUs from "containers/ContactUs";
+import ContactUs from "pages/ContactUs";
 import { render } from "@testing-library/react";
 
 describe("Test ContactUs.tsx", () => {

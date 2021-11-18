@@ -8,7 +8,7 @@ const selectOptions = [
   { displayValue: "invalid", value: "invalid" },
 ];
 
-export default function DemoComponents(): JSX.Element {
+export function DemoComponents(): JSX.Element {
   const [textAreaValue, setTextAreaValue] = React.useState("");
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
   const [textInputValue, setTextInputValue] = React.useState("");

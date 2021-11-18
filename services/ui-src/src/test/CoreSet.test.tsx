@@ -1,4 +1,4 @@
-import CoreSet from "containers/CoreSet";
+import CoreSet from "pages/CoreSet";
 import { render } from "@testing-library/react";
 
 describe("Test CoreSet.tsx", () => {

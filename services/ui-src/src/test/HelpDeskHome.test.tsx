@@ -1,4 +1,4 @@
-import HelpDeskHome from "containers/HelpDeskHome";
+import HelpDeskHome from "pages/HelpDesk";
 import { render } from "@testing-library/react";
 
 describe("Test Admin Home.tsx", () => {

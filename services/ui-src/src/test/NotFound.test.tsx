@@ -1,4 +1,4 @@
-import NotFound from "containers/NotFound";
+import NotFound from "pages/NotFound";
 import { render } from "@testing-library/react";
 
 describe("Test NotFound.tsx", () => {

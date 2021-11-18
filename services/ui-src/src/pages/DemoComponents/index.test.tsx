@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import DemoComponents from "components/DemoComponents";
+import DemoComponents from "pages/DemoComponents";
 import userEvent from "@testing-library/user-event";
 
 describe("Test the DemoComponents component", () => {

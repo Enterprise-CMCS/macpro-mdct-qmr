@@ -1,4 +1,4 @@
-import UserManagement from "containers/UserManagement";
+import UserManagement from "pages/UserManagement";
 import { render } from "@testing-library/react";
 
 describe("Test UserManagement.tsx", () => {

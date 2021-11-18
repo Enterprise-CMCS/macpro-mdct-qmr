@@ -1,22 +1,11 @@
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { RootStateOrAny, useSelector } from "react-redux";
 import { Location } from "history";
 import { Auth } from "aws-amplify";
-import Home from "containers/Home";
-import NotFound from "containers/NotFound";
-import AdminHome from "containers/AdminHome";
-import BOHome from "containers/BOHome";
-import CoreSet from "containers/CoreSet";
-import Measure from "containers/Measure/Measure";
-import StateHome from "containers/StateHome";
-import AuthenticatedRoute from "components/AuthenticatedRoute";
-import ContactUs from "containers/ContactUs";
-import UserManagement from "containers/UserManagement";
-import Login from "containers/Login/Login";
-import Profile from "containers/Profile";
-import { RootStateOrAny, useSelector } from "react-redux";
 import { getRedirectRoute } from "libs/routeHelpers";
-import DemoComponents from "components/DemoComponents";
-import HelpDeskHome from "containers/HelpDeskHome";
+import AuthenticatedRoute from "components/AuthenticatedRoute";
+import * as Pages from "pages";
+
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";
@@ -40,23 +29,23 @@ export default function Routes() {
     <main id="main-wrapper">
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Pages.Home />
         </Route>
         <Route exact path="/home">
           <Redirect to="/" />
         </Route>
         <Route exact path="/contactus">
-          <ContactUs />
+          <Pages.ContactUs />
         </Route>
         <Route exact path="/login">
-          <Login />
+          <Pages.Login />
         </Route>
         <Route exact path="/components">
-          <DemoComponents />
+          <Pages.DemoComponents />
         </Route>
-        {authenticatedRoutes()}
+        <AuthenticatedRoutes />
         <Route>
-          <NotFound />
+          <Pages.NotFound />
         </Route>
       </Switch>
       <Redirect to={redirectRoute} />
@@ -100,32 +89,32 @@ function redirectTo(
   return redirectRoute;
 }
 
-function authenticatedRoutes() {
+function AuthenticatedRoutes() {
   return (
     <>
       <AuthenticatedRoute exact path="/adminhome">
-        <AdminHome />
+        <Pages.AdminHome />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/bohome">
-        <BOHome />
+        <Pages.BOHome />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/coreset">
-        <CoreSet />
+        <Pages.CoreSet />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/measure">
-        <Measure />
+        <Pages.Measure />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/statehome">
-        <StateHome />
+        <Pages.StateHome />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/usermanagement">
-        <UserManagement />
+        <Pages.UserManagement />
       </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/helpdeskhome">
-        <HelpDeskHome />
+      <AuthenticatedRoute exact path="/helpdesk">
+        <Pages.HelpDesk />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/profile">
-        <Profile />
+        <Pages.Profile />
       </AuthenticatedRoute>
     </>
   );

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import styles from "containers/Measure/Measure.module.scss";
+import styles from "./index.module.scss";
 
-export default function Measure() {
+export function Measure() {
   return (
     <div data-testid="measure">
       {/* Breadcrumbs are hard coded till we get real data to populate them */}

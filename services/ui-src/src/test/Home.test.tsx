@@ -1,4 +1,4 @@
-import Home from "containers/Home";
+import Home from "pages/Home";
 import { render } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";

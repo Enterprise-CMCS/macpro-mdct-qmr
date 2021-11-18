@@ -9,7 +9,7 @@ import LocalLogins from "components/LocalLogins/LocalLogins";
 import { useHistory } from "react-router-dom";
 import * as Bootstrap from "react-bootstrap";
 
-export default function Login() {
+export function Login() {
   const isAuthenticated = useSelector(
     (state: RootStateOrAny) => state.user.attributes
   );

@@ -1,4 +1,4 @@
-import StateHome from "containers/StateHome";
+import StateHome from "pages/StateHome";
 import { render } from "@testing-library/react";
 
 describe("Test StateHome.tsx", () => {

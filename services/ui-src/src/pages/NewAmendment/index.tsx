@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "components/LoaderButton/LoaderButton";
+import LoaderButton from "components/LoaderButton";
 import { onError } from "libs/errorLib";
-import "containers/NewAmendment.css";
+import "index.css";
 import { createAmendment } from "libs/api";
 import { currentUserInfo } from "libs/user";
 import Select from "react-select";
@@ -15,7 +15,7 @@ import {
   validateFileAttachment,
 } from "libs/helpers";
 
-export default function NewAmendment({
+export function NewAmendment({
   fileUpload,
 }: {
   fileUpload: Function;

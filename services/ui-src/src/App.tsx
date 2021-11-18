@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "App.scss";
+// import "App.scss";
 import Routes from "Routes";
 import { AppContext } from "libs/contextLib";
 import { determineRole } from "libs/authHelpers";

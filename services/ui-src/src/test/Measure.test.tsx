@@ -1,4 +1,4 @@
-import Measure from "containers/Measure/Measure";
+import Measure from "pages/Measure";
 import { render } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
