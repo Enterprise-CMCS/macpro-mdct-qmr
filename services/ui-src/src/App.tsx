@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Auth } from "aws-amplify";
 import { setUser, unsetUser } from "store/actions/userActions";
-import { Routes } from "./routes";
+import { Routes } from "./Routes";
 import * as QMR from "components";
 import * as Libs from "./libs";
 
