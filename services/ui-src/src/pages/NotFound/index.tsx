@@ -1,4 +1,4 @@
-import "./index.scss";
+import "./index.module.scss";
 
 export function NotFound(): JSX.Element {
   return (

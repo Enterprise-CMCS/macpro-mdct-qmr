@@ -1,4 +1,4 @@
-import { helpDeskContact, qualityContact } from "libs/contacts";
+import * as Libs from "libs";
 import * as Bootstrap from "react-bootstrap";
 
 export function HelpSection(): JSX.Element {
@@ -8,10 +8,14 @@ export function HelpSection(): JSX.Element {
       <div className="footer-fed-gov-text">
         For technical questions regarding use of this application, please reach
         out to{" "}
-        <a href={`mailto:${helpDeskContact.email}`}>{helpDeskContact.email}</a>.
-        For content-related questions, such as about measure specifications or
+        <a href={`mailto:${Libs.helpDeskContact.email}`}>
+          {Libs.helpDeskContact.email}
+        </a>
+        . For content-related questions, such as about measure specifications or
         what information to enter in each field, please reach out to{" "}
-        <a href={`mailto:${qualityContact.email}`}>{qualityContact.email}</a>
+        <a href={`mailto:${Libs.qualityContact.email}`}>
+          {Libs.qualityContact.email}
+        </a>
       </div>
     </Bootstrap.Container>
   );

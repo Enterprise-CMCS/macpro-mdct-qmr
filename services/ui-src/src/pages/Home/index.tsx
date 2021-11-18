@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import "./index.scss";
+import { useEffect } from "react";
+import "./index.module.scss";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 export function Home(): JSX.Element {
@@ -9,31 +9,24 @@ export function Home(): JSX.Element {
     }
     return false;
   });
-  const [, setIsLoading] = useState(true);
   useEffect(() => {
     async function onLoad() {
       if (!isAuthenticated) {
         return;
       }
-      setIsLoading(false);
     }
 
     onLoad();
   }, [isAuthenticated]);
 
-  function renderLander() {
-    return (
+  return (
+    <div className="Home" data-testid="Home-Container">
       <div className="lander" data-testid="lander">
         <h1>APS Submission App</h1>
         <p>
           ACME's Amendment to Planned Settlement (APS) submission application
         </p>
       </div>
-    );
-  }
-  return (
-    <div className="Home" data-testid="Home-Container">
-      {renderLander()}
     </div>
   );
 }

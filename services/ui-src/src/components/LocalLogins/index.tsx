@@ -1,10 +1,8 @@
 import { useDispatch } from "react-redux";
-import { loginLocalUser } from "libs/user";
-import { setUser } from "store/actions/userActions";
-import { roles } from "libs/authHelpers";
 import { useHistory } from "react-router-dom";
-import { getRedirectRoute } from "libs/routeHelpers";
+import { setUser } from "store/actions/userActions";
 import * as Bootstrap from "react-bootstrap";
+import * as Libs from "libs";
 
 export function LocalLogins(): JSX.Element {
   const dispatch = useDispatch();
@@ -19,17 +17,17 @@ export function LocalLogins(): JSX.Element {
         "custom:cms_roles": role,
       },
     };
-    loginLocalUser(alice);
+    Libs.loginLocalUser(alice);
 
     // Add user to redux
     dispatch(setUser(alice));
-    const redirectRoute = getRedirectRoute(role);
+    const redirectRoute = Libs.getRedirectRoute(role);
     history.push(redirectRoute);
   }
   return (
     <div>
       <h3>Local Login</h3>
-      {Object.values(roles).map((r) => (
+      {Object.values(Libs.roles).map((r) => (
         <LoginAsButton key={r} role={r} handleSelect={localLogin} />
       ))}
     </div>
@@ -37,6 +35,7 @@ export function LocalLogins(): JSX.Element {
 }
 
 function LoginAsButton({ role, handleSelect }: LoginAsButtonProps) {
+  const { roles } = Libs;
   let label;
   switch (role) {
     case roles.approver:

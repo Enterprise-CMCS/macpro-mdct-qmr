@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "components/LoaderButton";
+import { LoaderButton } from "components";
 import { onError } from "libs/errorLib";
-import "index.css";
+import "./index.module.scss";
 import { createAmendment } from "libs/api";
 import { currentUserInfo } from "libs/user";
 import Select from "react-select";

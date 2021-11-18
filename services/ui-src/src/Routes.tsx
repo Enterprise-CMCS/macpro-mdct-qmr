@@ -2,8 +2,8 @@ import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { RootStateOrAny, useSelector } from "react-redux";
 import { Location } from "history";
 import { Auth } from "aws-amplify";
-import { getRedirectRoute } from "libs/routeHelpers";
-import AuthenticatedRoute from "components/AuthenticatedRoute";
+import { getRedirectRoute } from "libs";
+import { AuthenticatedRoute } from "components";
 import * as Pages from "pages";
 
 // Todo: Uncomment this segment when need to run S3 locally
@@ -17,7 +17,7 @@ import * as Pages from "pages";
 // } from "libs/awsLib";
 // import config from "config";
 
-export default function Routes() {
+export function Routes() {
   const location = useLocation<Location>();
   let redirectRoute = "/";
   const isIntegrationBranch = window.location.hostname.includes("cms.gov");

@@ -1,4 +1,4 @@
-import LoaderButton from "components/LoaderButton";
+import { LoaderButton } from "./index";
 import { render } from "@testing-library/react";
 
 describe("Test LoaderButton.js", () => {

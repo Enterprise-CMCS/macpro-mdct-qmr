@@ -17,7 +17,7 @@ function querystring(name: string, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-export default function UnauthenticatedRoute({
+export function UnauthenticatedRoute({
   children,
   ...rest
 }: IUnauthenticatedRouteProps): JSX.Element {

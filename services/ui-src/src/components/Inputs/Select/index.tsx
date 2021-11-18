@@ -1,5 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
+import * as QMR from "components";
 import { TiArrowUnsorted } from "react-icons/ti";
 
 export interface SelectOption {
@@ -7,7 +7,7 @@ export interface SelectOption {
   value: string | number;
 }
 
-interface SelectProps extends InputWrapperProps {
+interface SelectProps extends QMR.InputWrapperProps {
   value: string;
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
   selectProps?: CUI.SelectProps;
@@ -30,7 +30,7 @@ export const Select = ({
   }
 
   return (
-    <InputWrapper {...rest} isInvalid={isInvalid}>
+    <QMR.InputWrapper {...rest} isInvalid={isInvalid}>
       <CUI.Select
         {...selectProps}
         value={value}
@@ -45,6 +45,6 @@ export const Select = ({
           </option>
         ))}
       </CUI.Select>
-    </InputWrapper>
+    </QMR.InputWrapper>
   );
 };

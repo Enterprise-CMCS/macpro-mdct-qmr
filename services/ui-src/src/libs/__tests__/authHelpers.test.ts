@@ -1,4 +1,4 @@
-import { determineRole } from "libs/authHelpers";
+import { determineRole } from "libs";
 
 describe("determine role from the role value prived by Okta", () => {
   it("should output correct role", () => {

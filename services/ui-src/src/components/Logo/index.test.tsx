@@ -1,9 +1,9 @@
-import QMRLogo from "components/QMRLogo";
+import { Logo } from "./index";
 import { render } from "@testing-library/react";
 
-describe("Test QMRLogo.tsx", () => {
+describe("Test Logo.tsx", () => {
   test("Check that the QMRLogo renders", () => {
-    const { getByTestId } = render(<QMRLogo />);
+    const { getByTestId } = render(<Logo />);
 
     expect(getByTestId("qmr-logo")).toBeVisible();
   });

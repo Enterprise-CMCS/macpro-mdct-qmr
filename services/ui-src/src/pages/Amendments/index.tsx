@@ -2,13 +2,13 @@ import { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { onError } from "libs/errorLib";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "components/LoaderButton";
-import "./index.scss";
+import { LoaderButton } from "components";
+import "./index.module.scss";
 import Select from "react-select";
 import Switch from "react-ios-switch";
 import { territoryList } from "libs/territoryLib";
 import * as url from "url";
-import { getAmendment, updateAmendment, deleteAmendment } from "libs/api";
+import * as Api from "libs/api";
 import {
   capitalize,
   validateAmendmentForm,
@@ -35,7 +35,7 @@ export function Amendments({
 
   useEffect(() => {
     function loadAmendment() {
-      return getAmendment(id);
+      return Api.getAmendment(id);
     }
 
     async function onLoad() {
@@ -83,7 +83,7 @@ export function Amendments({
   }
 
   function saveAmendment(amendment: IAmendmentInterface) {
-    return updateAmendment(id, amendment);
+    return Api.updateAmendment(id, amendment);
   }
 
   async function handleSubmit(
@@ -133,7 +133,7 @@ export function Amendments({
     setIsDeleting(true);
 
     try {
-      await deleteAmendment(id);
+      await Api.deleteAmendment(id);
       history.push("/");
     } catch (e) {
       onError(e);

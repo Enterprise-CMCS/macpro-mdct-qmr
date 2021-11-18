@@ -5,7 +5,7 @@ import { onError } from "libs/errorLib";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons/faSignInAlt";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { LocalLogins } from "components/LocalLogins";
+import { LocalLogins } from "components";
 import { useHistory } from "react-router-dom";
 import * as Bootstrap from "react-bootstrap";
 

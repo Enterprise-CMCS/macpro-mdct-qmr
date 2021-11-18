@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-// import "App.scss";
-import Routes from "Routes";
-import { AppContext } from "libs/contextLib";
-import { determineRole } from "libs/authHelpers";
-import { Auth } from "aws-amplify";
-import { logoutLocalUser } from "libs/user";
 import { useDispatch } from "react-redux";
+import { Auth } from "aws-amplify";
 import { setUser, unsetUser } from "store/actions/userActions";
-import { Header } from "components/Header";
-import { Footer } from "components/Footer";
+import { Routes } from "./routes";
+import * as QMR from "components";
+import * as Libs from "./libs";
 
 function App(): JSX.Element | null {
   const dispatch = useDispatch();
@@ -30,7 +26,7 @@ function App(): JSX.Element | null {
           user?.attributes ?? user?.signInUserSession?.idToken?.payload;
         if (!user.attributes) user.attributes = {};
         // *** make sure attributes exist and are in standard format
-        user.attributes["app-role"] = determineRole(
+        user.attributes["app-role"] = Libs.determineRole(
           cmsRoleAttribute ? cmsRoleAttribute["custom:cms_roles"] : ""
         );
         dispatch(setUser(user));
@@ -44,7 +40,7 @@ function App(): JSX.Element | null {
   async function handleLogout() {
     dispatch(unsetUser());
     userHasAuthenticated(false);
-    logoutLocalUser();
+    Libs.logoutLocalUser();
     try {
       await Auth.signOut();
       const oAuthOpts = Auth.configure()?.oauth;
@@ -65,16 +61,16 @@ function App(): JSX.Element | null {
 
   return (
     <div id="app-wrapper">
-      <Header handleLogout={handleLogout} />
-      <AppContext.Provider
+      <QMR.Header handleLogout={handleLogout} />
+      <Libs.AppContext.Provider
         value={{
           isAuthenticated,
           userHasAuthenticated,
         }}
       >
         <Routes />
-        <Footer />
-      </AppContext.Provider>
+        <QMR.Footer />
+      </Libs.AppContext.Provider>
     </div>
   );
 }

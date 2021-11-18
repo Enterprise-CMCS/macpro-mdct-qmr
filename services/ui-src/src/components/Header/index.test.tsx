@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { Header } from "components/Header";
+import { Header } from "components";
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
