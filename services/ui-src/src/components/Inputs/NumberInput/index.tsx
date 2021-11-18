@@ -9,7 +9,7 @@ interface NumberInputProps extends InputWrapperProps {
   displayPercent?: boolean;
 }
 
-const decimalMask = (inputValue: string): boolean => {
+export const decimalMask = (inputValue: string): boolean => {
   return /^\d*\.?\d{0,4}$/.test(inputValue);
 };
 
