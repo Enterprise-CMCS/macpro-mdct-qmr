@@ -4,7 +4,7 @@ import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
 interface NumberInputProps extends InputWrapperProps {
   placeholder?: string;
   value: string;
-  onChange: (s: string)=>void;
+  onChange: (s: string) => void;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
 }
@@ -26,12 +26,12 @@ export const NumberInput = ({
   if (isInvalidFunc) {
     isInvalid = isInvalidFunc(value);
   }
-  
-    const handleChange = (v : string) => {
-      if (decimalMask(v)) {
-      onChange(v)
-  }
-}
+
+  const handleChange = (v: string) => {
+    if (decimalMask(v)) {
+      onChange(v);
+    }
+  };
 
   return (
     <InputWrapper {...rest} isInvalid={isInvalid}>
@@ -39,7 +39,7 @@ export const NumberInput = ({
         <CUI.Input
           type="text"
           placeholder={placeholder ?? ""}
-          onChange={(e)=>handleChange(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
           value={value}
           {...numberInputProps}
         />
