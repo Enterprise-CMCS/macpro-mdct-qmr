@@ -52,6 +52,15 @@
       "node_modules",
       "src"
     ],
+    "coverageReporters": [
+      "json",
+      [
+        "lcov",
+        {
+          "projectRoot": "../../"
+        }
+      ]
+    ],
     "verbose": true,
     "moduleNameMapper": {
       "^.+\\.(css|less|scss)$": "identity-obj-proxy"

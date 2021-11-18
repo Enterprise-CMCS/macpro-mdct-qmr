@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import { useAppContext } from "libs/contextLib";
 
-function querystring(name: string, url = window.location.href) {
+export function querystring(name: string, url = window.location.href) {
   name = name.replace(/[[]]/g, "\\$&");
 
   const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i");
