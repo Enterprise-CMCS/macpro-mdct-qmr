@@ -81,8 +81,7 @@ export default function DemoComponents(): JSX.Element {
           <Inputs.NumberInput
             placeholder="123"
             value={numberInputValue}
-            onBlur={(e) => setNumberInputValue(decimalMask(e.target.value))}
-            onChange={(e) => setNumberInputValue(e.target.value)}
+            onChange={setNumberInputValue}
             label="Number Input Question Here"
             helperText="Enter a number"
             displayPercent={true}

@@ -32,3 +32,11 @@ describe("Test TextInput Component", () => {
     expect(getByText(/text is too long/i)).toBeVisible();
   });
 });
+
+describe("Test NumberInput Component", () => {
+  it("shows Number Input Title", () => {
+    const { getByText } = render(<DemoComponents />);
+
+    expect(getByText(/Number Input With Mask/i)).toBeVisible();
+  });
+});
