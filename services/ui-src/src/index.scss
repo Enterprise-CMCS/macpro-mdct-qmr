@@ -115,16 +115,6 @@ a.nav-link {
   }
 }
 
-select,
-.field {
-  @extend .ds-c-field;
-  border-color: $color-gray-light;
-}
-
-label {
-  @extend .ds-c-label;
-}
-
 .field-hint,
 p.field-hint {
   @extend .ds-c-field__hint;
