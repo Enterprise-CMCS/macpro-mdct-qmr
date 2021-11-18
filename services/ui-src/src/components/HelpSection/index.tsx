@@ -1,7 +1,7 @@
 import { helpDeskContact, qualityContact } from "libs/contacts";
 import * as Bootstrap from "react-bootstrap";
 
-function HelpSection(): JSX.Element {
+export function HelpSection(): JSX.Element {
   return (
     <Bootstrap.Container className="mb-4" data-testid="help-section">
       <h3>Do you have questions or need support?</h3>
@@ -16,5 +16,3 @@ function HelpSection(): JSX.Element {
     </Bootstrap.Container>
   );
 }
-
-export default HelpSection;

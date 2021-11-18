@@ -4,7 +4,7 @@ import * as Bootstrap from "react-bootstrap";
 import { RootStateOrAny, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-function Header({ handleLogout }: { handleLogout: Function }) {
+export function Header({ handleLogout }: { handleLogout: Function }) {
   const history = useHistory();
   const isAuthenticated = useSelector(
     (state: RootStateOrAny) => state.user.attributes
@@ -39,5 +39,3 @@ function Header({ handleLogout }: { handleLogout: Function }) {
     </div>
   );
 }
-
-export default Header;

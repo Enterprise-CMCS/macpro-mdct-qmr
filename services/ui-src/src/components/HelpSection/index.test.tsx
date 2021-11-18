@@ -1,4 +1,4 @@
-import HelpSection from "components/HelpSection";
+import { HelpSection } from "./index";
 import { render } from "@testing-library/react";
 
 describe("Test Header.tsx", () => {

@@ -8,8 +8,8 @@ import { Auth } from "aws-amplify";
 import { logoutLocalUser } from "libs/user";
 import { useDispatch } from "react-redux";
 import { setUser, unsetUser } from "store/actions/userActions";
-import Header from "components/Header";
-import Footer from "components/Footer";
+import { Header } from "components/Header";
+import { Footer } from "components/Footer";
 
 function App(): JSX.Element | null {
   const dispatch = useDispatch();

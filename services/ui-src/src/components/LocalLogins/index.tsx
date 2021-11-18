@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { getRedirectRoute } from "libs/routeHelpers";
 import * as Bootstrap from "react-bootstrap";
 
-function LocalLogins(): JSX.Element {
+export function LocalLogins(): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
   function localLogin(role: string) {
@@ -65,7 +65,6 @@ function LoginAsButton({ role, handleSelect }: LoginAsButtonProps) {
     </Bootstrap.Button>
   );
 }
-export default LocalLogins;
 
 interface LoginAsButtonProps {
   role: string;

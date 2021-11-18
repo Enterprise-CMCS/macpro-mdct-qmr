@@ -1,8 +1,8 @@
 import { helpDeskContact } from "libs/contacts";
-import HelpSection from "components/HelpSection";
+import { HelpSection } from "components/HelpSection";
 import * as Bootstrap from "react-bootstrap";
 
-function Footer(): JSX.Element {
+export function Footer(): JSX.Element {
   return (
     <footer data-testid="footer">
       <HelpSection />
@@ -49,5 +49,3 @@ function Footer(): JSX.Element {
     </footer>
   );
 }
-
-export default Footer;
