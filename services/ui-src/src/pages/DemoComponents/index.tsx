@@ -13,6 +13,7 @@ export function DemoComponents(): JSX.Element {
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
+  const [numberInputValue, setNumberInputValue] = React.useState("");
 
   return (
     <CUI.Container mb="6">
@@ -69,6 +70,18 @@ export function DemoComponents(): JSX.Element {
             helperText="pick something please"
             label="this is a select (drop down) input"
             isInvalidFunc={(v) => v === "invalid"}
+          />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Number Input With Mask
+          </CUI.Heading>
+          <Inputs.NumberInput
+            placeholder="123"
+            value={numberInputValue}
+            onChange={setNumberInputValue}
+            label="Number Input Question Here"
+            helperText="Enter a number"
+            displayPercent={true}
           />
         </CUI.Stack>
       </form>
