@@ -4,7 +4,7 @@ import { Location } from "history";
 import { Auth } from "aws-amplify";
 import { getRedirectRoute } from "libs";
 import { AuthenticatedRoute } from "components";
-import * as Pages from "pages";
+import * as Views from "views";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -29,23 +29,23 @@ export function Routes() {
     <main id="main-wrapper">
       <Switch>
         <Route exact path="/">
-          <Pages.Home />
+          <Views.Home />
         </Route>
         <Route exact path="/home">
           <Redirect to="/" />
         </Route>
         <Route exact path="/contactus">
-          <Pages.ContactUs />
+          <Views.ContactUs />
         </Route>
         <Route exact path="/login">
-          <Pages.Login />
+          <Views.Login />
         </Route>
         <Route exact path="/components">
-          <Pages.DemoComponents />
+          <Views.DemoComponents />
         </Route>
         <AuthenticatedRoutes />
         <Route>
-          <Pages.NotFound />
+          <Views.NotFound />
         </Route>
       </Switch>
       <Redirect to={redirectRoute} />
@@ -93,28 +93,28 @@ function AuthenticatedRoutes() {
   return (
     <>
       <AuthenticatedRoute exact path="/adminhome">
-        <Pages.AdminHome />
+        <Views.AdminHome />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/bohome">
-        <Pages.BOHome />
+        <Views.BOHome />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/coreset">
-        <Pages.CoreSet />
+        <Views.CoreSet />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/measure">
-        <Pages.Measure />
+        <Views.Measure />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/statehome">
-        <Pages.StateHome />
+        <Views.StateHome />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/usermanagement">
-        <Pages.UserManagement />
+        <Views.UserManagement />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/helpdesk">
-        <Pages.HelpDesk />
+        <Views.HelpDesk />
       </AuthenticatedRoute>
       <AuthenticatedRoute exact path="/profile">
-        <Pages.Profile />
+        <Views.Profile />
       </AuthenticatedRoute>
     </>
   );
