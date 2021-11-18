@@ -9,6 +9,7 @@ const selectOptions = [
 ];
 
 export default function DemoComponents(): JSX.Element {
+  const [numberInputValue, setNumberInputValue] = React.useState("");
   const [textAreaValue, setTextAreaValue] = React.useState("");
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
   const [textInputValue, setTextInputValue] = React.useState("");
@@ -69,6 +70,18 @@ export default function DemoComponents(): JSX.Element {
             helperText="pick something please"
             label="this is a select (drop down) input"
             isInvalidFunc={(v) => v === "invalid"}
+          />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Number Input With Mask
+          </CUI.Heading>
+          <Inputs.NumberInput
+            placeholder="123"
+            value={numberInputValue}
+            onChange={setNumberInputValue}
+            label="Number Input Question Here"
+            helperText="Enter a number"
+            displayPercent={true}
           />
         </CUI.Stack>
       </form>
