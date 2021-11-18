@@ -1,8 +1,7 @@
 import React from "react";
 import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
-import { Rate } from "components/Rate/Rate";
-import { decimalMask } from "utils/masks";
+import { Rate } from "components/Rate/Index";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
