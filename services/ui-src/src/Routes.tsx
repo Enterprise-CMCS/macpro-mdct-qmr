@@ -20,7 +20,11 @@ import * as Views from "views";
 export function Routes() {
   const location = useLocation<Location>();
   let redirectRoute = "/";
-  const isIntegrationBranch = window.location.hostname.includes("cms.gov");
+  const isIntegrationBranch =
+    window.location.hostname.includes("cms.gov") ||
+    window.location.hostname.includes("d2s29j7v4rurz6.cloudfront.net") ||
+    window.location.hostname.includes("d3f1ohm9wse9tc.cloudfront.net");
+
   const role = useSelector((state: RootStateOrAny) =>
     state.user.attributes ? state.user.attributes["app-role"] : undefined
   );
