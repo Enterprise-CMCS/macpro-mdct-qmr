@@ -11,12 +11,12 @@ interface NumberInputProps extends InputWrapperProps {
 }
 
 export const decimalMask = (
-  inputValue: string, 
+  inputValue: string,
   displayAsFloat: boolean | undefined
   ): boolean => {
-  return displayAsFloat 
-    ? /^-{0,1}\d*\.?\d{0,4}$/.test(inputValue) 
-    : /^-{0,1}\d*$/.test(inputValue);
+    return displayAsFloat
+      ? /^-{0,1}\d*\.?\d{0,4}$/.test(inputValue)
+      : /^-{0,1}\d*$/.test(inputValue);
 };
 
 export const NumberInput = ({
