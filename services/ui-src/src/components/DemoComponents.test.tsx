@@ -47,8 +47,6 @@ describe("Test Second NumberInput Component", () => {
   it("shows Second Number Input Title", () => {
     const { getByText } = render(<DemoComponents />);
 
-    expect(
-      getByText(/This number input only allows integers/i)
-    ).toBeVisible();
+    expect(getByText(/This number input only allows integers/i)).toBeVisible();
   });
 });
