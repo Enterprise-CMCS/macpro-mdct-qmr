@@ -25,13 +25,23 @@ describe("Test the NumberInput component", () => {
   });
 
   test("Check that the regex works with valid values", () => {
-    const value = decimalMask("123.546");
+    const value = decimalMask("123", false);
     expect(value).toBe(true);
   });
 
   test("Check that the regex works with invalid values", () => {
-    const value = decimalMask("abcdefg");
+    const value = decimalMask("abcdefg", false);
     expect(value).toBe(false);
+  });
+
+  test("Check that the regex works with decimals allowed", () => {
+    const value = decimalMask("123.33", true);
+    expect(value).toBe(true);
+  });
+
+  test("Check that the regex works with - signs allowed", () => {
+    const value = decimalMask("-123", true);
+    expect(value).toBe(true);
   });
 
   test("Check that we can set the NumberInput to an error/invalid state", () => {
