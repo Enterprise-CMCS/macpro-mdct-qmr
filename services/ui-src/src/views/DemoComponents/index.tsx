@@ -9,6 +9,7 @@ const selectOptions = [
 ];
 
 export function DemoComponents(): JSX.Element {
+  const [numberInputValue2, setNumberInputValue2] = React.useState("");
   const [textAreaValue, setTextAreaValue] = React.useState("");
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
   const [textInputValue, setTextInputValue] = React.useState("");
@@ -78,10 +79,25 @@ export function DemoComponents(): JSX.Element {
           <Inputs.NumberInput
             placeholder="123"
             value={numberInputValue}
-            onChange={setNumberInputValue}
-            label="Number Input Question Here"
+            onChange={(e) =>
+              /^-{0,1}\d*\.?\d{0,4}$/.test(e.target.value)
+                ? setNumberInputValue(e.target.value)
+                : null
+            }
+            label="This number input is a percent and allows decimals"
             helperText="Enter a number"
             displayPercent={true}
+          />
+          <Inputs.NumberInput
+            placeholder="123"
+            value={numberInputValue2}
+            onChange={(e) =>
+              /^-{0,1}\d*$/.test(e.target.value)
+                ? setNumberInputValue2(e.target.value)
+                : null
+            }
+            label="This number input only allows integers"
+            helperText="Enter a number"
           />
         </CUI.Stack>
       </form>
