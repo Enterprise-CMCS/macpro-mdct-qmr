@@ -19,7 +19,6 @@ export const decimalMask = (
     : /^-{0,1}\d*$/.test(inputValue);
 };
 
-
 export const NumberInput = ({
   numberInputProps,
   placeholder,
