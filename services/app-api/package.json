@@ -13,7 +13,8 @@
     "url": "https://github.com/AnomalyInnovations/serverless-nodejs-starter.git"
   },
   "devDependencies": {
-    "serverless-associate-waf": "^1.2.1"
+    "serverless-associate-waf": "^1.2.1",
+    "serverless-s3-bucket-helper": "https://github.com/cmsgov/serverless-s3-bucket-helper"
   },
   "dependencies": {
     "uuid": "^7.0.3"
