@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react";
 import { NumberInput } from "components/Inputs/NumberInput";
-import { decimalMask } from "components/Inputs/NumberInput";
 
 describe("Test the NumberInput component", () => {
   test("Check that component renders", () => {
@@ -22,26 +21,6 @@ describe("Test the NumberInput component", () => {
 
     expect(getByText("label")).toBeVisible();
     expect(getByText("helper")).toBeVisible();
-  });
-
-  test("Check that the regex works with valid values", () => {
-    const value = decimalMask("123", false);
-    expect(value).toBe(true);
-  });
-
-  test("Check that the regex works with invalid values", () => {
-    const value = decimalMask("abcdefg", false);
-    expect(value).toBe(false);
-  });
-
-  test("Check that the regex works with decimals allowed", () => {
-    const value = decimalMask("123.33", true);
-    expect(value).toBe(true);
-  });
-
-  test("Check that the regex works with - signs allowed", () => {
-    const value = decimalMask("-123", true);
-    expect(value).toBe(true);
   });
 
   test("Check that we can set the NumberInput to an error/invalid state", () => {

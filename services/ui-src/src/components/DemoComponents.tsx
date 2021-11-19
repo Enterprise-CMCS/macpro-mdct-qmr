@@ -79,16 +79,21 @@ export default function DemoComponents(): JSX.Element {
           <Inputs.NumberInput
             placeholder="123"
             value={numberInputValue}
-            onChange={setNumberInputValue}
+            onChange={(e) =>
+              /^-{0,1}\d*\.?\d{0,4}$/.test(e.target.value)
+              ? setNumberInputValue2(e.target.value)
+              : null}
             label="This number input is a percent and allows decimals"
             helperText="Enter a number"
             displayPercent={true}
-            displayAsFloat={true}
           />
           <Inputs.NumberInput
             placeholder="123"
             value={numberInputValue2}
-            onChange={setNumberInputValue2}
+            onChange={(e) =>
+              /^-{0,1}\d*$/.test(e.target.value)
+              ? setNumberInputValue2(e.target.value)
+              : null}
             label="This number input only allows integers"
             helperText="Enter a number"
           />
