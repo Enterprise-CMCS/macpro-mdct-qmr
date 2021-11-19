@@ -81,7 +81,7 @@ export default function DemoComponents(): JSX.Element {
             value={numberInputValue}
             onChange={(e) =>
               /^-{0,1}\d*\.?\d{0,4}$/.test(e.target.value)
-                ? setNumberInputValue2(e.target.value)
+                ? setNumberInputValue(e.target.value)
                 : null
             }
             label="This number input is a percent and allows decimals"
