@@ -37,6 +37,14 @@ describe("Test NumberInput Component", () => {
   it("shows Number Input Title", () => {
     const { getByText } = render(<DemoComponents />);
 
-    expect(getByText(/Number Input With Mask/i)).toBeVisible();
+    expect(getByText(/This number input is a percent and allows decimals/i)).toBeVisible();
+  });
+});
+
+describe("Test Second NumberInput Component", () => {
+  it("shows Second Number Input Title", () => {
+    const { getByText } = render(<DemoComponents />);
+
+    expect(getByText(/This number input only allows integers/i)).toBeVisible();
   });
 });
