@@ -82,7 +82,8 @@ export default function DemoComponents(): JSX.Element {
             onChange={(e) =>
               /^-{0,1}\d*\.?\d{0,4}$/.test(e.target.value)
               ? setNumberInputValue2(e.target.value)
-              : null}
+              : null
+            }
             label="This number input is a percent and allows decimals"
             helperText="Enter a number"
             displayPercent={true}
@@ -93,7 +94,8 @@ export default function DemoComponents(): JSX.Element {
             onChange={(e) =>
               /^-{0,1}\d*$/.test(e.target.value)
               ? setNumberInputValue2(e.target.value)
-              : null}
+              : null
+            }
             label="This number input only allows integers"
             helperText="Enter a number"
           />
