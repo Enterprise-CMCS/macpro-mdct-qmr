@@ -7,10 +7,11 @@ interface NumberInputProps extends InputWrapperProps {
   onChange: (s: string) => void;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
+  displayAsFloat?: boolean | undefined;
 }
 
-export const decimalMask = (inputValue: string): boolean => {
-  return /^\d*\.?\d{0,4}$/.test(inputValue);
+export const decimalMask = (inputValue: string, displayAsFloat: boolean | undefined): boolean => {
+  return displayAsFloat ? /^-{0,1}\d*\.?\d{0,4}$/.test(inputValue) : /^-{0,1}\d*$/.test(inputValue);
 };
 
 export const NumberInput = ({
@@ -20,6 +21,7 @@ export const NumberInput = ({
   value,
   isInvalidFunc,
   displayPercent,
+  displayAsFloat,
   ...rest
 }: NumberInputProps) => {
   let isInvalid = false;
@@ -28,7 +30,7 @@ export const NumberInput = ({
   }
 
   const handleChange = (v: string) => {
-    if (decimalMask(v)) {
+    if (decimalMask(v, displayAsFloat)) {
       onChange(v);
     }
   };

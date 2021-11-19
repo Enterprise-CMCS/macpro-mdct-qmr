@@ -10,6 +10,7 @@ const selectOptions = [
 
 export default function DemoComponents(): JSX.Element {
   const [numberInputValue, setNumberInputValue] = React.useState("");
+  const [numberInputValue2, setNumberInputValue2] = React.useState("");
   const [textAreaValue, setTextAreaValue] = React.useState("");
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
   const [textInputValue, setTextInputValue] = React.useState("");
@@ -82,6 +83,14 @@ export default function DemoComponents(): JSX.Element {
             label="Number Input Question Here"
             helperText="Enter a number"
             displayPercent={true}
+            displayAsFloat={true}
+          />
+          <Inputs.NumberInput
+            placeholder="123"
+            value={numberInputValue2}
+            onChange={setNumberInputValue2}
+            label="Number Input Question Here"
+            helperText="Enter a number"
           />
         </CUI.Stack>
       </form>
