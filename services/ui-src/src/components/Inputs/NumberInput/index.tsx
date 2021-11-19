@@ -9,7 +9,6 @@ interface NumberInputProps extends InputWrapperProps {
   displayPercent?: boolean;
 }
 
-
 export const NumberInput = ({
   numberInputProps,
   placeholder,
