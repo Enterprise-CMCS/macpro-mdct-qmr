@@ -15,7 +15,6 @@ export default function DemoComponents(): JSX.Element {
   const [radioButtonValue, setRadioButtonValue] = React.useState("");
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
-  
 
   return (
     <CUI.Container mb="6">
