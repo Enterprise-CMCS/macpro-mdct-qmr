@@ -80,7 +80,7 @@ export default function DemoComponents(): JSX.Element {
             placeholder="123"
             value={numberInputValue}
             onChange={setNumberInputValue}
-            label="Number Input Question Here"
+            label="This number input is a percent and allows decimals"
             helperText="Enter a number"
             displayPercent={true}
             displayAsFloat={true}
@@ -89,7 +89,7 @@ export default function DemoComponents(): JSX.Element {
             placeholder="123"
             value={numberInputValue2}
             onChange={setNumberInputValue2}
-            label="Number Input Question Here"
+            label="This number input only allows integers"
             helperText="Enter a number"
           />
         </CUI.Stack>
