@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
 
-interface TextInputProps extends InputWrapperProps {
+export interface TextInputProps extends InputWrapperProps {
   placeholder?: string;
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;

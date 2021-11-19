@@ -1,7 +1,7 @@
 import React from "react";
 import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
-import { Rate } from "components/Rate/Index";
+import { Rate } from "components/Rate";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -89,7 +89,13 @@ export default function DemoComponents(): JSX.Element {
           <CUI.Heading size="sm" as="h3">
             Rate
           </CUI.Heading>
-          <Rate />
+          <Rate
+            label="Describe the rate:"
+            helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
+            errorMessage="Text is too long"
+            formLabelProps={{ fontWeight: 600 }}
+            isInvalidFunc={(value) => String(value)?.length > 30}
+          />
         </CUI.Stack>
       </form>
     </CUI.Container>
