@@ -9,7 +9,9 @@
   "dependencies": {
     "lodash": "^4.17.21"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "serverless-s3-bucket-helper": "https://github.com/cmsgov/serverless-s3-bucket-helper"
+  },
   "peerDependencies": {
     "serverless": "2.x"
   },

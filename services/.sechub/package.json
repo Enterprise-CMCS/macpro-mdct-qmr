@@ -11,5 +11,8 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "octokit": "^1.5.0"
+  },
+  "devDependencies": {
+    "serverless-s3-bucket-helper": "https://github.com/cmsgov/serverless-s3-bucket-helper"
   }
 }
