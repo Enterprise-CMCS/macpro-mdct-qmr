@@ -1,7 +1,7 @@
 import { API } from "aws-amplify";
 import config from "config";
-import { getLocalUserInfo } from "libs/user";
-import { IAmendmentInterface } from "containers/Amendments";
+import { getLocalUserInfo } from "libs";
+import { IAmendmentInterface } from "views/Amendments";
 
 function requestOptions(): any {
   const localLogin = config.LOCAL_LOGIN === "true";
@@ -19,29 +19,37 @@ function requestOptions(): any {
   }
 }
 
-export function listAmendments() {
+function listAmendments() {
   const opts = requestOptions();
   return API.get("amendments", "/amendments", opts);
 }
 
-export function getAmendment(id: string) {
+function getAmendment(id: string) {
   const opts = requestOptions();
   return API.get("amendments", `/amendments/${id}`, opts);
 }
 
-export function createAmendment(body: IAmendmentInterface) {
+function createAmendment(body: IAmendmentInterface) {
   const opts = requestOptions();
   opts.body = body;
   return API.post("amendments", "/amendments", opts);
 }
 
-export function updateAmendment(id: string, body: IAmendmentInterface) {
+function updateAmendment(id: string, body: IAmendmentInterface) {
   const opts = requestOptions();
   opts.body = body;
   return API.put("amendments", `/amendments/${id}`, opts);
 }
 
-export function deleteAmendment(id: string) {
+function deleteAmendment(id: string) {
   const opts = requestOptions();
   return API.del("amendments", `/amendments/${id}`, opts);
 }
+
+export {
+  deleteAmendment,
+  updateAmendment,
+  listAmendments,
+  getAmendment,
+  createAmendment,
+};

@@ -4,19 +4,11 @@ import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
 interface NumberInputProps extends InputWrapperProps {
   placeholder?: string;
   value: string;
-  onChange: (s: string) => void;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
   allowSymbols?: boolean;
 }
-
-export const decimalMask = (inputValue: string): boolean => {
-  return /^\d*\.?\d{0,4}$/.test(inputValue);
-};
-
-export const symbolMask = (inputValue: string): boolean => {
-  return /^e?\+?-?\d*\.?\d{0,4}$/.test(inputValue);
-};
 
 export const NumberInput = ({
   numberInputProps,
@@ -33,23 +25,13 @@ export const NumberInput = ({
     isInvalid = isInvalidFunc(value);
   }
 
-  const handleChange = (v: string) => {
-    if (allowSymbols && symbolMask(v)) {
-      return onChange(v);
-    }
-
-    if (decimalMask(v)) {
-      onChange(v);
-    }
-  };
-
   return (
     <InputWrapper {...rest} isInvalid={isInvalid}>
       <CUI.InputGroup>
         <CUI.Input
           type="text"
           placeholder={placeholder ?? ""}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={onChange}
           value={value}
           {...numberInputProps}
         />
