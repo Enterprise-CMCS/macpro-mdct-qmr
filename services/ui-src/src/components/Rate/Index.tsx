@@ -4,7 +4,12 @@ import * as Inputs from "components/Inputs";
 import { NumericFields } from "components/Rate/NumericFields";
 import { InputWrapperProps } from "components/InputWrapper";
 
-export function Rate({ ...rest }: InputWrapperProps): JSX.Element {
+interface RateProps extends InputWrapperProps {
+  rateDataValue: any[];
+  updateRateData: () => void;
+}
+
+export function Rate({ rateDataValue, ...rest }: RateProps): JSX.Element {
   const [rateDescriptionValue, setRateDescriptionValue] = React.useState("");
   const [numberOfRateGroups, setRateGroupAmount] = React.useState(1);
 

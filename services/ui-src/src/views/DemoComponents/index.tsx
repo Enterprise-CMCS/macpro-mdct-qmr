@@ -9,6 +9,17 @@ const selectOptions = [
   { displayValue: "invalid", value: "invalid" },
 ];
 
+interface IRate {
+  rateDescriptionValue: string;
+}
+
+interface IRateNumericFields {
+  numerator: string;
+  denominator: string;
+  rate: string;
+  id: number;
+}
+
 export function DemoComponents(): JSX.Element {
   const [numberInputValue2, setNumberInputValue2] = React.useState("");
   const [textAreaValue, setTextAreaValue] = React.useState("");
@@ -16,6 +27,7 @@ export function DemoComponents(): JSX.Element {
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
   const [numberInputValue, setNumberInputValue] = React.useState("");
+  const [rateDataValue, setRateData] = React.useState([]);
 
   return (
     <CUI.Container mb="6">
@@ -106,6 +118,8 @@ export function DemoComponents(): JSX.Element {
             Rate
           </CUI.Heading>
           <Rate
+            setRateData={setRateData}
+            rateDataValue={rateDataValue}
             label="Describe the rate:"
             helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
             errorMessage="Text is too long"
