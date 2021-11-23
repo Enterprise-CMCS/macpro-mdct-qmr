@@ -3,5 +3,7 @@
   "description": "",
   "version": "1.0.0",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "serverless-s3-bucket-helper": "https://github.com/cmsgov/serverless-s3-bucket-helper"
+  }
 }
