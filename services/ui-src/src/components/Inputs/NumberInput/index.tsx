@@ -7,7 +7,6 @@ interface NumberInputProps extends InputWrapperProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
-  allowSymbols?: boolean;
 }
 
 export const NumberInput = ({
@@ -17,7 +16,6 @@ export const NumberInput = ({
   value,
   isInvalidFunc,
   displayPercent,
-  allowSymbols,
   ...rest
 }: NumberInputProps) => {
   let isInvalid = false;

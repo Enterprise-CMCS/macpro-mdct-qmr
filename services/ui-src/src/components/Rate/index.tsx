@@ -30,7 +30,6 @@ export function Rate({ rates, updateRates }: Props) {
           <CUI.Flex>
             <CUI.Box m={2}>
               <Inputs.NumberInput
-                allowSymbols={true}
                 value={rate.numerator}
                 onChange={(e) =>
                   /^\+?-?\d*\.?\d{0,4}$/.test(e.target.value)
@@ -42,7 +41,6 @@ export function Rate({ rates, updateRates }: Props) {
             </CUI.Box>
             <CUI.Box m={2}>
               <Inputs.NumberInput
-                allowSymbols={true}
                 value={rate.denominator}
                 onChange={(e) =>
                   /^\+?-?\d*\.?\d{0,4}$/.test(e.target.value)
@@ -54,7 +52,6 @@ export function Rate({ rates, updateRates }: Props) {
             </CUI.Box>
             <CUI.Box m={2}>
               <Inputs.NumberInput
-                allowSymbols={true}
                 value={rate.rate}
                 onChange={(e) =>
                   /^\+?-?\d*\.?\d{0,4}$/.test(e.target.value)
