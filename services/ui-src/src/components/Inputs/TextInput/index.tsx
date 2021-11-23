@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
-import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
+import * as QMR from "components";
 
-interface TextInputProps extends InputWrapperProps {
+interface TextInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -21,7 +21,7 @@ export const TextInput = ({
     isInvalid = isInvalidFunc(value);
   }
   return (
-    <InputWrapper isInvalid={isInvalid} {...rest}>
+    <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
       <CUI.Input
         type="text"
         placeholder={placeholder ?? ""}
@@ -29,6 +29,6 @@ export const TextInput = ({
         value={value}
         {...textInputProps}
       />
-    </InputWrapper>
+    </QMR.InputWrapper>
   );
 };

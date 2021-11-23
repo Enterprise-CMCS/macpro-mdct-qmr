@@ -1,5 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
+import * as QMR from "components";
 
 // This interface will be needed in other files to setup the RadioButtonOptions Array
 export interface RadioButtonOption {
@@ -7,7 +7,7 @@ export interface RadioButtonOption {
   value: string | number;
 }
 
-interface RadioButtonProps extends InputWrapperProps {
+interface RadioButtonProps extends QMR.InputWrapperProps {
   value: string;
   onChange: (nextValue: string) => void;
   options: RadioButtonOption[];
@@ -28,7 +28,7 @@ export const RadioButton = ({
   }
 
   return (
-    <InputWrapper isInvalid={isInvalid} {...rest}>
+    <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
       <CUI.RadioGroup value={value} onChange={onChange} {...radioGroupProps}>
         <CUI.Stack>
           {options.map(({ displayValue, value }) => (
@@ -38,6 +38,6 @@ export const RadioButton = ({
           ))}
         </CUI.Stack>
       </CUI.RadioGroup>
-    </InputWrapper>
+    </QMR.InputWrapper>
   );
 };

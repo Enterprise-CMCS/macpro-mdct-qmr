@@ -1,9 +1,9 @@
 import { render, fireEvent } from "@testing-library/react";
-import { RadioButton, RadioButtonOption } from "components/Inputs";
+import * as QMR from "components";
 
 describe("Test RadioButton", () => {
   test("Check that the Radio Button renders", () => {
-    const options: RadioButtonOption[] = [
+    const options: QMR.RadioButtonOption[] = [
       {
         displayValue: "Hello World",
         value: 1,
@@ -11,14 +11,14 @@ describe("Test RadioButton", () => {
     ];
 
     const { getByText } = render(
-      <RadioButton options={options} onChange={() => {}} value={"1"} />
+      <QMR.RadioButton options={options} onChange={() => {}} value={"1"} />
     );
 
     expect(getByText(/hello world/i)).toBeVisible();
   });
 
   it("Check the input(t)ed options render correctly", () => {
-    const options: RadioButtonOption[] = [
+    const options: QMR.RadioButtonOption[] = [
       {
         displayValue: "First Item",
         value: 1,
@@ -30,7 +30,7 @@ describe("Test RadioButton", () => {
     ];
 
     const { getByText } = render(
-      <RadioButton options={options} onChange={() => {}} value={""} />
+      <QMR.RadioButton options={options} onChange={() => {}} value={""} />
     );
 
     expect(getByText(/first item/i)).toBeVisible();
@@ -40,7 +40,7 @@ describe("Test RadioButton", () => {
   it("onChange Fire when a new radio option is selected", () => {
     const mockChangeFn = jest.fn();
 
-    const options: RadioButtonOption[] = [
+    const options: QMR.RadioButtonOption[] = [
       {
         displayValue: "First Item",
         value: 1,
@@ -52,7 +52,7 @@ describe("Test RadioButton", () => {
     ];
 
     const { getByText } = render(
-      <RadioButton options={options} onChange={mockChangeFn} value={"1"} />
+      <QMR.RadioButton options={options} onChange={mockChangeFn} value={"1"} />
     );
 
     fireEvent.click(getByText(/second item/i));
