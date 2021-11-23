@@ -13,15 +13,21 @@ export const NumericFields = () => {
   const [rateValue, setRateValue] = React.useState("");
 
   const setNumeratorRowValue = (value: string): void => {
-    setNumeratorValue(value);
+    if (/^e?\+?-?\d*\.?\d{0,4}$/.test(value)) {
+      setNumeratorValue(value);
+    }
   };
 
   const setDenominatorRowValue = (value: string): void => {
-    setDenominatorValue(value);
+    if (/^e?\+?-?\d*\.?\d{0,4}$/.test(value)) {
+      setDenominatorValue(value);
+    }
   };
 
   const setRateRowValue = (value: string): void => {
-    setRateValue(value);
+    if (/^e?\+?-?\d*\.?\d{0,4}$/.test(value)) {
+      setRateValue(value);
+    }
   };
 
   return (
@@ -30,7 +36,7 @@ export const NumericFields = () => {
         <Inputs.NumberInput
           allowSymbols={true}
           value={numeratorValue}
-          onChange={setNumeratorRowValue}
+          onChange={(e) => setNumeratorRowValue(e.target.value)}
           label="Numerator"
         />
       </CUI.Box>
@@ -38,7 +44,7 @@ export const NumericFields = () => {
         <Inputs.NumberInput
           allowSymbols={true}
           value={denominatorValue}
-          onChange={setDenominatorRowValue}
+          onChange={(e) => setDenominatorRowValue(e.target.value)}
           label="Denominator"
         />
       </CUI.Box>
@@ -46,7 +52,7 @@ export const NumericFields = () => {
         <Inputs.NumberInput
           allowSymbols={true}
           value={rateValue}
-          onChange={setRateRowValue}
+          onChange={(e) => setRateRowValue(e.target.value)}
           label="Rate"
         />
       </CUI.Box>
