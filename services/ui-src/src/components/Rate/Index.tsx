@@ -5,35 +5,43 @@ import { InputWrapperProps } from "components/InputWrapper";
 
 interface RateProps extends InputWrapperProps {
   rateDataValue: IRate;
-  updateRateData: () => void;
+  updateRateData: React.Dispatch<React.SetStateAction<IRate | undefined>>;
 }
 export interface IRate {
   rateDescriptionValue: string;
-  rateNumeric: IRateChild[]
+  rateChildren: IRateChild[];
 }
 
-export function Rate({ rateDataValue, updateRateData, ...rest }: RateProps): JSX.Element {
+export function Rate({
+  rateDataValue,
+  updateRateData,
+  label,
+  helperText,
+  errorMessage,
+  isInvalidFunc,
+}: RateProps): JSX.Element {
+  const setRateChildrenValue = (child: IRateChild) => {
+    const rateChildren = [...rateDataValue.rateChildren];
+    rateChildren[child.id] = { ...child };
 
-  useEffect(() => {
-    rowsToGenerate();
-  });
-
-  const setRateDescriptionRow = (value: string): void => {
-    // update the rateDescriptValue in the object here
-    updateRateData()
+    updateRateData({
+      ...rateDataValue,
+      rateChildren,
+    });
   };
 
-  const rowsToGenerate = (): any => {
+  const setRateDescriptionRow = (rateChild: IRateChild) => {};
 
-    const rowsToReturn = rateDataValue.rateNumeric.map((r,index) =>
-      <RateChild 
-        numerator={r.numerator} 
-        denominator= {r.denominator} 
-        rate = {r.rate}
-        id = {index}
-        setRateChildValues = {()=> setRateChildValues(rateChildValues)}
-        />
-    );
+  const rowsToGenerate = (): any => {
+    const rowsToReturn = rateDataValue.rateNumeric.map((r, index) => (
+      <RateChild
+        numerator={r.numerator}
+        denominator={r.denominator}
+        rate={r.rate}
+        id={index}
+        setRateChildValues={() => setRateChildValues(index)}
+      />
+    ));
 
     return rowsToReturn;
   };
@@ -44,7 +52,11 @@ export function Rate({ rateDataValue, updateRateData, ...rest }: RateProps): JSX
         value={rateDataValue.rateDescriptionValue}
         renderHelperTextAbove={true}
         onBlur={(e) => setRateDescriptionRow(e.target.value)}
-        {...rest}
+        label={label}
+        helperText={helperText}
+        errorMessage={errorMessage}
+        formLabelProps={{ fontWeight: 600 }}
+        isInvalidFunc={isInvalidFunc}
       />
       {rowsToGenerate()}
       <CUI.Button
