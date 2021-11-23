@@ -1,14 +1,13 @@
 import React from "react";
 import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
-import { IRate, Rate } from "components/Rate/Index";
+import { BriansRate, IRate } from "components/Rate/BriansRate";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
   { displayValue: "option2", value: "option2" },
   { displayValue: "invalid", value: "invalid" },
 ];
-
 
 export function DemoComponents(): JSX.Element {
   const [numberInputValue2, setNumberInputValue2] = React.useState("");
@@ -17,7 +16,34 @@ export function DemoComponents(): JSX.Element {
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
   const [numberInputValue, setNumberInputValue] = React.useState("");
-  const [rateDataValue, setRateData] = React.useState<IRate>();
+  const [rateDescriptionValue, setRateDescriptionValue] = React.useState("");
+  const [rates, setRates] = React.useState<IRate[]>([
+    {
+      denominator: "1",
+      numerator: ".5",
+      rate: "0",
+    },
+    {
+      denominator: "1",
+      numerator: ".5",
+      rate: "0",
+    },
+    {
+      denominator: "1",
+      numerator: ".5",
+      rate: "0",
+    },
+    {
+      denominator: "1",
+      numerator: ".5",
+      rate: "0",
+    },
+    {
+      denominator: "1",
+      numerator: ".5",
+      rate: "0",
+    },
+  ]);
 
   return (
     <CUI.Container mb="6">
@@ -107,15 +133,17 @@ export function DemoComponents(): JSX.Element {
           <CUI.Heading size="sm" as="h3">
             Rate
           </CUI.Heading>
-          <Rate
-            setRateData={setRateData}
-            rateDataValue={rateDataValue}
+          <Inputs.TextInput
+            renderHelperTextAbove
             label="Describe the rate:"
             helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
             errorMessage="Text is too long"
             formLabelProps={{ fontWeight: 600 }}
-            isInvalidFunc={(value) => String(value)?.length > 30}
+            value={rateDescriptionValue}
+            onChange={(e) => setRateDescriptionValue(e.target.value)}
+            isInvalidFunc={(value) => String(value).length > 3000}
           />
+          <BriansRate rates={rates} updateRates={setRates} />
         </CUI.Stack>
       </form>
     </CUI.Container>
