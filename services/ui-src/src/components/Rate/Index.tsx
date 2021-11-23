@@ -1,36 +1,39 @@
-import React, { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
-import { NumericFields } from "components/Rate/NumericFields";
+import { RateChild, IRateChild } from "components/Rate/RateChild";
 import { InputWrapperProps } from "components/InputWrapper";
 
 interface RateProps extends InputWrapperProps {
-  rateDataValue: any[];
+  rateDataValue: IRate;
   updateRateData: () => void;
 }
+export interface IRate {
+  rateDescriptionValue: string;
+  rateNumeric: IRateChild[]
+}
 
-export function Rate({ rateDataValue, ...rest }: RateProps): JSX.Element {
-  const [rateDescriptionValue, setRateDescriptionValue] = React.useState("");
-  const [numberOfRateGroups, setRateGroupAmount] = React.useState(1);
+export function Rate({ rateDataValue, updateRateData, ...rest }: RateProps): JSX.Element {
 
   useEffect(() => {
     rowsToGenerate();
   });
 
   const setRateDescriptionRow = (value: string): void => {
-    setRateDescriptionValue(value);
-  };
-
-  const addNewRateRow = (): void => {
-    setRateGroupAmount(numberOfRateGroups + 1);
+    // update the rateDescriptValue in the object here
+    updateRateData()
   };
 
   const rowsToGenerate = (): any => {
-    const rowsToReturn = [];
 
-    for (let i = 0; i < numberOfRateGroups; i++) {
-      rowsToReturn.push(<NumericFields key={numberOfRateGroups - i} />);
-    }
+    const rowsToReturn = rateDataValue.rateNumeric.map((r,index) =>
+      <RateChild 
+        numerator={r.numerator} 
+        denominator= {r.denominator} 
+        rate = {r.rate}
+        id = {index}
+        setRateChildValues = {()=> setRateChildValues(rateChildValues)}
+        />
+    );
 
     return rowsToReturn;
   };
@@ -38,9 +41,9 @@ export function Rate({ rateDataValue, ...rest }: RateProps): JSX.Element {
   return (
     <CUI.Stack spacing="6">
       <Inputs.TextInput
-        value={rateDescriptionValue}
-        onChange={(e) => setRateDescriptionRow(e.target.value)}
+        value={rateDataValue.rateDescriptionValue}
         renderHelperTextAbove={true}
+        onBlur={(e) => setRateDescriptionRow(e.target.value)}
         {...rest}
       />
       {rowsToGenerate()}

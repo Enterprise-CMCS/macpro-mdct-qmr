@@ -1,7 +1,7 @@
 import React from "react";
 import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
-import { Rate } from "components/Rate/Index";
+import { IRate, Rate } from "components/Rate/Index";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -9,16 +9,6 @@ const selectOptions = [
   { displayValue: "invalid", value: "invalid" },
 ];
 
-interface IRate {
-  rateDescriptionValue: string;
-}
-
-interface IRateNumericFields {
-  numerator: string;
-  denominator: string;
-  rate: string;
-  id: number;
-}
 
 export function DemoComponents(): JSX.Element {
   const [numberInputValue2, setNumberInputValue2] = React.useState("");
@@ -27,7 +17,7 @@ export function DemoComponents(): JSX.Element {
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
   const [numberInputValue, setNumberInputValue] = React.useState("");
-  const [rateDataValue, setRateData] = React.useState([]);
+  const [rateDataValue, setRateData] = React.useState<IRate>();
 
   return (
     <CUI.Container mb="6">
