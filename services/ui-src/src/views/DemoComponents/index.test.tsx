@@ -4,9 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 describe("Test the DemoComponents component", () => {
   test("Check that we can set the textarea to an error/invalid state", () => {
-    const { getByText, getByLabelText } = render(<DemoComponents />);
-
-    expect(getByText(/An Error Occured/i)).toBeVisible();
+    const { getByLabelText } = render(<DemoComponents />);
 
     userEvent.type(getByLabelText(/test text area/i), "testing text area");
 

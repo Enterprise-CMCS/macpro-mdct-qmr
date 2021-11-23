@@ -1,7 +1,7 @@
 import React from "react";
 import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
-import { BriansRate, IRate } from "components/Rate/BriansRate";
+import { Rate, IRate } from "components/Rate";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -23,11 +23,11 @@ export function DemoComponents(): JSX.Element {
       numerator: ".5",
       rate: "0",
     },
-    {
-      denominator: "1",
-      numerator: ".5",
-      rate: "0",
-    },
+  ]);
+
+  const [rateDescriptionValueTwo, setRateDescriptionValueTwo] =
+    React.useState("");
+  const [ratesTwo, setRatesTwo] = React.useState<IRate[]>([
     {
       denominator: "1",
       numerator: ".5",
@@ -143,7 +143,22 @@ export function DemoComponents(): JSX.Element {
             onChange={(e) => setRateDescriptionValue(e.target.value)}
             isInvalidFunc={(value) => String(value).length > 3000}
           />
-          <BriansRate rates={rates} updateRates={setRates} />
+          <Rate rates={rates} updateRates={setRates} />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Rate With Multiple Numerator/Denominator/Rate
+          </CUI.Heading>
+          <Inputs.TextInput
+            renderHelperTextAbove
+            label="Describe the rate:"
+            helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
+            errorMessage="Text is too long"
+            formLabelProps={{ fontWeight: 600 }}
+            value={rateDescriptionValueTwo}
+            onChange={(e) => setRateDescriptionValueTwo(e.target.value)}
+            isInvalidFunc={(value) => String(value).length > 3000}
+          />
+          <Rate rates={ratesTwo} updateRates={setRatesTwo} />
         </CUI.Stack>
       </form>
     </CUI.Container>
