@@ -19,9 +19,9 @@ export function DemoComponents(): JSX.Element {
   const [rateDescriptionValue, setRateDescriptionValue] = React.useState("");
   const [rates, setRates] = React.useState<IRate[]>([
     {
-      denominator: "1",
-      numerator: ".5",
-      rate: "0",
+      denominator: "",
+      numerator: "",
+      rate: "",
     },
   ]);
 
@@ -29,19 +29,19 @@ export function DemoComponents(): JSX.Element {
     React.useState("");
   const [ratesTwo, setRatesTwo] = React.useState<IRate[]>([
     {
-      denominator: "1",
-      numerator: ".5",
-      rate: "0",
+      denominator: "",
+      numerator: "",
+      rate: "",
     },
     {
-      denominator: "1",
-      numerator: ".5",
-      rate: "0",
+      denominator: "",
+      numerator: "",
+      rate: "",
     },
     {
-      denominator: "1",
-      numerator: ".5",
-      rate: "0",
+      denominator: "",
+      numerator: "",
+      rate: "",
     },
   ]);
 
