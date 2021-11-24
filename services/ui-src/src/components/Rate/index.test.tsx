@@ -8,6 +8,7 @@ describe("Test the Rate component", () => {
       denominator: "1",
       numerator: ".5",
       rate: "0",
+      id: 1,
     },
   ];
 

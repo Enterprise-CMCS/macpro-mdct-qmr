@@ -22,6 +22,7 @@ export function DemoComponents(): JSX.Element {
       denominator: "",
       numerator: "",
       rate: "",
+      id: 1,
     },
   ]);
 
@@ -33,18 +34,21 @@ export function DemoComponents(): JSX.Element {
       denominator: "",
       numerator: "",
       rate: "",
+      id: 1,
     },
     {
       label: "Another Test Label",
       denominator: "",
       numerator: "",
       rate: "",
+      id: 3,
     },
     {
       label: "Last Test Label",
       denominator: "",
       numerator: "",
       rate: "",
+      id: 5,
     },
   ]);
 
