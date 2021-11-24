@@ -47,4 +47,18 @@ describe("Test Second NumberInput Component", () => {
 
     expect(getByText(/This number input only allows integers/i)).toBeVisible();
   });
+
+  describe("Test Inputs associated with Rate Component", () => {
+    it("shows Describe the rate", () => {
+      const { getByText } = render(<DemoComponents />);
+
+      expect(getByText(/Another Test Label/i)).toBeVisible();
+    });
+
+    it("shows Describe the rate", () => {
+      const { getByText } = render(<DemoComponents />);
+
+      expect(getByText(/Another Test Label/i)).toBeVisible();
+    });
+  });
 });
