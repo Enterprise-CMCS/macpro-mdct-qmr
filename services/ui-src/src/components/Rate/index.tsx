@@ -22,17 +22,23 @@ export function Rate({ rates, updateRates }: Props) {
     updateRates(newRates);
   };
 
+  const regex = /^-?\d*\.?\d{0,4}$/;
+
   return (
     <>
       {rates.map((rate, index) => (
         <CUI.Stack key={index}>
-          {rate.label && <CUI.FormLabel m={2}>{rate.label}</CUI.FormLabel>}
+          {rate.label && (
+            <CUI.FormLabel fontWeight={700} m={2}>
+              {rate.label}
+            </CUI.FormLabel>
+          )}
           <CUI.Flex>
             <CUI.Box m={2}>
               <Inputs.NumberInput
                 value={rate.numerator}
                 onChange={(e) =>
-                  /^\+?-?\d*\.?\d{0,4}$/.test(e.target.value)
+                  regex.test(e.target.value)
                     ? updateRate("numerator", index, e.target.value)
                     : null
                 }
@@ -43,7 +49,7 @@ export function Rate({ rates, updateRates }: Props) {
               <Inputs.NumberInput
                 value={rate.denominator}
                 onChange={(e) =>
-                  /^\+?-?\d*\.?\d{0,4}$/.test(e.target.value)
+                  regex.test(e.target.value)
                     ? updateRate("denominator", index, e.target.value)
                     : null
                 }
@@ -54,7 +60,7 @@ export function Rate({ rates, updateRates }: Props) {
               <Inputs.NumberInput
                 value={rate.rate}
                 onChange={(e) =>
-                  /^\+?-?\d*\.?\d{0,4}$/.test(e.target.value)
+                  regex.test(e.target.value)
                     ? updateRate("rate", index, e.target.value)
                     : null
                 }

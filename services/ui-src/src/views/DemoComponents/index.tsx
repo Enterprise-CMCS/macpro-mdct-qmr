@@ -29,16 +29,19 @@ export function DemoComponents(): JSX.Element {
     React.useState("");
   const [ratesTwo, setRatesTwo] = React.useState<IRate[]>([
     {
+      label: "Test Label For Section",
       denominator: "",
       numerator: "",
       rate: "",
     },
     {
+      label: "Another Test Label",
       denominator: "",
       numerator: "",
       rate: "",
     },
     {
+      label: "Last Test Label",
       denominator: "",
       numerator: "",
       rate: "",
@@ -153,7 +156,7 @@ export function DemoComponents(): JSX.Element {
             label="Describe the rate:"
             helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
             errorMessage="Text is too long"
-            formLabelProps={{ fontWeight: 600 }}
+            formLabelProps={{ fontWeight: 700 }}
             value={rateDescriptionValueTwo}
             onChange={(e) => setRateDescriptionValueTwo(e.target.value)}
             isInvalidFunc={(value) => String(value).length > 3000}
