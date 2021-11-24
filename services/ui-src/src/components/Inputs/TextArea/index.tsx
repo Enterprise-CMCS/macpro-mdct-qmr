@@ -4,6 +4,7 @@ import * as QMR from "components";
 interface TextAreaProps extends QMR.InputWrapperProps {
   placeholder?: string;
   value: string;
+  isRequired?: boolean;
   textAreaProps?: CUI.TextareaProps;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
