@@ -4,9 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 describe("Test the DemoComponents component", () => {
   test("Check that we can set the textarea to an error/invalid state", () => {
-    const { getByText, getByLabelText } = render(<DemoComponents />);
-
-    expect(getByText(/An Error Occured/i)).toBeVisible();
+    const { getByLabelText } = render(<DemoComponents />);
 
     userEvent.type(getByLabelText(/test text area/i), "testing text area");
 
@@ -48,5 +46,19 @@ describe("Test Second NumberInput Component", () => {
     const { getByText } = render(<DemoComponents />);
 
     expect(getByText(/This number input only allows integers/i)).toBeVisible();
+  });
+
+  describe("Test Inputs associated with Rate Component", () => {
+    it("shows Describe the rate", () => {
+      const { getByText } = render(<DemoComponents />);
+
+      expect(getByText(/Another Test Label/i)).toBeVisible();
+    });
+
+    it("shows Describe the rate", () => {
+      const { getByText } = render(<DemoComponents />);
+
+      expect(getByText(/Another Test Label/i)).toBeVisible();
+    });
   });
 });
