@@ -2,6 +2,7 @@ import React from "react";
 import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
+import { Upload } from "components/Upload";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -166,6 +167,11 @@ export function DemoComponents(): JSX.Element {
             isInvalidFunc={(value) => String(value).length > 3000}
           />
           <Rate rates={ratesTwo} updateRates={setRatesTwo} />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Upload Control
+          </CUI.Heading>
+          <Upload />
         </CUI.Stack>
       </form>
     </CUI.Container>
