@@ -53,5 +53,7 @@ export const Table = ({ columns, data }: Props) => {
   );
 };
 
-export * from "./coreSet";
+export * from "./coreSets";
+export * from "./measures";
 export * from "./_coreSetData";
+export * from "./_measureData";

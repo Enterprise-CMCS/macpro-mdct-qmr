@@ -2,7 +2,6 @@ import React from "react";
 import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
-import { coreSetColumns, exampleCoreSetData } from "components/Table";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -107,9 +106,16 @@ export function DemoComponents(): JSX.Element {
       </CUI.Container>
       <CUI.Container maxW="7xl">
         <CUI.Heading size="sm" as="h3">
-          CoreSet Table
+          Core Sets Table
         </CUI.Heading>
-        <QMR.Table data={exampleCoreSetData} columns={coreSetColumns} />
+        <QMR.Table data={QMR.exampleCoreSetData} columns={QMR.coreSetColumns} />
+        <CUI.Heading size="sm" as="h3">
+          Measures Table
+        </CUI.Heading>
+        <QMR.Table
+          data={QMR.exampleMeasuresData}
+          columns={QMR.measuresColumns}
+        />
       </CUI.Container>
     </>
   );
