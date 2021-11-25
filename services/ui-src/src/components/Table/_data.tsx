@@ -1,134 +1,160 @@
-import { Badge, Button, Box, Text } from "@chakra-ui/react";
+import * as CUI from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-export interface DataStatus {
+export interface SetProgress {
   numAvailable: number;
   numComplete: number;
 }
 
-export interface DataName {
+export interface SetInfo {
   text: string;
   to: string;
 }
 
-export type Data = {
-  name: DataName;
-  type: string;
-  status: DataStatus;
+enum SetType {
+  ADULT = "adult",
+  CHILD = "child",
+  HEALTH_HOMES = "health homes",
+}
+
+enum Status {
+  IN_PROGRESS = "in progress",
+  NOT_STARTED = "not started",
+  COMPLETED = "complete",
+  SUBMITTED = "submitted",
+}
+
+export type SetData = {
+  id: string;
+  info: SetInfo;
+  type: SetType;
+  status: SetProgress;
+  // when we have a core actions component this type will change
   actions: string;
 };
 
-export type Cell = DataName & DataStatus & string;
-
-export const data: Data[] = [
+export const data: SetData[] = [
   {
-    name: { text: "Adult Core Set Measures", to: "/adult" },
-    type: "adult",
+    info: { text: "Adult Core Set Measures", to: "/adult" },
+    type: SetType.ADULT,
     status: { numAvailable: 12, numComplete: 4 },
-    actions: "blog",
+    actions: "adult actions here",
+    id: "test1",
   },
   {
-    name: { text: "Child Core Set Measures: CHIP", to: "/child" },
-    type: "child",
+    info: { text: "Child Core Set Measures: CHIP", to: "/child" },
+    type: SetType.CHILD,
     status: { numAvailable: 12, numComplete: 12 },
-    actions: "home",
+    actions: "chip actions here",
+    id: "test2",
   },
   {
-    name: { text: "Child Core Set Measures: Medicaid", to: "/child" },
-    type: "child",
+    info: { text: "Child Core Set Measures: Medicaid", to: "/child" },
+    type: SetType.CHILD,
     status: { numAvailable: 12, numComplete: 4 },
-    actions: "home",
+    actions: "medicaid actions here",
+    id: "test3",
   },
   {
-    name: { text: "Adult Core Set Measures", to: "/health-homes" },
-    type: "health homes",
+    info: {
+      text: "Health Homes Core Set Questions: SPA Name",
+      to: "/health-homes",
+    },
+    type: SetType.HEALTH_HOMES,
     status: { numAvailable: 12, numComplete: 4 },
-    actions: "design-system",
+    actions: "health home actions here",
+    id: "test4",
   },
 ];
 
 const badgeEnum: Record<string, string> = {
-  adult: "green",
-  child: "blue",
-  "health homes": "purple",
+  [SetType.ADULT]: "green",
+  [SetType.CHILD]: "blue",
+  [SetType.HEALTH_HOMES]: "purple",
 };
 
-const getStatus = ({ numAvailable, numComplete }: DataStatus) => {
-  let status = "In Progress";
-  if (!numComplete) status = "Not Started";
-  if (numComplete === numAvailable) status = "Complete";
+const getStatus = ({ numAvailable, numComplete }: SetProgress): Status => {
+  let status: Status = Status.IN_PROGRESS;
+  if (!numComplete) status = Status.NOT_STARTED;
+  if (numComplete === numAvailable) status = Status.COMPLETED;
   return status;
 };
 
-const CoreSetStatus = (data: DataStatus) => {
-  const status = getStatus(data);
+const CoreSetStatus = (progress: any) => {
+  const status = getStatus(progress);
 
   return (
-    <Box>
-      <Text fontWeight="bold">{status}</Text>
-      <Text>{`${data.numComplete} of ${data.numAvailable} complete`}</Text>
-    </Box>
+    <CUI.Box>
+      <CUI.Text fontWeight="bold" textTransform="capitalize">
+        {status}
+      </CUI.Text>
+      <CUI.Text>{`${progress.numComplete} of ${progress.numAvailable} complete`}</CUI.Text>
+    </CUI.Box>
   );
 };
 
 export const columns = [
   {
     header: "Core Set Name",
-    accessor: "name",
-    cell: ({ to, text }: DataName) => {
+    id: "info",
+    cell: (data: SetData) => {
       return (
-        <Link to={to}>
-          <Text fontWeight="bold" color="blue.600">
-            {text}
-          </Text>
+        <Link to={data.info.to}>
+          <CUI.Text fontWeight="bold" color="blue.600">
+            {data.info.text}
+          </CUI.Text>
         </Link>
       );
     },
   },
   {
     header: "Type",
-    accessor: "type",
-    cell: (data: string) => {
+    id: "type",
+    cell: (data: SetData) => {
       return (
-        <Badge fontSize="xs" colorScheme={badgeEnum[data]}>
-          {data}
-        </Badge>
+        <CUI.Badge fontSize="xs" colorScheme={badgeEnum[data.type]}>
+          {data.type}
+        </CUI.Badge>
       );
     },
   },
   {
     header: "Status",
-    accessor: "status",
-    cell: (data: DataStatus) => <CoreSetStatus {...data} />,
+    accessors: ["status"],
+    cell: (data: SetData) => <CoreSetStatus {...data.status} />,
   },
   {
-    accessor: "status",
-    cell: (data: DataStatus) => {
-      const status = getStatus(data);
+    id: "status",
+    cell: (data: SetData) => {
+      const status = getStatus(data.status);
       return (
-        <Box maxW="2xs" textAlign="center">
-          <Button w="full" disabled={status !== "Complete"} colorScheme="blue">
+        <CUI.Box maxW="2xs" textAlign="center">
+          <CUI.Button
+            w="full"
+            disabled={status !== Status.COMPLETED}
+            colorScheme="blue"
+          >
             Submit Core Set
-          </Button>
-          <Text fontSize="xs" lineHeight="1rem" mt="1">
+          </CUI.Button>
+          <CUI.Text fontSize="xs" lineHeight="1rem" mt="1">
             Complete all Adult Core Set Questions and Adult Core Set Measures to
             submit FFY 2021
-          </Text>
-        </Box>
+          </CUI.Text>
+        </CUI.Box>
       );
     },
   },
   {
     header: "Core Set Actions",
-    accessor: "actions",
-    cell: (data: string) => (
-      <Box textAlign="center">
+    id: "actions",
+    cell: (data: SetData) => (
+      <CUI.Box textAlign="center">
         {/* when we have our core actions comp we would replace this */}
-        <Button variant="ghost" onClick={() => console.log(data)}>
+        <CUI.Button variant="ghost" onClick={() => console.log(data.actions)}>
           <BsThreeDotsVertical />
-        </Button>
-      </Box>
+        </CUI.Button>
+      </CUI.Box>
     ),
   },
 ];
