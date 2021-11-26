@@ -3,14 +3,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Measure, TableColumn } from "./types";
 
-// const getStatus = ({ progress }: Measure.Data): Measure.Status => {
-//   const { numAvailable, numComplete } = progress;
-//   let status: Measure.Status = Measure.Status.IN_PROGRESS;
-//   if (!numComplete) status = Measure.Status.NOT_STARTED;
-//   if (numComplete === numAvailable) status = Measure.Status.COMPLETED;
-//   return status;
-// };
-
 export const measuresColumns: TableColumn<Measure.Data>[] = [
   {
     header: "Abreviation",

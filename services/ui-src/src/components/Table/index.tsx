@@ -1,12 +1,15 @@
 import * as CUI from "@chakra-ui/react";
-import { TableProps } from "./types";
+import { TableProps, TableData } from "./types";
 
-export const Table = ({ columns, data }: TableProps<any>) => {
+export const Table = <T extends TableData>({
+  columns,
+  data,
+}: TableProps<T>) => {
   return (
     <CUI.Table my="8" fontSize="sm">
       <CUI.Thead>
         <CUI.Tr>
-          {columns.map((column: any) => (
+          {columns.map((column) => (
             <CUI.Th
               textTransform="none"
               whiteSpace="nowrap"
@@ -20,9 +23,9 @@ export const Table = ({ columns, data }: TableProps<any>) => {
         </CUI.Tr>
       </CUI.Thead>
       <CUI.Tbody>
-        {data.map((row: any) => (
+        {data.map((row) => (
           <CUI.Tr key={row.id}>
-            {columns.map((column: any) => {
+            {columns.map((column) => {
               const element = column.cell(row);
               return (
                 <CUI.Td key={column.id} maxW="2xs" {...column.styleProps}>

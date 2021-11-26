@@ -1,6 +1,6 @@
-import { Measure, TableData } from "./types";
+import { Measure } from "./types";
 
-export const exampleMeasuresData: TableData<Measure.Data>[] = [
+export const exampleMeasuresData: Measure.Data[] = [
   {
     path: "/example-measures-path-1",
     abbr: "AMM-AD",

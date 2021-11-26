@@ -1,6 +1,6 @@
-import { CoreSet, TableData } from "./types";
+import { CoreSet } from "./types";
 
-export const exampleCoreSetData: TableData<CoreSet.Data>[] = [
+export const exampleCoreSetData: CoreSet.Data[] = [
   {
     path: "/adult",
     title: "Adult Core Set Measures",

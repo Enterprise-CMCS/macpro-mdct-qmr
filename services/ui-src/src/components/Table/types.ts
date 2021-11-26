@@ -50,7 +50,9 @@ export namespace Measure {
   };
 }
 
-export type TableData<T> = T;
+export interface TableData {
+  id: string;
+}
 
 export interface TableColumn<T> {
   header?: string;
@@ -61,5 +63,5 @@ export interface TableColumn<T> {
 
 export interface TableProps<T> {
   columns: TableColumn<T>[];
-  data: TableData<T>[];
+  data: T[];
 }
