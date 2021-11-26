@@ -2,6 +2,7 @@ import React from "react";
 import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
+import { Rate, IRate } from "components/Rate";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -16,6 +17,41 @@ export function DemoComponents(): JSX.Element {
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
   const [numberInputValue, setNumberInputValue] = React.useState("");
+  const [rateDescriptionValue, setRateDescriptionValue] = React.useState("");
+  const [rates, setRates] = React.useState<IRate[]>([
+    {
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 1,
+    },
+  ]);
+
+  const [rateDescriptionValueTwo, setRateDescriptionValueTwo] =
+    React.useState("");
+  const [ratesTwo, setRatesTwo] = React.useState<IRate[]>([
+    {
+      label: "Test Label For Section",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 1,
+    },
+    {
+      label: "Another Test Label",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 3,
+    },
+    {
+      label: "Last Test Label",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 5,
+    },
+  ]);
 
   return (
     <>
@@ -28,12 +64,13 @@ export function DemoComponents(): JSX.Element {
               Text Area
             </CUI.Heading>
             <Inputs.TextArea
-              isInvalidFunc={(value) => !value}
+              isInvalidFunc={(value) => String(value)?.length > 3000}
               placeholder="test"
               value={textAreaValue}
               onChange={(e) => setTextAreaValue(e.target.value)}
               label="test text area"
               helperText="put in something here"
+              errorMessage="Response cannot exceed 3000 characters"
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
@@ -101,6 +138,36 @@ export function DemoComponents(): JSX.Element {
               label="This number input only allows integers"
               helperText="Enter a number"
             />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Rate
+            </CUI.Heading>
+            <Inputs.TextInput
+              renderHelperTextAbove
+              label="Describe the rate:"
+              helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
+              errorMessage="Text is too long"
+              formLabelProps={{ fontWeight: 600 }}
+              value={rateDescriptionValue}
+              onChange={(e) => setRateDescriptionValue(e.target.value)}
+              isInvalidFunc={(value) => String(value).length > 3000}
+            />
+            <Rate rates={rates} updateRates={setRates} />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Rate With Multiple Numerator/Denominator/Rate
+            </CUI.Heading>
+            <Inputs.TextInput
+              renderHelperTextAbove
+              label="Describe the rate:"
+              helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
+              errorMessage="Text is too long"
+              formLabelProps={{ fontWeight: 700 }}
+              value={rateDescriptionValueTwo}
+              onChange={(e) => setRateDescriptionValueTwo(e.target.value)}
+              isInvalidFunc={(value) => String(value).length > 3000}
+            />
+            <Rate rates={ratesTwo} updateRates={setRatesTwo} />
           </CUI.Stack>
         </form>
       </CUI.Container>
