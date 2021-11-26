@@ -36,8 +36,7 @@ export const measuresColumns: TableColumn<Measure.Data>[] = [
     id: "reporting_column_header",
     styleProps: { textAlign: "center" },
     cell: (data: Measure.Data) => {
-      console.log(data);
-      return <p> -- </p>;
+      return <p>{data.year}</p>;
     },
   },
   {
