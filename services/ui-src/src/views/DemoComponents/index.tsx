@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Inputs from "components/Inputs";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
@@ -52,6 +52,7 @@ export function DemoComponents(): JSX.Element {
       id: 5,
     },
   ]);
+  const [file, setFile] = useState<File>();
 
   return (
     <CUI.Container mb="6">
@@ -171,7 +172,7 @@ export function DemoComponents(): JSX.Element {
           <CUI.Heading size="sm" as="h3">
             Upload Control
           </CUI.Heading>
-          <Upload />
+          <Upload file={file} setFile={setFile} />
         </CUI.Stack>
       </form>
     </CUI.Container>
