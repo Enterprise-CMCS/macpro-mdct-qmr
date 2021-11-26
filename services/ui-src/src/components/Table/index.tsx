@@ -1,23 +1,7 @@
 import * as CUI from "@chakra-ui/react";
-import { ReactElement } from "react";
-import { CoreSet } from "./types";
+import { TableProps } from "./types";
 
-interface Column {
-  id: string;
-  stypeProps?: Record<string, string>;
-  cell: (data: CoreSet.Data) => ReactElement;
-}
-
-interface Data {
-  id: string;
-}
-
-export interface Props {
-  columns: Column[];
-  data: Data[];
-}
-
-export const Table = ({ columns, data }: Props) => {
+export const Table = ({ columns, data }: TableProps<any>) => {
   return (
     <CUI.Table my="8" fontSize="sm">
       <CUI.Thead>

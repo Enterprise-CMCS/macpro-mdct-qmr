@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { CoreSet } from "./types";
+import { CoreSet, TableColumn } from "./types";
 
 const badgeEnum: Record<string, string> = {
   [CoreSet.Type.ADULT]: "green",
@@ -32,7 +32,7 @@ const CoreSetStatus = (data: CoreSet.Data) => {
   );
 };
 
-export const coreSetColumns = [
+export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
   {
     header: "Core Set Name",
     id: "info_column_header",
