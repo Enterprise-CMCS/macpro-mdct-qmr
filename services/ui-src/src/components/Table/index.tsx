@@ -15,6 +15,7 @@ export const Table = <T extends TableData>({
               whiteSpace="nowrap"
               scope="col"
               key={column.id}
+              letterSpacing="sm"
               {...column.styleProps}
             >
               {column.header}
@@ -40,7 +41,6 @@ export const Table = <T extends TableData>({
   );
 };
 
-export * from "./coreSets";
-export * from "./measures";
+export * from "./columns";
 export * from "./_coreSetData";
 export * from "./_measureData";

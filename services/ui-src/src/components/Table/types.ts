@@ -46,7 +46,7 @@ export namespace Measure {
     rateComplete: number;
     lastDateModified: string;
     actions: string;
-    year: string;
+    isReporting: boolean | null;
   };
 }
 

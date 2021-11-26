@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { CoreSet, TableColumn } from "./types";
+import { CoreSet, TableColumn } from "../types";
 
 const badgeEnum: Record<string, string> = {
   [CoreSet.Type.ADULT]: "green",

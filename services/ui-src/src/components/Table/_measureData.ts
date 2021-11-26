@@ -9,7 +9,7 @@ export const exampleMeasuresData: Measure.Data[] = [
     actions: "adult actions here",
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test1",
-    year: "2021",
+    isReporting: null,
   },
   {
     path: "/example-measures-path-2",
@@ -19,7 +19,7 @@ export const exampleMeasuresData: Measure.Data[] = [
     actions: "chip actions here",
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test2",
-    year: "2021",
+    isReporting: null,
   },
   {
     path: "/example-measures-path-3",
@@ -29,7 +29,7 @@ export const exampleMeasuresData: Measure.Data[] = [
     actions: "medicaid actions here",
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test3",
-    year: "2021",
+    isReporting: true,
   },
   {
     path: "/example-measures-path-4",
@@ -39,6 +39,6 @@ export const exampleMeasuresData: Measure.Data[] = [
     actions: "health home actions here",
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test4",
-    year: "2021",
+    isReporting: false,
   },
 ];
