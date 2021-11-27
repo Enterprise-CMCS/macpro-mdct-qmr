@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import * as Bootstrap from "react-bootstrap";
 
 export function Login() {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const [fields, handleFieldChange] = useFormFields({

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 export function Header({ handleLogout }: { handleLogout: Function }) {
   const history = useHistory();
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <div data-testid="header">
       <UsaBanner />

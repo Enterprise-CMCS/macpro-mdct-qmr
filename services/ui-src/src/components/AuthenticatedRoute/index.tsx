@@ -5,7 +5,7 @@ export function AuthenticatedRoute({
   ...rest
 }: IAuthenticatedRouteProps): JSX.Element {
   const { pathname, search } = useLocation();
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <Route {...rest}>
       {isAuthenticated ? (
