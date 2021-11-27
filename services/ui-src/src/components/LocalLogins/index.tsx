@@ -1,11 +1,8 @@
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { setUser } from "store/actions/userActions";
 import * as Bootstrap from "react-bootstrap";
 import * as Libs from "libs";
 
 export function LocalLogins(): JSX.Element {
-  const dispatch = useDispatch();
   const history = useHistory();
   function localLogin(role: string) {
     const alice = {
@@ -19,8 +16,6 @@ export function LocalLogins(): JSX.Element {
     };
     Libs.loginLocalUser(alice);
 
-    // Add user to redux
-    dispatch(setUser(alice));
     const redirectRoute = Libs.getRedirectRoute(role);
     history.push(redirectRoute);
   }

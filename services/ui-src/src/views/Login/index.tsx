@@ -4,15 +4,12 @@ import { useFormFields } from "libs/hooksLib";
 import { onError } from "libs/errorLib";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons/faSignInAlt";
-import { RootStateOrAny, useSelector } from "react-redux";
 import { LocalLogins } from "components";
 import { useHistory } from "react-router-dom";
 import * as Bootstrap from "react-bootstrap";
 
 export function Login() {
-  const isAuthenticated = useSelector(
-    (state: RootStateOrAny) => state.user.attributes
-  );
+  const isAuthenticated = true;
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const [fields, handleFieldChange] = useFormFields({

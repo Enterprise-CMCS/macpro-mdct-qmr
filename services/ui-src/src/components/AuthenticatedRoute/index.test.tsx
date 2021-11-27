@@ -1,4 +1,4 @@
-import { AuthenticatedRoute, userAttributeSelector } from "./index";
+import { AuthenticatedRoute } from "./index";
 import { BrowserRouter as Router } from "react-router-dom";
 import { render, cleanup } from "@testing-library/react";
 
@@ -10,16 +10,6 @@ jest.mock("react-router-dom", () => ({
   }),
   Route: ({ children }: any) => <div>{children}</div>,
 }));
-
-jest.mock("react-redux", () => {
-  const ActualReactRedux = jest.requireActual("react-redux");
-  return {
-    ...ActualReactRedux,
-    useSelector: jest.fn().mockImplementation(() => {
-      return true;
-    }),
-  };
-});
 
 afterEach(cleanup);
 
@@ -35,14 +25,5 @@ describe("Test Authenticated Route", () => {
       </Router>
     );
     expect(getByTestId("authenticated-content")).toBeInTheDocument();
-  });
-});
-
-describe("Test UserAttribute Selector", () => {
-  test("Should return correct attribute", () => {
-    const mockUserAttrinutes = userAttributeSelector({
-      user: { attributes: "isMemberOfTest" },
-    });
-    expect(mockUserAttrinutes).toEqual("isMemberOfTest");
   });
 });

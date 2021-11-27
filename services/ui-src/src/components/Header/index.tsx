@@ -1,14 +1,11 @@
 import { UsaBanner } from "@cmsgov/design-system";
 import { Logo } from "components";
 import * as Bootstrap from "react-bootstrap";
-import { RootStateOrAny, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 export function Header({ handleLogout }: { handleLogout: Function }) {
   const history = useHistory();
-  const isAuthenticated = useSelector(
-    (state: RootStateOrAny) => state.user.attributes
-  );
+  const isAuthenticated = true;
   return (
     <div data-testid="header">
       <UsaBanner />

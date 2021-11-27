@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { Auth } from "aws-amplify";
-import { setUser, unsetUser } from "store/actions/userActions";
 import { Routes } from "./Routes";
 import * as QMR from "components";
 import * as Libs from "./libs";
 
 function App(): JSX.Element | null {
-  const dispatch = useDispatch();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState<boolean>(false);
   const history = useHistory();
@@ -29,18 +26,15 @@ function App(): JSX.Element | null {
         user.attributes["app-role"] = Libs.determineRole(
           cmsRoleAttribute ? cmsRoleAttribute["custom:cms_roles"] : ""
         );
-        dispatch(setUser(user));
         setIsAuthenticating(false);
         userHasAuthenticated(true);
       }
       setIsAuthenticating(false);
     })();
-  }, [dispatch]);
+  }, []);
 
   async function handleLogout() {
-    dispatch(unsetUser());
     userHasAuthenticated(false);
-    Libs.logoutLocalUser();
     try {
       await Auth.signOut();
       const oAuthOpts = Auth.configure()?.oauth;
@@ -51,7 +45,6 @@ function App(): JSX.Element | null {
     } catch (error) {
       console.log("error signing out: ", error);
     }
-    // Remove user from redux
     history.push("/");
   }
 
