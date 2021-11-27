@@ -1,5 +1,6 @@
 import { CoreSet } from "./types";
 
+// Example Core Set list data for testing and demo page.
 export const exampleCoreSetData: CoreSet.Data[] = [
   {
     path: "/adult",

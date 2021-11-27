@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Measure, TableColumn } from "../types";
 
-const getStatus = (data: Measure.Data) => {
+// Get status string from measure data
+const getStatus = (data: Measure.Data): Measure.Status => {
   // If completed all questions or if not reporting -> Complete
   if (
     data.rateComplete === 1 ||
@@ -18,16 +19,47 @@ const getStatus = (data: Measure.Data) => {
     return Measure.Status.IN_PROGRESS;
   }
 
-  // Otherwise not started
+  // Otherwise -> Not Started
   return Measure.Status.NOT_STARTED;
 };
 
+// Format date string: ex. Nov 26, 2021 12:53 PM see: https://date-fns.org/v2.26.0/docs/format
 const formatDate = (data: Measure.Data) => {
   if (!data.lastDateModified) return null;
   const date = format(new Date(data.lastDateModified), "LLL d, yyyy h:m a");
   return date;
 };
 
+// ✅ icon to show if measure is complete
+const CompleteCheck = () => (
+  <CUI.Box color="green.600">
+    <BsCheck fontSize="22px" />
+  </CUI.Box>
+);
+
+// Measure status text. will show % if in progress or date if completed
+const MeasureStatusText = ({
+  isInProgress,
+  status,
+  isComplete,
+  date,
+  rateComplete,
+}: Measure.StatusTextProps) => {
+  const completionPercentage = Math.floor(rateComplete * 100);
+  return (
+    <CUI.Box fontSize="xs">
+      <CUI.Text textTransform="capitalize" fontWeight="bold">
+        {status}
+      </CUI.Text>
+      {isInProgress && (
+        <CUI.Text>{`${completionPercentage}% complete`}</CUI.Text>
+      )}
+      {isComplete && <CUI.Text>{date}</CUI.Text>}
+    </CUI.Box>
+  );
+};
+
+// Measure table columns with cell formatting
 export const measuresColumns: TableColumn<Measure.Data>[] = [
   {
     header: "Abbreviation",
@@ -77,26 +109,18 @@ export const measuresColumns: TableColumn<Measure.Data>[] = [
     cell: (data: Measure.Data) => {
       const status = getStatus(data);
       const date = formatDate(data);
-      const isComplete = status === Measure.Status.COMPLETED && date;
+      const isComplete = status === Measure.Status.COMPLETED && !!date;
       const isInProgress = status === Measure.Status.IN_PROGRESS;
       return (
-        <CUI.Flex ml={isComplete ? [-3, -3, -5, -6] : "inherit"}>
-          {isComplete && <BsCheck fontSize="22px" color="#12890E" />}
-          <CUI.Box>
-            <CUI.Text
-              fontSize="xs"
-              textTransform="capitalize"
-              fontWeight="bold"
-            >
-              {status}
-            </CUI.Text>
-            {isInProgress && (
-              <CUI.Text fontSize="xs">{`${Math.floor(
-                data.rateComplete * 100
-              )}% complete`}</CUI.Text>
-            )}
-            {isComplete && <CUI.Text fontSize="xs">{date}</CUI.Text>}
-          </CUI.Box>
+        <CUI.Flex ml={isComplete ? -6 : "inherit"}>
+          {isComplete && <CompleteCheck />}
+          <MeasureStatusText
+            isComplete={isComplete}
+            isInProgress={isInProgress}
+            date={date}
+            rateComplete={data.rateComplete}
+            status={status}
+          />
         </CUI.Flex>
       );
     },
@@ -107,6 +131,7 @@ export const measuresColumns: TableColumn<Measure.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: Measure.Data) => (
       <CUI.Box textAlign="center">
+        {/* we will update this when the actions comp is ready */}
         <CUI.Button variant="ghost" onClick={() => console.log(data.actions)}>
           <BsThreeDotsVertical />
         </CUI.Button>

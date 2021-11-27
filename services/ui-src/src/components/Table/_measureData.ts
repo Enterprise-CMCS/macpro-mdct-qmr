@@ -1,5 +1,6 @@
 import { Measure } from "./types";
 
+// Example Measures list data for testing and demo page.
 export const exampleMeasuresData: Measure.Data[] = [
   {
     path: "/example-measures-path-1",

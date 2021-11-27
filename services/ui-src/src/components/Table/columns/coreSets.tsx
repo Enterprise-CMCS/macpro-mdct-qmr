@@ -3,12 +3,14 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { CoreSet, TableColumn } from "../types";
 
+// Badge color mapping for core set type
 const badgeEnum: Record<string, string> = {
   [CoreSet.Type.ADULT]: "green",
   [CoreSet.Type.CHILD]: "blue",
   [CoreSet.Type.HEALTH_HOMES]: "purple",
 };
 
+// Get status string from core set data
 const getStatus = ({ progress, submitted }: CoreSet.Data): CoreSet.Status => {
   if (submitted) return CoreSet.Status.SUBMITTED;
 
@@ -19,9 +21,9 @@ const getStatus = ({ progress, submitted }: CoreSet.Data): CoreSet.Status => {
   return status;
 };
 
-const CoreSetStatus = (data: CoreSet.Data) => {
+// Get core Set status text from core set data
+const CoreSetStatusText = (data: CoreSet.Data) => {
   const status = getStatus(data);
-
   return (
     <CUI.Box fontSize="xs">
       <CUI.Text fontWeight="bold" textTransform="capitalize">
@@ -32,6 +34,7 @@ const CoreSetStatus = (data: CoreSet.Data) => {
   );
 };
 
+// Core Set table columns with cell formatting
 export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
   {
     header: "Core Set Name",
@@ -61,13 +64,16 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
   {
     header: "Status",
     id: "status_column_header",
-    cell: (data: CoreSet.Data) => <CoreSetStatus {...data} />,
+    cell: (data: CoreSet.Data) => <CoreSetStatusText {...data} />,
   },
   {
     id: "submit_column_header",
     cell: (data: CoreSet.Data) => {
       const status = getStatus(data);
       const isSubmitted = status === CoreSet.Status.SUBMITTED;
+      const buttonText = isSubmitted
+        ? CoreSet.Status.SUBMITTED
+        : "submit core set";
       return (
         <CUI.Box maxW="2xs" textAlign="center">
           <CUI.Button
@@ -76,7 +82,7 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
             colorScheme="blue"
             textTransform="capitalize"
           >
-            {isSubmitted ? CoreSet.Status.SUBMITTED : "submit core set"}
+            {buttonText}
           </CUI.Button>
           {!isSubmitted && (
             <CUI.Text fontSize="xs" lineHeight="1rem" mt="1">
@@ -93,6 +99,7 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: CoreSet.Data) => (
       <CUI.Box textAlign="center">
+        {/* we will update this when the actions comp is ready */}
         <CUI.Button variant="ghost" onClick={() => console.log(data.actions)}>
           <BsThreeDotsVertical />
         </CUI.Button>

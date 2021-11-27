@@ -1,6 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import { TableProps, TableData } from "./types";
 
+// Generic Table comp with minimal styling for CoreSet and Measure lists
 export const Table = <T extends TableData>({
   columns,
   data,

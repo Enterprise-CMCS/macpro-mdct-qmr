@@ -48,6 +48,14 @@ export namespace Measure {
     actions: string;
     isReporting: boolean | null;
   };
+
+  export interface StatusTextProps {
+    isInProgress: boolean;
+    status: Measure.Status;
+    isComplete: boolean | null;
+    date: string | null;
+    rateComplete: number;
+  }
 }
 
 export interface TableData {
