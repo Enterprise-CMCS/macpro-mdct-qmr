@@ -30,7 +30,7 @@ const formatDate = (data: Measure.Data) => {
 
 export const measuresColumns: TableColumn<Measure.Data>[] = [
   {
-    header: "Abreviation",
+    header: "Abbreviation",
     id: "aabr_column_header",
     styleProps: { textAlign: "center" },
     cell: (data: Measure.Data) => {
