@@ -9,7 +9,7 @@ export const Table = <T extends TableData>({
     <CUI.Table my="8" fontSize="sm">
       <CUI.Thead>
         <CUI.Tr>
-          {columns.map((column) => (
+          {columns?.map((column) => (
             <CUI.Th
               textTransform="none"
               whiteSpace="nowrap"
@@ -24,7 +24,7 @@ export const Table = <T extends TableData>({
         </CUI.Tr>
       </CUI.Thead>
       <CUI.Tbody>
-        {data.map((row) => (
+        {data?.map((row) => (
           <CUI.Tr key={row.id}>
             {columns.map((column) => {
               const element = column.cell(row);

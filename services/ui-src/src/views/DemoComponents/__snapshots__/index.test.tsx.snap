@@ -1,0 +1,3506 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Demo Components Page renders components correctly 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div
+      id="chakra-toast-portal"
+    >
+      <ul
+        id="chakra-toast-manager-top"
+        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; margin: 0px auto;"
+      />
+      <ul
+        id="chakra-toast-manager-top-left"
+        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
+      />
+      <ul
+        id="chakra-toast-manager-top-right"
+        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
+      />
+      <ul
+        id="chakra-toast-manager-bottom-left"
+        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
+      />
+      <ul
+        id="chakra-toast-manager-bottom"
+        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; margin: 0px auto;"
+      />
+      <ul
+        id="chakra-toast-manager-bottom-right"
+        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
+      />
+    </div>
+    <div>
+      <div
+        class="chakra-container css-jmbq56"
+      >
+        <form>
+          <div
+            class="chakra-stack css-17kdbol"
+          >
+            <h2
+              class="chakra-heading css-0"
+            >
+              Components
+            </h2>
+            <hr
+              aria-orientation="horizontal"
+              class="chakra-divider css-1upb9tn"
+            />
+            <h3
+              class="chakra-heading css-0"
+            >
+              Text Area
+            </h3>
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-uvho5g"
+                for="field-9702123886-162"
+                id="field-9702123886-162-label"
+              >
+                test text area
+              </label>
+              <textarea
+                aria-describedby="field-9702123886-162-helptext"
+                class="chakra-textarea css-0"
+                id="field-9702123886-162"
+                placeholder="test"
+              />
+              <div
+                class="css-k008qs"
+              >
+                <div
+                  class="chakra-form__helper-text css-0"
+                  id="field-9702123886-162-helptext"
+                >
+                  put in something here
+                </div>
+                <div
+                  class="css-17xejub"
+                />
+              </div>
+            </div>
+            <hr
+              aria-orientation="horizontal"
+              class="chakra-divider css-1upb9tn"
+            />
+            <h3
+              class="chakra-heading css-0"
+            >
+              Radio Button
+            </h3>
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-uvho5g"
+                for="field-9702123886-163"
+                id="field-9702123886-163-label"
+              >
+                hello world
+              </label>
+              <div
+                class="chakra-radio-group css-0"
+                role="radiogroup"
+              >
+                <div
+                  class="chakra-stack css-n21gh5"
+                >
+                  <label
+                    class="chakra-radio css-78joka"
+                  >
+                    <input
+                      class="chakra-radio__input"
+                      id="radio-9702123886-165"
+                      name="radio-9702123886-164"
+                      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                      type="radio"
+                      value="test1"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="chakra-radio__control css-ssalds"
+                    />
+                    <span
+                      class="chakra-radio__label css-1y8kf23"
+                    >
+                      test1
+                    </span>
+                  </label>
+                  <label
+                    class="chakra-radio css-78joka"
+                  >
+                    <input
+                      class="chakra-radio__input"
+                      id="radio-9702123886-166"
+                      name="radio-9702123886-164"
+                      style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                      type="radio"
+                      value="test2"
+                    />
+                    <span
+                      aria-hidden="true"
+                      class="chakra-radio__control css-ssalds"
+                    />
+                    <span
+                      class="chakra-radio__label css-1y8kf23"
+                    >
+                      test2
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div
+                class="css-k008qs"
+              >
+                <div
+                  class="css-17xejub"
+                />
+              </div>
+            </div>
+            <hr
+              aria-orientation="horizontal"
+              class="chakra-divider css-1upb9tn"
+            />
+            <h3
+              class="chakra-heading css-0"
+            >
+              Text Input
+            </h3>
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-uvho5g"
+                for="field-9702123886-167"
+                id="field-9702123886-167-label"
+              >
+                Label for Text Input
+              </label>
+              <input
+                aria-describedby="field-9702123886-167-helptext"
+                class="chakra-input css-0"
+                id="field-9702123886-167"
+                placeholder=""
+                type="text"
+                value=""
+              />
+              <div
+                class="css-k008qs"
+              >
+                <div
+                  class="chakra-form__helper-text css-0"
+                  id="field-9702123886-167-helptext"
+                >
+                  Your text can't exceed 3 characters
+                </div>
+                <div
+                  class="css-17xejub"
+                />
+              </div>
+            </div>
+            <hr
+              aria-orientation="horizontal"
+              class="chakra-divider css-1upb9tn"
+            />
+            <h3
+              class="chakra-heading css-0"
+            >
+              Select Input
+            </h3>
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-uvho5g"
+                for="field-9702123886-168"
+                id="field-9702123886-168-label"
+              >
+                this is a select (drop down) input
+              </label>
+              <div
+                class="chakra-select__wrapper css-42b2qy"
+              >
+                <select
+                  aria-describedby="field-9702123886-168-helptext"
+                  class="chakra-select css-1ik61og"
+                  id="field-9702123886-168"
+                >
+                  <option
+                    value=""
+                  >
+                    Select option
+                  </option>
+                  <option
+                    value="option1"
+                  >
+                    option1
+                  </option>
+                  <option
+                    value="option2"
+                  >
+                    option2
+                  </option>
+                  <option
+                    value="invalid"
+                  >
+                    invalid
+                  </option>
+                </select>
+                <div
+                  class="chakra-select__icon-wrapper css-162mkon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    baseProfile="tiny"
+                    class="chakra-select__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    role="presentation"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    style="color: currentColor; width: 1em; height: 1em;"
+                    version="1.2"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M18.2 9.3l-6.2-6.3-6.2 6.3c-.2.2-.3.4-.3.7s.1.5.3.7c.2.2.4.3.7.3h11c.3 0 .5-.1.7-.3.2-.2.3-.5.3-.7s-.1-.5-.3-.7zM5.8 14.7l6.2 6.3 6.2-6.3c.2-.2.3-.5.3-.7s-.1-.5-.3-.7c-.2-.2-.4-.3-.7-.3h-11c-.3 0-.5.1-.7.3-.2.2-.3.5-.3.7s.1.5.3.7z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="css-k008qs"
+              >
+                <div
+                  class="chakra-form__helper-text css-0"
+                  id="field-9702123886-168-helptext"
+                >
+                  pick something please
+                </div>
+                <div
+                  class="css-17xejub"
+                />
+              </div>
+            </div>
+            <hr
+              aria-orientation="horizontal"
+              class="chakra-divider css-1upb9tn"
+            />
+            <h3
+              class="chakra-heading css-0"
+            >
+              Number Input With Mask
+            </h3>
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-uvho5g"
+                for="field-9702123886-169"
+                id="field-9702123886-169-label"
+              >
+                This number input is a percent and allows decimals
+              </label>
+              <div
+                class="chakra-input__group css-4302v8"
+              >
+                <input
+                  aria-describedby="field-9702123886-169-helptext"
+                  class="chakra-input css-0"
+                  id="field-9702123886-169"
+                  placeholder="123"
+                  type="text"
+                  value=""
+                />
+                <div
+                  class="chakra-input__right-element css-it2o8j"
+                >
+                  %
+                </div>
+              </div>
+              <div
+                class="css-k008qs"
+              >
+                <div
+                  class="chakra-form__helper-text css-0"
+                  id="field-9702123886-169-helptext"
+                >
+                  Enter a number
+                </div>
+                <div
+                  class="css-17xejub"
+                />
+              </div>
+            </div>
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-uvho5g"
+                for="field-9702123886-170"
+                id="field-9702123886-170-label"
+              >
+                This number input only allows integers
+              </label>
+              <div
+                class="chakra-input__group css-4302v8"
+              >
+                <input
+                  aria-describedby="field-9702123886-170-helptext"
+                  class="chakra-input css-0"
+                  id="field-9702123886-170"
+                  placeholder="123"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="css-k008qs"
+              >
+                <div
+                  class="chakra-form__helper-text css-0"
+                  id="field-9702123886-170-helptext"
+                >
+                  Enter a number
+                </div>
+                <div
+                  class="css-17xejub"
+                />
+              </div>
+            </div>
+            <hr
+              aria-orientation="horizontal"
+              class="chakra-divider css-1upb9tn"
+            />
+            <h3
+              class="chakra-heading css-0"
+            >
+              Rate
+            </h3>
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-9vgk4i"
+                for="field-9702123886-171"
+                id="field-9702123886-171-label"
+              >
+                Describe the rate:
+              </label>
+              <div
+                class="chakra-form__helper-text css-0"
+                id="field-9702123886-171-helptext"
+              >
+                For example, specify the age groups and whether you are reporting on a certain indicator:
+              </div>
+              <input
+                aria-describedby="field-9702123886-171-helptext"
+                class="chakra-input css-0"
+                id="field-9702123886-171"
+                placeholder=""
+                type="text"
+                value=""
+              />
+              <div
+                class="css-k008qs"
+              >
+                <div
+                  class="css-17xejub"
+                />
+              </div>
+            </div>
+            <div
+              class="chakra-stack css-n21gh5"
+            >
+              <div
+                class="chakra-stack css-15lgeks"
+              >
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-172"
+                    id="field-9702123886-172-label"
+                  >
+                    Numerator
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-172"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-173"
+                    id="field-9702123886-173-label"
+                  >
+                    Denominator
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-173"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-174"
+                    id="field-9702123886-174-label"
+                  >
+                    Rate
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-174"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr
+              aria-orientation="horizontal"
+              class="chakra-divider css-1upb9tn"
+            />
+            <h3
+              class="chakra-heading css-0"
+            >
+              Rate With Multiple Numerator/Denominator/Rate
+            </h3>
+            <div
+              class="chakra-form-control css-0"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-1nrt4sy"
+                for="field-9702123886-175"
+                id="field-9702123886-175-label"
+              >
+                Describe the rate:
+              </label>
+              <div
+                class="chakra-form__helper-text css-0"
+                id="field-9702123886-175-helptext"
+              >
+                For example, specify the age groups and whether you are reporting on a certain indicator:
+              </div>
+              <input
+                aria-describedby="field-9702123886-175-helptext"
+                class="chakra-input css-0"
+                id="field-9702123886-175"
+                placeholder=""
+                type="text"
+                value=""
+              />
+              <div
+                class="css-k008qs"
+              >
+                <div
+                  class="css-17xejub"
+                />
+              </div>
+            </div>
+            <div
+              class="chakra-stack css-n21gh5"
+            >
+              <label
+                class="chakra-form__label css-1nrt4sy"
+              >
+                Test Label For Section
+              </label>
+              <div
+                class="chakra-stack css-15lgeks"
+              >
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-176"
+                    id="field-9702123886-176-label"
+                  >
+                    Numerator
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-176"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-177"
+                    id="field-9702123886-177-label"
+                  >
+                    Denominator
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-177"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-178"
+                    id="field-9702123886-178-label"
+                  >
+                    Rate
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-178"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="chakra-stack css-n21gh5"
+            >
+              <label
+                class="chakra-form__label css-1nrt4sy"
+              >
+                Another Test Label
+              </label>
+              <div
+                class="chakra-stack css-15lgeks"
+              >
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-179"
+                    id="field-9702123886-179-label"
+                  >
+                    Numerator
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-179"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-180"
+                    id="field-9702123886-180-label"
+                  >
+                    Denominator
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-180"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-181"
+                    id="field-9702123886-181-label"
+                  >
+                    Rate
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-181"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="chakra-stack css-n21gh5"
+            >
+              <label
+                class="chakra-form__label css-1nrt4sy"
+              >
+                Last Test Label
+              </label>
+              <div
+                class="chakra-stack css-15lgeks"
+              >
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-182"
+                    id="field-9702123886-182-label"
+                  >
+                    Numerator
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-182"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-183"
+                    id="field-9702123886-183-label"
+                  >
+                    Denominator
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-183"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    for="field-9702123886-184"
+                    id="field-9702123886-184-label"
+                  >
+                    Rate
+                  </label>
+                  <div
+                    class="chakra-input__group css-4302v8"
+                  >
+                    <input
+                      class="chakra-input css-0"
+                      id="field-9702123886-184"
+                      placeholder=""
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div
+        class="chakra-container css-1mlspx9"
+      >
+        <h3
+          class="chakra-heading css-0"
+        >
+          Core Sets Table
+        </h3>
+        <table
+          class="chakra-table css-cyiq3i"
+          role="table"
+        >
+          <thead
+            class="css-0"
+          >
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <th
+                class="css-kqmtzl"
+                scope="col"
+              >
+                Core Set Name
+              </th>
+              <th
+                class="css-1pcs4ad"
+                scope="col"
+              >
+                Type
+              </th>
+              <th
+                class="css-kqmtzl"
+                scope="col"
+              >
+                Status
+              </th>
+              <th
+                class="css-kqmtzl"
+                scope="col"
+              />
+              <th
+                class="css-1pcs4ad"
+                scope="col"
+              >
+                Core Set Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="css-0"
+          >
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <a
+                  href="/adult"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    Adult Core Set Measures
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <span
+                  class="chakra-badge css-hir8a5"
+                >
+                  adult
+                </span>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-1lj023j"
+                >
+                  <p
+                    class="chakra-text css-ng5d7i"
+                  >
+                    submitted
+                  </p>
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    12 of 12 complete
+                  </p>
+                </div>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-i37d70"
+                >
+                  <button
+                    class="chakra-button css-78ve4i"
+                    disabled=""
+                    type="button"
+                  >
+                    submitted
+                  </button>
+                </div>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <div
+                  class="css-xi606m"
+                >
+                  <button
+                    class="chakra-button css-5c2176"
+                    type="button"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <a
+                  href="/child"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    Child Core Set Measures: CHIP
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <span
+                  class="chakra-badge css-hir8a5"
+                >
+                  child
+                </span>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-1lj023j"
+                >
+                  <p
+                    class="chakra-text css-ng5d7i"
+                  >
+                    complete
+                  </p>
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    12 of 12 complete
+                  </p>
+                </div>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-i37d70"
+                >
+                  <button
+                    class="chakra-button css-78ve4i"
+                    type="button"
+                  >
+                    submit core set
+                  </button>
+                  <p
+                    class="chakra-text css-1k3wvx1"
+                  >
+                    Complete all Core Set Questions and Core Set Measures to submit FFY 2021
+                  </p>
+                </div>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <div
+                  class="css-xi606m"
+                >
+                  <button
+                    class="chakra-button css-5c2176"
+                    type="button"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <a
+                  href="/child"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    Child Core Set Measures: Medicaid
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <span
+                  class="chakra-badge css-hir8a5"
+                >
+                  child
+                </span>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-1lj023j"
+                >
+                  <p
+                    class="chakra-text css-ng5d7i"
+                  >
+                    in progress
+                  </p>
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    4 of 12 complete
+                  </p>
+                </div>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-i37d70"
+                >
+                  <button
+                    class="chakra-button css-78ve4i"
+                    disabled=""
+                    type="button"
+                  >
+                    submit core set
+                  </button>
+                  <p
+                    class="chakra-text css-1k3wvx1"
+                  >
+                    Complete all Core Set Questions and Core Set Measures to submit FFY 2021
+                  </p>
+                </div>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <div
+                  class="css-xi606m"
+                >
+                  <button
+                    class="chakra-button css-5c2176"
+                    type="button"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <a
+                  href="/health-homes"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    Health Homes Core Set Questions: SPA Name
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <span
+                  class="chakra-badge css-hir8a5"
+                >
+                  health homes
+                </span>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-1lj023j"
+                >
+                  <p
+                    class="chakra-text css-ng5d7i"
+                  >
+                    in progress
+                  </p>
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    4 of 12 complete
+                  </p>
+                </div>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-i37d70"
+                >
+                  <button
+                    class="chakra-button css-78ve4i"
+                    disabled=""
+                    type="button"
+                  >
+                    submit core set
+                  </button>
+                  <p
+                    class="chakra-text css-1k3wvx1"
+                  >
+                    Complete all Core Set Questions and Core Set Measures to submit FFY 2021
+                  </p>
+                </div>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <div
+                  class="css-xi606m"
+                >
+                  <button
+                    class="chakra-button css-5c2176"
+                    type="button"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h3
+          class="chakra-heading css-0"
+        >
+          Measures Table
+        </h3>
+        <table
+          class="chakra-table css-cyiq3i"
+          role="table"
+        >
+          <thead
+            class="css-0"
+          >
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <th
+                class="css-1pcs4ad"
+                scope="col"
+              >
+                Abreviation
+              </th>
+              <th
+                class="css-kqmtzl"
+                scope="col"
+              >
+                Measure
+              </th>
+              <th
+                class="css-1pcs4ad"
+                scope="col"
+              >
+                Reporting FFY 2021
+              </th>
+              <th
+                class="css-kqmtzl"
+                scope="col"
+              >
+                Status
+              </th>
+              <th
+                class="css-1pcs4ad"
+                scope="col"
+              >
+                Measure Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="css-0"
+          >
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <a
+                  href="/example-measures-path-1"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    AMM-AD
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <a
+                  href="/example-measures-path-1"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    Antidepressant Medication Management
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <p
+                  class="chakra-text css-1jbp8q3"
+                >
+                  --
+                </p>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-1nsq32e"
+                >
+                  <div
+                    class="css-0"
+                  >
+                    <p
+                      class="chakra-text css-17nxtiy"
+                    >
+                      not started
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <div
+                  class="css-xi606m"
+                >
+                  <button
+                    class="chakra-button css-5c2176"
+                    type="button"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <a
+                  href="/example-measures-path-2"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    AMR-AD
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <a
+                  href="/example-measures-path-2"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    Asthma Medication Ratio: Ages 19 to 64
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <p
+                  class="chakra-text css-1jbp8q3"
+                >
+                  --
+                </p>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-1nsq32e"
+                >
+                  <div
+                    class="css-0"
+                  >
+                    <p
+                      class="chakra-text css-17nxtiy"
+                    >
+                      not started
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <div
+                  class="css-xi606m"
+                >
+                  <button
+                    class="chakra-button css-5c2176"
+                    type="button"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <a
+                  href="/example-measures-path-3"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    BCS-AD
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <a
+                  href="/example-measures-path-3"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    Breast Cancer Screening
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <p
+                  class="chakra-text css-1jbp8q3"
+                >
+                  yes
+                </p>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-1nsq32e"
+                >
+                  <div
+                    class="css-0"
+                  >
+                    <p
+                      class="chakra-text css-17nxtiy"
+                    >
+                      in progress
+                    </p>
+                    <p
+                      class="chakra-text css-1lj023j"
+                    >
+                      67% complete
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <div
+                  class="css-xi606m"
+                >
+                  <button
+                    class="chakra-button css-5c2176"
+                    type="button"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <a
+                  href="/example-measures-path-4"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    CBP-AD
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <a
+                  href="/example-measures-path-4"
+                >
+                  <p
+                    class="chakra-text css-on2zac"
+                  >
+                    Controlling High Blood Pressure
+                  </p>
+                </a>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <p
+                  class="chakra-text css-1jbp8q3"
+                >
+                  no
+                </p>
+              </td>
+              <td
+                class="css-12kdu1h"
+                role="gridcell"
+              >
+                <div
+                  class="css-8qt5hc"
+                >
+                  <svg
+                    color="#12890E"
+                    fill="currentColor"
+                    font-size="22px"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    style="color: rgb(18, 137, 14);"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                    />
+                  </svg>
+                  <div
+                    class="css-0"
+                  >
+                    <p
+                      class="chakra-text css-17nxtiy"
+                    >
+                      complete
+                    </p>
+                    <p
+                      class="chakra-text css-1lj023j"
+                    >
+                      Nov 26, 2021 12:53 PM
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="css-i37d70"
+                role="gridcell"
+              >
+                <div
+                  class="css-xi606m"
+                >
+                  <button
+                    class="chakra-button css-5c2176"
+                    type="button"
+                  >
+                    <svg
+                      fill="currentColor"
+                      height="1em"
+                      stroke="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="chakra-container css-jmbq56"
+    >
+      <form>
+        <div
+          class="chakra-stack css-17kdbol"
+        >
+          <h2
+            class="chakra-heading css-0"
+          >
+            Components
+          </h2>
+          <hr
+            aria-orientation="horizontal"
+            class="chakra-divider css-1upb9tn"
+          />
+          <h3
+            class="chakra-heading css-0"
+          >
+            Text Area
+          </h3>
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <label
+              class="chakra-form__label css-uvho5g"
+              for="field-9702123886-162"
+              id="field-9702123886-162-label"
+            >
+              test text area
+            </label>
+            <textarea
+              aria-describedby="field-9702123886-162-helptext"
+              class="chakra-textarea css-0"
+              id="field-9702123886-162"
+              placeholder="test"
+            />
+            <div
+              class="css-k008qs"
+            >
+              <div
+                class="chakra-form__helper-text css-0"
+                id="field-9702123886-162-helptext"
+              >
+                put in something here
+              </div>
+              <div
+                class="css-17xejub"
+              />
+            </div>
+          </div>
+          <hr
+            aria-orientation="horizontal"
+            class="chakra-divider css-1upb9tn"
+          />
+          <h3
+            class="chakra-heading css-0"
+          >
+            Radio Button
+          </h3>
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <label
+              class="chakra-form__label css-uvho5g"
+              for="field-9702123886-163"
+              id="field-9702123886-163-label"
+            >
+              hello world
+            </label>
+            <div
+              class="chakra-radio-group css-0"
+              role="radiogroup"
+            >
+              <div
+                class="chakra-stack css-n21gh5"
+              >
+                <label
+                  class="chakra-radio css-78joka"
+                >
+                  <input
+                    class="chakra-radio__input"
+                    id="radio-9702123886-165"
+                    name="radio-9702123886-164"
+                    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                    type="radio"
+                    value="test1"
+                  />
+                  <span
+                    aria-hidden="true"
+                    class="chakra-radio__control css-ssalds"
+                  />
+                  <span
+                    class="chakra-radio__label css-1y8kf23"
+                  >
+                    test1
+                  </span>
+                </label>
+                <label
+                  class="chakra-radio css-78joka"
+                >
+                  <input
+                    class="chakra-radio__input"
+                    id="radio-9702123886-166"
+                    name="radio-9702123886-164"
+                    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                    type="radio"
+                    value="test2"
+                  />
+                  <span
+                    aria-hidden="true"
+                    class="chakra-radio__control css-ssalds"
+                  />
+                  <span
+                    class="chakra-radio__label css-1y8kf23"
+                  >
+                    test2
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              class="css-k008qs"
+            >
+              <div
+                class="css-17xejub"
+              />
+            </div>
+          </div>
+          <hr
+            aria-orientation="horizontal"
+            class="chakra-divider css-1upb9tn"
+          />
+          <h3
+            class="chakra-heading css-0"
+          >
+            Text Input
+          </h3>
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <label
+              class="chakra-form__label css-uvho5g"
+              for="field-9702123886-167"
+              id="field-9702123886-167-label"
+            >
+              Label for Text Input
+            </label>
+            <input
+              aria-describedby="field-9702123886-167-helptext"
+              class="chakra-input css-0"
+              id="field-9702123886-167"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <div
+              class="css-k008qs"
+            >
+              <div
+                class="chakra-form__helper-text css-0"
+                id="field-9702123886-167-helptext"
+              >
+                Your text can't exceed 3 characters
+              </div>
+              <div
+                class="css-17xejub"
+              />
+            </div>
+          </div>
+          <hr
+            aria-orientation="horizontal"
+            class="chakra-divider css-1upb9tn"
+          />
+          <h3
+            class="chakra-heading css-0"
+          >
+            Select Input
+          </h3>
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <label
+              class="chakra-form__label css-uvho5g"
+              for="field-9702123886-168"
+              id="field-9702123886-168-label"
+            >
+              this is a select (drop down) input
+            </label>
+            <div
+              class="chakra-select__wrapper css-42b2qy"
+            >
+              <select
+                aria-describedby="field-9702123886-168-helptext"
+                class="chakra-select css-1ik61og"
+                id="field-9702123886-168"
+              >
+                <option
+                  value=""
+                >
+                  Select option
+                </option>
+                <option
+                  value="option1"
+                >
+                  option1
+                </option>
+                <option
+                  value="option2"
+                >
+                  option2
+                </option>
+                <option
+                  value="invalid"
+                >
+                  invalid
+                </option>
+              </select>
+              <div
+                class="chakra-select__icon-wrapper css-162mkon"
+              >
+                <svg
+                  aria-hidden="true"
+                  baseProfile="tiny"
+                  class="chakra-select__icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  role="presentation"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  style="color: currentColor; width: 1em; height: 1em;"
+                  version="1.2"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M18.2 9.3l-6.2-6.3-6.2 6.3c-.2.2-.3.4-.3.7s.1.5.3.7c.2.2.4.3.7.3h11c.3 0 .5-.1.7-.3.2-.2.3-.5.3-.7s-.1-.5-.3-.7zM5.8 14.7l6.2 6.3 6.2-6.3c.2-.2.3-.5.3-.7s-.1-.5-.3-.7c-.2-.2-.4-.3-.7-.3h-11c-.3 0-.5.1-.7.3-.2.2-.3.5-.3.7s.1.5.3.7z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              class="css-k008qs"
+            >
+              <div
+                class="chakra-form__helper-text css-0"
+                id="field-9702123886-168-helptext"
+              >
+                pick something please
+              </div>
+              <div
+                class="css-17xejub"
+              />
+            </div>
+          </div>
+          <hr
+            aria-orientation="horizontal"
+            class="chakra-divider css-1upb9tn"
+          />
+          <h3
+            class="chakra-heading css-0"
+          >
+            Number Input With Mask
+          </h3>
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <label
+              class="chakra-form__label css-uvho5g"
+              for="field-9702123886-169"
+              id="field-9702123886-169-label"
+            >
+              This number input is a percent and allows decimals
+            </label>
+            <div
+              class="chakra-input__group css-4302v8"
+            >
+              <input
+                aria-describedby="field-9702123886-169-helptext"
+                class="chakra-input css-0"
+                id="field-9702123886-169"
+                placeholder="123"
+                type="text"
+                value=""
+              />
+              <div
+                class="chakra-input__right-element css-it2o8j"
+              >
+                %
+              </div>
+            </div>
+            <div
+              class="css-k008qs"
+            >
+              <div
+                class="chakra-form__helper-text css-0"
+                id="field-9702123886-169-helptext"
+              >
+                Enter a number
+              </div>
+              <div
+                class="css-17xejub"
+              />
+            </div>
+          </div>
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <label
+              class="chakra-form__label css-uvho5g"
+              for="field-9702123886-170"
+              id="field-9702123886-170-label"
+            >
+              This number input only allows integers
+            </label>
+            <div
+              class="chakra-input__group css-4302v8"
+            >
+              <input
+                aria-describedby="field-9702123886-170-helptext"
+                class="chakra-input css-0"
+                id="field-9702123886-170"
+                placeholder="123"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="css-k008qs"
+            >
+              <div
+                class="chakra-form__helper-text css-0"
+                id="field-9702123886-170-helptext"
+              >
+                Enter a number
+              </div>
+              <div
+                class="css-17xejub"
+              />
+            </div>
+          </div>
+          <hr
+            aria-orientation="horizontal"
+            class="chakra-divider css-1upb9tn"
+          />
+          <h3
+            class="chakra-heading css-0"
+          >
+            Rate
+          </h3>
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <label
+              class="chakra-form__label css-9vgk4i"
+              for="field-9702123886-171"
+              id="field-9702123886-171-label"
+            >
+              Describe the rate:
+            </label>
+            <div
+              class="chakra-form__helper-text css-0"
+              id="field-9702123886-171-helptext"
+            >
+              For example, specify the age groups and whether you are reporting on a certain indicator:
+            </div>
+            <input
+              aria-describedby="field-9702123886-171-helptext"
+              class="chakra-input css-0"
+              id="field-9702123886-171"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <div
+              class="css-k008qs"
+            >
+              <div
+                class="css-17xejub"
+              />
+            </div>
+          </div>
+          <div
+            class="chakra-stack css-n21gh5"
+          >
+            <div
+              class="chakra-stack css-15lgeks"
+            >
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-172"
+                  id="field-9702123886-172-label"
+                >
+                  Numerator
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-172"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-173"
+                  id="field-9702123886-173-label"
+                >
+                  Denominator
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-173"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-174"
+                  id="field-9702123886-174-label"
+                >
+                  Rate
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-174"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr
+            aria-orientation="horizontal"
+            class="chakra-divider css-1upb9tn"
+          />
+          <h3
+            class="chakra-heading css-0"
+          >
+            Rate With Multiple Numerator/Denominator/Rate
+          </h3>
+          <div
+            class="chakra-form-control css-0"
+            role="group"
+          >
+            <label
+              class="chakra-form__label css-1nrt4sy"
+              for="field-9702123886-175"
+              id="field-9702123886-175-label"
+            >
+              Describe the rate:
+            </label>
+            <div
+              class="chakra-form__helper-text css-0"
+              id="field-9702123886-175-helptext"
+            >
+              For example, specify the age groups and whether you are reporting on a certain indicator:
+            </div>
+            <input
+              aria-describedby="field-9702123886-175-helptext"
+              class="chakra-input css-0"
+              id="field-9702123886-175"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <div
+              class="css-k008qs"
+            >
+              <div
+                class="css-17xejub"
+              />
+            </div>
+          </div>
+          <div
+            class="chakra-stack css-n21gh5"
+          >
+            <label
+              class="chakra-form__label css-1nrt4sy"
+            >
+              Test Label For Section
+            </label>
+            <div
+              class="chakra-stack css-15lgeks"
+            >
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-176"
+                  id="field-9702123886-176-label"
+                >
+                  Numerator
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-176"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-177"
+                  id="field-9702123886-177-label"
+                >
+                  Denominator
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-177"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-178"
+                  id="field-9702123886-178-label"
+                >
+                  Rate
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-178"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="chakra-stack css-n21gh5"
+          >
+            <label
+              class="chakra-form__label css-1nrt4sy"
+            >
+              Another Test Label
+            </label>
+            <div
+              class="chakra-stack css-15lgeks"
+            >
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-179"
+                  id="field-9702123886-179-label"
+                >
+                  Numerator
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-179"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-180"
+                  id="field-9702123886-180-label"
+                >
+                  Denominator
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-180"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-181"
+                  id="field-9702123886-181-label"
+                >
+                  Rate
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-181"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="chakra-stack css-n21gh5"
+          >
+            <label
+              class="chakra-form__label css-1nrt4sy"
+            >
+              Last Test Label
+            </label>
+            <div
+              class="chakra-stack css-15lgeks"
+            >
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-182"
+                  id="field-9702123886-182-label"
+                >
+                  Numerator
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-182"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-183"
+                  id="field-9702123886-183-label"
+                >
+                  Denominator
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-183"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+              <div
+                class="chakra-form-control css-0"
+                role="group"
+              >
+                <label
+                  class="chakra-form__label css-uvho5g"
+                  for="field-9702123886-184"
+                  id="field-9702123886-184-label"
+                >
+                  Rate
+                </label>
+                <div
+                  class="chakra-input__group css-4302v8"
+                >
+                  <input
+                    class="chakra-input css-0"
+                    id="field-9702123886-184"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="css-k008qs"
+                >
+                  <div
+                    class="css-17xejub"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="chakra-container css-1mlspx9"
+    >
+      <h3
+        class="chakra-heading css-0"
+      >
+        Core Sets Table
+      </h3>
+      <table
+        class="chakra-table css-cyiq3i"
+        role="table"
+      >
+        <thead
+          class="css-0"
+        >
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <th
+              class="css-kqmtzl"
+              scope="col"
+            >
+              Core Set Name
+            </th>
+            <th
+              class="css-1pcs4ad"
+              scope="col"
+            >
+              Type
+            </th>
+            <th
+              class="css-kqmtzl"
+              scope="col"
+            >
+              Status
+            </th>
+            <th
+              class="css-kqmtzl"
+              scope="col"
+            />
+            <th
+              class="css-1pcs4ad"
+              scope="col"
+            >
+              Core Set Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="css-0"
+        >
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <a
+                href="/adult"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  Adult Core Set Measures
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <span
+                class="chakra-badge css-hir8a5"
+              >
+                adult
+              </span>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-1lj023j"
+              >
+                <p
+                  class="chakra-text css-ng5d7i"
+                >
+                  submitted
+                </p>
+                <p
+                  class="chakra-text css-0"
+                >
+                  12 of 12 complete
+                </p>
+              </div>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-i37d70"
+              >
+                <button
+                  class="chakra-button css-78ve4i"
+                  disabled=""
+                  type="button"
+                >
+                  submitted
+                </button>
+              </div>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <div
+                class="css-xi606m"
+              >
+                <button
+                  class="chakra-button css-5c2176"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <a
+                href="/child"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  Child Core Set Measures: CHIP
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <span
+                class="chakra-badge css-hir8a5"
+              >
+                child
+              </span>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-1lj023j"
+              >
+                <p
+                  class="chakra-text css-ng5d7i"
+                >
+                  complete
+                </p>
+                <p
+                  class="chakra-text css-0"
+                >
+                  12 of 12 complete
+                </p>
+              </div>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-i37d70"
+              >
+                <button
+                  class="chakra-button css-78ve4i"
+                  type="button"
+                >
+                  submit core set
+                </button>
+                <p
+                  class="chakra-text css-1k3wvx1"
+                >
+                  Complete all Core Set Questions and Core Set Measures to submit FFY 2021
+                </p>
+              </div>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <div
+                class="css-xi606m"
+              >
+                <button
+                  class="chakra-button css-5c2176"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <a
+                href="/child"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  Child Core Set Measures: Medicaid
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <span
+                class="chakra-badge css-hir8a5"
+              >
+                child
+              </span>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-1lj023j"
+              >
+                <p
+                  class="chakra-text css-ng5d7i"
+                >
+                  in progress
+                </p>
+                <p
+                  class="chakra-text css-0"
+                >
+                  4 of 12 complete
+                </p>
+              </div>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-i37d70"
+              >
+                <button
+                  class="chakra-button css-78ve4i"
+                  disabled=""
+                  type="button"
+                >
+                  submit core set
+                </button>
+                <p
+                  class="chakra-text css-1k3wvx1"
+                >
+                  Complete all Core Set Questions and Core Set Measures to submit FFY 2021
+                </p>
+              </div>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <div
+                class="css-xi606m"
+              >
+                <button
+                  class="chakra-button css-5c2176"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <a
+                href="/health-homes"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  Health Homes Core Set Questions: SPA Name
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <span
+                class="chakra-badge css-hir8a5"
+              >
+                health homes
+              </span>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-1lj023j"
+              >
+                <p
+                  class="chakra-text css-ng5d7i"
+                >
+                  in progress
+                </p>
+                <p
+                  class="chakra-text css-0"
+                >
+                  4 of 12 complete
+                </p>
+              </div>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-i37d70"
+              >
+                <button
+                  class="chakra-button css-78ve4i"
+                  disabled=""
+                  type="button"
+                >
+                  submit core set
+                </button>
+                <p
+                  class="chakra-text css-1k3wvx1"
+                >
+                  Complete all Core Set Questions and Core Set Measures to submit FFY 2021
+                </p>
+              </div>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <div
+                class="css-xi606m"
+              >
+                <button
+                  class="chakra-button css-5c2176"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="chakra-heading css-0"
+      >
+        Measures Table
+      </h3>
+      <table
+        class="chakra-table css-cyiq3i"
+        role="table"
+      >
+        <thead
+          class="css-0"
+        >
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <th
+              class="css-1pcs4ad"
+              scope="col"
+            >
+              Abreviation
+            </th>
+            <th
+              class="css-kqmtzl"
+              scope="col"
+            >
+              Measure
+            </th>
+            <th
+              class="css-1pcs4ad"
+              scope="col"
+            >
+              Reporting FFY 2021
+            </th>
+            <th
+              class="css-kqmtzl"
+              scope="col"
+            >
+              Status
+            </th>
+            <th
+              class="css-1pcs4ad"
+              scope="col"
+            >
+              Measure Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="css-0"
+        >
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <a
+                href="/example-measures-path-1"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  AMM-AD
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <a
+                href="/example-measures-path-1"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  Antidepressant Medication Management
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <p
+                class="chakra-text css-1jbp8q3"
+              >
+                --
+              </p>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-1nsq32e"
+              >
+                <div
+                  class="css-0"
+                >
+                  <p
+                    class="chakra-text css-17nxtiy"
+                  >
+                    not started
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <div
+                class="css-xi606m"
+              >
+                <button
+                  class="chakra-button css-5c2176"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <a
+                href="/example-measures-path-2"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  AMR-AD
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <a
+                href="/example-measures-path-2"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  Asthma Medication Ratio: Ages 19 to 64
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <p
+                class="chakra-text css-1jbp8q3"
+              >
+                --
+              </p>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-1nsq32e"
+              >
+                <div
+                  class="css-0"
+                >
+                  <p
+                    class="chakra-text css-17nxtiy"
+                  >
+                    not started
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <div
+                class="css-xi606m"
+              >
+                <button
+                  class="chakra-button css-5c2176"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <a
+                href="/example-measures-path-3"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  BCS-AD
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <a
+                href="/example-measures-path-3"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  Breast Cancer Screening
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <p
+                class="chakra-text css-1jbp8q3"
+              >
+                yes
+              </p>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-1nsq32e"
+              >
+                <div
+                  class="css-0"
+                >
+                  <p
+                    class="chakra-text css-17nxtiy"
+                  >
+                    in progress
+                  </p>
+                  <p
+                    class="chakra-text css-1lj023j"
+                  >
+                    67% complete
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <div
+                class="css-xi606m"
+              >
+                <button
+                  class="chakra-button css-5c2176"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="css-0"
+            role="row"
+          >
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <a
+                href="/example-measures-path-4"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  CBP-AD
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <a
+                href="/example-measures-path-4"
+              >
+                <p
+                  class="chakra-text css-on2zac"
+                >
+                  Controlling High Blood Pressure
+                </p>
+              </a>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <p
+                class="chakra-text css-1jbp8q3"
+              >
+                no
+              </p>
+            </td>
+            <td
+              class="css-12kdu1h"
+              role="gridcell"
+            >
+              <div
+                class="css-8qt5hc"
+              >
+                <svg
+                  color="#12890E"
+                  fill="currentColor"
+                  font-size="22px"
+                  height="1em"
+                  stroke="currentColor"
+                  stroke-width="0"
+                  style="color: rgb(18, 137, 14);"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                  />
+                </svg>
+                <div
+                  class="css-0"
+                >
+                  <p
+                    class="chakra-text css-17nxtiy"
+                  >
+                    complete
+                  </p>
+                  <p
+                    class="chakra-text css-1lj023j"
+                  >
+                    Nov 26, 2021 12:53 PM
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td
+              class="css-i37d70"
+              role="gridcell"
+            >
+              <div
+                class="css-xi606m"
+              >
+                <button
+                  class="chakra-button css-5c2176"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
