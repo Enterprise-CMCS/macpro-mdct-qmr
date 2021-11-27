@@ -171,7 +171,7 @@ export function DemoComponents(): JSX.Element {
           </CUI.Stack>
         </form>
       </CUI.Container>
-      <CUI.Container maxW="7xl">
+      <CUI.Container maxW="7xl" overflowX="scroll">
         <CUI.Heading size="sm" as="h3">
           Core Sets Table
         </CUI.Heading>
