@@ -1,11 +1,11 @@
 import * as CUI from "@chakra-ui/react";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDotsVertical, BsCheck } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Measure, TableColumn } from "../types";
 
 const getStatus = (data: Measure.Data) => {
-  // If they have completed all measure questions or if they are not reporting -> Complete
+  // If completed all questions or if not reporting -> Complete
   if (
     data.rateComplete === 1 ||
     (data.isReporting !== null && !data.isReporting)
@@ -13,12 +13,12 @@ const getStatus = (data: Measure.Data) => {
     return Measure.Status.COMPLETED;
   }
 
-  // If they have completed some measure questions -> In Progress
+  // If completed some questions -> In Progress
   if (data.rateComplete > 0) {
     return Measure.Status.IN_PROGRESS;
   }
 
-  // Otherwise they have not started
+  // Otherwise not started
   return Measure.Status.NOT_STARTED;
 };
 
@@ -77,20 +77,27 @@ export const measuresColumns: TableColumn<Measure.Data>[] = [
     cell: (data: Measure.Data) => {
       const status = getStatus(data);
       const date = formatDate(data);
+      const isComplete = status === Measure.Status.COMPLETED && date;
+      const isInProgress = status === Measure.Status.IN_PROGRESS;
       return (
-        <>
-          <CUI.Text fontSize="xs" textTransform="capitalize" fontWeight="bold">
-            {status}
-          </CUI.Text>
-          {status === Measure.Status.IN_PROGRESS && (
-            <CUI.Text fontSize="xs">{`${Math.floor(
-              data.rateComplete * 100
-            )}% complete`}</CUI.Text>
-          )}
-          {status === Measure.Status.COMPLETED && date && (
-            <CUI.Text fontSize="xs">{date}</CUI.Text>
-          )}
-        </>
+        <CUI.Box display="flex" ml={isComplete ? -6 : "inherit"}>
+          {isComplete && <BsCheck fontSize="22px" color="#12890E" />}
+          <CUI.Box>
+            <CUI.Text
+              fontSize="xs"
+              textTransform="capitalize"
+              fontWeight="bold"
+            >
+              {status}
+            </CUI.Text>
+            {isInProgress && (
+              <CUI.Text fontSize="xs">{`${Math.floor(
+                data.rateComplete * 100
+              )}% complete`}</CUI.Text>
+            )}
+            {isComplete && <CUI.Text fontSize="xs">{date}</CUI.Text>}
+          </CUI.Box>
+        </CUI.Box>
       );
     },
   },

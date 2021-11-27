@@ -23,7 +23,7 @@ const CoreSetStatus = (data: CoreSet.Data) => {
   const status = getStatus(data);
 
   return (
-    <CUI.Box>
+    <CUI.Box fontSize="xs">
       <CUI.Text fontWeight="bold" textTransform="capitalize">
         {status}
       </CUI.Text>
