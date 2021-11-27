@@ -80,7 +80,7 @@ export const measuresColumns: TableColumn<Measure.Data>[] = [
       const isComplete = status === Measure.Status.COMPLETED && date;
       const isInProgress = status === Measure.Status.IN_PROGRESS;
       return (
-        <CUI.Box display="flex" ml={isComplete ? -6 : "inherit"}>
+        <CUI.Box display="flex" ml={isComplete ? [-3, -3, -5, -6] : "inherit"}>
           {isComplete && <BsCheck fontSize="22px" color="#12890E" />}
           <CUI.Box>
             <CUI.Text
