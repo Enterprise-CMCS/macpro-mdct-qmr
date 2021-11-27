@@ -1,6 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 import { Measure, TableColumn } from "../types";
 
 const getStatus = (data: Measure.Data) => {
@@ -19,6 +20,12 @@ const getStatus = (data: Measure.Data) => {
 
   // Otherwise they have not started
   return Measure.Status.NOT_STARTED;
+};
+
+const formatDate = (data: Measure.Data) => {
+  if (!data.lastDateModified) return null;
+  const date = format(new Date(data.lastDateModified), "LLL d, yyyy h:m a");
+  return date;
 };
 
 export const measuresColumns: TableColumn<Measure.Data>[] = [
@@ -69,16 +76,19 @@ export const measuresColumns: TableColumn<Measure.Data>[] = [
     id: "status_column_header",
     cell: (data: Measure.Data) => {
       const status = getStatus(data);
+      const date = formatDate(data);
       return (
         <>
           <CUI.Text fontSize="xs" textTransform="capitalize" fontWeight="bold">
             {status}
           </CUI.Text>
           {status === Measure.Status.IN_PROGRESS && (
-            <CUI.Text fontSize="xs">90% complete</CUI.Text>
+            <CUI.Text fontSize="xs">{`${Math.floor(
+              data.rateComplete * 100
+            )}% complete`}</CUI.Text>
           )}
-          {status === Measure.Status.COMPLETED && (
-            <CUI.Text fontSize="xs">{data.lastDateModified}</CUI.Text>
+          {status === Measure.Status.COMPLETED && date && (
+            <CUI.Text fontSize="xs">{date}</CUI.Text>
           )}
         </>
       );

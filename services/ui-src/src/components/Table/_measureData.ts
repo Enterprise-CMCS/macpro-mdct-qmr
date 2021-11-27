@@ -25,7 +25,7 @@ export const exampleMeasuresData: Measure.Data[] = [
     path: "/example-measures-path-3",
     abbr: "BCS-AD",
     title: "Breast Cancer Screening",
-    rateComplete: 0.9,
+    rateComplete: 0.678,
     actions: "medicaid actions here",
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test3",
