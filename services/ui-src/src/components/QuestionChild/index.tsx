@@ -10,10 +10,10 @@ export const QuestionChild = ({ show, children }: Props) => {
     <CUI.Box
       display={!show ? "none" : "block"}
       pl={6}
-      ml={1.5}
+      ml={2}
       borderLeft="4px"
       borderColor="blue.500"
-      py={4}
+      py={3}
     >
       {children}
     </CUI.Box>
