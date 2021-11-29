@@ -52,7 +52,12 @@ export function DemoComponents(): JSX.Element {
       id: 5,
     },
   ]);
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<File[]>([
+    new File([JSON.stringify({ ping: true })], "ping.json", {
+      type: "application/json",
+    }),
+  ]);
+  const [files2, setFiles2] = useState<File[]>([]);
 
   return (
     <CUI.Container mb="6">
@@ -176,6 +181,12 @@ export function DemoComponents(): JSX.Element {
             files={files}
             setFiles={setFiles}
             label="Sample label for an upload control"
+          />
+          <Upload
+            maxSize={1}
+            files={files2}
+            setFiles={setFiles2}
+            label="Uploading a file here will cause an error. (Set max size to 1 byte)"
           />
         </CUI.Stack>
       </form>

@@ -24,7 +24,7 @@ export const Upload: React.FC<IUploadProps> = ({
       const erroredFiles: string[] = [];
 
       for (const file of acceptedFiles) {
-        if (file.size <= (maxSize ?? 1)) {
+        if (file.size <= (maxSize ?? 8000000)) {
           acceptedTempFiles.push(file);
         } else {
           erroredFiles.push(file.name);
@@ -95,8 +95,12 @@ export const Upload: React.FC<IUploadProps> = ({
       </CUI.VStack>
       {erroredFiles.length > 0 && (
         <>
-          {erroredFiles.map((erroredFile) => (
-            <CUI.Alert borderRadius={10} status="error">
+          {erroredFiles.map((erroredFile, index) => (
+            <CUI.Alert
+              key={`${erroredFile}-${index}`}
+              borderRadius={10}
+              status="error"
+            >
               <CUI.AlertIcon />
               <CUI.AlertTitle mr={2}>{erroredFile} too large:</CUI.AlertTitle>
               <CUI.AlertDescription>
@@ -119,7 +123,11 @@ export const Upload: React.FC<IUploadProps> = ({
               <CUI.Text variant="xl">
                 File Name: {file.name} ({convertFileSize(file.size)})
               </CUI.Text>
-              <CUI.Button background="none" onClick={() => clearFile(index)}>
+              <CUI.Button
+                data-testid={`test-delete-btn-${index}`}
+                background="none"
+                onClick={() => clearFile(index)}
+              >
                 x
               </CUI.Button>
             </CUI.HStack>

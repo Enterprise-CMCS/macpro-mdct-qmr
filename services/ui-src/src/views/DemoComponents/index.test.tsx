@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { DemoComponents } from "./index";
 import userEvent from "@testing-library/user-event";
 
@@ -60,5 +60,17 @@ describe("Test Second NumberInput Component", () => {
 
       expect(getByText(/Another Test Label/i)).toBeVisible();
     });
+  });
+});
+
+describe("Test File Upload component", async () => {
+  test("Check that the Upload Component renders file", async () => {
+    render(<DemoComponents />);
+
+    expect(await screen.findByText(/ping.json/i)).toBeInTheDocument();
+
+    userEvent.click(screen.getAllByTestId(/test-delete-btn-0/i)[0]);
+
+    expect(screen.queryByText(/ping.json/i)).toBeNull();
   });
 });
