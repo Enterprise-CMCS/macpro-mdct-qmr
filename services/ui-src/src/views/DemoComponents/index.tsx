@@ -171,9 +171,25 @@ export function DemoComponents(): JSX.Element {
             Checkbox
           </CUI.Heading>
           <Inputs.Checkbox
-            options={[]}
+            options={[
+              {
+                displayValue: "Administrative Data",
+                value: "test",
+                children: [
+                  <Inputs.TextArea
+                    label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
+                    formLabelProps={{
+                      fontWeight: "normal",
+                      fontSize: "normal",
+                    }}
+                    value={""}
+                    onChange={() => {}}
+                  />,
+                ],
+              },
+            ]}
             onChange={() => {}}
-            value={true}
+            value={""}
             label="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
           />
         </CUI.Stack>
