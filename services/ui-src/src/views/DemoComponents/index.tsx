@@ -166,6 +166,16 @@ export function DemoComponents(): JSX.Element {
             isInvalidFunc={(value) => String(value).length > 3000}
           />
           <Rate rates={ratesTwo} updateRates={setRatesTwo} />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Checkbox
+          </CUI.Heading>
+          <Inputs.Checkbox
+            options={[]}
+            onChange={() => {}}
+            value={true}
+            label="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
+          />
         </CUI.Stack>
       </form>
     </CUI.Container>
