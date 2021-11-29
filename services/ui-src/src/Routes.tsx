@@ -47,6 +47,9 @@ export function Routes() {
         <Route exact path="/components">
           <Views.DemoComponents />
         </Route>
+        <Route exact path="/demo-questions">
+          <Views.DemoQuestions />
+        </Route>
         <AuthenticatedRoutes />
         <Route>
           <Views.NotFound />
@@ -65,6 +68,9 @@ function redirectTo(
   let redirectRoute = "/";
   if (location.pathname === "/components") {
     return "/components";
+  }
+  if (location.pathname === "/demo-questions") {
+    return "/demo-questions";
   }
   if (!role) {
     if (isIntegrationBranch) {
