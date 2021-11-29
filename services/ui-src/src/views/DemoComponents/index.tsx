@@ -52,7 +52,7 @@ export function DemoComponents(): JSX.Element {
       id: 5,
     },
   ]);
-  const [file, setFile] = useState<File>();
+  const [files, setFiles] = useState<File[]>([]);
 
   return (
     <CUI.Container mb="6">
@@ -173,8 +173,8 @@ export function DemoComponents(): JSX.Element {
             Upload Control
           </CUI.Heading>
           <Upload
-            file={file}
-            setFile={setFile}
+            files={files}
+            setFiles={setFiles}
             label="Sample label for an upload control"
           />
         </CUI.Stack>

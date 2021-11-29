@@ -4,30 +4,46 @@ import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 
 interface IUploadProps {
-  file: File | undefined;
-  setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+  files: File[];
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
   maxSize?: number;
   label?: string;
 }
 
 export const Upload: React.FC<IUploadProps> = ({
-  file,
-  setFile,
+  files,
+  setFiles,
   maxSize,
   label,
 }) => {
-  const [isFileTooLarge, setIsFileTooLarge] = useState(false);
+  const [erroredFiles, setErroredFiles] = useState<string[]>([]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      if (acceptedFiles[0].size <= (maxSize ?? 80000000)) {
-        setFile(acceptedFiles[0]);
-        setIsFileTooLarge(false);
+      const acceptedTempFiles: File[] = [];
+      const erroredFiles: string[] = [];
+
+      for (const file of acceptedFiles) {
+        if (file.size <= (maxSize ?? 1)) {
+          acceptedTempFiles.push(file);
+        } else {
+          erroredFiles.push(file.name);
+        }
+      }
+
+      if (erroredFiles.length > 0) {
+        setErroredFiles(erroredFiles);
       } else {
-        setIsFileTooLarge(true);
+        setErroredFiles([]);
+      }
+
+      if (acceptedTempFiles.length > 0) {
+        setFiles([...files, ...acceptedTempFiles]);
+      } else {
+        setFiles([]);
       }
     },
-    [setFile, maxSize]
+    [setFiles, maxSize, files]
   );
 
   const convertFileSize = (fileSize: number) => {
@@ -38,8 +54,11 @@ export const Upload: React.FC<IUploadProps> = ({
     }
   };
 
-  const clearFile = () => {
-    setFile(undefined);
+  const clearFile = (fileIndexToClear: number) => {
+    const filteredArray = files.filter(
+      (_, index) => index !== fileIndexToClear
+    );
+    setFiles(filteredArray);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -74,29 +93,38 @@ export const Upload: React.FC<IUploadProps> = ({
           Maximum file size of 80MB.
         </CUI.Text>
       </CUI.VStack>
-      {isFileTooLarge && (
-        <CUI.Alert borderRadius={10} status="error">
-          <CUI.AlertIcon />
-          <CUI.AlertTitle mr={2}>File upload too large:</CUI.AlertTitle>
-          <CUI.AlertDescription>
-            The maximum file size is {convertFileSize(maxSize ?? 80000000)}
-          </CUI.AlertDescription>
-        </CUI.Alert>
+      {erroredFiles.length > 0 && (
+        <>
+          {erroredFiles.map((erroredFile) => (
+            <CUI.Alert borderRadius={10} status="error">
+              <CUI.AlertIcon />
+              <CUI.AlertTitle mr={2}>{erroredFile} too large:</CUI.AlertTitle>
+              <CUI.AlertDescription>
+                The maximum file size is {convertFileSize(maxSize ?? 80000000)}
+              </CUI.AlertDescription>
+            </CUI.Alert>
+          ))}
+        </>
       )}
-      {file && (
-        <CUI.HStack
-          background="#f0fafe"
-          pl="1rem"
-          borderRadius="10"
-          justifyContent="space-between"
-        >
-          <CUI.Text variant="xl">
-            File Name: {file.name} ({convertFileSize(file.size)})
-          </CUI.Text>
-          <CUI.Button background="none" onClick={clearFile}>
-            x
-          </CUI.Button>
-        </CUI.HStack>
+      {files.length > 0 && (
+        <>
+          {files.map((file, index) => (
+            <CUI.HStack
+              key={`${index}-${file.name}`}
+              background="#f0fafe"
+              pl="1rem"
+              borderRadius="10"
+              justifyContent="space-between"
+            >
+              <CUI.Text variant="xl">
+                File Name: {file.name} ({convertFileSize(file.size)})
+              </CUI.Text>
+              <CUI.Button background="none" onClick={() => clearFile(index)}>
+                x
+              </CUI.Button>
+            </CUI.HStack>
+          ))}
+        </>
       )}
     </>
   );
