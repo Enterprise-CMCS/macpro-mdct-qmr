@@ -7,9 +7,15 @@ interface IUploadProps {
   file: File | undefined;
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
   maxSize?: number;
+  label?: string;
 }
 
-export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
+export const Upload: React.FC<IUploadProps> = ({
+  file,
+  setFile,
+  maxSize,
+  label,
+}) => {
   const [isFileTooLarge, setIsFileTooLarge] = useState(false);
 
   const onDrop = useCallback(
@@ -42,6 +48,7 @@ export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
 
   return (
     <>
+      {label && <CUI.Text>{label}</CUI.Text>}
       <CUI.VStack
         {...getRootProps()}
         border="3px"

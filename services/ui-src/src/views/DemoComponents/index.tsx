@@ -172,7 +172,11 @@ export function DemoComponents(): JSX.Element {
           <CUI.Heading size="sm" as="h3">
             Upload Control
           </CUI.Heading>
-          <Upload file={file} setFile={setFile} />
+          <Upload
+            file={file}
+            setFile={setFile}
+            label="Sample label for an upload control"
+          />
         </CUI.Stack>
       </form>
     </CUI.Container>
