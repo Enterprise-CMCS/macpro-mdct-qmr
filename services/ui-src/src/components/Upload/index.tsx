@@ -17,6 +17,7 @@ export const Upload: React.FC<IUploadProps> = ({
   label,
 }) => {
   const [erroredFiles, setErroredFiles] = useState<string[]>([]);
+  const defaultMaxSize = 8000000;
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -24,7 +25,7 @@ export const Upload: React.FC<IUploadProps> = ({
       const erroredFiles: string[] = [];
 
       for (const file of acceptedFiles) {
-        if (file.size <= (maxSize ?? 8000000)) {
+        if (file.size <= (maxSize ?? defaultMaxSize)) {
           acceptedTempFiles.push(file);
         } else {
           erroredFiles.push(file.name);
@@ -104,7 +105,8 @@ export const Upload: React.FC<IUploadProps> = ({
               <CUI.AlertIcon />
               <CUI.AlertTitle mr={2}>{erroredFile} too large:</CUI.AlertTitle>
               <CUI.AlertDescription>
-                The maximum file size is {convertFileSize(maxSize ?? 80000000)}
+                The maximum file size is{" "}
+                {convertFileSize(maxSize ?? defaultMaxSize)}
               </CUI.AlertDescription>
             </CUI.Alert>
           ))}
