@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
@@ -10,10 +10,15 @@ interface IUploadProps {
 }
 
 export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
+  const [isFileTooLarge, setIsFileTooLarge] = useState(false);
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      if (acceptedFiles[0].size <= (maxSize ?? 1000000)) {
+      if (acceptedFiles[0].size <= (maxSize ?? 80000000)) {
         setFile(acceptedFiles[0]);
+        setIsFileTooLarge(false);
+      } else {
+        setIsFileTooLarge(true);
       }
     },
     [setFile, maxSize]
@@ -21,9 +26,9 @@ export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
 
   const convertFileSize = (fileSize: number) => {
     if (fileSize < 1000000) {
-      return `${fileSize / 1000}kb`;
+      return `${fileSize / 1000}KB`;
     } else {
-      return `${fileSize / 1000000}mb`;
+      return `${fileSize / 1000000}MB`;
     }
   };
 
@@ -62,10 +67,20 @@ export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
           Maximum file size of 80MB.
         </CUI.Text>
       </CUI.VStack>
+      {isFileTooLarge && (
+        <CUI.Alert borderRadius={10} status="error">
+          <CUI.AlertIcon />
+          <CUI.AlertTitle mr={2}>File upload too large:</CUI.AlertTitle>
+          <CUI.AlertDescription>
+            The maximum file size is {convertFileSize(maxSize ?? 80000000)}
+          </CUI.AlertDescription>
+        </CUI.Alert>
+      )}
       {file && (
         <CUI.HStack
           background="#f0fafe"
-          px="1rem"
+          pl="1rem"
+          borderRadius="10"
           justifyContent="space-between"
         >
           <CUI.Text variant="xl">
