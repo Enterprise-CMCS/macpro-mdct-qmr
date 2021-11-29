@@ -1,6 +1,8 @@
 import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { AreYouReporting } from "components/CoreQuestions";
+import { StatusOfDataReported } from "components/CoreQuestions/StatusOfDataReported";
+import * as QMR from "components/Inputs";
 
 export const DemoQuestions = () => {
   // const { loading, data, errors } = useQuery('state' measure id')
@@ -13,7 +15,6 @@ export const DemoQuestions = () => {
 
   const handleChange = (qId: string, value: any) => {
     const newData = { ...data, [qId]: value };
-    console.log({ newData });
     setData({
       state,
       year,
@@ -21,8 +22,6 @@ export const DemoQuestions = () => {
       data: newData,
     });
   };
-
-  console.log({ data });
 
   return (
     <CUI.Container>
@@ -42,6 +41,21 @@ export const DemoQuestions = () => {
           },
         ]}
         //
+      />
+      <StatusOfDataReported
+        onChange={handleChange}
+        value={data?.data?.["2"]}
+        options={[
+          {
+            displayValue: "I am reporting provisional data",
+            value: "I am reporting provisional data",
+            children: [<QMR.TextArea value={""} onChange={() => {}} />],
+          },
+          {
+            displayValue: "I am reporting final data",
+            value: "I am reporting final data",
+          },
+        ]}
       />
     </CUI.Container>
   );
