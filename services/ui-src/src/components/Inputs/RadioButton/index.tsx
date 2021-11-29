@@ -32,16 +32,19 @@ export const RadioButton = ({
     <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
       <CUI.RadioGroup value={value} onChange={onChange} {...radioGroupProps}>
         <CUI.Stack>
-          {options.map((option) => (
-            <>
-              <CUI.Radio value={option.value} key={value}>
-                {option.displayValue}
-              </CUI.Radio>
-              <CUI.Collapse in={option.value === value} animateOpacity>
-                {option.children}
-              </CUI.Collapse>
-            </>
-          ))}
+          {options.map((option) => {
+            const showChildren = option.value === value;
+            return (
+              <CUI.Box key={option.displayValue}>
+                <CUI.Radio value={option.value} key={value}>
+                  {option.displayValue}
+                </CUI.Radio>
+                <CUI.Collapse in={showChildren} animateOpacity>
+                  {option.children}
+                </CUI.Collapse>
+              </CUI.Box>
+            );
+          })}
         </CUI.Stack>
       </CUI.RadioGroup>
     </QMR.InputWrapper>

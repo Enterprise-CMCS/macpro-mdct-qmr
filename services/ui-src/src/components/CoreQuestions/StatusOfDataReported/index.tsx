@@ -4,7 +4,7 @@ import * as QMR from "components/Inputs";
 interface Props {
   options: QMR.RadioButtonOption[];
   value?: string;
-  onChange: any;
+  onChange: (v: string) => void;
 }
 
 export const StatusOfDataReported = ({
@@ -15,9 +15,7 @@ export const StatusOfDataReported = ({
   return (
     <CoreQuestionWrapper label="2. Status of Data Reported">
       <QMR.RadioButton
-        onChange={(v) => {
-          onChange("2", v);
-        }}
+        onChange={onChange}
         value={value}
         options={options}
       ></QMR.RadioButton>
