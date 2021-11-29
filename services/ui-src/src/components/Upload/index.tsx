@@ -19,6 +19,14 @@ export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
     [setFile, maxSize]
   );
 
+  const convertFileSize = (fileSize: number) => {
+    if (fileSize < 1000000) {
+      return `${fileSize / 1000}kb`;
+    } else {
+      return `${fileSize / 1000000}mb`;
+    }
+  };
+
   const clearFile = () => {
     setFile(undefined);
   };
@@ -61,7 +69,7 @@ export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
           justifyContent="space-between"
         >
           <CUI.Text variant="xl">
-            File Name: {file.name} ({file.size})
+            File Name: {file.name} ({convertFileSize(file.size)})
           </CUI.Text>
           <CUI.Button background="none" onClick={clearFile}>
             x
