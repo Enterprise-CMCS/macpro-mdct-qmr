@@ -7,8 +7,10 @@ export interface Props {
 
 export const CoreQuestionWrapper = ({ label, children }: Props) => {
   return (
-    <CUI.Box>
-      <CUI.FormLabel>{label}</CUI.FormLabel>
+    <CUI.Box my={4}>
+      <CUI.FormLabel fontWeight="bold" fontSize="lg">
+        {label}
+      </CUI.FormLabel>
       {children}
     </CUI.Box>
   );

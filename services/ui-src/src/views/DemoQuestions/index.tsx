@@ -23,7 +23,7 @@ export const DemoQuestions = () => {
   };
 
   return (
-    <CUI.Container>
+    <CUI.Container maxW="2xl">
       <CoreQs.AreYouReporting
         onChange={(v) => handleChange("1", v)}
         value={data?.["1"]}
@@ -48,6 +48,9 @@ export const DemoQuestions = () => {
             value: "I am reporting provisional data",
             children: [
               <QMR.TextArea
+                label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
+                formLabelProps={{ fontWeight: "normal", fontSize: "normal" }}
+                key="status-2a"
                 value={data?.["2a"]}
                 onChange={(e) => handleChange("2a", e.target.value)}
               />,

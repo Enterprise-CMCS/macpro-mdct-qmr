@@ -9,7 +9,7 @@ interface Props {
 
 export const AreYouReporting = ({ options, onChange, value = "" }: Props) => {
   return (
-    <CoreQuestionWrapper label="1. Are you reporting">
+    <CoreQuestionWrapper label="1.	Are you reporting on this measure?">
       <QMR.RadioButton onChange={onChange} value={value} options={options} />
     </CoreQuestionWrapper>
   );

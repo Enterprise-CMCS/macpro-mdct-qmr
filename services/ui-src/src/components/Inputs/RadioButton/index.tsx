@@ -36,11 +36,15 @@ export const RadioButton = ({
             const showChildren = option.value === value;
             return (
               <CUI.Box key={option.displayValue}>
-                <CUI.Radio value={option.value} key={value}>
-                  {option.displayValue}
+                <CUI.Radio value={option.value} key={value} size="lg">
+                  <CUI.Text fontWeight="normal" fontSize="normal">
+                    {option.displayValue}
+                  </CUI.Text>
                 </CUI.Radio>
                 <CUI.Collapse in={showChildren} animateOpacity>
-                  {option.children}
+                  <QMR.QuestionChild show={!!option.children?.length}>
+                    {option.children}
+                  </QMR.QuestionChild>
                 </CUI.Collapse>
               </CUI.Box>
             );
