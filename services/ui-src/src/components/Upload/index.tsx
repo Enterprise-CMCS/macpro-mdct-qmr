@@ -31,9 +31,9 @@ export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
     <>
       <CUI.VStack
         {...getRootProps()}
-        border={isDragActive ? "3px" : "0"}
-        borderStyle={isDragActive ? "dotted" : "none"}
-        borderColor="#9bdef9"
+        border="3px"
+        borderStyle="dotted"
+        borderColor={isDragActive ? "#9bdef9" : "rgba(255,255,255,0)"}
         background="#F0FAFE"
         py="1.5rem"
         borderRadius="10"
@@ -60,8 +60,8 @@ export const Upload: React.FC<IUploadProps> = ({ file, setFile, maxSize }) => {
           px="1rem"
           justifyContent="space-between"
         >
-          <CUI.Text variant="xl" onClick={clearFile}>
-            File Name: {file.name}
+          <CUI.Text variant="xl">
+            File Name: {file.name} ({file.size})
           </CUI.Text>
           <CUI.Button background="none" onClick={clearFile}>
             x
