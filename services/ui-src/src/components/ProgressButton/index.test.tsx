@@ -10,7 +10,7 @@ describe("Test ProgressButton", () => {
     expect(getByText(/14 of 20/i)).toBeVisible();
   });
 
-  test("Check that the progress button changes with update prop values", () => {
+  test("Check that the progress button changes with updated prop values", () => {
     const { rerender } = render(
       <ProgressButton currentProgress={5} maxValue={20} />
     );
