@@ -13,7 +13,7 @@ interface IUploadProps {
 export const Upload: React.FC<IUploadProps> = ({
   files,
   setFiles,
-  maxSize = 8000000,
+  maxSize = 80000000,
   label,
 }) => {
   const [erroredFiles, setErroredFiles] = useState<string[]>([]);
@@ -90,7 +90,7 @@ export const Upload: React.FC<IUploadProps> = ({
           </button>
         </CUI.Text>
         <CUI.Text color="gray.500" fontSize="sm">
-          Maximum file size of 80MB.
+          Maximum file size of {convertFileSize(maxSize)}.
         </CUI.Text>
       </CUI.VStack>
       {erroredFiles.map((erroredFile, index) => (
