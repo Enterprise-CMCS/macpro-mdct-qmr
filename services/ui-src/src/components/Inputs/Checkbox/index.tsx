@@ -1,7 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
-// This interface will be needed in other files to setup the RadioButtonOptions Array
 export interface CheckboxOption {
   displayValue: string;
   value: string | number;
@@ -10,7 +9,7 @@ export interface CheckboxOption {
 
 interface CheckboxProps extends QMR.InputWrapperProps {
   value: string[];
-  onChange: (nextValue: any) => void;
+  onChange: (nextValue: string[]) => void;
   options: CheckboxOption[];
   radioGroupProps?: CUI.RadioGroupProps;
 }
@@ -30,7 +29,6 @@ export const Checkbox = ({
       <CUI.CheckboxGroup value={value} onChange={onChange}>
         <CUI.Stack>
           {options.map((option) => {
-            console.log(option.value, "space", value);
             const showChildren = !!value.find(
               (valueToCheck) => valueToCheck === option.value
             );

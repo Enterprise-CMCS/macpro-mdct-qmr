@@ -52,22 +52,7 @@ export function DemoComponents(): JSX.Element {
     },
   ]);
 
-  const [checkboxData, setData] = React.useState<string[]>([]);
-
-  const handleChange = (value: string[]) => {
-    console.log(value);
-    // const foundValue = checkboxData.findIndex(
-    //   (selectedValues) => selectedValues === value
-    // );
-    // let newArray = [...checkboxData];
-    // if (foundValue > -1) {
-    //   newArray.push(value);
-    // } else {
-    //   newArray = newArray.filter((valueToCheck) => valueToCheck !== value);
-    // }
-
-    setData(value);
-  };
+  const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
 
   return (
     <CUI.Container mb="6">
@@ -220,7 +205,7 @@ export function DemoComponents(): JSX.Element {
                 ],
               },
             ]}
-            onChange={(v) => handleChange(v)}
+            onChange={setCheckboxData}
             value={checkboxData}
             label="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
           />

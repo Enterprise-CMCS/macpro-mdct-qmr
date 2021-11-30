@@ -29,7 +29,12 @@ export const RadioButton = ({
 
   return (
     <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
-      <CUI.RadioGroup value={value} onChange={onChange} {...radioGroupProps}>
+      <CUI.RadioGroup
+        size="lg"
+        value={value}
+        onChange={onChange}
+        {...radioGroupProps}
+      >
         <CUI.Stack>
           {options.map(({ displayValue, value }) => (
             <CUI.Radio value={value} key={value}>
