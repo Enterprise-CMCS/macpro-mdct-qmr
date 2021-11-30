@@ -13,3 +13,4 @@ export * from "./NotFound";
 export * from "./Profile";
 export * from "./StateHome";
 export * from "./UserManagement";
+export * from "./DemoQuestions";

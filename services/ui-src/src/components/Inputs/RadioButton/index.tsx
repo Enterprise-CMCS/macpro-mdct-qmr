@@ -5,6 +5,7 @@ import * as QMR from "components";
 export interface RadioButtonOption {
   displayValue: string;
   value: string | number;
+  children?: JSX.Element[];
 }
 
 interface RadioButtonProps extends QMR.InputWrapperProps {
@@ -31,11 +32,23 @@ export const RadioButton = ({
     <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
       <CUI.RadioGroup value={value} onChange={onChange} {...radioGroupProps}>
         <CUI.Stack>
-          {options.map(({ displayValue, value }) => (
-            <CUI.Radio value={value} key={value}>
-              {displayValue}
-            </CUI.Radio>
-          ))}
+          {options.map((option) => {
+            const showChildren = option.value === value;
+            return (
+              <CUI.Box key={option.displayValue}>
+                <CUI.Radio value={option.value} key={value} size="lg">
+                  <CUI.Text fontWeight="normal" fontSize="normal">
+                    {option.displayValue}
+                  </CUI.Text>
+                </CUI.Radio>
+                <CUI.Collapse in={showChildren} animateOpacity>
+                  <QMR.QuestionChild show={!!option.children?.length}>
+                    {option.children}
+                  </QMR.QuestionChild>
+                </CUI.Collapse>
+              </CUI.Box>
+            );
+          })}
         </CUI.Stack>
       </CUI.RadioGroup>
     </QMR.InputWrapper>
