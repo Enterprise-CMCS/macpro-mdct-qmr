@@ -6,6 +6,13 @@ import { getRedirectRoute } from "libs";
 import { AuthenticatedRoute } from "components";
 import * as Views from "views";
 
+export interface Params {
+  state: string;
+  year: string;
+  coreSetId: string;
+  measureId: string;
+}
+
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";
@@ -47,7 +54,7 @@ export function Routes() {
         <Route exact path="/components">
           <Views.DemoComponents />
         </Route>
-        <Route exact path="/demo-questions">
+        <Route exact path="/:state/:year/:coreSetId/:measureId">
           <Views.DemoQuestions />
         </Route>
         <AuthenticatedRoutes />
@@ -69,8 +76,9 @@ function redirectTo(
   if (location.pathname === "/components") {
     return "/components";
   }
-  if (location.pathname === "/demo-questions") {
-    return "/demo-questions";
+  // for demo purposes
+  if (location.pathname === "/OH/2021/ACS/AIF-HH") {
+    return "/OH/2021/ACS/AIF-HH";
   }
   if (!role) {
     if (isIntegrationBranch) {

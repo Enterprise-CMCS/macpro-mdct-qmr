@@ -2,12 +2,12 @@ import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as CoreQs from "components/CoreQuestions";
 import * as QMR from "components/Inputs";
+import { useParams } from "react-router-dom";
+import { Params } from "Routes";
 
 export const DemoQuestions = () => {
   const [{ data }, setData] = useState<any>({});
-  const year = 2021;
-  const state = "OH";
-  const measureId = "AIF-HH";
+  const { year, state, measureId } = useParams<Params>();
 
   const handleChange = (questionId: string, value: any) => {
     const newData = { ...data, [questionId]: value };
