@@ -52,6 +52,23 @@ export function DemoComponents(): JSX.Element {
     },
   ]);
 
+  const [checkboxData, setData] = React.useState<string[]>([]);
+
+  const handleChange = (value: string[]) => {
+    console.log(value);
+    // const foundValue = checkboxData.findIndex(
+    //   (selectedValues) => selectedValues === value
+    // );
+    // let newArray = [...checkboxData];
+    // if (foundValue > -1) {
+    //   newArray.push(value);
+    // } else {
+    //   newArray = newArray.filter((valueToCheck) => valueToCheck !== value);
+    // }
+
+    setData(value);
+  };
+
   return (
     <CUI.Container mb="6">
       <form>
@@ -173,11 +190,26 @@ export function DemoComponents(): JSX.Element {
           <Inputs.Checkbox
             options={[
               {
-                displayValue: "Administrative Data",
-                value: "test",
+                displayValue: "Medicaid Management Information System (MMIS)",
+                value: "Medicaid Management Information System (MMIS)",
                 children: [
                   <Inputs.TextArea
-                    label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
+                    label="Describe the MMIS"
+                    formLabelProps={{
+                      fontWeight: "normal",
+                      fontSize: "normal",
+                    }}
+                    value={""}
+                    onChange={() => {}}
+                  />,
+                ],
+              },
+              {
+                displayValue: "Other",
+                value: "Other",
+                children: [
+                  <Inputs.TextInput
+                    label="Describe the data source"
                     formLabelProps={{
                       fontWeight: "normal",
                       fontSize: "normal",
@@ -188,8 +220,8 @@ export function DemoComponents(): JSX.Element {
                 ],
               },
             ]}
-            onChange={() => {}}
-            value={""}
+            onChange={(v) => handleChange(v)}
+            value={checkboxData}
             label="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
           />
         </CUI.Stack>
