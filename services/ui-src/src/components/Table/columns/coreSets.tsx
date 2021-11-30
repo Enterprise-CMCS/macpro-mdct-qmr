@@ -3,13 +3,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { CoreSet, TableColumn } from "../types";
 
-// Badge color mapping for core set type
-const badgeEnum: Record<string, string> = {
-  [CoreSet.Type.ADULT]: "green",
-  [CoreSet.Type.CHILD]: "blue",
-  [CoreSet.Type.HEALTH_HOMES]: "purple",
-};
-
 // Get status string from core set data
 const getStatus = ({ progress, submitted }: CoreSet.Data): CoreSet.Status => {
   if (submitted) return CoreSet.Status.SUBMITTED;
@@ -55,8 +48,14 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: CoreSet.Data) => {
       return (
-        <CUI.Badge fontSize="xs" colorScheme={badgeEnum[data.type]}>
-          {data.type}
+        <CUI.Badge
+          fontSize="xs"
+          colorScheme="blue"
+          textTransform="capitalize"
+          borderRadius="lg"
+          px="2"
+        >
+          <CUI.Text fontWeight="normal">{data.type}</CUI.Text>
         </CUI.Badge>
       );
     },
