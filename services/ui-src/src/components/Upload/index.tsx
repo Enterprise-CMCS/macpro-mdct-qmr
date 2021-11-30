@@ -72,8 +72,8 @@ export const Upload: React.FC<IUploadProps> = ({
         {...getRootProps()}
         border="3px"
         borderStyle="dotted"
-        borderColor={isDragActive ? "#9bdef9" : "rgba(255,255,255,0)"}
-        background="#F0FAFE"
+        borderColor={isDragActive ? "blue.100" : "rgba(255,255,255,0)"}
+        background="blue.50"
         py="1.5rem"
         borderRadius="10"
         boxSizing="border-box"
@@ -84,56 +84,48 @@ export const Upload: React.FC<IUploadProps> = ({
         <CUI.Text fontSize="lg">
           Drag & drop or{" "}
           <button type="button">
-            <CUI.Text color="#6f9fcf" as="u">
+            <CUI.Text color="blue.300" as="u">
               browse
             </CUI.Text>
           </button>
         </CUI.Text>
-        <CUI.Text color="#5B616B" fontSize="sm">
+        <CUI.Text color="gray.500" fontSize="sm">
           Maximum file size of 80MB.
         </CUI.Text>
       </CUI.VStack>
-      {erroredFiles.length > 0 && (
-        <>
-          {erroredFiles.map((erroredFile, index) => (
-            <CUI.Alert
-              key={`${erroredFile}-${index}`}
-              borderRadius={10}
-              status="error"
-            >
-              <CUI.AlertIcon />
-              <CUI.AlertTitle mr={2}>{erroredFile} too large:</CUI.AlertTitle>
-              <CUI.AlertDescription>
-                The maximum file size is {convertFileSize(maxSize ?? 80000000)}
-              </CUI.AlertDescription>
-            </CUI.Alert>
-          ))}
-        </>
-      )}
-      {files.length > 0 && (
-        <>
-          {files.map((file, index) => (
-            <CUI.HStack
-              key={`${index}-${file.name}`}
-              background="#f0fafe"
-              pl="1rem"
-              borderRadius="10"
-              justifyContent="space-between"
-            >
-              <CUI.Text variant="xl">
-                File Name: {file.name} ({convertFileSize(file.size)})
-              </CUI.Text>
-              <CUI.Button
-                data-testid={`test-delete-btn-${index}`}
-                background="none"
-                onClick={() => clearFile(index)}
-              >
-                x
-              </CUI.Button>
-            </CUI.HStack>
-          ))}
-        </>
-      )}
+      {erroredFiles.map((erroredFile, index) => (
+        <CUI.Alert
+          key={`${erroredFile}-${index}`}
+          borderRadius={10}
+          status="error"
+        >
+          <CUI.AlertIcon />
+          <CUI.AlertTitle mr={2}>{erroredFile} too large:</CUI.AlertTitle>
+          <CUI.AlertDescription>
+            The maximum file size is {convertFileSize(maxSize ?? 80000000)}
+          </CUI.AlertDescription>
+        </CUI.Alert>
+      ))}
+      {files.map((file, index) => (
+        <CUI.HStack
+          key={`${index}-${file.name}`}
+          background="blue.50"
+          pl="1rem"
+          borderRadius="10"
+          justifyContent="space-between"
+        >
+          <CUI.Text variant="xl">
+            File Name: {file.name} ({convertFileSize(file.size)})
+          </CUI.Text>
+          <CUI.Button
+            data-testid={`test-delete-btn-${index}`}
+            background="none"
+            onClick={() => clearFile(index)}
+          >
+            x
+          </CUI.Button>
+        </CUI.HStack>
+      ))}
     </>
   );
 };
