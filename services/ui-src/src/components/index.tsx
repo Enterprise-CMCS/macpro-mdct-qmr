@@ -8,3 +8,4 @@ export * from "./LoaderButton";
 export * from "./LocalLogins";
 export * from "./Logo";
 export * from "./UnauthenticatedRoute";
+export * from "./QuestionChild";
