@@ -186,9 +186,19 @@ export function DemoComponents(): JSX.Element {
         />
         <CUI.Divider />
         <CUI.Heading size="sm" as="h3">
-          Progress Button
+          Progress Circle
         </CUI.Heading>
-        <ProgressCircle currentProgress={5} maxValue={23} />
+        <ProgressCircle
+          currentProgress={5}
+          maxValue={23}
+          circularProgressProps={{
+            color: "green.600",
+            size: "8rem",
+          }}
+          circularProgressLabelProps={{
+            fontSize: "1.5rem",
+          }}
+        />
       </CUI.Container>
     </>
   );

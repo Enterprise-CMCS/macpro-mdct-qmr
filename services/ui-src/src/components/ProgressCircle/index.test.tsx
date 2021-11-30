@@ -10,7 +10,7 @@ describe("Test ProgressCircle", () => {
     expect(getByText(/14 of 20/i)).toBeVisible();
   });
 
-  test("Check that the progress button changes with updated prop values", () => {
+  test("Check that the progress circle changes with updated prop values", () => {
     const { rerender } = render(
       <ProgressCircle currentProgress={5} maxValue={20} />
     );
