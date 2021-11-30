@@ -3,7 +3,7 @@ import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
-import { ProgressButton } from "components/ProgressButton";
+import { ProgressCircle } from "components/ProgressCircle";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -188,7 +188,7 @@ export function DemoComponents(): JSX.Element {
         <CUI.Heading size="sm" as="h3">
           Progress Button
         </CUI.Heading>
-        <ProgressButton currentProgress={5} maxValue={23} />
+        <ProgressCircle currentProgress={5} maxValue={23} />
       </CUI.Container>
     </>
   );

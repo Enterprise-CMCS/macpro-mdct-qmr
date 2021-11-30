@@ -1,16 +1,17 @@
 import * as CUI from "@chakra-ui/react";
 
-interface IProgressButtonProps {
+interface IProgressCircleProps {
   currentProgress: number;
   maxValue: number;
 }
 
-export const ProgressButton = ({
+export const ProgressCircle = ({
   currentProgress,
   maxValue,
-}: IProgressButtonProps) => {
+}: IProgressCircleProps) => {
   return (
     <CUI.CircularProgress
+      aria-label="Circular Progress "
       color="green.600"
       size="8rem"
       value={(currentProgress / maxValue) * 100}
