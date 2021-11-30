@@ -4,5 +4,4 @@ checks:
     config:
       threshold: 80
 exclude_patterns:
-  - "**/libs/"
-  - "**/views/"
+  - "services/ui-src/"
