@@ -183,10 +183,10 @@ export function DemoComponents(): JSX.Element {
             label="Sample label for an upload control"
           />
           <Upload
-            maxSize={1}
+            maxSize={1024}
             files={files2}
             setFiles={setFiles2}
-            label="Uploading a file here will cause an error. (Set max size to 1 byte)"
+            label="Uploading a file here will cause an error. (Set max size to 1 kb)"
           />
         </CUI.Stack>
       </form>
