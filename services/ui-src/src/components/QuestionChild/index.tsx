@@ -8,7 +8,7 @@ interface Props {
 export const QuestionChild = ({ show, children }: Props) => {
   return (
     <CUI.Box
-      display={!show ? "none" : "block"}
+      display={show ? "block" : "none"}
       pl={6}
       ml={2}
       borderLeft="4px"
