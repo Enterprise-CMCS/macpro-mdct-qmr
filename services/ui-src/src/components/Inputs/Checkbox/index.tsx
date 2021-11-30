@@ -36,7 +36,7 @@ export const Checkbox = ({
             );
             return (
               <CUI.Box key={option.displayValue}>
-                <CUI.Checkbox value={option.value} key={option.value}>
+                <CUI.Checkbox value={option.value}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>

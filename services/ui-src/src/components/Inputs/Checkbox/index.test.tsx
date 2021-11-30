@@ -14,6 +14,7 @@ describe("Test Checkbox", () => {
       children: [
         <Inputs.TextInput
           label="Describe the data source:"
+          key="test"
           formLabelProps={{
             fontWeight: "normal",
             fontSize: "normal",

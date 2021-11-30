@@ -171,6 +171,34 @@ export function DemoComponents(): JSX.Element {
               isInvalidFunc={(value) => String(value).length > 3000}
             />
             <Rate rates={ratesTwo} updateRates={setRatesTwo} />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Checkbox
+            </CUI.Heading>
+            <Inputs.Checkbox
+              options={[
+                {
+                  displayValue: "Medicaid Management Information System (MMIS)",
+                  value: "Medicaid Management Information System (MMIS)",
+                },
+                {
+                  displayValue: "Other",
+                  value: "Other",
+                  children: [
+                    <Inputs.TextInput
+                      label="Describe the data source:"
+                      key="other-describe-data"
+                      value={checkboxInput}
+                      onChange={(e) => setCheckboxInput(e.target.value)}
+                    />,
+                  ],
+                },
+              ]}
+              onChange={setCheckboxData}
+              value={checkboxData}
+              formLabelProps={{ fontWeight: 700 }}
+              label="What is the Adminstrative Data Source?"
+            />
           </CUI.Stack>
         </form>
       </CUI.Container>
@@ -185,37 +213,6 @@ export function DemoComponents(): JSX.Element {
         <QMR.Table
           data={QMR.exampleMeasuresData}
           columns={QMR.measuresColumns}
-        />
-        <CUI.Divider />
-        <CUI.Heading size="sm" as="h3">
-          Checkbox
-        </CUI.Heading>
-        <Inputs.Checkbox
-          options={[
-            {
-              displayValue: "Medicaid Management Information System (MMIS)",
-              value: "Medicaid Management Information System (MMIS)",
-            },
-            {
-              displayValue: "Other",
-              value: "Other",
-              children: [
-                <Inputs.TextInput
-                  label="Describe the data source:"
-                  formLabelProps={{
-                    fontWeight: "normal",
-                    fontSize: "normal",
-                  }}
-                  value={checkboxInput}
-                  onChange={(e) => setCheckboxInput(e.target.value)}
-                />,
-              ],
-            },
-          ]}
-          onChange={setCheckboxData}
-          value={checkboxData}
-          formLabelProps={{ fontWeight: 700 }}
-          label="What is the Adminstrative Data Source?"
         />
       </CUI.Container>
     </>
