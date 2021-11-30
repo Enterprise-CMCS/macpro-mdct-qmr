@@ -44,7 +44,7 @@ describe("Test Checkbox", () => {
     );
 
     expect(
-      getByText(/Medicaid Management Information System (MMIS)/i)
+      getByText(/Medicaid Management Information System \(MMIS\)/i)
     ).toBeVisible();
     expect(getByText(/Other/i)).toBeVisible();
   });

@@ -1,7 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
-// This interface will be needed in other files to setup the RadioButtonOptions Array
 export interface RadioButtonOption {
   displayValue: string;
   value: string | number;
@@ -41,7 +40,7 @@ export const RadioButton = ({
             const showChildren = option.value === value;
             return (
               <CUI.Box key={option.displayValue}>
-                <CUI.Radio value={option.value} key={value} size="lg">
+                <CUI.Radio value={option.value} key={value}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>

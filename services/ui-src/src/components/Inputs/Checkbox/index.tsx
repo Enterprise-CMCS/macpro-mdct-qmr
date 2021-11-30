@@ -24,6 +24,7 @@ export const Checkbox = ({
   return (
     <QMR.InputWrapper {...rest}>
       <CUI.CheckboxGroup
+        size="lg"
         value={value}
         onChange={onChange}
         {...checkboxGroupProps}
@@ -35,11 +36,7 @@ export const Checkbox = ({
             );
             return (
               <CUI.Box key={option.displayValue}>
-                <CUI.Checkbox
-                  size="lg"
-                  value={option.value}
-                  key={option.displayValue}
-                >
+                <CUI.Checkbox value={option.value} key={option.value}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>
