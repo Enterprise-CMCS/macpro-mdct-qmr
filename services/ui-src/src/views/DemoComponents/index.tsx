@@ -4,6 +4,7 @@ import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
 
+import { ProgressButton } from "components/ProgressButton";
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
   { displayValue: "option2", value: "option2" },
@@ -183,6 +184,11 @@ export function DemoComponents(): JSX.Element {
           data={QMR.exampleMeasuresData}
           columns={QMR.measuresColumns}
         />
+        <CUI.Divider />
+        <CUI.Heading size="sm" as="h3">
+          Progress Button
+        </CUI.Heading>
+        <ProgressButton currentProgress={5} maxValue={23} />
       </CUI.Container>
     </>
   );
