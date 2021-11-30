@@ -11,22 +11,23 @@ interface CheckboxProps extends QMR.InputWrapperProps {
   value: string[];
   onChange: (nextValue: string[]) => void;
   options: CheckboxOption[];
-  radioGroupProps?: CUI.RadioGroupProps;
+  checkboxGroupProps?: CUI.CheckboxGroupProps;
 }
 
 export const Checkbox = ({
   options,
   value,
   onChange,
-  isInvalidFunc,
-  radioGroupProps,
+  checkboxGroupProps,
   ...rest
 }: CheckboxProps) => {
-  let isInvalid = false;
-
   return (
-    <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
-      <CUI.CheckboxGroup value={value} onChange={onChange}>
+    <QMR.InputWrapper {...rest}>
+      <CUI.CheckboxGroup
+        value={value}
+        onChange={onChange}
+        {...checkboxGroupProps}
+      >
         <CUI.Stack>
           {options.map((option) => {
             const showChildren = !!value.find(
@@ -44,10 +45,9 @@ export const Checkbox = ({
                   </CUI.Text>
                 </CUI.Checkbox>
                 <CUI.Collapse in={showChildren} animateOpacity>
-                  {option.children}
-                  {/* <QMR.QuestionChild show={!!option.children?.length}>
-                  {option.children}
-                </QMR.QuestionChild> */}
+                  <QMR.QuestionChild show={!!option.children?.length}>
+                    {option.children}
+                  </QMR.QuestionChild>
                 </CUI.Collapse>
               </CUI.Box>
             );

@@ -177,24 +177,13 @@ export function DemoComponents(): JSX.Element {
               {
                 displayValue: "Medicaid Management Information System (MMIS)",
                 value: "Medicaid Management Information System (MMIS)",
-                children: [
-                  <Inputs.TextArea
-                    label="Describe the MMIS"
-                    formLabelProps={{
-                      fontWeight: "normal",
-                      fontSize: "normal",
-                    }}
-                    value={""}
-                    onChange={() => {}}
-                  />,
-                ],
               },
               {
                 displayValue: "Other",
                 value: "Other",
                 children: [
                   <Inputs.TextInput
-                    label="Describe the data source"
+                    label="Describe the data source:"
                     formLabelProps={{
                       fontWeight: "normal",
                       fontSize: "normal",
@@ -207,7 +196,8 @@ export function DemoComponents(): JSX.Element {
             ]}
             onChange={setCheckboxData}
             value={checkboxData}
-            label="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
+            formLabelProps={{ fontWeight: 700 }}
+            label="What is the Adminstrative Data Source?"
           />
         </CUI.Stack>
       </form>
