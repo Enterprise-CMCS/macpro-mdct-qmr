@@ -53,6 +53,7 @@ export function DemoComponents(): JSX.Element {
   ]);
 
   const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
+  const [checkboxInput, setCheckboxInput] = React.useState("");
 
   return (
     <CUI.Container mb="6">
@@ -188,8 +189,8 @@ export function DemoComponents(): JSX.Element {
                       fontWeight: "normal",
                       fontSize: "normal",
                     }}
-                    value={""}
-                    onChange={() => {}}
+                    value={checkboxInput}
+                    onChange={(e) => setCheckboxInput(e.target.value)}
                   />,
                 ],
               },
