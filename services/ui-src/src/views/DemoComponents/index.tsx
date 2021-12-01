@@ -61,6 +61,9 @@ export function DemoComponents(): JSX.Element {
   ]);
   const [files2, setFiles2] = useState<File[]>([]);
 
+  const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
+  const [checkboxInput, setCheckboxInput] = React.useState("");
+
   return (
     <>
       <CUI.Container mb="6">
@@ -190,6 +193,34 @@ export function DemoComponents(): JSX.Element {
               files={files2}
               setFiles={setFiles2}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
+            />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Checkbox
+            </CUI.Heading>
+            <Inputs.Checkbox
+              options={[
+                {
+                  displayValue: "Medicaid Management Information System (MMIS)",
+                  value: "Medicaid Management Information System (MMIS)",
+                },
+                {
+                  displayValue: "Other",
+                  value: "Other",
+                  children: [
+                    <Inputs.TextInput
+                      label="Describe the data source:"
+                      key="other-describe-data"
+                      value={checkboxInput}
+                      onChange={(e) => setCheckboxInput(e.target.value)}
+                    />,
+                  ],
+                },
+              ]}
+              onChange={setCheckboxData}
+              value={checkboxData}
+              formLabelProps={{ fontWeight: 700 }}
+              label="What is the Adminstrative Data Source?"
             />
           </CUI.Stack>
         </form>
