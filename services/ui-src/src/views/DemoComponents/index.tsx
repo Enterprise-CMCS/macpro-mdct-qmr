@@ -3,6 +3,7 @@ import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
+import { ProgressCircle } from "components/ProgressCircle";
 import { Upload } from "components/Upload";
 
 const selectOptions = [
@@ -204,6 +205,21 @@ export function DemoComponents(): JSX.Element {
         <QMR.Table
           data={QMR.exampleMeasuresData}
           columns={QMR.measuresColumns}
+        />
+        <CUI.Divider />
+        <CUI.Heading size="sm" as="h3">
+          Progress Circle
+        </CUI.Heading>
+        <ProgressCircle
+          currentProgress={5}
+          maxValue={23}
+          circularProgressProps={{
+            color: "green.600",
+            size: "8rem",
+          }}
+          circularProgressLabelProps={{
+            fontSize: "1.5rem",
+          }}
         />
       </CUI.Container>
     </>
