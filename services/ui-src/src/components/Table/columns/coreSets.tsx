@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { CoreSet, TableColumn } from "../types";
+import { ContainedButton } from "components/ContainedButton";
 
 // Get status string from core set data
 const getStatus = ({ progress, submitted }: CoreSet.Data): CoreSet.Status => {
@@ -73,22 +74,20 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
       const buttonText = isSubmitted
         ? CoreSet.Status.SUBMITTED
         : "submit core set";
+      const helperText = !isSubmitted
+        ? `Complete all Core Set Questions and Core Set Measures to submit FFY ${data.year}`
+        : undefined;
       return (
-        <CUI.Box maxW="2xs" textAlign="center">
-          <CUI.Button
-            w="full"
-            disabled={status !== CoreSet.Status.COMPLETED}
-            colorScheme="blue"
-            textTransform="capitalize"
-          >
-            {buttonText}
-          </CUI.Button>
-          {!isSubmitted && (
-            <CUI.Text fontSize="xs" lineHeight="1rem" mt="1">
-              {`Complete all Core Set Questions and Core Set Measures to submit FFY ${data.year}`}
-            </CUI.Text>
-          )}
-        </CUI.Box>
+        <ContainedButton
+          buttonText={buttonText}
+          disabledStatus={status !== CoreSet.Status.COMPLETED}
+          buttonProps={{
+            colorScheme: "blue",
+            textTransform: "capitalize",
+            w: "full",
+          }}
+          helperText={helperText}
+        />
       );
     },
   },
