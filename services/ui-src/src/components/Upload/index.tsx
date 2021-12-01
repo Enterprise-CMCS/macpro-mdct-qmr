@@ -30,7 +30,7 @@ export const Upload = ({
     (acceptedFiles: File[]) => {
       setFiles([...files, ...acceptedFiles]);
     },
-    [setFiles]
+    [files, setFiles]
   );
 
   const convertFileSize = (fileSize: number) => {
