@@ -1,55 +1,52 @@
-import { useEffect } from "react";
-import { Route, Redirect, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Route } from "react-router-dom";
 import { Auth } from "aws-amplify";
+import { FunctionComponent } from "react-router/node_modules/@types/react";
 
 export function AuthenticatedRoute({
-  children,
+  component: Component,
   ...rest
 }: IAuthenticatedRouteProps): JSX.Element {
-  const { pathname, search } = useLocation();
-  const isAuthenticated = true;
+  const [user, setUser] = useState(null);
+  async function checkAuthState() {
+    try {
+      const authenticatedUser = await Auth.currentAuthenticatedUser();
+      setUser(authenticatedUser);
+    } catch (e) {
+      const authConfig = Auth.configure();
+      if (authConfig?.oauth) {
+        const oAuthOpts = authConfig.oauth;
+        const domain = oAuthOpts.domain;
+        const responseType = oAuthOpts.responseType;
+        let redirectSignIn;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const auth = await Auth.currentAuthenticatedUser();
-        console.log({ auth });
-      } catch (e) {
-        const authConfig = Auth.configure();
-        console.log({ authConfig });
-
-        if (authConfig?.oauth) {
-          const oAuthOpts = authConfig.oauth;
-          const domain = oAuthOpts.domain;
-          const responseType = oAuthOpts.responseType;
-          let redirectSignIn;
-
-          if ("redirectSignOut" in oAuthOpts) {
-            redirectSignIn = oAuthOpts.redirectSignOut;
-          }
-
-          const clientId = authConfig.userPoolWebClientId;
-          const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
-          window.location.assign(url);
+        if ("redirectSignOut" in oAuthOpts) {
+          redirectSignIn = oAuthOpts.redirectSignOut;
         }
 
-        console.log(e);
+        const clientId = authConfig.userPoolWebClientId;
+        const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
+        window.location.assign(url);
       }
-    })();
+    }
+  }
+  useEffect(() => {
+    checkAuthState();
   }, []);
 
   return (
     <Route {...rest}>
-      {isAuthenticated ? (
-        children
-      ) : (
-        <Redirect to={`/home?redirect=${pathname}${search}`} />
-      )}
+      {user ? (
+        <>
+          <Component user={user} />
+          <button onClick={() => Auth.signOut()}>Sign Out</button>
+        </>
+      ) : null}
     </Route>
   );
 }
 interface IAuthenticatedRouteProps {
   exact: boolean;
   path: string;
-  children: JSX.Element;
+  component: FunctionComponent<any>;
 }

@@ -1,7 +1,6 @@
 export * from "./AdminHome";
 export * from "./Amendments";
 export * from "./BOHome";
-export * from "./ContactUs";
 export * from "./CoreSet";
 export * from "./DemoComponents";
 export * from "./HelpDesk";
