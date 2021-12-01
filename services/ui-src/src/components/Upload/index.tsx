@@ -42,9 +42,9 @@ export const Upload: React.FC<IUploadProps> = ({
 
   const convertFileSize = (fileSize: number) => {
     if (fileSize < 1048576) {
-      return `${fileSize / 1024}KB`;
+      return `${Math.ceil(fileSize / 1024)}KB`;
     } else {
-      return `${fileSize / 1048576}MB`;
+      return `${Math.ceil(fileSize / 1048576)}MB`;
     }
   };
 
