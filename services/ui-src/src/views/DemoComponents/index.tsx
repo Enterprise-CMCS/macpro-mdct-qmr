@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
+import { Upload } from "components/Upload";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -52,6 +53,12 @@ export function DemoComponents(): JSX.Element {
       id: 5,
     },
   ]);
+  const [files, setFiles] = useState<File[]>([
+    new File([JSON.stringify({ ping: true })], "ping.json", {
+      type: "application/json",
+    }),
+  ]);
+  const [files2, setFiles2] = useState<File[]>([]);
 
   const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
   const [checkboxInput, setCheckboxInput] = React.useState("");
@@ -171,6 +178,21 @@ export function DemoComponents(): JSX.Element {
               isInvalidFunc={(value) => String(value).length > 3000}
             />
             <Rate rates={ratesTwo} updateRates={setRatesTwo} />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Upload Control
+            </CUI.Heading>
+            <Upload
+              files={files}
+              setFiles={setFiles}
+              label="Sample label for an upload control"
+            />
+            <Upload
+              maxSize={1024}
+              files={files2}
+              setFiles={setFiles2}
+              label="Uploading a file here will cause an error. (Set max size to 1 kb)"
+            />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Checkbox
