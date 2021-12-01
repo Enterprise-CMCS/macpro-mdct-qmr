@@ -26,6 +26,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^2.0.1",
     "react-dom": "^17.0.1",
+    "react-dropzone": "^11.4.2",
     "react-icons": "^4.3.1",
     "react-ios-switch": "^0.1.19",
     "react-phone-input-2": "^2.13.8",
