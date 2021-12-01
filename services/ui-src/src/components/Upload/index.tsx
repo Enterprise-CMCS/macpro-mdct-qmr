@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import * as CUI from "@chakra-ui/react";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
@@ -8,43 +8,36 @@ interface IUploadProps {
   setFiles: React.Dispatch<React.SetStateAction<File[]>>;
   maxSize?: number;
   label?: string;
+  acceptedFileTypes?: string | string[];
 }
 
-export const Upload: React.FC<IUploadProps> = ({
+export const Upload = ({
   files,
   setFiles,
-  maxSize = 83886080,
+  maxSize = 80000000,
   label,
-}) => {
-  const [erroredFiles, setErroredFiles] = useState<string[]>([]);
-
+  acceptedFileTypes = [
+    ".pdf",
+    ".doc",
+    ".docx",
+    ".xlsx",
+    ".jpg",
+    ".jpeg",
+    ".png",
+  ],
+}: IUploadProps) => {
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      const acceptedTempFiles: File[] = [];
-      const erroredFiles: string[] = [];
-
-      for (const file of acceptedFiles) {
-        file.size <= maxSize
-          ? acceptedTempFiles.push(file)
-          : erroredFiles.push(file.name);
-      }
-
-      erroredFiles.length > 0
-        ? setErroredFiles(erroredFiles)
-        : setErroredFiles([]);
-
-      acceptedTempFiles.length > 0
-        ? setFiles([...files, ...acceptedTempFiles])
-        : setFiles([]);
+      setFiles([...files, ...acceptedFiles]);
     },
-    [setFiles, maxSize, files]
+    [setFiles]
   );
 
   const convertFileSize = (fileSize: number) => {
-    if (fileSize < 1048576) {
-      return `${Math.ceil(fileSize / 1024)}KB`;
+    if (fileSize < 1000000) {
+      return `${Math.ceil(fileSize / 1000)}KB`;
     } else {
-      return `${Math.ceil(fileSize / 1048576)}MB`;
+      return `${Math.ceil(fileSize / 1000000)}MB`;
     }
   };
 
@@ -55,9 +48,12 @@ export const Upload: React.FC<IUploadProps> = ({
     setFiles(filteredArray);
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-  });
+  const { getRootProps, getInputProps, isDragActive, fileRejections } =
+    useDropzone({
+      onDrop,
+      accept: acceptedFileTypes,
+      maxSize,
+    });
 
   return (
     <>
@@ -87,17 +83,20 @@ export const Upload: React.FC<IUploadProps> = ({
           Maximum file size of {convertFileSize(maxSize)}.
         </CUI.Text>
       </CUI.VStack>
-      {erroredFiles.map((erroredFile, index) => (
+      {fileRejections.map((erroredFile, index) => (
         <CUI.Alert
-          key={`${erroredFile}-${index}`}
+          key={`${erroredFile.file.name}-${index}`}
           borderRadius={10}
           status="error"
         >
           <CUI.AlertIcon />
-          <CUI.AlertTitle mr={2}>{erroredFile} too large:</CUI.AlertTitle>
-          <CUI.AlertDescription>
-            The maximum file size is {convertFileSize(maxSize)}
-          </CUI.AlertDescription>
+          <CUI.AlertTitle mr={2}>
+            {erroredFile.file.name}:{" "}
+            {erroredFile.errors[0].message.replace(
+              /[0-9]* bytes/g,
+              convertFileSize(maxSize)
+            )}
+          </CUI.AlertTitle>
         </CUI.Alert>
       ))}
       {files.map((file, index) => (
