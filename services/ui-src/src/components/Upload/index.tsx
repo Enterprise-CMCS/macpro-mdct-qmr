@@ -24,24 +24,18 @@ export const Upload: React.FC<IUploadProps> = ({
       const erroredFiles: string[] = [];
 
       for (const file of acceptedFiles) {
-        if (file.size <= maxSize) {
-          acceptedTempFiles.push(file);
-        } else {
-          erroredFiles.push(file.name);
-        }
+        file.size <= maxSize
+          ? acceptedTempFiles.push(file)
+          : erroredFiles.push(file.name);
       }
 
-      if (erroredFiles.length > 0) {
-        setErroredFiles(erroredFiles);
-      } else {
-        setErroredFiles([]);
-      }
+      erroredFiles.length > 0
+        ? setErroredFiles(erroredFiles)
+        : setErroredFiles([]);
 
-      if (acceptedTempFiles.length > 0) {
-        setFiles([...files, ...acceptedTempFiles]);
-      } else {
-        setFiles([]);
-      }
+      acceptedTempFiles.length > 0
+        ? setFiles([...files, ...acceptedTempFiles])
+        : setFiles([]);
     },
     [setFiles, maxSize, files]
   );
