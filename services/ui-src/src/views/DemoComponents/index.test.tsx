@@ -72,7 +72,7 @@ describe("Test Second NumberInput Component", () => {
 
 describe("Test File Upload component", async () => {
   test("Check that the Upload Component renders file", async () => {
-    render(<DemoComponents />);
+    render(<WrappedDemoComponents />);
 
     expect(await screen.findByText(/ping.json/i)).toBeInTheDocument();
 
