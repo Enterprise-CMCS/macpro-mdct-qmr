@@ -3,9 +3,11 @@ import * as QMR from "components";
 
 interface ContainedButtonProps extends QMR.InputWrapperProps {
   disabledStatus?: boolean;
-  buttonText: string;
+  buttonText: any;
   buttonProps: CUI.ButtonProps;
   helperText?: string;
+  helperTextProps?: CUI.TextProps;
+  onClick: () => void;
 }
 
 export const ContainedButton = ({
@@ -13,17 +15,15 @@ export const ContainedButton = ({
   buttonText,
   buttonProps,
   helperText,
+  helperTextProps,
+  onClick,
 }: ContainedButtonProps) => {
   return (
-    <CUI.Box maxW="2xs" textAlign="center">
-      <CUI.Button disabled={disabledStatus} {...buttonProps}>
+    <>
+      <CUI.Button onClick={onClick} disabled={disabledStatus} {...buttonProps}>
         {buttonText}
       </CUI.Button>
-      {helperText && (
-        <CUI.Text fontSize="xs" lineHeight="1rem" mt="1">
-          {helperText}
-        </CUI.Text>
-      )}
-    </CUI.Box>
+      {helperText && <CUI.Text {...helperTextProps}>{helperText}</CUI.Text>}
+    </>
   );
 };

@@ -5,6 +5,7 @@ import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
 import { Upload } from "components/Upload";
+import { ContainedButton } from "components/ContainedButton";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -222,6 +223,87 @@ export function DemoComponents(): JSX.Element {
               formLabelProps={{ fontWeight: 700 }}
               label="What is the Adminstrative Data Source?"
             />
+            <CUI.Divider />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Contained Buttons
+            </CUI.Heading>
+            <CUI.HStack>
+              <ContainedButton
+                buttonText={"Submit Core Set"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  w: "full",
+                }}
+                onClick={() => {}}
+              />
+              <ContainedButton
+                buttonText={"Add Core Set"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  variant: "outline",
+                  w: "full",
+                }}
+                onClick={() => {}}
+              />
+            </CUI.HStack>
+            <CUI.HStack>
+              <ContainedButton
+                buttonText={"Add Child Core Core Set"}
+                buttonProps={{
+                  maxW: "xs",
+                  textAlign: "center",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  variant: "outline",
+                  w: "full",
+                }}
+                onClick={() => {}}
+              />
+            </CUI.HStack>
+            <CUI.HStack>
+              <ContainedButton
+                buttonText={`Add Health Homes Core Set`}
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  w: "full",
+                }}
+                onClick={() => {}}
+              />
+              <ContainedButton
+                buttonText={"+ Add Another"}
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  w: "full",
+                }}
+                onClick={() => {}}
+              />
+            </CUI.HStack>
+
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Contained Buttons With Helper Text
+            </CUI.Heading>
+            <ContainedButton
+              buttonText={"+ Add Another"}
+              buttonProps={{
+                maxW: "2xs",
+                textAlign: "center",
+                variant: "outline",
+                colorScheme: "blue",
+                textTransform: "capitalize",
+                w: "full",
+              }}
+              helperText={"Helper Text"}
+              helperTextProps={{ fontSize: "sm", lineHeight: "1rem", mt: "1" }}
+              onClick={() => {}}
+            />
           </CUI.Stack>
         </form>
       </CUI.Container>
@@ -237,7 +319,6 @@ export function DemoComponents(): JSX.Element {
           data={QMR.exampleMeasuresData}
           columns={QMR.measuresColumns}
         />
-        <CUI.Divider />
         <CUI.Heading size="sm" as="h3">
           Progress Circle
         </CUI.Heading>

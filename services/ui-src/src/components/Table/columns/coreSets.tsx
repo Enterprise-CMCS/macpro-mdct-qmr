@@ -87,6 +87,7 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
             w: "full",
           }}
           helperText={helperText}
+          onClick={() => {}}
         />
       );
     },
