@@ -1,50 +1,46 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
-export interface RadioButtonOption {
+export interface CheckboxOption {
   displayValue: string;
   value: string | number;
   children?: JSX.Element[];
 }
 
-interface RadioButtonProps extends QMR.InputWrapperProps {
-  value: string;
-  onChange: (nextValue: string) => void;
-  options: RadioButtonOption[];
-  radioGroupProps?: CUI.RadioGroupProps;
+interface CheckboxProps extends QMR.InputWrapperProps {
+  value: string[];
+  onChange: (nextValue: string[]) => void;
+  options: CheckboxOption[];
+  checkboxGroupProps?: CUI.CheckboxGroupProps;
 }
 
-export const RadioButton = ({
+export const Checkbox = ({
   options,
   value,
   onChange,
-  isInvalidFunc,
-  radioGroupProps,
+  checkboxGroupProps,
   ...rest
-}: RadioButtonProps) => {
-  let isInvalid = false;
-  if (isInvalidFunc) {
-    isInvalid = isInvalidFunc(value);
-  }
-
+}: CheckboxProps) => {
   return (
-    <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
-      <CUI.RadioGroup
+    <QMR.InputWrapper {...rest}>
+      <CUI.CheckboxGroup
         size="lg"
         value={value}
         onChange={onChange}
-        {...radioGroupProps}
+        {...checkboxGroupProps}
       >
         <CUI.Stack>
           {options.map((option) => {
-            const showChildren = option.value === value;
+            const showChildren = !!value.find(
+              (valueToCheck) => valueToCheck === option.value
+            );
             return (
               <CUI.Box key={option.displayValue}>
-                <CUI.Radio value={option.value} key={value}>
+                <CUI.Checkbox value={option.value}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>
-                </CUI.Radio>
+                </CUI.Checkbox>
                 <CUI.Collapse in={showChildren} animateOpacity>
                   <QMR.QuestionChild show={!!option.children?.length}>
                     {option.children}
@@ -54,7 +50,7 @@ export const RadioButton = ({
             );
           })}
         </CUI.Stack>
-      </CUI.RadioGroup>
+      </CUI.CheckboxGroup>
     </QMR.InputWrapper>
   );
 };
