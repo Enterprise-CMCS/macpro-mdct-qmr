@@ -15,8 +15,6 @@ const selectOptions = [
 
 export function DemoComponents(): JSX.Element {
   const { register, control, handleSubmit } = useForm();
-
-  const [selectInputValue, setInputValue] = React.useState("");
   const [rates, setRates] = React.useState<IRate[]>([
     {
       denominator: "",
@@ -97,8 +95,8 @@ export function DemoComponents(): JSX.Element {
             Select Input
           </CUI.Heading>
           <Inputs.Select
-            value={selectInputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            name="demoSelect"
+            control={control}
             placeholder="Select option"
             options={selectOptions}
             helperText="pick something please"

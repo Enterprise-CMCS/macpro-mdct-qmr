@@ -1,6 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { TiArrowUnsorted } from "react-icons/ti";
+import { Control, FieldValues, useController } from "react-hook-form";
 
 export interface SelectOption {
   displayValue: string;
@@ -8,33 +9,42 @@ export interface SelectOption {
 }
 
 interface SelectProps extends QMR.InputWrapperProps {
-  value: string;
-  onChange: React.ChangeEventHandler<HTMLSelectElement>;
   selectProps?: CUI.SelectProps;
   placeholder?: string;
   options: SelectOption[];
+  name: string;
+  control: Control<FieldValues, object>;
 }
 
 export const Select = ({
-  value,
-  onChange,
   selectProps,
   placeholder,
   options,
   isInvalidFunc,
+  name,
+  control,
   ...rest
 }: SelectProps) => {
+  const { field } = useController({
+    name,
+    control,
+  });
+
   let isInvalid = false;
   if (isInvalidFunc) {
-    isInvalid = isInvalidFunc(value);
+    isInvalid = isInvalidFunc(field.value);
   }
 
   return (
     <QMR.InputWrapper {...rest} isInvalid={isInvalid}>
       <CUI.Select
+        ref={field.ref}
+        value={field.value}
+        onBlur={field.onBlur}
+        onChange={(newValue) => {
+          field.onChange(newValue);
+        }}
         {...selectProps}
-        value={value}
-        onChange={onChange}
         placeholder={placeholder}
         isInvalid={isInvalid}
         icon={<TiArrowUnsorted />}
