@@ -245,12 +245,14 @@ export function DemoComponents(): JSX.Element {
                   textTransform: "capitalize",
                   variant: "outline",
                 }}
+                icon="plus"
                 onClick={() => {}}
               />
             </CUI.HStack>
             <CUI.HStack>
               <ContainedButton
                 buttonText={"Add Child Core Core Set"}
+                icon="plus"
                 buttonProps={{
                   colorScheme: "blue",
                   textTransform: "capitalize",
@@ -270,6 +272,7 @@ export function DemoComponents(): JSX.Element {
             <CUI.HStack>
               <ContainedButton
                 buttonText={`Add Health Homes Core Set`}
+                icon="plus"
                 buttonProps={{
                   variant: "outline",
                   colorScheme: "blue",
@@ -279,6 +282,16 @@ export function DemoComponents(): JSX.Element {
               />
               <ContainedButton
                 buttonText={"+ Add Another"}
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => {}}
+              />
+              <ContainedButton
+                buttonText={"Print"}
+                icon="print"
                 buttonProps={{
                   variant: "outline",
                   colorScheme: "blue",
