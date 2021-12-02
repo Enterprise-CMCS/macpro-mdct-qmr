@@ -1,5 +1,6 @@
 import { CoreQuestionWrapper } from "..";
 import * as QMR from "components/Inputs/RadioButton";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
   options: QMR.RadioButtonOption[];
@@ -7,10 +8,16 @@ interface Props {
   onChange: (v: string) => void;
 }
 
-export const AreYouReporting = ({ options, onChange, value = "" }: Props) => {
+export const AreYouReporting = ({ options }: Props) => {
+  const { watch, register } = useFormContext();
+  const watchAreYouReportingRadioButton = watch("areYouReportingRadioButton");
   return (
     <CoreQuestionWrapper label="Are you reporting on this measure?">
-      <QMR.RadioButton onChange={onChange} value={value} options={options} />
+      <QMR.RadioButton
+        {...register("areYouReportingRadioButton")}
+        value={watchAreYouReportingRadioButton}
+        options={options}
+      />
     </CoreQuestionWrapper>
   );
 };
