@@ -25,7 +25,7 @@ export function DemoComponents(): JSX.Element {
 }
 
 const DemoComponentsForm = () => {
-  const { register, control, handleSubmit } = useFormContext();
+  const { register, handleSubmit } = useFormContext();
   const [rates, setRates] = React.useState<IRate[]>([
     {
       denominator: "",
@@ -105,8 +105,7 @@ const DemoComponentsForm = () => {
             Select Input
           </CUI.Heading>
           <Inputs.Select
-            name="demoSelect"
-            control={control}
+            {...useCustomRegister("demoSelect")}
             placeholder="Select option"
             options={selectOptions}
             helperText="pick something please"
@@ -164,22 +163,19 @@ const DemoComponentsForm = () => {
           </CUI.Heading>
           <Upload
             label="Sample label for an upload control"
-            control={control}
-            name="testUpload1"
+            {...useCustomRegister("testUpload1")}
           />
           <Upload
             maxSize={1000}
             label="Uploading a file here will cause an error. (Set max size to 1 kb)"
-            control={control}
-            name="testUpload2"
+            {...useCustomRegister("testUpload2")}
           />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
             Checkbox
           </CUI.Heading>
           <Inputs.Checkbox
-            name="testCheckbox"
-            control={control}
+            {...useCustomRegister("testCheckbox")}
             options={[
               {
                 displayValue: "Medicaid Management Information System (MMIS)",
