@@ -14,14 +14,10 @@ const selectOptions = [
 ];
 
 export function DemoComponents(): JSX.Element {
-  const { watch, register } = useForm();
+  const { watch, register, handleSubmit } = useForm();
   const watchRadioButton = watch("testRadioButton");
 
-  const [numberInputValue2, setNumberInputValue2] = React.useState("");
-  const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
-  const [numberInputValue, setNumberInputValue] = React.useState("");
-  const [rateDescriptionValue, setRateDescriptionValue] = React.useState("");
   const [rates, setRates] = React.useState<IRate[]>([
     {
       denominator: "",
@@ -31,8 +27,6 @@ export function DemoComponents(): JSX.Element {
     },
   ]);
 
-  const [rateDescriptionValueTwo, setRateDescriptionValueTwo] =
-    React.useState("");
   const [ratesTwo, setRatesTwo] = React.useState<IRate[]>([
     {
       label: "Test Label For Section",
@@ -64,10 +58,9 @@ export function DemoComponents(): JSX.Element {
   const [files2, setFiles2] = useState<File[]>([]);
 
   const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
-  const [checkboxInput, setCheckboxInput] = React.useState("");
 
   return (
-    <form>
+    <form onSubmit={handleSubmit((data) => console.log(data))}>
       <CUI.Container mb="6">
         <CUI.Stack spacing="4">
           <CUI.Heading size="md">Components</CUI.Heading>
@@ -103,8 +96,7 @@ export function DemoComponents(): JSX.Element {
           </CUI.Heading>
           <Inputs.TextInput
             label="Label for Text Input"
-            value={textInputValue}
-            onChange={(e) => setTextInputValue(e.target.value)}
+            {...register("demoTextInput")}
             isInvalidFunc={(value) => String(value).length > 3}
             helperText="Your text can't exceed 3 characters"
             errorMessage="Text is too long"
@@ -127,25 +119,15 @@ export function DemoComponents(): JSX.Element {
             Number Input With Mask
           </CUI.Heading>
           <Inputs.NumberInput
+            {...register("demoNumberInput1")}
             placeholder="123"
-            value={numberInputValue}
-            onChange={(e) =>
-              /^-{0,1}\d*\.?\d{0,4}$/.test(e.target.value)
-                ? setNumberInputValue(e.target.value)
-                : null
-            }
             label="This number input is a percent and allows decimals"
             helperText="Enter a number"
             displayPercent={true}
           />
           <Inputs.NumberInput
+            {...register("demoNumberInput2")}
             placeholder="123"
-            value={numberInputValue2}
-            onChange={(e) =>
-              /^-{0,1}\d*$/.test(e.target.value)
-                ? setNumberInputValue2(e.target.value)
-                : null
-            }
             label="This number input only allows integers"
             helperText="Enter a number"
           />
@@ -159,8 +141,7 @@ export function DemoComponents(): JSX.Element {
             helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
             errorMessage="Text is too long"
             formLabelProps={{ fontWeight: 600 }}
-            value={rateDescriptionValue}
-            onChange={(e) => setRateDescriptionValue(e.target.value)}
+            {...register("demoRateTextInput1")}
             isInvalidFunc={(value) => String(value).length > 3000}
           />
           <Rate rates={rates} updateRates={setRates} />
@@ -174,8 +155,7 @@ export function DemoComponents(): JSX.Element {
             helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
             errorMessage="Text is too long"
             formLabelProps={{ fontWeight: 700 }}
-            value={rateDescriptionValueTwo}
-            onChange={(e) => setRateDescriptionValueTwo(e.target.value)}
+            {...register("demoRateTextInput2")}
             isInvalidFunc={(value) => String(value).length > 3000}
           />
           <Rate rates={ratesTwo} updateRates={setRatesTwo} />
@@ -211,8 +191,7 @@ export function DemoComponents(): JSX.Element {
                   <Inputs.TextInput
                     label="Describe the data source:"
                     key="other-describe-data"
-                    value={checkboxInput}
-                    onChange={(e) => setCheckboxInput(e.target.value)}
+                    {...register("demoCheckboxTextInput")}
                   />,
                 ],
               },
@@ -252,6 +231,7 @@ export function DemoComponents(): JSX.Element {
           }}
         />
       </CUI.Container>
+      <button>Check submit</button>
     </form>
   );
 }
