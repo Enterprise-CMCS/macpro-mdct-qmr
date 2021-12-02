@@ -1,6 +1,6 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import React from "react";
 
 interface TextAreaProps extends QMR.InputWrapperProps {
   placeholder?: string;
@@ -12,22 +12,11 @@ interface TextAreaProps extends QMR.InputWrapperProps {
 }
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  (
-    {
-      onChange,
-      placeholder,
-      textAreaProps,
-      isInvalidFunc,
-      onBlur,
-      name,
-      ...rest
-    },
-    ref
-  ) => {
+  ({ onChange, placeholder, textAreaProps, onBlur, name, ...rest }, ref) => {
     let isInvalid = false;
 
     return (
-      <QMR.InputWrapper {...rest} isInvalid={isInvalid}>
+      <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
         <CUI.Textarea
           ref={ref}
           name={name}
