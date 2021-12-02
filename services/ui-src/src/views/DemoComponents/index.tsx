@@ -230,11 +230,11 @@ export function DemoComponents(): JSX.Element {
             </CUI.Heading>
             <CUI.HStack>
               <ContainedButton
+                disabledStatus={true}
                 buttonText={"Submit Core Set"}
                 buttonProps={{
                   colorScheme: "blue",
                   textTransform: "capitalize",
-                  w: "full",
                 }}
                 onClick={() => {}}
               />
@@ -244,7 +244,6 @@ export function DemoComponents(): JSX.Element {
                   colorScheme: "blue",
                   textTransform: "capitalize",
                   variant: "outline",
-                  w: "full",
                 }}
                 onClick={() => {}}
               />
@@ -253,12 +252,17 @@ export function DemoComponents(): JSX.Element {
               <ContainedButton
                 buttonText={"Add Child Core Core Set"}
                 buttonProps={{
-                  maxW: "xs",
-                  textAlign: "center",
                   colorScheme: "blue",
                   textTransform: "capitalize",
                   variant: "outline",
-                  w: "full",
+                }}
+                onClick={() => {}}
+              />
+              <ContainedButton
+                buttonText={"Complete Measure"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
                 }}
                 onClick={() => {}}
               />
@@ -270,7 +274,6 @@ export function DemoComponents(): JSX.Element {
                   variant: "outline",
                   colorScheme: "blue",
                   textTransform: "capitalize",
-                  w: "full",
                 }}
                 onClick={() => {}}
               />
@@ -280,7 +283,6 @@ export function DemoComponents(): JSX.Element {
                   variant: "outline",
                   colorScheme: "blue",
                   textTransform: "capitalize",
-                  w: "full",
                 }}
                 onClick={() => {}}
               />
@@ -293,12 +295,9 @@ export function DemoComponents(): JSX.Element {
             <ContainedButton
               buttonText={"+ Add Another"}
               buttonProps={{
-                maxW: "2xs",
-                textAlign: "center",
                 variant: "outline",
                 colorScheme: "blue",
                 textTransform: "capitalize",
-                w: "full",
               }}
               helperText={"Helper Text"}
               helperTextProps={{ fontSize: "sm", lineHeight: "1rem", mt: "1" }}

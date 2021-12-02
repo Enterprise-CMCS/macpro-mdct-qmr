@@ -19,11 +19,11 @@ export const ContainedButton = ({
   onClick,
 }: ContainedButtonProps) => {
   return (
-    <>
+    <CUI.Box textAlign="center">
       <CUI.Button onClick={onClick} disabled={disabledStatus} {...buttonProps}>
         {buttonText}
       </CUI.Button>
       {helperText && <CUI.Text {...helperTextProps}>{helperText}</CUI.Text>}
-    </>
+    </CUI.Box>
   );
 };
