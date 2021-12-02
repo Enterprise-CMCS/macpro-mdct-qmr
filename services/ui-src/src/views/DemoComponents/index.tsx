@@ -3,6 +3,7 @@ import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
+import { ProgressCircle } from "components/ProgressCircle";
 import { Upload } from "components/Upload";
 
 const selectOptions = [
@@ -59,6 +60,9 @@ export function DemoComponents(): JSX.Element {
     }),
   ]);
   const [files2, setFiles2] = useState<File[]>([]);
+
+  const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
+  const [checkboxInput, setCheckboxInput] = React.useState("");
 
   return (
     <>
@@ -190,6 +194,34 @@ export function DemoComponents(): JSX.Element {
               setFiles={setFiles2}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
             />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Checkbox
+            </CUI.Heading>
+            <Inputs.Checkbox
+              options={[
+                {
+                  displayValue: "Medicaid Management Information System (MMIS)",
+                  value: "Medicaid Management Information System (MMIS)",
+                },
+                {
+                  displayValue: "Other",
+                  value: "Other",
+                  children: [
+                    <Inputs.TextInput
+                      label="Describe the data source:"
+                      key="other-describe-data"
+                      value={checkboxInput}
+                      onChange={(e) => setCheckboxInput(e.target.value)}
+                    />,
+                  ],
+                },
+              ]}
+              onChange={setCheckboxData}
+              value={checkboxData}
+              formLabelProps={{ fontWeight: 700 }}
+              label="What is the Adminstrative Data Source?"
+            />
           </CUI.Stack>
         </form>
       </CUI.Container>
@@ -204,6 +236,21 @@ export function DemoComponents(): JSX.Element {
         <QMR.Table
           data={QMR.exampleMeasuresData}
           columns={QMR.measuresColumns}
+        />
+        <CUI.Divider />
+        <CUI.Heading size="sm" as="h3">
+          Progress Circle
+        </CUI.Heading>
+        <ProgressCircle
+          currentProgress={5}
+          maxValue={23}
+          circularProgressProps={{
+            color: "green.600",
+            size: "8rem",
+          }}
+          circularProgressLabelProps={{
+            fontSize: "1.5rem",
+          }}
         />
       </CUI.Container>
     </>
