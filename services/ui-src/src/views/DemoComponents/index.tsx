@@ -5,7 +5,8 @@ import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
 import { Upload } from "components/Upload";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { useCustomRegister } from "hooks/useCustomRegister";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -14,7 +15,17 @@ const selectOptions = [
 ];
 
 export function DemoComponents(): JSX.Element {
-  const { register, control, handleSubmit } = useForm();
+  const methods = useForm();
+
+  return (
+    <FormProvider {...methods}>
+      <DemoComponentsForm />
+    </FormProvider>
+  );
+}
+
+const DemoComponentsForm = () => {
+  const { register, control, handleSubmit } = useFormContext();
 
   const [selectInputValue, setInputValue] = React.useState("");
   const [rates, setRates] = React.useState<IRate[]>([
@@ -51,7 +62,6 @@ export function DemoComponents(): JSX.Element {
   ]);
 
   const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
-
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
       <CUI.Container mb="6">
@@ -74,8 +84,7 @@ export function DemoComponents(): JSX.Element {
             Radio Button
           </CUI.Heading>
           <Inputs.RadioButton
-            name="testRadioButton"
-            control={control}
+            {...useCustomRegister("testing")}
             label="hello world"
             errorMessage=""
             options={[
@@ -227,4 +236,4 @@ export function DemoComponents(): JSX.Element {
       <button>Submit</button>
     </form>
   );
-}
+};
