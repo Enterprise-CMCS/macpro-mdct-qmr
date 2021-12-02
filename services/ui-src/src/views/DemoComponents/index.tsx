@@ -14,9 +14,7 @@ const selectOptions = [
 ];
 
 export function DemoComponents(): JSX.Element {
-  const { watch, register, control, handleSubmit } = useForm();
-
-  const watchRadioButton = watch("testRadioButton");
+  const { register, control, handleSubmit } = useForm();
 
   const [selectInputValue, setInputValue] = React.useState("");
   const [rates, setRates] = React.useState<IRate[]>([
@@ -76,9 +74,9 @@ export function DemoComponents(): JSX.Element {
             Radio Button
           </CUI.Heading>
           <Inputs.RadioButton
-            {...register("testRadioButton")}
+            name="testRadioButton"
+            control={control}
             label="hello world"
-            value={watchRadioButton}
             errorMessage=""
             options={[
               { displayValue: "test1", value: "test1" },

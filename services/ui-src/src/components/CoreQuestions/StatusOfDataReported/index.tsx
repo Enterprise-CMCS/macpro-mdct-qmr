@@ -9,16 +9,13 @@ interface Props {
 }
 
 export const StatusOfDataReported = ({ options }: Props) => {
-  const { watch, register } = useFormContext();
-  const watchStatusOfDataReportedRadioButton = watch(
-    "statusOfDataReportedRadioButton.answer"
-  );
+  const { control } = useFormContext();
 
   return (
     <CoreQuestionWrapper label="Status of Data Reported">
       <QMR.RadioButton
-        {...register("statusOfDataReportedRadioButton.answer")}
-        value={watchStatusOfDataReportedRadioButton}
+        name="testingagain"
+        control={control}
         options={options}
       />
     </CoreQuestionWrapper>
