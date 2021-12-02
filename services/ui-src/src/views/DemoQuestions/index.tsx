@@ -21,6 +21,7 @@ export const DemoQuestions = () => {
   };
 
   const methods = useForm();
+  const { register } = methods;
 
   return (
     <FormProvider {...methods}>
@@ -50,14 +51,13 @@ export const DemoQuestions = () => {
                   value: "I am reporting provisional data",
                   children: [
                     <QMR.TextArea
+                      {...register("statusOfDataReportedRadioButton.textAreaA")}
                       label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
                       formLabelProps={{
                         fontWeight: "normal",
                         fontSize: "normal",
                       }}
                       key="status-2a"
-                      value={data?.["2a"]}
-                      onChange={(e) => handleChange("2a", e.target.value)}
                     />,
                   ],
                 },

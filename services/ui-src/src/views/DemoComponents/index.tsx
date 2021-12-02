@@ -18,7 +18,6 @@ export function DemoComponents(): JSX.Element {
   const watchRadioButton = watch("testRadioButton");
 
   const [numberInputValue2, setNumberInputValue2] = React.useState("");
-  const [textAreaValue, setTextAreaValue] = React.useState("");
   const [textInputValue, setTextInputValue] = React.useState("");
   const [selectInputValue, setInputValue] = React.useState("");
   const [numberInputValue, setNumberInputValue] = React.useState("");
@@ -77,10 +76,9 @@ export function DemoComponents(): JSX.Element {
             Text Area
           </CUI.Heading>
           <Inputs.TextArea
+            {...register("demoTextArea")}
             isInvalidFunc={(value) => String(value)?.length > 3000}
             placeholder="test"
-            value={textAreaValue}
-            onChange={(e) => setTextAreaValue(e.target.value)}
             label="test text area"
             helperText="put in something here"
             errorMessage="Response cannot exceed 3000 characters"
