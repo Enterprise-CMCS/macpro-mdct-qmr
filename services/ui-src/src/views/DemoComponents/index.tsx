@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
@@ -14,7 +14,8 @@ const selectOptions = [
 ];
 
 export function DemoComponents(): JSX.Element {
-  const { watch, register, handleSubmit } = useForm();
+  const { watch, register, control, handleSubmit } = useForm();
+
   const watchRadioButton = watch("testRadioButton");
 
   const [selectInputValue, setInputValue] = React.useState("");
@@ -50,12 +51,6 @@ export function DemoComponents(): JSX.Element {
       id: 5,
     },
   ]);
-  const [files, setFiles] = useState<File[]>([
-    new File([JSON.stringify({ ping: true })], "ping.json", {
-      type: "application/json",
-    }),
-  ]);
-  const [files2, setFiles2] = useState<File[]>([]);
 
   const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
 
@@ -164,15 +159,15 @@ export function DemoComponents(): JSX.Element {
             Upload Control
           </CUI.Heading>
           <Upload
-            files={files}
-            setFiles={setFiles}
             label="Sample label for an upload control"
+            control={control}
+            name="testUpload1"
           />
           <Upload
             maxSize={1000}
-            files={files2}
-            setFiles={setFiles2}
             label="Uploading a file here will cause an error. (Set max size to 1 kb)"
+            control={control}
+            name="testUpload2"
           />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
@@ -231,7 +226,7 @@ export function DemoComponents(): JSX.Element {
           }}
         />
       </CUI.Container>
-      <button>Check submit</button>
+      <button>Submit</button>
     </form>
   );
 }
