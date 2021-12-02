@@ -31,12 +31,12 @@ export const DemoQuestions = () => {
           {...register("question1.testingitout")}
           options={[
             {
+              id: "here-is-an-id-1",
               displayValue: "hello world 1",
-              value: "helloworld1",
             },
             {
+              id: "here-is-an-id-2",
               displayValue: "hello world 2",
-              value: "helloworld2",
               children: [<div key="hello there">Hello World</div>],
             },
           ]}

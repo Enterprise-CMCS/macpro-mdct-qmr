@@ -3,8 +3,8 @@ import * as QMR from "components";
 import React from "react";
 
 export interface RadioButtonOptionTest {
+  id: string;
   displayValue: string;
-  value: string | number;
   children?: JSX.Element[];
 }
 
@@ -45,16 +45,22 @@ export const RadioButtonTest = React.forwardRef<
         <CUI.RadioGroup size="lg" {...radioGroupProps}>
           <CUI.Stack>
             {options.map((option) => {
-              const showChildren = option.value === value;
+              const isChecked = (
+                document.querySelector(
+                  `input[id="${option.id}"]`
+                ) as HTMLInputElement
+              )?.checked;
+
+              const showChildren = isChecked;
               return (
                 <CUI.Box key={option.displayValue}>
                   <CUI.Radio
+                    id={option.id}
+                    key={option.id}
                     name={name}
                     onChange={onChange}
                     onBlur={onBlur}
                     ref={ref}
-                    value={option.value}
-                    key={value}
                   >
                     <CUI.Text fontWeight="normal" fontSize="normal">
                       {option.displayValue}
