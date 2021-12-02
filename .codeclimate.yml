@@ -12,4 +12,3 @@ exclude_patterns:
   - "**/services/ui-auth"
   - "**/services/uploads"
   - "**/tests/"
-  
