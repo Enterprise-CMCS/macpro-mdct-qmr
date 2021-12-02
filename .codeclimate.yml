@@ -1,4 +1,11 @@
 exclude_patterns:
-  - "*"
+  - "**/node_modules/"
+  - "**/.github/"
+  - "**/.images/"
+  - "**/cypress/"
+  - "**/plugins/"
+  - "**/src/"
+  - "**/services/"
+  - "**/tests/"
   - "!services/ui-src/"
   - "!services/app-api/"
