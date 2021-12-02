@@ -1,3 +1,4 @@
 exclude_patterns:
   - "*"
-  - "!services/"
+  - "!services/ui-src"
+  - "!services/app-api"
