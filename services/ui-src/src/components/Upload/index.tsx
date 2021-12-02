@@ -2,20 +2,21 @@ import React, { useCallback } from "react";
 import * as CUI from "@chakra-ui/react";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
+import { Control, FieldValues, useController } from "react-hook-form";
 
 interface IUploadProps {
-  files: File[];
-  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
   maxSize?: number;
   label?: string;
   acceptedFileTypes?: string | string[];
+  control: Control<FieldValues, Object>;
+  name: string;
 }
 
 export const Upload = ({
-  files,
-  setFiles,
   maxSize = 80000000,
   label,
+  name,
+  control,
   acceptedFileTypes = [
     ".pdf",
     ".doc",
@@ -26,11 +27,20 @@ export const Upload = ({
     ".png",
   ],
 }: IUploadProps) => {
+  const [files, setFiles] = React.useState<File[]>([]);
+
+  const { field } = useController({
+    name,
+    control,
+    defaultValue: [],
+  });
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       setFiles([...files, ...acceptedFiles]);
+      field.onChange([...files, ...acceptedFiles]);
     },
-    [files, setFiles]
+    [files, setFiles, field]
   );
 
   const convertFileSize = (fileSize: number) => {
@@ -46,6 +56,7 @@ export const Upload = ({
       (_, index) => index !== fileIndexToClear
     );
     setFiles(filteredArray);
+    field.onChange(filteredArray);
   };
 
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
