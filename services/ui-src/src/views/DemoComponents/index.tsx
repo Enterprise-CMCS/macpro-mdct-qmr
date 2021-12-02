@@ -1,8 +1,7 @@
-import React from "react";
 import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
-import { Rate, IRate } from "components/Rate";
+import { Rate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
 import { Upload } from "components/Upload";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -26,16 +25,16 @@ export function DemoComponents(): JSX.Element {
 
 const DemoComponentsForm = () => {
   const { register, handleSubmit } = useFormContext();
-  const [rates, setRates] = React.useState<IRate[]>([
+  const rates = [
     {
       denominator: "",
       numerator: "",
       rate: "",
       id: 1,
     },
-  ]);
+  ];
 
-  const [ratesTwo, setRatesTwo] = React.useState<IRate[]>([
+  const ratesTwo = [
     {
       label: "Test Label For Section",
       denominator: "",
@@ -57,7 +56,7 @@ const DemoComponentsForm = () => {
       rate: "",
       id: 5,
     },
-  ]);
+  ];
 
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
@@ -142,7 +141,7 @@ const DemoComponentsForm = () => {
             {...register("demoRateTextInput1")}
             isInvalidFunc={(value) => String(value).length > 3000}
           />
-          <Rate rates={rates} updateRates={setRates} />
+          <Rate rates={rates} {...register("demoRate1")} />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
             Rate With Multiple Numerator/Denominator/Rate
@@ -156,7 +155,7 @@ const DemoComponentsForm = () => {
             {...register("demoRateTextInput2")}
             isInvalidFunc={(value) => String(value).length > 3000}
           />
-          <Rate rates={ratesTwo} updateRates={setRatesTwo} />
+          <Rate rates={ratesTwo} {...register("demoRate2")} />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
             Upload Control
