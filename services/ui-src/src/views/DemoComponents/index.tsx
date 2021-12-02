@@ -50,8 +50,6 @@ export function DemoComponents(): JSX.Element {
     },
   ]);
 
-  const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
-
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
       <CUI.Container mb="6">
@@ -172,6 +170,8 @@ export function DemoComponents(): JSX.Element {
             Checkbox
           </CUI.Heading>
           <Inputs.Checkbox
+            name="testCheckbox"
+            control={control}
             options={[
               {
                 displayValue: "Medicaid Management Information System (MMIS)",
@@ -189,8 +189,6 @@ export function DemoComponents(): JSX.Element {
                 ],
               },
             ]}
-            onChange={setCheckboxData}
-            value={checkboxData}
             formLabelProps={{ fontWeight: 700 }}
             label="What is the Adminstrative Data Source?"
           />

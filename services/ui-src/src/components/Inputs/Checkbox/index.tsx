@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { Control, FieldValues, useController } from "react-hook-form";
 
 export interface CheckboxOption {
   displayValue: string;
@@ -8,32 +9,42 @@ export interface CheckboxOption {
 }
 
 interface CheckboxProps extends QMR.InputWrapperProps {
-  value: string[];
-  onChange: (nextValue: string[]) => void;
   options: CheckboxOption[];
   checkboxGroupProps?: CUI.CheckboxGroupProps;
+  name: string;
+  control: Control<FieldValues, object>;
 }
 
 export const Checkbox = ({
   options,
-  value,
-  onChange,
   checkboxGroupProps,
+  name,
+  control,
   ...rest
 }: CheckboxProps) => {
+  const { field } = useController({
+    name,
+    control,
+  });
+
+  let isInvalid = false;
+
   return (
-    <QMR.InputWrapper {...rest}>
+    <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
       <CUI.CheckboxGroup
         size="lg"
-        value={value}
-        onChange={onChange}
+        value={field.value}
+        onChange={(newValue) => {
+          field.onChange(newValue);
+        }}
         {...checkboxGroupProps}
       >
         <CUI.Stack>
           {options.map((option) => {
-            const showChildren = !!value.find(
-              (valueToCheck) => valueToCheck === option.value
+            const showChildren = !!field.value?.find(
+              (valueToCheck: string) => valueToCheck === option.value
             );
+
             return (
               <CUI.Box key={option.displayValue}>
                 <CUI.Checkbox value={option.value}>
