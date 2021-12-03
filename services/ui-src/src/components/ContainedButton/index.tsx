@@ -22,16 +22,16 @@ export const ContainedButton = ({
   icon,
   onClick,
 }: ContainedButtonProps) => {
-  const leftIcon =
+  const printIcon =
     icon === "print" ? <FontAwesomeIcon icon={faPrint} /> : undefined;
-  const rightIcon =
+  const plusIcon =
     icon === "plus" ? <FontAwesomeIcon icon={faPlusCircle} /> : undefined;
 
   return (
     <CUI.Box textAlign="center">
       <CUI.Button
-        leftIcon={leftIcon}
-        rightIcon={rightIcon}
+        leftIcon={printIcon}
+        rightIcon={plusIcon}
         onClick={onClick}
         disabled={disabledStatus}
         {...buttonProps}
