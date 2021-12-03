@@ -18,7 +18,7 @@ describe("Test the KebabMenu component", () => {
         handleItemClick={kebabMenuItemClick}
       />
     );
-    expect(getByLabelText(/Action menu/i));
+    expect(getByLabelText(/Action Menu/i));
   });
 
   test("Check menu click event populates menu item", () => {
@@ -28,7 +28,7 @@ describe("Test the KebabMenu component", () => {
         handleItemClick={kebabMenuItemClick}
       />
     );
-    fireEvent.click(getByLabelText(/Action menu/i));
+    fireEvent.click(getByLabelText(/Action Menu/i));
     expect(screen.getByText(/Edit/i)).toBeInTheDocument();
   });
 
@@ -40,7 +40,7 @@ describe("Test the KebabMenu component", () => {
       />
     );
     console.log = jest.fn();
-    fireEvent.click(getByLabelText(/Action menu/i));
+    fireEvent.click(getByLabelText(/Action Menu/i));
     fireEvent.click(screen.getByText(/Edit/i));
     expect(console.log).toHaveBeenCalledWith("You have selected item # 1");
   });

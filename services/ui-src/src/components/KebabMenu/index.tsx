@@ -16,15 +16,11 @@ interface KebabMenuItemProps {
 }
 export const KebabMenu = ({ menuItems, handleItemClick }: KebabMenuProps) => {
   return (
-    <CUI.Menu data-testid="actionMenu">
-      <CUI.MenuButton
-        transition="all 0.2s"
-        _focus={{ color: "grey.600" }}
-        aria-label="Action menu"
-      >
+    <CUI.Menu>
+      <CUI.MenuButton aria-label="Action Menu">
         <BsThreeDotsVertical />
       </CUI.MenuButton>
-      <CUI.MenuList bg="blue.500">
+      <CUI.MenuList bg="blue.500" maxW="40px">
         {menuItems.map((i) => (
           <KebabMenuItem
             itemText={i.itemText}
@@ -56,7 +52,7 @@ const KebabMenuItem = ({
       aria-label={itemText}
       key={itemIndex}
     >
-      <span>{itemText}</span>
+      <CUI.Box fontSize="sm">{itemText}</CUI.Box>
     </CUI.MenuItem>
   );
 };
