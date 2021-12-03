@@ -1,9 +1,8 @@
 import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faPrint } from "@fortawesome/free-solid-svg-icons";
 
-interface ContainedButtonProps extends QMR.InputWrapperProps {
+interface ContainedButtonProps {
   buttonText: any;
   buttonProps?: CUI.ButtonProps;
   disabledStatus?: boolean;
