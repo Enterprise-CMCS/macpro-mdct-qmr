@@ -6,6 +6,7 @@ import { Rate, IRate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
 import { Upload } from "components/Upload";
 import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
+import { ContainedButton } from "components/ContainedButton";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -197,7 +198,7 @@ export function DemoComponents(): JSX.Element {
               label="Sample label for an upload control"
             />
             <Upload
-              maxSize={1024}
+              maxSize={1000}
               files={files2}
               setFiles={setFiles2}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
@@ -229,6 +230,99 @@ export function DemoComponents(): JSX.Element {
               value={checkboxData}
               formLabelProps={{ fontWeight: 700 }}
               label="What is the Adminstrative Data Source?"
+            />
+            <CUI.Divider />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Contained Buttons
+            </CUI.Heading>
+            <CUI.HStack>
+              <ContainedButton
+                disabledStatus={true}
+                buttonText={"Submit Core Set"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 1")}
+              />
+              <ContainedButton
+                buttonText={"Add Core Set"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  variant: "outline",
+                }}
+                icon="plus"
+                onClick={() => console.log("contained button 2")}
+              />
+            </CUI.HStack>
+            <CUI.HStack>
+              <ContainedButton
+                buttonText={"Add Child Core Core Set"}
+                icon="plus"
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  variant: "outline",
+                }}
+                onClick={() => console.log("contained button 3")}
+              />
+              <ContainedButton
+                buttonText={"Complete Measure"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 4")}
+              />
+            </CUI.HStack>
+            <CUI.HStack>
+              <ContainedButton
+                buttonText={`Add Health Homes Core Set`}
+                icon="plus"
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 8")}
+              />
+              <ContainedButton
+                buttonText={"+ Add Another"}
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 5")}
+              />
+              <ContainedButton
+                buttonText={"Print"}
+                icon="print"
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 6")}
+              />
+            </CUI.HStack>
+
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Contained Buttons With Helper Text
+            </CUI.Heading>
+            <ContainedButton
+              buttonText={"+ Add Another"}
+              buttonProps={{
+                variant: "outline",
+                colorScheme: "blue",
+                textTransform: "capitalize",
+              }}
+              helperText={"Helper Text"}
+              helperTextProps={{ fontSize: "sm", lineHeight: "1rem", mt: "1" }}
+              onClick={() => console.log("contained button 7")}
             />
           </CUI.Stack>
         </form>
