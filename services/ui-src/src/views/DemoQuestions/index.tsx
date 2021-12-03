@@ -41,8 +41,8 @@ export const DemoQuestions = () => {
           value={data?.["2"]}
           options={[
             {
-              displayValue: "I am reporting provisional data",
-              value: "I am reporting provisional data",
+              displayValue: "I am reporting provisional data.",
+              value: "I am reporting provisional data.",
               children: [
                 <QMR.TextArea
                   label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
@@ -54,8 +54,8 @@ export const DemoQuestions = () => {
               ],
             },
             {
-              displayValue: "I am reporting final data",
-              value: "I am reporting final data",
+              displayValue: "I am reporting final data.",
+              value: "I am reporting final data.",
             },
           ]}
         />
