@@ -15,6 +15,8 @@ export const StatusOfDataReported = ({ options }: Props) => {
           "statusOfDataReporting.statusOfDataReporting"
         )}
         options={options}
+        label="What is the status of the data being reported?"
+        formLabelProps={{ fontWeight: "bold" }}
       />
     </CoreQuestionWrapper>
   );
