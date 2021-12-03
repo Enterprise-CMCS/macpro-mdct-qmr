@@ -1,6 +1,4 @@
-export * from "./AdminHome";
 export * from "./Amendments";
-export * from "./BOHome";
 export * from "./CoreSet";
 export * from "./DemoComponents";
 export * from "./Home";

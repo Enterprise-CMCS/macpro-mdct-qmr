@@ -20,20 +20,8 @@ export const routes = [
     exact: true,
   },
   {
-    component: Views.AdminHome,
-    name: "Admin Home",
-    path: "/admin",
-    exact: true,
-  },
-  {
-    component: Views.BOHome,
-    name: "Business Owner Home",
-    path: "/bohome",
-    exact: true,
-  },
-  {
     component: Views.StateHome,
-    name: "State Home",
+    name: "State",
     path: "/:state/:year",
     exact: true,
   },
@@ -47,12 +35,6 @@ export const routes = [
     component: Views.Measure,
     name: "Measure",
     path: "/:state/:year/:coreset/:measure",
-    exact: true,
-  },
-  {
-    component: Views.Home,
-    name: "Home",
-    path: "/",
     exact: true,
   },
   {

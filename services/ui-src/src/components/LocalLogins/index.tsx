@@ -1,53 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Auth } from "aws-amplify";
 import { stateAbbreviations } from "./constants";
 import { currentReportingYear } from "config";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Libs from "libs";
-
-const LoginWithCognito = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const history = useHistory();
-
-  const isValid = () => email.length > 0 && password.length > 0;
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    if (!isValid) return;
-    setIsLoading(true);
-    try {
-      await Auth.signIn(email, password);
-      history.push("/");
-    } catch (e) {
-      setIsLoading(false);
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <CUI.Stack mb={4}>
-        <CUI.Input
-          placeholder="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <CUI.Input
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <CUI.Button type="submit" colorScheme="blue" disabled={isLoading}>
-          Login With Cognito
-        </CUI.Button>
-      </CUI.Stack>
-    </form>
-  );
-};
 
 const LoginWithStateUser = () => {
   const [locality, setLocality] = useState("AL");
@@ -104,7 +61,6 @@ export const LocalLogins = ({ loginWithIDM }: Props) => {
         <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
           Login with IDM
         </CUI.Button>
-        <LoginWithCognito />
         <LoginWithStateUser />
       </CUI.Stack>
     </CUI.Container>
