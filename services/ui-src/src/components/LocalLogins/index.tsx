@@ -1,8 +1,56 @@
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import * as Bootstrap from "react-bootstrap";
+import { Auth } from "aws-amplify";
+import { stateAbbreviations } from "./constants";
+import { currentReportingYear } from "config";
+import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
 import * as Libs from "libs";
 
-export function LocalLogins(): JSX.Element {
+const LoginWithCognito = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+
+  const isValid = () => email.length > 0 && password.length > 0;
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    if (!isValid) return;
+    setIsLoading(true);
+    try {
+      await Auth.signIn(email, password);
+      history.push("/");
+    } catch (e) {
+      setIsLoading(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CUI.Stack mb={4}>
+        <CUI.Input
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <CUI.Input
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <CUI.Button type="submit" colorScheme="blue" disabled={isLoading}>
+          Login With Cognito
+        </CUI.Button>
+      </CUI.Stack>
+    </form>
+  );
+};
+
+const LoginWithStateUser = () => {
+  const [locality, setLocality] = useState("");
   const history = useHistory();
   function localLogin(role: string) {
     const alice = {
@@ -12,55 +60,49 @@ export function LocalLogins(): JSX.Element {
         family_name: "Foo",
         email: "alice@example.com",
         "custom:cms_roles": role,
+        state: locality,
       },
     };
     Libs.loginLocalUser(alice);
 
-    const redirectRoute = Libs.getRedirectRoute(role);
-    history.push(redirectRoute);
+    history.push(`/${locality}/${currentReportingYear}`);
   }
+
   return (
-    <div>
-      <h3>Local Login</h3>
-      {Object.values(Libs.roles).map((r) => (
-        <LoginAsButton key={r} role={r} handleSelect={localLogin} />
-      ))}
-    </div>
+    <CUI.Stack>
+      <QMR.Select
+        value={locality}
+        onChange={(e) => setLocality(e.target.value)}
+        options={stateAbbreviations.map((v: string) => ({
+          displayValue: v,
+          value: v,
+        }))}
+      />
+      <CUI.Button
+        colorScheme="blue"
+        onClick={() => localLogin(Libs.roles.stateUser)}
+        isFullWidth
+      >
+        Login as State User
+      </CUI.Button>
+    </CUI.Stack>
   );
+};
+
+interface Props {
+  loginWithIDM: () => void;
 }
 
-function LoginAsButton({ role, handleSelect }: LoginAsButtonProps) {
-  const { roles } = Libs;
-  let label;
-  switch (role) {
-    case roles.approver:
-      label = "Login as an Admin";
-      break;
-    case roles.businessOwner:
-      label = "Login as a BO";
-      break;
-    case roles.stateUser:
-      label = "Login as a State user";
-      break;
-    case roles.helpDesk:
-      label = "Login as a Help Desk";
-      break;
-    default:
-      label = "";
-      break;
-  }
+export const LocalLogins = ({ loginWithIDM }: Props) => {
   return (
-    <Bootstrap.Button
-      variant="outline-primary"
-      className="me-2 mb-2"
-      onClick={() => handleSelect(role)}
-    >
-      {label}
-    </Bootstrap.Button>
+    <CUI.Container maxW="sm" mt="4">
+      <CUI.Stack spacing={8}>
+        <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
+          Login with IDM
+        </CUI.Button>
+        <LoginWithCognito />
+        <LoginWithStateUser />
+      </CUI.Stack>
+    </CUI.Container>
   );
-}
-
-interface LoginAsButtonProps {
-  role: string;
-  handleSelect: Function;
-}
+};

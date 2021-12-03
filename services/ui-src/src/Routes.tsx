@@ -13,43 +13,89 @@ import * as Views from "views";
 // } from "libs/awsLib";
 // import config from "config";
 
+export const routes = [
+  {
+    component: Views.Home,
+    name: "Home",
+    path: "/",
+    exact: true,
+    isAuthenticated: true,
+  },
+  {
+    component: Views.AdminHome,
+    name: "Admin Home",
+    path: "/admin",
+    exact: true,
+    isAuthenticated: true,
+  },
+  {
+    component: Views.BOHome,
+    name: "Business Owner Home",
+    path: "/bohome",
+    exact: true,
+    isAuthenticated: true,
+  },
+  {
+    component: Views.StateHome,
+    name: "State Home",
+    path: "/:state/:year",
+    exact: true,
+    isAuthenticated: true,
+  },
+  {
+    component: Views.CoreSet,
+    name: "Core Set",
+    path: "/:state/:year/:coreset/",
+    exact: true,
+    isAuthenticated: true,
+  },
+  {
+    component: Views.Measure,
+    name: "Measure",
+    path: "/:state/:year/:coreset/:measure",
+    exact: true,
+    isAuthenticated: true,
+  },
+  {
+    component: Views.Home,
+    name: "Home",
+    path: "/",
+    exact: true,
+    isAuthenticated: true,
+  },
+  {
+    component: Views.Login,
+    name: "Home",
+    path: "/login",
+    exact: true,
+    isAuthenticated: false,
+  },
+  {
+    component: Views.DemoComponents,
+    name: "Components",
+    path: "/components",
+    exact: true,
+    isAuthenticated: false,
+  },
+  {
+    component: Views.NotFound,
+    name: "Not Found",
+    exact: false,
+    isAuthenticated: false,
+  },
+];
+
 export function Routes() {
   return (
     <main id="main-wrapper">
       <Switch>
-        <AuthenticatedRoute exact path="/" component={Views.Home} />
-        <AuthenticatedRoute
-          exact
-          path="/:state/adminhome"
-          component={Views.AdminHome}
-        />
-        <AuthenticatedRoute exact path="/bohome" component={Views.BOHome} />
-        <AuthenticatedRoute
-          exact
-          path="/:state/:year/:coreset/"
-          component={Views.CoreSet}
-        />
-        <AuthenticatedRoute
-          exact
-          path="/:state/:year/:coreset/:measure"
-          component={Views.Measure}
-        />
-        <AuthenticatedRoute
-          exact
-          path="/statehome"
-          component={Views.StateHome}
-        />
-        <AuthenticatedRoute
-          exact
-          path="/usermanagement"
-          component={Views.UserManagement}
-        />
-        <AuthenticatedRoute exact path="/helpdesk" component={Views.HelpDesk} />
-        <AuthenticatedRoute exact path="/profile" component={Views.Profile} />
-        <AuthenticatedRoute exact path="/" component={Views.Home} />
-        <Route exact path="/login" component={Views.Login} />
-        <Route exact path="/components" component={Views.DemoComponents} />
-        <Route component={Views.NotFound} />
+        {routes.map(({ isAuthenticated, name, ...rest }) =>
+          isAuthenticated ? (
+            <AuthenticatedRoute key={name} {...rest} />
+          ) : (
+            <Route key={name} {...rest} />
+          )
+        )}
       </Switch>
     </main>
   );

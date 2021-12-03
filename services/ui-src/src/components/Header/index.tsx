@@ -1,38 +1,64 @@
+import { useEffect, useState } from "react";
 import { UsaBanner } from "@cmsgov/design-system";
 import { Logo } from "components";
-import * as Bootstrap from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import * as Libs from "libs";
+import * as CUI from "@chakra-ui/react";
 
-export function Header({ handleLogout }: { handleLogout: Function }) {
+export function Header() {
+  const [user, setUser] = useState(null);
   const history = useHistory();
-  const isAuthenticated = false;
+  const location = useLocation();
+  const checkIfUserIsAuthenticated = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      setUser(user);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    const localUser = Libs.getLocalUserInfo();
+
+    if (localUser) {
+      setUser(localUser);
+    } else {
+      checkIfUserIsAuthenticated();
+    }
+  }, [location]);
+
+  async function handleLogout() {
+    await Libs.logoutLocalUser();
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+    // setUser(null);
+    history.push("/");
+  }
+
   return (
-    <div data-testid="header">
+    <CUI.Box data-testid="header">
       <UsaBanner />
-      <Bootstrap.Navbar className="nav-bar">
-        <Bootstrap.Container>
-          <Bootstrap.Navbar.Brand href="/">
-            <Logo />
-          </Bootstrap.Navbar.Brand>
-          <Bootstrap.Navbar.Toggle />
-          <Bootstrap.Navbar.Collapse className="justify-content-end">
-            {isAuthenticated ? (
-              <Bootstrap.NavDropdown title="My Account">
-                <Bootstrap.NavDropdown.Item
-                  onClick={() => history.push("/profile")}
-                >
-                  Profile
-                </Bootstrap.NavDropdown.Item>
-                <Bootstrap.NavDropdown.Item onClick={() => handleLogout()}>
-                  Logout
-                </Bootstrap.NavDropdown.Item>
-              </Bootstrap.NavDropdown>
-            ) : (
-              <Bootstrap.Nav.Link href="/login">Login</Bootstrap.Nav.Link>
+      {/* using hex color here for branded color */}
+      <CUI.Box bg="#0071bc">
+        <CUI.Container maxW="7xl">
+          <CUI.Flex py="4">
+            <Link to="/">
+              <Logo />
+            </Link>
+            <CUI.Spacer />
+            {user && (
+              <CUI.Button onClick={handleLogout} variant="link" color="white">
+                Logout
+              </CUI.Button>
             )}
-          </Bootstrap.Navbar.Collapse>
-        </Bootstrap.Container>
-      </Bootstrap.Navbar>
-    </div>
+          </CUI.Flex>
+        </CUI.Container>
+      </CUI.Box>
+    </CUI.Box>
   );
 }

@@ -23,6 +23,8 @@ const configToExport = {
   },
 };
 
+export const currentReportingYear = "2021";
+
 // const config = {
 //   LOCAL_LOGIN: "false",
 //   API_REGION: "us-east-1",

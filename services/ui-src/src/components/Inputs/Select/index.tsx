@@ -10,9 +10,9 @@ export interface SelectOption {
 interface SelectProps extends QMR.InputWrapperProps {
   value: string;
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  options: SelectOption[];
   selectProps?: CUI.SelectProps;
   placeholder?: string;
-  options: SelectOption[];
 }
 
 export const Select = ({
