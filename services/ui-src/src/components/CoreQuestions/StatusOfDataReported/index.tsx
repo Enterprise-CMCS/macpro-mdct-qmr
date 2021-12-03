@@ -14,7 +14,13 @@ export const StatusOfDataReported = ({
 }: Props) => {
   return (
     <CoreQuestionWrapper label="Status of Data Reported">
-      <QMR.RadioButton onChange={onChange} value={value} options={options} />
+      <QMR.RadioButton
+        onChange={onChange}
+        value={value}
+        options={options}
+        label="What is the status of the data being reported?"
+        formLabelProps={{ fontWeight: "bold" }}
+      />
     </CoreQuestionWrapper>
   );
 };
