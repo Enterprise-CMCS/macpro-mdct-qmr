@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
@@ -8,7 +8,7 @@ interface IUploadProps {
   maxSize?: number;
   label?: string;
   acceptedFileTypes?: string | string[];
-  control: Control<FieldValues, Object>;
+  control: Control<FieldValues, object>;
   name: string;
 }
 
@@ -27,20 +27,23 @@ export const Upload = ({
     ".png",
   ],
 }: IUploadProps) => {
-  const [files, setFiles] = React.useState<File[]>([]);
-
   const { field } = useController({
     name,
     control,
     defaultValue: [],
   });
 
-  const onDrop = useCallback(
+  const [acceptedFiles, setAcceptedFiles] = React.useState<File[]>([]);
+
+  React.useEffect(() => {
+    setAcceptedFiles([...field.value]);
+  }, [field.value]);
+
+  const onDrop = React.useCallback(
     (acceptedFiles: File[]) => {
-      setFiles([...files, ...acceptedFiles]);
-      field.onChange([...files, ...acceptedFiles]);
+      field.onChange([...field.value, ...acceptedFiles]);
     },
-    [files, setFiles, field]
+    [field]
   );
 
   const convertFileSize = (fileSize: number) => {
@@ -52,10 +55,11 @@ export const Upload = ({
   };
 
   const clearFile = (fileIndexToClear: number) => {
-    const filteredArray = files.filter(
+    const arrayToFilter = field.value as File[];
+    const filteredArray = arrayToFilter.filter(
       (_, index) => index !== fileIndexToClear
     );
-    setFiles(filteredArray);
+    // setFiles(filteredArray);
     field.onChange(filteredArray);
   };
 
@@ -110,7 +114,7 @@ export const Upload = ({
           </CUI.AlertTitle>
         </CUI.Alert>
       ))}
-      {files.map((file, index) => (
+      {acceptedFiles.map((file, index) => (
         <CUI.HStack
           key={`${index}-${file.name}`}
           background="blue.50"
