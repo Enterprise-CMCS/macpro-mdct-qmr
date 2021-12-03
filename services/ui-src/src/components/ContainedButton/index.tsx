@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faPrint } from "@fortawesome/free-solid-svg-icons";
 
 interface ContainedButtonProps extends QMR.InputWrapperProps {
-  disabledStatus?: boolean;
   buttonText: any;
-  buttonProps: CUI.ButtonProps;
+  buttonProps?: CUI.ButtonProps;
+  disabledStatus?: boolean;
   helperText?: string;
   helperTextProps?: CUI.TextProps;
   icon?: string;
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const ContainedButton = ({
