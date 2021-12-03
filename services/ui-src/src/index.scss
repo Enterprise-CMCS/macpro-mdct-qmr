@@ -1835,3 +1835,7 @@ aside#faq-contact-info-box {
     display: none;
   }
 }
+
+li::marker {
+  font-weight: bold;
+}
