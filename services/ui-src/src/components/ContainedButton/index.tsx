@@ -10,7 +10,7 @@ interface ContainedButtonProps extends QMR.InputWrapperProps {
   helperText?: string;
   helperTextProps?: CUI.TextProps;
   icon?: string;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const ContainedButton = ({
