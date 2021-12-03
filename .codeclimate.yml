@@ -2,7 +2,7 @@ exclude_patterns:
   - "**/node_modules/"
   - ".github/"
   - ".images/"
-  - "*cypress/"
+  - "cypress/"
   - "plugins/"
   - "src/"
   - "services/.sechub/"
