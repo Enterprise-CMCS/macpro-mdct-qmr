@@ -1,45 +1,9 @@
-import { useEffect, useState } from "react";
 import { UsaBanner } from "@cmsgov/design-system";
 import { Logo } from "components";
-import { Auth } from "aws-amplify";
-import { Link, useLocation, useHistory } from "react-router-dom";
-import * as Libs from "libs";
+import { Link } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 
-export function Header() {
-  const [user, setUser] = useState(null);
-  const history = useHistory();
-  const location = useLocation();
-  const checkIfUserIsAuthenticated = async () => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      setUser(user);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    const localUser = Libs.getLocalUserInfo();
-
-    if (localUser) {
-      setUser(localUser);
-    } else {
-      checkIfUserIsAuthenticated();
-    }
-  }, [location]);
-
-  async function handleLogout() {
-    await Libs.logoutLocalUser();
-    try {
-      await Auth.signOut();
-    } catch (error) {
-      console.log("error signing out: ", error);
-    }
-    // setUser(null);
-    history.push("/");
-  }
-
+export function Header({ handleLogout }: any) {
   return (
     <CUI.Box data-testid="header">
       <UsaBanner />
@@ -51,11 +15,9 @@ export function Header() {
               <Logo />
             </Link>
             <CUI.Spacer />
-            {user && (
-              <CUI.Button onClick={handleLogout} variant="link" color="white">
-                Logout
-              </CUI.Button>
-            )}
+            <CUI.Button onClick={handleLogout} variant="link" color="white">
+              Logout
+            </CUI.Button>
           </CUI.Flex>
         </CUI.Container>
       </CUI.Box>

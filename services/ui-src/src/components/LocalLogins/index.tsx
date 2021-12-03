@@ -95,7 +95,11 @@ interface Props {
 
 export const LocalLogins = ({ loginWithIDM }: Props) => {
   return (
-    <CUI.Container maxW="sm" mt="4">
+    <CUI.Container maxW="sm" h="full" my="auto">
+      <CUI.Box textAlign="center" mb="6">
+        <CUI.Heading mb="2">Local Login </CUI.Heading>
+        <CUI.Divider />
+      </CUI.Box>
       <CUI.Stack spacing={8}>
         <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
           Login with IDM

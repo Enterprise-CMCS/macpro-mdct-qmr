@@ -1,4 +1,3 @@
-export * from "./AuthenticatedRoute";
 export * from "./Footer";
 export * from "./Header";
 export * from "./HelpSection";
@@ -7,4 +6,3 @@ export * from "./Inputs";
 export * from "./LoaderButton";
 export * from "./LocalLogins";
 export * from "./Logo";
-export * from "./UnauthenticatedRoute";
