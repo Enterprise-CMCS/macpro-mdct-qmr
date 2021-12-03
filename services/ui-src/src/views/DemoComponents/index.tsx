@@ -190,7 +190,7 @@ export function DemoComponents(): JSX.Element {
               label="Sample label for an upload control"
             />
             <Upload
-              maxSize={1000}
+              maxSize={1024}
               files={files2}
               setFiles={setFiles2}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
@@ -227,15 +227,18 @@ export function DemoComponents(): JSX.Element {
             <CUI.Heading size="sm" as="h3">
               DatePicker
             </CUI.Heading>
+            <CUI.Text size="sm">Normal Month Picker</CUI.Text>
             <MonthPicker
-              handleChange={(m, y) => {
+              onChange={(m, y) => {
                 console.log(m, y);
               }}
             />
+            <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
             <MonthPicker
               selectedMonth={3}
               selectedYear={2019}
-              handleChange={(m, y) => {
+              yearLocked={true}
+              onChange={(m, y) => {
                 console.log(m, y);
               }}
             />

@@ -9,7 +9,8 @@ import {
 interface MonthPickerProps {
   selectedYear?: number;
   selectedMonth?: number;
-  handleChange: (month: number, year: number) => void;
+  yearLocked?: boolean;
+  onChange: (month: number, year: number) => void;
 }
 const monthNames = [
   "January",
@@ -29,12 +30,13 @@ const monthNames = [
 export const MonthPicker = ({
   selectedMonth,
   selectedYear = 2021,
-  handleChange,
+  yearLocked = false,
+  onChange: handleChange,
 }: MonthPickerProps) => {
   const now = new Date();
   const [pickerOpen, setPickerOpen] = useState(false);
   const [year, setYear] = useState(selectedYear || now.getFullYear());
-  const [month, setMonth] = useState(selectedMonth || now.getMonth());
+  const [month, setMonth] = useState(selectedMonth || 0);
 
   const handleMonthClick = (month: number) => {
     setMonth(month);
@@ -60,26 +62,30 @@ export const MonthPicker = ({
           }}
         />
       </CUI.PopoverTrigger>
-      <CUI.PopoverContent>
+      <CUI.PopoverContent data-testid="monthpicker-popover-content">
         <CUI.PopoverHeader>
-          <CUI.HStack justifyContent="space-between">
-            <CUI.IconButton
-              aria-label="Previous Year"
-              variant="ghost"
-              icon={<BsChevronLeft />}
-              onClick={() => {
-                setYear((pr) => pr - 1);
-              }}
-            />
+          <CUI.HStack justifyContent={yearLocked ? "center" : "space-between"}>
+            {!yearLocked && (
+              <CUI.IconButton
+                aria-label="Previous Year"
+                variant="ghost"
+                icon={<BsChevronLeft />}
+                onClick={() => {
+                  setYear((pr) => pr - 1);
+                }}
+              />
+            )}
             <CUI.Text>{year}</CUI.Text>
-            <CUI.IconButton
-              aria-label="Next Year"
-              variant="ghost"
-              icon={<BsChevronRight />}
-              onClick={() => {
-                setYear((pr) => pr + 1);
-              }}
-            />
+            {!yearLocked && (
+              <CUI.IconButton
+                aria-label="Next Year"
+                variant="ghost"
+                icon={<BsChevronRight />}
+                onClick={() => {
+                  setYear((pr) => pr + 1);
+                }}
+              />
+            )}
           </CUI.HStack>
         </CUI.PopoverHeader>
         <CUI.PopoverBody>
