@@ -22,12 +22,21 @@ export const ContainedButton = ({
   icon,
   onClick,
 }: ContainedButtonProps) => {
+  const leftIcon =
+    icon === "print" ? <FontAwesomeIcon icon={faPrint} /> : undefined;
+  const rightIcon =
+    icon === "plus" ? <FontAwesomeIcon icon={faPlusCircle} /> : undefined;
+
   return (
     <CUI.Box textAlign="center">
-      <CUI.Button onClick={onClick} disabled={disabledStatus} {...buttonProps}>
-        {icon === "print" && <FontAwesomeIcon icon={faPrint} />}
+      <CUI.Button
+        leftIcon={leftIcon}
+        rightIcon={rightIcon}
+        onClick={onClick}
+        disabled={disabledStatus}
+        {...buttonProps}
+      >
         {buttonText}
-        {icon === "plus" && <FontAwesomeIcon icon={faPlusCircle} />}
       </CUI.Button>
       {helperText && <CUI.Text {...helperTextProps}>{helperText}</CUI.Text>}
     </CUI.Box>
