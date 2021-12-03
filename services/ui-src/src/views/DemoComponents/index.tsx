@@ -5,6 +5,7 @@ import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
 import { Upload } from "components/Upload";
+import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -63,6 +64,13 @@ export function DemoComponents(): JSX.Element {
 
   const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
   const [checkboxInput, setCheckboxInput] = React.useState("");
+  const KebabMenuItems: IKebabMenuItem[] = [
+    { itemText: "Edit", itemIndex: 1 },
+    { itemText: "Export", itemIndex: 2 },
+    { itemText: "Clear Measure Entries", itemIndex: 3 },
+  ];
+  const kebabMenuItemClick = (itemIndex: number) =>
+    alert(`You have selected item # ${itemIndex}`);
 
   return (
     <>
@@ -252,6 +260,16 @@ export function DemoComponents(): JSX.Element {
             fontSize: "1.5rem",
           }}
         />
+        <CUI.Divider />
+        <CUI.Heading size="sm" as="h3">
+          Kebab Menu
+        </CUI.Heading>
+        <CUI.Box m={3}>
+          <KebabMenu
+            menuItems={KebabMenuItems}
+            handleItemClick={kebabMenuItemClick}
+          />
+        </CUI.Box>
       </CUI.Container>
     </>
   );
