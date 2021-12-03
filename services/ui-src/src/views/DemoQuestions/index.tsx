@@ -11,6 +11,7 @@ export const DemoQuestions = () => {
 
   const methods = useForm<DemoFormType>({
     shouldUnregister: true,
+    mode: "all",
   });
   const { register } = methods;
   return (

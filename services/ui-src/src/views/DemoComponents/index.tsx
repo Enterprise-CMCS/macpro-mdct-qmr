@@ -14,7 +14,10 @@ const selectOptions = [
 ];
 
 export function DemoComponents(): JSX.Element {
-  const methods = useForm();
+  const methods = useForm({
+    shouldUnregister: true,
+    mode: "all",
+  });
 
   return (
     <FormProvider {...methods}>
