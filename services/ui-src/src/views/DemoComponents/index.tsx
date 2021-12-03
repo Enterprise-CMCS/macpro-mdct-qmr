@@ -7,6 +7,7 @@ import { Upload } from "components/Upload";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { ContainedButton } from "components/ContainedButton";
+import Joi from "joi";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -62,8 +63,46 @@ const DemoComponentsForm = () => {
     },
   ];
 
+  //eslint-disable-next-line
+  const regex = /^-{0,1}\d*\.?\d{0,4}$/;
+
+  const schema = Joi.object({
+    demoTextInput: Joi.string().max(3).allow(""),
+    demoCheckboxTextInput: Joi.string().allow(""),
+    demoNumberInput2: Joi.string().pattern(new RegExp(regex)).allow(""),
+    demoRate1: Joi.array().items(
+      Joi.object({
+        denominator: Joi.string().pattern(new RegExp(regex)).allow(""),
+        numerator: Joi.string().pattern(new RegExp(regex)).allow(""),
+        rate: Joi.string().pattern(new RegExp(regex)).allow(""),
+      })
+    ),
+    demoRate2: Joi.array().items(
+      Joi.object({
+        denominator: Joi.string().pattern(new RegExp(regex)).allow(""),
+        numerator: Joi.string().pattern(new RegExp(regex)).allow(""),
+        rate: Joi.string().pattern(new RegExp(regex)).allow(""),
+      })
+    ),
+    demoRateTextInput1: Joi.string().allow(""),
+    demoRateTextInput2: Joi.string().allow(""),
+    demoSelect: Joi.string().allow(""),
+    demoTextArea: Joi.string().max(3000).allow(""),
+    testCheckbox: Joi.array().allow(""),
+    testUpload1: Joi.any(),
+    testUpload2: Joi.any(),
+    demoRadioButton: Joi.string().allow(""),
+    demoNumberInput1: Joi.string().pattern(new RegExp(regex)).allow(""),
+  });
+
+  const validateData = (data: any) => {
+    console.log(data);
+
+    console.log(schema.validate(data));
+  };
+
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
+    <form onSubmit={handleSubmit((data) => validateData(data))}>
       <CUI.Container mb="6">
         <CUI.Stack spacing="4">
           <CUI.Heading size="md">Components</CUI.Heading>
@@ -84,7 +123,7 @@ const DemoComponentsForm = () => {
             Radio Button
           </CUI.Heading>
           <Inputs.RadioButton
-            {...useCustomRegister("testing")}
+            {...useCustomRegister("demoRadioButton")}
             label="hello world"
             errorMessage=""
             options={[
@@ -99,7 +138,8 @@ const DemoComponentsForm = () => {
           <Inputs.TextInput
             label="Label for Text Input"
             {...register("demoTextInput")}
-            isInvalidFunc={(value) => String(value).length > 3}
+            // isInvalidFunc={(value) => }
+            // String(value).length > 3
             helperText="Your text can't exceed 3 characters"
             errorMessage="Text is too long"
           />
