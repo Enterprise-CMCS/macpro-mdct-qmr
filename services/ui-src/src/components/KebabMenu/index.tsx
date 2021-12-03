@@ -52,7 +52,7 @@ const KebabMenuItem = ({
       aria-label={itemText}
       key={itemIndex}
     >
-      <CUI.Box fontSize="sm">{itemText}</CUI.Box>
+      <CUI.Text fontSize="sm">{itemText}</CUI.Text>
     </CUI.MenuItem>
   );
 };
