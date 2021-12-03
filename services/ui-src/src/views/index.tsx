@@ -4,7 +4,6 @@ export * from "./BOHome";
 export * from "./CoreSet";
 export * from "./DemoComponents";
 export * from "./Home";
-export * from "./Login";
 export * from "./Measure";
 export * from "./NewAmendment";
 export * from "./NotFound";

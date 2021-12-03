@@ -50,7 +50,7 @@ const LoginWithCognito = () => {
 };
 
 const LoginWithStateUser = () => {
-  const [locality, setLocality] = useState("");
+  const [locality, setLocality] = useState("AL");
   const history = useHistory();
   function localLogin(role: string) {
     const alice = {

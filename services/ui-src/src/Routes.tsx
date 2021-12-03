@@ -56,12 +56,6 @@ export const routes = [
     exact: true,
   },
   {
-    component: Views.Login,
-    name: "Home",
-    path: "/login",
-    exact: true,
-  },
-  {
     component: Views.DemoComponents,
     name: "Components",
     path: "/components",
