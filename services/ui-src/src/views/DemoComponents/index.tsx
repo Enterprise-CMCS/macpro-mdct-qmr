@@ -4,6 +4,7 @@ import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
+import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
 
 const selectOptions = [
@@ -221,6 +222,22 @@ export function DemoComponents(): JSX.Element {
               value={checkboxData}
               formLabelProps={{ fontWeight: 700 }}
               label="What is the Adminstrative Data Source?"
+            />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              DatePicker
+            </CUI.Heading>
+            <MonthPicker
+              handleChange={(m, y) => {
+                console.log(m, y);
+              }}
+            />
+            <MonthPicker
+              selectedMonth={3}
+              selectedYear={2019}
+              handleChange={(m, y) => {
+                console.log(m, y);
+              }}
             />
           </CUI.Stack>
         </form>
