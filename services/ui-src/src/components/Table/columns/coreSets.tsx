@@ -87,7 +87,7 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
             w: "full",
           }}
           helperText={helperText}
-          onClick={() => {}}
+          onClick={() => console.log("core set button")}
         />
       );
     },

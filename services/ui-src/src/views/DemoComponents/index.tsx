@@ -236,7 +236,7 @@ export function DemoComponents(): JSX.Element {
                   colorScheme: "blue",
                   textTransform: "capitalize",
                 }}
-                onClick={() => {}}
+                onClick={() => console.log("contained button 1")}
               />
               <ContainedButton
                 buttonText={"Add Core Set"}
@@ -246,7 +246,7 @@ export function DemoComponents(): JSX.Element {
                   variant: "outline",
                 }}
                 icon="plus"
-                onClick={() => {}}
+                onClick={() => console.log("contained button 2")}
               />
             </CUI.HStack>
             <CUI.HStack>
@@ -258,7 +258,7 @@ export function DemoComponents(): JSX.Element {
                   textTransform: "capitalize",
                   variant: "outline",
                 }}
-                onClick={() => {}}
+                onClick={() => console.log("contained button 3")}
               />
               <ContainedButton
                 buttonText={"Complete Measure"}
@@ -266,7 +266,7 @@ export function DemoComponents(): JSX.Element {
                   colorScheme: "blue",
                   textTransform: "capitalize",
                 }}
-                onClick={() => {}}
+                onClick={() => console.log("contained button 4")}
               />
             </CUI.HStack>
             <CUI.HStack>
@@ -278,7 +278,7 @@ export function DemoComponents(): JSX.Element {
                   colorScheme: "blue",
                   textTransform: "capitalize",
                 }}
-                onClick={() => {}}
+                onClick={() => console.log("contained button 8")}
               />
               <ContainedButton
                 buttonText={"+ Add Another"}
@@ -287,7 +287,7 @@ export function DemoComponents(): JSX.Element {
                   colorScheme: "blue",
                   textTransform: "capitalize",
                 }}
-                onClick={() => {}}
+                onClick={() => console.log("contained button 5")}
               />
               <ContainedButton
                 buttonText={"Print"}
@@ -297,7 +297,7 @@ export function DemoComponents(): JSX.Element {
                   colorScheme: "blue",
                   textTransform: "capitalize",
                 }}
-                onClick={() => {}}
+                onClick={() => console.log("contained button 6")}
               />
             </CUI.HStack>
 
@@ -314,7 +314,7 @@ export function DemoComponents(): JSX.Element {
               }}
               helperText={"Helper Text"}
               helperTextProps={{ fontSize: "sm", lineHeight: "1rem", mt: "1" }}
-              onClick={() => {}}
+              onClick={() => console.log("contained button 7")}
             />
           </CUI.Stack>
         </form>
@@ -331,6 +331,7 @@ export function DemoComponents(): JSX.Element {
           data={QMR.exampleMeasuresData}
           columns={QMR.measuresColumns}
         />
+        <CUI.Divider />
         <CUI.Heading size="sm" as="h3">
           Progress Circle
         </CUI.Heading>
