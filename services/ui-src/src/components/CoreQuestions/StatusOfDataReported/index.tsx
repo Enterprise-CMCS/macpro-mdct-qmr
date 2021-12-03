@@ -1,21 +1,16 @@
 import { CoreQuestionWrapper } from "..";
 import * as QMR from "components/Inputs";
-import { useFormContext } from "react-hook-form";
+import { useCustomRegister } from "hooks/useCustomRegister";
 
 interface Props {
   options: QMR.RadioButtonOption[];
-  value?: string;
-  onChange: (v: string) => void;
 }
 
 export const StatusOfDataReported = ({ options }: Props) => {
-  const { control } = useFormContext();
-
   return (
     <CoreQuestionWrapper label="Status of Data Reported">
       <QMR.RadioButton
-        name="testingagain"
-        control={control}
+        {...useCustomRegister("statusOfDataReporting.statusOfDataReporting")}
         options={options}
       />
     </CoreQuestionWrapper>
