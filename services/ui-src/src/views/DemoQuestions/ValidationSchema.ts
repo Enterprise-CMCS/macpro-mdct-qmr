@@ -2,12 +2,12 @@ import Joi from "joi";
 import { DemoForm } from "./DemoFormType";
 
 export const validationSchema = Joi.object<DemoForm.DemoFormType>({
-  areYouReporting: Joi.required(),
+  areYouReporting: Joi.required().label("Are you reporting"),
   statusOfDataReporting: Joi.object<DemoForm.StatusOfDataReportingNested>({
-    statusOfDataReporting: Joi.required(),
-    statusOfDataReportingAdditional: Joi.string().min(1).max(10),
+    statusOfDataReporting: Joi.required().label("Status of data reporting"),
+    statusOfDataReportingAdditional: Joi.string()
+      .min(1)
+      .max(10)
+      .label("Additional Information"),
   }),
-}).messages({
-  "string.min": "The minimum length is {#limit}",
-  "string.max": "The maximum length is {#limit}",
 });
