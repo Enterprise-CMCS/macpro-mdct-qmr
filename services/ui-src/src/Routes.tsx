@@ -1,6 +1,13 @@
 import { Route, Switch } from "react-router-dom";
 import * as Views from "views";
 
+export interface Params {
+  state: string;
+  year: string;
+  coreset: string;
+  measure: string;
+}
+
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
 // import AWS from "aws-sdk";
@@ -23,6 +30,24 @@ export const routes = [
     component: Views.StateHome,
     name: "State",
     path: "/:state/:year",
+    exact: true,
+  },
+  {
+    component: Views.AddChildCoreSet,
+    name: "Add Child Core Set",
+    path: "/:state/:year/add-child",
+    exact: true,
+  },
+  {
+    component: Views.AddHHCoreSet,
+    name: "Add Health Homes Set",
+    path: "/:state/:year/add-hh",
+    exact: true,
+  },
+  {
+    component: Views.StateHome,
+    name: "Add Health Homes Core Set",
+    path: "/:state/:year/add-child",
     exact: true,
   },
   {

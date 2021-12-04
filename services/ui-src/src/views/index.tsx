@@ -6,3 +6,5 @@ export * from "./Measure";
 export * from "./NewAmendment";
 export * from "./NotFound";
 export * from "./StateHome";
+export * from "./AddChildCoreSet";
+export * from "./AddHHCoreSet";
