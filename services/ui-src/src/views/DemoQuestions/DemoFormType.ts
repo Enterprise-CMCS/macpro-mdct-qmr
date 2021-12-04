@@ -1,9 +1,11 @@
-export interface DemoFormType {
-  areYouReporting: string;
-  statusOfDataReporting: StatusOfDataReportingNested;
-}
+export namespace DemoForm {
+  export interface DemoFormType {
+    areYouReporting: string;
+    statusOfDataReporting: StatusOfDataReportingNested;
+  }
 
-interface StatusOfDataReportingNested {
-  statusOfDataReporting: string;
-  statusOfDataReportingAdditional?: string;
+  export interface StatusOfDataReportingNested {
+    statusOfDataReporting: string;
+    statusOfDataReportingAdditional?: string;
+  }
 }

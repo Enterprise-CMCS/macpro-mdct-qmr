@@ -63,7 +63,6 @@ const DemoComponentsForm = () => {
     },
   ];
 
-  //eslint-disable-next-line
   const regex = /^-{0,1}\d*\.?\d{0,4}$/;
 
   const schema = Joi.object({

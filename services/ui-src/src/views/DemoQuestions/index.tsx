@@ -4,16 +4,22 @@ import * as QMR from "components/Inputs";
 import { useParams } from "react-router-dom";
 import { Params } from "Routes";
 import { useForm, FormProvider } from "react-hook-form";
-import { DemoFormType } from "views/DemoQuestions/DemoFormType";
+import { DemoForm } from "views/DemoQuestions/DemoFormType";
+import { joiResolver } from "@hookform/resolvers/joi";
+import { validationSchema } from "./ValidationSchema";
 
 export const DemoQuestions = () => {
   const { year, measureId } = useParams<Params>();
 
-  const methods = useForm<DemoFormType>({
+  const methods = useForm<DemoForm.DemoFormType>({
     shouldUnregister: true,
     mode: "all",
+    resolver: joiResolver(validationSchema),
   });
-  const { register } = methods;
+  const {
+    register,
+    formState: { errors },
+  } = methods;
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
@@ -41,6 +47,14 @@ export const DemoQuestions = () => {
                       {...register(
                         "statusOfDataReporting.statusOfDataReportingAdditional"
                       )}
+                      isInvalid={
+                        !!errors.statusOfDataReporting
+                          ?.statusOfDataReportingAdditional?.message
+                      }
+                      errorMessage={
+                        errors.statusOfDataReporting
+                          ?.statusOfDataReportingAdditional?.message
+                      }
                       label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
                       formLabelProps={{
                         fontWeight: "normal",
