@@ -1,8 +1,6 @@
-// import { Breadcrumb } from "react-bootstrap";
 import * as CUI from "@chakra-ui/react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { routes } from "Routes";
-// import "./index.css";
 
 export const Breadcrumbs = () => {
   const route = useRouteMatch();

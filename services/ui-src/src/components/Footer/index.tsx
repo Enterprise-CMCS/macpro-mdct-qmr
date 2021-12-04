@@ -1,51 +1,75 @@
-import * as Bootstrap from "react-bootstrap";
-import { helpDeskContact } from "libs";
-import { HelpSection } from "components";
+import * as CUI from "@chakra-ui/react";
+import * as Libs from "libs";
 
 export function Footer(): JSX.Element {
   return (
-    <footer data-testid="footer">
-      <HelpSection />
-      <section className="footer-top-container">
-        <Bootstrap.Container>
-          <div className="footer-wrapper footer-top-wrapper">
-            <div>
-              <img src="/footer/logo-MedicaidGov.svg" alt="Medicaid.gov logo" />
-            </div>
-            <div className="footer-government-blurb">
-              <div className="footer-fed-gov-container">
+    <CUI.Box
+      fontSize={{ base: "sm", md: "md" }}
+      textAlign={{ base: "center", md: "left" }}
+    >
+      <CUI.Container data-testid="help-section" maxW="7xl">
+        <CUI.Box maxW="3xl" py="4">
+          <CUI.Text as="h3">Do you have questions or need support?</CUI.Text>
+          <CUI.Text>
+            For technical questions regarding use of this application, please
+            reach out to{" "}
+            <a href={`mailto:${Libs.helpDeskContact.email}`}>
+              {Libs.helpDeskContact.email}
+            </a>
+            . For content-related questions, such as about measure
+            specifications or what information to enter in each field, please
+            reach out to{" "}
+            <a href={`mailto:${Libs.qualityContact.email}`}>
+              {Libs.qualityContact.email}
+            </a>
+          </CUI.Text>
+        </CUI.Box>
+      </CUI.Container>
+      <CUI.Box bg="blue.50">
+        <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
+          <CUI.Box
+            py="4"
+            display={{ base: "block", md: "flex" }}
+            alignItems={{ base: "none", md: "center" }}
+          >
+            <img
+              style={{ display: "inline" }}
+              src="/footer/logo-MedicaidGov.svg"
+              alt="Medicaid.gov logo"
+            />
+            <CUI.Spacer />
+            <CUI.Flex maxW={{ base: "none", md: "md" }}>
+              <CUI.Box>
                 <img
                   src="/footer/depthealthhumanservices_usa.svg"
                   alt="Department of Health and Human Services logo"
                 ></img>
-              </div>
-              <div className="footer-fed-gov-text">
+              </CUI.Box>
+              <CUI.Box>
                 A federal government website managed and paid for by the U.S.
                 Centers for Medicare and Medicaid Services and part of the
                 MACPro suite.
-              </div>
-            </div>
-          </div>
-        </Bootstrap.Container>
-      </section>
-      <div className="footer-bottom-container">
-        <Bootstrap.Container>
-          <div className="footer-wrapper">
-            <div>
+              </CUI.Box>
+            </CUI.Flex>
+          </CUI.Box>
+        </CUI.Container>
+      </CUI.Box>
+      <CUI.Box bg="blue.500" color="white" py="4">
+        <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
+          <CUI.Box display={{ base: "block", md: "flex" }}>
+            <CUI.Text>
               Email{" "}
-              <a
-                className="footer-email"
-                href={`mailto:${helpDeskContact.email}`}
-              >
+              <a href={`mailto:${Libs.helpDeskContact.email}`}>
                 {" "}
-                {helpDeskContact.email}
+                {Libs.helpDeskContact.email}
               </a>{" "}
               for help or feedback.
-            </div>
-            <div>7500 Security Boulevard Baltimore, MD 21244</div>
-          </div>
-        </Bootstrap.Container>
-      </div>
-    </footer>
+            </CUI.Text>
+            <CUI.Spacer />
+            <CUI.Text>7500 Security Boulevard Baltimore, MD 21244</CUI.Text>
+          </CUI.Box>
+        </CUI.Container>
+      </CUI.Box>
+    </CUI.Box>
   );
 }
