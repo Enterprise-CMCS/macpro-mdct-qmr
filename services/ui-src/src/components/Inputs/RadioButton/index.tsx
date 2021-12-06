@@ -54,9 +54,11 @@ export const RadioButton = ({
                   </CUI.Text>
                 </CUI.Radio>
                 <CUI.Collapse in={showChildren} animateOpacity>
-                  <QMR.QuestionChild show={!!option.children?.length}>
-                    {option.children}
-                  </QMR.QuestionChild>
+                  {showChildren && (
+                    <QMR.QuestionChild show={!!option.children?.length}>
+                      {option.children}
+                    </QMR.QuestionChild>
+                  )}
                 </CUI.Collapse>
               </CUI.Box>
             );

@@ -53,9 +53,11 @@ export const Checkbox = ({
                   </CUI.Text>
                 </CUI.Checkbox>
                 <CUI.Collapse in={showChildren} animateOpacity>
-                  <QMR.QuestionChild show={!!option.children?.length}>
-                    {option.children}
-                  </QMR.QuestionChild>
+                  {showChildren && (
+                    <QMR.QuestionChild show={!!option.children?.length}>
+                      {option.children}
+                    </QMR.QuestionChild>
+                  )}
                 </CUI.Collapse>
               </CUI.Box>
             );
