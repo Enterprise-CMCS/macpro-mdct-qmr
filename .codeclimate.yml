@@ -1,4 +1,4 @@
-version: "2"         # required to adjust maintainability checks
+version: "2" # required to adjust maintainability checks
 checks:
   argument-count:
     enabled: false
@@ -9,7 +9,7 @@ checks:
       threshold: 300
   file-lines:
     config:
-      threshold: 1000  
+      threshold: 1000
   method-complexity:
     config:
       threshold: 20
