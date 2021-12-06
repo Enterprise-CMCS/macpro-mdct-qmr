@@ -4,7 +4,10 @@ import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
+import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
+import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
+import { ContainedButton } from "components/ContainedButton";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -63,6 +66,13 @@ export function DemoComponents(): JSX.Element {
 
   const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
   const [checkboxInput, setCheckboxInput] = React.useState("");
+  const KebabMenuItems: IKebabMenuItem[] = [
+    { itemText: "Edit", itemIndex: 1 },
+    { itemText: "Export", itemIndex: 2 },
+    { itemText: "Clear Measure Entries", itemIndex: 3 },
+  ];
+  const kebabMenuItemClick = (itemIndex: number) =>
+    alert(`You have selected item # ${itemIndex}`);
 
   return (
     <>
@@ -189,7 +199,7 @@ export function DemoComponents(): JSX.Element {
               label="Sample label for an upload control"
             />
             <Upload
-              maxSize={1000}
+              maxSize={1024}
               files={files2}
               setFiles={setFiles2}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
@@ -222,6 +232,117 @@ export function DemoComponents(): JSX.Element {
               formLabelProps={{ fontWeight: 700 }}
               label="What is the Adminstrative Data Source?"
             />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              DatePicker
+            </CUI.Heading>
+            <CUI.Text size="sm">Normal Month Picker</CUI.Text>
+            <MonthPicker
+              onChange={(m, y) => {
+                console.log(m, y);
+              }}
+            />
+            <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
+            <MonthPicker
+              selectedMonth={3}
+              selectedYear={2019}
+              yearLocked={true}
+              onChange={(m, y) => {
+                console.log(m, y);
+              }}
+            />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Contained Buttons
+            </CUI.Heading>
+            <CUI.HStack>
+              <ContainedButton
+                disabledStatus={true}
+                buttonText={"Submit Core Set"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 1")}
+              />
+              <ContainedButton
+                buttonText={"Add Core Set"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  variant: "outline",
+                }}
+                icon="plus"
+                onClick={() => console.log("contained button 2")}
+              />
+            </CUI.HStack>
+            <CUI.HStack>
+              <ContainedButton
+                buttonText={"Add Child Core Core Set"}
+                icon="plus"
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                  variant: "outline",
+                }}
+                onClick={() => console.log("contained button 3")}
+              />
+              <ContainedButton
+                buttonText={"Complete Measure"}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 4")}
+              />
+            </CUI.HStack>
+            <CUI.HStack>
+              <ContainedButton
+                buttonText={`Add Health Homes Core Set`}
+                icon="plus"
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 8")}
+              />
+              <ContainedButton
+                buttonText={"+ Add Another"}
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 5")}
+              />
+              <ContainedButton
+                buttonText={"Print"}
+                icon="print"
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => console.log("contained button 6")}
+              />
+            </CUI.HStack>
+
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Contained Buttons With Helper Text
+            </CUI.Heading>
+            <ContainedButton
+              buttonText={"+ Add Another"}
+              buttonProps={{
+                variant: "outline",
+                colorScheme: "blue",
+                textTransform: "capitalize",
+              }}
+              helperText={"Helper Text"}
+              helperTextProps={{ fontSize: "sm", lineHeight: "1rem", mt: "1" }}
+              onClick={() => console.log("contained button 7")}
+            />
           </CUI.Stack>
         </form>
       </CUI.Container>
@@ -252,6 +373,16 @@ export function DemoComponents(): JSX.Element {
             fontSize: "1.5rem",
           }}
         />
+        <CUI.Divider />
+        <CUI.Heading size="sm" as="h3">
+          Kebab Menu
+        </CUI.Heading>
+        <CUI.Box m={3}>
+          <KebabMenu
+            menuItems={KebabMenuItems}
+            handleItemClick={kebabMenuItemClick}
+          />
+        </CUI.Box>
       </CUI.Container>
     </>
   );
