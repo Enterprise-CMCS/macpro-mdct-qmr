@@ -11,9 +11,7 @@ const WrappedDemoComponents = () => (
 
 describe("Test the DemoComponents component", () => {
   test("Check that we can set the textarea to an error/invalid state", () => {
-
     const { getByLabelText } = render(<WrappedDemoComponents />);
-
 
     userEvent.type(getByLabelText(/test text area/i), "testing text area");
 
@@ -59,7 +57,6 @@ describe("Test Second NumberInput Component", () => {
 
   describe("Test Inputs associated with Rate Component", () => {
     it("shows Describe the rate", () => {
-
       const { getByText } = render(<WrappedDemoComponents />);
 
       expect(getByText(/Another Test Label/i)).toBeVisible();
