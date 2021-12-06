@@ -62,7 +62,7 @@ const App = () => {
 
   useEffect(() => {
     checkAuthState();
-  }, [location]);
+  }, [location, checkAuthState]);
 
   return (
     <div id="app-wrapper">
