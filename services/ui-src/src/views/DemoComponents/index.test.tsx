@@ -72,7 +72,7 @@ describe("Test Second NumberInput Component", () => {
   });
 });
 
-describe("Test File Upload component", async () => {
+describe("Test File Upload component", () => {
   test("Check that the Upload Component renders", async () => {
     render(<WrappedDemoComponents />);
 
