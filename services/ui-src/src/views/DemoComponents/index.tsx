@@ -57,6 +57,7 @@ export function DemoComponents(): JSX.Element {
       id: 5,
     },
   ]);
+
   const [files, setFiles] = useState<File[]>([
     new File([JSON.stringify({ ping: true })], "ping.json", {
       type: "application/json",
