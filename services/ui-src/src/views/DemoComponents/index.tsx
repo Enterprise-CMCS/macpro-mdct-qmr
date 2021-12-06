@@ -100,6 +100,13 @@ const DemoComponentsForm = () => {
 
     console.log(schema.validate(data));
   };
+  const KebabMenuItems: QMR.IKebabMenuItem[] = [
+    { itemText: "Edit", itemIndex: 1 },
+    { itemText: "Export", itemIndex: 2 },
+    { itemText: "Clear Measure Entries", itemIndex: 3 },
+  ];
+  const kebabMenuItemClick = (itemIndex: number) =>
+    alert(`You have selected item # ${itemIndex}`);
 
   return (
     <form onSubmit={handleSubmit((data) => validateData(data))}>
@@ -382,6 +389,16 @@ const DemoComponentsForm = () => {
             fontSize: "1.5rem",
           }}
         />
+        <CUI.Divider />
+        <CUI.Heading size="sm" as="h3">
+          Kebab Menu
+        </CUI.Heading>
+        <CUI.Box m={3}>
+          <QMR.KebabMenu
+            menuItems={KebabMenuItems}
+            handleItemClick={kebabMenuItemClick}
+          />
+        </CUI.Box>
       </CUI.Container>
       <button>Submit</button>
     </form>
