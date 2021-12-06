@@ -20,7 +20,6 @@ checks:
   identical-code:
     enabled: false
 exclude_patterns:
-  - "/*"
   - "**/node_modules/"
   - ".github/"
   - ".images/"
@@ -38,3 +37,6 @@ exclude_patterns:
   - "tests/"
   - "**/*.test.tsx"
   - "**/*.scss"
+  - "**/*.sh"
+  - "**/*.lock"
+  - "**/*.json"
