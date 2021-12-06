@@ -3,7 +3,7 @@ import Joi from "joi";
 const regex = /^-{0,1}\d*\.?\d{0,4}$/;
 
 export const DemoValidationSchema = Joi.object({
-  demoTextInput: Joi.string().max(3).allow(""),
+  demoTextInput: Joi.string().max(3),
   demoCheckboxTextInput: Joi.string().allow("").max(1),
   demoNumberInput2: Joi.string()
     .pattern(new RegExp(/^-{0,1}\d*$/))

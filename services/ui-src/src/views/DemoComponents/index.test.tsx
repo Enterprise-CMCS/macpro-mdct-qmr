@@ -26,15 +26,17 @@ describe("Test TextInput Component", () => {
     expect(getByLabelText(/label for text input/i)).toBeVisible();
   });
 
-  it("shows error message when more than three characters are types", () => {
+  it("shows error message when more than three characters are types", async () => {
     const { getByLabelText, getByText } = render(<WrappedDemoComponents />);
 
-    userEvent.type(
-      getByLabelText(/label for text input/i),
+    await userEvent.type(
+      getByLabelText("Label for Text Input"),
       "More than 3 characters"
     );
 
-    expect(getByText(/text is too long/i)).toBeVisible();
+    expect(
+      getByText("length must be less than or equal to 3 characters long")
+    ).toBeInTheDocument();
   });
 });
 
@@ -71,13 +73,14 @@ describe("Test Second NumberInput Component", () => {
 });
 
 describe("Test File Upload component", async () => {
-  test("Check that the Upload Component renders file", async () => {
+  test("Check that the Upload Component renders", async () => {
     render(<WrappedDemoComponents />);
 
-    expect(await screen.findByText(/ping.json/i)).toBeInTheDocument();
-
-    userEvent.click(screen.getAllByTestId(/test-delete-btn-0/i)[0]);
-
-    expect(screen.queryByText(/ping.json/i)).toBeNull();
+    expect(
+      await screen.findByText(/Sample label for an upload control/i)
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Uploading a file here will cause an error/i)
+    ).toBeInTheDocument();
   });
 });

@@ -1,12 +1,29 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import * as QMR from "components";
 import * as Inputs from "components/Inputs";
+import { TestWrapper } from "components/TestWrapper";
+import { useCustomRegister } from "hooks/useCustomRegister";
+import { useForm, useFormContext } from "react-hook-form";
 
-describe("Test Checkbox", () => {
+const DemoComponent = () => {
+  const { setValue } = useForm();
+
+  setValue("test-component", "Other");
+  setValue("test-component-2", "testing");
+
+  return (
+    <TestWrapper>
+      <RegisteredCheckbox />
+    </TestWrapper>
+  );
+};
+
+const RegisteredCheckbox = () => {
+  const { register } = useFormContext();
   const options: QMR.CheckboxOption[] = [
     {
-      displayValue: "Medicaid Management Information System (MMIS)",
-      value: "Medicaid Management Information System (MMIS)",
+      displayValue: "What is the Adminstrative Data Source?",
+      value: "What is the Adminstrative Data Source?",
     },
     {
       displayValue: "Other",
@@ -19,45 +36,26 @@ describe("Test Checkbox", () => {
             fontWeight: "normal",
             fontSize: "normal",
           }}
-          value={""}
-          onChange={() => {}}
+          {...register("test-component-2")}
         />,
       ],
     },
   ];
+  return (
+    <QMR.Checkbox {...useCustomRegister("test-component")} options={options} />
+  );
+};
 
+describe("Test Checkbox", () => {
   test("Check that the Checkbox renders", () => {
-    const { getByText } = render(
-      <QMR.Checkbox
-        options={options}
-        onChange={() => {}}
-        value={[]}
-        label="What is the Adminstrative Data Source?"
-      />
-    );
+    const { getByText } = render(<DemoComponent />);
 
     expect(getByText(/What is the Adminstrative Data Source?/i)).toBeVisible();
   });
 
   it("Check the input(t)ed options render correctly", () => {
-    const { getByText } = render(
-      <QMR.Checkbox options={options} onChange={() => {}} value={[]} />
-    );
+    const { getByText } = render(<DemoComponent />);
 
-    expect(
-      getByText(/Medicaid Management Information System \(MMIS\)/i)
-    ).toBeVisible();
     expect(getByText(/Other/i)).toBeVisible();
-  });
-
-  it("onChange Fire when a new radio option is selected", () => {
-    const mockChangeFn = jest.fn();
-    const { getByText } = render(
-      <QMR.Checkbox options={options} onChange={mockChangeFn} value={[]} />
-    );
-
-    fireEvent.click(getByText(/Other/i));
-
-    expect(mockChangeFn).toHaveBeenCalled();
   });
 });
