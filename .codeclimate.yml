@@ -13,3 +13,4 @@ exclude_patterns:
   - "services/uploads/"
   - "tests/"
   - "**/*.test.tsx"
+  
