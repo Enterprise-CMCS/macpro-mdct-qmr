@@ -47,7 +47,7 @@ const App = () => {
         }
       }
     }
-  }, []);
+  }, [isIntegrationBranch]);
 
   async function handleLogout() {
     try {
