@@ -97,7 +97,7 @@ export const MonthPicker = ({
                   : "ghost";
               return (
                 <CUI.Button
-                  key={Math.random()}
+                  key={`${value}-${index}`}
                   aria-label={value}
                   variant={variant}
                   colorScheme="blue"
