@@ -7,6 +7,7 @@ const TestComponent = () => {
   const { register } = useForm();
   const rates = [
     {
+      label: "test",
       denominator: "",
       numerator: "",
       rate: "",
@@ -25,7 +26,7 @@ describe("Test the Rate component", () => {
   test("Check that component renders and includes a label when passed optionally", () => {
     const screen = render(<TestComponent />);
 
-    expect(screen.getByDisplayValue(/test/i)).toBeVisible();
+    expect(screen.getByText(/test/i)).toBeVisible();
   });
 
   test("Check that number input labels get rendered correctly", () => {

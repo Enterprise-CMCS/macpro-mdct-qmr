@@ -26,17 +26,17 @@ describe("Test TextInput Component", () => {
     expect(getByLabelText(/label for text input/i)).toBeVisible();
   });
 
-  it("shows error message when more than three characters are types", async () => {
-    const { getByLabelText, getByText } = render(<WrappedDemoComponents />);
+  it("check that the text input is updated when typed", () => {
+    const { getByLabelText } = render(<WrappedDemoComponents />);
 
-    await userEvent.type(
+    userEvent.type(
       getByLabelText("Label for Text Input"),
       "More than 3 characters"
     );
 
-    expect(
-      getByText("length must be less than or equal to 3 characters long")
-    ).toBeInTheDocument();
+    expect(getByLabelText("Label for Text Input")).toHaveValue(
+      "More than 3 characters"
+    );
   });
 });
 
