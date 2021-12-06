@@ -14,6 +14,10 @@ export const StateHome = () => {
       <Link to={`/${state}/${year}/add-child`}>Add Child Core set</Link>
       <br />
       <Link to={`/${state}/${year}/add-hh`}>Add Health Homes set</Link>
+      <br />
+      <Link to={`/components`}>Demo Components</Link>
+      <br />
+      <Link to={`/OH/2021/ACS/AIF-HH`}>Demo Questions</Link>
     </QMR.StateLayout>
   );
 };

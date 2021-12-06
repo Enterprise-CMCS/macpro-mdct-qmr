@@ -1,24 +1,17 @@
-import { Link } from "react-router-dom";
-import styles from "./index.module.scss";
-
-export function Measure() {
+import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
+import { useParams } from "react-router-dom";
+import { Params } from "Routes";
+export const Measure = () => {
+  const { state, year, coreset } = useParams<Params>();
   return (
-    <div data-testid="measure">
-      {/* Breadcrumbs are hard coded till we get real data to populate them */}
-      <section className={styles.breadcrumbsMeasureContainer}>
-        <div className={styles.breadcrumb}>
-          <Link to="/">Home</Link>
-        </div>
-        <div>{">"}</div>
-        <div className={styles.breadcrumb}>State - Year</div>
-        <div>{">"}</div>
-        <div className={styles.breadcrumb}>
-          <Link to="/coreset">Sample Core Set</Link>
-        </div>
-        <div>{">"}</div>
-        <div className={styles.breadcrumb}>Sample Measure / Form</div>
-      </section>
-      <h1>Measure Placeholder Page</h1>
-    </div>
+    <QMR.StateLayout
+      breadcrumbItems={[
+        { path: `/${state}/${year}`, name: `FFY ${year}` },
+        { path: `/${state}/${year}/${coreset}`, name: `Full Name of Measure` },
+      ]}
+    >
+      <CUI.Text>This is where a measure lives</CUI.Text>
+    </QMR.StateLayout>
   );
-}
+};
