@@ -4,7 +4,9 @@ import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate, IRate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
+import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
+import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
 import { ContainedButton } from "components/ContainedButton";
 
 const selectOptions = [
@@ -64,6 +66,13 @@ export function DemoComponents(): JSX.Element {
 
   const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
   const [checkboxInput, setCheckboxInput] = React.useState("");
+  const KebabMenuItems: IKebabMenuItem[] = [
+    { itemText: "Edit", itemIndex: 1 },
+    { itemText: "Export", itemIndex: 2 },
+    { itemText: "Clear Measure Entries", itemIndex: 3 },
+  ];
+  const kebabMenuItemClick = (itemIndex: number) =>
+    alert(`You have selected item # ${itemIndex}`);
 
   return (
     <>
@@ -190,7 +199,7 @@ export function DemoComponents(): JSX.Element {
               label="Sample label for an upload control"
             />
             <Upload
-              maxSize={1000}
+              maxSize={1024}
               files={files2}
               setFiles={setFiles2}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
@@ -224,6 +233,24 @@ export function DemoComponents(): JSX.Element {
               label="What is the Adminstrative Data Source?"
             />
             <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              DatePicker
+            </CUI.Heading>
+            <CUI.Text size="sm">Normal Month Picker</CUI.Text>
+            <MonthPicker
+              onChange={(m, y) => {
+                console.log(m, y);
+              }}
+            />
+            <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
+            <MonthPicker
+              selectedMonth={3}
+              selectedYear={2019}
+              yearLocked={true}
+              onChange={(m, y) => {
+                console.log(m, y);
+              }}
+            />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Contained Buttons
@@ -346,6 +373,16 @@ export function DemoComponents(): JSX.Element {
             fontSize: "1.5rem",
           }}
         />
+        <CUI.Divider />
+        <CUI.Heading size="sm" as="h3">
+          Kebab Menu
+        </CUI.Heading>
+        <CUI.Box m={3}>
+          <KebabMenu
+            menuItems={KebabMenuItems}
+            handleItemClick={kebabMenuItemClick}
+          />
+        </CUI.Box>
       </CUI.Container>
     </>
   );
