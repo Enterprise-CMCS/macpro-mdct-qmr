@@ -8,3 +8,6 @@ export * from "./LoaderButton";
 export * from "./LocalLogins";
 export * from "./Logo";
 export * from "./Breadcrumbs";
+export * from "./MonthPicker";
+export * from "./Table";
+export * from "./QuestionChild";
