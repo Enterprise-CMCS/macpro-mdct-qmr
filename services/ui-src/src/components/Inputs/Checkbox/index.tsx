@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Control, useController } from "react-hook-form";
-
+import { Control, useController, useFormContext } from "react-hook-form";
+import objectPath from "object-path";
 export interface CheckboxOption {
   displayValue: string;
   value: string | number;
@@ -27,10 +27,16 @@ export const Checkbox = ({
     control,
   });
 
-  let isInvalid = false;
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   return (
-    <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
+    <QMR.InputWrapper
+      isInvalid={!!objectPath.get(errors, name)?.message}
+      errorMessage={objectPath.get(errors, name)?.message}
+      {...rest}
+    >
       <CUI.CheckboxGroup
         size="lg"
         value={field.value}

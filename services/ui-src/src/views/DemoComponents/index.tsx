@@ -8,8 +8,9 @@ import { Upload } from "components/Upload";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { ContainedButton } from "components/ContainedButton";
-import Joi from "joi";
 import React from "react";
+import { DemoValidationSchema } from "./ValidationSchema";
+import { joiResolver } from "@hookform/resolvers/joi";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -21,6 +22,7 @@ export function DemoComponents(): JSX.Element {
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
+    resolver: joiResolver(DemoValidationSchema),
   });
 
   return (
@@ -67,41 +69,10 @@ const DemoComponentsForm = () => {
     },
   ];
 
-  const regex = /^-{0,1}\d*\.?\d{0,4}$/;
-
-  const schema = Joi.object({
-    demoTextInput: Joi.string().max(3).allow(""),
-    demoCheckboxTextInput: Joi.string().allow(""),
-    demoNumberInput2: Joi.string().pattern(new RegExp(regex)).allow(""),
-    demoRate1: Joi.array().items(
-      Joi.object({
-        denominator: Joi.string().pattern(new RegExp(regex)).allow(""),
-        numerator: Joi.string().pattern(new RegExp(regex)).allow(""),
-        rate: Joi.string().pattern(new RegExp(regex)).allow(""),
-      })
-    ),
-    demoRate2: Joi.array().items(
-      Joi.object({
-        denominator: Joi.string().pattern(new RegExp(regex)).allow(""),
-        numerator: Joi.string().pattern(new RegExp(regex)).allow(""),
-        rate: Joi.string().pattern(new RegExp(regex)).allow(""),
-      })
-    ),
-    demoRateTextInput1: Joi.string().allow(""),
-    demoRateTextInput2: Joi.string().allow(""),
-    demoSelect: Joi.string().allow(""),
-    demoTextArea: Joi.string().max(3000).allow(""),
-    testCheckbox: Joi.array().allow(""),
-    testUpload1: Joi.any(),
-    testUpload2: Joi.any(),
-    demoRadioButton: Joi.string().allow(""),
-    demoNumberInput1: Joi.string().pattern(new RegExp(regex)).allow(""),
-  });
-
   const validateData = (data: any) => {
     console.log(data);
 
-    console.log(schema.validate(data));
+    console.log(DemoValidationSchema.validate(data));
   };
 
   return (
@@ -115,11 +86,9 @@ const DemoComponentsForm = () => {
           </CUI.Heading>
           <Inputs.TextArea
             {...register("demoTextArea")}
-            isInvalidFunc={(value) => String(value)?.length > 3000}
             placeholder="test"
             label="test text area"
             helperText="put in something here"
-            errorMessage="Response cannot exceed 3000 characters"
           />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
@@ -128,7 +97,6 @@ const DemoComponentsForm = () => {
           <Inputs.RadioButton
             {...useCustomRegister("demoRadioButton")}
             label="hello world"
-            errorMessage=""
             options={[
               { displayValue: "test1", value: "test1" },
               { displayValue: "test2", value: "test2" },
@@ -141,8 +109,6 @@ const DemoComponentsForm = () => {
           <Inputs.TextInput
             label="Label for Text Input"
             {...register("demoTextInput")}
-            // isInvalidFunc={(value) => }
-            // String(value).length > 3
             helperText="Your text can't exceed 3 characters"
             errorMessage="Text is too long"
           />
@@ -156,7 +122,6 @@ const DemoComponentsForm = () => {
             options={selectOptions}
             helperText="pick something please"
             label="this is a select (drop down) input"
-            isInvalidFunc={(v) => v === "invalid"}
           />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
@@ -186,7 +151,6 @@ const DemoComponentsForm = () => {
             errorMessage="Text is too long"
             formLabelProps={{ fontWeight: 600 }}
             {...register("demoRateTextInput1")}
-            isInvalidFunc={(value) => String(value).length > 3000}
           />
           <Rate rates={rates} {...register("demoRate1")} />
           <CUI.Divider />
@@ -200,7 +164,6 @@ const DemoComponentsForm = () => {
             errorMessage="Text is too long"
             formLabelProps={{ fontWeight: 700 }}
             {...register("demoRateTextInput2")}
-            isInvalidFunc={(value) => String(value).length > 3000}
           />
           <Rate rates={ratesTwo} {...register("demoRate2")} />
           <CUI.Divider />

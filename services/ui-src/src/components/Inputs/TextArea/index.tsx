@@ -18,7 +18,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
     const {
       formState: { errors },
     } = useFormContext();
-    console.log(name, errors);
+
     return (
       <QMR.InputWrapper
         isInvalid={!!objectPath.get(errors, name)?.message}

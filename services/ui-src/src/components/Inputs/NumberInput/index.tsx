@@ -1,6 +1,8 @@
 import * as CUI from "@chakra-ui/react";
 import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
 import React from "react";
+import { useFormContext } from "react-hook-form";
+import objectPath from "object-path";
 
 interface NumberInputProps extends InputWrapperProps {
   placeholder?: string;
@@ -16,7 +18,6 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     {
       numberInputProps,
       placeholder,
-      isInvalidFunc,
       displayPercent,
       onBlur,
       name,
@@ -25,8 +26,16 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     },
     ref
   ) => {
+    const {
+      formState: { errors },
+    } = useFormContext();
+
     return (
-      <InputWrapper {...rest}>
+      <InputWrapper
+        isInvalid={!!objectPath.get(errors, name)?.message}
+        errorMessage={objectPath.get(errors, name)?.message}
+        {...rest}
+      >
         <CUI.InputGroup>
           <CUI.Input
             type="number"

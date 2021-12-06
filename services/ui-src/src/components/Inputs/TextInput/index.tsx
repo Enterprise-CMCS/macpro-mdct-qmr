@@ -1,6 +1,8 @@
 import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { useFormContext } from "react-hook-form";
+import objectPath from "object-path";
 
 interface TextInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
@@ -11,22 +13,17 @@ interface TextInputProps extends QMR.InputWrapperProps {
 }
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  (
-    {
-      textInputProps,
-      placeholder,
-      onChange,
-      onBlur,
-      name,
-      isInvalidFunc,
-      ...rest
-    },
-    ref
-  ) => {
-    let isInvalid = false;
+  ({ textInputProps, placeholder, onChange, onBlur, name, ...rest }, ref) => {
+    const {
+      formState: { errors },
+    } = useFormContext();
 
     return (
-      <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
+      <QMR.InputWrapper
+        isInvalid={!!objectPath.get(errors, name)?.message}
+        errorMessage={objectPath.get(errors, name)?.message}
+        {...rest}
+      >
         <CUI.Input
           type="text"
           ref={ref}
