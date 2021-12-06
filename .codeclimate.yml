@@ -1,5 +1,14 @@
-version: "2"
-checks:
-  method-lines:
-    config:
-      threshold: 80
+exclude_patterns:
+  - "**/node_modules/"
+  - ".github/"
+  - ".images/"
+  - "cypress/"
+  - "plugins/"
+  - "src/"
+  - "services/.sechub/"
+  - "services/database/"
+  - "services/stream-functions/"
+  - "services/ui/"
+  - "services/ui-auth/"
+  - "services/uploads/"
+  - "tests/"

@@ -7,4 +7,7 @@ export * from "./Inputs";
 export * from "./LoaderButton";
 export * from "./LocalLogins";
 export * from "./Logo";
+export * from "./MonthPicker";
 export * from "./UnauthenticatedRoute";
+export * from "./Table";
+export * from "./QuestionChild";
