@@ -388,7 +388,6 @@ const DemoComponentsForm = () => {
           />
           <ContainedButton
             buttonText={`Decrease Counter`}
-            icon="plus"
             buttonProps={{
               variant: "outline",
               colorScheme: "blue",
