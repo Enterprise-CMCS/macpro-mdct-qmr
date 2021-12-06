@@ -6,6 +6,7 @@ export function Footer(): JSX.Element {
     <CUI.Box
       fontSize={{ base: "sm", md: "md" }}
       textAlign={{ base: "center", md: "left" }}
+      data-testid="footer"
     >
       <CUI.Container data-testid="help-section" maxW="7xl">
         <CUI.Box maxW="3xl" py="4">

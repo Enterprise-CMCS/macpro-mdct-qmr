@@ -11,7 +11,7 @@ export const Measure = () => {
         { path: `/${state}/${year}/${coreset}`, name: `Full Name of Measure` },
       ]}
     >
-      <CUI.Text>This is where a measure lives</CUI.Text>
+      <CUI.Text data-testid="measure">This is where a measure lives</CUI.Text>
     </QMR.StateLayout>
   );
 };

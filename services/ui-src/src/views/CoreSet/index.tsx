@@ -11,7 +11,7 @@ export const CoreSet = () => {
         { path: `/${state}/${year}/${coreset}`, name: "Core Set Measures" },
       ]}
     >
-      <CUI.Text>
+      <CUI.Text data-testid="core-set">
         This is where the list of the core set measures stuff goes
       </CUI.Text>
       <Link to={`/${state}/${year}`}>Back to state home</Link>

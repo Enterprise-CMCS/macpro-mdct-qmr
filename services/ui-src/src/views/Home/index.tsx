@@ -1,11 +1,20 @@
 import { Redirect } from "react-router-dom";
-import { currentReportingYear } from "config";
+import config from "config";
+import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
 
-export function Home({ user }: any): JSX.Element {
-  const state = user.userState;
+interface Props {
+  user?: any;
+}
+
+export function Home({ user }: Props): JSX.Element {
+  const state = user?.userState;
   if (!state) {
-    return <p>Ooooh! no state for you</p>;
+    return (
+      <CUI.Box data-testid="Home-Container">
+        <CUI.Text>Ooooh! no state for you</CUI.Text>
+      </CUI.Box>
+    );
   }
-  return <Redirect to={`/${state}/${currentReportingYear}`} />;
+  return <Redirect to={`/${state}/${config.currentReportingYear}`} />;
 }

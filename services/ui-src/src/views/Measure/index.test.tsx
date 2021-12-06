@@ -1,13 +1,13 @@
 import { Measure } from "./index";
 import { render } from "@testing-library/react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { RouterWrappedComp } from "utils/testing";
 
 describe("Test measure.tsx", () => {
   test("Check that the measure renders", () => {
     const result = render(
-      <Router>
+      <RouterWrappedComp>
         <Measure />
-      </Router>
+      </RouterWrappedComp>
     );
 
     expect(result.getByTestId("measure")).toBeVisible();

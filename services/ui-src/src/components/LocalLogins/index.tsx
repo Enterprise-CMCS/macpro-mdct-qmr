@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { stateAbbreviations } from "./constants";
-import { currentReportingYear } from "config";
+import config from "config";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Libs from "libs";
@@ -22,7 +22,7 @@ const LoginWithStateUser = () => {
     };
     Libs.loginLocalUser(alice);
 
-    history.push(`/${locality}/${currentReportingYear}`);
+    history.push(`/${locality}/${config.currentReportingYear}`);
   }
 
   return (

@@ -3,7 +3,11 @@ import { Logo } from "components";
 import { Link } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 
-export function Header({ handleLogout }: any) {
+interface Props {
+  handleLogout: () => void;
+}
+
+export function Header({ handleLogout }: Props) {
   return (
     <CUI.Box data-testid="header">
       <UsaBanner />
