@@ -31,8 +31,8 @@ describe("Test the Rate component", () => {
   test("Check that number input labels get rendered correctly", () => {
     const screen = render(<TestComponent />);
 
-    expect(screen.getByDisplayValue(/denominator/i)).toBeVisible();
-    expect(screen.getByDisplayValue(/numerator/i)).toBeVisible();
-    expect(screen.getByDisplayValue(/rate/i)).toBeVisible();
+    expect(screen.getByLabelText(/denominator/i)).toBeVisible();
+    expect(screen.getByLabelText(/numerator/i)).toBeVisible();
+    expect(screen.getByLabelText(/rate/i)).toBeVisible();
   });
 });
