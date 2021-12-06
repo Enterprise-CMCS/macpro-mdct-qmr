@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Auth } from "aws-amplify";
 import { Routes } from "./Routes";
 import * as QMR from "components";
@@ -31,7 +31,7 @@ const App = () => {
   const history = useHistory();
   const location = useLocation();
 
-  async function checkAuthState() {
+  const checkAuthState = useCallback(async () => {
     try {
       const authenticatedUser = await Auth.currentAuthenticatedUser();
       setUser(authenticatedUser);
@@ -47,7 +47,7 @@ const App = () => {
         }
       }
     }
-  }
+  }, []);
 
   async function handleLogout() {
     try {
