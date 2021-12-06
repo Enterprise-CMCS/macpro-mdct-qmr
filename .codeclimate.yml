@@ -20,6 +20,7 @@ checks:
   identical-code:
     enabled: false
 exclude_patterns:
+  - "/*"
   - "**/node_modules/"
   - ".github/"
   - ".images/"
@@ -30,6 +31,7 @@ exclude_patterns:
   - "services/database/"
   - "services/stream-functions/"
   - "services/ui/"
+  - "services/ui-src/public"
   - "services/ui-auth/"
   - "services/uploads/"
   - "tests/"
