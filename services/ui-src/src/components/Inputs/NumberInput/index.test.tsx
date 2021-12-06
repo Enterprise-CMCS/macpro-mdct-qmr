@@ -1,14 +1,14 @@
 import { render } from "@testing-library/react";
 import { NumberInput } from "components/Inputs/NumberInput";
 import { TestWrapper } from "components/TestWrapper";
-import { useFormContext } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 const TestComponent = ({
   renderPercent = false,
 }: {
   renderPercent?: boolean;
 }) => {
-  const { register, setValue } = useFormContext();
+  const { register, setValue } = useForm();
   setValue("test-component", "1234");
 
   return (
@@ -16,7 +16,6 @@ const TestComponent = ({
       <NumberInput
         label="label"
         helperText="helper"
-        isInvalid
         displayPercent={renderPercent}
         {...register("test-component")}
       />

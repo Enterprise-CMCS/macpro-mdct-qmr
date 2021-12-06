@@ -89,6 +89,7 @@ const DemoComponentsForm = () => {
             placeholder="test"
             label="test text area"
             helperText="put in something here"
+            renderHelperTextAbove
           />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">

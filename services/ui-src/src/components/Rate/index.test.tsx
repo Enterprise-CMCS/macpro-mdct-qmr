@@ -1,28 +1,38 @@
 import { render } from "@testing-library/react";
 import { Rate } from ".";
+import { TestWrapper } from "components/TestWrapper";
+import { useForm } from "react-hook-form";
 
-describe("Test the Rate component", () => {
+const TestComponent = () => {
+  const { register } = useForm();
   const rates = [
     {
-      label: "test",
-      denominator: "1",
-      numerator: ".5",
-      rate: "0",
+      denominator: "",
+      numerator: "",
+      rate: "",
       id: 1,
     },
   ];
 
-  test("Check that component renders and includes a label when passed optionally", () => {
-    const { getByText } = render(<Rate rates={rates} updateRates={() => {}} />);
+  return (
+    <TestWrapper>
+      <Rate rates={rates} {...register("test-component")} />
+    </TestWrapper>
+  );
+};
 
-    expect(getByText(/test/i)).toBeVisible();
+describe("Test the Rate component", () => {
+  test("Check that component renders and includes a label when passed optionally", () => {
+    const screen = render(<TestComponent />);
+
+    expect(screen.getByDisplayValue(/test/i)).toBeVisible();
   });
 
   test("Check that number input labels get rendered correctly", () => {
-    const { getByText } = render(<Rate rates={rates} updateRates={() => {}} />);
+    const screen = render(<TestComponent />);
 
-    expect(getByText(/denominator/i)).toBeVisible();
-    expect(getByText(/numerator/i)).toBeVisible();
-    expect(getByText(/rate/i)).toBeVisible();
+    expect(screen.getByDisplayValue(/denominator/i)).toBeVisible();
+    expect(screen.getByDisplayValue(/numerator/i)).toBeVisible();
+    expect(screen.getByDisplayValue(/rate/i)).toBeVisible();
   });
 });
