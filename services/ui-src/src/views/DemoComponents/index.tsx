@@ -3,6 +3,7 @@ import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
+import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
@@ -240,8 +241,28 @@ const DemoComponentsForm = () => {
           />
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
+            DatePicker
+          </CUI.Heading>
+          <CUI.Text size="sm">Normal Month Picker</CUI.Text>
+          <MonthPicker
+            onChange={(m, y) => {
+              console.log(m, y);
+            }}
+          />
+          <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
+          <MonthPicker
+            selectedMonth={3}
+            selectedYear={2019}
+            yearLocked={true}
+            onChange={(m, y) => {
+              console.log(m, y);
+            }}
+          />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
             Contained Buttons
           </CUI.Heading>
+
           <CUI.HStack>
             <ContainedButton
               disabledStatus={true}
@@ -314,23 +335,25 @@ const DemoComponentsForm = () => {
               onClick={() => console.log("contained button 6")}
             />
           </CUI.HStack>
-
           <CUI.Divider />
           <CUI.Heading size="sm" as="h3">
             Contained Buttons With Helper Text
           </CUI.Heading>
-          <ContainedButton
-            buttonText={"+ Add Another"}
-            buttonProps={{
-              variant: "outline",
-              colorScheme: "blue",
-              textTransform: "capitalize",
-            }}
-            helperText={"Helper Text"}
-            helperTextProps={{ fontSize: "sm", lineHeight: "1rem", mt: "1" }}
-            onClick={() => console.log("contained button 7")}
-          />
+          <CUI.HStack justifyContent="left">
+            <ContainedButton
+              buttonText={"+ Add Another"}
+              buttonProps={{
+                variant: "outline",
+                colorScheme: "blue",
+                textTransform: "capitalize",
+              }}
+              helperText={"Helper Text"}
+              helperTextProps={{ fontSize: "sm", lineHeight: "1rem", mt: "1" }}
+              onClick={() => console.log("contained button 7")}
+            />
+          </CUI.HStack>
         </CUI.Stack>
+        <CUI.Divider mt={5} />
       </CUI.Container>
       <CUI.Container maxW="7xl" overflowX="scroll">
         <CUI.Heading size="sm" as="h3">
