@@ -7,7 +7,7 @@ export const CoreSet = () => {
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}`, name: "FFY 2021" },
+        { path: `/${state}/${year}`, name: `FFY ${year}` },
         { path: `/${state}/${year}/${coreset}`, name: "Core Set Measures" },
       ]}
     >

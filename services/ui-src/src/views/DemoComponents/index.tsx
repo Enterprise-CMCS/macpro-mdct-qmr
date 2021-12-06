@@ -75,7 +75,9 @@ export function DemoComponents(): JSX.Element {
     alert(`You have selected item # ${itemIndex}`);
 
   return (
-    <>
+    <QMR.StateLayout
+      breadcrumbItems={[{ path: `/components`, name: "Demo Components" }]}
+    >
       <CUI.Container mb="6">
         <form>
           <CUI.Stack spacing="4">
@@ -384,6 +386,6 @@ export function DemoComponents(): JSX.Element {
           />
         </CUI.Box>
       </CUI.Container>
-    </>
+    </QMR.StateLayout>
   );
 }

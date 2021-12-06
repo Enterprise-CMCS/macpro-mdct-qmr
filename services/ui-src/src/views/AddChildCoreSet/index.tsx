@@ -7,7 +7,7 @@ export const AddChildCoreSet = () => {
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}`, name: "FFY 2021" },
+        { path: `/${state}/${year}`, name: `FFY ${year}` },
         { path: `/${state}/${year}/add-child`, name: "Add Child Core Set" },
       ]}
     >

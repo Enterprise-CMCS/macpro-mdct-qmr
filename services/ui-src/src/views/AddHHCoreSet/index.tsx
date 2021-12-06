@@ -7,7 +7,7 @@ export const AddHHCoreSet = () => {
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}`, name: "FFY 2021" },
+        { path: `/${state}/${year}`, name: `FFY ${year}` },
         { path: `/${state}/${year}/add-hh`, name: "Add Health Homes Core Set" },
       ]}
     >
