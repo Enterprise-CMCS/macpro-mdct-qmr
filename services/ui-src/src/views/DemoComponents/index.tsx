@@ -9,6 +9,7 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { ContainedButton } from "components/ContainedButton";
 import Joi from "joi";
+import React from "react";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -30,6 +31,8 @@ export function DemoComponents(): JSX.Element {
 }
 
 const DemoComponentsForm = () => {
+  const [progressCircleValue, setProgressCircle] = React.useState(5);
+
   const { register, handleSubmit } = useFormContext();
   const rates = [
     {
@@ -100,13 +103,6 @@ const DemoComponentsForm = () => {
 
     console.log(schema.validate(data));
   };
-  const KebabMenuItems: QMR.IKebabMenuItem[] = [
-    { itemText: "Edit", itemIndex: 1 },
-    { itemText: "Export", itemIndex: 2 },
-    { itemText: "Clear Measure Entries", itemIndex: 3 },
-  ];
-  const kebabMenuItemClick = (itemIndex: number) =>
-    alert(`You have selected item # ${itemIndex}`);
 
   return (
     <form onSubmit={handleSubmit((data) => validateData(data))}>
@@ -378,27 +374,46 @@ const DemoComponentsForm = () => {
         <CUI.Heading size="sm" as="h3">
           Progress Circle
         </CUI.Heading>
-        <ProgressCircle
-          currentProgress={5}
-          maxValue={23}
-          circularProgressProps={{
-            color: "green.600",
-            size: "8rem",
-          }}
-          circularProgressLabelProps={{
-            fontSize: "1.5rem",
-          }}
-        />
-        <CUI.Divider />
-        <CUI.Heading size="sm" as="h3">
-          Kebab Menu
-        </CUI.Heading>
-        <CUI.Box m={3}>
-          <QMR.KebabMenu
-            menuItems={KebabMenuItems}
-            handleItemClick={kebabMenuItemClick}
+        <CUI.HStack>
+          <ProgressCircle
+            currentProgress={progressCircleValue}
+            maxValue={23}
+            circularProgressProps={{
+              color: "green.600",
+              size: "8rem",
+            }}
+            circularProgressLabelProps={{
+              fontSize: "1.5rem",
+            }}
           />
-        </CUI.Box>
+          <ContainedButton
+            buttonText={`Decrease Counter`}
+            icon="plus"
+            buttonProps={{
+              variant: "outline",
+              colorScheme: "blue",
+              textTransform: "capitalize",
+            }}
+            onClick={() => setProgressCircle(progressCircleValue - 1 || 1)}
+          />
+
+          <ContainedButton
+            buttonText={`Increase Counter`}
+            icon="plus"
+            buttonProps={{
+              colorScheme: "blue",
+              textTransform: "capitalize",
+            }}
+            onClick={() => {
+              let valueToDisplay = 23;
+              if (progressCircleValue + 1 < 23) {
+                valueToDisplay = progressCircleValue + 1;
+              }
+
+              setProgressCircle(valueToDisplay);
+            }}
+          />
+        </CUI.HStack>
       </CUI.Container>
       <button>Submit</button>
     </form>
