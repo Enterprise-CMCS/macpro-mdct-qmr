@@ -1,32 +1,39 @@
 import * as CUI from "@chakra-ui/react";
-import { Link, useRouteMatch } from "react-router-dom";
-import { routes } from "Routes";
+import { HiOutlineChevronLeft } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
-export const Breadcrumbs = () => {
-  const route = useRouteMatch();
+interface Props {
+  items: {
+    path: string;
+    name: string;
+  }[];
+  color: "inherit" | "white";
+}
 
-  const items = routes
-    .filter(({ path }) => route.path.includes(path as string))
-    .map(({ path, ...rest }) => ({
-      path: Object.keys(route.params).length
-        ? Object.keys(route.params).reduce(
-            // @ts-ignore
-            (path, param) => path?.replace(`:${param}`, route.params[param]),
-            path
-          )
-        : path,
-      ...rest,
-    }));
-
+export const Breadcrumbs = ({ items, color }: Props) => {
+  const isMultipleItems = items.length > 1;
   return (
-    <CUI.Breadcrumb>
-      {items.map((item, idx) => (
-        <CUI.BreadcrumbItem active={idx + 1 === items.length}>
-          <CUI.BreadcrumbLink as={Link} to={item.path || ""}>
-            {item.name}
-          </CUI.BreadcrumbLink>
-        </CUI.BreadcrumbItem>
-      ))}
-    </CUI.Breadcrumb>
+    <CUI.Flex>
+      {isMultipleItems && (
+        <CUI.Box fontSize="2xl" mr="4">
+          <Link to={items[items.length - 2].path}>
+            <HiOutlineChevronLeft />
+          </Link>
+        </CUI.Box>
+      )}
+      <CUI.Breadcrumb color={color} separator="">
+        {items?.map((item, idx) => (
+          <CUI.BreadcrumbItem active={idx + 1 === items.length}>
+            <CUI.BreadcrumbLink
+              as={Link}
+              to={item.path || ""}
+              _hover={{ color }}
+            >
+              <CUI.Heading size="md">{item.name}</CUI.Heading>
+            </CUI.BreadcrumbLink>
+          </CUI.BreadcrumbItem>
+        ))}
+      </CUI.Breadcrumb>
+    </CUI.Flex>
   );
 };

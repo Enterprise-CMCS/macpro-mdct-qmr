@@ -45,12 +45,6 @@ export const routes = [
     exact: true,
   },
   {
-    component: Views.StateHome,
-    name: "Add Health Homes Core Set",
-    path: "/:state/:year/add-child",
-    exact: true,
-  },
-  {
     component: Views.CoreSet,
     name: "Core Set",
     path: "/:state/:year/:coreset/",
