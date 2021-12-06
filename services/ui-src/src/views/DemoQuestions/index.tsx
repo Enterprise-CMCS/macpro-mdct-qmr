@@ -16,10 +16,7 @@ export const DemoQuestions = () => {
     mode: "all",
     resolver: joiResolver(validationSchema),
   });
-  const {
-    register,
-    formState: { errors },
-  } = methods;
+  const { register } = methods;
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
@@ -47,14 +44,6 @@ export const DemoQuestions = () => {
                       {...register(
                         "statusOfDataReporting.statusOfDataReportingAdditional"
                       )}
-                      isInvalid={
-                        !!errors.statusOfDataReporting
-                          ?.statusOfDataReportingAdditional?.message
-                      }
-                      errorMessage={
-                        errors.statusOfDataReporting
-                          ?.statusOfDataReportingAdditional?.message
-                      }
                       label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
                       formLabelProps={{
                         fontWeight: "normal",
