@@ -11,3 +11,4 @@ export * from "./MonthPicker";
 export * from "./UnauthenticatedRoute";
 export * from "./Table";
 export * from "./QuestionChild";
+export * from "./KebabMenu";
