@@ -11,9 +11,6 @@ export const mockStateUser = {
         "cognito:username": "Okta_State_QMR",
         "custom:cms_roles": "mdctqmr-state-user",
         given_name: "State",
-        nonce:
-          "mgtGLBapB4LhamhOIKkyMLI5CU9osdUB_BD7e8ppcT_yP24WJsWJ9GYmZDBICu3CId5MdKI_M6jB3q8fHvvE6uB-xWIUO7SBq_bkt34yNkJvpN31FRj00fPXoK2QiIloDPo7v0SwkbstH4wLHcmD0cdqerCj9q-8H73pA18y2J0",
-        aud: "39jvme8ebutq75cttgno8c1vn4",
         identities: [
           {
             userId: "State_QMR",
