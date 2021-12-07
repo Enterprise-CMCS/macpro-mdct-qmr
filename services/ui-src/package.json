@@ -50,10 +50,6 @@
     "eject": "react-scripts eject"
   },
   "jest": {
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
     "coverageReporters": [
       "json",
       [
@@ -62,6 +58,23 @@
           "projectRoot": "../../"
         }
       ]
+    ],
+    "collectCoverageFrom": [
+      "src/components/**/*.{ts,tsx}",
+      "src/views/**/*.{ts,tsx}",
+      "!src/components/CoreQuestions/index.tsx",
+      "!src/components/index.tsx",
+      "!src/components/Inputs/index.tsx",
+      "!src/components/Table/types.ts",
+      "!src/views/NewAmendment/index.tsx",
+      "!src/views/Amendments/index.tsx",
+      "!src/views/DemoComponents/index.tsx",
+      "!src/views/Profile/index.tsx",
+      "!src/views/Login/index.tsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
     ],
     "verbose": true,
     "moduleNameMapper": {
