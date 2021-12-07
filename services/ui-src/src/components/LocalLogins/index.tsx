@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { stateAbbreviations } from "./constants";
+import { stateAbbreviations } from "utils/constants";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
@@ -47,6 +47,7 @@ interface Props {
 }
 
 export const LocalLogins = ({ loginWithIDM }: Props) => {
+  const showIDMLogin = config.LOCAL_LOGIN === "true";
   return (
     <CUI.Container maxW="sm" h="full" my="auto">
       <CUI.Box textAlign="center" mb="6">
@@ -54,9 +55,11 @@ export const LocalLogins = ({ loginWithIDM }: Props) => {
         <CUI.Divider />
       </CUI.Box>
       <CUI.Stack spacing={8}>
-        <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
-          Login with IDM
-        </CUI.Button>
+        {showIDMLogin && (
+          <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
+            Login with IDM
+          </CUI.Button>
+        )}
         <LoginWithStateUser />
       </CUI.Stack>
     </CUI.Container>

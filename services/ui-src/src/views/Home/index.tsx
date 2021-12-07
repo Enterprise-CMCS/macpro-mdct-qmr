@@ -9,8 +9,15 @@ interface Props {
 }
 
 export function Home({ user }: Props): JSX.Element {
+  // this is absolutely the wrong way to do this. So its just a placeholder for now
   // @ts-ignore
-  const state = user?.attributes?.state;
+  const role = user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"];
+  if (role === "mdctqmr-approver") {
+    return <Navigate to={`/admin`} />;
+  }
+  // this is absolutely the wrong way to do this. So its just a placeholder for now
+  // @ts-ignore
+  const state = user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
   if (!state) {
     return (
       <CUI.Box data-testid="Home-Container">

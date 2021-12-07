@@ -1,3 +1,4 @@
+export * from "./AdminHome";
 export * from "./Amendments";
 export * from "./CoreSet";
 export * from "./DemoComponents";

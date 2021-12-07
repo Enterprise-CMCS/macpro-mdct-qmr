@@ -29,6 +29,12 @@ export const routes = [
     exact: true,
   },
   {
+    component: Views.AdminHome,
+    name: "Admin Home",
+    path: "admin",
+    exact: true,
+  },
+  {
     component: Views.AddChildCoreSet,
     name: "Add Child Core Set",
     path: "/:state/:year/add-child",
