@@ -2,7 +2,6 @@ export const mockStateUser = {
   username: "Okta_State_QMR",
   signInUserSession: {
     idToken: {
-      jwtToken: "testing-token",
       payload: {
         at_hash: "Dgg3ggZQAeTVvEwKcbhFkQ",
         sub: "9a0ead56-959c-4edf-9edd-416b242fa4aa",
