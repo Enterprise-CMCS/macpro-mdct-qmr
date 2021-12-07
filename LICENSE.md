@@ -16,7 +16,7 @@ under copyright law, including all related and neighboring rights, to the
 extent allowed by law.
 
 You can copy, modify, distribute and perform the work, even for commercial
-purposes, all without asking permission.
+purposes, all without asking permissions.
 
 ### Other Information
 
