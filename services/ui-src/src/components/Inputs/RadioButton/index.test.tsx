@@ -1,62 +1,68 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import * as QMR from "components";
+import * as Inputs from "components/Inputs";
+import { TestWrapper } from "components/TestWrapper";
+import { useCustomRegister } from "hooks/useCustomRegister";
+import { useForm, useFormContext } from "react-hook-form";
+
+const DemoComponent = () => {
+  const { setValue } = useForm();
+
+  setValue("test-component", "Other");
+  setValue("test-component-2", "testing");
+
+  return (
+    <TestWrapper>
+      <RegisteredCheckbox />
+    </TestWrapper>
+  );
+};
+
+const RegisteredCheckbox = () => {
+  const { register } = useFormContext();
+  const options: QMR.RadioButtonOption[] = [
+    {
+      displayValue: "What is the Adminstrative Data Source?",
+      value: "What is the Adminstrative Data Source?",
+    },
+    {
+      displayValue: "Other",
+      value: "Other",
+      children: [
+        <Inputs.TextInput
+          label="Describe the data source:"
+          key="test"
+          formLabelProps={{
+            fontWeight: "normal",
+            fontSize: "normal",
+          }}
+          {...register("test-component-2")}
+        />,
+      ],
+    },
+  ];
+  return (
+    <QMR.RadioButton
+      {...useCustomRegister("test-component")}
+      label="test label"
+      options={options}
+    />
+  );
+};
 
 describe("Test RadioButton", () => {
   test("Check that the Radio Button renders", () => {
-    const options: QMR.RadioButtonOption[] = [
-      {
-        displayValue: "Hello World",
-        value: 1,
-      },
-    ];
+    const { getByText } = render(<DemoComponent />);
 
-    const { getByText } = render(
-      <QMR.RadioButton options={options} onChange={() => {}} value={"1"} />
-    );
-
-    expect(getByText(/hello world/i)).toBeVisible();
+    expect(getByText(/test label/i)).toBeInTheDocument();
   });
 
   it("Check the input(t)ed options render correctly", () => {
-    const options: QMR.RadioButtonOption[] = [
-      {
-        displayValue: "First Item",
-        value: 1,
-      },
-      {
-        displayValue: "Second Item",
-        value: 2,
-      },
-    ];
+    const { getByText } = render(<DemoComponent />);
 
-    const { getByText } = render(
-      <QMR.RadioButton options={options} onChange={() => {}} value={""} />
-    );
-
-    expect(getByText(/first item/i)).toBeVisible();
-    expect(getByText(/second item/i)).toBeVisible();
-  });
-
-  it("onChange Fire when a new radio option is selected", () => {
-    const mockChangeFn = jest.fn();
-
-    const options: QMR.RadioButtonOption[] = [
-      {
-        displayValue: "First Item",
-        value: 1,
-      },
-      {
-        displayValue: "Second Item",
-        value: 2,
-      },
-    ];
-
-    const { getByText } = render(
-      <QMR.RadioButton options={options} onChange={mockChangeFn} value={"1"} />
-    );
-
-    fireEvent.click(getByText(/second item/i));
-
-    expect(mockChangeFn).toHaveBeenCalled();
+    expect(
+      getByText(/What is the Adminstrative Data Source?/i)
+    ).toBeInTheDocument();
+    expect(getByText(/Other/i)).toBeInTheDocument();
   });
 });
