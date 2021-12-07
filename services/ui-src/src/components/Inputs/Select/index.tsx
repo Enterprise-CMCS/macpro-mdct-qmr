@@ -49,7 +49,7 @@ export const Select = ({
         }}
         {...selectProps}
         placeholder={placeholder}
-        // isInvalid={isInvalid}
+        isInvalid={!!objectPath.get(errors, name)?.message}
         icon={<TiArrowUnsorted />}
       >
         {options.map(({ displayValue, value }) => (

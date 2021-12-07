@@ -59,7 +59,6 @@ export const Upload = ({
     const filteredArray = arrayToFilter.filter(
       (_, index) => index !== fileIndexToClear
     );
-    // setFiles(filteredArray);
     field.onChange(filteredArray);
   };
 
