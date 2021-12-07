@@ -10,7 +10,7 @@ interface Props {
 
 export function Home({ user }: Props): JSX.Element {
   // @ts-ignore
-  const state = user?.attributes.state;
+  const state = user?.attributes?.state;
   if (!state) {
     return (
       <CUI.Box data-testid="Home-Container">
