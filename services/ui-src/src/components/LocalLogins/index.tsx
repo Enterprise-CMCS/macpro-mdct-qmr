@@ -12,7 +12,6 @@ const LoginWithStateUser = () => {
   const history = useHistory();
   function localLogin(role: Libs.Roles) {
     Libs.loginLocalUser({
-      // @ts-ignore
       ...mockUsers[role],
       attributes: {
         state: locality,

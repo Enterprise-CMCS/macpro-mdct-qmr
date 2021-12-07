@@ -5,7 +5,7 @@ import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
 
 interface Props {
-  user: CognitoUser | null;
+  user: CognitoUser;
 }
 
 export function Home({ user }: Props): JSX.Element {

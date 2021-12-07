@@ -33,6 +33,10 @@ export const mockStateUser = {
   },
 };
 
-export const mockUsers = {
+interface MockUsers {
+  [key: string]: any;
+}
+
+export const mockUsers: MockUsers = {
   STATE_USERS: mockStateUser,
 };
