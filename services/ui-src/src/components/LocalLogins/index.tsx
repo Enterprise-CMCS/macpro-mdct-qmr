@@ -5,22 +5,19 @@ import config from "config";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Libs from "libs";
+import { mockUsers } from "./mockUsers";
 
 const LoginWithStateUser = () => {
   const [locality, setLocality] = useState("AL");
   const history = useHistory();
-  function localLogin(role: string) {
-    const alice = {
-      username: "alice",
+  function localLogin(role: Libs.Roles) {
+    Libs.loginLocalUser({
+      // @ts-ignore
+      ...mockUsers[role],
       attributes: {
-        given_name: "Alice",
-        family_name: "Foo",
-        email: "alice@example.com",
-        "custom:cms_roles": role,
         state: locality,
       },
-    };
-    Libs.loginLocalUser(alice);
+    });
 
     history.push(`/${locality}/${config.currentReportingYear}`);
   }
@@ -37,7 +34,7 @@ const LoginWithStateUser = () => {
       />
       <CUI.Button
         colorScheme="blue"
-        onClick={() => localLogin(Libs.roles.stateUser)}
+        onClick={() => localLogin(Libs.Roles.stateUser)}
         isFullWidth
       >
         Login as State User

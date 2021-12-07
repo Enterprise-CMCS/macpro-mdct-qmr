@@ -23,7 +23,10 @@ export const Breadcrumbs = ({ items, color }: Props) => {
       )}
       <CUI.Breadcrumb color={color} separator="">
         {items?.map((item, idx) => (
-          <CUI.BreadcrumbItem active={idx + 1 === items.length}>
+          <CUI.BreadcrumbItem
+            isCurrentPage={idx + 1 === items.length}
+            key={item.name}
+          >
             <CUI.BreadcrumbLink
               as={Link}
               to={item.path || ""}

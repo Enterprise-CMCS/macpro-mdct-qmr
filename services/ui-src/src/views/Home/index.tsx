@@ -1,14 +1,16 @@
 import { Redirect } from "react-router-dom";
+import { CognitoUser } from "@aws-amplify/auth";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
 
 interface Props {
-  user?: any;
+  user: CognitoUser | null;
 }
 
 export function Home({ user }: Props): JSX.Element {
-  const state = user?.userState;
+  // @ts-ignore
+  const state = user?.attributes.state;
   if (!state) {
     return (
       <CUI.Box data-testid="Home-Container">

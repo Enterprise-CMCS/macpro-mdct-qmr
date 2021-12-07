@@ -15,9 +15,6 @@ export const determineRole = (specRole: Array<string> = []): string => {
   return role;
 };
 
-export const roles = {
-  businessOwner: "BUSINESS_OWNER",
-  approver: "APPROVER",
-  stateUser: "STATE_USER",
-  helpDesk: "HELPDESK",
-};
+export enum Roles {
+  stateUser = "STATE_USER",
+}

@@ -1,4 +1,5 @@
 import { Route, Switch } from "react-router-dom";
+import { CognitoUser } from "@aws-amplify/auth";
 import * as Views from "views";
 
 export interface Params {
@@ -75,7 +76,7 @@ export const routes = [
   },
 ];
 
-export function Routes({ user }: any) {
+export function Routes({ user }: { user: CognitoUser }) {
   return (
     <main id="main-wrapper">
       <Switch>

@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { Auth } from "aws-amplify";
+import { CognitoUser } from "@aws-amplify/auth";
 import { Routes } from "./Routes";
 import * as QMR from "components";
 import { LocalLogins } from "components";
@@ -26,7 +27,7 @@ const authenticateWithIDM = () => {
 
 const App = () => {
   const isIntegrationBranch = window.location.origin.includes("cms.gov");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<CognitoUser | null>(null);
   const [showlocalLogins, setShowLocalLogins] = useState(false);
   const history = useHistory();
   const location = useLocation();
