@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { stateAbbreviations } from "./constants";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
@@ -9,7 +9,7 @@ import { mockUsers } from "./mockUsers";
 
 const LoginWithStateUser = () => {
   const [locality, setLocality] = useState("AL");
-  const history = useHistory();
+  const navigate = useNavigate();
   function localLogin(role: Libs.Roles) {
     Libs.loginLocalUser({
       ...mockUsers[role],
@@ -18,7 +18,7 @@ const LoginWithStateUser = () => {
       },
     });
 
-    history.push(`/${locality}/${config.currentReportingYear}`);
+    navigate(`/${locality}/${config.currentReportingYear}`);
   }
 
   return (

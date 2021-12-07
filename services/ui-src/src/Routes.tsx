@@ -1,13 +1,8 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { CognitoUser } from "@aws-amplify/auth";
 import * as Views from "views";
 
-export interface Params {
-  state: string;
-  year: string;
-  coreset: string;
-  measure: string;
-}
+export type Params = "state" | "year" | "coreset" | "measure";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -66,26 +61,25 @@ export const routes = [
   {
     component: Views.DemoComponents,
     name: "Components",
-    path: "/components",
+    path: "components",
     exact: true,
   },
   {
     component: Views.NotFound,
     name: "Not Found",
     exact: false,
+    path: "*",
   },
 ];
 
-export function Routes({ user }: { user: CognitoUser }) {
+export function AppRoutes({ user }: { user: CognitoUser }) {
   return (
     <main id="main-wrapper">
-      <Switch>
-        {routes.map(({ name, component: Component, exact, path }) => (
-          <Route key={name} exact={exact} path={path}>
-            <Component user={user} />
-          </Route>
+      <Routes>
+        {routes.map(({ name, component: Component, path }) => (
+          <Route key={name} path={path} element={<Component user={user} />} />
         ))}
-      </Switch>
+      </Routes>
     </main>
   );
 }

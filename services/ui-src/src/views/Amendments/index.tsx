@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { onError } from "libs/errorLib";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { LoaderButton } from "components";
@@ -20,8 +20,8 @@ export function Amendments({
   fileURLResolver,
 }: IAmendmentProps): JSX.Element {
   const file = useRef<File | null>(null);
-  const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const { id } = useParams<"id">();
+  const navigate = useNavigate();
   const [amendment, setAmendment] = useState<IAmendmentInterface>();
   const [transmittalNumber, setTransmittalNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -35,7 +35,10 @@ export function Amendments({
 
   useEffect(() => {
     function loadAmendment() {
-      return Api.getAmendment(id);
+      if (id) {
+        return Api.getAmendment(id);
+      }
+      return;
     }
 
     async function onLoad() {
@@ -83,7 +86,10 @@ export function Amendments({
   }
 
   function saveAmendment(amendment: IAmendmentInterface) {
-    return Api.updateAmendment(id, amendment);
+    if (id) {
+      return Api.updateAmendment(id, amendment);
+    }
+    return;
   }
 
   async function handleSubmit(
@@ -111,7 +117,7 @@ export function Amendments({
         comments,
         attachment: attachment || amendment?.attachment,
       });
-      history.push("/");
+      navigate("/");
     } catch (e: any) {
       // Catch clauses are not allowed to have a type in typescript
       onError(e);
@@ -133,8 +139,10 @@ export function Amendments({
     setIsDeleting(true);
 
     try {
-      await Api.deleteAmendment(id);
-      history.push("/");
+      if (id) {
+        await Api.deleteAmendment(id);
+        navigate("/");
+      }
     } catch (e) {
       onError(e);
       setIsDeleting(false);

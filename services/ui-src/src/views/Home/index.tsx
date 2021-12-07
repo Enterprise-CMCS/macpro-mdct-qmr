@@ -1,4 +1,4 @@
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { CognitoUser } from "@aws-amplify/auth";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
@@ -18,5 +18,5 @@ export function Home({ user }: Props): JSX.Element {
       </CUI.Box>
     );
   }
-  return <Redirect to={`/${state}/${config.currentReportingYear}`} />;
+  return <Navigate to={`/${state}/${config.currentReportingYear}`} />;
 }

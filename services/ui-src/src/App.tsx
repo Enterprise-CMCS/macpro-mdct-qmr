@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import { Auth } from "aws-amplify";
 import { CognitoUser } from "@aws-amplify/auth";
-import { Routes } from "./Routes";
+import { AppRoutes } from "./Routes";
 import * as QMR from "components";
 import { LocalLogins } from "components";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as Libs from "libs";
 
 const authenticateWithIDM = () => {
@@ -29,7 +29,7 @@ const App = () => {
   const isIntegrationBranch = window.location.origin.includes("cms.gov");
   const [user, setUser] = useState<CognitoUser | null>(null);
   const [showlocalLogins, setShowLocalLogins] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const checkAuthState = useCallback(async () => {
@@ -58,7 +58,7 @@ const App = () => {
     } catch (error) {
       console.log("error signing out: ", error);
     }
-    history.push("/");
+    navigate("/");
   }
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const App = () => {
       {user && (
         <>
           <QMR.Header handleLogout={handleLogout} />
-          <Routes user={user} />
+          <AppRoutes user={user} />
           <QMR.Footer />
         </>
       )}

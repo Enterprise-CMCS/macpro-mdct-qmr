@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { LoaderButton } from "components";
 import { onError } from "libs/errorLib";
@@ -21,7 +21,7 @@ export function NewAmendment({
   fileUpload: Function;
 }): JSX.Element {
   const file = useRef<File | null>(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -64,7 +64,7 @@ export function NewAmendment({
         comments,
         attachment,
       });
-      history.push("/");
+      navigate("/");
     } catch (e) {
       onError(e);
       setIsLoading(false);
