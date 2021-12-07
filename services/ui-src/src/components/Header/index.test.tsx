@@ -5,7 +5,6 @@ import { RouterWrappedComp } from "utils/testing";
 describe("Test Header.tsx", () => {
   const screen = render(
     <RouterWrappedComp>
-      {" "}
       <Header handleLogout={() => {}} />
     </RouterWrappedComp>
   );

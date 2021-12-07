@@ -2,11 +2,13 @@ import * as CUI from "@chakra-ui/react";
 import { HiOutlineChevronLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
+export type BreadCrumbItems = {
+  path: string;
+  name: string;
+}[];
+
 interface Props {
-  items: {
-    path: string;
-    name: string;
-  }[];
+  items: BreadCrumbItems;
   color: "inherit" | "white";
 }
 

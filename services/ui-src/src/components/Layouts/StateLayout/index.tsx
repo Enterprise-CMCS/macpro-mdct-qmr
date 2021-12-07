@@ -1,7 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { BreadCrumbItems } from "components";
 
-export const StateLayout: React.FC<any> = ({ children, breadcrumbItems }) => {
+interface Props {
+  breadcrumbItems: BreadCrumbItems;
+}
+
+export const StateLayout: React.FC<Props> = ({ children, breadcrumbItems }) => {
   const singleNavigationItem = breadcrumbItems.length === 1;
   return (
     <>
