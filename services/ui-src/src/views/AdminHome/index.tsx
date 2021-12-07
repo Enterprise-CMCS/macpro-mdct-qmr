@@ -1,6 +1,5 @@
 import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
 import { stateAbbreviations } from "utils/constants";
 import { useNavigate } from "react-router";
 import config from "config";
@@ -12,14 +11,18 @@ export const AdminHome = () => {
     <CUI.Container maxW="7xl" py="4">
       <CUI.Stack spacing="4" maxW="lg">
         <CUI.Heading size="md">Admin Home</CUI.Heading>
-        <QMR.Select
+        <CUI.Select
           value={locality}
           onChange={(e) => setLocality(e.target.value)}
-          options={stateAbbreviations.map((v: string) => ({
-            displayValue: v,
-            value: v,
-          }))}
-        />
+        >
+          {stateAbbreviations.map((v: string) => {
+            return (
+              <option value={v} key={v}>
+                {v}
+              </option>
+            );
+          })}
+        </CUI.Select>
         <CUI.Button
           colorScheme="blue"
           onClick={() =>

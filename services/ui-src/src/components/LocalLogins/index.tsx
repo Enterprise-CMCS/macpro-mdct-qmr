@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { stateAbbreviations } from "utils/constants";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
 import * as Libs from "libs";
 import { mockUsers } from "./mockUsers";
 
@@ -23,14 +22,18 @@ const LoginWithStateUser = () => {
 
   return (
     <CUI.Stack>
-      <QMR.Select
+      <CUI.Select
         value={locality}
         onChange={(e) => setLocality(e.target.value)}
-        options={stateAbbreviations.map((v: string) => ({
-          displayValue: v,
-          value: v,
-        }))}
-      />
+      >
+        {stateAbbreviations.map((v: string) => {
+          return (
+            <option value={v} key={v}>
+              {v}
+            </option>
+          );
+        })}
+      </CUI.Select>
       <CUI.Button
         colorScheme="blue"
         onClick={() => localLogin(Libs.Roles.stateUser)}

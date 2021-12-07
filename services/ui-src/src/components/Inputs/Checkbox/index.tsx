@@ -1,6 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-
+import { Control, useController, useFormContext } from "react-hook-form";
+import objectPath from "object-path";
 export interface CheckboxOption {
   displayValue: string;
   value: string | number;
@@ -8,32 +9,48 @@ export interface CheckboxOption {
 }
 
 interface CheckboxProps extends QMR.InputWrapperProps {
-  value: string[];
-  onChange: (nextValue: string[]) => void;
   options: CheckboxOption[];
   checkboxGroupProps?: CUI.CheckboxGroupProps;
+  name: string;
+  control: Control<any, object>;
 }
 
 export const Checkbox = ({
   options,
-  value,
-  onChange,
   checkboxGroupProps,
+  name,
+  control,
   ...rest
 }: CheckboxProps) => {
+  const { field } = useController({
+    name,
+    control,
+  });
+
+  const {
+    formState: { errors },
+  } = useFormContext();
+
   return (
-    <QMR.InputWrapper {...rest}>
+    <QMR.InputWrapper
+      isInvalid={!!objectPath.get(errors, name)?.message}
+      errorMessage={objectPath.get(errors, name)?.message}
+      {...rest}
+    >
       <CUI.CheckboxGroup
         size="lg"
-        value={value}
-        onChange={onChange}
+        value={field.value}
+        onChange={(newValue) => {
+          field.onChange(newValue);
+        }}
         {...checkboxGroupProps}
       >
         <CUI.Stack>
           {options.map((option) => {
-            const showChildren = !!value.find(
-              (valueToCheck) => valueToCheck === option.value
+            const showChildren = !!field.value?.find(
+              (valueToCheck: string) => valueToCheck === option.value
             );
+
             return (
               <CUI.Box key={option.displayValue}>
                 <CUI.Checkbox value={option.value}>
@@ -42,9 +59,11 @@ export const Checkbox = ({
                   </CUI.Text>
                 </CUI.Checkbox>
                 <CUI.Collapse in={showChildren} animateOpacity>
-                  <QMR.QuestionChild show={!!option.children?.length}>
-                    {option.children}
-                  </QMR.QuestionChild>
+                  {showChildren && (
+                    <QMR.QuestionChild show={!!option.children?.length}>
+                      {option.children}
+                    </QMR.QuestionChild>
+                  )}
                 </CUI.Collapse>
               </CUI.Box>
             );

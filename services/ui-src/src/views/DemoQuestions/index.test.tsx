@@ -15,9 +15,9 @@ jest.mock("react-router-dom", () => ({
 describe("Test Demo Questions Component", () => {
   it("renders a text area when question 2 is answered yes", async () => {
     render(<DemoQuestions />);
-    userEvent.click(screen.getByText("I am reporting provisional data."));
+    userEvent.click(screen.getByText("I am reporting provisional data"));
     expect(
-      screen.getByLabelText("I am reporting provisional data.")
+      screen.getByLabelText("I am reporting provisional data")
     ).toBeChecked();
     expect(
       await screen.findByLabelText(
