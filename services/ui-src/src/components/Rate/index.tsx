@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+
 export interface IRate {
   label?: string;
   numerator: string;
