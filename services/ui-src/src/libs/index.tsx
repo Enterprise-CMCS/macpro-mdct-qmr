@@ -6,6 +6,5 @@ export * from "./contextLib";
 export * from "./errorLib";
 export * from "./helpers";
 export * from "./hooksLib";
-export * from "./routeHelpers";
 export * from "./territoryLib";
 export * from "./user";

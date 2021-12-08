@@ -45,7 +45,7 @@ export function getLocalUserInfo() {
   return undefined;
 }
 
-export async function loginLocalUser(userInfo: IUser) {
+export async function loginLocalUser(userInfo: any) {
   const store = window.localStorage;
 
   store.setItem(userKey, JSON.stringify(userInfo));
@@ -54,14 +54,4 @@ export async function loginLocalUser(userInfo: IUser) {
 export async function logoutLocalUser() {
   const store = window.localStorage;
   store.removeItem(userKey);
-}
-
-export interface IUser {
-  username: string;
-  attributes: {
-    given_name: string;
-    family_name: string;
-    email: string;
-    "custom:cms_roles": string;
-  };
 }

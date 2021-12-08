@@ -1,9 +1,9 @@
 import * as Libs from "libs";
-import * as Bootstrap from "react-bootstrap";
+import * as CUI from "@chakra-ui/react";
 
 export function HelpSection(): JSX.Element {
   return (
-    <Bootstrap.Container className="mb-4" data-testid="help-section">
+    <CUI.Container data-testid="help-section">
       <h3>Do you have questions or need support?</h3>
       <div className="footer-fed-gov-text">
         For technical questions regarding use of this application, please reach
@@ -17,6 +17,6 @@ export function HelpSection(): JSX.Element {
           {Libs.qualityContact.email}
         </a>
       </div>
-    </Bootstrap.Container>
+    </CUI.Container>
   );
 }
