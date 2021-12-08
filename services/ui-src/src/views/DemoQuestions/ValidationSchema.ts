@@ -10,4 +10,5 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
       .max(10)
       .label("Additional Information"),
   }),
+  dataSource: Joi.any(),
 });
