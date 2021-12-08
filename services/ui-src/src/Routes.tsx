@@ -1,10 +1,8 @@
-import { Redirect, Route, Switch, useLocation } from "react-router-dom";
-import { RootStateOrAny, useSelector } from "react-redux";
-import { Location } from "history";
-import { Auth } from "aws-amplify";
-import { getRedirectRoute } from "libs";
-import { AuthenticatedRoute } from "components";
+import { Route, Routes } from "react-router-dom";
+import { CognitoUser } from "@aws-amplify/auth";
 import * as Views from "views";
+
+export type Params = "state" | "year" | "coreset" | "measure";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -17,109 +15,77 @@ import * as Views from "views";
 // } from "libs/awsLib";
 // import config from "config";
 
-export function Routes() {
-  const location = useLocation<Location>();
-  let redirectRoute = "/";
-  const isIntegrationBranch =
-    window.location.hostname.includes("cms.gov") ||
-    window.location.hostname.includes("d2s29j7v4rurz6.cloudfront.net") ||
-    window.location.hostname.includes("d3f1ohm9wse9tc.cloudfront.net");
+export const routes = [
+  {
+    component: Views.Home,
+    name: "Home",
+    path: "/",
+    exact: true,
+  },
+  {
+    component: Views.StateHome,
+    name: "State",
+    path: "/:state/:year",
+    exact: true,
+  },
+  {
+    component: Views.AdminHome,
+    name: "Admin Home",
+    path: "admin",
+    exact: true,
+  },
+  {
+    component: Views.AddChildCoreSet,
+    name: "Add Child Core Set",
+    path: "/:state/:year/add-child",
+    exact: true,
+  },
+  {
+    component: Views.AddHHCoreSet,
+    name: "Add Health Homes Set",
+    path: "/:state/:year/add-hh",
+    exact: true,
+  },
+  {
+    component: Views.CoreSet,
+    name: "Core Set",
+    path: "/:state/:year/:coreset/",
+    exact: true,
+  },
+  {
+    component: Views.DemoQuestions,
+    name: "Measure",
+    path: "/OH/2021/ACS/AIF-HH",
+    exact: true,
+  },
+  {
+    component: Views.Measure,
+    name: "Measure",
+    path: "/:state/:year/:coreset/:measure",
+    exact: true,
+  },
+  {
+    component: Views.DemoComponents,
+    name: "Components",
+    path: "components",
+    exact: true,
+  },
+  {
+    component: Views.NotFound,
+    name: "Not Found",
+    exact: false,
+    path: "*",
+  },
+];
 
-  const role = useSelector((state: RootStateOrAny) =>
-    state.user.attributes ? state.user.attributes["app-role"] : undefined
-  );
-  redirectRoute = redirectTo(role, isIntegrationBranch, location);
+export function AppRoutes({ user }: { user: CognitoUser }) {
   return (
     <main id="main-wrapper">
-      <Switch>
-        <Route exact path="/">
-          <Views.Home />
-        </Route>
-        <Route exact path="/home">
-          <Redirect to="/" />
-        </Route>
-        <Route exact path="/contactus">
-          <Views.ContactUs />
-        </Route>
-        <Route exact path="/login">
-          <Views.Login />
-        </Route>
-        <Route exact path="/components">
-          <Views.DemoComponents />
-        </Route>
-        <AuthenticatedRoutes />
-        <Route>
-          <Views.NotFound />
-        </Route>
-      </Switch>
-      <Redirect to={redirectRoute} />
+      <Routes>
+        {routes.map(({ name, component: Component, path }) => (
+          <Route key={name} path={path} element={<Component user={user} />} />
+        ))}
+      </Routes>
     </main>
-  );
-}
-
-function redirectTo(
-  role: string,
-  isIntegrationBranch: boolean,
-  location: Location
-) {
-  let redirectRoute = "/";
-  if (location.pathname === "/components") {
-    return "/components";
-  }
-  if (!role) {
-    if (isIntegrationBranch) {
-      const authConfig = Auth.configure();
-
-      if (authConfig?.oauth) {
-        const oAuthOpts = authConfig.oauth;
-        const domain = oAuthOpts.domain;
-        const responseType = oAuthOpts.responseType;
-        let redirectSignIn;
-
-        if ("redirectSignOut" in oAuthOpts) {
-          redirectSignIn = oAuthOpts.redirectSignOut;
-        }
-
-        const clientId = authConfig.userPoolWebClientId;
-        const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
-        window.location.assign(url);
-      }
-    } else {
-      redirectRoute = "/login";
-    }
-  } else {
-    redirectRoute = getRedirectRoute(role);
-  }
-  return redirectRoute;
-}
-
-function AuthenticatedRoutes() {
-  return (
-    <>
-      <AuthenticatedRoute exact path="/adminhome">
-        <Views.AdminHome />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/bohome">
-        <Views.BOHome />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/coreset">
-        <Views.CoreSet />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/measure">
-        <Views.Measure />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/statehome">
-        <Views.StateHome />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/usermanagement">
-        <Views.UserManagement />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/helpdesk">
-        <Views.HelpDesk />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute exact path="/profile">
-        <Views.Profile />
-      </AuthenticatedRoute>
-    </>
   );
 }

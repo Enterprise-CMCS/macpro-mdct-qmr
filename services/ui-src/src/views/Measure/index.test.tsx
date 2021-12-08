@@ -1,38 +1,13 @@
 import { Measure } from "./index";
 import { render } from "@testing-library/react";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import userReducer from "store/reducers/userReducer";
-import { BrowserRouter as Router } from "react-router-dom";
-import { ReduxStateInterface } from "components/LocalLogins/index.test";
-
-function renderWithProviders(
-  ui: React.ReactNode,
-  { reduxState }: ReduxStateInterface
-) {
-  const store = createStore(userReducer, reduxState || {});
-  return render(<Provider store={store}>{ui}</Provider>);
-}
+import { RouterWrappedComp } from "utils/testing";
 
 describe("Test measure.tsx", () => {
   test("Check that the measure renders", () => {
-    const result = renderWithProviders(
-      <Router>
+    const result = render(
+      <RouterWrappedComp>
         <Measure />
-      </Router>,
-      {
-        reduxState: {
-          user: {
-            username: "alice",
-            attributes: {
-              given_name: "Alice",
-              family_name: "Foo",
-              email: "alice@example.com",
-              "custom:cms_roles": "APPROVER",
-            },
-          },
-        },
-      }
+      </RouterWrappedComp>
     );
 
     expect(result.getByTestId("measure")).toBeVisible();

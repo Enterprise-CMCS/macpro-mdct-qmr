@@ -5,9 +5,7 @@ import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import config from "config";
-import { Provider } from "react-redux";
 import { ChakraProvider } from "@chakra-ui/react";
-import store from "store/index";
 import { theme } from "theme";
 
 Amplify.configure({
@@ -43,11 +41,9 @@ Amplify.configure({
 
 ReactDOM.render(
   <Router>
-    <Provider store={store}>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
-    </Provider>
+    <ChakraProvider theme={theme}>
+      <App />
+    </ChakraProvider>
   </Router>,
   document.getElementById("root")
 );

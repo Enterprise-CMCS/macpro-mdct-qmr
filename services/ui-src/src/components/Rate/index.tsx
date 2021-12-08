@@ -1,5 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
+import React from "react";
+import { useFormContext } from "react-hook-form";
 
 export interface IRate {
   label?: string;
@@ -9,22 +11,13 @@ export interface IRate {
   id: number;
 }
 
-type RateTypes = "numerator" | "denominator" | "rate";
-
 interface Props {
   rates: IRate[];
-  updateRates: React.Dispatch<React.SetStateAction<IRate[]>>;
+  name: string;
 }
 
-export function Rate({ rates, updateRates }: Props) {
-  const updateRate = (rateType: RateTypes, index: number, newValue: string) => {
-    const newRates = [...rates];
-    newRates[index][rateType] = newValue;
-    updateRates(newRates);
-  };
-
-  const regex = /^-?\d*\.?\d{0,4}$/;
-
+export const Rate = React.forwardRef<any, Props>(({ rates, name }, _ref) => {
+  const { register } = useFormContext();
   return (
     <>
       {rates.map((rate, index) => (
@@ -34,30 +27,15 @@ export function Rate({ rates, updateRates }: Props) {
           )}
           <CUI.HStack spacing={2}>
             <Inputs.NumberInput
-              value={rate.numerator}
-              onChange={(e) =>
-                regex.test(e.target.value)
-                  ? updateRate("numerator", index, e.target.value)
-                  : null
-              }
+              {...register(`${name}.${index}.numerator`)}
               label="Numerator"
             />
             <Inputs.NumberInput
-              value={rate.denominator}
-              onChange={(e) =>
-                regex.test(e.target.value)
-                  ? updateRate("denominator", index, e.target.value)
-                  : null
-              }
+              {...register(`${name}.${index}.denominator`)}
               label="Denominator"
             />
             <Inputs.NumberInput
-              value={rate.rate}
-              onChange={(e) =>
-                regex.test(e.target.value)
-                  ? updateRate("rate", index, e.target.value)
-                  : null
-              }
+              {...register(`${name}.${index}.rate`)}
               label="Rate"
             />
           </CUI.HStack>
@@ -65,4 +43,4 @@ export function Rate({ rates, updateRates }: Props) {
       ))}
     </>
   );
-}
+});
