@@ -99,7 +99,8 @@ resources:
         BucketEncryption:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
-                SSEAlgorithm: AES256
+                SSEAlgorithm: aws:kms
+                KMSMasterKeyID: ${ssm:/configuration/kms/s3attachmentkey~true}
         CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
@@ -124,6 +125,12 @@ resources:
         Bucket: !Ref AttachmentsBucket
         PolicyDocument:
           Statement:
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mpraccountid~true}
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"
