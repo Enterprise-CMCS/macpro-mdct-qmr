@@ -65,13 +65,18 @@
       "src/views/**/*.{ts,tsx}",
       "!src/components/CoreQuestions/index.tsx",
       "!src/components/index.tsx",
+      "!src/components/LocalLogins/index.tsx",
       "!src/components/Inputs/index.tsx",
       "!src/components/Table/types.ts",
+      "!src/components/Layouts/index.tsx",
       "!src/views/NewAmendment/index.tsx",
       "!src/views/Amendments/index.tsx",
       "!src/views/DemoComponents/index.tsx",
       "!src/views/Profile/index.tsx",
-      "!src/views/Login/index.tsx"
+      "!src/views/Login/index.tsx",
+      "!src/views/AddChildCoreSet/index.tsx",
+      "!src/views/AddHHCoreSet/index.tsx",
+      "!src/views/AdminHome/index.tsx"
     ],
     "moduleDirectories": [
       "node_modules",
