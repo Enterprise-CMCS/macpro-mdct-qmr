@@ -1,8 +1,15 @@
 import * as CUI from "@chakra-ui/react";
-import { BsThreeDotsVertical, BsCheck } from "react-icons/bs";
+import * as QMR from "components";
+import { BsCheck } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Measure, TableColumn } from "../types";
+
+const KebabMenuItems: QMR.IKebabMenuItem[] = [
+  { itemText: "Edit", itemIndex: 1 },
+  { itemText: "Export", itemIndex: 2 },
+  { itemText: "Clear Measure Entries", itemIndex: 3 },
+];
 
 // Get status string from measure data
 const getStatus = (data: Measure.Data): Measure.Status => {
@@ -131,10 +138,10 @@ export const measuresColumns: TableColumn<Measure.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: Measure.Data) => (
       <CUI.Box textAlign="center">
-        {/* we will update this when the actions comp is ready */}
-        <CUI.Button variant="ghost" onClick={() => console.log(data.actions)}>
-          <BsThreeDotsVertical />
-        </CUI.Button>
+        <QMR.KebabMenu
+          menuItems={KebabMenuItems}
+          handleItemClick={() => console.log(data.actions)}
+        />
       </CUI.Box>
     ),
   },

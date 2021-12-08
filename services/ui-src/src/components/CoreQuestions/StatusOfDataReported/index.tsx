@@ -1,22 +1,18 @@
 import { CoreQuestionWrapper } from "..";
 import * as QMR from "components/Inputs";
-
+import { useCustomRegister } from "hooks/useCustomRegister";
+import { DemoForm } from "views/DemoQuestions/DemoFormType";
 interface Props {
   options: QMR.RadioButtonOption[];
-  value?: string;
-  onChange: (v: string) => void;
 }
 
-export const StatusOfDataReported = ({
-  options,
-  onChange,
-  value = "",
-}: Props) => {
+export const StatusOfDataReported = ({ options }: Props) => {
   return (
     <CoreQuestionWrapper label="Status of Data Reported">
       <QMR.RadioButton
-        onChange={onChange}
-        value={value}
+        {...useCustomRegister<DemoForm.DemoFormType>(
+          "statusOfDataReporting.statusOfDataReporting"
+        )}
         options={options}
         label="What is the status of the data being reported?"
         formLabelProps={{ fontWeight: "bold" }}

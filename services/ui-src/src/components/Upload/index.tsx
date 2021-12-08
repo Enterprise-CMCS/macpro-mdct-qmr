@@ -1,21 +1,22 @@
-import React, { useCallback } from "react";
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
+import { Control, useController } from "react-hook-form";
 
 interface IUploadProps {
-  files: File[];
-  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
   maxSize?: number;
   label?: string;
   acceptedFileTypes?: string | string[];
+  control: Control<any, object>;
+  name: string;
 }
 
 export const Upload = ({
-  files,
-  setFiles,
   maxSize = 80000000,
   label,
+  name,
+  control,
   acceptedFileTypes = [
     ".pdf",
     ".doc",
@@ -26,11 +27,23 @@ export const Upload = ({
     ".png",
   ],
 }: IUploadProps) => {
-  const onDrop = useCallback(
+  const { field } = useController({
+    name,
+    control,
+    defaultValue: [],
+  });
+
+  const [acceptedFiles, setAcceptedFiles] = React.useState<File[]>([]);
+
+  React.useEffect(() => {
+    setAcceptedFiles([...field.value]);
+  }, [field.value]);
+
+  const onDrop = React.useCallback(
     (acceptedFiles: File[]) => {
-      setFiles([...files, ...acceptedFiles]);
+      field.onChange([...field.value, ...acceptedFiles]);
     },
-    [files, setFiles]
+    [field]
   );
 
   const convertFileSize = (fileSize: number) => {
@@ -42,10 +55,11 @@ export const Upload = ({
   };
 
   const clearFile = (fileIndexToClear: number) => {
-    const filteredArray = files.filter(
+    const arrayToFilter = field.value as File[];
+    const filteredArray = arrayToFilter.filter(
       (_, index) => index !== fileIndexToClear
     );
-    setFiles(filteredArray);
+    field.onChange(filteredArray);
   };
 
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
@@ -99,7 +113,7 @@ export const Upload = ({
           </CUI.AlertTitle>
         </CUI.Alert>
       ))}
-      {files.map((file, index) => (
+      {acceptedFiles.map((file, index) => (
         <CUI.HStack
           key={`${index}-${file.name}`}
           background="blue.50"

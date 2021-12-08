@@ -1,15 +1,15 @@
 import { render } from "@testing-library/react";
 import { Header } from "components";
-
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useSelector: jest.fn().mockReturnValueOnce({ isAuthenticated: true }),
-}));
+import { RouterWrappedComp } from "utils/testing";
 
 describe("Test Header.tsx", () => {
-  const screen = render(<Header handleLogout={() => {}} />);
+  const screen = render(
+    <RouterWrappedComp>
+      <Header handleLogout={() => {}} />
+    </RouterWrappedComp>
+  );
 
   test("Check that the header exists", () => {
-    expect(screen.getByText("My Account")).toBeVisible();
+    expect(screen.getByText("Logout")).toBeVisible();
   });
 });
