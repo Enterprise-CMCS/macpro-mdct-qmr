@@ -5,6 +5,7 @@ import { Rate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
 import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
+import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { ContainedButton } from "components/ContainedButton";
@@ -68,6 +69,14 @@ const DemoComponentsForm = () => {
       id: 5,
     },
   ];
+
+  const KebabMenuItems: IKebabMenuItem[] = [
+    { itemText: "Edit", itemIndex: 1 },
+    { itemText: "Export", itemIndex: 2 },
+    { itemText: "Clear Measure Entries", itemIndex: 3 },
+  ];
+  const kebabMenuItemClick = (itemIndex: number) =>
+    alert(`You have selected item # ${itemIndex}`);
 
   const validateData = (data: any) => {
     console.log(data);
@@ -326,6 +335,16 @@ const DemoComponentsForm = () => {
                 onClick={() => console.log("contained button 7")}
               />
             </CUI.HStack>
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Kebab Menu
+            </CUI.Heading>
+            <CUI.Box m={3}>
+              <KebabMenu
+                menuItems={KebabMenuItems}
+                handleItemClick={kebabMenuItemClick}
+              />
+            </CUI.Box>
           </CUI.Stack>
           <CUI.Divider mt={5} />
         </CUI.Container>
