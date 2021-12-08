@@ -96,11 +96,11 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub ${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          - ServerSideEncryptionByDefault:
-              SSEAlgorithm: aws:kms
-              KMSMasterKeyID: ${ssm:/configuration/kms/s3attachmentkey~true}
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: aws:kms
+                KMSMasterKeyID: ${ssm:/configuration/kms/s3attachmentkey~true}
         CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
