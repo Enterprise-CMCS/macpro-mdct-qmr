@@ -4,20 +4,20 @@ import { stateAbbreviations } from "utils/constants";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
 import * as Libs from "libs";
-import { mockUsers } from "./mockUsers";
+import { createMockUser } from "./mockUsers";
 
-const LoginWithStateUser = () => {
+const LocalLogin = () => {
   const [locality, setLocality] = useState("AL");
   const navigate = useNavigate();
   function localLogin(role: Libs.Roles) {
-    Libs.loginLocalUser({
-      ...mockUsers[role],
-      attributes: {
-        state: locality,
-      },
-    });
-
-    navigate(`/${locality}/${config.currentReportingYear}`);
+    const localUser = createMockUser({ role, state: locality });
+    Libs.loginLocalUser(localUser);
+    switch (role) {
+      case Libs.Roles.stateUser:
+        return navigate(`/${locality}/${config.currentReportingYear}`);
+      case Libs.Roles.adminUser:
+        return navigate(`/admin`);
+    }
   }
 
   return (
@@ -41,6 +41,14 @@ const LoginWithStateUser = () => {
       >
         Login as State User
       </CUI.Button>
+      <CUI.Divider />
+      <CUI.Button
+        colorScheme="blue"
+        onClick={() => localLogin(Libs.Roles.adminUser)}
+        isFullWidth
+      >
+        Login as Admin User
+      </CUI.Button>
     </CUI.Stack>
   );
 };
@@ -63,7 +71,7 @@ export const LocalLogins = ({ loginWithIDM }: Props) => {
             Login with IDM
           </CUI.Button>
         )}
-        <LoginWithStateUser />
+        <LocalLogin />
       </CUI.Stack>
     </CUI.Container>
   );

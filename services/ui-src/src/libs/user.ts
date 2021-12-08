@@ -1,5 +1,4 @@
 import { Auth } from "aws-amplify";
-import { CognitoUser } from "@aws-amplify/auth";
 import config from "config";
 
 const userKey = "userKey";
@@ -46,7 +45,7 @@ export function getLocalUserInfo() {
   return undefined;
 }
 
-export async function loginLocalUser(userInfo: CognitoUser) {
+export async function loginLocalUser(userInfo: any) {
   const store = window.localStorage;
 
   store.setItem(userKey, JSON.stringify(userInfo));

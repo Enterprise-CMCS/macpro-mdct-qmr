@@ -17,4 +17,5 @@ export const determineRole = (specRole: Array<string> = []): string => {
 
 export enum Roles {
   stateUser = "STATE_USER",
+  adminUser = "ADMIN_USER",
 }
