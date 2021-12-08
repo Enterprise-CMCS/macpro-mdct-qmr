@@ -1,16 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import * as CoreQs from "components/CoreQuestions";
-import * as QMR from "components/Inputs";
-import { useParams } from "react-router-dom";
-import { Params } from "Routes";
+import * as QMR from "components";
 import { useForm, FormProvider } from "react-hook-form";
 import { DemoForm } from "views/DemoQuestions/DemoFormType";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "./ValidationSchema";
 
 export const DemoQuestions = () => {
-  const { year, measure } = useParams<Params>();
-
   const methods = useForm<DemoForm.DemoFormType>({
     shouldUnregister: true,
     mode: "all",
@@ -18,18 +14,24 @@ export const DemoQuestions = () => {
   });
   const { register } = methods;
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
-        <CUI.Container maxW="2xl">
-          <CUI.OrderedList>
+    <QMR.StateLayout
+      breadcrumbItems={[
+        { path: `/OH/2021`, name: `FFY 2021` },
+        { path: `/OH/2021/ACS`, name: `Adult` },
+        { path: `/OH/2021/ACS/AIF-HH`, name: `DQT-AD: Demo Questions` },
+      ]}
+    >
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+          <CUI.Container maxW="2xl">
             <CoreQs.AreYouReporting
               options={[
                 {
-                  displayValue: `Yes, I am reporting Admission to an Institution from the Community (${measure}) for FFY ${year} quality measure reporting.`,
+                  displayValue: `Yes, I am reporting Admission to an Institution from the Community (AIF-HH) for FFY 2021 quality params.measure reporting.`,
                   value: "Yes, I am reporting",
                 },
                 {
-                  displayValue: `No, I am not reporting Admission to an Institution from the Community (${measure}) for FFY ${year} quality measure reporting.`,
+                  displayValue: `No, I am not reporting Admission to an Institution from the Community (AIF-HH) for FFY 2021 quality measure reporting.`,
                   value: "No, I am not reporting",
                 },
               ]}
@@ -59,10 +61,10 @@ export const DemoQuestions = () => {
                 },
               ]}
             />
-          </CUI.OrderedList>
-          <button>Submit</button>
-        </CUI.Container>
-      </form>
-    </FormProvider>
+            <button>Submit</button>
+          </CUI.Container>
+        </form>
+      </FormProvider>
+    </QMR.StateLayout>
   );
 };
