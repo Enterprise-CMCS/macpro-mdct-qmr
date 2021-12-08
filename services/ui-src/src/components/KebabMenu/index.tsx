@@ -20,7 +20,7 @@ export const KebabMenu = ({ menuItems, handleItemClick }: KebabMenuProps) => {
       <CUI.MenuButton aria-label="Action Menu">
         <BsThreeDotsVertical />
       </CUI.MenuButton>
-      <CUI.MenuList bg="blue.500" maxW="40px">
+      <CUI.MenuList bg="blue.500" maxW="40px" p="0">
         {menuItems.map((i) => (
           <KebabMenuItem
             itemText={i.itemText}

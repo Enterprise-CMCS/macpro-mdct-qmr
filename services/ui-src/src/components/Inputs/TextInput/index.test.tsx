@@ -1,52 +1,34 @@
 import { render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { TextInput } from "components";
+import { TestWrapper } from "components/TestWrapper";
+import { useForm } from "react-hook-form";
+
+const TestComponent = () => {
+  const { register, setValue } = useForm();
+  setValue("test-component", "test");
+
+  return (
+    <TestWrapper>
+      <TextInput
+        label="label"
+        helperText="helper"
+        {...register("test-component")}
+      />
+    </TestWrapper>
+  );
+};
 
 describe("Test for TextInput Component", () => {
   it("Renders properly", () => {
-    const { getByLabelText } = render(
-      <TextInput label="Test Label" value="" onChange={() => {}} />
-    );
+    const { getByLabelText } = render(<TestComponent />);
 
-    expect(getByLabelText(/test label/i)).toBeDefined();
-  });
-
-  it("Calls on change method when text changes", () => {
-    const mockOnChange = jest.fn();
-
-    const { getByLabelText } = render(
-      <TextInput label="Test Label" value="" onChange={mockOnChange} />
-    );
-
-    userEvent.type(getByLabelText(/test label/i), "Hello");
-
-    expect(mockOnChange).toHaveBeenCalled();
+    expect(getByLabelText(/label/i)).toBeInTheDocument();
   });
 
   it("renders label and helper text correctly", () => {
-    const { getByText } = render(
-      <TextInput
-        value=""
-        label="label"
-        helperText="helper"
-        onChange={() => {}}
-      />
-    );
+    const { getByText } = render(<TestComponent />);
 
-    expect(getByText("label")).toBeVisible();
-    expect(getByText("helper")).toBeVisible();
-  });
-
-  it("displays error message when invalid", () => {
-    const { getByText } = render(
-      <TextInput
-        value=""
-        onChange={() => {}}
-        errorMessage="there is an error"
-        isInvalidFunc={() => true}
-      />
-    );
-
-    expect(getByText(/there is an error/i)).toBeVisible();
+    expect(getByText("label")).toBeInTheDocument();
+    expect(getByText("helper")).toBeInTheDocument();
   });
 });

@@ -1,5 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { Control, useController, useFormContext } from "react-hook-form";
+import objectPath from "object-path";
 
 export interface RadioButtonOption {
   displayValue: string;
@@ -8,47 +10,61 @@ export interface RadioButtonOption {
 }
 
 interface RadioButtonProps extends QMR.InputWrapperProps {
-  value: string;
-  onChange: (nextValue: string) => void;
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
+  name: string;
+  control: Control<any, object>;
 }
 
 export const RadioButton = ({
   options,
-  value,
-  onChange,
-  isInvalidFunc,
   radioGroupProps,
+  name,
+  control,
   ...rest
 }: RadioButtonProps) => {
-  let isInvalid = false;
-  if (isInvalidFunc) {
-    isInvalid = isInvalidFunc(value);
-  }
+  const { field } = useController({
+    name,
+    control,
+  });
+
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   return (
-    <QMR.InputWrapper isInvalid={isInvalid} {...rest}>
+    <QMR.InputWrapper
+      isInvalid={!!objectPath.get(errors, name)?.message}
+      errorMessage={objectPath.get(errors, name)?.message}
+      {...rest}
+    >
       <CUI.RadioGroup
+        name={field.name}
+        ref={field.ref}
         size="lg"
-        value={value}
-        onChange={onChange}
+        value={field.value}
+        onBlur={field.onBlur}
+        onChange={(newValue) => {
+          field.onChange(newValue);
+        }}
         {...radioGroupProps}
       >
         <CUI.Stack>
           {options.map((option) => {
-            const showChildren = option.value === value;
+            const showChildren = option.value === field.value;
             return (
               <CUI.Box key={option.displayValue}>
-                <CUI.Radio value={option.value} key={value}>
+                <CUI.Radio value={option.value} key={option.value}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>
                 </CUI.Radio>
                 <CUI.Collapse in={showChildren} animateOpacity>
-                  <QMR.QuestionChild show={!!option.children?.length}>
-                    {option.children}
-                  </QMR.QuestionChild>
+                  {showChildren && (
+                    <QMR.QuestionChild show={!!option.children?.length}>
+                      {option.children}
+                    </QMR.QuestionChild>
+                  )}
                 </CUI.Collapse>
               </CUI.Box>
             );
