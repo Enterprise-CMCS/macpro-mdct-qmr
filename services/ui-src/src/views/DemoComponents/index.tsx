@@ -3,7 +3,6 @@ import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
 import { Rate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
-import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
 import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -223,19 +222,12 @@ const DemoComponentsForm = () => {
               DatePicker
             </CUI.Heading>
             <CUI.Text size="sm">Normal Month Picker</CUI.Text>
-            <MonthPicker
-              onChange={(m, y) => {
-                console.log(m, y);
-              }}
-            />
+            <QMR.MonthPicker />
             <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
-            <MonthPicker
-              selectedMonth={3}
-              selectedYear={2019}
+            <QMR.MonthPicker
+              selectedMonth={"3"}
+              selectedYear={"2019"}
               yearLocked={true}
-              onChange={(m, y) => {
-                console.log(m, y);
-              }}
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
