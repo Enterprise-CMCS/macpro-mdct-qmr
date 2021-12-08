@@ -2,15 +2,15 @@ import * as CUI from "@chakra-ui/react";
 import * as CoreQs from "components/CoreQuestions";
 import * as QMR from "components";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import { DemoForm } from "views/DemoQuestions/DemoFormType";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "./ValidationSchema";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
 export const DemoQuestions = () => {
-  const methods = useFormContext<DemoForm.DemoFormType>();
+  const methods = useFormContext();
   const { register, watch } = methods;
-  const watchAdminOtherDescription = watch("dataSource") || undefined;
+  const watchAdminOtherDescription =
+    watch("dataSource.adminData.other.dataSource") || "";
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -64,7 +64,7 @@ export const DemoQuestions = () => {
               value: "I am reporting provisional data",
               children: [
                 <QMR.Checkbox
-                  {...useCustomRegister("dataSource.adminData")}
+                  {...useCustomRegister("dataSource.adminData.answer")}
                   options={[
                     {
                       displayValue:
@@ -77,11 +77,11 @@ export const DemoQuestions = () => {
                       children: [
                         <QMR.TextInput
                           label="Describe the data:"
-                          {...register("dataSource.adminData.other")}
+                          {...register("dataSource.adminData.other.dataSource")}
                         />,
                         <QMR.TextArea
-                          label={JSON.stringify(watchAdminOtherDescription)}
-                          {...register("dataSource.adminData.other.desc")}
+                          label={`Administrative Data Source: ${watchAdminOtherDescription}`}
+                          {...register("dataSource.adminData.other.explain")}
                         />,
                       ],
                     },
