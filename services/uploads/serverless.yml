@@ -130,7 +130,7 @@ resources:
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
               Principal:
-                AWS: "244069847138"
+                AWS: ${ssm:/configuration/mpraccountid~true}
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"
