@@ -4,6 +4,11 @@
 rm -rf ./public/env-config.js
 touch ./public/env-config.js
 
+# if .env doesn't exist, copy .env_example there
+if [ ! -f .env ]; then 
+	cp .env_example .env
+fi
+
 # Add assignment
 echo "window._env_ = {" >> ./public/env-config.js
 
