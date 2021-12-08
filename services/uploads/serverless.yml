@@ -126,6 +126,13 @@ resources:
         PolicyDocument:
           Statement:
             - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}
+              Principal:
+                AWS: ${ssm:/configuration/mpraccountid~true}
+            - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
