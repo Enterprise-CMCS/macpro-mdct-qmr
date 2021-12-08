@@ -1,32 +1,34 @@
 import { render } from "@testing-library/react";
 import { TextArea } from "components";
+import { TestWrapper } from "components/TestWrapper";
+import { useForm } from "react-hook-form";
+
+const TestComponent = () => {
+  const { register, setValue } = useForm();
+  setValue("test-component", "test");
+
+  return (
+    <TestWrapper>
+      <TextArea
+        label="label"
+        helperText="helper"
+        {...register("test-component")}
+      />
+    </TestWrapper>
+  );
+};
 
 describe("Test the TextArea component", () => {
   test("Check that component renders", () => {
-    const { getByText } = render(<TextArea value="test" onChange={() => {}} />);
+    const screen = render(<TestComponent />);
 
-    expect(getByText("test")).toBeVisible();
+    expect(screen.getByDisplayValue("test")).toBeInTheDocument();
   });
 
   test("Check that label and helper texts get rendered correctly", () => {
-    const { getByText } = render(
-      <TextArea
-        value=""
-        label="label"
-        helperText="helper"
-        onChange={() => {}}
-      />
-    );
+    const { getByText } = render(<TestComponent />);
 
-    expect(getByText("label")).toBeVisible();
-    expect(getByText("helper")).toBeVisible();
-  });
-
-  test("Check that we can set the textarea to an error/invalid state", () => {
-    const { getByText } = render(
-      <TextArea value="" isInvalidFunc={() => true} onChange={() => {}} />
-    );
-
-    expect(getByText(/An Error Occured/i)).toBeVisible();
+    expect(getByText("label")).toBeInTheDocument();
+    expect(getByText("helper")).toBeInTheDocument();
   });
 });

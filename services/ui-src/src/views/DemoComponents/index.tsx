@@ -1,13 +1,17 @@
-import React, { useState } from "react";
 import * as Inputs from "components/Inputs";
 import * as QMR from "components/";
 import * as CUI from "@chakra-ui/react";
-import { Rate, IRate } from "components/Rate";
+import { Rate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
 import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
 import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { useCustomRegister } from "hooks/useCustomRegister";
 import { ContainedButton } from "components/ContainedButton";
+import React from "react";
+import { DemoValidationSchema } from "./ValidationSchema";
+import { joiResolver } from "@hookform/resolvers/joi";
 
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
@@ -16,25 +20,33 @@ const selectOptions = [
 ];
 
 export function DemoComponents(): JSX.Element {
-  const [numberInputValue2, setNumberInputValue2] = React.useState("");
-  const [textAreaValue, setTextAreaValue] = React.useState("");
-  const [radioButtonValue, setRadioButtonValue] = React.useState("");
-  const [textInputValue, setTextInputValue] = React.useState("");
-  const [selectInputValue, setInputValue] = React.useState("");
-  const [numberInputValue, setNumberInputValue] = React.useState("");
-  const [rateDescriptionValue, setRateDescriptionValue] = React.useState("");
-  const [rates, setRates] = React.useState<IRate[]>([
+  const methods = useForm({
+    shouldUnregister: true,
+    mode: "all",
+    resolver: joiResolver(DemoValidationSchema),
+  });
+
+  return (
+    <FormProvider {...methods}>
+      <DemoComponentsForm />
+    </FormProvider>
+  );
+}
+
+const DemoComponentsForm = () => {
+  const [progressCircleValue, setProgressCircle] = React.useState(5);
+
+  const { register, handleSubmit } = useFormContext();
+  const rates = [
     {
       denominator: "",
       numerator: "",
       rate: "",
       id: 1,
     },
-  ]);
+  ];
 
-  const [rateDescriptionValueTwo, setRateDescriptionValueTwo] =
-    React.useState("");
-  const [ratesTwo, setRatesTwo] = React.useState<IRate[]>([
+  const ratesTwo = [
     {
       label: "Test Label For Section",
       denominator: "",
@@ -56,17 +68,8 @@ export function DemoComponents(): JSX.Element {
       rate: "",
       id: 5,
     },
-  ]);
+  ];
 
-  const [files, setFiles] = useState<File[]>([
-    new File([JSON.stringify({ ping: true })], "ping.json", {
-      type: "application/json",
-    }),
-  ]);
-  const [files2, setFiles2] = useState<File[]>([]);
-
-  const [checkboxData, setCheckboxData] = React.useState<string[]>([]);
-  const [checkboxInput, setCheckboxInput] = React.useState("");
   const KebabMenuItems: IKebabMenuItem[] = [
     { itemText: "Edit", itemIndex: 1 },
     { itemText: "Export", itemIndex: 2 },
@@ -75,10 +78,18 @@ export function DemoComponents(): JSX.Element {
   const kebabMenuItemClick = (itemIndex: number) =>
     alert(`You have selected item # ${itemIndex}`);
 
+  const validateData = (data: any) => {
+    console.log(data);
+
+    console.log(DemoValidationSchema.validate(data));
+  };
+
   return (
-    <>
-      <CUI.Container mb="6">
-        <form>
+    <QMR.StateLayout
+      breadcrumbItems={[{ path: `/components`, name: "Demo Components" }]}
+    >
+      <form onSubmit={handleSubmit((data: any) => validateData(data))}>
+        <CUI.Container mb="6">
           <CUI.Stack spacing="4">
             <CUI.Heading size="md">Components</CUI.Heading>
             <CUI.Divider />
@@ -86,23 +97,19 @@ export function DemoComponents(): JSX.Element {
               Text Area
             </CUI.Heading>
             <Inputs.TextArea
-              isInvalidFunc={(value) => String(value)?.length > 3000}
+              {...register("demoTextArea")}
               placeholder="test"
-              value={textAreaValue}
-              onChange={(e) => setTextAreaValue(e.target.value)}
               label="test text area"
               helperText="put in something here"
-              errorMessage="Response cannot exceed 3000 characters"
+              renderHelperTextAbove
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Radio Button
             </CUI.Heading>
             <Inputs.RadioButton
+              {...useCustomRegister("demoRadioButton")}
               label="hello world"
-              onChange={setRadioButtonValue}
-              value={radioButtonValue}
-              errorMessage=""
               options={[
                 { displayValue: "test1", value: "test1" },
                 { displayValue: "test2", value: "test2" },
@@ -114,9 +121,7 @@ export function DemoComponents(): JSX.Element {
             </CUI.Heading>
             <Inputs.TextInput
               label="Label for Text Input"
-              value={textInputValue}
-              onChange={(e) => setTextInputValue(e.target.value)}
-              isInvalidFunc={(value) => String(value).length > 3}
+              {...register("demoTextInput")}
               helperText="Your text can't exceed 3 characters"
               errorMessage="Text is too long"
             />
@@ -125,38 +130,26 @@ export function DemoComponents(): JSX.Element {
               Select Input
             </CUI.Heading>
             <Inputs.Select
-              value={selectInputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              {...useCustomRegister("demoSelect")}
               placeholder="Select option"
               options={selectOptions}
               helperText="pick something please"
               label="this is a select (drop down) input"
-              isInvalidFunc={(v) => v === "invalid"}
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Number Input With Mask
             </CUI.Heading>
             <Inputs.NumberInput
+              {...register("demoNumberInput1")}
               placeholder="123"
-              value={numberInputValue}
-              onChange={(e) =>
-                /^-{0,1}\d*\.?\d{0,4}$/.test(e.target.value)
-                  ? setNumberInputValue(e.target.value)
-                  : null
-              }
               label="This number input is a percent and allows decimals"
               helperText="Enter a number"
               displayPercent={true}
             />
             <Inputs.NumberInput
+              {...register("demoNumberInput2")}
               placeholder="123"
-              value={numberInputValue2}
-              onChange={(e) =>
-                /^-{0,1}\d*$/.test(e.target.value)
-                  ? setNumberInputValue2(e.target.value)
-                  : null
-              }
               label="This number input only allows integers"
               helperText="Enter a number"
             />
@@ -170,11 +163,9 @@ export function DemoComponents(): JSX.Element {
               helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
               errorMessage="Text is too long"
               formLabelProps={{ fontWeight: 600 }}
-              value={rateDescriptionValue}
-              onChange={(e) => setRateDescriptionValue(e.target.value)}
-              isInvalidFunc={(value) => String(value).length > 3000}
+              {...register("demoRateTextInput1")}
             />
-            <Rate rates={rates} updateRates={setRates} />
+            <Rate rates={rates} {...register("demoRate1")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Rate With Multiple Numerator/Denominator/Rate
@@ -185,31 +176,28 @@ export function DemoComponents(): JSX.Element {
               helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
               errorMessage="Text is too long"
               formLabelProps={{ fontWeight: 700 }}
-              value={rateDescriptionValueTwo}
-              onChange={(e) => setRateDescriptionValueTwo(e.target.value)}
-              isInvalidFunc={(value) => String(value).length > 3000}
+              {...register("demoRateTextInput2")}
             />
-            <Rate rates={ratesTwo} updateRates={setRatesTwo} />
+            <Rate rates={ratesTwo} {...register("demoRate2")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Upload Control
             </CUI.Heading>
             <Upload
-              files={files}
-              setFiles={setFiles}
               label="Sample label for an upload control"
+              {...useCustomRegister("testUpload1")}
             />
             <Upload
-              maxSize={1024}
-              files={files2}
-              setFiles={setFiles2}
+              maxSize={1000}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
+              {...useCustomRegister("testUpload2")}
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Checkbox
             </CUI.Heading>
             <Inputs.Checkbox
+              {...useCustomRegister("testCheckbox")}
               options={[
                 {
                   displayValue: "Medicaid Management Information System (MMIS)",
@@ -222,14 +210,11 @@ export function DemoComponents(): JSX.Element {
                     <Inputs.TextInput
                       label="Describe the data source:"
                       key="other-describe-data"
-                      value={checkboxInput}
-                      onChange={(e) => setCheckboxInput(e.target.value)}
+                      {...register("demoCheckboxTextInput")}
                     />,
                   ],
                 },
               ]}
-              onChange={setCheckboxData}
-              value={checkboxData}
               formLabelProps={{ fontWeight: 700 }}
               label="What is the Adminstrative Data Source?"
             />
@@ -256,6 +241,7 @@ export function DemoComponents(): JSX.Element {
             <CUI.Heading size="sm" as="h3">
               Contained Buttons
             </CUI.Heading>
+
             <CUI.HStack>
               <ContainedButton
                 disabledStatus={true}
@@ -328,63 +314,101 @@ export function DemoComponents(): JSX.Element {
                 onClick={() => console.log("contained button 6")}
               />
             </CUI.HStack>
-
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Contained Buttons With Helper Text
             </CUI.Heading>
+            <CUI.HStack justifyContent="left">
+              <ContainedButton
+                buttonText={"+ Add Another"}
+                buttonProps={{
+                  variant: "outline",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                helperText={"Helper Text"}
+                helperTextProps={{
+                  fontSize: "sm",
+                  lineHeight: "1rem",
+                  mt: "1",
+                }}
+                onClick={() => console.log("contained button 7")}
+              />
+            </CUI.HStack>
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Kebab Menu
+            </CUI.Heading>
+            <CUI.Box m={3}>
+              <KebabMenu
+                menuItems={KebabMenuItems}
+                handleItemClick={kebabMenuItemClick}
+              />
+            </CUI.Box>
+          </CUI.Stack>
+          <CUI.Divider mt={5} />
+        </CUI.Container>
+        <CUI.Container maxW="7xl" overflowX="scroll">
+          <CUI.Heading size="sm" as="h3">
+            Core Sets Table
+          </CUI.Heading>
+          <QMR.Table
+            data={QMR.exampleCoreSetData}
+            columns={QMR.coreSetColumns}
+          />
+          <CUI.Heading size="sm" as="h3">
+            Measures Table
+          </CUI.Heading>
+          <QMR.Table
+            data={QMR.exampleMeasuresData}
+            columns={QMR.measuresColumns}
+          />
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Progress Circle
+          </CUI.Heading>
+          <CUI.HStack>
+            <ProgressCircle
+              currentProgress={progressCircleValue}
+              maxValue={23}
+              circularProgressProps={{
+                color: "green.600",
+                size: "8rem",
+              }}
+              circularProgressLabelProps={{
+                fontSize: "1.5rem",
+              }}
+            />
             <ContainedButton
-              buttonText={"+ Add Another"}
+              buttonText={`Decrease Counter`}
               buttonProps={{
                 variant: "outline",
                 colorScheme: "blue",
                 textTransform: "capitalize",
               }}
-              helperText={"Helper Text"}
-              helperTextProps={{ fontSize: "sm", lineHeight: "1rem", mt: "1" }}
-              onClick={() => console.log("contained button 7")}
+              onClick={() => setProgressCircle(progressCircleValue - 1 || 1)}
             />
-          </CUI.Stack>
-        </form>
-      </CUI.Container>
-      <CUI.Container maxW="7xl" overflowX="scroll">
-        <CUI.Heading size="sm" as="h3">
-          Core Sets Table
-        </CUI.Heading>
-        <QMR.Table data={QMR.exampleCoreSetData} columns={QMR.coreSetColumns} />
-        <CUI.Heading size="sm" as="h3">
-          Measures Table
-        </CUI.Heading>
-        <QMR.Table
-          data={QMR.exampleMeasuresData}
-          columns={QMR.measuresColumns}
-        />
-        <CUI.Divider />
-        <CUI.Heading size="sm" as="h3">
-          Progress Circle
-        </CUI.Heading>
-        <ProgressCircle
-          currentProgress={5}
-          maxValue={23}
-          circularProgressProps={{
-            color: "green.600",
-            size: "8rem",
-          }}
-          circularProgressLabelProps={{
-            fontSize: "1.5rem",
-          }}
-        />
-        <CUI.Divider />
-        <CUI.Heading size="sm" as="h3">
-          Kebab Menu
-        </CUI.Heading>
-        <CUI.Box m={3}>
-          <KebabMenu
-            menuItems={KebabMenuItems}
-            handleItemClick={kebabMenuItemClick}
-          />
-        </CUI.Box>
-      </CUI.Container>
-    </>
+
+            <ContainedButton
+              buttonText={`Increase Counter`}
+              icon="plus"
+              buttonProps={{
+                colorScheme: "blue",
+                textTransform: "capitalize",
+              }}
+              onClick={() => {
+                let valueToDisplay = 23;
+                if (progressCircleValue + 1 < 23) {
+                  valueToDisplay = progressCircleValue + 1;
+                }
+
+                setProgressCircle(valueToDisplay);
+              }}
+            />
+          </CUI.HStack>
+        </CUI.Container>
+        <button>Submit</button>
+      </form>
+    </QMR.StateLayout>
   );
-}
+};

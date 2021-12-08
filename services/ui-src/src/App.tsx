@@ -1,78 +1,84 @@
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useEffect, useState, useCallback } from "react";
 import { Auth } from "aws-amplify";
-import { setUser, unsetUser } from "store/actions/userActions";
-import { Routes } from "./Routes";
+import { CognitoUser } from "@aws-amplify/auth";
+import { AppRoutes } from "./Routes";
 import * as QMR from "components";
-import * as Libs from "./libs";
+import { LocalLogins } from "components";
+import { useLocation, useNavigate } from "react-router-dom";
+import * as Libs from "libs";
 
-function App(): JSX.Element | null {
-  const dispatch = useDispatch();
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [isAuthenticated, userHasAuthenticated] = useState<boolean>(false);
-  const history = useHistory();
+const authenticateWithIDM = () => {
+  const authConfig = Auth.configure();
+  if (authConfig?.oauth) {
+    const oAuthOpts = authConfig.oauth;
+    const domain = oAuthOpts.domain;
+    const responseType = oAuthOpts.responseType;
+    let redirectSignIn;
 
-  useEffect(() => {
-    (async () => {
-      let user;
-      try {
-        user = await Auth.currentAuthenticatedUser();
-      } catch {
-        setIsAuthenticating(false);
+    if ("redirectSignOut" in oAuthOpts) {
+      redirectSignIn = oAuthOpts.redirectSignOut;
+    }
+
+    const clientId = authConfig.userPoolWebClientId;
+    const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
+    window.location.assign(url);
+  }
+};
+
+const App = () => {
+  const isIntegrationBranch = window.location.origin.includes("cms.gov");
+  const [user, setUser] = useState<CognitoUser | null>(null);
+  const [showlocalLogins, setShowLocalLogins] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const checkAuthState = useCallback(async () => {
+    try {
+      const authenticatedUser = await Auth.currentAuthenticatedUser();
+      setUser(authenticatedUser);
+    } catch (e) {
+      if (isIntegrationBranch) {
+        authenticateWithIDM();
+      } else {
+        const localUser = Libs.getLocalUserInfo();
+        if (localUser) {
+          setUser(localUser);
+        } else {
+          setShowLocalLogins(true);
+        }
       }
-      if (user) {
-        const cmsRoleAttribute =
-          user?.attributes ?? user?.signInUserSession?.idToken?.payload;
-        if (!user.attributes) user.attributes = {};
-        // *** make sure attributes exist and are in standard format
-        user.attributes["app-role"] = Libs.determineRole(
-          cmsRoleAttribute ? cmsRoleAttribute["custom:cms_roles"] : ""
-        );
-        dispatch(setUser(user));
-        setIsAuthenticating(false);
-        userHasAuthenticated(true);
-      }
-      setIsAuthenticating(false);
-    })();
-  }, [dispatch]);
+    }
+  }, [isIntegrationBranch]);
 
   async function handleLogout() {
-    dispatch(unsetUser());
-    userHasAuthenticated(false);
-    Libs.logoutLocalUser();
     try {
+      Libs.logoutLocalUser();
+      setUser(null);
       await Auth.signOut();
-      const oAuthOpts = Auth.configure()?.oauth;
-
-      if (oAuthOpts && "redirectSignOut" in oAuthOpts) {
-        window.location.href = oAuthOpts.redirectSignOut;
-      }
     } catch (error) {
       console.log("error signing out: ", error);
     }
-    // Remove user from redux
-    history.push("/");
+    navigate("/");
   }
 
-  if (isAuthenticating) {
-    return null;
-  }
+  useEffect(() => {
+    checkAuthState();
+  }, [location, checkAuthState]);
 
   return (
     <div id="app-wrapper">
-      <QMR.Header handleLogout={handleLogout} />
-      <Libs.AppContext.Provider
-        value={{
-          isAuthenticated,
-          userHasAuthenticated,
-        }}
-      >
-        <Routes />
-        <QMR.Footer />
-      </Libs.AppContext.Provider>
+      {user && (
+        <>
+          <QMR.Header handleLogout={handleLogout} />
+          <AppRoutes user={user} />
+          <QMR.Footer />
+        </>
+      )}
+      {!user && showlocalLogins && (
+        <LocalLogins loginWithIDM={authenticateWithIDM} />
+      )}
     </div>
   );
-}
+};
 
 export default App;

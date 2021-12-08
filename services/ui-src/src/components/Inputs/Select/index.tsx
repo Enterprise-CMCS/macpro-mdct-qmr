@@ -1,6 +1,8 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { TiArrowUnsorted } from "react-icons/ti";
+import { Control, useController, useFormContext } from "react-hook-form";
+import objectPath from "object-path";
 
 export interface SelectOption {
   displayValue: string;
@@ -8,35 +10,46 @@ export interface SelectOption {
 }
 
 interface SelectProps extends QMR.InputWrapperProps {
-  value: string;
-  onChange: React.ChangeEventHandler<HTMLSelectElement>;
   selectProps?: CUI.SelectProps;
   placeholder?: string;
   options: SelectOption[];
+  name: string;
+  control: Control<any, object>;
 }
 
 export const Select = ({
-  value,
-  onChange,
   selectProps,
   placeholder,
   options,
-  isInvalidFunc,
+  name,
+  control,
   ...rest
 }: SelectProps) => {
-  let isInvalid = false;
-  if (isInvalidFunc) {
-    isInvalid = isInvalidFunc(value);
-  }
+  const { field } = useController({
+    name,
+    control,
+  });
+
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   return (
-    <QMR.InputWrapper {...rest} isInvalid={isInvalid}>
+    <QMR.InputWrapper
+      isInvalid={!!objectPath.get(errors, name)?.message}
+      errorMessage={objectPath.get(errors, name)?.message}
+      {...rest}
+    >
       <CUI.Select
+        ref={field.ref}
+        value={field.value}
+        onBlur={field.onBlur}
+        onChange={(newValue) => {
+          field.onChange(newValue);
+        }}
         {...selectProps}
-        value={value}
-        onChange={onChange}
         placeholder={placeholder}
-        isInvalid={isInvalid}
+        isInvalid={!!objectPath.get(errors, name)?.message}
         icon={<TiArrowUnsorted />}
       >
         {options.map(({ displayValue, value }) => (

@@ -1,41 +1,30 @@
 import { UsaBanner } from "@cmsgov/design-system";
 import { Logo } from "components";
-import * as Bootstrap from "react-bootstrap";
-import { RootStateOrAny, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import * as CUI from "@chakra-ui/react";
 
-export function Header({ handleLogout }: { handleLogout: Function }) {
-  const history = useHistory();
-  const isAuthenticated = useSelector(
-    (state: RootStateOrAny) => state.user.attributes
-  );
+interface Props {
+  handleLogout: () => void;
+}
+
+export function Header({ handleLogout }: Props) {
   return (
-    <div data-testid="header">
+    <CUI.Box data-testid="header">
       <UsaBanner />
-      <Bootstrap.Navbar className="nav-bar">
-        <Bootstrap.Container>
-          <Bootstrap.Navbar.Brand href="/">
-            <Logo />
-          </Bootstrap.Navbar.Brand>
-          <Bootstrap.Navbar.Toggle />
-          <Bootstrap.Navbar.Collapse className="justify-content-end">
-            {isAuthenticated ? (
-              <Bootstrap.NavDropdown title="My Account">
-                <Bootstrap.NavDropdown.Item
-                  onClick={() => history.push("/profile")}
-                >
-                  Profile
-                </Bootstrap.NavDropdown.Item>
-                <Bootstrap.NavDropdown.Item onClick={() => handleLogout()}>
-                  Logout
-                </Bootstrap.NavDropdown.Item>
-              </Bootstrap.NavDropdown>
-            ) : (
-              <Bootstrap.Nav.Link href="/login">Login</Bootstrap.Nav.Link>
-            )}
-          </Bootstrap.Navbar.Collapse>
-        </Bootstrap.Container>
-      </Bootstrap.Navbar>
-    </div>
+      {/* using hex color here for branded color */}
+      <CUI.Box bg="#0071bc">
+        <CUI.Container maxW="7xl">
+          <CUI.Flex py="4">
+            <Link to="/">
+              <Logo />
+            </Link>
+            <CUI.Spacer />
+            <CUI.Button onClick={handleLogout} variant="link" color="white">
+              Logout
+            </CUI.Button>
+          </CUI.Flex>
+        </CUI.Container>
+      </CUI.Box>
+    </CUI.Box>
   );
 }

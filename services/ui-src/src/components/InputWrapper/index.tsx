@@ -13,7 +13,6 @@ export interface InputWrapperProps {
   formControlProps?: CUI.FormControlProps;
   formLabelProps?: CUI.FormLabelProps;
   errorMessage?: string;
-  isInvalidFunc?: (v: string | number) => boolean;
   isInvalid?: boolean;
   renderHelperTextAbove?: boolean;
   children?: Inputs;

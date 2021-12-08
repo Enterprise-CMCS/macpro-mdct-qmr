@@ -1,4 +1,5 @@
-// @ts-nocheck
+//  @ts-nocheck
+
 const configToExport = {
   MAX_ATTACHMENT_SIZE: 5000000,
   LOCAL_LOGIN: window._env_.LOCAL_LOGIN,
@@ -20,6 +21,7 @@ const configToExport = {
     REDIRECT_SIGNIN: window._env_.COGNITO_REDIRECT_SIGNIN,
     REDIRECT_SIGNOUT: window._env_.COGNITO_REDIRECT_SIGNOUT,
   },
+  currentReportingYear: "2021",
 };
 
 export default configToExport;
