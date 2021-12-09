@@ -7,9 +7,7 @@ import { DemoForm } from "views/DemoMeasure/DemoFormType";
 export const DataSource = () => {
   const methods = useFormContext();
   const { register, watch } = methods;
-  const watchAdminOtherDescription = watch(
-    "dataSource.adminData.other.dataSource"
-  );
+
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
       <QMR.Checkbox
@@ -52,7 +50,9 @@ export const DataSource = () => {
                       </CUI.Text>,
                       <QMR.TextArea
                         key="Administrative Data Source:"
-                        label={`Administrative Data Source: ${watchAdminOtherDescription}`}
+                        label={`Administrative Data Source: ${watch(
+                          "dataSource.adminData.other.dataSource"
+                        )}`}
                         {...register("dataSource.adminData.other.explain")}
                       />,
                     ],
@@ -63,12 +63,32 @@ export const DataSource = () => {
             ],
           },
           {
-            displayValue: "Hybrid (Administrative and Medical Records Data)",
-            value: "I am reporting final data",
-          },
-          {
-            displayValue: "Other",
-            value: "other",
+            displayValue: "Other Data Source",
+            value: "other data wource",
+            children: [
+              <QMR.TextInput
+                label="Describe the data source:"
+                key="Describe the data source:"
+                {...register("dataSource.other.dataSource")}
+              />,
+              <CUI.Text
+                fontSize="sm"
+                py="2"
+                fontWeight="bold"
+                key="If the data source differed across data"
+              >
+                If the data source differed across health plans or delivery
+                systems, identify the number of plans that used each data
+                source:
+              </CUI.Text>,
+              <QMR.TextArea
+                key="Administrative Data Source data:"
+                label={`Other Data Source: ${watch(
+                  "dataSource.other.dataSource"
+                )}`}
+                {...register("dataSource.other.explain")}
+              />,
+            ],
           },
         ]}
         label="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
