@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import { LoaderButton } from "components";
+// import { LoaderButton } from "components";
 import { onError } from "libs/errorLib";
 import "./index.module.scss";
 import { createAmendment } from "libs/api";
@@ -9,16 +9,13 @@ import { currentUserInfo } from "libs/user";
 import Select from "react-select";
 import Switch from "react-ios-switch";
 import { territoryList } from "libs/territoryLib";
-import {
-  capitalize,
-  validateAmendmentForm,
-  validateFileAttachment,
-} from "libs/helpers";
+import { capitalize, validateFileAttachment } from "libs/helpers";
+// import { Button } from "@chakra-ui/button";
 
 export function NewAmendment({
   fileUpload,
 }: {
-  fileUpload: Function;
+  fileUpload?: Function;
 }): JSX.Element {
   const file = useRef<File | null>(null);
   const navigate = useNavigate();
@@ -28,7 +25,6 @@ export function NewAmendment({
   const [territory, setTerritory] = useState("");
   const [urgent, setUrgent] = useState(false);
   const [comments, setComments] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   async function populateUserInfo() {
     var userInfo = await currentUserInfo();
@@ -51,10 +47,9 @@ export function NewAmendment({
 
     if (!validateFileAttachment(file)) return;
 
-    setIsLoading(true);
-
     try {
-      const attachment = file.current ? await fileUpload(file.current) : null;
+      const attachment =
+        fileUpload && file.current ? await fileUpload(file.current) : null;
       await createAmendment({
         email,
         firstName,
@@ -67,7 +62,6 @@ export function NewAmendment({
       navigate("/");
     } catch (e) {
       onError(e);
-      setIsLoading(false);
     }
   }
 
@@ -131,16 +125,7 @@ export function NewAmendment({
             onChange={(e) => setComments((e.target as HTMLInputElement).value)}
           />
         </FormGroup>
-        <LoaderButton
-          block
-          type="submit"
-          isLoading={isLoading}
-          disabled={
-            !validateAmendmentForm(email, firstName, lastName, territory)
-          }
-        >
-          Submit
-        </LoaderButton>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

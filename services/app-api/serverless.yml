@@ -70,13 +70,12 @@ provider:
 
 functions:
   create:
-    handler: handlers/create.main
+    handler: handlers/new_create.main
     events:
       - http:
           path: amendments
           method: post
           cors: true
-          authorizer: aws_iam
   get:
     handler: handlers/get.main
     events:

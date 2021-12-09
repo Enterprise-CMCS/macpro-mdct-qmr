@@ -11,7 +11,7 @@ export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
   console.log(JSON.stringify(event, null, 2));
 
-  var nextValue = (await dynamoDb.increment(data.territory)).Attributes
+  let nextValue = (await dynamoDb.increment(data.territory)).Attributes
     .lastValue.N;
 
   const params = {
