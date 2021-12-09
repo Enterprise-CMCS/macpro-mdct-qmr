@@ -77,13 +77,19 @@ functions:
           method: post
           cors: true
   get:
-    handler: handlers/get.main
+    handler: handlers/new_get.main
     events:
       - http:
           path: amendments/{id}
           method: get
           cors: true
-          authorizer: aws_iam
+  getold:
+    handler: handlers/get.main
+    events:
+      - http:
+          path: amendments/test/{id}
+          method: get
+          cors: true
   list:
     handler: handlers/list.main
     events:

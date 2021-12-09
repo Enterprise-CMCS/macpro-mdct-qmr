@@ -17,6 +17,12 @@ export type Params = "state" | "year" | "coreset" | "measure";
 
 export const routes = [
   {
+    component: Views.ApiTester,
+    name: "ApiTest",
+    path: "/api-test",
+    exact: true,
+  },
+  {
     component: Views.NewAmendment,
     name: "YourMom",
     path: "/amendment",

@@ -1,5 +1,5 @@
 import handler from "./../libs/handler-lib";
-import dynamoDb from "./../libs/dynamodb-lib";
+// import dynamoDb from "./../libs/dynamodb-lib";
 
 export const main = handler(async (event, context) => {
   // If this invokation is a prewarm, do nothing and return.
@@ -7,19 +7,22 @@ export const main = handler(async (event, context) => {
     console.log("Warmed up!");
     return null;
   }
+  console.log(event, context);
 
-  const result = await dynamoDb.get({
-    TableName: process.env.tableName,
-    Key: {
-      userId: event.requestContext.identity.cognitoIdentityId,
-      amendmentId: event.pathParameters.id,
-    },
-  });
-  if (!result.Item) {
-    throw new Error("Item not found.");
-  }
-  console.log("Sending back result:", JSON.stringify(result, null, 2));
+  // const result = await dynamoDb.get({
+  //   TableName: process.env.tableName,
+  //   Key: {
+  //     userId: event.requestContext.identity.cognitoIdentityId,
+  //     amendmentId: event.pathParameters.id,
+  //   },
+  // });
+  // if (!result.Item) {
+  //   throw new Error("Item not found.");
+  // }
+  // console.log("Sending back result:", JSON.stringify(result, null, 2));
 
-  // Return the retrieved item
-  return result.Item;
+  // // Return the retrieved item
+  // return result.Item;
+
+  return event.pathParameters?.id;
 });
