@@ -76,21 +76,21 @@ functions:
           path: amendments
           method: post
           cors: true
-  get:
-    handler: handlers/new_get.main
+  getAllCoreSets:
+    handler: handlers/new_get.coreSetList
     events:
       - http:
-          path: amendments/{id}
+          path: coreset/{state}/{year}
           method: get
           cors: true
-  getold:
-    handler: handlers/get.main
+  getSpecificCoreSet:
+    handler: handlers/new_get.specificCoreSet
     events:
       - http:
-          path: amendments/test/{id}
+          path: coreset/{state}/{year}/{id}
           method: get
           cors: true
-  list:
+  list2:
     handler: handlers/list.main
     events:
       - http:

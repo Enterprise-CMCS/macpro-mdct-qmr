@@ -1,9 +1,17 @@
-import { getAmendment } from "libs/api";
+import { getAllCoreSets, getCoreSet } from "libs/api";
 export const ApiTester = () => {
   const getButton = async () => {
-    const data = await getAmendment("11");
-    console.log(data);
+    const data = await getAllCoreSets({ state: "MO", year: "2021" });
+    const otherData = await getCoreSet({
+      state: "MO",
+      year: "2021",
+      id: "AAC-123",
+    });
+    console.log("getCoreSets: ", data);
+    console.log("getSpecificCoreSet: ", otherData);
   };
-  getButton();
+  getButton().then(() => {
+    console.log("hello world");
+  });
   return <>hello</>;
 };
