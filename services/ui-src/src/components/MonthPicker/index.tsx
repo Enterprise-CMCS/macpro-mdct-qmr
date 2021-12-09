@@ -1,61 +1,63 @@
-import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
-import * as Inputs from "components/Inputs";
 import { MonthPickerCalendar } from "./calendarPopup";
+import { Control, useController } from "react-hook-form";
 
 interface Props {
-  selectedYear?: string;
-  selectedMonth?: string;
+  name: string;
+  control: Control<any, object>;
   yearLocked?: boolean;
 }
 
-export const MonthPicker = ({
-  selectedMonth,
-  selectedYear,
-  yearLocked,
-}: Props) => {
-  const [monthValue, setMonthValue] = useState(selectedMonth || "");
-  const [yearValue, setYearValue] = useState(selectedYear || "");
+export const MonthPicker = ({ name, control, yearLocked }: Props) => {
+  const { field } = useController({
+    name,
+    control,
+  });
 
   const monthRegex = /^\d{0,2}$/;
   const yearRegex = /^((19|20)?\d{0,2})$/;
 
-  const updateMonth = (value: string) => {
-    setMonthValue(value);
-    //NOTE: add react-form update here?
-  };
+  // const updateMonth = (value: string) => {
+  //   setMonthValue(value);
+  //   //NOTE: add react-form update here?
+  // };
 
-  const updateYear = (value: string) => {
-    setYearValue(value);
-    //NOTE: add react-form update here?
-  };
+  // const updateYear = (value: string) => {
+  //   setYearValue(value);
+  //   //NOTE: add react-form update here?
+  // };
 
   return (
     <CUI.HStack>
-      <Inputs.NumberInput
-        value={monthValue}
+      <CUI.Input
+        value={field.value?.selectedMonth ?? ""}
         width="4rem"
         label="Month:"
         onChange={(e) =>
-          monthRegex.test(e.target.value) ? updateMonth(e.target.value) : null
+          monthRegex.test(e.target.value)
+            ? field.onChange({ ...field.value, selectedMonth: e.target.value })
+            : null
         }
       />
-      <CUI.Text>/</CUI.Text>
-      <Inputs.NumberInput
-        value={yearValue}
+      <CUI.Input
+        value={field.value?.selectedYear ?? ""}
         width="6rem"
         label="Year:"
         onChange={(e) =>
-          yearRegex.test(e.target.value) ? updateYear(e.target.value) : null
+          yearRegex.test(e.target.value)
+            ? field.onChange({ ...field.value, selectedYear: e.target.value })
+            : null
         }
       />
       <MonthPickerCalendar
         yearLocked={yearLocked}
-        selectedYear={yearValue}
-        selectedMonth={monthValue}
+        selectedMonth={field.value?.selectedMonth ?? ""}
+        selectedYear={field.value?.selectedYear ?? ""}
         onChange={(month, year) => {
-          updateMonth(`${month}`);
-          updateYear(`${year}`);
+          field.onChange({
+            selectedMonth: month,
+            selectedYear: year,
+          });
         }}
       />
     </CUI.HStack>

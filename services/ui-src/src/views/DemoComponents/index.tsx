@@ -77,17 +77,17 @@ const DemoComponentsForm = () => {
   const kebabMenuItemClick = (itemIndex: number) =>
     alert(`You have selected item # ${itemIndex}`);
 
-  const validateData = (data: any) => {
-    console.log(data);
+  // const validateData = (data: any) => {
+  //   console.log(data);
 
-    console.log(DemoValidationSchema.validate(data));
-  };
+  //   console.log(DemoValidationSchema.validate(data));
+  // };
 
   return (
     <QMR.StateLayout
       breadcrumbItems={[{ path: `/components`, name: "Demo Components" }]}
     >
-      <form onSubmit={handleSubmit((data: any) => validateData(data))}>
+      <form onSubmit={handleSubmit((data: any) => console.log(data))}>
         <CUI.Container mb="6">
           <CUI.Stack spacing="4">
             <CUI.Heading size="md">Components</CUI.Heading>
@@ -222,11 +222,10 @@ const DemoComponentsForm = () => {
               DatePicker
             </CUI.Heading>
             <CUI.Text size="sm">Normal Month Picker</CUI.Text>
-            <QMR.MonthPicker />
+            <QMR.MonthPicker {...useCustomRegister("startDate1")} />
             <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
             <QMR.MonthPicker
-              selectedMonth={"3"}
-              selectedYear={"2019"}
+              {...useCustomRegister("endDate1")}
               yearLocked={true}
             />
             <CUI.Divider />
