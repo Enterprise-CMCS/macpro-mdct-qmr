@@ -11,5 +11,7 @@ export * from "./Logo";
 export * from "./Breadcrumbs";
 export * from "./MonthPicker";
 export * from "./QuestionChild";
+export * from "./CoreQuestionWrapper";
+export * from "./ContainedButton";
 export * from "./Table";
 export * from "./Upload";

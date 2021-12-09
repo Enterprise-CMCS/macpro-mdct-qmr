@@ -53,7 +53,7 @@ export const routes = [
     exact: true,
   },
   {
-    component: Views.DemoQuestionsWrapper,
+    component: Views.DemoMeasure,
     name: "Measure",
     path: "/OH/2021/ACS/AIF-HH",
     exact: true,
