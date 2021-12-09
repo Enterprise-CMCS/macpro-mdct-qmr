@@ -69,6 +69,41 @@ provider:
     atomicCounterTableName: ${self:custom.atomicCounterTableName}
 
 functions:
+  listMeasures:
+    handler: handlers/measures/get.listMeasures
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSetId}/measures
+          method: get
+          cors: true
+  listMeasuresMetadata:
+    handler: handlers/measures/get.listMeasuresMetadata
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSetId}/measures/metadata
+          method: get
+          cors: true
+  getMeasure:
+    handler: handlers/measures/get.getMeasure
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
+          method: get
+          cors: true
+  createMeasure:
+    handler: handlers/measures/alter.createMeasure
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
+          method: post
+          cors: true
+  editMeasure:
+    handler: handlers/measures/alter.editMeasure
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
+          method: put
+          cors: true
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
     events:
@@ -84,14 +119,14 @@ functions:
           method: get
           cors: true
   createCoreSet:
-    handler: handlers/coreSets/create.createCoreSet
+    handler: handlers/coreSets/alter.createCoreSet
     events:
       - http:
           path: coreset/{state}/{year}/{id}
           method: post
           cors: true
   editCoreSet:
-    handler: handlers/coreSets/create.editCoreSet
+    handler: handlers/coreSets/alter.editCoreSet
     events:
       - http:
           path: coreset/{state}/{year}/{id}

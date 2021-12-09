@@ -19,9 +19,52 @@ function requestOptions(): any {
   }
 }
 
-function listAmendments() {
+function createMeasure(inputObj: any) {
   const opts = requestOptions();
-  return API.get("amendments", "/amendments", opts);
+  opts.body = inputObj.body;
+
+  return API.post(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
+    opts
+  );
+}
+function editMeasure(inputObj: any) {
+  const opts = requestOptions();
+  opts.body = inputObj.body;
+
+  return API.put(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
+    opts
+  );
+}
+
+function listMeasures(inputObj: any) {
+  const opts = requestOptions();
+  return API.get(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures`,
+    opts
+  );
+}
+
+function getMeasure(inputObj: any) {
+  const opts = requestOptions();
+  return API.get(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
+    opts
+  );
+}
+
+function listMeasuresMetadata(inputObj: any) {
+  const opts = requestOptions();
+  return API.get(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/metadata`,
+    opts
+  );
 }
 
 function getAllCoreSets(inputObj: any) {
@@ -37,7 +80,7 @@ function getCoreSet(inputObj: any) {
   const opts = requestOptions();
   return API.get(
     "amendments",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
@@ -47,7 +90,7 @@ function createCoreSet(inputObj: any) {
   opts.body = inputObj.body;
   return API.post(
     "amendments",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
@@ -55,20 +98,25 @@ function createCoreSet(inputObj: any) {
 function editCoreSet(inputObj: any) {
   const opts = requestOptions();
   opts.body = inputObj.body;
-  return API.post(
+  return API.put(
     "amendments",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
 
 function deleteCoreSet(inputObj: any) {
   const opts = requestOptions();
-  return API.get(
+  return API.del(
     "amendments",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
+}
+
+function listAmendments() {
+  const opts = requestOptions();
+  return API.get("amendments", "/amendments", opts);
 }
 
 function getAmendment(id: string) {
@@ -103,5 +151,10 @@ export {
   getCoreSet,
   createCoreSet,
   editCoreSet,
-  deleteCoreSet
+  deleteCoreSet,
+  listMeasures,
+  listMeasuresMetadata,
+  getMeasure,
+  createMeasure,
+  editMeasure,
 };
