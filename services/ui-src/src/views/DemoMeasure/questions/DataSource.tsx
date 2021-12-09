@@ -50,12 +50,12 @@ export const DataSource = () => {
                         each data source:
                       </CUI.Text>,
                       <QMR.TextArea
-                        key="DataSource-Administrative-Other-Explaination"
+                        key="DataSource-Administrative-Other-Explanation"
                         label={`Administrative Data Source: ${
                           watch("DataSource-Administrative-Other") || ""
                         }`}
                         {...useCustomRegister(
-                          "DataSource-Administrative-Other-Explaination"
+                          "DataSource-Administrative-Other-Explanation"
                         )}
                       />,
                     ],
@@ -106,7 +106,7 @@ export const DataSource = () => {
                           watch("DataSource-Hybrid-Other") || ""
                         }`}
                         {...useCustomRegister(
-                          "DataSource-Hybrid-Other-Explaination"
+                          "DataSource-Hybrid-Other-Explanation"
                         )}
                       />,
                     ],
@@ -147,7 +147,7 @@ export const DataSource = () => {
               <QMR.TextInput
                 label="Describe Electronic Record data source:"
                 key="Describe the electronic data source:"
-                {...useCustomRegister("DataSource-ElectronicRecord-DataSource")}
+                {...useCustomRegister("DataSource-ElectronicHealthRecords")}
               />,
               <CUI.Text
                 fontSize="sm"
@@ -162,10 +162,10 @@ export const DataSource = () => {
               <QMR.TextArea
                 key="Electronic Record Data Source data:"
                 label={`Electronic Record Data Source: ${
-                  watch("DataSource-ElectronicRecord-DataSource") || ""
+                  watch("DataSource-ElectronicHealthRecords") || ""
                 }`}
                 {...useCustomRegister(
-                  "DataSource-ElectronicRecord-Explaination"
+                  "DataSource-ElectronicHealthRecords-Explanation"
                 )}
               />,
             ],
@@ -190,9 +190,9 @@ export const DataSource = () => {
                 source:
               </CUI.Text>,
               <QMR.TextArea
-                key="DataSource-Other-Explaination"
+                key="DataSource-Other-Explanation"
                 label={`Other Data Source: ${watch("DataSource-Other") || ""}`}
-                {...useCustomRegister("DataSource-Other-Explaination")}
+                {...useCustomRegister("DataSource-Other-Explanation")}
               />,
             ],
           },
