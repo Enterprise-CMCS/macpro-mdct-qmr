@@ -6,14 +6,12 @@ import { DemoForm } from "views/DemoMeasure/DemoFormType";
 
 export const DataSource = () => {
   const methods = useFormContext();
-  const { register, watch } = methods;
+  const { watch } = methods;
 
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
       <QMR.Checkbox
-        {...useCustomRegister<DemoForm.DemoFormType>(
-          "dataSource.reporting.selections"
-        )}
+        {...useCustomRegister<DemoForm.DemoFormType>("DataSource")}
         options={[
           {
             displayValue: "Administrative Data",
@@ -21,7 +19,7 @@ export const DataSource = () => {
             children: [
               <QMR.Checkbox
                 {...useCustomRegister<DemoForm.DemoFormType>(
-                  "dataSource.adminData.selections"
+                  "DataSource-Administrative"
                 )}
                 options={[
                   {
@@ -35,8 +33,10 @@ export const DataSource = () => {
                     children: [
                       <QMR.TextInput
                         label="Describe the data:"
-                        key="Describe the data:"
-                        {...register("dataSource.adminData.other.dataSource")}
+                        key="DataSource-Administrative-Other"
+                        {...useCustomRegister(
+                          "DataSource-Administrative-Other"
+                        )}
                       />,
                       <CUI.Text
                         fontSize="sm"
@@ -49,11 +49,13 @@ export const DataSource = () => {
                         each data source:
                       </CUI.Text>,
                       <QMR.TextArea
-                        key="Administrative Data Source:"
+                        key="DataSource-Administrative-Other-Explaination"
                         label={`Administrative Data Source: ${watch(
-                          "dataSource.adminData.other.dataSource"
+                          "DataSource-Administrative-Other"
                         )}`}
-                        {...register("dataSource.adminData.other.explain")}
+                        {...useCustomRegister(
+                          "DataSource-Administrative-Other-Explaination"
+                        )}
                       />,
                     ],
                   },
@@ -64,12 +66,12 @@ export const DataSource = () => {
           },
           {
             displayValue: "Other Data Source",
-            value: "other data wource",
+            value: "Other Data Source",
             children: [
               <QMR.TextInput
                 label="Describe the data source:"
-                key="Describe the data source:"
-                {...register("dataSource.other.dataSource")}
+                key="DataSource-Other"
+                {...useCustomRegister("DataSource-Other")}
               />,
               <CUI.Text
                 fontSize="sm"
@@ -82,11 +84,9 @@ export const DataSource = () => {
                 source:
               </CUI.Text>,
               <QMR.TextArea
-                key="Administrative Data Source data:"
-                label={`Other Data Source: ${watch(
-                  "dataSource.other.dataSource"
-                )}`}
-                {...register("dataSource.other.explain")}
+                key="DataSource-Other-Explaination"
+                label={`Other Data Source: ${watch("DataSource-Other")}`}
+                {...useCustomRegister("DataSource-Other-Explaination")}
               />,
             ],
           },

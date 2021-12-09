@@ -1,7 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import { Control } from "react-hook-form";
 export interface IRate {
   label?: string;
   numerator: string;
@@ -13,10 +12,10 @@ export interface IRate {
 interface Props {
   rates: IRate[];
   name: string;
+  control: Control<any, object>;
 }
 
-export const Rate = React.forwardRef<any, Props>(({ rates, name }, _ref) => {
-  const { register } = useFormContext();
+export const Rate = ({ rates, name, control }: Props) => {
   return (
     <>
       {rates.map((rate, index) => (
@@ -26,15 +25,18 @@ export const Rate = React.forwardRef<any, Props>(({ rates, name }, _ref) => {
           )}
           <CUI.HStack spacing={2}>
             <Inputs.NumberInput
-              {...register(`${name}.${index}.numerator`)}
+              control={control}
+              name={`${name}.${index}.numerator`}
               label="Numerator"
             />
             <Inputs.NumberInput
-              {...register(`${name}.${index}.denominator`)}
+              control={control}
+              name={`${name}.${index}.denominator`}
               label="Denominator"
             />
             <Inputs.NumberInput
-              {...register(`${name}.${index}.rate`)}
+              control={control}
+              name={`${name}.${index}.rate`}
               label="Rate"
             />
           </CUI.HStack>
@@ -42,4 +44,4 @@ export const Rate = React.forwardRef<any, Props>(({ rates, name }, _ref) => {
       ))}
     </>
   );
-});
+};

@@ -6,7 +6,7 @@ export const Reporting = () => {
   return (
     <QMR.CoreQuestionWrapper label="Are you reporting on this measure?">
       <QMR.RadioButton
-        {...useCustomRegister<DemoForm.DemoFormType>("areYouReporting")}
+        {...useCustomRegister<DemoForm.DemoFormType>("DidReport")}
         options={[
           {
             displayValue: `Yes, I am reporting Admission to an Institution from the Community (AIF-HH) for FFY 2021 quality params.measure reporting.`,

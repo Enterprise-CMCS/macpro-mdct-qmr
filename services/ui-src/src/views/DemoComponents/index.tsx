@@ -1,5 +1,4 @@
-import * as Inputs from "components/Inputs";
-import * as QMR from "components/";
+import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { Rate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
@@ -36,7 +35,7 @@ export function DemoComponents(): JSX.Element {
 const DemoComponentsForm = () => {
   const [progressCircleValue, setProgressCircle] = React.useState(5);
 
-  const { register, handleSubmit } = useFormContext();
+  const { handleSubmit } = useFormContext();
   const rates = [
     {
       denominator: "",
@@ -96,8 +95,8 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               Text Area
             </CUI.Heading>
-            <Inputs.TextArea
-              {...register("demoTextArea")}
+            <QMR.TextArea
+              {...useCustomRegister("demoTextArea")}
               placeholder="test"
               label="test text area"
               helperText="put in something here"
@@ -107,7 +106,7 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               Radio Button
             </CUI.Heading>
-            <Inputs.RadioButton
+            <QMR.RadioButton
               {...useCustomRegister("demoRadioButton")}
               label="hello world"
               options={[
@@ -119,9 +118,9 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               Text Input
             </CUI.Heading>
-            <Inputs.TextInput
+            <QMR.TextInput
               label="Label for Text Input"
-              {...register("demoTextInput")}
+              {...useCustomRegister("demoTextInput")}
               helperText="Your text can't exceed 3 characters"
               errorMessage="Text is too long"
             />
@@ -129,7 +128,7 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               Select Input
             </CUI.Heading>
-            <Inputs.Select
+            <QMR.Select
               {...useCustomRegister("demoSelect")}
               placeholder="Select option"
               options={selectOptions}
@@ -140,15 +139,15 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               Number Input With Mask
             </CUI.Heading>
-            <Inputs.NumberInput
-              {...register("demoNumberInput1")}
+            <QMR.NumberInput
+              {...useCustomRegister("demoNumberInput1")}
               placeholder="123"
               label="This number input is a percent and allows decimals"
               helperText="Enter a number"
               displayPercent={true}
             />
-            <Inputs.NumberInput
-              {...register("demoNumberInput2")}
+            <QMR.NumberInput
+              {...useCustomRegister("demoNumberInput2")}
               placeholder="123"
               label="This number input only allows integers"
               helperText="Enter a number"
@@ -157,28 +156,28 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               Rate
             </CUI.Heading>
-            <Inputs.TextInput
+            <QMR.TextInput
               renderHelperTextAbove
               label="Describe the rate:"
               helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
               errorMessage="Text is too long"
               formLabelProps={{ fontWeight: 600 }}
-              {...register("demoRateTextInput1")}
+              {...useCustomRegister("demoRateTextInput1")}
             />
-            <Rate rates={rates} {...register("demoRate1")} />
+            <Rate rates={rates} {...useCustomRegister("demoRate1")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Rate With Multiple Numerator/Denominator/Rate
             </CUI.Heading>
-            <Inputs.TextInput
+            <QMR.TextInput
               renderHelperTextAbove
               label="Describe the rate:"
               helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
               errorMessage="Text is too long"
               formLabelProps={{ fontWeight: 700 }}
-              {...register("demoRateTextInput2")}
+              {...useCustomRegister("demoRateTextInput2")}
             />
-            <Rate rates={ratesTwo} {...register("demoRate2")} />
+            <Rate rates={ratesTwo} {...useCustomRegister("demoRate2")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Upload Control
@@ -196,7 +195,7 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               Checkbox
             </CUI.Heading>
-            <Inputs.Checkbox
+            <QMR.Checkbox
               {...useCustomRegister("testCheckbox")}
               options={[
                 {
@@ -207,10 +206,10 @@ const DemoComponentsForm = () => {
                   displayValue: "Other",
                   value: "Other",
                   children: [
-                    <Inputs.TextInput
+                    <QMR.TextInput
                       label="Describe the data source:"
                       key="other-describe-data"
-                      {...register("demoCheckboxTextInput")}
+                      {...useCustomRegister("demoCheckboxTextInput")}
                     />,
                   ],
                 },

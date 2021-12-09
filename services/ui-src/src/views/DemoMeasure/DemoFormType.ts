@@ -1,19 +1,13 @@
 export namespace DemoForm {
   export interface DemoFormType {
-    areYouReporting: string;
-    statusOfData: StatusOfData;
-    dataSource: DataSource;
-  }
-
-  export interface StatusOfData {
-    status: string;
-    statusOfDataAdditional?: string;
-  }
-
-  export interface DataSource {
-    "reporting.selections": string[];
-    "adminData.selections"?: string[];
-    "adminData.other.dataSource"?: string;
-    "adminData.other.explain"?: string;
+    DidReport: string;
+    DataStatus: string[];
+    "DataStatus-ProvisionalExplaination": string;
+    DataSource: string[];
+    "DataSource-Administrative": string[];
+    "DataSource-Administrative-Other": string;
+    "DataSource-Administrative-Other-Explaination": string;
+    "DataSource-Other": string;
+    "DataSource-Other-Explaination": string;
   }
 }

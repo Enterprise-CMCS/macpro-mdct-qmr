@@ -1,61 +1,58 @@
 import * as CUI from "@chakra-ui/react";
-import { InputWrapper, InputWrapperProps } from "components/InputWrapper";
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import * as QMR from "components";
+import { Control, useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
-interface NumberInputProps extends InputWrapperProps {
+interface NumberInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onBlur: React.FocusEventHandler<HTMLInputElement>;
+  control: Control<any, object>;
   name: string;
 }
 
-export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
-  (
-    {
-      numberInputProps,
-      placeholder,
-      displayPercent,
-      onBlur,
-      name,
-      onChange,
-      ...rest
-    },
-    ref
-  ) => {
-    const {
-      formState: { errors },
-    } = useFormContext();
+export const NumberInput = ({
+  numberInputProps,
+  placeholder,
+  displayPercent,
+  name,
+  control,
+  formControlProps,
+  ...rest
+}: NumberInputProps) => {
+  const { field } = useController({
+    name,
+    control,
+  });
 
-    return (
-      <InputWrapper
-        isInvalid={!!objectPath.get(errors, name)?.message}
-        errorMessage={objectPath.get(errors, name)?.message}
-        {...rest}
-      >
-        <CUI.InputGroup>
-          <CUI.Input
-            type="number"
-            placeholder={placeholder ?? ""}
-            ref={ref}
-            name={name}
-            onChange={onChange}
-            onBlur={onBlur}
-            {...numberInputProps}
+  const {
+    formState: { errors },
+  } = useFormContext();
+
+  return (
+    <QMR.InputWrapper
+      isInvalid={!!objectPath.get(errors, name)?.message}
+      errorMessage={objectPath.get(errors, name)?.message}
+      {...rest}
+    >
+      <CUI.InputGroup>
+        <CUI.Input
+          type="number"
+          placeholder={placeholder ?? ""}
+          name={name}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          {...numberInputProps}
+        />
+        {displayPercent && (
+          <CUI.InputRightElement
+            pointerEvents="none"
+            color="black.300"
+            fontSize="1.3em"
+            children="%"
           />
-          {displayPercent && (
-            <CUI.InputRightElement
-              pointerEvents="none"
-              color="black.300"
-              fontSize="1.3em"
-              children="%"
-            />
-          )}
-        </CUI.InputGroup>
-      </InputWrapper>
-    );
-  }
-);
+        )}
+      </CUI.InputGroup>
+    </QMR.InputWrapper>
+  );
+};
