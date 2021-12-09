@@ -2,9 +2,10 @@ import { render } from "@testing-library/react";
 import { TextInput } from "components";
 import { TestWrapper } from "components/TestWrapper";
 import { useForm } from "react-hook-form";
+import { useCustomRegister } from "hooks/useCustomRegister";
 
 const TestComponent = () => {
-  const { register, setValue } = useForm();
+  const { setValue } = useForm();
   setValue("test-component", "test");
 
   return (
@@ -12,7 +13,7 @@ const TestComponent = () => {
       <TextInput
         label="label"
         helperText="helper"
-        {...register("test-component")}
+        {...useCustomRegister("test-component")}
       />
     </TestWrapper>
   );
