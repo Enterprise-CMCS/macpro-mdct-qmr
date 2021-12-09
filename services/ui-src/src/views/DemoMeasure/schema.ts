@@ -11,4 +11,10 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   DataSource: Joi.any(),
   "DataSource-Other": Joi.any(),
   "DataSource-Other-Explaination": Joi.any(),
+  "DataSource-Hybrid": Joi.any(),
+  "DataSource-Hybrid-Other": Joi.any(),
+  "DataSource-Hybrid-Other-Explaination": Joi.any(),
+  "DataSource-Hybrid-MedicalRecord-DataSoruce": Joi.any(),
+  "DataSource-ElectronicRecord-DataSource": Joi.any(),
+  "DataSource-ElectronicRecord-Explaination": Joi.any(),
 });

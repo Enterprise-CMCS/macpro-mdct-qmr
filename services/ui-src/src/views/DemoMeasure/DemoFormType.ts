@@ -9,5 +9,11 @@ export namespace DemoForm {
     "DataSource-Administrative-Other-Explaination": string;
     "DataSource-Other": string;
     "DataSource-Other-Explaination": string;
+    "DataSource-Hybrid": string;
+    "DataSource-Hybrid-Other": string;
+    "DataSource-Hybrid-Other-Explaination": string;
+    "DataSource-Hybrid-MedicalRecord-DataSoruce": string;
+    "DataSource-ElectronicRecord-DataSource": string;
+    "DataSource-ElectronicRecord-Explaination": string;
   }
 }

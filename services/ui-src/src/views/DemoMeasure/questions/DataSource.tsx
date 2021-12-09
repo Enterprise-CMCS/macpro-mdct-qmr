@@ -71,7 +71,9 @@ export const DataSource = () => {
             value: "I am reporting hybrid",
             children: [
               <QMR.Checkbox
-                {...useCustomRegister<any>("DataSource-Hybrid")}
+                {...useCustomRegister<DemoForm.DemoFormType>(
+                  "DataSource-Hybrid"
+                )}
                 key="Hybrid data"
                 options={[
                   {
@@ -86,7 +88,7 @@ export const DataSource = () => {
                       <QMR.TextInput
                         label="Describe the data:"
                         key="Describe the data:"
-                        {...useCustomRegister("DataSource-Hybrid.Other")}
+                        {...useCustomRegister("DataSource-Hybrid-Other")}
                       />,
                       <CUI.Text
                         fontSize="sm"
@@ -118,7 +120,7 @@ export const DataSource = () => {
                 label="What is the Medical Records Data Source"
                 formLabelProps={{ fontWeight: 700, paddingTop: 5 }}
                 key="Hybrid Radio Button Data"
-                {...useCustomRegister<any>(
+                {...useCustomRegister<DemoForm.DemoFormType>(
                   "DataSource-Hybrid-MedicalRecord-DataSoruce"
                 )}
                 options={[
