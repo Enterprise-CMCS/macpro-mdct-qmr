@@ -32,6 +32,7 @@ export const ApiTester = () => {
                 coreSetId: "AAC-123",
                 body: {
                   test: "data",
+                  test2: "moreData",
                 },
               })
             )
