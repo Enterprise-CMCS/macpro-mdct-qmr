@@ -26,12 +26,30 @@ function listAmendments() {
 
 function getAllCoreSets(inputObj: any) {
   const opts = requestOptions();
-  return API.get("amendments", `/coreset/${inputObj.state}/${inputObj.year}`, opts);
+  return API.get(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}`,
+    opts
+  );
 }
 
 function getCoreSet(inputObj: any) {
   const opts = requestOptions();
-  return API.get("amendments", `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`, opts);
+  return API.get(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`,
+    opts
+  );
+}
+
+function createCoreSet(inputObj: any) {
+  const opts = requestOptions();
+  opts.body = inputObj.body;
+  return API.post(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`,
+    opts
+  );
 }
 
 function getAmendment(id: string) {
@@ -63,5 +81,6 @@ export {
   getAmendment,
   createAmendment,
   getAllCoreSets,
-  getCoreSet
+  getCoreSet,
+  createCoreSet,
 };

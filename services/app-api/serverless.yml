@@ -90,6 +90,13 @@ functions:
           path: coreset/{state}/{year}/{id}
           method: get
           cors: true
+  createCoreSet:
+    handler: handlers/new_create.createCoreSet
+    events:
+      - http:
+          path: coreset/{state}/{year}/{id}
+          method: post
+          cors: true
   list2:
     handler: handlers/list.main
     events:
