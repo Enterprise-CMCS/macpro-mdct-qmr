@@ -1,39 +1,45 @@
-import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useFormContext } from "react-hook-form";
+import { Control, useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 interface TextInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onBlur: React.FocusEventHandler<HTMLInputElement>;
+  control: Control<any, object>;
   name: string;
   textInputProps?: CUI.InputProps;
 }
 
-export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  ({ textInputProps, placeholder, onChange, onBlur, name, ...rest }, ref) => {
-    const {
-      formState: { errors },
-    } = useFormContext();
+export const TextInput = ({
+  textInputProps,
+  control,
+  placeholder,
+  name,
+  ...rest
+}: TextInputProps) => {
+  const { field } = useController({
+    name,
+    control,
+  });
 
-    return (
-      <QMR.InputWrapper
-        isInvalid={!!objectPath.get(errors, name)?.message}
-        errorMessage={objectPath.get(errors, name)?.message}
-        {...rest}
-      >
-        <CUI.Input
-          type="text"
-          ref={ref}
-          name={name}
-          placeholder={placeholder}
-          onChange={onChange}
-          onBlur={onBlur}
-          {...textInputProps}
-        />
-      </QMR.InputWrapper>
-    );
-  }
-);
+  const {
+    formState: { errors },
+  } = useFormContext();
+
+  return (
+    <QMR.InputWrapper
+      isInvalid={!!objectPath.get(errors, name)?.message}
+      errorMessage={objectPath.get(errors, name)?.message}
+      {...rest}
+    >
+      <CUI.Input
+        type="text"
+        name={name}
+        placeholder={placeholder}
+        onChange={field.onChange}
+        onBlur={field.onBlur}
+        {...textInputProps}
+      />
+    </QMR.InputWrapper>
+  );
+};
