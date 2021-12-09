@@ -67,6 +67,15 @@ function listMeasuresMetadata(inputObj: any) {
   );
 }
 
+function deleteMeasure(inputObj: any) {
+  const opts = requestOptions();
+  return API.del(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
+    opts
+  );
+}
+
 function getAllCoreSets(inputObj: any) {
   const opts = requestOptions();
   return API.get(
@@ -157,4 +166,5 @@ export {
   getMeasure,
   createMeasure,
   editMeasure,
+  deleteMeasure,
 };

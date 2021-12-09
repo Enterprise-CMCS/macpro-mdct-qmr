@@ -8,6 +8,7 @@ import {
   getMeasure,
   createMeasure,
   editMeasure,
+  deleteMeasure,
 } from "libs/api";
 
 export const ApiTester = () => {
@@ -82,6 +83,13 @@ export const ApiTester = () => {
       measureId: "AIF-HH",
     });
 
+    const deleteMeasureData = await deleteMeasure({
+      state: "MO",
+      year: "2021",
+      coreSetId: "AAC-123",
+      measureId: "AIF-HH",
+    });
+
     console.log("getCoreSets Response: ", getAllCoreSetData);
     console.log("getSpecificCoreSet Response: ", getCoreSetData);
     console.log("createCoreSet Response: ", createCoreSetData);
@@ -92,6 +100,7 @@ export const ApiTester = () => {
     console.log("getMeasuresMetadata Response: ", getMeasureData);
     console.log("createMeasuresMetadata Response: ", createMeasureData);
     console.log("editMeasuresMetadata Response: ", editMeasureData);
+    console.log("deleteMeasureData Response: ", deleteMeasureData);
   };
   getButton().then(() => {
     console.log("hello world");

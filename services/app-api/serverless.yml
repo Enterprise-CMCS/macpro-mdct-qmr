@@ -104,6 +104,13 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: put
           cors: true
+  deleteMeasure:
+    handler: handlers/measures/delete.deleteMeasure
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
+          method: delete
+          cors: true
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
     events:
@@ -133,7 +140,7 @@ functions:
           method: put
           cors: true
   deleteCoreSet:
-    handler: handlers/coreSets/create.createCoreSet
+    handler: handlers/coreSets/delete.deleteCoreSet
     events:
       - http:
           path: coreset/{state}/{year}/{id}
