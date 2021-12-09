@@ -69,35 +69,49 @@ provider:
     atomicCounterTableName: ${self:custom.atomicCounterTableName}
 
 functions:
-  create:
-    handler: handlers/new_create.main
-    events:
-      - http:
-          path: amendments
-          method: post
-          cors: true
   getAllCoreSets:
-    handler: handlers/new_get.coreSetList
+    handler: handlers/coreSets/get.coreSetList
     events:
       - http:
           path: coreset/{state}/{year}
           method: get
           cors: true
-  getSpecificCoreSet:
-    handler: handlers/new_get.specificCoreSet
+  getCoreSet:
+    handler: handlers/coreSets/get.getCoreSet
     events:
       - http:
           path: coreset/{state}/{year}/{id}
           method: get
           cors: true
   createCoreSet:
-    handler: handlers/new_create.createCoreSet
+    handler: handlers/coreSets/create.createCoreSet
     events:
       - http:
           path: coreset/{state}/{year}/{id}
           method: post
           cors: true
-  list2:
+  editCoreSet:
+    handler: handlers/coreSets/create.editCoreSet
+    events:
+      - http:
+          path: coreset/{state}/{year}/{id}
+          method: put
+          cors: true
+  deleteCoreSet:
+    handler: handlers/coreSets/create.createCoreSet
+    events:
+      - http:
+          path: coreset/{state}/{year}/{id}
+          method: delete
+          cors: true
+  create:
+    handler: handlers/create.main
+    events:
+      - http:
+          path: amendments
+          method: post
+          cors: true
+  list:
     handler: handlers/list.main
     events:
       - http:

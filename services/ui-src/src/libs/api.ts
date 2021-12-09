@@ -52,6 +52,25 @@ function createCoreSet(inputObj: any) {
   );
 }
 
+function editCoreSet(inputObj: any) {
+  const opts = requestOptions();
+  opts.body = inputObj.body;
+  return API.post(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`,
+    opts
+  );
+}
+
+function deleteCoreSet(inputObj: any) {
+  const opts = requestOptions();
+  return API.get(
+    "amendments",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.id}`,
+    opts
+  );
+}
+
 function getAmendment(id: string) {
   const opts = requestOptions();
   return API.get("amendments", `/amendments/${id}`, opts);
@@ -83,4 +102,6 @@ export {
   getAllCoreSets,
   getCoreSet,
   createCoreSet,
+  editCoreSet,
+  deleteCoreSet
 };

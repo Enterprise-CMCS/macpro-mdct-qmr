@@ -1,13 +1,21 @@
-import { createCoreSet, getAllCoreSets, getCoreSet } from "libs/api";
+import {
+  createCoreSet,
+  getAllCoreSets,
+  getCoreSet,
+  deleteCoreSet,
+} from "libs/api";
 export const ApiTester = () => {
   const getButton = async () => {
-    const data = await getAllCoreSets({ state: "MO", year: "2021" });
-    const otherData = await getCoreSet({
+    const getAllCoreSetData = await getAllCoreSets({
+      state: "MO",
+      year: "2021",
+    });
+    const getCoreSetData = await getCoreSet({
       state: "MO",
       year: "2021",
       id: "AAC-123",
     });
-    const otherOtherData = await createCoreSet({
+    const createCoreSetData = await createCoreSet({
       state: "MO",
       year: "2021",
       id: "AAC-123",
@@ -15,9 +23,24 @@ export const ApiTester = () => {
         test: "data",
       },
     });
-    console.log("getCoreSets: ", data);
-    console.log("getSpecificCoreSet: ", otherData);
-    console.log("createCoreSet", otherOtherData);
+    const editCoreSetData = await createCoreSet({
+      state: "MO",
+      year: "2021",
+      id: "AAC-123",
+      body: {
+        test: "data",
+      },
+    });
+    const deleteCoreSetData = await deleteCoreSet({
+      state: "MO",
+      year: "2021",
+      id: "AAC-123",
+    });
+    console.log("getCoreSets Response: ", getAllCoreSetData);
+    console.log("getSpecificCoreSet Response: ", getCoreSetData);
+    console.log("createCoreSet Response: ", createCoreSetData);
+    console.log("editCoreSet Response: ", editCoreSetData);
+    console.log("deleteCoreSet Response: ", deleteCoreSetData);
   };
   getButton().then(() => {
     console.log("hello world");
