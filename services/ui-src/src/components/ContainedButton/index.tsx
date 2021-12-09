@@ -9,7 +9,7 @@ interface ContainedButtonProps {
   helperText?: string;
   helperTextProps?: CUI.TextProps;
   icon?: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const ContainedButton = ({
