@@ -15,7 +15,7 @@ custom:
       - master
       - val
       - production
-  tableName: ${self:custom.stage}-amendments
+  tableName: ${self:custom.stage}-coreSets
   dynamodb:
     stages:
       - local
@@ -31,7 +31,7 @@ provider:
 
 resources:
   Resources:
-    AmendmentsTable:
+    CoreSetTable:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.tableName}
@@ -50,18 +50,24 @@ resources:
           - AttributeName: amendmentId
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
-    AmendmentsAtomicCounterTable:
+    MeasureTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.tableName}-atomic-counter
+        TableName: ${self:custom.tableName}
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: amendmentId
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: userId
             KeyType: HASH
+          - AttributeName: amendmentId
+            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
   Outputs:
     AmendmentsTableName:
@@ -70,9 +76,5 @@ resources:
       Value: !GetAtt AmendmentsTable.Arn
     AmendmentsTableStreamArn:
       Value: !GetAtt AmendmentsTable.StreamArn
-    AmendmentsAtomicCounterTableName:
-      Value: !Ref AmendmentsAtomicCounterTable
-    AmendmentsAtomicCounterTableArn:
-      Value: !GetAtt AmendmentsAtomicCounterTable.Arn
     Region:
       Value: !Sub ${AWS::Region}
