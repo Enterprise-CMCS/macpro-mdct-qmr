@@ -76,6 +76,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}/measures
           method: get
           cors: true
+          authorizer: aws_iam
   listMeasuresMetadata:
     handler: handlers/measures/get.listMeasuresMetadata
     events:
@@ -83,6 +84,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}/measures/metadata
           method: get
           cors: true
+          authorizer: aws_iam
   getMeasure:
     handler: handlers/measures/get.getMeasure
     events:
@@ -90,6 +92,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: get
           cors: true
+          authorizer: aws_iam
   createMeasure:
     handler: handlers/measures/alter.createMeasure
     events:
@@ -97,6 +100,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: post
           cors: true
+          authorizer: aws_iam
   editMeasure:
     handler: handlers/measures/alter.editMeasure
     events:
@@ -104,6 +108,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: put
           cors: true
+          authorizer: aws_iam
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
     events:
@@ -111,6 +116,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: delete
           cors: true
+          authorizer: aws_iam
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
     events:
@@ -118,6 +124,7 @@ functions:
           path: coreset/{state}/{year}
           method: get
           cors: true
+          authorizer: aws_iam
   getCoreSet:
     handler: handlers/coreSets/get.getCoreSet
     events:
@@ -125,6 +132,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}
           method: get
           cors: true
+          authorizer: aws_iam
   createCoreSet:
     handler: handlers/coreSets/alter.createCoreSet
     events:
@@ -132,6 +140,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}
           method: post
           cors: true
+          authorizer: aws_iam
   editCoreSet:
     handler: handlers/coreSets/alter.editCoreSet
     events:
@@ -139,6 +148,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}
           method: put
           cors: true
+          authorizer: aws_iam
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
     events:
@@ -146,6 +156,7 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}
           method: delete
           cors: true
+          authorizer: aws_iam
 
 resources:
   Resources:
