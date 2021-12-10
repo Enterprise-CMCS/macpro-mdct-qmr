@@ -12,24 +12,24 @@ interface CheckboxProps extends QMR.InputWrapperProps {
   options: CheckboxOption[];
   checkboxGroupProps?: CUI.CheckboxGroupProps;
   name: string;
-  control: Control<any, object>;
+  control?: Control<any, object>;
 }
 
 export const Checkbox = ({
   options,
   checkboxGroupProps,
   name,
-  control,
   ...rest
 }: CheckboxProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   const { field } = useController({
     name,
     control,
   });
-
-  const {
-    formState: { errors },
-  } = useFormContext();
 
   return (
     <QMR.InputWrapper

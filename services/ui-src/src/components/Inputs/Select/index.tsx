@@ -14,7 +14,7 @@ interface SelectProps extends QMR.InputWrapperProps {
   placeholder?: string;
   options: SelectOption[];
   name: string;
-  control: Control<any, object>;
+  control?: Control<any, object>;
 }
 
 export const Select = ({
@@ -22,17 +22,17 @@ export const Select = ({
   placeholder,
   options,
   name,
-  control,
   ...rest
 }: SelectProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   const { field } = useController({
     name,
     control,
   });
-
-  const {
-    formState: { errors },
-  } = useFormContext();
 
   return (
     <QMR.InputWrapper

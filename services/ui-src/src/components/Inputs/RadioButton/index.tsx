@@ -13,24 +13,24 @@ interface RadioButtonProps extends QMR.InputWrapperProps {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
-  control: Control<any, object>;
+  control?: Control<any, object>;
 }
 
 export const RadioButton = ({
   options,
   radioGroupProps,
   name,
-  control,
   ...rest
 }: RadioButtonProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   const { field } = useController({
     name,
     control,
   });
-
-  const {
-    formState: { errors },
-  } = useFormContext();
 
   return (
     <QMR.InputWrapper

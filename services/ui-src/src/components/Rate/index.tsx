@@ -12,10 +12,10 @@ export interface IRate {
 interface Props {
   rates: IRate[];
   name: string;
-  control: Control<any, object>;
+  control?: Control<any, object>;
 }
 
-export const Rate = ({ rates, name, control }: Props) => {
+export const Rate = ({ rates, name }: Props) => {
   return (
     <>
       {rates.map((rate, index) => (
@@ -25,20 +25,14 @@ export const Rate = ({ rates, name, control }: Props) => {
           )}
           <CUI.HStack spacing={2}>
             <Inputs.NumberInput
-              control={control}
               name={`${name}.${index}.numerator`}
               label="Numerator"
             />
             <Inputs.NumberInput
-              control={control}
               name={`${name}.${index}.denominator`}
               label="Denominator"
             />
-            <Inputs.NumberInput
-              control={control}
-              name={`${name}.${index}.rate`}
-              label="Rate"
-            />
+            <Inputs.NumberInput name={`${name}.${index}.rate`} label="Rate" />
           </CUI.HStack>
         </CUI.Stack>
       ))}
