@@ -15,5 +15,7 @@ export namespace DemoForm {
     "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
     "DataSource-ElectronicHealthRecords"?: string;
     "DataSource-ElectronicHealthRecords-Explanation"?: string;
+    "AdditionalNotes-AdditionalNotes"?: string;
+    "AdditionalNotes-Upload"?: File[];
   }
 }

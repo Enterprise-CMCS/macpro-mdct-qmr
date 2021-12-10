@@ -26,6 +26,7 @@ export const DemoMeasure = () => {
             <Q.Reporting />
             <Q.Status />
             <Q.DataSource />
+            <Q.AdditionalNotes />
             <QMR.ContainedButton
               buttonProps={{ type: "submit", isFullWidth: true }}
               buttonText="Submit"
