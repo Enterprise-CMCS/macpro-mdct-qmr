@@ -37,6 +37,7 @@ export const StateLayout: React.FC<Props> = ({
         w="full"
         top="0"
         left="0"
+        data-testid="state-layout-container"
       >
         <CUI.Box bg={singleNavigationItem ? "blue.700" : "blue.100"}>
           <CUI.Flex maxW="7xl" p="3" alignItems="center" mx="auto">
