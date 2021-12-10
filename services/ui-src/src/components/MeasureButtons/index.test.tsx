@@ -1,4 +1,3 @@
-// import { render, fireEvent, screen } from "@testing-library/react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MeasureButtons } from "./index";
 

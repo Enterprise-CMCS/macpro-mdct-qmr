@@ -16,7 +16,7 @@ export const MeasureButtons = ({
   const showCheck = lastSavedText?.toLowerCase() === "saved moments ago";
 
   return (
-    <CUI.HStack display={{ base: "block", lg: "flex" }} textAlign="center">
+    <CUI.HStack display={{ base: "block", lg: "flex" }}>
       <CUI.Flex
         fontSize="xl"
         justifyContent="center"
