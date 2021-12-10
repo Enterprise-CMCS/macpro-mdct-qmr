@@ -1,7 +1,6 @@
 import { API } from "aws-amplify";
 import config from "config";
 import { getLocalUserInfo } from "libs";
-import { IAmendmentInterface } from "views/Amendments";
 
 function requestOptions(): any {
   const localLogin = config.LOCAL_LOGIN === "true";
@@ -24,7 +23,7 @@ function createMeasure(inputObj: any) {
   opts.body = inputObj.body;
 
   return API.post(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
     opts
   );
@@ -34,7 +33,7 @@ function editMeasure(inputObj: any) {
   opts.body = inputObj.body;
 
   return API.put(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
     opts
   );
@@ -43,7 +42,7 @@ function editMeasure(inputObj: any) {
 function listMeasures(inputObj: any) {
   const opts = requestOptions();
   return API.get(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures`,
     opts
   );
@@ -52,7 +51,7 @@ function listMeasures(inputObj: any) {
 function getMeasure(inputObj: any) {
   const opts = requestOptions();
   return API.get(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
     opts
   );
@@ -61,7 +60,7 @@ function getMeasure(inputObj: any) {
 function listMeasuresMetadata(inputObj: any) {
   const opts = requestOptions();
   return API.get(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/metadata`,
     opts
   );
@@ -70,7 +69,7 @@ function listMeasuresMetadata(inputObj: any) {
 function deleteMeasure(inputObj: any) {
   const opts = requestOptions();
   return API.del(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
     opts
   );
@@ -79,7 +78,7 @@ function deleteMeasure(inputObj: any) {
 function getAllCoreSets(inputObj: any) {
   const opts = requestOptions();
   return API.get(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}`,
     opts
   );
@@ -88,7 +87,7 @@ function getAllCoreSets(inputObj: any) {
 function getCoreSet(inputObj: any) {
   const opts = requestOptions();
   return API.get(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
@@ -98,7 +97,7 @@ function createCoreSet(inputObj: any) {
   const opts = requestOptions();
   opts.body = inputObj.body;
   return API.post(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
@@ -108,7 +107,7 @@ function editCoreSet(inputObj: any) {
   const opts = requestOptions();
   opts.body = inputObj.body;
   return API.put(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
@@ -117,45 +116,13 @@ function editCoreSet(inputObj: any) {
 function deleteCoreSet(inputObj: any) {
   const opts = requestOptions();
   return API.del(
-    "amendments",
+    "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
 
-function listAmendments() {
-  const opts = requestOptions();
-  return API.get("amendments", "/amendments", opts);
-}
-
-function getAmendment(id: string) {
-  const opts = requestOptions();
-  return API.get("amendments", `/amendments/${id}`, opts);
-}
-
-function createAmendment(body: IAmendmentInterface) {
-  const opts = requestOptions();
-  opts.body = body;
-  return API.post("amendments", "/amendments", opts);
-}
-
-function updateAmendment(id: string, body: IAmendmentInterface) {
-  const opts = requestOptions();
-  opts.body = body;
-  return API.put("amendments", `/amendments/${id}`, opts);
-}
-
-function deleteAmendment(id: string) {
-  const opts = requestOptions();
-  return API.del("amendments", `/amendments/${id}`, opts);
-}
-
 export {
-  deleteAmendment,
-  updateAmendment,
-  listAmendments,
-  getAmendment,
-  createAmendment,
   getAllCoreSets,
   getCoreSet,
   createCoreSet,

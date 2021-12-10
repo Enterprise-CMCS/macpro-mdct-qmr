@@ -23,12 +23,6 @@ export const routes = [
     exact: true,
   },
   {
-    component: Views.NewAmendment,
-    name: "YourMom",
-    path: "/amendment",
-    exact: true,
-  },
-  {
     component: Views.Home,
     name: "Home",
     path: "/",

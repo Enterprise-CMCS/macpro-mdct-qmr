@@ -146,37 +146,6 @@ functions:
           path: coreset/{state}/{year}/{coreSetId}
           method: delete
           cors: true
-  create:
-    handler: handlers/create.main
-    events:
-      - http:
-          path: amendments
-          method: post
-          cors: true
-  list:
-    handler: handlers/list.main
-    events:
-      - http:
-          path: amendments
-          method: get
-          cors: true
-          authorizer: aws_iam
-  update:
-    handler: handlers/update.main
-    events:
-      - http:
-          path: amendments/{id}
-          method: put
-          cors: true
-          authorizer: aws_iam
-  delete:
-    handler: handlers/delete.main
-    events:
-      - http:
-          path: amendments/{id}
-          method: delete
-          cors: true
-          authorizer: aws_iam
 
 resources:
   Resources:
