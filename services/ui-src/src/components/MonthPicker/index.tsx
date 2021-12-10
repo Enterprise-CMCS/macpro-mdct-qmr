@@ -1,10 +1,9 @@
 import * as CUI from "@chakra-ui/react";
 import { MonthPickerCalendar } from "./calendarPopup";
-import { Control, useController } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 
 interface CommonProps {
   name: string;
-  control: Control<any, object>;
   initMonth?: string;
 }
 
@@ -19,23 +18,23 @@ type Props = CommonProps & YearProps;
 
 export const MonthPicker = ({
   name,
-  control,
   yearLocked,
   initYear,
   initMonth,
 }: Props) => {
+  const { control } = useFormContext();
   const { field } = useController({
     name,
     control,
   });
 
-  const monthRegex = /^((1[0-2])|[0-9])?$/;
+  const monthRegex = /^((1[0-2])|[1-9])?$/;
   const yearRegex = /^((19|20)?\d{0,2})$/;
 
   return (
     <CUI.HStack>
       <CUI.Stack>
-        <CUI.FormLabel>{"Month:"}</CUI.FormLabel>
+        <CUI.FormLabel my={0}>{"Month:"}</CUI.FormLabel>
         <CUI.HStack>
           <CUI.Input
             width="4rem"
@@ -56,7 +55,7 @@ export const MonthPicker = ({
         </CUI.HStack>
       </CUI.Stack>
       <CUI.Stack>
-        <CUI.FormLabel>{"Year:"}</CUI.FormLabel>
+        <CUI.FormLabel my={0}>{"Year:"}</CUI.FormLabel>
         <CUI.HStack>
           <CUI.Input
             width="6rem"
@@ -76,7 +75,7 @@ export const MonthPicker = ({
           <MonthPickerCalendar
             yearLocked={yearLocked}
             selectedMonth={field.value?.selectedMonth || initMonth}
-            selectedYear={yearLocked ? initYear : field.value?.selectedYea}
+            selectedYear={yearLocked ? initYear : field.value?.selectedYear}
             onChange={(month, year) => {
               field.onChange({
                 selectedMonth: month,

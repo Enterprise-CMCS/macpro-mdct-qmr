@@ -221,7 +221,7 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               DatePicker
             </CUI.Heading>
-            <QMR.DateRange {...useCustomRegister("dateRange1")} />
+            <QMR.DateRange {...register("dateRange1")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Contained Buttons

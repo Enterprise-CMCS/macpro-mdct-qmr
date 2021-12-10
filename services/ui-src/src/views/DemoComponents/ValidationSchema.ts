@@ -29,6 +29,5 @@ export const DemoValidationSchema = Joi.object({
   testUpload2: Joi.any(),
   demoRadioButton: Joi.string().required(),
   demoNumberInput1: Joi.string().pattern(new RegExp(regex)),
-  startDate1: Joi.any(),
-  endDate1: Joi.any(),
+  dateRange1: Joi.any(),
 });
