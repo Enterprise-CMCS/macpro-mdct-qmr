@@ -8,6 +8,13 @@ interface NotificationProps {
   close: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+enum BorderColor {
+  "success" = "green.500",
+  "error" = "red.500",
+  "warning" = "yellow.500",
+  "info" = "blue.500",
+}
+
 export const Notification = ({
   alertProps,
   alertTitle,
@@ -15,21 +22,11 @@ export const Notification = ({
   alertStatus,
   close,
 }: NotificationProps) => {
-  let borderColor = "green.500";
-
-  if (alertStatus === "error") {
-    borderColor = "red.500";
-  } else if (alertStatus === "warning") {
-    borderColor = "yellow.500";
-  } else if (alertStatus === "info") {
-    borderColor = "blue.500";
-  }
-
   return (
     <CUI.Alert
       ml={2}
       borderLeft="8px"
-      borderColor={borderColor}
+      borderColor={BorderColor[alertStatus]}
       py={3}
       status={alertStatus}
       {...alertProps}
