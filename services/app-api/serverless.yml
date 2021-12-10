@@ -87,28 +87,28 @@ functions:
     handler: handlers/measures/get.getMeasure
     events:
       - http:
-          path: get/coreset/{state}/{year}/{coreSetId}/measures/{measureId}
+          path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: get
           cors: true
   createMeasure:
     handler: handlers/measures/alter.createMeasure
     events:
       - http:
-          path: post/coreset/{state}/{year}/{coreSetId}/measures/{measureId}
+          path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: post
           cors: true
   editMeasure:
     handler: handlers/measures/alter.editMeasure
     events:
       - http:
-          path: put/coreset/{state}/{year}/{coreSetId}/measures/{measureId}
+          path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: put
           cors: true
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
     events:
       - http:
-          path: delete/coreset/{state}/{year}/{coreSetId}/measures/{measureId}
+          path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
           method: delete
           cors: true
   getAllCoreSets:
@@ -122,28 +122,28 @@ functions:
     handler: handlers/coreSets/get.getCoreSet
     events:
       - http:
-          path: get/coreset/{state}/{year}/{id}
+          path: coreset/{state}/{year}/{coreSetId}
           method: get
           cors: true
   createCoreSet:
     handler: handlers/coreSets/alter.createCoreSet
     events:
       - http:
-          path: post/coreset/{state}/{year}/{id}
+          path: coreset/{state}/{year}/{coreSetId}
           method: post
           cors: true
   editCoreSet:
     handler: handlers/coreSets/alter.editCoreSet
     events:
       - http:
-          path: put/coreset/{state}/{year}/{id}
+          path: coreset/{state}/{year}/{coreSetId}
           method: put
           cors: true
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
     events:
       - http:
-          path: delete/coreset/{state}/{year}/{id}
+          path: coreset/{state}/{year}/{coreSetId}
           method: delete
           cors: true
   create:

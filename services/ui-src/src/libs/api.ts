@@ -25,7 +25,7 @@ function createMeasure(inputObj: any) {
 
   return API.post(
     "amendments",
-    `/post/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
     opts
   );
 }
@@ -35,7 +35,7 @@ function editMeasure(inputObj: any) {
 
   return API.put(
     "amendments",
-    `/put/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
     opts
   );
 }
@@ -53,7 +53,7 @@ function getMeasure(inputObj: any) {
   const opts = requestOptions();
   return API.get(
     "amendments",
-    `/get/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
     opts
   );
 }
@@ -71,7 +71,7 @@ function deleteMeasure(inputObj: any) {
   const opts = requestOptions();
   return API.del(
     "amendments",
-    `/delete/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/measures/${inputObj.measureId}`,
     opts
   );
 }
@@ -89,7 +89,7 @@ function getCoreSet(inputObj: any) {
   const opts = requestOptions();
   return API.get(
     "amendments",
-    `/get/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
@@ -99,7 +99,7 @@ function createCoreSet(inputObj: any) {
   opts.body = inputObj.body;
   return API.post(
     "amendments",
-    `/post/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
@@ -109,7 +109,7 @@ function editCoreSet(inputObj: any) {
   opts.body = inputObj.body;
   return API.put(
     "amendments",
-    `/put/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
@@ -118,7 +118,7 @@ function deleteCoreSet(inputObj: any) {
   const opts = requestOptions();
   return API.del(
     "amendments",
-    `/delete/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
