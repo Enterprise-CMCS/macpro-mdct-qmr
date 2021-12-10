@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { TiArrowUnsorted } from "react-icons/ti";
-import { Control, useController, useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 export interface SelectOption {
@@ -14,7 +14,6 @@ interface SelectProps extends QMR.InputWrapperProps {
   placeholder?: string;
   options: SelectOption[];
   name: string;
-  control?: Control<any, object>;
 }
 
 export const Select = ({

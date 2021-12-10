@@ -1,12 +1,11 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Control, useController, useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 interface TextAreaProps extends QMR.InputWrapperProps {
   placeholder?: string;
   name: string;
-  control?: Control<any, object>;
   isRequired?: boolean;
   textAreaProps?: CUI.TextareaProps;
 }
@@ -35,7 +34,7 @@ export const TextArea = ({
     >
       <CUI.Textarea
         name={name}
-        value={field.value}
+        value={field.value ?? ""}
         placeholder={placeholder}
         onChange={field.onChange}
         onBlur={field.onBlur}

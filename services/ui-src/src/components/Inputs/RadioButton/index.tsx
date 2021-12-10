@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Control, useController, useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 export interface RadioButtonOption {
@@ -13,7 +13,6 @@ interface RadioButtonProps extends QMR.InputWrapperProps {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
-  control?: Control<any, object>;
 }
 
 export const RadioButton = ({

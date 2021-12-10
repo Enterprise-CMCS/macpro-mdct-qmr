@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Control, useController, useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 export interface CheckboxOption {
   displayValue: string;
@@ -12,7 +12,6 @@ interface CheckboxProps extends QMR.InputWrapperProps {
   options: CheckboxOption[];
   checkboxGroupProps?: CUI.CheckboxGroupProps;
   name: string;
-  control?: Control<any, object>;
 }
 
 export const Checkbox = ({

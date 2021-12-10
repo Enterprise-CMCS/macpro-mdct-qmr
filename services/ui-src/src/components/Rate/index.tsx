@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
-import { Control } from "react-hook-form";
 export interface IRate {
   label?: string;
   numerator: string;
@@ -12,7 +11,6 @@ export interface IRate {
 interface Props {
   rates: IRate[];
   name: string;
-  control?: Control<any, object>;
 }
 
 export const Rate = ({ rates, name }: Props) => {

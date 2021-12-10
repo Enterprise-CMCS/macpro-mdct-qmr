@@ -2,13 +2,12 @@ import React from "react";
 import * as CUI from "@chakra-ui/react";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
-import { Control, useController, useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 
 interface IUploadProps {
   maxSize?: number;
   label?: string;
   acceptedFileTypes?: string | string[];
-  control?: Control<any, object>;
   name: string;
 }
 

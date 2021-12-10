@@ -1,13 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Control, useController, useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 interface NumberInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
-  control?: Control<any, object>;
   name: string;
 }
 
@@ -39,7 +38,7 @@ export const NumberInput = ({
         <CUI.Input
           type="number"
           placeholder={placeholder ?? ""}
-          value={field.value}
+          value={field.value ?? ""}
           name={name}
           onChange={field.onChange}
           onBlur={field.onBlur}
