@@ -13,7 +13,6 @@ export const renderWithHookForm = (
   ui: any,
   { defaultValues = {} }: AdditionalOptions = {}
 ) => {
-  console.log("Brian", defaultValues);
   const Wrapper = ({ children }: WrapperProps) => {
     const methods = useForm({ defaultValues });
 
