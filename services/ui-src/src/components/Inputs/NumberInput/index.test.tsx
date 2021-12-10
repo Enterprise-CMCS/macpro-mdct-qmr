@@ -1,44 +1,37 @@
-import { render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { NumberInput } from "components/Inputs/NumberInput";
-import { TestWrapper } from "components/TestWrapper";
-import { useForm } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
-
-const TestComponent = ({
-  renderPercent = false,
-}: {
-  renderPercent?: boolean;
-}) => {
-  const { setValue } = useForm();
-  setValue("test-component", "1234");
-
-  return (
-    <TestWrapper>
-      <NumberInput
-        label="label"
-        helperText="helper"
-        displayPercent={renderPercent}
-        {...useCustomRegister("test-component")}
-      />
-    </TestWrapper>
-  );
-};
+import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
 describe("Test the NumberInput component", () => {
-  test("Check that component renders", () => {
-    const screen = render(<TestComponent />);
-    expect(screen.getByDisplayValue("1234")).toBeVisible();
+  test("Check that component renders", async () => {
+    renderWithHookForm(
+      <NumberInput label="label" helperText="helper" name="test-component" />,
+      {
+        defaultValues: { "test-component": "1234" },
+      }
+    );
+    expect(await screen.findByDisplayValue("1234")).toBeInTheDocument();
   });
 
   test("Check that label and helper texts get rendered correctly", () => {
-    const { getByText } = render(<TestComponent />);
+    renderWithHookForm(
+      <NumberInput label="label" helperText="helper" name="test-component" />
+    );
 
-    expect(getByText("label")).toBeVisible();
-    expect(getByText("helper")).toBeVisible();
+    expect(screen.getByText("label")).toBeInTheDocument();
+    expect(screen.getByText("helper")).toBeInTheDocument();
   });
 
   test("Check that percent symbol is rendered correctly", () => {
-    const { getByText } = render(<TestComponent renderPercent={true} />);
-    expect(getByText("%")).toBeVisible();
+    renderWithHookForm(
+      <NumberInput
+        label="label"
+        helperText="helper"
+        displayPercent
+        name="test-component"
+      />
+    );
+    // const { getByText } = render(<TestComponent renderPercent={true} />);
+    expect(screen.getByText("%")).toBeVisible();
   });
 });

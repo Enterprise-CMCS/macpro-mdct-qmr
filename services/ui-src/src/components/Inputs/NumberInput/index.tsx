@@ -7,7 +7,7 @@ interface NumberInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
-  control: Control<any, object>;
+  control?: Control<any, object>;
   name: string;
 }
 
@@ -16,18 +16,18 @@ export const NumberInput = ({
   placeholder,
   displayPercent,
   name,
-  control,
   formControlProps,
   ...rest
 }: NumberInputProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   const { field } = useController({
     name,
     control,
   });
-
-  const {
-    formState: { errors },
-  } = useFormContext();
 
   return (
     <QMR.InputWrapper
@@ -39,6 +39,7 @@ export const NumberInput = ({
         <CUI.Input
           type="number"
           placeholder={placeholder ?? ""}
+          value={field.value}
           name={name}
           onChange={field.onChange}
           onBlur={field.onBlur}
