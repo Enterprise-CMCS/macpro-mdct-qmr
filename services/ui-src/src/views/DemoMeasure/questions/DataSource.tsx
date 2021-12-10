@@ -49,9 +49,7 @@ export const DataSource = () => {
                       <QMR.TextArea
                         key="DataSource-Administrative-Other-Explanation"
                         label={`Administrative Data Source: ${
-                          watch("DataSource-Administrative-Other")
-                            ? `<${watch("DataSource-Administrative-Other")}>:`
-                            : ""
+                          watch("DataSource-Administrative-Other") || ""
                         }`}
                         {...register(
                           "DataSource-Administrative-Other-Explanation"
@@ -100,9 +98,7 @@ export const DataSource = () => {
                       <QMR.TextArea
                         key="Administrative Data Source:"
                         label={`Administrative Data Source: ${
-                          watch("DataSource-Hybrid-Other")
-                            ? `<${watch("DataSource-Hybrid-Other")}:>`
-                            : ""
+                          watch("DataSource-Hybrid-Other") || ""
                         }`}
                         {...register("DataSource-Hybrid-Other-Explanation")}
                       />,
@@ -157,9 +153,7 @@ export const DataSource = () => {
               <QMR.TextArea
                 key="Electronic Record Data Source data:"
                 label={`Electronic Record Data Source: ${
-                  watch("DataSource-ElectronicHealthRecords")
-                    ? `<${watch("DataSource-ElectronicHealthRecords")}>:`
-                    : ""
+                  watch("DataSource-ElectronicHealthRecords") || ""
                 }`}
                 {...register("DataSource-ElectronicHealthRecords-Explanation")}
               />,
@@ -186,11 +180,7 @@ export const DataSource = () => {
               </CUI.Text>,
               <QMR.TextArea
                 key="DataSource-Other-Explanation"
-                label={`Other Data Source: ${
-                  watch("DataSource-Other")
-                    ? `<${watch("DataSource-Other")}>:`
-                    : ""
-                }`}
+                label={`Other Data Source: ${watch("DataSource-Other") || ""}`}
                 {...register("DataSource-Other-Explanation")}
               />,
             ],
