@@ -60,11 +60,11 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource:
-            - ${self:custom.tableArn}
-            - ${self:custom.atomicCounterTableArn}
+            - ${self:custom.CoreSetTableArn}
+            - ${self:custom.MeasureTableArn}
   environment:
-    tableName: ${self:custom.tableName}
-    atomicCounterTableName: ${self:custom.atomicCounterTableName}
+    tableName: ${self:custom.CoreSetTable}
+    atomicCounterTableName: ${self:custom.MeasureTableName}
 
 functions:
   listMeasures:
