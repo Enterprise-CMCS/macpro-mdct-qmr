@@ -33,6 +33,7 @@ export function DemoComponents(): JSX.Element {
 }
 
 const DemoComponentsForm = () => {
+  const register = useCustomRegister();
   const [progressCircleValue, setProgressCircle] = React.useState(5);
 
   const { handleSubmit } = useFormContext();
@@ -96,7 +97,7 @@ const DemoComponentsForm = () => {
               Text Area
             </CUI.Heading>
             <QMR.TextArea
-              {...useCustomRegister("demoTextArea")}
+              {...register("demoTextArea")}
               placeholder="test"
               label="test text area"
               helperText="put in something here"
@@ -107,7 +108,7 @@ const DemoComponentsForm = () => {
               Radio Button
             </CUI.Heading>
             <QMR.RadioButton
-              {...useCustomRegister("demoRadioButton")}
+              {...register("demoRadioButton")}
               label="hello world"
               options={[
                 { displayValue: "test1", value: "test1" },
@@ -120,7 +121,7 @@ const DemoComponentsForm = () => {
             </CUI.Heading>
             <QMR.TextInput
               label="Label for Text Input"
-              {...useCustomRegister("demoTextInput")}
+              {...register("demoTextInput")}
               helperText="Your text can't exceed 3 characters"
               errorMessage="Text is too long"
             />
@@ -129,7 +130,7 @@ const DemoComponentsForm = () => {
               Select Input
             </CUI.Heading>
             <QMR.Select
-              {...useCustomRegister("demoSelect")}
+              {...register("demoSelect")}
               placeholder="Select option"
               options={selectOptions}
               helperText="pick something please"
@@ -140,14 +141,14 @@ const DemoComponentsForm = () => {
               Number Input With Mask
             </CUI.Heading>
             <QMR.NumberInput
-              {...useCustomRegister("demoNumberInput1")}
+              {...register("demoNumberInput1")}
               placeholder="123"
               label="This number input is a percent and allows decimals"
               helperText="Enter a number"
               displayPercent={true}
             />
             <QMR.NumberInput
-              {...useCustomRegister("demoNumberInput2")}
+              {...register("demoNumberInput2")}
               placeholder="123"
               label="This number input only allows integers"
               helperText="Enter a number"
@@ -162,9 +163,9 @@ const DemoComponentsForm = () => {
               helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
               errorMessage="Text is too long"
               formLabelProps={{ fontWeight: 600 }}
-              {...useCustomRegister("demoRateTextInput1")}
+              {...register("demoRateTextInput1")}
             />
-            <Rate rates={rates} {...useCustomRegister("demoRate1")} />
+            <Rate rates={rates} {...register("demoRate1")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Rate With Multiple Numerator/Denominator/Rate
@@ -175,28 +176,28 @@ const DemoComponentsForm = () => {
               helperText="For example, specify the age groups and whether you are reporting on a certain indicator:"
               errorMessage="Text is too long"
               formLabelProps={{ fontWeight: 700 }}
-              {...useCustomRegister("demoRateTextInput2")}
+              {...register("demoRateTextInput2")}
             />
-            <Rate rates={ratesTwo} {...useCustomRegister("demoRate2")} />
+            <Rate rates={ratesTwo} {...register("demoRate2")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Upload Control
             </CUI.Heading>
             <Upload
               label="Sample label for an upload control"
-              {...useCustomRegister("testUpload1")}
+              {...register("testUpload1")}
             />
             <Upload
               maxSize={1000}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
-              {...useCustomRegister("testUpload2")}
+              {...register("testUpload2")}
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Checkbox
             </CUI.Heading>
             <QMR.Checkbox
-              {...useCustomRegister("testCheckbox")}
+              {...register("testCheckbox")}
               options={[
                 {
                   displayValue: "Medicaid Management Information System (MMIS)",
@@ -209,7 +210,7 @@ const DemoComponentsForm = () => {
                     <QMR.TextInput
                       label="Describe the data source:"
                       key="other-describe-data"
-                      {...useCustomRegister("demoCheckboxTextInput")}
+                      {...register("demoCheckboxTextInput")}
                     />,
                   ],
                 },

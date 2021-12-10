@@ -1,19 +1,19 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DemoForm } from "views/DemoMeasure/DemoFormType";
 
 export const Status = () => {
+  const register = useCustomRegister();
   return (
     <QMR.CoreQuestionWrapper label="Status of Data Reported">
       <QMR.RadioButton
-        {...useCustomRegister<DemoForm.DemoFormType>("DataStatus")}
+        {...register("DataStatus")}
         options={[
           {
             displayValue: "I am reporting provisional data",
             value: "I am reporting provisional data",
             children: [
               <QMR.TextArea
-                {...useCustomRegister("DataStatus-ProvisionalExplaination")}
+                {...register("DataStatus-ProvisionalExplaination")}
                 label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
                 formLabelProps={{
                   fontWeight: "normal",

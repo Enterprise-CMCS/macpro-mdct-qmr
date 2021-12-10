@@ -6,21 +6,20 @@ import { DemoForm } from "views/DemoMeasure/DemoFormType";
 
 export const DataSource = () => {
   const methods = useFormContext();
+  const register = useCustomRegister<DemoForm.DemoFormType>();
   const { watch } = methods;
 
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
       <QMR.Checkbox
-        {...useCustomRegister<DemoForm.DemoFormType>("DataSource")}
+        {...register("DataSource")}
         options={[
           {
             displayValue: "Administrative Data",
             value: "I am reporting provisional data",
             children: [
               <QMR.Checkbox
-                {...useCustomRegister<DemoForm.DemoFormType>(
-                  "DataSource-Administrative"
-                )}
+                {...register("DataSource-Administrative")}
                 key="Administrative data"
                 options={[
                   {
@@ -35,9 +34,7 @@ export const DataSource = () => {
                       <QMR.TextInput
                         label="Describe the data:"
                         key="DataSource-Administrative-Other"
-                        {...useCustomRegister(
-                          "DataSource-Administrative-Other"
-                        )}
+                        {...register("DataSource-Administrative-Other")}
                       />,
                       <CUI.Text
                         fontSize="sm"
@@ -56,7 +53,7 @@ export const DataSource = () => {
                             ? `<${watch("DataSource-Administrative-Other")}>:`
                             : ""
                         }`}
-                        {...useCustomRegister(
+                        {...register(
                           "DataSource-Administrative-Other-Explanation"
                         )}
                       />,
@@ -73,9 +70,7 @@ export const DataSource = () => {
             value: "I am reporting hybrid",
             children: [
               <QMR.Checkbox
-                {...useCustomRegister<DemoForm.DemoFormType>(
-                  "DataSource-Hybrid"
-                )}
+                {...register("DataSource-Hybrid")}
                 key="Hybrid data"
                 options={[
                   {
@@ -90,7 +85,7 @@ export const DataSource = () => {
                       <QMR.TextInput
                         label="Describe the data:"
                         key="Describe the data:"
-                        {...useCustomRegister("DataSource-Hybrid-Other")}
+                        {...register("DataSource-Hybrid-Other")}
                       />,
                       <CUI.Text
                         fontSize="sm"
@@ -109,9 +104,7 @@ export const DataSource = () => {
                             ? `<${watch("DataSource-Hybrid-Other")}:>`
                             : ""
                         }`}
-                        {...useCustomRegister(
-                          "DataSource-Hybrid-Other-Explanation"
-                        )}
+                        {...register("DataSource-Hybrid-Other-Explanation")}
                       />,
                     ],
                   },
@@ -124,9 +117,7 @@ export const DataSource = () => {
                 label="What is the Medical Records Data Source"
                 formLabelProps={{ fontWeight: 700, paddingTop: 5 }}
                 key="Hybrid Radio Button Data"
-                {...useCustomRegister<DemoForm.DemoFormType>(
-                  "DataSource-Hybrid-MedicalRecord-DataSoruce"
-                )}
+                {...register("DataSource-Hybrid-MedicalRecord-DataSoruce")}
                 options={[
                   {
                     displayValue: "Electronic Health Record (EHR) Data",
@@ -151,7 +142,7 @@ export const DataSource = () => {
               <QMR.TextInput
                 label="Describe Electronic Record data source:"
                 key="Describe the electronic data source:"
-                {...useCustomRegister("DataSource-ElectronicHealthRecords")}
+                {...register("DataSource-ElectronicHealthRecords")}
               />,
               <CUI.Text
                 fontSize="sm"
@@ -170,9 +161,7 @@ export const DataSource = () => {
                     ? `<${watch("DataSource-ElectronicHealthRecords")}>:`
                     : ""
                 }`}
-                {...useCustomRegister(
-                  "DataSource-ElectronicHealthRecords-Explanation"
-                )}
+                {...register("DataSource-ElectronicHealthRecords-Explanation")}
               />,
             ],
           },
@@ -183,7 +172,7 @@ export const DataSource = () => {
               <QMR.TextInput
                 label="Describe the data source:"
                 key="DataSource-Other"
-                {...useCustomRegister("DataSource-Other")}
+                {...register("DataSource-Other")}
               />,
               <CUI.Text
                 fontSize="sm"
@@ -202,7 +191,7 @@ export const DataSource = () => {
                     ? `<${watch("DataSource-Other")}>:`
                     : ""
                 }`}
-                {...useCustomRegister("DataSource-Other-Explanation")}
+                {...register("DataSource-Other-Explanation")}
               />,
             ],
           },

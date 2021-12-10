@@ -3,10 +3,12 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { DemoForm } from "views/DemoMeasure/DemoFormType";
 
 export const Reporting = () => {
+  const register = useCustomRegister<DemoForm.DemoFormType>();
+
   return (
     <QMR.CoreQuestionWrapper label="Are you reporting on this measure?">
       <QMR.RadioButton
-        {...useCustomRegister<DemoForm.DemoFormType>("DidReport")}
+        {...register("DidReport")}
         options={[
           {
             displayValue: `Yes, I am reporting Admission to an Institution from the Community (AIF-HH) for FFY 2021 quality params.measure reporting.`,

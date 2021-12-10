@@ -5,6 +5,8 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
 const TestComponent = () => {
+  const register = useCustomRegister();
+
   return (
     <QMR.RadioButton
       name="test-component"
@@ -24,7 +26,7 @@ const TestComponent = () => {
                 fontWeight: "normal",
                 fontSize: "normal",
               }}
-              {...useCustomRegister("test-component-2")}
+              {...register("test-component-2")}
             />,
           ],
         },
