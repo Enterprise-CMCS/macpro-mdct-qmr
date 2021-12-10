@@ -6,7 +6,7 @@ import objectPath from "object-path";
 interface TextAreaProps extends QMR.InputWrapperProps {
   placeholder?: string;
   name: string;
-  control: Control<any, object>;
+  control?: Control<any, object>;
   isRequired?: boolean;
   textAreaProps?: CUI.TextareaProps;
 }
@@ -14,18 +14,18 @@ interface TextAreaProps extends QMR.InputWrapperProps {
 export const TextArea = ({
   placeholder,
   textAreaProps,
-  control,
   name,
   ...rest
 }: TextAreaProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   const { field } = useController({
     name,
     control,
   });
-
-  const {
-    formState: { errors },
-  } = useFormContext();
 
   return (
     <QMR.InputWrapper
@@ -35,6 +35,7 @@ export const TextArea = ({
     >
       <CUI.Textarea
         name={name}
+        value={field.value}
         placeholder={placeholder}
         onChange={field.onChange}
         onBlur={field.onBlur}
