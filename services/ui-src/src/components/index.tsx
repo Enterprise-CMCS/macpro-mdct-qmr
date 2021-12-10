@@ -9,6 +9,7 @@ export * from "./LoaderButton";
 export * from "./LocalLogins";
 export * from "./Logo";
 export * from "./Breadcrumbs";
+export * from "./DateRange";
 export * from "./MonthPicker";
 export * from "./QuestionChild";
 export * from "./Table";

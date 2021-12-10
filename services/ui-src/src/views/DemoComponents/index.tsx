@@ -221,13 +221,7 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               DatePicker
             </CUI.Heading>
-            <CUI.Text size="sm">Normal Month Picker</CUI.Text>
-            <QMR.MonthPicker {...useCustomRegister("startDate1")} />
-            <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
-            <QMR.MonthPicker
-              {...useCustomRegister("endDate1")}
-              yearLocked={true}
-            />
+            <QMR.DateRange {...useCustomRegister("dateRange1")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Contained Buttons

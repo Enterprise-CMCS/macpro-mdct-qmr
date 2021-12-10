@@ -1,23 +1,25 @@
-// // import * as CUI from "@chakra-ui/react";
-// // import { useState } from "react";
-// // import { MonthPicker } from "components/MonthPicker";
+import * as CUI from "@chakra-ui/react";
+import { MonthPicker } from "components/MonthPicker";
+import { Control } from "react-hook-form";
 
-/* interface Props {
+interface Props {
   name: string;
-  control: Controller<any, object>;
+  control: Control<any, object>;
+  initStartMonth?: string;
+  initStartYear?: string;
+  startYearLocked?: boolean;
+  initEndMonth?: string;
+  initEndYear?: string;
+  endYearLocked?: boolean;
 }
 
-
-*/
-// export const DateRange = ({}: Props) => {
-//
-//   return (
-//     <>
-//       <h1>Hello world</h1>
-//       {/* <CUI.Text />
-//       <MonthPicker name={`${name}.startDate`} control={control} />
-//       <MonthPicker /> */}
-//     </>
-//   );
-// };
-export const helloWorld = "";
+export const DateRange = ({ name, control }: Props) => {
+  return (
+    <CUI.Stack>
+      <CUI.FormLabel fontWeight={500}>{"Start Date"}</CUI.FormLabel>
+      <MonthPicker name={`${name}.startDate`} control={control} />
+      <CUI.FormLabel fontWeight={500}>{"End Date"}</CUI.FormLabel>
+      <MonthPicker name={`${name}.endDate`} control={control} />
+    </CUI.Stack>
+  );
+};
