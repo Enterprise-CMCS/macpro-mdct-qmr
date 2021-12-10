@@ -13,16 +13,34 @@ export const DemoQuestions = () => {
     resolver: joiResolver(validationSchema),
   });
   const { register } = methods;
+
+  const handleSave = () => {
+    console.log("saved");
+    methods.handleSubmit((data) => console.log(data));
+  };
+
+  const handleSubmit = () => {
+    console.log("submitted");
+    methods.handleSubmit((data) => console.log(data));
+  };
+
   return (
-    <QMR.StateLayout
-      breadcrumbItems={[
-        { path: `/OH/2021`, name: `FFY 2021` },
-        { path: `/OH/2021/ACS`, name: `Adult` },
-        { path: `/OH/2021/ACS/AIF-HH`, name: `DQT-AD: Demo Questions` },
-      ]}
-    >
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit}>
+        <QMR.StateLayout
+          breadcrumbItems={[
+            { path: `/OH/2021`, name: `FFY 2021` },
+            { path: `/OH/2021/ACS`, name: `Adult` },
+            { path: `/OH/2021/ACS/AIF-HH`, name: `DQT-AD: Demo Questions` },
+          ]}
+          buttons={
+            <QMR.MeasureButtons
+              handleSave={handleSave}
+              handleSubmit={handleSubmit}
+              lastSavesText="saved moments ago"
+            />
+          }
+        >
           <CUI.Container maxW="2xl">
             <CoreQs.AreYouReporting
               options={[
@@ -63,8 +81,8 @@ export const DemoQuestions = () => {
             />
             <button>Submit</button>
           </CUI.Container>
-        </form>
-      </FormProvider>
-    </QMR.StateLayout>
+        </QMR.StateLayout>
+      </form>
+    </FormProvider>
   );
 };
