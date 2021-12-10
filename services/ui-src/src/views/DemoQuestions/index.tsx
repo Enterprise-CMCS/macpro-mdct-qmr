@@ -37,7 +37,7 @@ export const DemoQuestions = () => {
             <QMR.MeasureButtons
               handleSave={handleSave}
               handleSubmit={handleSubmit}
-              lastSavesText="saved moments ago"
+              lastSavedText="Saved Moments Ago"
             />
           }
         >

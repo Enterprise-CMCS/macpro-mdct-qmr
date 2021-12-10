@@ -1,19 +1,19 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { HiCheckCircle } from "react-icons/hi";
+import { FaCheckCircle } from "react-icons/fa";
 
 interface Props {
   handleSave: () => void;
   handleSubmit: () => void;
-  lastSavesText?: string;
+  lastSavedText?: string;
 }
 
 export const MeasureButtons = ({
   handleSave,
   handleSubmit,
-  lastSavesText,
+  lastSavedText,
 }: Props) => {
-  const showCheck = lastSavesText?.toLowerCase() === "saved moments ago";
+  const showCheck = lastSavedText?.toLowerCase() === "saved moments ago";
 
   return (
     <CUI.HStack display={{ base: "block", lg: "flex" }} textAlign="center">
@@ -21,15 +21,16 @@ export const MeasureButtons = ({
         fontSize="xl"
         justifyContent="center"
         mb={{ base: "1", lg: "0" }}
+        data-testid="last-saved-text"
       >
         {showCheck && (
           <CUI.Box mt="2px">
-            <HiCheckCircle />
+            <FaCheckCircle data-testid="circle-check-icon" />
           </CUI.Box>
         )}
-        {lastSavesText && (
+        {lastSavedText && (
           <CUI.Text ml="2" fontSize="sm">
-            {lastSavesText}
+            {lastSavedText}
           </CUI.Text>
         )}
       </CUI.Flex>
