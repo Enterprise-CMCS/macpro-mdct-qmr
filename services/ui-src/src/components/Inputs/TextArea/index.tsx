@@ -1,7 +1,6 @@
-import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 interface TextAreaProps extends QMR.InputWrapperProps {
@@ -9,31 +8,38 @@ interface TextAreaProps extends QMR.InputWrapperProps {
   name: string;
   isRequired?: boolean;
   textAreaProps?: CUI.TextareaProps;
-  onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
-  onBlur: React.FocusEventHandler<HTMLTextAreaElement>;
 }
 
-export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ onChange, placeholder, textAreaProps, onBlur, name, ...rest }, ref) => {
-    const {
-      formState: { errors },
-    } = useFormContext();
+export const TextArea = ({
+  placeholder,
+  textAreaProps,
+  name,
+  ...rest
+}: TextAreaProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
 
-    return (
-      <QMR.InputWrapper
-        isInvalid={!!objectPath.get(errors, name)?.message}
-        errorMessage={objectPath.get(errors, name)?.message}
-        {...rest}
-      >
-        <CUI.Textarea
-          ref={ref}
-          name={name}
-          placeholder={placeholder}
-          onChange={onChange}
-          onBlur={onBlur}
-          {...textAreaProps}
-        />
-      </QMR.InputWrapper>
-    );
-  }
-);
+  const { field } = useController({
+    name,
+    control,
+  });
+
+  return (
+    <QMR.InputWrapper
+      isInvalid={!!objectPath.get(errors, name)?.message}
+      errorMessage={objectPath.get(errors, name)?.message}
+      {...rest}
+    >
+      <CUI.Textarea
+        name={name}
+        value={field.value ?? ""}
+        placeholder={placeholder}
+        onChange={field.onChange}
+        onBlur={field.onBlur}
+        {...textAreaProps}
+      />
+    </QMR.InputWrapper>
+  );
+};

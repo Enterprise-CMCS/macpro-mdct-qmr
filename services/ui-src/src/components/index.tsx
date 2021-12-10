@@ -12,5 +12,7 @@ export * from "./Breadcrumbs";
 export * from "./DateRange";
 export * from "./MonthPicker";
 export * from "./QuestionChild";
+export * from "./CoreQuestionWrapper";
+export * from "./ContainedButton";
 export * from "./Table";
 export * from "./Upload";
