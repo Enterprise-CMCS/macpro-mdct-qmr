@@ -44,6 +44,7 @@ export const Notification = ({
         position="absolute"
         right="8px"
         top="5"
+        data-testid="close"
       />
     </CUI.Alert>
   );
