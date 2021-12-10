@@ -1,35 +1,29 @@
-import { render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { TextInput } from "components";
-import { TestWrapper } from "components/TestWrapper";
-import { useForm } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
-
-const TestComponent = () => {
-  const { setValue } = useForm();
-  setValue("test-component", "test");
-
-  return (
-    <TestWrapper>
-      <TextInput
-        label="label"
-        helperText="helper"
-        {...useCustomRegister("test-component")}
-      />
-    </TestWrapper>
-  );
-};
+import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
 describe("Test for TextInput Component", () => {
   it("Renders properly", () => {
-    const { getByLabelText } = render(<TestComponent />);
+    renderWithHookForm(<TextInput name="test-component" label="label" />);
 
-    expect(getByLabelText(/label/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/label/i)).toBeInTheDocument();
+  });
+
+  it("Pre-populates with data", () => {
+    renderWithHookForm(<TextInput name="test-component" />, {
+      defaultValues: {
+        "test-component": "testing",
+      },
+    });
+    expect(screen.getByDisplayValue("testing")).toBeInTheDocument();
   });
 
   it("renders label and helper text correctly", () => {
-    const { getByText } = render(<TestComponent />);
+    renderWithHookForm(
+      <TextInput label="label" helperText="helper" name="test-component" />
+    );
 
-    expect(getByText("label")).toBeInTheDocument();
-    expect(getByText("helper")).toBeInTheDocument();
+    expect(screen.getByText("label")).toBeInTheDocument();
+    expect(screen.getByText("helper")).toBeInTheDocument();
   });
 });

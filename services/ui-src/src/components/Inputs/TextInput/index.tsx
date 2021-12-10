@@ -5,26 +5,26 @@ import objectPath from "object-path";
 
 interface TextInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
-  control: Control<any, object>;
+  control?: Control<any, object>;
   name: string;
   textInputProps?: CUI.InputProps;
 }
 
 export const TextInput = ({
   textInputProps,
-  control,
   placeholder,
   name,
   ...rest
 }: TextInputProps) => {
+  const {
+    formState: { errors },
+    control,
+  } = useFormContext();
+
   const { field } = useController({
     name,
     control,
   });
-
-  const {
-    formState: { errors },
-  } = useFormContext();
 
   return (
     <QMR.InputWrapper
@@ -36,6 +36,7 @@ export const TextInput = ({
         type="text"
         name={name}
         placeholder={placeholder}
+        value={field.value}
         onChange={field.onChange}
         onBlur={field.onBlur}
         {...textInputProps}
