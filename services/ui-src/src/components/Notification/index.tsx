@@ -27,7 +27,6 @@ export const Notification = ({
 
   return (
     <CUI.Alert
-      pl={6}
       ml={2}
       borderLeft="8px"
       borderColor={borderColor}
@@ -35,14 +34,16 @@ export const Notification = ({
       status={alertStatus}
       {...alertProps}
     >
-      <CUI.AlertIcon />
-      <CUI.AlertTitle>{alertTitle}</CUI.AlertTitle>
-      <CUI.AlertDescription>{alertDescription}</CUI.AlertDescription>
+      <CUI.AlertIcon alignSelf="start" />
+      <CUI.Box>
+        <CUI.AlertTitle>{alertTitle}</CUI.AlertTitle>
+        <CUI.AlertDescription>{alertDescription}</CUI.AlertDescription>
+      </CUI.Box>
       <CUI.CloseButton
         onClick={close}
         position="absolute"
         right="8px"
-        top="8px"
+        top="5"
       />
     </CUI.Alert>
   );
