@@ -12,7 +12,7 @@ import { ContainedButton } from "components/ContainedButton";
 import React from "react";
 import { DemoValidationSchema } from "./ValidationSchema";
 import { joiResolver } from "@hookform/resolvers/joi";
-
+import { Notification } from "components/Notification";
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
   { displayValue: "option2", value: "option2" },
@@ -35,6 +35,7 @@ export function DemoComponents(): JSX.Element {
 
 const DemoComponentsForm = () => {
   const [progressCircleValue, setProgressCircle] = React.useState(5);
+  const [showAlert, setAlert] = React.useState(false);
 
   const { register, handleSubmit } = useFormContext();
   const rates = [
@@ -406,6 +407,29 @@ const DemoComponentsForm = () => {
               }}
             />
           </CUI.HStack>
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Notification/Alert
+          </CUI.Heading>
+          <CUI.VStack>
+            {showAlert && (
+              <Notification
+                alertStatus="success"
+                alertTitle="New Core Sets Created"
+                alertDescription="The new core sets were successfully created and are ready for reporting"
+                close={() => setAlert(false)}
+              />
+            )}
+            <ContainedButton
+              buttonText={`Show Success Alert`}
+              buttonProps={{
+                variant: "outline",
+                colorScheme: "blue",
+                textTransform: "capitalize",
+              }}
+              onClick={() => setAlert(true)}
+            />
+          </CUI.VStack>
         </CUI.Container>
         <button>Submit</button>
       </form>
