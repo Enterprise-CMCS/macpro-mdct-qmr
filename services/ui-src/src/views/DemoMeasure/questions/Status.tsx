@@ -20,7 +20,6 @@ export const Status = () => {
                   fontWeight: "normal",
                   fontSize: "normal",
                 }}
-                key="DataStatus-ProvisionalExplaination"
               />,
             ],
           },
