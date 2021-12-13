@@ -1,5 +1,6 @@
 export * from "./Breadcrumbs";
 export * from "./ContainedButton";
+export * from "./DateRange";
 export * from "./Footer";
 export * from "./Header";
 export * from "./HelpSection";
