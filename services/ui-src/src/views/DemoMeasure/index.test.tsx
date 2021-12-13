@@ -35,14 +35,14 @@ describe("Test Demo Questions Component", () => {
     ).toBeInTheDocument();
   });
 
-  describe("renders components when question 1 is answered no", async () => {
+  describe("renders components when question 1 is answered no", () => {
     beforeEach(() => {
       fireEvent.click(screen.getByLabelText(/No, I am not/i));
     });
 
     it("renders components properly", async () => {
       expect(
-        screen.getByText("Why are you not reporting on this measure?")
+        await screen.findByText("Why are you not reporting on this measure?")
       ).toBeInTheDocument();
     });
   });

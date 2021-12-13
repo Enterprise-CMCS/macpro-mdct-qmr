@@ -27,7 +27,7 @@ export namespace DemoForm {
     "InformationNotCollected-Answer": string;
     "InformationNotCollected-Other": string;
     LimitationWithDatCollecitonReportAccuracyCovid: string;
-    "SmallSampleSizeLessThan30": string;
+    SmallSampleSizeLessThan30: string;
     "WhyAreYouNotReporting-Other": string;
   }
 }
