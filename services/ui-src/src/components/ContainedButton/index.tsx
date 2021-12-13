@@ -33,6 +33,7 @@ export const ContainedButton = ({
         rightIcon={plusIcon}
         onClick={onClick}
         disabled={disabledStatus}
+        borderRadius="sm"
         {...buttonProps}
       >
         {buttonText}

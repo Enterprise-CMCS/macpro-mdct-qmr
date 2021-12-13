@@ -2,7 +2,6 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { Rate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
-import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
 import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -82,17 +81,17 @@ const DemoComponentsForm = () => {
   const kebabMenuItemClick = (itemIndex: number) =>
     alert(`You have selected item # ${itemIndex}`);
 
-  const validateData = (data: any) => {
-    console.log(data);
+  // const validateData = (data: any) => {
+  //   console.log(data);
 
-    console.log(DemoValidationSchema.validate(data));
-  };
+  //   console.log(DemoValidationSchema.validate(data));
+  // };
 
   return (
     <QMR.StateLayout
       breadcrumbItems={[{ path: `/components`, name: "Demo Components" }]}
     >
-      <form onSubmit={handleSubmit((data: any) => validateData(data))}>
+      <form onSubmit={handleSubmit((data: any) => console.log(data))}>
         <CUI.Container mb="6">
           <CUI.Stack spacing="4">
             <CUI.Heading size="md">Components</CUI.Heading>
@@ -226,21 +225,7 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               DatePicker
             </CUI.Heading>
-            <CUI.Text size="sm">Normal Month Picker</CUI.Text>
-            <MonthPicker
-              onChange={(m, y) => {
-                console.log(m, y);
-              }}
-            />
-            <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
-            <MonthPicker
-              selectedMonth={3}
-              selectedYear={2019}
-              yearLocked={true}
-              onChange={(m, y) => {
-                console.log(m, y);
-              }}
-            />
+            <QMR.DateRange {...register("dateRange1")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Contained Buttons
