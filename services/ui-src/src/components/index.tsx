@@ -13,5 +13,7 @@ export * from "./Logo";
 export * from "./MeasureButtons";
 export * from "./MonthPicker";
 export * from "./QuestionChild";
+export * from "./CoreQuestionWrapper";
+export * from "./ContainedButton";
 export * from "./Table";
 export * from "./Upload";

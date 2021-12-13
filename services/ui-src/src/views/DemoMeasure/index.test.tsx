@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
-import { DemoQuestions } from "views";
+import { DemoMeasure } from "views";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -17,7 +17,7 @@ describe("Test Demo Questions Component", () => {
   it("renders a text area when question 2 is answered yes", async () => {
     render(
       <RouterWrappedComp>
-        <DemoQuestions />
+        <DemoMeasure />
       </RouterWrappedComp>
     );
     userEvent.click(screen.getByText("I am reporting provisional data"));
