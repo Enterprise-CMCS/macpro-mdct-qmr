@@ -41,7 +41,11 @@ export const DemoMeasure = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
           <CUI.Container maxW="2xl" as="section">
-            <Q.Reporting />
+            <Q.Reporting
+              reportingYear={2021}
+              measureName="Admission to an Institution from the Community"
+              measureAbbreviation="AIF-HH"
+            />
             {watchReportingRadio?.includes("Yes") ? (
               <>
                 <Q.Status />

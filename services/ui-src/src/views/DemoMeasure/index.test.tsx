@@ -1,5 +1,4 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { DemoMeasure } from "views";
 
@@ -14,13 +13,18 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Test Demo Questions Component", () => {
-  it("renders a text area when question 2 is answered yes", async () => {
+  beforeEach(() => {
     render(
       <RouterWrappedComp>
         <DemoMeasure />
       </RouterWrappedComp>
     );
-    userEvent.click(screen.getByText("I am reporting provisional data"));
+  });
+
+  it("renders a text area when question 2 is answered yes", async () => {
+    fireEvent.click(screen.getByLabelText(/Yes, I am/i));
+    fireEvent.click(await screen.findByText("I am reporting provisional data"));
+
     expect(
       screen.getByLabelText("I am reporting provisional data")
     ).toBeChecked();
@@ -30,14 +34,20 @@ describe("Test Demo Questions Component", () => {
       )
     ).toBeInTheDocument();
   });
-});
 
-test("Check that the nav renders", () => {
-  const { getByTestId } = render(
-    <RouterWrappedComp>
-      <DemoMeasure />
-    </RouterWrappedComp>
-  );
+  describe("renders components when question 1 is answered no", async () => {
+    beforeEach(() => {
+      fireEvent.click(screen.getByLabelText(/No, I am not/i));
+    });
 
-  expect(getByTestId("state-layout-container")).toBeVisible();
+    it("renders components properly", async () => {
+      expect(
+        screen.getByText("Why are you not reporting on this measure?")
+      ).toBeInTheDocument();
+    });
+  });
+
+  test("Check that the nav renders", () => {
+    expect(screen.getByTestId("state-layout-container")).toBeVisible();
+  });
 });
