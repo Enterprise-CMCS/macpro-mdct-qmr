@@ -67,11 +67,5 @@ describe("Test Demo Questions Component", () => {
 });
 
 test("Check that the nav renders", () => {
-  const { getByTestId } = render(
-    <RouterWrappedComp>
-      <DemoMeasure />
-    </RouterWrappedComp>
-  );
-
-  expect(getByTestId("state-layout-container")).toBeVisible();
+  expect(screen.getByTestId("state-layout-container")).toBeVisible();
 });
