@@ -17,4 +17,7 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   "DataSource-Hybrid-MedicalRecord-DataSoruce": Joi.string(),
   "DataSource-ElectronicHealthRecords": Joi.string(),
   "DataSource-ElectronicHealthRecords-Explanation": Joi.string(),
+  "WhyAreYouNotReporting-Answer": Joi.array().items(Joi.string()),
+  AmountOfPopulationNotCovered: Joi.string(),
+  PartialPopulationNotCoveredExplanation: Joi.string(),
 });
