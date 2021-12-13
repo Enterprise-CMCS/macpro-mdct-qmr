@@ -15,7 +15,8 @@ custom:
       - master
       - val
       - production
-  tableName: ${self:custom.stage}-coreSets
+  coreSetTableName: ${self:custom.stage}-coreSets
+  measureTableName: ${self:custom.stage}-measures
   dynamodb:
     stages:
       - local
@@ -34,7 +35,7 @@ resources:
     CoreSetTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.tableName}
+        TableName: ${self:custom.coreSetTableName}
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
         StreamSpecification:
@@ -44,10 +45,6 @@ resources:
             AttributeType: S
           - AttributeName: id
             AttributeType: S
-          - AttributeName: state
-            AttributeType: S
-          - AttributeName: year
-            AttributeType: N
         KeySchema:
           - AttributeName: compoundKey
             KeyType: HASH
@@ -57,7 +54,7 @@ resources:
     MeasureTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.tableName}
+        TableName: ${self:custom.measureTableName}
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
         StreamSpecification:
@@ -65,12 +62,6 @@ resources:
         AttributeDefinitions:
           - AttributeName: compoundKey
             AttributeType: S
-          - AttributeName: name
-            AttributeType: S
-          - AttributeName: state
-            AttributeType: S
-          - AttributeName: year
-            AttributeType: N
           - AttributeName: coresetid
             AttributeType: S
         KeySchema:
