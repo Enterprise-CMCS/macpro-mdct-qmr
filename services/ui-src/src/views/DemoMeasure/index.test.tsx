@@ -35,7 +35,7 @@ describe("Test Demo Questions Component", () => {
 test("Check that the nav renders", () => {
   const { getByTestId } = render(
     <RouterWrappedComp>
-      <DemoQuestions />
+      <DemoMeasure />
     </RouterWrappedComp>
   );
 
