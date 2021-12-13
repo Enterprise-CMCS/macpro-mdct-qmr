@@ -31,3 +31,13 @@ describe("Test Demo Questions Component", () => {
     ).toBeInTheDocument();
   });
 });
+
+test("Check that the nav renders", () => {
+  const { getByTestId } = render(
+    <RouterWrappedComp>
+      <DemoMeasure />
+    </RouterWrappedComp>
+  );
+
+  expect(getByTestId("state-layout-container")).toBeVisible();
+});

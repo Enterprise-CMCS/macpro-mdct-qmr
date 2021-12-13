@@ -2,7 +2,6 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { Rate } from "components/Rate";
 import { ProgressCircle } from "components/ProgressCircle";
-import { MonthPicker } from "components/MonthPicker";
 import { Upload } from "components/Upload";
 import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -11,7 +10,7 @@ import { ContainedButton } from "components/ContainedButton";
 import React from "react";
 import { DemoValidationSchema } from "./ValidationSchema";
 import { joiResolver } from "@hookform/resolvers/joi";
-
+import { Notification } from "components/Notification";
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
   { displayValue: "option2", value: "option2" },
@@ -35,6 +34,10 @@ export function DemoComponents(): JSX.Element {
 const DemoComponentsForm = () => {
   const register = useCustomRegister();
   const [progressCircleValue, setProgressCircle] = React.useState(5);
+  const [showSuccessAlert, setSuccessAlert] = React.useState(false);
+  const [showWarningAlert, setWarningAlert] = React.useState(false);
+  const [showInfoAlert, setInfoAlert] = React.useState(false);
+  const [showErrorAlert, setErrorAlert] = React.useState(false);
 
   const { handleSubmit } = useFormContext();
   const rates = [
@@ -78,17 +81,17 @@ const DemoComponentsForm = () => {
   const kebabMenuItemClick = (itemIndex: number) =>
     alert(`You have selected item # ${itemIndex}`);
 
-  const validateData = (data: any) => {
-    console.log(data);
+  // const validateData = (data: any) => {
+  //   console.log(data);
 
-    console.log(DemoValidationSchema.validate(data));
-  };
+  //   console.log(DemoValidationSchema.validate(data));
+  // };
 
   return (
     <QMR.StateLayout
       breadcrumbItems={[{ path: `/components`, name: "Demo Components" }]}
     >
-      <form onSubmit={handleSubmit((data: any) => validateData(data))}>
+      <form onSubmit={handleSubmit((data: any) => console.log(data))}>
         <CUI.Container mb="6">
           <CUI.Stack spacing="4">
             <CUI.Heading size="md">Components</CUI.Heading>
@@ -222,21 +225,7 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               DatePicker
             </CUI.Heading>
-            <CUI.Text size="sm">Normal Month Picker</CUI.Text>
-            <MonthPicker
-              onChange={(m, y) => {
-                console.log(m, y);
-              }}
-            />
-            <CUI.Text size="sm">Locked Year Month Picker</CUI.Text>
-            <MonthPicker
-              selectedMonth={3}
-              selectedYear={2019}
-              yearLocked={true}
-              onChange={(m, y) => {
-                console.log(m, y);
-              }}
-            />
+            <QMR.DateRange {...register("dateRange1")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Contained Buttons
@@ -406,6 +395,82 @@ const DemoComponentsForm = () => {
               }}
             />
           </CUI.HStack>
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Notification/Alert
+          </CUI.Heading>
+          <CUI.VStack p={4}>
+            {showSuccessAlert && (
+              <Notification
+                alertStatus="success"
+                alertTitle="New Core Sets Created"
+                alertDescription="The new core sets were successfully created and are ready for reporting"
+                close={() => setSuccessAlert(false)}
+              />
+            )}
+            {showWarningAlert && (
+              <Notification
+                alertStatus="warning"
+                alertTitle="New Core Sets Are Needed"
+                alertDescription="The new core sets are needed for reporting"
+                close={() => setWarningAlert(false)}
+              />
+            )}
+            {showInfoAlert && (
+              <Notification
+                alertStatus="info"
+                alertTitle="New Core Sets Are Avaliable"
+                alertDescription="The new core sets are avaliable"
+                close={() => setInfoAlert(false)}
+              />
+            )}
+            {showErrorAlert && (
+              <Notification
+                alertStatus="error"
+                alertTitle="New Core Sets Created"
+                alertDescription="The new core sets were not created"
+                close={() => setErrorAlert(false)}
+              />
+            )}
+            <CUI.HStack>
+              <ContainedButton
+                disabledStatus={showSuccessAlert}
+                buttonText={`Show Success Alert`}
+                buttonProps={{
+                  colorScheme: "green",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setSuccessAlert(true)}
+              />{" "}
+              <ContainedButton
+                disabledStatus={showWarningAlert}
+                buttonText={`Show Warning Alert`}
+                buttonProps={{
+                  colorScheme: "yellow",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setWarningAlert(true)}
+              />{" "}
+              <ContainedButton
+                disabledStatus={showInfoAlert}
+                buttonText={`Show Info Alert`}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setInfoAlert(true)}
+              />{" "}
+              <ContainedButton
+                disabledStatus={showErrorAlert}
+                buttonText={`Show Error Alert`}
+                buttonProps={{
+                  colorScheme: "red",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setErrorAlert(true)}
+              />
+            </CUI.HStack>
+          </CUI.VStack>
         </CUI.Container>
         <button>Submit</button>
       </form>
