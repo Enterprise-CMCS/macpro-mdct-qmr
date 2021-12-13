@@ -40,26 +40,16 @@ resources:
         StreamSpecification:
           StreamViewType: NEW_AND_OLD_IMAGES
         AttributeDefinitions:
-          - AttributeName: key
-            AttributeType: string
+          - AttributeName: compoundKey
+            AttributeType: S
           - AttributeName: id
-            AttributeType: string
+            AttributeType: S
           - AttributeName: state
-            AttributeType: string
+            AttributeType: S
           - AttributeName: year
-            AttributeType: number
-          - AttributeName: status
-            AttributeType: string
-          - AttributeName: type
-            AttributeType: string
-          - AttributeName: createdat
-            AttributeType: string
-          - AttributeName: lastaltered
-            AttributeType: string
-          - AttributeName: lastalteredby
-            AttributeType: string
+            AttributeType: N
         KeySchema:
-          - AttributeName: key
+          - AttributeName: compoundKey
             KeyType: HASH
           - AttributeName: id
             KeyType: RANGE
@@ -73,30 +63,18 @@ resources:
         StreamSpecification:
           StreamViewType: NEW_AND_OLD_IMAGES
         AttributeDefinitions:
-          - AttributeName: key
-            AttributeType: string
+          - AttributeName: compoundKey
+            AttributeType: S
           - AttributeName: name
-            AttributeType: string
+            AttributeType: S
           - AttributeName: state
-            AttributeType: string
+            AttributeType: S
           - AttributeName: year
-            AttributeType: number
+            AttributeType: N
           - AttributeName: coresetid
-            AttributeType: string
-          - AttributeName: status
-            AttributeType: string
-          - AttributeName: description
-            AttributeType: string
-          - AttributeName: data
-            AttributeType: map
-          - AttributeName: createdat
-            AttributeType: string
-          - AttributeName: lastaltered
-            AttributeType: string
-          - AttributeName: lastalteredby
-            AttributeType: string
+            AttributeType: S
         KeySchema:
-          - AttributeName: key
+          - AttributeName: compoundKey
             KeyType: HASH
           - AttributeName: coresetid
             KeyType: RANGE
