@@ -2,8 +2,8 @@ import Joi from "joi";
 import { DemoForm } from "./DemoFormType";
 
 export const validationSchema = Joi.object<DemoForm.DemoFormType>({
-  DidReport: Joi.required().label("Are you reporting"),
-  DataStatus: Joi.required().label("Status of Data Reported"),
+  DidReport: Joi.string().label("Are you reporting"),
+  DataStatus: Joi.string().label("Status of Data Reported"),
   DataSource: Joi.array().items(Joi.string()),
   "DataStatus-ProvisionalExplanation": Joi.string(),
   "DataSource-Administrative": Joi.array().items(Joi.string()),
@@ -20,4 +20,14 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   "WhyAreYouNotReporting-Answer": Joi.array().items(Joi.string()),
   AmountOfPopulationNotCovered: Joi.string(),
   PartialPopulationNotCoveredExplanation: Joi.string(),
+  "WhyIsDataNotAvailable-Answer": Joi.string(),
+  "WhyIsDataNotAvailable-Other": Joi.string(),
+  DataIconAccuracyIssues: Joi.string(),
+  "DataSourceNotEasilyAccessible-Answer": Joi.string(),
+  "DataSourceNotEasilyAccessible-Other": Joi.string(),
+  "InformationNotCollected-Answer": Joi.string(),
+  "InformationNotCollected-Other": Joi.string(),
+  LimitationWithDatCollecitonReportAccuracyCovid: Joi.string(),
+  SmallSampleSizeLessThan30: Joi.string(),
+  "WhyAreYouNotReporting-Other": Joi.string(),
 });

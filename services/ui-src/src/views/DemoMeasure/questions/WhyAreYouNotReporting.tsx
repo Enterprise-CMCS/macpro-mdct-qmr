@@ -6,7 +6,7 @@ export const WhyAreYouNotReporting = () => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
   // questionText
   return (
-    <QMR.CoreQuestionWrapper label="Are you reporting on this measure?">
+    <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
       <QMR.Checkbox
         {...register("WhyAreYouNotReporting-Answer")}
         options={[
