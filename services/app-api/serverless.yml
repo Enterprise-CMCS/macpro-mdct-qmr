@@ -134,7 +134,7 @@ functions:
           cors: true
           authorizer: aws_iam
   createCoreSet:
-    handler: handlers/coreSets/alter.createCoreSet
+    handler: handlers/coreSets/create.createCoreSet
     events:
       - http:
           path: coreset/{state}/{year}/{coreSetId}
@@ -142,7 +142,7 @@ functions:
           cors: true
           authorizer: aws_iam
   editCoreSet:
-    handler: handlers/coreSets/alter.editCoreSet
+    handler: handlers/coreSets/update.editCoreSet
     events:
       - http:
           path: coreset/{state}/{year}/{coreSetId}

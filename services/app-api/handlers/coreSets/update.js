@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 
-export const deleteCoreSet = handler(async (event, context) => {
+export const editCoreSet = handler(async (event, context) => {
   // The State Year and ID are all part of the path
   const stateYearId = event.path.split("/");
   const state = stateYearId[2];
@@ -16,11 +16,15 @@ export const deleteCoreSet = handler(async (event, context) => {
       compoundKey: dynamoKey,
       id: id,
     },
+    UpdateExpression: "set #s = :r",
+    ExpressionAttributeNames: {
+      "#s": "status",
+    },
+    ExpressionAttributeValues: {
+      ":r": "complete",
+    },
   };
-
-  await dynamoDb.delete(params);
+  await dynamoDb.update(params);
 
   return params;
-
-  // return params.Item;
 });

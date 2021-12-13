@@ -17,11 +17,10 @@ export const createCoreSet = handler(async (event, context) => {
       state: state,
       year: year,
       id: id,
-      metaData: {
-        createdAt: Date.now(),
-        lastAltered: Date.now(),
-        lastAlteredBy: event.headers["cognito-identity-id"],
-      },
+      createdAt: Date.now(),
+      lastAltered: Date.now(),
+      lastAlteredBy: event.headers["cognito-identity-id"],
+      status: "incomplete",
     },
   };
 
@@ -30,8 +29,4 @@ export const createCoreSet = handler(async (event, context) => {
   return params;
 
   // return params.Item;
-});
-
-export const editCoreSet = handler(async (event, context) => {
-  return event;
 });
