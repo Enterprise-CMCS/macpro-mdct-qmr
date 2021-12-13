@@ -1,5 +1,6 @@
 import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
+import config from "config";
 import {
   BsFillCalendar2DateFill,
   BsChevronLeft,
@@ -30,7 +31,7 @@ const monthNames = [
 
 export const MonthPickerCalendar = ({
   selectedMonth,
-  selectedYear = "2021",
+  selectedYear = config.currentReportingYear,
   yearLocked = false,
   onChange: handleChange,
 }: CalendarProps) => {

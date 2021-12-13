@@ -10,7 +10,7 @@ import { ContainedButton } from "components/ContainedButton";
 import React from "react";
 import { DemoValidationSchema } from "./ValidationSchema";
 import { joiResolver } from "@hookform/resolvers/joi";
-
+import { Notification } from "components/Notification";
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
   { displayValue: "option2", value: "option2" },
@@ -34,6 +34,10 @@ export function DemoComponents(): JSX.Element {
 const DemoComponentsForm = () => {
   const register = useCustomRegister();
   const [progressCircleValue, setProgressCircle] = React.useState(5);
+  const [showSuccessAlert, setSuccessAlert] = React.useState(false);
+  const [showWarningAlert, setWarningAlert] = React.useState(false);
+  const [showInfoAlert, setInfoAlert] = React.useState(false);
+  const [showErrorAlert, setErrorAlert] = React.useState(false);
 
   const { handleSubmit } = useFormContext();
   const rates = [
@@ -391,6 +395,82 @@ const DemoComponentsForm = () => {
               }}
             />
           </CUI.HStack>
+          <CUI.Divider />
+          <CUI.Heading size="sm" as="h3">
+            Notification/Alert
+          </CUI.Heading>
+          <CUI.VStack p={4}>
+            {showSuccessAlert && (
+              <Notification
+                alertStatus="success"
+                alertTitle="New Core Sets Created"
+                alertDescription="The new core sets were successfully created and are ready for reporting"
+                close={() => setSuccessAlert(false)}
+              />
+            )}
+            {showWarningAlert && (
+              <Notification
+                alertStatus="warning"
+                alertTitle="New Core Sets Are Needed"
+                alertDescription="The new core sets are needed for reporting"
+                close={() => setWarningAlert(false)}
+              />
+            )}
+            {showInfoAlert && (
+              <Notification
+                alertStatus="info"
+                alertTitle="New Core Sets Are Avaliable"
+                alertDescription="The new core sets are avaliable"
+                close={() => setInfoAlert(false)}
+              />
+            )}
+            {showErrorAlert && (
+              <Notification
+                alertStatus="error"
+                alertTitle="New Core Sets Created"
+                alertDescription="The new core sets were not created"
+                close={() => setErrorAlert(false)}
+              />
+            )}
+            <CUI.HStack>
+              <ContainedButton
+                disabledStatus={showSuccessAlert}
+                buttonText={`Show Success Alert`}
+                buttonProps={{
+                  colorScheme: "green",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setSuccessAlert(true)}
+              />{" "}
+              <ContainedButton
+                disabledStatus={showWarningAlert}
+                buttonText={`Show Warning Alert`}
+                buttonProps={{
+                  colorScheme: "yellow",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setWarningAlert(true)}
+              />{" "}
+              <ContainedButton
+                disabledStatus={showInfoAlert}
+                buttonText={`Show Info Alert`}
+                buttonProps={{
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setInfoAlert(true)}
+              />{" "}
+              <ContainedButton
+                disabledStatus={showErrorAlert}
+                buttonText={`Show Error Alert`}
+                buttonProps={{
+                  colorScheme: "red",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setErrorAlert(true)}
+              />
+            </CUI.HStack>
+          </CUI.VStack>
         </CUI.Container>
         <button>Submit</button>
       </form>

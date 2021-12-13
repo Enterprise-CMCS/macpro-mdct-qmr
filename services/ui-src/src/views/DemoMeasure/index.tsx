@@ -12,6 +12,14 @@ export const DemoMeasure = () => {
     resolver: joiResolver(validationSchema),
   });
 
+  const handleSave = () => {
+    console.log("saved");
+  };
+
+  const handleSubmit = () => {
+    console.log("submitted");
+  };
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -19,6 +27,13 @@ export const DemoMeasure = () => {
         { path: `/OH/2021/ACS`, name: `Adult` },
         { path: `/OH/2021/ACS/AIF-HH`, name: `DQT-AD: Demo Questions` },
       ]}
+      buttons={
+        <QMR.MeasureButtons
+          handleSave={handleSave}
+          handleSubmit={handleSubmit}
+          lastSavedText="Saved Moments Ago"
+        />
+      }
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
