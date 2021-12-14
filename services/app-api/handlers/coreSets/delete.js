@@ -9,7 +9,7 @@ export const deleteCoreSet = handler(async (event, context) => {
   // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
   const dynamoKey = `${state}${year}${id}`;
   const params = {
-    TableName: process.env.CORESET_TABLE_NAME,
+    TableName: process.env.coreSetTableName,
     Key: {
       compoundKey: dynamoKey,
       id: id,

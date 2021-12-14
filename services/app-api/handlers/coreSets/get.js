@@ -9,7 +9,7 @@ export const coreSetList = handler(async (event, context) => {
   const year = event.pathParameters.year;
   // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
   const params = {
-    TableName: process.env.CORESET_TABLE_NAME,
+    TableName: process.env.coreSetTableName,
     ProjectionExpression: "#yr, #st",
     FilterExpression: "#yr = :yr AND #st = :st",
     ExpressionAttributeNames: {
@@ -33,7 +33,7 @@ export const getCoreSet = handler(async (event, context) => {
   // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
   const dynamoKey = `${state}${year}${id}`;
   const params = {
-    TableName: process.env.CORESET_TABLE_NAME,
+    TableName: process.env.coreSetTableName,
     Key: {
       compoundKey: dynamoKey,
       id: id,

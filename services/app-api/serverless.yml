@@ -94,7 +94,7 @@ functions:
           cors: true
           authorizer: aws_iam
   createMeasure:
-    handler: handlers/measures/alter.createMeasure
+    handler: handlers/measures/create.createMeasure
     events:
       - http:
           path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}
@@ -102,7 +102,7 @@ functions:
           cors: true
           authorizer: aws_iam
   editMeasure:
-    handler: handlers/measures/alter.editMeasure
+    handler: handlers/measures/update.editMeasure
     events:
       - http:
           path: coreset/{state}/{year}/{coreSetId}/measures/{measureId}

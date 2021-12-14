@@ -10,7 +10,7 @@ export const editCoreSet = handler(async (event, context) => {
   const dynamoKey = `${state}${year}${id}`;
 
   const params = {
-    TableName: process.env.CORESET_TABLE_NAME,
+    TableName: process.env.coreSetTableName,
     Key: {
       compoundKey: dynamoKey,
       id: id,
