@@ -47,6 +47,19 @@ provider:
   region: us-east-1
   logs:
     restApi: true
+  CorsConfiguration: # Set the CORS policy
+    CorsRules:
+      - AllowedOrigins:
+          - "*"
+        AllowedHeaders:
+          - "*"
+        AllowedMethods:
+          - GET
+          - PUT
+          - POST
+          - DELETE
+          - HEAD
+        MaxAge: 3000
   iam:
     role:
       path: ${ssm:/configuration/${self:custom.stage}/iam/path~true, ssm:/configuration/default/iam/path~true, "/"}
