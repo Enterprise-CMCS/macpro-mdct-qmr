@@ -3,7 +3,7 @@ import dynamoDb from "../../libs/dynamodb-lib";
 
 // import dynamoDb from "./../libs/dynamodb-lib";
 
-export const coreSetList = handler(async (event, _context) => {
+export const coreSetList = handler(async (event, context) => {
   // The State Year and ID are all part of the path
   const state = event.pathParameters.state;
   const year = event.pathParameters.year;

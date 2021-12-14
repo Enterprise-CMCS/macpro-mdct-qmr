@@ -25,7 +25,7 @@ export const listMeasures = handler(async (event, context) => {
   return queryValue;
 });
 
-export const getMeasure = handler(async (event, _context) => {
+export const getMeasure = handler(async (event, context) => {
   // The State Year and ID are all part of the path
   const state = event.pathParameters.state;
   const year = event.pathParameters.year;

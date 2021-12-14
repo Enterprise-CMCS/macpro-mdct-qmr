@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 
-export const editCoreSet = handler(async (event, _context) => {
+export const editCoreSet = handler(async (event, context) => {
   const { status } = JSON.parse(event.body);
   // The State Year and ID are all part of the path
   const state = event.pathParameters.state;
