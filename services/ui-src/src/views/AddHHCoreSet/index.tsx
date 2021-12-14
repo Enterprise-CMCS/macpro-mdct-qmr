@@ -4,8 +4,19 @@ import { useParams } from "react-router-dom";
 import { Params } from "Routes";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { HealthHomeValidationSchema } from "./HealthHomeValidationSchema";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { SPA } from "libs/spaLib";
+import Joi from "joi";
+
+interface HealthHome {
+  "HealthHomeCoreSet-SPA": string;
+  "HealthHomeCoreSet-ShareSSM": string;
+}
+
+const HealthHomeValidationSchema = Joi.object<HealthHome>({
+  "HealthHomeCoreSet-SPA": Joi.string(),
+  "HealthHomeCoreSet-ShareSSM": Joi.string(),
+});
 
 export const AddHHCoreSet = () => {
   const methods = useForm({
@@ -39,12 +50,26 @@ export const AddHHCoreSet = () => {
       </CUI.Text>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
-          <CUI.Container as="section">
+          <CUI.Container maxW="container.xl" as="section">
             <CUI.Stack spacing="10">
               <QMR.Select
+                selectProps={{ maxW: "30rem" }}
                 formLabelProps={{ fontWeight: 600 }}
                 {...register("HealthHomeCoreSet-SPA")}
-                options={[]}
+                options={SPA.map((spa) => {
+                  return {
+                    displayValue: spa.name,
+                    value: spa.id,
+                  };
+                }).sort((a, b) => {
+                  if (a.displayValue < b.displayValue) {
+                    return -1;
+                  }
+                  if (a.displayValue > b.displayValue) {
+                    return 1;
+                  }
+                  return 0;
+                })}
                 label="1. Select the SPA you are reporting on?"
               />
 
@@ -73,18 +98,18 @@ export const AddHHCoreSet = () => {
                   Remember to complete all Health Homes Core Set Questions and
                   Health Homes Core Set Measures to submit for CMS review.
                 </CUI.Text>
-              </CUI.Box>
 
-              <CUI.HStack>
-                <QMR.ContainedButton
-                  buttonProps={{ type: "submit" }}
-                  buttonText="Create"
-                />
-                <QMR.ContainedButton
-                  buttonProps={{ color: "blue" }}
-                  buttonText="Cancel"
-                />
-              </CUI.HStack>
+                <CUI.HStack paddingTop="5">
+                  <QMR.ContainedButton
+                    buttonProps={{ type: "submit" }}
+                    buttonText="Create"
+                  />
+                  <QMR.ContainedButton
+                    buttonProps={{ color: "blue", colorScheme: "white" }}
+                    buttonText="Cancel"
+                  />
+                </CUI.HStack>
+              </CUI.Box>
             </CUI.Stack>
           </CUI.Container>
         </form>
