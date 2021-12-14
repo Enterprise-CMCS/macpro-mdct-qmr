@@ -2,6 +2,9 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 
 export const createMeasure = handler(async (event, context) => {
+  const id = "ABCD-123-HH";
+  const type = id.split("-").slice(-1);
+
   // The State Year and ID are all part of the path
   const state = event.pathParameters.state;
   const year = event.pathParameters.year;

@@ -17,8 +17,44 @@ export const deleteCoreSet = handler(async (event, context) => {
   };
 
   await dynamoDb.delete(params);
+  await deleteDependentMeasures(state, year, coreSet);
 
   return params;
-
-  // return params.Item;
 });
+
+const deleteDependentMeasures = async (state, year, coreSet) => {
+  const measures = await getMeasures(state, year, coreSet);
+  for await (const { measure } of measures.Items) {
+    // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
+    const dynamoKey = `${state}${year}${coreSet}${measure}`;
+    const params = {
+      TableName: process.env.measureTableName,
+      Key: {
+        compoundKey: dynamoKey,
+        coreSet: coreSet,
+      },
+    };
+
+    console.log("created measure: ", params);
+    await dynamoDb.delete(params);
+  }
+};
+
+const getMeasures = async (state, year, coreSet) => {
+  const params = {
+    TableName: process.env.measureTableName,
+    FilterExpression: "#yr = :yr AND #st = :st AND #cs = :cs",
+    ExpressionAttributeNames: {
+      "#yr": "year",
+      "#st": "state",
+      "#cs": "coreSet",
+    },
+    ExpressionAttributeValues: {
+      ":yr": year,
+      ":st": state,
+      ":cs": coreSet,
+    },
+  };
+  const queryValue = await dynamoDb.scan(params);
+  return queryValue;
+};

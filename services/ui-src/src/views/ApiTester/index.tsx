@@ -28,7 +28,7 @@ export const ApiTester = () => {
               await createCoreSet({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
                 body: {
                   test: "data",
                   test2: "moreData",
@@ -48,7 +48,7 @@ export const ApiTester = () => {
               await editCoreSet({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
                 body: {
                   status: "complete",
                 },
@@ -82,7 +82,7 @@ export const ApiTester = () => {
               await getCoreSet({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
               })
             )
           }
@@ -98,7 +98,7 @@ export const ApiTester = () => {
               await deleteCoreSet({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
               })
             )
           }
@@ -116,7 +116,7 @@ export const ApiTester = () => {
               await createMeasure({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
                 measure: "AIF-HH",
                 body: {
                   test: "data",
@@ -136,7 +136,7 @@ export const ApiTester = () => {
               await editMeasure({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
                 measure: "AIF-HH",
                 body: {
                   data: {
@@ -159,7 +159,7 @@ export const ApiTester = () => {
               await listMeasures({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
               })
             )
           }
@@ -175,7 +175,7 @@ export const ApiTester = () => {
               await getMeasure({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
                 measure: "AIF-HH",
               })
             )
@@ -192,7 +192,7 @@ export const ApiTester = () => {
               await deleteMeasure({
                 state: "FS",
                 year: "2021",
-                coreSet: "AAC-123",
+                coreSet: "AD-123",
                 measure: "AIF-HH",
               })
             )
