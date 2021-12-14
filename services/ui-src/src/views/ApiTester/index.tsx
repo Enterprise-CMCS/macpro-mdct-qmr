@@ -26,7 +26,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await createCoreSet({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
                 body: {
@@ -46,11 +46,11 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await editCoreSet({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
                 body: {
-                  test: "data",
+                  status: "complete",
                 },
               })
             )
@@ -65,7 +65,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getAllCoreSets({
-                state: "MO",
+                state: "FS",
                 year: "2021",
               })
             )
@@ -80,7 +80,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getCoreSet({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
               })
@@ -96,7 +96,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await deleteCoreSet({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
               })
@@ -114,7 +114,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await createMeasure({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
                 measure: "AIF-HH",
@@ -134,12 +134,15 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await editMeasure({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
                 measure: "AIF-HH",
                 body: {
-                  test: "data",
+                  data: {
+                    test: "data",
+                  },
+                  status: "incomplete",
                 },
               })
             )
@@ -154,7 +157,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await listMeasures({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
               })
@@ -170,7 +173,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getMeasure({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
                 measure: "AIF-HH",
@@ -187,7 +190,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await deleteMeasure({
-                state: "MO",
+                state: "FS",
                 year: "2021",
                 coreSet: "AAC-123",
                 measure: "AIF-HH",

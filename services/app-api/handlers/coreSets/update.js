@@ -2,6 +2,7 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 
 export const editCoreSet = handler(async (event, context) => {
+  const { status } = JSON.parse(event.body);
   // The State Year and ID are all part of the path
   const state = event.pathParameters.state;
   const year = event.pathParameters.year;
@@ -15,12 +16,17 @@ export const editCoreSet = handler(async (event, context) => {
       compoundKey: dynamoKey,
       coreSet: coreSet,
     },
-    UpdateExpression: "set #s = :r",
+    UpdateExpression:
+      "set #s = :s, #lastAltered = :lastAltered, #lastAlteredBy = :lastAlteredBy",
     ExpressionAttributeNames: {
       "#s": "status",
+      "#lastAltered": "lastAltered",
+      "#lastAlteredBy": "lastAlteredBy",
     },
     ExpressionAttributeValues: {
-      ":r": "complete",
+      ":s": status,
+      ":lastAltered": Date.now(),
+      ":lastAlteredBy": event.headers["cognito-identity-id"],
     },
   };
   await dynamoDb.update(params);
