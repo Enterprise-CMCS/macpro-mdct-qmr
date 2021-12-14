@@ -10,7 +10,6 @@ export const coreSetList = handler(async (event, context) => {
   // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
   const params = {
     TableName: process.env.coreSetTableName,
-    ProjectionExpression: "#yr, #st",
     FilterExpression: "#yr = :yr AND #st = :st",
     ExpressionAttributeNames: {
       "#yr": "year",
