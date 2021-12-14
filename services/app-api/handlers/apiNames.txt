@@ -1,44 +1,6 @@
 -- we need a way to initialize the measures for a coreset when it is created
 POST /coreset/{state}/{year}/{coreSet}/seed -- check if data already exists (DO NOT OVERWRITE)
 
-CORESET: {
-    id: AAC-1
-    type: ADULT
-    state: state
-    year: year
-    status: complete
-    metaData: {
-        createdat: 1500
-        lastaltered: 1500
-        lastalteredby: ben
-    }
-}
-MEASURE: {
-    metadata: {
-        createdat: 1500
-        lastaltered: 1500
-        lastalteredby: ben
-    }
-    data: {}
-    status: status
-    name: name
-    description: description
-    coreset: id
-    state: state
-    year: year
-}
-lambdathatseedsstuff
-measureList2021.json
-measureList2022.json
-
-measure: {
-    data: {
-        questions:[]
-    }
-    status:
-
-}
-
 -- coresets
 GET /coreset/{state}/{year} - gets all coresets tied to state and year
 GET /coreset/{state}/{year}/{coreSet} - gets coreset with matching ID -- might not need this
