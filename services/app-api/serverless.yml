@@ -61,7 +61,9 @@ provider:
             - dynamodb:PutItem
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
-          Resource: "*"
+          Resource:
+            - ${self:custom.CoreSetTableArn}
+            - ${self:custom.MeasureTableArn}
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
