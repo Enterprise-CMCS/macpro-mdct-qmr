@@ -93,7 +93,7 @@ const AddCoreSetCard = ({ title, buttonText, to }: AddCoreSetCardProps) => {
       <CUI.Stack spacing="6">
         <CUI.Text fontWeight="bold">{title}</CUI.Text>
         <Link
-          to={`/${state}/${year}${to}`}
+          to={`/${state}/${year}/${to}`}
           style={{
             textDecoration: "none",
           }}
