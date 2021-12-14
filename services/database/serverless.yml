@@ -51,6 +51,19 @@ resources:
           - AttributeName: coreSet
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
+        CorsConfiguration: # Set the CORS policy
+          CorsRules:
+            - AllowedOrigins:
+                - "*"
+              AllowedHeaders:
+                - "*"
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
     MeasureTable:
       Type: AWS::DynamoDB::Table
       Properties:
