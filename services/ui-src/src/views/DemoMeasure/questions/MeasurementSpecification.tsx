@@ -18,7 +18,6 @@ export const MeasurementSpecification = () => {
             children: [
               <QMR.Select
                 {...register("MeasurementSpecification-HEDISVersion")}
-                key="MeasurementSpecification-HEDISVersion"
                 label="Specify the version of HEDIS measurement year used:"
                 placeholder="Select option"
                 options={[
@@ -40,14 +39,12 @@ export const MeasurementSpecification = () => {
                   "MeasurementSpecification-OtherMeasurementSpecificationDescription"
                 )}
                 label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
-                key="MeasurementSpecification-OtherMeasurementSpecificationDescription"
               />,
               <QMR.Upload
                 label="If you need additional space to describe your state's methodology, please attach further documentation below."
                 {...register(
                   "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload"
                 )}
-                key="MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload"
               />,
             ],
           },
