@@ -10,7 +10,6 @@ export const AdditionalNotes = () => {
   return (
     <QMR.CoreQuestionWrapper label="Additional Notes/Comments on the measure (optional)">
       <QMR.TextArea
-        key="Additional Notes Text Area"
         label="Please add any additional notes or comments on the measure not otherwise captured above:"
         {...register("AdditionalNotes-AdditionalNotes")}
       />
