@@ -43,12 +43,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: compoundKey
             AttributeType: S
-          - AttributeName: id
+          - AttributeName: coreSet
             AttributeType: S
         KeySchema:
           - AttributeName: compoundKey
             KeyType: HASH
-          - AttributeName: id
+          - AttributeName: coreSet
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
     MeasureTable:
@@ -62,12 +62,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: compoundKey
             AttributeType: S
-          - AttributeName: coresetid
+          - AttributeName: coreSet
             AttributeType: S
         KeySchema:
           - AttributeName: compoundKey
             KeyType: HASH
-          - AttributeName: coresetid
+          - AttributeName: coreSet
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
   Outputs:

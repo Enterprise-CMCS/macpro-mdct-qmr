@@ -5,8 +5,8 @@ jest.mock("react-router-dom", () => ({
   useParams: () => ({
     year: "2021",
     state: "OH",
-    coreSetId: "ACS",
-    measureId: "AIF-HH",
+    coreSet: "ACS",
+    measure: "AIF-HH",
   }),
 }));
 
