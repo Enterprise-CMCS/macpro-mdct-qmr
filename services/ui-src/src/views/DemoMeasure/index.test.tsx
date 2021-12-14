@@ -50,7 +50,7 @@ describe("Test Demo Questions Component", () => {
     ).toBeChecked();
   });
 
-  it("should render children when the user clicks into data source options", async () => {
+  it("should render additional notes and its children when the user clicks into its options", async () => {
     userEvent.type(
       screen.getByLabelText(
         /Please add any additional notes or comments on the measure not otherwise captured above/i
