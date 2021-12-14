@@ -26,9 +26,9 @@ custom:
       - val
       - production
   coreSetTableName: ${cf:database-${self:custom.stage}.CoreSetTableName}
-  coreSetTableArn: "arn:aws:dynamodb:us-east-1:024259748323:table/api-coreSets"
+  coreSetTableArn: ${cf:database-${self:custom.stage}.CoreSetTableArn}
   measureTableName: ${cf:database-${self:custom.stage}.MeasureTableName}
-  measureTableArn: "arn:aws:dynamodb:us-east-1:024259748323:table/api-measures"
+  measureTableArn: ${cf:database-${self:custom.stage}.MeasureTableArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl
   associateWaf:
     name: ${self:custom.webAclName}
