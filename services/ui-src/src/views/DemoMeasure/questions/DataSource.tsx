@@ -34,6 +34,7 @@ export const DataSource = () => {
                       <QMR.TextInput
                         label="Describe the data source:"
                         key="DataSource-Administrative-Other"
+                        textInputProps={{ width: "10rem" }}
                         {...register("DataSource-Administrative-Other")}
                       />,
                       <CUI.Text
@@ -83,6 +84,7 @@ export const DataSource = () => {
                       <QMR.TextInput
                         label="Describe the data source:"
                         key="DataSource-Hybrid-Other"
+                        textInputProps={{ width: "10rem" }}
                         {...register("DataSource-Hybrid-Other")}
                       />,
                       <CUI.Text
@@ -138,6 +140,7 @@ export const DataSource = () => {
               <QMR.TextInput
                 label="Describe Electronic Health Records data source:"
                 key="DataSource-ElectronicHealthRecords"
+                textInputProps={{ width: "10rem" }}
                 {...register("DataSource-ElectronicHealthRecords")}
               />,
               <CUI.Text
@@ -165,6 +168,7 @@ export const DataSource = () => {
             children: [
               <QMR.TextInput
                 label="Describe the data source:"
+                textInputProps={{ width: "10rem" }}
                 key="DataSource-Other"
                 {...register("DataSource-Other")}
               />,
