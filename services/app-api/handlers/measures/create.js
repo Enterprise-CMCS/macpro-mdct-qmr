@@ -1,4 +1,5 @@
 import handler from "../../libs/handler-lib";
+import dynamoDb from "../../libs/dynamodb-lib";
 
 export const createMeasure = handler(async (event, context) => {
   // The State Year and ID are all part of the path
@@ -10,7 +11,7 @@ export const createMeasure = handler(async (event, context) => {
   const dynamoKey = `${state}${year}${coreSet}${measure}`;
 
   const params = {
-    TableName: process.env.coreSetTableName,
+    TableName: process.env.measureTableName,
     Item: {
       compoundKey: dynamoKey,
       state: state,
@@ -21,6 +22,8 @@ export const createMeasure = handler(async (event, context) => {
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
       status: "incomplete",
+      description: event.body.description,
+      data: event.body.data,
     },
   };
 
