@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 
-export const editMeasure = handler(async (event, context) => {
+export const editMeasure = handler(async (event, _context) => {
   const { data, status } = JSON.parse(event.body);
 
   const state = event.pathParameters.state;
