@@ -74,18 +74,8 @@ const DemoComponentsForm = () => {
   ];
 
   const KebabMenuItems: IKebabMenuItem[] = [
-    { itemText: "Edit", itemIndex: 1 },
-    { itemText: "Export", itemIndex: 2 },
-    { itemText: "Clear Measure Entries", itemIndex: 3 },
+    { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
   ];
-  const kebabMenuItemClick = (itemIndex: number) =>
-    alert(`You have selected item # ${itemIndex}`);
-
-  // const validateData = (data: any) => {
-  //   console.log(data);
-
-  //   console.log(DemoValidationSchema.validate(data));
-  // };
 
   return (
     <QMR.StateLayout
@@ -329,10 +319,7 @@ const DemoComponentsForm = () => {
               Kebab Menu
             </CUI.Heading>
             <CUI.Box m={3}>
-              <KebabMenu
-                menuItems={KebabMenuItems}
-                handleItemClick={kebabMenuItemClick}
-              />
+              <KebabMenu menuItems={KebabMenuItems} />
             </CUI.Box>
           </CUI.Stack>
           <CUI.Divider mt={5} />

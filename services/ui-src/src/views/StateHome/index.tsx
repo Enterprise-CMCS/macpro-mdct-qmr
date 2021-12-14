@@ -18,13 +18,19 @@ const cardData = [
   },
 ];
 
-const data = [
+const data: CoreSet.Data[] = [
   {
     path: "/adult",
     title: "Adult Core Set Measures",
     type: CoreSet.Type.ADULT,
     progress: { numAvailable: 12, numComplete: 0 },
-    actions: "adult actions here",
+    actions: [
+      {
+        itemText: "Export",
+        id: "1234567",
+        handleSelect: (id) => console.log(id),
+      },
+    ],
     submitted: false,
     id: "test1",
     year: "2021",

@@ -1,15 +1,8 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-// import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { CoreSet, TableColumn } from "../types";
 import { ContainedButton } from "components/ContainedButton";
-
-const KebabMenuItems: QMR.IKebabMenuItem[] = [
-  { itemText: "Edit", itemIndex: 1 },
-  { itemText: "Export", itemIndex: 2 },
-  { itemText: "Clear Measure Entries", itemIndex: 3 },
-];
 
 // Get status string from core set data
 const getStatus = ({ progress, submitted }: CoreSet.Data): CoreSet.Status => {
@@ -107,10 +100,7 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: CoreSet.Data) => (
       <CUI.Box textAlign="center">
-        <QMR.KebabMenu
-          menuItems={KebabMenuItems}
-          handleItemClick={() => console.log(data.actions)}
-        />
+        <QMR.KebabMenu menuItems={data.actions} />
       </CUI.Box>
     ),
   },
