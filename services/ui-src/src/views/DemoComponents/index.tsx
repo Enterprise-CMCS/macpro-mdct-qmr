@@ -254,7 +254,7 @@ const DemoComponentsForm = () => {
             </CUI.HStack>
             <CUI.HStack>
               <ContainedButton
-                buttonText={"Add Child Core Core Set"}
+                buttonText={"Add Child Core Set"}
                 icon="plus"
                 buttonProps={{
                   colorScheme: "blue",

@@ -85,17 +85,19 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
         ? `Complete all Core Set Questions and Core Set Measures to submit FFY ${data.year}`
         : undefined;
       return (
-        <ContainedButton
-          buttonText={buttonText}
-          disabledStatus={status !== CoreSet.Status.COMPLETED}
-          buttonProps={{
-            colorScheme: "blue",
-            textTransform: "capitalize",
-            w: "full",
-          }}
-          helperText={helperText}
-          onClick={() => console.log("core set button")}
-        />
+        <CUI.Box textAlign="center">
+          <ContainedButton
+            buttonText={buttonText}
+            disabledStatus={status !== CoreSet.Status.COMPLETED}
+            buttonProps={{
+              colorScheme: "blue",
+              textTransform: "capitalize",
+              w: "full",
+            }}
+            helperText={helperText}
+            onClick={() => console.log("core set button")}
+          />
+        </CUI.Box>
       );
     },
   },
