@@ -133,7 +133,7 @@ export const StateHome = () => {
         <QMR.Table data={data} columns={QMR.coreSetColumns} />
         <CUI.HStack spacing="6">
           {cardData.map((d) => (
-            <AddCoreSetCard {...d} />
+            <AddCoreSetCard key={d.title} {...d} />
           ))}
         </CUI.HStack>
 

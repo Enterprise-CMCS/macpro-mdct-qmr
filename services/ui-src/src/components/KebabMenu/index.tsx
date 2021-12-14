@@ -22,6 +22,7 @@ export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
             itemText={i.itemText}
             id={i.id}
             handleSelect={i.handleSelect}
+            key={i.id}
           />
         ))}
       </CUI.MenuList>
@@ -41,7 +42,6 @@ const KebabMenuItem = ({ itemText, id, handleSelect }: IKebabMenuItem) => {
       minH="48px"
       onClick={() => handleSelect(id)}
       aria-label={itemText}
-      key={id}
     >
       <CUI.Text fontSize="sm">{itemText}</CUI.Text>
     </CUI.MenuItem>
