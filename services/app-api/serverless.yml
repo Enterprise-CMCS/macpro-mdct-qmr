@@ -62,8 +62,8 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource:
-            - "Fn::GetAtt": [CoreSetTable, Arn]
-            - "Fn::GetAtt": [MeasureTable, Arn]
+            - ${self:custom.CoreSetTableArn}
+            - ${self:custom.MeasureTableArn}
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
