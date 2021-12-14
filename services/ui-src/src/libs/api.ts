@@ -57,15 +57,6 @@ function getMeasure(inputObj: any) {
   );
 }
 
-function listMeasuresMetadata(inputObj: any) {
-  const opts = requestOptions();
-  return API.get(
-    "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/metadata`,
-    opts
-  );
-}
-
 function deleteMeasure(inputObj: any) {
   const opts = requestOptions();
   return API.del(
@@ -129,7 +120,6 @@ export {
   editCoreSet,
   deleteCoreSet,
   listMeasures,
-  listMeasuresMetadata,
   getMeasure,
   createMeasure,
   editMeasure,

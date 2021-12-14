@@ -77,14 +77,6 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
-  listMeasuresMetadata:
-    handler: handlers/measures/get.listMeasuresMetadata
-    events:
-      - http:
-          path: coreset/{state}/{year}/{coreSet}/measures/metadata
-          method: get
-          cors: true
-          authorizer: aws_iam
   getMeasure:
     handler: handlers/measures/get.getMeasure
     events:

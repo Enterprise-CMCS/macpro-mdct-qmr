@@ -7,7 +7,6 @@ import {
   getCoreSet,
   deleteCoreSet,
   listMeasures,
-  listMeasuresMetadata,
   getMeasure,
   createMeasure,
   editMeasure,
@@ -155,22 +154,6 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await listMeasures({
-                state: "MO",
-                year: "2021",
-                coreSet: "AAC-123",
-              })
-            )
-          }
-        />
-        <ContainedButton
-          buttonText={"List all measures' metadata"}
-          buttonProps={{
-            colorScheme: "blue",
-            textTransform: "capitalize",
-          }}
-          onClick={async () =>
-            console.log(
-              await listMeasuresMetadata({
                 state: "MO",
                 year: "2021",
                 coreSet: "AAC-123",
