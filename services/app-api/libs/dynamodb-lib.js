@@ -20,6 +20,7 @@ export default {
   put: (params) => client.put(params).promise(),
   post: (params) => client.post(params).promise(),
   query: (params) => client.query(params).promise(),
+  scan: (params) => client.scan(params).promise(),
   update: (params) => client.update(params).promise(),
   delete: (params) => client.delete(params).promise(),
   increment: (counterId) =>
