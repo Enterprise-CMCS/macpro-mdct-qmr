@@ -18,5 +18,7 @@ export namespace DemoForm {
     CombinedRates: string;
     "CombinedRates-CombinedRates": string;
     "CombinedRates-CombinedRates-Other-Explanation": string;
+    "AdditionalNotes-AdditionalNotes"?: string;
+    "AdditionalNotes-Upload"?: File[];
   }
 }

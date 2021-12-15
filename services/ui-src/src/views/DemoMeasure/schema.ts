@@ -20,4 +20,6 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   CombinedRates: Joi.string(),
   "CombinedRates-CombinedRates": Joi.string(),
   "CombinedRates-CombinedRates-Other-Explanation": Joi.string(),
+  "AdditionalNotes-AdditionalNotes": Joi.string(),
+  "AdditionalNotes-Upload": Joi.array().items(Joi.any()),
 });
