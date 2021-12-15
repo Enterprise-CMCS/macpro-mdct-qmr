@@ -71,7 +71,7 @@ jobs:
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
           # This can optionally be set as an GitHub Actions Secret
           ./deploy.sh $STAGE_PREFIX$branch_name
-        if: $GITHUB_REF_NAME != 'dev' && $GITHUB_REF_NAME != 'val' && $GITHUB_REF_NAME != 'prod'
+        if: ${{ GITHUB_REF_NAME }} != 'dev' && ${{ GITHUB_REF_NAME }} != 'val' && ${{ GITHUB_REF_NAME }} != 'prod'
         env:
           LOCAL_LOGIN: true
       - name: Run Cypress Tests
