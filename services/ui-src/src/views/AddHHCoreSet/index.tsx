@@ -25,7 +25,7 @@ export const AddHHCoreSet = () => {
     resolver: joiResolver(HealthHomeValidationSchema),
   });
 
-  const register = useCustomRegister<any>();
+  const register = useCustomRegister<HealthHome>();
 
   const handleSave = () => {
     console.log("saved");
