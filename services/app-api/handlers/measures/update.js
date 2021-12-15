@@ -10,6 +10,9 @@ export const editMeasure = handler(async (event, context) => {
   const measure = event.pathParameters.measure;
   // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
   const dynamoKey = `${state}${year}${coreSet}${measure}`;
+  const lastAlteredBy = event.headers["cognito-identity-id"]
+    ? event.headers["cognito-identity-id"]
+    : "branchUser";
 
   const params = {
     TableName: process.env.measureTableName,
@@ -29,7 +32,7 @@ export const editMeasure = handler(async (event, context) => {
       ":s": status,
       ":data": data,
       ":lastAltered": Date.now(),
-      ":lastAlteredBy": event.headers["cognito-identity-id"],
+      ":lastAlteredBy": lastAlteredBy,
     },
   };
   await dynamoDb.update(params);
