@@ -31,7 +31,7 @@ export const DataSource = () => {
                     displayValue: "Other",
                     value: "Administrative Data Other",
                     children: [
-                      <QMR.TextInput
+                      <QMR.TextArea
                         label="Describe the data source:"
                         key="DataSource-Administrative-Other"
                         {...register("DataSource-Administrative-Other")}
@@ -80,7 +80,7 @@ export const DataSource = () => {
                     displayValue: "Other",
                     value: "Hybrid Data Other",
                     children: [
-                      <QMR.TextInput
+                      <QMR.TextArea
                         label="Describe the data source:"
                         key="DataSource-Hybrid-Other"
                         {...register("DataSource-Hybrid-Other")}
@@ -134,7 +134,7 @@ export const DataSource = () => {
             displayValue: "Electronic Health Records",
             value: "Electronic Health Records",
             children: [
-              <QMR.TextInput
+              <QMR.TextArea
                 label="Describe Electronic Health Records data source:"
                 key="DataSource-ElectronicHealthRecords"
                 {...register("DataSource-ElectronicHealthRecords")}
@@ -162,7 +162,7 @@ export const DataSource = () => {
             displayValue: "Other",
             value: "Other Data Source",
             children: [
-              <QMR.TextInput
+              <QMR.TextArea
                 label="Describe the data source:"
                 key="DataSource-Other"
                 {...register("DataSource-Other")}

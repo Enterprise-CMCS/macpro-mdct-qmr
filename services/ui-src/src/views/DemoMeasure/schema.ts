@@ -23,4 +23,6 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
     Joi.string(),
   "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload":
     Joi.array().items(Joi.any()),
+  "AdditionalNotes-AdditionalNotes": Joi.string(),
+  "AdditionalNotes-Upload": Joi.array().items(Joi.any()),
 });

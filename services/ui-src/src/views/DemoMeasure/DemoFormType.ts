@@ -19,5 +19,7 @@ export namespace DemoForm {
     "MeasurementSpecification-HEDISVersion": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
+    "AdditionalNotes-AdditionalNotes"?: string;
+    "AdditionalNotes-Upload"?: File[];
   }
 }

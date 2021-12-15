@@ -13,7 +13,7 @@ export const Status = () => {
             value: "I am reporting provisional data",
             children: [
               <QMR.TextArea
-                {...register("DataStatus-ProvisionalExplaination")}
+                {...register("DataStatus-ProvisionalExplanation")}
                 label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
                 formLabelProps={{
                   fontWeight: "normal",
