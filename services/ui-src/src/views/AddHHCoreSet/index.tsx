@@ -32,6 +32,22 @@ export const AddHHCoreSet = () => {
   };
 
   const { state, year } = useParams<Params>();
+
+  const sortedSPAs = SPA.map((spa) => {
+    return {
+      displayValue: spa.name,
+      value: spa.id,
+    };
+  }).sort((a, b) => {
+    if (a.displayValue < b.displayValue) {
+      return -1;
+    }
+    if (a.displayValue > b.displayValue) {
+      return 1;
+    }
+    return 0;
+  });
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -56,20 +72,7 @@ export const AddHHCoreSet = () => {
                 selectProps={{ maxW: "30rem" }}
                 formLabelProps={{ fontWeight: 600 }}
                 {...register("HealthHomeCoreSet-SPA")}
-                options={SPA.map((spa) => {
-                  return {
-                    displayValue: spa.name,
-                    value: spa.id,
-                  };
-                }).sort((a, b) => {
-                  if (a.displayValue < b.displayValue) {
-                    return -1;
-                  }
-                  if (a.displayValue > b.displayValue) {
-                    return 1;
-                  }
-                  return 0;
-                })}
+                options={sortedSPAs}
                 label="1. Select the SPA you are reporting on?"
               />
 
