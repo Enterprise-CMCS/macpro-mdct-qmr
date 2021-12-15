@@ -7,7 +7,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { SPA } from "libs/spaLib";
 import Joi from "joi";
-
+import { AiFillWarning } from "react-icons/ai";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
@@ -54,7 +54,16 @@ export const AddHHCoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         { path: `/${state}/${year}/add-hh`, name: "Add Health Homes Core Set" },
       ]}
-      buttons={<QMR.ContainedButton buttonText="Save" onClick={handleSave} />}
+      buttons={
+        <>
+          {/* Icon and text are placeholders until we have save functionality */}
+          <AiFillWarning />
+          <CUI.Text pl="1" pr="5">
+            Unsaved Changes
+          </CUI.Text>
+          <QMR.ContainedButton buttonText="Save" onClick={handleSave} />
+        </>
+      }
     >
       <CUI.Text fontSize="2xl" fontWeight="600">
         Health Homes Core Set Details
@@ -69,6 +78,7 @@ export const AddHHCoreSet = () => {
           <CUI.Container maxW="container.xl" as="section">
             <CUI.Stack spacing="10">
               <QMR.Select
+                placeholder="Select option"
                 selectProps={{ maxW: "30rem" }}
                 formLabelProps={{ fontWeight: 600 }}
                 {...register("HealthHomeCoreSet-SPA")}
