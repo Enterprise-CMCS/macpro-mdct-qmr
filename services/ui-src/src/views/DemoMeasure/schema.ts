@@ -30,4 +30,6 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   LimitationWithDatCollecitonReportAccuracyCovid: Joi.string(),
   SmallSampleSizeLessThan30: Joi.string(),
   "WhyAreYouNotReporting-Other": Joi.string(),
+  "AdditionalNotes-AdditionalNotes": Joi.string(),
+  "AdditionalNotes-Upload": Joi.array().items(Joi.any()),
 });

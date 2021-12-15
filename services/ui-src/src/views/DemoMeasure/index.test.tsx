@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { DemoMeasure } from "views";
 
@@ -12,19 +13,17 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
+beforeEach(() => {
+  render(
+    <RouterWrappedComp>
+      <DemoMeasure />
+    </RouterWrappedComp>
+  );
+});
+
 describe("Test Demo Questions Component", () => {
-  beforeEach(() => {
-    render(
-      <RouterWrappedComp>
-        <DemoMeasure />
-      </RouterWrappedComp>
-    );
-  });
-
   it("renders a text area when question 2 is answered yes", async () => {
-    fireEvent.click(screen.getByLabelText(/Yes, I am/i));
-    fireEvent.click(await screen.findByText("I am reporting provisional data"));
-
+    userEvent.click(screen.getByText("I am reporting provisional data"));
     expect(
       screen.getByLabelText("I am reporting provisional data")
     ).toBeChecked();
@@ -47,7 +46,38 @@ describe("Test Demo Questions Component", () => {
     });
   });
 
-  test("Check that the nav renders", () => {
-    expect(screen.getByTestId("state-layout-container")).toBeVisible();
+  it("should render children when the user clicks into data source options", async () => {
+    userEvent.click(screen.getByLabelText(/Administrative Data/i));
+
+    expect(screen.getByLabelText(/Administrative Data/i)).toBeChecked();
+    expect(
+      await screen.findByText(/What is the Administrative Data Source/i)
+    ).toBeInTheDocument();
+
+    userEvent.click(
+      screen.getByLabelText(/Medicaid Management Information System/i)
+    );
+    expect(
+      screen.getByLabelText(/Medicaid Management Information System/i)
+    ).toBeChecked();
   });
+
+  it("should render additional notes and its children when the user clicks into its options", async () => {
+    userEvent.type(
+      screen.getByLabelText(
+        /Please add any additional notes or comments on the measure not otherwise captured above/i
+      ),
+      "hello"
+    );
+
+    expect(
+      screen.getByLabelText(
+        /Please add any additional notes or comments on the measure not otherwise captured above/i
+      )
+    ).toHaveValue("hello");
+  });
+});
+
+test("Check that the nav renders", () => {
+  expect(screen.getByTestId("state-layout-container")).toBeVisible();
 });

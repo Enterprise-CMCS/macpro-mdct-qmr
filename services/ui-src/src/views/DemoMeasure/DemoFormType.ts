@@ -29,5 +29,7 @@ export namespace DemoForm {
     LimitationWithDatCollecitonReportAccuracyCovid: string;
     SmallSampleSizeLessThan30: string;
     "WhyAreYouNotReporting-Other": string;
+    "AdditionalNotes-AdditionalNotes"?: string;
+    "AdditionalNotes-Upload"?: File[];
   }
 }
