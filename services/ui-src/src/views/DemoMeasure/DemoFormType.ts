@@ -15,5 +15,8 @@ export namespace DemoForm {
     "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
     "DataSource-ElectronicHealthRecords"?: string;
     "DataSource-ElectronicHealthRecords-Explanation"?: string;
+    CombinedRates: string;
+    "CombinedRates-CombinedRates": string;
+    "CombinedRates-CombinedRates-Other-Explanation": string;
   }
 }
