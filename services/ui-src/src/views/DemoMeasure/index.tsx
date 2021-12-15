@@ -51,8 +51,6 @@ export const DemoMeasure = () => {
                 <Q.DataSource />{" "}
               </>
             )}
-            <Q.Status />
-            <Q.DataSource />
             <Q.AdditionalNotes />
             <QMR.ContainedButton
               buttonProps={{ type: "submit", isFullWidth: true }}

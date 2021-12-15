@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { DemoForm } from "views/DemoMeasure/DemoFormType";
 import { WhyAreYouNotReporting } from ".";
 
@@ -16,9 +16,8 @@ export const Reporting = ({
   measureAbbreviation,
 }: Props) => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
-  const watchRadioStatus = useWatch<DemoForm.DemoFormType>({
-    name: "DidReport",
-  });
+  const { watch } = useFormContext<DemoForm.DemoFormType>();
+  const watchRadioStatus = watch("DidReport");
 
   return (
     <>
