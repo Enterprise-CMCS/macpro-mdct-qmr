@@ -30,6 +30,26 @@ describe("Test Demo Questions Component", () => {
       )
     ).toBeInTheDocument();
   });
+
+  it("should renders measurement specification and its children should behave correctly when options are selected", async () => {
+    userEvent.click(
+      screen.getByText(
+        /Measurement Specification National Committee for Quality Assurance/i
+      )
+    );
+
+    expect(
+      screen.getByLabelText(
+        /Measurement Specification National Committee for Quality Assurance/i
+      )
+    ).toBeChecked();
+
+    expect(
+      await screen.findByLabelText(
+        /Specify the version of HEDIS measurement year used/i
+      )
+    ).toBeInTheDocument();
+  });
 });
 
 test("Check that the nav renders", () => {

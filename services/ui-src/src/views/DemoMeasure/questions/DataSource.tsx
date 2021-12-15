@@ -96,7 +96,6 @@ export const DataSource = () => {
                         each data source:
                       </CUI.Text>,
                       <QMR.TextArea
-                        key="Hybrid Data Source:"
                         label={`Hybrid (Administrative and Medical Records Data) Data Source: ${
                           watch("DataSource-Hybrid-Other") || ""
                         }`}

@@ -1,5 +1,4 @@
 import * as QMR from "components";
-// import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { DemoForm } from "views/DemoMeasure/DemoFormType";
 
