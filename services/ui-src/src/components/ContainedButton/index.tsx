@@ -9,7 +9,7 @@ interface ContainedButtonProps {
   helperText?: string;
   helperTextProps?: CUI.TextProps;
   icon?: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const ContainedButton = ({
@@ -33,6 +33,7 @@ export const ContainedButton = ({
         rightIcon={plusIcon}
         onClick={onClick}
         disabled={disabledStatus}
+        borderRadius="sm"
         {...buttonProps}
       >
         {buttonText}
