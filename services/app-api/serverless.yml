@@ -25,10 +25,10 @@ custom:
       - master
       - val
       - production
-  coreSetTableName: ${cf:database-${self:custom.stage}.CoreSetTableName}
-  coreSetTableArn: ${cf:database-${self:custom.stage}.CoreSetTableArn}
-  measureTableName: ${cf:database-${self:custom.stage}.MeasureTableName}
-  measureTableArn: ${cf:database-${self:custom.stage}.MeasureTableArn}
+  coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
+  coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
+  measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
+  measureTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl
   associateWaf:
     name: ${self:custom.webAclName}
