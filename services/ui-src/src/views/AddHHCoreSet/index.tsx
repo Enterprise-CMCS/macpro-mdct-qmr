@@ -8,6 +8,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { SPA } from "libs/spaLib";
 import Joi from "joi";
 import { AiFillWarning } from "react-icons/ai";
+import { SelectOption } from "components";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
@@ -33,7 +34,7 @@ export const AddHHCoreSet = () => {
 
   const { state, year } = useParams<Params>();
 
-  const sortedSPAs = SPA.map((spa) => {
+  const sortedSPAs: SelectOption[] = SPA.map((spa) => {
     return {
       displayValue: spa.name,
       value: spa.id,
