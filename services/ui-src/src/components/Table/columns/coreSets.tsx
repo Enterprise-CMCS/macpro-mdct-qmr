@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-// import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { CoreSet, TableColumn } from "../types";
 import { ContainedButton } from "components/ContainedButton";
