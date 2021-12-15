@@ -1,5 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import { getCoreSet } from "./get";
 
 export const createCoreSet = handler(async (event, context) => {
   // The State Year and ID are all part of the path
@@ -7,6 +8,18 @@ export const createCoreSet = handler(async (event, context) => {
   const year = event.pathParameters.year;
   const coreSet = event.pathParameters.coreSet;
   const type = coreSet.substring(0, 2);
+
+  const coreSetQuery = await getCoreSet(event, context);
+  const coreSetExists = !!Object.keys(JSON.parse(coreSetQuery.body)).length;
+
+  if (coreSetExists) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error: "Failure to create coreset. Coreset already exists.",
+      }),
+    };
+  }
 
   // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
   const dynamoKey = `${state}${year}${coreSet}`;
