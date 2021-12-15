@@ -9,6 +9,9 @@ export const editCoreSet = handler(async (event, context) => {
   const coreSet = event.pathParameters.coreSet;
   // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
   const dynamoKey = `${state}${year}${coreSet}`;
+  const lastAlteredBy = event.headers["cognito-identity-id"]
+    ? event.headers["cognito-identity-id"]
+    : "branchUser";
 
   const params = {
     TableName: process.env.coreSetTableName,
@@ -26,7 +29,7 @@ export const editCoreSet = handler(async (event, context) => {
     ExpressionAttributeValues: {
       ":s": status,
       ":lastAltered": Date.now(),
-      ":lastAlteredBy": event.headers["cognito-identity-id"],
+      ":lastAlteredBy": lastAlteredBy,
     },
   };
   await dynamoDb.update(params);
