@@ -1,6 +1,8 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { useWatch } from "react-hook-form";
 import { DemoForm } from "views/DemoMeasure/DemoFormType";
+import { WhyAreYouNotReporting } from ".";
 
 interface Props {
   measureName: string;
@@ -14,22 +16,28 @@ export const Reporting = ({
   measureAbbreviation,
 }: Props) => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
+  const watchRadioStatus = useWatch<DemoForm.DemoFormType>({
+    name: "DidReport",
+  });
 
   return (
-    <QMR.CoreQuestionWrapper label="Are you reporting on this measure?">
-      <QMR.RadioButton
-        {...register("DidReport")}
-        options={[
-          {
-            displayValue: `Yes, I am reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
-            value: "Yes, I am reporting",
-          },
-          {
-            displayValue: `No, I am not reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
-            value: "No, I am not reporting",
-          },
-        ]}
-      />
-    </QMR.CoreQuestionWrapper>
+    <>
+      <QMR.CoreQuestionWrapper label="Are you reporting on this measure?">
+        <QMR.RadioButton
+          {...register("DidReport")}
+          options={[
+            {
+              displayValue: `Yes, I am reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
+              value: "Yes, I am reporting",
+            },
+            {
+              displayValue: `No, I am not reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
+              value: "No, I am not reporting",
+            },
+          ]}
+        />
+      </QMR.CoreQuestionWrapper>
+      {watchRadioStatus?.includes("No,") && <WhyAreYouNotReporting />}
+    </>
   );
 };

@@ -13,7 +13,6 @@ export const DemoMeasure = () => {
     resolver: joiResolver(validationSchema),
   });
   const watchReportingRadio = methods.watch("DidReport");
-  // const errors = methods.formState.errors;
 
   const handleSave = () => {
     console.log("saved");
@@ -46,14 +45,12 @@ export const DemoMeasure = () => {
               measureName="Admission to an Institution from the Community"
               measureAbbreviation="AIF-HH"
             />
-            {watchReportingRadio?.includes("Yes") ? (
+            {!watchReportingRadio?.includes("No") && (
               <>
                 <Q.Status />
                 <Q.DataSource />{" "}
               </>
-            ) : watchReportingRadio?.includes("No") ? (
-              <Q.WhyAreYouNotReporting />
-            ) : null}
+            )}
             <QMR.ContainedButton
               buttonProps={{ type: "submit", isFullWidth: true }}
               buttonText="Submit"

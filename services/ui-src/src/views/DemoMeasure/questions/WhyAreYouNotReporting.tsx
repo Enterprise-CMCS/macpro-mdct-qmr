@@ -4,11 +4,10 @@ import { DemoForm } from "../DemoFormType";
 
 export const WhyAreYouNotReporting = () => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
-  // questionText
   return (
     <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
       <QMR.Checkbox
-        {...register("WhyAreYouNotReporting-Answer")}
+        {...register("WhyAreYouNotReporting")}
         options={[
           {
             displayValue: `Service not covered`,
@@ -44,7 +43,7 @@ export const WhyAreYouNotReporting = () => {
             value: "DataNotAvailable",
             children: [
               <QMR.Checkbox
-                {...register("WhyIsDataNotAvailable-Answer")}
+                {...register("WhyIsDataNotAvailable")}
                 label="Why is data not available?"
                 renderHelperTextAbove
                 helperText="Select all that apply:"
@@ -73,7 +72,7 @@ export const WhyAreYouNotReporting = () => {
                     children: [
                       <QMR.Checkbox
                         label="Select all that apply:"
-                        {...register("DataSourceNotEasilyAccessible-Answer")}
+                        {...register("DataSourceNotEasilyAccessible")}
                         options={[
                           {
                             displayValue: "Requires medical record review",
@@ -106,7 +105,7 @@ export const WhyAreYouNotReporting = () => {
                     children: [
                       <QMR.Checkbox
                         label="Select all that apply:"
-                        {...register("InformationNotCollected-Answer")}
+                        {...register("InformationNotCollected")}
                         options={[
                           {
                             displayValue:
