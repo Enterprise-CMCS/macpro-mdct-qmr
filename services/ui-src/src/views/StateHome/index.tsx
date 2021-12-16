@@ -37,6 +37,7 @@ const ReportingYear = () => {
         Reporting Year
       </CUI.Text>
       <CUI.Select
+        data-testid="select"
         borderRadius="sm"
         icon={<TiArrowUnsorted />}
         value={year}
