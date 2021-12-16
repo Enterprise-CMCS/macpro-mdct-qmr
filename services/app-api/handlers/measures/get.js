@@ -1,5 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 
 export const listMeasures = handler(async (event, context) => {
   // The State Year and ID are all part of the path
@@ -9,17 +10,10 @@ export const listMeasures = handler(async (event, context) => {
 
   const params = {
     TableName: process.env.measureTableName,
-    FilterExpression: "#yr = :yr AND #st = :st AND #cs = :cs",
-    ExpressionAttributeNames: {
-      "#yr": "year",
-      "#st": "state",
-      "#cs": "coreSet",
-    },
-    ExpressionAttributeValues: {
-      ":yr": year,
-      ":st": state,
-      ":cs": coreSet,
-    },
+    ...convertToDynamoExpression(
+      { state: state, year: year, coreSet: coreSet },
+      "list"
+    ),
   };
   const queryValue = await dynamoDb.scan(params);
   return queryValue;

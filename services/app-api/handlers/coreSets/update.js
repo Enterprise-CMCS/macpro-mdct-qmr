@@ -1,5 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 
 export const editCoreSet = handler(async (event, context) => {
   const { status } = JSON.parse(event.body);
@@ -19,18 +20,10 @@ export const editCoreSet = handler(async (event, context) => {
       compoundKey: dynamoKey,
       coreSet: coreSet,
     },
-    UpdateExpression:
-      "set #s = :s, #lastAltered = :lastAltered, #lastAlteredBy = :lastAlteredBy",
-    ExpressionAttributeNames: {
-      "#s": "status",
-      "#lastAltered": "lastAltered",
-      "#lastAlteredBy": "lastAlteredBy",
-    },
-    ExpressionAttributeValues: {
-      ":s": status,
-      ":lastAltered": Date.now(),
-      ":lastAlteredBy": lastAlteredBy,
-    },
+    ...convertToDynamoExpression(
+      { status: status, lastAltered: Date.now(), lastAlteredBy: lastAlteredBy },
+      "post"
+    ),
   };
   await dynamoDb.update(params);
 

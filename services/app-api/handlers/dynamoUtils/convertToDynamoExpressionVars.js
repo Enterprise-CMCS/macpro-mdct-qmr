@@ -3,30 +3,38 @@
 //   year: "2021",
 // };
 
-export const convertToDynamoExpressionVars = (listOfVars, expressionType) => {
+export const convertToDynamoExpression = (listOfVars, expressionType) => {
   let expressionAttributeNames = {};
   let expressionAttributeValues = {};
-  let expression = "";
-  Object.keys(listOfVars).each((key, index) => {
-    expressionAttributeNames[`:${key}`] = key;
-    expressionAttributeValues[`#${key}`] = listOfVars[key];
+  let updateExpression = "";
+  let filterExpression = "";
+  Object.keys(listOfVars).forEach((key, index) => {
+    expressionAttributeNames[`#${key}`] = key;
+    expressionAttributeValues[`:${key}`] = listOfVars[key];
 
     if (expressionType === "list") {
-      expression =
+      filterExpression =
         index === 0
-          ? `:${key} = #${key} `
-          : `${filterExpression} AND :${key} = #${key}`;
+          ? `#${key} = :${key}`
+          : `${filterExpression} AND #${key} = :${key}`;
     }
     if (expressionType === "post") {
-      expression =
+      updateExpression =
         index === 0
-          ? `set :${key} = #${key} `
-          : `${filterExpression}, :${key} = #${key}`;
+          ? `set #${key}=:${key}`
+          : `${updateExpression}, #${key}=:${key}`;
     }
   });
+  if (expressionType === "post") {
+    return {
+      UpdateExpression: updateExpression,
+      ExpressionAttributeNames: expressionAttributeNames,
+      ExpressionAttributeValues: expressionAttributeValues,
+    };
+  }
   return {
-    expressionAttributeNames,
-    expressionAttributeValues,
-    expression,
+    FilterExpression: filterExpression,
+    ExpressionAttributeNames: expressionAttributeNames,
+    ExpressionAttributeValues: expressionAttributeValues,
   };
 };

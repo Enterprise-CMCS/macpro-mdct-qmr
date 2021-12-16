@@ -1,5 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 
 // import dynamoDb from "./../libs/dynamodb-lib";
 
@@ -10,15 +11,7 @@ export const coreSetList = handler(async (event, context) => {
   // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
   const params = {
     TableName: process.env.coreSetTableName,
-    FilterExpression: "#yr = :yr AND #st = :st",
-    ExpressionAttributeNames: {
-      "#yr": "year",
-      "#st": "state",
-    },
-    ExpressionAttributeValues: {
-      ":yr": year,
-      ":st": state,
-    },
+    ...convertToDynamoExpression({ state: state, year: year }, "list"),
   };
   const queryValue = await dynamoDb.scan(params);
   return queryValue;
