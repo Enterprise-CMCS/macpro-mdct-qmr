@@ -40,6 +40,10 @@ custom:
       events:
         - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule~true, ssm:/configuration/default/warmup/schedule~true, "4 minutes"})
       concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency~true, ssm:/configuration/default/warmup/concurrency~true, 5}
+  authValue:
+    master: aws_iam
+    val: aws_iam
+    prod: aws_iam
 provider:
   name: aws
   runtime: nodejs12.x
@@ -73,7 +77,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures
           method: get
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getMeasure:
     handler: handlers/measures/get.getMeasure
     events:
@@ -81,7 +85,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: get
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createMeasure:
     handler: handlers/measures/create.createMeasure
     events:
@@ -89,7 +93,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: post
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editMeasure:
     handler: handlers/measures/update.editMeasure
     events:
@@ -97,7 +101,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: put
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
     events:
@@ -105,7 +109,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: delete
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
     events:
@@ -113,7 +117,7 @@ functions:
           path: coreset/{state}/{year}
           method: get
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getCoreSet:
     handler: handlers/coreSets/get.getCoreSet
     events:
@@ -121,7 +125,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}
           method: get
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createCoreSet:
     handler: handlers/coreSets/create.createCoreSet
     events:
@@ -129,7 +133,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}
           method: post
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editCoreSet:
     handler: handlers/coreSets/update.editCoreSet
     events:
@@ -137,7 +141,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}
           method: put
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
     events:
@@ -145,8 +149,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}
           method: delete
           cors: true
-          authorizer: ${self:resources.Resources.AuthorizerName}
-
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
 resources:
   Resources:
     GatewayResponseDefault4XX:
