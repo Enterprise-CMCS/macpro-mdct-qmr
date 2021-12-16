@@ -39,15 +39,7 @@ export const AddHHCoreSet = () => {
       displayValue: spa.name,
       value: spa.id,
     };
-  }).sort((a, b) => {
-    if (a.displayValue < b.displayValue) {
-      return -1;
-    }
-    if (a.displayValue > b.displayValue) {
-      return 1;
-    }
-    return 0;
-  });
+  }).sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
 
   return (
     <QMR.StateLayout
@@ -66,9 +58,9 @@ export const AddHHCoreSet = () => {
         </>
       }
     >
-      <CUI.Text fontSize="2xl" fontWeight="600">
+      <CUI.Heading fontSize="2xl" fontWeight="600">
         Health Homes Core Set Details
-      </CUI.Text>
+      </CUI.Heading>
       <CUI.Text>
         Complete the details below and when finished create the additionall
         Health Homes Core Set package. You can submit one Health Home Core set
