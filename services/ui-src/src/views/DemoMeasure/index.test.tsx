@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { DemoMeasure } from "views";
@@ -13,13 +13,16 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
+beforeEach(() => {
+  render(
+    <RouterWrappedComp>
+      <DemoMeasure />
+    </RouterWrappedComp>
+  );
+});
+
 describe("Test Demo Questions Component", () => {
   it("renders a text area when question 2 is answered yes", async () => {
-    render(
-      <RouterWrappedComp>
-        <DemoMeasure />
-      </RouterWrappedComp>
-    );
     userEvent.click(screen.getByText("I am reporting provisional data"));
     expect(
       screen.getByLabelText("I am reporting provisional data")
@@ -30,14 +33,51 @@ describe("Test Demo Questions Component", () => {
       )
     ).toBeInTheDocument();
   });
+
+  describe("renders components when question 1 is answered no", () => {
+    beforeEach(() => {
+      fireEvent.click(screen.getByLabelText(/No, I am not/i));
+    });
+
+    it("renders components properly", async () => {
+      expect(
+        await screen.findByText("Why are you not reporting on this measure?")
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("should render children when the user clicks into data source options", async () => {
+    userEvent.click(screen.getByLabelText(/Administrative Data/i));
+
+    expect(screen.getByLabelText(/Administrative Data/i)).toBeChecked();
+    expect(
+      await screen.findByText(/What is the Administrative Data Source/i)
+    ).toBeInTheDocument();
+
+    userEvent.click(
+      screen.getByLabelText(/Medicaid Management Information System/i)
+    );
+    expect(
+      screen.getByLabelText(/Medicaid Management Information System/i)
+    ).toBeChecked();
+  });
+
+  it("should render additional notes and its children when the user clicks into its options", async () => {
+    userEvent.type(
+      screen.getByLabelText(
+        /Please add any additional notes or comments on the measure not otherwise captured above/i
+      ),
+      "hello"
+    );
+
+    expect(
+      screen.getByLabelText(
+        /Please add any additional notes or comments on the measure not otherwise captured above/i
+      )
+    ).toHaveValue("hello");
+  });
 });
 
 test("Check that the nav renders", () => {
-  const { getByTestId } = render(
-    <RouterWrappedComp>
-      <DemoMeasure />
-    </RouterWrappedComp>
-  );
-
-  expect(getByTestId("state-layout-container")).toBeVisible();
+  expect(screen.getByTestId("state-layout-container")).toBeVisible();
 });

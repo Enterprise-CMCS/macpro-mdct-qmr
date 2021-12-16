@@ -4,13 +4,15 @@ import * as Q from "./questions";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "./schema";
+import { DemoForm } from "./DemoFormType";
 
 export const DemoMeasure = () => {
-  const methods = useForm({
+  const methods = useForm<DemoForm.DemoFormType>({
     shouldUnregister: true,
     mode: "all",
     resolver: joiResolver(validationSchema),
   });
+  const watchReportingRadio = methods.watch("DidReport");
 
   const handleSave = () => {
     console.log("saved");
@@ -38,9 +40,18 @@ export const DemoMeasure = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
           <CUI.Container maxW="2xl" as="section">
-            <Q.Reporting />
-            <Q.Status />
-            <Q.DataSource />
+            <Q.Reporting
+              reportingYear={2021}
+              measureName="Admission to an Institution from the Community"
+              measureAbbreviation="AIF-HH"
+            />
+            {!watchReportingRadio?.includes("No") && (
+              <>
+                <Q.Status />
+                <Q.DataSource />{" "}
+              </>
+            )}
+            <Q.AdditionalNotes />
             <QMR.ContainedButton
               buttonProps={{ type: "submit", isFullWidth: true }}
               buttonText="Submit"

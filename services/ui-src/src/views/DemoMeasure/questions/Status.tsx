@@ -1,8 +1,9 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { DemoForm } from "../DemoFormType";
 
 export const Status = () => {
-  const register = useCustomRegister();
+  const register = useCustomRegister<DemoForm.DemoFormType>();
   return (
     <QMR.CoreQuestionWrapper label="Status of Data Reported">
       <QMR.RadioButton
@@ -13,13 +14,12 @@ export const Status = () => {
             value: "I am reporting provisional data",
             children: [
               <QMR.TextArea
-                {...register("DataStatus-ProvisionalExplaination")}
+                {...register("DataStatus-ProvisionalExplanation")}
                 label="Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
                 formLabelProps={{
                   fontWeight: "normal",
                   fontSize: "normal",
                 }}
-                key="DataStatus-ProvisionalExplaination"
               />,
             ],
           },
