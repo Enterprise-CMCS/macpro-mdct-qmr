@@ -1,6 +1,6 @@
 // const listOfVars = {
-//   state: "state",
-//   year: "year",
+//   state: "MO",
+//   year: "2021",
 // };
 
 export const convertToDynamoExpressionVars = (listOfVars) => {
