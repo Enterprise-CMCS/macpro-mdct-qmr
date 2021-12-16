@@ -41,8 +41,8 @@ custom:
         - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule~true, ssm:/configuration/default/warmup/schedule~true, "4 minutes"})
       concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency~true, ssm:/configuration/default/warmup/concurrency~true, 5}
   authorizerValue:
-    IS_FEATURE_BRANCH: aws_iam
-    NON_FEATURE_BRANCH: ""
+    IS_FEATURE_BRANCH: ""
+    NON_FEATURE_BRANCH: aws_iam
 provider:
   name: aws
   runtime: nodejs12.x
