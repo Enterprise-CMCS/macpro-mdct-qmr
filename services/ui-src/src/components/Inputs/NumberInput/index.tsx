@@ -8,6 +8,8 @@ interface NumberInputProps extends QMR.InputWrapperProps {
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
   name: string;
+  allowNegative?: boolean;
+  maximumDecimal?: number;
 }
 
 export const NumberInput = ({
@@ -16,6 +18,8 @@ export const NumberInput = ({
   displayPercent,
   name,
   formControlProps,
+  allowNegative,
+  maximumDecimal,
   ...rest
 }: NumberInputProps) => {
   const {
@@ -28,6 +32,13 @@ export const NumberInput = ({
     control,
   });
 
+  const regex = new RegExp(
+    `^${(allowNegative && "-?") || ""}\\d*${
+      (maximumDecimal && `.?\\d{0,${maximumDecimal}}`) || ""
+    }$`,
+    "i"
+  );
+
   return (
     <QMR.InputWrapper
       isInvalid={!!objectPath.get(errors, name)?.message}
@@ -36,11 +47,12 @@ export const NumberInput = ({
     >
       <CUI.InputGroup>
         <CUI.Input
-          type="number"
           placeholder={placeholder ?? ""}
           value={field.value ?? ""}
           name={name}
-          onChange={field.onChange}
+          onChange={(v) =>
+            regex.test(v.target.value) ? field.onChange(v.target.value) : null
+          }
           onBlur={field.onBlur}
           {...numberInputProps}
         />
