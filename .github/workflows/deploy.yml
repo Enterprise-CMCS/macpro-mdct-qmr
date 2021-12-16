@@ -74,6 +74,7 @@ jobs:
         if: github.ref != 'refs/heads/master' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/prod'
         env:
           LOCAL_LOGIN: true
+          TEST_ENV_VAR: ${{ github.ref }}
       - name: Run Cypress Tests
         run: |
           pushd services

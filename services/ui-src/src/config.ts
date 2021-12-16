@@ -4,6 +4,7 @@ const configToExport = {
   MAX_ATTACHMENT_SIZE: 5000000,
   LOCAL_LOGIN: window._env_.LOCAL_LOGIN,
   LOCAL_LOGIN_TEST: window._env_.LOCAL_LOGIN_TEST,
+  TESTING_THING: window._env_.TESTING_THING,
   s3: {
     LOCAL_ENDPOINT: window._env_.S3_LOCAL_ENDPOINT,
     REGION: window._env_.S3_ATTACHMENTS_BUCKET_REGION,
