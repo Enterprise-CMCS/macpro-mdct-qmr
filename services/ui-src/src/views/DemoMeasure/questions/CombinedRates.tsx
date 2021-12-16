@@ -51,7 +51,10 @@ export const CombinedRates = () => {
             value: "No, did not combine",
           },
         ]}
-        label="Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate? For additional information refer to the State-Level Rate Brief."
+        label="Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate?"
+        formLabelProps={{ fontWeight: 600 }}
+        helperText=" For additional information refer to the State-Level Rate Brief."
+        renderHelperTextAbove
         {...register("CombinedRates")}
       />
     </QMR.CoreQuestionWrapper>
