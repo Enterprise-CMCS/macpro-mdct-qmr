@@ -5,7 +5,7 @@ import { getLocalUserInfo } from "libs";
 function requestOptions(): any {
   const localLogin = config.LOCAL_LOGIN === "true";
 
-  if (localLogin) {
+  if (localLogin || config.IS_FEATURE_BRANCH) {
     // serverless offline passes the value of the cognito-identity-id into our lambdas as
     // requestContext.identity.cognitoIdentityId. This lets us set a user locally without involving Cognito.
     const currentUser = getLocalUserInfo();

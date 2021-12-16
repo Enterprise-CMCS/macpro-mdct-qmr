@@ -55,10 +55,8 @@ custom:
         export COGNITO_USER_POOL_ID=${self:custom.cognito_user_pool_id}
         export COGNITO_USER_POOL_CLIENT_ID=${self:custom.cognito_user_pool_client_id}
         export COGNITO_USER_POOL_CLIENT_DOMAIN=${self:custom.cognito_user_pool_client_domain}
-        export LOCAL_LOGIN=${env:LOCAL_LOGIN}
-        export LOCAL_LOGIN_TEST=${env:LOCAL_LOGIN}
-        export TESTING_THING=${env:TEST_ENV_VAR}
         export COGNITO_REDIRECT_SIGNIN=${self:custom.application_endpoint_url}
+        export IS_FEATURE_BRANCH=${env:IS_FEATURE_BRANCH}
         export COGNITO_REDIRECT_SIGNOUT=${self:custom.application_endpoint_url}
         export S3_ATTACHMENTS_BUCKET_REGION=${self:custom.s3_attachments_bucket_region}
         export S3_ATTACHMENTS_BUCKET_NAME=${self:custom.s3_attachments_bucket_name}
