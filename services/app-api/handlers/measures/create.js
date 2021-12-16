@@ -1,23 +1,17 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 
 export const createMeasure = handler(async (event, context) => {
-  // The State Year and ID are all part of the path
-  const state = event.pathParameters.state;
-  const year = event.pathParameters.year;
-  const coreSet = event.pathParameters.coreSet;
-  const measure = event.pathParameters.measure;
-  // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
-  const dynamoKey = `${state}${year}${coreSet}${measure}`;
-
+  const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.measureTableName,
     Item: {
       compoundKey: dynamoKey,
-      state: state,
-      year: year,
-      coreSet: coreSet,
-      measure: measure,
+      state: event.pathParameters.state,
+      year: event.pathParameters.year,
+      coreSet: event.pathParameters.coreSet,
+      measure: event.pathParameters.measure,
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],

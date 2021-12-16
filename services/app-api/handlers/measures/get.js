@@ -1,9 +1,9 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
+import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 
 export const listMeasures = handler(async (event, context) => {
-  // The State Year and ID are all part of the path
   const state = event.pathParameters.state;
   const year = event.pathParameters.year;
   const coreSet = event.pathParameters.coreSet;
@@ -20,18 +20,12 @@ export const listMeasures = handler(async (event, context) => {
 });
 
 export const getMeasure = handler(async (event, context) => {
-  // The State Year and ID are all part of the path
-  const state = event.pathParameters.state;
-  const year = event.pathParameters.year;
-  const coreSet = event.pathParameters.coreSet;
-  const measure = event.pathParameters.measure;
-  // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
-  const dynamoKey = `${state}${year}${coreSet}${measure}`;
+  const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.measureTableName,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: coreSet,
+      coreSet: event.pathParameters.coreSet,
     },
   };
   const queryValue = await dynamoDb.get(params);
