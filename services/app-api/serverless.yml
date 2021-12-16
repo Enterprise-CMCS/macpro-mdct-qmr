@@ -43,7 +43,7 @@ custom:
   authValue:
     master: aws_iam
     val: aws_iam
-    prod: aws_iam
+    production: aws_iam
 provider:
   name: aws
   runtime: nodejs12.x
