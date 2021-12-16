@@ -45,7 +45,7 @@ custom:
   serverlessIfElse:
     - If: ${self:env.IS_FEATURE_BRANCH}
       Set:
-        functions.listMeasures.authorizer: aws_iam
+        functions.listMeasure.authorizer: aws_iam
         functions.getMeasure.authorizer: ""
         functions.createMeasure.authorizer: ""
         functions.editMeasure.authorizer: ""
@@ -55,7 +55,7 @@ custom:
         functions.editCoreSet.authorizer: ""
         functions.deleteCoreSet.authorizer: ""
       ElseSet:
-        functions.listMeasures.authorizer: aws_iam
+        functions.listMeasure.authorizer: aws_iam
         functions.getMeasure.authorizer: aws_iam
         functions.createMeasure.authorizer: aws_iam
         functions.editMeasure.authorizer: aws_iam
