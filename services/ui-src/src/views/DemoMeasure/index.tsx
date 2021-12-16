@@ -40,9 +40,6 @@ export const DemoMeasure = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
           <CUI.Container maxW="2xl" as="section">
-            <Q.Reporting />
-            <Q.Status />
-            <Q.DataSource />
             <Q.MeasurementSpecification />
             <Q.Reporting
               reportingYear={2021}

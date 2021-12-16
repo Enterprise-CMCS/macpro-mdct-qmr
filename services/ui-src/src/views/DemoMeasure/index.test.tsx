@@ -31,7 +31,7 @@ describe("renders components when question 1 is answered no", () => {
       await screen.findByText("Why are you not reporting on this measure?")
     ).toBeInTheDocument();
   });
-})
+});
 
 describe("Test Demo Questions Component", () => {
   it("renders a text area when question 2 is answered yes", async () => {
