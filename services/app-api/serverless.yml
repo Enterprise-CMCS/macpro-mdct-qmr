@@ -44,6 +44,10 @@ custom:
     "false": ""
     "true": aws_iam
   customAuthValue: ${self:custom.authorizerValue.${!self:env.IS_FEATURE_BRANCH, 'true'}}
+  unauthorizedValue:
+    "false": aws_iam
+    "true": ""
+  customUnauthorizedValue: ${self:custom.unauthorizedValue.${!self:env.IS_FEATURE_BRANCH, 'true'}}
 provider:
   name: aws
   runtime: nodejs12.x
@@ -85,7 +89,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: get
           cors: true
-          authorizer: ${self:custom.customAuthValue}
+          authorizer: ${self:custom.customUnauthorizedValue}
   createMeasure:
     handler: handlers/measures/create.createMeasure
     events:
@@ -93,7 +97,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: post
           cors: true
-          authorizer: ${self:custom.customAuthValue}
+          authorizer: ${self:custom.customUnauthorizedValue}
   editMeasure:
     handler: handlers/measures/update.editMeasure
     events:
