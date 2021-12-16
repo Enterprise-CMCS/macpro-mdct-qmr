@@ -73,7 +73,7 @@ jobs:
           ./deploy.sh $STAGE_PREFIX$branch_name
         if: github.ref != 'refs/heads/master' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/prod'
         env:
-          IS_FEATURE_BRANCH: false
+          IS_FEATURE_BRANCH: true
       - name: Run Cypress Tests
         run: |
           pushd services
