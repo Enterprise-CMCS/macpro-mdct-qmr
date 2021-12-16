@@ -20,7 +20,6 @@ export const DataSource = () => {
             children: [
               <QMR.Checkbox
                 {...register("DataSource-Administrative")}
-                key="Administrative data"
                 options={[
                   {
                     displayValue:
@@ -33,7 +32,6 @@ export const DataSource = () => {
                     children: [
                       <QMR.TextArea
                         label="Describe the data source:"
-                        key="DataSource-Administrative-Other"
                         {...register("DataSource-Administrative-Other")}
                       />,
                       <CUI.Text
@@ -47,7 +45,6 @@ export const DataSource = () => {
                         each data source:
                       </CUI.Text>,
                       <QMR.TextArea
-                        key="DataSource-Administrative-Other-Explanation"
                         label={`Administrative Data Source: ${
                           watch("DataSource-Administrative-Other") || ""
                         }`}
@@ -69,7 +66,6 @@ export const DataSource = () => {
             children: [
               <QMR.Checkbox
                 {...register("DataSource-Hybrid")}
-                key="Hybrid data"
                 options={[
                   {
                     displayValue:
@@ -82,7 +78,6 @@ export const DataSource = () => {
                     children: [
                       <QMR.TextArea
                         label="Describe the data source:"
-                        key="DataSource-Hybrid-Other"
                         {...register("DataSource-Hybrid-Other")}
                       />,
                       <CUI.Text
@@ -111,7 +106,6 @@ export const DataSource = () => {
               <QMR.RadioButton
                 label="What is the Medical Records Data Source?"
                 formLabelProps={{ fontWeight: 700, paddingTop: 5 }}
-                key="Hybrid Radio Button Data"
                 {...register("DataSource-Hybrid-MedicalRecord-DataSoruce")}
                 options={[
                   {
@@ -136,7 +130,6 @@ export const DataSource = () => {
             children: [
               <QMR.TextArea
                 label="Describe Electronic Health Records data source:"
-                key="DataSource-ElectronicHealthRecords"
                 {...register("DataSource-ElectronicHealthRecords")}
               />,
               <CUI.Text
@@ -150,7 +143,6 @@ export const DataSource = () => {
                 source:
               </CUI.Text>,
               <QMR.TextArea
-                key="Electronic Record Data Source data:"
                 label={`Electronic Health Records Data Source: ${
                   watch("DataSource-ElectronicHealthRecords") || ""
                 }`}
@@ -164,7 +156,6 @@ export const DataSource = () => {
             children: [
               <QMR.TextArea
                 label="Describe the data source:"
-                key="DataSource-Other"
                 {...register("DataSource-Other")}
               />,
               <CUI.Text
@@ -178,7 +169,6 @@ export const DataSource = () => {
                 source:
               </CUI.Text>,
               <QMR.TextArea
-                key="DataSource-Other-Explanation"
                 label={`Other Data Source: ${watch("DataSource-Other") || ""}`}
                 {...register("DataSource-Other-Explanation")}
               />,
