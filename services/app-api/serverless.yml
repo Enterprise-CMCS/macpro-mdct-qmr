@@ -16,7 +16,6 @@ plugins:
   - serverless-idempotency-helper
   - serverless-iam-helper
   - serverless-s3-bucket-helper
-  - serverless-plugin-ifelse
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -41,29 +40,9 @@ custom:
       events:
         - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule~true, ssm:/configuration/default/warmup/schedule~true, "4 minutes"})
       concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency~true, ssm:/configuration/default/warmup/concurrency~true, 5}
-  authorizerValue: aws_iam
-  serverlessIfElse:
-    - If: ${self:env.IS_FEATURE_BRANCH}
-      Set:
-        functions.listMeasure.authorizer: aws_iam
-        functions.getMeasure.authorizer: ""
-        functions.createMeasure.authorizer: ""
-        functions.editMeasure.authorizer: ""
-        functions.deleteMeasure.authorizer: ""
-        functions.getAllCoreSets.authorizer: ""
-        functions.getCoreSet.authorizer: ""
-        functions.editCoreSet.authorizer: ""
-        functions.deleteCoreSet.authorizer: ""
-      ElseSet:
-        functions.listMeasure.authorizer: aws_iam
-        functions.getMeasure.authorizer: aws_iam
-        functions.createMeasure.authorizer: aws_iam
-        functions.editMeasure.authorizer: aws_iam
-        functions.deleteMeasure.authorizer: aws_iam
-        functions.getAllCoreSets.authorizer: aws_iam
-        functions.getCoreSet.authorizer: aws_iam
-        functions.editCoreSet.authorizer: aws_iam
-        functions.deleteCoreSet.authorizer: aws_iam
+  authorizerValue:
+    IS_FEATURE_BRANCH: ""
+    NON_FEATURE_BRANCH: aws_iam
 provider:
   name: aws
   runtime: nodejs12.x
@@ -97,7 +76,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures
           method: get
           cors: true
-          authorizer:
+          authorizer: ${self:custom.authorizerValue.${self:env.IS_FEATURE_BRANCH, 'NON_FEATURE_BRANCH'}}
   getMeasure:
     handler: handlers/measures/get.getMeasure
     events:
