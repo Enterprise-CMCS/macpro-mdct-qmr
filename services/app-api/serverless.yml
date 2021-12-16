@@ -73,10 +73,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures
           method: get
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   getMeasure:
     handler: handlers/measures/get.getMeasure
@@ -84,10 +81,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: get
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   createMeasure:
     handler: handlers/measures/create.createMeasure
@@ -95,10 +89,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: post
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   editMeasure:
     handler: handlers/measures/update.editMeasure
@@ -106,10 +97,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: put
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
@@ -117,10 +105,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: delete
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
@@ -128,10 +113,7 @@ functions:
       - http:
           path: coreset/{state}/{year}
           method: get
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   getCoreSet:
     handler: handlers/coreSets/get.getCoreSet
@@ -139,10 +121,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: get
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   createCoreSet:
     handler: handlers/coreSets/create.createCoreSet
@@ -150,10 +129,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: post
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   editCoreSet:
     handler: handlers/coreSets/update.editCoreSet
@@ -161,10 +137,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: put
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
@@ -172,10 +145,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: delete
-          cors:
-            origin: "*"
-            headers:
-              - cognito-identity-id
+          cors: true
           authorizer:
 
 resources:

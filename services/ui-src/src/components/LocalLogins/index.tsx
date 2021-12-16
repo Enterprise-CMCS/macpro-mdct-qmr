@@ -58,8 +58,7 @@ interface Props {
 }
 
 export const LocalLogins = ({ loginWithIDM }: Props) => {
-  const showIDMLogin =
-    config.LOCAL_LOGIN === "true" || config.IS_FEATURE_BRANCH;
+  const showIDMLogin = config.LOCAL_LOGIN === "true";
   return (
     <CUI.Container maxW="sm" h="full" my="auto">
       <CUI.Box textAlign="center" mb="6">
