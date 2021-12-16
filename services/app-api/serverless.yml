@@ -129,7 +129,10 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: post
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - cognito-identity-id
           authorizer: aws_iam
   editCoreSet:
     handler: handlers/coreSets/update.editCoreSet
