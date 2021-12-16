@@ -212,7 +212,6 @@ const DemoComponentsForm = () => {
                   children: [
                     <QMR.TextInput
                       label="Describe the data source:"
-                      key="other-describe-data"
                       {...register("demoCheckboxTextInput")}
                     />,
                   ],

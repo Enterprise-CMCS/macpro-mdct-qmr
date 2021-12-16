@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { DemoMeasure } from "views";
@@ -32,6 +32,18 @@ describe("Test Demo Questions Component", () => {
         "Please provide additional information such as when the data will be final and if you plan to modify the data reported here:"
       )
     ).toBeInTheDocument();
+  });
+
+  describe("renders components when question 1 is answered no", () => {
+    beforeEach(() => {
+      fireEvent.click(screen.getByLabelText(/No, I am not/i));
+    });
+
+    it("renders components properly", async () => {
+      expect(
+        await screen.findByText("Why are you not reporting on this measure?")
+      ).toBeInTheDocument();
+    });
   });
 
   it("should render children when the user clicks into data source options", async () => {
