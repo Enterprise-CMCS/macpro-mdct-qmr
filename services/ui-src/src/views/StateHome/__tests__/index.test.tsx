@@ -42,6 +42,6 @@ describe("Test StateHome", () => {
     fireEvent.change(screen.getByTestId("select"), {
       target: { value: "2020" },
     });
-    expect(mockedNavigate).toHaveBeenCalled();
+    expect(mockedNavigate).toHaveBeenCalledWith("/OH/2020");
   });
 });
