@@ -18,6 +18,20 @@ export namespace DemoForm {
     CombinedRates: string;
     "CombinedRates-CombinedRates": string;
     "CombinedRates-CombinedRates-Other-Explanation": string;
+    WhyAreYouNotReporting: string[];
+    AmountOfPopulationNotCovered: string;
+    PopulationNotCovered: string;
+    PartialPopulationNotCoveredExplanation: string;
+    WhyIsDataNotAvailable: string;
+    "WhyIsDataNotAvailable-Other": string;
+    DataIconAccuracyIssues: string;
+    DataSourceNotEasilyAccessible: string;
+    "DataSourceNotEasilyAccessible-Other": string;
+    InformationNotCollected: string;
+    "InformationNotCollected-Other": string;
+    LimitationWithDatCollecitonReportAccuracyCovid: string;
+    SmallSampleSizeLessThan30: string;
+    "WhyAreYouNotReporting-Other": string;
     "AdditionalNotes-AdditionalNotes"?: string;
     "AdditionalNotes-Upload"?: File[];
   }

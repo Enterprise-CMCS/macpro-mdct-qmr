@@ -77,7 +77,8 @@
       "!src/views/Login/index.tsx",
       "!src/views/AddChildCoreSet/index.tsx",
       "!src/views/AddHHCoreSet/index.tsx",
-      "!src/views/AdminHome/index.tsx"
+      "!src/views/AdminHome/index.tsx",
+      "!src/views/DemoMeasure/MockData.ts"
     ],
     "moduleDirectories": [
       "node_modules",
