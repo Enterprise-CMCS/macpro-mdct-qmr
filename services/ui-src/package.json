@@ -78,7 +78,9 @@
       "!src/views/AddChildCoreSet/index.tsx",
       "!src/views/AddHHCoreSet/index.tsx",
       "!src/views/AdminHome/index.tsx",
-      "!src/views/DemoMeasure/MockData.ts"
+      "!src/views/DemoMeasure/MockData.ts",
+      "!src/views/StateHome/actions.ts",
+      "!src/views/StateHome/AddCoreSetCards.tss"
     ],
     "moduleDirectories": [
       "node_modules",
