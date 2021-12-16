@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "serverless-associate-waf": "^1.2.1",
+    "serverless-plugin-ifelse": "^1.0.7",
     "serverless-s3-bucket-helper": "https://github.com/cmsgov/serverless-s3-bucket-helper"
   },
   "dependencies": {
