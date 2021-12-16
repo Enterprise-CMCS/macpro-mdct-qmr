@@ -53,6 +53,7 @@ export const NumberInput = ({
           onChange={(v) =>
             regex.test(v.target.value) ? field.onChange(v.target.value) : null
           }
+          data-testid="test-number-input"
           onBlur={field.onBlur}
           {...numberInputProps}
         />
