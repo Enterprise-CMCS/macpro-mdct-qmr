@@ -94,15 +94,14 @@ describe("Testing MonthPicker", () => {
   });
 
   test("External click event closes popup", async () => {
-    const { getByRole, findByRole, getByLabelText, findByLabelText } =
-      renderWithHookForm(
-        <QMR.MonthPicker initYear={"1995"} name="testComponent" />,
-        {
-          defaultValues: {
-            testComponent: { selectedMonth: "11", selectedYear: "2011" },
-          },
-        }
-      );
+    const { getByRole, findByRole, findByLabelText } = renderWithHookForm(
+      <QMR.MonthPicker initYear={"1995"} name="testComponent" />,
+      {
+        defaultValues: {
+          testComponent: { selectedMonth: "11", selectedYear: "2011" },
+        },
+      }
+    );
 
     fireEvent.click(getByRole("button", { name: /Month Picker/i }));
     await findByRole("button", { name: /January/i });
@@ -162,11 +161,11 @@ describe("Testing MonthPicker", () => {
 
     // change month
     userEvent.type(getByLabelText("Month:"), "12");
-    expect(getByLabelText("Month:")).toHaveValue(12);
+    expect(getByLabelText("Month:")).toHaveValue("12");
 
     // change year
     userEvent.type(getByLabelText("Year:"), "1912");
-    expect(getByLabelText("Year:")).toHaveValue(1912);
+    expect(getByLabelText("Year:")).toHaveValue("1912");
   });
 
   test("Check that input values fails to show invalid values", async () => {
@@ -181,10 +180,10 @@ describe("Testing MonthPicker", () => {
 
     // change month
     userEvent.type(getByLabelText("Month:"), "73");
-    expect(getByLabelText("Month:")).toHaveValue(7);
+    expect(getByLabelText("Month:")).toHaveValue("7");
 
     // change year
     userEvent.type(getByLabelText("Year:"), "1712");
-    expect(getByLabelText("Year:")).toHaveValue(17);
+    expect(getByLabelText("Year:")).toHaveValue("17");
   });
 });

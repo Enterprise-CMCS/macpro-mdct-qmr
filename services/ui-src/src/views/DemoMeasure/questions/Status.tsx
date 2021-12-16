@@ -1,8 +1,9 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { DemoForm } from "../DemoFormType";
 
 export const Status = () => {
-  const register = useCustomRegister();
+  const register = useCustomRegister<DemoForm.DemoFormType>();
   return (
     <QMR.CoreQuestionWrapper label="Status of Data Reported">
       <QMR.RadioButton
