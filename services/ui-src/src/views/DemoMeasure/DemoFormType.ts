@@ -18,6 +18,10 @@ export namespace DemoForm {
     CombinedRates: string;
     "CombinedRates-CombinedRates": string;
     "CombinedRates-CombinedRates-Other-Explanation": string;
+    MeasurementSpecification: string;
+    "MeasurementSpecification-HEDISVersion": string;
+    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
+    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
     WhyAreYouNotReporting: string[];
     AmountOfPopulationNotCovered: string;
     PopulationNotCovered: string;

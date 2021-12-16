@@ -20,6 +20,12 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   CombinedRates: Joi.string(),
   "CombinedRates-CombinedRates": Joi.string(),
   "CombinedRates-CombinedRates-Other-Explanation": Joi.string(),
+  MeasurementSpecification: Joi.string(),
+  "MeasurementSpecification-HEDISVersion": Joi.string(),
+  "MeasurementSpecification-OtherMeasurementSpecificationDescription":
+    Joi.string(),
+  "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload":
+    Joi.array().items(Joi.any()),
   WhyAreYouNotReporting: Joi.array().items(Joi.string()),
   AmountOfPopulationNotCovered: Joi.string(),
   PartialPopulationNotCoveredExplanation: Joi.string(),
