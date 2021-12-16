@@ -48,7 +48,6 @@ custom:
       package:initialize: |
         set -e
         SKIP_PREFLIGHT_CHECK=true yarn run build
-        set -e REACT_APP_TESTING_STUFF=false
         export API_REGION=${self:custom.api_region}
         export API_URL=${self:custom.api_url}
         export COGNITO_REGION=${self:custom.cognito_region}
