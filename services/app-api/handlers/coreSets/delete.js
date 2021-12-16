@@ -1,13 +1,14 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 
 export const deleteCoreSet = handler(async (event, context) => {
-  // The State Year and ID are all part of the path
   const state = event.pathParameters.state;
   const year = event.pathParameters.year;
   const coreSet = event.pathParameters.coreSet;
-  // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
-  const dynamoKey = `${state}${year}${coreSet}`;
+
+  const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.coreSetTableName,
     Key: {
@@ -25,7 +26,6 @@ export const deleteCoreSet = handler(async (event, context) => {
 const deleteDependentMeasures = async (state, year, coreSet) => {
   const measures = await getMeasures(state, year, coreSet);
   for await (const { measure } of measures.Items) {
-    // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
     const dynamoKey = `${state}${year}${coreSet}${measure}`;
     const params = {
       TableName: process.env.measureTableName,
@@ -43,17 +43,10 @@ const deleteDependentMeasures = async (state, year, coreSet) => {
 const getMeasures = async (state, year, coreSet) => {
   const params = {
     TableName: process.env.measureTableName,
-    FilterExpression: "#yr = :yr AND #st = :st AND #cs = :cs",
-    ExpressionAttributeNames: {
-      "#yr": "year",
-      "#st": "state",
-      "#cs": "coreSet",
-    },
-    ExpressionAttributeValues: {
-      ":yr": year,
-      ":st": state,
-      ":cs": coreSet,
-    },
+    ...convertToDynamoExpression(
+      { state: state, year: year, coreSet: coreSet },
+      "list"
+    ),
   };
   const queryValue = await dynamoDb.scan(params);
   return queryValue;
