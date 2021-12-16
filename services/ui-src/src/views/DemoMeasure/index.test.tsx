@@ -21,6 +21,18 @@ beforeEach(() => {
   );
 });
 
+describe("renders components when question 1 is answered no", () => {
+  beforeEach(() => {
+    fireEvent.click(screen.getByLabelText(/No, I am not/i));
+  });
+
+  it("renders components properly", async () => {
+    expect(
+      await screen.findByText("Why are you not reporting on this measure?")
+    ).toBeInTheDocument();
+  });
+});
+
 describe("Test Demo Questions Component", () => {
   it("renders a text area when question 2 is answered yes", async () => {
     userEvent.click(screen.getByText("I am reporting provisional data"));
@@ -34,16 +46,24 @@ describe("Test Demo Questions Component", () => {
     ).toBeInTheDocument();
   });
 
-  describe("renders components when question 1 is answered no", () => {
-    beforeEach(() => {
-      fireEvent.click(screen.getByLabelText(/No, I am not/i));
-    });
+  it("should renders measurement specification and its children should behave correctly when options are selected", async () => {
+    userEvent.click(
+      screen.getByText(
+        /Measurement Specification National Committee for Quality Assurance/i
+      )
+    );
 
-    it("renders components properly", async () => {
-      expect(
-        await screen.findByText("Why are you not reporting on this measure?")
-      ).toBeInTheDocument();
-    });
+    expect(
+      screen.getByLabelText(
+        /Measurement Specification National Committee for Quality Assurance/i
+      )
+    ).toBeChecked();
+
+    expect(
+      await screen.findByLabelText(
+        /Specify the version of HEDIS measurement year used/i
+      )
+    ).toBeInTheDocument();
   });
 
   it("should render children when the user clicks into data source options", async () => {
@@ -76,8 +96,8 @@ describe("Test Demo Questions Component", () => {
       )
     ).toHaveValue("hello");
   });
-});
 
-test("Check that the nav renders", () => {
-  expect(screen.getByTestId("state-layout-container")).toBeVisible();
+  test("Check that the nav renders", () => {
+    expect(screen.getByTestId("state-layout-container")).toBeVisible();
+  });
 });
