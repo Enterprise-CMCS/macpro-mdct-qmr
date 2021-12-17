@@ -23,7 +23,7 @@ export const ContainedButton = ({
   const plusIcon = icon === "plus" ? <FaPlusCircle /> : undefined;
 
   return (
-    <CUI.Box textAlign="center">
+    <CUI.Box>
       <CUI.Button
         leftIcon={printIcon}
         rightIcon={plusIcon}

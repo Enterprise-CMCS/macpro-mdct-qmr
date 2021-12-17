@@ -17,6 +17,9 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   "DataSource-Hybrid-MedicalRecord-DataSoruce": Joi.string(),
   "DataSource-ElectronicHealthRecords": Joi.string(),
   "DataSource-ElectronicHealthRecords-Explanation": Joi.string(),
+  CombinedRates: Joi.string(),
+  "CombinedRates-CombinedRates": Joi.string(),
+  "CombinedRates-CombinedRates-Other-Explanation": Joi.string(),
   MeasurementSpecification: Joi.string(),
   "MeasurementSpecification-HEDISVersion": Joi.string(),
   "MeasurementSpecification-OtherMeasurementSpecificationDescription":

@@ -43,6 +43,7 @@ export const Select = ({
         ref={field.ref}
         value={field.value}
         onBlur={field.onBlur}
+        borderRadius="sm"
         onChange={(newValue) => {
           field.onChange(newValue);
         }}

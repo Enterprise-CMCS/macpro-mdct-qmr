@@ -22,6 +22,7 @@ const configToExport = {
     REDIRECT_SIGNOUT: window._env_.COGNITO_REDIRECT_SIGNOUT,
   },
   currentReportingYear: "2021",
+  reportingYears: ["2020", "2021"],
 };
 
 export default configToExport;

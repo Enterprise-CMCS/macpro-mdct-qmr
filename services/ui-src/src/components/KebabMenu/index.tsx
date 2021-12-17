@@ -3,18 +3,14 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 export interface IKebabMenuItem {
   itemText: string;
-  itemIndex: number;
+  id: string;
+  handleSelect: (id: string) => void;
 }
 export interface KebabMenuProps {
   menuItems: IKebabMenuItem[];
-  handleItemClick: (itemIndex: number) => void;
 }
-interface KebabMenuItemProps {
-  itemText: string;
-  itemIndex: number;
-  handleItemClick: (itemIndex: number) => void;
-}
-export const KebabMenu = ({ menuItems, handleItemClick }: KebabMenuProps) => {
+
+export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
   return (
     <CUI.Menu>
       <CUI.MenuButton aria-label="Action Menu">
@@ -24,9 +20,9 @@ export const KebabMenu = ({ menuItems, handleItemClick }: KebabMenuProps) => {
         {menuItems.map((i) => (
           <KebabMenuItem
             itemText={i.itemText}
-            itemIndex={i.itemIndex}
-            handleItemClick={handleItemClick}
-            key={i.itemIndex}
+            id={i.id}
+            handleSelect={i.handleSelect}
+            key={i.id}
           />
         ))}
       </CUI.MenuList>
@@ -34,11 +30,7 @@ export const KebabMenu = ({ menuItems, handleItemClick }: KebabMenuProps) => {
   );
 };
 
-const KebabMenuItem = ({
-  itemText,
-  itemIndex,
-  handleItemClick,
-}: KebabMenuItemProps) => {
+const KebabMenuItem = ({ itemText, id, handleSelect }: IKebabMenuItem) => {
   return (
     <CUI.MenuItem
       bg="blue.500"
@@ -48,9 +40,8 @@ const KebabMenuItem = ({
       _focus={{ background: "blue.600" }}
       borderColor="white"
       minH="48px"
-      onClick={() => handleItemClick(itemIndex)}
+      onClick={() => handleSelect(id)}
       aria-label={itemText}
-      key={itemIndex}
     >
       <CUI.Text fontSize="sm">{itemText}</CUI.Text>
     </CUI.MenuItem>
