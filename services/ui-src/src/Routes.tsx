@@ -31,31 +31,31 @@ const measureRoutes: MeasureRoute[] = [];
 
 Object.keys(measuresList).forEach((year: string) => {
   stateAbbreviations.forEach((stateAbbr: string) => {
-    measuresList[year].forEach((measure: MeasuresListItem) => {
+    measuresList[year].forEach(({ type, measure }: MeasuresListItem) => {
       // @ts-ignore
-      if (measure.measure in Measures[year]) {
+      if (measure in Measures[year]) {
         // @ts-ignore
-        const Comp = Measures[year][measure.measure];
+        const Comp = Measures[year][measure];
 
         // if this is a child core set we want to create three locations to access the same measure
         // (combined, mediaid, and chip) so we create two extra routes if measure type is child
 
-        if (measure.type === "CH") {
+        if (type === "CH") {
           // add a path for child - chip
           measureRoutes.push({
-            path: `${stateAbbr}/${year}/${measure.type}C/${measure.measure}`,
+            path: `${stateAbbr}/${year}/${type}C/${measure}`,
             el: createElement(Comp, {}),
           });
 
           // add a path for child - medicaid
           measureRoutes.push({
-            path: `${stateAbbr}/${year}/${measure.type}M/${measure.measure}`,
+            path: `${stateAbbr}/${year}/${type}M/${measure}`,
             el: createElement(Comp, {}),
           });
         }
 
         measureRoutes.push({
-          path: `${stateAbbr}/${year}/${measure.type}/${measure.measure}`,
+          path: `${stateAbbr}/${year}/${type}/${measure}`,
           el: createElement(Comp, {}),
         });
       }
