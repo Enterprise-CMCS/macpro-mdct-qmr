@@ -2,6 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { DemoForm } from "../DemoFormType";
+import { allPositiveIntegers } from "utils/numberInputMasks";
 
 export const DefinitionOfPopulation = () => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
@@ -81,7 +82,7 @@ export const DefinitionOfPopulation = () => {
                 />,
                 <CUI.Box mt="10" key="DenominatorDefineTotalTechSpec-No-Size">
                   <QMR.NumberInput
-                    maximumDecimal={0}
+                    mask={allPositiveIntegers}
                     {...register("DenominatorDefineTotalTechSpec-No-Size")}
                     label="Specify the size of the population excluded (optional):"
                   />
@@ -141,7 +142,7 @@ export const DefinitionOfPopulation = () => {
                             "DeliverySys-FreeForService-No-Population"
                           )}
                           formLabelProps={{ fontWeight: "400" }}
-                          maximumDecimal={0}
+                          mask={allPositiveIntegers}
                           label="What number of your measure-eligible Fee-for-Service (FFS) population are included in the measure? (optional)"
                         />,
                       ],
@@ -195,7 +196,7 @@ export const DefinitionOfPopulation = () => {
                             "DeliverySys-PrimaryCareManagement-No-Population"
                           )}
                           formLabelProps={{ fontWeight: "400" }}
-                          maximumDecimal={0}
+                          mask={allPositiveIntegers}
                           label="What number of your measure-eligible Primary Care Case Management (PCCM) population are included in the measure? (optional)"
                         />,
                       ],
@@ -220,7 +221,7 @@ export const DefinitionOfPopulation = () => {
                 <CUI.Box py="5" key="DeliverySys-MCO_POHP-NumberOfPlans">
                   <QMR.NumberInput
                     formLabelProps={{ fontWeight: "400" }}
-                    maximumDecimal={0}
+                    mask={allPositiveIntegers}
                     label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data (optional)?"
                     {...register("DeliverySys-MCO_POHP-NumberOfPlans")}
                   />
@@ -251,7 +252,7 @@ export const DefinitionOfPopulation = () => {
                             {"in the measure?"}
                           </CUI.Text>,
                           <QMR.NumberInput
-                            maximumDecimal={0}
+                            mask={allPositiveIntegers}
                             {...register("DeliverySys-MCO_POHP-No-Included")}
                           />,
                           <CUI.Text my="5" key="AdditionalMCOExcludedText">
@@ -265,7 +266,7 @@ export const DefinitionOfPopulation = () => {
                             {"in the measure?"}
                           </CUI.Text>,
                           <QMR.NumberInput
-                            maximumDecimal={0}
+                            mask={allPositiveIntegers}
                             {...register("DeliverySys-MCO_POHP-No-Excluded")}
                           />,
                         ],
@@ -316,7 +317,7 @@ export const DefinitionOfPopulation = () => {
                           </CUI.Text>
                         </CUI.Box>,
                         <QMR.NumberInput
-                          maximumDecimal={0}
+                          mask={allPositiveIntegers}
                           formLabelProps={{ fontWeight: "400" }}
                           label="What number of your measure-eligible Integrated Care Models (ICM) population are included in the measure? (optional)"
                           {...register(
@@ -362,7 +363,7 @@ export const DefinitionOfPopulation = () => {
                 </CUI.Box>,
                 <CUI.Box py="5" key="DeliverySys-Other-NumberOfHealthPlans">
                   <QMR.NumberInput
-                    maximumDecimal={0}
+                    mask={allPositiveIntegers}
                     formLabelProps={{ fontWeight: "400" }}
                     label="If applicable, list the number of Health Plans represented:"
                     {...register("DeliverySys-Other-NumberOfHealthPlans")}
@@ -370,7 +371,7 @@ export const DefinitionOfPopulation = () => {
                 </CUI.Box>,
                 <CUI.Box pt="5" key="DeliverySys-Other-Population">
                   <QMR.NumberInput
-                    maximumDecimal={0}
+                    mask={allPositiveIntegers}
                     formLabelProps={{ fontWeight: "400" }}
                     label="Number of measure-eligible state population represented in data reported:"
                     {...register("DeliverySys-Other-Population")}
