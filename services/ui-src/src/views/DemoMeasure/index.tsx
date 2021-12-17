@@ -53,6 +53,7 @@ export const DemoMeasure = () => {
               </>
             )}
             <Q.AdditionalNotes />
+            <Q.CombinedRates />
             <CUI.Stack alignItems="flex-start">
               <CUI.Heading fontSize="xl" fontWeight="600">
                 8. Complete the Measure
