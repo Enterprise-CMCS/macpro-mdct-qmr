@@ -40,6 +40,7 @@ export const DemoMeasure = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
           <CUI.Container maxW="2xl" as="section">
+            <Q.MeasurementSpecification />
             <Q.Reporting
               reportingYear={2021}
               measureName="Admission to an Institution from the Community"
@@ -53,10 +54,25 @@ export const DemoMeasure = () => {
               </>
             )}
             <Q.AdditionalNotes />
-            <QMR.ContainedButton
-              buttonProps={{ type: "submit", isFullWidth: true }}
-              buttonText="Submit"
-            />
+            <Q.CombinedRates />
+            <CUI.Stack alignItems="flex-start">
+              <CUI.Heading fontSize="xl" fontWeight="600">
+                8. Complete the Measure
+              </CUI.Heading>
+              <CUI.Text p="3" pl="5">
+                Complete the measure and mark it for submission to CMS for
+                review
+              </CUI.Text>
+              <QMR.ContainedButton
+                buttonProps={{
+                  ml: "5",
+                  type: "submit",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                buttonText="Complete Measure"
+              />
+            </CUI.Stack>
           </CUI.Container>
         </form>
       </FormProvider>
