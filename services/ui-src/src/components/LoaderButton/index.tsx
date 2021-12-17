@@ -11,7 +11,6 @@ export function LoaderButton({
     <ContainedButton
       disabledStatus={disabled || isLoading}
       {...props}
-      data-testid="LoaderButton"
       buttonText={
         <>
           {props.children}

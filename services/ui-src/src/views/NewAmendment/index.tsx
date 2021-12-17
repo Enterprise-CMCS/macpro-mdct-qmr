@@ -25,9 +25,9 @@ export function NewAmendment({
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [territory] = useState("");
-  const [urgent] = useState(false);
   const [comments, setComments] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const urgent = false;
 
   async function populateUserInfo() {
     var userInfo = await currentUserInfo();
