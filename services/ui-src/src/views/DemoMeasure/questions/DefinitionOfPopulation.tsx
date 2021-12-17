@@ -46,7 +46,7 @@ export const DefinitionOfPopulation = () => {
             children: [
               <QMR.TextInput
                 formLabelProps={{ fontWeight: "400" }}
-                label="If there has been a change in the included population from the previous reporting year, please provide any available context below:"
+                label="Define the other denominator population:"
                 {...register("DefinitionOfDenominator-Other")}
               />,
             ],
