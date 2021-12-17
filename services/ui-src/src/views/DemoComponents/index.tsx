@@ -148,13 +148,16 @@ const DemoComponentsForm = () => {
               placeholder="123"
               label="This number input is a percent and allows decimals"
               helperText="Enter a number"
+              maximumDecimal={4}
               displayPercent={true}
+              allowNegative
             />
             <QMR.NumberInput
               {...register("demoNumberInput2")}
               placeholder="123"
               label="This number input only allows integers"
               helperText="Enter a number"
+              allowNegative
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
