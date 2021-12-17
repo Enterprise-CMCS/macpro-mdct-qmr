@@ -8,7 +8,7 @@ export const DefinitionOfPopulation = () => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
 
   return (
-    <QMR.CoreQuestionWrapper label="6. Definition of Population Included in the Measure">
+    <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
       <CUI.Heading size="sm" as="h3">
         Definition of denominator
       </CUI.Heading>
@@ -44,7 +44,7 @@ export const DefinitionOfPopulation = () => {
             displayValue: "Other",
             value: "DenominatorIncOther",
             children: [
-              <QMR.TextArea
+              <QMR.TextInput
                 formLabelProps={{ fontWeight: "400" }}
                 label="If there has been a change in the included population from the previous reporting year, please provide any available context below:"
                 {...register("DefinitionOfDenominator-Other")}
