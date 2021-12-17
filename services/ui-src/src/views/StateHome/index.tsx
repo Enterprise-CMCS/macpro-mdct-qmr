@@ -56,11 +56,12 @@ const ReportingYear = () => {
 };
 
 const Heading = () => {
+  const { year } = useParams<Params>();
   return (
     <CUI.Box display={{ base: "block", md: "flex" }}>
       <CUI.Box maxW="3xl" pb="6">
         <CUI.Heading size="lg">
-          FFY 2021 Core Set Measures Reporting
+          {`FFY ${year} Core Set Measures Reporting`}
         </CUI.Heading>
         <CUI.Text fontWeight="bold" py="6">
           Complete each group of Core Set Measures below. Once a group is
