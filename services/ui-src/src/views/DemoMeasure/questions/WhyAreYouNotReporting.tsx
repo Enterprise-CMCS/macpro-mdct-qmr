@@ -1,9 +1,16 @@
 import * as QMR from "components";
+import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { useController, useFormContext } from "react-hook-form";
 import { DemoForm } from "../DemoFormType";
 
 export const WhyAreYouNotReporting = () => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
+  const { control } = useFormContext();
+  const { field } = useController({
+    name: "SmallSampleSizeLessThan30",
+    control,
+  });
   return (
     <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
       <QMR.Checkbox
@@ -157,10 +164,18 @@ export const WhyAreYouNotReporting = () => {
             displayValue: "Small sample size (less than 30)",
             value: "SmallSampleSizeLessThan30",
             children: [
-              <QMR.NumberInput
-                label="Enter specific sample size:"
-                {...register("SmallSampleSizeLessThan30")}
-              />,
+              <CUI.FormControl label="Enter specific sample size:">
+                <CUI.FormLabel>{"Enter specific sample size:"}</CUI.FormLabel>
+                <CUI.Input
+                  name={"SmallSampleSizeLessThan30"}
+                  value={field.value}
+                  onChange={(e) =>
+                    /^([1-2]?[0-9])?$/i.test(e.target.value)
+                      ? field.onChange(e.target.value)
+                      : null
+                  }
+                />
+              </CUI.FormControl>,
             ],
           },
           {
