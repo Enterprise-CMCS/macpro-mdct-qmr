@@ -1,4 +1,4 @@
-import { Button } from "@trussworks/react-uswds";
+import { ContainedButton } from "components/ContainedButton";
 import "./index.module.scss";
 
 export function LoaderButton({
@@ -8,23 +8,24 @@ export function LoaderButton({
   ...props
 }: ILoaderButtonProps): JSX.Element {
   return (
-    <Button
-      className="login-button"
-      disabled={disabled || isLoading}
+    <ContainedButton
+      disabledStatus={disabled || isLoading}
       {...props}
       data-testid="LoaderButton"
-      type="button"
-    >
-      {props.children}
-      {isLoading && (
-        <img
-          src="preloaders/spheres.gif"
-          alt="Loading... Please wait..."
-          title="Loading... Please wait..."
-          className="display-inline"
-        />
-      )}
-    </Button>
+      buttonText={
+        <>
+          {props.children}
+          {isLoading && (
+            <img
+              src="preloaders/spheres.gif"
+              alt="Loading... Please wait..."
+              title="Loading... Please wait..."
+              className="display-inline"
+            />
+          )}
+        </>
+      }
+    />
   );
 }
 
