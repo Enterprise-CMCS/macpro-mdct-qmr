@@ -79,11 +79,13 @@ export const DefinitionOfPopulation = () => {
                   {...register("DenominatorDefineTotalTechSpec-No-Explanation")}
                   label="Explain which populations are excluded and why:"
                 />,
-                <QMR.NumberInput
-                  maximumDecimal={0}
-                  {...register("DenominatorDefineTotalTechSpec-No-Size")}
-                  label="Specify the size of the population excluded (optional):"
-                />,
+                <CUI.Box mt="10" key="DenominatorDefineTotalTechSpec-No-Size">
+                  <QMR.NumberInput
+                    maximumDecimal={0}
+                    {...register("DenominatorDefineTotalTechSpec-No-Size")}
+                    label="Specify the size of the population excluded (optional):"
+                  />
+                </CUI.Box>,
               ],
             },
           ]}
