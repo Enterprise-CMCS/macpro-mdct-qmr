@@ -80,6 +80,7 @@ export const DefinitionOfPopulation = () => {
                   label="Explain which populations are excluded and why:"
                 />,
                 <QMR.NumberInput
+                  maximumDecimal={0}
                   {...register("DenominatorDefineTotalTechSpec-No-Size")}
                   label="Specify the size of the population excluded (optional):"
                 />,
@@ -122,7 +123,7 @@ export const DefinitionOfPopulation = () => {
                           label="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"
                           displayPercent
                         />,
-                        <CUI.Text my="5">
+                        <CUI.Text my="5" key="AdditionalFFSText">
                           The percentage provided here should represent the
                           percentage of the denominator population(s) included
                           in the measure (i.e., Medicaid, CHIP, etc.) that
@@ -138,6 +139,7 @@ export const DefinitionOfPopulation = () => {
                             "DeliverySys-FreeForService-No-Population"
                           )}
                           formLabelProps={{ fontWeight: "400" }}
+                          maximumDecimal={0}
                           label="What number of your measure-eligible Fee-for-Service (FFS) population are included in the measure? (optional)"
                         />,
                       ],
@@ -173,7 +175,7 @@ export const DefinitionOfPopulation = () => {
                           formLabelProps={{ fontWeight: "400" }}
                           label="What percent of your measure-eligible Primary Care Case Management (PCCM) population are included in the measure?"
                         />,
-                        <CUI.Box py="5">
+                        <CUI.Box py="5" key="AdditionalPCCMText">
                           <CUI.Text my="3">
                             The percentage provided here should represent the
                             percentage of the denominator population(s) included
@@ -191,6 +193,7 @@ export const DefinitionOfPopulation = () => {
                             "DeliverySys-PrimaryCareManagement-No-Population"
                           )}
                           formLabelProps={{ fontWeight: "400" }}
+                          maximumDecimal={0}
                           label="What number of your measure-eligible Primary Care Case Management (PCCM) population are included in the measure? (optional)"
                         />,
                       ],
@@ -204,7 +207,7 @@ export const DefinitionOfPopulation = () => {
                 "Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)",
               value: "MCO-PIHP",
               children: [
-                <CUI.Box pb="5">
+                <CUI.Box pb="5" key="DeliverySys-MCO_POHP-Percent">
                   <QMR.NumberInput
                     displayPercent
                     formLabelProps={{ fontWeight: "400" }}
@@ -212,14 +215,15 @@ export const DefinitionOfPopulation = () => {
                     {...register("DeliverySys-MCO_POHP-Percent")}
                   />
                 </CUI.Box>,
-                <CUI.Box py="5">
+                <CUI.Box py="5" key="DeliverySys-MCO_POHP-NumberOfPlans">
                   <QMR.NumberInput
                     formLabelProps={{ fontWeight: "400" }}
+                    maximumDecimal={0}
                     label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data (optional)?"
                     {...register("DeliverySys-MCO_POHP-NumberOfPlans")}
                   />
                 </CUI.Box>,
-                <CUI.Box pt="5">
+                <CUI.Box pt="5" key="DeliverySys-MCO_POHP">
                   <QMR.RadioButton
                     {...register("DeliverySys-MCO_POHP")}
                     formLabelProps={{ fontWeight: "400" }}
@@ -235,7 +239,7 @@ export const DefinitionOfPopulation = () => {
                           "No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.",
                         value: "NoAllMCO-PIHP",
                         children: [
-                          <CUI.Text mb="5">
+                          <CUI.Text mb="5" key="AdditionalMCOIncludedText">
                             {
                               "What number of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are"
                             }
@@ -245,9 +249,10 @@ export const DefinitionOfPopulation = () => {
                             {"in the measure?"}
                           </CUI.Text>,
                           <QMR.NumberInput
+                            maximumDecimal={0}
                             {...register("DeliverySys-MCO_POHP-No-Included")}
                           />,
-                          <CUI.Text my="5">
+                          <CUI.Text my="5" key="AdditionalMCOExcludedText">
                             {" "}
                             {
                               "What number of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are"
@@ -258,6 +263,7 @@ export const DefinitionOfPopulation = () => {
                             {"in the measure?"}
                           </CUI.Text>,
                           <QMR.NumberInput
+                            maximumDecimal={0}
                             {...register("DeliverySys-MCO_POHP-No-Excluded")}
                           />,
                         ],
@@ -294,7 +300,7 @@ export const DefinitionOfPopulation = () => {
                             "DeliverySys-IntegratedCareModel-No-Percent"
                           )}
                         />,
-                        <CUI.Box py="5">
+                        <CUI.Box py="5" key="AdditionalICMText">
                           <CUI.Text>
                             The percentage provided here should represent the
                             percentage of the denominator population(s) included
@@ -308,6 +314,7 @@ export const DefinitionOfPopulation = () => {
                           </CUI.Text>
                         </CUI.Box>,
                         <QMR.NumberInput
+                          maximumDecimal={0}
                           formLabelProps={{ fontWeight: "400" }}
                           label="What number of your measure-eligible Integrated Care Models (ICM) population are included in the measure? (optional)"
                           {...register(
@@ -324,14 +331,14 @@ export const DefinitionOfPopulation = () => {
               displayValue: "Other",
               value: "Other",
               children: [
-                <CUI.Box pb="5">
+                <CUI.Box pb="5" key="DeliverySys-Other">
                   <QMR.TextArea
                     formLabelProps={{ fontWeight: "400" }}
                     label="Describe the Other Delivery System represented in the denominator:"
                     {...register("DeliverySys-Other")}
                   />
                 </CUI.Box>,
-                <CUI.Box py="5">
+                <CUI.Box py="5" key="DeliverySys-Other-Percent">
                   <QMR.NumberInput
                     displayPercent
                     formLabelProps={{ fontWeight: "400" }}
@@ -339,7 +346,7 @@ export const DefinitionOfPopulation = () => {
                     {...register("DeliverySys-Other-Percent")}
                   />
                 </CUI.Box>,
-                <CUI.Box py="5">
+                <CUI.Box py="5" key="AdditionalOtherText">
                   <CUI.Text>
                     The percentage provided here should represent the percentage
                     of the denominator population(s) included in the measure
@@ -351,15 +358,17 @@ export const DefinitionOfPopulation = () => {
                     fee-for-service and enter 50.
                   </CUI.Text>
                 </CUI.Box>,
-                <CUI.Box py="5">
+                <CUI.Box py="5" key="DeliverySys-Other-NumberOfHealthPlans">
                   <QMR.NumberInput
+                    maximumDecimal={0}
                     formLabelProps={{ fontWeight: "400" }}
                     label="If applicable, list the number of Health Plans represented:"
                     {...register("DeliverySys-Other-NumberOfHealthPlans")}
                   />
                 </CUI.Box>,
-                <CUI.Box pt="5">
+                <CUI.Box pt="5" key="DeliverySys-Other-Population">
                   <QMR.NumberInput
+                    maximumDecimal={0}
                     formLabelProps={{ fontWeight: "400" }}
                     label="Number of measure-eligible state population represented in data reported:"
                     {...register("DeliverySys-Other-Population")}
