@@ -3,3 +3,4 @@ export * from "./Reporting";
 export * from "./Status";
 export * from "./WhyAreYouNotReporting";
 export * from "./AdditionalNotes";
+export * from "./DefinitionOfPopulation";
