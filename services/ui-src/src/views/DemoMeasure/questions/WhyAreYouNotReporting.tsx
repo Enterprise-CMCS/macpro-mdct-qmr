@@ -8,6 +8,8 @@ export const WhyAreYouNotReporting = () => {
     <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
       <QMR.Checkbox
         {...register("WhyAreYouNotReporting")}
+        helperText="Select all that apply:"
+        renderHelperTextAbove
         options={[
           {
             displayValue: `Service not covered`,
@@ -57,7 +59,7 @@ export const WhyAreYouNotReporting = () => {
                     value: "StaffConstraints",
                   },
                   {
-                    displayValue: "Data Inconsistencies/Accuracy Issues",
+                    displayValue: "Data inconsistencies/Accuracy",
                     value: "DataInconsistenciesAccuracyIssues",
                     children: [
                       <QMR.TextArea
@@ -87,7 +89,7 @@ export const WhyAreYouNotReporting = () => {
                             displayValue: "Other",
                             value: "Other",
                             children: [
-                              <QMR.TextInput
+                              <QMR.TextArea
                                 label="Explain:"
                                 {...register(
                                   "DataSourceNotEasilyAccessible-Other"
