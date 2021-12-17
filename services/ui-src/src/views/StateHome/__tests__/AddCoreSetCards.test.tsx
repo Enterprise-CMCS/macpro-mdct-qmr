@@ -11,15 +11,15 @@ beforeEach(() => {
 });
 
 describe("Test AddCoreSetCards Component", () => {
-  it("renders the add child core set card", async () => {
+  it("renders the add child core set card", () => {
     expect(
-      await screen.findByText(/Need to report on Child data/i)
+      screen.getByText(/Need to report on Child data/i)
     ).toBeInTheDocument();
   });
 
-  it("renders the add health homes core set card", async () => {
+  it("renders the add health homes core set card", () => {
     expect(
-      await screen.findByText(/Need to report on Health homes data/i)
+      screen.getByText(/Need to report on Health homes data/i)
     ).toBeInTheDocument();
   });
 });

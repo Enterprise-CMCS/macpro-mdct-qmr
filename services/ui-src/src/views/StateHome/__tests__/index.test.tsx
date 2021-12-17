@@ -22,23 +22,21 @@ beforeEach(() => {
 });
 
 describe("Test StateHome", () => {
-  test("Check that the Heading renders", async () => {
+  test("Check that the Heading renders", () => {
     expect(
-      await screen.findByText(/Core Set Measures Reporting/i)
+      screen.getByText(/Core Set Measures Reporting/i)
     ).toBeInTheDocument();
   });
 
-  test("Check that the Reporting Year renders", async () => {
-    expect(await screen.findByText(/Reporting Year/i)).toBeInTheDocument();
+  test("Check that the Reporting Year renders", () => {
+    expect(screen.getByText(/Reporting Year/i)).toBeInTheDocument();
   });
 
-  test("Check that the Adult core set record renders", async () => {
-    expect(
-      await screen.findByText(/Adult Core Set Measures/i)
-    ).toBeInTheDocument();
+  test("Check that the Adult core set record renders", () => {
+    expect(screen.getByText(/Adult Core Set Measures/i)).toBeInTheDocument();
   });
 
-  test("Check that the route is correct when reporting year is changed", async () => {
+  test("Check that the route is correct when reporting year is changed", () => {
     fireEvent.change(screen.getByTestId("select"), {
       target: { value: "2020" },
     });
