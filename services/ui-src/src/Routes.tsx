@@ -31,7 +31,7 @@ const measureRoutes: MeasureRoute[] = [];
 
 Object.keys(measuresList).forEach((year: string) => {
   stateAbbreviations.forEach((stateAbbr: string) => {
-    measuresList[year].forEach(({ type, measure }: MeasuresListItem) => {
+    measuresList[year].forEach(({ type, measure, name }: MeasuresListItem) => {
       // @ts-ignore
       if (measure in Measures[year]) {
         // @ts-ignore
@@ -44,19 +44,19 @@ Object.keys(measuresList).forEach((year: string) => {
           // add a path for child - chip
           measureRoutes.push({
             path: `${stateAbbr}/${year}/${type}C/${measure}`,
-            el: createElement(Comp, {}),
+            el: createElement(Comp, { name }),
           });
 
           // add a path for child - medicaid
           measureRoutes.push({
             path: `${stateAbbr}/${year}/${type}M/${measure}`,
-            el: createElement(Comp, {}),
+            el: createElement(Comp, { name }),
           });
         }
 
         measureRoutes.push({
           path: `${stateAbbr}/${year}/${type}/${measure}`,
-          el: createElement(Comp, {}),
+          el: createElement(Comp, { name }),
         });
       }
     });
@@ -77,7 +77,7 @@ export function AppRoutes({ user }: { user: CognitoUser }) {
         <Route path=":state/:year/:coreset" element={<Views.CoreSet />} />
         <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
         {measureRoutes.map((m: MeasureRoute) => (
-          <Route path={m.path} element={m.el} />
+          <Route path={m.path} element={m.el} key={m.path} />
         ))}
         <Route path="components" element={<Views.DemoComponents />} />
         <Route path="*" element={<Views.NotFound />} />
