@@ -34,6 +34,10 @@ describe("renders components when question 1 is answered no", () => {
 });
 
 describe("Test Demo Questions Component", () => {
+  test("Check that the nav renders", () => {
+    expect(screen.getByTestId("state-layout-container")).toBeVisible();
+  });
+
   it("renders a text area when question 2 is answered yes", async () => {
     userEvent.click(screen.getByText("I am reporting provisional data"));
     expect(
@@ -48,15 +52,11 @@ describe("Test Demo Questions Component", () => {
 
   it("should renders measurement specification and its children should behave correctly when options are selected", async () => {
     userEvent.click(
-      screen.getByText(
-        /Measurement Specification National Committee for Quality Assurance/i
-      )
+      screen.getByText(/National Committee for Quality Assurance/i)
     );
 
     expect(
-      screen.getByLabelText(
-        /Measurement Specification National Committee for Quality Assurance/i
-      )
+      screen.getByLabelText(/National Committee for Quality Assurance/i)
     ).toBeChecked();
 
     expect(
@@ -97,7 +97,32 @@ describe("Test Demo Questions Component", () => {
     ).toHaveValue("hello");
   });
 
-  test("Check that the nav renders", () => {
-    expect(screen.getByTestId("state-layout-container")).toBeVisible();
+  it("should render children when the user clicks into data source options", async () => {
+    userEvent.click(
+      screen.getByLabelText(
+        /Yes, we combined rates from multiple reporting units to create a State-Level rate./i
+      )
+    );
+
+    expect(
+      screen.getByLabelText(
+        /Yes, we combined rates from multiple reporting units to create a State-Level rate./i
+      )
+    ).toBeChecked();
+    expect(
+      await screen.findByText(
+        /The rates are weighted based on another weighting factor./i
+      )
+    ).toBeInTheDocument();
+
+    userEvent.click(
+      screen.getByLabelText(
+        /The rates are weighted based on another weighting factor./i
+      )
+    );
+
+    expect(
+      screen.getByLabelText(/Describe the other weighting factor/i)
+    ).toBeInTheDocument();
   });
 });

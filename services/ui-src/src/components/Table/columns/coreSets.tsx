@@ -4,12 +4,6 @@ import { Link } from "react-router-dom";
 import { CoreSet, TableColumn } from "../types";
 import { ContainedButton } from "components/ContainedButton";
 
-const KebabMenuItems: QMR.IKebabMenuItem[] = [
-  { itemText: "Edit", itemIndex: 1 },
-  { itemText: "Export", itemIndex: 2 },
-  { itemText: "Clear Measure Entries", itemIndex: 3 },
-];
-
 // Get status string from core set data
 const getStatus = ({ progress, submitted }: CoreSet.Data): CoreSet.Status => {
   if (submitted) return CoreSet.Status.SUBMITTED;
@@ -84,17 +78,19 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
         ? `Complete all Core Set Questions and Core Set Measures to submit FFY ${data.year}`
         : undefined;
       return (
-        <ContainedButton
-          buttonText={buttonText}
-          disabledStatus={status !== CoreSet.Status.COMPLETED}
-          buttonProps={{
-            colorScheme: "blue",
-            textTransform: "capitalize",
-            w: "full",
-          }}
-          helperText={helperText}
-          onClick={() => console.log("core set button")}
-        />
+        <CUI.Box textAlign="center">
+          <ContainedButton
+            buttonText={buttonText}
+            disabledStatus={status !== CoreSet.Status.COMPLETED}
+            buttonProps={{
+              colorScheme: "blue",
+              textTransform: "capitalize",
+              w: "full",
+            }}
+            helperText={helperText}
+            onClick={() => console.log("core set button")}
+          />
+        </CUI.Box>
       );
     },
   },
@@ -104,10 +100,7 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: CoreSet.Data) => (
       <CUI.Box textAlign="center">
-        <QMR.KebabMenu
-          menuItems={KebabMenuItems}
-          handleItemClick={() => console.log(data.actions)}
-        />
+        <QMR.KebabMenu menuItems={data.actions} />
       </CUI.Box>
     ),
   },
