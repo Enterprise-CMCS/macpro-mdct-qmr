@@ -1,6 +1,10 @@
+import { createElement, ReactElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import { CognitoUser } from "@aws-amplify/auth";
 import * as Views from "views";
+import Measures from "measures";
+import { measuresList, MeasuresListItem } from "measures/measuresList";
+import { stateAbbreviations } from "utils/constants";
 
 export type Params = "state" | "year" | "coreset" | "measure";
 
@@ -15,76 +19,68 @@ export type Params = "state" | "year" | "coreset" | "measure";
 // } from "libs/awsLib";
 // import config from "config";
 
-export const routes = [
-  {
-    component: Views.Home,
-    name: "Home",
-    path: "/",
-    exact: true,
-  },
-  {
-    component: Views.StateHome,
-    name: "State",
-    path: "/:state/:year",
-    exact: true,
-  },
-  {
-    component: Views.AdminHome,
-    name: "Admin Home",
-    path: "admin",
-    exact: true,
-  },
-  {
-    component: Views.AddChildCoreSet,
-    name: "Add Child Core Set",
-    path: "/:state/:year/add-child",
-    exact: true,
-  },
-  {
-    component: Views.AddHHCoreSet,
-    name: "Add Health Homes Set",
-    path: "/:state/:year/add-hh",
-    exact: true,
-  },
-  {
-    component: Views.CoreSet,
-    name: "Core Set",
-    path: "/:state/:year/:coreset/",
-    exact: true,
-  },
-  {
-    component: Views.DemoMeasure,
-    name: "Measure",
-    path: "/OH/2021/ACS/AIF-HH",
-    exact: true,
-  },
-  {
-    component: Views.Measure,
-    name: "Measure",
-    path: "/:state/:year/:coreset/:measure",
-    exact: true,
-  },
-  {
-    component: Views.DemoComponents,
-    name: "Components",
-    path: "components",
-    exact: true,
-  },
-  {
-    component: Views.NotFound,
-    name: "Not Found",
-    exact: false,
-    path: "*",
-  },
-];
+interface MeasureRoute {
+  path: string;
+  el: ReactElement;
+}
+
+// For each state, and each year we want a unique route for each measure.
+// eg. http://localhost:3000/AL/2021/AD/AMM-AD
+
+const measureRoutes: MeasureRoute[] = [];
+
+Object.keys(measuresList).forEach((year: string) => {
+  stateAbbreviations.forEach((stateAbbr: string) => {
+    measuresList[year].forEach((measure: MeasuresListItem) => {
+      // @ts-ignore
+      if (measure.measure in Measures[year]) {
+        // @ts-ignore
+        const Comp = Measures[year][measure.measure];
+
+        // if this is a child core set we want to create three locations to access the same measure
+        // (combined, mediaid, and chip) so we create two extra routes if measure type is child
+
+        if (measure.type === "CH") {
+          // add a path for child - chip
+          measureRoutes.push({
+            path: `${stateAbbr}/${year}/${measure.type}C/${measure.measure}`,
+            el: createElement(Comp, {}),
+          });
+
+          // add a path for child - medicaid
+          measureRoutes.push({
+            path: `${stateAbbr}/${year}/${measure.type}M/${measure.measure}`,
+            el: createElement(Comp, {}),
+          });
+        }
+
+        measureRoutes.push({
+          path: `${stateAbbr}/${year}/${measure.type}/${measure.measure}`,
+          el: createElement(Comp, {}),
+        });
+      }
+    });
+  });
+});
 
 export function AppRoutes({ user }: { user: CognitoUser }) {
   return (
     <main id="main-wrapper">
       <Routes>
-        {routes.map(({ name, component: Component, path }) => (
-          <Route key={name} path={path} element={<Component user={user} />} />
+        <Route path="/" element={<Views.Home user={user} />} />
+        <Route path=":state/:year" element={<Views.StateHome />} />
+        <Route
+          path=":state/:year/add-child"
+          element={<Views.AddChildCoreSet />}
+        />
+        <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
+        <Route path=":state/:year/:coreset" element={<Views.CoreSet />} />
+        <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
+        {measureRoutes.map((m: MeasureRoute) => (
+          <Route path={m.path} element={m.el} />
         ))}
+        <Route path="components" element={<Views.DemoComponents />} />
+        <Route path="*" element={<Views.NotFound />} />
       </Routes>
     </main>
   );
