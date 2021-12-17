@@ -3,7 +3,6 @@ export * from "./ContainedButton";
 export * from "./DateRange";
 export * from "./Footer";
 export * from "./Header";
-export * from "./HelpSection";
 export * from "./InputWrapper";
 export * from "./Inputs";
 export * from "./KebabMenu";
