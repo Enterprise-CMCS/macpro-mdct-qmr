@@ -48,15 +48,11 @@ describe("Test Demo Questions Component", () => {
 
   it("should renders measurement specification and its children should behave correctly when options are selected", async () => {
     userEvent.click(
-      screen.getByText(
-        /Measurement Specification National Committee for Quality Assurance/i
-      )
+      screen.getByText(/National Committee for Quality Assurance/i)
     );
 
     expect(
-      screen.getByLabelText(
-        /Measurement Specification National Committee for Quality Assurance/i
-      )
+      screen.getByLabelText(/National Committee for Quality Assurance/i)
     ).toBeChecked();
 
     expect(

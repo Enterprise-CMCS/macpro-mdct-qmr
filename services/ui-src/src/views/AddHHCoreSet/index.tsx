@@ -34,12 +34,14 @@ export const AddHHCoreSet = () => {
 
   const { state, year } = useParams<Params>();
 
-  const sortedSPAs: SelectOption[] = SPA.map((spa) => {
-    return {
-      displayValue: spa.name,
-      value: spa.id,
-    };
-  }).sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
+  const sortedSPAs: SelectOption[] = SPA.filter((spa) => spa.postal === state)
+    .map((spa) => {
+      return {
+        displayValue: spa.name,
+        value: spa.id,
+      };
+    })
+    .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
 
   return (
     <QMR.StateLayout
