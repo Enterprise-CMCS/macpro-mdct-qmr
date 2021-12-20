@@ -10,9 +10,7 @@ export const DemoMeasure = () => {
   const methods = useForm<DemoForm.DemoFormType>({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(
-      validationSchema({ DeviationOptionValues: Q.defaultDeviationRanges })
-    ),
+    resolver: joiResolver(validationSchema),
   });
   const watchReportingRadio = methods.watch("DidReport");
 
@@ -54,7 +52,7 @@ export const DemoMeasure = () => {
                 <Q.DataSource />
                 <Q.DefinitionOfPopulation />
                 <Q.DeviationFromMeasureSpec
-                  options={Q.defaultDeviationRanges}
+                  options={Q.defaultDeviationOptions}
                 />
               </>
             )}

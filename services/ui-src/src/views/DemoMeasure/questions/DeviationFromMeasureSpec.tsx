@@ -2,7 +2,7 @@ import * as QMR from "components";
 import { DemoForm } from "../DemoFormType";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
-export const defaultDeviationRanges = [
+export const defaultDeviationOptions = [
   "Ages 18 to 64",
   "Ages 65 to 74",
   "Ages 75 to 84",
@@ -37,7 +37,9 @@ export const DeviationFromMeasureSpec = ({ options }: Props) => {
                 options={options.map((rangeLabel, index) => {
                   return {
                     displayValue: rangeLabel,
-                    value: `Deviation-Option${index}`,
+                    value: `Deviation-Option${index}-${rangeLabel
+                      .replace(/ /g, "")
+                      .substring(0, 10)}`,
                     children: [
                       <QMR.Checkbox
                         {...register(

@@ -32,6 +32,15 @@
     "eject": "react-scripts eject"
   },
   "jest": {
+    "coverageReporters": [
+      "json",
+      [
+        "lcov",
+        {
+          "projectRoot": "../../"
+        }
+      ]
+    ],
     "collectCoverageFrom": [
       "src/components/**/*.{ts,tsx}",
       "src/views/**/*.{ts,tsx}",
