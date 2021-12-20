@@ -64,8 +64,6 @@ const createDependentMeasures = async (
     (measure) => measure.type === type
   );
 
-  console.log("James 2", filteredMeasures);
-
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];

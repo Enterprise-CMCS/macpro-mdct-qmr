@@ -25,7 +25,6 @@ export const listMeasures = handler(async (event, context) => {
     ),
   };
   const queryValue = await dynamoDb.scan(params);
-  console.log("James", queryValue);
   return queryValue;
 });
 
