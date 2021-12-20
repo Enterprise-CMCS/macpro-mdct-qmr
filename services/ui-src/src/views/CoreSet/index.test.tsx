@@ -1,15 +1,38 @@
 import { CoreSet } from "./index";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 
 describe("Test CoreSet.tsx", () => {
-  test("Check that the contact us renders", () => {
-    const { getByTestId } = render(
+  jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useParams: () => ({
+      year: "2021",
+      state: "OH",
+      CoreSet: "Adult",
+    }),
+  }));
+
+  beforeEach(() => {
+    render(
       <RouterWrappedComp>
         <CoreSet />
       </RouterWrappedComp>
     );
+  });
 
-    expect(getByTestId("core-set")).toBeVisible();
+  describe("Test coreset component", () => {
+    test("Check that the nav renders", () => {
+      expect(screen.getByTestId("state-layout-container")).toBeVisible();
+    });
+
+    it("renders the correct child measure table data components", () => {
+      expect(
+        screen.getByText(
+          /Complete all Adult Core Set Questions andAdult Core Set Measures to submit FFY 2021/i
+        )
+      ).toBeInTheDocument();
+
+      expect(screen.getByText(/Reporting FFY 2021/i)).toBeInTheDocument();
+    });
   });
 });
