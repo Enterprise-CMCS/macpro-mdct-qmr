@@ -49,7 +49,8 @@ export const DemoMeasure = () => {
             {!watchReportingRadio?.includes("No") && (
               <>
                 <Q.Status />
-                <Q.DataSource />{" "}
+                <Q.DataSource />
+                <Q.DefinitionOfPopulation />
               </>
             )}
             <Q.AdditionalNotes />

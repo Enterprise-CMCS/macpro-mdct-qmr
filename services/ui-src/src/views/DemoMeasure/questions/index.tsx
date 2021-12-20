@@ -5,3 +5,4 @@ export * from "./CombinedRates";
 export * from "./MeasurementSpecification";
 export * from "./WhyAreYouNotReporting";
 export * from "./AdditionalNotes";
+export * from "./DefinitionOfPopulation";

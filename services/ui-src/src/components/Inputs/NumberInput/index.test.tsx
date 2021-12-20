@@ -2,6 +2,7 @@ import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NumberInput } from "components/Inputs/NumberInput";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import { integersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 describe("Test the NumberInput component", () => {
   test("Check that component renders", async () => {
@@ -29,8 +30,7 @@ describe("Test the NumberInput component", () => {
         label="label"
         helperText="helper"
         name="test-component"
-        maximumDecimal={3}
-        allowNegative
+        mask={integersWithMaxDecimalPlaces(3)}
       />
     );
 

@@ -158,8 +158,9 @@ export const WhyAreYouNotReporting = () => {
             value: "SmallSampleSizeLessThan30",
             children: [
               <QMR.NumberInput
-                label="Enter specific sample size:"
                 {...register("SmallSampleSizeLessThan30")}
+                label="Enter specific sample size:"
+                mask={/^([1-2]?\d)?$/i}
               />,
             ],
           },

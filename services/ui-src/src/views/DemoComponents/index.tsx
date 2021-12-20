@@ -1,16 +1,15 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { Rate } from "components/Rate";
-import { ProgressCircle } from "components/ProgressCircle";
-import { Upload } from "components/Upload";
-import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { ContainedButton } from "components/ContainedButton";
 import React from "react";
 import { DemoValidationSchema } from "./ValidationSchema";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { Notification } from "components/Notification";
+import {
+  allIntegers,
+  integersWithMaxDecimalPlaces,
+} from "utils/numberInputMasks";
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
   { displayValue: "option2", value: "option2" },
@@ -73,7 +72,7 @@ const DemoComponentsForm = () => {
     },
   ];
 
-  const KebabMenuItems: IKebabMenuItem[] = [
+  const KebabMenuItems: QMR.IKebabMenuItem[] = [
     { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
   ];
 
@@ -138,16 +137,15 @@ const DemoComponentsForm = () => {
               placeholder="123"
               label="This number input is a percent and allows decimals"
               helperText="Enter a number"
-              maximumDecimal={4}
+              mask={integersWithMaxDecimalPlaces(4)}
               displayPercent={true}
-              allowNegative
             />
             <QMR.NumberInput
               {...register("demoNumberInput2")}
               placeholder="123"
               label="This number input only allows integers"
               helperText="Enter a number"
-              allowNegative
+              mask={allIntegers}
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
@@ -161,7 +159,7 @@ const DemoComponentsForm = () => {
               formLabelProps={{ fontWeight: 600 }}
               {...register("demoRateTextInput1")}
             />
-            <Rate rates={rates} {...register("demoRate1")} />
+            <QMR.Rate rates={rates} {...register("demoRate1")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Rate With Multiple Numerator/Denominator/Rate
@@ -174,16 +172,16 @@ const DemoComponentsForm = () => {
               formLabelProps={{ fontWeight: 700 }}
               {...register("demoRateTextInput2")}
             />
-            <Rate rates={ratesTwo} {...register("demoRate2")} />
+            <QMR.Rate rates={ratesTwo} {...register("demoRate2")} />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
               Upload Control
             </CUI.Heading>
-            <Upload
+            <QMR.Upload
               label="Sample label for an upload control"
               {...register("testUpload1")}
             />
-            <Upload
+            <QMR.Upload
               maxSize={1000}
               label="Uploading a file here will cause an error. (Set max size to 1 kb)"
               {...register("testUpload2")}
@@ -224,7 +222,7 @@ const DemoComponentsForm = () => {
             </CUI.Heading>
 
             <CUI.HStack>
-              <ContainedButton
+              <QMR.ContainedButton
                 disabledStatus={true}
                 buttonText={"Submit Core Set"}
                 buttonProps={{
@@ -233,7 +231,7 @@ const DemoComponentsForm = () => {
                 }}
                 onClick={() => console.log("contained button 1")}
               />
-              <ContainedButton
+              <QMR.ContainedButton
                 buttonText={"Add Core Set"}
                 buttonProps={{
                   colorScheme: "blue",
@@ -245,7 +243,7 @@ const DemoComponentsForm = () => {
               />
             </CUI.HStack>
             <CUI.HStack>
-              <ContainedButton
+              <QMR.ContainedButton
                 buttonText={"Add Child Core Set"}
                 icon="plus"
                 buttonProps={{
@@ -255,7 +253,7 @@ const DemoComponentsForm = () => {
                 }}
                 onClick={() => console.log("contained button 3")}
               />
-              <ContainedButton
+              <QMR.ContainedButton
                 buttonText={"Complete Measure"}
                 buttonProps={{
                   colorScheme: "blue",
@@ -265,7 +263,7 @@ const DemoComponentsForm = () => {
               />
             </CUI.HStack>
             <CUI.HStack>
-              <ContainedButton
+              <QMR.ContainedButton
                 buttonText={`Add Health Homes Core Set`}
                 icon="plus"
                 buttonProps={{
@@ -275,7 +273,7 @@ const DemoComponentsForm = () => {
                 }}
                 onClick={() => console.log("contained button 8")}
               />
-              <ContainedButton
+              <QMR.ContainedButton
                 buttonText={"+ Add Another"}
                 buttonProps={{
                   variant: "outline",
@@ -284,7 +282,7 @@ const DemoComponentsForm = () => {
                 }}
                 onClick={() => console.log("contained button 5")}
               />
-              <ContainedButton
+              <QMR.ContainedButton
                 buttonText={"Print"}
                 icon="print"
                 buttonProps={{
@@ -300,7 +298,7 @@ const DemoComponentsForm = () => {
               Contained Buttons With Helper Text
             </CUI.Heading>
             <CUI.HStack justifyContent="left">
-              <ContainedButton
+              <QMR.ContainedButton
                 buttonText={"+ Add Another"}
                 buttonProps={{
                   variant: "outline",
@@ -321,7 +319,7 @@ const DemoComponentsForm = () => {
               Kebab Menu
             </CUI.Heading>
             <CUI.Box m={3}>
-              <KebabMenu menuItems={KebabMenuItems} />
+              <QMR.KebabMenu menuItems={KebabMenuItems} />
             </CUI.Box>
           </CUI.Stack>
           <CUI.Divider mt={5} />
@@ -346,7 +344,7 @@ const DemoComponentsForm = () => {
             Progress Circle
           </CUI.Heading>
           <CUI.HStack>
-            <ProgressCircle
+            <QMR.ProgressCircle
               currentProgress={progressCircleValue}
               maxValue={23}
               circularProgressProps={{
@@ -357,7 +355,7 @@ const DemoComponentsForm = () => {
                 fontSize: "1.5rem",
               }}
             />
-            <ContainedButton
+            <QMR.ContainedButton
               buttonText={`Decrease Counter`}
               buttonProps={{
                 variant: "outline",
@@ -367,7 +365,7 @@ const DemoComponentsForm = () => {
               onClick={() => setProgressCircle(progressCircleValue - 1 || 1)}
             />
 
-            <ContainedButton
+            <QMR.ContainedButton
               buttonText={`Increase Counter`}
               icon="plus"
               buttonProps={{
@@ -422,7 +420,7 @@ const DemoComponentsForm = () => {
               />
             )}
             <CUI.HStack>
-              <ContainedButton
+              <QMR.ContainedButton
                 disabledStatus={showSuccessAlert}
                 buttonText={`Show Success Alert`}
                 buttonProps={{
@@ -431,7 +429,7 @@ const DemoComponentsForm = () => {
                 }}
                 onClick={() => setSuccessAlert(true)}
               />{" "}
-              <ContainedButton
+              <QMR.ContainedButton
                 disabledStatus={showWarningAlert}
                 buttonText={`Show Warning Alert`}
                 buttonProps={{
@@ -440,7 +438,7 @@ const DemoComponentsForm = () => {
                 }}
                 onClick={() => setWarningAlert(true)}
               />{" "}
-              <ContainedButton
+              <QMR.ContainedButton
                 disabledStatus={showInfoAlert}
                 buttonText={`Show Info Alert`}
                 buttonProps={{
@@ -449,7 +447,7 @@ const DemoComponentsForm = () => {
                 }}
                 onClick={() => setInfoAlert(true)}
               />{" "}
-              <ContainedButton
+              <QMR.ContainedButton
                 disabledStatus={showErrorAlert}
                 buttonText={`Show Error Alert`}
                 buttonProps={{
