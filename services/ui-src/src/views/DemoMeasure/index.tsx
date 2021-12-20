@@ -3,7 +3,7 @@ import * as QMR from "components";
 import * as Q from "./questions";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { validationSchema } from "../../measures/schema";
+import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 
 export const DemoMeasure = () => {

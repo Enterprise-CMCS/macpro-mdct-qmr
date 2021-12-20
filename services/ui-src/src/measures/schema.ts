@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { Measure } from "./types";
 
+// This is the validation schema for any/all state measures
 export const validationSchema = Joi.object<Measure.Form>({
   DidReport: Joi.string().label("Are you reporting"),
   DataStatus: Joi.string().label("Status of Data Reported"),
