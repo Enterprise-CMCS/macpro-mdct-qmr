@@ -37,7 +37,7 @@ export const createCoreSet = handler(async (event, context) => {
     Item: {
       compoundKey: dynamoKey,
       state: state,
-      year: year,
+      year: parseInt(year),
       coreSet: coreSet,
       createdAt: Date.now(),
       lastAltered: Date.now(),
@@ -82,7 +82,7 @@ const createDependentMeasures = async (
         createdAt: Date.now(),
         lastAltered: Date.now(),
         status: "incomplete",
-        description: measure.name,
+        description: measure.description,
       },
     };
     console.log("created measure: ", params);

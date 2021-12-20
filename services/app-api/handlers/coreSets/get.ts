@@ -6,21 +6,21 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 // import dynamoDb from "./../libs/dynamodb-lib";
 
 export const coreSetList = handler(async (event, context) => {
+  console.log("Brian 1", event);
   if (!event.pathParameters) return; // throw error message
-  if (
-    !event.pathParameters.state ||
-    !event.pathParameters.year ||
-    !event.pathParameters.coreSet
-  )
-    return; // throw error message
+  if (!event.pathParameters.state || !event.pathParameters.year) return; // throw error message
 
   const params = {
     TableName: process.env.coreSetTableName,
     ...convertToDynamoExpression(
-      { state: event.pathParameters.state, year: event.pathParameters.year },
+      {
+        state: event.pathParameters.state,
+        year: parseInt(event.pathParameters.year),
+      },
       "list"
     ),
   };
+  console.log(params);
   const queryValue = await dynamoDb.scan(params);
   return queryValue;
 });
@@ -35,6 +35,7 @@ export const getCoreSet = handler(async (event, context) => {
     return; // throw error message
 
   const dynamoKey = createCompoundKey(event);
+  console.log("Brian", dynamoKey);
   const params = {
     TableName: process.env.coreSetTableName,
     Key: {
