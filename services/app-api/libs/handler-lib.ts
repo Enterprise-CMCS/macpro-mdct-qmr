@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 type LambdaFunction = (
   event: APIGatewayProxyEvent,
   context: any
-) => Promise<any>;
+) => Promise<any>; //we should probably make this a type of Promise<APIGatewayProxyResult> eventually
 
 export default function handler(lambda: LambdaFunction) {
   return async function (event: any, context: any) {
