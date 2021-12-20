@@ -1,12 +1,10 @@
-import { MeasureProps } from "../types";
+import { Measure } from "../types";
 
-export const AMM = ({ name, updateMeasure }: MeasureProps) => {
+export const AMM = ({ name, year }: Measure.Props) => {
   return (
     <>
-      <p>Hello there</p>
       <p>{name}</p>
-      <p>congrats</p>
-      <button onClick={updateMeasure}>Update measure</button>
+      <p>{year}</p>
     </>
   );
 };

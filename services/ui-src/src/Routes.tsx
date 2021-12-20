@@ -32,13 +32,20 @@ interface MeasureRoute {
 const measureRoutes: MeasureRoute[] = [];
 
 Object.keys(measuresList).forEach((year: string) => {
-  measuresList[year].forEach(({ measure, name }: MeasuresListItem) => {
-    if (measure in Measures[year]) {
-      const Comp = Measures[year][measure];
+  measuresList[year].forEach(({ measureId, name }: MeasuresListItem) => {
+    if (measureId in Measures[year]) {
+      const Comp = Measures[year][measureId];
 
       measureRoutes.push({
-        path: `:state/${year}/:coreset/${measure}`,
-        el: <QMR.MeasureWrapper name={name} measure={createElement(Comp)} />,
+        path: `:state/${year}/:coreset/${measureId}`,
+        el: (
+          <QMR.MeasureWrapper
+            name={name}
+            year={year}
+            measureId={measureId}
+            measure={createElement(Comp)}
+          />
+        ),
       });
     }
   });

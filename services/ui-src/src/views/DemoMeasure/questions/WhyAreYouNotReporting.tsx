@@ -1,9 +1,9 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DemoForm } from "../DemoFormType";
+import { Measure } from "measures/types";
 
 export const WhyAreYouNotReporting = () => {
-  const register = useCustomRegister<DemoForm.DemoFormType>();
+  const register = useCustomRegister<Measure.Form>();
   return (
     <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
       <QMR.Checkbox

@@ -1,9 +1,9 @@
 import twentyTwentyOneMeasures from "./2021";
-import { MeasureProps } from "./types";
+import { Measure } from "./types";
 
 interface MeasuresByYear {
   [year: string]: {
-    [measure: string]: (props: MeasureProps) => JSX.Element;
+    [measure: string]: (props: Measure.Props) => JSX.Element;
   };
 }
 

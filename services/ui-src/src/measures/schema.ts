@@ -1,7 +1,7 @@
 import Joi from "joi";
-import { DemoForm } from "./DemoFormType";
+import { Measure } from "./types";
 
-export const validationSchema = Joi.object<DemoForm.DemoFormType>({
+export const validationSchema = Joi.object<Measure.Form>({
   DidReport: Joi.string().label("Are you reporting"),
   DataStatus: Joi.string().label("Status of Data Reported"),
   DataSource: Joi.array().items(Joi.string()),
