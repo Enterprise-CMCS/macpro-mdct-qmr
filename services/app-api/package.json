@@ -14,7 +14,9 @@
   },
   "devDependencies": {
     "serverless-associate-waf": "^1.2.1",
-    "serverless-s3-bucket-helper": "https://github.com/cmsgov/serverless-s3-bucket-helper"
+    "serverless-plugin-typescript": "^2.1.0",
+    "serverless-s3-bucket-helper": "https://github.com/cmsgov/serverless-s3-bucket-helper",
+    "typescript": "^4.5.4"
   },
   "dependencies": {
     "uuid": "^7.0.3"
