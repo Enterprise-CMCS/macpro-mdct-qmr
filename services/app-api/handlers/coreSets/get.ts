@@ -6,6 +6,14 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 // import dynamoDb from "./../libs/dynamodb-lib";
 
 export const coreSetList = handler(async (event, context) => {
+  if (!event.pathParameters) return; // throw error message
+  if (
+    !event.pathParameters.state ||
+    !event.pathParameters.year ||
+    !event.pathParameters.coreSet
+  )
+    return; // throw error message
+
   const params = {
     TableName: process.env.coreSetTableName,
     ...convertToDynamoExpression(
@@ -18,6 +26,14 @@ export const coreSetList = handler(async (event, context) => {
 });
 
 export const getCoreSet = handler(async (event, context) => {
+  if (!event.pathParameters) return; // throw error message
+  if (
+    !event.pathParameters.state ||
+    !event.pathParameters.year ||
+    !event.pathParameters.coreSet
+  )
+    return; // throw error message
+
   const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.coreSetTableName,
