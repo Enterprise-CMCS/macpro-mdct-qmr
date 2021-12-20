@@ -49,7 +49,7 @@ export const adultMeasuresData: Measure.Data[] = measuresList
   .filter((measure) => measure.Type.toLocaleLowerCase() === "adult")
   .map((measure) => {
     return {
-      id: "",
+      id: measure.Abbreviation,
       path: "",
       abbr: measure.Abbreviation,
       title: measure.Name,
