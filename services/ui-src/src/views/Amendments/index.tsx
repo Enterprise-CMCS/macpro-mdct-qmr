@@ -1,11 +1,10 @@
+import * as QMR from "components";
 import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { onError } from "libs/errorLib";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { LoaderButton } from "components";
 import "./index.module.scss";
-import Select from "react-select";
-import Switch from "react-ios-switch";
 import { territoryList } from "libs/territoryLib";
 import * as url from "url";
 import * as Api from "libs/api";
@@ -203,25 +202,18 @@ export function Amendments({
           </FormGroup>
           <FormGroup controlId="territory">
             <FormLabel>State/Territory</FormLabel>
-            <Select
+            <QMR.Select
               name="form-field-name"
-              value={territoryList.filter(function (option) {
-                return option.value === territory;
+              options={territoryList.map((territory) => {
+                return {
+                  displayValue: territory.label,
+                  value: territory.value,
+                };
               })}
-              isDisabled={true}
-              onChange={(e: Event) =>
-                setTerritory((e.target as HTMLSelectElement).value)
-              }
-              options={territoryList}
             />
           </FormGroup>
           <FormGroup controlId="urgent">
             <FormLabel>This APS is classified as urgent &nbsp;</FormLabel>
-            <Switch
-              controlId="urgent"
-              checked={urgent}
-              onChange={() => setUrgent(!urgent)}
-            />
           </FormGroup>
           {amendment.attachment && (
             <FormGroup>
