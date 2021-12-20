@@ -2,19 +2,19 @@ import Joi from "joi";
 import { DemoForm } from "./DemoFormType";
 
 interface ValidationProps {
-  DeviationAgeRangeValues: string[];
+  DeviationOptionValues: string[];
 }
 
 export const validationSchema = ({
-  DeviationAgeRangeValues,
+  DeviationOptionValues,
 }: ValidationProps) => {
-  let darSchema = DeviationAgeRangeValues.map((s) => {
-    const ageRange = s.replace(/ /g, "");
+  let darSchema = DeviationOptionValues.map((s) => {
+    const option = s.replace(/ /g, "");
     return {
-      [`MeasureSpecDeviation-${ageRange}`]: Joi.array().items(Joi.string()),
-      [`MeasureSpecDeviation-${ageRange}-Numerator`]: Joi.string(),
-      [`MeasureSpecDeviation-${ageRange}-Denominator`]: Joi.string(),
-      [`MeasureSpecDeviation-${ageRange}-Other`]: Joi.string(),
+      [`MeasureSpecDeviation-${option}`]: Joi.array().items(Joi.string()),
+      [`MeasureSpecDeviation-${option}-Numerator`]: Joi.string(),
+      [`MeasureSpecDeviation-${option}-Denominator`]: Joi.string(),
+      [`MeasureSpecDeviation-${option}-Other`]: Joi.string(),
     };
   });
   darSchema = Object.assign({}, ...darSchema);
@@ -85,8 +85,8 @@ export const validationSchema = ({
     "DeliverySys-Other-NumberOfHealthPlans": Joi.string(),
     "DeliverySys-Other-Population": Joi.string(),
     DidCalculationsDeviate: Joi.string(),
-    DeviationAgeGroups: Joi.array().items(Joi.string()),
-    "MeasureSpecDeviation-ageRange": Joi.array().items(Joi.string()),
+    DeviationOptions: Joi.array().items(Joi.string()),
+    "MeasureSpecDeviation-Option": Joi.array().items(Joi.string()),
     ...darSchema,
   });
 };

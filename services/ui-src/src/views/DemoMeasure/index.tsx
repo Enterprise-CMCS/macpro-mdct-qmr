@@ -11,7 +11,7 @@ export const DemoMeasure = () => {
     shouldUnregister: true,
     mode: "all",
     resolver: joiResolver(
-      validationSchema({ DeviationAgeRangeValues: Q.defaultDeviationRanges })
+      validationSchema({ DeviationOptionValues: Q.defaultDeviationRanges })
     ),
   });
   const watchReportingRadio = methods.watch("DidReport");
@@ -54,7 +54,7 @@ export const DemoMeasure = () => {
                 <Q.DataSource />
                 <Q.DefinitionOfPopulation />
                 <Q.DeviationFromMeasureSpec
-                  ageRanges={Q.defaultDeviationRanges}
+                  options={Q.defaultDeviationRanges}
                 />
               </>
             )}

@@ -10,10 +10,10 @@ export const defaultDeviationRanges = [
 ];
 
 interface Props {
-  ageRanges: string[];
+  options: string[];
 }
 
-export const DeviationFromMeasureSpec = ({ ageRanges }: Props) => {
+export const DeviationFromMeasureSpec = ({ options }: Props) => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
 
   return (
@@ -31,10 +31,10 @@ export const DeviationFromMeasureSpec = ({ ageRanges }: Props) => {
             value: "YesCalcDeviated",
             children: [
               <QMR.Checkbox
-                {...register("DeviationAgeGroups")}
+                {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
                 formLabelProps={{ fontWeight: 600 }}
-                options={ageRanges.map((rangeLabel) => {
+                options={options.map((rangeLabel) => {
                   const formLabel = rangeLabel.replace(/ /g, "");
                   return {
                     displayValue: rangeLabel,
@@ -42,7 +42,7 @@ export const DeviationFromMeasureSpec = ({ ageRanges }: Props) => {
                     children: [
                       <QMR.Checkbox
                         {...register(
-                          `MeasureSpecDeviation-${formLabel}` as "MeasureSpecDeviation-ageRange"
+                          `MeasureSpecDeviation-${formLabel}` as "MeasureSpecDeviation-Option"
                         )}
                         options={[
                           {
@@ -52,7 +52,7 @@ export const DeviationFromMeasureSpec = ({ ageRanges }: Props) => {
                               <QMR.TextArea
                                 label="Explain"
                                 {...register(
-                                  `MeasureSpecDeviation-${formLabel}-Numerator` as "MeasureSpecDeviation-ageRange-Numerator"
+                                  `MeasureSpecDeviation-${formLabel}-Numerator` as "MeasureSpecDeviation-Option-Numerator"
                                 )}
                               />,
                             ],
@@ -64,7 +64,7 @@ export const DeviationFromMeasureSpec = ({ ageRanges }: Props) => {
                               <QMR.TextArea
                                 label="Explain"
                                 {...register(
-                                  `MeasureSpecDeviation-${formLabel}-Denominator` as "MeasureSpecDeviation-ageRange-Denominator"
+                                  `MeasureSpecDeviation-${formLabel}-Denominator` as "MeasureSpecDeviation-Option-Denominator"
                                 )}
                               />,
                             ],
@@ -76,7 +76,7 @@ export const DeviationFromMeasureSpec = ({ ageRanges }: Props) => {
                               <QMR.TextArea
                                 label="Explain"
                                 {...register(
-                                  `MeasureSpecDeviation-${formLabel}-Other` as "MeasureSpecDeviation-ageRange-Other"
+                                  `MeasureSpecDeviation-${formLabel}-Other` as "MeasureSpecDeviation-Option-Other"
                                 )}
                               />,
                             ],

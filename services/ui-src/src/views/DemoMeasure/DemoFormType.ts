@@ -64,10 +64,10 @@ export namespace DemoForm {
     "DeliverySys-Other-NumberOfHealthPlans": string;
     "DeliverySys-Other-Population": string;
     DidCalculationsDeviate: string;
-    DeviationAgeGroups: string[];
-    "MeasureSpecDeviation-ageRange": string[];
-    "MeasureSpecDeviation-ageRange-Numerator": string;
-    "MeasureSpecDeviation-ageRange-Denominator": string;
-    "MeasureSpecDeviation-ageRange-Other": string;
+    DeviationOptions: string[];
+    "MeasureSpecDeviation-Option": string[];
+    "MeasureSpecDeviation-Option-Numerator": string;
+    "MeasureSpecDeviation-Option-Denominator": string;
+    "MeasureSpecDeviation-Option-Other": string;
   }
 }
