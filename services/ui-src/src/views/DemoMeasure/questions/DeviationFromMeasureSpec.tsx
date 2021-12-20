@@ -21,6 +21,7 @@ export const DeviationFromMeasureSpec = ({ ageRanges }: Props) => {
       <QMR.RadioButton
         renderHelperTextAbove
         {...register("DidCalculationsDeviate")}
+        formLabelProps={{ fontWeight: 600 }}
         label="Did your calculation of the measure deviate from the measure specification in any way?"
         helperText="For Examples of deviation from measure specification might include different methodology, timeframe, or reported age groups."
         options={[
@@ -31,6 +32,8 @@ export const DeviationFromMeasureSpec = ({ ageRanges }: Props) => {
             children: [
               <QMR.Checkbox
                 {...register("DeviationAgeGroups")}
+                label="Select and explain the deviation(s):"
+                formLabelProps={{ fontWeight: 600 }}
                 options={ageRanges.map((rangeLabel) => {
                   const formLabel = rangeLabel.replace(/ /g, "");
                   return {
