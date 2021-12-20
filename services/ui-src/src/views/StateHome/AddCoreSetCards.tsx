@@ -10,7 +10,7 @@ const cardData = [
     to: `add-child`,
   },
   {
-    title: "Need to report on Health homes data?",
+    title: "Need to report on Health Homes data?",
     buttonText: "Add Health Homes Core Set",
     to: `add-hh`,
   },
@@ -68,6 +68,11 @@ export const AddCoreSetCards = () => {
       {cardData.map((d) => (
         <AddCoreSetCard key={d.title} {...d} />
       ))}
+      <CUI.Center w="44" textAlign="center">
+        <CUI.Text fontStyle="italic" fontSize="sm">
+          Only one group of Adult Core Set Measures can be submitted per FFY
+        </CUI.Text>
+      </CUI.Center>
     </>
   );
 };
