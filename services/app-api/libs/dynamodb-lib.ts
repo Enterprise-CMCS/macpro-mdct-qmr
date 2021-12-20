@@ -18,13 +18,11 @@ if (endpoint) {
 const client = new AWS.DynamoDB.DocumentClient(dyanmoConfig);
 
 export default {
-  get: (params: AWS.DynamoDB.GetItemInput) => client.get(params).promise(),
-  put: (params: AWS.DynamoDB.PutItemInput) => client.put(params).promise(),
-  post: (params: AWS.DynamoDB.PutItemInput) => client.put(params).promise(),
-  query: (params: AWS.DynamoDB.QueryInput) => client.query(params).promise(),
-  scan: (params: AWS.DynamoDB.ScanInput) => client.scan(params).promise(),
-  update: (params: AWS.DynamoDB.UpdateItemInput) =>
-    client.update(params).promise(),
-  delete: (params: AWS.DynamoDB.DeleteItemInput) =>
-    client.delete(params).promise(),
+  get: (params: any) => client.get(params).promise(),
+  put: (params: any) => client.put(params).promise(),
+  post: (params: any) => client.put(params).promise(),
+  query: (params: any) => client.query(params).promise(),
+  scan: (params: any) => client.scan(params).promise(),
+  update: (params: any) => client.update(params).promise(),
+  delete: (params: any) => client.delete(params).promise(),
 };

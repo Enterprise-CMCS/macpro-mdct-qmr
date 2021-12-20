@@ -8,14 +8,16 @@ export const listMeasures = handler(async (event, context) => {
   const year = event.pathParameters.year;
   const coreSet = event.pathParameters.coreSet;
 
+  console.log(state, year, coreSet);
   const params = {
     TableName: process.env.measureTableName,
     ...convertToDynamoExpression(
-      { state: state, year: year, coreSet: coreSet },
+      { state: state, year: parseInt(year), coreSet: coreSet },
       "list"
     ),
   };
   const queryValue = await dynamoDb.scan(params);
+  console.log("James", queryValue);
   return queryValue;
 });
 
