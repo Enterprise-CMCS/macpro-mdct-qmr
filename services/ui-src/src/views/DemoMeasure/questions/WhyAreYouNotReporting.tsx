@@ -4,6 +4,7 @@ import { DemoForm } from "../DemoFormType";
 
 export const WhyAreYouNotReporting = () => {
   const register = useCustomRegister<DemoForm.DemoFormType>();
+
   return (
     <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
       <QMR.Checkbox
@@ -158,8 +159,9 @@ export const WhyAreYouNotReporting = () => {
             value: "SmallSampleSizeLessThan30",
             children: [
               <QMR.NumberInput
-                label="Enter specific sample size:"
                 {...register("SmallSampleSizeLessThan30")}
+                label="Enter specific sample size:"
+                mask={/^([1-2]?\d)?$/i}
               />,
             ],
           },
