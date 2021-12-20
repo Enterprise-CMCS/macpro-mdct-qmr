@@ -63,5 +63,11 @@ export namespace DemoForm {
     "DeliverySys-Other-Percent": string;
     "DeliverySys-Other-NumberOfHealthPlans": string;
     "DeliverySys-Other-Population": string;
+    DidCalculationsDeviate: string;
+    DeviationAgeGroups: string[];
+    "MeasureSpecDeviation-ageRange": string[];
+    "MeasureSpecDeviation-ageRange-Numerator": string;
+    "MeasureSpecDeviation-ageRange-Denominator": string;
+    "MeasureSpecDeviation-ageRange-Other": string;
   }
 }
