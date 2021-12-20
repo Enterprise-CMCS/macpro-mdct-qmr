@@ -33,9 +33,7 @@ const measureRoutes: MeasureRoute[] = [];
 
 Object.keys(measuresList).forEach((year: string) => {
   measuresList[year].forEach(({ measure, name }: MeasuresListItem) => {
-    // @ts-ignore
     if (measure in Measures[year]) {
-      // @ts-ignore
       const Comp = Measures[year][measure];
 
       measureRoutes.push({
