@@ -8,13 +8,12 @@ interface ValidationProps {
 export const validationSchema = ({
   DeviationOptionValues,
 }: ValidationProps) => {
-  let darSchema = DeviationOptionValues.map((s) => {
-    const option = s.replace(/ /g, "");
+  let darSchema = DeviationOptionValues.map((_, index) => {
     return {
-      [`MeasureSpecDeviation-${option}`]: Joi.array().items(Joi.string()),
-      [`MeasureSpecDeviation-${option}-Numerator`]: Joi.string(),
-      [`MeasureSpecDeviation-${option}-Denominator`]: Joi.string(),
-      [`MeasureSpecDeviation-${option}-Other`]: Joi.string(),
+      [`MeasureSpecDeviation-Option${index}`]: Joi.array().items(Joi.string()),
+      [`MeasureSpecDeviation-Option${index}-Numerator`]: Joi.string(),
+      [`MeasureSpecDeviation-Option${index}-Denominator`]: Joi.string(),
+      [`MeasureSpecDeviation-Option${index}-Other`]: Joi.string(),
     };
   });
   darSchema = Object.assign({}, ...darSchema);
@@ -86,7 +85,6 @@ export const validationSchema = ({
     "DeliverySys-Other-Population": Joi.string(),
     DidCalculationsDeviate: Joi.string(),
     DeviationOptions: Joi.array().items(Joi.string()),
-    "MeasureSpecDeviation-Option": Joi.array().items(Joi.string()),
     ...darSchema,
   });
 };

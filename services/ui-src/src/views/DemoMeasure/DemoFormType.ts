@@ -65,9 +65,9 @@ export namespace DemoForm {
     "DeliverySys-Other-Population": string;
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    "MeasureSpecDeviation-Option": string[];
-    "MeasureSpecDeviation-Option-Numerator": string;
-    "MeasureSpecDeviation-Option-Denominator": string;
-    "MeasureSpecDeviation-Option-Other": string;
+    "MeasureSpecDeviation-Option1": string[];
+    "MeasureSpecDeviation-Option1-Numerator": string;
+    "MeasureSpecDeviation-Option1-Denominator": string;
+    "MeasureSpecDeviation-Option1-Other": string;
   }
 }

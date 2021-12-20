@@ -34,49 +34,48 @@ export const DeviationFromMeasureSpec = ({ options }: Props) => {
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
                 formLabelProps={{ fontWeight: 600 }}
-                options={options.map((rangeLabel) => {
-                  const formLabel = rangeLabel.replace(/ /g, "");
+                options={options.map((rangeLabel, index) => {
                   return {
                     displayValue: rangeLabel,
-                    value: `Deviation-${formLabel}`,
+                    value: `Deviation-Option${index}`,
                     children: [
                       <QMR.Checkbox
                         {...register(
-                          `MeasureSpecDeviation-${formLabel}` as "MeasureSpecDeviation-Option"
+                          `MeasureSpecDeviation-Option${index}` as "MeasureSpecDeviation-Option1"
                         )}
                         options={[
                           {
                             displayValue: "Numerator",
-                            value: `${formLabel}-Numerator`,
+                            value: `Option${index}-Numerator`,
                             children: [
                               <QMR.TextArea
                                 label="Explain"
                                 {...register(
-                                  `MeasureSpecDeviation-${formLabel}-Numerator` as "MeasureSpecDeviation-Option-Numerator"
+                                  `MeasureSpecDeviation-Option${index}-Numerator` as "MeasureSpecDeviation-Option1-Numerator"
                                 )}
                               />,
                             ],
                           },
                           {
                             displayValue: "Denominator",
-                            value: `${formLabel}-Denominator`,
+                            value: `Option${index}-Denominator`,
                             children: [
                               <QMR.TextArea
                                 label="Explain"
                                 {...register(
-                                  `MeasureSpecDeviation-${formLabel}-Denominator` as "MeasureSpecDeviation-Option-Denominator"
+                                  `MeasureSpecDeviation-Option${index}-Denominator` as "MeasureSpecDeviation-Option1-Denominator"
                                 )}
                               />,
                             ],
                           },
                           {
                             displayValue: "Other",
-                            value: `${formLabel}-Other`,
+                            value: `Option${index}-Other`,
                             children: [
                               <QMR.TextArea
                                 label="Explain"
                                 {...register(
-                                  `MeasureSpecDeviation-${formLabel}-Other` as "MeasureSpecDeviation-Option-Other"
+                                  `MeasureSpecDeviation-Option${index}-Other` as "MeasureSpecDeviation-Option1-Other"
                                 )}
                               />,
                             ],
