@@ -11,6 +11,7 @@ export * from "./LoaderButton";
 export * from "./LocalLogins";
 export * from "./Logo";
 export * from "./MeasureButtons";
+export * from "./MeasureWrapper";
 export * from "./MonthPicker";
 export * from "./QuestionChild";
 export * from "./CoreQuestionWrapper";

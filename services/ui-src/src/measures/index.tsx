@@ -1,5 +1,7 @@
-import TwentyTwentyOneMeasures from "./2021";
+import twentyTwentyOneMeasures from "./2021";
 
-export default {
-  2021: TwentyTwentyOneMeasures,
+const measuresByYear = {
+  2021: twentyTwentyOneMeasures,
 };
+
+export default measuresByYear;

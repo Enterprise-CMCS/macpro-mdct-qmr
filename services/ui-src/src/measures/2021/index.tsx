@@ -1,5 +1,7 @@
 import { AMM } from "./AMM";
 
-export default {
+const twentyTwentyOneMeasures = {
   "AMM-AD": AMM,
 };
+
+export default twentyTwentyOneMeasures;

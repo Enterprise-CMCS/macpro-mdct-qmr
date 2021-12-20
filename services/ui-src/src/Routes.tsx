@@ -1,10 +1,11 @@
-import { createElement, ReactElement } from "react";
+import { ReactElement } from "react";
+import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import { CognitoUser } from "@aws-amplify/auth";
 import * as Views from "views";
+import * as QMR from "components";
 import Measures from "measures";
 import { measuresList, MeasuresListItem } from "measures/measuresList";
-import { stateAbbreviations } from "utils/constants";
 
 export type Params = "state" | "year" | "coreset" | "measure";
 
@@ -24,42 +25,24 @@ interface MeasureRoute {
   el: ReactElement;
 }
 
-// For each state, and each year we want a unique route for each measure.
-// eg. http://localhost:3000/AL/2021/AD/AMM-AD
+// For each year we want a route for each measure.
+// The measures available for each year are defined in the measuresList
+// eg. http://localhost:3000/:state/2021/:coreset/AMM-AD
 
 const measureRoutes: MeasureRoute[] = [];
 
 Object.keys(measuresList).forEach((year: string) => {
-  stateAbbreviations.forEach((stateAbbr: string) => {
-    measuresList[year].forEach(({ type, measure, name }: MeasuresListItem) => {
+  measuresList[year].forEach(({ measure, name }: MeasuresListItem) => {
+    // @ts-ignore
+    if (measure in Measures[year]) {
       // @ts-ignore
-      if (measure in Measures[year]) {
-        // @ts-ignore
-        const Comp = Measures[year][measure];
+      const Comp = Measures[year][measure];
 
-        // if this is a child core set we want to create three locations to access the same measure
-        // (combined, mediaid, and chip) so we create two extra routes if measure type is child
-
-        if (type === "CH") {
-          // add a path for child - chip
-          measureRoutes.push({
-            path: `${stateAbbr}/${year}/${type}C/${measure}`,
-            el: createElement(Comp, { name }),
-          });
-
-          // add a path for child - medicaid
-          measureRoutes.push({
-            path: `${stateAbbr}/${year}/${type}M/${measure}`,
-            el: createElement(Comp, { name }),
-          });
-        }
-
-        measureRoutes.push({
-          path: `${stateAbbr}/${year}/${type}/${measure}`,
-          el: createElement(Comp, { name }),
-        });
-      }
-    });
+      measureRoutes.push({
+        path: `:state/${year}/:coreset/${measure}`,
+        el: createElement(QMR.MeasureWrapper, { name }, createElement(Comp)),
+      });
+    }
   });
 });
 
