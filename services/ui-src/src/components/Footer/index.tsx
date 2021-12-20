@@ -9,20 +9,28 @@ export function Footer(): JSX.Element {
       data-testid="footer"
     >
       <CUI.Container data-testid="help-section" maxW="7xl">
-        <CUI.Box maxW="3xl" py="4">
-          <CUI.Text as="h3">Do you have questions or need support?</CUI.Text>
-          <CUI.Text>
+        <CUI.Box maxW="4xl" py="6">
+          <CUI.Text as="h3" fontSize="2xl" mb="3">
+            Do you have questions or need support?
+          </CUI.Text>
+          <CUI.Text fontSize="sm">
             For technical questions regarding use of this application, please
             reach out to{" "}
-            <a href={`mailto:${Libs.helpDeskContact.email}`}>
+            <CUI.Link
+              color="blue.500"
+              href={`mailto:${Libs.helpDeskContact.email}`}
+            >
               {Libs.helpDeskContact.email}
-            </a>
+            </CUI.Link>
             . For content-related questions, such as about measure
             specifications or what information to enter in each field, please
             reach out to{" "}
-            <a href={`mailto:${Libs.qualityContact.email}`}>
+            <CUI.Link
+              color="blue.500"
+              href={`mailto:${Libs.qualityContact.email}`}
+            >
               {Libs.qualityContact.email}
-            </a>
+            </CUI.Link>
           </CUI.Text>
         </CUI.Box>
       </CUI.Container>
@@ -40,13 +48,11 @@ export function Footer(): JSX.Element {
             />
             <CUI.Spacer />
             <CUI.Flex maxW={{ base: "none", md: "md" }}>
-              <CUI.Box>
-                <img
-                  src="/footer/depthealthhumanservices_usa.svg"
-                  alt="Department of Health and Human Services logo"
-                ></img>
-              </CUI.Box>
-              <CUI.Box>
+              <img
+                src="/footer/depthealthhumanservices_usa.svg"
+                alt="Department of Health and Human Services logo"
+              />
+              <CUI.Box pl="3">
                 A federal government website managed and paid for by the U.S.
                 Centers for Medicare and Medicaid Services and part of the
                 MACPro suite.
@@ -60,10 +66,10 @@ export function Footer(): JSX.Element {
           <CUI.Box display={{ base: "block", md: "flex" }}>
             <CUI.Text>
               Email{" "}
-              <a href={`mailto:${Libs.helpDeskContact.email}`}>
+              <CUI.Link href={`mailto:${Libs.helpDeskContact.email}`}>
                 {" "}
                 {Libs.helpDeskContact.email}
-              </a>{" "}
+              </CUI.Link>{" "}
               for help or feedback.
             </CUI.Text>
             <CUI.Spacer />

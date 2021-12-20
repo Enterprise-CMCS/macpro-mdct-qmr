@@ -12,7 +12,7 @@ export const MeasurementSpecification = () => {
         options={[
           {
             displayValue:
-              "Measurement Specification National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
+              "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
             value: "NCQA/HEDIS",
             children: [
               <QMR.Select

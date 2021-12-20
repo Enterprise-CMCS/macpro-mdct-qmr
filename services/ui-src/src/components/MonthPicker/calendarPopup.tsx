@@ -39,12 +39,12 @@ export const MonthPickerCalendar = ({
   const [pickerOpen, setPickerOpen] = useState(false);
   const [year, setYear] = useState(parseInt(selectedYear) || now.getFullYear());
   const [month, setMonth] = useState(
-    (selectedMonth && parseInt(selectedMonth)) || now.getMonth()
+    (selectedMonth && parseInt(selectedMonth)) || undefined
   );
 
   useEffect(() => {
     const now = new Date();
-    setMonth((selectedMonth && parseInt(selectedMonth)) || now.getMonth());
+    setMonth((selectedMonth && parseInt(selectedMonth)) || undefined);
     setYear(
       (selectedYear?.length === 4 && parseInt(selectedYear)) ||
         now.getFullYear()
@@ -105,7 +105,7 @@ export const MonthPickerCalendar = ({
           <CUI.SimpleGrid columns={3}>
             {monthNames.map((value, index) => {
               const variant =
-                month === index + 1 && year === parseInt(selectedYear)
+                month && month === index + 1 && year === parseInt(selectedYear)
                   ? "solid"
                   : "ghost";
               return (

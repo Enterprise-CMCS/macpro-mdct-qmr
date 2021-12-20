@@ -49,14 +49,30 @@ export const DemoMeasure = () => {
             {!watchReportingRadio?.includes("No") && (
               <>
                 <Q.Status />
-                <Q.DataSource />{" "}
+                <Q.DataSource />
+                <Q.DefinitionOfPopulation />
               </>
             )}
             <Q.AdditionalNotes />
-            <QMR.ContainedButton
-              buttonProps={{ type: "submit", isFullWidth: true }}
-              buttonText="Submit"
-            />
+            <Q.CombinedRates />
+            <CUI.Stack alignItems="flex-start">
+              <CUI.Heading fontSize="xl" fontWeight="600">
+                8. Complete the Measure
+              </CUI.Heading>
+              <CUI.Text p="3" pl="5">
+                Complete the measure and mark it for submission to CMS for
+                review
+              </CUI.Text>
+              <QMR.ContainedButton
+                buttonProps={{
+                  ml: "5",
+                  type: "submit",
+                  colorScheme: "blue",
+                  textTransform: "capitalize",
+                }}
+                buttonText="Complete Measure"
+              />
+            </CUI.Stack>
           </CUI.Container>
         </form>
       </FormProvider>
