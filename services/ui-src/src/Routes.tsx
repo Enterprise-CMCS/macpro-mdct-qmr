@@ -38,7 +38,7 @@ Object.keys(measuresList).forEach((year: string) => {
 
       measureRoutes.push({
         path: `:state/${year}/:coreset/${measure}`,
-        el: createElement(QMR.MeasureWrapper, { name }, createElement(Comp)),
+        el: <QMR.MeasureWrapper name={name} measure={createElement(Comp)} />,
       });
     }
   });
