@@ -5,12 +5,6 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { Measure, TableColumn } from "../types";
 
-const KebabMenuItems: QMR.IKebabMenuItem[] = [
-  { itemText: "Edit", itemIndex: 1 },
-  { itemText: "Export", itemIndex: 2 },
-  { itemText: "Clear Measure Entries", itemIndex: 3 },
-];
-
 // Get status string from measure data
 const getStatus = (data: Measure.Data): Measure.Status => {
   // If completed all questions or if not reporting -> Complete
@@ -138,10 +132,7 @@ export const measuresColumns: TableColumn<Measure.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: Measure.Data) => (
       <CUI.Box textAlign="center">
-        <QMR.KebabMenu
-          menuItems={KebabMenuItems}
-          handleItemClick={() => console.log(data.actions)}
-        />
+        <QMR.KebabMenu menuItems={data.actions} />
       </CUI.Box>
     ),
   },

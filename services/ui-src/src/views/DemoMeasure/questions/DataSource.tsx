@@ -2,11 +2,11 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DemoForm } from "views/DemoMeasure/DemoFormType";
+import { Measure } from "measures/types";
 
 export const DataSource = () => {
   const methods = useFormContext();
-  const register = useCustomRegister<DemoForm.DemoFormType>();
+  const register = useCustomRegister<Measure.Form>();
   const { watch } = methods;
 
   return (
@@ -20,7 +20,6 @@ export const DataSource = () => {
             children: [
               <QMR.Checkbox
                 {...register("DataSource-Administrative")}
-                key="Administrative data"
                 options={[
                   {
                     displayValue:
@@ -31,9 +30,8 @@ export const DataSource = () => {
                     displayValue: "Other",
                     value: "Administrative Data Other",
                     children: [
-                      <QMR.TextInput
+                      <QMR.TextArea
                         label="Describe the data source:"
-                        key="DataSource-Administrative-Other"
                         {...register("DataSource-Administrative-Other")}
                       />,
                       <CUI.Text
@@ -47,7 +45,6 @@ export const DataSource = () => {
                         each data source:
                       </CUI.Text>,
                       <QMR.TextArea
-                        key="DataSource-Administrative-Other-Explanation"
                         label={`Administrative Data Source: ${
                           watch("DataSource-Administrative-Other") || ""
                         }`}
@@ -69,7 +66,6 @@ export const DataSource = () => {
             children: [
               <QMR.Checkbox
                 {...register("DataSource-Hybrid")}
-                key="Hybrid data"
                 options={[
                   {
                     displayValue:
@@ -80,9 +76,8 @@ export const DataSource = () => {
                     displayValue: "Other",
                     value: "Hybrid Data Other",
                     children: [
-                      <QMR.TextInput
+                      <QMR.TextArea
                         label="Describe the data source:"
-                        key="DataSource-Hybrid-Other"
                         {...register("DataSource-Hybrid-Other")}
                       />,
                       <CUI.Text
@@ -96,7 +91,6 @@ export const DataSource = () => {
                         each data source:
                       </CUI.Text>,
                       <QMR.TextArea
-                        key="Administrative Data Source:"
                         label={`Hybrid (Administrative and Medical Records Data) Data Source: ${
                           watch("DataSource-Hybrid-Other") || ""
                         }`}
@@ -112,7 +106,6 @@ export const DataSource = () => {
               <QMR.RadioButton
                 label="What is the Medical Records Data Source?"
                 formLabelProps={{ fontWeight: 700, paddingTop: 5 }}
-                key="Hybrid Radio Button Data"
                 {...register("DataSource-Hybrid-MedicalRecord-DataSoruce")}
                 options={[
                   {
@@ -135,9 +128,8 @@ export const DataSource = () => {
             displayValue: "Electronic Health Records",
             value: "Electronic Health Records",
             children: [
-              <QMR.TextInput
+              <QMR.TextArea
                 label="Describe Electronic Health Records data source:"
-                key="DataSource-ElectronicHealthRecords"
                 {...register("DataSource-ElectronicHealthRecords")}
               />,
               <CUI.Text
@@ -151,7 +143,6 @@ export const DataSource = () => {
                 source:
               </CUI.Text>,
               <QMR.TextArea
-                key="Electronic Record Data Source data:"
                 label={`Electronic Health Records Data Source: ${
                   watch("DataSource-ElectronicHealthRecords") || ""
                 }`}
@@ -163,9 +154,8 @@ export const DataSource = () => {
             displayValue: "Other",
             value: "Other Data Source",
             children: [
-              <QMR.TextInput
+              <QMR.TextArea
                 label="Describe the data source:"
-                key="DataSource-Other"
                 {...register("DataSource-Other")}
               />,
               <CUI.Text
@@ -179,7 +169,6 @@ export const DataSource = () => {
                 source:
               </CUI.Text>,
               <QMR.TextArea
-                key="DataSource-Other-Explanation"
                 label={`Other Data Source: ${watch("DataSource-Other") || ""}`}
                 {...register("DataSource-Other-Explanation")}
               />,

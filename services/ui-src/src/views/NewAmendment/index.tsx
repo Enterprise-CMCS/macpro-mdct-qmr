@@ -1,3 +1,4 @@
+import * as QMR from "components";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
@@ -6,8 +7,6 @@ import { onError } from "libs/errorLib";
 import "./index.module.scss";
 import { createAmendment } from "libs/api";
 import { currentUserInfo } from "libs/user";
-import Select from "react-select";
-import Switch from "react-ios-switch";
 import { territoryList } from "libs/territoryLib";
 import {
   capitalize,
@@ -25,10 +24,10 @@ export function NewAmendment({
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [territory, setTerritory] = useState("");
-  const [urgent, setUrgent] = useState(false);
+  const [territory] = useState("");
   const [comments, setComments] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const urgent = false;
 
   async function populateUserInfo() {
     var userInfo = await currentUserInfo();
@@ -100,24 +99,15 @@ export function NewAmendment({
         </FormGroup>
         <FormGroup controlId="territory">
           <FormLabel>State/Territory</FormLabel>
-          <Select
+          <QMR.Select
             name="form-field-name"
-            value={territoryList.filter(function (option) {
-              return option.value === territory;
+            options={territoryList.map((territory) => {
+              return { displayValue: territory.label, value: territory.value };
             })}
-            onChange={(e: Event) =>
-              setTerritory((e.target as HTMLSelectElement).value)
-            }
-            options={territoryList}
           />
         </FormGroup>
         <FormGroup controlId="urgent">
           <FormLabel>This APS is classified as urgent &nbsp;</FormLabel>
-          <Switch
-            controlId="urgent"
-            checked={urgent}
-            onChange={() => setUrgent(!urgent)}
-          />
         </FormGroup>
         <FormGroup controlId="file">
           <FormLabel>Attachment</FormLabel>

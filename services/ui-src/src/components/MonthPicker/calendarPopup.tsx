@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import config from "config";
 import {
@@ -39,8 +39,17 @@ export const MonthPickerCalendar = ({
   const [pickerOpen, setPickerOpen] = useState(false);
   const [year, setYear] = useState(parseInt(selectedYear) || now.getFullYear());
   const [month, setMonth] = useState(
-    (selectedMonth && parseInt(selectedMonth)) || 0
+    (selectedMonth && parseInt(selectedMonth)) || undefined
   );
+
+  useEffect(() => {
+    const now = new Date();
+    setMonth((selectedMonth && parseInt(selectedMonth)) || undefined);
+    setYear(
+      (selectedYear?.length === 4 && parseInt(selectedYear)) ||
+        now.getFullYear()
+    );
+  }, [selectedMonth, selectedYear]);
 
   const handleMonthClick = (month: number) => {
     setMonth(month);
@@ -96,7 +105,7 @@ export const MonthPickerCalendar = ({
           <CUI.SimpleGrid columns={3}>
             {monthNames.map((value, index) => {
               const variant =
-                month === index + 1 && year === parseInt(selectedYear)
+                month && month === index + 1 && year === parseInt(selectedYear)
                   ? "solid"
                   : "ghost";
               return (

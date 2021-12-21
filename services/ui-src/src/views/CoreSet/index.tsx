@@ -3,12 +3,12 @@ import * as QMR from "components";
 import { Link, useParams } from "react-router-dom";
 import { Params } from "Routes";
 export const CoreSet = () => {
-  const { state, year, coreset } = useParams<Params>();
+  const { state, year, coreSetId } = useParams<Params>();
   return (
     <QMR.StateLayout
       breadcrumbItems={[
         { path: `/${state}/${year}`, name: `FFY ${year}` },
-        { path: `/${state}/${year}/${coreset}`, name: "Core Set Measures" },
+        { path: `/${state}/${year}/${coreSetId}`, name: "Core Set Measures" },
       ]}
     >
       <CUI.Text data-testid="core-set">
