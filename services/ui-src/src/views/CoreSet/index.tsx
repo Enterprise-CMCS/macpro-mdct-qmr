@@ -12,6 +12,7 @@ enum coresetType {
 
 export const CoreSet = () => {
   const { state, year, coreset } = useParams<Params>();
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -52,16 +53,14 @@ export const CoreSet = () => {
             maxValue={32}
           />
         </CUI.HStack>
-
-        <CUI.Box textAlign="center" justifySelf="end">
+        <CUI.Box textAlign="center">
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "blue",
-              w: "full",
             }}
             buttonText="Submit Measures"
             helperText="Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021"
-            helperTextProps={{ fontSize: ".7rem", color: "grey" }}
+            helperTextProps={{ fontSize: ".65rem", color: "grey" }}
           />
         </CUI.Box>
       </CUI.HStack>
