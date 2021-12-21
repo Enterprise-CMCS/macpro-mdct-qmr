@@ -1839,3 +1839,7 @@ aside#faq-contact-info-box {
 li::marker {
   font-weight: bold;
 }
+
+a:focus {
+  box-shadow: none;
+}
