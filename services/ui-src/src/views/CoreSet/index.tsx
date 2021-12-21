@@ -8,7 +8,7 @@ enum coreSetType {
   ACS = "Adult",
   CCS = "Child",
   CCSM = "Child - Medicaid",
-  CCSC = "Child - Chip",
+  CCSC = "Child - CHIP",
   HHCS = "Health Home",
 }
 
@@ -17,7 +17,7 @@ enum coreSetMeasureTitle {
   CCS = "Child Core Set Measure",
   CCSM = "Child Core Set Measure: Medicaid",
   CCSC = "Child Core Set Measure: CHIP",
-  HHCS = "Health Home Core Set Questions: User generated SPA name",
+  HHCS = "Health Home Core Set Measure: User generated SPA name",
 }
 
 enum coreSetQuestionsText {
@@ -31,7 +31,7 @@ enum coreSetQuestionsText {
 export const CoreSet = () => {
   const { state, year, coreSetId } = useParams<Params>();
 
-  // This is where a fetch for the measures would live
+  // This is where a fetch for the measures would live and calcuilate progress completed
   const measures = [
     {
       Type: "Adult",
@@ -115,8 +115,9 @@ export const CoreSet = () => {
             </CUI.Box>
             <QMR.ProgressCircle
               circularProgressProps={{ color: "green", size: "4.5rem" }}
+              circularProgressLabelProps={{ fontSize: ".8rem" }}
               currentProgress={2}
-              maxValue={32}
+              maxValue={measures.length}
             />
           </CUI.HStack>
         </CUI.HStack>
@@ -127,7 +128,11 @@ export const CoreSet = () => {
               colorScheme: "blue",
             }}
             buttonText="Submit Measures"
-            helperText="Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021"
+            helperText={`Complete all ${
+              coreSetType[coreSetId as keyof typeof coreSetType]
+            } Core Set Questions and ${
+              coreSetType[coreSetId as keyof typeof coreSetType]
+            } Core Set Measures to submit FFY 2021`}
             helperTextProps={{
               fontSize: ".5rem",
               paddingTop: "1",
