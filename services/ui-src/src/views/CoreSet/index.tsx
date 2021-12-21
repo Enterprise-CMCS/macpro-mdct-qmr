@@ -25,15 +25,15 @@ export const CoreSet = () => {
         },
       ]}
     >
-      <CUI.HStack>
+      <CUI.Flex>
         <CUI.HStack
-          minW="5xl"
+          justifyContent="space-between"
+          flex="8"
           borderRadius="8"
           backgroundColor="gray.100"
           p="4"
-          mr="20"
         >
-          <CUI.Box minW="3xl">
+          <CUI.Box>
             <CUI.Text fontSize="sm">Core Set Qualifiers</CUI.Text>
             <Link to={"questions"}>
               <CUI.Text fontSize="sm" color="blue">
@@ -41,29 +41,37 @@ export const CoreSet = () => {
               </CUI.Text>
             </Link>
           </CUI.Box>
-          <CUI.Box pr="10">
-            <CUI.Text fontSize="sm">Adult Measures</CUI.Text>
-            <CUI.Text fontSize="sm" fontWeight="600">
-              16% Complete
-            </CUI.Text>
-          </CUI.Box>
-          <QMR.ProgressCircle
-            circularProgressProps={{ color: "green" }}
-            currentProgress={2}
-            maxValue={32}
-          />
+
+          <CUI.HStack>
+            <CUI.Box pr="10">
+              <CUI.Text fontSize="sm">Adult Measures</CUI.Text>
+              <CUI.Text fontSize="sm" fontWeight="600">
+                16% Complete
+              </CUI.Text>
+            </CUI.Box>
+            <QMR.ProgressCircle
+              circularProgressProps={{ color: "green", size: "4.5rem" }}
+              currentProgress={2}
+              maxValue={32}
+            />
+          </CUI.HStack>
         </CUI.HStack>
-        <CUI.Box textAlign="center">
+        <CUI.Spacer />
+        <CUI.Box flex="1" textAlign="center" alignSelf="center">
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "blue",
             }}
             buttonText="Submit Measures"
             helperText="Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021"
-            helperTextProps={{ fontSize: ".65rem", color: "grey" }}
+            helperTextProps={{
+              fontSize: ".5rem",
+              color: "grey",
+              paddingTop: "1",
+            }}
           />
         </CUI.Box>
-      </CUI.HStack>
+      </CUI.Flex>
       <CUI.Box mt="3" maxH="md" overflowY="auto">
         <QMR.Table data={QMR.adultMeasuresData} columns={QMR.measuresColumns} />
       </CUI.Box>
