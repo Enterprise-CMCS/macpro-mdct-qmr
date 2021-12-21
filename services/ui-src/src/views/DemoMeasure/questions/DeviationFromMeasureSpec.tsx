@@ -1,5 +1,5 @@
 import * as QMR from "components";
-import { DemoForm } from "../DemoFormType";
+import { Measure } from "measures/types";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
 export const defaultDeviationOptions = [
@@ -71,7 +71,7 @@ const deviationOptions = ({
 };
 
 export const DeviationFromMeasureSpec = ({ options }: Props) => {
-  const register = useCustomRegister<DemoForm.DemoFormType>();
+  const register = useCustomRegister<Measure.Form>();
 
   return (
     <QMR.CoreQuestionWrapper label="Deviations from Measure Specifications">
