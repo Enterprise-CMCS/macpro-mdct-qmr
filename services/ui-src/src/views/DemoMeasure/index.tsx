@@ -3,11 +3,11 @@ import * as QMR from "components";
 import * as Q from "./questions";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { validationSchema } from "./schema";
-import { DemoForm } from "./DemoFormType";
+import { validationSchema } from "measures/schema";
+import { Measure } from "measures/types";
 
 export const DemoMeasure = () => {
-  const methods = useForm<DemoForm.DemoFormType>({
+  const methods = useForm<Measure.Form>({
     shouldUnregister: true,
     mode: "all",
     resolver: joiResolver(validationSchema),
@@ -51,6 +51,9 @@ export const DemoMeasure = () => {
                 <Q.Status />
                 <Q.DataSource />
                 <Q.DefinitionOfPopulation />
+                <Q.DeviationFromMeasureSpec
+                  options={Q.defaultDeviationOptions}
+                />
               </>
             )}
             <Q.AdditionalNotes />

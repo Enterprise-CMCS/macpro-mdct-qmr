@@ -256,6 +256,7 @@ const DemoComponentsForm = () => {
               <QMR.ContainedButton
                 buttonText={"Complete Measure"}
                 buttonProps={{
+                  bg: "blue.600",
                   colorScheme: "blue",
                   textTransform: "capitalize",
                 }}
@@ -324,7 +325,7 @@ const DemoComponentsForm = () => {
           </CUI.Stack>
           <CUI.Divider mt={5} />
         </CUI.Container>
-        <CUI.Container maxW="7xl" overflowX="scroll">
+        <CUI.Container maxW="7xl">
           <CUI.Heading size="sm" as="h3">
             Core Sets Table
           </CUI.Heading>
@@ -369,6 +370,7 @@ const DemoComponentsForm = () => {
               buttonText={`Increase Counter`}
               icon="plus"
               buttonProps={{
+                bg: "blue.600",
                 colorScheme: "blue",
                 textTransform: "capitalize",
               }}
@@ -424,11 +426,12 @@ const DemoComponentsForm = () => {
                 disabledStatus={showSuccessAlert}
                 buttonText={`Show Success Alert`}
                 buttonProps={{
+                  bg: "green.600",
                   colorScheme: "green",
                   textTransform: "capitalize",
                 }}
                 onClick={() => setSuccessAlert(true)}
-              />{" "}
+              />
               <QMR.ContainedButton
                 disabledStatus={showWarningAlert}
                 buttonText={`Show Warning Alert`}
@@ -437,20 +440,22 @@ const DemoComponentsForm = () => {
                   textTransform: "capitalize",
                 }}
                 onClick={() => setWarningAlert(true)}
-              />{" "}
+              />
               <QMR.ContainedButton
                 disabledStatus={showInfoAlert}
                 buttonText={`Show Info Alert`}
                 buttonProps={{
+                  bg: "blue.600",
                   colorScheme: "blue",
                   textTransform: "capitalize",
                 }}
                 onClick={() => setInfoAlert(true)}
-              />{" "}
+              />
               <QMR.ContainedButton
                 disabledStatus={showErrorAlert}
                 buttonText={`Show Error Alert`}
                 buttonProps={{
+                  bg: "red.600",
                   colorScheme: "red",
                   textTransform: "capitalize",
                 }}
@@ -459,7 +464,15 @@ const DemoComponentsForm = () => {
             </CUI.HStack>
           </CUI.VStack>
         </CUI.Container>
-        <button>Submit</button>
+        <QMR.ContainedButton
+          buttonText={`Submit`}
+          buttonProps={{
+            type: "submit",
+            bg: "blue.600",
+            colorScheme: "blue",
+            textTransform: "capitalize",
+          }}
+        />
       </form>
     </QMR.StateLayout>
   );

@@ -1,11 +1,11 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DemoForm } from "views/DemoMeasure/DemoFormType";
 import { Upload } from "components/Upload";
+import { Measure } from "measures/types";
 
 export const AdditionalNotes = () => {
-  const register = useCustomRegister<DemoForm.DemoFormType>();
+  const register = useCustomRegister<Measure.Form>();
 
   return (
     <QMR.CoreQuestionWrapper label="Additional Notes/Comments on the measure (optional)">

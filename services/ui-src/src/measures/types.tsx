@@ -1,5 +1,10 @@
-export namespace DemoForm {
-  export interface DemoFormType {
+export namespace Measure {
+  export interface Props {
+    name: string;
+    year: string;
+  }
+
+  export interface Form {
     DidReport: string;
     DataStatus: string[];
     DataSource: string[];
@@ -63,5 +68,13 @@ export namespace DemoForm {
     "DeliverySys-Other-Percent": string;
     "DeliverySys-Other-NumberOfHealthPlans": string;
     "DeliverySys-Other-Population": string;
+    DidCalculationsDeviate: string;
+    DeviationOptions: string[];
+    DeviationFields: {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
   }
 }

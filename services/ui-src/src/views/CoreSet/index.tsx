@@ -13,7 +13,7 @@ enum coresetType {
 }
 
 export const CoreSet = () => {
-  const { state, year, coreset } = useParams<Params>();
+  const { state, year, coreSetId } = useParams<Params>();
 
   // This is where a fetch for the measures would live
   const measures = [
@@ -51,9 +51,9 @@ export const CoreSet = () => {
       breadcrumbItems={[
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
-          path: `/${state}/${year}/${coreset}`,
+          path: `/${state}/${year}/${coreSetId}`,
           name: `${
-            coresetType[coreset as keyof typeof coresetType]
+            coresetType[coreSetId as keyof typeof coresetType]
           } Core Set Measures`,
         },
       ]}

@@ -1,9 +1,9 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DemoForm } from "views/DemoMeasure/DemoFormType";
+import { Measure } from "measures/types";
 
 export const CombinedRates = () => {
-  const register = useCustomRegister<DemoForm.DemoFormType>();
+  const register = useCustomRegister<Measure.Form>();
 
   return (
     <QMR.CoreQuestionWrapper label="Combined Rate(s) from Multiple Reporting Units">

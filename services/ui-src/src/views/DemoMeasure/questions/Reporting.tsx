@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { Measure } from "measures/types";
 import { useFormContext } from "react-hook-form";
-import { DemoForm } from "views/DemoMeasure/DemoFormType";
 import { WhyAreYouNotReporting } from ".";
 
 interface Props {
@@ -15,8 +15,8 @@ export const Reporting = ({
   reportingYear,
   measureAbbreviation,
 }: Props) => {
-  const register = useCustomRegister<DemoForm.DemoFormType>();
-  const { watch } = useFormContext<DemoForm.DemoFormType>();
+  const register = useCustomRegister<Measure.Form>();
+  const { watch } = useFormContext<Measure.Form>();
   const watchRadioStatus = watch("DidReport");
 
   return (

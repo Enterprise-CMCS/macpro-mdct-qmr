@@ -1,7 +1,8 @@
 import Joi from "joi";
-import { DemoForm } from "./DemoFormType";
+import { Measure } from "./types";
 
-export const validationSchema = Joi.object<DemoForm.DemoFormType>({
+// This is the validation schema for any/all state measures
+export const validationSchema = Joi.object<Measure.Form>({
   DidReport: Joi.string().label("Are you reporting"),
   DataStatus: Joi.string().label("Status of Data Reported"),
   DataSource: Joi.array().items(Joi.string()),
@@ -66,4 +67,16 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   "DeliverySys-Other-Percent": Joi.string(),
   "DeliverySys-Other-NumberOfHealthPlans": Joi.string(),
   "DeliverySys-Other-Population": Joi.string(),
+  DidCalculationsDeviate: Joi.string(),
+  DeviationOptions: Joi.array().items(Joi.string()),
+  DeviationFields: Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator"),
+        denominator: Joi.string().label("Denominator"),
+        other: Joi.string().label("Other"),
+      })
+    )
+    .sparse(),
 });

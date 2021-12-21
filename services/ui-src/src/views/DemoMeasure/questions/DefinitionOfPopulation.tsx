@@ -1,11 +1,11 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DemoForm } from "../DemoFormType";
+import { Measure } from "measures/types";
 import { allPositiveIntegers } from "utils/numberInputMasks";
 
 export const DefinitionOfPopulation = () => {
-  const register = useCustomRegister<DemoForm.DemoFormType>();
+  const register = useCustomRegister<Measure.Form>();
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
