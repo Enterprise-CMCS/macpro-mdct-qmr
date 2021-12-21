@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useParams } from "react-router-dom";
 import { Params } from "Routes";
+import { Link } from "react-router-dom";
 
 enum coresetType {
   ACS = "Adult",
@@ -32,12 +33,18 @@ export const CoreSet = () => {
           mr="20"
         >
           <CUI.Box minW="3xl">
-            <CUI.Text>Core Set Qualifiers</CUI.Text>
-            <CUI.Text color="blue">Adult Core Set Questions</CUI.Text>
+            <CUI.Text fontSize="sm">Core Set Qualifiers</CUI.Text>
+            <Link to={"questions"}>
+              <CUI.Text fontSize="sm" color="blue">
+                Adult Core Set Questions
+              </CUI.Text>
+            </Link>
           </CUI.Box>
           <CUI.Box pr="10">
-            <CUI.Text>Adult Measures</CUI.Text>
-            <CUI.Text fontWeight="600">16% Complete</CUI.Text>
+            <CUI.Text fontSize="sm">Adult Measures</CUI.Text>
+            <CUI.Text fontSize="sm" fontWeight="600">
+              16% Complete
+            </CUI.Text>
           </CUI.Box>
           <QMR.ProgressCircle
             circularProgressProps={{ color: "green" }}
@@ -53,7 +60,7 @@ export const CoreSet = () => {
               w: "full",
             }}
             buttonText="Submit Measures"
-            helperText="Complete all Adult Core Set Questions andAdult Core Set Measures to submit FFY 2021"
+            helperText="Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021"
             helperTextProps={{ fontSize: ".7rem", color: "grey" }}
           />
         </CUI.Box>

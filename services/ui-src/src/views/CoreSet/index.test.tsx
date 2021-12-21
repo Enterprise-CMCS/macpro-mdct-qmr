@@ -28,9 +28,11 @@ describe("Test CoreSet.tsx", () => {
     it("renders the correct child measure table data components", () => {
       expect(
         screen.getByText(
-          /Complete all Adult Core Set Questions andAdult Core Set Measures to submit FFY 2021/i
+          /Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021/i
         )
       ).toBeInTheDocument();
+
+      expect(screen.getByText(/Submit Measures/i)).toBeInTheDocument();
 
       expect(screen.getByText(/Reporting FFY 2021/i)).toBeInTheDocument();
     });
