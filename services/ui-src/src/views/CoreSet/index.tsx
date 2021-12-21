@@ -37,11 +37,11 @@ export const CoreSet = () => {
       Type: "Adult",
       title: "Antidepressant Medication Management",
       abbr: "AMM-AD",
-      path: "",
+      path: `/${state}/${year}/${coreSetId}/AMM-AD`,
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "",
+      id: "AMM-AD",
       actions: [
         {
           itemText: "Edit",
@@ -52,13 +52,13 @@ export const CoreSet = () => {
     },
     {
       Type: "Health Home",
-      title: "Ambulatory Care: Emergency Department (ED) Visits",
-      abbr: "AMB-HH",
-      path: "",
+      title: "Admission to an Institution from the Community",
+      abbr: "AIF-HH",
+      path: `/${state}/${year}/${coreSetId}/AIF-HH`,
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "",
+      id: "AIF-HH",
       actions: [
         {
           itemText: "Edit",
