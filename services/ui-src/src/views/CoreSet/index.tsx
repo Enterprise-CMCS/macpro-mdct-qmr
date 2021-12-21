@@ -41,7 +41,7 @@ export const CoreSet = () => {
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "",
+      id: "AMB-HH",
       actions: [
         {
           itemText: "Edit",
@@ -58,7 +58,7 @@ export const CoreSet = () => {
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "",
+      id: "AMM-AD",
       actions: [
         {
           itemText: "Edit",
