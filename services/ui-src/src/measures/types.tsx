@@ -68,5 +68,13 @@ export namespace Measure {
     "DeliverySys-Other-Percent": string;
     "DeliverySys-Other-NumberOfHealthPlans": string;
     "DeliverySys-Other-Population": string;
+    DidCalculationsDeviate: string;
+    DeviationOptions: string[];
+    DeviationFields: {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
   }
 }
