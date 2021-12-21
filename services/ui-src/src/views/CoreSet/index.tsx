@@ -7,11 +7,44 @@ import { Link } from "react-router-dom";
 enum coresetType {
   ACS = "Adult",
   CCS = "Child",
+  CCSM = "Child - Medicaid",
+  CCSC = "Child - Chip",
   HHCS = "Health Home",
 }
 
 export const CoreSet = () => {
   const { state, year, coreset } = useParams<Params>();
+
+  // This is where a fetch for the measures would live
+  const measures = [
+    {
+      Type: "Adult",
+      Name: "Antidepressant Medication Management",
+      Abbreviation: "AMM-AD",
+    },
+    {
+      Type: "Adult",
+      Name: "Asthma Medication Ratio: Ages 19 to 64",
+      Abbreviation: "AMR-AD",
+    },
+  ].map((measure) => {
+    return {
+      id: measure.Abbreviation,
+      path: "",
+      abbr: measure.Abbreviation,
+      title: measure.Name,
+      rateComplete: 0,
+      lastDateModified: "",
+      isReporting: false,
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    };
+  });
 
   return (
     <QMR.StateLayout
@@ -72,7 +105,7 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="15" maxH="md" overflowY="auto">
-        <QMR.Table data={QMR.adultMeasuresData} columns={QMR.measuresColumns} />
+        <QMR.Table data={measures} columns={QMR.measuresColumns} />
       </CUI.Box>
     </QMR.StateLayout>
   );

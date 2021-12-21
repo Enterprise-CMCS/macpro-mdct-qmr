@@ -1,4 +1,3 @@
-import { measuresList } from "libs/measuresLib";
 import { Measure } from "./types";
 
 // Example Measures list data for testing and demo page.
@@ -52,20 +51,3 @@ export const exampleMeasuresData: Measure.Data[] = [
     isReporting: false,
   },
 ];
-
-export const adultMeasuresData: Measure.Data[] = measuresList
-  .filter((measure) => measure.Type.toLocaleLowerCase() === "adult")
-  .map((measure) => {
-    return {
-      id: measure.Abbreviation,
-      path: "",
-      abbr: measure.Abbreviation,
-      title: measure.Name,
-      rateComplete: 0,
-      lastDateModified: "",
-      isReporting: false,
-      actions: [
-        { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
-      ],
-    };
-  });

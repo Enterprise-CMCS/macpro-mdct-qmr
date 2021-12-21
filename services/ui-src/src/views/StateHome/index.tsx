@@ -20,6 +20,36 @@ const data: CoreSet.Data[] = [
     id: "OH2021-ACS",
     year: "2021",
   },
+  {
+    path: "CCS",
+    title: "Child Core Set Measures",
+    type: CoreSet.Type.CHILD,
+    progress: { numAvailable: 12, numComplete: 2 },
+    actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCSM"),
+    submitted: false,
+    id: "OH2021-CCS",
+    year: "2021",
+  },
+  {
+    path: "CCSM",
+    title: "Child - Medicaid Core Set Measures",
+    type: CoreSet.Type.CHILD,
+    progress: { numAvailable: 12, numComplete: 3 },
+    actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCS"),
+    submitted: false,
+    id: "OH2021-CCSM",
+    year: "2021",
+  },
+  {
+    path: "HHCS",
+    title: "Health Home Set Measures",
+    type: CoreSet.Type.HEALTH_HOMES,
+    progress: { numAvailable: 12, numComplete: 5 },
+    actions: coreSetActions[CoreSet.Type.ADULT]("OH2021-HHCS"),
+    submitted: false,
+    id: "OH2021-ACS",
+    year: "2021",
+  },
 ];
 
 const ReportingYear = () => {

@@ -3,15 +3,6 @@ import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 
 describe("Test CoreSet.tsx", () => {
-  jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"),
-    useParams: () => ({
-      year: "2021",
-      state: "OH",
-      CoreSet: "Adult",
-    }),
-  }));
-
   beforeEach(() => {
     render(
       <RouterWrappedComp>
