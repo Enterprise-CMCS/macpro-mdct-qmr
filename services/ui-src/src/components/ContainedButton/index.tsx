@@ -1,7 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faPrint } from "@fortawesome/free-solid-svg-icons";
-
+import { FaPlusCircle, FaPrint } from "react-icons/fa";
 interface ContainedButtonProps {
   buttonText: any;
   buttonProps?: CUI.ButtonProps;
@@ -21,13 +19,11 @@ export const ContainedButton = ({
   icon,
   onClick,
 }: ContainedButtonProps) => {
-  const printIcon =
-    icon === "print" ? <FontAwesomeIcon icon={faPrint} /> : undefined;
-  const plusIcon =
-    icon === "plus" ? <FontAwesomeIcon icon={faPlusCircle} /> : undefined;
+  const printIcon = icon === "print" ? <FaPrint /> : undefined;
+  const plusIcon = icon === "plus" ? <FaPlusCircle /> : undefined;
 
   return (
-    <CUI.Box textAlign="center">
+    <CUI.Box>
       <CUI.Button
         leftIcon={printIcon}
         rightIcon={plusIcon}

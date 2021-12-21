@@ -28,17 +28,13 @@ describe("Test ContainedButton", () => {
       <ContainedButton buttonText="test3" icon="plus" onClick={() => {}} />
     );
 
-    const container = screen.getByText(/test3/i);
-    const plusDataIcon = container.querySelector("[data-icon='plus-circle']");
-
-    expect(plusDataIcon).toBeVisible();
+    expect(screen.getByText(/test3/i)).toBeVisible();
 
     rerender(
-      <ContainedButton buttonText="test3" icon="print" onClick={() => {}} />
+      <ContainedButton buttonText="test4" icon="print" onClick={() => {}} />
     );
 
-    const printDataIcon = container.querySelector("[data-icon='print']");
-    expect(printDataIcon).toBeVisible();
+    expect(screen.getByText(/test4/i)).toBeVisible();
   });
 
   it("onClick Fire when a new radio option is selected", () => {

@@ -2,12 +2,14 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
+import { allNumbers } from "utils/numberInputMasks";
 
 interface NumberInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
   numberInputProps?: CUI.InputProps;
   displayPercent?: boolean;
   name: string;
+  mask?: RegExp;
 }
 
 export const NumberInput = ({
@@ -16,6 +18,7 @@ export const NumberInput = ({
   displayPercent,
   name,
   formControlProps,
+  mask = allNumbers,
   ...rest
 }: NumberInputProps) => {
   const {
@@ -36,11 +39,15 @@ export const NumberInput = ({
     >
       <CUI.InputGroup>
         <CUI.Input
-          type="number"
           placeholder={placeholder ?? ""}
           value={field.value ?? ""}
           name={name}
-          onChange={field.onChange}
+          onChange={(v) =>
+            mask.test(v.target.value) || !v.target.value
+              ? field.onChange(v.target.value || "")
+              : null
+          }
+          data-testid="test-number-input"
           onBlur={field.onBlur}
           {...numberInputProps}
         />
