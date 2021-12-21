@@ -51,6 +51,9 @@ export const DemoMeasure = () => {
                 <Q.Status />
                 <Q.DataSource />
                 <Q.DefinitionOfPopulation />
+                <Q.DeviationFromMeasureSpec
+                  options={Q.defaultDeviationOptions}
+                />
               </>
             )}
             <Q.AdditionalNotes />

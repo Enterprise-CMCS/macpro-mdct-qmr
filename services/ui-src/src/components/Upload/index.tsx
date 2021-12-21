@@ -88,12 +88,12 @@ export const Upload = ({
         <CUI.Text fontSize="lg">
           Drag & drop or{" "}
           <button type="button">
-            <CUI.Text color="blue.300" as="u">
+            <CUI.Text color="blue" as="u">
               browse
             </CUI.Text>
           </button>
         </CUI.Text>
-        <CUI.Text color="gray.500" fontSize="sm">
+        <CUI.Text color="black" fontSize="sm" fontWeight="300">
           Maximum file size of {convertFileSize(maxSize)}.
         </CUI.Text>
       </CUI.VStack>
