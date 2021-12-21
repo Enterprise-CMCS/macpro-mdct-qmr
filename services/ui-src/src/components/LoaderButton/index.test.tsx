@@ -1,10 +1,9 @@
 import { LoaderButton } from "./index";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 describe("Test LoaderButton.js", () => {
   test("Check the main element, with classname LoaderButton, exists", () => {
-    const { getByTestId } = render(<LoaderButton isLoading />);
-
-    expect(getByTestId("LoaderButton")).toBeVisible();
+    render(<LoaderButton children={<>LoaderButton</>} isLoading />);
+    expect(screen.getByText("LoaderButton")).toBeVisible();
   });
 });

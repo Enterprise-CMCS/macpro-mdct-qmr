@@ -33,7 +33,7 @@ describe("Test StateHome", () => {
   });
 
   test("Check that the Adult core set record renders", () => {
-    expect(screen.getByText(/Adult Core Set Measures/i)).toBeInTheDocument();
+    expect(screen.getByText("Adult Core Set Measures")).toBeInTheDocument();
   });
 
   test("Check that the route is correct when reporting year is changed", () => {
