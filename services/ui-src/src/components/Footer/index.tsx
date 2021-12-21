@@ -17,7 +17,7 @@ export function Footer(): JSX.Element {
             For technical questions regarding use of this application, please
             reach out to{" "}
             <CUI.Link
-              color="blue.500"
+              color="blue"
               href={`mailto:${Libs.helpDeskContact.email}`}
             >
               {Libs.helpDeskContact.email}
@@ -25,10 +25,7 @@ export function Footer(): JSX.Element {
             . For content-related questions, such as about measure
             specifications or what information to enter in each field, please
             reach out to{" "}
-            <CUI.Link
-              color="blue.500"
-              href={`mailto:${Libs.qualityContact.email}`}
-            >
+            <CUI.Link color="blue" href={`mailto:${Libs.qualityContact.email}`}>
               {Libs.qualityContact.email}
             </CUI.Link>
           </CUI.Text>
@@ -61,7 +58,7 @@ export function Footer(): JSX.Element {
           </CUI.Box>
         </CUI.Container>
       </CUI.Box>
-      <CUI.Box bg="blue.500" color="white" py="4">
+      <CUI.Box bg="#0071bc" color="white" py="4">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
           <CUI.Box display={{ base: "block", md: "flex" }}>
             <CUI.Text>
