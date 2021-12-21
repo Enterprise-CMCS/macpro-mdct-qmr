@@ -1,5 +1,10 @@
-export namespace DemoForm {
-  export interface DemoFormType {
+export namespace Measure {
+  export interface Props {
+    name: string;
+    year: string;
+  }
+
+  export interface Form {
     DidReport: string;
     DataStatus: string[];
     DataSource: string[];

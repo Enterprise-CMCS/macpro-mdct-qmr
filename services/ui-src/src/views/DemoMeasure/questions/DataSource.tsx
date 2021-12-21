@@ -2,11 +2,11 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DemoForm } from "views/DemoMeasure/DemoFormType";
+import { Measure } from "measures/types";
 
 export const DataSource = () => {
   const methods = useFormContext();
-  const register = useCustomRegister<DemoForm.DemoFormType>();
+  const register = useCustomRegister<Measure.Form>();
   const { watch } = methods;
 
   return (
