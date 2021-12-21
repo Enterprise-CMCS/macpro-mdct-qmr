@@ -83,6 +83,7 @@ export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
             buttonText={buttonText}
             disabledStatus={status !== CoreSet.Status.COMPLETED}
             buttonProps={{
+              bg: "blue.600",
               colorScheme: "blue",
               textTransform: "capitalize",
               w: "full",
