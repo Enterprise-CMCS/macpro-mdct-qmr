@@ -66,13 +66,12 @@ export const CoreSet = () => {
             helperText="Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021"
             helperTextProps={{
               fontSize: ".5rem",
-              color: "grey",
               paddingTop: "1",
             }}
           />
         </CUI.Box>
       </CUI.Flex>
-      <CUI.Box mt="3" maxH="md" overflowY="auto">
+      <CUI.Box mt="15" maxH="md" overflowY="auto">
         <QMR.Table data={QMR.adultMeasuresData} columns={QMR.measuresColumns} />
       </CUI.Box>
     </QMR.StateLayout>
