@@ -65,7 +65,7 @@ export const adultMeasuresData: Measure.Data[] = measuresList
       lastDateModified: "",
       isReporting: false,
       actions: [
-          { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) }
-        ],
-      }
+        { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
+      ],
+    };
   });
