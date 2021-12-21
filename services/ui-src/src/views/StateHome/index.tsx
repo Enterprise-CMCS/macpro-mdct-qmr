@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import config from "config";
+import { measuresList } from "measures/measuresList";
 import { useParams, useNavigate } from "react-router-dom";
 import { Params } from "Routes";
 import { CoreSet } from "components/Table/types";
@@ -65,8 +65,9 @@ const data: CoreSet.Data[] = [
 const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams<Params>();
+  const reportingYears = Object.keys(measuresList);
 
-  const reportingyearOptions = config.reportingYears.map((year: string) => ({
+  const reportingyearOptions = reportingYears.map((year: string) => ({
     displayValue: year + " Core Set",
     value: year,
   }));
