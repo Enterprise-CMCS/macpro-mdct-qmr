@@ -7,7 +7,7 @@ import * as QMR from "components";
 import Measures from "measures";
 import { measuresList, MeasuresListItem } from "measures/measuresList";
 
-export type Params = "state" | "year" | "coreset" | "measure";
+export type Params = "state" | "year" | "coreSetId" | "measureId";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ interface MeasureRoute {
 
 // For each year we want a route for each measure.
 // The measures available for each year are defined in the measuresList
-// eg. http://localhost:3000/:state/2021/:coreset/AMM-AD
+// eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
 
 const measureRoutes: MeasureRoute[] = [];
 
@@ -37,7 +37,7 @@ Object.keys(measuresList).forEach((year: string) => {
       const Comp = Measures[year][measureId];
 
       measureRoutes.push({
-        path: `:state/${year}/:coreset/${measureId}`,
+        path: `:state/${year}/:coreSetId/${measureId}`,
         el: (
           <QMR.MeasureWrapper
             name={name}
@@ -62,7 +62,7 @@ export function AppRoutes({ user }: { user: CognitoUser }) {
           element={<Views.AddChildCoreSet />}
         />
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
-        <Route path=":state/:year/:coreset" element={<Views.CoreSet />} />
+        <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
         <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route path={m.path} element={m.el} key={m.path} />

@@ -62,7 +62,8 @@
       "!src/views/DemoMeasure/MockData.ts",
       "!src/views/StateHome/actions.ts",
       "!src/components/Table/_coreSetData.ts",
-      "!src/components/Table/_measureData.ts"
+      "!src/components/Table/_measureData.ts",
+      "!src/views/DemoMeasure/DemoFormType.ts"
     ],
     "moduleDirectories": [
       "node_modules",

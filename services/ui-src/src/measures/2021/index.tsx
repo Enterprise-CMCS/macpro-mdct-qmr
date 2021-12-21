@@ -3,10 +3,10 @@ When importing a measure it should be a named import and added to the measures o
 the key should be the measure id as a string (with '-XX' included) 
 */
 
-import { AMM } from "./AMM";
+import { AMMAD } from "./AMMAD";
 
 const twentyTwentyOneMeasures = {
-  "AMM-AD": AMM,
+  "AMM-AD": AMMAD,
 };
 
 export default twentyTwentyOneMeasures;
