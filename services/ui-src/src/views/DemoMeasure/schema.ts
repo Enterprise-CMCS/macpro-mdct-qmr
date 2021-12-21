@@ -68,4 +68,12 @@ export const validationSchema = Joi.object<DemoForm.DemoFormType>({
   "DeliverySys-Other-Population": Joi.string(),
   DidCalculationsDeviate: Joi.string(),
   DeviationOptions: Joi.array().items(Joi.string()),
+  DeviationFields: Joi.array().items(
+    Joi.object({
+      options: Joi.array().items(Joi.string()),
+      numerator: Joi.string(),
+      denominator: Joi.string(),
+      other: Joi.string(),
+    })
+  ),
 });
