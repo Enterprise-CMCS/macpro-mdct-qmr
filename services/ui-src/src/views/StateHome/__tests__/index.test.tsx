@@ -38,8 +38,8 @@ describe("Test StateHome", () => {
 
   test("Check that the route is correct when reporting year is changed", () => {
     fireEvent.change(screen.getByTestId("select"), {
-      target: { value: "2020" },
+      target: { value: "2022" },
     });
-    expect(mockedNavigate).toHaveBeenCalledWith("/OH/2020");
+    expect(mockedNavigate).toHaveBeenCalledWith("/OH/2022");
   });
 });
