@@ -31,7 +31,7 @@ enum coreSetQuestionsText {
 export const CoreSet = () => {
   const { state, year, coreSetId } = useParams<Params>();
 
-  // This is where a fetch for the measures would live and calcuilate progress completed
+  // This is where a fetch for the measures would live and calculate progress completed
   const measures = [
     {
       Type: "Adult",
