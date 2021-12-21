@@ -1,15 +1,31 @@
 import { CoreSet } from "./index";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 
 describe("Test CoreSet.tsx", () => {
-  test("Check that the contact us renders", () => {
-    const { getByTestId } = render(
+  beforeEach(() => {
+    render(
       <RouterWrappedComp>
         <CoreSet />
       </RouterWrappedComp>
     );
+  });
 
-    expect(getByTestId("core-set")).toBeVisible();
+  describe("Test coreset component", () => {
+    test("Check that the nav renders", () => {
+      expect(screen.getByTestId("state-layout-container")).toBeVisible();
+    });
+
+    it("renders the correct child measure table data components", () => {
+      expect(
+        screen.getByText(
+          /Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021/i
+        )
+      ).toBeInTheDocument();
+
+      expect(screen.getByText(/Submit Measures/i)).toBeInTheDocument();
+
+      expect(screen.getByText(/Reporting FFY 2021/i)).toBeInTheDocument();
+    });
   });
 });
