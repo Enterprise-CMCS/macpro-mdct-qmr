@@ -4,12 +4,28 @@ import { useParams } from "react-router-dom";
 import { Params } from "Routes";
 import { Link } from "react-router-dom";
 
-enum coresetType {
+enum coreSetType {
   ACS = "Adult",
   CCS = "Child",
   CCSM = "Child - Medicaid",
   CCSC = "Child - Chip",
   HHCS = "Health Home",
+}
+
+enum coreSetMeasureTitle {
+  ACS = "Adult Core Set Measure",
+  CCS = "Child Core Set Measure",
+  CCSM = "Child Core Set Measure: Medicaid",
+  CCSC = "Child Core Set Measure: CHIP",
+  HHCS = "Health Home Core Set Questions: User generated SPA name",
+}
+
+enum coreSetQuestionsText {
+  ACS = "Adult Core Set Questions",
+  CCS = "Child Core Set Questions",
+  CCSM = "Child Core Set Questions: Medicaid",
+  CCSC = "Child Core Set Questions: CHIP",
+  HHCS = "Health Home Core Set Questions: User generated SPA name",
 }
 
 export const CoreSet = () => {
@@ -19,23 +35,13 @@ export const CoreSet = () => {
   const measures = [
     {
       Type: "Adult",
-      Name: "Antidepressant Medication Management",
-      Abbreviation: "AMM-AD",
-    },
-    {
-      Type: "Adult",
-      Name: "Asthma Medication Ratio: Ages 19 to 64",
-      Abbreviation: "AMR-AD",
-    },
-  ].map((measure) => {
-    return {
-      id: measure.Abbreviation,
+      title: "Antidepressant Medication Management",
+      abbr: "AMM-AD",
       path: "",
-      abbr: measure.Abbreviation,
-      title: measure.Name,
+      isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      isReporting: false,
+      id: "",
       actions: [
         {
           itemText: "Edit",
@@ -43,8 +49,25 @@ export const CoreSet = () => {
           handleSelect: (id: string) => console.log(id),
         },
       ],
-    };
-  });
+    },
+    {
+      Type: "Health Home",
+      title: "Ambulatory Care: Emergency Department (ED) Visits",
+      abbr: "AMB-HH",
+      path: "",
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
+  ];
 
   return (
     <QMR.StateLayout
@@ -52,9 +75,9 @@ export const CoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: `${
-            coresetType[coreSetId as keyof typeof coresetType]
-          } Core Set Measures`,
+          name: coreSetMeasureTitle[
+            coreSetId as keyof typeof coreSetMeasureTitle
+          ],
         },
       ]}
     >
@@ -70,14 +93,22 @@ export const CoreSet = () => {
             <CUI.Text fontSize="sm">Core Set Qualifiers</CUI.Text>
             <Link to={"questions"}>
               <CUI.Text fontSize="sm" color="blue">
-                Adult Core Set Questions
+                {
+                  coreSetQuestionsText[
+                    coreSetId as keyof typeof coreSetQuestionsText
+                  ]
+                }
               </CUI.Text>
             </Link>
           </CUI.Box>
 
           <CUI.HStack>
             <CUI.Box pr="10">
-              <CUI.Text fontSize="sm">Adult Measures</CUI.Text>
+              <CUI.Text fontSize="sm">
+                {`${
+                  coreSetType[coreSetId as keyof typeof coreSetType]
+                } Measures`}
+              </CUI.Text>
               <CUI.Text fontSize="sm" fontWeight="600">
                 16% Complete
               </CUI.Text>
