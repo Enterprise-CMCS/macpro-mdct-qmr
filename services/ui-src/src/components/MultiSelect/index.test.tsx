@@ -3,41 +3,37 @@ import userEvent from "@testing-library/user-event";
 import * as QMR from "components";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
-const TestComponent = () => {
-  return (
-    <QMR.MultiSelect
-      name="multiSelect"
-      multiSelectList={[
-        {
-          label: "AMM-AD - Antidepressant Medication Management",
-          value: "AMM-AD",
-          isChecked: false,
-          isVisible: true,
-        },
-        {
-          label: "AMR-AD - Asthma Medication Ratio: Ages 19 to 64",
-          value: "AMR-AD",
-          isChecked: true,
-          isVisible: true,
-        },
-        {
-          label: "BCS-AD - Breast Cancer Screening",
-          value: "BCS-AD",
-          isChecked: true,
-          isVisible: true,
-        },
-      ]}
-    />
-  );
-};
+const multiSelectList = [
+  {
+    label: "AMM-AD - Antidepressant Medication Management",
+    value: "AMM-AD",
+    isVisible: true,
+  },
+  {
+    label: "AMR-AD - Asthma Medication Ratio: Ages 19 to 64",
+    value: "AMR-AD",
+    isVisible: true,
+  },
+  {
+    label: "BCS-AD - Breast Cancer Screening",
+    value: "BCS-AD",
+    isVisible: true,
+  },
+];
 
 describe("Test the MultiSelect component", () => {
   beforeEach(() => {
-    renderWithHookForm(<TestComponent />, {
-      defaultValues: {
-        "test-component": "Other",
-      },
-    });
+    renderWithHookForm(
+      <QMR.MultiSelect
+        multiSelectList={multiSelectList}
+        name="test-component"
+      />,
+      {
+        defaultValues: {
+          "test-component": ["AMR-AD", "BCS-AD"],
+        },
+      }
+    );
   });
 
   test("Check whether the component renders", () => {
@@ -59,6 +55,11 @@ describe("Test the MultiSelect component", () => {
     expect(checkboxAmmAd.checked).toEqual(true);
     expect(checkboxAmrAd.checked).toEqual(true);
     expect(checkboxBcsAd.checked).toEqual(true);
+    // test uncheckAll
+    fireEvent.click(checkAll);
+    expect(checkboxAmmAd.checked).toEqual(false);
+    expect(checkboxAmrAd.checked).toEqual(false);
+    expect(checkboxBcsAd.checked).toEqual(false);
   });
 
   test("Check whether checking all checkboxes if checked, checks on the checkAll element automatically", () => {
