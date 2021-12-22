@@ -1,3 +1,4 @@
+import { IKebabMenuItem } from "components";
 import { ReactElement } from "react";
 
 export namespace CoreSet {
@@ -26,7 +27,7 @@ export namespace CoreSet {
     type: Type;
     progress: Progress;
     submitted: boolean;
-    actions: string;
+    actions: IKebabMenuItem[];
     year: string;
   };
 }
@@ -45,7 +46,7 @@ export namespace Measure {
     title: string;
     rateComplete: number;
     lastDateModified: string;
-    actions: string;
+    actions: IKebabMenuItem[];
     isReporting: boolean | null;
   };
 
