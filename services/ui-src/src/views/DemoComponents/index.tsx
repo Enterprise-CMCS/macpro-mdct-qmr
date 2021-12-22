@@ -106,7 +106,7 @@ const DemoComponentsForm = () => {
         isVisible: true,
       },
       {
-        label: "BCD-AD - Breast Cancer Screening",
+        label: "BCS-AD - Breast Cancer Screening",
         value: "BCS-AD",
         isChecked: true,
         isVisible: true,
