@@ -22,7 +22,7 @@ export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
             itemText={i.itemText}
             id={i.id}
             handleSelect={i.handleSelect}
-            key={i.id}
+            key={`${i.id}_${i.itemText}`}
           />
         ))}
       </CUI.MenuList>
