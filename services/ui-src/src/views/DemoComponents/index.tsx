@@ -96,43 +96,34 @@ const DemoComponentsForm = () => {
       {
         label: "AMM-AD - Antidepressant Medication Management",
         value: "AMM-AD",
-        isChecked: false,
         isVisible: true,
       },
       {
         label: "AMR-AD - Asthma Medication Ratio: Ages 19 to 64",
         value: "AMR-AD",
-        isChecked: true,
         isVisible: true,
       },
       {
         label: "BCS-AD - Breast Cancer Screening",
         value: "BCS-AD",
-        isChecked: true,
         isVisible: true,
       },
       {
         label: "CBP-AD - Controlling High Blood Pressue",
         value: "CBP-AD",
-        isChecked: false,
         isVisible: true,
       },
       {
         label: "CCP-AD - Contraceptive Care Postpartum Women Ages 21 - 44",
         value: "CCP-AD",
-        isChecked: false,
         isVisible: true,
       },
     ],
     []
   );
-  // const { setValue } = useForm();
   useEffect(() => {
-    methods.setValue(
-      "demoMultiSelectList",
-      multiSelectList.filter((item) => item.isChecked).map((item) => item.value)
-    );
-  }, [multiSelectList]);
+    methods.setValue("demoMultiSelectList", ["AMM-AD", "BCS-AD"]);
+  }, []);
   return (
     <QMR.StateLayout
       breadcrumbItems={[{ path: `/components`, name: "Demo Components" }]}
