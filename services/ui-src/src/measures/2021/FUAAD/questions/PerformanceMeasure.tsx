@@ -8,25 +8,18 @@ export const PerformanceMeasure = () => {
 
   const ageRates = [
     {
-      label: "Test Label For Section",
+      label: "Ages 18 to 64",
       denominator: "",
       numerator: "",
       rate: "",
       id: 1,
     },
     {
-      label: "Another Test Label",
+      label: "Age 65 and older",
       denominator: "",
       numerator: "",
       rate: "",
-      id: 3,
-    },
-    {
-      label: "Last Test Label",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 5,
+      id: 2,
     },
   ];
 
@@ -54,7 +47,20 @@ export const PerformanceMeasure = () => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
-      <QMR.Rate rates={ageRates} {...register("ageRates")} />
+      <CUI.Text fontWeight="bold" my="5">
+        Follow-up within 30 days of ED visit
+      </CUI.Text>
+      <QMR.Rate
+        rates={ageRates}
+        {...register("PerformanceMeassure-AgeRates-30Days")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Follow-up within 7 days of ED visit
+      </CUI.Text>
+      <QMR.Rate
+        rates={ageRates}
+        {...register("PerformanceMeassure-AgeRates-30Days")}
+      />
     </QMR.CoreQuestionWrapper>
   );
 };

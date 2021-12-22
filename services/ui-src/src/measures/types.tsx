@@ -78,5 +78,13 @@ export namespace Measure {
       other: string;
     };
     "PerformanceMeasure-Explanation": string;
+    "PerformanceMeassure-AgeRates-30Days": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    };
   }
 }
