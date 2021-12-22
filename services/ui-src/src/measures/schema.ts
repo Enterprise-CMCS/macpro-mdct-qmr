@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { join } from "path/posix";
 import { Measure } from "./types";
 
 // This is the validation schema for any/all state measures
@@ -79,4 +80,5 @@ export const validationSchema = Joi.object<Measure.Form>({
       })
     )
     .sparse(),
+  "PerformanceMeasure-Explanation":Joi.string(),
 });

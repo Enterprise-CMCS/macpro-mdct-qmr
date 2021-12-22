@@ -7,3 +7,4 @@ export * from "./MeasurementSpecification";
 export * from "./Reporting";
 export * from "./Status";
 export * from "./WhyAreYouNotReporting";
+export * from "./PerformanceMeasure";

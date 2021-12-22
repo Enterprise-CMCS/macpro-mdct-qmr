@@ -77,5 +77,6 @@ export namespace Measure {
       numerator: string;
       other: string;
     };
+    "PerformanceMeasure-Explanation": string;
   }
 }

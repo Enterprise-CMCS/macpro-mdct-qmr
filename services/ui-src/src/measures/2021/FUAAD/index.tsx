@@ -25,6 +25,7 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           <Q.MeasurementSpecification />
           <Q.DataSource />
           <Q.DefinitionOfPopulation />
+          <Q.PerformanceMeasure />
           <Q.DeviationFromMeasureSpec options={Q.defaultDeviationOptions} />
         </>
       )}
