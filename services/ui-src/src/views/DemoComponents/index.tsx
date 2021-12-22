@@ -365,10 +365,7 @@ const DemoComponentsForm = () => {
               Kebab Menu
             </CUI.Heading>
             <CUI.Box m={3}>
-              <QMR.KebabMenu
-                handleItemClick={() => null}
-                menuItems={KebabMenuItems}
-              />
+              <QMR.KebabMenu menuItems={KebabMenuItems} />
             </CUI.Box>
           </CUI.Stack>
           <CUI.Divider mt={5} />
