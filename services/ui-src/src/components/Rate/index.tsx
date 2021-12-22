@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
-import { useFormContext, useController } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 export interface IRate {
   label?: string;
   numerator: string;
@@ -15,13 +15,8 @@ interface Props {
 }
 
 export const Rate = ({ rates, name }: Props) => {
-  const { control } = useFormContext();
-  const { field } = useController({
-    name,
-    control,
-  });
-  // , watch
-  // const watchRateArray = watch('name')
+  const { watch } = useFormContext();
+  const watchRateArray = watch(name);
 
   return (
     <>
@@ -39,12 +34,18 @@ export const Rate = ({ rates, name }: Props) => {
               name={`${name}.${index}.denominator`}
               label="Denominator"
             />
-            <CUI.Text label="Rate">
-              {(field.value[index]?.numerator &&
-                field.value[index]?.denominator &&
-                4) ||
-                0}
-            </CUI.Text>
+            <CUI.Stack>
+              <CUI.FormLabel>{"Rate"}</CUI.FormLabel>
+              <CUI.Text>
+                {watchRateArray &&
+                watchRateArray[index] &&
+                watchRateArray[index].numerator &&
+                watchRateArray[index].denominator
+                  ? watchRateArray[index].numerator /
+                    watchRateArray[index].denominator
+                  : 0}
+              </CUI.Text>
+            </CUI.Stack>
           </CUI.HStack>
         </CUI.Stack>
       ))}
