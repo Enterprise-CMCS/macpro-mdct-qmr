@@ -1,9 +1,8 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { Measures } from "../dynamoUtils/measureList";
+import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 
 export const createCoreSet = handler(async (event, context) => {
   if (!event.pathParameters) return; // throw error message
@@ -58,10 +57,8 @@ const createDependentMeasures = async (
   coreSet: string,
   type: string
 ) => {
-  if (year !== 2021 && year !== 2022) return;
-
-  const filteredMeasures = Measures[year].filter(
-    (measure) => measure.type === type
+  const filteredMeasures = measures[year].filter(
+    (measure: MeasureMetaData) => measure.type === type
   );
 
   for await (const measure of filteredMeasures) {

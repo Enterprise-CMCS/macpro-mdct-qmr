@@ -1,4 +1,14 @@
-export const Measures = {
+interface Measure {
+  [year: number]: MeasureMetaData[];
+}
+
+export interface MeasureMetaData {
+  type: string;
+  description: string;
+  measure: string;
+}
+
+export const measures: Measure = {
   2021: [
     {
       type: "AD",
