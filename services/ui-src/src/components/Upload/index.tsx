@@ -2,13 +2,12 @@ import React from "react";
 import * as CUI from "@chakra-ui/react";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
-import { Control, useController } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 
 interface IUploadProps {
   maxSize?: number;
   label?: string;
   acceptedFileTypes?: string | string[];
-  control: Control<any, object>;
   name: string;
 }
 
@@ -16,7 +15,6 @@ export const Upload = ({
   maxSize = 80000000,
   label,
   name,
-  control,
   acceptedFileTypes = [
     ".pdf",
     ".doc",
@@ -27,6 +25,8 @@ export const Upload = ({
     ".png",
   ],
 }: IUploadProps) => {
+  const { control } = useFormContext();
+
   const { field } = useController({
     name,
     control,
@@ -88,12 +88,12 @@ export const Upload = ({
         <CUI.Text fontSize="lg">
           Drag & drop or{" "}
           <button type="button">
-            <CUI.Text color="blue.300" as="u">
+            <CUI.Text color="blue" as="u">
               browse
             </CUI.Text>
           </button>
         </CUI.Text>
-        <CUI.Text color="gray.500" fontSize="sm">
+        <CUI.Text color="black" fontSize="sm" fontWeight="300">
           Maximum file size of {convertFileSize(maxSize)}.
         </CUI.Text>
       </CUI.VStack>

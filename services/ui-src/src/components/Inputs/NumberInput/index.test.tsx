@@ -1,43 +1,61 @@
-import { render } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { NumberInput } from "components/Inputs/NumberInput";
-import { TestWrapper } from "components/TestWrapper";
-import { useForm } from "react-hook-form";
-
-const TestComponent = ({
-  renderPercent = false,
-}: {
-  renderPercent?: boolean;
-}) => {
-  const { register, setValue } = useForm();
-  setValue("test-component", "1234");
-
-  return (
-    <TestWrapper>
-      <NumberInput
-        label="label"
-        helperText="helper"
-        displayPercent={renderPercent}
-        {...register("test-component")}
-      />
-    </TestWrapper>
-  );
-};
+import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import { integersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 describe("Test the NumberInput component", () => {
-  test("Check that component renders", () => {
-    const screen = render(<TestComponent />);
-    expect(screen.getByDisplayValue("1234")).toBeVisible();
+  test("Check that component renders", async () => {
+    renderWithHookForm(
+      <NumberInput label="label" helperText="helper" name="test-component" />,
+      {
+        defaultValues: { "test-component": "1234" },
+      }
+    );
+    expect(await screen.findByDisplayValue("1234")).toBeInTheDocument();
   });
 
   test("Check that label and helper texts get rendered correctly", () => {
-    const { getByText } = render(<TestComponent />);
+    renderWithHookForm(
+      <NumberInput label="label" helperText="helper" name="test-component" />
+    );
 
-    expect(getByText("label")).toBeVisible();
-    expect(getByText("helper")).toBeVisible();
+    expect(screen.getByText("label")).toBeInTheDocument();
+    expect(screen.getByText("helper")).toBeInTheDocument();
+  });
+
+  test("Check decimal place restriction", async () => {
+    renderWithHookForm(
+      <NumberInput
+        label="label"
+        helperText="helper"
+        name="test-component"
+        mask={integersWithMaxDecimalPlaces(3)}
+      />
+    );
+
+    userEvent.type(screen.getByTestId("test-number-input"), "-123.12345", {
+      delay: 300,
+    });
+
+    await waitFor(
+      () => {
+        expect(screen.queryByDisplayValue("-123.123")).toBeInTheDocument();
+      },
+      { timeout: 300 * 11 }
+    );
   });
 
   test("Check that percent symbol is rendered correctly", () => {
-    const { getByText } = render(<TestComponent renderPercent={true} />);
-    expect(getByText("%")).toBeVisible();
+    renderWithHookForm(
+      <NumberInput
+        label="label"
+        helperText="helper"
+        displayPercent
+        name="test-component"
+      />
+    );
+    // const { getByText } = render(<TestComponent renderPercent={true} />);
+    expect(screen.getByText("%")).toBeVisible();
   });
 });

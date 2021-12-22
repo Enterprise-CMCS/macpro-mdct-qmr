@@ -1,117 +1,96 @@
-import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
-import {
-  BsFillCalendar2DateFill,
-  BsChevronLeft,
-  BsChevronRight,
-} from "react-icons/bs";
+import { MonthPickerCalendar } from "./calendarPopup";
+import { useController, useFormContext } from "react-hook-form";
 
-interface MonthPickerProps {
-  selectedYear?: number;
-  selectedMonth?: number;
-  yearLocked?: boolean;
-  onChange: (month: number, year: number) => void;
+interface CommonProps {
+  name: string;
+  initMonth?: string;
 }
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+
+type YearProps =
+  | {
+      yearLocked?: false;
+      initYear?: string;
+    }
+  | { yearLocked: true; initYear: string };
+
+type Props = CommonProps & YearProps;
 
 export const MonthPicker = ({
-  selectedMonth,
-  selectedYear = 2021,
-  yearLocked = false,
-  onChange: handleChange,
-}: MonthPickerProps) => {
-  const now = new Date();
-  const [pickerOpen, setPickerOpen] = useState(false);
-  const [year, setYear] = useState(selectedYear || now.getFullYear());
-  const [month, setMonth] = useState(selectedMonth || 0);
+  name,
+  yearLocked,
+  initYear,
+  initMonth,
+}: Props) => {
+  const { control } = useFormContext();
+  const { field } = useController({
+    name,
+    control,
+  });
 
-  const handleMonthClick = (month: number) => {
-    setMonth(month);
-    setPickerOpen(false);
-    handleChange(month, year);
-  };
+  const monthRegex = /^((1[0-2])|[1-9])?$/;
+  const yearRegex = /^((19|20)?\d{0,2})$/;
 
   return (
-    <CUI.Popover
-      isOpen={pickerOpen}
-      onClose={() => {
-        setPickerOpen(!pickerOpen);
-      }}
-    >
-      <CUI.PopoverTrigger>
-        <CUI.IconButton
-          variant="outline"
-          width="2rem"
-          aria-label="Month Picker"
-          icon={<BsFillCalendar2DateFill />}
-          onClick={() => {
-            setPickerOpen(!pickerOpen);
-          }}
-        />
-      </CUI.PopoverTrigger>
-      <CUI.PopoverContent data-testid="monthpicker-popover-content">
-        <CUI.PopoverHeader>
-          <CUI.HStack justifyContent={yearLocked ? "center" : "space-between"}>
-            {!yearLocked && (
-              <CUI.IconButton
-                aria-label="Previous Year"
-                variant="ghost"
-                icon={<BsChevronLeft />}
-                onClick={() => {
-                  setYear((pr) => pr - 1);
-                }}
-              />
-            )}
-            <CUI.Text>{year}</CUI.Text>
-            {!yearLocked && (
-              <CUI.IconButton
-                aria-label="Next Year"
-                variant="ghost"
-                icon={<BsChevronRight />}
-                onClick={() => {
-                  setYear((pr) => pr + 1);
-                }}
-              />
-            )}
+    <CUI.HStack>
+      <CUI.Stack>
+        <CUI.FormControl label="Month:">
+          <CUI.FormLabel my={0}>{"Month:"}</CUI.FormLabel>
+          <CUI.HStack>
+            <CUI.Input
+              width="4rem"
+              label="Month"
+              aria-label="Month Input Field"
+              name={`${name}.month`}
+              value={field.value?.selectedMonth ?? ""}
+              onChange={(e) =>
+                monthRegex.test(e.target.value)
+                  ? field.onChange({
+                      ...field.value,
+                      selectedMonth: e.target.value,
+                    })
+                  : null
+              }
+            />
+            <CUI.Text>{"/"}</CUI.Text>
           </CUI.HStack>
-        </CUI.PopoverHeader>
-        <CUI.PopoverBody>
-          <CUI.SimpleGrid columns={3}>
-            {monthNames.map((value, index) => {
-              const variant =
-                month === index + 1 && year === selectedYear
-                  ? "solid"
-                  : "ghost";
-              return (
-                <CUI.Button
-                  key={`${value}-${index}`}
-                  aria-label={value}
-                  variant={variant}
-                  colorScheme="blue"
-                  onClick={() => {
-                    handleMonthClick(index + 1);
-                  }}
-                >
-                  {value.substr(0, 3)}
-                </CUI.Button>
-              );
-            })}
-          </CUI.SimpleGrid>
-        </CUI.PopoverBody>
-      </CUI.PopoverContent>
-    </CUI.Popover>
+        </CUI.FormControl>
+      </CUI.Stack>
+      <CUI.Stack>
+        <CUI.FormControl label="Year:">
+          <CUI.FormLabel my={0}>{"Year:"}</CUI.FormLabel>
+          <CUI.HStack>
+            <CUI.Input
+              width="6rem"
+              label="Year"
+              aria-label="Year Input Field"
+              name={`${name}.year`}
+              value={field.value?.selectedYear ?? ""}
+              onChange={(e) =>
+                yearRegex.test(e.target.value)
+                  ? field.onChange({
+                      ...field.value,
+                      selectedYear: e.target.value,
+                    })
+                  : null
+              }
+            />
+            <MonthPickerCalendar
+              yearLocked={yearLocked}
+              selectedMonth={field.value?.selectedMonth || initMonth}
+              selectedYear={yearLocked ? initYear : field.value?.selectedYear}
+              onChange={(month, year) => {
+                field.onChange({
+                  selectedMonth: month,
+                  selectedYear: year,
+                });
+              }}
+            />
+          </CUI.HStack>
+        </CUI.FormControl>
+      </CUI.Stack>
+    </CUI.HStack>
   );
 };
+
+export * from "./calendarPopup";

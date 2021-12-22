@@ -7,7 +7,9 @@ export const exampleMeasuresData: Measure.Data[] = [
     abbr: "AMM-AD",
     title: "Antidepressant Medication Management",
     rateComplete: 0,
-    actions: "adult actions here",
+    actions: [
+      { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
+    ],
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test1",
     isReporting: null,
@@ -17,7 +19,9 @@ export const exampleMeasuresData: Measure.Data[] = [
     abbr: "AMR-AD",
     title: "Asthma Medication Ratio: Ages 19 to 64",
     rateComplete: 0,
-    actions: "chip actions here",
+    actions: [
+      { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
+    ],
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test2",
     isReporting: null,
@@ -27,7 +31,9 @@ export const exampleMeasuresData: Measure.Data[] = [
     abbr: "BCS-AD",
     title: "Breast Cancer Screening",
     rateComplete: 0.678,
-    actions: "medicaid actions here",
+    actions: [
+      { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
+    ],
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test3",
     isReporting: true,
@@ -37,7 +43,9 @@ export const exampleMeasuresData: Measure.Data[] = [
     abbr: "CBP-AD",
     title: "Controlling High Blood Pressure",
     rateComplete: 1,
-    actions: "health home actions here",
+    actions: [
+      { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
+    ],
     lastDateModified: "Fri Nov 26 2021 12:53:04 GMT-0700",
     id: "test4",
     isReporting: false,

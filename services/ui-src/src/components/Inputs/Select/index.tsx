@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { TiArrowUnsorted } from "react-icons/ti";
-import { Control, useController, useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 export interface SelectOption {
@@ -14,7 +14,6 @@ interface SelectProps extends QMR.InputWrapperProps {
   placeholder?: string;
   options: SelectOption[];
   name: string;
-  control: Control<any, object>;
 }
 
 export const Select = ({
@@ -22,17 +21,17 @@ export const Select = ({
   placeholder,
   options,
   name,
-  control,
   ...rest
 }: SelectProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   const { field } = useController({
     name,
     control,
   });
-
-  const {
-    formState: { errors },
-  } = useFormContext();
 
   return (
     <QMR.InputWrapper
@@ -44,6 +43,7 @@ export const Select = ({
         ref={field.ref}
         value={field.value}
         onBlur={field.onBlur}
+        borderRadius="sm"
         onChange={(newValue) => {
           field.onChange(newValue);
         }}

@@ -7,5 +7,5 @@ export * from "./NotFound";
 export * from "./StateHome";
 export * from "./AddChildCoreSet";
 export * from "./AddHHCoreSet";
-export * from "./DemoQuestions";
 export * from "./ApiTester";
+export * from "./DemoMeasure";
