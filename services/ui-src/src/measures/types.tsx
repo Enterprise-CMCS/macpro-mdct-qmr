@@ -71,7 +71,15 @@ export namespace Measure {
     "DeliverySys-Other-Population": string;
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    DeviationFields: {
+    "DeviationOptions-Within7-AgeRange": string[];
+    "DeviationOptions-Within30-AgeRange": string[];
+    "DeviationFields-Within7": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationFields-Within30": {
       options: string[];
       denominator: string;
       numerator: string;
@@ -79,6 +87,14 @@ export namespace Measure {
     };
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeassure-AgeRates-30Days": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    };
+    "PerformanceMeassure-AgeRates-7Days": {
       denominator: string;
       numerator: string;
       other: string;

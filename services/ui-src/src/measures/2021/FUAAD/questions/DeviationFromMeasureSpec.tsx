@@ -90,11 +90,36 @@ export const DeviationFromMeasureSpec = ({ options }: Props) => {
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
-                formLabelProps={{ fontWeight: 600 }}
-                options={deviationOptions({
-                  options,
-                  ...register("DeviationFields"),
-                })}
+                options={[
+                  {
+                    value: "FollowUpWithin30",
+                    displayValue: "Follow-up within 30 days of ED visit",
+                    children: [
+                      <QMR.Checkbox
+                        {...register("DeviationOptions-Within30-AgeRange")}
+                        formLabelProps={{ fontWeight: 600 }}
+                        options={deviationOptions({
+                          options,
+                          ...register("DeviationFields-Within30"),
+                        })}
+                      />,
+                    ],
+                  },
+                  {
+                    value: "FollowUpWithin7",
+                    displayValue: "Follow-up within 7 days of ED visit",
+                    children: [
+                      <QMR.Checkbox
+                        {...register("DeviationOptions-Within7-AgeRange")}
+                        formLabelProps={{ fontWeight: 600 }}
+                        options={deviationOptions({
+                          options,
+                          ...register("DeviationFields-Within7"),
+                        })}
+                      />,
+                    ],
+                  },
+                ]}
               />,
             ],
           },
