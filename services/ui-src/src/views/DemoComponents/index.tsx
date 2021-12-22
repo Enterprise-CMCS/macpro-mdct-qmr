@@ -8,18 +8,21 @@ import { KebabMenu, IKebabMenuItem } from "components/KebabMenu";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { ContainedButton } from "components/ContainedButton";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { DemoValidationSchema } from "./ValidationSchema";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { Notification } from "components/Notification";
+import { MultiSelect, ICheckbox } from "components/MultiSelect";
+import { Divider } from "@chakra-ui/react";
+
 const selectOptions = [
   { displayValue: "option1", value: "option1" },
   { displayValue: "option2", value: "option2" },
   { displayValue: "invalid", value: "invalid" },
 ];
-
+let methods: any;
 export function DemoComponents(): JSX.Element {
-  const methods = useForm({
+  methods = useForm({
     shouldUnregister: true,
     mode: "all",
     resolver: joiResolver(DemoValidationSchema),
@@ -88,6 +91,48 @@ const DemoComponentsForm = () => {
     console.log(DemoValidationSchema.validate(data));
   };
 
+  const multiSelectList = useMemo<ICheckbox[]>(
+    () => [
+      {
+        label: "AMM-AD - Antidepressant Medication Management",
+        value: "AMM-AD",
+        isChecked: false,
+        isVisible: true,
+      },
+      {
+        label: "AMR-AD - Asthma Medication Ratio: Ages 19 to 64",
+        value: "AMR-AD",
+        isChecked: true,
+        isVisible: true,
+      },
+      {
+        label: "BCD-AD - Breast Cancer Screening",
+        value: "BCS-AD",
+        isChecked: true,
+        isVisible: true,
+      },
+      {
+        label: "CBP-AD - Controlling High Blood Pressue",
+        value: "CBP-AD",
+        isChecked: false,
+        isVisible: true,
+      },
+      {
+        label: "CCP-AD - Contraceptive Care Postpartum Women Ages 21 - 44",
+        value: "CCP-AD",
+        isChecked: false,
+        isVisible: true,
+      },
+    ],
+    []
+  );
+  // const { setValue } = useForm();
+  useEffect(() => {
+    methods.setValue(
+      "demoMultiSelectList",
+      multiSelectList.filter((item) => item.isChecked).map((item) => item.value)
+    );
+  }, [multiSelectList]);
   return (
     <QMR.StateLayout
       breadcrumbItems={[{ path: `/components`, name: "Demo Components" }]}
@@ -485,6 +530,14 @@ const DemoComponentsForm = () => {
                 onClick={() => setErrorAlert(true)}
               />
             </CUI.HStack>
+            <Divider />
+            <CUI.Heading size="sm" as="h3">
+              Multiselect Checkboxes
+            </CUI.Heading>
+            <MultiSelect
+              multiSelectList={multiSelectList}
+              {...register("demoMultiSelectList")}
+            ></MultiSelect>
           </CUI.VStack>
         </CUI.Container>
         <button>Submit</button>
