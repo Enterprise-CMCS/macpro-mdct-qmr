@@ -4,8 +4,15 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 
 export const deleteCoreSet = handler(async (event, context) => {
+  if (!event.pathParameters) return; // throw error message
+  if (
+    !event.pathParameters.state ||
+    !event.pathParameters.year ||
+    !event.pathParameters.coreSet
+  )
+    return; // throw error message
   const state = event.pathParameters.state;
-  const year = event.pathParameters.year;
+  const year = parseInt(event.pathParameters.year);
   const coreSet = event.pathParameters.coreSet;
 
   const dynamoKey = createCompoundKey(event);
@@ -23,9 +30,15 @@ export const deleteCoreSet = handler(async (event, context) => {
   return params;
 });
 
-const deleteDependentMeasures = async (state, year, coreSet) => {
+const deleteDependentMeasures = async (
+  state: string,
+  year: number,
+  coreSet: string
+) => {
   const measures = await getMeasures(state, year, coreSet);
-  for await (const { measure } of measures.Items) {
+  const Items = measures.Items || [];
+
+  for await (const { measure } of Items) {
     const dynamoKey = `${state}${year}${coreSet}${measure}`;
     const params = {
       TableName: process.env.measureTableName,
@@ -40,7 +53,7 @@ const deleteDependentMeasures = async (state, year, coreSet) => {
   }
 };
 
-const getMeasures = async (state, year, coreSet) => {
+const getMeasures = async (state: string, year: number, coreSet: string) => {
   const params = {
     TableName: process.env.measureTableName,
     ...convertToDynamoExpression(

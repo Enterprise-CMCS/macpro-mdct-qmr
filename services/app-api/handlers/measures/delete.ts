@@ -3,6 +3,9 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 
 export const deleteMeasure = handler(async (event, context) => {
+  if (!event.pathParameters) return; // throw error message
+  if (!event.pathParameters.coreSet) return; // throw error message
+
   const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.measureTableName,
@@ -15,6 +18,4 @@ export const deleteMeasure = handler(async (event, context) => {
   await dynamoDb.delete(params);
 
   return params;
-
-  // return params.Item;
 });

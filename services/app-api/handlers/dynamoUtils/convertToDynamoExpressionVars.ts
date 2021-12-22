@@ -2,10 +2,14 @@
 //   state: "MO",
 //   year: "2021",
 // };
+type ExperessionType = "list" | "post";
 
-export const convertToDynamoExpression = (listOfVars, expressionType) => {
-  let expressionAttributeNames = {};
-  let expressionAttributeValues = {};
+export const convertToDynamoExpression = (
+  listOfVars: any,
+  expressionType: ExperessionType
+) => {
+  let expressionAttributeNames: any = {};
+  let expressionAttributeValues: any = {};
   let updateExpression = "";
   let filterExpression = "";
   Object.keys(listOfVars).forEach((key, index) => {
