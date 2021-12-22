@@ -26,11 +26,15 @@ export const Table = <T extends TableData>({
       </CUI.Thead>
       <CUI.Tbody>
         {data?.map((row) => (
-          <CUI.Tr key={row.id}>
+          <CUI.Tr key={row.id + "_tr"}>
             {columns.map((column) => {
               const element = column.cell(row);
               return (
-                <CUI.Td key={column.id} maxW="2xs" {...column.styleProps}>
+                <CUI.Td
+                  key={column.id + "_td"}
+                  maxW="2xs"
+                  {...column.styleProps}
+                >
                   {element}
                 </CUI.Td>
               );

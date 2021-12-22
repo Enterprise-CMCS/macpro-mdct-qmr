@@ -68,9 +68,13 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         }
       >
         <form data-testid="measure-wrapper-form">
-          <CUI.Box maxW="7xl" as="section">
-            {cloneElement(measure, { name, year })}
-          </CUI.Box>
+          <CUI.Container maxW="4xl" as="section">
+            {cloneElement(measure, {
+              name,
+              year,
+              handleSubmit: methods.handleSubmit(handleSubmit),
+            })}
+          </CUI.Container>
         </form>
       </QMR.StateLayout>
     </FormProvider>

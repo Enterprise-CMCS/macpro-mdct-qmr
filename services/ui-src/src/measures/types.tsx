@@ -2,6 +2,7 @@ export namespace Measure {
   export interface Props {
     name: string;
     year: string;
+    handleSubmit: any;
   }
 
   export interface Form {
