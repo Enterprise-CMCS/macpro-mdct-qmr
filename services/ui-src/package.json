@@ -48,7 +48,8 @@
     "build": "react-scripts build",
     "coverage": "jest --coverage",
     "test": "jest --setupFiles dotenv/config",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watchTest": "jest --setupFiles dotenv/config --watch"
   },
   "jest": {
     "coverageReporters": [
