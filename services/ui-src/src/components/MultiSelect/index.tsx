@@ -6,7 +6,6 @@ import { useController, useFormContext } from "react-hook-form";
 export interface ICheckbox {
   value: string;
   label: string;
-  isChecked: boolean;
   isVisible: boolean;
 }
 interface Props {
@@ -26,7 +25,7 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
   const [multiSelects, setMultiSelects] = useState<ICheckbox[]>(sourceList);
   const [checkboxGroupVisibile, setCheckboxGroupVisibility] = useState(true);
   const [filterText, setFilterText] = useState("");
-  let isAllChecked = multiSelects.every((item) => item.isChecked);
+  let isAllChecked = field.value?.length === multiSelects.length;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentElementIndex = multiSelects.findIndex(
@@ -39,9 +38,6 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
     const tempList = [...multiSelects];
     tempList.splice(currentElementIndex, 1, modifiedSelect);
     setMultiSelects(tempList);
-    field.onChange(
-      tempList.filter((item) => item.isChecked).map((item) => item.value)
-    );
   };
 
   const checkAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,20 +96,21 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
                 Select All
               </CUI.Text>
             </CUI.Checkbox>
-            {multiSelects.map((item: ICheckbox) => (
-              <CUI.Box display={item.isVisible ? "block" : "none"}>
-                <CUI.Checkbox
-                  size="lg"
-                  value={item.value}
-                  isChecked={item.isChecked}
-                  onChange={(e) => handleChange(e)}
-                >
-                  <CUI.Text fontWeight="normal" fontSize="normal">
-                    {item.label}
-                  </CUI.Text>
-                </CUI.Checkbox>
-              </CUI.Box>
-            ))}
+            <CUI.CheckboxGroup value={field.value} onChange={field.onChange}>
+              {multiSelects.map((item: ICheckbox) => (
+                <CUI.Box display={item.isVisible ? "block" : "none"}>
+                  <CUI.Checkbox
+                    size="lg"
+                    value={item.value}
+                    onChange={(e) => handleChange(e)}
+                  >
+                    <CUI.Text fontWeight="normal" fontSize="normal">
+                      {item.label}
+                    </CUI.Text>
+                  </CUI.Checkbox>
+                </CUI.Box>
+              ))}
+            </CUI.CheckboxGroup>
           </>
         ) : (
           <CUI.Alert status="info">
