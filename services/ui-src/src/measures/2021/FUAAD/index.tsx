@@ -9,8 +9,9 @@ import { Measure } from "measures/types";
 
 export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
   const { coreSetId } = useParams<Params>();
-  const { watch } = useFormContext<Measure.Form>();
+  const { watch, formState } = useFormContext<Measure.Form>();
   const watchReportingRadio = watch("DidReport");
+  console.log(formState.errors);
 
   return (
     <>

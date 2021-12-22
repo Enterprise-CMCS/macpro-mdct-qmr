@@ -118,6 +118,7 @@ export const Upload = ({
           key={`${index}-${file.name}`}
           background="blue.50"
           pl="1rem"
+          my="2"
           borderRadius="10"
           justifyContent="space-between"
         >

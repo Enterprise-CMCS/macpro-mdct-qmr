@@ -4,9 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 
 export const defaultDeviationOptions = [
   { label: "Ages 18 to 64", id: 0 },
-  { label: "Ages 65 to 74", id: 1 },
-  { label: "Ages 75 to 84", id: 2 },
-  { label: "Age 85 and older", id: 3 },
+  { label: "Age 65 and older", id: 1 },
 ];
 
 interface Props {

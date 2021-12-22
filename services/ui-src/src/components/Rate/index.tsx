@@ -41,10 +41,14 @@ export const Rate = ({ rates, name }: Props) => {
                 name={`${name}.${index}.denominator`}
                 label="Denominator"
               />
-              <CUI.Stack>
-                <CUI.FormLabel>{"Rate"}</CUI.FormLabel>
-                <CUI.Text w={32}>{s.toFixed(4)}</CUI.Text>
-              </CUI.Stack>
+              <Inputs.NumberInput
+                name={`${name}.${index}.rate`}
+                readonly
+                label="Rate"
+                numberInputProps={{
+                  value: s.toFixed(4),
+                }}
+              />
             </CUI.HStack>
           </CUI.Stack>
         );
