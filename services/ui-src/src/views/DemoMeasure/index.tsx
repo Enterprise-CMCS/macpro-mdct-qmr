@@ -76,6 +76,7 @@ export const DemoMeasure = () => {
                 buttonText="Complete Measure"
               />
             </CUI.Stack>
+            <Q.OtherPerformanceMeasure />
           </CUI.Container>
         </form>
       </FormProvider>

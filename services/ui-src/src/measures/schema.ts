@@ -42,6 +42,8 @@ export const validationSchema = Joi.object<Measure.Form>({
   "WhyAreYouNotReporting-Other": Joi.string(),
   "AdditionalNotes-AdditionalNotes": Joi.string(),
   "AdditionalNotes-Upload": Joi.array().items(Joi.any()),
+  "OtherPerformanceMeasure-Explanation": Joi.string(),
+  "OtherPerformanceMeasure-Rates": Joi.array(),
   DefinitionOfDenominator: Joi.array().items(Joi.string()),
   "DefinitionOfDenominator-Other": Joi.string(),
   ChangeInPopulationExplanation: Joi.string(),

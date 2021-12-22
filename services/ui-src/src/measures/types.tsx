@@ -41,6 +41,8 @@ export namespace Measure {
     LimitationWithDatCollecitonReportAccuracyCovid: string;
     SmallSampleSizeLessThan30: string;
     "WhyAreYouNotReporting-Other": string;
+    "OtherPerformanceMeasure-Explanation": string;
+    "OtherPerformanceMeasure-Rates": string[];
     "AdditionalNotes-AdditionalNotes"?: string;
     "AdditionalNotes-Upload"?: File[];
     DefinitionOfDenominator: string[];
