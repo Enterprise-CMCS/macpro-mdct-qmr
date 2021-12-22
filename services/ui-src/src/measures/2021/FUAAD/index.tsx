@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 import { Measure } from "measures/types";
 
-export const AIFHH = ({ name, year, handleSubmit }: Measure.Props) => {
+export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
   const { coreSetId } = useParams<Params>();
   const { watch } = useFormContext<Measure.Form>();
   const watchReportingRadio = watch("DidReport");
