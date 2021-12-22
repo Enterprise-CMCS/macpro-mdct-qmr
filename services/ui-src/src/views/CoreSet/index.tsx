@@ -34,14 +34,14 @@ export const CoreSet = () => {
   // This is where a fetch for the measures would live and calculate progress completed
   const measures = [
     {
-      Type: "Health Home",
-      title: "Ambulatory Care: Emergency Department (ED) Visits",
-      abbr: "AMB-HH",
-      path: "",
+      Type: "Adult",
+      title: "Antidepressant Medication Management",
+      abbr: "AMM-AD",
+      path: `/${state}/${year}/${coreSetId}/AMM-AD`,
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "AMB-HH",
+      id: "AMM-AD",
       actions: [
         {
           itemText: "Edit",
@@ -52,13 +52,13 @@ export const CoreSet = () => {
     },
     {
       Type: "Adult",
-      title: "Antidepressant Medication Management",
-      abbr: "AMM-AD",
-      path: "",
+      title: "Asthma Medication Ratio: Ages 19 to 64",
+      abbr: "AMR-AD",
+      path: `/${state}/${year}/${coreSetId}/AMR-AD`,
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "AMM-AD",
+      id: "AMR-AD",
       actions: [
         {
           itemText: "Edit",
