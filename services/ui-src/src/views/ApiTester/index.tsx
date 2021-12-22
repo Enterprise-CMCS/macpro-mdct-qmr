@@ -120,6 +120,7 @@ export const ApiTester = () => {
                 measure: "AIF-HH",
                 body: {
                   test: "data",
+                  description: "test description",
                 },
               })
             )
