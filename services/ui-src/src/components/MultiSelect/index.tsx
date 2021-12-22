@@ -94,6 +94,7 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
               isChecked={isAllChecked}
               onChange={checkAll}
               name="selectAll"
+              value="selectAll"
             >
               <CUI.Text fontWeight="normal" fontSize="normal">
                 Select All
