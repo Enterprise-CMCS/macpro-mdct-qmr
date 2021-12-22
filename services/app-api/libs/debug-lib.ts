@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import util from "util";
 import AWS from "aws-sdk";
 
