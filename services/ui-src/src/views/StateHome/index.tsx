@@ -25,7 +25,7 @@ const data: CoreSet.Data[] = [
     title: "Child Core Set Measures",
     type: CoreSet.Type.CHILD,
     progress: { numAvailable: 12, numComplete: 2 },
-    actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCSM"),
+    actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCS"),
     submitted: false,
     id: "OH2021-CCS",
     year: "2021",
