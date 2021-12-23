@@ -118,4 +118,14 @@ export const validationSchema = Joi.object<Measure.Form>({
       })
     )
     .sparse(),
+  DateRange: Joi.object({
+    endDate: Joi.object({
+      selectedMonth: Joi.number().label("End Date"),
+      selectedYear: Joi.number().label("Start Date"),
+    }),
+    startDate: Joi.object({
+      selectedMonth: Joi.number().label("End Date"),
+      selectedYear: Joi.number().label("Start Date"),
+    }),
+  }),
 });
