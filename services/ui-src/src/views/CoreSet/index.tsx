@@ -9,15 +9,15 @@ enum coreSetType {
   CCS = "Child",
   CCSM = "Child - Medicaid",
   CCSC = "Child - CHIP",
-  HHCS = "Health Home",
+  HHCS = "Health Homes",
 }
 
 enum coreSetMeasureTitle {
-  ACS = "Adult Core Set Measure",
-  CCS = "Child Core Set Measure",
-  CCSM = "Child Core Set Measure: Medicaid",
-  CCSC = "Child Core Set Measure: CHIP",
-  HHCS = "Health Home Core Set Measure: User generated SPA name",
+  ACS = "Adult Core Set Measures",
+  CCS = "Child Core Set Measures: Medicaid & CHIP",
+  CCSM = "Child Core Set Measures: Medicaid",
+  CCSC = "Child Core Set Measures: CHIP",
+  HHCS = "Health Homes Core Set Measures: User generated SPA name",
 }
 
 enum coreSetQuestionsText {
@@ -25,7 +25,7 @@ enum coreSetQuestionsText {
   CCS = "Child Core Set Questions",
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",
-  HHCS = "Health Home Core Set Questions: User generated SPA name",
+  HHCS = "Health Homes Core Set Questions: User generated SPA name",
 }
 
 export const CoreSet = () => {
@@ -33,23 +33,6 @@ export const CoreSet = () => {
 
   // This is where a fetch for the measures would live and calculate progress completed
   const measures = [
-    {
-      Type: "Adult",
-      title: "Antidepressant Medication Management",
-      abbr: "AMM-AD",
-      path: `/${state}/${year}/${coreSetId}/AMM-AD`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "AMM-AD",
-      actions: [
-        {
-          itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
-        },
-      ],
-    },
     {
       Type: "Health Home",
       title: "Admission to an Institution from the Community",
@@ -59,6 +42,23 @@ export const CoreSet = () => {
       rateComplete: 0,
       lastDateModified: "",
       id: "AIF-HH",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
+    {
+      Type: "Adult",
+      title: "Antidepressant Medication Management",
+      abbr: "AMM-AD",
+      path: `/${state}/${year}/${coreSetId}/AMM-AD`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "AMM-AD",
       actions: [
         {
           itemText: "Edit",
