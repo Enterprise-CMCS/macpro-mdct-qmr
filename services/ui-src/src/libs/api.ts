@@ -1,7 +1,6 @@
 import { API } from "aws-amplify";
 import config from "config";
 import { getLocalUserInfo } from "libs";
-import { IAmendmentInterface } from "views/Amendments";
 
 function requestOptions(): any {
   const localLogin = config.LOCAL_LOGIN === "true";
@@ -19,37 +18,110 @@ function requestOptions(): any {
   }
 }
 
-function listAmendments() {
+function createMeasure(inputObj: any) {
   const opts = requestOptions();
-  return API.get("amendments", "/amendments", opts);
+  opts.body = inputObj.body;
+
+  return API.post(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
+    opts
+  );
+}
+function editMeasure(inputObj: any) {
+  const opts = requestOptions();
+  opts.body = inputObj.body;
+
+  return API.put(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
+    opts
+  );
 }
 
-function getAmendment(id: string) {
+function listMeasures(inputObj: any) {
   const opts = requestOptions();
-  return API.get("amendments", `/amendments/${id}`, opts);
+  return API.get(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures`,
+    opts
+  );
 }
 
-function createAmendment(body: IAmendmentInterface) {
+function getMeasure(inputObj: any) {
   const opts = requestOptions();
-  opts.body = body;
-  return API.post("amendments", "/amendments", opts);
+  return API.get(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
+    opts
+  );
 }
 
-function updateAmendment(id: string, body: IAmendmentInterface) {
+function deleteMeasure(inputObj: any) {
   const opts = requestOptions();
-  opts.body = body;
-  return API.put("amendments", `/amendments/${id}`, opts);
+  return API.del(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
+    opts
+  );
 }
 
-function deleteAmendment(id: string) {
+function getAllCoreSets(inputObj: any) {
   const opts = requestOptions();
-  return API.del("amendments", `/amendments/${id}`, opts);
+  return API.get(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}`,
+    opts
+  );
+}
+
+function getCoreSet(inputObj: any) {
+  const opts = requestOptions();
+  return API.get(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
+    opts
+  );
+}
+
+function createCoreSet(inputObj: any) {
+  const opts = requestOptions();
+  opts.body = inputObj.body;
+  return API.post(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
+    opts
+  );
+}
+
+function editCoreSet(inputObj: any) {
+  const opts = requestOptions();
+  opts.body = inputObj.body;
+  return API.put(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
+    opts
+  );
+}
+
+function deleteCoreSet(inputObj: any) {
+  const opts = requestOptions();
+  return API.del(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
+    opts
+  );
 }
 
 export {
-  deleteAmendment,
-  updateAmendment,
-  listAmendments,
-  getAmendment,
-  createAmendment,
+  getAllCoreSets,
+  getCoreSet,
+  createCoreSet,
+  editCoreSet,
+  deleteCoreSet,
+  listMeasures,
+  getMeasure,
+  createMeasure,
+  editMeasure,
+  deleteMeasure,
 };
