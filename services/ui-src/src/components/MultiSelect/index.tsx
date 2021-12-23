@@ -68,7 +68,7 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
       border="1px"
       borderColor="gray.600"
       borderRadius="md"
-      p="20px"
+      p="5"
     >
       <CUI.VStack alignItems="flex-start" spacing="15px">
         <CUI.InputGroup size="md">
