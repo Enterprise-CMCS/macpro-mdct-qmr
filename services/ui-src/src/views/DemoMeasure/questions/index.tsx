@@ -4,6 +4,7 @@ export * from "./DataSource";
 export * from "./DefinitionOfPopulation";
 export * from "./DeviationFromMeasureSpec";
 export * from "./MeasurementSpecification";
+export * from "./OptionalMeasureStratification";
 export * from "./Reporting";
 export * from "./Status";
 export * from "./WhyAreYouNotReporting";
