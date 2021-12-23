@@ -1,6 +1,25 @@
 import Joi from "joi";
 import { Measure } from "./types";
 
+const RateJoiValidator = Joi.array()
+  .items(
+    Joi.object({
+      numerator: Joi.string(),
+      denominator: Joi.string(),
+      rate: Joi.string(),
+    })
+  )
+  .sparse();
+
+const OptionalMeasureStratificationRateJoi = Joi.array()
+  .items(
+    Joi.object({
+      subRates: RateJoiValidator,
+      total: RateJoiValidator,
+    })
+  )
+  .sparse();
+
 // This is the validation schema for any/all state measures
 export const validationSchema = Joi.object<Measure.Form>({
   DidReport: Joi.string().label("Are you reporting"),
@@ -79,4 +98,49 @@ export const validationSchema = Joi.object<Measure.Form>({
       })
     )
     .sparse(),
+  //OptionalMeasureStratification
+  CategoriesReported: Joi.array().items(Joi.string()),
+
+  AddtnlEthnicity: Joi.array().items(Joi.string()),
+
+  AddtnlNonHispanicRace: Joi.array().items(Joi.string()),
+  AddtnlNonHispanicRaceRates: Joi.array().items(
+    OptionalMeasureStratificationRateJoi
+  ),
+
+  AddtnlNonHispanicSubCat: Joi.array().items(Joi.string()),
+  AddtnlNonHispanicSubCatRates: OptionalMeasureStratificationRateJoi,
+
+  NonHispanicRacialCategories: Joi.array().items(Joi.string()),
+  "NHRC-WhiteRates": RateJoiValidator,
+  "NHRC-BlackOrAfricanAmericanRates": OptionalMeasureStratificationRateJoi,
+  "NHRC-AmericanIndianOrAlaskaNativeRates":
+    OptionalMeasureStratificationRateJoi,
+  "NHRC-AggregateAsianRates": OptionalMeasureStratificationRateJoi,
+  "NHRC-IndependentAsianRates": Joi.array().items(
+    OptionalMeasureStratificationRateJoi
+  ),
+  "NHRC-AggregateHawaiianOrPacificIslanderRates":
+    OptionalMeasureStratificationRateJoi,
+  "NHRC-IndependentHawaiianOrPacificIslanderRates": Joi.array().items(
+    OptionalMeasureStratificationRateJoi
+  ),
+
+  EthnicityCategories: Joi.array().items(Joi.string()),
+  HispanicIndependentReporting: Joi.string(),
+  IndependentHispanicOptions: Joi.array().items(Joi.string()),
+
+  AsianIndependentReporting: Joi.string(),
+  IndependentAsianOptions: Joi.array().items(Joi.string()),
+  NativeHawaiianIndependentReporting: Joi.string(),
+  IndependentNativeHawaiianOptions: Joi.array().items(Joi.string()),
+  SexOptions: Joi.array().items(Joi.string()),
+
+  AddtnlPrimaryLanguage: Joi.array().items(Joi.string()),
+  PrimaryLanguageOptions: Joi.array().items(Joi.string()),
+
+  DisabilityStatusOptions: Joi.array().items(Joi.string()),
+  AddtnlDisabilityStatusDesc: Joi.string(),
+  GeographyOptions: Joi.array().items(Joi.string()),
+  AddtnlGeographyDesc: Joi.string(),
 });

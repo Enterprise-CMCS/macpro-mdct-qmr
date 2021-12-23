@@ -29,6 +29,7 @@ export const Checkbox = ({
     name,
     control,
   });
+  console.log(errors);
 
   return (
     <QMR.InputWrapper
@@ -51,7 +52,7 @@ export const Checkbox = ({
             );
 
             return (
-              <CUI.Box key={option.displayValue}>
+              <CUI.Box key={option.value}>
                 <CUI.Checkbox value={option.value}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
