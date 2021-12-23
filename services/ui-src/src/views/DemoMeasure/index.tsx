@@ -63,7 +63,7 @@ export const DemoMeasure = () => {
             <Q.CombinedRates />
             <CUI.Stack alignItems="flex-start">
               <CUI.Heading fontSize="xl" fontWeight="600">
-                8. Complete the Measure
+                Complete the Measure
               </CUI.Heading>
               <CUI.Text p="3" pl="5">
                 Complete the measure and mark it for submission to CMS for

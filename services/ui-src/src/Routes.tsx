@@ -64,6 +64,7 @@ export function AppRoutes({ user }: { user: CognitoUser }) {
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
         <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
+        <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route path={m.path} element={m.el} key={m.path} />
         ))}

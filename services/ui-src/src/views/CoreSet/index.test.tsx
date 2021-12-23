@@ -16,12 +16,8 @@ describe("Test CoreSet.tsx", () => {
       expect(screen.getByTestId("state-layout-container")).toBeVisible();
     });
 
-    it("renders the correct child measure table data components", () => {
-      expect(
-        screen.getByText(
-          /Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021/i
-        )
-      ).toBeInTheDocument();
+    it("renders the child measure table data components", () => {
+      expect(screen.getByText(/Core Set Qualifiers/i)).toBeInTheDocument();
 
       expect(screen.getByText(/Submit Measures/i)).toBeInTheDocument();
 
