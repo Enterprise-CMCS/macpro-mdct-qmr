@@ -18,9 +18,9 @@ const selectOptions = [
   { displayValue: "option2", value: "option2" },
   { displayValue: "invalid", value: "invalid" },
 ];
-let methods: any;
+
 export function DemoComponents(): JSX.Element {
-  methods = useForm({
+  const methods = useForm({
     shouldUnregister: true,
     mode: "all",
     resolver: joiResolver(DemoValidationSchema),
@@ -35,6 +35,7 @@ export function DemoComponents(): JSX.Element {
 
 const DemoComponentsForm = () => {
   const register = useCustomRegister();
+  const { setValue } = useFormContext();
   const [progressCircleValue, setProgressCircle] = React.useState(5);
   const [showSuccessAlert, setSuccessAlert] = React.useState(false);
   const [showWarningAlert, setWarningAlert] = React.useState(false);
@@ -110,8 +111,8 @@ const DemoComponentsForm = () => {
     []
   );
   useEffect(() => {
-    methods.setValue("demoMultiSelectList", ["AMM-AD", "BCS-AD"]);
-  }, []);
+    setValue("demoMultiSelectList", ["AMM-AD", "BCS-AD"]);
+  }, [setValue]);
   return (
     <QMR.StateLayout
       breadcrumbItems={[{ path: `/components`, name: "Demo Components" }]}

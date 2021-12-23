@@ -20,12 +20,11 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
     control,
   });
 
-  let sourceList = [...multiSelectList];
-  sourceList.sort((a, b) => (a.label > b.label ? 1 : -1));
-  const [multiSelects, setMultiSelects] = useState<ICheckbox[]>(sourceList);
+  const [multiSelects, setMultiSelects] = useState<ICheckbox[]>(() =>
+    [...multiSelectList].sort((a, b) => (a.label > b.label ? 1 : -1))
+  );
   const [checkboxGroupVisibile, setCheckboxGroupVisibility] = useState(true);
   const [filterText, setFilterText] = useState("");
-  let isAllChecked = field.value?.length === multiSelects.length;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentElementIndex = multiSelects.findIndex(
@@ -87,7 +86,7 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
           <>
             <CUI.Checkbox
               size="lg"
-              isChecked={isAllChecked}
+              isChecked={field.value?.length === multiSelects.length}
               onChange={checkAll}
               name="selectAll"
               value="selectAll"
