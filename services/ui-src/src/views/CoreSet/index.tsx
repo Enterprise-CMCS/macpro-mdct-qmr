@@ -14,7 +14,7 @@ enum coreSetType {
 
 enum coreSetMeasureTitle {
   ACS = "Adult Core Set Measures",
-  CCS = "Child Core Set Measures: Combined",
+  CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
   CCSC = "Child Core Set Measures: CHIP",
   HHCS = "Health Homes Core Set Measures: User generated SPA name",
