@@ -5,10 +5,11 @@ the key should be the measure id as a string (with '-XX' included)
 
 import { AMMAD } from "./AMMAD";
 import { AIFHH } from "./AIFHH";
-
+import { NCIDDS } from "./NCIDDS";
 const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
   "AIF-HH": AIFHH,
+  "NCIDDS-AD": NCIDDS,
 };
 
 export default twentyTwentyOneMeasures;

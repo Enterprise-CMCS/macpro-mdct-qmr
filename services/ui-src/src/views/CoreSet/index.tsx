@@ -67,6 +67,23 @@ export const CoreSet = () => {
         },
       ],
     },
+    {
+      Type: "Adult",
+      title: "National Core Indicators",
+      abbr: "NCIDDS-AD",
+      path: `/${state}/${year}/${coreSetId}/NCIDDS-AD`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "NCIDDS-AD",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
   ];
 
   return (
