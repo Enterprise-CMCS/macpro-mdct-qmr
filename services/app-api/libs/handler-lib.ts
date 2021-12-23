@@ -1,7 +1,13 @@
 import * as debug from "./debug-lib";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
-export default function handler(lambda) {
-  return async function (event, context) {
+type LambdaFunction = (
+  event: APIGatewayProxyEvent,
+  context: any
+) => Promise<any>; //we should probably make this a type of Promise<APIGatewayProxyResult> eventually
+
+export default function handler(lambda: LambdaFunction) {
+  return async function (event: any, context: any) {
     let body, statusCode;
 
     // Start debugger
@@ -11,7 +17,7 @@ export default function handler(lambda) {
       // Run the Lambda
       body = await lambda(event, context);
       statusCode = 200;
-    } catch (e) {
+    } catch (e: any) {
       // Print debug messages
       debug.flush(e);
 

@@ -43,7 +43,7 @@ custom:
       - master
       - val
       - production
-  tableStreamArn: ${cf:database-${self:custom.stage}.AmendmentsTableStreamArn}
+  tableStreamArn: ${cf:database-${self:custom.stage}.CoreSetTableStreamArn}
   sesSourceEmailAddress: ${ssm:/configuration/${self:custom.stage}/sesSourceEmailAddress~true, ssm:/configuration/default/sesSourceEmailAddress~true, "admin@example.com"}
   reviewerEmailAddress: ${ssm:/configuration/${self:custom.stage}/reviewerEmailAddress~true, ssm:/configuration/default/reviewerEmailAddress~true, "reviewteam@example.com"}
 

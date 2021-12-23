@@ -22,7 +22,7 @@ const data: CoreSet.Data[] = [
   },
   {
     path: "CCS",
-    title: "Child Core Set Measures",
+    title: "Child Core Set Measures: Both",
     type: CoreSet.Type.CHILD,
     progress: { numAvailable: 12, numComplete: 2 },
     actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCS"),
@@ -32,7 +32,7 @@ const data: CoreSet.Data[] = [
   },
   {
     path: "CCSM",
-    title: "Medicaid Child Core Set Measures",
+    title: "Child Core Set Measures: Medicaid",
     type: CoreSet.Type.CHILD,
     progress: { numAvailable: 12, numComplete: 3 },
     actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCSM"),
@@ -52,7 +52,7 @@ const data: CoreSet.Data[] = [
   },
   {
     path: "HHCS",
-    title: "Health Home Set Measures",
+    title: "Health Homes Set Measures",
     type: CoreSet.Type.HEALTH_HOMES,
     progress: { numAvailable: 12, numComplete: 5 },
     actions: coreSetActions[CoreSet.Type.HEALTH_HOMES]("OH2021-HHCS"),
