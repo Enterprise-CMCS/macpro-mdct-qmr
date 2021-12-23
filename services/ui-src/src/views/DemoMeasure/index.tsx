@@ -40,7 +40,6 @@ export const DemoMeasure = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
           <CUI.Container maxW="2xl" as="section">
-            <Q.MeasurementSpecification />
             <Q.Reporting
               reportingYear={2021}
               measureName="Admission to an Institution from the Community"
@@ -49,7 +48,9 @@ export const DemoMeasure = () => {
             {!watchReportingRadio?.includes("No") && (
               <>
                 <Q.Status />
+                <Q.MeasurementSpecification />
                 <Q.DataSource />
+                <Q.DateRange />
                 <Q.DefinitionOfPopulation />
                 <Q.DeviationFromMeasureSpec
                   options={Q.defaultDeviationOptions}

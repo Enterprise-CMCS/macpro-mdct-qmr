@@ -102,5 +102,15 @@ export namespace Measure {
       label: string;
       rate: string;
     };
+    DateRange: {
+      endDate: {
+        selectedMonth: number;
+        selectedYear: number;
+      };
+      startDate: {
+        selectedMonth: number;
+        selectedYear: number;
+      };
+    };
   }
 }
