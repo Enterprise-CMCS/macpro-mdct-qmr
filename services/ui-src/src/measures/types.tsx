@@ -5,11 +5,27 @@ export namespace Measure {
     handleSubmit: any;
   }
 
+  interface RateFields {
+    numerator: string;
+    denominator: string;
+    rate: string;
+  }
+
+  interface AggregateRate {
+    subRate: RateFields[];
+    total: RateFields[];
+  }
+
   export interface Form {
+    //Report
     DidReport: string;
+
+    //Status
     DataStatus: string[];
-    DataSource: string[];
     "DataStatus-ProvisionalExplanation": string;
+
+    //DataSource
+    DataSource: string[];
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;
     "DataSource-Administrative-Other-Explanation"?: string;
@@ -21,13 +37,19 @@ export namespace Measure {
     "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
     "DataSource-ElectronicHealthRecords"?: string;
     "DataSource-ElectronicHealthRecords-Explanation"?: string;
+
+    //CombinedRates
     CombinedRates: string;
     "CombinedRates-CombinedRates": string;
     "CombinedRates-CombinedRates-Other-Explanation": string;
+
+    //MeasurementSpecification
     MeasurementSpecification: string;
     "MeasurementSpecification-HEDISVersion": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
+
+    //WhyAreYouNotReporting
     WhyAreYouNotReporting: string[];
     AmountOfPopulationNotCovered: string;
     PopulationNotCovered: string;
@@ -42,8 +64,12 @@ export namespace Measure {
     LimitationWithDatCollecitonReportAccuracyCovid: string;
     SmallSampleSizeLessThan30: string;
     "WhyAreYouNotReporting-Other": string;
+
+    //AdditionalNotes
     "AdditionalNotes-AdditionalNotes"?: string;
     "AdditionalNotes-Upload"?: File[];
+
+    //DefinitionOfPopulation
     DefinitionOfDenominator: string[];
     "DefinitionOfDenominator-Other": string;
     ChangeInPopulationExplanation: string;
@@ -69,6 +95,8 @@ export namespace Measure {
     "DeliverySys-Other-Percent": string;
     "DeliverySys-Other-NumberOfHealthPlans": string;
     "DeliverySys-Other-Population": string;
+
+    //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
     "DeviationOptions-Within7-AgeRange": string[];
@@ -112,5 +140,43 @@ export namespace Measure {
         selectedYear: number;
       };
     };
+
+    //OptionalMeasureStratification
+    CategoriesReported: string[];
+
+    AddtnlEthnicity: string[];
+
+    AddtnlNonHispanicRace: string[];
+    AddtnlNonHispanicRaceRates: AggregateRate[];
+
+    AddtnlNonHispanicSubCat: string[];
+    AddtnlNonHispanicSubCatRates: AggregateRate[];
+
+    NonHispanicRacialCategories: string[];
+    "NHRC-WhiteRates": AggregateRate;
+    "NHRC-BlackOrAfricanAmericanRates": AggregateRate;
+    "NHRC-AmericanIndianOrAlaskaNativeRates": AggregateRate;
+    "NHRC-AggregateAsianRates": AggregateRate;
+    "NHRC-IndependentAsianRates": AggregateRate[];
+    "NHRC-AggregateHawaiianOrPacificIslanderRates": AggregateRate;
+    "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
+
+    EthnicityCategories: string[];
+    HispanicIndependentReporting: string;
+    IndependentHispanicOptions: string[];
+
+    AsianIndependentReporting: string;
+    IndependentAsianOptions: string[];
+    NativeHawaiianIndependentReporting: string;
+    IndependentNativeHawaiianOptions: string[];
+    SexOptions: string[];
+
+    AddtnlPrimaryLanguage: string[];
+    PrimaryLanguageOptions: string[];
+
+    DisabilityStatusOptions: string[];
+    AddtnlDisabilityStatusDesc: string;
+    GeographyOptions: string[];
+    AddtnlGeographyDesc: string;
   }
 }

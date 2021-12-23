@@ -55,6 +55,9 @@ export const DemoMeasure = () => {
                 <Q.DeviationFromMeasureSpec
                   options={Q.defaultDeviationOptions}
                 />
+                <Q.OptionalMeasureStratification
+                  {...Q.DefaultOptionalMeasureStratProps}
+                />
               </>
             )}
             <Q.AdditionalNotes />
