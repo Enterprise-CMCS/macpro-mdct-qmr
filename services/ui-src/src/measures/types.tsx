@@ -43,6 +43,8 @@ export namespace Measure {
     "WhyAreYouNotReporting-Other": string;
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": string[];
+    "OtherPerformanceMeasure-Notes": string;
+    "OtherPerformanceMeasure-Rates-TextInput": string;
     "AdditionalNotes-AdditionalNotes"?: string;
     "AdditionalNotes-Upload"?: File[];
     DefinitionOfDenominator: string[];
