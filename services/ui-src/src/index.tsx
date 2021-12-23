@@ -4,9 +4,13 @@ import App from "App";
 import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
+
+const queryClient = new QueryClient();
 
 Amplify.configure({
   Auth: {
@@ -41,9 +45,12 @@ Amplify.configure({
 
 ReactDOM.render(
   <Router>
-    <ChakraProvider theme={theme}>
-      <App />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+      <ReactQueryDevtools initialIsOpen />
+    </QueryClientProvider>
   </Router>,
   document.getElementById("root")
 );
