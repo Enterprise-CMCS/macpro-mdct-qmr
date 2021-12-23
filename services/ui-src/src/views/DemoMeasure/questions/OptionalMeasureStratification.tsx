@@ -85,6 +85,9 @@ const AgeData = ({ name, ageGroups, totalLabel }: SubComponentProps) => {
                     id: 0,
                     label:
                       "Enter a number for the numerator and the denominator. Rate will auto-calculate:",
+                    numerator: "",
+                    denominator: "",
+                    rate: "",
                   },
                 ]}
               />,
@@ -103,6 +106,9 @@ const AgeData = ({ name, ageGroups, totalLabel }: SubComponentProps) => {
               id: 0,
               label:
                 "Enter a number for the numerator and the denominator. Rate will auto-calculate:",
+              numerator: "",
+              denominator: "",
+              rate: "",
             },
           ]}
         />
