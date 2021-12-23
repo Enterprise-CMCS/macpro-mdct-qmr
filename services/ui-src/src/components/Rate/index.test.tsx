@@ -42,7 +42,7 @@ describe("Test the Rate component", () => {
   });
 
   test("Check that data pre-populates", () => {
-    expect(screen.getAllByDisplayValue("1")).toHaveLength(2);
+    expect(screen.getAllByDisplayValue("1")).toHaveLength(3);
     expect(screen.getAllByDisplayValue("1")[0]).toBeInTheDocument();
   });
 });
