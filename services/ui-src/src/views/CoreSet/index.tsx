@@ -69,7 +69,7 @@ export const CoreSet = () => {
     },
     {
       Type: "Adult",
-      title: "National Core Indicators",
+      title: "National Core Indicators Survey",
       abbr: "NCIDDS-AD",
       path: `/${state}/${year}/${coreSetId}/NCIDDS-AD`,
       isReporting: false,
