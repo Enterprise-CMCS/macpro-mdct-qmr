@@ -12,9 +12,8 @@ interface Props {
 }
 
 export const Rate = ({ rates, name }: Props) => {
-  const { watch } = useFormContext();
+  const { watch, setValue, getValues } = useFormContext();
   const watchRateArray = watch(name);
-
   return (
     <>
       {rates.map((rate, index) => {
@@ -26,7 +25,10 @@ export const Rate = ({ rates, name }: Props) => {
             ? watchRateArray[index].numerator /
               watchRateArray[index].denominator
             : 0;
-
+        const currentValue = getValues(`${name}.${index}.rate`);
+        if (currentValue !== s.toString()) {
+          setValue(`${name}.${index}.rate`, s.toString());
+        }
         return (
           <CUI.Stack key={rate.id} my={8}>
             {rate.label && (
@@ -41,14 +43,7 @@ export const Rate = ({ rates, name }: Props) => {
                 name={`${name}.${index}.denominator`}
                 label="Denominator"
               />
-              <Inputs.NumberInput
-                name={`${name}.${index}.rate`}
-                readonly
-                label="Rate"
-                numberInputProps={{
-                  value: s.toFixed(4),
-                }}
-              />
+              <Inputs.NumberInput name={`${name}.${index}.rate`} label="Rate" />
             </CUI.HStack>
           </CUI.Stack>
         );

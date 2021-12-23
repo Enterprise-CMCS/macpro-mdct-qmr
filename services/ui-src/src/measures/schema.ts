@@ -92,7 +92,7 @@ export const validationSchema = Joi.object<Measure.Form>({
     .sparse(),
   "DeviationOptions-Within30-AgeRange": Joi.array().items(Joi.string()),
   "PerformanceMeasure-Explanation": Joi.string(),
-  "PerformanceMeassure-AgeRates-30Days": Joi.array()
+  "PerformanceMeasure-AgeRates-30Days": Joi.array()
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
@@ -105,7 +105,7 @@ export const validationSchema = Joi.object<Measure.Form>({
       })
     )
     .sparse(),
-  "PerformanceMeassure-AgeRates-7Days": Joi.array()
+  "PerformanceMeasure-AgeRates-7Days": Joi.array()
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),

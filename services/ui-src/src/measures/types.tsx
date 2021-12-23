@@ -86,7 +86,7 @@ export namespace Measure {
       other: string;
     };
     "PerformanceMeasure-Explanation": string;
-    "PerformanceMeassure-AgeRates-30Days": {
+    "PerformanceMeasure-AgeRates-30Days": {
       denominator: string;
       numerator: string;
       other: string;
@@ -94,7 +94,7 @@ export namespace Measure {
       label: string;
       rate: string;
     };
-    "PerformanceMeassure-AgeRates-7Days": {
+    "PerformanceMeasure-AgeRates-7Days": {
       denominator: string;
       numerator: string;
       other: string;

@@ -52,14 +52,14 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
-        {...register("PerformanceMeassure-AgeRates-30Days")}
+        {...register("PerformanceMeasure-AgeRates-30Days")}
       />
       <CUI.Text fontWeight="bold" my="5">
         Follow-up within 7 days of ED visit
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
-        {...register("PerformanceMeassure-AgeRates-7Days")}
+        {...register("PerformanceMeasure-AgeRates-7Days")}
       />
     </QMR.CoreQuestionWrapper>
   );
