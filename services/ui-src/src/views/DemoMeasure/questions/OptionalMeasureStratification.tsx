@@ -78,8 +78,8 @@ const AgeData = ({ name, ageGroups, totalLabel }: SubComponentProps) => {
             displayValue: item.label,
             children: [
               <QMR.Rate
-                name={`${name}.subRate.${item.id}`}
-                key={`${name}.subRate.${item.id}`}
+                name={`${name}.subRates.${item.id}`}
+                key={`${name}.subRates.${item.id}`}
                 rates={[
                   {
                     id: 0,
@@ -275,6 +275,7 @@ export const OptionalMeasureStratification = ({
                                       displayValue: item.label,
                                       children: [
                                         <AgeData
+                                          key={`NHRC-IndependentAsianRates.${item.id}`}
                                           name={`NHRC-IndependentAsianRates.${item.id}`}
                                           ageGroups={ageGroups}
                                           totalLabel={totalLabel}
@@ -330,6 +331,7 @@ export const OptionalMeasureStratification = ({
                                         displayValue: item.label,
                                         children: [
                                           <AgeData
+                                            key={`NHRC-IndependentHawaiianOrPacificIslanderRates.${item.id}`}
                                             name={`NHRC-IndependentHawaiianOrPacificIslanderRates.${item.id}`}
                                             ageGroups={ageGroups}
                                             totalLabel={totalLabel}

@@ -1,24 +1,19 @@
 import Joi from "joi";
 import { Measure } from "./types";
 
-const RateJoiValidator = Joi.array()
-  .items(
-    Joi.object({
-      numerator: Joi.string(),
-      denominator: Joi.string(),
-      rate: Joi.string(),
-    })
-  )
-  .sparse();
+const RateJoiValidator = Joi.array().items(
+  Joi.object({
+    numerator: Joi.string(),
+    denominator: Joi.string(),
+    rate: Joi.string(),
+  })
+);
 
-const OptionalMeasureStratificationRateJoi = Joi.array()
-  .items(
-    Joi.object({
-      subRates: RateJoiValidator,
-      total: RateJoiValidator,
-    })
-  )
-  .sparse();
+const OptionalMeasureStratificationRateJoi = Joi.object({
+  ageData: Joi.array().items(Joi.string()),
+  subRates: Joi.array().items(RateJoiValidator),
+  total: RateJoiValidator,
+});
 
 // This is the validation schema for any/all state measures
 export const validationSchema = Joi.object<Measure.Form>({
@@ -98,6 +93,7 @@ export const validationSchema = Joi.object<Measure.Form>({
       })
     )
     .sparse(),
+
   //OptionalMeasureStratification
   CategoriesReported: Joi.array().items(Joi.string()),
 
@@ -109,22 +105,24 @@ export const validationSchema = Joi.object<Measure.Form>({
   ),
 
   AddtnlNonHispanicSubCat: Joi.array().items(Joi.string()),
-  AddtnlNonHispanicSubCatRates: OptionalMeasureStratificationRateJoi,
+  AddtnlNonHispanicSubCatRates: Joi.array().items(
+    OptionalMeasureStratificationRateJoi
+  ),
 
   NonHispanicRacialCategories: Joi.array().items(Joi.string()),
-  "NHRC-WhiteRates": RateJoiValidator,
+  "NHRC-WhiteRates": OptionalMeasureStratificationRateJoi,
   "NHRC-BlackOrAfricanAmericanRates": OptionalMeasureStratificationRateJoi,
   "NHRC-AmericanIndianOrAlaskaNativeRates":
     OptionalMeasureStratificationRateJoi,
   "NHRC-AggregateAsianRates": OptionalMeasureStratificationRateJoi,
-  "NHRC-IndependentAsianRates": Joi.array().items(
-    OptionalMeasureStratificationRateJoi
-  ),
+  "NHRC-IndependentAsianRates": Joi.array()
+    .items(OptionalMeasureStratificationRateJoi)
+    .sparse(),
   "NHRC-AggregateHawaiianOrPacificIslanderRates":
     OptionalMeasureStratificationRateJoi,
-  "NHRC-IndependentHawaiianOrPacificIslanderRates": Joi.array().items(
-    OptionalMeasureStratificationRateJoi
-  ),
+  "NHRC-IndependentHawaiianOrPacificIslanderRates": Joi.array()
+    .items(OptionalMeasureStratificationRateJoi)
+    .sparse(),
 
   EthnicityCategories: Joi.array().items(Joi.string()),
   HispanicIndependentReporting: Joi.string(),

@@ -29,7 +29,6 @@ export const Checkbox = ({
     name,
     control,
   });
-  console.log(errors);
 
   return (
     <QMR.InputWrapper
