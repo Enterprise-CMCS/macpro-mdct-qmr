@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 export interface IRate {
   label?: string;
   id: number;
@@ -12,8 +12,13 @@ interface Props {
 }
 
 export const Rate = ({ rates, name }: Props) => {
-  const { watch, setValue, getValues } = useFormContext();
-  const watchRateArray = watch(name);
+  const { control, setValue, getValues } = useFormContext();
+  const watchRateArray = useWatch({
+    control,
+    name,
+    defaultValue: [],
+  });
+
   return (
     <>
       {rates.map((rate, index) => {
