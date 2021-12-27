@@ -20,3 +20,4 @@ export * from "./QuestionChild";
 export * from "./Rate";
 export * from "./Table";
 export * from "./Upload";
+export * from "./MultiSelect";
