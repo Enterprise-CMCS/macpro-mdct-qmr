@@ -5,13 +5,16 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 
 export const createCoreSet = handler(async (event, context) => {
-  if (!event.pathParameters) return; // throw error message
+  if (!event.pathParameters) {
+    console.log("Error: No path parameters ", event)
+    return event
+  }; // throw error message
   if (
     !event.pathParameters.state ||
     !event.pathParameters.year ||
     !event.pathParameters.coreSet
   )
-    return; // throw error message
+    return event; // throw error message
 
   // The State Year and ID are all part of the path
   const state = event.pathParameters.state;
