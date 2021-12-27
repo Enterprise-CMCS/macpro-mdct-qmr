@@ -61,6 +61,8 @@ const createDependentMeasures = async (
     (measure: MeasureMetaData) => measure.type === type
   );
 
+  console.log(filteredMeasures);
+
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
@@ -76,7 +78,7 @@ const createDependentMeasures = async (
         measure: measureId,
         createdAt: Date.now(),
         lastAltered: Date.now(),
-        status: "incomplete",
+        status: measure.autocompleteOnCreation ? "complete" : "incomplete",
         description: measure.description,
       },
     };
