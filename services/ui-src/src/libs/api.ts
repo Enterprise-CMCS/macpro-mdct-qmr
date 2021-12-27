@@ -20,7 +20,6 @@ function requestOptions(): any {
 
 function createMeasure(inputObj: any) {
   const opts = requestOptions();
-  console.log("got here: ", opts)
   opts.body = inputObj.body;
 
   return API.post(
