@@ -5,7 +5,7 @@ export const NCIDDSAD = ({ name, year }: Measure.Props) => {
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}
-      dateCompleted="Sep 30, 2021 12:01 AM EST"
+      dateCompleted="Sep 30, 2021 12:01 AM EST" // display correct dateCompleted when api is hooked to client
       isReportingOnMeasureYear={true}
       measureTitle={`NCIDDS-AD - ${name}`}
       performanceMeasureText="The National Core Indicators® (NCI®) provide information on

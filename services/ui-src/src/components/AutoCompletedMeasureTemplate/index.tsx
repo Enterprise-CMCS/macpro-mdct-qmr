@@ -26,9 +26,9 @@ export const AutocompletedMeasureTemplate = ({
   return (
     <>
       <CUI.HStack justifyContent="space-between">
-        <CUI.Text fontSize="xl" fontWeight="700">
+        <CUI.Heading fontSize="xl" fontWeight="700">
           Measure Details
-        </CUI.Text>
+        </CUI.Heading>
         <QMR.ContainedButton
           buttonProps={{
             paddingX: "12",
@@ -41,25 +41,34 @@ export const AutocompletedMeasureTemplate = ({
         />
       </CUI.HStack>
 
-      <CUI.Stack spacing={8}>
+      <CUI.Stack spacing={12}>
         <CUI.Box>
-          <CUI.Text fontWeight="700">Measure Title</CUI.Text>
+          <CUI.Heading size="sm" fontWeight="700">
+            Measure Title
+          </CUI.Heading>
           <CUI.Text>{measureTitle}</CUI.Text>
         </CUI.Box>
 
         <CUI.Box>
-          <CUI.Text fontWeight="700">Date Completed</CUI.Text>
+          <CUI.Heading size="sm" fontWeight="700">
+            Date Completed
+          </CUI.Heading>
           <CUI.Text>Auto-completed on {dateCompleted}</CUI.Text>
         </CUI.Box>
 
         <CUI.Box>
-          <CUI.Text fontWeight="700">{`Reporting on Measure FFY ${year}`}</CUI.Text>
+          <CUI.Heading
+            size="sm"
+            fontWeight="700"
+          >{`Reporting on Measure FFY ${year}`}</CUI.Heading>
           <CUI.Text>{isReportingOnMeasureYear ? "Yes" : "No"}</CUI.Text>
         </CUI.Box>
 
         <CUI.Stack spacing={6}>
           <CUI.Box>
-            <CUI.Text fontWeight="700">Performance Measure</CUI.Text>
+            <CUI.Heading size="sm" fontWeight="700">
+              Performance Measure
+            </CUI.Heading>
             <CUI.Text>{performanceMeasureText}</CUI.Text>
           </CUI.Box>
 

@@ -5,7 +5,7 @@ export const LBWCH = ({ name, year }: Measure.Props) => {
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}
-      dateCompleted="Sep 30, 2021 12:01 AM EST"
+      dateCompleted="Sep 30, 2021 12:01 AM EST" // display correct dateCompleted when api is hooked to client
       isReportingOnMeasureYear={true}
       measureTitle={`LBW-CH - ${name}`}
       performanceMeasureText="Percentage of live births that weighed less than 2,500 grams at birth during the measurement year."
