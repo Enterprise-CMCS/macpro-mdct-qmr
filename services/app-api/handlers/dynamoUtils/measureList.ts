@@ -11,172 +11,172 @@ export interface MeasureMetaData {
 export const measures: Measure = {
   2021: [
     {
-      type: "AD",
+      type: "AC",
       description: "Antidepressant Medication Management",
       measure: "AMM-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Asthma Medication Ratio: Ages 19 to 64",
       measure: "AMR-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Breast Cancer Screening",
       measure: "BCS-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Controlling High Blood Pressure",
       measure: "CBP-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Contraceptive Care Postpartum Women Ages 21-44",
       measure: "CCP-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Cervical Cancer Screening",
       measure: "CCS-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Contraceptive Care - All Women Ages 21 to 44",
       measure: "CCW-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Screening for Depression and Follow-Up Plan: Age 18 and older",
       measure: "CDF-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Chlamydia Screening in Women Ages 21-24",
       measure: "CHL-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Concurrent Use of Opioids and Benzodiazepines",
       measure: "COB-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.10H, Adult Version (Medicaid)",
       measure: "CPA-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
       measure: "FUA-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Follow-up after Hospitalization for Mental Illness: Age 18 and older",
       measure: "FUH-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Follow-Up after Emergency Department Visit for Mental Illness",
       measure: "FUM-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Flu Vaccinations for Adults Ages 18 to 64",
       measure: "FVA-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Comprehensive Diabetes Care: Hemoglobin A1c Poor Control (>9.0%)",
       measure: "HPC-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Diabetes Care for People with Serious Mental Illness: Hemoglobin A1C (HbA1c) Poor Control (>9.0%)",
       measure: "HPCMI-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "HIV Viral Loan Suppression",
       measure: "HVL-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
       measure: "IET-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Medical Assistance with Smoking and Tobacco Use Cessation",
       measure: "MSC-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "National Core Indicators",
       measure: "NCIDDS-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "User of Opioids at High Dosage in Persons Without Cancer",
       measure: "OHD-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Use of Pharmacotherapy for Opioid Use Disorder",
       measure: "OUD-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "PC-01: Elective Delivery",
       measure: "PC01-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Plan All-Cause Readmissions",
       measure: "PCR-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "Prenatal and PostPartum Care: Postpartum Care",
       measure: "PPC-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "PQI 01: Diabetes Short-term Complications Admission Rate",
       measure: "PQI01-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "PQI 05: Chronic Obstructive Pulmonary Disease (COPD) or Asthma in Older Adults Admission Rate",
       measure: "PQI05-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "PQI 08: Heart Failure Admission Rate",
       measure: "PQI08-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description: "PQI 15: Asthma in Younger Adults Admission Rate",
       measure: "PQI15-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Adherence to Antipsychotic Medications for Individuals with Schizophrenia",
       measure: "SAA-AD",
     },
     {
-      type: "AD",
+      type: "AC",
       description:
         "Diabetes Screening for People with Schizophrenia or Bipolar Disorder Who Are Using Antipsychotic Medications",
       measure: "SSD-AD",

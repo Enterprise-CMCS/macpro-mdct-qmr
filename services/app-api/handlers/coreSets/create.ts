@@ -31,6 +31,13 @@ export const createCoreSet = handler(async (event, context) => {
   }
   const dynamoKey = createCompoundKey(event);
 
+  const dependentMeasures = await createDependentMeasures(
+    state,
+    parseInt(year),
+    coreSet,
+    type
+  );
+
   const params = {
     TableName: process.env.coreSetTableName!,
     Item: {
@@ -41,12 +48,12 @@ export const createCoreSet = handler(async (event, context) => {
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
-      status: "incomplete",
+      progress: { numAvailable: dependentMeasures.length, numComplete: 0 },
+      submitted: false,
     },
   };
 
   await dynamoDb.post(params);
-  await createDependentMeasures(state, parseInt(year), coreSet, type);
 
   return params;
 });
@@ -60,6 +67,8 @@ const createDependentMeasures = async (
   const filteredMeasures = measures[year].filter(
     (measure: MeasureMetaData) => measure.type === type
   );
+
+  const dependentMeasures = [];
 
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
@@ -81,6 +90,8 @@ const createDependentMeasures = async (
       },
     };
     console.log("created measure: ", params);
-    await dynamoDb.post(params);
+    const result = await dynamoDb.post(params);
+    dependentMeasures.push(result);
   }
+  return dependentMeasures;
 };

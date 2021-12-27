@@ -12,7 +12,7 @@ enum coreSetType {
   HHCS = "Health Homes",
 }
 
-enum coreSetMeasureTitle {
+export enum coreSetMeasureTitle {
   ACS = "Adult Core Set Measures",
   CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
