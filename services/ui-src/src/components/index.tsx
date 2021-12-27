@@ -1,5 +1,5 @@
+export * from "./AutoCompletedMeasureTemplate";
 export * from "./Breadcrumbs";
-export * from "./CompletedMeasureTemplate";
 export * from "./ContainedButton";
 export * from "./CoreQuestionWrapper";
 export * from "./DateRange";

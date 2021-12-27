@@ -10,7 +10,7 @@ interface Props {
   year: string;
 }
 
-export const CompletedMeasureTemplate = ({
+export const AutoCompletedMeasureTemplate = ({
   measureTitle,
   dateCompleted,
   performanceMeasureText,

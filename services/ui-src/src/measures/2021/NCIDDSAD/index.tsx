@@ -4,7 +4,7 @@ import * as QMR from "components";
 export const NCIDDSAD = ({ name, year }: Measure.Props) => {
   return (
     <>
-      <QMR.CompletedMeasureTemplate
+      <QMR.AutoCompletedMeasureTemplate
         year={year}
         dateCompleted="Sep 30, 2021 12:01 AM EST"
         reportingOnMeasureYear={true}
