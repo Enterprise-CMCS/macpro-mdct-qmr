@@ -65,6 +65,12 @@ export namespace Measure {
     SmallSampleSizeLessThan30: string;
     "WhyAreYouNotReporting-Other": string;
 
+    //Other Performance Measure
+    "OtherPerformanceMeasure-Explanation": string;
+    "OtherPerformanceMeasure-Rates": string[];
+    "OtherPerformanceMeasure-Notes": string;
+    "OtherPerformanceMeasure-Rates-TextInput": string;
+
     //AdditionalNotes
     "AdditionalNotes-AdditionalNotes"?: string;
     "AdditionalNotes-Upload"?: File[];
