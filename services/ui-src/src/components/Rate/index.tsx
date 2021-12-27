@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
-import * as Inputs from "components/Inputs";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
+import { allNumbers } from "utils/numberInputMasks";
 export interface IRate {
   label?: string;
   id: number;
@@ -12,43 +12,63 @@ interface Props {
 }
 
 export const Rate = ({ rates, name }: Props) => {
-  const { control, setValue, getValues } = useFormContext();
-  const watchRateArray = useWatch({
-    control,
+  const { control } = useFormContext();
+
+  const { field } = useController({
     name,
+    control,
     defaultValue: [],
   });
+
+  const changeRate = (
+    index: number,
+    type: "numerator" | "denominator" | "rate",
+    newValue: string
+  ) => {
+    if (!allNumbers.test(newValue)) return;
+    if (type === "rate") return;
+
+    const prevRate = [...field.value];
+    const editRate = { ...prevRate[index] };
+    editRate[type] = newValue;
+
+    console.log(editRate);
+
+    if (parseInt(editRate.denominator) && editRate.numerator) {
+      console.log("in here", editRate.numerator, editRate.denominator);
+      editRate.rate = (editRate.numerator / editRate.denominator)
+        .toFixed(4)
+        .toString();
+      console.log(editRate.rate);
+    }
+    prevRate[index] = editRate;
+    field.onChange([...prevRate]);
+  };
 
   return (
     <>
       {rates.map((rate, index) => {
-        const s =
-          watchRateArray &&
-          watchRateArray[index] &&
-          watchRateArray[index].numerator &&
-          watchRateArray[index].denominator
-            ? watchRateArray[index].numerator /
-              watchRateArray[index].denominator
-            : 0;
-        const currentValue = getValues(`${name}.${index}.rate`);
-        if (currentValue !== s.toString()) {
-          setValue(`${name}.${index}.rate`, s.toString());
-        }
         return (
           <CUI.Stack key={rate.id} my={8}>
             {rate.label && (
               <CUI.FormLabel fontWeight={700}>{rate.label}</CUI.FormLabel>
             )}
             <CUI.HStack spacing={16}>
-              <Inputs.NumberInput
-                name={`${name}.${index}.numerator`}
-                label="Numerator"
+              <CUI.Input
+                value={field.value[index]?.numerator ?? ""}
+                onChange={(e) => changeRate(index, "numerator", e.target.value)}
               />
-              <Inputs.NumberInput
-                name={`${name}.${index}.denominator`}
-                label="Denominator"
+              <CUI.Input
+                value={field.value[index]?.denominator ?? ""}
+                onChange={(e) =>
+                  changeRate(index, "denominator", e.target.value)
+                }
               />
-              <Inputs.NumberInput name={`${name}.${index}.rate`} label="Rate" />
+              <CUI.Input
+                value={field.value[index]?.rate ?? ""}
+                onChange={(e) => changeRate(index, "rate", e.target.value)}
+                readOnly
+              />
             </CUI.HStack>
           </CUI.Stack>
         );
