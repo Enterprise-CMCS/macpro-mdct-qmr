@@ -1,4 +1,4 @@
-export * from "./AutocompletedMeasureTemplate";
+export * from "./AutoMeasureTemplate";
 export * from "./Breadcrumbs";
 export * from "./ContainedButton";
 export * from "./CoreQuestionWrapper";
