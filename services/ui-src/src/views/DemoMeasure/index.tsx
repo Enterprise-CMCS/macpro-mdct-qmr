@@ -59,7 +59,6 @@ export const DemoMeasure = () => {
                 />
               </>
             )}
-            <Q.AdditionalNotes />
             <Q.CombinedRates />
             <CUI.Stack alignItems="flex-start">
               <CUI.Heading fontSize="xl" fontWeight="600">
@@ -79,6 +78,7 @@ export const DemoMeasure = () => {
                 buttonText="Complete Measure"
               />
             </CUI.Stack>
+            <Q.OtherPerformanceMeasure />
           </CUI.Container>
         </form>
       </FormProvider>

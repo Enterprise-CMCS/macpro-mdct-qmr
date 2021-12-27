@@ -8,3 +8,4 @@ export * from "./OptionalMeasureStratification";
 export * from "./Reporting";
 export * from "./Status";
 export * from "./WhyAreYouNotReporting";
+export * from "./OtherPerformanceMeasure";
