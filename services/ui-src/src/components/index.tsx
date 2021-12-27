@@ -1,4 +1,3 @@
-export * from "./AutocompletedMeasureTemplate";
 export * from "./Breadcrumbs";
 export * from "./ContainedButton";
 export * from "./CoreQuestionWrapper";
@@ -22,3 +21,4 @@ export * from "./Rate";
 export * from "./Table";
 export * from "./Upload";
 export * from "./MultiSelect";
+export * from "./AutocompletedMeasureTemplate";

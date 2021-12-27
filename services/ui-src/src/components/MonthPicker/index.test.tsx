@@ -18,7 +18,7 @@ describe("Test MonthPickerPopup", () => {
     );
 
     expect(getByRole("button", { name: /Month Picker/i })).toBeVisible();
-    expect(getByText("1995")).toBeVisible;
+    expect(getByText("1995")).toBeVisible();
   });
 
   test("onChange Fires when a month is selected", async () => {
