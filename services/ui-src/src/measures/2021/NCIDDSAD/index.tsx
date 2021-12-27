@@ -1,12 +1,12 @@
 import { Measure } from "measures/types";
 import * as QMR from "components";
 
-export const NCIDDSAD = ({ name, year }: Measure.Props) => {
+export const NCIDDSAD = ({ name }: Measure.Props) => {
   return (
     <QMR.AutoCompletedMeasureTemplate
-      year={year}
+      year="2021"
       dateCompleted="Sep 30, 2021 12:01 AM EST"
-      reportingOnMeasureYear={true}
+      isReportingOnMeasureYear={true}
       measureTitle={`NCIDDS-AD - ${name}`}
       performanceMeasureText="The National Core Indicators® (NCI®) provide information on
         beneficiaries’ experience and self-reported outcomes of long-term

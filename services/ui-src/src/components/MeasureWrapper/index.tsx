@@ -48,7 +48,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   if (!params.coreSetId || !params.state) {
     return null;
   }
-
   return (
     <FormProvider {...methods}>
       <QMR.StateLayout
@@ -56,7 +55,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
-            name,
+            name: `${measureId} - ${name}`,
           },
         ]}
         buttons={

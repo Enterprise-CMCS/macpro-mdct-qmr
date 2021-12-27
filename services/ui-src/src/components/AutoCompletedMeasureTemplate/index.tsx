@@ -1,11 +1,13 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Params } from "Routes";
 
 interface Props {
   measureTitle: string;
   dateCompleted: string;
-  reportingOnMeasureYear: boolean;
+  isReportingOnMeasureYear: boolean;
   performanceMeasureText: string;
   performanceMeasureSubtext?: string;
   year: string;
@@ -16,9 +18,11 @@ export const AutoCompletedMeasureTemplate = ({
   dateCompleted,
   performanceMeasureText,
   performanceMeasureSubtext,
-  reportingOnMeasureYear,
+  isReportingOnMeasureYear,
   year,
 }: Props) => {
+  const { state, coreSetId } = useParams<Params>();
+
   return (
     <>
       <CUI.HStack justifyContent="space-between">
@@ -50,7 +54,7 @@ export const AutoCompletedMeasureTemplate = ({
 
         <CUI.Box>
           <CUI.Text fontWeight="700">{`Reporting on Measure FFY ${year}`}</CUI.Text>
-          <CUI.Text>{reportingOnMeasureYear ? "Yes" : "No"}</CUI.Text>
+          <CUI.Text>{isReportingOnMeasureYear ? "Yes" : "No"}</CUI.Text>
         </CUI.Box>
 
         <CUI.Stack spacing={6}>
@@ -68,7 +72,7 @@ export const AutoCompletedMeasureTemplate = ({
           </CUI.Text>
         </CUI.Stack>
 
-        <Link to={"/"}>
+        <Link to={`/${state}/${year}/${coreSetId}`}>
           <QMR.ContainedButton
             buttonProps={{ colorScheme: "blue", variant: "outline" }}
             buttonText="Back to Core Set Measures"
