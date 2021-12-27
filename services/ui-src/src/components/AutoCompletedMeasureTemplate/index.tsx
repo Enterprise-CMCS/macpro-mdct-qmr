@@ -7,6 +7,7 @@ interface Props {
   dateCompleted: string;
   reportingOnMeasureYear: boolean;
   performanceMeasureText: string;
+  performanceMeasureSubtext?: string;
   year: string;
 }
 
@@ -14,6 +15,7 @@ export const AutoCompletedMeasureTemplate = ({
   measureTitle,
   dateCompleted,
   performanceMeasureText,
+  performanceMeasureSubtext,
   reportingOnMeasureYear,
   year,
 }: Props) => {
@@ -48,7 +50,7 @@ export const AutoCompletedMeasureTemplate = ({
 
         <CUI.Box>
           <CUI.Text fontWeight="700">{`Reporting on Measure FFY ${year}`}</CUI.Text>
-          <CUI.Text>Yes</CUI.Text>
+          <CUI.Text>{reportingOnMeasureYear ? "Yes" : "No"}</CUI.Text>
         </CUI.Box>
 
         <CUI.Stack spacing={6}>
@@ -57,16 +59,12 @@ export const AutoCompletedMeasureTemplate = ({
             <CUI.Text>{performanceMeasureText}</CUI.Text>
           </CUI.Box>
 
-          <CUI.Text>
-            To reduce state burden and streamline reporting, CMS will calculate
-            this measure for states using state natality data obtained through
-            the Centers for Disease Control and Prevention Wide-ranging Online
-            Data for Epidemiologic Research (CDC WONDER).
-          </CUI.Text>
+          {performanceMeasureSubtext && (
+            <CUI.Text>{performanceMeasureSubtext}</CUI.Text>
+          )}
           <CUI.Text fontWeight="700">
-            States are not asked to report data for this measure for{" "}
-            {reportingOnMeasureYear}
-            Core Set reporting.
+            States are not asked to report data for this measure for Core Set
+            reporting.
           </CUI.Text>
         </CUI.Stack>
 

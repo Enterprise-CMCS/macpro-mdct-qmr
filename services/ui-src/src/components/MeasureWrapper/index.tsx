@@ -68,7 +68,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         }
       >
         <form data-testid="measure-wrapper-form">
-          <CUI.Container maxW="4xl" as="section">
+          <CUI.Container maxW="5xl" as="section">
             {cloneElement(measure, {
               name,
               year,
