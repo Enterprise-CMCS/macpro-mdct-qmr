@@ -64,7 +64,9 @@
       "!src/views/StateHome/actions.ts",
       "!src/components/Table/_coreSetData.ts",
       "!src/components/Table/_measureData.ts",
-      "!src/views/DemoMeasure/DemoFormType.ts"
+      "!src/views/DemoMeasure/DemoFormType.ts",
+      "!src/views/ApiTester/index.tsx",
+      "!src/views/DemoMeasure/questions/OptionalMeasureStratification.tsx"
     ],
     "moduleDirectories": [
       "node_modules",
