@@ -3,7 +3,7 @@ import * as QMR from "components";
 
 export const PDENTCH = ({ name, year }: Measure.Props) => {
   return (
-    <QMR.AutoCompletedMeasureTemplate
+    <QMR.AutocompletedMeasureTemplate
       year={year}
       dateCompleted="Sep 30, 2021 12:01 AM EST"
       isReportingOnMeasureYear={true}
