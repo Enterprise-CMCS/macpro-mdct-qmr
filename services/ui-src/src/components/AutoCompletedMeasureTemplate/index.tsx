@@ -67,8 +67,8 @@ export const AutoCompletedMeasureTemplate = ({
             <CUI.Text>{performanceMeasureSubtext}</CUI.Text>
           )}
           <CUI.Text fontWeight="700">
-            States are not asked to report data for this measure for Core Set
-            reporting.
+            {`States are not asked to report data for this measure for FFY ${year} Core Set
+            reporting.`}
           </CUI.Text>
         </CUI.Stack>
 

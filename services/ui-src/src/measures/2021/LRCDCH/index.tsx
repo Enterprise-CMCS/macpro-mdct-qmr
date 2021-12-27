@@ -1,10 +1,10 @@
 import { Measure } from "measures/types";
 import * as QMR from "components";
 
-export const LRCDCH = ({ name }: Measure.Props) => {
+export const LRCDCH = ({ name, year }: Measure.Props) => {
   return (
     <QMR.AutoCompletedMeasureTemplate
-      year="2021"
+      year={year}
       dateCompleted="Sep 30, 2021 12:01 AM EST"
       isReportingOnMeasureYear={true}
       measureTitle={`LRCD-CH - ${name}`}
