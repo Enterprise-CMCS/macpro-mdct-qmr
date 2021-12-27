@@ -65,7 +65,8 @@
       "!src/components/Table/_measureData.ts",
       "!src/views/DemoMeasure/DemoFormType.ts",
       "!src/views/ApiTester/index.tsx",
-      "!src/views/DemoMeasure/questions/OptionalMeasureStratification.tsx"
+      "!src/views/DemoMeasure/questions/OptionalMeasureStratification.tsx",
+      "!src/views/DemoMeasure/questions/OtherPerformanceMeasure.tsx"
     ],
     "moduleDirectories": [
       "node_modules",
