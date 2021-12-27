@@ -1,15 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { PDENTCH } from ".";
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useParams: () => ({
-    year: "2021",
-    state: "OH",
-    coreSetId: "CCS",
-    measureId: "PDENT-CH",
-  }),
-}));
 
 beforeEach(() => {
   render(
