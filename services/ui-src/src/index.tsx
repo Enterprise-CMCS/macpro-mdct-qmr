@@ -49,7 +49,7 @@ ReactDOM.render(
       <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
-      <ReactQueryDevtools initialIsOpen />
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </Router>,
   document.getElementById("root")
