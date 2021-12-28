@@ -17,7 +17,7 @@ export const createCoreSet = handler(async (event, context) => {
   const state = event.pathParameters.state;
   const year = event.pathParameters.year;
   const coreSet = event.pathParameters.coreSet;
-  const type = coreSet?.substring(0, 2);
+  const type = coreSet?.substring(0, 1);
   const coreSetQuery = await getCoreSet(event, context);
   const coreSetExists = !!Object.keys(JSON.parse(coreSetQuery.body)).length;
 

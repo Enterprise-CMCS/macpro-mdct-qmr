@@ -12,356 +12,356 @@ export interface MeasureMetaData {
 export const measures: Measure = {
   2021: [
     {
-      type: "AC",
+      type: "A",
       description: "Antidepressant Medication Management",
       measure: "AMM-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Asthma Medication Ratio: Ages 19 to 64",
       measure: "AMR-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Breast Cancer Screening",
       measure: "BCS-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Controlling High Blood Pressure",
       measure: "CBP-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Contraceptive Care Postpartum Women Ages 21-44",
       measure: "CCP-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Cervical Cancer Screening",
       measure: "CCS-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Contraceptive Care - All Women Ages 21 to 44",
       measure: "CCW-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Screening for Depression and Follow-Up Plan: Age 18 and older",
       measure: "CDF-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Chlamydia Screening in Women Ages 21-24",
       measure: "CHL-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Concurrent Use of Opioids and Benzodiazepines",
       measure: "COB-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.10H, Adult Version (Medicaid)",
       measure: "CPA-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
       measure: "FUA-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Follow-up after Hospitalization for Mental Illness: Age 18 and older",
       measure: "FUH-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Follow-Up after Emergency Department Visit for Mental Illness",
       measure: "FUM-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Flu Vaccinations for Adults Ages 18 to 64",
       measure: "FVA-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Comprehensive Diabetes Care: Hemoglobin A1c Poor Control (>9.0%)",
       measure: "HPC-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Diabetes Care for People with Serious Mental Illness: Hemoglobin A1C (HbA1c) Poor Control (>9.0%)",
       measure: "HPCMI-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "HIV Viral Loan Suppression",
       measure: "HVL-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
       measure: "IET-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Medical Assistance with Smoking and Tobacco Use Cessation",
       measure: "MSC-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "National Core Indicators",
       measure: "NCIDDS-AD",
       autocompleteOnCreation: true,
     },
     {
-      type: "AC",
+      type: "A",
       description: "User of Opioids at High Dosage in Persons Without Cancer",
       measure: "OHD-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Use of Pharmacotherapy for Opioid Use Disorder",
       measure: "OUD-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "PC-01: Elective Delivery",
       measure: "PC01-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Plan All-Cause Readmissions",
       measure: "PCR-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "Prenatal and PostPartum Care: Postpartum Care",
       measure: "PPC-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "PQI 01: Diabetes Short-term Complications Admission Rate",
       measure: "PQI01-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "PQI 05: Chronic Obstructive Pulmonary Disease (COPD) or Asthma in Older Adults Admission Rate",
       measure: "PQI05-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "PQI 08: Heart Failure Admission Rate",
       measure: "PQI08-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description: "PQI 15: Asthma in Younger Adults Admission Rate",
       measure: "PQI15-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Adherence to Antipsychotic Medications for Individuals with Schizophrenia",
       measure: "SAA-AD",
     },
     {
-      type: "AC",
+      type: "A",
       description:
         "Diabetes Screening for People with Schizophrenia or Bipolar Disorder Who Are Using Antipsychotic Medications",
       measure: "SSD-AD",
     },
     {
-      type: "CH",
+      type: "C",
       description:
         "Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication",
       measure: "ADD-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Ambulatory Care: Emergency Department (ED) Visits",
       measure: "AMB-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Asthma Medication Ratio: Ages 5 to 18",
       measure: "AMR-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description:
         "Metabolic Monitoring for Children and Adolescents on Antipsychotics",
       measure: "APM-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description:
         "Use of First-Line Psychosocial Care for Children and Adolescents on Antipsychotics",
       measure: "APP-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Audiological Diagnosis No Later Than 3 Months of Age",
       measure: "AUD-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Contraceptive Care - Postpartum Women Ages 15 to 20",
       measure: "CCP-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Contraceptive Care - All Women Ages 15-20",
       measure: "CCW-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Screening for Depression and Follow-up Plan: Ages 12 to 17",
       measure: "CDF-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Chlamydia Screening in Women Ages 16 to 20",
       measure: "CHL-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Childhood Immunization Status",
       measure: "CIS-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description:
         "Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items",
       measure: "CPC-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Developmental Screening in the First Three Years of Life",
       measure: "DEV-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description:
         "Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17",
       measure: "FUH-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Immunizations for Adolescents",
       measure: "IMA-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Live Births Weighing Less Than 2,500 Grams",
       measure: "LBW-CH",
       autocompleteOnCreation: true,
     },
     {
-      type: "CH",
+      type: "C",
       description: "Low-Risk Cesarean Delivery",
       measure: "LRCD-CH",
       autocompleteOnCreation: true,
     },
     {
-      type: "CH",
+      type: "C",
       description:
         "Percentage of Eligibles Who Received Preventive Dental Services",
       measure: "PDENT-CH",
       autocompleteOnCreation: true,
     },
     {
-      type: "CH",
+      type: "C",
       description: "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
       measure: "PPC-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Sealant Receipt on Permanent First Molars",
       measure: "SFM-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Well-Child Visits in the First 30 Months of Life",
       measure: "W30-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description:
         "Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents",
       measure: "WCC-CH",
     },
     {
-      type: "CH",
+      type: "C",
       description: "Child and Adolescent Well-Care Visits",
       measure: "WCV-CH",
     },
     {
-      type: "HH",
+      type: "H",
       description: "Admission to an Institution from the Community",
       measure: "AIF-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description: "Ambulatory Care: Emergency Department (ED) Visits",
       measure: "AMB-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description: "Controlling High Blood Pressure",
       measure: "CBP-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description: "Screening for Depression and Follow-Up Plan",
       measure: "CDF-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description:
         "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
       measure: "FUA-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description: "Follow-Up after Hosptialization for Mental Illness",
       measure: "FUH-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description:
         "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
       measure: "IET-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description: "Inpatient Hospitalization",
       measure: "IU-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description: "Use of Pharmacotherapy for Opioid Use Disorder",
       measure: "OUD-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description: "Plan All-Cause Readmissions",
       measure: "PCR-HH",
     },
     {
-      type: "HH",
+      type: "H",
       description:
         "Prevention Quality Indicator (PQI) 92: Chronic Conditions Composite",
       measure: "PQI92-HH",
