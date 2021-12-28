@@ -56,7 +56,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
-            name,
+            name: `${measureId} - ${name}`,
           },
         ]}
         buttons={
@@ -68,7 +68,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         }
       >
         <form data-testid="measure-wrapper-form">
-          <CUI.Container maxW="4xl" as="section">
+          <CUI.Container maxW="5xl" as="section">
             <CUI.Text fontSize="sm">
               For technical questions regarding use of this application, please
               reach out to MDCT_Help@cms.hhs.gov. For content-related questions

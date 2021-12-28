@@ -76,7 +76,7 @@ const createDependentMeasures = async (
         measure: measureId,
         createdAt: Date.now(),
         lastAltered: Date.now(),
-        status: "incomplete",
+        status: measure.autocompleteOnCreation ? "complete" : "incomplete",
         description: measure.description,
       },
     };
