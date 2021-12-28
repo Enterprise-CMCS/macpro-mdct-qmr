@@ -114,7 +114,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "National Core Indicators",
+      name: "National Core Indicators Survey",
       measureId: "NCIDDS-AD",
     },
     {

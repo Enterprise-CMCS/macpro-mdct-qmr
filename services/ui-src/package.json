@@ -22,7 +22,7 @@
     "react-icons": "^4.3.1",
     "react-query": "^3.34.5",
     "react-router-dom": "6.0.2",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^5.0.0",
     "sass": "^1.37.5"
   },
   "scripts": {
@@ -30,7 +30,8 @@
     "build": "react-scripts build",
     "coverage": "jest --coverage",
     "test": "jest --setupFiles dotenv/config",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "patch-package"
   },
   "jest": {
     "coverageReporters": [
@@ -40,7 +41,9 @@
         {
           "projectRoot": "../../"
         }
-      ]
+      ],
+      "text",
+      "text-summary"
     ],
     "collectCoverageFrom": [
       "src/components/**/*.{ts,tsx}",
@@ -66,7 +69,9 @@
       "!src/components/Table/_measureData.ts",
       "!src/views/DemoMeasure/DemoFormType.ts",
       "!src/views/ApiTester/index.tsx",
-      "!src/views/DemoMeasure/questions/OptionalMeasureStratification.tsx"
+      "!src/views/DemoMeasure/questions/OptionalMeasureStratification.tsx",
+      "!src/views/DemoMeasure/questions/OtherPerformanceMeasure.tsx",
+      "!src/measures/**/*.{ts,tsx}"
     ],
     "moduleDirectories": [
       "node_modules",
@@ -117,6 +122,8 @@
     "@types/react-router-dom": "^5.3.2",
     "babel": "^6.23.0",
     "babel-jest": "^26.6.3",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.4.1",
     "serverless-cloudfront-invalidate": "^1.5.0",
     "serverless-s3-bucket-helper": "https://github.com/cmsgov/serverless-s3-bucket-helper",

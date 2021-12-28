@@ -93,7 +93,7 @@ export const DeviationFromMeasureSpec = ({ options }: Props) => {
                 formLabelProps={{ fontWeight: 600 }}
                 options={deviationOptions({
                   options,
-                  ...register("DeviationFields"),
+                  ...register("DeviationFields-Within30"),
                 })}
               />,
             ],
