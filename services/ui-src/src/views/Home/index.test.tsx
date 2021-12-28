@@ -6,7 +6,7 @@ describe("Test Home.tsx", () => {
   test("Check that the Home renders", () => {
     const result = render(
       <RouterWrappedComp>
-        <Home />
+        <Home user={undefined} />
       </RouterWrappedComp>
     );
 

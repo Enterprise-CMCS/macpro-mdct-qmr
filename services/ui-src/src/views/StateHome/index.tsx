@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { measuresList } from "measures/measuresList";
@@ -5,8 +6,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Params } from "Routes";
 import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
-import { useGetCoreSets } from "hooks/api/useGetCoreSets";
+import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
+import { queryClient } from "../../index";
 
 const ReportingYear = () => {
   const navigate = useNavigate();
@@ -63,17 +65,23 @@ const Heading = () => {
 
 export const StateHome = () => {
   const { state, year } = useParams<Params>();
-  const { data, error, isLoading } = useGetCoreSets();
+  const { data, error, isLoading } = Api.useGetCoreSets();
+  const mutation = Api.useAddCoreSet();
 
-  if (isLoading || error) {
+  useEffect(() => {
+    // if data.Items is an empty array no coresets exist
+    // In that case we crete an adult coreset and refetch the data
+    if (data?.Items.length === 0) {
+      mutation.mutate("ACS", {
+        onSuccess: () => {
+          queryClient.refetchQueries(["coreSets", state, year]);
+        },
+      });
+    }
+  }, [data?.Items]);
+
+  if (isLoading || error || data?.Items.length === 0) {
     return null;
-  }
-
-  // if data.Items is an empty array no coresets exist
-  // In that case we crete an adult coreset and refetch the data
-  // for now lets just display a message
-  if (data.Items.length === 0) {
-    return <CUI.Text>No Coresets exist for this state yet</CUI.Text>;
   }
 
   const formattedTableItems = formatTableItems(data.Items);

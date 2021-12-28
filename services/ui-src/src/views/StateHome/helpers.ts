@@ -55,7 +55,7 @@ import { CoreSet } from "components/Table/types";
 import { coreSetMeasureTitle } from "views";
 import { coreSetActions } from "./actions";
 
-type CoreSetType = "ACS" | "CCS" | "CCSM" | "CCSC" | "HHCS";
+export type CoreSetType = "ACS" | "CCS" | "CCSM" | "CCSC" | "HHCS";
 
 export interface CoreSetDataItem {
   compoundKey: string;

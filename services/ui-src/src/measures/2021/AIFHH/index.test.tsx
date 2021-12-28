@@ -19,6 +19,7 @@ beforeEach(() => {
       <AIFHH
         name="Admission to an Institution from the Community"
         year="2021"
+        handleSubmit={() => {}}
       />
     </RouterWrappedComp>
   );

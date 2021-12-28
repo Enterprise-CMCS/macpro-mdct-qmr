@@ -10,7 +10,7 @@ import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 Amplify.configure({
   Auth: {
