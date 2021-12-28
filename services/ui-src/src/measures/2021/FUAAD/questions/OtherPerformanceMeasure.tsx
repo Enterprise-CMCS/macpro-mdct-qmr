@@ -21,6 +21,7 @@ export const OtherPerformanceMeasure = () => {
     <QMR.CoreQuestionWrapper label="Other Performance Measure">
       <QMR.TextArea
         label="Describe the other methodology used:"
+        formLabelProps={{ fontWeight: 700 }}
         {...register("OtherPerformanceMeasure-Explanation")}
       />
       <CUI.Box marginTop={10}>
