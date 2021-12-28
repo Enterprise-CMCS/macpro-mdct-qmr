@@ -24,16 +24,6 @@ export function updateLocalCurrentUserAttributes(userAttributes: object) {
   }
 }
 
-export async function currentUserInfo() {
-  const localLogin = config.LOCAL_LOGIN === "true";
-
-  if (localLogin) {
-    return getLocalUserInfo();
-  } else {
-    return Auth.currentUserInfo();
-  }
-}
-
 export function getLocalUserInfo() {
   const store = window.localStorage;
   const localStorageItem = store.getItem(userKey);

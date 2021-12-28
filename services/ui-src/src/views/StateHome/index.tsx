@@ -78,9 +78,16 @@ export const StateHome = () => {
         },
       });
     }
-  }, [data?.Items]);
+  }, [data?.Items, state, year]);
 
-  if (isLoading || error || data?.Items.length === 0) {
+  if (error) {
+    return (
+      <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
+    );
+  }
+
+  if (isLoading || data?.Items.length === 0) {
+    // we should have a loading state here
     return null;
   }
 

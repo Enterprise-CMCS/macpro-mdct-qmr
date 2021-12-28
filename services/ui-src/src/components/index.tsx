@@ -8,7 +8,6 @@ export * from "./InputWrapper";
 export * from "./Inputs";
 export * from "./KebabMenu";
 export * from "./Layouts";
-export * from "./LoaderButton";
 export * from "./LocalLogins";
 export * from "./Logo";
 export * from "./MeasureButtons";
