@@ -48,6 +48,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   if (!params.coreSetId || !params.state) {
     return null;
   }
+
   return (
     <FormProvider {...methods}>
       <QMR.StateLayout
