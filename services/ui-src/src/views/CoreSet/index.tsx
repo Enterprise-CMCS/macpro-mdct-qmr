@@ -67,6 +67,74 @@ export const CoreSet = () => {
         },
       ],
     },
+    {
+      Type: "Adult",
+      title: "National Core Indicators Survey",
+      abbr: "NCIDDS-AD",
+      path: `/${state}/${year}/${coreSetId}/NCIDDS-AD`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "NCIDDS-AD",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
+    {
+      Type: "Child",
+      title: "Percentage of Eligibles Who Received Preventive Dental Services",
+      abbr: "PDENT-CH",
+      path: `/${state}/${year}/${coreSetId}/PDENT-CH`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "PDENT-CH",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
+    {
+      Type: "Child",
+      title: "Live Births Weighing Less Than 2,500 Grams",
+      abbr: "LBW-CH",
+      path: `/${state}/${year}/${coreSetId}/LBW-CH`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "LBW-CH",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
+    {
+      Type: "Child",
+      title: "Low-Risk Cesarean Delivery",
+      abbr: "LRCD-CH",
+      path: `/${state}/${year}/${coreSetId}/LRCD-CH`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "LRCD-CH",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
   ];
 
   return (
