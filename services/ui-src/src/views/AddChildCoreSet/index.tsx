@@ -2,11 +2,13 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Params } from "Routes";
 import { AiFillWarning } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import * as Api from "hooks/api";
+import { queryClient } from "../../index";
 
 interface ChildCoreSet {
   "ChildCoreSet-ReportType": string;
@@ -17,6 +19,9 @@ const ChildCoreSetSchema = Joi.object<ChildCoreSet>({
 });
 
 export const AddChildCoreSet = () => {
+  const mutation = Api.useAddCoreSet();
+  const navigate = useNavigate();
+
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
@@ -27,6 +32,29 @@ export const AddChildCoreSet = () => {
 
   const handleSave = () => {
     console.log("saved");
+  };
+
+  const handleSubmit = (data: ChildCoreSet) => {
+    console.log({ data });
+    if (data["ChildCoreSet-ReportType"] === "separate") {
+      mutation.mutate("CCSM", {
+        onSuccess: () => {
+          mutation.mutate("CCSC", {
+            onSuccess: () => {
+              queryClient.refetchQueries(["coreSets", state, year]);
+              navigate(`/${state}/${year}`);
+            },
+          });
+        },
+      });
+    } else if (data["ChildCoreSet-ReportType"] === "combined") {
+      mutation.mutate("CCS", {
+        onSuccess: () => {
+          queryClient.refetchQueries(["coreSets", state, year]);
+          navigate(`/${state}/${year}`);
+        },
+      });
+    }
   };
 
   return (
@@ -53,7 +81,7 @@ export const AddChildCoreSet = () => {
           Child Core Set report(s).
         </CUI.Text>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+          <form onSubmit={methods.handleSubmit(handleSubmit)}>
             <CUI.Container maxW="container.xl" as="section">
               <CUI.Stack spacing="10">
                 <QMR.RadioButton
