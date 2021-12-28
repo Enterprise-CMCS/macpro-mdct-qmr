@@ -10,9 +10,10 @@ export interface IRate {
 interface Props {
   rates: IRate[];
   name: string;
+  readOnly?: boolean;
 }
 
-export const Rate = ({ rates, name }: Props) => {
+export const Rate = ({ rates, name, readOnly = true }: Props) => {
   const { control } = useFormContext();
 
   const { field } = useController({
@@ -27,11 +28,17 @@ export const Rate = ({ rates, name }: Props) => {
     newValue: string
   ) => {
     if (!allNumbers.test(newValue)) return;
-    if (type === "rate") return;
+    if (type === "rate" && readOnly) return;
 
     const prevRate = [...field.value];
     const editRate = { ...prevRate[index] };
     editRate[type] = newValue;
+
+    if (type === "rate" && !readOnly) {
+      prevRate[index].rate = newValue;
+      field.onChange([...prevRate]);
+      return;
+    }
 
     if (parseInt(editRate.denominator) && editRate.numerator) {
       editRate.rate = (editRate.numerator / editRate.denominator)
@@ -72,7 +79,7 @@ export const Rate = ({ rates, name }: Props) => {
                 <CUI.Input
                   value={field.value[index]?.rate ?? ""}
                   onChange={(e) => changeRate(index, "rate", e.target.value)}
-                  readOnly
+                  readOnly={readOnly}
                 />
               </QMR.InputWrapper>
             </CUI.HStack>

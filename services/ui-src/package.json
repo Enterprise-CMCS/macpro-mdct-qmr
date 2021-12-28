@@ -40,7 +40,9 @@
         {
           "projectRoot": "../../"
         }
-      ]
+      ],
+      "text",
+      "text-summary"
     ],
     "collectCoverageFrom": [
       "src/components/**/*.{ts,tsx}",
