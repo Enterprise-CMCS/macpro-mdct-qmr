@@ -17,10 +17,15 @@ const OptionalMeasureStratificationRateJoi = Joi.object({
 
 // This is the validation schema for any/all state measures
 export const validationSchema = Joi.object<Measure.Form>({
+  //Report
   DidReport: Joi.string().label("Are you reporting"),
+
+  //Status
   DataStatus: Joi.string().label("Status of Data Reported"),
-  DataSource: Joi.array().items(Joi.string()),
   "DataStatus-ProvisionalExplanation": Joi.string(),
+
+  //DataSource
+  DataSource: Joi.array().items(Joi.string()),
   "DataSource-Administrative": Joi.array().items(Joi.string()),
   "DataSource-Administrative-Other": Joi.string(),
   "DataSource-Administrative-Other-Explanation": Joi.string(),
@@ -32,15 +37,21 @@ export const validationSchema = Joi.object<Measure.Form>({
   "DataSource-Hybrid-MedicalRecord-DataSoruce": Joi.string(),
   "DataSource-ElectronicHealthRecords": Joi.string(),
   "DataSource-ElectronicHealthRecords-Explanation": Joi.string(),
+
+  //CombinedRates
   CombinedRates: Joi.string(),
   "CombinedRates-CombinedRates": Joi.string(),
   "CombinedRates-CombinedRates-Other-Explanation": Joi.string(),
+
+  //MeasurementSpecification
   MeasurementSpecification: Joi.string(),
   "MeasurementSpecification-HEDISVersion": Joi.string(),
   "MeasurementSpecification-OtherMeasurementSpecificationDescription":
     Joi.string(),
   "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload":
     Joi.array().items(Joi.any()),
+
+  //WhyAreYouNotReporting
   WhyAreYouNotReporting: Joi.array().items(Joi.string()),
   AmountOfPopulationNotCovered: Joi.string(),
   PartialPopulationNotCoveredExplanation: Joi.string(),
@@ -54,8 +65,12 @@ export const validationSchema = Joi.object<Measure.Form>({
   LimitationWithDatCollecitonReportAccuracyCovid: Joi.string(),
   SmallSampleSizeLessThan30: Joi.string(),
   "WhyAreYouNotReporting-Other": Joi.string(),
+
+  //AdditionalNotes
   "AdditionalNotes-AdditionalNotes": Joi.string(),
   "AdditionalNotes-Upload": Joi.array().items(Joi.any()),
+
+  //OttherPerformanceMeasure
   "OtherPerformanceMeasure-Explanation": Joi.string(),
   "OtherPerformanceMeasure-Notes": Joi.string(),
   "OtherPerformanceMeasure-Rates-TextInput": Joi.string(),
@@ -73,6 +88,8 @@ export const validationSchema = Joi.object<Measure.Form>({
       })
     )
     .sparse(),
+
+  //DefinitionOfPopulation
   DefinitionOfDenominator: Joi.array().items(Joi.string()),
   "DefinitionOfDenominator-Other": Joi.string(),
   ChangeInPopulationExplanation: Joi.string(),
@@ -98,6 +115,8 @@ export const validationSchema = Joi.object<Measure.Form>({
   "DeliverySys-Other-Percent": Joi.string(),
   "DeliverySys-Other-NumberOfHealthPlans": Joi.string(),
   "DeliverySys-Other-Population": Joi.string(),
+
+  //DeviationFromMeasureSpec
   DidCalculationsDeviate: Joi.string(),
   DeviationOptions: Joi.array().items(Joi.string()),
   DeviationFields: Joi.array()
@@ -115,8 +134,10 @@ export const validationSchema = Joi.object<Measure.Form>({
   CategoriesReported: Joi.array().items(Joi.string()),
 
   AddtnlEthnicity: Joi.array().items(Joi.string()),
+  AddtnlEthnicityRates: Joi.array().items(OptionalMeasureStratificationRateJoi),
 
   AddtnlNonHispanicRace: Joi.array().items(Joi.string()),
+  AddtnlNonHispanicRaceAggregation: Joi.array().items(Joi.string()),
   AddtnlNonHispanicRaceRates: Joi.array().items(
     OptionalMeasureStratificationRateJoi
   ),
@@ -142,20 +163,42 @@ export const validationSchema = Joi.object<Measure.Form>({
     .sparse(),
 
   EthnicityCategories: Joi.array().items(Joi.string()),
+  NonHispanicEthnicityRates: OptionalMeasureStratificationRateJoi,
   HispanicIndependentReporting: Joi.string(),
+  HispanicEthnicityAggregateRate: OptionalMeasureStratificationRateJoi,
   IndependentHispanicOptions: Joi.array().items(Joi.string()),
+  IndependentHispanicRates: Joi.array()
+    .items(OptionalMeasureStratificationRateJoi)
+    .sparse(),
 
   AsianIndependentReporting: Joi.string(),
   IndependentAsianOptions: Joi.array().items(Joi.string()),
   NativeHawaiianIndependentReporting: Joi.string(),
   IndependentNativeHawaiianOptions: Joi.array().items(Joi.string()),
+
   SexOptions: Joi.array().items(Joi.string()),
+  MaleSexRates: OptionalMeasureStratificationRateJoi,
+  FemaleSexRates: OptionalMeasureStratificationRateJoi,
 
   AddtnlPrimaryLanguage: Joi.array().items(Joi.string()),
   PrimaryLanguageOptions: Joi.array().items(Joi.string()),
+  AddtnlPrimaryLanguageRates: Joi.array().items(
+    OptionalMeasureStratificationRateJoi
+  ),
+  EnglishLanguageRate: OptionalMeasureStratificationRateJoi,
+  SpanishLanguageRate: OptionalMeasureStratificationRateJoi,
 
   DisabilityStatusOptions: Joi.array().items(Joi.string()),
+  DisabilitySSIRate: OptionalMeasureStratificationRateJoi,
+  DisabilityNonSSIRate: OptionalMeasureStratificationRateJoi,
   AddtnlDisabilityStatusDesc: Joi.string(),
+  AddtnlDisabilityRate: OptionalMeasureStratificationRateJoi,
+
   GeographyOptions: Joi.array().items(Joi.string()),
+  UrbanGeographyRate: OptionalMeasureStratificationRateJoi,
+  RuralGeographyRate: OptionalMeasureStratificationRateJoi,
   AddtnlGeographyDesc: Joi.string(),
+  AddtnlGeographyRate: OptionalMeasureStratificationRateJoi,
+
+  ACAGroupRate: OptionalMeasureStratificationRateJoi,
 });
