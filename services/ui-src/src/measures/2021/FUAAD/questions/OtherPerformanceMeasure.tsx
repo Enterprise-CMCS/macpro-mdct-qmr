@@ -1,5 +1,4 @@
 import * as QMR from "components";
-import * as Q from "./AdditionalNotes";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "measures/types";
@@ -13,7 +12,7 @@ export const OtherPerformanceMeasure = () => {
       denominator: "",
       numerator: "",
       rate: "",
-      id: 1,
+      id: 0,
     },
   ];
   const [showRates, setRates] = React.useState(rates);
@@ -37,7 +36,7 @@ export const OtherPerformanceMeasure = () => {
               />
               <QMR.Rate
                 rates={[item]}
-                name={`OtherPerformanceMeasure-Rates.${item.id}`}
+                name={`OtherPerformanceMeasure-Rates.${item.id}.rate`}
               />
             </CUI.Stack>
           );
@@ -56,12 +55,11 @@ export const OtherPerformanceMeasure = () => {
               denominator: "",
               numerator: "",
               rate: "",
-              id: showRates.length + 1,
+              id: showRates.length,
             });
             setRates([...showRates]);
           }}
         />
-        <Q.AdditionalNotes {...register("OtherPerformanceMeasure-Notes")} />
       </CUI.Box>
     </QMR.CoreQuestionWrapper>
   );

@@ -1,6 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
 import { allNumbers } from "utils/numberInputMasks";
+import * as QMR from "components";
 export interface IRate {
   label?: string;
   id: number;
@@ -32,15 +33,12 @@ export const Rate = ({ rates, name }: Props) => {
     const editRate = { ...prevRate[index] };
     editRate[type] = newValue;
 
-    console.log(editRate);
-
     if (parseInt(editRate.denominator) && editRate.numerator) {
-      console.log("in here", editRate.numerator, editRate.denominator);
       editRate.rate = (editRate.numerator / editRate.denominator)
         .toFixed(4)
         .toString();
-      console.log(editRate.rate);
     }
+
     prevRate[index] = editRate;
     field.onChange([...prevRate]);
   };
@@ -54,21 +52,29 @@ export const Rate = ({ rates, name }: Props) => {
               <CUI.FormLabel fontWeight={700}>{rate.label}</CUI.FormLabel>
             )}
             <CUI.HStack spacing={16}>
-              <CUI.Input
-                value={field.value[index]?.numerator ?? ""}
-                onChange={(e) => changeRate(index, "numerator", e.target.value)}
-              />
-              <CUI.Input
-                value={field.value[index]?.denominator ?? ""}
-                onChange={(e) =>
-                  changeRate(index, "denominator", e.target.value)
-                }
-              />
-              <CUI.Input
-                value={field.value[index]?.rate ?? ""}
-                onChange={(e) => changeRate(index, "rate", e.target.value)}
-                readOnly
-              />
+              <QMR.InputWrapper label="Numerator">
+                <CUI.Input
+                  value={field.value[index]?.numerator ?? ""}
+                  onChange={(e) =>
+                    changeRate(index, "numerator", e.target.value)
+                  }
+                />
+              </QMR.InputWrapper>
+              <QMR.InputWrapper label="Denominator">
+                <CUI.Input
+                  value={field.value[index]?.denominator ?? ""}
+                  onChange={(e) =>
+                    changeRate(index, "denominator", e.target.value)
+                  }
+                />
+              </QMR.InputWrapper>
+              <QMR.InputWrapper label="Rate">
+                <CUI.Input
+                  value={field.value[index]?.rate ?? ""}
+                  onChange={(e) => changeRate(index, "rate", e.target.value)}
+                  readOnly
+                />
+              </QMR.InputWrapper>
             </CUI.HStack>
           </CUI.Stack>
         );

@@ -62,14 +62,8 @@ export const validationSchema = Joi.object<Measure.Form>({
   "OtherPerformanceMeasure-Rates": Joi.array()
     .items(
       Joi.object({
-        options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
-        id: Joi.string(),
-        label: Joi.string(),
-        rate: Joi.string(),
-        description: Joi.string(),
+        description: Joi.string().empty(""),
+        rate: RateJoiValidator,
       })
     )
     .sparse(),
