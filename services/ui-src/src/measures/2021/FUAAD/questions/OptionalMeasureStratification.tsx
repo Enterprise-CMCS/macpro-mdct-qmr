@@ -54,17 +54,15 @@ const AddAnotherButton = ({
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
   return (
-    <CUI.Box mt="4">
-      <QMR.ContainedButton
-        buttonText={"+ Add Another"}
-        buttonProps={{
-          variant: "outline",
-          colorScheme: "blue",
-          textTransform: "capitalize",
-        }}
-        onClick={onClick}
-      />
-    </CUI.Box>
+    <QMR.ContainedButton
+      buttonText={"+ Add Another"}
+      buttonProps={{
+        variant: "outline",
+        colorScheme: "blue",
+        textTransform: "capitalize",
+      }}
+      onClick={onClick}
+    />
   );
 };
 
@@ -360,38 +358,10 @@ export const OptionalMeasureStratification = ({
                             label="Define the additional Race"
                             name={`AddtnlNonHispanicRace.${index}`}
                           />
-                          <QMR.RadioButton
-                            name={`AddtnlNonHispanicRaceAggregation.${index}`}
-                            key={`AddtnlNonHispanicRaceAggregation.${index}`}
-                            label="Are you only reporting aggregrated data for all additional race categories?"
-                            options={[
-                              {
-                                value: `YesAggregateAddttnlNHR-i${index}`,
-                                displayValue:
-                                  "Yes, we are only reporting aggregrated data for all additional race categories.",
-                                children: [
-                                  <AgeData
-                                    name={`AddtnlNonHispanicRaceRates.${index}`}
-                                    key={`AddtnlNonHispanicRaceRates.${index}`}
-                                    ageGroups={ageGroups}
-                                    totalLabel={totalLabel}
-                                  />,
-                                ],
-                              },
-                              {
-                                value: `NoIndependentAddtnlNHR-i${index}`,
-                                displayValue:
-                                  "No, we are reporting independent data for all additional race categories.",
-                                children: [
-                                  <AgeData
-                                    name={`AddtnlNonHispanicRaceRates.${index}`}
-                                    key={`AddtnlNonHispanicRaceRates.${index}`}
-                                    ageGroups={ageGroups}
-                                    totalLabel={totalLabel}
-                                  />,
-                                ],
-                              },
-                            ]}
+                          <AgeData
+                            name={`AddtnlNonHispanicRaceRates.${index}`}
+                            ageGroups={ageGroups}
+                            totalLabel={totalLabel}
                           />
                           {index + 1 === addtnlNonHispanicRace.length && (
                             <AddAnotherButton
@@ -415,20 +385,12 @@ export const OptionalMeasureStratification = ({
                 {...register("EthnicityCategories")}
                 options={[
                   {
-                    value: "NonHispanicLatinoSpanish",
-                    displayValue:
-                      "Not of Hispanic, Latino/a, or Spanish origin",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("NonHispanicEthnicityRates")}
-                      />,
-                    ],
+                    value: "Not of Hispanic, Latino/a, or Spanish origin",
+                    displayValue: "NonHispanicLatinoSpanish",
                   },
                   {
-                    value: "HispanicLatino",
-                    displayValue: "Hispanic or Latino",
+                    value: "Hispanic or Latino",
+                    displayValue: "HispanicLatino",
                     children: [
                       <QMR.RadioButton
                         {...register("HispanicIndependentReporting")}
@@ -439,13 +401,6 @@ export const OptionalMeasureStratification = ({
                             value: "YesHispanicAggregate",
                             displayValue:
                               "Yes, we are only reporting aggregrated data for all Hispanic, Latino/a, or Spanish origin categories.",
-                            children: [
-                              <AgeData
-                                ageGroups={ageGroups}
-                                totalLabel={totalLabel}
-                                {...register("HispanicEthnicityAggregateRate")}
-                              />,
-                            ],
                           },
                           {
                             value: "NoHispanicIndependent",
@@ -456,18 +411,10 @@ export const OptionalMeasureStratification = ({
                                 {...register("EthnicityCategories")}
                                 options={[
                                   ...IndependentEthnicityOptions.map(
-                                    (value, index) => {
+                                    (value) => {
                                       return {
                                         value: value.replace(/,| |\//g, ""),
                                         displayValue: value,
-                                        children: [
-                                          <AgeData
-                                            ageGroups={ageGroups}
-                                            totalLabel={totalLabel}
-                                            name={`IndependentHispanicRates.${index}`}
-                                            key={`IndependentHispanicRates.${index}`}
-                                          />,
-                                        ],
                                       };
                                     }
                                   ),
@@ -484,18 +431,10 @@ export const OptionalMeasureStratification = ({
                       value: value,
                       displayValue: "Additional Ethnicity",
                       children: [
-                        <CUI.Box mb="4" key={`AddtnlEthnicity.${index}Box`}>
-                          <QMR.TextInput
-                            name={`AddtnlEthnicity.${index}`}
-                            key={`${value}.${index}`}
-                            label="Define the Additional Ethnicity"
-                          />
-                        </CUI.Box>,
-                        <AgeData
-                          ageGroups={ageGroups}
-                          totalLabel={totalLabel}
-                          name={`AddtnlEthnicityRates.${index}`}
-                          key={`AddtnlEthnicityRates.${index}`}
+                        <QMR.TextInput
+                          name={`AddtnlEthnicity.${index}`}
+                          key={`${value}.${index}`}
+                          label="Define the Additional Ethnicity"
                         />,
                       ],
                     };
@@ -515,28 +454,8 @@ export const OptionalMeasureStratification = ({
               <QMR.Checkbox
                 {...register("SexOptions")}
                 options={[
-                  {
-                    value: "Male",
-                    displayValue: "Male",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("MaleSexRates")}
-                      />,
-                    ],
-                  },
-                  {
-                    value: "Female",
-                    displayValue: "Female",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("FemaleSexRates")}
-                      />,
-                    ],
-                  },
+                  { value: "Male", displayValue: "Male" },
+                  { value: "Female", displayValue: "Female" },
                 ]}
               />,
             ],
@@ -551,42 +470,19 @@ export const OptionalMeasureStratification = ({
                   {
                     value: "English",
                     displayValue: "English",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("EnglishLanguageRate")}
-                      />,
-                    ],
                   },
                   {
                     value: "Spanish",
                     displayValue: "Spanish",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("SpanishLanguageRate")}
-                      />,
-                    ],
                   },
                   ...addtnlPrimaryLanguages.map((value, index) => {
                     return {
                       value: value,
                       displayValue: "Additional Primary Language",
                       children: [
-                        <CUI.Box mb="4" key={`${value}.${index}Box`}>
-                          <QMR.TextInput
-                            key={`${value}.${index}`}
-                            label="Define the Additional Primary Language"
-                            name={`AddtnlPrimaryLanguage.${index}`}
-                          />
-                        </CUI.Box>,
-                        <AgeData
-                          ageGroups={ageGroups}
-                          totalLabel={totalLabel}
-                          name={`AddtnlPrimaryLanguageRates.${index}`}
-                          key={`AddtnlPrimaryLanguageRates.${index}`}
+                        <QMR.TextInput
+                          key={`${value}.${index}`}
+                          name={`AddtnlPrimaryLanguage.${index}`}
                         />,
                       ],
                     };
@@ -606,42 +502,15 @@ export const OptionalMeasureStratification = ({
               <QMR.Checkbox
                 {...register("DisabilityStatusOptions")}
                 options={[
-                  {
-                    value: "SSI",
-                    displayValue: "SSI",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("DisabilitySSIRate")}
-                      />,
-                    ],
-                  },
-                  {
-                    value: "Non-SSI",
-                    displayValue: "Non-SSI",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("DisabilityNonSSIRate")}
-                      />,
-                    ],
-                  },
+                  { value: "SSI", displayValue: "SSI" },
+                  { value: "Non-SSI", displayValue: "Non-SSI" },
                   {
                     value: "AdditionalDisabilityStatus",
                     displayValue: "Additional Disability Status",
                     children: [
-                      <CUI.Box mb="4" key={"AddtnlDisabilityStatusDescBox"}>
-                        <QMR.TextInput
-                          {...register("AddtnlDisabilityStatusDesc")}
-                          label="Define the Additional Disability Status"
-                        />
-                      </CUI.Box>,
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("AddtnlDisabilityRate")}
+                      <QMR.TextInput
+                        {...register("AddtnlDisabilityStatusDesc")}
+                        label="Define the Additional Disability Status"
                       />,
                     ],
                   },
@@ -656,57 +525,19 @@ export const OptionalMeasureStratification = ({
               <QMR.Checkbox
                 {...register("GeographyOptions")}
                 options={[
-                  {
-                    value: "Urban",
-                    displayValue: "Urban",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("UrbanGeographyRate")}
-                      />,
-                    ],
-                  },
-                  {
-                    value: "Rural",
-                    displayValue: "Rural",
-                    children: [
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("RuralGeographyRate")}
-                      />,
-                    ],
-                  },
+                  { value: "Urban", displayValue: "Urban" },
+                  { value: "Rural", displayValue: "Rural" },
                   {
                     value: "AdditonalGeography",
                     displayValue: "Additonal Geography",
                     children: [
-                      <CUI.Box mb="4" key="AddtnlGeographyDescWrapper">
-                        <QMR.TextInput
-                          {...register("AddtnlGeographyDesc")}
-                          label="Define the Additional Geography"
-                        />
-                      </CUI.Box>,
-                      <AgeData
-                        ageGroups={ageGroups}
-                        totalLabel={totalLabel}
-                        {...register("AddtnlGeographyRate")}
+                      <QMR.TextInput
+                        {...register("AddtnlGeographyDesc")}
+                        label="Define the Additional Geography"
                       />,
                     ],
                   },
                 ]}
-              />,
-            ],
-          },
-          {
-            value: "ACAGroup",
-            displayValue: "Adult Eligibility Group (ACA Expansion Group)",
-            children: [
-              <AgeData
-                ageGroups={ageGroups}
-                totalLabel={totalLabel}
-                {...register("ACAGroupRate")}
               />,
             ],
           },

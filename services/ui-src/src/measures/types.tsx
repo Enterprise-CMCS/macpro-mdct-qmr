@@ -105,11 +105,46 @@ export namespace Measure {
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    DeviationFields: {
+    "DeviationOptions-Within7-AgeRange": string[];
+    "DeviationOptions-Within30-AgeRange": string[];
+    "DeviationFields-Within7": {
       options: string[];
       denominator: string;
       numerator: string;
       other: string;
+    };
+    "DeviationFields-Within30": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "PerformanceMeasure-Explanation": string;
+    "PerformanceMeasure-AgeRates-30Days": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    };
+    "PerformanceMeasure-AgeRates-7Days": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    };
+    DateRange: {
+      endDate: {
+        selectedMonth: number;
+        selectedYear: number;
+      };
+      startDate: {
+        selectedMonth: number;
+        selectedYear: number;
+      };
     };
 
     //OptionalMeasureStratification

@@ -45,4 +45,12 @@ describe("Test the Rate component", () => {
     expect(screen.getAllByDisplayValue("1")).toHaveLength(3);
     expect(screen.getAllByDisplayValue("1")[0]).toBeInTheDocument();
   });
+
+  test("Check that filling out text inputs changes rate calculation", () => {
+    const numeratorTextBox = screen.getByLabelText("Numerator");
+    // const denominatorTextBox = screen.getByLabelText("Denominator");
+    // const rateTextBox = screen.getByLabelText("Rate");
+
+    expect(numeratorTextBox).toBeInTheDocument();
+  });
 });

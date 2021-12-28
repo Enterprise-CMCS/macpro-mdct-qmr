@@ -52,13 +52,14 @@ export const CoreSet = () => {
     },
     {
       Type: "Adult",
-      title: "Antidepressant Medication Management",
-      abbr: "AMM-AD",
-      path: `/${state}/${year}/${coreSetId}/AMM-AD`,
+      title:
+        "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+      abbr: "FUA-AD",
+      path: `/${state}/${year}/${coreSetId}/FUA-AD`,
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "AMM-AD",
+      id: "FUA-AD",
       actions: [
         {
           itemText: "Edit",

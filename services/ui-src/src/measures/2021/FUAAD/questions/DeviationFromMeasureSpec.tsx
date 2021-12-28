@@ -4,9 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 
 export const defaultDeviationOptions = [
   { label: "Ages 18 to 64", id: 0 },
-  { label: "Ages 65 to 74", id: 1 },
-  { label: "Ages 75 to 84", id: 2 },
-  { label: "Age 85 and older", id: 3 },
+  { label: "Age 65 and older", id: 1 },
 ];
 
 interface Props {
@@ -90,11 +88,36 @@ export const DeviationFromMeasureSpec = ({ options }: Props) => {
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
-                formLabelProps={{ fontWeight: 600 }}
-                options={deviationOptions({
-                  options,
-                  ...register("DeviationFields"),
-                })}
+                options={[
+                  {
+                    value: "FollowUpWithin30",
+                    displayValue: "Follow-up within 30 days of ED visit",
+                    children: [
+                      <QMR.Checkbox
+                        {...register("DeviationOptions-Within30-AgeRange")}
+                        formLabelProps={{ fontWeight: 600 }}
+                        options={deviationOptions({
+                          options,
+                          ...register("DeviationFields-Within30"),
+                        })}
+                      />,
+                    ],
+                  },
+                  {
+                    value: "FollowUpWithin7",
+                    displayValue: "Follow-up within 7 days of ED visit",
+                    children: [
+                      <QMR.Checkbox
+                        {...register("DeviationOptions-Within7-AgeRange")}
+                        formLabelProps={{ fontWeight: 600 }}
+                        options={deviationOptions({
+                          options,
+                          ...register("DeviationFields-Within7"),
+                        })}
+                      />,
+                    ],
+                  },
+                ]}
               />,
             ],
           },
