@@ -3,7 +3,7 @@ import { Auth } from "aws-amplify";
 import { CognitoUser } from "@aws-amplify/auth";
 import config from "config";
 import { getLocalUserInfo, logoutLocalUser } from "libs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const UserContext = React.createContext<UserContextInterface>({});
 
@@ -41,6 +41,25 @@ export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = React.useState(null);
   const [showLocalLogins, setShowLocalLogins] = React.useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const checkAuthState = React.useCallback(async () => {
+    try {
+      const authenticatedUser = await Auth.currentAuthenticatedUser();
+      setUser(authenticatedUser);
+    } catch (e) {
+      if (isIntegrationBranch) {
+        authenticateWithIDM();
+      } else {
+        const localUser = getLocalUserInfo();
+        if (localUser) {
+          setUser(localUser);
+        } else {
+          setShowLocalLogins(true);
+        }
+      }
+    }
+  }, [isIntegrationBranch]);
 
   React.useEffect(() => {
     Auth.configure({
@@ -57,27 +76,11 @@ export const UserProvider = ({ children }: Props) => {
         responseType: "token",
       },
     });
+  }, []);
 
-    // attempt to fetch the info of the user that was already logged in
-    const checkAuthState = async () => {
-      try {
-        const authenticatedUser = await Auth.currentAuthenticatedUser();
-        setUser(authenticatedUser);
-      } catch (e) {
-        if (isIntegrationBranch) {
-          authenticateWithIDM();
-        } else {
-          const localUser = getLocalUserInfo();
-          if (localUser) {
-            setUser(localUser);
-          } else {
-            setShowLocalLogins(true);
-          }
-        }
-      }
-    };
+  React.useEffect(() => {
     checkAuthState();
-  }, [isIntegrationBranch]);
+  }, [location, checkAuthState]);
 
   const logout = React.useCallback(async () => {
     try {
