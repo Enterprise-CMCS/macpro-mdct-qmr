@@ -73,20 +73,20 @@ const Heading = () => {
 export const StateHome = () => {
   const { state, year } = useParams<Params>();
   const { data, error, isLoading } = Api.useGetCoreSets();
-  const addCoreSet = Api.useAddCoreSet();
+  const mutation = Api.useAddCoreSet();
   const deleteCoreSet = Api.useDeleteCoreSet();
 
   useEffect(() => {
     // if data.Items is an empty array no coresets exist
     // In that case we crete an adult coreset and refetch the data
     if (data?.Items.length === 0) {
-      addCoreSet.mutate("ACS", {
+      mutation.mutate("ACS", {
         onSuccess: () => {
           queryClient.refetchQueries(["coreSets", state, year]);
         },
       });
     }
-  }, [data?.Items, state, year, addCoreSet]);
+  }, [data?.Items, state, year]);
 
   const handleDelete = (data: Data) => {
     deleteCoreSet.mutate(data, {
