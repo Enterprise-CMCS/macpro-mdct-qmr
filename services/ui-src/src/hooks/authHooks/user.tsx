@@ -15,6 +15,7 @@ interface UserContextInterface {
   user?: CognitoUser;
   showLocalLogins?: boolean;
   logout?: () => Promise<void>;
+  loginWithIDM?: () => Promise<void>;
 }
 
 const authenticateWithIDM = () => {
@@ -78,7 +79,7 @@ export const UserProvider = ({ children }: Props) => {
     checkAuthState();
   }, [isIntegrationBranch]);
 
-  const logout = async () => {
+  const logout = React.useCallback(async () => {
     const data = await Auth.signOut();
     console.log(data);
     try {
@@ -89,10 +90,15 @@ export const UserProvider = ({ children }: Props) => {
       console.log("error signing out: ", error);
     }
     navigate("/");
-  };
+  }, [navigate]);
 
   const values: any = React.useMemo(
-    () => ({ user, logout, showlocalLogins }),
+    () => ({
+      user,
+      logout,
+      showlocalLogins,
+      loginWithIDM: authenticateWithIDM,
+    }),
     [user, logout, showlocalLogins]
   );
 
