@@ -9,6 +9,13 @@ import { TiArrowUnsorted } from "react-icons/ti";
 import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
 import { queryClient } from "../../index";
+import { CoreSetType } from "views/StateHome/helpers";
+
+interface Data {
+  state: string;
+  year: string;
+  coreSet: CoreSetType;
+}
 
 const ReportingYear = () => {
   const navigate = useNavigate();
@@ -66,19 +73,28 @@ const Heading = () => {
 export const StateHome = () => {
   const { state, year } = useParams<Params>();
   const { data, error, isLoading } = Api.useGetCoreSets();
-  const mutation = Api.useAddCoreSet();
+  const addCoreSet = Api.useAddCoreSet();
+  const deleteCoreSet = Api.useDeleteCoreSet();
 
   useEffect(() => {
     // if data.Items is an empty array no coresets exist
     // In that case we crete an adult coreset and refetch the data
     if (data?.Items.length === 0) {
-      mutation.mutate("ACS", {
+      addCoreSet.mutate("ACS", {
         onSuccess: () => {
           queryClient.refetchQueries(["coreSets", state, year]);
         },
       });
     }
-  }, [data?.Items, state, year]);
+  }, [data?.Items, state, year, addCoreSet]);
+
+  const handleDelete = (data: Data) => {
+    deleteCoreSet.mutate(data, {
+      onSuccess: () => {
+        queryClient.refetchQueries(["coreSets", state, year]);
+      },
+    });
+  };
 
   if (error) {
     return (
@@ -91,7 +107,10 @@ export const StateHome = () => {
     return null;
   }
 
-  const formattedTableItems = formatTableItems(data.Items);
+  const formattedTableItems = formatTableItems({
+    items: data.Items,
+    handleDelete,
+  });
 
   return (
     <QMR.StateLayout

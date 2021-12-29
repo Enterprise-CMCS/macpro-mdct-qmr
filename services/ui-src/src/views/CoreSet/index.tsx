@@ -45,8 +45,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -63,8 +62,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -80,8 +78,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -97,8 +94,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -114,8 +110,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -131,8 +126,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },

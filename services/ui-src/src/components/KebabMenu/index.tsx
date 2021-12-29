@@ -1,11 +1,19 @@
 import * as CUI from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { v4 as uuidv4 } from "uuid";
+import { CoreSetType } from "views/StateHome/helpers";
+
+interface Data {
+  year: string;
+  state: string;
+  coreSet: CoreSetType;
+}
 
 export interface IKebabMenuItem {
   itemText: string;
-  id: string;
-  handleSelect: (id: string) => void;
+  handleSelect: (data: Data) => void;
 }
+
 export interface KebabMenuProps {
   menuItems: IKebabMenuItem[];
 }
@@ -20,9 +28,8 @@ export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
         {menuItems.map((i) => (
           <KebabMenuItem
             itemText={i.itemText}
-            id={i.id}
             handleSelect={i.handleSelect}
-            key={`${i.id}_${i.itemText}`}
+            key={uuidv4()}
           />
         ))}
       </CUI.MenuList>
@@ -30,7 +37,7 @@ export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
   );
 };
 
-const KebabMenuItem = ({ itemText, id, handleSelect }: IKebabMenuItem) => {
+const KebabMenuItem = ({ itemText, handleSelect }: IKebabMenuItem) => {
   return (
     <CUI.MenuItem
       bg="blue.500"
@@ -40,7 +47,8 @@ const KebabMenuItem = ({ itemText, id, handleSelect }: IKebabMenuItem) => {
       _focus={{ background: "blue.600" }}
       borderColor="white"
       minH="48px"
-      onClick={() => handleSelect(id)}
+      // @ts-ignore
+      onClick={handleSelect}
       aria-label={itemText}
     >
       <CUI.Text fontSize="sm">{itemText}</CUI.Text>
