@@ -1,21 +1,14 @@
-import React from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import { CognitoUser } from "@aws-amplify/auth";
+
 import config from "config";
 import { getLocalUserInfo, logoutLocalUser } from "libs";
-import { useNavigate, useLocation } from "react-router-dom";
 
-export const UserContext = React.createContext<UserContextInterface>({});
+import { UserContext } from "./userContext";
 
 interface Props {
-  children?: any;
-}
-
-interface UserContextInterface {
-  user?: CognitoUser;
-  showLocalLogins?: boolean;
-  logout?: () => Promise<void>;
-  loginWithIDM?: () => Promise<void>;
+  children?: ReactNode;
 }
 
 const authenticateWithIDM = () => {
@@ -37,13 +30,26 @@ const authenticateWithIDM = () => {
 };
 
 export const UserProvider = ({ children }: Props) => {
-  const isIntegrationBranch = window.location.origin.includes("cms.gov");
-  const [user, setUser] = React.useState(null);
-  const [showLocalLogins, setShowLocalLogins] = React.useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const isIntegrationBranch = window.location.origin.includes("cms.gov");
 
-  const checkAuthState = React.useCallback(async () => {
+  const [user, setUser] = useState(null);
+  const [showLocalLogins, setShowLocalLogins] = useState(false);
+
+  const logout = useCallback(async () => {
+    try {
+      logoutLocalUser();
+      setUser(null);
+      const data = await Auth.signOut();
+      console.log(data);
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+    navigate("/");
+  }, [navigate]);
+
+  const checkAuthState = useCallback(async () => {
     try {
       const authenticatedUser = await Auth.currentAuthenticatedUser();
       setUser(authenticatedUser);
@@ -61,7 +67,8 @@ export const UserProvider = ({ children }: Props) => {
     }
   }, [isIntegrationBranch]);
 
-  React.useEffect(() => {
+  // single run configuration
+  useEffect(() => {
     Auth.configure({
       mandatorySignIn: true,
       region: config.cognito.REGION,
@@ -78,23 +85,12 @@ export const UserProvider = ({ children }: Props) => {
     });
   }, []);
 
-  React.useEffect(() => {
+  // rerender on auth state change, checking router location
+  useEffect(() => {
     checkAuthState();
   }, [location, checkAuthState]);
 
-  const logout = React.useCallback(async () => {
-    try {
-      logoutLocalUser();
-      setUser(null);
-      const data = await Auth.signOut();
-      console.log(data);
-    } catch (error) {
-      console.log("error signing out: ", error);
-    }
-    navigate("/");
-  }, [navigate]);
-
-  const values: any = React.useMemo(
+  const values: any = useMemo(
     () => ({
       user,
       logout,
@@ -105,15 +101,4 @@ export const UserProvider = ({ children }: Props) => {
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
-};
-
-export const useUser = () => {
-  const context = React.useContext(UserContext);
-
-  if (context === undefined) {
-    throw new Error(
-      "`useUser` hook must be used within a `UserProvider` component"
-    );
-  }
-  return context;
 };

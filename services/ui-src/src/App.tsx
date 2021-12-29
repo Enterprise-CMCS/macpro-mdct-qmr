@@ -1,7 +1,7 @@
 import { AppRoutes } from "./Routes";
 import * as QMR from "components";
 import { LocalLogins } from "components";
-import { useUser } from "hooks/authHooks/user";
+import { useUser } from "hooks/authHooks";
 
 const App = () => {
   const { logout, user, showLocalLogins, loginWithIDM } = useUser();
