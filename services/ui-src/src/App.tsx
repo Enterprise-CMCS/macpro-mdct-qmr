@@ -6,6 +6,7 @@ import * as QMR from "components";
 import { LocalLogins } from "components";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as Libs from "libs";
+import { useUser } from "hooks/authHooks/user";
 
 const authenticateWithIDM = () => {
   const authConfig = Auth.configure();
@@ -64,6 +65,9 @@ const App = () => {
   useEffect(() => {
     checkAuthState();
   }, [location, checkAuthState]);
+
+  const wholeContext: any = useUser();
+  console.log(wholeContext);
 
   return (
     <div id="app-wrapper">
