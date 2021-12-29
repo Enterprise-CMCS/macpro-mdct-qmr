@@ -27,13 +27,13 @@ Amplify.configure({
 });
 
 ReactDOM.render(
-  <UserProvider>
-    <Router>
+  <Router>
+    <UserProvider>
       <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
-    </Router>
-  </UserProvider>,
+    </UserProvider>
+  </Router>,
   document.getElementById("root")
 );
 

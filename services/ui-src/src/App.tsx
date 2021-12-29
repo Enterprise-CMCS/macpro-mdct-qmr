@@ -1,11 +1,11 @@
-import { useEffect, useState, useCallback } from "react";
+// import { useEffect, useState, useCallback } from "react";
 import { Auth } from "aws-amplify";
-import { CognitoUser } from "@aws-amplify/auth";
+// import { CognitoUser } from "@aws-amplify/auth";
 import { AppRoutes } from "./Routes";
 import * as QMR from "components";
 import { LocalLogins } from "components";
-import { useLocation, useNavigate } from "react-router-dom";
-import * as Libs from "libs";
+// import { useLocation } from "react-router-dom";
+// import * as Libs from "libs";
 import { useUser } from "hooks/authHooks/user";
 
 const authenticateWithIDM = () => {
@@ -27,58 +27,56 @@ const authenticateWithIDM = () => {
 };
 
 const App = () => {
-  const isIntegrationBranch = window.location.origin.includes("cms.gov");
-  const [user, setUser] = useState<CognitoUser | null>(null);
-  const [showlocalLogins, setShowLocalLogins] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const isIntegrationBranch = window.location.origin.includes("cms.gov");
+  // const [user, setUser] = useState<CognitoUser | null>(null);
+  // const [showlocalLogins, setShowLocalLogins] = useState(false);
+  // const navigate = useNavigate();
+  // const location = useLocation();
+  const { logout, user, showLocalLogins } = useUser();
 
-  const checkAuthState = useCallback(async () => {
-    try {
-      const authenticatedUser = await Auth.currentAuthenticatedUser();
-      setUser(authenticatedUser);
-    } catch (e) {
-      if (isIntegrationBranch) {
-        authenticateWithIDM();
-      } else {
-        const localUser = Libs.getLocalUserInfo();
-        if (localUser) {
-          setUser(localUser);
-        } else {
-          setShowLocalLogins(true);
-        }
-      }
-    }
-  }, [isIntegrationBranch]);
+  // const checkAuthState = useCallback(async () => {
+  //   try {
+  //     const authenticatedUser = await Auth.currentAuthenticatedUser();
+  //     setUser(authenticatedUser);
+  //   } catch (e) {
+  //     if (isIntegrationBranch) {
+  //       authenticateWithIDM();
+  //     } else {
+  //       const localUser = Libs.getLocalUserInfo();
+  //       if (localUser) {
+  //         setUser(localUser);
+  //       } else {
+  //         setShowLocalLogins(true);
+  //       }
+  //     }
+  //   }
+  // }, [isIntegrationBranch]);
 
-  async function handleLogout() {
-    try {
-      Libs.logoutLocalUser();
-      setUser(null);
-      await Auth.signOut();
-    } catch (error) {
-      console.log("error signing out: ", error);
-    }
-    navigate("/");
-  }
+  // async function handleLogout() {
+  //   try {
+  //     Libs.logoutLocalUser();
+  //     setUser(null);
+  //     await Auth.signOut();
+  //   } catch (error) {
+  //     console.log("error signing out: ", error);
+  //   }
+  //   navigate("/");
+  // }
 
-  useEffect(() => {
-    checkAuthState();
-  }, [location, checkAuthState]);
-
-  const wholeContext: any = useUser();
-  console.log(wholeContext);
+  // useEffect(() => {
+  //   checkAuthState();
+  // }, [location, checkAuthState]);
 
   return (
     <div id="app-wrapper">
       {user && (
         <>
-          <QMR.Header handleLogout={handleLogout} />
+          <QMR.Header handleLogout={logout!} />
           <AppRoutes user={user} />
           <QMR.Footer />
         </>
       )}
-      {!user && showlocalLogins && (
+      {!user && showLocalLogins && (
         <LocalLogins loginWithIDM={authenticateWithIDM} />
       )}
     </div>

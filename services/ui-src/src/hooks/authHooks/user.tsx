@@ -1,15 +1,45 @@
 import React from "react";
 import { Auth } from "aws-amplify";
+import { CognitoUser } from "@aws-amplify/auth";
 import config from "config";
+import { getLocalUserInfo, logoutLocalUser } from "libs";
+import { useNavigate } from "react-router-dom";
 
-export const UserContext = React.createContext(null);
+export const UserContext = React.createContext<UserContextInterface>({});
 
-interface UserProviderInterface {
+interface Props {
   children?: any;
 }
 
-export const UserProvider = ({ children }: UserProviderInterface) => {
+interface UserContextInterface {
+  user?: CognitoUser;
+  showLocalLogins?: boolean;
+  logout?: () => Promise<void>;
+}
+
+const authenticateWithIDM = () => {
+  const authConfig = Auth.configure();
+  if (authConfig?.oauth) {
+    const oAuthOpts = authConfig.oauth;
+    const domain = oAuthOpts.domain;
+    const responseType = oAuthOpts.responseType;
+    let redirectSignIn;
+
+    if ("redirectSignOut" in oAuthOpts) {
+      redirectSignIn = oAuthOpts.redirectSignOut;
+    }
+
+    const clientId = authConfig.userPoolWebClientId;
+    const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
+    window.location.assign(url);
+  }
+};
+
+export const UserProvider = ({ children }: Props) => {
+  const isIntegrationBranch = window.location.origin.includes("cms.gov");
   const [user, setUser] = React.useState(null);
+  const [showlocalLogins, setShowLocalLogins] = React.useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     Auth.configure({
@@ -28,18 +58,43 @@ export const UserProvider = ({ children }: UserProviderInterface) => {
     });
 
     // attempt to fetch the info of the user that was already logged in
-    Auth.currentAuthenticatedUser()
-      .then((user) => setUser(user))
-      .catch(() => setUser(null));
-  }, []);
+    const checkAuthState = async () => {
+      try {
+        const authenticatedUser = await Auth.currentAuthenticatedUser();
+        setUser(authenticatedUser);
+      } catch (e) {
+        if (isIntegrationBranch) {
+          authenticateWithIDM();
+        } else {
+          const localUser = getLocalUserInfo();
+          if (localUser) {
+            setUser(localUser);
+          } else {
+            setShowLocalLogins(true);
+          }
+        }
+      }
+    };
+    checkAuthState();
+  }, [isIntegrationBranch]);
 
-  const logout = () =>
-    Auth.signOut().then((data) => {
+  const logout = async () => {
+    const data = await Auth.signOut();
+    console.log(data);
+    try {
+      logoutLocalUser();
       setUser(null);
-      return data;
-    });
+      await Auth.signOut();
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+    navigate("/");
+  };
 
-  const values: any = React.useMemo(() => ({ user, logout }), [user]);
+  const values: any = React.useMemo(
+    () => ({ user, logout, showlocalLogins }),
+    [user, logout, showlocalLogins]
+  );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };
