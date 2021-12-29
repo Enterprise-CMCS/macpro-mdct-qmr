@@ -39,7 +39,7 @@ const authenticateWithIDM = () => {
 export const UserProvider = ({ children }: Props) => {
   const isIntegrationBranch = window.location.origin.includes("cms.gov");
   const [user, setUser] = React.useState(null);
-  const [showlocalLogins, setShowLocalLogins] = React.useState(false);
+  const [showLocalLogins, setShowLocalLogins] = React.useState(false);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -80,12 +80,11 @@ export const UserProvider = ({ children }: Props) => {
   }, [isIntegrationBranch]);
 
   const logout = React.useCallback(async () => {
-    const data = await Auth.signOut();
-    console.log(data);
     try {
       logoutLocalUser();
       setUser(null);
-      await Auth.signOut();
+      const data = await Auth.signOut();
+      console.log(data);
     } catch (error) {
       console.log("error signing out: ", error);
     }
@@ -96,10 +95,10 @@ export const UserProvider = ({ children }: Props) => {
     () => ({
       user,
       logout,
-      showlocalLogins,
+      showLocalLogins,
       loginWithIDM: authenticateWithIDM,
     }),
-    [user, logout, showlocalLogins]
+    [user, logout, showLocalLogins]
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
