@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 import { Measure } from "measures/types";
 
-export const AIFHH = ({ name, year, handleSubmit }: Measure.Props) => {
+export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
   const { coreSetId } = useParams<Params>();
   const { watch } = useFormContext<Measure.Form>();
   const watchReportingRadio = watch("DidReport");
@@ -24,12 +24,18 @@ export const AIFHH = ({ name, year, handleSubmit }: Measure.Props) => {
           <Q.Status />
           <Q.MeasurementSpecification />
           <Q.DataSource />
+          <Q.DateRange type="adult" />
           <Q.DefinitionOfPopulation />
+          <Q.PerformanceMeasure />
           <Q.DeviationFromMeasureSpec options={Q.defaultDeviationOptions} />
+          <Q.OtherPerformanceMeasure />
         </>
       )}
-      <Q.AdditionalNotes />
       <Q.CombinedRates />
+      <Q.AdditionalNotes />
+      <Q.OptionalMeasureStratification
+        {...Q.DefaultOptionalMeasureStratProps}
+      />
       <CUI.Stack alignItems="flex-start">
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure

@@ -18,10 +18,10 @@ interface SubComponentProps extends Props {
 
 export const DefaultOptionalMeasureStratProps: Props = {
   ageGroups: [
-    { label: "Ages 5 to 11", id: 0 },
-    { label: "Ages 12 to 18", id: 1 },
+    { label: "Ages 18 to 64", id: 0 },
+    { label: "Ages 65 and older", id: 1 },
   ],
-  totalLabel: "Total (Ages 5 to 18)",
+  totalLabel: "Total (Ages 18 and older)",
 };
 
 const IndepententAsianOptions = [
@@ -68,7 +68,7 @@ const AddAnotherButton = ({
   );
 };
 
-const AgeData = ({ name, ageGroups, totalLabel }: SubComponentProps) => {
+const AgeData = ({ name, ageGroups }: SubComponentProps) => {
   return (
     <CUI.Box key={`${name}.ageData`}>
       <QMR.Checkbox
@@ -94,21 +94,6 @@ const AgeData = ({ name, ageGroups, totalLabel }: SubComponentProps) => {
           };
         })}
       />
-      <CUI.Text mt="5" key={`${name}.totalLabel`}>
-        {totalLabel}
-      </CUI.Text>
-      <CUI.Box ml="5" key={`${name}.totalLabelRateBox`}>
-        <QMR.Rate
-          name={`${name}.total`}
-          rates={[
-            {
-              id: 0,
-              label:
-                "Enter a number for the numerator and the denominator. Rate will auto-calculate:",
-            },
-          ]}
-        />
-      </CUI.Box>
     </CUI.Box>
   );
 };

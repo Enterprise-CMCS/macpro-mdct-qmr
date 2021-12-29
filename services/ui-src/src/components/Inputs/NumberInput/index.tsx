@@ -10,6 +10,7 @@ interface NumberInputProps extends QMR.InputWrapperProps {
   displayPercent?: boolean;
   name: string;
   mask?: RegExp;
+  readonly?: boolean;
 }
 
 export const NumberInput = ({
@@ -18,6 +19,7 @@ export const NumberInput = ({
   displayPercent,
   name,
   formControlProps,
+  readonly,
   mask = allNumbers,
   ...rest
 }: NumberInputProps) => {
@@ -39,6 +41,7 @@ export const NumberInput = ({
     >
       <CUI.InputGroup>
         <CUI.Input
+          isReadOnly={readonly}
           placeholder={placeholder ?? ""}
           value={field.value ?? ""}
           name={name}

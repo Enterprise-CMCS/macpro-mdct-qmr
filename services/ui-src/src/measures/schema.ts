@@ -77,14 +77,8 @@ export const validationSchema = Joi.object<Measure.Form>({
   "OtherPerformanceMeasure-Rates": Joi.array()
     .items(
       Joi.object({
-        options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
-        id: Joi.string(),
-        label: Joi.string(),
-        rate: Joi.string(),
-        description: Joi.string(),
+        description: Joi.string().empty(""),
+        rate: RateJoiValidator,
       })
     )
     .sparse(),
@@ -119,7 +113,8 @@ export const validationSchema = Joi.object<Measure.Form>({
   //DeviationFromMeasureSpec
   DidCalculationsDeviate: Joi.string(),
   DeviationOptions: Joi.array().items(Joi.string()),
-  DeviationFields: Joi.array()
+  "DeviationOptions-Within7-AgeRange": Joi.array().items(Joi.string()),
+  "DeviationFields-Within7": Joi.array()
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
@@ -129,6 +124,54 @@ export const validationSchema = Joi.object<Measure.Form>({
       })
     )
     .sparse(),
+  "DeviationFields-Within30": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator"),
+        denominator: Joi.string().label("Denominator"),
+        other: Joi.string().label("Other"),
+      })
+    )
+    .sparse(),
+  "DeviationOptions-Within30-AgeRange": Joi.array().items(Joi.string()),
+  "PerformanceMeasure-Explanation": Joi.string(),
+  "PerformanceMeasure-AgeRates-30Days": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator"),
+        denominator: Joi.string().label("Denominator"),
+        other: Joi.string().label("Other"),
+        id: Joi.string(),
+        label: Joi.string(),
+        rate: Joi.string(),
+      })
+    )
+    .sparse(),
+  "PerformanceMeasure-AgeRates-7Days": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator"),
+        denominator: Joi.string().label("Denominator"),
+        other: Joi.string().label("Other"),
+        id: Joi.string(),
+        label: Joi.string(),
+        rate: Joi.string(),
+      })
+    )
+    .sparse(),
+  DateRange: Joi.object({
+    endDate: Joi.object({
+      selectedMonth: Joi.number().label("End Date"),
+      selectedYear: Joi.number().label("Start Date"),
+    }),
+    startDate: Joi.object({
+      selectedMonth: Joi.number().label("End Date"),
+      selectedYear: Joi.number().label("Start Date"),
+    }),
+  }),
 
   //OptionalMeasureStratification
   CategoriesReported: Joi.array().items(Joi.string()),
