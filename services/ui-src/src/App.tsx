@@ -10,12 +10,12 @@ const App = () => {
     <div id="app-wrapper">
       {user && (
         <>
-          <QMR.Header handleLogout={logout!} />
+          <QMR.Header handleLogout={logout} />
           <AppRoutes user={user} />
           <QMR.Footer />
         </>
       )}
-      {!user && showLocalLogins && <LocalLogins loginWithIDM={loginWithIDM!} />}
+      {!user && showLocalLogins && <LocalLogins loginWithIDM={loginWithIDM} />}
     </div>
   );
 };
