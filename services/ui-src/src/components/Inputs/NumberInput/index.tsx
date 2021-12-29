@@ -30,11 +30,11 @@ export const NumberInput = ({
     name,
     control,
   });
-
   return (
     <QMR.InputWrapper
       isInvalid={!!objectPath.get(errors, name)?.message}
       errorMessage={objectPath.get(errors, name)?.message}
+      formControlProps={formControlProps}
       {...rest}
     >
       <CUI.InputGroup>
