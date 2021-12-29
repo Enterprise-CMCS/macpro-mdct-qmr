@@ -10,15 +10,12 @@ interface AddCoreSet {
   coreSet: CoreSetType;
 }
 
-const addCoreSet = async ({ state, year, coreSet }: AddCoreSet) => {
-  const data = await createCoreSet({
+const addCoreSet = ({ state, year, coreSet }: AddCoreSet) => {
+  return createCoreSet({
     state,
     year,
     coreSet,
-  }).catch((e) => {
-    console.log(e);
   });
-  return data;
 };
 
 export const useAddCoreSet = () => {

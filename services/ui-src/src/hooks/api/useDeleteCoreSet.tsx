@@ -8,15 +8,12 @@ interface DeleteCoreSet {
   coreSet: CoreSetType;
 }
 
-const deleteCoreSet = async ({ state, year, coreSet }: DeleteCoreSet) => {
-  const data = await Api.deleteCoreSet({
+const deleteCoreSet = ({ state, year, coreSet }: DeleteCoreSet) => {
+  return Api.deleteCoreSet({
     state,
     year,
     coreSet,
-  }).catch((e) => {
-    console.log(e);
   });
-  return data;
 };
 
 export const useDeleteCoreSet = () => {

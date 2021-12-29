@@ -8,12 +8,11 @@ interface GetCoreSets {
   year: string;
 }
 
-const getCoreSets = async ({ state, year }: GetCoreSets) => {
-  const data = await getAllCoreSets({
+const getCoreSets = ({ state, year }: GetCoreSets) => {
+  return getAllCoreSets({
     state,
     year,
   });
-  return data;
 };
 
 export const useGetCoreSets = () => {
