@@ -50,7 +50,7 @@ export const DemoMeasure = () => {
                 <Q.Status />
                 <Q.MeasurementSpecification />
                 <Q.DataSource />
-                <Q.DateRange />
+                <Q.DateRange type="adult" />
                 <Q.DefinitionOfPopulation />
                 <Q.DeviationFromMeasureSpec
                   options={Q.defaultDeviationOptions}
