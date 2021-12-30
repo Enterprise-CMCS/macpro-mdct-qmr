@@ -8,8 +8,8 @@ import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
 import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
-import { queryClient } from "query";
 import { CoreSetAbbr } from "types";
+import { useQueryClient } from "react-query";
 
 interface Data {
   state: string;
@@ -72,6 +72,7 @@ const Heading = () => {
 
 export const StateHome = () => {
   const { state, year } = useParams<Params>();
+  const queryClient = useQueryClient();
   const { data, error, isLoading } = Api.useGetCoreSets();
   const mutation = Api.useAddCoreSet();
   const deleteCoreSet = Api.useDeleteCoreSet();

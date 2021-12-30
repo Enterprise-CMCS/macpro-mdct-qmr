@@ -7,7 +7,7 @@ import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
-import { queryClient } from "query";
+import { useQueryClient } from "react-query";
 import { CoreSetAbbr } from "types";
 
 interface ChildCoreSetReportType {
@@ -21,6 +21,7 @@ const childCoreSetSchema = Joi.object<ChildCoreSetReportType>({
 export const AddChildCoreSet = () => {
   const mutation = Api.useAddCoreSet();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const methods = useForm({
     shouldUnregister: true,
