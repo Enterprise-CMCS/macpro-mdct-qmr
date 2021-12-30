@@ -36,7 +36,6 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
         </>
       )}
       <Q.AdditionalNotes />
-
       <CUI.Stack alignItems="flex-start">
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
