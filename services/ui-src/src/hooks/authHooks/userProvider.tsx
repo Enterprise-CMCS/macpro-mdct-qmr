@@ -68,9 +68,6 @@ export const UserProvider = ({ children }: Props) => {
   }, [isIntegrationBranch]);
 
   const isReadOnly = useCallback(() => {
-    console.log(
-      user?.signInUserSession?.idToken?.payload?.["custom:cms_state"]
-    );
     return !user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
   }, [user]);
 
