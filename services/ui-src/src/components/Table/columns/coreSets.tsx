@@ -1,25 +1,22 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Link } from "react-router-dom";
-import { CoreSetTableItem, TableColumn } from "../types";
+import { CoreSet, TableColumn } from "../types";
 import { ContainedButton } from "components/ContainedButton";
 
 // Get status string from core set data
-const getStatus = ({
-  progress,
-  submitted,
-}: CoreSetTableItem.Data): CoreSetTableItem.Status => {
-  if (submitted) return CoreSetTableItem.Status.SUBMITTED;
+const getStatus = ({ progress, submitted }: CoreSet.Data): CoreSet.Status => {
+  if (submitted) return CoreSet.Status.SUBMITTED;
 
   const { numAvailable, numComplete } = progress;
-  let status: CoreSetTableItem.Status = CoreSetTableItem.Status.IN_PROGRESS;
-  if (!numComplete) status = CoreSetTableItem.Status.NOT_STARTED;
-  if (numComplete === numAvailable) status = CoreSetTableItem.Status.COMPLETED;
+  let status: CoreSet.Status = CoreSet.Status.IN_PROGRESS;
+  if (!numComplete) status = CoreSet.Status.NOT_STARTED;
+  if (numComplete === numAvailable) status = CoreSet.Status.COMPLETED;
   return status;
 };
 
 // Get core Set status text from core set data
-const CoreSetStatusText = (data: CoreSetTableItem.Data) => {
+const CoreSetStatusText = (data: CoreSet.Data) => {
   const status = getStatus(data);
   return (
     <CUI.Box fontSize="xs">
@@ -32,11 +29,11 @@ const CoreSetStatusText = (data: CoreSetTableItem.Data) => {
 };
 
 // Core Set table columns with cell formatting
-export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
+export const coreSetColumns: TableColumn<CoreSet.Data>[] = [
   {
     header: "Core Set Name",
     id: "info_column_header",
-    cell: (data: CoreSetTableItem.Data) => {
+    cell: (data: CoreSet.Data) => {
       return (
         <Link to={data.path}>
           <CUI.Text fontWeight="bold" color="blue.600">
@@ -50,7 +47,7 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
     header: "Type",
     id: "type_column_header",
     styleProps: { textAlign: "center" },
-    cell: (data: CoreSetTableItem.Data) => {
+    cell: (data: CoreSet.Data) => {
       return (
         <CUI.Badge
           fontSize="xs"
@@ -67,15 +64,15 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
   {
     header: "Status",
     id: "status_column_header",
-    cell: (data: CoreSetTableItem.Data) => <CoreSetStatusText {...data} />,
+    cell: (data: CoreSet.Data) => <CoreSetStatusText {...data} />,
   },
   {
     id: "submit_column_header",
-    cell: (data: CoreSetTableItem.Data) => {
+    cell: (data: CoreSet.Data) => {
       const status = getStatus(data);
-      const isSubmitted = status === CoreSetTableItem.Status.SUBMITTED;
+      const isSubmitted = status === CoreSet.Status.SUBMITTED;
       const buttonText = isSubmitted
-        ? CoreSetTableItem.Status.SUBMITTED
+        ? CoreSet.Status.SUBMITTED
         : "submit core set";
       const helperText = !isSubmitted
         ? `Complete all Core Set Questions and Core Set Measures to submit FFY ${data.year}`
@@ -84,7 +81,7 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
         <CUI.Box textAlign="center">
           <ContainedButton
             buttonText={buttonText}
-            disabledStatus={status !== CoreSetTableItem.Status.COMPLETED}
+            disabledStatus={status !== CoreSet.Status.COMPLETED}
             buttonProps={{
               bg: "blue.600",
               colorScheme: "blue",
@@ -102,7 +99,7 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
     header: "Core Set Actions",
     id: "actions_column_header",
     styleProps: { textAlign: "center" },
-    cell: (data: CoreSetTableItem.Data) => (
+    cell: (data: CoreSet.Data) => (
       <CUI.Box textAlign="center">
         <QMR.KebabMenu menuItems={data.actions} />
       </CUI.Box>

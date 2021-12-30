@@ -37,9 +37,9 @@ export const AddChildCoreSet = () => {
   const handleSubmit = (data: ChildCoreSet) => {
     console.log({ data });
     if (data["ChildCoreSet-ReportType"] === "separate") {
-      mutation.mutate(CoreSetAbbr.CCSM, {
+      mutation.mutate("CCSM", {
         onSuccess: () => {
-          mutation.mutate(CoreSetAbbr.CCSC, {
+          mutation.mutate("CCSC", {
             onSuccess: () => {
               queryClient.refetchQueries(["coreSets", state, year]);
               navigate(`/${state}/${year}`);
@@ -48,7 +48,7 @@ export const AddChildCoreSet = () => {
         },
       });
     } else if (data["ChildCoreSet-ReportType"] === "combined") {
-      mutation.mutate(CoreSetAbbr.CCS, {
+      mutation.mutate("CCS", {
         onSuccess: () => {
           queryClient.refetchQueries(["coreSets", state, year]);
           navigate(`/${state}/${year}`);

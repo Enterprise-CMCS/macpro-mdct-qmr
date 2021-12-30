@@ -1,7 +1,7 @@
 import { IKebabMenuItem } from "components";
 import { ReactElement } from "react";
 
-export namespace CoreSetTableItem {
+export namespace CoreSet {
   export interface Progress {
     numAvailable: number;
     numComplete: number;
@@ -32,7 +32,7 @@ export namespace CoreSetTableItem {
   };
 }
 
-export namespace MeasureTableItem {
+export namespace Measure {
   export enum Status {
     IN_PROGRESS = "in progress",
     NOT_STARTED = "not started",
@@ -52,7 +52,7 @@ export namespace MeasureTableItem {
 
   export interface StatusTextProps {
     isInProgress: boolean;
-    status: MeasureTableItem.Status;
+    status: Measure.Status;
     isComplete: boolean | null;
     date: string | null;
     rateComplete: number;

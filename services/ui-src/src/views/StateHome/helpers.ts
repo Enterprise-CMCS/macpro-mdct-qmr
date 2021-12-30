@@ -1,16 +1,18 @@
-import { CoreSetTableItem } from "components/Table/types";
+import { CoreSet } from "components/Table/types";
 import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
+
+export type CoreSetType = "ACS" | "CCS" | "CCSM" | "CCSC" | "HHCS";
 
 interface Data {
   state: string;
   year: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetType;
 }
 
 interface CoreSetDataItem {
   compoundKey: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetType;
   createdAt: number;
   lastAltered: number;
   lastAlteredBy: string;
@@ -25,24 +27,24 @@ export interface CoreSetDataItems {
   handleDelete: (data: Data) => void;
 }
 
-const getCoreSetAbbr = (type: CoreSetAbbr) => {
+const getCoreSetType = (type: CoreSetType) => {
   let result;
   switch (type) {
     case "ACS":
-      result = CoreSetTableItem.Type.ADULT;
+      result = CoreSet.Type.ADULT;
       break;
     case "HHCS":
-      result = CoreSetTableItem.Type.HEALTH_HOMES;
+      result = CoreSet.Type.HEALTH_HOMES;
       break;
     default:
-      result = CoreSetTableItem.Type.CHILD;
+      result = CoreSet.Type.CHILD;
   }
   return result;
 };
 
 export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
   return items.map((item: CoreSetDataItem) => {
-    const type = getCoreSetAbbr(item.coreSet);
+    const type = getCoreSetType(item.coreSet);
     const title = coreSetMeasureTitle[item.coreSet];
     const data = {
       handleDelete: () =>
