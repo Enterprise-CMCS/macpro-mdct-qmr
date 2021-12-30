@@ -8,7 +8,7 @@ import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
 import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
-import { queryClient } from "../../index";
+import { queryClient } from "query";
 import { CoreSetType } from "views/StateHome/helpers";
 
 interface Data {
@@ -89,11 +89,17 @@ export const StateHome = () => {
   }, [data?.Items, state, year]);
 
   const handleDelete = (data: Data) => {
-    deleteCoreSet.mutate(data, {
-      onSuccess: () => {
-        queryClient.refetchQueries(["coreSets", state, year]);
-      },
-    });
+    if (
+      window.confirm(
+        "Are you sure you want to delete this Core Set and all associated Measures?"
+      )
+    ) {
+      deleteCoreSet.mutate(data, {
+        onSuccess: () => {
+          queryClient.refetchQueries(["coreSets", state, year]);
+        },
+      });
+    }
   };
 
   if (error) {

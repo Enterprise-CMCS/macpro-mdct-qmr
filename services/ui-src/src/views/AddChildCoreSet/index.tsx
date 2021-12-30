@@ -8,7 +8,7 @@ import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
-import { queryClient } from "../../index";
+import { queryClient } from "query";
 
 interface ChildCoreSet {
   "ChildCoreSet-ReportType": string;
