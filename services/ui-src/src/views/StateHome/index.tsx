@@ -9,12 +9,12 @@ import { TiArrowUnsorted } from "react-icons/ti";
 import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
 import { queryClient } from "query";
-import { CoreSetType } from "views/StateHome/helpers";
+import { CoreSetAbbr } from "types";
 
 interface Data {
   state: string;
   year: string;
-  coreSet: CoreSetType;
+  coreSet: CoreSetAbbr;
 }
 
 const ReportingYear = () => {
@@ -80,7 +80,7 @@ export const StateHome = () => {
     // if data.Items is an empty array no coresets exist
     // In that case we crete an adult coreset and refetch the data
     if (data?.Items.length === 0) {
-      mutation.mutate("ACS", {
+      mutation.mutate(CoreSetAbbr.ACS, {
         onSuccess: () => {
           queryClient.refetchQueries(["coreSets", state, year]);
         },

@@ -1,18 +1,17 @@
 import { CoreSetTableItem } from "components/Table/types";
 import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
-
-export type CoreSetType = "ACS" | "CCS" | "CCSM" | "CCSC" | "HHCS";
+import { CoreSetAbbr } from "types";
 
 interface Data {
   state: string;
   year: string;
-  coreSet: CoreSetType;
+  coreSet: CoreSetAbbr;
 }
 
 interface CoreSetDataItem {
   compoundKey: string;
-  coreSet: CoreSetType;
+  coreSet: CoreSetAbbr;
   createdAt: number;
   lastAltered: number;
   lastAlteredBy: string;
@@ -27,7 +26,7 @@ export interface CoreSetDataItems {
   handleDelete: (data: Data) => void;
 }
 
-const getCoreSetType = (type: CoreSetType) => {
+const getCoreSetType = (type: CoreSetAbbr) => {
   let result;
   switch (type) {
     case "ACS":

@@ -1,11 +1,11 @@
 import { useMutation } from "react-query";
 import * as Api from "libs/api";
-import { CoreSetType } from "views/StateHome/helpers";
+import { CoreSetAbbr } from "types";
 
 interface DeleteCoreSet {
   state: string;
   year: string;
-  coreSet: CoreSetType;
+  coreSet: CoreSetAbbr;
 }
 
 const deleteCoreSet = ({ state, year, coreSet }: DeleteCoreSet) => {

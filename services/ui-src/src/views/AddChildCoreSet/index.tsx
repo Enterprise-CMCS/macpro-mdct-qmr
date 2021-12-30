@@ -1,7 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Params } from "Routes";
-import { AiFillWarning } from "react-icons/ai";
 import { useParams, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import Joi from "joi";
@@ -9,12 +8,13 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
 import { queryClient } from "query";
+import { CoreSetAbbr } from "types";
 
-interface ChildCoreSet {
+interface ChildCoreSetReportType {
   "ChildCoreSet-ReportType": string;
 }
 
-const ChildCoreSetSchema = Joi.object<ChildCoreSet>({
+const childCoreSetSchema = Joi.object<ChildCoreSetReportType>({
   "ChildCoreSet-ReportType": Joi.string(),
 });
 
@@ -25,21 +25,17 @@ export const AddChildCoreSet = () => {
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(ChildCoreSetSchema),
+    resolver: joiResolver(childCoreSetSchema),
   });
   const { state, year } = useParams<Params>();
-  const register = useCustomRegister<ChildCoreSet>();
+  const register = useCustomRegister<ChildCoreSetReportType>();
 
-  const handleSave = () => {
-    console.log("saved");
-  };
-
-  const handleSubmit = (data: ChildCoreSet) => {
+  const handleSubmit = (data: ChildCoreSetReportType) => {
     console.log({ data });
     if (data["ChildCoreSet-ReportType"] === "separate") {
-      mutation.mutate("CCSM", {
+      mutation.mutate(CoreSetAbbr.CCSM, {
         onSuccess: () => {
-          mutation.mutate("CCSC", {
+          mutation.mutate(CoreSetAbbr.CCSC, {
             onSuccess: () => {
               queryClient.refetchQueries(["coreSets", state, year]);
               navigate(`/${state}/${year}`);
@@ -48,7 +44,7 @@ export const AddChildCoreSet = () => {
         },
       });
     } else if (data["ChildCoreSet-ReportType"] === "combined") {
-      mutation.mutate("CCS", {
+      mutation.mutate(CoreSetAbbr.CCS, {
         onSuccess: () => {
           queryClient.refetchQueries(["coreSets", state, year]);
           navigate(`/${state}/${year}`);
@@ -63,16 +59,6 @@ export const AddChildCoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         { path: `/${state}/${year}/add-child`, name: "Add Child Core Set" },
       ]}
-      buttons={
-        <>
-          {/* Icon and text are placeholders until we have save functionality */}
-          <AiFillWarning />
-          <CUI.Text pl="1" pr="5">
-            Unsaved Changes
-          </CUI.Text>
-          <QMR.ContainedButton buttonText="Save" onClick={handleSave} />
-        </>
-      }
     >
       <CUI.Stack spacing="5">
         <CUI.Heading fontSize="2xl">Child Core Set Details</CUI.Heading>
@@ -118,6 +104,9 @@ export const AddChildCoreSet = () => {
                     <QMR.ContainedButton
                       buttonProps={{ color: "blue", colorScheme: "white" }}
                       buttonText="Cancel"
+                      onClick={() => {
+                        navigate(`/${state}/${year}`);
+                      }}
                     />
                   </CUI.HStack>
                 </CUI.Box>
