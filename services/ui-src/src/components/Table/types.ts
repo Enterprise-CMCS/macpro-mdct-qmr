@@ -32,7 +32,7 @@ export namespace CoreSetTableItem {
   };
 }
 
-export namespace Measure {
+export namespace MeasureTableItem {
   export enum Status {
     IN_PROGRESS = "in progress",
     NOT_STARTED = "not started",
@@ -52,7 +52,7 @@ export namespace Measure {
 
   export interface StatusTextProps {
     isInProgress: boolean;
-    status: Measure.Status;
+    status: Status;
     isComplete: boolean | null;
     date: string | null;
     rateComplete: number;

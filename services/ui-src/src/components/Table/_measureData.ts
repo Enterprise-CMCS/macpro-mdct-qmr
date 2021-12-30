@@ -1,7 +1,7 @@
-import { Measure } from "./types";
+import { MeasureTableItem } from "./types";
 
 // Example Measures list data for testing and demo page.
-export const exampleMeasuresData: Measure.Data[] = [
+export const exampleMeasuresData: MeasureTableItem.Data[] = [
   {
     path: "/example-measures-path-1",
     abbr: "AMM-AD",
