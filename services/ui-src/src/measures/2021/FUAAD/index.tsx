@@ -29,13 +29,14 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           <Q.PerformanceMeasure />
           <Q.DeviationFromMeasureSpec options={Q.defaultDeviationOptions} />
           <Q.OtherPerformanceMeasure />
+          <Q.CombinedRates />
+          <Q.OptionalMeasureStratification
+            {...Q.DefaultOptionalMeasureStratProps}
+          />
         </>
       )}
-      <Q.CombinedRates />
       <Q.AdditionalNotes />
-      <Q.OptionalMeasureStratification
-        {...Q.DefaultOptionalMeasureStratProps}
-      />
+
       <CUI.Stack alignItems="flex-start">
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
