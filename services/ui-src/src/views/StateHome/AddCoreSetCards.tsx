@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { Params } from "Routes";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { useUser } from "hooks/authHooks";
 
 const cardData = [
   {
@@ -27,6 +28,7 @@ export const AddCoreSetCard = ({
   buttonText,
   to,
 }: AddCoreSetCardProps) => {
+  const { readOnly } = useUser();
   const { state, year } = useParams<Params>();
 
   return (
@@ -48,6 +50,7 @@ export const AddCoreSetCard = ({
           }}
         >
           <QMR.ContainedButton
+            disabledStatus={readOnly}
             icon="plus"
             buttonText={buttonText}
             buttonProps={{
