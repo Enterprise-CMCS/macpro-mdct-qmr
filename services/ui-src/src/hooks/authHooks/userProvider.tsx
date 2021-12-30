@@ -67,11 +67,11 @@ export const UserProvider = ({ children }: Props) => {
     }
   }, [isIntegrationBranch]);
 
-  const getStateRole = useCallback(() => {
+  const isReadOnly = useCallback(() => {
     console.log(
-      user?.signInUserSession?.idToken?.payload?.["custom:cms_state"] ?? ""
+      user?.signInUserSession?.idToken?.payload?.["custom:cms_state"]
     );
-    return "BO";
+    return !user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
   }, [user]);
 
   // single run configuration
@@ -103,9 +103,9 @@ export const UserProvider = ({ children }: Props) => {
       logout,
       showLocalLogins,
       loginWithIDM: authenticateWithIDM,
-      stateRole: getStateRole(),
+      readOnly: isReadOnly(),
     }),
-    [user, logout, showLocalLogins, getStateRole]
+    [user, logout, showLocalLogins, isReadOnly]
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

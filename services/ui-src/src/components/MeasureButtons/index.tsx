@@ -13,9 +13,7 @@ export const MeasureButtons = ({
   handleSubmit,
   lastSavedText,
 }: Props) => {
-  const { stateRole } = useUser();
-  console.log(stateRole);
-  const disableButtons = stateRole !== "state";
+  const { readOnly } = useUser();
 
   const showCheck = lastSavedText?.toLowerCase() === "saved moments ago";
 
@@ -40,7 +38,7 @@ export const MeasureButtons = ({
       </CUI.Flex>
       <CUI.HStack pl="2">
         <QMR.ContainedButton
-          disabledStatus={disableButtons}
+          disabledStatus={readOnly}
           buttonText={"Save"}
           buttonProps={{
             colorScheme: "blue",
@@ -50,7 +48,7 @@ export const MeasureButtons = ({
           onClick={handleSave}
         />
         <QMR.ContainedButton
-          disabledStatus={disableButtons}
+          disabledStatus={readOnly}
           buttonText={"Complete Measure"}
           buttonProps={{
             colorScheme: "blue",
