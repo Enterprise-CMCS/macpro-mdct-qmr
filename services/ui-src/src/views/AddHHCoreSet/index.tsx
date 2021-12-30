@@ -1,13 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Params } from "Routes";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { SPA } from "libs/spaLib";
 import Joi from "joi";
-import { AiFillWarning } from "react-icons/ai";
 import { SelectOption } from "components";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
@@ -20,6 +19,7 @@ const HealthHomeValidationSchema = Joi.object<HealthHome>({
 });
 
 export const AddHHCoreSet = () => {
+  const navigate = useNavigate();
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
@@ -27,10 +27,6 @@ export const AddHHCoreSet = () => {
   });
 
   const register = useCustomRegister<HealthHome>();
-
-  const handleSave = () => {
-    console.log("saved");
-  };
 
   const { state, year } = useParams<Params>();
 
@@ -49,16 +45,6 @@ export const AddHHCoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         { path: `/${state}/${year}/add-hh`, name: "Add Health Homes Core Set" },
       ]}
-      buttons={
-        <>
-          {/* Icon and text are placeholders until we have save functionality */}
-          <AiFillWarning />
-          <CUI.Text pl="1" pr="5">
-            Unsaved Changes
-          </CUI.Text>
-          <QMR.ContainedButton buttonText="Save" onClick={handleSave} />
-        </>
-      }
     >
       <CUI.Heading fontSize="2xl" fontWeight="600">
         Health Homes Core Set Details
@@ -115,6 +101,9 @@ export const AddHHCoreSet = () => {
                   <QMR.ContainedButton
                     buttonProps={{ color: "blue", colorScheme: "white" }}
                     buttonText="Cancel"
+                    onClick={() => {
+                      navigate(`/${state}/${year}`);
+                    }}
                   />
                 </CUI.HStack>
               </CUI.Box>

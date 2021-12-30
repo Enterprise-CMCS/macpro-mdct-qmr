@@ -27,6 +27,8 @@ export const AddChildCoreSet = () => {
     mode: "all",
     resolver: joiResolver(childCoreSetSchema),
   });
+  const watchReportType = methods.watch("ChildCoreSet-ReportType");
+
   const { state, year } = useParams<Params>();
   const register = useCustomRegister<ChildCoreSetReportType>();
 
@@ -100,6 +102,7 @@ export const AddChildCoreSet = () => {
                     <QMR.ContainedButton
                       buttonProps={{ type: "submit" }}
                       buttonText="Create"
+                      disabledStatus={!watchReportType}
                     />
                     <QMR.ContainedButton
                       buttonProps={{ color: "blue", colorScheme: "white" }}
