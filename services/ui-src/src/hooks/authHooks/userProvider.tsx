@@ -5,7 +5,7 @@ import { Auth } from "aws-amplify";
 import config from "config";
 import { getLocalUserInfo, logoutLocalUser } from "libs";
 
-import { UserContext } from "./userContext";
+import { UserContext, UserContextInterface } from "./userContext";
 
 interface Props {
   children?: ReactNode;
@@ -34,7 +34,7 @@ export const UserProvider = ({ children }: Props) => {
   const location = useLocation();
   const isIntegrationBranch = window.location.origin.includes("cms.gov");
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
   const [showLocalLogins, setShowLocalLogins] = useState(false);
 
   const logout = useCallback(async () => {
@@ -67,6 +67,13 @@ export const UserProvider = ({ children }: Props) => {
     }
   }, [isIntegrationBranch]);
 
+  const getStateRole = useCallback(() => {
+    console.log(
+      user?.signInUserSession?.idToken?.payload?.["custom:cms_state"] ?? ""
+    );
+    return "BO";
+  }, [user]);
+
   // single run configuration
   useEffect(() => {
     Auth.configure({
@@ -90,14 +97,15 @@ export const UserProvider = ({ children }: Props) => {
     checkAuthState();
   }, [location, checkAuthState]);
 
-  const values: any = useMemo(
+  const values: UserContextInterface = useMemo(
     () => ({
       user,
       logout,
       showLocalLogins,
       loginWithIDM: authenticateWithIDM,
+      stateRole: getStateRole(),
     }),
-    [user, logout, showLocalLogins]
+    [user, logout, showLocalLogins, getStateRole]
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

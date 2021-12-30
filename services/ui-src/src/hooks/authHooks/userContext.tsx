@@ -5,14 +5,15 @@ export interface UserContextInterface {
   user?: CognitoUser;
   showLocalLogins?: boolean;
   logout: () => Promise<void>;
-  loginWithIDM: () => Promise<void>;
+  loginWithIDM: () => void;
+  stateRole?: string;
 }
 
 export const UserContext = createContext<UserContextInterface>({
   logout: async () => {
     console.log("User Context failed to initialize logout functionality");
   },
-  loginWithIDM: async () => {
+  loginWithIDM: () => {
     console.log("User Context failed to initialize IDM login functionality.");
   },
 });
