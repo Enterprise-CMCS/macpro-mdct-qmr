@@ -5,13 +5,13 @@ import { Params } from "Routes";
 import { Link } from "react-router-dom";
 import * as Api from "hooks/api";
 
-enum coreSetType {
-  ACS = "Adult",
-  CCS = "Child",
-  CCSM = "Child - Medicaid",
-  CCSC = "Child - CHIP",
-  HHCS = "Health Homes",
-}
+// enum coreSetType {
+//   ACS = "Adult",
+//   CCS = "Child",
+//   CCSM = "Child - Medicaid",
+//   CCSC = "Child - CHIP",
+//   HHCS = "Health Homes",
+// }
 
 export enum coreSetMeasureTitle {
   ACS = "Adult Core Set Measures",

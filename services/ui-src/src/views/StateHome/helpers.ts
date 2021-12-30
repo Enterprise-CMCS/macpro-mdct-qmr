@@ -43,30 +43,47 @@ const getCoreSetType = (type: CoreSetType) => {
 };
 
 export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
-  return items.map((item: CoreSetDataItem) => {
-    const type = getCoreSetType(item.coreSet);
-    const title = coreSetMeasureTitle[item.coreSet];
-    const data = {
-      handleDelete: () =>
-        handleDelete({
-          state: item.state,
-          year: item.year.toString(),
-          coreSet: item.coreSet,
-        }),
-      type,
-    };
+  const coreSetTableItems = items.map(
+    ({
+      coreSet,
+      state,
+      year,
+      progress,
+      submitted,
+      compoundKey,
+    }: CoreSetDataItem): CoreSetTableItem.Data => {
+      const type = getCoreSetType(coreSet);
+      const title = coreSetMeasureTitle[coreSet];
+      const data = {
+        handleDelete: () =>
+          handleDelete({
+            state,
+            year: year.toString(),
+            coreSet,
+          }),
+        type,
+      };
 
-    const actions = getCoreSetActions(data);
+      const actions = getCoreSetActions(data);
 
-    return {
-      path: item.coreSet,
-      title,
-      type,
-      progress: item.progress,
-      actions,
-      submitted: item.submitted,
-      id: item.compoundKey,
-      year: item.year.toString(),
-    };
-  });
+      return {
+        path: coreSet,
+        title,
+        type,
+        progress,
+        actions,
+        submitted,
+        id: compoundKey,
+        year: year.toString(),
+      };
+    }
+  );
+
+  // sort the table items alphabetically by type
+  return coreSetTableItems.sort(
+    (a: CoreSetTableItem.Data, b: CoreSetTableItem.Data) => {
+      if (a.type > b.type) return 1;
+      return -1;
+    }
+  );
 };
