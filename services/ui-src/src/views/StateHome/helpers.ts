@@ -1,4 +1,4 @@
-import { CoreSet } from "components/Table/types";
+import { CoreSetTableItem } from "components/Table/types";
 import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
 
@@ -31,13 +31,13 @@ const getCoreSetType = (type: CoreSetType) => {
   let result;
   switch (type) {
     case "ACS":
-      result = CoreSet.Type.ADULT;
+      result = CoreSetTableItem.Type.ADULT;
       break;
     case "HHCS":
-      result = CoreSet.Type.HEALTH_HOMES;
+      result = CoreSetTableItem.Type.HEALTH_HOMES;
       break;
     default:
-      result = CoreSet.Type.CHILD;
+      result = CoreSetTableItem.Type.CHILD;
   }
   return result;
 };

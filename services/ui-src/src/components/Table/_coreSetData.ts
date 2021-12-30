@@ -1,11 +1,11 @@
-import { CoreSet } from "./types";
+import { CoreSetTableItem } from "./types";
 
 // Example Core Set list data for testing and demo page.
-export const exampleCoreSetData: CoreSet.Data[] = [
+export const exampleCoreSetData: CoreSetTableItem.Data[] = [
   {
     path: "/adult",
     title: "Adult Core Set Measures",
-    type: CoreSet.Type.ADULT,
+    type: CoreSetTableItem.Type.ADULT,
     progress: { numAvailable: 12, numComplete: 12 },
     actions: [{ itemText: "Export", handleSelect: (id) => console.log(id) }],
     submitted: true,
@@ -15,7 +15,7 @@ export const exampleCoreSetData: CoreSet.Data[] = [
   {
     path: "/child",
     title: "Child Core Set Measures: CHIP",
-    type: CoreSet.Type.CHILD,
+    type: CoreSetTableItem.Type.CHILD,
     progress: { numAvailable: 12, numComplete: 12 },
     actions: [{ itemText: "Export", handleSelect: (id) => console.log(id) }],
     submitted: false,
@@ -25,7 +25,7 @@ export const exampleCoreSetData: CoreSet.Data[] = [
   {
     path: "/child",
     title: "Child Core Set Measures: Medicaid",
-    type: CoreSet.Type.CHILD,
+    type: CoreSetTableItem.Type.CHILD,
     progress: { numAvailable: 12, numComplete: 4 },
     actions: [{ itemText: "Export", handleSelect: (id) => console.log(id) }],
     submitted: false,
@@ -35,7 +35,7 @@ export const exampleCoreSetData: CoreSet.Data[] = [
   {
     path: "/health-homes",
     title: "Health Homes Core Set Questions: SPA Name",
-    type: CoreSet.Type.HEALTH_HOMES,
+    type: CoreSetTableItem.Type.HEALTH_HOMES,
     progress: { numAvailable: 12, numComplete: 4 },
     actions: [{ itemText: "Export", handleSelect: (id) => console.log(id) }],
     submitted: false,

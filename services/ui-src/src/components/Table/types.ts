@@ -1,7 +1,7 @@
 import { IKebabMenuItem } from "components";
 import { ReactElement } from "react";
 
-export namespace CoreSet {
+export namespace CoreSetTableItem {
   export interface Progress {
     numAvailable: number;
     numComplete: number;
