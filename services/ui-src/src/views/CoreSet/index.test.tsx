@@ -2,7 +2,7 @@ import { CoreSet } from "./index";
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 
-describe("Test CoreSet.tsx", () => {
+describe("Test CoreSetTableItem.tsx", () => {
   beforeEach(() => {
     render(
       <RouterWrappedComp>
