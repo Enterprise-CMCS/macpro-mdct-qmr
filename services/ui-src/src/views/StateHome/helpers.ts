@@ -29,13 +29,15 @@ export interface CoreSetDataItems {
 const getCoreSetType = (type: CoreSetAbbr) => {
   let result;
   switch (type) {
-    case "ACS":
+    case CoreSetAbbr.ACS:
       result = CoreSetTableItem.Type.ADULT;
       break;
-    case "HHCS":
+    case CoreSetAbbr.HHCS:
       result = CoreSetTableItem.Type.HEALTH_HOMES;
       break;
-    default:
+    case CoreSetAbbr.CCS:
+    case CoreSetAbbr.CCSC:
+    case CoreSetAbbr.CCSM:
       result = CoreSetTableItem.Type.CHILD;
   }
   return result;
@@ -52,7 +54,7 @@ export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
       compoundKey,
     }: CoreSetDataItem): CoreSetTableItem.Data => {
       const type = getCoreSetType(coreSet);
-      const title = coreSetMeasureTitle[coreSet];
+      const title = coreSetMeasureTitle[coreSet as CoreSetAbbr];
       const data = {
         handleDelete: () =>
           handleDelete({
@@ -66,7 +68,7 @@ export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
       const actions = getCoreSetActions(data);
 
       return {
-        path: coreSet,
+        coreSet,
         title,
         type,
         progress,

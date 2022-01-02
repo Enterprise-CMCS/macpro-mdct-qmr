@@ -1,9 +1,10 @@
+import { CoreSetAbbr } from "types";
 import { CoreSetTableItem } from "./types";
 
 // Example Core Set list data for testing and demo page.
 export const exampleCoreSetData: CoreSetTableItem.Data[] = [
   {
-    path: "/adult",
+    coreSet: CoreSetAbbr.ACS,
     title: "Adult Core Set Measures",
     type: CoreSetTableItem.Type.ADULT,
     progress: { numAvailable: 12, numComplete: 12 },
@@ -13,7 +14,7 @@ export const exampleCoreSetData: CoreSetTableItem.Data[] = [
     year: "2021",
   },
   {
-    path: "/child",
+    coreSet: CoreSetAbbr.CCSC,
     title: "Child Core Set Measures: CHIP",
     type: CoreSetTableItem.Type.CHILD,
     progress: { numAvailable: 12, numComplete: 12 },
@@ -23,7 +24,7 @@ export const exampleCoreSetData: CoreSetTableItem.Data[] = [
     year: "2021",
   },
   {
-    path: "/child",
+    coreSet: CoreSetAbbr.CCSM,
     title: "Child Core Set Measures: Medicaid",
     type: CoreSetTableItem.Type.CHILD,
     progress: { numAvailable: 12, numComplete: 4 },
@@ -33,7 +34,7 @@ export const exampleCoreSetData: CoreSetTableItem.Data[] = [
     year: "2021",
   },
   {
-    path: "/health-homes",
+    coreSet: CoreSetAbbr.HHCS,
     title: "Health Homes Core Set Questions: SPA Name",
     type: CoreSetTableItem.Type.HEALTH_HOMES,
     progress: { numAvailable: 12, numComplete: 4 },

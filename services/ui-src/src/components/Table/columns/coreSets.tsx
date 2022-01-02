@@ -38,7 +38,7 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
     id: "info_column_header",
     cell: (data: CoreSetTableItem.Data) => {
       return (
-        <Link to={data.path}>
+        <Link to={data.coreSet}>
           <CUI.Text fontWeight="bold" color="blue.600">
             {data.title}
           </CUI.Text>

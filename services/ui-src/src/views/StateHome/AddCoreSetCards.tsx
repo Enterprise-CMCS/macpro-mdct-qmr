@@ -3,29 +3,18 @@ import { Params } from "Routes";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
-const cardData = [
-  {
-    title: "Need to report on Child data?",
-    buttonText: "Add Child Core Set",
-    to: `add-child`,
-  },
-  {
-    title: "Need to report on Health Homes data?",
-    buttonText: "Add Health Homes Core Set",
-    to: `add-hh`,
-  },
-];
-
 interface AddCoreSetCardProps {
   title: string;
   buttonText: string;
   to: string;
+  coreSetExists: boolean;
 }
 
 export const AddCoreSetCard = ({
   title,
   buttonText,
   to,
+  coreSetExists,
 }: AddCoreSetCardProps) => {
   const { state, year } = useParams<Params>();
 
@@ -49,7 +38,8 @@ export const AddCoreSetCard = ({
         >
           <QMR.ContainedButton
             icon="plus"
-            buttonText={buttonText}
+            buttonText={!coreSetExists ? buttonText : "Already Added"}
+            disabledStatus={coreSetExists}
             buttonProps={{
               colorScheme: "blue",
               textTransform: "capitalize",
@@ -62,12 +52,29 @@ export const AddCoreSetCard = ({
   );
 };
 
-export const AddCoreSetCards = () => {
+interface Props {
+  childCoreSetExists: boolean;
+  healthHomesCoreSetExists: boolean;
+}
+
+export const AddCoreSetCards = ({
+  childCoreSetExists,
+  healthHomesCoreSetExists,
+}: Props) => {
   return (
     <>
-      {cardData.map((d) => (
-        <AddCoreSetCard key={d.title} {...d} />
-      ))}
+      <AddCoreSetCard
+        title="Need to report on Child data?"
+        buttonText="Add Child Core Set"
+        to="add-child"
+        coreSetExists={childCoreSetExists}
+      />
+      <AddCoreSetCard
+        title="Need to report on Health Homes data?"
+        buttonText="Add Health Homes Core Set"
+        to="add-hh"
+        coreSetExists={healthHomesCoreSetExists}
+      />
       <CUI.Center w="44" textAlign="center">
         <CUI.Text fontStyle="italic" fontSize="sm">
           Only one group of Adult Core Set Measures can be submitted per FFY

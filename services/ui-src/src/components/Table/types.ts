@@ -1,5 +1,6 @@
 import { IKebabMenuItem } from "components";
 import { ReactElement } from "react";
+import { CoreSetAbbr } from "types";
 
 export namespace CoreSetTableItem {
   export interface Progress {
@@ -21,8 +22,8 @@ export namespace CoreSetTableItem {
   }
 
   export type Data = {
+    coreSet: CoreSetAbbr;
     id: string;
-    path: string;
     title: string;
     type: Type;
     progress: Progress;

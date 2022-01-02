@@ -105,6 +105,16 @@ export const StateHome = () => {
     handleDelete,
   });
 
+  const childCoreSetExists = formattedTableItems.some(
+    (v) =>
+      v.coreSet === CoreSetAbbr.CCS ||
+      v.coreSet === CoreSetAbbr.CCSC ||
+      v.coreSet === CoreSetAbbr.CCSM
+  );
+  const healthHomesCoreSetExists = formattedTableItems.some(
+    (v) => v.coreSet === CoreSetAbbr.HHCS
+  );
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -114,7 +124,10 @@ export const StateHome = () => {
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">
-        <AddCoreSetCards />
+        <AddCoreSetCards
+          childCoreSetExists={childCoreSetExists}
+          healthHomesCoreSetExists={healthHomesCoreSetExists}
+        />
       </CUI.HStack>
     </QMR.StateLayout>
   );
