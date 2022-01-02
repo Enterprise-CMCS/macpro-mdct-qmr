@@ -1,9 +1,9 @@
-import { CoreSet } from "components/Table/types";
+import { CoreSetTableItem } from "components/Table/types";
 // import * as QMR from "components";
 
 interface Data {
   handleDelete: any;
-  type: CoreSet.Type;
+  type: CoreSetTableItem.Type;
 }
 
 // interface CoreSetActions {
@@ -11,7 +11,7 @@ interface Data {
 // }
 
 export const getCoreSetActions = (data: Data) => {
-  if (data.type === CoreSet.Type.ADULT) {
+  if (data.type === CoreSetTableItem.Type.ADULT) {
     return [
       {
         itemText: "Export",
@@ -19,7 +19,7 @@ export const getCoreSetActions = (data: Data) => {
       },
     ];
   }
-  if (data.type === CoreSet.Type.CHILD) {
+  if (data.type === CoreSetTableItem.Type.CHILD) {
     return [
       {
         itemText: "Export",

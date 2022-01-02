@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { measuresList } from "measures/measuresList";
@@ -8,13 +7,13 @@ import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
 import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
-import { queryClient } from "../../index";
-import { CoreSetType } from "views/StateHome/helpers";
+import { CoreSetAbbr } from "types";
+import { useQueryClient } from "react-query";
 
 interface Data {
   state: string;
   year: string;
-  coreSet: CoreSetType;
+  coreSet: CoreSetAbbr;
 }
 
 const ReportingYear = () => {
@@ -72,28 +71,22 @@ const Heading = () => {
 
 export const StateHome = () => {
   const { state, year } = useParams<Params>();
+  const queryClient = useQueryClient();
   const { data, error, isLoading } = Api.useGetCoreSets();
-  const mutation = Api.useAddCoreSet();
   const deleteCoreSet = Api.useDeleteCoreSet();
 
-  useEffect(() => {
-    // if data.Items is an empty array no coresets exist
-    // In that case we crete an adult coreset and refetch the data
-    if (data?.Items.length === 0) {
-      mutation.mutate("ACS", {
+  const handleDelete = (data: Data) => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this Core Set and all associated Measures?"
+      )
+    ) {
+      deleteCoreSet.mutate(data, {
         onSuccess: () => {
           queryClient.refetchQueries(["coreSets", state, year]);
         },
       });
     }
-  }, [data?.Items, state, year]);
-
-  const handleDelete = (data: Data) => {
-    deleteCoreSet.mutate(data, {
-      onSuccess: () => {
-        queryClient.refetchQueries(["coreSets", state, year]);
-      },
-    });
   };
 
   if (error) {

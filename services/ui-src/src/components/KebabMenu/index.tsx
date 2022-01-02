@@ -1,12 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
-import { CoreSetType } from "views/StateHome/helpers";
+import { CoreSetAbbr } from "types";
 
 interface Data {
   year: string;
   state: string;
-  coreSet: CoreSetType;
+  coreSet: CoreSetAbbr;
 }
 
 export interface IKebabMenuItem {
