@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { measuresList } from "measures/measuresList";
@@ -74,20 +73,7 @@ export const StateHome = () => {
   const { state, year } = useParams<Params>();
   const queryClient = useQueryClient();
   const { data, error, isLoading } = Api.useGetCoreSets();
-  const mutation = Api.useAddCoreSet();
   const deleteCoreSet = Api.useDeleteCoreSet();
-
-  useEffect(() => {
-    // if data.Items is an empty array no coresets exist
-    // In that case we crete an adult coreset and refetch the data
-    if (data?.Items.length === 0) {
-      mutation.mutate(CoreSetAbbr.ACS, {
-        onSuccess: () => {
-          queryClient.refetchQueries(["coreSets", state, year]);
-        },
-      });
-    }
-  }, [data?.Items, state, year]);
 
   const handleDelete = (data: Data) => {
     if (

@@ -3,6 +3,7 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
+import * as Types from "../../types";
 
 export const createCoreSet = handler(async (event, context) => {
   if (!event.pathParameters) return; // throw error message
@@ -53,9 +54,7 @@ export const createCoreSet = handler(async (event, context) => {
     },
   };
 
-  await dynamoDb.post(params);
-
-  return params;
+  return await dynamoDb.post(params);
 });
 
 const createDependentMeasures = async (
@@ -76,7 +75,7 @@ const createDependentMeasures = async (
     // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
     const dynamoKey = `${state}${year}${coreSet}${measureId}`;
     const params = {
-      TableName: process.env.measureTableName,
+      TableName: process.env.measureTableName || "",
       Item: {
         compoundKey: dynamoKey,
         state: state,
@@ -85,7 +84,9 @@ const createDependentMeasures = async (
         measure: measureId,
         createdAt: Date.now(),
         lastAltered: Date.now(),
-        status: measure.autocompleteOnCreation ? "complete" : "incomplete",
+        status: measure.autocompleteOnCreation
+          ? Types.MeasureStatus.COMPLETE
+          : Types.MeasureStatus.INCOMPLETE,
         description: measure.description,
       },
     };
