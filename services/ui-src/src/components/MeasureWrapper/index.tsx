@@ -78,7 +78,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
               width={"100vw"}
               height={"100vh"}
               zIndex={999}
-              backgroundColor={"#D3D3D3"}
+              backgroundColor="gray.200"
               //backgroundImage={"none"}
               opacity={0.5}
             />
