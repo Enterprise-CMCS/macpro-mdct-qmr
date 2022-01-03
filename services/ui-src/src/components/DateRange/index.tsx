@@ -35,7 +35,7 @@ export const DateRange = ({ name }: Props) => {
 
   useEffect(() => {
     trigger(name);
-  }, [watchEndMonth, watchEndYear, watchDateRange]);
+  }, [watchEndMonth, watchEndYear, watchDateRange, trigger]);
 
   return (
     <CUI.Stack>

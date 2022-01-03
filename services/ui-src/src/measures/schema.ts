@@ -17,14 +17,14 @@ const OptionalMeasureStratificationRateJoi = Joi.object({
 
 const startDateRangeValidator = (endDateRangeLabel: string) => {
   const now = new Date();
-  const validMonth = now.getMonth() + 2;
+  const validMonth = now.getMonth() + 1;
   return Joi.object({
     selectedMonth: Joi.number()
       // not in the future
       .when(Joi.ref("selectedYear"), {
         is: now.getFullYear(),
         then: Joi.number()
-          .less(validMonth)
+          .max(validMonth)
           .message("Start Date Month cannot be in the future."),
       })
 
