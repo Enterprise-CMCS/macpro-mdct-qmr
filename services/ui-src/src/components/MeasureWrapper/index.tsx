@@ -55,6 +55,10 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
           {
+            path: `/${params.state}/${year}/${params.coreSetId}`,
+            name: "",
+          },
+          {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
             name: `${measureId} - ${name}`,
           },
