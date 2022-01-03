@@ -34,7 +34,7 @@ export const DateRange = ({ name }: Props) => {
     !!objectPath.get(errors, name + ".startDate.selectedYear")?.message;
 
   useEffect(() => {
-    trigger();
+    trigger(name);
   }, [watchEndMonth, watchEndYear, watchDateRange]);
 
   return (
