@@ -10,28 +10,32 @@ interface Data {
 //   [key: string]: (data: Data) => QMR.IKebabMenuItem[];
 // }
 
-export const getCoreSetActions = (data: Data) => {
-  if (data.type === CoreSetTableItem.Type.ADULT) {
+export const getCoreSetActions = ({ type, handleDelete }: Data) => {
+  if (type === CoreSetTableItem.Type.ADULT) {
     return [
       {
         itemText: "Export",
-        handleSelect: data.handleDelete,
+        handleSelect: handleDelete,
+        type: type,
       },
     ];
   }
-  if (data.type === CoreSetTableItem.Type.CHILD) {
+  if (type === CoreSetTableItem.Type.CHILD) {
     return [
       {
         itemText: "Export",
         handleSelect: () => console.log("export"),
+        type: type,
       },
       {
         itemText: "Export All",
         handleSelect: () => console.log("Export All"),
+        type: type,
       },
       {
         itemText: "Delete",
-        handleSelect: data.handleDelete,
+        handleSelect: handleDelete,
+        type: type,
       },
     ];
   }
@@ -39,10 +43,12 @@ export const getCoreSetActions = (data: Data) => {
     {
       itemText: "Export",
       handleSelect: () => console.log("export"),
+      type: type,
     },
     {
       itemText: "Export All",
       handleSelect: () => console.log("Export All"),
+      type: type,
     },
   ];
 };

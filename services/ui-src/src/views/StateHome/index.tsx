@@ -76,16 +76,34 @@ export const StateHome = () => {
   const deleteCoreSet = Api.useDeleteCoreSet();
 
   const handleDelete = (data: Data) => {
-    if (
-      window.confirm(
-        "Are you sure you want to delete this Core Set and all associated Measures?"
-      )
-    ) {
-      deleteCoreSet.mutate(data, {
-        onSuccess: () => {
-          queryClient.refetchQueries(["coreSets", state, year]);
-        },
-      });
+    switch (data.coreSet) {
+      // if its a combined child or hh core set we can just delete the one targetted
+      case CoreSetAbbr.CCS:
+      case CoreSetAbbr.HHCS:
+        deleteCoreSet.mutate(data, {
+          onSuccess: () => {
+            queryClient.refetchQueries(["coreSets", state, year]);
+          },
+        });
+        break;
+      // if its a chip or medicaid child coreset we delete them both
+      case CoreSetAbbr.CCSC:
+      case CoreSetAbbr.CCSM:
+        deleteCoreSet.mutate(
+          { ...data, coreSet: CoreSetAbbr.CCSC },
+          {
+            onSuccess: () => {
+              deleteCoreSet.mutate(
+                { ...data, coreSet: CoreSetAbbr.CCSM },
+                {
+                  onSuccess: () => {
+                    queryClient.refetchQueries(["coreSets", state, year]);
+                  },
+                }
+              );
+            },
+          }
+        );
     }
   };
 
