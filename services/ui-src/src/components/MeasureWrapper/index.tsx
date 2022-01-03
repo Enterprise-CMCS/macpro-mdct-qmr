@@ -78,8 +78,9 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
               width={"100vw"}
               height={"100vh"}
               zIndex={999}
-              // backgroundColor={"red"}
-              backgroundImage={"none"}
+              backgroundColor={"#D3D3D3"}
+              //backgroundImage={"none"}
+              opacity={0.5}
             />
           )}
           <form data-testid="measure-wrapper-form">
