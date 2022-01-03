@@ -11,6 +11,15 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
   const { coreSetId } = useParams<Params>();
   const { watch } = useFormContext<Measure.Form>();
   const watchReportingRadio = watch("DidReport");
+  const watchMeasureSpecification = watch("MeasurementSpecification");
+  const watchDataSourceAdmin = watch("DataSource");
+  const isOtherDataSource =
+    watchDataSourceAdmin?.indexOf("Other Data Source") !== -1;
+  console.log(isOtherDataSource);
+  const isHEIDS = watchMeasureSpecification === "NCQA/HEDIS";
+  const isOtherSpecification = watchMeasureSpecification === "Other";
+
+  console.log(isHEIDS);
 
   return (
     <>
@@ -26,9 +35,13 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           <Q.DataSource />
           <Q.DateRange type="adult" />
           <Q.DefinitionOfPopulation />
-          <Q.PerformanceMeasure />
-          <Q.DeviationFromMeasureSpec options={Q.defaultDeviationOptions} />
-          <Q.OtherPerformanceMeasure />
+          {isHEIDS && <Q.PerformanceMeasure />}
+          {!isOtherSpecification && (
+            <Q.DeviationFromMeasureSpec options={Q.defaultDeviationOptions} />
+          )}
+          {!isHEIDS && (isOtherSpecification || isOtherDataSource) && (
+            <Q.OtherPerformanceMeasure />
+          )}
           <Q.CombinedRates />
           <Q.OptionalMeasureStratification
             {...Q.DefaultOptionalMeasureStratProps}
