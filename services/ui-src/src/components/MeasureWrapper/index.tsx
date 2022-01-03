@@ -54,6 +54,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
+          // This next path object is to bring the user back to the measures list with the back button
           {
             path: `/${params.state}/${year}/${params.coreSetId}`,
             name: "",
