@@ -5,6 +5,7 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 
 export const createCoreSet = handler(async (event, context) => {
+  
   if (!event.pathParameters) return; // throw error message
   if (
     !event.pathParameters.state ||
@@ -48,7 +49,7 @@ export const createCoreSet = handler(async (event, context) => {
   await dynamoDb.post(params);
   await createDependentMeasures(state, parseInt(year), coreSet, type);
 
-  return params;
+  return event;
 });
 
 const createDependentMeasures = async (
