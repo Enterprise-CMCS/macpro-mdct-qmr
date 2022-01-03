@@ -18,8 +18,6 @@ const OptionalMeasureStratificationRateJoi = Joi.object({
 const startDateRangeValidator = (endDateRangeLabel: string) => {
   const now = new Date();
   const validMonth = now.getMonth() + 2;
-  console.log(`now.getMonth()`, now.getMonth());
-  console.log(`validMonth`, validMonth);
   return Joi.object({
     selectedMonth: Joi.number()
       // not in the future
