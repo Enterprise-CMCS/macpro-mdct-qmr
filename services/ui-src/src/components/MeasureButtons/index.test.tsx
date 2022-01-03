@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MeasureButtons } from "./index";
 
 describe("Test MeasureButtons", () => {
@@ -46,20 +46,5 @@ describe("Test MeasureButtons", () => {
     );
 
     expect(circleCheckIcon).toEqual(null);
-  });
-
-  it("handleSubmit fires when a submit button is clicked", () => {
-    const mockChangeFn = jest.fn();
-    const { getByText } = render(
-      <MeasureButtons
-        lastSavedText="Saved Last November"
-        handleSubmit={mockChangeFn}
-        handleSave={() => {}}
-      />
-    );
-
-    fireEvent.click(getByText(/Complete Measure/i));
-
-    expect(mockChangeFn).toHaveBeenCalled();
   });
 });
