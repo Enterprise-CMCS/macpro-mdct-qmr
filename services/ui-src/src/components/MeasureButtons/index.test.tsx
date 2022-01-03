@@ -48,18 +48,18 @@ describe("Test MeasureButtons", () => {
     expect(circleCheckIcon).toEqual(null);
   });
 
-  it("handleSubmit fires when a submit button is clicked", () => {
-    const mockChangeFn = jest.fn();
-    const { getByText } = render(
-      <MeasureButtons
-        lastSavedText="Saved Last November"
-        handleSubmit={mockChangeFn}
-        handleSave={() => {}}
-      />
-    );
+  // it("handleSubmit fires when a submit button is clicked", () => {
+  //   const mockChangeFn = jest.fn();
+  //   const { getByText } = render(
+  //     <MeasureButtons
+  //       lastSavedText="Saved Last November"
+  //       handleSubmit={mockChangeFn}
+  //       handleSave={() => {}}
+  //     />
+  //   );
 
-    fireEvent.click(getByText(/Complete Measure/i));
+  //   fireEvent.click(getByText(/Complete Measure/i));
 
-    expect(mockChangeFn).toHaveBeenCalled();
-  });
+  //   expect(mockChangeFn).toHaveBeenCalled();
+  // });
 });
