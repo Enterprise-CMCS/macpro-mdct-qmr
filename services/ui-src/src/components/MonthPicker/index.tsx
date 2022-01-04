@@ -5,6 +5,7 @@ import { useController, useFormContext } from "react-hook-form";
 interface CommonProps {
   name: string;
   initMonth?: string;
+  isInvalid?: boolean;
 }
 
 type YearProps =
@@ -21,6 +22,7 @@ export const MonthPicker = ({
   yearLocked,
   initYear,
   initMonth,
+  isInvalid,
 }: Props) => {
   const { control } = useFormContext();
   const { field } = useController({
@@ -34,7 +36,7 @@ export const MonthPicker = ({
   return (
     <CUI.HStack>
       <CUI.Stack>
-        <CUI.FormControl label="Month:">
+        <CUI.FormControl label="Month:" isInvalid={isInvalid}>
           <CUI.FormLabel my={0}>{"Month:"}</CUI.FormLabel>
           <CUI.HStack>
             <CUI.Input
@@ -57,7 +59,7 @@ export const MonthPicker = ({
         </CUI.FormControl>
       </CUI.Stack>
       <CUI.Stack>
-        <CUI.FormControl label="Year:">
+        <CUI.FormControl label="Year:" isInvalid={isInvalid}>
           <CUI.FormLabel my={0}>{"Year:"}</CUI.FormLabel>
           <CUI.HStack>
             <CUI.Input
