@@ -54,9 +54,14 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
+          // This next path object is to bring the user back to the measures list with the back button
+          {
+            path: `/${params.state}/${year}/${params.coreSetId}`,
+            name: "",
+          },
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
-            name,
+            name: `${measureId} - ${name}`,
           },
         ]}
         buttons={
@@ -68,9 +73,19 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         }
       >
         <form data-testid="measure-wrapper-form">
-          <CUI.Box maxW="7xl" as="section">
-            {cloneElement(measure, { name, year })}
-          </CUI.Box>
+          <CUI.Container maxW="5xl" as="section">
+            <CUI.Text fontSize="sm">
+              For technical questions regarding use of this application, please
+              reach out to MDCT_Help@cms.hhs.gov. For content-related questions
+              about measure specifications, or what information to enter in each
+              field, please reach out to MACQualityTA@cms.hhs.gov.
+            </CUI.Text>
+            {cloneElement(measure, {
+              name,
+              year,
+              handleSubmit: methods.handleSubmit(handleSubmit),
+            })}
+          </CUI.Container>
         </form>
       </QMR.StateLayout>
     </FormProvider>

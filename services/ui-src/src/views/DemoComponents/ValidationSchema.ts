@@ -10,14 +10,14 @@ export const DemoValidationSchema = Joi.object({
     Joi.object({
       denominator: Joi.string().pattern(new RegExp(regex)),
       numerator: Joi.string().pattern(new RegExp(regex)),
-      rate: Joi.string().pattern(new RegExp(regex)),
+      rate: Joi.string(),
     })
   ),
   demoRate2: Joi.array().items(
     Joi.object({
       denominator: Joi.string().pattern(new RegExp(regex)),
       numerator: Joi.string().pattern(new RegExp(regex)),
-      rate: Joi.string().pattern(new RegExp(regex)),
+      rate: Joi.string(),
     })
   ),
   demoRateTextInput1: Joi.string(),
@@ -29,5 +29,6 @@ export const DemoValidationSchema = Joi.object({
   testUpload2: Joi.any(),
   demoRadioButton: Joi.string().required(),
   demoNumberInput1: Joi.string().pattern(new RegExp(regex)),
+  demoMultiSelectList: Joi.any(),
   dateRange1: Joi.any(),
 });

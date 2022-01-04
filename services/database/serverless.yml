@@ -15,7 +15,8 @@ custom:
       - master
       - val
       - production
-  tableName: ${self:custom.stage}-amendments
+  coreSetTableName: ${self:custom.stage}-coreSets
+  measureTableName: ${self:custom.stage}-measures
   dynamodb:
     stages:
       - local
@@ -31,48 +32,57 @@ provider:
 
 resources:
   Resources:
-    AmendmentsTable:
+    CoreSetTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.tableName}
+        TableName: ${self:custom.coreSetTableName}
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
         StreamSpecification:
           StreamViewType: NEW_AND_OLD_IMAGES
         AttributeDefinitions:
-          - AttributeName: userId
+          - AttributeName: compoundKey
             AttributeType: S
-          - AttributeName: amendmentId
+          - AttributeName: coreSet
             AttributeType: S
         KeySchema:
-          - AttributeName: userId
+          - AttributeName: compoundKey
             KeyType: HASH
-          - AttributeName: amendmentId
+          - AttributeName: coreSet
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
-    AmendmentsAtomicCounterTable:
+
+    MeasureTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.tableName}-atomic-counter
+        TableName: ${self:custom.measureTableName}
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: compoundKey
+            AttributeType: S
+          - AttributeName: coreSet
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: compoundKey
             KeyType: HASH
+          - AttributeName: coreSet
+            KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
   Outputs:
-    AmendmentsTableName:
-      Value: !Ref AmendmentsTable
-    AmendmentsTableArn:
-      Value: !GetAtt AmendmentsTable.Arn
-    AmendmentsTableStreamArn:
-      Value: !GetAtt AmendmentsTable.StreamArn
-    AmendmentsAtomicCounterTableName:
-      Value: !Ref AmendmentsAtomicCounterTable
-    AmendmentsAtomicCounterTableArn:
-      Value: !GetAtt AmendmentsAtomicCounterTable.Arn
+    CoreSetTableName:
+      Value: !Ref CoreSetTable
+    CoreSetTableArn:
+      Value: !GetAtt CoreSetTable.Arn
+    CoreSetTableStreamArn:
+      Value: !GetAtt CoreSetTable.StreamArn
+    MeasureTableName:
+      Value: !Ref MeasureTable
+    MeasureTableArn:
+      Value: !GetAtt MeasureTable.Arn
+    MeasureTableStreamArn:
+      Value: !GetAtt MeasureTable.StreamArn
     Region:
       Value: !Sub ${AWS::Region}
