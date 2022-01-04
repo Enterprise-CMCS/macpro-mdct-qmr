@@ -5,12 +5,15 @@ const signInBttn = "input#okta-signin-submit";
 
 export class LoginPage {
   enterUserName() {
-    cy.get(usernameInput).type("State_QMR");
+    cy.get(usernameInput).type("State_QMR2");
   }
 
   enterPassword() {
-    cy.get(passwordInput).type("Passw0rd!");
+    cy.get(passwordInput).type("Passw0rd@");
   }
+
+  //old credentials 
+  //State_QMR  Passw0rd!
 
   clickAgreeTermAndConditions() {
     //cy.wait(2000);
