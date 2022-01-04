@@ -47,7 +47,6 @@ functions:
   avScan:
     handler: src/antivirus.lambdaHandleEvent
     name: ${self:service.name}-${self:custom.stage}-avScan
-    role: BucketAVScanRole
     timeout: 300 # 300 seconds = 5 minutes. Average scan is 25 seconds.
     memorySize: 3008
     layers:
@@ -59,7 +58,6 @@ functions:
     handler: src/download-definitions.lambdaHandleEvent
     events:
       - schedule: cron(0 */6 * * ? *)
-    role: BucketAVDownloadRole
     timeout: 300 # 300 seconds = 5 minutes
     memorySize: 1024
     layers:
@@ -67,6 +65,7 @@ functions:
     environment:
       CLAMAV_BUCKET_NAME: !Ref ClamDefsBucket
       PATH_TO_AV_DEFINITIONS: "lambda/s3-antivirus/av-definitions"
+
 
 resources:
   Conditions:
