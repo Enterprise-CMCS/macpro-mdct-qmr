@@ -3,7 +3,6 @@ import * as QMR from "components";
 import { useParams } from "react-router-dom";
 import { Params } from "Routes";
 import { Link } from "react-router-dom";
-import * as Api from "hooks/api";
 
 enum coreSetType {
   ACS = "Adult",
@@ -31,9 +30,6 @@ enum coreSetQuestionsText {
 
 export const CoreSet = () => {
   const { state, year, coreSetId } = useParams<Params>();
-  const { data, isLoading, error } = Api.useGetMeasures();
-
-  console.log({ data, isLoading, error });
 
   // This is where a fetch for the measures would live and calculate progress completed
   const measures = [
