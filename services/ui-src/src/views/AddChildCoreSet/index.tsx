@@ -10,8 +10,13 @@ import * as Api from "hooks/api";
 import { useQueryClient } from "react-query";
 import { CoreSetAbbr } from "types";
 
+enum ReportType {
+  SEPARATE = "separate",
+  COMBINED = "combined",
+}
+
 interface ChildCoreSetReportType {
-  "ChildCoreSet-ReportType": string;
+  "ChildCoreSet-ReportType": ReportType;
 }
 
 const childCoreSetSchema = Joi.object<ChildCoreSetReportType>({
@@ -34,25 +39,26 @@ export const AddChildCoreSet = () => {
   const register = useCustomRegister<ChildCoreSetReportType>();
 
   const handleSubmit = (data: ChildCoreSetReportType) => {
-    console.log({ data });
-    if (data["ChildCoreSet-ReportType"] === "separate") {
-      mutation.mutate(CoreSetAbbr.CCSM, {
-        onSuccess: () => {
-          mutation.mutate(CoreSetAbbr.CCSC, {
-            onSuccess: () => {
-              queryClient.refetchQueries(["coreSets", state, year]);
-              navigate(`/${state}/${year}`);
-            },
-          });
-        },
-      });
-    } else if (data["ChildCoreSet-ReportType"] === "combined") {
-      mutation.mutate(CoreSetAbbr.CCS, {
-        onSuccess: () => {
-          queryClient.refetchQueries(["coreSets", state, year]);
-          navigate(`/${state}/${year}`);
-        },
-      });
+    switch (data["ChildCoreSet-ReportType"]) {
+      case ReportType.SEPARATE:
+        mutation.mutate(CoreSetAbbr.CCSM, {
+          onSuccess: () => {
+            mutation.mutate(CoreSetAbbr.CCSC, {
+              onSuccess: () => {
+                queryClient.refetchQueries(["coreSets", state, year]);
+                navigate(`/${state}/${year}`);
+              },
+            });
+          },
+        });
+        break;
+      case ReportType.COMBINED:
+        mutation.mutate(CoreSetAbbr.CCS, {
+          onSuccess: () => {
+            queryClient.refetchQueries(["coreSets", state, year]);
+            navigate(`/${state}/${year}`);
+          },
+        });
     }
   };
 
@@ -81,12 +87,12 @@ export const AddChildCoreSet = () => {
                     {
                       displayValue:
                         "Reporting Medicaid and CHIP measures in separate core sets",
-                      value: "separate",
+                      value: ReportType.SEPARATE,
                     },
                     {
                       displayValue:
                         "Reporting Medicaid and CHIP measures in combined core sets",
-                      value: "combined",
+                      value: ReportType.COMBINED,
                     },
                   ]}
                 />
