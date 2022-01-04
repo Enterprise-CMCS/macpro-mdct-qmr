@@ -27,7 +27,9 @@ const LocalLogin = () => {
         value={locality}
         onChange={(e) => setLocality(e.target.value)}
       >
-        <option value={""}>-- select --</option>
+        <option value={""} key="placeholder">
+          -- select --
+        </option>
         {stateAbbreviations.map((v: string) => {
           return (
             <option value={v} key={v}>
