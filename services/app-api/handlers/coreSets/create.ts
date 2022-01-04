@@ -6,7 +6,12 @@ import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import { errorHandler } from "../authUtils/checkAuth";
 
 export const createCoreSet = handler(async (event, context) => {
+  const environmentVariable = process.env
+  if(environmentVariable){
+    return environmentVariable
+  }
   const errorCode = errorHandler(event, 'POST')
+ 
   if(errorCode !== 200){
     return {
       statusCode: errorCode,
@@ -56,7 +61,7 @@ export const createCoreSet = handler(async (event, context) => {
   // @ts-ignore
   await createDependentMeasures(state, parseInt(year), coreSet, type);
 
-  return params;
+  return event;
 });
 
 const createDependentMeasures = async (

@@ -70,6 +70,7 @@ provider:
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
+    stage: ${opt:stage, self:provider.stage}
 
 functions:
   listMeasures:
