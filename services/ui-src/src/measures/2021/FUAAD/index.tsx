@@ -67,7 +67,7 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           {!isOtherSpecification && (
             <Q.DeviationFromMeasureSpec
               options={ageGroups}
-              deviationDays={{
+              deviationConditions={{
                 show30DaysAges18To64,
                 show30DaysAges65AndOlder,
                 show7DaysAges18To64,

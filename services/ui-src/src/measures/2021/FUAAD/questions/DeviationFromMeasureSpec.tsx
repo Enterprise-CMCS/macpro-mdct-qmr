@@ -9,7 +9,7 @@ export const defaultDeviationOptions = [
 
 interface Props {
   options: { label: string; id: number }[];
-  deviationDays?: {
+  deviationConditions: {
     show30DaysAges18To64: boolean;
     show30DaysAges65AndOlder: boolean;
     show7DaysAges18To64: boolean;
@@ -24,22 +24,22 @@ interface OptionProps extends Props {
 const deviationOptions = ({
   options,
   name,
-  deviationDays,
+  deviationConditions,
 }: OptionProps): QMR.CheckboxOption[] => {
-  let filteredOptions;
+  let filteredOptions: Props["options"];
 
-  if (name.includes("30")) {
-    filteredOptions = options?.filter((option) => {
+  if (name.includes("Within30")) {
+    filteredOptions = options.filter((option) => {
       return (
-        (deviationDays?.show30DaysAges18To64 && option.id === 0) ||
-        (deviationDays?.show30DaysAges65AndOlder && option.id === 1)
+        (deviationConditions.show30DaysAges18To64 && option.id === 0) ||
+        (deviationConditions.show30DaysAges65AndOlder && option.id === 1)
       );
     });
   } else {
-    filteredOptions = options?.filter((option) => {
+    filteredOptions = options.filter((option) => {
       return (
-        (deviationDays?.show7DaysAges18To64 && option.id === 0) ||
-        (deviationDays?.show7DaysAges65AndOlder && option.id === 1)
+        (deviationConditions.show7DaysAges18To64 && option.id === 0) ||
+        (deviationConditions.show7DaysAges65AndOlder && option.id === 1)
       );
     });
   }
@@ -93,7 +93,10 @@ const deviationOptions = ({
   });
 };
 
-export const DeviationFromMeasureSpec = ({ options, deviationDays }: Props) => {
+export const DeviationFromMeasureSpec = ({
+  options,
+  deviationConditions,
+}: Props) => {
   const register = useCustomRegister<Measure.Form>();
 
   return (
@@ -114,8 +117,8 @@ export const DeviationFromMeasureSpec = ({ options, deviationDays }: Props) => {
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
                 options={[
-                  ...(deviationDays?.show30DaysAges18To64 ||
-                  deviationDays?.show30DaysAges65AndOlder
+                  ...(deviationConditions.show30DaysAges18To64 ||
+                  deviationConditions.show30DaysAges65AndOlder
                     ? [
                         {
                           value: "FollowUpWithin30",
@@ -129,15 +132,15 @@ export const DeviationFromMeasureSpec = ({ options, deviationDays }: Props) => {
                               options={deviationOptions({
                                 options,
                                 ...register("DeviationFields-Within30"),
-                                deviationDays,
+                                deviationConditions,
                               })}
                             />,
                           ],
                         },
                       ]
                     : []),
-                  ...(deviationDays?.show7DaysAges18To64 ||
-                  deviationDays?.show7DaysAges65AndOlder
+                  ...(deviationConditions.show7DaysAges18To64 ||
+                  deviationConditions.show7DaysAges65AndOlder
                     ? [
                         {
                           value: "FollowUpWithin7",
@@ -149,7 +152,7 @@ export const DeviationFromMeasureSpec = ({ options, deviationDays }: Props) => {
                               options={deviationOptions({
                                 options,
                                 ...register("DeviationFields-Within7"),
-                                deviationDays,
+                                deviationConditions,
                               })}
                             />,
                           ],
