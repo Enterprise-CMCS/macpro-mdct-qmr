@@ -93,7 +93,6 @@ export const Upload = ({
 
     let retPromise;
     const targetPathname = `${Date.now()}/${fileToUpload.name}`;
-    console.log(window);
 
     try {
       const stored = await Storage.vault.put(targetPathname, fileToUpload, {
