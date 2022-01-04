@@ -42,7 +42,40 @@ export const Upload = ({
 
   const onDrop = React.useCallback(
     (acceptedFiles: File[]) => {
+      async function uploadFile(file: any) {
+        const fileToUpload = ensureLowerCaseFileExtension(file);
+
+        let retPromise;
+        const targetPathname = `${Date.now()}/${fileToUpload.name}`;
+
+        try {
+          const stored = await Storage.vault.put(targetPathname, fileToUpload, {
+            level: "protected",
+            contentType: fileToUpload.type,
+          });
+
+          const url = await Storage.vault.get(stored.key, {
+            level: "protected",
+          });
+
+          let result = {
+            s3Key: stored.key,
+            filename: fileToUpload.name,
+            contentType: fileToUpload.type,
+            url: url.split("?", 1)[0], //We only need the permalink part of the URL since the S3 bucket policy allows for public read
+            title: fileToUpload.title,
+          };
+
+          retPromise = Promise.resolve(result);
+        } catch (error) {
+          console.log(error);
+          retPromise = Promise.reject(error);
+        }
+        console.log("success");
+        return retPromise;
+      }
       field.onChange([...field.value, ...acceptedFiles]);
+      uploadFile(acceptedFiles[0]);
     },
     [field]
   );
@@ -86,36 +119,6 @@ export const Upload = ({
       // updatedFile.title = file.title;
       return updatedFile;
     }
-  }
-
-  async function uploadFile(file: any) {
-    const fileToUpload = ensureLowerCaseFileExtension(file);
-
-    let retPromise;
-    const targetPathname = `${Date.now()}/${fileToUpload.name}`;
-
-    try {
-      const stored = await Storage.vault.put(targetPathname, fileToUpload, {
-        level: "protected",
-        contentType: fileToUpload.type,
-      });
-
-      const url = await Storage.vault.get(stored.key, { level: "protected" });
-
-      let result = {
-        s3Key: stored.key,
-        filename: fileToUpload.name,
-        contentType: fileToUpload.type,
-        url: url.split("?", 1)[0], //We only need the permalink part of the URL since the S3 bucket policy allows for public read
-        title: fileToUpload.title,
-      };
-
-      retPromise = Promise.resolve(result);
-    } catch (error) {
-      console.log(error);
-      retPromise = Promise.reject(error);
-    }
-    return retPromise;
   }
 
   return (
@@ -163,7 +166,6 @@ export const Upload = ({
         </CUI.Alert>
       ))}
       {acceptedFiles.map((file, index) => {
-        uploadFile(file);
         return (
           <CUI.HStack
             key={`${index}-${file.name}`}
