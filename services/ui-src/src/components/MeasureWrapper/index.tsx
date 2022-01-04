@@ -3,10 +3,15 @@ import * as QMR from "components";
 import { Params } from "Routes";
 import { ReactElement, cloneElement } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
+// import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
+import {
+  testVal,
+  useJoiValidationResolver,
+  validateRates,
+} from "measures/2021/FUAAD/useCustomValidation";
 
 interface Props {
   measure: ReactElement;
@@ -17,6 +22,10 @@ interface Props {
 
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams<Params>();
+  const customResolver = useJoiValidationResolver(validationSchema, [
+    testVal,
+    validateRates,
+  ]) as any;
   /*
   this is where we put all the high level stuff for measures
   this would include:
@@ -32,7 +41,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const methods = useForm<Measure.Form>({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(validationSchema),
+    resolver: customResolver,
   });
 
   const handleSave = (data: any) => {
