@@ -9,7 +9,17 @@ import { Measure } from "measures/types";
 export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
   const { coreSetId } = useParams<Params>();
   const { watch } = useFormContext<Measure.Form>();
+
+  // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
+  const watchMeasureSpecification = watch("MeasurementSpecification");
+  const watchDataSourceAdmin = watch("DataSource");
+
+  // Conditionals for Performance Measures
+  const isOtherDataSource =
+    watchDataSourceAdmin?.indexOf("Other Data Source") !== -1;
+  const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
+  const isOtherSpecification = watchMeasureSpecification === "Other";
 
   return (
     <>
@@ -26,9 +36,16 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           <Q.DataSource />
           <Q.DateRange type="adult" />
           <Q.DefinitionOfPopulation />
-          <Q.PerformanceMeasure />
-          <Q.DeviationFromMeasureSpec options={Q.defaultDeviationOptions} />
-          <Q.OtherPerformanceMeasure />
+          {/* Show Performance Measure when HEDIS is selected from DataSource */}
+          {isHEDIS && <Q.PerformanceMeasure />}
+          {/* Show Deviation only when Other is not selected */}
+          {!isOtherSpecification && (
+            <Q.DeviationFromMeasureSpec options={Q.defaultDeviationOptions} />
+          )}
+          {/* Show Other Performance Measures when isHedis is not true and other is selected from one of two questions */}
+          {!isHEDIS && (isOtherSpecification || isOtherDataSource) && (
+            <Q.OtherPerformanceMeasure />
+          )}
           <Q.CombinedRates />
           <Q.OptionalMeasureStratification
             {...Q.DefaultOptionalMeasureStratProps}
