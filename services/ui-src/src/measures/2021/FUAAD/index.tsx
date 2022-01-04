@@ -79,7 +79,6 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           {!isHEDIS && (isOtherSpecification || isOtherDataSource) && (
             <Q.OtherPerformanceMeasure />
           )}
-
           <Q.CombinedRates />
           <Q.OptionalMeasureStratification
             ageGroups={ageGroups}
