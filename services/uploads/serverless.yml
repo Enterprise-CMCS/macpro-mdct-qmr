@@ -1,28 +1,51 @@
-# Welcome to serverless. Read the docs
-# https://serverless.com/framework/docs/
-
-# Serverless.yml is the configuration the CLI
-# uses to deploy your code to your provider of choice
-
-# The `service` block is the name of the service
+# Refer to the README.md file in within this service directory to configure all ssm parameters required for this service.
 service: uploads
 
+frameworkVersion: "2"
+
 plugins:
-  - serverless-bundle
-  - serverless-s3-local
-  - serverless-offline
   - serverless-plugin-scripts
+  - serverless-s3-local
+  - serverless-stack-termination-protection
+  - serverless-iam-helper
   - serverless-s3-bucket-helper
+
 provider:
   name: aws
   runtime: nodejs12.x
   region: us-east-1
-  stage: dev
+  iam:
+    role:
+      path: ${ssm:/configuration/${self:custom.stage}/iam/path~true, ssm:/configuration/default/iam/path~true, "/"}
+      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy~true, ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
+      statements:
+        - Effect: "Allow"
+          Action:
+            - s3:GetObject
+            - s3:GetObjectTagging
+            - s3:PutObject
+            - s3:PutObjectAcl
+            - s3:PutObjectTagging
+            - s3:PutObjectVersionTagging
+            - s3:ListBucket
+          Resource:
+            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*
+            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}/*
+        - Effect: "Allow"
+          Action:
+            - s3:ListBucket
+          Resource:
+            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
+            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}/*
 
 custom:
   stage: ${opt:stage, self:provider.stage}
-  iamPath: ${ssm:/configuration/${self:custom.stage}/iam/path~true, ssm:/configuration/default/iam/path~true}
-  iamPermissionsBoundaryPolicy: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy~true, ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
+  region: ${opt:region, self:provider.region}
+  serverlessTerminationProtection:
+    stages:
+      - master
+      - val
+      - production
   scripts:
     hooks:
       # This script is run locally when running 'serverless deploy'
@@ -32,12 +55,13 @@ custom:
       deploy:finalize: |
         rm lambda_layer.zip
         serverless invoke --stage ${self:custom.stage} --function avDownloadDefinitions -t Event
-  # S3 offline configuration
   s3:
-    host: localhost
-    directory: /tmp
-    cors: resources/local-cors-policy.xml
-
+    directory: ./local_buckets
+    cors: ./local_cors.xml
+    buckets:
+      - local-uploads # This is a little silly, but I've spent enough time on it.
+        # the serverless-s3-local plugin starts any bucket with a BucketName
+        # the attachments bucket has no name, so we need to make one up on our own
 layers:
   clamDefs:
     package:
@@ -66,21 +90,18 @@ functions:
       CLAMAV_BUCKET_NAME: !Ref ClamDefsBucket
       PATH_TO_AV_DEFINITIONS: "lambda/s3-antivirus/av-definitions"
 
-
 resources:
-  Conditions:
-    CreatePermissionsBoundary:
-      Fn::Not:
-        - Fn::Equals:
-            - ""
-            - ${self:custom.iamPermissionsBoundaryPolicy}
   Resources:
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub ${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
-        # Set the CORS policy
-        CorsConfiguration:
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: aws:kms
+                KMSMasterKeyID: ${ssm:/configuration/kms/s3attachmentkey~true}
+        CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
                 - "*"
@@ -92,51 +113,65 @@ resources:
                 - POST
                 - DELETE
                 - HEAD
-              ExposedHeaders:
-                - ETag
               MaxAge: 3000
         NotificationConfiguration:
           LambdaConfigurations:
-            - Event: s3:ObjectCreated:*
+            - Event: s3:ObjectCreated:Put
               Function: !GetAtt AvScanLambdaFunction.Arn
-        #Set at rest encryption
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: AES256
       DependsOn: LambdaInvokePermission
-    # Policy to allow public read access to all attachments
-    S3CMSReadBucketPolicy:
+    AttachmentsBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
-        Bucket:
-          Ref: AttachmentsBucket
+        Bucket: !Ref AttachmentsBucket
         PolicyDocument:
-          Statement:                 
-            - Effect: Deny
-              Action: "s3:PutObject"
+          Statement:
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}
+              Principal:
+                AWS: ${ssm:/configuration/mpraccountid~true}
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mpraccountid~true}
+            - Action:
+                - "s3:GetObject"
+              Effect: "Deny"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal: "*"
+              Condition:
+                StringNotEquals:
+                  s3:ExistingObjectTag/virusScanStatus:
+                    - "CLEAN"
+                  aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
+            - Action: "s3:PutObject"
+              Effect: Deny
               Principal: "*"
               NotResource:
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.bmp
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.csv
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.doc
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.docx
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.gif
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.jpg
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.jpeg
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.odp
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.ods
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.odt
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.png
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.pdf
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.ppt
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.pptx
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.rtf
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.tif
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.tiff
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.txt
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.xls
-                - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*.xlsx
+                - !Sub ${AttachmentsBucket.Arn}/*.jpg
+                - !Sub ${AttachmentsBucket.Arn}/*.png
+                - !Sub ${AttachmentsBucket.Arn}/*.gif
+                - !Sub ${AttachmentsBucket.Arn}/*.jpeg
+                - !Sub ${AttachmentsBucket.Arn}/*.bmp
+                - !Sub ${AttachmentsBucket.Arn}/*.csv
+                - !Sub ${AttachmentsBucket.Arn}/*.doc
+                - !Sub ${AttachmentsBucket.Arn}/*.docx
+                - !Sub ${AttachmentsBucket.Arn}/*.odp
+                - !Sub ${AttachmentsBucket.Arn}/*.ods
+                - !Sub ${AttachmentsBucket.Arn}/*.odt
+                - !Sub ${AttachmentsBucket.Arn}/*.pdf
+                - !Sub ${AttachmentsBucket.Arn}/*.ppt
+                - !Sub ${AttachmentsBucket.Arn}/*.pptx
+                - !Sub ${AttachmentsBucket.Arn}/*.rtf
+                - !Sub ${AttachmentsBucket.Arn}/*.tif
+                - !Sub ${AttachmentsBucket.Arn}/*.tiff
+                - !Sub ${AttachmentsBucket.Arn}/*.txt
+                - !Sub ${AttachmentsBucket.Arn}/*.xls
+                - !Sub ${AttachmentsBucket.Arn}/*.xlsx
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
@@ -149,14 +184,15 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub ${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
         AccessControl: Private
-  # Print out the name of the bucket that is created
   Outputs:
-    AttachmentsBucketName:
-      Value:
-        Ref: AttachmentsBucket
+    AttachmentsBucketName: # Print out the name of the bucket that is created
+      Value: !Ref AttachmentsBucket
     AttachmentsBucketArn:
       Value: !GetAtt AttachmentsBucket.Arn
     Region:
-      Value:
-        Ref: AWS::Region
+      Value: !Sub ${AWS::Region}
