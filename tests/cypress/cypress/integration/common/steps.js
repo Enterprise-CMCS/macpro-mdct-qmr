@@ -4,12 +4,18 @@ import LoginPage from "../../../support/pages/LoginPage";
 import Landingpage from "../../../support/pages/Landingpage";
 import AdultCoreSetMeasuresPage from "../../../support/pages/AdultCoreSetMeasuresPage";
 import NCIDDSadpage from "../../../support/pages/NCIDDSadpage";
+import PDENTch from "../../../support/pages/PDENTch";
+import LBWch from "../../../support/pages/LBWch";
+import LRCDch from "../../../support/pages/LRCDch";
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();
 const landingPage = new Landingpage();
 const adultCoreSetMeasurespage = new AdultCoreSetMeasuresPage();
 const nciddsADpage = new NCIDDSadpage();
+const pdentCH = new PDENTch();
+const lbwCH = new LBWch();
+const lrcdCH = new LRCDch();
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -41,6 +47,35 @@ And('user click on link Adult Core Set Measures',()=>{
 
 And('user click on link NCIDDS-AD',()=>{
   adultCoreSetMeasurespage.clickNCIDDSadLink();
+});
+
+And('user click on link PDENT-CH',()=>{
+  adultCoreSetMeasurespage.clickPDENTchLink();
+});
+
+And('user click on link LRCD-CH',()=>{
+  adultCoreSetMeasurespage.clickLRCDchLink();
+});
+
+And('user can see the LRCD-CH Low Risk Cesarean Delivery title',()=>{
+  lrcdCH.verifyLRCDchTitle();
+});
+
+
+And('user can see the PDENT-CH Percentage of Eligibles Who Received Preventive Dental Services title',()=>{
+  pdentCH.verifyPDENTchTitle();
+});
+
+And('user click on link LBW-CH',()=>{
+  adultCoreSetMeasurespage.clickLBWchLink();
+});
+
+And('user can see the LBW-CH Live Births Weighting Less Than 2500 Grams title',()=>{
+  lbwCH.verifyLBWchTitle();
+});
+
+And('user can see the PDENT-CH Performance Measure',()=>{
+  pdentCH.verifyPerformanceMeasure();
 });
 
 And('user can see the NCIDDS-AD National Core Indicators Survey title',()=>{
