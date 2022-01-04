@@ -4,7 +4,6 @@ import * as Q from "./questions";
 import { Params } from "Routes";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
-
 import { Measure } from "measures/types";
 
 export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
@@ -28,7 +27,7 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
   const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
   const isOtherSpecification = watchMeasureSpecification === "Other";
 
-  // Age Conditionals for  Deviations from Measure Specifications/Optional Measure Stratification
+  // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
   const show30DaysAges18To64 =
     !!watchPerformanceMeasureAgeRates30Days?.[0]?.rate;
   const show30DaysAges65AndOlder =
@@ -37,6 +36,7 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
   const show7DaysAges65AndOlder =
     !!watchPerformanceMeasureAgeRates7Days?.[1]?.rate;
 
+  // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
   const ageGroups = [];
 
   if (show30DaysAges18To64 || show7DaysAges18To64) {
@@ -68,8 +68,10 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
             <Q.DeviationFromMeasureSpec
               options={ageGroups}
               deviationDays={{
-                show30Days: show30DaysAges18To64 || show30DaysAges65AndOlder,
-                show7Days: show7DaysAges18To64 || show7DaysAges65AndOlder,
+                show30DaysAges18To64,
+                show30DaysAges65AndOlder,
+                show7DaysAges18To64,
+                show7DaysAges65AndOlder,
               }}
             />
           )}

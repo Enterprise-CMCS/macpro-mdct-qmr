@@ -10,8 +10,10 @@ export const defaultDeviationOptions = [
 interface Props {
   options: { label: string; id: number }[];
   deviationDays?: {
-    show30Days: boolean;
-    show7Days: boolean;
+    show30DaysAges18To64: boolean;
+    show30DaysAges65AndOlder: boolean;
+    show7DaysAges18To64: boolean;
+    show7DaysAges65AndOlder: boolean;
   };
 }
 
@@ -22,8 +24,27 @@ interface OptionProps extends Props {
 const deviationOptions = ({
   options,
   name,
+  deviationDays,
 }: OptionProps): QMR.CheckboxOption[] => {
-  return options.map((item, index) => {
+  let filteredOptions;
+
+  if (name.includes("30")) {
+    filteredOptions = options?.filter((option) => {
+      return (
+        (deviationDays?.show30DaysAges18To64 && option.id === 0) ||
+        (deviationDays?.show30DaysAges65AndOlder && option.id === 1)
+      );
+    });
+  } else {
+    filteredOptions = options?.filter((option) => {
+      return (
+        (deviationDays?.show7DaysAges18To64 && option.id === 0) ||
+        (deviationDays?.show7DaysAges65AndOlder && option.id === 1)
+      );
+    });
+  }
+
+  return filteredOptions.map((item, index) => {
     return {
       displayValue: item.label,
       value: `${item.id}-${item.label.replace(/ /g, "").substring(0, 10)}`,
@@ -74,9 +95,6 @@ const deviationOptions = ({
 
 export const DeviationFromMeasureSpec = ({ options, deviationDays }: Props) => {
   const register = useCustomRegister<Measure.Form>();
-  const showAgeCheckboxOptions =
-    options.findIndex((ageOption) => ageOption.id === 0) > -1 ||
-    options.findIndex((ageOption) => ageOption.id === 1) > -1;
 
   return (
     <QMR.CoreQuestionWrapper label="Deviations from Measure Specifications">
@@ -92,59 +110,54 @@ export const DeviationFromMeasureSpec = ({ options, deviationDays }: Props) => {
               "Yes, the calculation of the measure deviates from the measure specification.",
             value: "YesCalcDeviated",
             children: [
-              ...(showAgeCheckboxOptions
-                ? [
-                    <QMR.Checkbox
-                      {...register("DeviationOptions")}
-                      label="Select and explain the deviation(s):"
-                      options={[
-                        ...(deviationDays?.show30Days
-                          ? [
-                              {
-                                value: "FollowUpWithin30",
-                                displayValue:
-                                  "Follow-up within 30 days of ED visit",
-                                children: [
-                                  <QMR.Checkbox
-                                    {...register(
-                                      "DeviationOptions-Within30-AgeRange"
-                                    )}
-                                    formLabelProps={{ fontWeight: 600 }}
-                                    options={deviationOptions({
-                                      options,
-                                      ...register("DeviationFields-Within30"),
-                                    })}
-                                  />,
-                                ],
-                              },
-                            ]
-                          : []),
-
-                        ...(deviationDays?.show7Days
-                          ? [
-                              {
-                                value: "FollowUpWithin7",
-                                displayValue:
-                                  "Follow-up within 7 days of ED visit",
-                                children: [
-                                  <QMR.Checkbox
-                                    {...register(
-                                      "DeviationOptions-Within7-AgeRange"
-                                    )}
-                                    formLabelProps={{ fontWeight: 600 }}
-                                    options={deviationOptions({
-                                      options,
-                                      ...register("DeviationFields-Within7"),
-                                    })}
-                                  />,
-                                ],
-                              },
-                            ]
-                          : []),
-                      ]}
-                    />,
-                  ]
-                : []),
+              <QMR.Checkbox
+                {...register("DeviationOptions")}
+                label="Select and explain the deviation(s):"
+                options={[
+                  ...(deviationDays?.show30DaysAges18To64 ||
+                  deviationDays?.show30DaysAges65AndOlder
+                    ? [
+                        {
+                          value: "FollowUpWithin30",
+                          displayValue: "Follow-up within 30 days of ED visit",
+                          children: [
+                            <QMR.Checkbox
+                              {...register(
+                                "DeviationOptions-Within30-AgeRange"
+                              )}
+                              formLabelProps={{ fontWeight: 600 }}
+                              options={deviationOptions({
+                                options,
+                                ...register("DeviationFields-Within30"),
+                                deviationDays,
+                              })}
+                            />,
+                          ],
+                        },
+                      ]
+                    : []),
+                  ...(deviationDays?.show7DaysAges18To64 ||
+                  deviationDays?.show7DaysAges65AndOlder
+                    ? [
+                        {
+                          value: "FollowUpWithin7",
+                          displayValue: "Follow-up within 7 days of ED visit",
+                          children: [
+                            <QMR.Checkbox
+                              {...register("DeviationOptions-Within7-AgeRange")}
+                              formLabelProps={{ fontWeight: 600 }}
+                              options={deviationOptions({
+                                options,
+                                ...register("DeviationFields-Within7"),
+                                deviationDays,
+                              })}
+                            />,
+                          ],
+                        },
+                      ]
+                    : []),
+                ]}
+              />,
             ],
           },
           {
