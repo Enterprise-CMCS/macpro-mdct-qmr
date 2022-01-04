@@ -1,16 +1,11 @@
 import { CoreSetTableItem } from "components/Table/types";
-// import * as QMR from "components";
 
-interface Data {
+interface ActionsData {
   handleDelete: any;
   type: CoreSetTableItem.Type;
 }
 
-// interface CoreSetActions {
-//   [key: string]: (data: Data) => QMR.IKebabMenuItem[];
-// }
-
-export const getCoreSetActions = ({ type, handleDelete }: Data) => {
+export const getCoreSetActions = ({ type, handleDelete }: ActionsData) => {
   if (type === CoreSetTableItem.Type.ADULT) {
     return [
       {
