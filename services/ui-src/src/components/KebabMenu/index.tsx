@@ -105,33 +105,44 @@ const DeleteMenuItemAlertDialog = ({
     >
       <CUI.AlertDialogOverlay>
         <CUI.AlertDialogContent>
-          <CUI.AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete Core Set
-          </CUI.AlertDialogHeader>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleDelete();
+            }}
+          >
+            <CUI.AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete Core Set
+            </CUI.AlertDialogHeader>
 
-          <CUI.AlertDialogBody>
-            {alertBodyText}
-            <CUI.Input
-              mt="4"
-              value={userInput}
-              placeholder="Type DELETE to confirm"
-              onChange={(e) => setUserInput(e.target.value)}
-            />
-          </CUI.AlertDialogBody>
+            <CUI.AlertDialogBody>
+              {alertBodyText}
+              <CUI.Input
+                mt="4"
+                value={userInput}
+                placeholder="Enter 'DELETE' to confirm"
+                onChange={(e) => setUserInput(e.target.value)}
+              />
+              <CUI.Text fontSize="xs" fontWeight="bold">
+                Enter DELETE to confirm.
+              </CUI.Text>
+            </CUI.AlertDialogBody>
 
-          <CUI.AlertDialogFooter>
-            <CUI.Button ref={cancelRef} onClick={onClose}>
-              Cancel
-            </CUI.Button>
-            <CUI.Button
-              colorScheme="red"
-              onClick={handleDelete}
-              ml={3}
-              isDisabled={userInput !== "DELETE"}
-            >
-              Delete
-            </CUI.Button>
-          </CUI.AlertDialogFooter>
+            <CUI.AlertDialogFooter>
+              <CUI.Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </CUI.Button>
+              <CUI.Button
+                colorScheme="red"
+                onClick={handleDelete}
+                ml={3}
+                type="submit"
+                isDisabled={userInput.toLocaleLowerCase() !== "delete"}
+              >
+                Delete
+              </CUI.Button>
+            </CUI.AlertDialogFooter>
+          </form>
         </CUI.AlertDialogContent>
       </CUI.AlertDialogOverlay>
     </CUI.AlertDialog>
