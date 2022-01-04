@@ -122,7 +122,7 @@ export const CoreSet = () => {
     },
   ];
 
-  const { readOnly } = useUser();
+  const { isStateUser } = useUser();
 
   return (
     <QMR.StateLayout
@@ -183,7 +183,7 @@ export const CoreSet = () => {
               colorScheme: "blue",
             }}
             buttonText="Submit Measures"
-            disabledStatus={readOnly}
+            disabledStatus={!isStateUser}
             helperText={`Complete all ${
               coreSetType[coreSetId as keyof typeof coreSetType]
             } Core Set Questions and ${

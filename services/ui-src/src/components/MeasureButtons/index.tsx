@@ -13,7 +13,7 @@ export const MeasureButtons = ({
   handleSubmit,
   lastSavedText,
 }: Props) => {
-  const { readOnly } = useUser();
+  const { isStateUser } = useUser();
 
   const showCheck = lastSavedText?.toLowerCase() === "saved moments ago";
 
@@ -38,7 +38,7 @@ export const MeasureButtons = ({
       </CUI.Flex>
       <CUI.HStack pl="2">
         <QMR.ContainedButton
-          disabledStatus={readOnly}
+          disabledStatus={!isStateUser}
           buttonText={"Save"}
           buttonProps={{
             colorScheme: "blue",
@@ -48,7 +48,7 @@ export const MeasureButtons = ({
           onClick={handleSave}
         />
         <QMR.ContainedButton
-          disabledStatus={readOnly}
+          disabledStatus={!isStateUser}
           buttonText={"Complete Measure"}
           buttonProps={{
             colorScheme: "blue",

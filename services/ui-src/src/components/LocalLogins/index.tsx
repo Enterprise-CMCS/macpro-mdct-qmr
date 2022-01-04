@@ -4,18 +4,19 @@ import { stateAbbreviations } from "utils/constants";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
 import * as Libs from "libs";
+import { UserRoles } from "types";
 import { createMockUser } from "./mockUsers";
 
 const LocalLogin = () => {
-  const [locality, setLocality] = useState("AL");
+  const [locality, setLocality] = useState("");
   const navigate = useNavigate();
-  function localLogin(role: Libs.Roles) {
+  function localLogin(role: UserRoles) {
     const localUser = createMockUser({ role, state: locality });
     Libs.loginLocalUser(localUser);
     switch (role) {
-      case Libs.Roles.stateUser:
+      case UserRoles.STATE:
         return navigate(`/${locality}/${config.currentReportingYear}`);
-      case Libs.Roles.adminUser:
+      case UserRoles.ADMIN:
         return navigate(`/admin`);
     }
   }
@@ -26,6 +27,7 @@ const LocalLogin = () => {
         value={locality}
         onChange={(e) => setLocality(e.target.value)}
       >
+        <option value={""}>-- select --</option>
         {stateAbbreviations.map((v: string) => {
           return (
             <option value={v} key={v}>
@@ -36,7 +38,8 @@ const LocalLogin = () => {
       </CUI.Select>
       <CUI.Button
         colorScheme="blue"
-        onClick={() => localLogin(Libs.Roles.stateUser)}
+        isDisabled={!locality}
+        onClick={() => localLogin(UserRoles.STATE)}
         isFullWidth
       >
         Login as State User
@@ -44,7 +47,7 @@ const LocalLogin = () => {
       <CUI.Divider />
       <CUI.Button
         colorScheme="blue"
-        onClick={() => localLogin(Libs.Roles.adminUser)}
+        onClick={() => localLogin(UserRoles.ADMIN)}
         isFullWidth
       >
         Login as Admin User

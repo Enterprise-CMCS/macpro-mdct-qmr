@@ -6,6 +6,7 @@ import config from "config";
 import { getLocalUserInfo, logoutLocalUser } from "libs";
 
 import { UserContext, UserContextInterface } from "./userContext";
+import { UserRoles } from "types";
 
 interface Props {
   children?: ReactNode;
@@ -41,8 +42,7 @@ export const UserProvider = ({ children }: Props) => {
     try {
       logoutLocalUser();
       setUser(null);
-      const data = await Auth.signOut();
-      console.log(data);
+      await Auth.signOut();
     } catch (error) {
       console.log("error signing out: ", error);
     }
@@ -67,9 +67,12 @@ export const UserProvider = ({ children }: Props) => {
     }
   }, [isIntegrationBranch]);
 
-  const isReadOnly = useCallback(() => {
-    return !user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
-  }, [user]);
+  const isStateUser =
+    user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"] ===
+    UserRoles.STATE;
+
+  const userState =
+    user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
 
   // single run configuration
   useEffect(() => {
@@ -100,9 +103,10 @@ export const UserProvider = ({ children }: Props) => {
       logout,
       showLocalLogins,
       loginWithIDM: authenticateWithIDM,
-      readOnly: isReadOnly(),
+      isStateUser,
+      userState,
     }),
-    [user, logout, showLocalLogins, isReadOnly]
+    [user, logout, showLocalLogins, isStateUser, userState]
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
