@@ -27,6 +27,9 @@ describe("test delivery system component", () => {
     expect(
       await screen.findByText("Integrated Care Model (ICM)")
     ).toBeInTheDocument();
+    fireEvent.click(
+      await screen.getByRole("button", { name: /\+ Add Another/i })
+    );
   });
 });
 
