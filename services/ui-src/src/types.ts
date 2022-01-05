@@ -5,3 +5,8 @@ export enum CoreSetAbbr {
   CCSC = "CCSC",
   HHCS = "HHCS",
 }
+
+export enum UserRoles {
+  STATE = "mdctqmr-state_user",
+  ADMIN = "mdctqmr-approver",
+}

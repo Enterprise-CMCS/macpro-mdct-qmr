@@ -30,12 +30,14 @@ Amplify.configure({
 
 ReactDOM.render(
   <Router>
-    <QueryProvider>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
-      <ReactQueryDevtools />
-    </QueryProvider>
+    <UserProvider>
+      <QueryProvider>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+        <ReactQueryDevtools />
+      </QueryProvider>
+    </UserProvider>
   </Router>,
   document.getElementById("root")
 );

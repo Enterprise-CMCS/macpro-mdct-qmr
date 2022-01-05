@@ -39,10 +39,9 @@ export const AddCoreSetCard = ({
           }}
         >
           <QMR.ContainedButton
-            disabledStatus={!isStateUser}
+            disabledStatus={!isStateUser || coreSetExists}
             icon="plus"
             buttonText={!coreSetExists ? buttonText : "Already Added"}
-            disabledStatus={coreSetExists}
             buttonProps={{
               colorScheme: "blue",
               textTransform: "capitalize",
