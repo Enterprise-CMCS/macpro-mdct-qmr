@@ -125,7 +125,7 @@ export const validationSchema = Joi.object<Measure.Form>({
   DeliverySysRepresentationDenominator: Joi.array().items(Joi.string()),
   "DeliverySys-FreeForService": Joi.string(),
   "DeliverySys-FreeForService-No-Percent": Joi.string(),
-  "DeliverySys-FreeForService-No-Population": Joi.string(),
+  "DeliverySys-FreeForService-No-Population": Joi.string().empty(""),
   "DeliverySys-PrimaryCareManagement": Joi.string(),
   "DeliverySys-PrimaryCareManagement-No-Percent": Joi.string(),
   "DeliverySys-PrimaryCareManagement-No-Population": Joi.string().empty(""),
