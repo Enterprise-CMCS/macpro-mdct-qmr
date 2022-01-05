@@ -6,7 +6,7 @@ export interface UserContextInterface {
   showLocalLogins?: boolean;
   logout: () => Promise<void>;
   loginWithIDM: () => void;
-  readOnly: boolean;
+  isStateUser: boolean;
 }
 
 export const UserContext = createContext<UserContextInterface>({
@@ -16,5 +16,5 @@ export const UserContext = createContext<UserContextInterface>({
   loginWithIDM: () => {
     console.log("User Context failed to initialize IDM login functionality.");
   },
-  readOnly: true,
+  isStateUser: false,
 });

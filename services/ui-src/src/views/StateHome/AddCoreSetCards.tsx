@@ -28,7 +28,7 @@ export const AddCoreSetCard = ({
   buttonText,
   to,
 }: AddCoreSetCardProps) => {
-  const { readOnly } = useUser();
+  const { isStateUser } = useUser();
   const { state, year } = useParams<Params>();
 
   return (
@@ -50,7 +50,7 @@ export const AddCoreSetCard = ({
           }}
         >
           <QMR.ContainedButton
-            disabledStatus={readOnly}
+            disabledStatus={!isStateUser}
             icon="plus"
             buttonText={buttonText}
             buttonProps={{

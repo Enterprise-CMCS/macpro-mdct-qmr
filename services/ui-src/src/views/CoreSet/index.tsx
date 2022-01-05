@@ -35,23 +35,6 @@ export const CoreSet = () => {
   // This is where a fetch for the measures would live and calculate progress completed
   const measures = [
     {
-      Type: "Health Home",
-      title: "Admission to an Institution from the Community",
-      abbr: "AIF-HH",
-      path: `/${state}/${year}/${coreSetId}/AIF-HH`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "AIF-HH",
-      actions: [
-        {
-          itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
-        },
-      ],
-    },
-    {
       Type: "Adult",
       title:
         "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
@@ -139,7 +122,7 @@ export const CoreSet = () => {
     },
   ];
 
-  const { readOnly } = useUser();
+  const { isStateUser } = useUser();
 
   return (
     <QMR.StateLayout
@@ -200,7 +183,7 @@ export const CoreSet = () => {
               colorScheme: "blue",
             }}
             buttonText="Submit Measures"
-            disabledStatus={readOnly}
+            disabledStatus={!isStateUser}
             helperText={`Complete all ${
               coreSetType[coreSetId as keyof typeof coreSetType]
             } Core Set Questions and ${

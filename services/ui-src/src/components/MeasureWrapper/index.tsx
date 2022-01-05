@@ -18,7 +18,7 @@ interface Props {
 
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams<Params>();
-  const { readOnly } = useUser();
+  const { isStateUser } = useUser();
   /*
   this is where we put all the high level stuff for measures
   this would include:
@@ -56,6 +56,11 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
+          // This next path object is to bring the user back to the measures list with the back button
+          {
+            path: `/${params.state}/${year}/${params.coreSetId}`,
+            name: "",
+          },
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
             name: `${measureId} - ${name}`,
@@ -70,17 +75,16 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         }
       >
         <>
-          {readOnly && (
+          {!isStateUser && (
             <CUI.Box
               top={0}
               left={0}
-              position={"fixed"}
-              width={"100vw"}
-              height={"100vh"}
-              zIndex={999}
-              backgroundColor="gray.200"
-              //backgroundImage={"none"}
-              opacity={0.5}
+              position="fixed"
+              width="100vw"
+              height="100vh"
+              zIndex={2}
+              backgroundColor="gray.100"
+              opacity={0.2}
             />
           )}
           <form data-testid="measure-wrapper-form">
