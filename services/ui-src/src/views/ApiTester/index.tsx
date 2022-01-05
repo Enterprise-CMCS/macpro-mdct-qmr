@@ -26,7 +26,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await createCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
                 body: {
@@ -46,7 +46,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await editCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
                 body: {
@@ -65,7 +65,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getAllCoreSets({
-                state: "FS",
+                state: "AL",
                 year: "2021",
               })
             )
@@ -80,7 +80,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
               })
@@ -96,7 +96,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await deleteCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
               })
@@ -114,7 +114,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await createMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
                 measure: "AIF-HH",
@@ -135,7 +135,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await editMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
                 measure: "AIF-HH",
@@ -158,7 +158,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await listMeasures({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
               })
@@ -174,7 +174,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
                 measure: "AIF-HH",
@@ -191,7 +191,7 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await deleteMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "AD-123",
                 measure: "AIF-HH",

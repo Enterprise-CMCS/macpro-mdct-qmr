@@ -15,15 +15,6 @@ Amplify.configure({
     bucket: config.s3.BUCKET,
     identityPoolId: config.cognito.IDENTITY_POOL_ID,
   },
-  API: {
-    endpoints: [
-      {
-        name: "coreSet",
-        endpoint: config.apiGateway.URL,
-        region: config.apiGateway.REGION,
-      },
-    ],
-  },
 });
 
 ReactDOM.render(

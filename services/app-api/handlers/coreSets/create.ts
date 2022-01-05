@@ -3,21 +3,27 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
+import { errorHandler } from "../authUtils/checkAuth";
 
 export const createCoreSet = handler(async (event, context) => {
-  if (!event.pathParameters) return; // throw error message
-  if (
-    !event.pathParameters.state ||
-    !event.pathParameters.year ||
-    !event.pathParameters.coreSet
-  )
-    return; // throw error message
+  const stage = process.env.stage
+  // @ts-ignore
+  const errorCode = errorHandler(event, 'POST', stage)
+ 
+  if(errorCode !== 200){
+    return {
+      statusCode: errorCode,
+      body: JSON.stringify({
+        error: "Failure: HTTP Status Code ", errorCode,
+      }),
+    };
+  }
 
   // The State Year and ID are all part of the path
-  const state = event.pathParameters.state;
-  const year = event.pathParameters.year;
-  const coreSet = event.pathParameters.coreSet;
-  const type = coreSet?.substring(0, 2);
+  const state = event!.pathParameters!.state!;
+  const year = event!.pathParameters!.year!;
+  const coreSet = event!.pathParameters!.coreSet!;
+  const type = coreSet!.substring(0, 2);
   const coreSetQuery = await getCoreSet(event, context);
   const coreSetExists = !!Object.keys(JSON.parse(coreSetQuery.body)).length;
 
@@ -36,6 +42,7 @@ export const createCoreSet = handler(async (event, context) => {
     Item: {
       compoundKey: dynamoKey,
       state: state,
+      // @ts-ignore
       year: parseInt(year),
       coreSet: coreSet,
       createdAt: Date.now(),
@@ -48,7 +55,7 @@ export const createCoreSet = handler(async (event, context) => {
   await dynamoDb.post(params);
   await createDependentMeasures(state, parseInt(year), coreSet, type);
 
-  return params;
+  return event;
 });
 
 const createDependentMeasures = async (
