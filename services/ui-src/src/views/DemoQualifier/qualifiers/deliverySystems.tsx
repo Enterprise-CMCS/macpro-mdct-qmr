@@ -134,7 +134,7 @@ export const DeliverySystems = (
                 <CUI.Box w="43%">
                   <CUI.Input
                     name={`deliverySystem.${index}.${ds.key}-name`}
-                    value={`deliverySystem.${index}.${ds.key}-name`}
+                    value={ds.key}
                     type="text"
                     aria-label={`deliverySystem.${index}.${ds.key}-name`}
                     flex={1.5}
@@ -165,6 +165,7 @@ export const DeliverySystems = (
                   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                     field.onChange(() => handleInputChange(e, index));
                   },
+                  textAlign: "right",
                 }}
               />
             </CUI.HStack>

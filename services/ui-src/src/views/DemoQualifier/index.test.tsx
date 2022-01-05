@@ -34,6 +34,18 @@ describe("test delivery system component", () => {
       await screen.getByRole("textbox", { name: "deliverySystem.4.-name" })
     ).toBeInTheDocument();
   });
+  it("renders percentage total properly", async () => {
+    await screen.getByRole("textbox", {
+      name: "deliverySystem.0.feeForService-21-64",
+    });
+    fireEvent.change(
+      await screen.getByRole("textbox", {
+        name: "deliverySystem.0.feeForService-21-64",
+      }),
+      { target: { value: "23" } }
+    );
+    expect(await screen.findByText("23%")).toBeInTheDocument();
+  });
 });
 
 describe("test audit or validation component", () => {

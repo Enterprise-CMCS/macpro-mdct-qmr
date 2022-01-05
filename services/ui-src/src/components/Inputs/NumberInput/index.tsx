@@ -52,6 +52,8 @@ export const NumberInput = ({
           }
           data-testid="test-number-input"
           onBlur={field.onBlur}
+          type="text"
+          aria-label={name}
           {...numberInputProps}
         />
         {displayPercent && (
