@@ -91,11 +91,6 @@ export const UserProvider = ({ children }: Props) => {
     });
   }, []);
 
-  // rerender on auth state change, checking router location
-  useEffect(() => {
-    checkAuthState();
-  }, [location, checkAuthState]);
-
   useEffect(() => {
     API.configure({
       endpoints: [
@@ -105,13 +100,21 @@ export const UserProvider = ({ children }: Props) => {
           region: config.apiGateway.REGION,
           custom_header: async () => {
             return {
-              user_state: userState,
+              user_state:
+                user?.signInUserSession?.idToken?.payload?.["custom:cms_state"],
+              user_role:
+                user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"],
             };
           },
         },
       ],
     });
   }, []);
+
+  // rerender on auth state change, checking router location
+  useEffect(() => {
+    checkAuthState();
+  }, [location, checkAuthState]);
 
   const values: UserContextInterface = useMemo(
     () => ({

@@ -20,9 +20,11 @@ Amplify.configure({
 ReactDOM.render(
   <Router>
     <UserProvider>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
+      <APIProvider>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+      </APIProvider>
     </UserProvider>
   </Router>,
   document.getElementById("root")

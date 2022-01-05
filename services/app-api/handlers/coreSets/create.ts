@@ -11,12 +11,13 @@ export const createCoreSet = handler(async (event, context) => {
   const errorCode = errorHandler(event, 'POST', stage)
  
   if(errorCode !== 200){
-    return {
-      statusCode: errorCode,
-      body: JSON.stringify({
-        error: "Failure: HTTP Status Code ", errorCode,
-      }),
-    };
+    // return {
+    //   statusCode: errorCode,
+    //   body: JSON.stringify({
+    //     error: "Failure: HTTP Status Code ", errorCode,
+    //   }),
+    // };
+    return errorCode;
   }
 
   // The State Year and ID are all part of the path

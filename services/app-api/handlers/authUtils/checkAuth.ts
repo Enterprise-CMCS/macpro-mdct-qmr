@@ -25,7 +25,7 @@ export const errorHandler = (event: APIGatewayProxyEvent, operationType: String,
     !event.pathParameters.state ||
     !event.pathParameters.year ||
     !event.pathParameters.coreSet ||
-    !event.requestContext.identity.cognitoIdentityId
+    !event.headers.user_role
     )  return 400; // throw error message
 
     // if we're developing locally don't worry about the user's state or admin status
@@ -33,13 +33,13 @@ export const errorHandler = (event: APIGatewayProxyEvent, operationType: String,
     //     return 200;
     // }
     
-    if (!event.headers.user_state) return event
+    if (!event.headers.user_state || event.headers.user_state === "undefined") return event
   
-    // return authErrorHandler(
-    //     event.pathParameters.state, 
-    //     event.headers.user_state, 
-    //     event.requestContext.identity.cognitoIdentityId, 
-    //     operationType
-    // )
+    return authErrorHandler(
+        event.pathParameters.state, 
+        event.headers.user_state,
+        event.headers.user_role, 
+        operationType
+    )
     return event
 }
