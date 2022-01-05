@@ -195,4 +195,3 @@ resources:
       Value: !GetAtt AttachmentsBucket.Arn
     Region:
       Value: !Sub ${AWS::Region}
-      
