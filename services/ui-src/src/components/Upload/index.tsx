@@ -34,7 +34,7 @@ export const Upload = ({
     defaultValue: [],
   });
 
-  const [acceptedFiles, setAcceptedFiles] = React.useState<File[]>([]);
+  const [_acceptedFiles, setAcceptedFiles] = React.useState<File[]>([]);
 
   React.useEffect(() => {
     setAcceptedFiles([...field.value]);
@@ -63,9 +63,8 @@ export const Upload = ({
             filename: fileToUpload.name,
             contentType: fileToUpload.type,
             url: url.split("?", 1)[0], //We only need the permalink part of the URL since the S3 bucket policy allows for public read
-            title: fileToUpload.title,
+            // title: fileToUpload.title,
           };
-          console.log(result);
 
           retPromise = Promise.resolve(result);
         } catch (error) {
@@ -109,8 +108,10 @@ export const Upload = ({
         return resultPromise;
       }
       field.onChange([...field.value, ...acceptedFiles]);
-
-      uploadFiles(acceptedFiles);
+      uploadFiles(acceptedFiles).then((result: any) =>
+        field.onChange([...field.value, ...result])
+      );
+      //uploadFiles(acceptedFiles);
     },
     [field]
   );
@@ -151,7 +152,7 @@ export const Upload = ({
       const updatedFile = new File([file], updatedFileName, {
         type: file.type,
       });
-      // updatedFile.title = file.title;
+      //updatedFile.name = file.title;
       return updatedFile;
     }
   }
@@ -200,7 +201,7 @@ export const Upload = ({
           </CUI.AlertTitle>
         </CUI.Alert>
       ))}
-      {acceptedFiles.map((file, index) => {
+      {field.value.map((file: any, index: any) => {
         return (
           <CUI.HStack
             key={`${index}-${file.name}`}
@@ -210,9 +211,7 @@ export const Upload = ({
             borderRadius="10"
             justifyContent="space-between"
           >
-            <CUI.Text variant="xl">
-              File Name: {file.name} ({convertFileSize(file.size)})
-            </CUI.Text>
+            <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
             <CUI.Button
               data-testid={`test-delete-btn-${index}`}
               background="none"

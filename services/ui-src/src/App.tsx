@@ -26,7 +26,7 @@ const authenticateWithIDM = () => {
 };
 
 const App = () => {
-  const isIntegrationBranch = window.location.origin.includes("localhost");
+  const isIntegrationBranch = window.location.origin.includes("cms.gov");
   const [user, setUser] = useState<CognitoUser | null>(null);
   const [showlocalLogins, setShowLocalLogins] = useState(false);
   const navigate = useNavigate();
