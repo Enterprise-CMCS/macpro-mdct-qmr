@@ -127,7 +127,7 @@ export namespace Measure {
       id: string;
       label: string;
       rate: string;
-    };
+    }[];
     "PerformanceMeasure-AgeRates-7Days": {
       denominator: string;
       numerator: string;
@@ -135,7 +135,7 @@ export namespace Measure {
       id: string;
       label: string;
       rate: string;
-    };
+    }[];
     DateRange: {
       endDate: {
         selectedMonth: number;
