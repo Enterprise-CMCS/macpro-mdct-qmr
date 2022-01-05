@@ -61,7 +61,6 @@ And('user can see the LRCD-CH Low Risk Cesarean Delivery title',()=>{
   lrcdCH.verifyLRCDchTitle();
 });
 
-
 And('user can see the PDENT-CH Percentage of Eligibles Who Received Preventive Dental Services title',()=>{
   pdentCH.verifyPDENTchTitle();
 });
