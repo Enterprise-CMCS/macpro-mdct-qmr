@@ -3,8 +3,22 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "measures/types";
 
-export const DateRange = () => {
+const measurementPeriodTableLinks = {
+  adult:
+    "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/adult-core-set/index.html",
+  child:
+    "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/child-core-set/index.html",
+  health:
+    "https://www.medicaid.gov/state-resource-center/medicaid-state-technical-assistance/health-home-information-resource-center/quality-reporting/index.html",
+};
+
+interface Props {
+  type: "adult" | "child" | "health";
+}
+
+export const DateRange = ({ type }: Props) => {
   const register = useCustomRegister<Measure.Form>();
+  const link = measurementPeriodTableLinks[type];
 
   return (
     <QMR.CoreQuestionWrapper label="Date Range">
@@ -19,7 +33,11 @@ export const DateRange = () => {
         </CUI.Text>
         <CUI.Text>
           More information about the Start and End Date for each measure is
-          available in the Measurement Period Table resource.
+          available in the{" "}
+          <CUI.Link href={link} color="blue" isExternal>
+            Measurement Period Table
+          </CUI.Link>{" "}
+          resource.
         </CUI.Text>
       </CUI.Stack>
       <QMR.DateRange {...register("DateRange")} />

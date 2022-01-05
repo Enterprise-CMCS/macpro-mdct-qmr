@@ -15,6 +15,38 @@ const OptionalMeasureStratificationRateJoi = Joi.object({
   total: RateJoiValidator,
 });
 
+const startDateRangeValidator = (endDateRangeLabel: string) => {
+  const now = new Date();
+  const validMonth = now.getMonth() + 1;
+  return Joi.object({
+    selectedMonth: Joi.number()
+      // not in the future
+      .when(Joi.ref("selectedYear"), {
+        is: now.getFullYear(),
+        then: Joi.number()
+          .max(validMonth)
+          .message("Start Date Month cannot be in the future."),
+      })
+
+      // less than end date
+      .when(Joi.ref(`...${endDateRangeLabel}.selectedYear`), {
+        is: Joi.ref("selectedYear"),
+        then: Joi.number()
+          .less(Joi.ref(`...${endDateRangeLabel}.selectedMonth`))
+          .message("Start Date cannot be equal or greater than End Date."),
+      })
+
+      .label("Start Month"),
+    selectedYear: Joi.number()
+      // not in the future
+      .less(new Date().getFullYear() + 1)
+      .message("Start Date Year cannot be in the future.")
+      .max(Joi.ref(`...${endDateRangeLabel}.selectedYear`))
+      .message("Start Year cannot be after End Year.")
+      .label("Start Year"),
+  });
+};
+
 // This is the validation schema for any/all state measures
 export const validationSchema = Joi.object<Measure.Form>({
   //Report
@@ -67,7 +99,7 @@ export const validationSchema = Joi.object<Measure.Form>({
   "WhyAreYouNotReporting-Other": Joi.string(),
 
   //AdditionalNotes
-  "AdditionalNotes-AdditionalNotes": Joi.string(),
+  "AdditionalNotes-AdditionalNotes": Joi.string().empty(""),
   "AdditionalNotes-Upload": Joi.array().items(Joi.any()),
 
   //OttherPerformanceMeasure
@@ -164,13 +196,10 @@ export const validationSchema = Joi.object<Measure.Form>({
     .sparse(),
   DateRange: Joi.object({
     endDate: Joi.object({
-      selectedMonth: Joi.number().label("End Date"),
-      selectedYear: Joi.number().label("Start Date"),
+      selectedMonth: Joi.number().label("End Month"),
+      selectedYear: Joi.number().label("End Year"),
     }),
-    startDate: Joi.object({
-      selectedMonth: Joi.number().label("End Date"),
-      selectedYear: Joi.number().label("Start Date"),
-    }),
+    startDate: startDateRangeValidator("endDate"),
   }),
 
   //OptionalMeasureStratification
