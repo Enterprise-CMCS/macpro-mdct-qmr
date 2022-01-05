@@ -1,5 +1,6 @@
 import { Container, HStack } from "@chakra-ui/layout";
 import { ContainedButton } from "components/ContainedButton";
+import { useUser } from "hooks/authHooks";
 import {
   createCoreSet,
   editCoreSet,
@@ -14,6 +15,7 @@ import {
 } from "libs/api";
 
 export const ApiTester = () => {
+  const userstuff = useUser();
   return (
     <Container>
       <HStack p={5}>
@@ -33,7 +35,8 @@ export const ApiTester = () => {
                   test: "data",
                   test2: "moreData",
                 },
-              })
+              }),
+              userstuff
             )
           }
         />

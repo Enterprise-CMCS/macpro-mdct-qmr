@@ -105,16 +105,14 @@ export const UserProvider = ({ children }: Props) => {
           region: config.apiGateway.REGION,
           custom_header: async () => {
             return {
-              user_state: isReadOnly()
-                ? ""
-                : user.signInUserSession.idToken.payload["custom:cms_state"],
+              user_state: userState,
             };
           },
         },
       ],
     });
   }, []);
-  
+
   const values: UserContextInterface = useMemo(
     () => ({
       user,

@@ -2,11 +2,13 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 
 const authErrorHandler = (state: String, userState: String, userRole: String, operationType: String) => {
     if(!state || !userState || !userRole || !operationType){
-        return 403;
+        //return 403;
+        return 'missing info'
     }
     if(operationType === 'POST' || operationType === 'PUT' || operationType === 'DELETE'){
         if(!userRole.includes('STATE') || state.toLowerCase() !== userState.toLowerCase()){
-            return 403;
+            //return 403;
+            return `'wrong state: ${userState} doesn't equal ${state} here's the role: ${userRole}'`
         }
     }
     if(operationType === 'GET'){
@@ -27,16 +29,17 @@ export const errorHandler = (event: APIGatewayProxyEvent, operationType: String,
     )  return 400; // throw error message
 
     // if we're developing locally don't worry about the user's state or admin status
-    if (stage === 'local'){
-        return 200;
-    }
+    // if (stage === 'local'){
+    //     return 200;
+    // }
     
-    if (!event.headers.user_state) return 403
+    if (!event.headers.user_state) return event
   
-    return authErrorHandler(
-        event.pathParameters.state, 
-        event.headers.user_state, 
-        event.requestContext.identity.cognitoIdentityId, 
-        operationType
-    )
+    // return authErrorHandler(
+    //     event.pathParameters.state, 
+    //     event.headers.user_state, 
+    //     event.requestContext.identity.cognitoIdentityId, 
+    //     operationType
+    // )
+    return event
 }
