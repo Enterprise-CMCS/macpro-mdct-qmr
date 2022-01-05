@@ -1,9 +1,16 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./qualifiers";
-import { useForm, FormProvider } from "react-hook-form";
+
+// import { useEffect } from "react";
+
+import {
+  useForm,
+  FormProvider,
+  // useFormContext
+} from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { validationSchema } from "measures/schema";
+import { validationSchema } from "coreSets/adultMeasures/schema";
 import { Measure } from "measures/types";
 
 export const DemoQualifier = () => {
@@ -38,41 +45,70 @@ export const DemoQualifier = () => {
       }
     >
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+        <form
+          onSubmit={methods.handleSubmit((data) =>
+            console.log("I am, here", data)
+          )}
+        >
           <CUI.Container maxW="2xl" as="section">
+            <CUI.Box mb="7" mt="3">
+              <CUI.Text as="h3" fontSize="xl" mb="3" ml="3.5" fontWeight="bold">
+                Adult Core Set Questions
+              </CUI.Text>
+              <CUI.Text mb="3" ml="3.5">
+                For technical questions regaring use of this application, please
+                reach out to{" "}
+                <CUI.Link href="mailto:MDCT_help@cms.hhs.gov" color="blue.600">
+                  MDCT_help@cms.hhs.gov
+                </CUI.Link>
+                . For content related questions, such as about measure
+                specifications or what information to enter into each field,
+                please reach out to{" "}
+                <CUI.Link
+                  href="mailto:MACQualityTA@cms.hhs.gov"
+                  color="blue.600"
+                >
+                  MACQualityTA@cms.hhs.gov
+                </CUI.Link>
+                .
+              </CUI.Text>
+            </CUI.Box>
+
             <Q.DeliverySystems
               deliverySystemList={[
                 {
-                  set: [
-                    {
-                      key: "feeForService",
-                      label: "Fee-for-Service",
-                      twentyOneToSixtyFour: 0,
-                      greaterThanSixtyFour: 0,
-                    },
-                    {
-                      key: "pccm",
-                      label: "PCCM",
-                      twentyOneToSixtyFour: 0,
-                      greaterThanSixtyFour: 0,
-                    },
-                    {
-                      key: "managedCare",
-                      label: "Managed Care",
-                      twentyOneToSixtyFour: 0,
-                      greaterThanSixtyFour: 0,
-                    },
-                    {
-                      key: "integtatedCareModel",
-                      label: "Integrated Care Model (ICM)",
-                      twentyOneToSixtyFour: 0,
-                      greaterThanSixtyFour: 0,
-                    },
-                  ],
+                  key: "feeForService",
+                  label: "Fee-for-Service",
+                  twentyOneToSixtyFour: 0,
+                  greaterThanSixtyFour: 0,
+                  type: "default",
+                },
+                {
+                  key: "pccm",
+                  label: "PCCM",
+                  twentyOneToSixtyFour: 0,
+                  greaterThanSixtyFour: 0,
+                  type: "default",
+                },
+                {
+                  key: "managedCare",
+                  label: "Managed Care",
+                  twentyOneToSixtyFour: 0,
+                  greaterThanSixtyFour: 0,
+                  type: "default",
+                },
+                {
+                  key: "integtatedCareModel",
+                  label: "Integrated Care Model (ICM)",
+                  twentyOneToSixtyFour: 0,
+                  greaterThanSixtyFour: 0,
+                  type: "default",
                 },
               ]}
-              label="1. Delivery System"
             />
+            <Q.Audit />
+            <Q.ExternalContractor />
+            <Q.CompleteCoreSets />
           </CUI.Container>
         </form>
       </FormProvider>

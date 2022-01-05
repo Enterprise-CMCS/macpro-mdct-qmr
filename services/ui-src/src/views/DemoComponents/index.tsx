@@ -503,10 +503,12 @@ const DemoComponentsForm = () => {
             <CUI.Heading size="sm" as="h3">
               Multiselect Checkboxes
             </CUI.Heading>
-            <MultiSelect
-              multiSelectList={multiSelectList}
-              {...register("demoMultiSelectList")}
-            ></MultiSelect>
+            <CUI.Box w="50%">
+              <MultiSelect
+                multiSelectList={multiSelectList}
+                {...register("demoMultiSelectList")}
+              ></MultiSelect>
+            </CUI.Box>
           </CUI.VStack>
         </CUI.Container>
         <QMR.ContainedButton
