@@ -7,7 +7,7 @@ import { Amplify } from "aws-amplify";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
-import { UserProvider } from "hooks/authHooks";
+import { UserProvider, ApiProvider } from "hooks/authHooks";
 
 Amplify.configure({
   Storage: {
@@ -20,11 +20,11 @@ Amplify.configure({
 ReactDOM.render(
   <Router>
     <UserProvider>
-      <APIProvider>
+      <ApiProvider>
         <ChakraProvider theme={theme}>
           <App />
         </ChakraProvider>
-      </APIProvider>
+      </ApiProvider>
     </UserProvider>
   </Router>,
   document.getElementById("root")

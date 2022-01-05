@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Auth, API } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import config from "config";
 import { getLocalUserInfo, logoutLocalUser } from "libs";
 
@@ -88,26 +88,6 @@ export const UserProvider = ({ children }: Props) => {
         scope: ["email", "openid"],
         responseType: "token",
       },
-    });
-  }, []);
-
-  useEffect(() => {
-    API.configure({
-      endpoints: [
-        {
-          name: "coreSet",
-          endpoint: config.apiGateway.URL,
-          region: config.apiGateway.REGION,
-          custom_header: async () => {
-            return {
-              user_state:
-                user?.signInUserSession?.idToken?.payload?.["custom:cms_state"],
-              user_role:
-                user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"],
-            };
-          },
-        },
-      ],
     });
   }, []);
 
