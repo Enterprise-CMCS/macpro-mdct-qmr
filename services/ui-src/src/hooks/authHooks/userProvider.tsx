@@ -71,6 +71,11 @@ export const UserProvider = ({ children }: Props) => {
     return !user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
   }, [user]);
 
+  // rerender on auth state change, checking router location
+  useEffect(() => {
+    checkAuthState();
+  }, [location, checkAuthState]);
+
   // single run configuration
   useEffect(() => {
     Auth.configure({
@@ -87,6 +92,14 @@ export const UserProvider = ({ children }: Props) => {
         responseType: "token",
       },
     });
+  }, []);
+
+  // rerender on auth state change, checking router location
+  useEffect(() => {
+    checkAuthState();
+  }, [location, checkAuthState]);
+
+  useEffect(() => {
     API.configure({
       endpoints: [
         {
@@ -97,20 +110,13 @@ export const UserProvider = ({ children }: Props) => {
             return {
               user_state: isReadOnly()
                 ? ""
-                : user?.signInUserSession?.idToken?.payload?.[
-                    "custom:cms_state"
-                  ],
+                : user.signInUserSession.idToken.payload["custom:cms_state"],
             };
           },
         },
       ],
     });
   }, []);
-
-  // rerender on auth state change, checking router location
-  useEffect(() => {
-    checkAuthState();
-  }, [location, checkAuthState]);
 
   const values: UserContextInterface = useMemo(
     () => ({

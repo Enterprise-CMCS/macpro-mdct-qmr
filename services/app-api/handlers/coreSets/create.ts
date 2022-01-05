@@ -6,11 +6,9 @@ import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import { errorHandler } from "../authUtils/checkAuth";
 
 export const createCoreSet = handler(async (event, context) => {
-  const environmentVariable = process.env
-  if(environmentVariable){
-    return environmentVariable
-  }
-  const errorCode = errorHandler(event, 'POST')
+  const stage = process.env.stage
+  // @ts-ignore
+  const errorCode = errorHandler(event, 'POST', stage)
  
   if(errorCode !== 200){
     return {
@@ -22,13 +20,10 @@ export const createCoreSet = handler(async (event, context) => {
   }
 
   // The State Year and ID are all part of the path
-  // @ts-ignore
-  const state = event.pathParameters.state;
-  // @ts-ignore
-  const year = event.pathParameters.year;
-  // @ts-ignore
-  const coreSet = event.pathParameters.coreSet;
-  const type = coreSet?.substring(0, 2);
+  const state = event!.pathParameters!.state!;
+  const year = event!.pathParameters!.year!;
+  const coreSet = event!.pathParameters!.coreSet!;
+  const type = coreSet!.substring(0, 2);
   const coreSetQuery = await getCoreSet(event, context);
   const coreSetExists = !!Object.keys(JSON.parse(coreSetQuery.body)).length;
 
@@ -58,7 +53,6 @@ export const createCoreSet = handler(async (event, context) => {
   };
 
   await dynamoDb.post(params);
-  // @ts-ignore
   await createDependentMeasures(state, parseInt(year), coreSet, type);
 
   return event;
