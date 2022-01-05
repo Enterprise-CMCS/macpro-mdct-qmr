@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { Params } from "Routes";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { useUser } from "hooks/authHooks";
 
 interface AddCoreSetCardProps {
   title: string;
@@ -16,6 +17,7 @@ export const AddCoreSetCard = ({
   to,
   coreSetExists,
 }: AddCoreSetCardProps) => {
+  const { isStateUser } = useUser();
   const { state, year } = useParams<Params>();
 
   return (
@@ -37,6 +39,7 @@ export const AddCoreSetCard = ({
           }}
         >
           <QMR.ContainedButton
+            disabledStatus={!isStateUser}
             icon="plus"
             buttonText={!coreSetExists ? buttonText : "Already Added"}
             disabledStatus={coreSetExists}

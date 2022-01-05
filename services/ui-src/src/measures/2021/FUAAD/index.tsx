@@ -4,7 +4,6 @@ import * as Q from "./questions";
 import { Params } from "Routes";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
-
 import { Measure } from "measures/types";
 
 export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
@@ -29,6 +28,7 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
         measureName={name}
         measureAbbreviation={coreSetId as string}
       />
+
       {!watchReportingRadio?.includes("No") && (
         <>
           <Q.Status />
