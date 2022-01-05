@@ -40,7 +40,6 @@ export const DemoMeasure = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
           <CUI.Container maxW="2xl" as="section">
-            <Q.MeasurementSpecification />
             <Q.Reporting
               reportingYear={2021}
               measureName="Admission to an Institution from the Community"
@@ -49,18 +48,22 @@ export const DemoMeasure = () => {
             {!watchReportingRadio?.includes("No") && (
               <>
                 <Q.Status />
+                <Q.MeasurementSpecification />
                 <Q.DataSource />
+                <Q.DateRange type="adult" />
                 <Q.DefinitionOfPopulation />
                 <Q.DeviationFromMeasureSpec
                   options={Q.defaultDeviationOptions}
                 />
+                <Q.OptionalMeasureStratification
+                  {...Q.DefaultOptionalMeasureStratProps}
+                />
               </>
             )}
-            <Q.AdditionalNotes />
             <Q.CombinedRates />
             <CUI.Stack alignItems="flex-start">
               <CUI.Heading fontSize="xl" fontWeight="600">
-                8. Complete the Measure
+                Complete the Measure
               </CUI.Heading>
               <CUI.Text p="3" pl="5">
                 Complete the measure and mark it for submission to CMS for
@@ -76,6 +79,7 @@ export const DemoMeasure = () => {
                 buttonText="Complete Measure"
               />
             </CUI.Stack>
+            <Q.OtherPerformanceMeasure />
           </CUI.Container>
         </form>
       </FormProvider>

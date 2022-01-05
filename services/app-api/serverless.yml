@@ -7,7 +7,7 @@ package:
   individually: true
 
 plugins:
-  - serverless-bundle
+  - serverless-plugin-typescript
   - serverless-dotenv-plugin
   - serverless-plugin-warmup
   - serverless-associate-waf
@@ -18,6 +18,8 @@ plugins:
   - serverless-s3-bucket-helper
 
 custom:
+  serverlessPluginTypescript:
+    tsConfigFileLocation: "./tsconfig.json"
   stage: ${opt:stage, self:provider.stage}
   region: ${opt:region, self:provider.region}
   serverlessTerminationProtection:
@@ -25,10 +27,10 @@ custom:
       - master
       - val
       - production
-  tableName: ${env:AMENDMENTS_TABLE_NAME, cf:database-${self:custom.stage}.AmendmentsTableName}
-  tableArn: ${env:AMENDMENTS_TABLE_ARN, cf:database-${self:custom.stage}.AmendmentsTableArn}
-  atomicCounterTableName: ${env:AMENDMENTS_COUNTER_TABLE_NAME, cf:database-${self:custom.stage}.AmendmentsAtomicCounterTableName}
-  atomicCounterTableArn: ${env:AMENDMENTS_COUNTER_TABLE_ARN, cf:database-${self:custom.stage}.AmendmentsAtomicCounterTableArn}
+  coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
+  coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
+  measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
+  measureTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl
   associateWaf:
     name: ${self:custom.webAclName}
@@ -40,7 +42,10 @@ custom:
       events:
         - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule~true, ssm:/configuration/default/warmup/schedule~true, "4 minutes"})
       concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency~true, ssm:/configuration/default/warmup/concurrency~true, 5}
-
+  authValue:
+    master: aws_iam
+    val: aws_iam
+    production: aws_iam
 provider:
   name: aws
   runtime: nodejs12.x
@@ -61,55 +66,92 @@ provider:
             - dynamodb:PutItem
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
-          Resource:
-            - ${self:custom.tableArn}
-            - ${self:custom.atomicCounterTableArn}
+          Resource: "*"
   environment:
-    tableName: ${self:custom.tableName}
-    atomicCounterTableName: ${self:custom.atomicCounterTableName}
+    coreSetTableName: ${self:custom.coreSetTableName}
+    measureTableName: ${self:custom.measureTableName}
 
 functions:
-  create:
-    handler: handlers/create.main
+  listMeasures:
+    handler: handlers/measures/get.listMeasures
     events:
       - http:
-          path: amendments
+          path: coreset/{state}/{year}/{coreSet}/measures
+          method: get
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  getMeasure:
+    handler: handlers/measures/get.getMeasure
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSet}/measures/{measure}
+          method: get
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  createMeasure:
+    handler: handlers/measures/create.createMeasure
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: post
           cors: true
-          authorizer: aws_iam
-  get:
-    handler: handlers/get.main
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  editMeasure:
+    handler: handlers/measures/update.editMeasure
     events:
       - http:
-          path: amendments/{id}
-          method: get
-          cors: true
-          authorizer: aws_iam
-  list:
-    handler: handlers/list.main
-    events:
-      - http:
-          path: amendments
-          method: get
-          cors: true
-          authorizer: aws_iam
-  update:
-    handler: handlers/update.main
-    events:
-      - http:
-          path: amendments/{id}
+          path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: put
           cors: true
-          authorizer: aws_iam
-  delete:
-    handler: handlers/delete.main
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  deleteMeasure:
+    handler: handlers/measures/delete.deleteMeasure
     events:
       - http:
-          path: amendments/{id}
+          path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: delete
           cors: true
-          authorizer: aws_iam
-
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  getAllCoreSets:
+    handler: handlers/coreSets/get.coreSetList
+    events:
+      - http:
+          path: coreset/{state}/{year}
+          method: get
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  getCoreSet:
+    handler: handlers/coreSets/get.getCoreSet
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSet}
+          method: get
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  createCoreSet:
+    handler: handlers/coreSets/create.createCoreSet
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSet}
+          method: post
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  editCoreSet:
+    handler: handlers/coreSets/update.editCoreSet
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSet}
+          method: put
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  deleteCoreSet:
+    handler: handlers/coreSets/delete.deleteCoreSet
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSet}
+          method: delete
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
 resources:
   Resources:
     GatewayResponseDefault4XX:

@@ -31,7 +31,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "amendments",
+        name: "coreSet",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION,
       },
