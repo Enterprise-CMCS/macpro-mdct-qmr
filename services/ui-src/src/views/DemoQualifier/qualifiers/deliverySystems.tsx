@@ -138,12 +138,14 @@ export const DeliverySystems = (
                     flex={1.5}
                     onChange={(e) => customLabelChange(e, index)}
                     fontWeight={"semibold"}
+                    data-testid={`deliverySystem.${index}.${ds.key}-name`}
                   />
                 </CUI.Box>
               )}
               <Inputs.NumberInput
                 displayPercent={true}
                 name={`deliverySystem.${index}.${ds.key}-21-64`}
+                data-testid={`deliverySystem.${index}.${ds.key}-21-64`}
                 formControlProps={{
                   flex: 1,
                   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,6 +157,7 @@ export const DeliverySystems = (
               <Inputs.NumberInput
                 displayPercent={true}
                 name={`deliverySystem.${index}.${ds.key}-65`}
+                data-testid={`deliverySystem.${index}.${ds.key}-65`}
                 formControlProps={{
                   flex: 1,
                   onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
