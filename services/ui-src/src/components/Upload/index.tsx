@@ -65,17 +65,52 @@ export const Upload = ({
             url: url.split("?", 1)[0], //We only need the permalink part of the URL since the S3 bucket policy allows for public read
             title: fileToUpload.title,
           };
+          console.log(result);
 
           retPromise = Promise.resolve(result);
         } catch (error) {
           console.log(error);
           retPromise = Promise.reject(error);
         }
-        console.log("success");
+
         return retPromise;
       }
+
+      async function uploadFiles(fileArray: any[]) {
+        let resultPromise;
+        if (fileArray.length > 0) {
+          // Process each file.
+          let uploadPromises: any[] = [];
+          fileArray.forEach((file: any) => {
+            let promise = uploadFile(file);
+            uploadPromises.push(promise);
+          });
+
+          //Wait until all files are uploaded.
+          resultPromise = new Promise((resolve, reject) => {
+            Promise.all(uploadPromises)
+              .then((results) => {
+                resolve(results);
+              })
+              .catch((error) => {
+                if (error.indexOf("No credentials") !== -1) {
+                  reject("SESSION_EXPIRED");
+                } else {
+                  console.log("Error uploading.", error);
+                  reject("UPLOADS_ERROR");
+                }
+              });
+          });
+        } else {
+          // Since we have no files then we are successful.
+          Promise.resolve();
+        }
+
+        return resultPromise;
+      }
       field.onChange([...field.value, ...acceptedFiles]);
-      uploadFile(acceptedFiles[0]);
+
+      uploadFiles(acceptedFiles);
     },
     [field]
   );
