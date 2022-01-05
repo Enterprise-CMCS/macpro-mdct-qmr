@@ -34,8 +34,7 @@ export const Upload = ({
     defaultValue: [],
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_acceptedFiles, setAcceptedFiles] = React.useState<File[]>([]);
+  const [, setAcceptedFiles] = React.useState<File[]>([]);
 
   React.useEffect(() => {
     setAcceptedFiles([...field.value]);
@@ -64,7 +63,6 @@ export const Upload = ({
             filename: fileToUpload.name,
             contentType: fileToUpload.type,
             url: url.split("?", 1)[0], //We only need the permalink part of the URL since the S3 bucket policy allows for public read
-            // title: fileToUpload.title,
           };
 
           retPromise = Promise.resolve(result);
@@ -112,7 +110,6 @@ export const Upload = ({
       uploadFiles(acceptedFiles).then((result: any) =>
         field.onChange([...field.value, ...result])
       );
-      //uploadFiles(acceptedFiles);
     },
     [field]
   );
@@ -153,7 +150,6 @@ export const Upload = ({
       const updatedFile = new File([file], updatedFileName, {
         type: file.type,
       });
-      //updatedFile.name = file.title;
       return updatedFile;
     }
   }
