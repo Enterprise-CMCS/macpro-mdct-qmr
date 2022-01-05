@@ -1,6 +1,6 @@
 Feature: Verify LRCD-CH page
 
-      @demo
+      
       Scenario: User logins to QMR and verifies the LRCD-CH page
         Given user visits QMR home page
         When  user enter username and password

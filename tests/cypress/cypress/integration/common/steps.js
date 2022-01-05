@@ -7,6 +7,8 @@ import NCIDDSadpage from "../../../support/pages/NCIDDSadpage";
 import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
+// demo
+import DemoLoginPage from "../../../support/pages/DemoLoginPage";
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();
@@ -16,6 +18,8 @@ const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
+// demo 
+const demoLoginPage = new DemoLoginPage();
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -128,3 +132,17 @@ And('user click "Sign In" button', () => {
 });
 
 Then("user should see the QMR home page", () => {});
+
+// Demo steps 
+Given("user is on  login page", ()=>{
+  demoLoginPage.launche();
+});
+
+When("user logins with invalid credentials",()=>{
+  demoLoginPage.enterInvalidCredential();
+});
+
+Then("user can see error message",()=>{
+  demoLoginPage.signIn();
+});
+
