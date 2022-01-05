@@ -105,19 +105,56 @@ export namespace Measure {
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    DeviationFields: {
+    "DeviationOptions-Within7-AgeRange": string[];
+    "DeviationOptions-Within30-AgeRange": string[];
+    "DeviationFields-Within7": {
       options: string[];
       denominator: string;
       numerator: string;
       other: string;
+    };
+    "DeviationFields-Within30": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "PerformanceMeasure-Explanation": string;
+    "PerformanceMeasure-AgeRates-30Days": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    };
+    "PerformanceMeasure-AgeRates-7Days": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    };
+    DateRange: {
+      endDate: {
+        selectedMonth: number;
+        selectedYear: number;
+      };
+      startDate: {
+        selectedMonth: number;
+        selectedYear: number;
+      };
     };
 
     //OptionalMeasureStratification
     CategoriesReported: string[];
 
     AddtnlEthnicity: string[];
+    AddtnlEthnicityRates: AggregateRate[];
 
     AddtnlNonHispanicRace: string[];
+    AddtnlNonHispanicRaceAggregation: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
 
     AddtnlNonHispanicSubCat: string[];
@@ -133,21 +170,39 @@ export namespace Measure {
     "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
 
     EthnicityCategories: string[];
+    NonHispanicEthnicityRates: AggregateRate;
     HispanicIndependentReporting: string;
+    HispanicEthnicityAggregateRate: AggregateRate;
     IndependentHispanicOptions: string[];
+    IndependentHispanicRates: AggregateRate[];
 
     AsianIndependentReporting: string;
     IndependentAsianOptions: string[];
     NativeHawaiianIndependentReporting: string;
     IndependentNativeHawaiianOptions: string[];
-    SexOptions: string[];
 
-    AddtnlPrimaryLanguage: string[];
+    SexOptions: string[];
+    MaleSexRates: AggregateRate;
+    FemaleSexRates: AggregateRate;
+
     PrimaryLanguageOptions: string[];
+    AddtnlPrimaryLanguage: string[];
+    AddtnlPrimaryLanguageRates: AggregateRate[];
+    EnglishLanguageRate: AggregateRate;
+    SpanishLanguageRate: AggregateRate;
 
     DisabilityStatusOptions: string[];
+    DisabilitySSIRate: AggregateRate;
+    DisabilityNonSSIRate: AggregateRate;
     AddtnlDisabilityStatusDesc: string;
+    AddtnlDisabilityRate: AggregateRate;
+
     GeographyOptions: string[];
+    UrbanGeographyRate: AggregateRate;
+    RuralGeographyRate: AggregateRate;
     AddtnlGeographyDesc: string;
+    AddtnlGeographyRate: AggregateRate;
+
+    ACAGroupRate: AggregateRate;
   }
 }

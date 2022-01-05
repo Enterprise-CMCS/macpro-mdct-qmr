@@ -57,6 +57,7 @@ export function AppRoutes({ user }: { user: CognitoUser }) {
       <Routes>
         <Route path="/" element={<Views.Home user={user} />} />
         <Route path=":state/:year" element={<Views.StateHome />} />
+        <Route path="admin" element={<Views.AdminHome />} />
         <Route
           path=":state/:year/add-child"
           element={<Views.AddChildCoreSet />}

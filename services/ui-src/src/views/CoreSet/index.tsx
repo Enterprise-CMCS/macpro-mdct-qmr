@@ -3,6 +3,7 @@ import * as QMR from "components";
 import { useParams } from "react-router-dom";
 import { Params } from "Routes";
 import { Link } from "react-router-dom";
+import { useUser } from "hooks/authHooks";
 
 enum coreSetType {
   ACS = "Adult",
@@ -34,14 +35,15 @@ export const CoreSet = () => {
   // This is where a fetch for the measures would live and calculate progress completed
   const measures = [
     {
-      Type: "Health Home",
-      title: "Admission to an Institution from the Community",
-      abbr: "AIF-HH",
-      path: `/${state}/${year}/${coreSetId}/AIF-HH`,
+      Type: "Adult",
+      title:
+        "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+      abbr: "FUA-AD",
+      path: `/${state}/${year}/${coreSetId}/FUA-AD`,
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "AIF-HH",
+      id: "FUA-AD",
       actions: [
         {
           itemText: "Edit",
@@ -52,13 +54,64 @@ export const CoreSet = () => {
     },
     {
       Type: "Adult",
-      title: "Antidepressant Medication Management",
-      abbr: "AMM-AD",
-      path: `/${state}/${year}/${coreSetId}/AMM-AD`,
+      title: "National Core Indicators Survey",
+      abbr: "NCIDDS-AD",
+      path: `/${state}/${year}/${coreSetId}/NCIDDS-AD`,
       isReporting: false,
       rateComplete: 0,
       lastDateModified: "",
-      id: "AMM-AD",
+      id: "NCIDDS-AD",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
+    {
+      Type: "Child",
+      title: "Percentage of Eligibles Who Received Preventive Dental Services",
+      abbr: "PDENT-CH",
+      path: `/${state}/${year}/${coreSetId}/PDENT-CH`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "PDENT-CH",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
+    {
+      Type: "Child",
+      title: "Live Births Weighing Less Than 2,500 Grams",
+      abbr: "LBW-CH",
+      path: `/${state}/${year}/${coreSetId}/LBW-CH`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "LBW-CH",
+      actions: [
+        {
+          itemText: "Edit",
+          id: "1",
+          handleSelect: (id: string) => console.log(id),
+        },
+      ],
+    },
+    {
+      Type: "Child",
+      title: "Low-Risk Cesarean Delivery",
+      abbr: "LRCD-CH",
+      path: `/${state}/${year}/${coreSetId}/LRCD-CH`,
+      isReporting: false,
+      rateComplete: 0,
+      lastDateModified: "",
+      id: "LRCD-CH",
       actions: [
         {
           itemText: "Edit",
@@ -68,6 +121,8 @@ export const CoreSet = () => {
       ],
     },
   ];
+
+  const { isStateUser } = useUser();
 
   return (
     <QMR.StateLayout
@@ -128,6 +183,7 @@ export const CoreSet = () => {
               colorScheme: "blue",
             }}
             buttonText="Submit Measures"
+            disabledStatus={!isStateUser}
             helperText={`Complete all ${
               coreSetType[coreSetId as keyof typeof coreSetType]
             } Core Set Questions and ${

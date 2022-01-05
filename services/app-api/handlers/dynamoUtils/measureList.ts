@@ -6,6 +6,7 @@ export interface MeasureMetaData {
   type: string;
   description: string;
   measure: string;
+  autocompleteOnCreation?: boolean;
 }
 
 export const measures: Measure = {
@@ -122,6 +123,7 @@ export const measures: Measure = {
       type: "AD",
       description: "National Core Indicators",
       measure: "NCIDDS-AD",
+      autocompleteOnCreation: true,
     },
     {
       type: "AD",
@@ -265,17 +267,20 @@ export const measures: Measure = {
       type: "CH",
       description: "Live Births Weighing Less Than 2,500 Grams",
       measure: "LBW-CH",
+      autocompleteOnCreation: true,
     },
     {
       type: "CH",
       description: "Low-Risk Cesarean Delivery",
       measure: "LRCD-CH",
+      autocompleteOnCreation: true,
     },
     {
       type: "CH",
       description:
         "Percentage of Eligibles Who Received Preventive Dental Services",
       measure: "PDENT-CH",
+      autocompleteOnCreation: true,
     },
     {
       type: "CH",

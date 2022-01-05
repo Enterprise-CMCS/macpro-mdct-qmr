@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { FaCheckCircle } from "react-icons/fa";
-
+import { useUser } from "hooks/authHooks";
 interface Props {
   handleSave: () => void;
   handleSubmit: () => void;
@@ -13,6 +13,8 @@ export const MeasureButtons = ({
   handleSubmit,
   lastSavedText,
 }: Props) => {
+  const { isStateUser } = useUser();
+
   const showCheck = lastSavedText?.toLowerCase() === "saved moments ago";
 
   return (
@@ -36,6 +38,7 @@ export const MeasureButtons = ({
       </CUI.Flex>
       <CUI.HStack pl="2">
         <QMR.ContainedButton
+          disabledStatus={!isStateUser}
           buttonText={"Save"}
           buttonProps={{
             colorScheme: "blue",
@@ -45,6 +48,7 @@ export const MeasureButtons = ({
           onClick={handleSave}
         />
         <QMR.ContainedButton
+          disabledStatus={!isStateUser}
           buttonText={"Complete Measure"}
           buttonProps={{
             colorScheme: "blue",
