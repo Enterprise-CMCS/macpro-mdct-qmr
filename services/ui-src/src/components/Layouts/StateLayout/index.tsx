@@ -32,7 +32,7 @@ export const StateLayout: React.FC<Props> = ({
     <>
       <CUI.Box
         position={sticky ? "fixed" : "relative"}
-        zIndex="2"
+        zIndex={3}
         padding="none"
         w="full"
         top="0"

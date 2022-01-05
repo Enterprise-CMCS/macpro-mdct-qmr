@@ -1,12 +1,13 @@
+import { UserRoles } from "types";
+
 interface CreateMockUser {
-  role: string;
+  role: UserRoles;
   state?: string;
 }
 
 export const createMockUser = ({ role, state }: CreateMockUser) => {
-  const username = role + "_QMR";
   return {
-    username,
+    role,
     signInUserSession: {
       idToken: {
         payload: {
@@ -15,13 +16,13 @@ export const createMockUser = ({ role, state }: CreateMockUser) => {
           "cognito:groups": ["us-east-1_XjQUt5Qs8_Okta"],
           email_verified: false,
           iss: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_XjQUt5Qs8",
-          "cognito:username": username,
-          "custom:cms_roles": "mdctqmr-state-user",
+          "cognito:username": role,
+          "custom:cms_roles": role,
           ...(state ? { "custom:cms_state": state } : {}),
           given_name: "State",
           identities: [
             {
-              userId: username,
+              userId: role,
               providerName: "Okta",
               providerType: "SAML",
               issuer: "http://www.okta.com/exk93awpwptaU2Y86297",
@@ -35,7 +36,7 @@ export const createMockUser = ({ role, state }: CreateMockUser) => {
           iat: 1638848944,
           family_name: "QMR",
           jti: "f8e28d8c-86f3-4f9b-b06e-c5abe5b2c16b",
-          email: username + "@collabralink.com",
+          email: role + "@collabralink.com",
         },
       },
     },
