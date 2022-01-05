@@ -54,6 +54,7 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
         measureName={name}
         measureAbbreviation={coreSetId as string}
       />
+
       {!watchReportingRadio?.includes("No") && (
         <>
           <Q.Status />
