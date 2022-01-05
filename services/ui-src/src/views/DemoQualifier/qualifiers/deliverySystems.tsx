@@ -134,7 +134,9 @@ export const DeliverySystems = (
                 <CUI.Box w="43%">
                   <CUI.Input
                     name={`deliverySystem.${index}.${ds.key}-name`}
-                    value={ds.key}
+                    value={`deliverySystem.${index}.${ds.key}-name`}
+                    type="text"
+                    aria-label={`deliverySystem.${index}.${ds.key}-name`}
                     flex={1.5}
                     onChange={(e) => customLabelChange(e, index)}
                     fontWeight={"semibold"}

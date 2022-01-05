@@ -30,6 +30,9 @@ describe("test delivery system component", () => {
     fireEvent.click(
       await screen.getByRole("button", { name: /\+ Add Another/i })
     );
+    expect(
+      await screen.getByRole("textbox", { name: "deliverySystem.4.-name" })
+    ).toBeInTheDocument();
   });
 });
 
