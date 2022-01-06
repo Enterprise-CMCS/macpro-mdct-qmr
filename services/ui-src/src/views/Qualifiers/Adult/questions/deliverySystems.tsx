@@ -111,7 +111,6 @@ export const DeliverySystems = (
         description="As of September 30, 2021 what percentage of your Medicaid/CHIP
           enrolees (above age 21) were enrolled in each delivery system?"
       />
-
       <CUI.Table variant="simple">
         <CUI.Thead>
           <CUI.Tr>
@@ -139,7 +138,7 @@ export const DeliverySystems = (
                     </CUI.FormLabel>
                   </>
                 ) : (
-                  <CUI.Box w="43%">
+                  <CUI.Box>
                     <CUI.Input
                       name={`deliverySystem.${index}.${ds.key}-name`}
                       value={ds.key}
