@@ -19,6 +19,11 @@ beforeEach(() => {
     </RouterWrappedComp>
   );
 });
+describe("test header (delivery system) component", () => {
+  it("renders header properly", async () => {
+    expect(await screen.findByText("1. Delivery System")).toBeInTheDocument();
+  });
+});
 describe("test delivery system component", () => {
   it("renders components properly", async () => {
     expect(await screen.findByText("Fee-for-Service")).toBeInTheDocument();
