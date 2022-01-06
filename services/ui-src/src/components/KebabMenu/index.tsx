@@ -3,6 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
 import { CoreSetTableItem } from "components/Table/types";
+import { useUser } from "hooks/authHooks";
 
 export interface IKebabMenuItem {
   itemText: string;
@@ -38,6 +39,12 @@ const KebabMenuItem = ({ itemText, handleSelect, type }: IKebabMenuItem) => {
   const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
   const handleCloseDeleteDialog = () => setDeleteDialogIsOpen(false);
   const cancelRef = useRef();
+  const { isStateUser } = useUser();
+
+  const isDeleteButton = itemText.toLowerCase() === "delete";
+
+  // dont render if this is a delete button and the user is not a state user
+  if (isDeleteButton && !isStateUser) return null;
 
   return (
     <>
@@ -49,11 +56,8 @@ const KebabMenuItem = ({ itemText, handleSelect, type }: IKebabMenuItem) => {
         _focus={{ background: "blue.600" }}
         borderColor="white"
         minH="48px"
-        // @ts-ignore
         onClick={
-          itemText.toLocaleLowerCase() === "delete"
-            ? () => setDeleteDialogIsOpen(true)
-            : handleSelect
+          isDeleteButton ? () => setDeleteDialogIsOpen(true) : handleSelect
         }
         aria-label={itemText}
       >
