@@ -5,7 +5,7 @@ import { Params } from "Routes";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
-import { Measure } from "measures/types";
+import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationSchema } from "./validation/schema";
 import { validationFunctions } from "./validation/customValidationFunctions";
@@ -27,7 +27,9 @@ export const FUAAD = ({
   }, [setMeasureSchema, setValidationFunctions]);
 
   const { coreSetId } = useParams<Params>();
-  const { watch } = useFormContext<Measure.Form>();
+  const { watch, formState } = useFormContext<Measure.Form>();
+
+  console.log(`formState`, formState);
 
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
