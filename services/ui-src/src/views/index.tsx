@@ -9,4 +9,4 @@ export * from "./AddChildCoreSet";
 export * from "./AddHHCoreSet";
 export * from "./ApiTester";
 export * from "./DemoMeasure";
-export * from "./DemoQualifier";
+export * from "./Qualifiers";

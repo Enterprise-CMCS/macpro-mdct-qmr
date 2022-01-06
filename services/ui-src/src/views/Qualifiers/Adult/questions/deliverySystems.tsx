@@ -105,13 +105,13 @@ export const DeliverySystems = (
   };
   updateTotals();
   return (
-    <>
+    <CUI.ListItem>
       <Q.QualifierHeader
-        header="1. Delivery System"
+        header="Delivery System"
         description="As of September 30, 2021 what percentage of your Medicaid/CHIP
           enrolees (above age 21) were enrolled in each delivery system?"
       />
-      <CUI.Stack spacing="4" mt="6" ml="4">
+      <CUI.Stack spacing="4" mt="6">
         <CUI.HStack>
           <CUI.Spacer flex={1.5} />
           <CUI.FormLabel flex={1} pl="4">
@@ -203,6 +203,6 @@ export const DeliverySystems = (
           </CUI.Text>
         </CUI.HStack>
       </CUI.Stack>
-    </>
+    </CUI.ListItem>
   );
 };

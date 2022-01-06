@@ -3,14 +3,16 @@ import * as QMR from "components";
 import { FaCheckCircle } from "react-icons/fa";
 import { useUser } from "hooks/authHooks";
 interface Props {
-  handleSave: () => void;
+  handleSave?: () => void;
   handleSubmit: () => void;
+  submitButtonText?: string;
   lastSavedText?: string;
 }
 
 export const MeasureButtons = ({
   handleSave,
   handleSubmit,
+  submitButtonText,
   lastSavedText,
 }: Props) => {
   const { isStateUser } = useUser();
@@ -37,19 +39,21 @@ export const MeasureButtons = ({
         )}
       </CUI.Flex>
       <CUI.HStack pl="2">
+        {handleSave && (
+          <QMR.ContainedButton
+            disabledStatus={!isStateUser}
+            buttonText={"Save"}
+            buttonProps={{
+              colorScheme: "blue",
+              textTransform: "capitalize",
+              type: "submit",
+            }}
+            onClick={handleSave}
+          />
+        )}
         <QMR.ContainedButton
           disabledStatus={!isStateUser}
-          buttonText={"Save"}
-          buttonProps={{
-            colorScheme: "blue",
-            textTransform: "capitalize",
-            type: "submit",
-          }}
-          onClick={handleSave}
-        />
-        <QMR.ContainedButton
-          disabledStatus={!isStateUser}
-          buttonText={"Complete Measure"}
+          buttonText={submitButtonText || "Complete Measure"}
           buttonProps={{
             colorScheme: "blue",
             textTransform: "capitalize",
