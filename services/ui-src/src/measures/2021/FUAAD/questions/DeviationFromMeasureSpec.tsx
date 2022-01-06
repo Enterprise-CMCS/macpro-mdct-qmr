@@ -116,6 +116,7 @@ export const DeviationFromMeasureSpec = ({
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
+                // Dynamically hide or show children based on if performance measure 30days/age sections were completed
                 options={[
                   ...(deviationConditions.show30DaysAges18To64 ||
                   deviationConditions.show30DaysAges65AndOlder
@@ -139,6 +140,7 @@ export const DeviationFromMeasureSpec = ({
                         },
                       ]
                     : []),
+                  // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.show7DaysAges18To64 ||
                   deviationConditions.show7DaysAges65AndOlder
                     ? [

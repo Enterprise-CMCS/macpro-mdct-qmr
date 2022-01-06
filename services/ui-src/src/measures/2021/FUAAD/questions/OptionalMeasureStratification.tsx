@@ -89,10 +89,11 @@ const AgeData = ({
             value: item.label.replace(/ /g, ""),
             displayValue: item.label,
             children: [
-              <CUI.Heading size="sm">
+              <CUI.Heading key={item.id} size="sm">
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Heading>,
+              // Dynamically hide or show children based on if performance measure 30days/age sections were completed
               ...((deviationConditions?.show30DaysAges18To64 &&
                 item.id === 0) ||
               (deviationConditions?.show30DaysAges65AndOlder && item.id === 1)
@@ -109,6 +110,7 @@ const AgeData = ({
                     />,
                   ]
                 : []),
+              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.show7DaysAges18To64 && item.id === 0) ||
               (deviationConditions?.show7DaysAges65AndOlder && item.id === 1)
                 ? [

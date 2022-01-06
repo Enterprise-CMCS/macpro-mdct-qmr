@@ -11,8 +11,13 @@ export namespace Measure {
     rate: string;
   }
 
+  interface followUpDays {
+    followUpWithin30Days: RateFields[];
+    followUpWithin7Days: RateFields[];
+  }
+
   interface AggregateRate {
-    subRate: RateFields[];
+    subRate: followUpDays[];
     total: RateFields[];
   }
 
