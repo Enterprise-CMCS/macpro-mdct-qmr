@@ -69,6 +69,7 @@ const AddAnotherButton = ({
 };
 
 const AgeData = ({ name, ageGroups }: SubComponentProps) => {
+  console.log(ageGroups);
   return (
     <CUI.Box key={`${name}.ageData`}>
       <QMR.Checkbox
@@ -79,14 +80,27 @@ const AgeData = ({ name, ageGroups }: SubComponentProps) => {
             value: item.label.replace(/ /g, ""),
             displayValue: item.label,
             children: [
+              <CUI.Heading size="sm">
+                Enter a number for the numerator and the denominator. Rate will
+                auto-calculate:
+              </CUI.Heading>,
               <QMR.Rate
                 name={`${name}.subRates.${item.id}`}
                 key={`${name}.subRates.${item.id}`}
                 rates={[
                   {
                     id: 0,
-                    label:
-                      "Enter a number for the numerator and the denominator. Rate will auto-calculate:",
+                    label: "Follow-up within 30 days of ED visit",
+                  },
+                ]}
+              />,
+              <QMR.Rate
+                name={`${name}.subRates.${item.id}1`}
+                key={`${name}.subRates.${item.id}1`}
+                rates={[
+                  {
+                    id: 1,
+                    label: "Follow-up within 7 days of ED visit",
                   },
                 ]}
               />,
