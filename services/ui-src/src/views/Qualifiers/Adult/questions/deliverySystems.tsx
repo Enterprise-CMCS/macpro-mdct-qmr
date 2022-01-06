@@ -1,4 +1,4 @@
-// import * as QMR from "components";
+import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
 import * as Q from "./";
@@ -204,6 +204,27 @@ export const DeliverySystems = (
           </CUI.Tr>
         </CUI.Tfoot>
       </CUI.Table>
+      <QMR.ContainedButton
+        buttonText={"+ Add Another"}
+        buttonProps={{
+          variant: "outline",
+          colorScheme: "blue",
+          textTransform: "capitalize",
+        }}
+        onClick={() => {
+          setDeliverySystems([
+            ...deliverySystems,
+            {
+              key: "",
+              label: "",
+              twentyOneToSixtyFour: 0,
+              greaterThanSixtyFour: 0,
+              type: "custom",
+            },
+          ]);
+          updateTotals();
+        }}
+      />
     </CUI.ListItem>
   );
 };
