@@ -7,7 +7,7 @@ import * as QMR from "components";
 import Measures from "measures";
 import { measuresList, MeasuresListItem } from "measures/measuresList";
 
-export type Params = "state" | "year" | "coreSetId" | "measureId";
+export type Params = "state" | "year" | "coreSetId";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
