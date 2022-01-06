@@ -34,12 +34,6 @@ export const Upload = ({
     defaultValue: [],
   });
 
-  // const [, setAcceptedFiles] = React.useState<File[]>([]);
-
-  // React.useEffect(() => {
-  //   setAcceptedFiles([...field.value]);
-  // }, [field.value]);
-
   const onDrop = React.useCallback(
     (acceptedFiles: File[]) => {
       async function uploadFile(file: any) {
