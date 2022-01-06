@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 import { allPositiveIntegers } from "utils/numberInputMasks";
 
 export const DefinitionOfPopulation = () => {

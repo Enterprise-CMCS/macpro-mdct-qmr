@@ -1,18 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Params } from "Routes";
-import { ReactElement, cloneElement } from "react";
+import { ReactElement, cloneElement, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-// import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
-import {
-  testVal,
-  useJoiValidationResolver,
-  validateRates,
-} from "measures/2021/FUAAD/useCustomValidation";
-
+import { useJoiValidationResolver } from "hooks/useCustomValidation";
 interface Props {
   measure: ReactElement;
   name: string;
@@ -22,10 +16,14 @@ interface Props {
 
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams<Params>();
-  const customResolver = useJoiValidationResolver(validationSchema, [
-    testVal,
-    validateRates,
-  ]) as any;
+  const [measureSchema, setMeasureSchema] = useState(validationSchema);
+  const [validationFunctions, setValidationFunctions] = useState<
+    Measure.CustomValidator[]
+  >([]);
+  const customResolver = useJoiValidationResolver(
+    measureSchema,
+    validationFunctions
+  ) as any;
   /*
   this is where we put all the high level stuff for measures
   this would include:
@@ -93,6 +91,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
               name,
               year,
               handleSubmit: methods.handleSubmit(handleSubmit),
+              setMeasureSchema,
+              setValidationFunctions,
             })}
           </CUI.Container>
         </form>

@@ -1,35 +1,8 @@
-import { useCallback } from "react";
-import { joiResolver } from "@hookform/resolvers/joi";
+import { CustomValidator } from "measures/types";
 import { ResolverResult } from "react-hook-form";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 
-type CustomValidator = (res: ResolverResult) => ResolverResult;
-
-export const useJoiValidationResolver = (
-  validationSchema: any,
-  additionalValidationFns: CustomValidator[]
-) =>
-  useCallback(
-    async (data: any, context: any, options: any) => {
-      console.log(`context`, context);
-      console.log(`options`, options);
-      const resolver = joiResolver(validationSchema);
-      let results = await resolver(data, context, options);
-      additionalValidationFns.forEach((fn) => {
-        results = fn(results);
-      });
-      console.log(results);
-      return results;
-    },
-    [validationSchema, additionalValidationFns]
-  );
-
-export const testVal: CustomValidator = (result: ResolverResult) => {
-  const errors = { ...result.errors };
-  return { ...result, errors };
-};
-
-export const validateRates: CustomValidator = (
+const validateRates: CustomValidator = (
   result: ResolverResult<Measure.Form>
 ) => {
   const values = { ...result.values };
@@ -62,3 +35,5 @@ export const validateRates: CustomValidator = (
   }
   return { values, errors };
 };
+
+export const validationFunctions = [validateRates];

@@ -1,10 +1,7 @@
 import Joi from "joi";
-import { ResolverResult } from "react-hook-form";
-export type CustomValidator = (res: ResolverResult) => ResolverResult;
+import { CustomValidator } from "measures/types";
 
 export namespace Measure {
-  export type CustomValidator = (res: ResolverResult) => ResolverResult;
-
   export interface Props {
     name: string;
     year: string;
