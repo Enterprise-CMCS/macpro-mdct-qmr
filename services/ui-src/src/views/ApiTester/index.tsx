@@ -1,4 +1,4 @@
-import { Container, HStack } from "@chakra-ui/layout";
+import * as CUI from "@chakra-ui/react";
 import { ContainedButton } from "components/ContainedButton";
 import {
   createCoreSet,
@@ -15,11 +15,12 @@ import {
 
 export const ApiTester = () => {
   return (
-    <Container>
-      <HStack p={5}>
+    <>
+      <CUI.Flex flexWrap="wrap" spacing={5}>
         <ContainedButton
           buttonText={"Create Core Set"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -28,7 +29,7 @@ export const ApiTester = () => {
               await createCoreSet({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 body: {
                   test: "data",
                   test2: "moreData",
@@ -40,6 +41,7 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Edit Core Set"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -48,7 +50,7 @@ export const ApiTester = () => {
               await editCoreSet({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 body: {
                   status: "complete",
                 },
@@ -59,6 +61,7 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Get All Core Sets"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -74,6 +77,7 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Get Specific Core Set"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -82,7 +86,7 @@ export const ApiTester = () => {
               await getCoreSet({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
               })
             )
           }
@@ -90,6 +94,7 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Delete Core Set"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -98,16 +103,17 @@ export const ApiTester = () => {
               await deleteCoreSet({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
               })
             )
           }
         />
-      </HStack>
-      <HStack p={5}>
+      </CUI.Flex>
+      <CUI.Flex flexWrap="wrap" spacing={5}>
         <ContainedButton
           buttonText={"Create Measure"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -116,7 +122,7 @@ export const ApiTester = () => {
               await createMeasure({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
                   test: "data",
@@ -129,6 +135,7 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Edit Measure"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -137,7 +144,7 @@ export const ApiTester = () => {
               await editMeasure({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
                   data: {
@@ -152,6 +159,7 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"List all measures"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -160,7 +168,7 @@ export const ApiTester = () => {
               await listMeasures({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
               })
             )
           }
@@ -168,6 +176,7 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Get Measure"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -176,7 +185,7 @@ export const ApiTester = () => {
               await getMeasure({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 measure: "AIF-HH",
               })
             )
@@ -185,6 +194,7 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Delete Measure"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
@@ -193,13 +203,13 @@ export const ApiTester = () => {
               await deleteMeasure({
                 state: "FS",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 measure: "AIF-HH",
               })
             )
           }
         />
-      </HStack>
-    </Container>
+      </CUI.Flex>
+    </>
   );
 };

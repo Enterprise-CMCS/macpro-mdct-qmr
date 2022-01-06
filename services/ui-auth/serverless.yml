@@ -112,7 +112,7 @@ resources:
         AllowedOAuthScopes:
           - email
           - openid
-          - aws.cognito.signin.user.admin # Needed to call Auth.currentUserInfo()
+          - profile
         CallbackURLs:
           - ${self:custom.application_endpoint_url}
           - http://localhost:3000/
@@ -205,6 +205,7 @@ resources:
                     - Fn::Join:
                         - ""
                         - - ${self:custom.attachments_bucket_arn}/private/
+                          - ${self:custom.attachments_bucket_arn}/protected/
                           - "$"
                           - "{cognito-identity.amazonaws.com:sub}/*"
   Outputs:

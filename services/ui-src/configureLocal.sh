@@ -24,6 +24,15 @@ cognito_user_pool_client_domain=`sh ../output.sh ../ui-auth UserPoolClientDomain
 s3_attachments_bucket_region=`sh ../output.sh ../uploads Region $stage`
 s3_attachements_bucket_name=`sh ../output.sh ../uploads AttachmentsBucketName $stage`
 
+echo $stage
+echo $api_region
+echo $api_url
+echo $cognito_region
+echo $cognito_identity_pool_id
+echo $cognito_user_pool_id
+echo $cognito_user_pool_client_id
+echo $cognito_user_pool_client_domain
+
 export API_REGION=$api_region
 export API_URL=$api_url
 export COGNITO_REGION=$cognito_region

@@ -77,7 +77,7 @@ const DemoComponentsForm = () => {
   ];
 
   const KebabMenuItems: QMR.IKebabMenuItem[] = [
-    { itemText: "Edit", id: "1", handleSelect: (id) => console.log(id) },
+    { itemText: "Edit", handleSelect: () => console.log("Edit") },
   ];
 
   const multiSelectList = useMemo<ICheckbox[]>(
