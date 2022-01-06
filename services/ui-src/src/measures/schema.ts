@@ -3,9 +3,9 @@ import { Measure } from "./types";
 
 const RateJoiValidator = Joi.array().items(
   Joi.object({
-    numerator: Joi.string().empty(),
-    denominator: Joi.string().empty(),
-    rate: Joi.string().empty(),
+    numerator: Joi.string().empty(""),
+    denominator: Joi.string().empty(""),
+    rate: Joi.string().empty(""),
   })
 );
 
