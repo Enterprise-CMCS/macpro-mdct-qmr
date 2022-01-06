@@ -4,9 +4,9 @@ import * as Q from "./";
 
 export const ExternalContractor = () => {
   return (
-    <>
+    <CUI.ListItem>
       <Q.QualifierHeader
-        header="3. External Contractor"
+        header="External Contractor"
         description="Please indicate whether your state obtained assistance from one or
         more external contractors in collecting, calculating and/or reporting
         Core Set data (optional)."
@@ -62,6 +62,6 @@ export const ExternalContractor = () => {
           />
         </CUI.Box>
       </CUI.Stack>
-    </>
+    </CUI.ListItem>
   );
 };

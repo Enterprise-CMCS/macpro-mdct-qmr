@@ -40,9 +40,9 @@ export const Audit = () => {
   const [measureList, setMeasureList] = useState<string[]>([""]);
 
   return (
-    <>
+    <CUI.ListItem>
       <Q.QualifierHeader
-        header="2. Audit or Validation of Measures"
+        header="Audit or Validation of Measures"
         description="Were any of the Core Set meaures audited or validated?"
       />
       <CUI.Spacer />
@@ -108,6 +108,6 @@ export const Audit = () => {
           />
         </CUI.Box>
       </CUI.Stack>
-    </>
+    </CUI.ListItem>
   );
 };

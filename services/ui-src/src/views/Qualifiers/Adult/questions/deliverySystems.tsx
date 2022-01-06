@@ -105,9 +105,9 @@ export const DeliverySystems = (
   };
   updateTotals();
   return (
-    <>
+    <CUI.ListItem>
       <Q.QualifierHeader
-        header="1. Delivery System"
+        header="Delivery System"
         description="As of September 30, 2021 what percentage of your Medicaid/CHIP
           enrolees (above age 21) were enrolled in each delivery system?"
       />
@@ -203,6 +203,6 @@ export const DeliverySystems = (
           </CUI.Text>
         </CUI.HStack>
       </CUI.Stack>
-    </>
+    </CUI.ListItem>
   );
 };

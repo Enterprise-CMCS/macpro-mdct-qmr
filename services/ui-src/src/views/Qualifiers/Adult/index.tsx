@@ -55,42 +55,43 @@ export const ACSQualifiers = () => {
               </CUI.Text>
               <QMR.SupportLinks />
             </CUI.Box>
-
-            <Q.DeliverySystems
-              deliverySystemList={[
-                {
-                  key: "feeForService",
-                  label: "Fee-for-Service",
-                  twentyOneToSixtyFour: 0,
-                  greaterThanSixtyFour: 0,
-                  type: "default",
-                },
-                {
-                  key: "pccm",
-                  label: "PCCM",
-                  twentyOneToSixtyFour: 0,
-                  greaterThanSixtyFour: 0,
-                  type: "default",
-                },
-                {
-                  key: "managedCare",
-                  label: "Managed Care",
-                  twentyOneToSixtyFour: 0,
-                  greaterThanSixtyFour: 0,
-                  type: "default",
-                },
-                {
-                  key: "integtatedCareModel",
-                  label: "Integrated Care Model (ICM)",
-                  twentyOneToSixtyFour: 0,
-                  greaterThanSixtyFour: 0,
-                  type: "default",
-                },
-              ]}
-            />
-            <Q.Audit />
-            <Q.ExternalContractor />
-            <Q.CompleteCoreSets />
+            <CUI.OrderedList>
+              <Q.DeliverySystems
+                deliverySystemList={[
+                  {
+                    key: "feeForService",
+                    label: "Fee-for-Service",
+                    twentyOneToSixtyFour: 0,
+                    greaterThanSixtyFour: 0,
+                    type: "default",
+                  },
+                  {
+                    key: "pccm",
+                    label: "PCCM",
+                    twentyOneToSixtyFour: 0,
+                    greaterThanSixtyFour: 0,
+                    type: "default",
+                  },
+                  {
+                    key: "managedCare",
+                    label: "Managed Care",
+                    twentyOneToSixtyFour: 0,
+                    greaterThanSixtyFour: 0,
+                    type: "default",
+                  },
+                  {
+                    key: "integtatedCareModel",
+                    label: "Integrated Care Model (ICM)",
+                    twentyOneToSixtyFour: 0,
+                    greaterThanSixtyFour: 0,
+                    type: "default",
+                  },
+                ]}
+              />
+              <Q.Audit />
+              <Q.ExternalContractor />
+              <Q.CompleteCoreSets />
+            </CUI.OrderedList>
           </CUI.Box>
         </form>
       </FormProvider>
