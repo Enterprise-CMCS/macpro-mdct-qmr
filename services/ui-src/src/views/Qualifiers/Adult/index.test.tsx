@@ -21,7 +21,7 @@ beforeEach(() => {
 });
 describe("test header (delivery system) component", () => {
   it("renders header properly", async () => {
-    expect(await screen.findByText("1. Delivery System")).toBeInTheDocument();
+    expect(await screen.findByText("Delivery System")).toBeInTheDocument();
   });
 });
 describe("test delivery system component", () => {
