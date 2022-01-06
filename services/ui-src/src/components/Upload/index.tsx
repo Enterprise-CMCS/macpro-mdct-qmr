@@ -34,11 +34,11 @@ export const Upload = ({
     defaultValue: [],
   });
 
-  const [, setAcceptedFiles] = React.useState<File[]>([]);
+  // const [, setAcceptedFiles] = React.useState<File[]>([]);
 
-  React.useEffect(() => {
-    setAcceptedFiles([...field.value]);
-  }, [field.value]);
+  // React.useEffect(() => {
+  //   setAcceptedFiles([...field.value]);
+  // }, [field.value]);
 
   const onDrop = React.useCallback(
     (acceptedFiles: File[]) => {
