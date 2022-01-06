@@ -1,4 +1,4 @@
-import * as QMR from "components";
+// import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Inputs from "components/Inputs";
 import * as Q from "./";
@@ -111,98 +111,99 @@ export const DeliverySystems = (
         description="As of September 30, 2021 what percentage of your Medicaid/CHIP
           enrolees (above age 21) were enrolled in each delivery system?"
       />
-      <CUI.Stack spacing="4" mt="6">
-        <CUI.HStack>
-          <CUI.Spacer flex={1.5} />
-          <CUI.FormLabel flex={1} pl="4">
-            Ages 21 to 64
-          </CUI.FormLabel>
-          <CUI.FormLabel flex={1} pl="4">
-            Age 65 and older
-          </CUI.FormLabel>
-        </CUI.HStack>
-        {deliverySystems.map((ds: IDeliverySystem, index: number) => (
-          <CUI.Stack key={`${index}`}>
-            <CUI.HStack>
-              {ds.type === "default" ? (
-                <>
-                  <CUI.FormLabel flex={1.5} fontWeight={"semibold"}>
-                    {ds.label}
-                  </CUI.FormLabel>
-                </>
-              ) : (
-                <CUI.Box w="43%">
-                  <CUI.Input
-                    name={`deliverySystem.${index}.${ds.key}-name`}
-                    value={ds.key}
-                    type="text"
-                    aria-label={`deliverySystem.${index}.${ds.key}-name`}
-                    flex={1.5}
-                    onChange={(e) => customLabelChange(e, index)}
-                    fontWeight={"semibold"}
-                    data-testid={`deliverySystem.${index}.${ds.key}-name`}
-                  />
-                </CUI.Box>
-              )}
-              <Inputs.NumberInput
-                displayPercent={true}
-                name={`deliverySystem.${index}.${ds.key}-21-64`}
-                data-testid={`deliverySystem.${index}.${ds.key}-21-64`}
-                formControlProps={{
-                  flex: 1,
-                  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                    field.onChange(() => handleInputChange(e, index));
-                  },
-                  textAlign: "right",
-                }}
-              />
-              <Inputs.NumberInput
-                displayPercent={true}
-                name={`deliverySystem.${index}.${ds.key}-65`}
-                data-testid={`deliverySystem.${index}.${ds.key}-65`}
-                formControlProps={{
-                  flex: 1,
-                  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                    field.onChange(() => handleInputChange(e, index));
-                  },
-                  textAlign: "right",
-                }}
-              />
-            </CUI.HStack>
-          </CUI.Stack>
-        ))}
-        <QMR.ContainedButton
-          buttonText={"+ Add Another"}
-          buttonProps={{
-            variant: "outline",
-            colorScheme: "blue",
-            textTransform: "capitalize",
-          }}
-          onClick={() => {
-            setDeliverySystems([
-              ...deliverySystems,
-              {
-                key: "",
-                label: "",
-                twentyOneToSixtyFour: 0,
-                greaterThanSixtyFour: 0,
-                type: "custom",
-              },
-            ]);
-            updateTotals();
-          }}
-        />
-        <CUI.Divider />
-        <CUI.HStack fontWeight="bold">
-          <CUI.Text flex={1.5}>Total (all ages)</CUI.Text>
-          <CUI.Text flex={1.8} align="right">
-            {total21}%
-          </CUI.Text>
-          <CUI.Text flex={1.5} align="right">
-            {total65}%
-          </CUI.Text>
-        </CUI.HStack>
-      </CUI.Stack>
+
+      <CUI.Table variant="simple">
+        <CUI.Thead>
+          <CUI.Tr>
+            <CUI.Th></CUI.Th>
+            <CUI.Th>
+              <CUI.Text textAlign="center" fontSize={15} flex={1.5}>
+                Ages 21 to 64
+              </CUI.Text>
+            </CUI.Th>
+            <CUI.Th>
+              <CUI.Text textAlign="center" fontSize={15} flex={1.5}>
+                Age 65 and older
+              </CUI.Text>
+            </CUI.Th>
+          </CUI.Tr>
+        </CUI.Thead>
+        <CUI.Tbody>
+          {deliverySystems.map((ds: IDeliverySystem, index: number) => (
+            <CUI.Tr>
+              <CUI.Td>
+                {ds.type === "default" ? (
+                  <>
+                    <CUI.FormLabel flex={1.5} fontWeight={"semibold"}>
+                      {ds.label}
+                    </CUI.FormLabel>
+                  </>
+                ) : (
+                  <CUI.Box w="43%">
+                    <CUI.Input
+                      name={`deliverySystem.${index}.${ds.key}-name`}
+                      value={ds.key}
+                      type="text"
+                      aria-label={`deliverySystem.${index}.${ds.key}-name`}
+                      flex={1.5}
+                      onChange={(e) => customLabelChange(e, index)}
+                      fontWeight={"semibold"}
+                      data-testid={`deliverySystem.${index}.${ds.key}-name`}
+                    />
+                  </CUI.Box>
+                )}
+              </CUI.Td>
+              <CUI.Td>
+                <Inputs.NumberInput
+                  displayPercent={true}
+                  name={`deliverySystem.${index}.${ds.key}-21-64`}
+                  data-testid={`deliverySystem.${index}.${ds.key}-21-64`}
+                  formControlProps={{
+                    flex: 1,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                      field.onChange(() => handleInputChange(e, index));
+                    },
+                    textAlign: "right",
+                  }}
+                />
+              </CUI.Td>
+              <CUI.Td>
+                <Inputs.NumberInput
+                  displayPercent={true}
+                  name={`deliverySystem.${index}.${ds.key}-65`}
+                  data-testid={`deliverySystem.${index}.${ds.key}-65`}
+                  formControlProps={{
+                    flex: 1,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                      field.onChange(() => handleInputChange(e, index));
+                    },
+                    textAlign: "right",
+                  }}
+                />
+              </CUI.Td>
+            </CUI.Tr>
+          ))}
+        </CUI.Tbody>
+        <CUI.Tfoot>
+          <CUI.Tr>
+            <CUI.Th>
+              <CUI.Text fontSize={15} flex={1.5}>
+                Total (all ages)
+              </CUI.Text>
+            </CUI.Th>
+            <CUI.Th isNumeric>
+              <CUI.Text fontSize={15} flex={1.5}>
+                {total21}%
+              </CUI.Text>
+            </CUI.Th>
+            <CUI.Th isNumeric>
+              <CUI.Text fontSize={15} flex={1.5}>
+                {total65}%
+              </CUI.Text>
+            </CUI.Th>
+          </CUI.Tr>
+        </CUI.Tfoot>
+      </CUI.Table>
     </CUI.ListItem>
   );
 };
