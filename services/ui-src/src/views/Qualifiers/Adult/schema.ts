@@ -1,8 +1,8 @@
 import Joi from "joi";
-import { Qualifier } from "./types";
+import { ACSQualifierForm } from "./types";
 
-// This is the validation schema for any/all state measures
-export const validationSchema = Joi.object<Qualifier.Form>({
+// This is the validation schema for the Adult Core Set Qualifiers
+export const validationSchema = Joi.object<ACSQualifierForm>({
   deliverySystem: Joi.array().items(Joi.object()),
   isAudited: Joi.string(),
   whoAudited: Joi.when("audit", {

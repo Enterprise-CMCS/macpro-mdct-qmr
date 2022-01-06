@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
-import { DemoQualifier } from "views";
+import { ACSQualifiers } from ".";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -15,7 +15,7 @@ jest.mock("react-router-dom", () => ({
 beforeEach(() => {
   render(
     <RouterWrappedComp>
-      <DemoQualifier />
+      <ACSQualifiers />
     </RouterWrappedComp>
   );
 });

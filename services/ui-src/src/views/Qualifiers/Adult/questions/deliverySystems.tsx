@@ -111,7 +111,7 @@ export const DeliverySystems = (
         description="As of September 30, 2021 what percentage of your Medicaid/CHIP
           enrolees (above age 21) were enrolled in each delivery system?"
       />
-      <CUI.Stack spacing="4" mt="6" ml="4">
+      <CUI.Stack spacing="4" mt="6">
         <CUI.HStack>
           <CUI.Spacer flex={1.5} />
           <CUI.FormLabel flex={1} pl="4">

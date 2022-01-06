@@ -47,7 +47,7 @@ export const Audit = () => {
       />
       <CUI.Spacer />
       <CUI.Stack>
-        <CUI.Box pl="5" my="5">
+        <CUI.Box>
           <QMR.RadioButton
             formLabelProps={{ fontWeight: "600" }}
             name="isAudited"
