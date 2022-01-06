@@ -70,7 +70,7 @@
       "!src/views/ApiTester/index.tsx",
       "!src/views/DemoMeasure/questions/OptionalMeasureStratification.tsx",
       "!src/views/DemoMeasure/questions/OtherPerformanceMeasure.tsx",
-      "!rc/components/Upload/index.tsx",
+      "!src/components/Upload/index.tsx",
       "!src/measures/**/*.{ts,tsx}"
     ],
     "moduleDirectories": [
