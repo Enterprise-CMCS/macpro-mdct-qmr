@@ -2,21 +2,25 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { AddChildCoreSet } from ".";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useParams: () => ({
-    year: "2021",
-    state: "OH",
+jest.mock("hooks/api", () => ({
+  useAddCoreSet: jest.fn().mockReturnValue({
+    useMutation: () => {
+      mutate: () => {};
+    },
   }),
 }));
 
 describe("Test Add Child Core Set Component", () => {
   beforeEach(() => {
     render(
-      <RouterWrappedComp>
-        <AddChildCoreSet />
-      </RouterWrappedComp>
+      <QueryClientProvider client={queryClient}>
+        <RouterWrappedComp>
+          <AddChildCoreSet />
+        </RouterWrappedComp>
+      </QueryClientProvider>
     );
   });
 

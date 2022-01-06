@@ -4,6 +4,8 @@ import App from "App";
 import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
+import { QueryProvider } from "query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
@@ -43,9 +45,12 @@ Amplify.configure({
 ReactDOM.render(
   <Router>
     <UserProvider>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
+      <QueryProvider>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+        <ReactQueryDevtools />
+      </QueryProvider>
     </UserProvider>
   </Router>,
   document.getElementById("root")
