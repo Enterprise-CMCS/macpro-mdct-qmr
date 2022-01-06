@@ -10,6 +10,12 @@ interface Props {
     label: string;
   }[];
   totalLabel: string;
+  deviationConditions?: {
+    show30DaysAges18To64: boolean;
+    show30DaysAges65AndOlder: boolean;
+    show7DaysAges18To64: boolean;
+    show7DaysAges65AndOlder: boolean;
+  };
 }
 
 interface SubComponentProps extends Props {
@@ -68,8 +74,11 @@ const AddAnotherButton = ({
   );
 };
 
-const AgeData = ({ name, ageGroups }: SubComponentProps) => {
-  console.log(ageGroups);
+const AgeData = ({
+  name,
+  ageGroups,
+  deviationConditions,
+}: SubComponentProps) => {
   return (
     <CUI.Box key={`${name}.ageData`}>
       <QMR.Checkbox
@@ -84,26 +93,37 @@ const AgeData = ({ name, ageGroups }: SubComponentProps) => {
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Heading>,
-              <QMR.Rate
-                name={`${name}.subRates.${item.id}`}
-                key={`${name}.subRates.${item.id}`}
-                rates={[
-                  {
-                    id: 0,
-                    label: "Follow-up within 30 days of ED visit",
-                  },
-                ]}
-              />,
-              <QMR.Rate
-                name={`${name}.subRates.${item.id}1`}
-                key={`${name}.subRates.${item.id}1`}
-                rates={[
-                  {
-                    id: 1,
-                    label: "Follow-up within 7 days of ED visit",
-                  },
-                ]}
-              />,
+              ...((deviationConditions?.show30DaysAges18To64 &&
+                item.id === 0) ||
+              (deviationConditions?.show30DaysAges65AndOlder && item.id === 1)
+                ? [
+                    <QMR.Rate
+                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
+                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
+                      rates={[
+                        {
+                          id: 0,
+                          label: "Follow-up within 30 days of ED visit",
+                        },
+                      ]}
+                    />,
+                  ]
+                : []),
+              ...((deviationConditions?.show7DaysAges18To64 && item.id === 0) ||
+              (deviationConditions?.show7DaysAges65AndOlder && item.id === 1)
+                ? [
+                    <QMR.Rate
+                      name={`${name}.subRates.${item.id}.followUpWithin7Days`}
+                      key={`${name}.subRates.${item.id}.followUpWithin7Days`}
+                      rates={[
+                        {
+                          id: 1,
+                          label: "Follow-up within 7 days of ED visit",
+                        },
+                      ]}
+                    />,
+                  ]
+                : []),
             ],
           };
         })}
@@ -115,6 +135,7 @@ const AgeData = ({ name, ageGroups }: SubComponentProps) => {
 export const OptionalMeasureStratification = ({
   ageGroups,
   totalLabel,
+  deviationConditions,
 }: Props) => {
   const register = useCustomRegister<Measure.Form>();
 
@@ -190,6 +211,7 @@ export const OptionalMeasureStratification = ({
                         {...register("NHRC-WhiteRates")}
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                       />,
                     ],
                   },
@@ -208,6 +230,7 @@ export const OptionalMeasureStratification = ({
                             name={`AddtnlNonHispanicSubCatRates.${index}`}
                             ageGroups={ageGroups}
                             totalLabel={totalLabel}
+                            deviationConditions={deviationConditions}
                           />
                           {index + 1 === addtnlNonHispanicSubCat.length && (
                             <AddAnotherButton
@@ -227,6 +250,7 @@ export const OptionalMeasureStratification = ({
                         {...register("NHRC-BlackOrAfricanAmericanRates")}
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                       />,
                     ],
                   },
@@ -238,6 +262,7 @@ export const OptionalMeasureStratification = ({
                         {...register("NHRC-AmericanIndianOrAlaskaNativeRates")}
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                       />,
                     ],
                   },
@@ -259,6 +284,7 @@ export const OptionalMeasureStratification = ({
                                 {...register("NHRC-AggregateAsianRates")}
                                 ageGroups={ageGroups}
                                 totalLabel={totalLabel}
+                                deviationConditions={deviationConditions}
                               />,
                             ],
                           },
@@ -280,6 +306,9 @@ export const OptionalMeasureStratification = ({
                                           name={`NHRC-IndependentAsianRates.${item.id}`}
                                           ageGroups={ageGroups}
                                           totalLabel={totalLabel}
+                                          deviationConditions={
+                                            deviationConditions
+                                          }
                                         />,
                                       ],
                                     };
@@ -312,6 +341,7 @@ export const OptionalMeasureStratification = ({
                                 )}
                                 ageGroups={ageGroups}
                                 totalLabel={totalLabel}
+                                deviationConditions={deviationConditions}
                               />,
                             ],
                           },
@@ -336,6 +366,9 @@ export const OptionalMeasureStratification = ({
                                             name={`NHRC-IndependentHawaiianOrPacificIslanderRates.${item.id}`}
                                             ageGroups={ageGroups}
                                             totalLabel={totalLabel}
+                                            deviationConditions={
+                                              deviationConditions
+                                            }
                                           />,
                                         ],
                                       };
@@ -374,6 +407,7 @@ export const OptionalMeasureStratification = ({
                                     key={`AddtnlNonHispanicRaceRates.${index}`}
                                     ageGroups={ageGroups}
                                     totalLabel={totalLabel}
+                                    deviationConditions={deviationConditions}
                                   />,
                                 ],
                               },
@@ -387,6 +421,7 @@ export const OptionalMeasureStratification = ({
                                     key={`AddtnlNonHispanicRaceRates.${index}`}
                                     ageGroups={ageGroups}
                                     totalLabel={totalLabel}
+                                    deviationConditions={deviationConditions}
                                   />,
                                 ],
                               },
@@ -421,6 +456,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("NonHispanicEthnicityRates")}
                       />,
                     ],
@@ -442,6 +478,7 @@ export const OptionalMeasureStratification = ({
                               <AgeData
                                 ageGroups={ageGroups}
                                 totalLabel={totalLabel}
+                                deviationConditions={deviationConditions}
                                 {...register("HispanicEthnicityAggregateRate")}
                               />,
                             ],
@@ -463,6 +500,9 @@ export const OptionalMeasureStratification = ({
                                           <AgeData
                                             ageGroups={ageGroups}
                                             totalLabel={totalLabel}
+                                            deviationConditions={
+                                              deviationConditions
+                                            }
                                             name={`IndependentHispanicRates.${index}`}
                                             key={`IndependentHispanicRates.${index}`}
                                           />,
@@ -493,6 +533,7 @@ export const OptionalMeasureStratification = ({
                         <AgeData
                           ageGroups={ageGroups}
                           totalLabel={totalLabel}
+                          deviationConditions={deviationConditions}
                           name={`AddtnlEthnicityRates.${index}`}
                           key={`AddtnlEthnicityRates.${index}`}
                         />,
@@ -521,6 +562,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("MaleSexRates")}
                       />,
                     ],
@@ -532,6 +574,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("FemaleSexRates")}
                       />,
                     ],
@@ -554,6 +597,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("EnglishLanguageRate")}
                       />,
                     ],
@@ -565,6 +609,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("SpanishLanguageRate")}
                       />,
                     ],
@@ -584,6 +629,7 @@ export const OptionalMeasureStratification = ({
                         <AgeData
                           ageGroups={ageGroups}
                           totalLabel={totalLabel}
+                          deviationConditions={deviationConditions}
                           name={`AddtnlPrimaryLanguageRates.${index}`}
                           key={`AddtnlPrimaryLanguageRates.${index}`}
                         />,
@@ -612,6 +658,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("DisabilitySSIRate")}
                       />,
                     ],
@@ -623,6 +670,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("DisabilityNonSSIRate")}
                       />,
                     ],
@@ -640,6 +688,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("AddtnlDisabilityRate")}
                       />,
                     ],
@@ -662,6 +711,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("UrbanGeographyRate")}
                       />,
                     ],
@@ -673,6 +723,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("RuralGeographyRate")}
                       />,
                     ],
@@ -690,6 +741,7 @@ export const OptionalMeasureStratification = ({
                       <AgeData
                         ageGroups={ageGroups}
                         totalLabel={totalLabel}
+                        deviationConditions={deviationConditions}
                         {...register("AddtnlGeographyRate")}
                       />,
                     ],
@@ -705,6 +757,7 @@ export const OptionalMeasureStratification = ({
               <AgeData
                 ageGroups={ageGroups}
                 totalLabel={totalLabel}
+                deviationConditions={deviationConditions}
                 {...register("ACAGroupRate")}
               />,
             ],
