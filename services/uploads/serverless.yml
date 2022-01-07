@@ -27,7 +27,6 @@ provider:
             - s3:PutObjectAcl
             - s3:PutObjectTagging
             - s3:PutObjectVersionTagging
-            - s3:ListBucket
           Resource:
             - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*
             - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}/*
