@@ -268,8 +268,7 @@ resources:
                   Action:
                     - s3:*
                   Resource: 
-                    - !Sub ${ClamDefsBucket.Arn}
-                    - !Sub ${ClamDefsBucket.Arn}/*
+                    - !Sub "arn:aws:s3:::*"
                 - Effect: "Allow"
                   Action:
                     - s3:ListBucket
