@@ -134,11 +134,6 @@ resources:
               Principal:
                 AWS: ${ssm:/configuration/mpraccountid~true}
             - Action:
-                - "s3:PutObject"
-              Effect: "Allow"
-              Resource: !Sub ${AttachmentsBucket.Arn}/*
-              Principal: "*"
-            - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
