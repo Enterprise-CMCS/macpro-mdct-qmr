@@ -71,7 +71,7 @@ export const LocalLogins = ({ loginWithIDM }: Props) => {
         <CUI.Divider />
       </CUI.Box>
       <CUI.Stack spacing={8}>
-        {showIDMLogin && (
+        {!showIDMLogin && (
           <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
             Login with IDM
           </CUI.Button>
