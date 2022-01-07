@@ -192,8 +192,6 @@ resources:
                     - "mobileanalytics:PutEvents"
                     - "cognito-sync:*"
                     - "cognito-identity:*"
-                    - "kms:GenerateDataKey"
-                    - "kms:Decrypt"
                   Resource: "*"
                 - Effect: "Allow"
                   Action:
@@ -201,6 +199,8 @@ resources:
                   Resource: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${self:custom.api_gateway_rest_api_name}/*
                 - Effect: "Allow"
                   Action:
+                    - "kms:GenerateDataKey"
+                    - "kms:Decrypt"
                     - "s3:*"
                   Resource:
                     # Must use Join here.  See: https://github.com/serverless/serverless/issues/3565
