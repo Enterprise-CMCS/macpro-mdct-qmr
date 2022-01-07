@@ -273,7 +273,9 @@ resources:
                     - s3:PutObjectTagging
                     - s3:PutObjectVersionTagging
                     - s3:ListBucket
-                  Resource: !Sub ${ClamDefsBucket.Arn}/*
+                  Resource: 
+                    - !Sub ${ClamDefsBucket.Arn}
+                    - !Sub ${ClamDefsBucket.Arn}/*
                 - Effect: "Allow"
                   Action:
                     - s3:ListBucket
