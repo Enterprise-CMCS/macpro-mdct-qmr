@@ -186,10 +186,6 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub ${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: AES256
         AccessControl: Private
     BucketAVScanRole:
       Type: "AWS::IAM::Role"
