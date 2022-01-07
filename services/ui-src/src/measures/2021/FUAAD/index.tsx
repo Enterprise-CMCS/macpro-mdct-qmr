@@ -83,7 +83,6 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           <Q.CombinedRates />
           <Q.OptionalMeasureStratification
             ageGroups={ageGroups}
-            totalLabel={Q.DefaultOptionalMeasureStratProps.totalLabel}
             deviationConditions={{
               show30DaysAges18To64,
               show30DaysAges65AndOlder,
