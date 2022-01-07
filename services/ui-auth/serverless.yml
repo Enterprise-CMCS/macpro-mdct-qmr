@@ -176,8 +176,6 @@ resources:
               Principal:
                 Federated: "cognito-identity.amazonaws.com"
               Action:
-                - "kms:GenerateDataKey"
-                - "kms:Decrypt"
                 - "sts:AssumeRoleWithWebIdentity"
               Condition:
                 StringEquals:
