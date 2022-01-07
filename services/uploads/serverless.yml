@@ -127,6 +127,11 @@ resources:
         PolicyDocument:
           Statement:
             - Action:
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal: "*"
+            - Action:
                 - "s3:GetObject"
               Effect: "Deny"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
