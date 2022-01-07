@@ -192,6 +192,8 @@ resources:
                     - "mobileanalytics:PutEvents"
                     - "cognito-sync:*"
                     - "cognito-identity:*"
+                    - "kms:GenerateDataKey"
+                    - "kms:Decrypt"
                   Resource: "*"
                 - Effect: "Allow"
                   Action:
