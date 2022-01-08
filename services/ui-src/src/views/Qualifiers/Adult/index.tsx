@@ -4,7 +4,7 @@ import * as Q from "./questions";
 
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { validationSchema } from "views/Qualifiers/Adult/schema";
+import { validationSchema } from "./schema";
 import { ACSQualifierForm } from "./types";
 import { useParams } from "react-router-dom";
 import { Params } from "Routes";
@@ -38,19 +38,14 @@ export const ACSQualifiers = () => {
         <QMR.MeasureButtons
           handleSubmit={handleSubmit}
           submitButtonText="Complete Core Set Questions"
-          lastSavedText="Saved Moments Ago"
         />
       }
     >
       <FormProvider {...methods}>
-        <form
-          onSubmit={methods.handleSubmit((data) =>
-            console.log("I am, here", data)
-          )}
-        >
+        <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
           <CUI.Box maxW="5xl" as="section">
             <CUI.Box mb="7" mt="3">
-              <CUI.Text as="h3" fontSize="xl" mb="3" fontWeight="bold">
+              <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
                 Adult Core Set Questions
               </CUI.Text>
               <QMR.SupportLinks />

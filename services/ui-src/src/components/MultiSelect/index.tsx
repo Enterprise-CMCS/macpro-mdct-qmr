@@ -63,14 +63,7 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
   };
 
   return (
-    <CUI.Box
-      w="100%"
-      border="1px"
-      borderColor="gray.200"
-      borderRadius="md"
-      p="5"
-      mb="5"
-    >
+    <CUI.Box border="1px" borderColor="gray.200" borderRadius="md" p="5">
       <CUI.VStack alignItems="flex-start" spacing="15px">
         <CUI.InputGroup size="md">
           <CUI.Input
@@ -79,8 +72,8 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
             placeholder="Search by Measure..."
             onChange={handleFilterChange}
           />
-          <CUI.InputRightElement width="4.5rem">
-            <BsSearch fontSize="24px" color="#3182CE" />
+          <CUI.InputRightElement color="blue.500">
+            <BsSearch fontSize="18px" />
           </CUI.InputRightElement>
         </CUI.InputGroup>
         {checkboxGroupVisibile ? (

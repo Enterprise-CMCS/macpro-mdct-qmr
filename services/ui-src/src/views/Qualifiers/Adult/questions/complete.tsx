@@ -16,7 +16,7 @@ export const CompleteCoreSets = () => {
           bg: "blue.600",
           colorScheme: "blue",
           textTransform: "capitalize",
-          m: "5",
+          my: "5",
           type: "submit",
         }}
       />

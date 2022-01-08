@@ -111,7 +111,7 @@ export const DeliverySystems = (
         description="As of September 30, 2021 what percentage of your Medicaid/CHIP
           enrolees (above age 21) were enrolled in each delivery system?"
       />
-      <CUI.Table variant="simple">
+      <CUI.Table variant="simple" mt="4">
         <CUI.Thead>
           <CUI.Tr>
             <CUI.Th></CUI.Th>
@@ -154,11 +154,10 @@ export const DeliverySystems = (
               </CUI.Td>
               <CUI.Td>
                 <Inputs.NumberInput
-                  displayPercent={true}
+                  displayPercent
                   name={`deliverySystem.${index}.${ds.key}-21-64`}
                   data-testid={`deliverySystem.${index}.${ds.key}-21-64`}
                   formControlProps={{
-                    flex: 1,
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                       field.onChange(() => handleInputChange(e, index));
                     },
@@ -168,11 +167,10 @@ export const DeliverySystems = (
               </CUI.Td>
               <CUI.Td>
                 <Inputs.NumberInput
-                  displayPercent={true}
+                  displayPercent
                   name={`deliverySystem.${index}.${ds.key}-65`}
                   data-testid={`deliverySystem.${index}.${ds.key}-65`}
                   formControlProps={{
-                    flex: 1,
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                       field.onChange(() => handleInputChange(e, index));
                     },

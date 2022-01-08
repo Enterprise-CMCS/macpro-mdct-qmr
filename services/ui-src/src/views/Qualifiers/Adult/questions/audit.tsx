@@ -1,12 +1,12 @@
+import { useMemo, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./";
 import { ICheckbox } from "components/MultiSelect";
-import { useMemo, useState } from "react";
-
-// import { useFormContext } from "react-hook-form";
 
 export const Audit = () => {
+  const [measureList, setMeasureList] = useState<string[]>([""]);
+
   const multiSelectList = useMemo<ICheckbox[]>(
     () => [
       {
@@ -37,7 +37,6 @@ export const Audit = () => {
     ],
     []
   );
-  const [measureList, setMeasureList] = useState<string[]>([""]);
 
   return (
     <CUI.ListItem>
@@ -47,7 +46,7 @@ export const Audit = () => {
       />
       <CUI.Spacer />
       <CUI.Stack>
-        <CUI.Box>
+        <CUI.Box pt="4">
           <QMR.RadioButton
             formLabelProps={{ fontWeight: "600" }}
             name="isAudited"
@@ -57,7 +56,7 @@ export const Audit = () => {
                   "Yes, some of the Core Set measures have been audited or validated",
                 value: "some",
                 children: [
-                  <CUI.Stack mb="5">
+                  <CUI.Stack mb="5" spacing="6">
                     {measureList.map((m: any, index: number) => {
                       console.log(m);
                       return (
@@ -66,7 +65,6 @@ export const Audit = () => {
                           borderColor="gray.200"
                           borderRadius="md"
                           p="5"
-                          mb="5"
                         >
                           <QMR.TextInput
                             formLabelProps={{ fontWeight: "400" }}
@@ -74,7 +72,7 @@ export const Audit = () => {
                             name={`whoAudited.${index}`}
                             formControlProps={{ mb: "5" }}
                           />
-                          <CUI.Text>
+                          <CUI.Text my="2">
                             Which measures did they audit or validate?
                           </CUI.Text>
                           <QMR.MultiSelect
