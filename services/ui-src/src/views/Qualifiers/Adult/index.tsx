@@ -17,6 +17,8 @@ export const ACSQualifiers = () => {
     resolver: joiResolver(validationSchema),
   });
 
+  console.log(methods.formState.errors);
+
   const handleSubmit = () => {
     console.log("submitted");
   };
@@ -30,7 +32,7 @@ export const ACSQualifiers = () => {
           name: ``,
         },
         {
-          path: `/${state}/${year}/ACS/qualifiers`,
+          path: `/${state}/${year}/ACS/CSQQ`,
           name: `Adult Core Set Qualifiers`,
         },
       ]}

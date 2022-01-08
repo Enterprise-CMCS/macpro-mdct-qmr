@@ -17,7 +17,7 @@ export const ExternalContractor = () => {
           <QMR.RadioButton
             formLabelProps={{ fontWeight: "600" }}
             label=""
-            name="hasExternalContractor"
+            name="WasExternalContractorUsed"
             options={[
               {
                 displayValue:
@@ -25,7 +25,7 @@ export const ExternalContractor = () => {
                 value: "yes",
                 children: [
                   <QMR.Checkbox
-                    name="contractorType"
+                    name="ExternalContractorsUsed"
                     options={[
                       {
                         displayValue:
@@ -46,7 +46,7 @@ export const ExternalContractor = () => {
                         children: [
                           <QMR.TextArea
                             label="Explain the Data inconsistencies/Accuracy issues:"
-                            name="otherContractorDetails"
+                            name="OtherContractorDetails"
                           />,
                         ],
                       },

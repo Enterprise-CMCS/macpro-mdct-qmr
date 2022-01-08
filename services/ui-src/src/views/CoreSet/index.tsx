@@ -141,7 +141,7 @@ export const CoreSet = () => {
         >
           <CUI.Box>
             <CUI.Text fontSize="sm">Core Set Qualifiers</CUI.Text>
-            <Link to={"qualifiers"}>
+            <Link to={"CSQQ"}>
               <CUI.Text fontSize="sm" color="blue">
                 {
                   coreSetQuestionsText[

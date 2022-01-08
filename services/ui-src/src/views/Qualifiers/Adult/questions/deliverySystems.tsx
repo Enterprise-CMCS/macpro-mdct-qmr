@@ -16,43 +16,10 @@ interface Props {
   deliverySystemList: IDeliverySystem[];
 }
 
-export const DeliverySystems = (
-  { deliverySystemList }: Props = {
-    deliverySystemList: [
-      {
-        key: "feeForService",
-        label: "Fee-for-Service",
-        twentyOneToSixtyFour: 0,
-        greaterThanSixtyFour: 0,
-        type: "default",
-      },
-      {
-        key: "pccm",
-        label: "PCCM",
-        twentyOneToSixtyFour: 0,
-        greaterThanSixtyFour: 0,
-        type: "default",
-      },
-      {
-        key: "managedCare",
-        label: "Managed Care",
-        twentyOneToSixtyFour: 0,
-        greaterThanSixtyFour: 0,
-        type: "default",
-      },
-      {
-        key: "integtatedCareModel",
-        label: "Integrated Care Model (ICM)",
-        twentyOneToSixtyFour: 0,
-        greaterThanSixtyFour: 0,
-        type: "default",
-      },
-    ],
-  }
-) => {
+export const DeliverySystems = ({ deliverySystemList }: Props) => {
   const { control } = useFormContext();
   const { field } = useController({
-    name: "deliverySystem",
+    name: "PercentageEnrolledInEachDeliverySystem",
     control,
   });
   let [total21, total65]: number[] = [0, 0];
@@ -74,6 +41,7 @@ export const DeliverySystems = (
       })
     );
   };
+
   const updateTotals = () => {
     total21 = deliverySystems.reduce(
       (total21, { twentyOneToSixtyFour }) => total21 + twentyOneToSixtyFour,
@@ -115,48 +83,40 @@ export const DeliverySystems = (
         <CUI.Thead>
           <CUI.Tr>
             <CUI.Th></CUI.Th>
-            <CUI.Th>
-              <CUI.Text textAlign="center" fontSize={15} flex={1.5}>
-                Ages 21 to 64
-              </CUI.Text>
+            <CUI.Th textAlign="center" fontSize="md">
+              <CUI.Text>Ages 21 to 64</CUI.Text>
             </CUI.Th>
-            <CUI.Th>
-              <CUI.Text textAlign="center" fontSize={15} flex={1.5}>
-                Age 65 and older
-              </CUI.Text>
+            <CUI.Th textAlign="center" fontSize="md">
+              <CUI.Text>Age 65 and older</CUI.Text>
             </CUI.Th>
           </CUI.Tr>
         </CUI.Thead>
         <CUI.Tbody>
           {deliverySystems.map((ds: IDeliverySystem, index: number) => (
-            <CUI.Tr>
-              <CUI.Td>
+            <CUI.Tr key={"DeliverySystem" + "_" + index}>
+              <CUI.Td px="none">
                 {ds.type === "default" ? (
                   <>
-                    <CUI.FormLabel flex={1.5} fontWeight={"semibold"}>
-                      {ds.label}
-                    </CUI.FormLabel>
+                    <CUI.Text fontWeight={"semibold"}>{ds.label}</CUI.Text>
                   </>
                 ) : (
                   <CUI.Box>
                     <CUI.Input
-                      name={`deliverySystem.${index}.${ds.key}-name`}
+                      name={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-name`}
                       value={ds.key}
-                      type="text"
-                      aria-label={`deliverySystem.${index}.${ds.key}-name`}
-                      flex={1.5}
+                      aria-label={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-name`}
                       onChange={(e) => customLabelChange(e, index)}
                       fontWeight={"semibold"}
-                      data-testid={`deliverySystem.${index}.${ds.key}-name`}
+                      data-testid={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-name`}
                     />
                   </CUI.Box>
                 )}
               </CUI.Td>
-              <CUI.Td>
+              <CUI.Td textAlign="right">
                 <Inputs.NumberInput
                   displayPercent
-                  name={`deliverySystem.${index}.${ds.key}-21-64`}
-                  data-testid={`deliverySystem.${index}.${ds.key}-21-64`}
+                  name={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-21-64`}
+                  data-testid={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-21-64`}
                   formControlProps={{
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                       field.onChange(() => handleInputChange(e, index));
@@ -168,8 +128,8 @@ export const DeliverySystems = (
               <CUI.Td>
                 <Inputs.NumberInput
                   displayPercent
-                  name={`deliverySystem.${index}.${ds.key}-65`}
-                  data-testid={`deliverySystem.${index}.${ds.key}-65`}
+                  name={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-65`}
+                  data-testid={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-65`}
                   formControlProps={{
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                       field.onChange(() => handleInputChange(e, index));
@@ -180,49 +140,43 @@ export const DeliverySystems = (
               </CUI.Td>
             </CUI.Tr>
           ))}
+          <QMR.ContainedButton
+            buttonText={"+ Add Another"}
+            buttonProps={{
+              variant: "outline",
+              colorScheme: "blue",
+              textTransform: "capitalize",
+              my: "5",
+            }}
+            onClick={() => {
+              setDeliverySystems([
+                ...deliverySystems,
+                {
+                  key: "",
+                  label: "",
+                  twentyOneToSixtyFour: 0,
+                  greaterThanSixtyFour: 0,
+                  type: "custom",
+                },
+              ]);
+              updateTotals();
+            }}
+          />
         </CUI.Tbody>
-        <CUI.Tfoot>
+        <CUI.Tfoot borderTop="2px">
           <CUI.Tr>
-            <CUI.Th>
-              <CUI.Text fontSize={15} flex={1.5}>
-                Total (all ages)
-              </CUI.Text>
+            <CUI.Th px="none">
+              <CUI.Text fontSize={15}>Total (all ages)</CUI.Text>
             </CUI.Th>
             <CUI.Th isNumeric>
-              <CUI.Text fontSize={15} flex={1.5}>
-                {total21}%
-              </CUI.Text>
+              <CUI.Text fontSize={15}>{total21}%</CUI.Text>
             </CUI.Th>
             <CUI.Th isNumeric>
-              <CUI.Text fontSize={15} flex={1.5}>
-                {total65}%
-              </CUI.Text>
+              <CUI.Text fontSize={15}>{total65}%</CUI.Text>
             </CUI.Th>
           </CUI.Tr>
         </CUI.Tfoot>
       </CUI.Table>
-      <QMR.ContainedButton
-        buttonText={"+ Add Another"}
-        buttonProps={{
-          variant: "outline",
-          colorScheme: "blue",
-          textTransform: "capitalize",
-          mt: "5",
-        }}
-        onClick={() => {
-          setDeliverySystems([
-            ...deliverySystems,
-            {
-              key: "",
-              label: "",
-              twentyOneToSixtyFour: 0,
-              greaterThanSixtyFour: 0,
-              type: "custom",
-            },
-          ]);
-          updateTotals();
-        }}
-      />
     </CUI.ListItem>
   );
 };

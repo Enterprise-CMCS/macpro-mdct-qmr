@@ -3,14 +3,13 @@ import { ACSQualifierForm } from "./types";
 
 // This is the validation schema for the Adult Core Set Qualifiers
 export const validationSchema = Joi.object<ACSQualifierForm>({
-  deliverySystem: Joi.array().items(Joi.object()),
-  isAudited: Joi.string(),
-  whoAudited: Joi.when("audit", {
-    is: Joi.exist(),
-    then: Joi.array().items(Joi.string()).required(),
+  // PercentageEnrolledInEachDeliverySystem: Joi.array().items(Joi.object()),
+  PercentageEnrolledInEachDeliverySystem: Joi.any(),
+  CoreSetMeasuresAuditedOrValidated: Joi.string(),
+  CoreSetMeasuresAuditedOrValidatedDetails: Joi.array().items({
+    WhoConductedAuditOrValidation: Joi.string(),
+    MeasuresAuditedOrValidated: Joi.array().items(Joi.string()),
   }),
-  hasExternalContractor: Joi.string(),
-  audit: Joi.array(),
-  contractorType: Joi.array().items(Joi.string()),
-  otherContractorDetails: Joi.string(),
+  WasExternalContractorUsed: Joi.string(),
+  ExternalContractorsUsed: Joi.array().items(Joi.string()),
 });

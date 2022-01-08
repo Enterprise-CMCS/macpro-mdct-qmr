@@ -49,7 +49,7 @@ export const Audit = () => {
         <CUI.Box pt="4">
           <QMR.RadioButton
             formLabelProps={{ fontWeight: "600" }}
-            name="isAudited"
+            name="CoreSetMeasuresAuditedOrValidated"
             options={[
               {
                 displayValue:
@@ -65,11 +65,14 @@ export const Audit = () => {
                           borderColor="gray.200"
                           borderRadius="md"
                           p="5"
+                          key={
+                            "CoreSetMeasuresAuditedOrValidated" + "_" + index
+                          }
                         >
                           <QMR.TextInput
                             formLabelProps={{ fontWeight: "400" }}
                             label="Who conducted the audit or validation?"
-                            name={`whoAudited.${index}`}
+                            name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.WhoConductedAuditOrValidation`}
                             formControlProps={{ mb: "5" }}
                           />
                           <CUI.Text my="2">
@@ -77,7 +80,7 @@ export const Audit = () => {
                           </CUI.Text>
                           <QMR.MultiSelect
                             multiSelectList={multiSelectList}
-                            name={`audit.${index}`}
+                            name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.MeasuresAuditedOrValidated`}
                           />
                           <CUI.Spacer />
                         </CUI.Box>

@@ -1,9 +1,10 @@
 export interface ACSQualifierForm {
-  deliverySystem: { [key: string]: string }[];
-  isAudited: string;
-  whoAudited: string[];
-  hasExternalContractor: string;
-  audit: any[];
-  contractorType: string[];
-  otherContractorDetails: string;
+  PercentageEnrolledInEachDeliverySystem: { [key: string]: string }[];
+  CoreSetMeasuresAuditedOrValidated: string;
+  CoreSetMeasuresAuditedOrValidatedDetails: {
+    WhoConductedAuditOrValidation: string;
+    MeasuresAuditedOrValidated: string[];
+  }[];
+  WasExternalContractorUsed: string;
+  ExternalContractorsUsed: string[];
 }
