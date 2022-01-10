@@ -29,7 +29,7 @@ ReactDOM.render(
           </ChakraProvider>
           <ReactQueryDevtools />
         </QueryProvider>
-       </ApiProvider>
+      </ApiProvider>
     </UserProvider>
   </Router>,
   document.getElementById("root")
