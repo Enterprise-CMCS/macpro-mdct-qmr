@@ -18,10 +18,10 @@ export const useApi = () => {
           region: config.apiGateway.REGION,
           custom_header: async () => {
             return {
-              // @ts-ignore
-              user_state: userInfo.userState,
-              // @ts-ignore
-              user_role: userInfo.user.role,
+              //@ts-ignore
+              user_state: userInfo!.userState!,
+              //@ts-ignore
+              user_role: userInfo!.user!.role!,
             };
           },
         },
