@@ -9,10 +9,12 @@ export interface ACSQualifierForm {
   ExternalContractorsUsed: string[];
 }
 
+export type DeliverySystemType = "default" | "custom";
+
 export interface DeliverySystem {
   key: string;
   label: string;
   TwentyOneToSixtyFour: string;
   GreaterThanSixtyFour: string;
-  type: string;
+  type: DeliverySystemType;
 }

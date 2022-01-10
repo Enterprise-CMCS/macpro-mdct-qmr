@@ -1,30 +1,127 @@
+import { useState } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Q from "./";
 import { useController, useFormContext } from "react-hook-form";
-import { DeliverySystem } from "../types";
+import { useCustomRegister } from "hooks/useCustomRegister";
+import { DeliverySystem, ACSQualifierForm } from "../types";
 import { BsPercent } from "react-icons/bs";
 
+interface DefaultDeliverySystemTableRecordProps {
+  record: string;
+  label: string;
+}
+
+const DefaultDeliverySystemTableRecord = ({
+  record,
+  label,
+}: DefaultDeliverySystemTableRecordProps) => (
+  <CUI.Tr>
+    <CUI.Td px="none">
+      <QMR.TextInput
+        name={`${record}.key`}
+        placeholder={label}
+        textInputProps={{
+          _placeholder: { color: "black" },
+          isReadOnly: true,
+          border: "none",
+          value: label,
+          pl: 0,
+          // dont focus to the input
+          tabIndex: -1,
+        }}
+      />
+    </CUI.Td>
+    <CUI.Td>
+      <QMR.NumberInput
+        displayPercent
+        name={`${record}.TwentyOneToSixtyFour`}
+        numberInputProps={{ textAlign: "right" }}
+      />
+    </CUI.Td>
+    <CUI.Td>
+      <QMR.NumberInput
+        displayPercent
+        name={`${record}.GreaterThanSixtyFour`}
+        numberInputProps={{ textAlign: "right" }}
+      />
+    </CUI.Td>
+  </CUI.Tr>
+);
+
+interface CustomDeliverySystemTableRecordProps {
+  record: string;
+}
+
+const CustomDeliverySystemTableRecord = ({
+  record,
+}: CustomDeliverySystemTableRecordProps) => {
+  const register = useCustomRegister<ACSQualifierForm>();
+  return (
+    <CUI.Tr>
+      <CUI.Td px="none">
+        <QMR.TextInput
+          {...register(
+            // @ts-ignore
+            `${record}.key`
+          )}
+        />
+      </CUI.Td>
+      <CUI.Td>
+        <QMR.NumberInput
+          displayPercent
+          name={`${record}.TwentyOneToSixtyFour`}
+          numberInputProps={{ textAlign: "right" }}
+        />
+      </CUI.Td>
+      <CUI.Td>
+        <QMR.NumberInput
+          displayPercent
+          name={`${record}.GreaterThanSixtyFour`}
+          numberInputProps={{ textAlign: "right" }}
+        />
+      </CUI.Td>
+    </CUI.Tr>
+  );
+};
+
 export const DeliverySystems = () => {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
   const { field } = useController({
     name: "PercentageEnrolledInEachDeliverySystem",
     control,
   });
 
-  const total21To64Percent = field.value.reduce(
+  const [deliverySystems, setDeliverySystems] = useState(field.value);
+
+  const values = watch("PercentageEnrolledInEachDeliverySystem");
+
+  const total21To64Percent = values.reduce(
     (acc: number, curr: DeliverySystem) => {
       return acc + parseFloat(curr.TwentyOneToSixtyFour || "0");
     },
     0
   );
 
-  const total65AndOlderPercent = field.value.reduce(
+  const total65AndOlderPercent = values.reduce(
     (acc: number, curr: DeliverySystem) => {
       return acc + parseFloat(curr.GreaterThanSixtyFour || "0");
     },
     0
   );
+
+  const handleAddDeliverySystemValue = () => {
+    setDeliverySystems([
+      ...deliverySystems,
+      {
+        key: `CustomDeliverySystemRecord_${values.length}`,
+        label: "",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+        type: "custom",
+      },
+    ]);
+  };
 
   return (
     <CUI.ListItem>
@@ -46,40 +143,21 @@ export const DeliverySystems = () => {
           </CUI.Tr>
         </CUI.Thead>
         <CUI.Tbody>
-          {field.value.map((ds: DeliverySystem, index: number) => (
-            <CUI.Tr key={`PercentageEnrolledInEachDeliverySystem.${index}.key`}>
-              <CUI.Td px="none">
-                <QMR.TextInput
-                  name={`PercentageEnrolledInEachDeliverySystem.${index}.key`}
-                  placeholder={ds.label}
-                  textInputProps={{
-                    _placeholder: { color: "black" },
-                    isReadOnly: true,
-                    border: "none",
-                    value: ds.label,
-                    pl: 0,
-                    // dont focus to the input
-                    tabIndex: -1,
-                  }}
-                />
-              </CUI.Td>
-              <CUI.Td>
-                <QMR.NumberInput
-                  displayPercent
-                  name={`PercentageEnrolledInEachDeliverySystem.${index}.TwentyOneToSixtyFour`}
-                  numberInputProps={{ textAlign: "right" }}
-                />
-              </CUI.Td>
-              <CUI.Td>
-                <QMR.NumberInput
-                  displayPercent
-                  name={`PercentageEnrolledInEachDeliverySystem.${index}.GreaterThanSixtyFour`}
-                  numberInputProps={{ textAlign: "right" }}
-                />
-              </CUI.Td>
-            </CUI.Tr>
-          ))}
-          {/* <QMR.ContainedButton
+          {deliverySystems.map((ds: DeliverySystem, index: number) =>
+            ds.type === "default" ? (
+              <DefaultDeliverySystemTableRecord
+                record={`PercentageEnrolledInEachDeliverySystem.${index}`}
+                key={`PercentageEnrolledInEachDeliverySystem.${index}`}
+                label={ds.label}
+              />
+            ) : (
+              <CustomDeliverySystemTableRecord
+                record={`PercentageEnrolledInEachDeliverySystem.${index}`}
+                key={`PercentageEnrolledInEachDeliverySystem.${index}`}
+              />
+            )
+          )}
+          <QMR.ContainedButton
             buttonText={"+ Add Another"}
             buttonProps={{
               variant: "outline",
@@ -87,19 +165,8 @@ export const DeliverySystems = () => {
               textTransform: "capitalize",
               my: "5",
             }}
-            onClick={() => {
-              setDeliverySystems([
-                ...deliverySystems,
-                {
-                  key: "",
-                  label: "",
-                  TwentyOneToSixtyFour: 0,
-                  GreaterThanSixtyFour: 0,
-                  type: "custom",
-                },
-              ]);
-            }}
-          /> */}
+            onClick={handleAddDeliverySystemValue}
+          />
         </CUI.Tbody>
         <CUI.Tfoot borderTop="2px">
           <CUI.Tr>
