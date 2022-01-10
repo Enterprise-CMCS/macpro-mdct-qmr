@@ -3,18 +3,6 @@ import { Params } from "Routes";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
-const cardData = [
-  {
-    title: "Need to report on Child data?",
-    buttonText: "Add Child Core Set",
-    to: `add-child`,
-  },
-  {
-    title: "Need to report on Health Homes data?",
-    buttonText: "Add Health Homes Core Set",
-    to: `add-hh`,
-  },
-];
 
 interface AddCoreSetCardProps {
   title: string;
