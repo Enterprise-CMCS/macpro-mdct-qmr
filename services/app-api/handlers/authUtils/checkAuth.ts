@@ -3,16 +3,16 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 const authErrorHandler = (state: String, userState: String, userRole: String, operationType: String) => {
     if(!state || !userState || !userRole || !operationType){
         //return 403;
-        return 'missing info'
+        return 403
     }
     if(operationType === 'POST' || operationType === 'PUT' || operationType === 'DELETE'){
-        if(!userRole.includes('STATE') || state.toLowerCase() !== userState.toLowerCase()){
+        if(!userRole.includes('state') || state.toLowerCase() !== userState.toLowerCase()){
             //return 403;
-            return `'wrong state: ${userState} doesn't equal ${state} here's the role: ${userRole}'`
+            return 403
         }
     }
     if(operationType === 'GET'){
-        if(userRole.includes('STATE') && state.toLowerCase() !== userState.toLowerCase()){
+        if(userRole.includes('state') && state.toLowerCase() !== userState.toLowerCase()){
             return 403;
         }
     }
@@ -27,11 +27,6 @@ export const errorHandler = (event: APIGatewayProxyEvent, operationType: String,
     !event.pathParameters.coreSet ||
     !event.headers.user_role
     )  return 400; // throw error message
-
-    // if we're developing locally don't worry about the user's state or admin status
-    // if (stage === 'local'){
-    //     return 200;
-    // }
     
     if (!event.headers.user_state || event.headers.user_state === "undefined") return event
   
@@ -41,5 +36,4 @@ export const errorHandler = (event: APIGatewayProxyEvent, operationType: String,
         event.headers.user_role, 
         operationType
     )
-    return event
 }

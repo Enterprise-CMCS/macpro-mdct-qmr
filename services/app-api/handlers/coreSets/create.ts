@@ -10,13 +10,14 @@ export const createCoreSet = handler(async (event, context) => {
   // @ts-ignore
   const errorCode = errorHandler(event, 'POST', stage)
  
+  // @ts-ignore
   if(errorCode !== 200){
-    // return {
-    //   statusCode: errorCode,
-    //   body: JSON.stringify({
-    //     error: "Failure: HTTP Status Code ", errorCode,
-    //   }),
-    // };
+    return {
+      statusCode: errorCode,
+      body: JSON.stringify({
+        error: "Failure: HTTP Status Code ", errorCode,
+      }),
+    };
     return errorCode;
   }
 

@@ -1,6 +1,6 @@
 import { Container, HStack } from "@chakra-ui/layout";
 import { ContainedButton } from "components/ContainedButton";
-import { useUser } from "hooks/authHooks";
+import { useUser, useApi } from "hooks/authHooks";
 import {
   createCoreSet,
   editCoreSet,
@@ -13,9 +13,33 @@ import {
   editMeasure,
   deleteMeasure,
 } from "libs/api";
+import { API } from "aws-amplify";
+import { useEffect } from "react";
+import config from "config";
 
 export const ApiTester = () => {
+  const userInfo = useUser();
+  useEffect(() => {
+    API.configure({
+      endpoints: [
+        {
+          name: "coreSet",
+          endpoint: config.apiGateway.URL,
+          region: config.apiGateway.REGION,
+          custom_header: async () => {
+            return {
+              // @ts-ignore
+              user_state: userInfo.userState,
+              // @ts-ignore
+              user_role: userInfo.user.role,
+            };
+          },
+        },
+      ],
+    });
+  }, []);
   const userstuff = useUser();
+  const apiInfo = useApi();
   return (
     <Container>
       <HStack p={5}>
@@ -36,7 +60,8 @@ export const ApiTester = () => {
                   test2: "moreData",
                 },
               }),
-              userstuff
+              userstuff,
+              apiInfo
             )
           }
         />
