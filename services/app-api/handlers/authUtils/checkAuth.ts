@@ -11,7 +11,7 @@ const authErrorHandler = (state: String, userState: String, userRole: String, op
             return 403
         }
     }
-    if(operationType === 'GET'){
+    if(operationType === 'GET' || operationType === 'LIST'){
         if(userRole.includes('state') && state.toLowerCase() !== userState.toLowerCase()){
             return 403;
         }
@@ -24,14 +24,35 @@ export const errorHandler = (event: APIGatewayProxyEvent, operationType: String,
     if (
     !event.pathParameters.state ||
     !event.pathParameters.year ||
+    !event.headers.user_role
+    )  return 400; // throw error message
+
+    if(operationType !== 'LIST' && !event.pathParameters.coreSet) return 400
+      
+    return authErrorHandler(
+        event.pathParameters.state, 
+        // @ts-ignore
+        event.headers.user_state,
+        event.headers.user_role, 
+        operationType
+    )
+}
+
+export const measureErrorHandler = (event: APIGatewayProxyEvent, operationType: String, stage: String) => {
+    if (!event.pathParameters) return 400; // throw error message
+    if (
+    !event.pathParameters.state ||
+    !event.pathParameters.year ||
     !event.pathParameters.coreSet ||
     !event.headers.user_role
     )  return 400; // throw error message
-    
-    if (!event.headers.user_state || event.headers.user_state === "undefined") return event
-  
+
+    if(operationType !== 'LIST' && !event.pathParameters.measure) return 400;
+    if(operationType === 'POST' && !event.body) return 400;
+      
     return authErrorHandler(
         event.pathParameters.state, 
+        // @ts-ignore
         event.headers.user_state,
         event.headers.user_role, 
         operationType

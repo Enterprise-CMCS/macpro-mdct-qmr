@@ -2,18 +2,23 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
+import { errorHandler } from "../authUtils/checkAuth";
 
 export const deleteCoreSet = handler(async (event, context) => {
-  if (!event.pathParameters) return; // throw error message
-  if (
-    !event.pathParameters.state ||
-    !event.pathParameters.year ||
-    !event.pathParameters.coreSet
-  )
-    return; // throw error message
-  const state = event.pathParameters.state;
-  const year = parseInt(event.pathParameters.year);
-  const coreSet = event.pathParameters.coreSet;
+  const stage = process!.env!.stage!
+  const errorCode = errorHandler(event, 'DELETE', stage)
+   if(errorCode !== 200){
+    return {
+      statusCode: errorCode,
+      body: JSON.stringify({
+        error: "Failure: HTTP Status Code ", errorCode,
+      }),
+    };
+  }
+  
+  const state = event!.pathParameters!.state!;
+  const year = parseInt(event!.pathParameters!.year!);
+  const coreSet = event!.pathParameters!.coreSet!;
 
   const dynamoKey = createCompoundKey(event);
   const params = {

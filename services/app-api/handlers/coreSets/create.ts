@@ -6,19 +6,15 @@ import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import { errorHandler } from "../authUtils/checkAuth";
 
 export const createCoreSet = handler(async (event, context) => {
-  const stage = process.env.stage
-  // @ts-ignore
+  const stage = process!.env!.stage!
   const errorCode = errorHandler(event, 'POST', stage)
- 
-  // @ts-ignore
-  if(errorCode !== 200){
+   if(errorCode !== 200){
     return {
       statusCode: errorCode,
       body: JSON.stringify({
         error: "Failure: HTTP Status Code ", errorCode,
       }),
     };
-    return errorCode;
   }
 
   // The State Year and ID are all part of the path
@@ -57,7 +53,7 @@ export const createCoreSet = handler(async (event, context) => {
   await dynamoDb.post(params);
   await createDependentMeasures(state, parseInt(year), coreSet, type);
 
-  return event;
+  return params;
 });
 
 const createDependentMeasures = async (
