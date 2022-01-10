@@ -118,7 +118,7 @@ export const DeliverySystems = () => {
         label: "",
         TwentyOneToSixtyFour: "",
         GreaterThanSixtyFour: "",
-        type: "custom",
+        userGenerated: true,
       },
     ]);
   };
@@ -144,7 +144,7 @@ export const DeliverySystems = () => {
         </CUI.Thead>
         <CUI.Tbody>
           {deliverySystems.map((ds: DeliverySystem, index: number) =>
-            ds.type === "default" ? (
+            !ds.userGenerated ? (
               <DefaultDeliverySystemTableRecord
                 record={`PercentageEnrolledInEachDeliverySystem.${index}`}
                 key={`PercentageEnrolledInEachDeliverySystem.${index}`}
