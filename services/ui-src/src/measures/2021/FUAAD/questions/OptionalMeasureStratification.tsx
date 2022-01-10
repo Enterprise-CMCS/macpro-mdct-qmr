@@ -2,7 +2,8 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "measures/types";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
   ageGroups: {
@@ -78,6 +79,37 @@ const AddAnotherButton = ({
 
 const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups, deviationConditions } = useContext(AgeDataContext);
+  const { getValues, setValue } = useFormContext();
+
+  useEffect(() => {
+    let currentAgeData: string[] = getValues(`${name}.ageData`);
+
+    if (currentAgeData?.length) {
+      if (
+        !(
+          deviationConditions?.show30DaysAges18To64 ||
+          deviationConditions?.show7DaysAges18To64
+        )
+      ) {
+        currentAgeData = currentAgeData.filter(
+          (ageData) => ageData !== "Ages18to64"
+        );
+      }
+
+      if (
+        !(
+          deviationConditions?.show30DaysAges65AndOlder ||
+          deviationConditions?.show7DaysAges65AndOlder
+        )
+      ) {
+        currentAgeData = currentAgeData.filter(
+          (ageData) => ageData !== "Ages65andolder"
+        );
+      }
+
+      setValue(`${name}.ageData`, currentAgeData);
+    }
+  }, [deviationConditions, getValues, setValue, name]);
 
   return (
     <CUI.Box key={`${name}.ageData`}>

@@ -1,6 +1,8 @@
 import * as QMR from "components";
 import { Measure } from "measures/types";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { useFormContext } from "react-hook-form";
+import { useEffect } from "react";
 
 export const defaultDeviationOptions = [
   { label: "Ages 18 to 64", id: 0 },
@@ -97,6 +99,37 @@ export const DeviationFromMeasureSpec = ({
   deviationConditions,
 }: Props) => {
   const register = useCustomRegister<Measure.Form>();
+  const { setValue, getValues } = useFormContext<Measure.Form>();
+
+  useEffect(() => {
+    let currentDeviationOptionValues = getValues("DeviationOptions");
+
+    if (currentDeviationOptionValues?.length) {
+      if (
+        !(
+          deviationConditions.show30DaysAges18To64 ||
+          deviationConditions.show30DaysAges65AndOlder
+        )
+      ) {
+        currentDeviationOptionValues = currentDeviationOptionValues.filter(
+          (option) => option !== "FollowUpWithin30"
+        );
+      }
+
+      if (
+        !(
+          deviationConditions.show7DaysAges18To64 ||
+          deviationConditions.show7DaysAges65AndOlder
+        )
+      ) {
+        currentDeviationOptionValues = currentDeviationOptionValues.filter(
+          (option) => option !== "FollowUpWithin7"
+        );
+      }
+
+      setValue("DeviationOptions", currentDeviationOptionValues);
+    }
+  }, [deviationConditions, getValues, setValue]);
 
   return (
     <QMR.CoreQuestionWrapper label="Deviations from Measure Specifications">

@@ -110,6 +110,8 @@ export namespace Measure {
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
+    FollowUpWithin30: string;
+    FollowUpWithin7: string;
     "DeviationOptions-Within7-AgeRange": string[];
     "DeviationOptions-Within30-AgeRange": string[];
     "DeviationFields-Within7": {

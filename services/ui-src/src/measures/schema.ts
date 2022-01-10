@@ -159,6 +159,8 @@ export const validationSchema = Joi.object<Measure.Form>({
   //DeviationFromMeasureSpec
   DidCalculationsDeviate: Joi.string(),
   DeviationOptions: Joi.array().items(Joi.string()),
+  FollowUpWithin30: Joi.string(),
+  FollowUpWithin7: Joi.string(),
   "DeviationOptions-Within7-AgeRange": Joi.array().items(Joi.string()),
   "DeviationFields-Within7": Joi.array()
     .items(
