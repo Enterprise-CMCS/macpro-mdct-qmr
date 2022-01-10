@@ -179,7 +179,7 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={total21To64Percent || ""}
+                  value={total21To64Percent}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
@@ -195,7 +195,7 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={total65AndOlderPercent || ""}
+                  value={total65AndOlderPercent}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
