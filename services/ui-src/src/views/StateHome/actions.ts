@@ -1,57 +1,49 @@
-import { CoreSet } from "components/Table/types";
-import * as QMR from "components";
+import { CoreSetTableItem } from "components/Table/types";
 
-interface CoreSetActions {
-  [key: string]: (id: string) => QMR.IKebabMenuItem[];
+interface ActionsData {
+  handleDelete: any;
+  type: CoreSetTableItem.Type;
 }
 
-export const coreSetActions: CoreSetActions = {
-  [CoreSet.Type.ADULT]: (id: string) => [
+export const getCoreSetActions = ({ type, handleDelete }: ActionsData) => {
+  if (type === CoreSetTableItem.Type.ADULT) {
+    return [
+      {
+        itemText: "Export",
+        handleSelect: handleDelete,
+        type: type,
+      },
+    ];
+  }
+  if (type === CoreSetTableItem.Type.CHILD) {
+    return [
+      {
+        itemText: "Export",
+        handleSelect: () => console.log("export"),
+        type: type,
+      },
+      {
+        itemText: "Export All",
+        handleSelect: () => console.log("Export All"),
+        type: type,
+      },
+      {
+        itemText: "Delete",
+        handleSelect: handleDelete,
+        type: type,
+      },
+    ];
+  }
+  return [
     {
       itemText: "Export",
-      id,
-      handleSelect: (id: string) => {
-        console.log("Export " + id);
-      },
-    },
-  ],
-  [CoreSet.Type.CHILD]: (id: string) => [
-    {
-      itemText: "Export",
-      id,
-      handleSelect: (id: string) => {
-        console.log("Export " + id);
-      },
+      handleSelect: () => console.log("export"),
+      type: type,
     },
     {
       itemText: "Export All",
-      id,
-      handleSelect: (id: string) => {
-        console.log("Export All " + id);
-      },
+      handleSelect: () => console.log("Export All"),
+      type: type,
     },
-    {
-      itemText: "Delete",
-      id,
-      handleSelect: (id: string) => {
-        console.log("Delete " + id);
-      },
-    },
-  ],
-  [CoreSet.Type.HEALTH_HOMES]: (id: string) => [
-    {
-      itemText: "Export",
-      id,
-      handleSelect: (id: string) => {
-        console.log("Export " + id);
-      },
-    },
-    {
-      itemText: "Export All",
-      id,
-      handleSelect: (id: string) => {
-        console.log("Export All " + id);
-      },
-    },
-  ],
+  ];
 };

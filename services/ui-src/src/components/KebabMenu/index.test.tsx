@@ -3,11 +3,10 @@ import { IKebabMenuItem, KebabMenu } from ".";
 
 describe("Test the KebabMenu component", () => {
   const KebabMenuItems: IKebabMenuItem[] = [
-    { itemText: "Edit", id: "1", handleSelect: () => console.log("1") },
-    { itemText: "Export", id: "2", handleSelect: () => console.log("2") },
+    { itemText: "Edit", handleSelect: () => console.log("1") },
+    { itemText: "Export", handleSelect: () => console.log("2") },
     {
       itemText: "Clear Measure Entries",
-      id: "3",
       handleSelect: () => console.log("3"),
     },
   ];

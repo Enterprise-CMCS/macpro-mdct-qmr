@@ -99,8 +99,7 @@ resources:
         BucketEncryption:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
-                SSEAlgorithm: aws:kms
-                KMSMasterKeyID: ${ssm:/configuration/kms/s3attachmentkey~true}
+                SSEAlgorithm: AES256
         CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
@@ -114,6 +113,8 @@ resources:
                 - DELETE
                 - HEAD
               MaxAge: 3000
+              ExposedHeaders:
+                - ETag
         NotificationConfiguration:
           LambdaConfigurations:
             - Event: s3:ObjectCreated:Put
@@ -132,6 +133,11 @@ resources:
               Resource: !Sub ${AttachmentsBucket.Arn}
               Principal:
                 AWS: ${ssm:/configuration/mpraccountid~true}
+            - Action:
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal: "*"
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
