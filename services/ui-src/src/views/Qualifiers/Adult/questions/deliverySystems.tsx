@@ -3,6 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import * as Q from "./";
 import { useController, useFormContext } from "react-hook-form";
 import { DeliverySystem } from "../types";
+import { BsPercent } from "react-icons/bs";
 
 export const DeliverySystems = () => {
   const { control } = useFormContext();
@@ -32,7 +33,7 @@ export const DeliverySystems = () => {
         description="As of September 30, 2021 what percentage of your Medicaid/CHIP
           enrolees (above age 21) were enrolled in each delivery system?"
       />
-      <CUI.Table variant="simple" mt="4">
+      <CUI.Table variant="simple" mt="4" size="md">
         <CUI.Thead>
           <CUI.Tr>
             <CUI.Th></CUI.Th>
@@ -56,21 +57,24 @@ export const DeliverySystems = () => {
                     isReadOnly: true,
                     border: "none",
                     value: ds.label,
+                    pl: 0,
                     // dont focus to the input
                     tabIndex: -1,
                   }}
                 />
               </CUI.Td>
-              <CUI.Td textAlign="right">
+              <CUI.Td>
                 <QMR.NumberInput
                   displayPercent
                   name={`PercentageEnrolledInEachDeliverySystem.${index}.TwentyOneToSixtyFour`}
+                  numberInputProps={{ textAlign: "right" }}
                 />
               </CUI.Td>
               <CUI.Td>
                 <QMR.NumberInput
                   displayPercent
                   name={`PercentageEnrolledInEachDeliverySystem.${index}.GreaterThanSixtyFour`}
+                  numberInputProps={{ textAlign: "right" }}
                 />
               </CUI.Td>
             </CUI.Tr>
@@ -99,15 +103,43 @@ export const DeliverySystems = () => {
         </CUI.Tbody>
         <CUI.Tfoot borderTop="2px">
           <CUI.Tr>
-            <CUI.Th px="none">
-              <CUI.Text fontSize={15}>Total (all ages)</CUI.Text>
+            <CUI.Th px="none" textTransform="none">
+              <CUI.Text fontSize="medium" color="gray.900">
+                Total (all ages)
+              </CUI.Text>
             </CUI.Th>
-            <CUI.Th isNumeric>
-              <CUI.Text fontSize={15}>{total21To64Percent}%</CUI.Text>
-            </CUI.Th>
-            <CUI.Th isNumeric>
-              <CUI.Text fontSize={15}>{total65AndOlderPercent}%</CUI.Text>
-            </CUI.Th>
+            <CUI.Td>
+              <CUI.InputGroup>
+                <CUI.Input
+                  isReadOnly
+                  value={total21To64Percent || ""}
+                  border="none"
+                  textAlign="right"
+                  fontWeight="bold"
+                />
+
+                <CUI.InputRightElement
+                  pointerEvents="none"
+                  children={<BsPercent />}
+                />
+              </CUI.InputGroup>
+            </CUI.Td>
+            <CUI.Td>
+              <CUI.InputGroup>
+                <CUI.Input
+                  isReadOnly
+                  value={total65AndOlderPercent || ""}
+                  border="none"
+                  textAlign="right"
+                  fontWeight="bold"
+                />
+
+                <CUI.InputRightElement
+                  pointerEvents="none"
+                  children={<BsPercent />}
+                />
+              </CUI.InputGroup>
+            </CUI.Td>
           </CUI.Tr>
         </CUI.Tfoot>
       </CUI.Table>
