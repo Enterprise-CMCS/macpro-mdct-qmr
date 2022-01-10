@@ -5,13 +5,13 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { errorHandler } from "../authUtils/checkAuth";
 
 export const editCoreSet = handler(async (event, context) => {
-  const stage = process!.env!.stage!
-  const errorCode = errorHandler(event, 'POST', stage)
-   if(errorCode !== 200){
+  const errorCode = errorHandler(event, "POST");
+  if (errorCode !== 200) {
     return {
       statusCode: errorCode,
       body: JSON.stringify({
-        error: "Failure: HTTP Status Code ", errorCode,
+        error: "Failure: HTTP Status Code ",
+        errorCode,
       }),
     };
   }

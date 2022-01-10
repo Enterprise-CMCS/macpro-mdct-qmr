@@ -7,13 +7,13 @@ import { createCoreSet } from "./create";
 import * as Types from "../../types";
 
 export const coreSetList = handler(async (event, context) => {
-  const stage = process!.env!.stage!
-  const errorCode = errorHandler(event, 'LIST', stage)
-   if(errorCode !== 200){
+  const errorCode = errorHandler(event, "LIST");
+  if (errorCode !== 200) {
     return {
       statusCode: errorCode,
       body: JSON.stringify({
-        error: "Failure: HTTP Status Code ", errorCode,
+        error: "Failure: HTTP Status Code ",
+        errorCode,
       }),
     };
   }
@@ -59,13 +59,13 @@ export const coreSetList = handler(async (event, context) => {
 });
 
 export const getCoreSet = handler(async (event, context) => {
-  const stage = process!.env!.stage!
-  const errorCode = errorHandler(event, 'GET', stage)
-   if(errorCode !== 200){
+  const errorCode = errorHandler(event, "GET");
+  if (errorCode !== 200) {
     return {
       statusCode: errorCode,
       body: JSON.stringify({
-        error: "Failure: HTTP Status Code ", errorCode,
+        error: "Failure: HTTP Status Code ",
+        errorCode,
       }),
     };
   }

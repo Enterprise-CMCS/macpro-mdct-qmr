@@ -4,14 +4,13 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { measureErrorHandler } from "../authUtils/checkAuth";
 
 export const createMeasure = handler(async (event, context) => {
-  
-  const stage = process!.env!.stage!
-  const errorCode = measureErrorHandler(event, 'POST', stage)
-   if(errorCode !== 200){
+  const errorCode = measureErrorHandler(event, "POST");
+  if (errorCode !== 200) {
     return {
       statusCode: errorCode,
       body: JSON.stringify({
-        error: "Failure: HTTP Status Code ", errorCode,
+        error: "Failure: HTTP Status Code ",
+        errorCode,
       }),
     };
   }

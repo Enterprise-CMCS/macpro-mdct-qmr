@@ -4,13 +4,13 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { measureErrorHandler } from "../authUtils/checkAuth";
 
 export const deleteMeasure = handler(async (event, context) => {
-  const stage = process!.env!.stage!
-  const errorCode = measureErrorHandler(event, 'DELETE', stage)
-   if(errorCode !== 200){
+  const errorCode = measureErrorHandler(event, "DELETE");
+  if (errorCode !== 200) {
     return {
       statusCode: errorCode,
       body: JSON.stringify({
-        error: "Failure: HTTP Status Code ", errorCode,
+        error: "Failure: HTTP Status Code ",
+        errorCode,
       }),
     };
   }

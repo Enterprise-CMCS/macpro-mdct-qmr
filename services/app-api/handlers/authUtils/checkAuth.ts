@@ -34,8 +34,7 @@ const authErrorHandler = (
 
 export const errorHandler = (
   event: APIGatewayProxyEvent,
-  operationType: String,
-  stage: String
+  operationType: String
 ) => {
   if (!event.pathParameters) return 400;
   if (
@@ -58,8 +57,7 @@ export const errorHandler = (
 
 export const measureErrorHandler = (
   event: APIGatewayProxyEvent,
-  operationType: String,
-  stage: String
+  operationType: String
 ) => {
   if (!event.pathParameters) return 400;
   if (

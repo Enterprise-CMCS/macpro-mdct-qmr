@@ -7,13 +7,13 @@ import { errorHandler } from "../authUtils/checkAuth";
 import * as Types from "../../types";
 
 export const createCoreSet = handler(async (event, context) => {
-  const stage = process!.env!.stage!
-  const errorCode = errorHandler(event, 'POST', stage)
-   if(errorCode !== 200){
+  const errorCode = errorHandler(event, "POST");
+  if (errorCode !== 200) {
     return {
       statusCode: errorCode,
       body: JSON.stringify({
-        error: "Failure: HTTP Status Code ", errorCode,
+        error: "Failure: HTTP Status Code ",
+        errorCode,
       }),
     };
   }

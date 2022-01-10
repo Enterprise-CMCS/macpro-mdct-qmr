@@ -5,17 +5,17 @@ import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpress
 import { errorHandler } from "../authUtils/checkAuth";
 
 export const deleteCoreSet = handler(async (event, context) => {
-  const stage = process!.env!.stage!
-  const errorCode = errorHandler(event, 'DELETE', stage)
-   if(errorCode !== 200){
+  const errorCode = errorHandler(event, "DELETE");
+  if (errorCode !== 200) {
     return {
       statusCode: errorCode,
       body: JSON.stringify({
-        error: "Failure: HTTP Status Code ", errorCode,
+        error: "Failure: HTTP Status Code ",
+        errorCode,
       }),
     };
   }
-  
+
   const state = event!.pathParameters!.state!;
   const year = parseInt(event!.pathParameters!.year!);
   const coreSet = event!.pathParameters!.coreSet!;
