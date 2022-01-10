@@ -7,9 +7,6 @@ import { CoreSet } from "components/Table/types";
 import { coreSetActions } from "./actions";
 import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
-import { ContainedButton } from "components";
-import { createCoreSet } from "libs/api";
-import { useUser } from "hooks/authHooks";
 
 // This will be updated when we know exactly what we need to add coreset
 const data: CoreSet.Data[] = [
@@ -101,7 +98,6 @@ const ReportingYear = () => {
 
 const Heading = () => {
   const { year } = useParams<Params>();
-  const userstuff = useUser();
   return (
     <CUI.Box display={{ base: "block", md: "flex" }}>
       <CUI.Box maxW="3xl" pb="6">
@@ -115,27 +111,6 @@ const Heading = () => {
       </CUI.Box>
       <CUI.Spacer />
       <ReportingYear />
-      <ContainedButton
-        buttonText={"Create Core Set"}
-        buttonProps={{
-          colorScheme: "blue",
-          textTransform: "capitalize",
-        }}
-        onClick={async () =>
-          console.log(
-            await createCoreSet({
-              state: "AL",
-              year: "2021",
-              coreSet: "AD-123",
-              body: {
-                test: "data",
-                test2: "moreData",
-              },
-            }),
-            userstuff
-          )
-        }
-      />
     </CUI.Box>
   );
 };
