@@ -1,77 +1,31 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import * as Inputs from "components/Inputs";
 import * as Q from "./";
-import React, { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
+import { useCustomRegister } from "hooks/useCustomRegister";
+import { ACSQualifierForm } from "../types";
 
-interface IDeliverySystem {
-  key: string;
+export interface IDeliverySystem {
+  // key: string;
   label: string;
   twentyOneToSixtyFour: number;
   greaterThanSixtyFour: number;
   type: string;
 }
-interface Props {
+export interface Props {
   deliverySystemList: IDeliverySystem[];
 }
 
-export const DeliverySystems = ({ deliverySystemList }: Props) => {
+export const DeliverySystems = () => {
   const { control } = useFormContext();
   const { field } = useController({
     name: "PercentageEnrolledInEachDeliverySystem",
     control,
   });
+  console.log({ field });
   let [total21, total65]: number[] = [0, 0];
-  const [deliverySystems, setDeliverySystems] =
-    useState<IDeliverySystem[]>(deliverySystemList);
-  const customLabelChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const value = e.target.value === "[object Object]" ? "" : e.target.value;
+  const register = useCustomRegister<ACSQualifierForm>();
 
-    setDeliverySystems(
-      deliverySystems.map((item: IDeliverySystem, idx: number) => {
-        if (item.type === "custom" && idx === index) {
-          item.label = "customName";
-          item.key = value.split(" ").join("-");
-        }
-        return item;
-      })
-    );
-  };
-
-  const updateTotals = () => {
-    total21 = deliverySystems.reduce(
-      (total21, { twentyOneToSixtyFour }) => total21 + twentyOneToSixtyFour,
-      0
-    );
-
-    total65 = deliverySystems.reduce(
-      (total65, { greaterThanSixtyFour }) => total65 + greaterThanSixtyFour,
-      0
-    );
-  };
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    setDeliverySystems(
-      deliverySystems.map((ds: IDeliverySystem, dsIndex: number) => {
-        if (dsIndex === index) {
-          if (e.target.name.includes("-65")) {
-            ds.greaterThanSixtyFour = parseInt(e.target.value) || 0;
-          } else {
-            ds.twentyOneToSixtyFour = parseInt(e.target.value) || 0;
-          }
-        }
-        return ds;
-      })
-    );
-    updateTotals();
-  };
-  updateTotals();
   return (
     <CUI.ListItem>
       <Q.QualifierHeader
@@ -92,55 +46,39 @@ export const DeliverySystems = ({ deliverySystemList }: Props) => {
           </CUI.Tr>
         </CUI.Thead>
         <CUI.Tbody>
-          {deliverySystems.map((ds: IDeliverySystem, index: number) => (
+          {field.value.map((ds: IDeliverySystem, index: number) => (
             <CUI.Tr key={"DeliverySystem" + "_" + index}>
               <CUI.Td px="none">
-                {ds.type === "default" ? (
-                  <>
-                    <CUI.Text fontWeight={"semibold"}>{ds.label}</CUI.Text>
-                  </>
-                ) : (
-                  <CUI.Box>
-                    <CUI.Input
-                      name={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-name`}
-                      value={ds.key}
-                      aria-label={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-name`}
-                      onChange={(e) => customLabelChange(e, index)}
-                      fontWeight={"semibold"}
-                      data-testid={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-name`}
-                    />
-                  </CUI.Box>
-                )}
-              </CUI.Td>
-              <CUI.Td textAlign="right">
-                <Inputs.NumberInput
-                  displayPercent
-                  name={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-21-64`}
-                  data-testid={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-21-64`}
-                  formControlProps={{
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                      field.onChange(() => handleInputChange(e, index));
-                    },
-                    textAlign: "right",
+                <QMR.TextInput
+                  name={`PercentageEnrolledInEachDeliverySystem.${index}.label`}
+                  placeholder={ds.label}
+                  textInputProps={{
+                    _placeholder: { color: "black" },
+                    isReadOnly: true,
+                    border: "none",
+                    value: ds.label,
                   }}
                 />
               </CUI.Td>
-              <CUI.Td>
-                <Inputs.NumberInput
+              <CUI.Td textAlign="right">
+                <QMR.NumberInput
                   displayPercent
-                  name={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-65`}
-                  data-testid={`PercentageEnrolledInEachDeliverySystem.${index}.${ds.key}-65`}
-                  formControlProps={{
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                      field.onChange(() => handleInputChange(e, index));
-                    },
-                    textAlign: "right",
-                  }}
+                  {...register(
+                    `PercentageEnrolledInEachDeliverySystem.${index}.twentyOneToSixtyFour`
+                  )}
+                />
+              </CUI.Td>
+              <CUI.Td>
+                <QMR.NumberInput
+                  displayPercent
+                  {...register(
+                    `PercentageEnrolledInEachDeliverySystem.${index}.greaterThanSixtyFour`
+                  )}
                 />
               </CUI.Td>
             </CUI.Tr>
           ))}
-          <QMR.ContainedButton
+          {/* <QMR.ContainedButton
             buttonText={"+ Add Another"}
             buttonProps={{
               variant: "outline",
@@ -159,9 +97,8 @@ export const DeliverySystems = ({ deliverySystemList }: Props) => {
                   type: "custom",
                 },
               ]);
-              updateTotals();
             }}
-          />
+          /> */}
         </CUI.Tbody>
         <CUI.Tfoot borderTop="2px">
           <CUI.Tr>

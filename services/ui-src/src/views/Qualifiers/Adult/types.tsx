@@ -1,5 +1,6 @@
 export interface ACSQualifierForm {
-  PercentageEnrolledInEachDeliverySystem: { [key: string]: string }[];
+  // PercentageEnrolledInEachDeliverySystem: { [key: string]: string }[];
+  PercentageEnrolledInEachDeliverySystem: any;
   CoreSetMeasuresAuditedOrValidated: string;
   CoreSetMeasuresAuditedOrValidatedDetails: {
     WhoConductedAuditOrValidation: string;
