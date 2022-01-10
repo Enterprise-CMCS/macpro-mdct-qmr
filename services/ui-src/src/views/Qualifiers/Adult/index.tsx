@@ -18,28 +18,28 @@ export const ACSQualifiers = () => {
     defaultValues: {
       PercentageEnrolledInEachDeliverySystem: [
         {
-          // key: "FeeForService",
+          key: "FeeForService",
           label: "Fee-for-Service",
-          twentyOneToSixtyFour: 0,
-          greaterThanSixtyFour: 0,
+          TwentyOneToSixtyFour: "",
+          GreaterThanSixtyFour: "",
         },
         {
-          // key: "PCCM",
+          key: "PCCM",
           label: "PCCM",
-          twentyOneToSixtyFour: 0,
-          greaterThanSixtyFour: 0,
+          TwentyOneToSixtyFour: "",
+          GreaterThanSixtyFour: "",
         },
         {
-          // key: "ManagedCare",
+          key: "ManagedCare",
           label: "Managed Care",
-          twentyOneToSixtyFour: 0,
-          greaterThanSixtyFour: 0,
+          TwentyOneToSixtyFour: "",
+          GreaterThanSixtyFour: "",
         },
         {
-          // key: "integtatedCareModel",
+          key: "IntegtatedCareModel",
           label: "Integrated Care Model (ICM)",
-          twentyOneToSixtyFour: 0,
-          greaterThanSixtyFour: 0,
+          TwentyOneToSixtyFour: "",
+          GreaterThanSixtyFour: "",
         },
       ],
     },
@@ -60,7 +60,7 @@ export const ACSQualifiers = () => {
           name: ``,
         },
         {
-          path: `/${state}/${year}/ACS/CSQQ`,
+          path: `/${state}/${year}/ACS/CSQ`,
           name: `Adult Core Set Qualifiers`,
         },
       ]}

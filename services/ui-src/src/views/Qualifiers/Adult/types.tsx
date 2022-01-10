@@ -1,6 +1,5 @@
 export interface ACSQualifierForm {
-  // PercentageEnrolledInEachDeliverySystem: { [key: string]: string }[];
-  PercentageEnrolledInEachDeliverySystem: any;
+  PercentageEnrolledInEachDeliverySystem: DeliverySystem[];
   CoreSetMeasuresAuditedOrValidated: string;
   CoreSetMeasuresAuditedOrValidatedDetails: {
     WhoConductedAuditOrValidation: string;
@@ -8,4 +7,12 @@ export interface ACSQualifierForm {
   }[];
   WasExternalContractorUsed: string;
   ExternalContractorsUsed: string[];
+}
+
+export interface DeliverySystem {
+  key: string;
+  label: string;
+  TwentyOneToSixtyFour: string;
+  GreaterThanSixtyFour: string;
+  type: string;
 }

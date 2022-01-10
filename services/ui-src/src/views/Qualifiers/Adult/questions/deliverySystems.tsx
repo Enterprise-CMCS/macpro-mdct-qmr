@@ -2,19 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Q from "./";
 import { useController, useFormContext } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { ACSQualifierForm } from "../types";
-
-export interface IDeliverySystem {
-  // key: string;
-  label: string;
-  twentyOneToSixtyFour: number;
-  greaterThanSixtyFour: number;
-  type: string;
-}
-export interface Props {
-  deliverySystemList: IDeliverySystem[];
-}
+import { DeliverySystem } from "../types";
 
 export const DeliverySystems = () => {
   const { control } = useFormContext();
@@ -22,9 +10,20 @@ export const DeliverySystems = () => {
     name: "PercentageEnrolledInEachDeliverySystem",
     control,
   });
-  console.log({ field });
-  let [total21, total65]: number[] = [0, 0];
-  const register = useCustomRegister<ACSQualifierForm>();
+
+  const total21To64Percent = field.value.reduce(
+    (acc: number, curr: DeliverySystem) => {
+      return acc + parseFloat(curr.TwentyOneToSixtyFour || "0");
+    },
+    0
+  );
+
+  const total65AndOlderPercent = field.value.reduce(
+    (acc: number, curr: DeliverySystem) => {
+      return acc + parseFloat(curr.GreaterThanSixtyFour || "0");
+    },
+    0
+  );
 
   return (
     <CUI.ListItem>
@@ -46,34 +45,32 @@ export const DeliverySystems = () => {
           </CUI.Tr>
         </CUI.Thead>
         <CUI.Tbody>
-          {field.value.map((ds: IDeliverySystem, index: number) => (
-            <CUI.Tr key={"DeliverySystem" + "_" + index}>
+          {field.value.map((ds: DeliverySystem, index: number) => (
+            <CUI.Tr key={`PercentageEnrolledInEachDeliverySystem.${index}.key`}>
               <CUI.Td px="none">
                 <QMR.TextInput
-                  name={`PercentageEnrolledInEachDeliverySystem.${index}.label`}
+                  name={`PercentageEnrolledInEachDeliverySystem.${index}.key`}
                   placeholder={ds.label}
                   textInputProps={{
                     _placeholder: { color: "black" },
                     isReadOnly: true,
                     border: "none",
                     value: ds.label,
+                    // dont focus to the input
+                    tabIndex: -1,
                   }}
                 />
               </CUI.Td>
               <CUI.Td textAlign="right">
                 <QMR.NumberInput
                   displayPercent
-                  {...register(
-                    `PercentageEnrolledInEachDeliverySystem.${index}.twentyOneToSixtyFour`
-                  )}
+                  name={`PercentageEnrolledInEachDeliverySystem.${index}.TwentyOneToSixtyFour`}
                 />
               </CUI.Td>
               <CUI.Td>
                 <QMR.NumberInput
                   displayPercent
-                  {...register(
-                    `PercentageEnrolledInEachDeliverySystem.${index}.greaterThanSixtyFour`
-                  )}
+                  name={`PercentageEnrolledInEachDeliverySystem.${index}.GreaterThanSixtyFour`}
                 />
               </CUI.Td>
             </CUI.Tr>
@@ -92,8 +89,8 @@ export const DeliverySystems = () => {
                 {
                   key: "",
                   label: "",
-                  twentyOneToSixtyFour: 0,
-                  greaterThanSixtyFour: 0,
+                  TwentyOneToSixtyFour: 0,
+                  GreaterThanSixtyFour: 0,
                   type: "custom",
                 },
               ]);
@@ -106,10 +103,10 @@ export const DeliverySystems = () => {
               <CUI.Text fontSize={15}>Total (all ages)</CUI.Text>
             </CUI.Th>
             <CUI.Th isNumeric>
-              <CUI.Text fontSize={15}>{total21}%</CUI.Text>
+              <CUI.Text fontSize={15}>{total21To64Percent}%</CUI.Text>
             </CUI.Th>
             <CUI.Th isNumeric>
-              <CUI.Text fontSize={15}>{total65}%</CUI.Text>
+              <CUI.Text fontSize={15}>{total65AndOlderPercent}%</CUI.Text>
             </CUI.Th>
           </CUI.Tr>
         </CUI.Tfoot>
