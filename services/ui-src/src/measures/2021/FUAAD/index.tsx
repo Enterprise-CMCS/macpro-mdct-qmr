@@ -88,7 +88,11 @@ export const FUAAD = ({
             textTransform: "capitalize",
           }}
           buttonText="Complete Measure"
-          onClick={handleSubmit}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+            console.log("testing");
+          }}
         />
       </CUI.Stack>
     </>

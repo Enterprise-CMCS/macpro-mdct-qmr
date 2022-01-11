@@ -1,84 +1,39 @@
-import { CustomValidator } from "measures/types";
-import { ResolverResult } from "react-hook-form";
 import { Measure } from "../validation/types";
 
-const validateRates: CustomValidator = (
-  result: ResolverResult<Measure.Form>
-) => {
-  const values = { ...result.values };
-  const errors = { ...result.errors };
-  const sevenDays = values["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = values["PerformanceMeasure-AgeRates-30Days"];
+const validateRates = (data: Measure.Form) => {
+  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
+  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+  let error;
 
-  if (sevenDays && thirtyDays) {
-    const x = errors["PerformanceMeasure-AgeRates-7Days"];
-    const y = errors["PerformanceMeasure-AgeRates-30Days"];
-    errors["PerformanceMeasure-AgeRates-7Days"] = x ? [...x] : [];
-    errors["PerformanceMeasure-AgeRates-30Days"] = y ? [...y] : [];
-
-    sevenDays.forEach((_sevenDaysObj, index) => {
-      if (sevenDays[index]?.denominator !== thirtyDays[index]?.denominator) {
-        errors["PerformanceMeasure-AgeRates-7Days"]![index] = {
-          denominator: {
-            type: "value",
-            message: "Denominator needs to match 30 days denominator.",
-          },
-        };
-        errors["PerformanceMeasure-AgeRates-30Days"]![index] = {
-          denominator: {
-            type: "value",
-            message: "Denominator needs to match 7 days denominator.",
-          },
-        };
-      } else {
-        delete errors["PerformanceMeasure-AgeRates-7Days"]![index];
-        delete errors["PerformanceMeasure-AgeRates-30Days"]![index];
-      }
-    });
-
-    if (errors["PerformanceMeasure-AgeRates-30Days"]?.length === 0) {
-      delete errors["PerformanceMeasure-AgeRates-30Days"];
+  sevenDays.forEach((_sevenDaysObj, index) => {
+    if (sevenDays[index]?.denominator !== thirtyDays[index]?.denominator) {
+      error = {
+        errorMessage:
+          "Denominators must be the same for both thirty and seven day rates.",
+      };
     }
-    if (errors["PerformanceMeasure-AgeRates-7Days"]?.length === 0) {
-      delete errors["PerformanceMeasure-AgeRates-7Days"];
-    }
-  }
-  return { values, errors };
+  });
+
+  return error;
 };
 
-const validateRate7GreaterThanRate30: CustomValidator = (
-  result: ResolverResult<Measure.Form>
-) => {
-  const values = { ...result.values };
-  const errors = { ...result.errors };
+const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
+  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
+  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+  let error;
 
-  const sevenDays = values["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = values["PerformanceMeasure-AgeRates-30Days"];
+  sevenDays.forEach((_sevenDaysObj, index) => {
+    if (sevenDays[index].rate < thirtyDays[index].rate) {
+      error = {
+        errorMessage: "Seven Days Rate must be higher than 30 days rate",
+      };
+    }
+  });
 
-  if (sevenDays && thirtyDays) {
-    const x = errors["PerformanceMeasure-AgeRates-7Days"];
-    const y = errors["PerformanceMeasure-AgeRates-30Days"];
-    errors["PerformanceMeasure-AgeRates-7Days"] = x ? [...x] : [];
-    errors["PerformanceMeasure-AgeRates-30Days"] = y ? [...y] : [];
-
-    sevenDays.forEach((_, index) => {
-      if (sevenDays[index].rate < thirtyDays[index].rate) {
-        errors["PerformanceMeasure-AgeRates-7Days"]![index] = errors[
-          "PerformanceMeasure-AgeRates-7Days"
-        ]![index]
-          ? errors["PerformanceMeasure-AgeRates-7Days"]![index]
-          : {};
-        errors["PerformanceMeasure-AgeRates-7Days"]![index].numerator = {
-          type: "value",
-          message: "Seven Days Rate must be higher than 30 Days Rate",
-        };
-      }
-    });
-  }
-  return { values, errors };
+  return error;
 };
 
-export const validationFunctions: CustomValidator[] = [
+export const validationFunctions = [
   validateRates,
-  validateRate7GreaterThanRate30,
+  validate7DaysGreaterThan30Days,
 ];

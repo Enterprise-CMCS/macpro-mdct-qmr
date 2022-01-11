@@ -6,7 +6,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
-import { useJoiValidationResolver } from "hooks/useCustomValidation";
+import { joiResolver } from "@hookform/resolvers/joi";
 interface Props {
   measure: ReactElement;
   name: string;
@@ -16,14 +16,13 @@ interface Props {
 
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams<Params>();
+  const [errors, setErrors] = useState<any[]>();
   const [measureSchema, setMeasureSchema] = useState(validationSchema);
-  const [validationFunctions, setValidationFunctions] = useState<
-    Measure.CustomValidator[]
-  >([]);
-  const customResolver = useJoiValidationResolver(
-    measureSchema,
-    validationFunctions
-  ) as any;
+  const [validationFunctions, setValidationFunctions] = useState<Function[]>(
+    []
+  );
+
+  const resolver = joiResolver(measureSchema);
   /*
   this is where we put all the high level stuff for measures
   this would include:
@@ -39,7 +38,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const methods = useForm<Measure.Form>({
     shouldUnregister: true,
     mode: "all",
-    resolver: customResolver,
+    resolver,
   });
 
   const handleSave = (data: any) => {
@@ -49,6 +48,18 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const handleSubmit = (data: any) => {
     console.log("submitted");
+    console.log(validationFunctions);
+    const validationErrors = validationFunctions.reduce(
+      (acc: any, current: any) => {
+        const error = current(data);
+        return error ? [...acc, error] : acc;
+      },
+      []
+    );
+
+    setErrors(validationErrors.length > 0 ? validationErrors : undefined);
+
+    console.log({ errors });
     console.log({ data });
   };
 

@@ -1,5 +1,4 @@
 import Joi from "joi";
-import { CustomValidator } from "measures/types";
 
 export namespace Measure {
   export interface Props {
@@ -9,9 +8,7 @@ export namespace Measure {
     setMeasureSchema?: React.Dispatch<
       React.SetStateAction<Joi.ObjectSchema<any>>
     >;
-    setValidationFunctions?: React.Dispatch<
-      React.SetStateAction<CustomValidator[]>
-    >;
+    setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
   interface RateFields {
