@@ -1,10 +1,10 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 
 const authErrorHandler = (
-  state: String,
-  userState: String,
-  userRole: String,
-  operationType: String
+  state: string,
+  userState: string,
+  userRole: string,
+  operationType: string
 ) => {
   if (!state || !userState || !userRole || !operationType) {
     return 403;
@@ -32,7 +32,7 @@ const authErrorHandler = (
   return 200;
 };
 
-export const errorHandler = (
+export const eventValidator = (
   event: APIGatewayProxyEvent,
   operationType: String
 ) => {
@@ -40,11 +40,10 @@ export const errorHandler = (
   if (
     !event.pathParameters.state ||
     !event.pathParameters.year ||
-    !event.headers.user_role
+    !event.headers.user_role ||
+    (operationType !== "LIST" && !event.pathParameters.coreSet)
   )
     return 400;
-
-  if (operationType !== "LIST" && !event.pathParameters.coreSet) return 400;
 
   return authErrorHandler(
     event.pathParameters.state,
@@ -55,21 +54,20 @@ export const errorHandler = (
   );
 };
 
-export const measureErrorHandler = (
+export const measureEventValidator = (
   event: APIGatewayProxyEvent,
   operationType: String
 ) => {
-  if (!event.pathParameters) return 400;
   if (
+    !event.pathParameters ||
     !event.pathParameters.state ||
     !event.pathParameters.year ||
     !event.pathParameters.coreSet ||
-    !event.headers.user_role
+    !event.headers.user_role ||
+    (operationType !== "LIST" && !event.pathParameters.measure) ||
+    (operationType === "POST" && !event.body)
   )
     return 400;
-
-  if (operationType !== "LIST" && !event.pathParameters.measure) return 400;
-  if (operationType === "POST" && !event.body) return 400;
 
   return authErrorHandler(
     event.pathParameters.state,

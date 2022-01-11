@@ -3,11 +3,11 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
-import { errorHandler } from "../authUtils/checkAuth";
+import { eventValidator } from "../authUtils/checkAuth";
 import * as Types from "../../types";
 
 export const createCoreSet = handler(async (event, context) => {
-  const errorCode = errorHandler(event, "POST");
+  const errorCode = eventValidator(event, "POST");
   if (errorCode !== 200) {
     return {
       statusCode: errorCode,

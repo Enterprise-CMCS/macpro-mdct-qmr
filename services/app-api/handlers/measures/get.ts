@@ -2,10 +2,10 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { measureErrorHandler } from "../authUtils/checkAuth";
+import { measureEventValidator } from "../authUtils/checkAuth";
 
 export const listMeasures = handler(async (event, context) => {
-  const errorCode = measureErrorHandler(event, "LIST");
+  const errorCode = measureEventValidator(event, "LIST");
   if (errorCode !== 200) {
     return {
       statusCode: errorCode,
@@ -33,7 +33,7 @@ export const listMeasures = handler(async (event, context) => {
 });
 
 export const getMeasure = handler(async (event, context) => {
-  const errorCode = measureErrorHandler(event, "GET");
+  const errorCode = measureEventValidator(event, "GET");
   if (errorCode !== 200) {
     return {
       statusCode: errorCode,

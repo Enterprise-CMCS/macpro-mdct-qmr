@@ -1,10 +1,10 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { measureErrorHandler } from "../authUtils/checkAuth";
+import { measureEventValidator } from "../authUtils/checkAuth";
 
 export const createMeasure = handler(async (event, context) => {
-  const errorCode = measureErrorHandler(event, "POST");
+  const errorCode = measureEventValidator(event, "POST");
   if (errorCode !== 200) {
     return {
       statusCode: errorCode,

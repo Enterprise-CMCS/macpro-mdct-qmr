@@ -2,10 +2,10 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { errorHandler } from "../authUtils/checkAuth";
+import { eventValidator } from "../authUtils/checkAuth";
 
 export const deleteCoreSet = handler(async (event, context) => {
-  const errorCode = errorHandler(event, "DELETE");
+  const errorCode = eventValidator(event, "DELETE");
   if (errorCode !== 200) {
     return {
       statusCode: errorCode,

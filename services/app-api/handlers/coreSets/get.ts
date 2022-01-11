@@ -2,12 +2,12 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { errorHandler } from "../authUtils/checkAuth";
+import { eventValidator } from "../authUtils/checkAuth";
 import { createCoreSet } from "./create";
 import * as Types from "../../types";
 
 export const coreSetList = handler(async (event, context) => {
-  const errorCode = errorHandler(event, "LIST");
+  const errorCode = eventValidator(event, "LIST");
   if (errorCode !== 200) {
     return {
       statusCode: errorCode,
@@ -59,7 +59,7 @@ export const coreSetList = handler(async (event, context) => {
 });
 
 export const getCoreSet = handler(async (event, context) => {
-  const errorCode = errorHandler(event, "GET");
+  const errorCode = eventValidator(event, "GET");
   if (errorCode !== 200) {
     return {
       statusCode: errorCode,
