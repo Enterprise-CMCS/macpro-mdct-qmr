@@ -82,6 +82,8 @@ const AgeData = ({ name }: SubComponentProps) => {
   const { getValues, setValue } = useFormContext();
 
   useEffect(() => {
+    // logic to hide values that are hidden by performance measure data... may refactor or push back on edge cases
+
     let currentAgeData: string[] = getValues(`${name}.ageData`);
 
     if (currentAgeData?.length) {

@@ -48,7 +48,7 @@ const deviationOptions = ({
   return filteredOptions.map((item) => {
     return {
       displayValue: item.label,
-      value: `${item.id}-${item.label.replace(/ /g, "").substring(0, 10)}`,
+      value: `${item.id}-${item.label.replace(/ /g, "")}`,
       children: [
         <QMR.Checkbox
           name={`${name}.${item.id}.options`}
@@ -102,31 +102,66 @@ export const DeviationFromMeasureSpec = ({
   const { setValue, getValues } = useFormContext<Measure.Form>();
 
   useEffect(() => {
+    // logic to hide values that are hidden by performance measure data... may refactor or push back on edge cases
     let currentDeviationOptionValues = getValues("DeviationOptions");
 
     if (currentDeviationOptionValues?.length) {
-      if (
-        !(
-          deviationConditions.show30DaysAges18To64 ||
-          deviationConditions.show30DaysAges65AndOlder
-        )
-      ) {
-        currentDeviationOptionValues = currentDeviationOptionValues.filter(
-          (option) => option !== "FollowUpWithin30"
+      if (currentDeviationOptionValues.includes("FollowUpWithin30")) {
+        let current30DayOptions = getValues(
+          "DeviationOptions-Within30-AgeRange"
         );
+        if (
+          !(
+            deviationConditions.show30DaysAges18To64 ||
+            deviationConditions.show30DaysAges65AndOlder
+          )
+        ) {
+          currentDeviationOptionValues = currentDeviationOptionValues?.filter(
+            (option) => option !== "FollowUpWithin30"
+          );
+        }
+
+        if (!deviationConditions.show30DaysAges18To64) {
+          current30DayOptions = current30DayOptions?.filter(
+            (option) => option !== "0-Ages18to64"
+          );
+        }
+
+        if (!deviationConditions.show30DaysAges65AndOlder) {
+          current30DayOptions = current30DayOptions?.filter(
+            (option) => option !== "1-Ages65andolder"
+          );
+        }
+        setValue("DeviationOptions-Within30-AgeRange", current30DayOptions);
       }
 
-      if (
-        !(
-          deviationConditions.show7DaysAges18To64 ||
-          deviationConditions.show7DaysAges65AndOlder
-        )
-      ) {
-        currentDeviationOptionValues = currentDeviationOptionValues.filter(
-          (option) => option !== "FollowUpWithin7"
-        );
-      }
+      if (currentDeviationOptionValues.includes("FollowUpWithin7")) {
+        let current7DayOptions = getValues("DeviationOptions-Within7-AgeRange");
+        if (
+          !(
+            deviationConditions.show7DaysAges18To64 ||
+            deviationConditions.show7DaysAges65AndOlder
+          )
+        ) {
+          currentDeviationOptionValues = currentDeviationOptionValues?.filter(
+            (option) => option !== "FollowUpWithin7"
+          );
+        }
 
+        if (!deviationConditions.show7DaysAges18To64) {
+          current7DayOptions = current7DayOptions?.filter(
+            (option) => option !== "0-Ages18to64"
+          );
+        }
+
+        if (!deviationConditions.show7DaysAges65AndOlder) {
+          current7DayOptions = current7DayOptions?.filter(
+            (option) => option !== "1-Ages65andolder"
+          );
+        }
+
+        setValue("DeviationOptions-Within7-AgeRange", current7DayOptions);
+      }
       setValue("DeviationOptions", currentDeviationOptionValues);
     }
   }, [deviationConditions, getValues, setValue]);
