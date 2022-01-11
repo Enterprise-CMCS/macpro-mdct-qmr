@@ -36,8 +36,8 @@ export const eventValidator = (
   event: APIGatewayProxyEvent,
   operationType: String
 ) => {
-  if (!event.pathParameters) return 400;
   if (
+    !event.pathParameters ||
     !event.pathParameters.state ||
     !event.pathParameters.year ||
     !event.headers.user_role ||
