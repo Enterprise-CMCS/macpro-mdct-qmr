@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { CognitoUser } from "@aws-amplify/auth";
 
 export interface CustomCognitoUser extends CognitoUser {
-  role?: string;
+  role: string;
 }
 
 export interface UserContextInterface {

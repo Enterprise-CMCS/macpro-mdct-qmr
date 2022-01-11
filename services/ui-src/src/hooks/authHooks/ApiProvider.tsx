@@ -21,16 +21,14 @@ export const ApiProvider = ({ children }: Props) => {
           region: config.apiGateway.REGION,
           custom_header: async () => {
             return {
-              // @ts-ignore
-              user_state: userInfo!.userState!,
-              // @ts-ignore
-              user_role: userInfo!.user!.role!,
+              user_state: userInfo!.userState,
+              user_role: userInfo!.user!.role,
             };
           },
         },
       ],
     });
-  }, []);
+  }, [userInfo]);
 
   const values = useMemo(() => ({}), []);
   // @ts-ignore
