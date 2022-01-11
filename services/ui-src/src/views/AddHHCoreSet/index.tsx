@@ -51,7 +51,7 @@ export const AddHHCoreSet = () => {
           Health Homes Core Set Details
         </CUI.Heading>
         <CUI.Text>
-          Complete the details below and when finished create the additionall
+          Complete the details below and when finished create the additional
           Health Homes Core Set package. You can submit one Health Home Core set
           for each SPA that requires reporting.
         </CUI.Text>
