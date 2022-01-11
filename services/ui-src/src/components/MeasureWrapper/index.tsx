@@ -7,6 +7,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
+import { useUser } from "hooks/authHooks";
 
 interface Props {
   measure: ReactElement;
@@ -17,6 +18,7 @@ interface Props {
 
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams<Params>();
+  const { isStateUser } = useUser();
   /*
   this is where we put all the high level stuff for measures
   this would include:
@@ -72,21 +74,36 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           />
         }
       >
-        <form data-testid="measure-wrapper-form">
-          <CUI.Container maxW="5xl" as="section">
-            <CUI.Text fontSize="sm">
-              For technical questions regarding use of this application, please
-              reach out to MDCT_Help@cms.hhs.gov. For content-related questions
-              about measure specifications, or what information to enter in each
-              field, please reach out to MACQualityTA@cms.hhs.gov.
-            </CUI.Text>
-            {cloneElement(measure, {
-              name,
-              year,
-              handleSubmit: methods.handleSubmit(handleSubmit),
-            })}
-          </CUI.Container>
-        </form>
+        <>
+          {!isStateUser && (
+            <CUI.Box
+              top={0}
+              left={0}
+              position="fixed"
+              width="100vw"
+              height="100vh"
+              zIndex={2}
+              backgroundColor="gray.100"
+              opacity={0.2}
+            />
+          )}
+          <form data-testid="measure-wrapper-form">
+            <CUI.Container maxW="5xl" as="section">
+              <CUI.Text fontSize="sm">
+                For technical questions regarding use of this application,
+                please reach out to MDCT_Help@cms.hhs.gov. For content-related
+                questions about measure specifications, or what information to
+                enter in each field, please reach out to
+                MACQualityTA@cms.hhs.gov.
+              </CUI.Text>
+              {cloneElement(measure, {
+                name,
+                year,
+                handleSubmit: methods.handleSubmit(handleSubmit),
+              })}
+            </CUI.Container>
+          </form>
+        </>
       </QMR.StateLayout>
     </FormProvider>
   );

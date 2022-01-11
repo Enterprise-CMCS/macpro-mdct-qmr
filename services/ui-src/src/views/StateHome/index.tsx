@@ -3,64 +3,18 @@ import * as QMR from "components";
 import { measuresList } from "measures/measuresList";
 import { useParams, useNavigate } from "react-router-dom";
 import { Params } from "Routes";
-import { CoreSet } from "components/Table/types";
-import { coreSetActions } from "./actions";
 import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
+import * as Api from "hooks/api";
+import { formatTableItems } from "./helpers";
+import { CoreSetAbbr } from "types";
+import { useQueryClient } from "react-query";
 
-// This will be updated when we know exactly what we need to add coreset
-const data: CoreSet.Data[] = [
-  {
-    path: "ACS",
-    title: "Adult Core Set Measures",
-    type: CoreSet.Type.ADULT,
-    progress: { numAvailable: 12, numComplete: 0 },
-    actions: coreSetActions[CoreSet.Type.ADULT]("OH2021-ACS"),
-    submitted: false,
-    id: "OH2021-ACS",
-    year: "2021",
-  },
-  {
-    path: "CCS",
-    title: "Child Core Set Measures: Both",
-    type: CoreSet.Type.CHILD,
-    progress: { numAvailable: 12, numComplete: 2 },
-    actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCS"),
-    submitted: false,
-    id: "OH2021-CCS",
-    year: "2021",
-  },
-  {
-    path: "CCSM",
-    title: "Child Core Set Measures: Medicaid",
-    type: CoreSet.Type.CHILD,
-    progress: { numAvailable: 12, numComplete: 3 },
-    actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCSM"),
-    submitted: false,
-    id: "OH2021-CCSM",
-    year: "2021",
-  },
-  {
-    path: "CCSC",
-    title: "Child Core Set Measures: CHIP",
-    type: CoreSet.Type.CHILD,
-    progress: { numAvailable: 12, numComplete: 11 },
-    actions: coreSetActions[CoreSet.Type.CHILD]("OH2021-CCSC"),
-    submitted: false,
-    id: "OH2021-CCSC",
-    year: "2021",
-  },
-  {
-    path: "HHCS",
-    title: "Health Homes Set Measures",
-    type: CoreSet.Type.HEALTH_HOMES,
-    progress: { numAvailable: 12, numComplete: 5 },
-    actions: coreSetActions[CoreSet.Type.HEALTH_HOMES]("OH2021-HHCS"),
-    submitted: false,
-    id: "OH2021-HHCS",
-    year: "2021",
-  },
-];
+interface Data {
+  state: string;
+  year: string;
+  coreSet: CoreSetAbbr;
+}
 
 const ReportingYear = () => {
   const navigate = useNavigate();
@@ -117,6 +71,68 @@ const Heading = () => {
 
 export const StateHome = () => {
   const { state, year } = useParams<Params>();
+  const queryClient = useQueryClient();
+  const { data, error, isLoading } = Api.useGetCoreSets();
+  const deleteCoreSet = Api.useDeleteCoreSet();
+
+  const handleDelete = (data: Data) => {
+    switch (data.coreSet) {
+      // if its a combined child or hh core set we can just delete the one targetted
+      case CoreSetAbbr.CCS:
+      case CoreSetAbbr.HHCS:
+        deleteCoreSet.mutate(data, {
+          onSuccess: () => {
+            queryClient.refetchQueries(["coreSets", state, year]);
+          },
+        });
+        break;
+      // if its a chip or medicaid child coreset we delete them both
+      case CoreSetAbbr.CCSC:
+      case CoreSetAbbr.CCSM:
+        deleteCoreSet.mutate(
+          { ...data, coreSet: CoreSetAbbr.CCSC },
+          {
+            onSuccess: () => {
+              deleteCoreSet.mutate(
+                { ...data, coreSet: CoreSetAbbr.CCSM },
+                {
+                  onSuccess: () => {
+                    queryClient.refetchQueries(["coreSets", state, year]);
+                  },
+                }
+              );
+            },
+          }
+        );
+    }
+  };
+
+  if (error) {
+    return (
+      <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
+    );
+  }
+
+  if (isLoading || data?.Items.length === 0) {
+    // we should have a loading state here
+    return null;
+  }
+
+  const formattedTableItems = formatTableItems({
+    items: data.Items,
+    handleDelete,
+  });
+
+  const childCoreSetExists = formattedTableItems.some(
+    (v) =>
+      v.coreSet === CoreSetAbbr.CCS ||
+      v.coreSet === CoreSetAbbr.CCSC ||
+      v.coreSet === CoreSetAbbr.CCSM
+  );
+  const healthHomesCoreSetExists = formattedTableItems.some(
+    (v) => v.coreSet === CoreSetAbbr.HHCS
+  );
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -124,9 +140,12 @@ export const StateHome = () => {
       ]}
     >
       <Heading />
-      <QMR.Table data={data} columns={QMR.coreSetColumns} />
+      <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">
-        <AddCoreSetCards />
+        <AddCoreSetCards
+          childCoreSetExists={childCoreSetExists}
+          healthHomesCoreSetExists={healthHomesCoreSetExists}
+        />
       </CUI.HStack>
     </QMR.StateLayout>
   );
