@@ -199,7 +199,7 @@ resources:
           Block: {}
         Rules:
           - Action:
-              Allow: { "user_role", "user_state" }
+              Allow: {}
             Name: ${self:custom.webAclName}-allow-usa-plus-territories
             Priority: 0
             Statement:
