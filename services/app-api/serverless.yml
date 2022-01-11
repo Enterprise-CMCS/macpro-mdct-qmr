@@ -79,7 +79,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures
           method: get
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getMeasure:
     handler: handlers/measures/get.getMeasure
@@ -87,7 +89,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: get
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createMeasure:
     handler: handlers/measures/create.createMeasure
@@ -95,7 +99,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: post
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editMeasure:
     handler: handlers/measures/update.editMeasure
@@ -103,7 +109,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: put
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
@@ -111,7 +119,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}
           method: delete
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
@@ -119,7 +129,9 @@ functions:
       - http:
           path: coreset/{state}/{year}
           method: get
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getCoreSet:
     handler: handlers/coreSets/get.getCoreSet
@@ -127,7 +139,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: get
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createCoreSet:
     handler: handlers/coreSets/create.createCoreSet
@@ -135,7 +149,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: post
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editCoreSet:
     handler: handlers/coreSets/update.editCoreSet
@@ -143,7 +159,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: put
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
@@ -151,7 +169,9 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: delete
-          cors: false
+          cors:
+            origin: "*"
+            headers: "*"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
 resources:
   Resources:
@@ -179,7 +199,7 @@ resources:
           Block: {}
         Rules:
           - Action:
-              Allow: {}
+              Allow: { "user_role", "user_state" }
             Name: ${self:custom.webAclName}-allow-usa-plus-territories
             Priority: 0
             Statement:
