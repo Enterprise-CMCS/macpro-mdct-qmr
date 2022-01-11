@@ -4,8 +4,8 @@ interface NotificationProps {
   alertStatus: CUI.AlertStatus;
   alertProps?: CUI.AlertProps;
   alertTitle: string;
-  alertDescription: string;
-  close: React.MouseEventHandler<HTMLButtonElement>;
+  alertDescription?: string;
+  close?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 enum BorderColor {
@@ -24,7 +24,6 @@ export const Notification = ({
 }: NotificationProps) => {
   return (
     <CUI.Alert
-      ml={2}
       borderLeft="8px"
       borderColor={BorderColor[alertStatus]}
       py={3}
@@ -34,15 +33,19 @@ export const Notification = ({
       <CUI.AlertIcon alignSelf="start" />
       <CUI.Box>
         <CUI.AlertTitle>{alertTitle}</CUI.AlertTitle>
-        <CUI.AlertDescription>{alertDescription}</CUI.AlertDescription>
+        {alertDescription && (
+          <CUI.AlertDescription>{alertDescription}</CUI.AlertDescription>
+        )}
       </CUI.Box>
-      <CUI.CloseButton
-        onClick={close}
-        position="absolute"
-        right="8px"
-        top="5"
-        data-testid="close"
-      />
+      {close && (
+        <CUI.CloseButton
+          onClick={close}
+          position="absolute"
+          right="8px"
+          top="5"
+          data-testid="close"
+        />
+      )}
     </CUI.Alert>
   );
 };

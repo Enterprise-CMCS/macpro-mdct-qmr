@@ -1,5 +1,6 @@
 import AWS from "aws-sdk";
 import { ServiceConfigurationOptions } from "aws-sdk/lib/service";
+import * as Types from "../types";
 
 const dyanmoConfig: AWS.DynamoDB.DocumentClient.DocumentClientOptions &
   ServiceConfigurationOptions &
@@ -20,7 +21,8 @@ const client = new AWS.DynamoDB.DocumentClient(dyanmoConfig);
 export default {
   get: (params: any) => client.get(params).promise(),
   put: (params: any) => client.put(params).promise(),
-  post: (params: any) => client.put(params).promise(),
+  post: (params: Types.CreateCoreSet | Types.CreateMeasure) =>
+    client.put(params).promise(),
   query: (params: any) => client.query(params).promise(),
   scan: (params: any) => client.scan(params).promise(),
   update: (params: any) => client.update(params).promise(),

@@ -4,9 +4,12 @@ import App from "App";
 import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
+import { QueryProvider } from "query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
+import { UserProvider } from "hooks/authHooks";
 
 Amplify.configure({
   Auth: {
@@ -19,7 +22,7 @@ Amplify.configure({
       domain: config.cognito.APP_CLIENT_DOMAIN,
       redirectSignIn: config.cognito.REDIRECT_SIGNIN,
       redirectSignOut: config.cognito.REDIRECT_SIGNOUT,
-      scope: ["email", "openid"],
+      scope: ["email", "openid", "aws.cognito.signin.user.admin", "profile"],
       responseType: "token",
     },
   },
@@ -41,9 +44,14 @@ Amplify.configure({
 
 ReactDOM.render(
   <Router>
-    <ChakraProvider theme={theme}>
-      <App />
-    </ChakraProvider>
+    <UserProvider>
+      <QueryProvider>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+        <ReactQueryDevtools />
+      </QueryProvider>
+    </UserProvider>
   </Router>,
   document.getElementById("root")
 );
