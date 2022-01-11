@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import { ContainedButton } from "components/ContainedButton";
-import { useApi } from "hooks/authHooks";
 import {
   createCoreSet,
   editCoreSet,
@@ -15,7 +14,6 @@ import {
 } from "libs/api";
 
 export const ApiTester = () => {
-  useApi();
   return (
     <>
       <CUI.Flex flexWrap="wrap" spacing={5}>
