@@ -1,5 +1,10 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 
+enum UserRoles {
+  ADMIN = "mdctqmr-approver",
+  STATE = "mdctqmr-state-user",
+}
+
 const authErrorHandler = (
   state: string,
   userState: string,
@@ -15,7 +20,7 @@ const authErrorHandler = (
     operationType === "DELETE"
   ) {
     if (
-      !userRole.includes("state") ||
+      !(userRole === UserRoles.STATE) ||
       state.toLowerCase() !== userState.toLowerCase()
     ) {
       return 403;
@@ -23,7 +28,7 @@ const authErrorHandler = (
   }
   if (operationType === "GET" || operationType === "LIST") {
     if (
-      userRole.includes("state") &&
+      userRole === UserRoles.STATE &&
       state.toLowerCase() !== userState.toLowerCase()
     ) {
       return 403;
