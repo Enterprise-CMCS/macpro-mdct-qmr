@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "measures/types";
-import { allPositiveIntegers } from "utils/numberInputMasks";
+import { allPositiveIntegers, percentages } from "utils/numberInputMasks";
 
 export const DefinitionOfPopulation = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -125,6 +125,7 @@ export const DefinitionOfPopulation = () => {
                           formLabelProps={{ fontWeight: "400" }}
                           label="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"
                           displayPercent
+                          mask={percentages}
                         />,
                         <CUI.Text my="5" key="AdditionalFFSText">
                           The percentage provided here should represent the
@@ -175,6 +176,7 @@ export const DefinitionOfPopulation = () => {
                             "DeliverySys-PrimaryCareManagement-No-Percent"
                           )}
                           displayPercent
+                          mask={percentages}
                           formLabelProps={{ fontWeight: "400" }}
                           label="What percent of your measure-eligible Primary Care Case Management (PCCM) population are included in the measure?"
                         />,
@@ -213,6 +215,7 @@ export const DefinitionOfPopulation = () => {
                 <CUI.Box pb="5" key="DeliverySys-MCO_POHP-Percent">
                   <QMR.NumberInput
                     displayPercent
+                    mask={percentages}
                     formLabelProps={{ fontWeight: "400" }}
                     label="What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in the measure?"
                     {...register("DeliverySys-MCO_POHP-Percent")}
@@ -297,6 +300,7 @@ export const DefinitionOfPopulation = () => {
                       children: [
                         <QMR.NumberInput
                           displayPercent
+                          mask={percentages}
                           formLabelProps={{ fontWeight: "400" }}
                           label="Percentage of measure-eligible state population represented in data reported:"
                           {...register(
@@ -344,6 +348,7 @@ export const DefinitionOfPopulation = () => {
                 <CUI.Box py="5" key="DeliverySys-Other-Percent">
                   <QMR.NumberInput
                     displayPercent
+                    mask={percentages}
                     formLabelProps={{ fontWeight: "400" }}
                     label="Percentage of measure-eligible state population represented in data reported:"
                     {...register("DeliverySys-Other-Percent")}
