@@ -26,9 +26,7 @@ export const FUAAD = ({
   }, [setMeasureSchema, setValidationFunctions]);
 
   const { coreSetId } = useParams<Params>();
-  const { watch, formState } = useFormContext<Measure.Form>();
-
-  console.log(`formState`, formState);
+  const { watch } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");

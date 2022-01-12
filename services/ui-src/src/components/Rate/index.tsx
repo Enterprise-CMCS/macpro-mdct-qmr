@@ -54,8 +54,6 @@ export const Rate = ({ rates, name, readOnly = true, ...rest }: Props) => {
     field.onChange([...prevRate]);
   };
 
-  console.log(`name`, name);
-
   return (
     <>
       {rates.map((rate, index) => {

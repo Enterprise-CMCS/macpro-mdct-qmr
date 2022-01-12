@@ -8,7 +8,7 @@ import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useUser } from "hooks/authHooks";
-
+import { v4 as uuidv4 } from "uuid";
 interface Props {
   measure: ReactElement;
   name: string;
@@ -122,6 +122,20 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                 setMeasureSchema,
                 setValidationFunctions,
               })}
+              {errors?.map((error, index) => (
+                <QMR.Notification
+                  key={uuidv4()}
+                  alertProps={{ my: "3" }}
+                  alertStatus="error"
+                  alertTitle="Validation Error"
+                  alertDescription={error.errorMessage}
+                  close={() => {
+                    const newErrors = [...errors];
+                    newErrors.splice(index, 1);
+                    setErrors(newErrors);
+                  }}
+                />
+              ))}
             </CUI.Container>
           </form>
         </>
