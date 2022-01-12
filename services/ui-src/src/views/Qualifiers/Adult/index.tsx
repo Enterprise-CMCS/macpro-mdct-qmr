@@ -6,19 +6,23 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "./schema";
 import { ACSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
-import { useUpdateMeasure } from "hooks/api";
+import { useUpdateMeasure, useGetMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 
 export const ACSQualifiers = () => {
   const { state, year } = useParams();
   const mutation = useUpdateMeasure();
   const navigate = useNavigate();
+  const { data } = useGetMeasure({
+    coreSet: CoreSetAbbr.ACS,
+    measure: "CSQ",
+  });
 
   const methods = useForm<ACSQualifierForm>({
     shouldUnregister: true,
     mode: "all",
     resolver: joiResolver(validationSchema),
-    defaultValues: {
+    defaultValues: data?.Item.data || {
       PercentageEnrolledInEachDeliverySystem: [
         {
           key: "FeeForService",

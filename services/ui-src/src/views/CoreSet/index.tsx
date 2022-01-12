@@ -35,14 +35,14 @@ const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
   if (isComplete) {
     return (
       <CUI.Flex alignItems="center">
-        <CUI.Text>Status: Complete</CUI.Text>
-        <CUI.Box pl="1" color="green.500">
+        <CUI.Text>Complete</CUI.Text>
+        <CUI.Box pl="1" pt="2px" color="green.500">
           <HiCheckCircle />
         </CUI.Box>
       </CUI.Flex>
     );
   }
-  return <CUI.Text>Status: Incomplete</CUI.Text>;
+  return <CUI.Text>Incomplete</CUI.Text>;
 };
 
 const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
@@ -54,7 +54,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
 
   const isComplete = data?.Item.status === MeasureStatus.COMPLETE;
   return (
-    <CUI.Box>
+    <CUI.Box fontWeight="thin" fontSize="sm">
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue">
