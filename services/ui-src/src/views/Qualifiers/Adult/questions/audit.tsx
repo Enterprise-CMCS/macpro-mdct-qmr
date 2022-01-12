@@ -5,6 +5,17 @@ import * as Q from "./";
 import { ICheckbox } from "components/MultiSelect";
 import { useController, useFormContext } from "react-hook-form";
 import { AuditDetails } from "../types";
+import { HiX } from "react-icons/hi";
+
+export const CloseButton = ({ onClick }: { onClick: () => void }) => (
+  <CUI.IconButton
+    fontSize="1.5em"
+    variant="ghost"
+    icon={<HiX />}
+    aria-label="Remove Audit Item"
+    onClick={onClick}
+  />
+);
 
 export const Audit = () => {
   const { control } = useFormContext();
@@ -56,6 +67,12 @@ export const Audit = () => {
     ]);
   };
 
+  const removeAuditItem = (index: number) => {
+    const newMeasureList = [...measureList];
+    newMeasureList.splice(index, 1);
+    setMeasureList(newMeasureList);
+  };
+
   return (
     <CUI.ListItem>
       <Q.QualifierHeader
@@ -77,29 +94,40 @@ export const Audit = () => {
                 children: [
                   <CUI.Stack mb="5" spacing="6">
                     {measureList.map((m: AuditDetails, index: number) => {
-                      // console.log({ m });
                       return (
                         <CUI.Box
                           border="1px"
                           borderColor="gray.200"
                           borderRadius="md"
-                          p="5"
                           key={`${Object.keys(m).join("-")}${index}.key`}
                         >
-                          <QMR.TextInput
-                            formLabelProps={{ fontWeight: "400" }}
-                            label="Who conducted the audit or validation?"
-                            name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.WhoConductedAuditOrValidation`}
-                            formControlProps={{ mb: "5" }}
-                          />
-                          <CUI.Text my="2">
-                            Which measures did they audit or validate?
-                          </CUI.Text>
-                          <QMR.MultiSelect
-                            multiSelectList={multiSelectList}
-                            name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.MeasuresAuditedOrValidated`}
-                          />
-                          <CUI.Spacer />
+                          <CUI.Flex>
+                            <QMR.TextInput
+                              formLabelProps={{ fontWeight: "400" }}
+                              label="Who conducted the audit or validation?"
+                              name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.WhoConductedAuditOrValidation`}
+                              formControlProps={{
+                                p: "5",
+                                pb: "0",
+                              }}
+                            />
+                            <CUI.Spacer />
+                            {index !== 0 && (
+                              <CloseButton
+                                onClick={() => removeAuditItem(index)}
+                              />
+                            )}
+                          </CUI.Flex>
+                          <CUI.Box p="5">
+                            <CUI.Text mb="4">
+                              Which measures did they audit or validate?
+                            </CUI.Text>
+
+                            <QMR.MultiSelect
+                              multiSelectList={multiSelectList}
+                              name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.MeasuresAuditedOrValidated`}
+                            />
+                          </CUI.Box>
                         </CUI.Box>
                       );
                     })}
