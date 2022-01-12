@@ -24,34 +24,6 @@ describe("test header (delivery system) component", () => {
     expect(await screen.findByText("Delivery System")).toBeInTheDocument();
   });
 });
-describe("test delivery system component", () => {
-  it("renders components properly", async () => {
-    expect(await screen.findByText("Fee-for-Service")).toBeInTheDocument();
-    expect(await screen.findByText("PCCM")).toBeInTheDocument();
-    expect(await screen.findByText("Managed Care")).toBeInTheDocument();
-    expect(
-      await screen.findByText("Integrated Care Model (ICM)")
-    ).toBeInTheDocument();
-    fireEvent.click(
-      await screen.getByRole("button", { name: /\+ Add Another/i })
-    );
-    expect(
-      await screen.getByRole("textbox", { name: "deliverySystem.4.-name" })
-    ).toBeInTheDocument();
-  });
-  it("renders percentage total properly", async () => {
-    await screen.getByRole("textbox", {
-      name: "deliverySystem.0.feeForService-21-64",
-    });
-    fireEvent.change(
-      await screen.getByRole("textbox", {
-        name: "deliverySystem.0.feeForService-21-64",
-      }),
-      { target: { value: "23" } }
-    );
-    expect(await screen.findByText("23%")).toBeInTheDocument();
-  });
-});
 
 describe("test audit or validation component", () => {
   it("renders components properly", async () => {
