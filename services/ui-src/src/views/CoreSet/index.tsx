@@ -153,16 +153,6 @@ export const CoreSet = () => {
           </CUI.Box>
 
           <CUI.HStack>
-            <CUI.Box pr="10">
-              <CUI.Text fontSize="sm">
-                {`${
-                  coreSetType[coreSetId as keyof typeof coreSetType]
-                } Measures`}
-              </CUI.Text>
-              <CUI.Text fontSize="sm" fontWeight="600">
-                16% Complete
-              </CUI.Text>
-            </CUI.Box>
             <QMR.ProgressCircle
               circularProgressProps={{ color: "green", size: "4.5rem" }}
               circularProgressLabelProps={{ fontSize: ".8rem" }}
@@ -177,7 +167,7 @@ export const CoreSet = () => {
             buttonProps={{
               colorScheme: "blue",
             }}
-            buttonText="Submit Measures"
+            buttonText="Submit Core Set"
             disabledStatus={!isStateUser}
             helperText={`Complete all ${
               coreSetType[coreSetId as keyof typeof coreSetType]
