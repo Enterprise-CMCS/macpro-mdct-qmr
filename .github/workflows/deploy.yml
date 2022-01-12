@@ -109,5 +109,10 @@ jobs:
       #    SLACK_COLOR: ${{job.status}}
       #    SLACK_FOOTER: ""
       #    MSG_MINIMAL: actions url,commit,ref
-         if: always()
-         
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,ref,took # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
