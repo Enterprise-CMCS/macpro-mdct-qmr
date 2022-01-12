@@ -182,6 +182,17 @@ resources:
                   "cognito-identity.amazonaws.com:aud": !Ref CognitoIdentityPool
                 "ForAnyValue:StringLike":
                   "cognito-identity.amazonaws.com:amr": authenticated
+            - Effect: "Allow"
+              Action:
+                - "kms:ListKeys"
+                - "kms:ListAliases"
+                - "kms:DescribeKey"
+                - "kms:ListKeyPolicies"
+                - "kms:GetKeyPolicy"
+                - "kms:GetKeyRotationStatus"
+                - "kms:Encrypt"
+                - "kms:Decrypt"
+              Resource: "*"
         Policies:
           - PolicyName: "CognitoAuthorizedPolicy"
             PolicyDocument:
