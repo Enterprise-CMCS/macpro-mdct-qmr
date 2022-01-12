@@ -13,8 +13,8 @@ export const measures: Measure = {
   2021: [
     {
       type: "A",
-      description: "Antidepressant Medication Management",
-      measure: "AMM-AD",
+      description: "Qualifiers",
+      measure: "CSQ",
     },
     {
       type: "A",
