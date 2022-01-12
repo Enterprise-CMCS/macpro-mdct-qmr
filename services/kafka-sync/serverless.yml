@@ -1,0 +1,49 @@
+service: s3-bucket-cleanser
+
+frameworkVersion: "2 || 3"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  versionFunctions: true
+  iam:
+    AssumeRolePolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Effect: "Allow"
+          Principal:
+            Service:
+              - "s3.amazonaws.com"
+              - "ecs-tasks.amazonaws.com"
+          Action: "sts:AssumeRole"
+    role:
+      path: ${ssm:/configuration/default/iam/path~true, "/"}
+      permissionsBoundary: ${ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:ListBucket"
+          Resource: "arn:aws:s3:::*"
+        - Effect: "Allow"
+          Action:
+            - "s3:PutBucketPublicAccessBlock"
+          Resource: "arn:aws:s3:::*"
+        - Effect: "Allow"
+          Action:
+            - "s3:GetBucketLocation"
+          Resource: "arn:aws:s3:::*"
+        - Effect: "Allow"
+          Action:
+            - "s3:ListAllMyBuckets"
+          Resource: "arn:aws:s3:::*"
+      tags:
+        Owner: "Foundation"
+functions:
+  kafkaSync:
+    handler: handler.run
+    environment:
+      accountNumber: !Sub ${AWS::AccountId}
+    events:
+      - schedule: cron(0 * * * ? *)
+    timeout: 60
