@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
 import { useGetMeasure } from "hooks/api";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, MeasureStatus } from "types";
+import { HiCheckCircle } from "react-icons/hi";
 
 enum coreSetType {
   ACS = "Adult",
@@ -30,17 +31,42 @@ enum coreSetQuestionsText {
   HHCS = "Health Homes Core Set Questions: User generated SPA name",
 }
 
+const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
+  if (isComplete) {
+    return (
+      <CUI.Flex alignItems="center">
+        <CUI.Text>Status: Complete</CUI.Text>
+        <CUI.Box pl="1" color="green.500">
+          <HiCheckCircle />
+        </CUI.Box>
+      </CUI.Flex>
+    );
+  }
+  return <CUI.Text>Status: Incomplete</CUI.Text>;
+};
+
 const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   // get the core set qualifier measure for the coreset and display the status
-  const {} = useGetMeasure({ coreSet: coreSetId, measure: "CSQ" });
+  const { data, isLoading } = useGetMeasure({
+    coreSet: coreSetId,
+    measure: "CSQ",
+  });
+
+  const isComplete = data?.Item.status === MeasureStatus.COMPLETE;
   return (
     <CUI.Box>
-      <CUI.Text fontSize="sm">Core Set Qualifiers</CUI.Text>
+      <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
-        <CUI.Text fontSize="sm" color="blue">
+        <CUI.Text color="blue">
           {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
         </CUI.Text>
       </Link>
+
+      {isLoading ? (
+        <CUI.SkeletonText maxW={48} noOfLines={1} mt="1" />
+      ) : (
+        <QualifierStatus isComplete={isComplete} />
+      )}
     </CUI.Box>
   );
 };
