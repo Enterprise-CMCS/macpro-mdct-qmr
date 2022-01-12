@@ -27,7 +27,6 @@ const deviationOptions = ({
   deviationConditions,
 }: OptionProps): QMR.CheckboxOption[] => {
   let filteredOptions: Props["options"];
-
   if (name.includes("Within30")) {
     filteredOptions = options.filter((option) => {
       return (
@@ -44,14 +43,14 @@ const deviationOptions = ({
     });
   }
 
-  return filteredOptions.map((item, index) => {
+  return filteredOptions.map((item) => {
     return {
       displayValue: item.label,
-      value: `${item.id}-${item.label.replace(/ /g, "").substring(0, 10)}`,
+      value: `${item.id}-${item.label.replace(/ /g, "")}`,
       children: [
         <QMR.Checkbox
-          name={`${name}.${index}.options`}
-          key={`${name}.${index}.options`}
+          name={`${name}.${item.id}.options`}
+          key={`${name}.${item.id}.options`}
           options={[
             {
               displayValue: "Numerator",
@@ -59,8 +58,8 @@ const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain"
-                  name={`${name}.${index}.numerator`}
-                  key={`${name}.${index}.numerator`}
+                  name={`${name}.${item.id}.numerator`}
+                  key={`${name}.${item.id}.numerator`}
                 />,
               ],
             },
@@ -70,8 +69,8 @@ const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain"
-                  name={`${name}.${index}.denominator`}
-                  key={`${name}.${index}.denominator`}
+                  name={`${name}.${item.id}.denominator`}
+                  key={`${name}.${item.id}.denominator`}
                 />,
               ],
             },
@@ -81,8 +80,8 @@ const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain"
-                  name={`${name}.${index}.other`}
-                  key={`${name}.${index}.other`}
+                  name={`${name}.${item.id}.other`}
+                  key={`${name}.${item.id}.other`}
                 />,
               ],
             },
@@ -116,6 +115,7 @@ export const DeviationFromMeasureSpec = ({
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
+                // Dynamically hide or show children based on if performance measure 30days/age sections were completed
                 options={[
                   ...(deviationConditions.show30DaysAges18To64 ||
                   deviationConditions.show30DaysAges65AndOlder
@@ -139,6 +139,7 @@ export const DeviationFromMeasureSpec = ({
                         },
                       ]
                     : []),
+                  // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.show7DaysAges18To64 ||
                   deviationConditions.show7DaysAges65AndOlder
                     ? [

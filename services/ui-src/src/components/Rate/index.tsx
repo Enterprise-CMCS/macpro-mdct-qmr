@@ -48,6 +48,8 @@ export const Rate = ({ rates, name, readOnly = true, ...rest }: Props) => {
       editRate.rate = (editRate.numerator / editRate.denominator)
         .toFixed(4)
         .toString();
+    } else if (editRate.rate) {
+      editRate.rate = "";
     }
 
     prevRate[index] = editRate;
