@@ -3,9 +3,17 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./";
 import { ICheckbox } from "components/MultiSelect";
+import { useController, useFormContext } from "react-hook-form";
+import { AuditDetails } from "../types";
 
 export const Audit = () => {
-  const [measureList, setMeasureList] = useState<string[]>([""]);
+  const { control } = useFormContext();
+  const { field } = useController({
+    name: "CoreSetMeasuresAuditedOrValidatedDetails",
+    control,
+  });
+
+  const [measureList, setMeasureList] = useState(field.value);
 
   const multiSelectList = useMemo<ICheckbox[]>(
     () => [
@@ -38,6 +46,16 @@ export const Audit = () => {
     []
   );
 
+  const handleAddMeasureList = () => {
+    setMeasureList([
+      ...measureList,
+      {
+        MeasuresAuditedOrValidated: [],
+        WhoConductedAuditOrValidation: "",
+      },
+    ]);
+  };
+
   return (
     <CUI.ListItem>
       <Q.QualifierHeader
@@ -54,20 +72,19 @@ export const Audit = () => {
               {
                 displayValue:
                   "Yes, some of the Core Set measures have been audited or validated",
-                value: "some",
+                value:
+                  "Yes, some of the Core Set measures have been audited or validated",
                 children: [
                   <CUI.Stack mb="5" spacing="6">
-                    {measureList.map((m: any, index: number) => {
-                      console.log(m);
+                    {measureList.map((m: AuditDetails, index: number) => {
+                      // console.log({ m });
                       return (
                         <CUI.Box
                           border="1px"
                           borderColor="gray.200"
                           borderRadius="md"
                           p="5"
-                          key={
-                            "CoreSetMeasuresAuditedOrValidated" + "_" + index
-                          }
+                          key={`${Object.keys(m).join("-")}${index}.key`}
                         >
                           <QMR.TextInput
                             formLabelProps={{ fontWeight: "400" }}
@@ -94,16 +111,15 @@ export const Audit = () => {
                       colorScheme: "blue",
                       textTransform: "capitalize",
                     }}
-                    onClick={() => {
-                      setMeasureList([...measureList, ""]);
-                    }}
+                    onClick={handleAddMeasureList}
                   />,
                 ],
               },
               {
                 displayValue:
                   "No, none of the Core Set measures have been audited or validated",
-                value: "none",
+                value:
+                  "No, none of the Core Set measures have been audited or validated",
               },
             ]}
           />

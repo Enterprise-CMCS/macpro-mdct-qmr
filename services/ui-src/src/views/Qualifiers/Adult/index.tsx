@@ -46,13 +46,17 @@ export const ACSQualifiers = () => {
           userGenerated: false,
         },
       ],
+      CoreSetMeasuresAuditedOrValidatedDetails: [
+        {
+          MeasuresAuditedOrValidated: [],
+          WhoConductedAuditOrValidation: "",
+        },
+      ],
     },
   });
 
-  console.log(methods.formState.errors);
-
-  const handleSubmit = () => {
-    console.log("submitted");
+  const handleSubmit = (data: ACSQualifierForm) => {
+    console.log({ data });
   };
 
   return (
@@ -70,13 +74,13 @@ export const ACSQualifiers = () => {
       ]}
       buttons={
         <QMR.MeasureButtons
-          handleSubmit={handleSubmit}
+          handleSubmit={methods.handleSubmit(handleSubmit)}
           submitButtonText="Complete Core Set Questions"
         />
       }
     >
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="5xl" as="section">
             <CUI.Box mb="7" mt="3">
               <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
