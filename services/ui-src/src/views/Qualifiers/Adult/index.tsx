@@ -6,12 +6,11 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "./schema";
 import { ACSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
-import { Params } from "Routes";
 import { useUpdateMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 
 export const ACSQualifiers = () => {
-  const { state, year } = useParams<Params>();
+  const { state, year } = useParams();
   const mutation = useUpdateMeasure();
   const navigate = useNavigate();
 

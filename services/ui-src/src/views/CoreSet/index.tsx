@@ -1,9 +1,10 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 import { Link } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
+import { useGetMeasure } from "hooks/api";
+import { CoreSetAbbr } from "types";
 
 enum coreSetType {
   ACS = "Adult",
@@ -29,8 +30,23 @@ enum coreSetQuestionsText {
   HHCS = "Health Homes Core Set Questions: User generated SPA name",
 }
 
+const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
+  // get the core set qualifier measure for the coreset and display the status
+  const {} = useGetMeasure({ coreSet: coreSetId, measure: "CSQ" });
+  return (
+    <CUI.Box>
+      <CUI.Text fontSize="sm">Core Set Qualifiers</CUI.Text>
+      <Link to={"CSQ"}>
+        <CUI.Text fontSize="sm" color="blue">
+          {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
+        </CUI.Text>
+      </Link>
+    </CUI.Box>
+  );
+};
+
 export const CoreSet = () => {
-  const { state, year, coreSetId } = useParams<Params>();
+  const { state, year, coreSetId } = useParams();
 
   // This is where a fetch for the measures would live and calculate progress completed
   const measures = [
@@ -139,18 +155,7 @@ export const CoreSet = () => {
           backgroundColor="gray.100"
           p="4"
         >
-          <CUI.Box>
-            <CUI.Text fontSize="sm">Core Set Qualifiers</CUI.Text>
-            <Link to={"CSQ"}>
-              <CUI.Text fontSize="sm" color="blue">
-                {
-                  coreSetQuestionsText[
-                    coreSetId as keyof typeof coreSetQuestionsText
-                  ]
-                }
-              </CUI.Text>
-            </Link>
-          </CUI.Box>
+          <QualifiersStatusAndLink coreSetId={coreSetId as CoreSetAbbr} />
 
           <CUI.HStack>
             <QMR.ProgressCircle

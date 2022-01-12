@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Params } from "Routes";
 import { ReactElement, cloneElement } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
@@ -17,7 +16,7 @@ interface Props {
 }
 
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
-  const params = useParams<Params>();
+  const params = useParams();
   const { isStateUser } = useUser();
   /*
   this is where we put all the high level stuff for measures

@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import { listMeasures } from "libs/api";
 import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 
 interface GetMeasures {
   state: string;
@@ -18,7 +17,7 @@ const getMeasures = ({ state, year, coreSet }: GetMeasures) => {
 };
 
 export const useGetMeasures = () => {
-  const { state, year, coreSetId } = useParams<Params>();
+  const { state, year, coreSetId } = useParams();
   if (state && year && coreSetId) {
     return useQuery(["coreSets", state, year], () =>
       getMeasures({ state, year, coreSet: coreSetId })

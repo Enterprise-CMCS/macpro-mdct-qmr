@@ -1,7 +1,6 @@
 import { useMutation } from "react-query";
 import { editMeasure } from "libs/api";
 import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 import { CoreSetAbbr } from "types";
 
 interface IParams {
@@ -37,7 +36,7 @@ const updateMeasure = ({
 };
 
 export const useUpdateMeasure = () => {
-  const { state, year } = useParams<Params>();
+  const { state, year } = useParams();
   if (state && year) {
     return useMutation((data: UpdateMeasure) =>
       updateMeasure({ state, year, ...data })

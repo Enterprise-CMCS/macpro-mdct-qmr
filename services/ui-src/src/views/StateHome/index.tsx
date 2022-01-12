@@ -2,7 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { measuresList } from "measures/measuresList";
 import { useParams, useNavigate } from "react-router-dom";
-import { Params } from "Routes";
 import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
 import * as Api from "hooks/api";
@@ -18,7 +17,7 @@ interface Data {
 
 const ReportingYear = () => {
   const navigate = useNavigate();
-  const { state, year } = useParams<Params>();
+  const { state, year } = useParams();
   const reportingYears = Object.keys(measuresList);
 
   const reportingyearOptions = reportingYears.map((year: string) => ({
@@ -51,7 +50,7 @@ const ReportingYear = () => {
 };
 
 const Heading = () => {
-  const { year } = useParams<Params>();
+  const { year } = useParams();
   return (
     <CUI.Box display={{ base: "block", md: "flex" }}>
       <CUI.Box maxW="3xl" pb="6">
@@ -70,7 +69,7 @@ const Heading = () => {
 };
 
 export const StateHome = () => {
-  const { state, year } = useParams<Params>();
+  const { state, year } = useParams();
   const queryClient = useQueryClient();
   const { data, error, isLoading } = Api.useGetCoreSets();
   const deleteCoreSet = Api.useDeleteCoreSet();
