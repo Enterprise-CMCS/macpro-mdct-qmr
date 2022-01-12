@@ -6,8 +6,8 @@ export const validationSchema = Joi.object<ACSQualifierForm>({
   PercentageEnrolledInEachDeliverySystem: Joi.array().items({
     key: Joi.string(),
     label: Joi.string(),
-    TwentyOneToSixtyFour: Joi.string(),
-    GreaterThanSixtyFour: Joi.string(),
+    TwentyOneToSixtyFour: Joi.string().empty(""),
+    GreaterThanSixtyFour: Joi.string().empty(""),
     userGenerated: Joi.bool(),
   }),
   CoreSetMeasuresAuditedOrValidated: Joi.string(),

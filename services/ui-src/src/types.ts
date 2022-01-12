@@ -10,3 +10,8 @@ export enum UserRoles {
   STATE = "mdctqmr-state-user",
   ADMIN = "mdctqmr-approver",
 }
+
+export enum MeasureStatus {
+  COMPLETE = "complete",
+  INCOMPLETE = "incomplete",
+}

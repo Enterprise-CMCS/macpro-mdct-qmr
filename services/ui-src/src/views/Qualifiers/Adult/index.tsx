@@ -1,16 +1,20 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
-
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "./schema";
 import { ACSQualifierForm } from "./types";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Params } from "Routes";
+import { useUpdateMeasure } from "hooks/api";
+import { CoreSetAbbr, MeasureStatus } from "types";
 
 export const ACSQualifiers = () => {
   const { state, year } = useParams<Params>();
+  const mutation = useUpdateMeasure();
+  const navigate = useNavigate();
+
   const methods = useForm<ACSQualifierForm>({
     shouldUnregister: true,
     mode: "all",
@@ -56,7 +60,20 @@ export const ACSQualifiers = () => {
   });
 
   const handleSubmit = (data: ACSQualifierForm) => {
-    console.log({ data });
+    const requestData = {
+      data,
+      measure: "CSQ",
+      status: MeasureStatus.COMPLETE,
+      coreSet: CoreSetAbbr.ACS,
+    };
+
+    mutation.mutate(requestData, {
+      onSuccess: () => {
+        // refetch the qualifier measure and redirect to measure list page
+        navigate(`/${state}/${year}/${CoreSetAbbr.ACS}`);
+      },
+    });
+    // submit data basically update measure , redirect back to core set list and display that coreset qualifiers have been submitted
   };
 
   return (
@@ -64,20 +81,14 @@ export const ACSQualifiers = () => {
       breadcrumbItems={[
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
-          path: `/${state}/${year}/ACS`,
+          path: `/${state}/${year}/${CoreSetAbbr.ACS}`,
           name: ``,
         },
         {
-          path: `/${state}/${year}/ACS/CSQ`,
+          path: `/${state}/${year}/${CoreSetAbbr.ACS}/CSQ`,
           name: `Adult Core Set Qualifiers`,
         },
       ]}
-      buttons={
-        <QMR.MeasureButtons
-          handleSubmit={methods.handleSubmit(handleSubmit)}
-          submitButtonText="Complete Core Set Questions"
-        />
-      }
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>

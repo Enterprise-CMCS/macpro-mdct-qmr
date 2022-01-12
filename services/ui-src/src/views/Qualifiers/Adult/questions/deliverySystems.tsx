@@ -18,19 +18,7 @@ const DefaultDeliverySystemTableRecord = ({
 }: DefaultDeliverySystemTableRecordProps) => (
   <CUI.Tr>
     <CUI.Td px="none">
-      <QMR.TextInput
-        name={`${record}.key`}
-        placeholder={label}
-        textInputProps={{
-          _placeholder: { color: "black" },
-          isReadOnly: true,
-          border: "none",
-          value: label,
-          pl: 0,
-          // dont focus to the input
-          tabIndex: -1,
-        }}
-      />
+      <CUI.Text>{label}</CUI.Text>
     </CUI.Td>
     <CUI.Td>
       <QMR.NumberInput
