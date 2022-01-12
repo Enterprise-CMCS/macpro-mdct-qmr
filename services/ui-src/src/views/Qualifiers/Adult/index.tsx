@@ -8,11 +8,15 @@ import { ACSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUpdateMeasure, useGetMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
+import { useQueryClient } from "react-query";
 
 export const ACSQualifiers = () => {
   const { state, year } = useParams();
   const mutation = useUpdateMeasure();
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  // get qualifier data and prepoulate default values if data exists
   const { data } = useGetMeasure({
     coreSet: CoreSetAbbr.ACS,
     measure: "CSQ",
@@ -73,10 +77,10 @@ export const ACSQualifiers = () => {
     mutation.mutate(requestData, {
       onSuccess: () => {
         // refetch the qualifier measure and redirect to measure list page
+        queryClient.refetchQueries(["measure", state, year, "CSQ"]);
         navigate(`/${state}/${year}/${CoreSetAbbr.ACS}`);
       },
     });
-    // submit data basically update measure , redirect back to core set list and display that coreset qualifiers have been submitted
   };
 
   return (
@@ -106,7 +110,7 @@ export const ACSQualifiers = () => {
               <Q.DeliverySystems />
               <Q.Audit />
               <Q.ExternalContractor />
-              <Q.CompleteCoreSets />
+              <Q.CompleteCoreSets completeEnabled={methods.formState.isDirty} />
             </CUI.OrderedList>
           </CUI.Box>
         </form>

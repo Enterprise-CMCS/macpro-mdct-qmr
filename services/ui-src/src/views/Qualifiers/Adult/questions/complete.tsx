@@ -2,7 +2,11 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Q from "./";
 
-export const CompleteCoreSets = () => {
+interface Props {
+  completeEnabled: boolean;
+}
+
+export const CompleteCoreSets = ({ completeEnabled }: Props) => {
   return (
     <CUI.ListItem>
       <Q.QualifierHeader
@@ -12,6 +16,7 @@ export const CompleteCoreSets = () => {
 
       <QMR.ContainedButton
         buttonText="Complete Core Set Questions"
+        disabledStatus={!completeEnabled}
         buttonProps={{
           bg: "blue.600",
           colorScheme: "blue",
