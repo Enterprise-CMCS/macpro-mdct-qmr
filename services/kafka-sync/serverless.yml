@@ -4,7 +4,7 @@ frameworkVersion: "2 || 3"
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   lambdaHashingVersion: 20201221
   versionFunctions: true
   iam:
@@ -47,3 +47,44 @@ functions:
     events:
       - schedule: cron(0 * * * ? *)
     timeout: 60
+resources:
+  Resources:
+    AttachmentsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub ${self:service.name}-${self:custom.stage}-kafka-sync-${AWS::AccountId}
+    AttachmentsBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref AttachmentsBucket
+        PolicyDocument:
+          Statement:
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}
+              Principal:
+                AWS: ${ssm:/configuration/mpraccountid~true}
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mpraccountid~true}
+            - Action:
+                - "s3:GetObject"
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: !Sub ${kafkaSync.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mpraccountid~true}
+  Outputs:
+    AttachmentsBucketName: # Print out the name of the bucket that is created
+      Value: !Ref AttachmentsBucket
+    AttachmentsBucketArn:
+      Value: !GetAtt AttachmentsBucket.Arn
+    Region:
+      Value: !Sub ${AWS::Region}
