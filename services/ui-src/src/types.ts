@@ -15,3 +15,9 @@ export enum MeasureStatus {
   COMPLETE = "complete",
   INCOMPLETE = "incomplete",
 }
+
+export interface Params {
+  state?: string;
+  year?: string;
+  coreSetId?: CoreSetAbbr;
+}

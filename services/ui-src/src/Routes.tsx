@@ -6,13 +6,6 @@ import * as Views from "views";
 import * as QMR from "components";
 import Measures from "measures";
 import { measuresList, MeasuresListItem } from "measures/measuresList";
-import { CoreSetAbbr } from "types";
-
-export interface Params {
-  state?: string;
-  year?: string;
-  coreSetId?: CoreSetAbbr;
-}
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////

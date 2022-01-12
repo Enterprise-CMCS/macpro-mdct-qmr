@@ -12,6 +12,7 @@ import {
   editMeasure,
   deleteMeasure,
 } from "libs/api";
+import { MeasureStatus } from "types";
 
 export const ApiTester = () => {
   return (
@@ -150,7 +151,7 @@ export const ApiTester = () => {
                   data: {
                     test: "data",
                   },
-                  status: "incomplete",
+                  status: MeasureStatus.INCOMPLETE,
                 },
               })
             )

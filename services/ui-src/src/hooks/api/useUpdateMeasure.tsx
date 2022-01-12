@@ -1,18 +1,13 @@
 import { useMutation } from "react-query";
 import { editMeasure } from "libs/api";
 import { useParams } from "react-router-dom";
-import { CoreSetAbbr } from "types";
-
-interface IParams {
-  state: string;
-  year: string;
-}
+import { CoreSetAbbr, Params, MeasureStatus } from "types";
 
 interface UpdateMeasure {
   coreSet: CoreSetAbbr;
   data: any;
   measure: string;
-  status: "incomplete" | "complete";
+  status: MeasureStatus;
 }
 
 const updateMeasure = ({
@@ -22,7 +17,7 @@ const updateMeasure = ({
   status,
   data,
   measure,
-}: UpdateMeasure & IParams) => {
+}: UpdateMeasure & Params) => {
   return editMeasure({
     state,
     year,

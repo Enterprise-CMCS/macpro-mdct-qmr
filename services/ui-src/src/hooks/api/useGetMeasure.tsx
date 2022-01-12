@@ -1,24 +1,14 @@
 import { useQuery } from "react-query";
 import * as API from "libs/api";
 import { useParams } from "react-router-dom";
-import { CoreSetAbbr } from "types";
-
-interface IParams {
-  state: string;
-  year: string;
-}
+import { CoreSetAbbr, Params } from "types";
 
 interface GetMeasure {
   coreSet: CoreSetAbbr;
   measure: string;
 }
 
-const getMeasure = ({
-  state,
-  year,
-  coreSet,
-  measure,
-}: GetMeasure & IParams) => {
+const getMeasure = ({ state, year, coreSet, measure }: GetMeasure & Params) => {
   return API.getMeasure({
     state,
     year,
