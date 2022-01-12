@@ -22,6 +22,11 @@ export namespace Measure {
     total: RateFields[];
   }
 
+  interface OtherRatesFields {
+    description: string[];
+    rate: RateFields[];
+  }
+
   export interface Form {
     //Report
     DidReport: string;
@@ -73,7 +78,7 @@ export namespace Measure {
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": string[];
+    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
 

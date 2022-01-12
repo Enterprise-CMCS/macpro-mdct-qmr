@@ -74,9 +74,32 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error;
 };
 
+const validatedAtLeastOneNDRSet = (data: Measure.Form) => {
+  let error;
+
+  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
+  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+  const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"];
+  if (
+    !sevenDays?.[0]?.rate &&
+    !sevenDays?.[1]?.rate &&
+    !thirtyDays?.[0]?.rate &&
+    !thirtyDays?.[0]?.rate &&
+    !otherPerformanceRates?.[0]?.rate?.[0]?.rate
+  ) {
+    error = {
+      errorMessage:
+        "At least one Performance Measure Numerator, Denominator, and Rate must be completed",
+    };
+  }
+
+  return error;
+};
+
 export const validationFunctions = [
   validateRates,
   validate7DaysGreaterThan30Days,
   validateSevenDayNumeratorLessThanDenominator,
   validateThirtyDayNumeratorLessThanDenominator,
+  validatedAtLeastOneNDRSet,
 ];
