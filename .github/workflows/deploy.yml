@@ -97,7 +97,7 @@ jobs:
         with:
           node-version: "12.x"
       - name: Combine yarn-lock.json files to single file
-        run: find services -maxdepth 3 -name package-lock.json | xargs cat package-lock.json > combined-package-lock.txt
+        run: find services -maxdepth 3 -name yarn-lock.json | xargs cat yarn-lock.json > combined-yarn-lock.txt
       - name: cache service dependencies
         uses: actions/cache@v2
         with:
