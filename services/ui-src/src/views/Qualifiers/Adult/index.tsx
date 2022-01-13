@@ -9,6 +9,25 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useUpdateMeasure, useGetMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { useQueryClient } from "react-query";
+import { formatDistanceToNow } from "date-fns";
+import { FaCheckCircle } from "react-icons/fa";
+
+const LastSavedText = ({ lastAltered }: { lastAltered?: number }) => {
+  if (!lastAltered) return null;
+  const lastAlteredText = formatDistanceToNow(new Date(lastAltered), {
+    addSuffix: true,
+  });
+  return (
+    <CUI.Flex justifyContent="center">
+      <CUI.Box mt="1">
+        <FaCheckCircle />
+      </CUI.Box>
+      <CUI.Text ml="2" fontSize="sm">
+        {`Saved ${lastAlteredText}`}
+      </CUI.Text>
+    </CUI.Flex>
+  );
+};
 
 export const ACSQualifiers = () => {
   const { state, year } = useParams();
@@ -96,6 +115,11 @@ export const ACSQualifiers = () => {
           name: `Adult Core Set Qualifiers`,
         },
       ]}
+      buttons={
+        data?.Item.data && (
+          <LastSavedText lastAltered={data?.Item.lastAltered} />
+        )
+      }
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
