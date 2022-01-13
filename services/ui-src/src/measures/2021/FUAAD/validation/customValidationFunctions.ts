@@ -26,13 +26,13 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
 
   let error;
 
-  if (sevenDays65orOlder && thirtyDays65orOlder) {
-    if (sevenDays65orOlder[1] && thirtyDays65orOlder[1]) {
+  if (sevenDays65orOlder || thirtyDays65orOlder) {
+    if (sevenDays65orOlder[1] || thirtyDays65orOlder[1]) {
       if (
-        sevenDays65orOlder[1].numerator &&
-        thirtyDays65orOlder[1].numerator &&
-        sevenDays65orOlder[1].denominator &&
-        thirtyDays65orOlder[1].denominator
+        sevenDays65orOlder[1]?.numerator ||
+        thirtyDays65orOlder[1]?.numerator ||
+        sevenDays65orOlder[1]?.denominator ||
+        thirtyDays65orOlder[1]?.denominator
       ) {
         if (
           DualEligibleCheck.indexOf(
@@ -40,7 +40,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
           ) === -1
         ) {
           error = {
-            errorMessage: "Missing checkmark",
+            errorMessage: "Information has been included in the Age 65 or older Performance Mesure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
           };
         }
       }
