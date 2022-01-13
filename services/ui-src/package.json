@@ -73,7 +73,7 @@
       "!src/views/DemoMeasure/questions/OptionalMeasureStratification.tsx",
       "!src/views/DemoMeasure/questions/OtherPerformanceMeasure.tsx",
       "!src/components/Upload/index.tsx",
-      "!src/views/Qualifiers",
+      "!src/views/Qualifiers/**/*.{ts,tsx}",
       "!src/measures/**/*.{ts,tsx}"
     ],
     "moduleDirectories": [
