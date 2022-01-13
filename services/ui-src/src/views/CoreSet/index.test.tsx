@@ -23,7 +23,6 @@ jest.mock("hooks/api", () => ({
     isLoading: false,
     error: undefined,
   }),
-  useDeleteCoreSet: jest.fn(),
 }));
 
 describe("Test CoreSet.tsx", () => {
