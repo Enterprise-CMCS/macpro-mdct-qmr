@@ -23,7 +23,7 @@ const LastSavedText = ({ lastAltered }: { lastAltered?: number }) => {
         <FaCheckCircle />
       </CUI.Box>
       <CUI.Text ml="2" fontSize="sm">
-        {`Saved ${lastAlteredText}`}
+        {`Submitted ${lastAlteredText}`}
       </CUI.Text>
     </CUI.Flex>
   );

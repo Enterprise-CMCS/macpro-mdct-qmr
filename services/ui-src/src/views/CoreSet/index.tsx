@@ -35,10 +35,10 @@ const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
   if (isComplete) {
     return (
       <CUI.Flex alignItems="center">
-        <CUI.Text>Complete</CUI.Text>
-        <CUI.Box pl="1" pt="2px" color="green.500">
+        <CUI.Box pr="1" pt="2px" color="green.500">
           <HiCheckCircle />
         </CUI.Box>
+        <CUI.Text>Complete</CUI.Text>
       </CUI.Flex>
     );
   }
@@ -54,7 +54,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
 
   const isComplete = data?.Item.status === MeasureStatus.COMPLETE;
   return (
-    <CUI.Box fontWeight="thin" fontSize="sm">
+    <CUI.Box fontWeight="semibold" fontSize="sm">
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue">
@@ -179,11 +179,21 @@ export const CoreSet = () => {
           flex="8"
           borderRadius="8"
           backgroundColor="gray.100"
-          p="4"
+          px="4"
+          py="2"
         >
           <QualifiersStatusAndLink coreSetId={coreSetId as CoreSetAbbr} />
 
           <CUI.HStack>
+            <CUI.Box
+              textAlign="center"
+              mr="2"
+              fontWeight="semibold"
+              fontSize="sm"
+            >
+              <CUI.Text>Measures</CUI.Text>
+              <CUI.Text>Completed</CUI.Text>
+            </CUI.Box>
             <QMR.ProgressCircle
               circularProgressProps={{ color: "green", size: "4.5rem" }}
               circularProgressLabelProps={{ fontSize: ".8rem" }}
