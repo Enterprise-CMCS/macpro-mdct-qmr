@@ -136,7 +136,7 @@ jobs:
           else # We're not in a CI system, let's yarn install
             yarn install
           fi
-           npm run test:ci
+           yarn run test:ci
           popd
         # uses: cypress-io/github-action@v2.11.7
         # with:
