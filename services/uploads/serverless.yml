@@ -138,6 +138,12 @@ resources:
               Principal:
                 AWS: ${ssm:/configuration/mpraccountid~true}
             - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: "arn:aws:iam::024259748323:role/delegatedadmin/developer/app-api-mpr-s3-kafka-us-east-1-lambdaRole"
+            - Action:
                 - "s3:GetObject"
               Effect: "Deny"
               Resource: !Sub ${AttachmentsBucket.Arn}/*

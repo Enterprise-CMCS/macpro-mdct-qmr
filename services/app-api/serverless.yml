@@ -152,6 +152,11 @@ functions:
           method: delete
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  dynamoSync:
+    handler: handlers/dynamoSync/handler.syncDynamoToS3
+    events:
+      - schedule: cron(0 * * * ? *)
+    timeout: 60
 resources:
   Resources:
     GatewayResponseDefault4XX:
