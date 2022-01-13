@@ -124,6 +124,8 @@ jobs:
           popd         
       - name: Run Cypress Tests
         run: |
+        with:
+          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           pushd services
           export APPLICATION_ENDPOINT=`${{ env.APPLICATION_ENDPOINT }}`
           popd
