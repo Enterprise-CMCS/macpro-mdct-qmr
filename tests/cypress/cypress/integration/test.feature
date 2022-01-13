@@ -10,7 +10,7 @@ Feature: TEST
 
     Scenario: User logins to QMR and verifies the homepage visibility
         Given user visits QMR home page
-# When  user enter username and password
+        When  user enter username and password
 # And   user click "Sign In" button
 # Then  user should see the QMR home page
 # And   user can see "Your APS Submissions" page banner
