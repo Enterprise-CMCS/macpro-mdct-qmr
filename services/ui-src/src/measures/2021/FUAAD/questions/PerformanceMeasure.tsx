@@ -2,9 +2,20 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "measures/types";
+import { useFormContext } from "react-hook-form";
 
 export const PerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
+  const { watch } = useFormContext<Measure.Form>();
+
+  // Watch for dataSource data
+  const dataSourceWatch = watch("DataSource");
+
+  // Conditional check to let rate be not readonly dependent on dataSoruce selections
+  const rateReadOnly = !(
+    dataSourceWatch?.includes("I am reporting provisional data") &&
+    dataSourceWatch?.length > 1
+  );
 
   const ageRates = [
     {
@@ -51,6 +62,7 @@ export const PerformanceMeasure = () => {
         Follow-up within 30 days of ED visit
       </CUI.Text>
       <QMR.Rate
+        readOnly={rateReadOnly}
         rates={ageRates}
         {...register("PerformanceMeasure-AgeRates-30Days")}
       />
@@ -58,6 +70,7 @@ export const PerformanceMeasure = () => {
         Follow-up within 7 days of ED visit
       </CUI.Text>
       <QMR.Rate
+        readOnly={rateReadOnly}
         rates={ageRates}
         {...register("PerformanceMeasure-AgeRates-7Days")}
       />
