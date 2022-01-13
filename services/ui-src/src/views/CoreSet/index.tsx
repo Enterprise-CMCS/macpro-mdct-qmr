@@ -191,8 +191,7 @@ export const CoreSet = () => {
               fontWeight="semibold"
               fontSize="sm"
             >
-              <CUI.Text>Measures</CUI.Text>
-              <CUI.Text>Completed</CUI.Text>
+              <CUI.Text>Total Measures Completed</CUI.Text>
             </CUI.Box>
             <QMR.ProgressCircle
               circularProgressProps={{ color: "green", size: "4.5rem" }}
