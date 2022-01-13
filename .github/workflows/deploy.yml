@@ -97,7 +97,7 @@ jobs:
         with:
           node-version: "12.x"
       - name: Combine yarn-lock.json files to single file
-        run: find services -maxdepth 3 -name yarn-lock.json | xargs cat yarn-lock.json > combined-yarn-lock.txt
+        run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
       - name: cache service dependencies
         uses: actions/cache@v2
         with:
@@ -109,7 +109,7 @@ jobs:
             services/ui-auth/node_modules
             services/ui-src/node_modules
             node_modules
-          key: ${{ runner.os }}-${{ hashFiles('combined-yarn-lock.txt') }}
+          key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
       - name: Install dependencies
         run: npm ci
       - name: set path
