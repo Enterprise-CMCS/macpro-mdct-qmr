@@ -123,7 +123,7 @@ jobs:
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd         
       - name: Run Cypress Tests
-          run: |
+        run: |
           pushd services
           export APPLICATION_ENDPOINT=`${{ env.APPLICATION_ENDPOINT }}`
           popd
