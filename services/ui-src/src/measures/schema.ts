@@ -56,7 +56,6 @@ const startDateRangeValidator = (endDateRangeLabel: string) => {
           .max(Joi.ref(`...${endDateRangeLabel}.selectedYear`))
           .message("Start Year cannot be after End Year."),
       })
-
       .label("Start Year"),
   });
 };
