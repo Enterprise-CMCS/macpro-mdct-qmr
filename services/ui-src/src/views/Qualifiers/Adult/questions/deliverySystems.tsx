@@ -171,6 +171,7 @@ export const DeliverySystems = () => {
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
+                  tabIndex={-1}
                 />
 
                 <CUI.InputRightElement
@@ -187,6 +188,7 @@ export const DeliverySystems = () => {
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
+                  tabIndex={-1}
                 />
 
                 <CUI.InputRightElement
