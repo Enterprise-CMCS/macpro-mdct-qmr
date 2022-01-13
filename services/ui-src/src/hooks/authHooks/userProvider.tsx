@@ -1,7 +1,6 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
-
 import config from "config";
 import { getLocalUserInfo, logoutLocalUser } from "libs";
 
