@@ -19,17 +19,26 @@ export const syncDynamoToS3 = handler(async (event, context) => {
   //upload file
   const bucket = new aws.S3();
 
-  bucket.upload(
-    {
-      Bucket: process.env.uploadS3BucketName!,
-      Key: "test.csv",
-      Body: csvData,
-    },
-    function (err: Error, data: aws.S3.ManagedUpload.SendData) {
-      if (err) {
-        throw err;
+  const s3Promise = new Promise((resolve, reject) => {
+    bucket.upload(
+      {
+        Bucket: process.env.uploadS3BucketName!,
+        Key: "test.csv",
+        Body: csvData,
+      },
+      function (err: Error, data: aws.S3.ManagedUpload.SendData) {
+        if (err) {
+          reject(err);
+          throw err;
+        }
+        if (data) {
+          resolve(data);
+        }
+        console.log(`File (${data.Key}) uploaded to: ${data.Location}`);
       }
-      console.log(`File (${data.Key}) uploaded to: ${data.Location}`);
-    }
-  );
+    );
+  });
+
+  const data = await s3Promise;
+  console.log(data);
 });
