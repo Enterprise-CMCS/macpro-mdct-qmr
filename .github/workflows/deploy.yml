@@ -110,8 +110,8 @@ jobs:
             services/ui-src/node_modules
             node_modules
           key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
-      # - name: Install dependencies
-      #   run: npm ci
+      - name: Install dependencies
+        run: yarn ci
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
