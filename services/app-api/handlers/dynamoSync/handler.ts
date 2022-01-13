@@ -4,19 +4,21 @@ import aws from "aws-sdk";
 import { parseAsync } from "json2csv";
 import { flatten } from "flat";
 import AWS from "aws-sdk";
+import { PromiseResult } from "aws-sdk/lib/request";
 
-export const syncDynamoToS3 = handler(async (event, context) => {
-  const results = await dynamoDb.scan({
-    TableName: process.env.measureTableName!,
-  });
+const csvToS3 = async (
+  filePath: string,
+  scanResult: PromiseResult<
+    aws.DynamoDB.DocumentClient.ScanOutput,
+    aws.AWSError
+  >
+) => {
+  const flattenedResults: any = scanResult.Items?.map((item) => flatten(item));
+  const resultsCsvData = await parseAsync(flattenedResults);
 
-  const flattenedArray: any = results.Items?.map((item) => {
-    return flatten(item);
-  });
-
-  //convert to csv
-  const csvData = await parseAsync(flattenedArray);
-  console.log(`The following data is about to be uploaded to S3: ${csvData}`);
+  console.log(
+    `The following data is about to be uploaded to S3: ${resultsCsvData}`
+  );
 
   const bucket = new AWS.S3();
 
@@ -24,8 +26,8 @@ export const syncDynamoToS3 = handler(async (event, context) => {
     bucket.upload(
       {
         Bucket: process.env.uploadS3BucketName!,
-        Key: "test.csv",
-        Body: csvData,
+        Key: filePath,
+        Body: resultsCsvData,
       },
       function (err: Error, data: aws.S3.ManagedUpload.SendData) {
         if (err) {
@@ -40,6 +42,20 @@ export const syncDynamoToS3 = handler(async (event, context) => {
     );
   });
 
-  const data = await s3Promise;
-  console.log(data);
+  return await s3Promise;
+};
+
+export const syncDynamoToS3 = handler(async (_event, _context) => {
+  const measureResults = await dynamoDb.scan({
+    TableName: process.env.measureTableName!,
+  });
+
+  const coreSetResults = await dynamoDb.scan({
+    TableName: process.env.coreSetTableName!,
+  });
+
+  await csvToS3(`coreSetData/measures/${Date.now()}.csv`, measureResults);
+  console.log("Uploaded measures file to s3");
+  await csvToS3(`coreSetData/coreSets/${Date.now()}.csv`, coreSetResults);
+  console.log("Uploaded coreSet file to s3");
 });
