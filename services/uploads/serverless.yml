@@ -138,11 +138,18 @@ resources:
               Principal:
                 AWS: ${ssm:/configuration/mpraccountid~true}
             - Action:
-                - "s3:GetBucketLocation"
-                - "s3:ListBucket"
                 - "s3:PutObject"
               Effect: "Allow"
-              Resource: "arn:aws:iam::024259748323:role/delegatedadmin/developer/app-api-mpr-s3-kafka-us-east-1-lambdaRole"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal:
+                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/app-api-${self:custom.stage}-${self:custom.region}-lambdaRole
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}
+              Principal:
+                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/app-api-${self:custom.stage}-${self:custom.region}-lambdaRole
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"
