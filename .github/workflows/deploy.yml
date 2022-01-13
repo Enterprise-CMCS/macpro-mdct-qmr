@@ -111,7 +111,7 @@ jobs:
             node_modules
           key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
       - name: Install dependencies
-        run: yarn ci
+        run: yarn install --frozen-lockfile
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
