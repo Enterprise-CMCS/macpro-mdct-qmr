@@ -18,11 +18,6 @@ export const getCoreSetActions = ({ type, handleDelete }: ActionsData) => {
   if (type === CoreSetTableItem.Type.CHILD) {
     return [
       {
-        itemText: "Export",
-        handleSelect: () => console.log("export"),
-        type: type,
-      },
-      {
         itemText: "Export All",
         handleSelect: () => console.log("Export All"),
         type: type,
@@ -35,11 +30,6 @@ export const getCoreSetActions = ({ type, handleDelete }: ActionsData) => {
     ];
   }
   return [
-    {
-      itemText: "Export",
-      handleSelect: () => console.log("export"),
-      type: type,
-    },
     {
       itemText: "Export All",
       handleSelect: () => console.log("Export All"),
