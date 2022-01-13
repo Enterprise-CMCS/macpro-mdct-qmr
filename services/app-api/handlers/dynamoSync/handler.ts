@@ -2,14 +2,18 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import aws from "aws-sdk";
 import { parseAsync } from "json2csv";
+import { flatten } from "flat";
 
 export const syncDynamoToS3 = handler(async (event, context) => {
   const results = await dynamoDb.scan({
     TableName: process.env.coreSetTableName!,
   });
 
+  //flatten
+  const flattenedJson = flatten<any, any>(results.Items);
+
   //convert to csv
-  const csvData = await parseAsync(results);
+  const csvData = await parseAsync(flattenedJson);
   console.log(`The following data is about to be uploaded to S3: ${csvData}`);
 
   //upload file
@@ -18,7 +22,7 @@ export const syncDynamoToS3 = handler(async (event, context) => {
   bucket.upload(
     {
       Bucket: process.env.uploadS3BucketName!,
-      Key: "filename goes here",
+      Key: "test.csv",
       Body: csvData,
     },
     function (err: Error, data: aws.S3.ManagedUpload.SendData) {
