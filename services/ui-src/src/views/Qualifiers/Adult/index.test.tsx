@@ -1,6 +1,30 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { ACSQualifiers } from ".";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
+
+jest.mock("hooks/api", () => ({
+  useUpdateMeasure: jest.fn(),
+  useGetMeasure: jest.fn().mockReturnValue({
+    data: {
+      Item: [
+        {
+          compoundKey: "OH2021ACS",
+          coreSet: "CSQ",
+          createdAt: 1641161901553,
+          lastAltered: 1641161901553,
+          lastAlteredBy: "STATE_USER_QMR",
+          state: "OH",
+          submitted: false,
+          year: 2021,
+        },
+      ],
+    },
+    isLoading: false,
+    error: undefined,
+  }),
+}));
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -14,9 +38,11 @@ jest.mock("react-router-dom", () => ({
 
 beforeEach(() => {
   render(
-    <RouterWrappedComp>
-      <ACSQualifiers />
-    </RouterWrappedComp>
+    <QueryClientProvider client={queryClient}>
+      <RouterWrappedComp>
+        <ACSQualifiers />
+      </RouterWrappedComp>
+    </QueryClientProvider>
   );
 });
 describe("test header (delivery system) component", () => {

@@ -29,7 +29,6 @@ jest.mock("hooks/api", () => ({
 describe("Test CoreSet.tsx", () => {
   beforeEach(() => {
     render(
-      //
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>
           <CoreSet />
