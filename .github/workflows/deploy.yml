@@ -125,7 +125,7 @@ jobs:
       - name: Run Cypress Tests
         run: |          
           pushd services
-          export APPLICATION_ENDPOINT=`${{ env.APPLICATION_ENDPOINT }}`
+          export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
           popd
 
           pushd tests/cypress
