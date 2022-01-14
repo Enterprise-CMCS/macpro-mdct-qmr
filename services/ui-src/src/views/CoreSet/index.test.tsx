@@ -23,6 +23,27 @@ jest.mock("hooks/api", () => ({
     isLoading: false,
     error: undefined,
   }),
+  useGetMeasures: jest.fn().mockReturnValue({
+    isLoading: false,
+    error: undefined,
+    isError: undefined,
+    data: {
+      Item: [
+        {
+          compoundKey: "AL2021ACSIET-AD",
+          coreSet: "ACS",
+          createdAt: 1642167976771,
+          description:
+            "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
+          lastAltered: 1642167976771,
+          measure: "IET-AD",
+          state: "AL",
+          status: "incomplete",
+          year: 2021,
+        },
+      ],
+    },
+  }),
 }));
 
 describe("Test CoreSet.tsx", () => {
@@ -41,7 +62,7 @@ describe("Test CoreSet.tsx", () => {
       expect(screen.getByTestId("state-layout-container")).toBeVisible();
     });
 
-    it("renders the child measure table data components", () => {
+    it("renders the child measure table data components", async () => {
       expect(screen.getByText(/Core Set Qualifiers/i)).toBeInTheDocument();
 
       expect(screen.getByText(/Submit Core Set/i)).toBeInTheDocument();
