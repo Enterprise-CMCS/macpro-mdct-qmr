@@ -55,7 +55,15 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     const validationErrors = validationFunctions.reduce(
       (acc: any, current: any) => {
         const error = current(data);
-        return error ? [...acc, error] : acc;
+        let errorArray = [];
+
+        if (Array.isArray(error)) {
+          errorArray = [...error];
+        } else {
+          errorArray = [error];
+        }
+
+        return error ? [...acc, ...errorArray] : acc;
       },
       []
     );
@@ -127,7 +135,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   key={uuidv4()}
                   alertProps={{ my: "3" }}
                   alertStatus="error"
-                  alertTitle="Validation Error"
+                  alertTitle={`${error.errorLocation} Error`}
                   alertDescription={error.errorMessage}
                   close={() => {
                     const newErrors = [...errors];

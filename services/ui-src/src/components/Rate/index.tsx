@@ -45,7 +45,7 @@ export const Rate = ({ rates, name, readOnly = true, ...rest }: Props) => {
     }
 
     if (parseInt(editRate.denominator) && editRate.numerator) {
-      editRate.rate = (editRate.numerator / editRate.denominator)
+      editRate.rate = ((editRate.numerator / editRate.denominator) * 100)
         .toFixed(4)
         .toString();
     } else if (editRate.rate) {
