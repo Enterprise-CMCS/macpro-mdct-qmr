@@ -1,12 +1,14 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { ReactElement, cloneElement } from "react";
+import { ReactElement, cloneElement, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
+import { useGetMeasure, useUpdateMeasure } from "hooks/api";
+import { CoreSetAbbr, MeasureStatus } from "types";
 
 interface Props {
   measure: ReactElement;
@@ -18,6 +20,8 @@ interface Props {
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams();
   const { isStateUser } = useUser();
+  const [lastSavedText, setLastSavedText] = useState("");
+
   /*
   this is where we put all the high level stuff for measures
   this would include:
@@ -30,25 +34,47 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   all of the methods defined here can be passed as props to every measure below
   */
 
+  const { mutate: updateMeasure } = useUpdateMeasure();
+  const { data: apiData } = useGetMeasure({
+    coreSet: params.coreSetId as CoreSetAbbr,
+    measure: measureId,
+  });
+  const measureData = apiData?.Item;
+
   const methods = useForm<Measure.Form>({
     shouldUnregister: true,
     mode: "all",
     resolver: joiResolver(validationSchema),
+    defaultValues: measureData?.data ?? undefined,
   });
 
   const handleSave = (data: any) => {
-    console.log("saved");
-    console.log({ data });
+    updateMeasure({ data, status: measureData?.status });
   };
 
   const handleSubmit = (data: any) => {
-    console.log("submitted");
-    console.log({ data });
+    updateMeasure({ data, status: MeasureStatus.COMPLETE });
   };
 
   if (!params.coreSetId || !params.state) {
     return null;
   }
+
+  useEffect(() => {
+    // interval for updating the last saved
+    const interval = setInterval(() => {
+      const lastTime = apiData?.Item.lastAltered / 1000;
+      const currentTime = new Date().getTime() / 1000;
+      if (lastTime && currentTime) {
+        if (true) {
+          setLastSavedText("Saved Moments Ago");
+        }
+      }
+    }, 30 * 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [apiData, setLastSavedText]);
 
   return (
     <FormProvider {...methods}>
@@ -69,7 +95,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           <QMR.MeasureButtons
             handleSave={methods.handleSubmit(handleSave)}
             handleSubmit={methods.handleSubmit(handleSubmit)}
-            lastSavedText="Saved Moments Ago"
+            lastSavedText={lastSavedText}
           />
         }
       >

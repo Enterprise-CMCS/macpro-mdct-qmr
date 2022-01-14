@@ -97,30 +97,28 @@ const useMeasureTableDataBuilder = () => {
   useEffect(() => {
     if (!isLoading && !isError && data && data.Items) {
       const measureTableData = (data.Items as MeasureData[]).map((item) => {
-        {
-          return {
-            Type: coreSetType[item.coreSet],
-            title: item.description,
-            abbr: item.measure,
-            path: `/${state}/${year}/${coreSetId}/${item.measure}`,
-            isReporting: !!item.reporting,
-            // I believe this part of the table is being removed in another ticket
-            rateComplete: 0,
-            lastDateModified: new Date(item.lastAltered).toDateString(),
-            id: item.measure,
-            actions: [
-              {
-                itemText: "Edit",
-                handleSelect: () => console.log("Edit " + item.measure),
-              },
-            ],
-          };
-        }
+        return {
+          Type: coreSetType[item.coreSet],
+          title: item.description,
+          abbr: item.measure,
+          path: `/${state}/${year}/${coreSetId}/${item.measure}`,
+          isReporting: !!item.reporting,
+          // I believe this part of the table is being removed in another ticket
+          rateComplete: 0,
+          lastDateModified: new Date(item.lastAltered).toDateString(),
+          id: item.measure,
+          actions: [
+            {
+              itemText: "Edit",
+              handleSelect: () => console.log("Edit " + item.measure),
+            },
+          ],
+        };
       });
       measureTableData.sort((a, b) => a.abbr.localeCompare(b.abbr));
       setMeasures(measureTableData);
     }
-  }, [data, isLoading, isError, setMeasures]);
+  }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
 
   return { measures, isLoading, isError, error };
 };
