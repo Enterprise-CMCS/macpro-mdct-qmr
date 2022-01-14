@@ -123,14 +123,7 @@ jobs:
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd         
       - name: Run Cypress Tests
-        run: |
-        uses: cypress-io/github-action@v2.11.7
-        with:
-          working-directory: tests/cypress
-          browser: chrome
-          headless: true
-          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
-          
+        run: |          
           pushd services
           export APPLICATION_ENDPOINT=`${{ env.APPLICATION_ENDPOINT }}`
           popd
