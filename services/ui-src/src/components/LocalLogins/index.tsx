@@ -23,6 +23,26 @@ const LocalLogin = () => {
 
   return (
     <CUI.Stack>
+      <CUI.Divider />
+      <CUI.Heading mb="2" size="md" alignSelf="center">
+        Login with Cognito
+      </CUI.Heading>
+      <CUI.Heading mb="2" size="sm">
+        Email
+      </CUI.Heading>
+      <CUI.Input />
+      <CUI.Heading mb="2" size="sm">
+        Password
+      </CUI.Heading>
+      <CUI.Input />
+      <CUI.Button
+        colorScheme="teal"
+        onClick={() => console.log("hey sam")}
+        isFullWidth
+      >
+        Login with Cognito
+      </CUI.Button>
+      <CUI.Divider paddingBottom="5" />
       <CUI.Select
         value={locality}
         onChange={(e) => setLocality(e.target.value)}
@@ -67,7 +87,7 @@ export const LocalLogins = ({ loginWithIDM }: Props) => {
   return (
     <CUI.Container maxW="sm" h="full" my="auto">
       <CUI.Box textAlign="center" mb="6">
-        <CUI.Heading mb="2">Local Login </CUI.Heading>
+        <CUI.Heading mb="2">Developer Login </CUI.Heading>
         <CUI.Divider />
       </CUI.Box>
       <CUI.Stack spacing={8}>
