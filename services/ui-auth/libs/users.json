@@ -123,7 +123,7 @@
         "Value": "mdctqmr-state-user"
       },
       {
-        "Name":"custom:cms_state",
+        "Name": "custom:cms_state",
         "Value": "MA"
       }
     ]
@@ -152,7 +152,7 @@
         "Value": "mdctqmr-state-user"
       },
       {
-        "Name":"custom:cms_state",
+        "Name": "custom:cms_state",
         "Value": "AL"
       }
     ]
@@ -181,7 +181,7 @@
         "Value": "mdctqmr-state-user"
       },
       {
-        "Name":"custom:cms_state",
+        "Name": "custom:cms_state",
         "Value": "WY"
       }
     ]
