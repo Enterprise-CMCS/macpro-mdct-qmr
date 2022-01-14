@@ -1,6 +1,5 @@
 {
   "nodeVersion": "system",
-  "baseUrl": "/",
   "redirectionLimit": 20,
   "retries": 2,
   "watchForFileChanges": true,
