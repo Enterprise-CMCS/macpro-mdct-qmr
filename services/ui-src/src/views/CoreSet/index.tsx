@@ -40,7 +40,7 @@ interface MeasureTableItem {
   isReporting: boolean;
   // I believe this part of the table is being removed in another ticket
   rateComplete: number;
-  lastDateModified: string;
+  lastDateModified: number;
   id: string;
   actions: { itemText: string; handleSelect: () => void }[];
 }
@@ -91,12 +91,11 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
 const useMeasureTableDataBuilder = () => {
   const { state, year, coreSetId } = useParams();
   const { data, isLoading, isError, error } = useGetMeasures();
-  console.log(`data`, data);
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
-
   useEffect(() => {
     if (!isLoading && !isError && data && data.Items) {
       const measureTableData = (data.Items as MeasureData[]).map((item) => {
+        console.log(item.lastAltered);
         return {
           Type: coreSetType[item.coreSet],
           title: item.description,
@@ -105,7 +104,7 @@ const useMeasureTableDataBuilder = () => {
           isReporting: !!item.reporting,
           // I believe this part of the table is being removed in another ticket
           rateComplete: 0,
-          lastDateModified: new Date(item.lastAltered).toDateString(),
+          lastDateModified: item.lastAltered,
           id: item.measure,
           actions: [
             {
@@ -128,9 +127,7 @@ export const CoreSet = () => {
 
   const { isStateUser } = useUser();
 
-  //TODO: impliment error showcase on load failure
-  const { measures, isLoading /* isError, error */ } =
-    useMeasureTableDataBuilder();
+  const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
 
   return (
     <QMR.StateLayout
@@ -194,7 +191,16 @@ export const CoreSet = () => {
       </CUI.Flex>
       <CUI.Box mt="15" maxH="xl" overflowY="auto">
         <CUI.Skeleton noOfLines={7} isLoaded={!isLoading}>
-          <QMR.Table data={measures} columns={QMR.measuresColumns} />
+          {!isError && (
+            <QMR.Table data={measures} columns={QMR.measuresColumns} />
+          )}
+          {isError && (
+            <QMR.Notification
+              alertStatus="error"
+              alertTitle="Error In Measure Retrieval"
+              alertDescription={(error as Error)?.message}
+            />
+          )}
         </CUI.Skeleton>
       </CUI.Box>
     </QMR.StateLayout>

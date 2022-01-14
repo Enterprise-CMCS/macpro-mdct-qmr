@@ -27,7 +27,7 @@ const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
 // Format date string: ex. Nov 26, 2021 12:53 PM see: https://date-fns.org/v2.26.0/docs/format
 const formatDate = (data: MeasureTableItem.Data) => {
   if (!data.lastDateModified) return null;
-  const date = format(new Date(data.lastDateModified), "LLL d, yyyy h:m a");
+  const date = format(new Date(data.lastDateModified), "LLL d, yyyy h:mm a");
   return date;
 };
 
@@ -109,7 +109,7 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     id: "status_column_header",
     cell: (data: MeasureTableItem.Data) => {
       const status = getStatus(data);
-      const date = formatDate(data);
+      const date: string | null = formatDate(data);
       const isComplete = status === MeasureTableItem.Status.COMPLETED && !!date;
       const isInProgress = status === MeasureTableItem.Status.IN_PROGRESS;
       return (

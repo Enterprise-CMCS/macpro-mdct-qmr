@@ -55,6 +55,10 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     defaultValues: measureData?.data ?? undefined,
   });
 
+  useEffect(() => {
+    methods.reset(apiData?.Item?.data);
+  }, [apiData]);
+
   const handleSave = (data: any) => {
     if (!mutationRunning && !loadingData) {
       setLastSavedText("Awaiting Changed Save Status");
@@ -89,8 +93,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   // interval for updating the last saved text
   useEffect(() => {
-    console.log(`lastSavedText`, lastSavedText);
-    console.log(`measureData.lastAltered`, measureData?.lastAltered);
     const checkSavedTime = () => {
       const lastTime = measureData?.lastAltered / 1000;
       const currentTime = new Date().getTime() / 1000;
@@ -103,7 +105,9 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
             `Last Saved ${(timeElapsed / 60).toFixed()} Minutes Ago`
           );
         } else {
-          setLastSavedText(`Last Saved ${timeElapsed / (60 * 60)} Hours Ago`);
+          setLastSavedText(
+            `Last Saved ${(timeElapsed / (60 * 60)).toFixed()} Hours Ago`
+          );
         }
       }
     };
@@ -142,38 +146,40 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           />
         }
       >
-        <>
-          {!isStateUser && (
-            <CUI.Box
-              top={0}
-              left={0}
-              position="fixed"
-              width="100vw"
-              height="100vh"
-              zIndex={2}
-              backgroundColor="gray.100"
-              opacity={0.2}
-            />
-          )}
-          <form data-testid="measure-wrapper-form">
-            <CUI.Container maxW="5xl" as="section">
-              <CUI.Text fontSize="sm">
-                For technical questions regarding use of this application,
-                please reach out to MDCT_Help@cms.hhs.gov. For content-related
-                questions about measure specifications, or what information to
-                enter in each field, please reach out to
-                MACQualityTA@cms.hhs.gov.
-              </CUI.Text>
-              {cloneElement(measure, {
-                name,
-                year,
-                handleSubmit: methods.handleSubmit(handleSubmit),
-                //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
-                // whenever the buttons have a loading prop
-              })}
-            </CUI.Container>
-          </form>
-        </>
+        <CUI.Skeleton isLoaded={!loadingData}>
+          <>
+            {!isStateUser && (
+              <CUI.Box
+                top={0}
+                left={0}
+                position="fixed"
+                width="100vw"
+                height="100vh"
+                zIndex={2}
+                backgroundColor="gray.100"
+                opacity={0.2}
+              />
+            )}
+            <form data-testid="measure-wrapper-form">
+              <CUI.Container maxW="5xl" as="section">
+                <CUI.Text fontSize="sm">
+                  For technical questions regarding use of this application,
+                  please reach out to MDCT_Help@cms.hhs.gov. For content-related
+                  questions about measure specifications, or what information to
+                  enter in each field, please reach out to
+                  MACQualityTA@cms.hhs.gov.
+                </CUI.Text>
+                {cloneElement(measure, {
+                  name,
+                  year,
+                  handleSubmit: methods.handleSubmit(handleSubmit),
+                  //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
+                  // whenever the buttons have a loading prop
+                })}
+              </CUI.Container>
+            </form>
+          </>
+        </CUI.Skeleton>
       </QMR.StateLayout>
     </FormProvider>
   );
