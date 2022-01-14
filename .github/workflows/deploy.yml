@@ -124,6 +124,7 @@ jobs:
           popd         
       - name: Run Cypress Tests
         run: |
+        uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
           browser: chrome
