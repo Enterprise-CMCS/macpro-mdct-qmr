@@ -34,6 +34,7 @@ export const AutocompletedMeasureTemplate = ({
             variant: "outline",
             colorScheme: "blue",
           }}
+          zIndex={3}
           icon="print"
           buttonText="Print"
           onClick={() => window.print()}
@@ -84,6 +85,7 @@ export const AutocompletedMeasureTemplate = ({
           <QMR.ContainedButton
             buttonProps={{ colorScheme: "blue", variant: "outline" }}
             buttonText="Back to Core Set Measures"
+            zIndex={3}
           />
         </Link>
       </CUI.Stack>
