@@ -21,3 +21,17 @@ export interface Params {
   year?: string;
   coreSetId?: CoreSetAbbr;
 }
+
+export interface MeasureData<DataType = any> {
+  compoundKey: string;
+  coreSet: CoreSetAbbr;
+  createdAt: number;
+  description: string;
+  lastAltered: number;
+  measure: string;
+  state: string;
+  status: "incomplete" | "complete" | undefined;
+  reporting: "yes" | undefined;
+  year: number;
+  data: DataType;
+}

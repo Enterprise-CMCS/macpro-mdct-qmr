@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
-import { useGetMeasure } from "hooks/api";
-import { CoreSetAbbr, MeasureStatus } from "types";
+import { useGetMeasure, useGetMeasures } from "hooks/api";
+import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
 import { HiCheckCircle } from "react-icons/hi";
 
 enum coreSetType {
@@ -29,6 +30,19 @@ enum coreSetQuestionsText {
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",
   HHCS = "Health Homes Core Set Questions: User generated SPA name",
+}
+
+interface MeasureTableItem {
+  Type: coreSetType;
+  title: string;
+  abbr: string;
+  path: string;
+  isReporting: boolean;
+  // I believe this part of the table is being removed in another ticket
+  rateComplete: number;
+  lastDateModified: string;
+  id: string;
+  actions: { itemText: string; handleSelect: () => void }[];
 }
 
 const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
@@ -71,95 +85,54 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   );
 };
 
+/**
+ * Create an array of the measure data to be usable by the table component from db pull
+ */
+const useMeasureTableDataBuilder = () => {
+  const { state, year, coreSetId } = useParams();
+  const { data, isLoading, isError, error } = useGetMeasures();
+  console.log(`data`, data);
+  const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
+
+  useEffect(() => {
+    if (!isLoading && !isError && data && data.Items) {
+      const measureTableData = (data.Items as MeasureData[]).map((item) => {
+        {
+          return {
+            Type: coreSetType[item.coreSet],
+            title: item.description,
+            abbr: item.measure,
+            path: `/${state}/${year}/${coreSetId}/${item.measure}`,
+            isReporting: !!item.reporting,
+            // I believe this part of the table is being removed in another ticket
+            rateComplete: 0,
+            lastDateModified: new Date(item.lastAltered).toDateString(),
+            id: item.measure,
+            actions: [
+              {
+                itemText: "Edit",
+                handleSelect: () => console.log("Edit " + item.measure),
+              },
+            ],
+          };
+        }
+      });
+      measureTableData.sort((a, b) => a.abbr.localeCompare(b.abbr));
+      setMeasures(measureTableData);
+    }
+  }, [data, isLoading, isError, setMeasures]);
+
+  return { measures, isLoading, isError, error };
+};
+
 export const CoreSet = () => {
   const { state, year, coreSetId } = useParams();
 
-  // This is where a fetch for the measures would live and calculate progress completed
-  const measures = [
-    {
-      Type: "Adult",
-      title:
-        "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
-      abbr: "FUA-AD",
-      path: `/${state}/${year}/${coreSetId}/FUA-AD`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "FUA-AD",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-    {
-      Type: "Adult",
-      title: "National Core Indicators Survey",
-      abbr: "NCIDDS-AD",
-      path: `/${state}/${year}/${coreSetId}/NCIDDS-AD`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "NCIDDS-AD",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-    {
-      Type: "Child",
-      title: "Percentage of Eligibles Who Received Preventive Dental Services",
-      abbr: "PDENT-CH",
-      path: `/${state}/${year}/${coreSetId}/PDENT-CH`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "PDENT-CH",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-    {
-      Type: "Child",
-      title: "Live Births Weighing Less Than 2,500 Grams",
-      abbr: "LBW-CH",
-      path: `/${state}/${year}/${coreSetId}/LBW-CH`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "LBW-CH",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-    {
-      Type: "Child",
-      title: "Low-Risk Cesarean Delivery",
-      abbr: "LRCD-CH",
-      path: `/${state}/${year}/${coreSetId}/LRCD-CH`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "LRCD-CH",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-  ];
-
   const { isStateUser } = useUser();
+
+  //TODO: impliment error showcase on load failure
+  const { measures, isLoading /* isError, error */ } =
+    useMeasureTableDataBuilder();
 
   return (
     <QMR.StateLayout
@@ -221,8 +194,10 @@ export const CoreSet = () => {
           />
         </CUI.Box>
       </CUI.Flex>
-      <CUI.Box mt="15" maxH="md" overflowY="auto">
-        <QMR.Table data={measures} columns={QMR.measuresColumns} />
+      <CUI.Box mt="15" maxH="xl" overflowY="auto">
+        <CUI.Skeleton noOfLines={7} isLoaded={!isLoading}>
+          <QMR.Table data={measures} columns={QMR.measuresColumns} />
+        </CUI.Skeleton>
       </CUI.Box>
     </QMR.StateLayout>
   );
