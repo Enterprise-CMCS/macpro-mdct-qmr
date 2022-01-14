@@ -1,8 +1,8 @@
 {
   "nodeVersion": "system",
-  "baseUrl": "https://mdctqmrdev.cms.gov/",
+  "baseUrl": "/",
   "redirectionLimit": 20,
-  "retries": 5,
+  "retries": 2,
   "watchForFileChanges": true,
   "testFiles": "**/*.feature",
   "fixturesFolder": "fixtures",
