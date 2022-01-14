@@ -5,11 +5,7 @@ import { NCIDDSAD } from ".";
 beforeEach(() => {
   render(
     <RouterWrappedComp>
-      <NCIDDSAD
-        name="National Core Indicators Survey"
-        year="2021"
-        handleSubmit={() => {}}
-      />
+      <NCIDDSAD name="National Core Indicators Survey" year="2021" />
     </RouterWrappedComp>
   );
 });

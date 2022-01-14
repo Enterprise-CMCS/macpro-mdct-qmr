@@ -5,11 +5,7 @@ import { LRCDCH } from ".";
 beforeEach(() => {
   render(
     <RouterWrappedComp>
-      <LRCDCH
-        name="Low-Risk Cesarean Delivery"
-        year="2021"
-        handleSubmit={() => {}}
-      />
+      <LRCDCH name="Low-Risk Cesarean Delivery" year="2021" />
     </RouterWrappedComp>
   );
 });

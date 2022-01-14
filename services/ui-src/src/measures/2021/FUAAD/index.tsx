@@ -6,7 +6,12 @@ import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Measure } from "measures/types";
 
-export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
+export const FUAAD = ({
+  name,
+  year,
+  handleSubmit,
+  handleValidation,
+}: Measure.Props) => {
   const { coreSetId } = useParams<Params>();
   const { watch } = useFormContext<Measure.Form>();
 
@@ -97,18 +102,30 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           Complete the Measure
         </CUI.Heading>
         <CUI.Text p="3" pl="5">
-          Complete the measure and mark it for submission to CMS for review
+          Please select "Validate Measure" to check any error present on the
+          measure prior to completion
         </CUI.Text>
-        <QMR.ContainedButton
-          buttonProps={{
-            ml: "5",
-            type: "submit",
-            colorScheme: "blue",
-            textTransform: "capitalize",
-          }}
-          buttonText="Complete Measure"
-          onClick={handleSubmit}
-        />
+        <CUI.HStack>
+          <QMR.ContainedButton
+            buttonProps={{
+              ml: "5",
+              type: "submit",
+              colorScheme: "green",
+              textTransform: "capitalize",
+            }}
+            buttonText="Validate Measure"
+            onClick={handleValidation}
+          />
+          <QMR.ContainedButton
+            buttonProps={{
+              type: "submit",
+              colorScheme: "blue",
+              textTransform: "capitalize",
+            }}
+            buttonText="Complete Measure"
+            onClick={handleSubmit}
+          />
+        </CUI.HStack>
       </CUI.Stack>
     </>
   );

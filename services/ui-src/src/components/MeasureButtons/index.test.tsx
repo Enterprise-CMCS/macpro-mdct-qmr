@@ -4,11 +4,7 @@ import { MeasureButtons } from "./index";
 describe("Test MeasureButtons", () => {
   test("Check that the last saved text renders", () => {
     const { getByText } = render(
-      <MeasureButtons
-        lastSavedText="last november"
-        handleSubmit={() => {}}
-        handleSave={() => {}}
-      />
+      <MeasureButtons lastSavedText="last november" handleSave={() => {}} />
     );
 
     expect(getByText(/last november/i)).toBeVisible();
@@ -16,11 +12,7 @@ describe("Test MeasureButtons", () => {
 
   it("Check the button renders an icon when last saved text is Saved Moments Ago", () => {
     render(
-      <MeasureButtons
-        lastSavedText="Saved Moments Ago"
-        handleSubmit={() => {}}
-        handleSave={() => {}}
-      />
+      <MeasureButtons lastSavedText="Saved Moments Ago" handleSave={() => {}} />
     );
 
     const container = screen.getByTestId("last-saved-text");
@@ -35,7 +27,6 @@ describe("Test MeasureButtons", () => {
     render(
       <MeasureButtons
         lastSavedText="Saved Last November"
-        handleSubmit={() => {}}
         handleSave={() => {}}
       />
     );

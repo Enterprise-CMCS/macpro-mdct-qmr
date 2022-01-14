@@ -69,7 +69,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         buttons={
           <QMR.MeasureButtons
             handleSave={methods.handleSubmit(handleSave)}
-            handleSubmit={methods.handleSubmit(handleSubmit)}
+            // handleSubmit={methods.handleSubmit(handleSubmit)}
             lastSavedText="Saved Moments Ago"
           />
         }
@@ -100,6 +100,9 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                 name,
                 year,
                 handleSubmit: methods.handleSubmit(handleSubmit),
+                handleValidation: () => {
+                  console.log("validate");
+                },
               })}
             </CUI.Container>
           </form>
