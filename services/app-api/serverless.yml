@@ -83,6 +83,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getMeasure:
     handler: handlers/measures/get.getMeasure
@@ -93,6 +94,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createMeasure:
     handler: handlers/measures/create.createMeasure
@@ -103,6 +105,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editMeasure:
     handler: handlers/measures/update.editMeasure
@@ -113,6 +116,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
@@ -123,6 +127,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
@@ -133,6 +138,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getCoreSet:
     handler: handlers/coreSets/get.getCoreSet
@@ -143,6 +149,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createCoreSet:
     handler: handlers/coreSets/create.createCoreSet
@@ -153,6 +160,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editCoreSet:
     handler: handlers/coreSets/update.editCoreSet
@@ -163,6 +171,7 @@ functions:
           cors:
             origin: "*"
             headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
@@ -170,10 +179,10 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: delete
-          cors: true
-          ResponseParameters:
-            gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-            gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+          cors:
+            origin: "*"
+            headers: "*"
+            allowCredentials: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   dynamoSync:
     handler: handlers/dynamoSync/handler.syncDynamoToS3
