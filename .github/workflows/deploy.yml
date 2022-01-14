@@ -138,12 +138,6 @@ jobs:
           fi
            yarn run test:ci
           popd
-        # uses: cypress-io/github-action@v2.11.7
-        # with:
-        #   working-directory: tests/cypress
-        #   browser: chrome
-        #   headless: true
-        #   config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
