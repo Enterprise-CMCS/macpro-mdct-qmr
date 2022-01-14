@@ -124,7 +124,12 @@ jobs:
           popd         
       - name: Run Cypress Tests
         run: |
-
+        with:
+          working-directory: tests/cypress
+          browser: chrome
+          headless: true
+          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          
           pushd services
           export APPLICATION_ENDPOINT=`${{ env.APPLICATION_ENDPOINT }}`
           popd
