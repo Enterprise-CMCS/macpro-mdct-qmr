@@ -1,5 +1,6 @@
 {
   "nodeVersion": "system",
+  "baseUrl": "https://mdctqmrdev.cms.gov/",
   "redirectionLimit": 20,
   "retries": 2,
   "watchForFileChanges": true,
