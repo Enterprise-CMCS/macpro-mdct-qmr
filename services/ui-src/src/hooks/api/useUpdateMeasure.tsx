@@ -1,12 +1,12 @@
 import { useMutation } from "react-query";
 import { editMeasure } from "libs/api";
-import { useParams } from "react-router-dom";
 import { CoreSetAbbr, Params, MeasureStatus } from "types";
+import { usePathParams } from "./usePathParams";
 
-interface UpdateMeasure {
-  coreSet: CoreSetAbbr;
-  data: any;
-  measure: string;
+interface UpdateMeasure<DataType = any> {
+  coreSet?: CoreSetAbbr;
+  data: DataType;
+  measure?: string;
   status: MeasureStatus;
 }
 
@@ -30,11 +30,17 @@ const updateMeasure = ({
   });
 };
 
-export const useUpdateMeasure = () => {
-  const { state, year } = useParams();
+export const useUpdateMeasure = <DataType,>() => {
+  const { state, year, coreSet, measureId } = usePathParams();
   if (state && year) {
-    return useMutation((data: UpdateMeasure) =>
-      updateMeasure({ state, year, ...data })
+    return useMutation((data: UpdateMeasure<DataType>) =>
+      updateMeasure({
+        state,
+        year,
+        coreSet: coreSet as CoreSetAbbr,
+        measure: measureId,
+        ...data,
+      })
     );
   }
   throw Error("Missing required fields");
