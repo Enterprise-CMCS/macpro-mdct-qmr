@@ -3,15 +3,22 @@ import { Measure } from "./types";
 
 const RateJoiValidator = Joi.array().items(
   Joi.object({
-    numerator: Joi.string(),
-    denominator: Joi.string(),
-    rate: Joi.string(),
+    numerator: Joi.string().empty(""),
+    denominator: Joi.string().empty(""),
+    rate: Joi.string().empty(""),
   })
 );
 
 const OptionalMeasureStratificationRateJoi = Joi.object({
   ageData: Joi.array().items(Joi.string()),
-  subRates: Joi.array().items(RateJoiValidator),
+  subRates: Joi.array()
+    .items(
+      Joi.object({
+        followUpWithin30Days: RateJoiValidator,
+        followUpWithin7Days: RateJoiValidator,
+      })
+    )
+    .sparse(),
   total: RateJoiValidator,
 });
 
@@ -20,6 +27,7 @@ const startDateRangeValidator = (endDateRangeLabel: string) => {
   const validMonth = now.getMonth() + 1;
   return Joi.object({
     selectedMonth: Joi.number()
+      .empty("")
       // not in the future
       .when(Joi.ref("selectedYear"), {
         is: now.getFullYear(),
@@ -30,7 +38,7 @@ const startDateRangeValidator = (endDateRangeLabel: string) => {
 
       // less than end date
       .when(Joi.ref(`...${endDateRangeLabel}.selectedYear`), {
-        is: Joi.ref("selectedYear"),
+        is: Joi.number().exist().max(Joi.ref("selectedYear")),
         then: Joi.number()
           .less(Joi.ref(`...${endDateRangeLabel}.selectedMonth`))
           .message("Start Date cannot be equal or greater than End Date."),
@@ -38,11 +46,16 @@ const startDateRangeValidator = (endDateRangeLabel: string) => {
 
       .label("Start Month"),
     selectedYear: Joi.number()
+      .empty("")
       // not in the future
       .less(new Date().getFullYear() + 1)
       .message("Start Date Year cannot be in the future.")
-      .max(Joi.ref(`...${endDateRangeLabel}.selectedYear`))
-      .message("Start Year cannot be after End Year.")
+      .when(Joi.ref(`...${endDateRangeLabel}.selectedYear`), {
+        is: Joi.number().exist(),
+        then: Joi.number()
+          .max(Joi.ref(`...${endDateRangeLabel}.selectedYear`))
+          .message("Start Year cannot be after End Year."),
+      })
       .label("Start Year"),
   });
 };
@@ -125,7 +138,7 @@ export const validationSchema = Joi.object<Measure.Form>({
   DeliverySysRepresentationDenominator: Joi.array().items(Joi.string()),
   "DeliverySys-FreeForService": Joi.string(),
   "DeliverySys-FreeForService-No-Percent": Joi.string(),
-  "DeliverySys-FreeForService-No-Population": Joi.string(),
+  "DeliverySys-FreeForService-No-Population": Joi.string().empty(""),
   "DeliverySys-PrimaryCareManagement": Joi.string(),
   "DeliverySys-PrimaryCareManagement-No-Percent": Joi.string(),
   "DeliverySys-PrimaryCareManagement-No-Population": Joi.string().empty(""),
@@ -145,6 +158,8 @@ export const validationSchema = Joi.object<Measure.Form>({
   //DeviationFromMeasureSpec
   DidCalculationsDeviate: Joi.string(),
   DeviationOptions: Joi.array().items(Joi.string()),
+  FollowUpWithin30: Joi.string(),
+  FollowUpWithin7: Joi.string(),
   "DeviationOptions-Within7-AgeRange": Joi.array().items(Joi.string()),
   "DeviationFields-Within7": Joi.array()
     .items(
@@ -172,12 +187,12 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
         id: Joi.string(),
         label: Joi.string(),
-        rate: Joi.string(),
+        rate: Joi.string().empty(""),
       })
     )
     .sparse(),
@@ -185,19 +200,19 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
         id: Joi.string(),
         label: Joi.string(),
-        rate: Joi.string(),
+        rate: Joi.string().empty(""),
       })
     )
     .sparse(),
   DateRange: Joi.object({
     endDate: Joi.object({
-      selectedMonth: Joi.number().label("End Month"),
-      selectedYear: Joi.number().label("End Year"),
+      selectedMonth: Joi.number().empty("").label("End Month"),
+      selectedYear: Joi.number().empty("").label("End Year"),
     }),
     startDate: startDateRangeValidator("endDate"),
   }),

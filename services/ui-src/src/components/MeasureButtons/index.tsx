@@ -18,24 +18,7 @@ export const MeasureButtons = ({
   const showCheck = lastSavedText?.toLowerCase() === "saved moments ago";
 
   return (
-    <CUI.HStack display={{ base: "block", lg: "flex" }}>
-      <CUI.Flex
-        fontSize="xl"
-        justifyContent="center"
-        mb={{ base: "1", lg: "0" }}
-        data-testid="last-saved-text"
-      >
-        {showCheck && (
-          <CUI.Box mt="2px">
-            <FaCheckCircle data-testid="circle-check-icon" />
-          </CUI.Box>
-        )}
-        {lastSavedText && (
-          <CUI.Text ml="2" fontSize="sm">
-            {lastSavedText}
-          </CUI.Text>
-        )}
-      </CUI.Flex>
+    <CUI.Stack>
       <CUI.HStack pl="2">
         <QMR.ContainedButton
           disabledStatus={!isStateUser}
@@ -58,6 +41,22 @@ export const MeasureButtons = ({
           onClick={handleSubmit}
         />
       </CUI.HStack>
-    </CUI.HStack>
+      <CUI.Flex
+        justifyContent="center"
+        mb={{ base: "1", lg: "0" }}
+        data-testid="last-saved-text"
+      >
+        {showCheck && (
+          <CUI.Box mt="1">
+            <FaCheckCircle data-testid="circle-check-icon" />
+          </CUI.Box>
+        )}
+        {lastSavedText && (
+          <CUI.Text ml="2" fontSize="sm">
+            {lastSavedText}
+          </CUI.Text>
+        )}
+      </CUI.Flex>
+    </CUI.Stack>
   );
 };

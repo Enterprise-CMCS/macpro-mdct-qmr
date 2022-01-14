@@ -4,10 +4,12 @@ import App from "App";
 import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
+import { QueryProvider } from "query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
-import { UserProvider } from "hooks/authHooks";
+import { UserProvider, ApiProvider } from "hooks/authHooks";
 
 Amplify.configure({
   Storage: {
@@ -15,23 +17,19 @@ Amplify.configure({
     bucket: config.s3.BUCKET,
     identityPoolId: config.cognito.IDENTITY_POOL_ID,
   },
-  API: {
-    endpoints: [
-      {
-        name: "coreSet",
-        endpoint: config.apiGateway.URL,
-        region: config.apiGateway.REGION,
-      },
-    ],
-  },
 });
 
 ReactDOM.render(
   <Router>
     <UserProvider>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
+      <ApiProvider>
+        <QueryProvider>
+          <ChakraProvider theme={theme}>
+            <App />
+          </ChakraProvider>
+          <ReactQueryDevtools />
+        </QueryProvider>
+      </ApiProvider>
     </UserProvider>
   </Router>,
   document.getElementById("root")

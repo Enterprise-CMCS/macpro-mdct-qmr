@@ -1,32 +1,66 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Params } from "Routes";
-import { AiFillWarning } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import * as Api from "hooks/api";
+import { useQueryClient } from "react-query";
+import { CoreSetAbbr } from "types";
 
-interface ChildCoreSet {
-  "ChildCoreSet-ReportType": string;
+enum ReportType {
+  SEPARATE = "separate",
+  COMBINED = "combined",
 }
 
-const ChildCoreSetSchema = Joi.object<ChildCoreSet>({
+interface ChildCoreSetReportType {
+  "ChildCoreSet-ReportType": ReportType;
+}
+
+const childCoreSetSchema = Joi.object<ChildCoreSetReportType>({
   "ChildCoreSet-ReportType": Joi.string(),
 });
 
 export const AddChildCoreSet = () => {
+  const mutation = Api.useAddCoreSet();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(ChildCoreSetSchema),
+    resolver: joiResolver(childCoreSetSchema),
   });
-  const { state, year } = useParams<Params>();
-  const register = useCustomRegister<ChildCoreSet>();
 
-  const handleSave = () => {
-    console.log("saved");
+  const watchReportType = methods.watch("ChildCoreSet-ReportType");
+
+  const { state, year } = useParams<Params>();
+  const register = useCustomRegister<ChildCoreSetReportType>();
+
+  const handleSubmit = (data: ChildCoreSetReportType) => {
+    switch (data["ChildCoreSet-ReportType"]) {
+      case ReportType.SEPARATE:
+        mutation.mutate(CoreSetAbbr.CCSM, {
+          onSuccess: () => {
+            mutation.mutate(CoreSetAbbr.CCSC, {
+              onSuccess: () => {
+                queryClient.refetchQueries(["coreSets", state, year]);
+                navigate(`/${state}/${year}`);
+              },
+            });
+          },
+        });
+        break;
+      case ReportType.COMBINED:
+        mutation.mutate(CoreSetAbbr.CCS, {
+          onSuccess: () => {
+            queryClient.refetchQueries(["coreSets", state, year]);
+            navigate(`/${state}/${year}`);
+          },
+        });
+    }
   };
 
   return (
@@ -35,16 +69,6 @@ export const AddChildCoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         { path: `/${state}/${year}/add-child`, name: "Add Child Core Set" },
       ]}
-      buttons={
-        <>
-          {/* Icon and text are placeholders until we have save functionality */}
-          <AiFillWarning />
-          <CUI.Text pl="1" pr="5">
-            Unsaved Changes
-          </CUI.Text>
-          <QMR.ContainedButton buttonText="Save" onClick={handleSave} />
-        </>
-      }
     >
       <CUI.Stack spacing="5">
         <CUI.Heading fontSize="2xl">Child Core Set Details</CUI.Heading>
@@ -53,7 +77,7 @@ export const AddChildCoreSet = () => {
           Child Core Set report(s).
         </CUI.Text>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+          <form onSubmit={methods.handleSubmit(handleSubmit)}>
             <CUI.Container maxW="container.xl" as="section">
               <CUI.Stack spacing="10">
                 <QMR.RadioButton
@@ -64,12 +88,12 @@ export const AddChildCoreSet = () => {
                     {
                       displayValue:
                         "Reporting Medicaid and CHIP measures in separate core sets",
-                      value: "separate",
+                      value: ReportType.SEPARATE,
                     },
                     {
                       displayValue:
                         "Reporting Medicaid and CHIP measures in combined core sets",
-                      value: "combined",
+                      value: ReportType.COMBINED,
                     },
                   ]}
                 />
@@ -86,10 +110,14 @@ export const AddChildCoreSet = () => {
                     <QMR.ContainedButton
                       buttonProps={{ type: "submit" }}
                       buttonText="Create"
+                      disabledStatus={!watchReportType || mutation.isLoading}
                     />
                     <QMR.ContainedButton
                       buttonProps={{ color: "blue", colorScheme: "white" }}
                       buttonText="Cancel"
+                      onClick={() => {
+                        navigate(`/${state}/${year}`);
+                      }}
                     />
                   </CUI.HStack>
                 </CUI.Box>

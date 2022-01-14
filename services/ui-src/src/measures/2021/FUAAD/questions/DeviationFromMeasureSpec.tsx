@@ -9,6 +9,12 @@ export const defaultDeviationOptions = [
 
 interface Props {
   options: { label: string; id: number }[];
+  deviationConditions: {
+    show30DaysAges18To64: boolean;
+    show30DaysAges65AndOlder: boolean;
+    show7DaysAges18To64: boolean;
+    show7DaysAges65AndOlder: boolean;
+  };
 }
 
 interface OptionProps extends Props {
@@ -18,15 +24,33 @@ interface OptionProps extends Props {
 const deviationOptions = ({
   options,
   name,
+  deviationConditions,
 }: OptionProps): QMR.CheckboxOption[] => {
-  return options.map((item, index) => {
+  let filteredOptions: Props["options"];
+  if (name.includes("Within30")) {
+    filteredOptions = options.filter((option) => {
+      return (
+        (deviationConditions.show30DaysAges18To64 && option.id === 0) ||
+        (deviationConditions.show30DaysAges65AndOlder && option.id === 1)
+      );
+    });
+  } else {
+    filteredOptions = options.filter((option) => {
+      return (
+        (deviationConditions.show7DaysAges18To64 && option.id === 0) ||
+        (deviationConditions.show7DaysAges65AndOlder && option.id === 1)
+      );
+    });
+  }
+
+  return filteredOptions.map((item) => {
     return {
       displayValue: item.label,
-      value: `${item.id}-${item.label.replace(/ /g, "").substring(0, 10)}`,
+      value: `${item.id}-${item.label.replace(/ /g, "")}`,
       children: [
         <QMR.Checkbox
-          name={`${name}.${index}.options`}
-          key={`${name}.${index}.options`}
+          name={`${name}.${item.id}.options`}
+          key={`${name}.${item.id}.options`}
           options={[
             {
               displayValue: "Numerator",
@@ -34,8 +58,8 @@ const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain"
-                  name={`${name}.${index}.numerator`}
-                  key={`${name}.${index}.numerator`}
+                  name={`${name}.${item.id}.numerator`}
+                  key={`${name}.${item.id}.numerator`}
                 />,
               ],
             },
@@ -45,8 +69,8 @@ const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain"
-                  name={`${name}.${index}.denominator`}
-                  key={`${name}.${index}.denominator`}
+                  name={`${name}.${item.id}.denominator`}
+                  key={`${name}.${item.id}.denominator`}
                 />,
               ],
             },
@@ -56,8 +80,8 @@ const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain"
-                  name={`${name}.${index}.other`}
-                  key={`${name}.${index}.other`}
+                  name={`${name}.${item.id}.other`}
+                  key={`${name}.${item.id}.other`}
                 />,
               ],
             },
@@ -68,7 +92,10 @@ const deviationOptions = ({
   });
 };
 
-export const DeviationFromMeasureSpec = ({ options }: Props) => {
+export const DeviationFromMeasureSpec = ({
+  options,
+  deviationConditions,
+}: Props) => {
   const register = useCustomRegister<Measure.Form>();
 
   return (
@@ -88,35 +115,51 @@ export const DeviationFromMeasureSpec = ({ options }: Props) => {
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
+                // Dynamically hide or show children based on if performance measure 30days/age sections were completed
                 options={[
-                  {
-                    value: "FollowUpWithin30",
-                    displayValue: "Follow-up within 30 days of ED visit",
-                    children: [
-                      <QMR.Checkbox
-                        {...register("DeviationOptions-Within30-AgeRange")}
-                        formLabelProps={{ fontWeight: 600 }}
-                        options={deviationOptions({
-                          options,
-                          ...register("DeviationFields-Within30"),
-                        })}
-                      />,
-                    ],
-                  },
-                  {
-                    value: "FollowUpWithin7",
-                    displayValue: "Follow-up within 7 days of ED visit",
-                    children: [
-                      <QMR.Checkbox
-                        {...register("DeviationOptions-Within7-AgeRange")}
-                        formLabelProps={{ fontWeight: 600 }}
-                        options={deviationOptions({
-                          options,
-                          ...register("DeviationFields-Within7"),
-                        })}
-                      />,
-                    ],
-                  },
+                  ...(deviationConditions.show30DaysAges18To64 ||
+                  deviationConditions.show30DaysAges65AndOlder
+                    ? [
+                        {
+                          value: "FollowUpWithin30",
+                          displayValue: "Follow-up within 30 days of ED visit",
+                          children: [
+                            <QMR.Checkbox
+                              {...register(
+                                "DeviationOptions-Within30-AgeRange"
+                              )}
+                              formLabelProps={{ fontWeight: 600 }}
+                              options={deviationOptions({
+                                options,
+                                ...register("DeviationFields-Within30"),
+                                deviationConditions,
+                              })}
+                            />,
+                          ],
+                        },
+                      ]
+                    : []),
+                  // Dynamically hide or show children based on if performance measure 7days/age sections were completed
+                  ...(deviationConditions.show7DaysAges18To64 ||
+                  deviationConditions.show7DaysAges65AndOlder
+                    ? [
+                        {
+                          value: "FollowUpWithin7",
+                          displayValue: "Follow-up within 7 days of ED visit",
+                          children: [
+                            <QMR.Checkbox
+                              {...register("DeviationOptions-Within7-AgeRange")}
+                              formLabelProps={{ fontWeight: 600 }}
+                              options={deviationOptions({
+                                options,
+                                ...register("DeviationFields-Within7"),
+                                deviationConditions,
+                              })}
+                            />,
+                          ],
+                        },
+                      ]
+                    : []),
                 ]}
               />,
             ],

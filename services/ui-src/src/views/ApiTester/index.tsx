@@ -1,4 +1,4 @@
-import { Container, HStack } from "@chakra-ui/layout";
+import * as CUI from "@chakra-ui/react";
 import { ContainedButton } from "components/ContainedButton";
 import {
   createCoreSet,
@@ -15,20 +15,21 @@ import {
 
 export const ApiTester = () => {
   return (
-    <Container>
-      <HStack p={5}>
+    <>
+      <CUI.Flex flexWrap="wrap" spacing={5}>
         <ContainedButton
           buttonText={"Create Core Set"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await createCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 body: {
                   test: "data",
                   test2: "moreData",
@@ -40,15 +41,16 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Edit Core Set"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await editCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 body: {
                   status: "complete",
                 },
@@ -59,13 +61,14 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Get All Core Sets"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await getAllCoreSets({
-                state: "FS",
+                state: "AL",
                 year: "2021",
               })
             )
@@ -74,15 +77,16 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Get Specific Core Set"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await getCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
               })
             )
           }
@@ -90,33 +94,35 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Delete Core Set"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await deleteCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
               })
             )
           }
         />
-      </HStack>
-      <HStack p={5}>
+      </CUI.Flex>
+      <CUI.Flex flexWrap="wrap" spacing={5}>
         <ContainedButton
           buttonText={"Create Measure"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await createMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
                   test: "data",
@@ -129,15 +135,16 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Edit Measure"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await editMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
                   data: {
@@ -152,15 +159,16 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"List all measures"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await listMeasures({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
               })
             )
           }
@@ -168,15 +176,16 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Get Measure"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await getMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 measure: "AIF-HH",
               })
             )
@@ -185,21 +194,22 @@ export const ApiTester = () => {
         <ContainedButton
           buttonText={"Delete Measure"}
           buttonProps={{
+            m: 2,
             colorScheme: "blue",
             textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
               await deleteMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
-                coreSet: "AD-123",
+                coreSet: "ACS",
                 measure: "AIF-HH",
               })
             )
           }
         />
-      </HStack>
-    </Container>
+      </CUI.Flex>
+    </>
   );
 };
