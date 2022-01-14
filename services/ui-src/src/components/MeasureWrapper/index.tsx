@@ -20,7 +20,9 @@ interface Props {
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams();
   const { isStateUser } = useUser();
-  const [lastSavedText, setLastSavedText] = useState("");
+  const [lastSavedText, setLastSavedText] = useState(
+    "Awaiting Save Status Retrieval"
+  );
 
   /*
   this is where we put all the high level stuff for measures
@@ -34,8 +36,13 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   all of the methods defined here can be passed as props to every measure below
   */
 
-  const { mutate: updateMeasure } = useUpdateMeasure();
-  const { data: apiData } = useGetMeasure({
+  const { mutate: updateMeasure, isLoading: mutationRunning } =
+    useUpdateMeasure();
+  const {
+    data: apiData,
+    isLoading: loadingData,
+    refetch,
+  } = useGetMeasure({
     coreSet: params.coreSetId as CoreSetAbbr,
     measure: measureId,
   });
@@ -49,31 +56,63 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   });
 
   const handleSave = (data: any) => {
-    updateMeasure({ data, status: measureData?.status });
+    if (!mutationRunning && !loadingData) {
+      setLastSavedText("Awaiting Changed Save Status");
+      updateMeasure(
+        { data, status: measureData?.status },
+        {
+          onSettled: (data, error) => {
+            if (data && !error) refetch();
+            //TODO: some form of error showcasing should display here
+            if (error) setLastSavedText("Failed To Save Form Information");
+          },
+        }
+      );
+    }
   };
 
   const handleSubmit = (data: any) => {
-    updateMeasure({ data, status: MeasureStatus.COMPLETE });
+    if (!mutationRunning && !loadingData) {
+      setLastSavedText("Awaiting Changed Save Status");
+      updateMeasure(
+        { data, status: MeasureStatus.COMPLETE },
+        {
+          onSettled: (data, error) => {
+            if (data && !error) refetch();
+            //TODO: some form of error showcasing should display here
+            if (error) setLastSavedText("Failed To Submit Form Information");
+          },
+        }
+      );
+    }
   };
 
+  // interval for updating the last saved text
   useEffect(() => {
-    // interval for updating the last saved
-    const interval = setInterval(() => {
-      const lastTime = apiData?.Item.lastAltered / 1000;
+    console.log(`lastSavedText`, lastSavedText);
+    console.log(`measureData.lastAltered`, measureData?.lastAltered);
+    const checkSavedTime = () => {
+      const lastTime = measureData?.lastAltered / 1000;
       const currentTime = new Date().getTime() / 1000;
       if (lastTime && currentTime) {
         const timeElapsed = currentTime - lastTime;
         if (timeElapsed < 1 * 60) {
           setLastSavedText("Saved Moments Ago");
         } else if (timeElapsed < 60 * 60) {
-          setLastSavedText(`Saved ${currentTime / 60}`);
+          setLastSavedText(
+            `Last Saved ${(timeElapsed / 60).toFixed()} Minutes Ago`
+          );
+        } else {
+          setLastSavedText(`Last Saved ${timeElapsed / (60 * 60)} Hours Ago`);
         }
       }
-    }, 30 * 1000);
+    };
+    checkSavedTime();
+    const interval = setInterval(checkSavedTime, 30 * 1000);
     return () => {
       clearInterval(interval);
     };
-  }, [apiData, setLastSavedText]);
+  }, [measureData, setLastSavedText]);
 
   if (!params.coreSetId || !params.state) {
     return null;
@@ -95,6 +134,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           },
         ]}
         buttons={
+          //TODO: this needs some form of loading state for these buttons using mutationRunning
           <QMR.MeasureButtons
             handleSave={methods.handleSubmit(handleSave)}
             handleSubmit={methods.handleSubmit(handleSubmit)}
@@ -128,6 +168,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                 name,
                 year,
                 handleSubmit: methods.handleSubmit(handleSubmit),
+                //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
+                // whenever the buttons have a loading prop
               })}
             </CUI.Container>
           </form>
