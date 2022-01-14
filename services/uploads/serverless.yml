@@ -184,6 +184,7 @@ resources:
                 - !Sub ${AttachmentsBucket.Arn}/*.txt
                 - !Sub ${AttachmentsBucket.Arn}/*.xls
                 - !Sub ${AttachmentsBucket.Arn}/*.xlsx
+                - !Sub ${AttachmentsBucket.Arn}/*.json
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:

@@ -4,22 +4,14 @@ import aws from "aws-sdk";
 import { parseAsync } from "json2csv";
 import { flatten } from "flat";
 import AWS from "aws-sdk";
-import { PromiseResult } from "aws-sdk/lib/request";
 
-const csvToS3 = async (
-  filePath: string,
-  scanResult: PromiseResult<
-    aws.DynamoDB.DocumentClient.ScanOutput,
-    aws.AWSError
-  >
-) => {
-  const flattenedResults: any = scanResult.Items?.map((item) => flatten(item));
+const csvToS3 = async (scanResult: any[]) => {
+  const flattenedResults: any = scanResult.map((item) => flatten(item));
   const resultsCsvData = await parseAsync(flattenedResults);
+  return resultsCsvData;
+};
 
-  console.log(
-    `The following data is about to be uploaded to S3: ${resultsCsvData}`
-  );
-
+const uploadFileToS3 = async (filePath: string, scanResult: string) => {
   const bucket = new AWS.S3();
 
   const s3Promise = new Promise((resolve, reject) => {
@@ -27,7 +19,7 @@ const csvToS3 = async (
       {
         Bucket: process.env.uploadS3BucketName!,
         Key: filePath,
-        Body: resultsCsvData,
+        Body: scanResult,
       },
       function (err: Error, data: aws.S3.ManagedUpload.SendData) {
         if (err) {
@@ -45,17 +37,44 @@ const csvToS3 = async (
   return await s3Promise;
 };
 
+const scanAll = async (TableName: string) => {
+  let startingData = await dynamoDb.scan({
+    TableName,
+  });
+  let dataList = startingData.Items!;
+  let ExclusiveStartKey = startingData.LastEvaluatedKey;
+
+  while (ExclusiveStartKey) {
+    const params = {
+      TableName,
+      ExclusiveStartKey,
+    };
+
+    const results = await dynamoDb.scan(params);
+    ExclusiveStartKey = results.LastEvaluatedKey;
+    dataList = [...results.Items!, ...dataList];
+    console.log(results);
+  }
+  return dataList;
+};
+
 export const syncDynamoToS3 = handler(async (_event, _context) => {
-  const measureResults = await dynamoDb.scan({
-    TableName: process.env.measureTableName!,
-  });
+  const measureResults = (await scanAll(process.env.measureTableName!)) ?? [];
+  const coreSetResults = (await scanAll(process.env.coreSetTableName!)) ?? [];
 
-  const coreSetResults = await dynamoDb.scan({
-    TableName: process.env.coreSetTableName!,
-  });
-
-  await csvToS3(`coreSetData/measures/${Date.now()}.csv`, measureResults);
+  const measureCsv = await csvToS3(measureResults);
+  await uploadFileToS3(`coreSetData/CSVmeasures/${Date.now()}.csv`, measureCsv);
+  await uploadFileToS3(
+    `coreSetData/JSONmeasures/${Date.now()}.json`,
+    JSON.stringify(measureResults)
+  );
   console.log("Uploaded measures file to s3");
-  await csvToS3(`coreSetData/coreSets/${Date.now()}.csv`, coreSetResults);
+
+  const coreSetCsv = await csvToS3(coreSetResults);
+  await uploadFileToS3(`coreSetData/CSVcoreSet/${Date.now()}.csv`, coreSetCsv);
+  await uploadFileToS3(
+    `coreSetData/JSONcoreSet/${Date.now()}.json`,
+    JSON.stringify(coreSetResults)
+  );
   console.log("Uploaded coreSet file to s3");
 });
