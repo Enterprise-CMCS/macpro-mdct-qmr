@@ -170,9 +170,10 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}
           method: delete
-          cors:
-            origin: "*"
-            headers: "*"
+          cors: true
+          ResponseParameters:
+            gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+            gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   dynamoSync:
     handler: handlers/dynamoSync/handler.syncDynamoToS3
