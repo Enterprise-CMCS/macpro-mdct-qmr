@@ -56,18 +56,17 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     updateMeasure({ data, status: MeasureStatus.COMPLETE });
   };
 
-  if (!params.coreSetId || !params.state) {
-    return null;
-  }
-
   useEffect(() => {
     // interval for updating the last saved
     const interval = setInterval(() => {
       const lastTime = apiData?.Item.lastAltered / 1000;
       const currentTime = new Date().getTime() / 1000;
       if (lastTime && currentTime) {
-        if (true) {
+        const timeElapsed = currentTime - lastTime;
+        if (timeElapsed < 1 * 60) {
           setLastSavedText("Saved Moments Ago");
+        } else if (timeElapsed < 60 * 60) {
+          setLastSavedText(`Saved ${currentTime / 60}`);
         }
       }
     }, 30 * 1000);
@@ -75,6 +74,10 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
       clearInterval(interval);
     };
   }, [apiData, setLastSavedText]);
+
+  if (!params.coreSetId || !params.state) {
+    return null;
+  }
 
   return (
     <FormProvider {...methods}>
