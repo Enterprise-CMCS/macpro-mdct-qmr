@@ -11,11 +11,11 @@ export const PerformanceMeasure = () => {
   // Watch for dataSource data
   const dataSourceWatch = watch("DataSource");
 
-  // Conditional check to let rate be not readonly dependent on dataSoruce selections
-  const rateReadOnly = !(
-    dataSourceWatch?.includes("I am reporting provisional data") &&
-    dataSourceWatch?.length > 1
-  );
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source) => source === "I am reporting provisional data"
+    ) ?? true;
 
   const ageRates = [
     {
