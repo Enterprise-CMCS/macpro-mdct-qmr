@@ -7,7 +7,7 @@ import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
 import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, UserRoles } from "types";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 
@@ -76,7 +76,7 @@ export const StateHome = () => {
   const { data, error, isLoading } = Api.useGetCoreSets();
   const { user, userState } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
-  if (userState !== state && user!.role === "mdctqmr-state-user") {
+  if (userState && userState !== state && user?.role === UserRoles.STATE) {
     return (
       <CUI.Box data-testid="Home-Container">
         <QMR.Notification
