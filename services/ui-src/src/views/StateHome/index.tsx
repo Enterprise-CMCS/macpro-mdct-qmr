@@ -78,7 +78,7 @@ export const StateHome = () => {
   const deleteCoreSet = Api.useDeleteCoreSet();
   if (userState && userState !== state && user?.role === UserRoles.STATE) {
     return (
-      <CUI.Box data-testid="Home-Container">
+      <CUI.Box data-testid="unauthorized-container">
         <QMR.Notification
           alertStatus="error"
           alertTitle="You are not authorized to view this page"

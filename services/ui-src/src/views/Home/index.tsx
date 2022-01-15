@@ -4,6 +4,7 @@ import { UserRoles } from "types";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
+import * as QMR from "components";
 
 interface Props {
   user?: CognitoUser;
@@ -22,7 +23,10 @@ export function Home({ user }: Props): JSX.Element {
   if (!state) {
     return (
       <CUI.Box data-testid="Home-Container">
-        <CUI.Text>Ooooh! no state for you</CUI.Text>
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="You are not authorized to view this page"
+        />
       </CUI.Box>
     );
   }
