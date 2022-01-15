@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { CognitoUser } from "@aws-amplify/auth";
+import { UserRoles } from "types";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
@@ -12,7 +13,7 @@ export function Home({ user }: Props): JSX.Element {
   // this is absolutely the wrong way to do this. So its just a placeholder for now
   // @ts-ignore
   const role = user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"];
-  if (role === "mdctqmr-approver") {
+  if (role === UserRoles.HELP || role === UserRoles.ADMIN) {
     return <Navigate to={`/admin`} />;
   }
   // this is absolutely the wrong way to do this. So its just a placeholder for now

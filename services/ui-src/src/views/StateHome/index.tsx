@@ -9,6 +9,7 @@ import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
 import { CoreSetAbbr } from "types";
 import { useQueryClient } from "react-query";
+import { useUser } from "hooks/authHooks";
 
 interface Data {
   state: string;
@@ -73,7 +74,18 @@ export const StateHome = () => {
   const { state, year } = useParams<Params>();
   const queryClient = useQueryClient();
   const { data, error, isLoading } = Api.useGetCoreSets();
+  const { user, userState } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
+  if (userState !== state && user!.role === "mdctqmr-state-user") {
+    return (
+      <CUI.Box data-testid="Home-Container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="You are not authorized to view this page"
+        />
+      </CUI.Box>
+    );
+  }
 
   const handleDelete = (data: Data) => {
     switch (data.coreSet) {
@@ -116,6 +128,17 @@ export const StateHome = () => {
   if (isLoading) {
     // we should have a loading state here
     return null;
+  }
+
+  if (data.Items && data.Items.length === 0) {
+    return (
+      <CUI.Box data-testid="Home-Container">
+        <QMR.Notification
+          alertStatus="warning"
+          alertTitle="There is currently no data for this State"
+        />
+      </CUI.Box>
+    );
   }
 
   const formattedTableItems = formatTableItems({
