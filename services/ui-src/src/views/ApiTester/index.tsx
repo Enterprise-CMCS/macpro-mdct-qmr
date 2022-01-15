@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { ContainedButton } from "components/ContainedButton";
+import { useUser } from "hooks/authHooks";
 import {
   createCoreSet,
   editCoreSet,
@@ -14,6 +15,9 @@ import {
 } from "libs/api";
 
 export const ApiTester = () => {
+  const userInfo = useUser();
+  const user_state = userInfo.userState;
+  const user_role = userInfo!.user!.role;
   return (
     <>
       <CUI.Flex flexWrap="wrap" spacing={5}>
@@ -31,10 +35,11 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 body: {
-                  test: "data",
-                  test2: "moreData",
+                  user_state,
+                  user_role,
                 },
-              })
+              }),
+              userInfo
             )
           }
         />
@@ -52,6 +57,8 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 body: {
+                  user_state,
+                  user_role,
                   status: "complete",
                 },
               })
@@ -70,6 +77,10 @@ export const ApiTester = () => {
               await getAllCoreSets({
                 state: "AL",
                 year: "2021",
+                body: {
+                  user_state,
+                  user_role,
+                },
               })
             )
           }
@@ -87,6 +98,10 @@ export const ApiTester = () => {
                 state: "AL",
                 year: "2021",
                 coreSet: "ACS",
+                body: {
+                  user_state,
+                  user_role,
+                },
               })
             )
           }
@@ -104,6 +119,10 @@ export const ApiTester = () => {
                 state: "AL",
                 year: "2021",
                 coreSet: "ACS",
+                body: {
+                  user_state,
+                  user_role,
+                },
               })
             )
           }
@@ -125,6 +144,8 @@ export const ApiTester = () => {
                 coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
+                  user_state,
+                  user_role,
                   test: "data",
                   description: "test description",
                 },
@@ -147,6 +168,8 @@ export const ApiTester = () => {
                 coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
+                  user_state,
+                  user_role,
                   data: {
                     test: "data",
                   },
@@ -169,6 +192,10 @@ export const ApiTester = () => {
                 state: "AL",
                 year: "2021",
                 coreSet: "ACS",
+                body: {
+                  user_state,
+                  user_role,
+                },
               })
             )
           }
@@ -187,6 +214,10 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 measure: "AIF-HH",
+                body: {
+                  user_state,
+                  user_role,
+                },
               })
             )
           }
@@ -205,6 +236,10 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 measure: "AIF-HH",
+                body: {
+                  user_state,
+                  user_role,
+                },
               })
             )
           }

@@ -39,13 +39,16 @@ const authErrorHandler = (
 
 export const eventValidator = (
   event: APIGatewayProxyEvent,
-  operationType: String
+  operationType: string
 ) => {
+  if (!event.body) return 400;
+  const { user_role, user_state } = JSON.parse(event.body);
   if (
+    !event.body ||
     !event.pathParameters ||
     !event.pathParameters.state ||
     !event.pathParameters.year ||
-    !event.headers.user_role ||
+    !user_role ||
     (operationType !== "LIST" && !event.pathParameters.coreSet)
   )
     return 400;
@@ -53,22 +56,24 @@ export const eventValidator = (
   return authErrorHandler(
     event.pathParameters.state,
     // @ts-ignore
-    event.headers.user_state,
-    event.headers.user_role,
+    user_state,
+    user_role,
     operationType
   );
 };
 
 export const measureEventValidator = (
   event: APIGatewayProxyEvent,
-  operationType: String
+  operationType: string
 ) => {
+  if (!event.body) return 400;
+  const { user_role, user_state } = JSON.parse(event.body);
   if (
     !event.pathParameters ||
     !event.pathParameters.state ||
     !event.pathParameters.year ||
     !event.pathParameters.coreSet ||
-    !event.headers.user_role ||
+    !user_role ||
     (operationType !== "LIST" && !event.pathParameters.measure) ||
     (operationType === "POST" && !event.body)
   )
@@ -76,9 +81,8 @@ export const measureEventValidator = (
 
   return authErrorHandler(
     event.pathParameters.state,
-    // @ts-ignore
-    event.headers.user_state,
-    event.headers.user_role,
+    user_state,
+    user_role,
     operationType
   );
 };
