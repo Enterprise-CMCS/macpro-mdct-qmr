@@ -12,7 +12,11 @@ const authErrorHandler = (
   userRole: string,
   operationType: string
 ) => {
-  if (!state || !userRole || !operationType) {
+  if (
+    !(userRole === UserRoles.ADMIN) &&
+    !(userRole === UserRoles.STATE) &&
+    !(userRole === UserRoles.HELP)
+  ) {
     return 403;
   }
   if (
@@ -42,7 +46,7 @@ export const eventValidator = (
   event: APIGatewayProxyEvent,
   operationType: string
 ) => {
-  if (!event.body) return 400;
+  if (!event.body || !operationType) return 400;
   const { userRole, userState } = JSON.parse(event.body);
   if (
     !event.body ||
@@ -67,7 +71,7 @@ export const measureEventValidator = (
   event: APIGatewayProxyEvent,
   operationType: string
 ) => {
-  if (!event.body) return 400;
+  if (!event.body || !operationType) return 400;
   const { userRole, userState } = JSON.parse(event.body);
   if (
     !event.pathParameters ||
