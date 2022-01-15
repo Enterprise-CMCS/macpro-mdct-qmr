@@ -130,17 +130,6 @@ export const StateHome = () => {
     return null;
   }
 
-  if (data.Items && data.Items.length === 0) {
-    return (
-      <CUI.Box data-testid="no-state-data">
-        <QMR.Notification
-          alertStatus="warning"
-          alertTitle="There is currently no data for this State"
-        />
-      </CUI.Box>
-    );
-  }
-
   const formattedTableItems = formatTableItems({
     items: data.Items,
     handleDelete,
@@ -162,6 +151,14 @@ export const StateHome = () => {
         { path: `/${state}/${year}`, name: "Core Set Measures" },
       ]}
     >
+      {data.Items && data.Items.length === 0 && (
+        <CUI.Box data-testid="no-state-data">
+          <QMR.Notification
+            alertStatus="warning"
+            alertTitle="There is currently no data for this State"
+          />
+        </CUI.Box>
+      )}
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">
