@@ -3,6 +3,7 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 enum UserRoles {
   ADMIN = "mdctqmr-approver",
   STATE = "mdctqmr-state-user",
+  HELP = "mdctqmr-help-desk",
 }
 
 const authErrorHandler = (
