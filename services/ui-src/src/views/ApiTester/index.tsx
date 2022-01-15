@@ -38,8 +38,7 @@ export const ApiTester = () => {
                   userState,
                   userRole,
                 },
-              }),
-              userInfo
+              })
             )
           }
         />

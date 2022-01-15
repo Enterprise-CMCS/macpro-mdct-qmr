@@ -12,7 +12,7 @@ const authErrorHandler = (
   userRole: string,
   operationType: string
 ) => {
-  if (!state || !userState || !userRole || !operationType) {
+  if (!state || !userRole || !operationType) {
     return 403;
   }
   if (
