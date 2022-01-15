@@ -82,7 +82,7 @@ function getAllCoreSets(inputObj: any) {
 function getCoreSet(inputObj: any) {
   const opts = requestOptions();
   opts.body = inputObj.body;
-  return API.get(
+  return API.put(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/get`,
     opts

@@ -42,13 +42,13 @@ export const eventValidator = (
   operationType: string
 ) => {
   if (!event.body) return 400;
-  const { user_role, user_state } = JSON.parse(event.body);
+  const { userRole, userState } = JSON.parse(event.body);
   if (
     !event.body ||
     !event.pathParameters ||
     !event.pathParameters.state ||
     !event.pathParameters.year ||
-    !user_role ||
+    !userRole ||
     (operationType !== "LIST" && !event.pathParameters.coreSet)
   )
     return 400;
@@ -56,8 +56,8 @@ export const eventValidator = (
   return authErrorHandler(
     event.pathParameters.state,
     // @ts-ignore
-    user_state,
-    user_role,
+    userState,
+    userRole,
     operationType
   );
 };
@@ -67,13 +67,13 @@ export const measureEventValidator = (
   operationType: string
 ) => {
   if (!event.body) return 400;
-  const { user_role, user_state } = JSON.parse(event.body);
+  const { userRole, userState } = JSON.parse(event.body);
   if (
     !event.pathParameters ||
     !event.pathParameters.state ||
     !event.pathParameters.year ||
     !event.pathParameters.coreSet ||
-    !user_role ||
+    !userRole ||
     (operationType !== "LIST" && !event.pathParameters.measure) ||
     (operationType === "POST" && !event.body)
   )
@@ -81,8 +81,8 @@ export const measureEventValidator = (
 
   return authErrorHandler(
     event.pathParameters.state,
-    user_state,
-    user_role,
+    userState,
+    userRole,
     operationType
   );
 };

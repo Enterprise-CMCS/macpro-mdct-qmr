@@ -16,8 +16,8 @@ import {
 
 export const ApiTester = () => {
   const userInfo = useUser();
-  const user_state = userInfo.userState;
-  const user_role = userInfo!.user!.role;
+  const userState = userInfo.userState;
+  const userRole = userInfo!.user!.role;
   return (
     <>
       <CUI.Flex flexWrap="wrap" spacing={5}>
@@ -35,8 +35,8 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                 },
               }),
               userInfo
@@ -57,8 +57,8 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                   status: "complete",
                 },
               })
@@ -78,8 +78,8 @@ export const ApiTester = () => {
                 state: "AL",
                 year: "2021",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                 },
               })
             )
@@ -99,8 +99,8 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                 },
               })
             )
@@ -120,8 +120,8 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                 },
               })
             )
@@ -144,8 +144,8 @@ export const ApiTester = () => {
                 coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                   test: "data",
                   description: "test description",
                 },
@@ -168,8 +168,8 @@ export const ApiTester = () => {
                 coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                   data: {
                     test: "data",
                   },
@@ -193,8 +193,8 @@ export const ApiTester = () => {
                 year: "2021",
                 coreSet: "ACS",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                 },
               })
             )
@@ -215,8 +215,8 @@ export const ApiTester = () => {
                 coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                 },
               })
             )
@@ -237,8 +237,8 @@ export const ApiTester = () => {
                 coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
-                  user_state,
-                  user_role,
+                  userState,
+                  userRole,
                 },
               })
             )

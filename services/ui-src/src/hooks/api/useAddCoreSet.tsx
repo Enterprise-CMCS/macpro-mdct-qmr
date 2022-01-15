@@ -9,36 +9,36 @@ interface AddCoreSet {
   state: string;
   year: string;
   coreSet: CoreSetAbbr;
-  user_state: string;
-  user_role: string;
+  userState: string;
+  userRole: string;
 }
 
 const addCoreSet = ({
   state,
   year,
   coreSet,
-  user_state,
-  user_role,
+  userState,
+  userRole,
 }: AddCoreSet) => {
   return createCoreSet({
     state,
     year,
     coreSet,
     body: {
-      user_state,
-      user_role,
+      userState,
+      userRole,
     },
   });
 };
 
 export const useAddCoreSet = () => {
   const userInfo = useUser();
-  const user_state = userInfo!.userState!;
-  const user_role = userInfo!.user!.role;
+  const userState = userInfo!.userState!;
+  const userRole = userInfo!.user!.role;
   const { state, year } = useParams<Params>();
   if (state && year) {
     return useMutation((coreSet: CoreSetAbbr) =>
-      addCoreSet({ state, year, coreSet, user_state, user_role })
+      addCoreSet({ state, year, coreSet, userState, userRole })
     );
   }
   throw Error("Missing required fields");

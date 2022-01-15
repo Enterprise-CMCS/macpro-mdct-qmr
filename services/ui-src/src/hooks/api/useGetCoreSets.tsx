@@ -7,29 +7,29 @@ import { useUser } from "hooks/authHooks";
 interface GetCoreSets {
   state: string;
   year: string;
-  user_state: string;
-  user_role: string;
+  userState: string;
+  userRole: string;
 }
 
-const getCoreSets = ({ state, year, user_state, user_role }: GetCoreSets) => {
+const getCoreSets = ({ state, year, userState, userRole }: GetCoreSets) => {
   return getAllCoreSets({
     state,
     year,
     body: {
-      user_state,
-      user_role,
+      userState,
+      userRole,
     },
   });
 };
 
 export const useGetCoreSets = () => {
   const userInfo = useUser();
-  const user_state = userInfo!.userState!;
-  const user_role = userInfo!.user!.role;
+  const userState = userInfo!.userState!;
+  const userRole = userInfo!.user!.role;
   const { state, year } = useParams<Params>();
   if (state && year) {
     return useQuery(["coreSets", state, year], () =>
-      getCoreSets({ state, year, user_state, user_role })
+      getCoreSets({ state, year, userState, userRole })
     );
   }
   throw Error("state or year unavailable");
