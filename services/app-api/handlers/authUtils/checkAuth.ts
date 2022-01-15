@@ -60,7 +60,6 @@ export const eventValidator = (
 
   return authErrorHandler(
     event.pathParameters.state,
-    // @ts-ignore
     userState,
     userRole,
     operationType
