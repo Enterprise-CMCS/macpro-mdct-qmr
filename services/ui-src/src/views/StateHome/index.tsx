@@ -113,6 +113,11 @@ export const StateHome = () => {
     );
   }
 
+  if (isLoading) {
+    // we should have a loading state here
+    return null;
+  }
+
   const formattedTableItems = formatTableItems({
     items: data.Items,
     handleDelete,
@@ -129,21 +134,19 @@ export const StateHome = () => {
   );
 
   return (
-    <CUI.Skeleton isLoaded={!isLoading}>
-      <QMR.StateLayout
-        breadcrumbItems={[
-          { path: `/${state}/${year}`, name: "Core Set Measures" },
-        ]}
-      >
-        <Heading />
-        <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
-        <CUI.HStack spacing="6">
-          <AddCoreSetCards
-            childCoreSetExists={childCoreSetExists}
-            healthHomesCoreSetExists={healthHomesCoreSetExists}
-          />
-        </CUI.HStack>
-      </QMR.StateLayout>
-    </CUI.Skeleton>
+    <QMR.StateLayout
+      breadcrumbItems={[
+        { path: `/${state}/${year}`, name: "Core Set Measures" },
+      ]}
+    >
+      <Heading />
+      <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
+      <CUI.HStack spacing="6">
+        <AddCoreSetCards
+          childCoreSetExists={childCoreSetExists}
+          healthHomesCoreSetExists={healthHomesCoreSetExists}
+        />
+      </CUI.HStack>
+    </QMR.StateLayout>
   );
 };
