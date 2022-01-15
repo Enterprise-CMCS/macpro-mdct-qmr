@@ -132,7 +132,7 @@ export const StateHome = () => {
 
   if (data.Items && data.Items.length === 0) {
     return (
-      <CUI.Box data-testid="Home-Container">
+      <CUI.Box data-testid="no-state-data">
         <QMR.Notification
           alertStatus="warning"
           alertTitle="There is currently no data for this State"
