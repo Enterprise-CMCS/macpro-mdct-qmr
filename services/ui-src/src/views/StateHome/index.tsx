@@ -124,10 +124,17 @@ export const StateHome = () => {
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
   }
-
-  if (isLoading) {
+  console.log(data);
+  if (isLoading || !data.Items) {
     // we should have a loading state here
-    return null;
+    return (
+      <CUI.Box data-testid="no-state-data">
+        <QMR.Notification
+          alertStatus="warning"
+          alertTitle="There is currently no data for this State"
+        />
+      </CUI.Box>
+    );
   }
 
   const formattedTableItems = formatTableItems({
