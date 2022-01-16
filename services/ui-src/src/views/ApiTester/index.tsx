@@ -17,7 +17,7 @@ import {
 export const ApiTester = () => {
   const userInfo = useUser();
   const userState = userInfo.userState;
-  const userRole = userInfo!.user!.role;
+  const userRole = userInfo.userRole;
   return (
     <>
       <CUI.Flex flexWrap="wrap" spacing={5}>
@@ -38,7 +38,8 @@ export const ApiTester = () => {
                   userState,
                   userRole,
                 },
-              })
+              }),
+              userInfo
             )
           }
         />

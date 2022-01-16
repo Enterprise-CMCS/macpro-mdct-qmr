@@ -28,7 +28,7 @@ const deleteCoreSet = (
 export const useDeleteCoreSet = () => {
   const userInfo = useUser();
   const userState = userInfo!.userState!;
-  const userRole = userInfo!.user!.role;
+  const userRole = userInfo!.userRole!;
   return useMutation((data: DeleteCoreSet) =>
     deleteCoreSet(data, userState, userRole)
   );

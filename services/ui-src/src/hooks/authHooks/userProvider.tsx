@@ -70,6 +70,9 @@ export const UserProvider = ({ children }: Props) => {
     user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"] ===
     UserRoles.STATE;
 
+  const userRole =
+    user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"];
+
   const userState =
     user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
 
@@ -104,6 +107,7 @@ export const UserProvider = ({ children }: Props) => {
       loginWithIDM: authenticateWithIDM,
       isStateUser,
       userState,
+      userRole,
     }),
     [user, logout, showLocalLogins, isStateUser, userState]
   );

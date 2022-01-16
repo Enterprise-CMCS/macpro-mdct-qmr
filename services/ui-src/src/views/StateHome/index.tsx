@@ -74,9 +74,9 @@ export const StateHome = () => {
   const { state, year } = useParams<Params>();
   const queryClient = useQueryClient();
   const { data, error, isLoading } = Api.useGetCoreSets();
-  const { user, userState } = useUser();
+  const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
-  if (userState && userState !== state && user?.role === UserRoles.STATE) {
+  if (userState && userState !== state && userRole === UserRoles.STATE) {
     return (
       <CUI.Box data-testid="unauthorized-container">
         <QMR.Notification
