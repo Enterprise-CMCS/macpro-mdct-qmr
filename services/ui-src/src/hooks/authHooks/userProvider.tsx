@@ -109,7 +109,7 @@ export const UserProvider = ({ children }: Props) => {
       userState,
       userRole,
     }),
-    [user, logout, showLocalLogins, isStateUser, userState]
+    [user, logout, showLocalLogins, isStateUser, userState, userRole]
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

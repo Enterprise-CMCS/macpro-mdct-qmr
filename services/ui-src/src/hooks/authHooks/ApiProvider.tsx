@@ -2,7 +2,6 @@ import { ReactNode, useEffect, useMemo } from "react";
 import { API } from "aws-amplify";
 import config from "config";
 import { createContext } from "react";
-import { useUser } from "hooks/authHooks";
 
 export const ApiContext = createContext(null);
 
@@ -11,7 +10,6 @@ interface Props {
 }
 
 export const ApiProvider = ({ children }: Props) => {
-  const userInfo = useUser();
   useEffect(() => {
     API.configure({
       endpoints: [
@@ -22,7 +20,7 @@ export const ApiProvider = ({ children }: Props) => {
         },
       ],
     });
-  }, [userInfo]);
+  }, []);
 
   const values = useMemo(() => ({}), []);
   // @ts-ignore
