@@ -124,7 +124,6 @@ export const StateHome = () => {
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
   }
-  console.log(data);
   if (isLoading || !data.Items) {
     // we should have a loading state here
     return (
