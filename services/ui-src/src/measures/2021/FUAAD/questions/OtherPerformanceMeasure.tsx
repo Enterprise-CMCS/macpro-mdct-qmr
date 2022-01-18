@@ -38,6 +38,7 @@ export const OtherPerformanceMeasure = () => {
               <QMR.Rate
                 rates={[item]}
                 name={`OtherPerformanceMeasure-Rates.${item.id}.rate`}
+                readOnly={false}
               />
             </CUI.Stack>
           );
