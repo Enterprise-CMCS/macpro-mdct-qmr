@@ -6,6 +6,11 @@ const medicaidLogo = "img[alt='Medicaid.gov logo']";
 const emailBottomLeft = ".footer-email";
 const federalLogo = "img[alt='Department of Health and Human Services logo']";
 const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
+// element is xpath, please use cy.xapth() instead of cy.get();
+const coreSetMeasureText =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[1]/div[1]/div[1]/div[1]/nav[1]/ol[1]/div[1]/li[1]/a[1]/h2[1]";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const AdultCoreSetMeasures = "//tbody/tr[1]/td[1]/a[1]/p[1]";
 
 export class Landingpage {
   launch() {
@@ -44,6 +49,14 @@ export class Landingpage {
     cy.xpath(addressBottomRight).contains(
       "7500 Security Boulevard Baltimore, MD 21244"
     );
+  }
+
+  validatecoreSetMeasureText() {
+    cy.xpath(coreSetMeasureText).should("be.visible");
+  }
+
+  clickAdultCoreSetMeasures() {
+    cy.xpath(AdultCoreSetMeasures).click();
   }
 }
 export default Landingpage;
