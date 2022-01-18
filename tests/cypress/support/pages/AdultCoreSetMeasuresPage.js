@@ -3,11 +3,17 @@ const nciddsAD = "(//p[@class='chakra-text css-hispwy'])[3]";
 const pdentCH = "(//p[@class='chakra-text css-hispwy'])[5]";
 const lbwCH = "(//p[@class='chakra-text css-hispwy'])[7]";
 const lrcdCH = "(//p[@class='chakra-text css-hispwy'])[9]";
+const fuaAD = "(//p[@class='chakra-text css-hispwy'])[1]";
 
 export class AdultCoreSetMeasuresPage {
     clickNCIDDSadLink(){
         cy.xpath(nciddsAD).should("be.visible");
         cy.xpath(nciddsAD).click({force:true});
+    }
+
+    clickFUAadLink(){
+        cy.xpath(fuaAD).should("be.visible");
+        cy.xpath(fuaAD).click({force:true});
     }
 
     clickPDENTchLink(){
