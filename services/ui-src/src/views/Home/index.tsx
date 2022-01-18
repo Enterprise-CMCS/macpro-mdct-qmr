@@ -1,26 +1,22 @@
 import { Navigate } from "react-router-dom";
-import { CognitoUser } from "@aws-amplify/auth";
 import { UserRoles } from "types";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
 import * as QMR from "components";
+import { useUser } from "hooks/authHooks";
 
-interface Props {
-  user?: CognitoUser;
-}
-
-export function Home({ user }: Props): JSX.Element {
-  // this is absolutely the wrong way to do this. So its just a placeholder for now
-  // @ts-ignore
-  const role = user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"];
-  if (role === UserRoles.HELP || role === UserRoles.ADMIN) {
+export function Home() {
+  const { userRole, userState } = useUser();
+  if (
+    userRole === UserRoles.HELP ||
+    userRole === UserRoles.ADMIN ||
+    userRole === UserRoles.BO
+  ) {
     return <Navigate to={`/admin`} />;
   }
-  // this is absolutely the wrong way to do this. So its just a placeholder for now
-  // @ts-ignore
-  const state = user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
-  if (!state) {
+
+  if (!userState) {
     return (
       <CUI.Box data-testid="Home-Container">
         <QMR.Notification
@@ -30,5 +26,5 @@ export function Home({ user }: Props): JSX.Element {
       </CUI.Box>
     );
   }
-  return <Navigate to={`/${state}/${config.currentReportingYear}`} />;
+  return <Navigate to={`/${userState}/${config.currentReportingYear}`} />;
 }
