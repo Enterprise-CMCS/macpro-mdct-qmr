@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Params } from "Routes";
-import { ReactElement, cloneElement } from "react";
+import { ReactElement, cloneElement, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "measures/schema";
@@ -19,6 +19,7 @@ interface Props {
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams<Params>();
   const { isStateUser } = useUser();
+  const [showModal, setShowModal] = useState<boolean>();
   /*
   this is where we put all the high level stuff for measures
   this would include:
@@ -37,14 +38,39 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     resolver: joiResolver(validationSchema),
   });
 
+  const handleValidation = (data: any) => {
+    // save measure
+    handleSave(data);
+    // Render erros at the bottom of the screen
+  };
+
   const handleSave = (data: any) => {
     console.log("saved");
     console.log({ data });
   };
 
   const handleSubmit = (data: any) => {
-    console.log("submitted");
     console.log({ data });
+
+    // validate and populate errors
+
+    // if errors show modal
+    setShowModal(true);
+
+    // otherwise continue on without modal else
+    if (!showModal) {
+      // submit measure
+      console.log("submitted");
+    }
+  };
+
+  const handleValidationModalResponse = (continueWithErrors: boolean) => {
+    setShowModal(false);
+
+    if (continueWithErrors) {
+      // submit measure
+      console.log("submitted");
+    }
   };
 
   if (!params.coreSetId || !params.state) {
@@ -53,6 +79,12 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   return (
     <FormProvider {...methods}>
+      {showModal && (
+        <QMR.YesNoModalDialog
+          handleModalResponse={handleValidationModalResponse}
+          bodyText="There are still errors on this measure, would you still like to complete?"
+        ></QMR.YesNoModalDialog>
+      )}
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
@@ -99,9 +131,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                 name,
                 year,
                 handleSubmit: methods.handleSubmit(handleSubmit),
-                handleValidation: () => {
-                  console.log("validate");
-                },
+                handleValidation: methods.handleSubmit(handleValidation),
               })}
             </CUI.Container>
           </form>

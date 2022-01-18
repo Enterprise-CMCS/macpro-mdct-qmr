@@ -101,18 +101,17 @@ export const FUAAD = ({
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
         </CUI.Heading>
-        <CUI.Text p="3" pl="5">
-          Complete the measure and mark it for submission to CMS for review
-        </CUI.Text>
-        <CUI.Text p="3" pl="5">
+        <CUI.Text pl="5">
           Please select "Validate Measure" to check any error present on the
           measure prior to completion
+        </CUI.Text>
+        <CUI.Text p="3" pl="5">
+          Complete the measure and mark it for submission to CMS for review
         </CUI.Text>
         <CUI.HStack>
           <QMR.ContainedButton
             buttonProps={{
               ml: "5",
-              type: "submit",
               colorScheme: "green",
               textTransform: "capitalize",
             }}
