@@ -7,8 +7,9 @@ export enum CoreSetAbbr {
 }
 
 export enum UserRoles {
-  STATE = "mdctqmr-state-user",
   ADMIN = "mdctqmr-approver",
+  STATE = "mdctqmr-state-user",
+  HELP = "mdctqmr-help-desk",
 }
 
 export enum MeasureStatus {

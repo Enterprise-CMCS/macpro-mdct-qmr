@@ -6,8 +6,9 @@ import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
 import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, UserRoles } from "types";
 import { useQueryClient } from "react-query";
+import { useUser } from "hooks/authHooks";
 
 interface Data {
   state: string;
@@ -72,7 +73,18 @@ export const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
   const { data, error, isLoading } = Api.useGetCoreSets();
+  const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
+  if (userState && userState !== state && userRole === UserRoles.STATE) {
+    return (
+      <CUI.Box data-testid="unauthorized-container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="You are not authorized to view this page"
+        />
+      </CUI.Box>
+    );
+  }
 
   const handleDelete = (data: Data) => {
     switch (data.coreSet) {
@@ -107,14 +119,21 @@ export const StateHome = () => {
   };
 
   if (error) {
+    console.log({ error });
     return (
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
   }
-
   if (isLoading || !data.Items) {
     // we should have a loading state here
-    return null;
+    return (
+      <CUI.Box data-testid="no-state-data">
+        <QMR.Notification
+          alertStatus="warning"
+          alertTitle="Data is currently loading or not found"
+        />
+      </CUI.Box>
+    );
   }
 
   const formattedTableItems = formatTableItems({
@@ -138,6 +157,14 @@ export const StateHome = () => {
         { path: `/${state}/${year}`, name: "Core Set Measures" },
       ]}
     >
+      {data.Items && data.Items.length === 0 && (
+        <CUI.Box data-testid="no-state-data">
+          <QMR.Notification
+            alertStatus="warning"
+            alertTitle="There is currently no data for this State"
+          />
+        </CUI.Box>
+      )}
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">

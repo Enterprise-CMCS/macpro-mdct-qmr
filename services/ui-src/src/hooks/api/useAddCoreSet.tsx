@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import { createCoreSet } from "libs/api";
-import { CoreSetAbbr, Params } from "types";
+import { CoreSetAbbr } from "types";
 import { useUser } from "hooks/authHooks";
 import { useParams } from "react-router-dom";
 
@@ -33,8 +33,8 @@ const addCoreSet = ({
 export const useAddCoreSet = () => {
   const userInfo = useUser();
   const userState = userInfo!.userState!;
-  const userRole = userInfo!.user!.role;
-  const { state, year } = useParams<Params>();
+  const userRole = userInfo!.userRole!;
+  const { state, year } = useParams();
   if (state && year) {
     return useMutation((coreSet: CoreSetAbbr) =>
       addCoreSet({ state, year, coreSet, userState, userRole })

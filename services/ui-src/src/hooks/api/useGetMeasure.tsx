@@ -1,32 +1,47 @@
 import { useQuery } from "react-query";
 import * as API from "libs/api";
 import { CoreSetAbbr, Params } from "types";
-import { usePathParams } from "./usePathParams";
+import { useUser } from "hooks/authHooks";
+import { useParams } from "react-router-dom";
+
+interface User {
+  userState?: string;
+  userRole: string;
+}
 
 interface GetMeasure {
   coreSet: CoreSetAbbr;
   measure: string;
 }
 
-const getMeasure = ({ state, year, coreSet, measure }: GetMeasure & Params) => {
+const getMeasure = ({
+  state,
+  year,
+  coreSet,
+  measure,
+  userState,
+  userRole,
+}: GetMeasure & Params & User) => {
   return API.getMeasure({
     state,
     year,
     coreSet,
     measure,
+    body: {
+      userState,
+      userRole,
+    },
   });
 };
 
 export const useGetMeasure = ({ coreSet, measure }: GetMeasure) => {
-  const { state, year, coreSet: coreSetId, measureId } = usePathParams();
+  const userInfo = useUser();
+  const userState = userInfo!.userState!;
+  const userRole = userInfo!.userRole!;
+  const { state, year } = useParams();
   if (state && year) {
     return useQuery(["measure", state, year, measure], () =>
-      getMeasure({
-        state,
-        year,
-        coreSet: (coreSetId as CoreSetAbbr) ?? coreSet,
-        measure: measureId ?? measure,
-      })
+      getMeasure({ state, year, coreSet, measure, userState, userRole })
     );
   }
   throw Error("state or year unavailable");
