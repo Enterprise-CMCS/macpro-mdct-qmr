@@ -30,10 +30,10 @@ export const editMeasure = handler(async (event, context) => {
     },
     ...convertToDynamoExpression(
       {
-        status: status,
+        status,
         lastAltered: Date.now(),
-        lastAlteredBy: lastAlteredBy,
-        data: data,
+        lastAlteredBy,
+        data,
       },
       "post"
     ),

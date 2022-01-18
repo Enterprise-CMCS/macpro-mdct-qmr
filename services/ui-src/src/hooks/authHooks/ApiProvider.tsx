@@ -19,12 +19,6 @@ export const ApiProvider = ({ children }: Props) => {
           name: "coreSet",
           endpoint: config.apiGateway.URL,
           region: config.apiGateway.REGION,
-          custom_header: async () => {
-            return {
-              user_state: userInfo!.userState,
-              user_role: userInfo!.user!.role,
-            };
-          },
         },
       ],
     });
