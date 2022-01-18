@@ -9,7 +9,7 @@ const queryClient = new QueryClient();
 
 describe("Test Add Child Core Set Component", () => {
   beforeEach(() => {
-    useApiMock();
+    useApiMock({});
     render(
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>

@@ -17,7 +17,7 @@ jest.mock("react-router-dom", () => ({
 }));
 
 beforeEach(() => {
-  useApiMock();
+  useApiMock({});
   render(
     <QueryClientProvider client={queryClient}>
       <RouterWrappedComp>

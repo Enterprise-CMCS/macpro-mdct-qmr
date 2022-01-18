@@ -7,7 +7,7 @@ const queryClient = new QueryClient();
 
 describe("Test CoreSet.tsx", () => {
   beforeEach(() => {
-    useApiMock();
+    useApiMock({});
     render(
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>

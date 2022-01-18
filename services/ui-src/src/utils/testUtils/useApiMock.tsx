@@ -8,13 +8,13 @@ import {
 } from "hooks/api";
 
 export const defaultMockValues = {
-  useAddCoreSet: {
+  useAddCoreSetValues: {
     useMutation: () => {
       mutate: () => {};
     },
   },
-  useDeleteCoreSet: { mutate: jest.fn() },
-  useGetCoreSets: {
+  useDeleteCoreSetValues: { mutate: jest.fn() },
+  useGetCoreSetsValues: {
     data: {
       Items: [
         {
@@ -33,7 +33,7 @@ export const defaultMockValues = {
     isLoading: false,
     error: undefined,
   },
-  useGetMeasure: {
+  useGetMeasureValues: {
     data: {
       Item: {
         compoundKey: "AL2021ACSAIF-HH",
@@ -53,7 +53,7 @@ export const defaultMockValues = {
     isError: false,
     error: undefined,
   },
-  useGetMeasures: {
+  useGetMeasuresValues: {
     isLoading: false,
     error: undefined,
     isError: undefined,
@@ -74,30 +74,37 @@ export const defaultMockValues = {
       ],
     },
   },
-  useUpdateMeasure: {
+  useUpdateMeasureValues: {
     useMutation: () => {
       mutate: () => {};
     },
   },
 };
 
-export const useApiMock = (mockValues = defaultMockValues) => {
+export const useApiMock = ({
+  useAddCoreSetValues = defaultMockValues.useAddCoreSetValues,
+  useDeleteCoreSetValues = defaultMockValues.useDeleteCoreSetValues,
+  useGetCoreSetsValues = defaultMockValues.useGetCoreSetsValues,
+  useGetMeasureValues = defaultMockValues.useGetMeasureValues,
+  useGetMeasuresValues = defaultMockValues.useGetMeasuresValues,
+  useUpdateMeasureValues = defaultMockValues.useUpdateMeasureValues,
+}) => {
   (useAddCoreSet as jest.Mock).mockReturnValue({
-    ...mockValues.useAddCoreSet,
+    ...useAddCoreSetValues,
   });
   (useDeleteCoreSet as jest.Mock).mockReturnValue({
-    ...mockValues.useDeleteCoreSet,
+    ...useDeleteCoreSetValues,
   });
   (useGetCoreSets as jest.Mock).mockReturnValue({
-    ...mockValues.useGetCoreSets,
+    ...useGetCoreSetsValues,
   });
   (useGetMeasure as jest.Mock).mockReturnValue({
-    ...mockValues.useGetMeasure,
+    ...useGetMeasureValues,
   });
   (useGetMeasures as jest.Mock).mockReturnValue({
-    ...mockValues.useGetMeasures,
+    ...useGetMeasuresValues,
   });
   (useUpdateMeasure as jest.Mock).mockReturnValue({
-    ...mockValues.useUpdateMeasure,
+    ...useUpdateMeasureValues,
   });
 };

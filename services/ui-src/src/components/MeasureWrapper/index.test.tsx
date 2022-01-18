@@ -7,7 +7,7 @@ import { useApiMock } from "utils/testUtils/useApiMock";
 describe("Test Measure Wrapper Component", () => {
   beforeEach(() => {
     const div = createElement("div");
-    useApiMock();
+    useApiMock({});
     render(
       <RouterWrappedComp>
         <MeasureWrapper
