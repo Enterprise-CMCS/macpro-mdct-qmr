@@ -57,7 +57,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   useEffect(() => {
     methods.reset(apiData?.Item?.data);
-  }, [apiData]);
+  }, [apiData, methods]);
 
   const handleSave = (data: any) => {
     if (!mutationRunning && !loadingData) {
