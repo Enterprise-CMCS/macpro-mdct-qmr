@@ -45,7 +45,8 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
           ) === -1
         ) {
           error = {
-            errorMessage: "Information has been included in the Age 65 or older Performance Mesure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
+            errorMessage:
+              "Information has been included in the Age 65 or older Performance Mesure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
           };
         }
       }
@@ -55,19 +56,25 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
     DualEligibleCheck.indexOf("DenominatorIncMedicareMedicaidDualEligible") !==
     -1
   ) {
-    if(!sevenDays65orOlder||!thirtyDays65orOlder){
+    if (!sevenDays65orOlder || !thirtyDays65orOlder) {
       error = {
-        errorMessage: "Missing data on Performance Measure for Age 65 and older",
+        errorMessage:
+          "Missing data on Performance Measure for Age 65 and older",
       };
-    }
-    else if(!sevenDays65orOlder[1]||!thirtyDays65orOlder[1]){
+    } else if (!sevenDays65orOlder[1] || !thirtyDays65orOlder[1]) {
       error = {
-        errorMessage: "Missing data on Performance Measure for Age 65 and older",
+        errorMessage:
+          "Missing data on Performance Measure for Age 65 and older",
       };
-    }
-    else if(!sevenDays65orOlder[1]?.numerator||!thirtyDays65orOlder[1]?.numerator||!sevenDays65orOlder[1]?.denominator||!thirtyDays65orOlder[1]?.denominator){
+    } else if (
+      !sevenDays65orOlder[1]?.numerator ||
+      !thirtyDays65orOlder[1]?.numerator ||
+      !sevenDays65orOlder[1]?.denominator ||
+      !thirtyDays65orOlder[1]?.denominator
+    ) {
       return {
-        errorMessage: "Missing data on Performance Measure for Age 65 and older",
+        errorMessage:
+          "Missing data on Performance Measure for Age 65 and older",
       };
     }
   }
