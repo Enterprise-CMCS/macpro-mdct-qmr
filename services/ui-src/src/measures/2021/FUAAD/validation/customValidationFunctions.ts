@@ -10,10 +10,13 @@ const validateRates = (data: Measure.Form) => {
     sevenDays.forEach((_sevenDaysObj, index) => {
       if (sevenDays[index]?.denominator !== thirtyDays[index]?.denominator) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
+        const isSingular = index === 1;
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both 30 day rates and 7 day rates for ages ${ageGroup}.`,
+          errorMessage: `Denominators must be the same for both 30 day rates and 7 day rates for age${
+            isSingular ? "" : "s"
+          } ${ageGroup}.`,
         };
 
         errorArray.push(error);
@@ -93,11 +96,16 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
 
   if (sevenDays && thirtyDays) {
     sevenDays.forEach((_sevenDaysObj, index) => {
-      if (sevenDays[index].rate > thirtyDays[index].rate) {
+      if (
+        parseFloat(sevenDays[index].rate) > parseFloat(thirtyDays[index].rate)
+      ) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
+        const isSingular = index === 1;
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for ages ${ageGroup}`,
+          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for age${
+            isSingular ? "" : "s"
+          } ${ageGroup}`,
         };
 
         errorArray.push(error);
