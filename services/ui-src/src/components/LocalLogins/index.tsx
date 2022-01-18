@@ -6,10 +6,15 @@ import * as CUI from "@chakra-ui/react";
 import * as Libs from "libs";
 import { UserRoles } from "types";
 import { createMockUser } from "./mockUsers";
+import { useFormFields } from "../../libs/hooksLib";
 
 const LocalLogin = () => {
   const [locality, setLocality] = useState("");
   const navigate = useNavigate();
+  const [fields, handleFieldChange] = useFormFields({
+    email: "",
+    password: "",
+  });
   function localLogin(role: UserRoles) {
     const localUser = createMockUser({ role, state: locality });
     Libs.loginLocalUser(localUser);
@@ -30,11 +35,24 @@ const LocalLogin = () => {
       <CUI.Heading mb="2" size="sm">
         Email
       </CUI.Heading>
-      <CUI.Input />
+      <CUI.Input
+        className="field"
+        type="email"
+        id="email"
+        name="email"
+        value={fields.email}
+      />
       <CUI.Heading mb="2" size="sm">
         Password
       </CUI.Heading>
-      <CUI.Input />
+      <CUI.Input
+        className="field"
+        type="password"
+        id="password"
+        name="password"
+        value={fields.password}
+        onChange={handleFieldChange}
+      />
       <CUI.Button
         colorScheme="teal"
         onClick={() => console.log("hey sam")}

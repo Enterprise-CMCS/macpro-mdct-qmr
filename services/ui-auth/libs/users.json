@@ -207,7 +207,7 @@
       },
       {
         "Name": "custom:cms_roles",
-        "Value": "mdctqmr-admin-user"
+        "Value": "mdctqmr-approver"
       }
     ]
   }
