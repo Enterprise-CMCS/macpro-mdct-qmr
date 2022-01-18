@@ -18,13 +18,33 @@ function requestOptions(): any {
   }
 }
 
+function listMeasures(inputObj: any) {
+  const opts = requestOptions();
+  opts.body = inputObj.body;
+  return API.put(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/list`,
+    opts
+  );
+}
+
+function getMeasure(inputObj: any) {
+  const opts = requestOptions();
+  opts.body = inputObj.body;
+  return API.put(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/get`,
+    opts
+  );
+}
+
 function createMeasure(inputObj: any) {
   const opts = requestOptions();
   opts.body = inputObj.body;
 
   return API.post(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/create`,
     opts
   );
 }
@@ -34,52 +54,37 @@ function editMeasure(inputObj: any) {
 
   return API.put(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
-    opts
-  );
-}
-
-function listMeasures(inputObj: any) {
-  const opts = requestOptions();
-  return API.get(
-    "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures`,
-    opts
-  );
-}
-
-function getMeasure(inputObj: any) {
-  const opts = requestOptions();
-  return API.get(
-    "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/edit`,
     opts
   );
 }
 
 function deleteMeasure(inputObj: any) {
   const opts = requestOptions();
-  return API.del(
+  opts.body = inputObj.body;
+  return API.put(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/delete`,
     opts
   );
 }
 
 function getAllCoreSets(inputObj: any) {
   const opts = requestOptions();
-  return API.get(
+  opts.body = inputObj.body;
+  return API.put(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/list`,
     opts
   );
 }
 
 function getCoreSet(inputObj: any) {
   const opts = requestOptions();
-  return API.get(
+  opts.body = inputObj.body;
+  return API.put(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/get`,
     opts
   );
 }
@@ -89,7 +94,7 @@ function createCoreSet(inputObj: any) {
   opts.body = inputObj.body;
   return API.post(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/create`,
     opts
   );
 }
@@ -99,16 +104,17 @@ function editCoreSet(inputObj: any) {
   opts.body = inputObj.body;
   return API.put(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/edit`,
     opts
   );
 }
 
 function deleteCoreSet(inputObj: any) {
   const opts = requestOptions();
-  return API.del(
+  opts.body = inputObj.body;
+  return API.put(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/delete`,
     opts
   );
 }

@@ -3,6 +3,7 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 enum UserRoles {
   ADMIN = "mdctqmr-approver",
   STATE = "mdctqmr-state-user",
+  HELP = "mdctqmr-help-desk",
 }
 
 const authErrorHandler = (
@@ -11,7 +12,11 @@ const authErrorHandler = (
   userRole: string,
   operationType: string
 ) => {
-  if (!state || !userState || !userRole || !operationType) {
+  if (
+    !(userRole === UserRoles.ADMIN) &&
+    !(userRole === UserRoles.STATE) &&
+    !(userRole === UserRoles.HELP)
+  ) {
     return 403;
   }
   if (
@@ -39,36 +44,40 @@ const authErrorHandler = (
 
 export const eventValidator = (
   event: APIGatewayProxyEvent,
-  operationType: String
+  operationType: string
 ) => {
+  if (!event.body) return 400;
+  const { userRole, userState } = JSON.parse(event.body);
   if (
+    !event.body ||
     !event.pathParameters ||
     !event.pathParameters.state ||
     !event.pathParameters.year ||
-    !event.headers.user_role ||
+    !userRole ||
     (operationType !== "LIST" && !event.pathParameters.coreSet)
   )
     return 400;
 
   return authErrorHandler(
     event.pathParameters.state,
-    // @ts-ignore
-    event.headers.user_state,
-    event.headers.user_role,
+    userState,
+    userRole,
     operationType
   );
 };
 
 export const measureEventValidator = (
   event: APIGatewayProxyEvent,
-  operationType: String
+  operationType: string
 ) => {
+  if (!event.body) return 400;
+  const { userRole, userState } = JSON.parse(event.body);
   if (
     !event.pathParameters ||
     !event.pathParameters.state ||
     !event.pathParameters.year ||
     !event.pathParameters.coreSet ||
-    !event.headers.user_role ||
+    !userRole ||
     (operationType !== "LIST" && !event.pathParameters.measure) ||
     (operationType === "POST" && !event.body)
   )
@@ -76,9 +85,8 @@ export const measureEventValidator = (
 
   return authErrorHandler(
     event.pathParameters.state,
-    // @ts-ignore
-    event.headers.user_state,
-    event.headers.user_role,
+    userState,
+    userRole,
     operationType
   );
 };
