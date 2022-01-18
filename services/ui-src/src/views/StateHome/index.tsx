@@ -130,7 +130,7 @@ export const StateHome = () => {
       <CUI.Box data-testid="no-state-data">
         <QMR.Notification
           alertStatus="warning"
-          alertTitle="There is currently no data for this State"
+          alertTitle="Data is currently loading or not found"
         />
       </CUI.Box>
     );
