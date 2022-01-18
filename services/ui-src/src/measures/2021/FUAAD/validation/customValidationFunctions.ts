@@ -123,7 +123,12 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
 
   if (thirtyDays) {
     thirtyDays.forEach((thirtyDay, index) => {
-      if (parseFloat(thirtyDay.numerator) > parseFloat(thirtyDay.denominator)) {
+      if (
+        thirtyDay &&
+        thirtyDay.numerator &&
+        thirtyDay.denominator &&
+        parseFloat(thirtyDay.numerator) > parseFloat(thirtyDay.denominator)
+      ) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         error = {
           errorLocation: "Performance Measure",
@@ -145,7 +150,12 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
 
   if (sevenDays) {
     sevenDays.forEach((sevenDay, index) => {
-      if (parseFloat(sevenDay.numerator) > parseFloat(sevenDay.denominator)) {
+      if (
+        sevenDay &&
+        sevenDay.numerator &&
+        sevenDay.denominator &&
+        parseFloat(sevenDay.numerator) > parseFloat(sevenDay.denominator)
+      ) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         error = {
           errorLocation: "Performance Measure",
