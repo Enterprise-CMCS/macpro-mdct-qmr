@@ -24,6 +24,63 @@ const validateRates = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
+const validateDualPopulationInformation = (data: Measure.Form) => {
+  const sevenDays65orOlder = data["PerformanceMeasure-AgeRates-7Days"];
+  const thirtyDays65orOlder = data["PerformanceMeasure-AgeRates-30Days"];
+  const DualEligibleCheck = data["DefinitionOfDenominator"] ?? [];
+
+  let error;
+
+  if (sevenDays65orOlder || thirtyDays65orOlder) {
+    if (sevenDays65orOlder[1] || thirtyDays65orOlder[1]) {
+      if (
+        sevenDays65orOlder[1]?.numerator ||
+        thirtyDays65orOlder[1]?.numerator ||
+        sevenDays65orOlder[1]?.denominator ||
+        thirtyDays65orOlder[1]?.denominator
+      ) {
+        if (
+          DualEligibleCheck.indexOf(
+            "DenominatorIncMedicareMedicaidDualEligible"
+          ) === -1
+        ) {
+          error = {
+            errorMessage:
+              "Information has been included in the Age 65 or older Performance Mesure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
+          };
+        }
+      }
+    }
+  }
+  if (
+    DualEligibleCheck.indexOf("DenominatorIncMedicareMedicaidDualEligible") !==
+    -1
+  ) {
+    if (!sevenDays65orOlder || !thirtyDays65orOlder) {
+      error = {
+        errorMessage:
+          "Missing data on Performance Measure for Age 65 and older",
+      };
+    } else if (!sevenDays65orOlder[1] || !thirtyDays65orOlder[1]) {
+      error = {
+        errorMessage:
+          "Missing data on Performance Measure for Age 65 and older",
+      };
+    } else if (
+      !sevenDays65orOlder[1]?.numerator ||
+      !thirtyDays65orOlder[1]?.numerator ||
+      !sevenDays65orOlder[1]?.denominator ||
+      !thirtyDays65orOlder[1]?.denominator
+    ) {
+      return {
+        errorMessage:
+          "Missing data on Performance Measure for Age 65 and older",
+      };
+    }
+  }
+  return error;
+};
+
 const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
   const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
   const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
@@ -34,7 +91,6 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
     sevenDays.forEach((_sevenDaysObj, index) => {
       if (sevenDays[index].rate > thirtyDays[index].rate) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
-
         error = {
           errorLocation: "Performance Measure",
           errorMessage: `Seven Days Rate should not be higher than Thirty Days Rate for ages ${ageGroup}`,
@@ -57,7 +113,6 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
     thirtyDays.forEach((thirtyDay, index) => {
       if (parseFloat(thirtyDay.numerator) > parseFloat(thirtyDay.denominator)) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
-
         error = {
           errorLocation: "Performance Measure",
           errorMessage: `Thirty Day Rate: Numerator must be less than or equal to Denominator for ages ${ageGroup}`,
@@ -80,7 +135,6 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
     sevenDays.forEach((sevenDay, index) => {
       if (parseFloat(sevenDay.numerator) > parseFloat(sevenDay.denominator)) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
-
         error = {
           errorLocation: "Performance Measure",
           errorMessage: `Seven Day Rate: Numerator must be less than or equal to Denominator for ages ${ageGroup}`,
@@ -99,4 +153,5 @@ export const validationFunctions = [
   validate7DaysGreaterThan30Days,
   validateSevenDayNumeratorLessThanDenominator,
   validateThirtyDayNumeratorLessThanDenominator,
+  validateDualPopulationInformation,
 ];
