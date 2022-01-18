@@ -18,6 +18,8 @@ const LocalLogin = () => {
         return navigate(`/${locality}/${config.currentReportingYear}`);
       case UserRoles.ADMIN:
         return navigate(`/admin`);
+      case UserRoles.HELP:
+        return navigate(`/admin`);
     }
   }
 
@@ -53,6 +55,14 @@ const LocalLogin = () => {
         isFullWidth
       >
         Login as Admin User
+      </CUI.Button>
+      <CUI.Divider />
+      <CUI.Button
+        colorScheme="blue"
+        onClick={() => localLogin(UserRoles.HELP)}
+        isFullWidth
+      >
+        Login as Help Desk User
       </CUI.Button>
     </CUI.Stack>
   );

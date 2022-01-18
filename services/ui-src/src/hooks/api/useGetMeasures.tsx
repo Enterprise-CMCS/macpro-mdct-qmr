@@ -33,7 +33,7 @@ const getMeasures = ({
 export const useGetMeasures = () => {
   const userInfo = useUser();
   const userState = userInfo!.userState!;
-  const userRole = userInfo!.user!.role;
+  const userRole = userInfo!.userRole!;
   const { state, year, coreSetId } = useParams<Params>();
   if (state && year && coreSetId) {
     return useQuery(["coreSets", state, year], () =>
