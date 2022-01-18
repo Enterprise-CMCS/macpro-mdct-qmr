@@ -7,10 +7,11 @@ import * as Libs from "libs";
 import { UserRoles } from "types";
 import { createMockUser } from "./mockUsers";
 import { useFormFields } from "../../libs/hooksLib";
+import { Auth } from "aws-amplify";
 
 const LocalLogin = () => {
-  const [locality, setLocality] = useState("");
   const navigate = useNavigate();
+  const [locality, setLocality] = useState("");
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: "",
@@ -27,6 +28,15 @@ const LocalLogin = () => {
         return navigate(`/admin`);
       case UserRoles.BO:
         return navigate(`/admin`);
+    }
+  }
+
+  async function handleLogin() {
+    try {
+      await Auth.signIn(fields.email, fields.password);
+      navigate(`/`);
+    } catch (error) {
+      console.log("Error while logging in.", error);
     }
   }
 
@@ -60,7 +70,9 @@ const LocalLogin = () => {
       />
       <CUI.Button
         colorScheme="teal"
-        onClick={() => console.log("hey sam")}
+        onClick={() => {
+          handleLogin();
+        }}
         isFullWidth
       >
         Login with Cognito

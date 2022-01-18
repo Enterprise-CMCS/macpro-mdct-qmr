@@ -1,10 +1,10 @@
 [
   {
-    "username": "paul@example.com",
+    "username": "paul@test.com",
     "attributes": [
       {
         "Name": "email",
-        "Value": "paul@example.com"
+        "Value": "paul@test.com"
       },
       {
         "Name": "given_name",
@@ -25,11 +25,11 @@
     ]
   },
   {
-    "username": "john@example.com",
+    "username": "john@test.com",
     "attributes": [
       {
         "Name": "email",
-        "Value": "john@example.com"
+        "Value": "john@test.com"
       },
       {
         "Name": "given_name",
@@ -46,15 +46,19 @@
       {
         "Name": "custom:cms_roles",
         "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "OH"
       }
     ]
   },
   {
-    "username": "george@example.com",
+    "username": "george@test.com",
     "attributes": [
       {
         "Name": "email",
-        "Value": "george@example.com"
+        "Value": "george@test.com"
       },
       {
         "Name": "given_name",
@@ -187,11 +191,11 @@
     ]
   },
   {
-    "username": "adminuser@example.com",
+    "username": "adminuser@test.com",
     "attributes": [
       {
         "Name": "email",
-        "Value": "adminuser@example.com"
+        "Value": "adminuser@test.com"
       },
       {
         "Name": "given_name",
