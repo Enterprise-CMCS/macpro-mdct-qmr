@@ -30,7 +30,6 @@ const LocalLogin = () => {
         return navigate(`/admin`);
     }
   }
-
   async function handleLogin() {
     try {
       await Auth.signIn(fields.email, fields.password);
