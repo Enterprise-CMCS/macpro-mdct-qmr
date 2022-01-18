@@ -41,6 +41,7 @@ const LocalLogin = () => {
         id="email"
         name="email"
         value={fields.email}
+        onChange={handleFieldChange}
       />
       <CUI.Heading mb="2" size="sm">
         Password
