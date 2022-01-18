@@ -2,7 +2,7 @@ import { useMutation } from "react-query";
 import { editMeasure } from "libs/api";
 import { CoreSetAbbr, Params, MeasureStatus } from "types";
 import { useUser } from "hooks/authHooks";
-import { useParams } from "react-router-dom";
+import { usePathParams } from "./usePathParams";
 
 interface User {
   userState?: string;
@@ -41,7 +41,7 @@ const updateMeasure = ({
 };
 
 export const useUpdateMeasure = () => {
-  const { state, year } = useParams();
+  const { state, year } = usePathParams();
   const userInfo = useUser();
   const userState = userInfo!.userState!;
   const userRole = userInfo!.userRole!;

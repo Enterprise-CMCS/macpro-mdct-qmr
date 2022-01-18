@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { listMeasures } from "libs/api";
-import { useParams } from "react-router-dom";
+import { usePathParams } from "./usePathParams";
 import { useUser } from "hooks/authHooks";
 
 interface GetMeasures {
@@ -33,10 +33,10 @@ export const useGetMeasures = () => {
   const userInfo = useUser();
   const userState = userInfo!.userState!;
   const userRole = userInfo!.userRole!;
-  const { state, year, coreSetId } = useParams();
-  if (state && year && coreSetId) {
+  const { state, year, coreSet } = usePathParams();
+  if (state && year && coreSet) {
     return useQuery(["coreSets", state, year], () =>
-      getMeasures({ state, year, coreSet: coreSetId, userState, userRole })
+      getMeasures({ state, year, coreSet, userState, userRole })
     );
   }
   throw Error("state or year unavailable");
