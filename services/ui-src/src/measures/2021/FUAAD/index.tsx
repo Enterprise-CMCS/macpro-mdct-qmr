@@ -80,15 +80,20 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
             <Q.OtherPerformanceMeasure />
           )}
           <Q.CombinedRates />
-          <Q.OptionalMeasureStratification
-            ageGroups={ageGroups}
-            deviationConditions={{
-              show30DaysAges18To64,
-              show30DaysAges65AndOlder,
-              show7DaysAges18To64,
-              show7DaysAges65AndOlder,
-            }}
-          />
+          {(show30DaysAges18To64 ||
+            show30DaysAges65AndOlder ||
+            show7DaysAges18To64 ||
+            show7DaysAges65AndOlder) && (
+            <Q.OptionalMeasureStratification
+              ageGroups={ageGroups}
+              deviationConditions={{
+                show30DaysAges18To64,
+                show30DaysAges65AndOlder,
+                show7DaysAges18To64,
+                show7DaysAges65AndOlder,
+              }}
+            />
+          )}
         </>
       )}
       <Q.AdditionalNotes />
