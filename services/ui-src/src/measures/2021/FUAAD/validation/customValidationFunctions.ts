@@ -60,13 +60,13 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
     DualEligibleCheck.indexOf("DenominatorIncMedicareMedicaidDualEligible") !==
     -1
   ) {
-    if (!sevenDays65orOlder || !thirtyDays65orOlder) {
+    if (!sevenDays65orOlder && !thirtyDays65orOlder) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
           "Missing data on Performance Measure for Age 65 and older",
       };
-    } else if (!sevenDays65orOlder[1] || !thirtyDays65orOlder[1]) {
+    } else if (!sevenDays65orOlder[1] && !thirtyDays65orOlder[1]) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
