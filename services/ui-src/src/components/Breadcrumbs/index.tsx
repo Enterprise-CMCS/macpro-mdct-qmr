@@ -23,29 +23,22 @@ export const Breadcrumbs = ({ items, color }: Props) => {
           </Link>
         </CUI.Center>
       )}
-      <CUI.Breadcrumb color={color} separator="">
-        <CUI.HStack>
-          {items?.map((item, idx) => (
-            <CUI.BreadcrumbItem
-              isCurrentPage={idx + 1 === items.length}
-              key={item.name}
-            >
-              <CUI.BreadcrumbLink
-                as={Link}
-                to={item.path || ""}
-                _hover={{ color }}
-              >
-                <CUI.Heading
-                  size="md"
-                  minW={idx === 0 ? "max-content" : "none"}
-                >
-                  {item.name}
-                </CUI.Heading>
-              </CUI.BreadcrumbLink>
-            </CUI.BreadcrumbItem>
-          ))}
-        </CUI.HStack>
-      </CUI.Breadcrumb>
+      {/* <CUI.Breadcrumb color={color} separator=""> */}
+      <CUI.HStack>
+        {items?.map((item, idx) => (
+          <CUI.Heading
+            size="md"
+            minW={idx === 0 ? "max-content" : "none"}
+            as={Link}
+            to={item.path}
+            color={color}
+            _visited={{ color }}
+            key={`${idx}-${item.path}`}
+          >
+            {item.name}
+          </CUI.Heading>
+        ))}
+      </CUI.HStack>
     </CUI.Flex>
   );
 };
