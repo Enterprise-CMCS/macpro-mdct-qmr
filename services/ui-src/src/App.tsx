@@ -11,7 +11,7 @@ const App = () => {
       {user && (
         <>
           <QMR.Header handleLogout={logout} />
-          <AppRoutes user={user} />
+          <AppRoutes />
           <QMR.Footer />
         </>
       )}
