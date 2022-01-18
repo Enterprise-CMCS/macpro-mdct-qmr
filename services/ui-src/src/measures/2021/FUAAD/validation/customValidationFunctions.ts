@@ -148,10 +148,41 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
+const validateAtLeastOneNDRSet = (data: Measure.Form) => {
+  let error;
+  const measureSpecification = data["MeasurementSpecification"];
+  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
+  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+  const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"];
+  const isHEDIS = measureSpecification === "NCQA/HEDIS";
+  if (
+    isHEDIS &&
+    !sevenDays?.[0]?.rate &&
+    !sevenDays?.[1]?.rate &&
+    !thirtyDays?.[0]?.rate &&
+    !thirtyDays?.[1]?.rate
+  ) {
+    error = {
+      errorLocation: "Performance Measure",
+      errorMessage:
+        "At least one Performance Measure Numerator, Denominator, and Rate must be completed",
+    };
+  } else if (!otherPerformanceRates?.[0]?.rate?.[0]?.rate) {
+    error = {
+      errorLocation: "Other Performance Measure",
+      errorMessage:
+        "At least one Other Performance Measure Numerator, Denominator, and Rate must be completed",
+    };
+  }
+
+  return error;
+};
+
 export const validationFunctions = [
   validateRates,
   validate7DaysGreaterThan30Days,
   validateSevenDayNumeratorLessThanDenominator,
   validateThirtyDayNumeratorLessThanDenominator,
+  validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
 ];
