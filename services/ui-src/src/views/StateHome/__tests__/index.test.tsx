@@ -2,6 +2,7 @@ import { StateHome } from "../index";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { useApiMock } from "utils/testUtils/useApiMock";
 const queryClient = new QueryClient();
 
 const mockedNavigate = jest.fn();
@@ -15,30 +16,8 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
-jest.mock("hooks/api", () => ({
-  useGetCoreSets: jest.fn().mockReturnValue({
-    data: {
-      Items: [
-        {
-          compoundKey: "OH2021ACS",
-          coreSet: "ACS",
-          createdAt: 1641161901553,
-          lastAltered: 1641161901553,
-          lastAlteredBy: "STATE_USER_QMR",
-          progress: { numAvailable: 32, numComplete: 0 },
-          state: "OH",
-          submitted: false,
-          year: 2021,
-        },
-      ],
-    },
-    isLoading: false,
-    error: undefined,
-  }),
-  useDeleteCoreSet: jest.fn(),
-}));
-
 beforeEach(() => {
+  useApiMock();
   render(
     <QueryClientProvider client={queryClient}>
       <RouterWrappedComp>
