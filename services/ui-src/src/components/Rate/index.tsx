@@ -34,7 +34,7 @@ export const Rate = ({ rates, name, readOnly = true }: Props) => {
     const editRate = { ...prevRate[index] };
     editRate[type] = newValue;
 
-    if (type === "rate" && !readOnly) {
+    if (type === "rate" && !readOnly && prevRate[index]?.rate !== undefined) {
       prevRate[index].rate = newValue;
       field.onChange([...prevRate]);
       return;
@@ -44,6 +44,8 @@ export const Rate = ({ rates, name, readOnly = true }: Props) => {
       editRate.rate = (editRate.numerator / editRate.denominator)
         .toFixed(4)
         .toString();
+    } else if (editRate.rate) {
+      editRate.rate = "";
     }
 
     prevRate[index] = editRate;

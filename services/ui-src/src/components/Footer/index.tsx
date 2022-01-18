@@ -4,6 +4,7 @@ import * as Libs from "libs";
 export function Footer(): JSX.Element {
   return (
     <CUI.Box
+      zIndex={3}
       fontSize={{ base: "sm", md: "md" }}
       textAlign={{ base: "center", md: "left" }}
       data-testid="footer"
@@ -63,7 +64,10 @@ export function Footer(): JSX.Element {
           <CUI.Box display={{ base: "block", md: "flex" }}>
             <CUI.Text>
               Email{" "}
-              <CUI.Link href={`mailto:${Libs.helpDeskContact.email}`}>
+              <CUI.Link
+                _hover={{ color: "white" }}
+                href={`mailto:${Libs.helpDeskContact.email}`}
+              >
                 {" "}
                 {Libs.helpDeskContact.email}
               </CUI.Link>{" "}

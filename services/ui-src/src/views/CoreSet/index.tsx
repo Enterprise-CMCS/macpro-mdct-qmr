@@ -3,6 +3,7 @@ import * as QMR from "components";
 import { useParams } from "react-router-dom";
 import { Params } from "Routes";
 import { Link } from "react-router-dom";
+import { useUser } from "hooks/authHooks";
 
 enum coreSetType {
   ACS = "Adult",
@@ -12,7 +13,7 @@ enum coreSetType {
   HHCS = "Health Homes",
 }
 
-enum coreSetMeasureTitle {
+export enum coreSetMeasureTitle {
   ACS = "Adult Core Set Measures",
   CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
@@ -34,23 +35,6 @@ export const CoreSet = () => {
   // This is where a fetch for the measures would live and calculate progress completed
   const measures = [
     {
-      Type: "Health Home",
-      title: "Admission to an Institution from the Community",
-      abbr: "AIF-HH",
-      path: `/${state}/${year}/${coreSetId}/AIF-HH`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "AIF-HH",
-      actions: [
-        {
-          itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
-        },
-      ],
-    },
-    {
       Type: "Adult",
       title:
         "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
@@ -63,8 +47,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -80,8 +63,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -97,8 +79,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -114,8 +95,7 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
@@ -131,12 +111,13 @@ export const CoreSet = () => {
       actions: [
         {
           itemText: "Edit",
-          id: "1",
-          handleSelect: (id: string) => console.log(id),
+          handleSelect: () => console.log("Edit"),
         },
       ],
     },
   ];
+
+  const { isStateUser } = useUser();
 
   return (
     <QMR.StateLayout
@@ -172,16 +153,6 @@ export const CoreSet = () => {
           </CUI.Box>
 
           <CUI.HStack>
-            <CUI.Box pr="10">
-              <CUI.Text fontSize="sm">
-                {`${
-                  coreSetType[coreSetId as keyof typeof coreSetType]
-                } Measures`}
-              </CUI.Text>
-              <CUI.Text fontSize="sm" fontWeight="600">
-                16% Complete
-              </CUI.Text>
-            </CUI.Box>
             <QMR.ProgressCircle
               circularProgressProps={{ color: "green", size: "4.5rem" }}
               circularProgressLabelProps={{ fontSize: ".8rem" }}
@@ -196,7 +167,8 @@ export const CoreSet = () => {
             buttonProps={{
               colorScheme: "blue",
             }}
-            buttonText="Submit Measures"
+            buttonText="Submit Core Set"
+            disabledStatus={!isStateUser}
             helperText={`Complete all ${
               coreSetType[coreSetId as keyof typeof coreSetType]
             } Core Set Questions and ${

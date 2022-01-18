@@ -12,7 +12,7 @@ const adultCoreSetMeasures = "//a[ contains(@href, 'ACS') ]";
 
 export class Homepage {
   launch() {
-    cy.visit("https://mdctqmrdev.cms.gov/");
+    cy.visit("/");
   }
 
   verifyTheTitleCoreSetMeasureReporting(){

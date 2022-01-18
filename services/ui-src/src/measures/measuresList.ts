@@ -343,5 +343,4 @@ export const measuresList: MeasureList = {
       measureId: "PQI92-HH",
     },
   ],
-  "2022": [],
 };

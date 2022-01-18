@@ -11,6 +11,8 @@ interface CalendarProps {
   selectedYear?: string;
   selectedMonth?: string;
   yearLocked?: boolean;
+  minYear?: number;
+  maxYear?: number;
   onChange: (month: number, year: number) => void;
 }
 
@@ -32,6 +34,8 @@ const monthNames = [
 export const MonthPickerCalendar = ({
   selectedMonth,
   selectedYear = config.currentReportingYear,
+  maxYear = parseInt(config.currentReportingYear),
+  minYear = parseInt(config.currentReportingYear) - 1,
   yearLocked = false,
   onChange: handleChange,
 }: CalendarProps) => {
@@ -83,6 +87,7 @@ export const MonthPickerCalendar = ({
                 aria-label="Previous Year"
                 variant="ghost"
                 icon={<BsChevronLeft />}
+                disabled={year === minYear}
                 onClick={() => {
                   setYear((pr) => pr - 1);
                 }}
@@ -94,6 +99,7 @@ export const MonthPickerCalendar = ({
                 aria-label="Next Year"
                 variant="ghost"
                 icon={<BsChevronRight />}
+                disabled={year === maxYear}
                 onClick={() => {
                   setYear((pr) => pr + 1);
                 }}
@@ -118,7 +124,7 @@ export const MonthPickerCalendar = ({
                     handleMonthClick(index + 1);
                   }}
                 >
-                  {value.substr(0, 3)}
+                  {value.substring(0, 3)}
                 </CUI.Button>
               );
             })}
