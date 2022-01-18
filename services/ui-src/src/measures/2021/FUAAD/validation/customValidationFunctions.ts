@@ -8,7 +8,11 @@ const validateRates = (data: Measure.Form) => {
 
   if (sevenDays && thirtyDays) {
     sevenDays.forEach((_sevenDaysObj, index) => {
-      if (sevenDays[index]?.denominator !== thirtyDays[index]?.denominator) {
+      if (
+        sevenDays[index] &&
+        thirtyDays[index] &&
+        sevenDays[index]?.denominator !== thirtyDays[index]?.denominator
+      ) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         const isSingular = index === 1;
 
@@ -97,7 +101,9 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
   if (sevenDays && thirtyDays) {
     sevenDays.forEach((_sevenDaysObj, index) => {
       if (
-        parseFloat(sevenDays[index].rate) > parseFloat(thirtyDays[index].rate)
+        sevenDays[index] &&
+        thirtyDays[index] &&
+        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
       ) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         const isSingular = index === 1;
