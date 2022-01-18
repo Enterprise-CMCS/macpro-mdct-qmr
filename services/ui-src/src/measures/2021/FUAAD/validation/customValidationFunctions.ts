@@ -171,7 +171,7 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
       errorMessage:
         "At least one Performance Measure Numerator, Denominator, and Rate must be completed",
     };
-  } else if (!otherPerformanceRates?.[0]?.rate?.[0]?.rate) {
+  } else if (!isHEDIS && !otherPerformanceRates?.[0]?.rate?.[0]?.rate) {
     error = {
       errorLocation: "Other Performance Measure",
       errorMessage:
