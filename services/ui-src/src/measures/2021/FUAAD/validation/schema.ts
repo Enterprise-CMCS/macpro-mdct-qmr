@@ -11,7 +11,7 @@ const RateJoiValidator = Joi.array().items(
 
 const OptionalMeasureStratificationRateJoi = Joi.object({
   ageData: Joi.array().items(Joi.string()),
-  subRates: Joi.array().items(RateJoiValidator),
+  subRates: Joi.array().items(Joi.any()),
   total: RateJoiValidator,
 });
 
