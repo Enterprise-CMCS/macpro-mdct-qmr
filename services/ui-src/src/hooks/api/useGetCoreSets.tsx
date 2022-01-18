@@ -25,7 +25,7 @@ const getCoreSets = ({ state, year, userState, userRole }: GetCoreSets) => {
 export const useGetCoreSets = () => {
   const userInfo = useUser();
   const userState = userInfo!.userState!;
-  const userRole = userInfo!.user!.role;
+  const userRole = userInfo!.userRole!;
   const { state, year } = useParams<Params>();
   if (state && year) {
     return useQuery(["coreSets", state, year], () =>

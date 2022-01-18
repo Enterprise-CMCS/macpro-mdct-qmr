@@ -11,8 +11,8 @@ export interface UserContextInterface {
   logout: () => Promise<void>;
   loginWithIDM: () => void;
   isStateUser: boolean;
-  role?: string;
   userState?: string;
+  userRole?: string;
 }
 
 export const UserContext = createContext<UserContextInterface>({
