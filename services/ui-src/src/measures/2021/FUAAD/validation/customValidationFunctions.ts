@@ -13,7 +13,7 @@ const validateRates = (data: Measure.Form) => {
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both thirty day rates and seven day rates for ages ${ageGroup}.`,
+          errorMessage: `Denominators must be the same for both 30 day rates and 7 day rates for ages ${ageGroup}.`,
         };
 
         errorArray.push(error);
@@ -97,7 +97,7 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Seven Days Rate should not be higher than Thirty Days Rate for ages ${ageGroup}`,
+          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for ages ${ageGroup}`,
         };
 
         errorArray.push(error);
@@ -119,7 +119,7 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Thirty Day Rate: Numerator must be less than or equal to Denominator for ages ${ageGroup}`,
+          errorMessage: `30 Day Rate: Numerator must be less than or equal to Denominator for ages ${ageGroup}`,
         };
 
         errorArray.push(error);
@@ -141,7 +141,7 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Seven Day Rate: Numerator must be less than or equal to Denominator for ages ${ageGroup}`,
+          errorMessage: `7 Day Rate: Numerator must be less than or equal to Denominator for ages ${ageGroup}`,
         };
 
         errorArray.push(error);
