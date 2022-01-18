@@ -1,12 +1,10 @@
 import * as CUI from "@chakra-ui/react";
-// import { Dispatch, SetStateAction } from "react";
 
 interface Props {
   bodyText: string;
   handleModalResponse: (response: boolean) => void;
 }
-// There are still errors on this measure, would you still like to
-// complete?
+
 export const YesNoModalDialog = ({ bodyText, handleModalResponse }: Props) => {
   return (
     <>
