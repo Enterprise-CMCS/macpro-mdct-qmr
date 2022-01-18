@@ -31,6 +31,7 @@
     "build": "react-scripts build",
     "coverage": "jest --coverage",
     "test": "jest --setupFiles dotenv/config",
+    "watchTest": "jest --setupFiles dotenv/config --watch",
     "eject": "react-scripts eject",
     "postinstall": "patch-package"
   },
