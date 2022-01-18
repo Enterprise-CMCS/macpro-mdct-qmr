@@ -54,7 +54,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
           error = {
             errorLocation: "Performance Measure",
             errorMessage:
-              "Information has been included in the Age 65 or older Performance Mesure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
+              "Information has been included in the Age 65 and older Performance Mesure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
           };
         }
       }
@@ -78,14 +78,21 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       };
     } else if (
       !sevenDays65orOlder[1]?.numerator ||
+      !sevenDays65orOlder[1]?.denominator
+    ) {
+      return {
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "Missing data on Performance Measure for Age 65 and older (Follow-up within 7 days of ED visit)",
+      };
+    } else if (
       !thirtyDays65orOlder[1]?.numerator ||
-      !sevenDays65orOlder[1]?.denominator ||
       !thirtyDays65orOlder[1]?.denominator
     ) {
       return {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
+          "Missing data on Performance Measure for Age 65 and older (Follow-up within 30 days of ED visit)",
       };
     }
   }
@@ -133,7 +140,7 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         thirtyDay &&
         thirtyDay.numerator &&
         thirtyDay.denominator &&
-        parseFloat(thirtyDay.numerator) > parseFloat(thirtyDay.denominator)
+        parseFloat(thirtyDay?.numerator) > parseFloat(thirtyDay?.denominator)
       ) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         error = {
@@ -160,7 +167,7 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         sevenDay &&
         sevenDay.numerator &&
         sevenDay.denominator &&
-        parseFloat(sevenDay.numerator) > parseFloat(sevenDay.denominator)
+        parseFloat(sevenDay?.numerator) > parseFloat(sevenDay?.denominator)
       ) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
         error = {
