@@ -78,101 +78,81 @@ functions:
     handler: handlers/measures/get.listMeasures
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}/measures
-          method: get
-          cors:
-            origin: "*"
-            headers: "*"
+          path: coreset/{state}/{year}/{coreSet}/measures/list
+          method: put
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getMeasure:
     handler: handlers/measures/get.getMeasure
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}/measures/{measure}
-          method: get
-          cors:
-            origin: "*"
-            headers: "*"
+          path: coreset/{state}/{year}/{coreSet}/measures/{measure}/get
+          method: put
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createMeasure:
     handler: handlers/measures/create.createMeasure
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}/measures/{measure}
+          path: coreset/{state}/{year}/{coreSet}/measures/{measure}/create
           method: post
-          cors:
-            origin: "*"
-            headers: "*"
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editMeasure:
     handler: handlers/measures/update.editMeasure
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}/measures/{measure}
+          path: coreset/{state}/{year}/{coreSet}/measures/{measure}/edit
           method: put
-          cors:
-            origin: "*"
-            headers: "*"
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}/measures/{measure}
-          method: delete
-          cors:
-            origin: "*"
-            headers: "*"
+          path: coreset/{state}/{year}/{coreSet}/measures/{measure}/delete
+          method: put
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
     events:
       - http:
-          path: coreset/{state}/{year}
-          method: get
-          cors:
-            origin: "*"
-            headers: "*"
+          path: coreset/{state}/{year}/list
+          method: put
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getCoreSet:
     handler: handlers/coreSets/get.getCoreSet
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}
-          method: get
-          cors:
-            origin: "*"
-            headers: "*"
+          path: coreset/{state}/{year}/{coreSet}/get
+          method: put
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createCoreSet:
     handler: handlers/coreSets/create.createCoreSet
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}
+          path: coreset/{state}/{year}/{coreSet}/create
           method: post
-          cors:
-            origin: "*"
-            headers: "*"
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editCoreSet:
     handler: handlers/coreSets/update.editCoreSet
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}
+          path: coreset/{state}/{year}/{coreSet}/edit
           method: put
-          cors:
-            origin: "*"
-            headers: "*"
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
     events:
       - http:
-          path: coreset/{state}/{year}/{coreSet}
-          method: delete
-          cors:
-            origin: "*"
-            headers: "*"
+          path: coreset/{state}/{year}/{coreSet}/delete
+          method: put
+          cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   dynamoSync:
     handler: handlers/dynamoSync/handler.syncDynamoToS3

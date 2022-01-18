@@ -113,7 +113,7 @@ export const StateHome = () => {
     );
   }
 
-  if (isLoading || data?.Items.length === 0) {
+  if (isLoading || !data.Items) {
     // we should have a loading state here
     return null;
   }
