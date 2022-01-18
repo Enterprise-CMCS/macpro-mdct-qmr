@@ -176,29 +176,3 @@ export const StateHome = () => {
     </QMR.StateLayout>
   );
 };
-
-/*
-
-Can you tell me about a feature or project you built yourself? What was the problem you were solving? What tools did you choose for the job and why?
-
-Would you consider yourself opinionated about any particular development pattern or tool? Which ones and why?
-
-is there ay cool new tech that you are using these days?
-
-approach to testing 
-
-backend testing frameworks have you used in the past
-
-microservices / monorepo - what information might you need to determine the best approach for a solution?
-
-whats your experience been with DynamoDB - do you prefer working with relational databases?
-
-do you have any experience working with typescript / serverless?
-
-we have a dynamoDB with the results of user entered data for all 50 states by year for a set of standardized questions. We want to provide this data to a third party so they can do fancy vizualisations to it. What are some various ways we could provide this data to the third party who is not within our aws account?
-
-How do you deal with inefficient coding turned in by your team colleague?
-
-lets assume we start a game of chess, you are white, what opening are you going with?
-
-*/
