@@ -8,6 +8,7 @@ interface ContainedButtonProps {
   helperTextProps?: CUI.TextProps;
   icon?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  zIndex?: number;
 }
 
 export const ContainedButton = ({
@@ -18,9 +19,11 @@ export const ContainedButton = ({
   helperTextProps,
   icon,
   onClick,
+  zIndex,
 }: ContainedButtonProps) => {
   const printIcon = icon === "print" ? <FaPrint /> : undefined;
   const plusIcon = icon === "plus" ? <FaPlusCircle /> : undefined;
+  zIndex = zIndex ? zIndex : 1;
 
   return (
     <CUI.Box>
@@ -30,6 +33,7 @@ export const ContainedButton = ({
         onClick={onClick}
         disabled={disabledStatus}
         borderRadius="sm"
+        zIndex={zIndex}
         {...buttonProps}
       >
         {buttonText}

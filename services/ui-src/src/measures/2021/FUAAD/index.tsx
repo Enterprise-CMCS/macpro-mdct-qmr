@@ -25,7 +25,6 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
     watchDataSourceAdmin?.indexOf("Other Data Source") !== -1;
   const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
   const isOtherSpecification = watchMeasureSpecification === "Other";
-
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
   const show30DaysAges18To64 =
     !!watchPerformanceMeasureAgeRates30Days?.[0]?.rate;

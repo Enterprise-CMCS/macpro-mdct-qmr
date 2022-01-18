@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { ContainedButton } from "components/ContainedButton";
+import { useUser } from "hooks/authHooks";
 import {
   createCoreSet,
   editCoreSet,
@@ -15,6 +16,9 @@ import {
 import { MeasureStatus } from "types";
 
 export const ApiTester = () => {
+  const userInfo = useUser();
+  const userState = userInfo.userState;
+  const userRole = userInfo.userRole;
   return (
     <>
       <CUI.Flex flexWrap="wrap" spacing={5}>
@@ -28,14 +32,15 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await createCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
                 body: {
-                  test: "data",
-                  test2: "moreData",
+                  userState,
+                  userRole,
                 },
-              })
+              }),
+              userInfo
             )
           }
         />
@@ -49,10 +54,12 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await editCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
                 body: {
+                  userState,
+                  userRole,
                   status: "complete",
                 },
               })
@@ -69,8 +76,12 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getAllCoreSets({
-                state: "FS",
+                state: "AL",
                 year: "2021",
+                body: {
+                  userState,
+                  userRole,
+                },
               })
             )
           }
@@ -85,9 +96,13 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
+                body: {
+                  userState,
+                  userRole,
+                },
               })
             )
           }
@@ -102,9 +117,13 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await deleteCoreSet({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
+                body: {
+                  userState,
+                  userRole,
+                },
               })
             )
           }
@@ -121,11 +140,13 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await createMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
+                  userState,
+                  userRole,
                   test: "data",
                   description: "test description",
                 },
@@ -143,11 +164,13 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await editMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
                 measure: "AIF-HH",
                 body: {
+                  userState,
+                  userRole,
                   data: {
                     test: "data",
                   },
@@ -167,9 +190,13 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await listMeasures({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
+                body: {
+                  userState,
+                  userRole,
+                },
               })
             )
           }
@@ -184,10 +211,14 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await getMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
                 measure: "AIF-HH",
+                body: {
+                  userState,
+                  userRole,
+                },
               })
             )
           }
@@ -202,10 +233,14 @@ export const ApiTester = () => {
           onClick={async () =>
             console.log(
               await deleteMeasure({
-                state: "FS",
+                state: "AL",
                 year: "2021",
                 coreSet: "ACS",
                 measure: "AIF-HH",
+                body: {
+                  userState,
+                  userRole,
+                },
               })
             )
           }

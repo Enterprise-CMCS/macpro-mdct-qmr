@@ -9,7 +9,7 @@ const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
 
 export class Homepage {
   launch() {
-    cy.visit("https://mdctqmrdev.cms.gov/");
+    cy.visit("/");
   }
 
   validateCoreSetReportingIcon() {

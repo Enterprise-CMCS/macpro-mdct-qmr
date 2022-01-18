@@ -5,6 +5,7 @@ import * as Libs from "libs";
 export function Footer(): JSX.Element {
   return (
     <CUI.Box
+      zIndex={3}
       fontSize={{ base: "sm", md: "md" }}
       textAlign={{ base: "center", md: "left" }}
       data-testid="footer"
