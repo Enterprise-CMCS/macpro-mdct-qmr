@@ -4,6 +4,7 @@ enum UserRoles {
   ADMIN = "mdctqmr-approver",
   STATE = "mdctqmr-state-user",
   HELP = "mdctqmr-help-desk",
+  BO = "mdctqmr-bo-user",
 }
 
 const authErrorHandler = (
@@ -15,7 +16,8 @@ const authErrorHandler = (
   if (
     !(userRole === UserRoles.ADMIN) &&
     !(userRole === UserRoles.STATE) &&
-    !(userRole === UserRoles.HELP)
+    !(userRole === UserRoles.HELP) &&
+    !(userRole === UserRoles.BO)
   ) {
     return 403;
   }
