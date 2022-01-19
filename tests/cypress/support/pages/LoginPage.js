@@ -20,5 +20,12 @@ export class LoginPage {
   clickSignIn() {
     cy.get(signInBttn).click();
   }
+
+  loginasAStateUser() {
+    cy.get(usernameInput).type("State_QMR2");
+    cy.get(passwordInput).type("Passw0rd@");
+    cy.get(agreeTermCondition).click();
+    cy.get(signInBttn).click();
+  }
 }
 export default LoginPage;
