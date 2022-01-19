@@ -13,12 +13,12 @@ const validateRates = (data: Measure.Form) => {
         thirtyDays[index] &&
         sevenDays[index]?.denominator !== thirtyDays[index]?.denominator
       ) {
-        const ageGroup = index === 0 ? "18 - 64" : "65 and older";
+        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
         const isSingular = index === 1;
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both 30 days rate and 7 days rate for age${
+          errorMessage: `Denominators must be the same for both 30 days rate and 7 days rate for Age${
             isSingular ? "" : "s"
           } ${ageGroup}.`,
         };
@@ -116,11 +116,11 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
         thirtyDays[index] &&
         parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
       ) {
-        const ageGroup = index === 0 ? "18 - 64" : "65 and older";
+        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
         const isSingular = index === 1;
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for age${
+          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for Age${
             isSingular ? "" : "s"
           } ${ageGroup}`,
         };
@@ -146,12 +146,12 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         thirtyDay.denominator &&
         parseFloat(thirtyDay?.numerator) > parseFloat(thirtyDay?.denominator)
       ) {
-        const ageGroup = index === 0 ? "18 - 64" : "65 and older";
+        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
         const isSingular = index === 1;
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `30 Day Rate: Numerator must be less than or equal to Denominator for age${
+          errorMessage: `30 Day Rate: Numerator must be less than or equal to Denominator for Age${
             isSingular ? "" : "s"
           } ${ageGroup}`,
         };
@@ -177,10 +177,14 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         sevenDay.denominator &&
         parseFloat(sevenDay?.numerator) > parseFloat(sevenDay?.denominator)
       ) {
-        const ageGroup = index === 0 ? "18 - 64" : "65 and older";
+        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
+        const isSingular = index === 1;
+
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `7 Day Rate: Numerator must be less than or equal to Denominator for ages ${ageGroup}`,
+          errorMessage: `7 Day Rate: Numerator must be less than or equal to Denominator for Age${
+            isSingular ? "" : "s"
+          } ${ageGroup}`,
         };
 
         errorArray.push(error);
