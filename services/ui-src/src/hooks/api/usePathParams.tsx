@@ -17,5 +17,5 @@ export const usePathParams = () => {
       coreSet: splitLocation[MeasurePathLocationIndexes.coreSet],
       measureId: splitLocation[MeasurePathLocationIndexes.measureId],
     };
-  }, [window.location.pathname]);
+  }, []);
 };
