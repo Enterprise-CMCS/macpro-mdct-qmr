@@ -98,6 +98,10 @@ resources:
             AttributeDataType: String
             Mutable: true
             Required: false
+          - Name: cms_state
+            AttributeDataType: String
+            Mutable: true
+            Required: false
     CognitoUserPoolClient:
       Type: AWS::Cognito::UserPoolClient
       Properties:
@@ -144,6 +148,7 @@ resources:
           given_name: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname
           family_name: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname
           custom:cms_roles: cmsRoles
+          custom:cms_state: cmsState
         IdpIdentifiers:
           - IdpIdentifier
         ProviderDetails:
