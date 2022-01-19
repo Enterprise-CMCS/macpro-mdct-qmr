@@ -80,7 +80,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/list
           method: get
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getMeasure:
     handler: handlers/measures/get.getMeasure
@@ -88,7 +88,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/get
           method: get
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createMeasure:
     handler: handlers/measures/create.createMeasure
@@ -96,7 +96,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/create
           method: post
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editMeasure:
     handler: handlers/measures/update.editMeasure
@@ -104,7 +104,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/edit
           method: put
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
@@ -112,7 +112,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/delete
           method: delete
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
@@ -120,7 +120,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/list
           method: get
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getCoreSet:
     handler: handlers/coreSets/get.getCoreSet
@@ -128,7 +128,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/get
           method: get
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createCoreSet:
     handler: handlers/coreSets/create.createCoreSet
@@ -136,7 +136,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/create
           method: post
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   editCoreSet:
     handler: handlers/coreSets/update.editCoreSet
@@ -144,7 +144,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/edit
           method: put
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
@@ -152,7 +152,7 @@ functions:
       - http:
           path: coreset/{state}/{year}/{coreSet}/delete
           method: delete
-          cors: true
+          cors: false
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   dynamoSync:
     handler: handlers/dynamoSync/handler.syncDynamoToS3
