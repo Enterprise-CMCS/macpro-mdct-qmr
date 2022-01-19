@@ -2,7 +2,6 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import config from "config";
-import { getLocalUserInfo, logoutLocalUser } from "libs";
 
 import { UserContext, UserContextInterface } from "./userContext";
 import { UserRoles } from "types";
@@ -39,7 +38,6 @@ export const UserProvider = ({ children }: Props) => {
 
   const logout = useCallback(async () => {
     try {
-      logoutLocalUser();
       setUser(null);
       await Auth.signOut();
     } catch (error) {
@@ -56,12 +54,7 @@ export const UserProvider = ({ children }: Props) => {
       if (isIntegrationBranch) {
         authenticateWithIDM();
       } else {
-        const localUser = getLocalUserInfo();
-        if (localUser) {
-          setUser(localUser);
-        } else {
-          setShowLocalLogins(true);
-        }
+        setShowLocalLogins(true);
       }
     }
   }, [isIntegrationBranch]);
