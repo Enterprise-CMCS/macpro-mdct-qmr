@@ -8,7 +8,7 @@ const federalLogo = "img[alt='Department of Health and Human Services logo']";
 const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
 //verify FFY 2021 Core Set Measures Reporting title
 const coreSetMeasuresReportingTitle = "(//h2)[2]";
-const adultCoreSetMeasures = "//a[ contains(@href, 'ACS') ]";
+const adultCoreSetMeasures = "//p[text()='Adult Core Set Measures']";
 
 export class Homepage {
   launch() {

@@ -12,8 +12,14 @@ export class AdultCoreSetMeasuresPage {
     }
 
     clickFUAadLink(){
-        cy.xpath(fuaAD).should("be.visible");
-        cy.xpath(fuaAD).click({force:true});
+        // cy.xpath(fuaAD).should("be.visible");
+        // cy.xpath(fuaAD).click({force:true});
+
+        // "//p[text()='FUA-AD']"
+
+        cy.xpath("//p[text()='FUA-AD']").should("be.visible");
+        cy.xpath("//p[text()='FUA-AD']").click({force:true});
+
     }
 
     clickPDENTchLink(){
