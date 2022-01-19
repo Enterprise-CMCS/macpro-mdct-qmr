@@ -64,21 +64,23 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
     DualEligibleCheck.indexOf("DenominatorIncMedicareMedicaidDualEligible") !==
     -1
   ) {
-    if (!sevenDays65orOlder || !thirtyDays65orOlder) {
+    if (!sevenDays65orOlder && !thirtyDays65orOlder) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
           "Missing data on Performance Measure for Age 65 and older",
       };
-    } else if (!sevenDays65orOlder[1] || !thirtyDays65orOlder[1]) {
+    } else if (!sevenDays65orOlder[1] && !thirtyDays65orOlder[1]) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
           "Missing data on Performance Measure for Age 65 and older",
       };
     } else if (
-      !sevenDays65orOlder[1]?.numerator ||
-      !sevenDays65orOlder[1]?.denominator
+      (!sevenDays65orOlder[1]?.numerator || // either not filled in
+        !sevenDays65orOlder[1]?.denominator) && // either not filled in
+      !thirtyDays65orOlder[1]?.numerator && //both filled in
+      !thirtyDays65orOlder[1]?.denominator //both filled in
     ) {
       return {
         errorLocation: "Performance Measure",
@@ -86,8 +88,10 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
           "Missing data on Performance Measure for Age 65 and older (Follow-up within 7 days of ED visit)",
       };
     } else if (
-      !thirtyDays65orOlder[1]?.numerator ||
-      !thirtyDays65orOlder[1]?.denominator
+      (!thirtyDays65orOlder[1]?.numerator ||
+        !thirtyDays65orOlder[1]?.denominator) &&
+      !sevenDays65orOlder[1]?.numerator &&
+      !sevenDays65orOlder[1]?.denominator
     ) {
       return {
         errorLocation: "Performance Measure",
