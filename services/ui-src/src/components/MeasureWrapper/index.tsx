@@ -46,9 +46,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   });
 
   const handleValidation = (data: any) => {
-    // save measure
     handleSave(data);
-    // Render erros at the bottom of the screen
+    validateAndSetErrors(data);
   };
 
   const handleSave = (data: any) => {
@@ -57,8 +56,19 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   };
 
   const handleSubmit = (data: any) => {
-    console.log("submitted");
-    console.log(validationFunctions);
+    // validate and populate errors
+    const validatedErrors = validateAndSetErrors(data);
+    // if errors show modal
+    // otherwise continue on without modal else
+
+    if (validatedErrors) {
+      setShowModal(true);
+    } else {
+      console.log("submitted");
+    }
+  };
+
+  const validateAndSetErrors = (data: any): boolean => {
     const validationErrors = validationFunctions.reduce(
       (acc: any, current: any) => {
         const error = current(data);
@@ -76,20 +86,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     );
 
     setErrors(validationErrors.length > 0 ? validationErrors : undefined);
-
-    console.log({ errors });
-    console.log({ data });
-
-    // validate and populate errors
-
-    // if errors show modal
-    setShowModal(true);
-
-    // otherwise continue on without modal else
-    if (!showModal) {
-      // submit measure
-      console.log("submitted");
-    }
+    return validationErrors.length > 0;
   };
 
   const handleValidationModalResponse = (continueWithErrors: boolean) => {
