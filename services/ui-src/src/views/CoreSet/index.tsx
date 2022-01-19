@@ -93,7 +93,6 @@ const useMeasureTableDataBuilder = () => {
   const { data, isLoading, isError, error } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   useEffect(() => {
-    console.log(data);
     if (!isLoading && !isError && data && data.Items) {
       const measureTableData = (data.Items as MeasureData[]).map((item) => {
         return {
