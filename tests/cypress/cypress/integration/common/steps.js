@@ -2,6 +2,7 @@ import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
 import Homepage from "../../../support/pages/Homepage";
 import LoginPage from "../../../support/pages/LoginPage";
 import Landingpage from "../../../support/pages/Landingpage";
+<<<<<<< HEAD
 import AdultCoreSetMeasuresPage from "../../../support/pages/AdultCoreSetMeasuresPage";
 import NCIDDSadpage from "../../../support/pages/NCIDDSadpage";
 import PDENTch from "../../../support/pages/PDENTch";
@@ -9,10 +10,15 @@ import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 // demo
 
+=======
+import AuditCoreSetMeasuresPage from "../../../support/pages/AuditCoreSetMeasuresPage";
+import FUAADPAGE from "../../../support/pages/FUAADPage";
+>>>>>>> master
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();
 const landingPage = new Landingpage();
+<<<<<<< HEAD
 const adultCoreSetMeasurespage = new AdultCoreSetMeasuresPage();
 const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
@@ -20,6 +26,10 @@ const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
 // demo 
 
+=======
+const auditCoreSetMeasuresPage = new AuditCoreSetMeasuresPage();
+const fUAADPage = new FUAADPAGE();
+>>>>>>> master
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -133,6 +143,7 @@ And('user click "Sign In" button', () => {
 
 Then("user should see the QMR home page", () => {});
 
+<<<<<<< HEAD
 // // Demo steps 
 // Given("user is on  login page", ()=>{
 //   demoLoginPage.launche();
@@ -146,3 +157,55 @@ Then("user should see the QMR home page", () => {});
 //   demoLoginPage.signIn();
 // });
 
+=======
+When("login as state user", () => {
+  loginPage.loginasAStateUser();
+});
+
+Then("verify Core Set Measures is displayed", () => {
+  landingPage.validatecoreSetMeasureText();
+});
+
+Then("Click on Adult Core Set Measures", () => {
+  landingPage.clickAdultCoreSetMeasures();
+});
+
+Then("verify url contains ACS", () => {
+  auditCoreSetMeasuresPage.verifyURLContainsACS();
+});
+Then("Click on FUA-AD", () => {
+  auditCoreSetMeasuresPage.clickFUAADLink();
+});
+
+Then("verify url contains FUA-AD", () => {
+  fUAADPage.verifyURLContainsFUAAD();
+});
+
+And("verify browse exists", () => {
+  fUAADPage.verifyBrowseExists();
+});
+
+And("upload attachment pdf", () => {
+  fUAADPage.addFilesToFUAADPage();
+});
+
+And("verify pdf is uploaded", () => {
+  fUAADPage.verifyPDFIsUploaded();
+});
+
+And("upload attachment text file", () => {
+  fUAADPage.addTextFilesToFUAADPage();
+});
+
+And("verify text file is uploaded", () => {
+  fUAADPage.verifyTextIsUploaded();
+});
+
+And("upload attachment picture", () => {
+  fUAADPage.addPictureFilesToFUAADPage();
+});
+
+And("verify picture is uploaded", () => {
+  fUAADPage.verifyPictureFileIsUploaded();
+});
+>>>>>>> master
