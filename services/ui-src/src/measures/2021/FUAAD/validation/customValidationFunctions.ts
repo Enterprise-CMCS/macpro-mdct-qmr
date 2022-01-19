@@ -194,6 +194,15 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
   const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"];
   const isHEDIS = measureSpecification === "NCQA/HEDIS";
+
+  let doesOtherNDRExist = false;
+  otherPerformanceRates.forEach((ndr) => {
+    const ndrRate = ndr?.rate?.[0]?.rate;
+    if (ndrRate) {
+      doesOtherNDRExist = true;
+    }
+  });
+
   if (
     isHEDIS &&
     !sevenDays?.[0]?.rate &&
@@ -206,7 +215,7 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
       errorMessage:
         "At least one Performance Measure Numerator, Denominator, and Rate must be completed",
     };
-  } else if (!isHEDIS && !otherPerformanceRates?.[0]?.rate?.[0]?.rate) {
+  } else if (measureSpecification && !isHEDIS && !doesOtherNDRExist) {
     error = {
       errorLocation: "Other Performance Measure",
       errorMessage:
