@@ -2,7 +2,6 @@ import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
 import Homepage from "../../../support/pages/Homepage";
 import LoginPage from "../../../support/pages/LoginPage";
 import Landingpage from "../../../support/pages/Landingpage";
-<<<<<<< HEAD
 import AdultCoreSetMeasuresPage from "../../../support/pages/AdultCoreSetMeasuresPage";
 import NCIDDSadpage from "../../../support/pages/NCIDDSadpage";
 import PDENTch from "../../../support/pages/PDENTch";
@@ -10,15 +9,12 @@ import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 // demo
 
-=======
 import AuditCoreSetMeasuresPage from "../../../support/pages/AuditCoreSetMeasuresPage";
 import FUAADPAGE from "../../../support/pages/FUAADPage";
->>>>>>> master
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();
 const landingPage = new Landingpage();
-<<<<<<< HEAD
 const adultCoreSetMeasurespage = new AdultCoreSetMeasuresPage();
 const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
@@ -26,10 +22,8 @@ const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
 // demo 
 
-=======
 const auditCoreSetMeasuresPage = new AuditCoreSetMeasuresPage();
 const fUAADPage = new FUAADPAGE();
->>>>>>> master
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -143,21 +137,6 @@ And('user click "Sign In" button', () => {
 
 Then("user should see the QMR home page", () => {});
 
-<<<<<<< HEAD
-// // Demo steps 
-// Given("user is on  login page", ()=>{
-//   demoLoginPage.launche();
-// });
-
-// When("user logins with invalid credentials",()=>{
-//   demoLoginPage.enterInvalidCredential();
-// });
-
-// Then("user can see error message",()=>{
-//   demoLoginPage.signIn();
-// });
-
-=======
 When("login as state user", () => {
   loginPage.loginasAStateUser();
 });
@@ -208,4 +187,3 @@ And("upload attachment picture", () => {
 And("verify picture is uploaded", () => {
   fUAADPage.verifyPictureFileIsUploaded();
 });
->>>>>>> master
