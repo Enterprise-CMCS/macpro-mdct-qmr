@@ -10,7 +10,12 @@ Feature: Verify and fill out FUA-AD measurement
         # And   user can see the FUA-AD follow up after emergency department vist for alcohol and other drug abuse title
         # And   user can see the sentence below title
         And   user can click on No option for reporting on this measure
-        # And   user can click on Yes option for Are you reporting on this measure
+        And   user can click on Yes option for Are you reporting on this measure
+       
+       
+       
+       
+       
         # And   user can click on What is the status of the data being reported section
         # And   user can click on Other option in Measurement Specification 
         # And   user can click on National Committee for Quality Assurance HEDIS option in Measure Specification

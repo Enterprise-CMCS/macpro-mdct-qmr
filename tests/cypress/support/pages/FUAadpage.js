@@ -27,15 +27,87 @@ const text_describe_limitation = "(//textarea)[4]";
 const check_small_sample_size = "(//span[ contains(@class, 'check')]/p)[16]";
 const num_sample_size = "//input[contains(@data-testid, 'number')]";
 
+// ------- 
+const check_all_options = "//span[ contains(@class, 'check')]/p";
+const radio_all_options = "//span[ contains(@class, 'radio')]/p";
 
 export class FUAadpage {
 
     verifyReportingOnMeasureYes() {
+        cy.reload();
+        cy.wait(500);
         cy.xpath(reporting_yes).click();
 
+        // Initial Checkbox clicks
+        cy.xpath(check_all_options).each((item, index, list) => {
+            cy.wrap(item).scrollIntoView();
+            cy.wrap(item).click({force:true});
+            cy.wait(500);
+        });
+
+        // Expanded checkbox clicks 
+        const unched_checkbox = "//span[ contains(@class, 'check') and not(@data-checked)]";
+        cy.xpath(unched_checkbox).each((item, index, list) => {
+            cy.wrap(item).scrollIntoView();
+            cy.wrap(item).click({force:true});
+            cy.wait(500);
+        });
+
+        cy.scrollTo('top');
+        cy.wait(5000);
+        const radi_all_options_besides_reporting_measures = "(//span[contains(@class, 'radio')]/p)[contains(text(), 'Yes,')]";
+        cy.xpath(radi_all_options_besides_reporting_measures).each((item, index, list) => {
+            cy.wrap(item).scrollIntoView();
+            cy.wrap(item).click({force:true});
+            cy.wait(500);
+        });
+
+        // Input to the text area 
+        const displayed_text_areas = "//textarea";
+        cy.scrollTo('top');
+        cy.wait(5000);
+        cy.xpath(displayed_text_areas).each((item, index, list) => {
+            cy.wrap(item).scrollIntoView();
+            cy.wrap(item).clear();
+            cy.wait(500);
+            cy.wrap(item).type(sample_text);
+            cy.wait(500);
+        });
+
+        // Input the percentage 
+        const all_number_input = "//input[ contains(@data-testid, 'number') ]";
+        cy.scrollTo('top');
+        cy.wait(5000);
+        cy.xpath(all_number_input).each((item, index, list) => {
+            cy.wrap(item).scrollIntoView();
+            cy.wrap(item).clear();
+            cy.wait(500);
+            cy.wrap(item).type(20);
+            cy.wait(500);
+        });
+
+        cy.wait(1000);
+        const describe_rate = "//input[@type='text' and contains(@name, 'Rates')]";
+        cy.xpath(describe_rate).scrollIntoView();
+        cy.xpath(describe_rate).clear();
+        cy.xpath(describe_rate).type("This is a QA testing for the Rate");
+        cy.wait(500);
+
+        // forms 
+        cy.get("input#field-50").scrollIntoView();
+        cy.get("input#field-50").clear();
+        cy.get("input#field-50").type("10");
+
+        cy.get("input#field-51").clear();
+        cy.get("input#field-51").type("20")
+
+
+        cy.get("input#field-52").invoke('attr', 'value').should('eq', '0.5000');
     }
 
     VerifyReportingOnMeasureNo() {
+        cy.reload();
+        cy.wait(500);
         cy.xpath(reporting_no).click();
         cy.xpath(check_service_not_covered).click();
         cy.xpath(check_population_not_covered).click();
@@ -60,52 +132,52 @@ export class FUAadpage {
         cy.xpath(num_sample_size).type(22);
     }
 
-    verifyStatusOfDataReport() {
+    // verifyStatusOfDataReport() {
 
-    }
+    // }
 
-    verifyMeasurementSpec() {
+    // verifyMeasurementSpec() {
 
-    }
+    // }
 
-    verifyDataSource() {
+    // verifyDataSource() {
 
-    }
+    // }
 
-    verifyDateRange() {
+    // verifyDateRange() {
 
-    }
+    // }
 
-    verifyDefinitionOfDenominator() {
+    // verifyDefinitionOfDenominator() {
 
-    }
+    // }
 
-    verifyDeliverySystem() {
+    // verifyDeliverySystem() {
 
-    }
+    // }
 
-    verifyPerformanceMeasure() {
+    // verifyPerformanceMeasure() {
 
-    }
+    // }
 
-    verifyAges() {
+    // verifyAges() {
 
-    }
+    // }
 
-    verifyDeviationsFromMeasureSpec() {
+    // verifyDeviationsFromMeasureSpec() {
 
-    }
+    // }
 
-    verifyCombinedRates() {
+    // verifyCombinedRates() {
 
-    }
+    // }
 
-    verifyOptionalMeasureStratification() {
+    // verifyOptionalMeasureStratification() {
 
-    }
+    // }
 
-    verifyAddtionalNotes() {
+    // verifyAddtionalNotes() {
 
-    }
+    // }
 }
 export default FUAadpage;

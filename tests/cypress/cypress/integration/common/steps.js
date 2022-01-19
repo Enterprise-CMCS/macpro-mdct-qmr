@@ -95,7 +95,7 @@ And('user can click on No option for reporting on this measure',()=>{
 });
 
 And('user can click on Yes option for Are you reporting on this measure',()=>{
-
+  fuaAdpage.verifyReportingOnMeasureYes();
 });
 
 
