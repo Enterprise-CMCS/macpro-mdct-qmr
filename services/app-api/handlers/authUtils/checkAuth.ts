@@ -3,6 +3,8 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 enum UserRoles {
   ADMIN = "mdctqmr-approver",
   STATE = "mdctqmr-state-user",
+  HELP = "mdctqmr-help-desk",
+  BO = "mdctqmr-bo-user",
 }
 
 const authErrorHandler = (
@@ -11,7 +13,12 @@ const authErrorHandler = (
   userRole: string,
   operationType: string
 ) => {
-  if (!state || !userState || !userRole || !operationType) {
+  if (
+    !(userRole === UserRoles.ADMIN) &&
+    !(userRole === UserRoles.STATE) &&
+    !(userRole === UserRoles.HELP) &&
+    !(userRole === UserRoles.BO)
+  ) {
     return 403;
   }
   if (
@@ -55,7 +62,6 @@ export const eventValidator = (
 
   return authErrorHandler(
     event.pathParameters.state,
-    // @ts-ignore
     userState,
     userRole,
     operationType

@@ -34,7 +34,7 @@ const addCoreSet = ({
 export const useAddCoreSet = () => {
   const userInfo = useUser();
   const userState = userInfo!.userState!;
-  const userRole = userInfo!.user!.role;
+  const userRole = userInfo!.userRole!;
   const { state, year } = useParams<Params>();
   if (state && year) {
     return useMutation((coreSet: CoreSetAbbr) =>
