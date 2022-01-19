@@ -147,9 +147,13 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         parseFloat(thirtyDay?.numerator) > parseFloat(thirtyDay?.denominator)
       ) {
         const ageGroup = index === 0 ? "18 - 64" : "65 and older";
+        const isSingular = index === 1;
+
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `30 Day Rate: Numerator must be less than or equal to Denominator for ages ${ageGroup}`,
+          errorMessage: `30 Day Rate: Numerator must be less than or equal to Denominator for age${
+            isSingular ? "" : "s"
+          } ${ageGroup}`,
         };
 
         errorArray.push(error);
