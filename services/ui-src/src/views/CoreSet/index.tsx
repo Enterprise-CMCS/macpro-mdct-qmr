@@ -66,7 +66,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     measure: "CSQ",
   });
 
-  const isComplete = data?.Item.status === MeasureStatus.COMPLETE;
+  const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
   return (
     <CUI.Box fontWeight="semibold" fontSize="sm">
       <CUI.Text>Core Set Qualifiers</CUI.Text>
@@ -93,6 +93,7 @@ const useMeasureTableDataBuilder = () => {
   const { data, isLoading, isError, error } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   useEffect(() => {
+    console.log(data);
     if (!isLoading && !isError && data && data.Items) {
       const measureTableData = (data.Items as MeasureData[]).map((item) => {
         return {
@@ -102,7 +103,7 @@ const useMeasureTableDataBuilder = () => {
           path: `/${state}/${year}/${coreSetId}/${item.measure}`,
           isReporting: !!item.reporting,
           // I believe this part of the table is being removed in another ticket
-          rateComplete: 0,
+          rateComplete: item.status === MeasureStatus.COMPLETE ? 1 : 0,
           lastDateModified: item.lastAltered,
           id: item.measure,
           actions: [

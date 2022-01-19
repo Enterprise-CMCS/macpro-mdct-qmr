@@ -105,11 +105,11 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           setLastSavedText("Saved Moments Ago");
         } else if (timeElapsed < 60 * 60) {
           setLastSavedText(
-            `Last Saved ${(timeElapsed / 60).toFixed()} Minutes Ago`
+            `Last Saved ${(timeElapsed / 60).toFixed()} Minute(s) Ago`
           );
         } else {
           setLastSavedText(
-            `Last Saved ${(timeElapsed / (60 * 60)).toFixed()} Hours Ago`
+            `Last Saved ${(timeElapsed / (60 * 60)).toFixed()} Hour(s) Ago`
           );
         }
       }

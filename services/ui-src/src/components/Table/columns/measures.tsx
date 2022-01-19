@@ -10,18 +10,13 @@ const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
   // If completed all questions or if not reporting -> Complete
   if (
     data.rateComplete === 1 ||
-    (data.isReporting !== null && !data.isReporting)
+    (data.isReporting && data.isReporting !== null && !data.isReporting)
   ) {
     return MeasureTableItem.Status.COMPLETED;
   }
 
-  // If completed some questions -> In Progress
-  if (data.rateComplete > 0) {
-    return MeasureTableItem.Status.IN_PROGRESS;
-  }
-
   // Otherwise -> Not Started
-  return MeasureTableItem.Status.NOT_STARTED;
+  return MeasureTableItem.Status.IN_PROGRESS;
 };
 
 // Format date string: ex. Nov 26, 2021 12:53 PM see: https://date-fns.org/v2.26.0/docs/format
@@ -40,22 +35,15 @@ const CompleteCheck = () => (
 
 // Measure status text. will show % if in progress or date if completed
 const MeasureStatusText = ({
-  isInProgress,
   status,
-  isComplete,
   date,
-  rateComplete,
 }: MeasureTableItem.StatusTextProps) => {
-  const completionPercentage = Math.floor(rateComplete * 100);
   return (
     <CUI.Box fontSize="xs">
       <CUI.Text textTransform="capitalize" fontWeight="bold">
         {status}
       </CUI.Text>
-      {isInProgress && (
-        <CUI.Text>{`${completionPercentage}% complete`}</CUI.Text>
-      )}
-      {isComplete && <CUI.Text>{date}</CUI.Text>}
+      <CUI.Text>{date}</CUI.Text>
     </CUI.Box>
   );
 };
