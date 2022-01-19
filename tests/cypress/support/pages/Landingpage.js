@@ -7,8 +7,7 @@ const emailBottomLeft = ".footer-email";
 const federalLogo = "img[alt='Department of Health and Human Services logo']";
 const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
 // element is xpath, please use cy.xapth() instead of cy.get();
-const coreSetMeasureText =
-  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[1]/div[1]/div[1]/div[1]/nav[1]/ol[1]/div[1]/li[1]/a[1]/h2[1]";
+const coreSetMeasureText = "//a[contains(text(),'Core Set Measures')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const AdultCoreSetMeasures = "//tbody/tr[1]/td[1]/a[1]/p[1]";
 
