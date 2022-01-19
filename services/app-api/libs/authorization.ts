@@ -8,14 +8,14 @@ interface DecodedToken {
 }
 
 export const isAuthorized = (event: APIGatewayProxyEvent) => {
-  if (!event.headers["X-Api-Key"]) return false;
+  if (!event.headers["x-api-key"]) return false;
 
   // get state and method from the event
   const requestState = event.pathParameters?.state;
   const requestMethod = event.httpMethod as RequestMethods;
 
   // decode the idToken
-  const decoded = jwt_decode(event.headers["X-Api-Key"]) as DecodedToken;
+  const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
 
   // get the role / state from the decoded token
   const userRole = decoded["custom:cms_roles"];
