@@ -3,12 +3,12 @@ import * as QMR from "components";
 import { Params } from "Routes";
 import { ReactElement, cloneElement, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
+import { joiResolver } from "@hookform/resolvers/joi";
 import { useUser } from "hooks/authHooks";
-
+import { v4 as uuidv4 } from "uuid";
 interface Props {
   measure: ReactElement;
   name: string;
@@ -18,6 +18,13 @@ interface Props {
 
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams<Params>();
+  const [errors, setErrors] = useState<any[]>();
+  const [measureSchema, setMeasureSchema] = useState(validationSchema);
+  const [validationFunctions, setValidationFunctions] = useState<Function[]>(
+    []
+  );
+
+  const resolver = joiResolver(measureSchema);
   const { isStateUser } = useUser();
   const [showModal, setShowModal] = useState<boolean>();
   /*
@@ -35,7 +42,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const methods = useForm<Measure.Form>({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(validationSchema),
+    resolver,
   });
 
   const handleValidation = (data: any) => {
@@ -50,6 +57,27 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   };
 
   const handleSubmit = (data: any) => {
+    console.log("submitted");
+    console.log(validationFunctions);
+    const validationErrors = validationFunctions.reduce(
+      (acc: any, current: any) => {
+        const error = current(data);
+        let errorArray = [];
+
+        if (Array.isArray(error)) {
+          errorArray = [...error];
+        } else {
+          errorArray = [error];
+        }
+
+        return error ? [...acc, ...errorArray] : acc;
+      },
+      []
+    );
+
+    setErrors(validationErrors.length > 0 ? validationErrors : undefined);
+
+    console.log({ errors });
     console.log({ data });
 
     // validate and populate errors
@@ -133,7 +161,23 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                 year,
                 handleSubmit: methods.handleSubmit(handleSubmit),
                 handleValidation: methods.handleSubmit(handleValidation),
+                setMeasureSchema,
+                setValidationFunctions,
               })}
+              {errors?.map((error, index) => (
+                <QMR.Notification
+                  key={uuidv4()}
+                  alertProps={{ my: "3" }}
+                  alertStatus="error"
+                  alertTitle={`${error.errorLocation} Error`}
+                  alertDescription={error.errorMessage}
+                  close={() => {
+                    const newErrors = [...errors];
+                    newErrors.splice(index, 1);
+                    setErrors(newErrors);
+                  }}
+                />
+              ))}
             </CUI.Container>
           </form>
         </>

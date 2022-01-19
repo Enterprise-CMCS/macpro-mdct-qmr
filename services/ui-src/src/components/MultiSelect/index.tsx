@@ -96,8 +96,11 @@ export const MultiSelect = ({ multiSelectList, name }: Props) => {
               </CUI.Text>
             </CUI.Checkbox>
             <CUI.CheckboxGroup value={field.value} onChange={field.onChange}>
-              {multiSelects.map((item: ICheckbox) => (
-                <CUI.Box display={item.isVisible ? "block" : "none"}>
+              {multiSelects.map((item: ICheckbox, index) => (
+                <CUI.Box
+                  display={item.isVisible ? "block" : "none"}
+                  key={item.label + item.value + index}
+                >
                   <CUI.Checkbox
                     size="lg"
                     value={item.value}
