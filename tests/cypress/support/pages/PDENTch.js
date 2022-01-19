@@ -1,4 +1,4 @@
-const pdentCHtitle = "(//h2)[3]";
+const pdentCHtitle = "//p[contains(text(),'PDENT-CH - Percentage of Eligibles Who Received Preventive Dental Services')]";
 const sentenceBelowTitle = "(//p[@class='chakra-text css-itvw0n'])[1]";
 const printButton = "//button[@class='chakra-button css-11qozvn']";
 const measureTitle = "(//p[@class='chakra-text css-0'])[1]";

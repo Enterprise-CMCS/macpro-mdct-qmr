@@ -1,4 +1,4 @@
-const lbwCHtitle = "(//h2)[3]";
+const lbwCHtitle = "//p[contains(text(),'LBW-CH - Live Births Weighing Less Than 2,500 Gram')]";
 const sentenceBelowTitle = "(//p[@class='chakra-text css-itvw0n'])[1]";
 const printButton = "//button[@class='chakra-button css-11qozvn']";
 const measureTitle = "(//p[@class='chakra-text css-0'])[1]";

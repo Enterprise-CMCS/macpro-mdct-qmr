@@ -1,4 +1,4 @@
-const lrcdCHtitle = "(//h2)[3]";
+const lrcdCHtitle = "//p[contains(text(),'LRCD-CH - Low-Risk Cesarean Delivery')]";
 const sentenceBelowTitle = "(//p[@class='chakra-text css-itvw0n'])[1]";
 const printButton = "//button[@class='chakra-button css-11qozvn']";
 const measureTitle = "(//p[@class='chakra-text css-0'])[1]";
