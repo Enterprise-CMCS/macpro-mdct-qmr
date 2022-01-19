@@ -14,13 +14,13 @@ async function requestOptions(): Promise<any> {
       const options = {
         headers: {
           "cognito-identity-id": "local-user",
-          token,
+          "X-Api-Key": token,
         },
       };
       return options;
     } else {
       const options = {
-        headers: { token },
+        headers: { "X-Api-Key": token },
       };
       return options;
     }
