@@ -3,6 +3,7 @@ import { editMeasure } from "libs/api";
 import { CoreSetAbbr, Params, MeasureStatus } from "types";
 import { useUser } from "hooks/authHooks";
 import { usePathParams } from "./usePathParams";
+import { useParams } from "react-router-dom";
 
 interface User {
   userState?: string;
@@ -41,13 +42,29 @@ const updateMeasure = ({
 };
 
 export const useUpdateMeasure = () => {
-  const { state, year } = usePathParams();
+  const {
+    state: statePath,
+    year: yearPath,
+    coreSet,
+    measureId,
+  } = usePathParams();
+  const { state, year, coreSetId } = useParams();
+
   const userInfo = useUser();
   const userState = userInfo!.userState!;
   const userRole = userInfo!.userRole!;
-  if (state && year) {
+
+  if ((state || statePath) && (year || yearPath) && (coreSet || coreSetId)) {
     return useMutation((data: UpdateMeasure) =>
-      updateMeasure({ state, year, userRole, userState, ...data })
+      updateMeasure({
+        measure: measureId,
+        year: year || yearPath,
+        state: state || statePath,
+        coreSet: (coreSetId as CoreSetAbbr) || (coreSet as CoreSetAbbr),
+        userRole,
+        userState,
+        ...data,
+      })
     );
   }
   throw Error("Missing required fields");

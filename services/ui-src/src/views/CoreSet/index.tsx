@@ -91,12 +91,10 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
 const useMeasureTableDataBuilder = () => {
   const { state, year, coreSetId } = useParams();
   const { data, isLoading, isError, error } = useGetMeasures();
-  console.log(`everything`, { data, isLoading, isError, error });
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   useEffect(() => {
     if (!isLoading && !isError && data && data.Items) {
       const measureTableData = (data.Items as MeasureData[]).map((item) => {
-        console.log(item.lastAltered);
         return {
           Type: coreSetType[item.coreSet],
           title: item.description,

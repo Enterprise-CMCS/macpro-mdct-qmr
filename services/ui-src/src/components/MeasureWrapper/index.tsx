@@ -66,7 +66,9 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         { data, status: measureData?.status },
         {
           onSettled: (data, error) => {
-            if (data && !error) refetch();
+            if (data && !error) {
+              refetch();
+            }
             //TODO: some form of error showcasing should display here
             if (error) setLastSavedText("Failed To Save Form Information");
           },
@@ -83,6 +85,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         {
           onSettled: (data, error) => {
             if (data && !error) refetch();
+
             //TODO: some form of error showcasing should display here
             if (error) setLastSavedText("Failed To Submit Form Information");
           },

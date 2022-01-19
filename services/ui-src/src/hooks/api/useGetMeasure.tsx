@@ -3,6 +3,7 @@ import * as API from "libs/api";
 import { CoreSetAbbr, Params } from "types";
 import { useUser } from "hooks/authHooks";
 import { usePathParams } from "./usePathParams";
+import { useParams } from "react-router-dom";
 
 interface User {
   userState?: string;
@@ -22,7 +23,6 @@ const getMeasure = ({
   userState,
   userRole,
 }: GetMeasure & Params & User) => {
-  console.log(`getMeasure`, state, year, coreSet, measure, userState, userRole);
   return API.getMeasure({
     state,
     year,
@@ -39,11 +39,21 @@ export const useGetMeasure = ({ coreSet, measure }: GetMeasure) => {
   const userInfo = useUser();
   const userState = userInfo!.userState!;
   const userRole = userInfo!.userRole!;
-  const { state, year } = usePathParams();
+  const { state: statePath, year: yearPath } = usePathParams();
+  const { state, year } = useParams();
 
-  if (state && year) {
-    return useQuery(["measure", state, year, measure], () =>
-      getMeasure({ state, year, coreSet, measure, userState, userRole })
+  if ((state || statePath) && (year || yearPath)) {
+    return useQuery(
+      ["measure", state || statePath, year || yearPath, measure],
+      () =>
+        getMeasure({
+          state: state || statePath,
+          year: year || yearPath,
+          coreSet,
+          measure,
+          userState,
+          userRole,
+        })
     );
   }
   throw Error("state or year unavailable");

@@ -1,3 +1,5 @@
+import React from "react";
+
 enum MeasurePathLocationIndexes {
   "state" = 1,
   "year" = 2,
@@ -6,11 +8,14 @@ enum MeasurePathLocationIndexes {
 }
 
 export const usePathParams = () => {
-  const splitLocation = window.location.pathname.split("/");
-  return {
-    state: splitLocation[MeasurePathLocationIndexes.state],
-    year: splitLocation[MeasurePathLocationIndexes.year],
-    coreSet: splitLocation[MeasurePathLocationIndexes.coreSet],
-    measureId: splitLocation[MeasurePathLocationIndexes.measureId],
-  };
+  return React.useMemo(() => {
+    const splitLocation = window.location.pathname.split("/");
+
+    return {
+      state: splitLocation[MeasurePathLocationIndexes.state],
+      year: splitLocation[MeasurePathLocationIndexes.year],
+      coreSet: splitLocation[MeasurePathLocationIndexes.coreSet],
+      measureId: splitLocation[MeasurePathLocationIndexes.measureId],
+    };
+  }, [window.location.pathname]);
 };
