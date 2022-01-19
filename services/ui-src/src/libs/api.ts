@@ -1,6 +1,5 @@
 import { API, Auth } from "aws-amplify";
 import config from "config";
-// import { getLocalUserInfo } from "libs";
 
 async function requestOptions(): Promise<any> {
   const localLogin = config.LOCAL_LOGIN === "true";
@@ -14,13 +13,13 @@ async function requestOptions(): Promise<any> {
       const options = {
         headers: {
           "cognito-identity-id": "local-user",
-          "X-Api-Key": token,
+          "x-api-key": token,
         },
       };
       return options;
     } else {
       const options = {
-        headers: { "X-Api-Key": token },
+        headers: { "x-api-key": token },
       };
       return options;
     }
