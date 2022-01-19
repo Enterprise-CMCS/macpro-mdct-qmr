@@ -40,3 +40,17 @@ export enum CoreSetAbbr {
   CCSC = "CCSC",
   HHCS = "HHCS",
 }
+
+export enum UserRoles {
+  ADMIN = "mdctqmr-approver",
+  STATE = "mdctqmr-state-user",
+  HELP = "mdctqmr-help-desk",
+  BO = "mdctqmr-bo-user",
+}
+
+export enum RequestMethods {
+  POST = "POST",
+  GET = "GET",
+  PUT = "PUT",
+  DELETE = "DELETE",
+}
