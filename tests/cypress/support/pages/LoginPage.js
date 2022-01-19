@@ -12,7 +12,7 @@ export class LoginPage {
     cy.get(passwordInput).type("Passw0rd@");
   }
 
-  //old credentials 
+  //old credentials
   //State_QMR  Passw0rd!
 
   clickAgreeTermAndConditions() {
