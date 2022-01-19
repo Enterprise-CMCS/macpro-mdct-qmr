@@ -1,45 +1,56 @@
-import { API } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import config from "config";
-import { getLocalUserInfo } from "libs";
+// import { getLocalUserInfo } from "libs";
 
-function requestOptions(): any {
+async function requestOptions(): Promise<any> {
   const localLogin = config.LOCAL_LOGIN === "true";
+  try {
+    const session = await Auth.currentSession();
+    const token = await session.getIdToken().getJwtToken();
 
-  if (localLogin) {
-    // serverless offline passes the value of the cognito-identity-id into our lambdas as
-    // requestContext.identity.cognitoIdentityId. This lets us set a user locally without involving Cognito.
-    const currentUser = getLocalUserInfo();
-    const options = {
-      headers: { "cognito-identity-id": currentUser.username },
-    };
-    return options;
-  } else {
-    return {};
+    if (localLogin) {
+      // serverless offline passes the value of the cognito-identity-id into our lambdas as
+      // requestContext.identity.cognitoIdentityId. This lets us set a user locally without involving Cognito.
+      const options = {
+        headers: {
+          "cognito-identity-id": "local-user",
+          token,
+        },
+      };
+      return options;
+    } else {
+      const options = {
+        headers: { token },
+      };
+      return options;
+    }
+  } catch (e) {
+    console.log({ e });
   }
 }
 
-function listMeasures(inputObj: any) {
-  const opts = requestOptions();
+async function listMeasures(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
-  return API.put(
+  return API.get(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/list`,
     opts
   );
 }
 
-function getMeasure(inputObj: any) {
-  const opts = requestOptions();
+async function getMeasure(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
-  return API.put(
+  return API.get(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/get`,
     opts
   );
 }
 
-function createMeasure(inputObj: any) {
-  const opts = requestOptions();
+async function createMeasure(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
 
   return API.post(
@@ -48,8 +59,8 @@ function createMeasure(inputObj: any) {
     opts
   );
 }
-function editMeasure(inputObj: any) {
-  const opts = requestOptions();
+async function editMeasure(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
 
   return API.put(
@@ -59,38 +70,38 @@ function editMeasure(inputObj: any) {
   );
 }
 
-function deleteMeasure(inputObj: any) {
-  const opts = requestOptions();
+async function deleteMeasure(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
-  return API.put(
+  return API.del(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/delete`,
     opts
   );
 }
 
-function getAllCoreSets(inputObj: any) {
-  const opts = requestOptions();
+async function getAllCoreSets(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
-  return API.put(
+  return API.get(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/list`,
     opts
   );
 }
 
-function getCoreSet(inputObj: any) {
-  const opts = requestOptions();
+async function getCoreSet(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
-  return API.put(
+  return API.get(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/get`,
     opts
   );
 }
 
-function createCoreSet(inputObj: any) {
-  const opts = requestOptions();
+async function createCoreSet(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
   return API.post(
     "coreSet",
@@ -99,8 +110,8 @@ function createCoreSet(inputObj: any) {
   );
 }
 
-function editCoreSet(inputObj: any) {
-  const opts = requestOptions();
+async function editCoreSet(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
   return API.put(
     "coreSet",
@@ -109,10 +120,10 @@ function editCoreSet(inputObj: any) {
   );
 }
 
-function deleteCoreSet(inputObj: any) {
-  const opts = requestOptions();
+async function deleteCoreSet(inputObj: any) {
+  const opts = await requestOptions();
   opts.body = inputObj.body;
-  return API.put(
+  return API.del(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/delete`,
     opts
