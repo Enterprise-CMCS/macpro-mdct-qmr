@@ -81,6 +81,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     <FormProvider {...methods}>
       {showModal && (
         <QMR.YesNoModalDialog
+          headerText="Validation Error"
           handleModalResponse={handleValidationModalResponse}
           bodyText="There are still errors on this measure, would you still like to complete?"
         ></QMR.YesNoModalDialog>

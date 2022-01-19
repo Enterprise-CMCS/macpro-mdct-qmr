@@ -1,17 +1,22 @@
 import * as CUI from "@chakra-ui/react";
 
 interface Props {
+  headerText: string;
   bodyText: string;
   handleModalResponse: (response: boolean) => void;
 }
 
-export const YesNoModalDialog = ({ bodyText, handleModalResponse }: Props) => {
+export const YesNoModalDialog = ({
+  headerText,
+  bodyText,
+  handleModalResponse,
+}: Props) => {
   return (
     <>
       <CUI.Modal isOpen={true} onClose={() => handleModalResponse(false)}>
         <CUI.ModalOverlay />
         <CUI.ModalContent>
-          <CUI.ModalHeader>Validation Errors</CUI.ModalHeader>
+          <CUI.ModalHeader>{headerText}</CUI.ModalHeader>
           <CUI.ModalCloseButton />
           <CUI.ModalBody>{bodyText}</CUI.ModalBody>
           <CUI.ModalFooter>
