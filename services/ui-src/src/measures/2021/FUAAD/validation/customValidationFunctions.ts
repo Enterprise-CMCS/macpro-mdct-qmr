@@ -18,7 +18,7 @@ const validateRates = (data: Measure.Form) => {
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both 30 day rates and 7 day rates for age${
+          errorMessage: `Denominators must be the same for both 30 days rate and 7 days rate for age${
             isSingular ? "" : "s"
           } ${ageGroup}.`,
         };
