@@ -196,7 +196,7 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   const measureSpecification = data["MeasurementSpecification"];
   const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
   const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
-  const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"];
+  const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
   const isHEDIS = measureSpecification === "NCQA/HEDIS";
 
   let doesOtherNDRExist = false;
