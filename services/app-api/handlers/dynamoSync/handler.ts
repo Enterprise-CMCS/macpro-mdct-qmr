@@ -59,6 +59,7 @@ const scanAll = async (TableName: string) => {
 };
 
 export const syncDynamoToS3 = handler(async (_event, _context) => {
+  console.log("Syncing Dynamo to Uploads");
   const measureResults = (await scanAll(process.env.measureTableName!)) ?? [];
   const coreSetResults = (await scanAll(process.env.coreSetTableName!)) ?? [];
 
