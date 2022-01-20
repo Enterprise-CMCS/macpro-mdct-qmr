@@ -2,19 +2,23 @@ import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
 import { allNumbers } from "utils/numberInputMasks";
 import * as QMR from "components";
+import objectPath from "object-path";
 export interface IRate {
   label?: string;
   id: number;
 }
 
-interface Props {
+interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
   name: string;
   readOnly?: boolean;
 }
 
-export const Rate = ({ rates, name, readOnly = true }: Props) => {
-  const { control } = useFormContext();
+export const Rate = ({ rates, name, readOnly = true, ...rest }: Props) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   const { field } = useController({
     name,
@@ -41,7 +45,7 @@ export const Rate = ({ rates, name, readOnly = true }: Props) => {
     }
 
     if (parseInt(editRate.denominator) && editRate.numerator) {
-      editRate.rate = (editRate.numerator / editRate.denominator)
+      editRate.rate = ((editRate.numerator / editRate.denominator) * 100)
         .toFixed(4)
         .toString();
     } else if (editRate.rate) {
@@ -61,7 +65,17 @@ export const Rate = ({ rates, name, readOnly = true }: Props) => {
               <CUI.FormLabel fontWeight={700}>{rate.label}</CUI.FormLabel>
             )}
             <CUI.HStack spacing={16}>
-              <QMR.InputWrapper label="Numerator">
+              <QMR.InputWrapper
+                label="Numerator"
+                isInvalid={
+                  !!objectPath.get(errors, `${name}.${index}.numerator`)
+                    ?.message
+                }
+                errorMessage={
+                  objectPath.get(errors, `${name}.${index}.numerator`)?.message
+                }
+                {...rest}
+              >
                 <CUI.Input
                   value={field.value[index]?.numerator ?? ""}
                   onChange={(e) =>
@@ -69,7 +83,18 @@ export const Rate = ({ rates, name, readOnly = true }: Props) => {
                   }
                 />
               </QMR.InputWrapper>
-              <QMR.InputWrapper label="Denominator">
+              <QMR.InputWrapper
+                label="Denominator"
+                isInvalid={
+                  !!objectPath.get(errors, `${name}.${index}.denominator`)
+                    ?.message
+                }
+                errorMessage={
+                  objectPath.get(errors, `${name}.${index}.denominator`)
+                    ?.message
+                }
+                {...rest}
+              >
                 <CUI.Input
                   value={field.value[index]?.denominator ?? ""}
                   onChange={(e) =>
@@ -77,7 +102,16 @@ export const Rate = ({ rates, name, readOnly = true }: Props) => {
                   }
                 />
               </QMR.InputWrapper>
-              <QMR.InputWrapper label="Rate">
+              <QMR.InputWrapper
+                label="Rate"
+                isInvalid={
+                  !!objectPath.get(errors, `${name}.${index}.rate`)?.message
+                }
+                errorMessage={
+                  objectPath.get(errors, `${name}.${index}.rate`)?.message
+                }
+                {...rest}
+              >
                 <CUI.Input
                   value={field.value[index]?.rate ?? ""}
                   onChange={(e) => changeRate(index, "rate", e.target.value)}
