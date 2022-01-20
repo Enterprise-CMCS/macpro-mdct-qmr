@@ -14,30 +14,30 @@ export const MeasureButtons = ({ handleSave, lastSavedText }: Props) => {
 
   return (
     <CUI.Stack>
-      <CUI.HStack pl="2">
+      <CUI.HStack pl="1">
         <QMR.ContainedButton
           disabledStatus={!isStateUser}
           buttonText={"Save"}
           buttonProps={{
+            minWidth: "10rem",
             colorScheme: "blue",
             textTransform: "capitalize",
-            type: "submit",
           }}
           onClick={handleSave}
         />
-        <CUI.Flex mb={{ base: "1", lg: "0" }} data-testid="last-saved-text">
-          {showCheck && (
-            <CUI.Box mt="1">
-              <FaCheckCircle data-testid="circle-check-icon" />
-            </CUI.Box>
-          )}
-          {lastSavedText && (
-            <CUI.Text ml="2" fontSize="sm">
-              {lastSavedText}
-            </CUI.Text>
-          )}
-        </CUI.Flex>
       </CUI.HStack>
+      <CUI.Flex mb={{ base: "1", lg: "0" }} data-testid="last-saved-text">
+        {showCheck && (
+          <CUI.Box mt="1">
+            <FaCheckCircle data-testid="circle-check-icon" />
+          </CUI.Box>
+        )}
+        {lastSavedText && (
+          <CUI.Text ml="2" fontSize="sm">
+            {lastSavedText}
+          </CUI.Text>
+        )}
+      </CUI.Flex>
     </CUI.Stack>
   );
 };

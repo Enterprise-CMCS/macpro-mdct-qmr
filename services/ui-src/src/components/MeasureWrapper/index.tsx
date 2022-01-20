@@ -56,10 +56,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   };
 
   const handleSubmit = (data: any) => {
-    // validate and populate errors
     const validatedErrors = validateAndSetErrors(data);
-    // if errors show modal
-    // otherwise continue on without modal else
 
     if (validatedErrors) {
       setShowModal(true);
