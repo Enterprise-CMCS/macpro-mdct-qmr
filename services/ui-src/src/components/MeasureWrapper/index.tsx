@@ -2,14 +2,15 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { ReactElement, cloneElement, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
 import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
+import { joiResolver } from "@hookform/resolvers/joi";
 import { useUser } from "hooks/authHooks";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 
+import { v4 as uuidv4 } from "uuid";
 interface Props {
   measure: ReactElement;
   name: string;
@@ -19,6 +20,13 @@ interface Props {
 
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams();
+  const [errors, setErrors] = useState<any[]>();
+  const [measureSchema, setMeasureSchema] = useState(validationSchema);
+  const [validationFunctions, setValidationFunctions] = useState<Function[]>(
+    []
+  );
+
+  const resolver = joiResolver(measureSchema);
   const { isStateUser } = useUser();
   const [lastSavedText, setLastSavedText] = useState(
     "Awaiting Save Status Retrieval"
@@ -51,8 +59,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const methods = useForm<Measure.Form>({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(validationSchema),
     defaultValues: measureData?.data ?? undefined,
+    resolver,
   });
 
   useEffect(() => {
@@ -78,7 +86,27 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   };
 
   const handleSubmit = (data: any) => {
-    if (!mutationRunning && !loadingData) {
+    console.log("submitted");
+    console.log(validationFunctions);
+    const validationErrors = validationFunctions.reduce(
+      (acc: any, current: any) => {
+        const error = current(data);
+        let errorArray = [];
+
+        if (Array.isArray(error)) {
+          errorArray = [...error];
+        } else {
+          errorArray = [error];
+        }
+
+        return error ? [...acc, ...errorArray] : acc;
+      },
+      []
+    );
+
+    setErrors(validationErrors.length > 0 ? validationErrors : undefined);
+
+    if (!mutationRunning && !loadingData && !errors) {
       setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(
         { data, status: MeasureStatus.COMPLETE },
@@ -92,6 +120,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         }
       );
     }
+    console.log({ errors });
+    console.log({ data });
   };
 
   // interval for updating the last saved text
@@ -180,6 +210,20 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   // whenever the buttons have a loading prop
                 })}
               </CUI.Container>
+              {errors?.map((error, index) => (
+                <QMR.Notification
+                  key={uuidv4()}
+                  alertProps={{ my: "3" }}
+                  alertStatus="error"
+                  alertTitle={`${error.errorLocation} Error`}
+                  alertDescription={error.errorMessage}
+                  close={() => {
+                    const newErrors = [...errors];
+                    newErrors.splice(index, 1);
+                    setErrors(newErrors);
+                  }}
+                />
+              ))}
             </form>
           </>
         </CUI.Skeleton>

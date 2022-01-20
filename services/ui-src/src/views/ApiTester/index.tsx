@@ -19,6 +19,7 @@ export const ApiTester = () => {
   const userInfo = useUser();
   const userState = userInfo.userState;
   const userRole = userInfo.userRole;
+  console.log(userInfo);
   return (
     <>
       <CUI.Flex flexWrap="wrap" spacing={5}>
