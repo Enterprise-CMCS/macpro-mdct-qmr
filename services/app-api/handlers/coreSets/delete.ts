@@ -2,20 +2,8 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { eventValidator } from "../authUtils/checkAuth";
 
 export const deleteCoreSet = handler(async (event, context) => {
-  const errorCode = eventValidator(event, "DELETE");
-  if (errorCode !== 200) {
-    return {
-      statusCode: errorCode,
-      body: JSON.stringify({
-        error: "Failure: HTTP Status Code ",
-        errorCode,
-      }),
-    };
-  }
-
   const state = event!.pathParameters!.state!;
   const year = parseInt(event!.pathParameters!.year!);
   const coreSet = event!.pathParameters!.coreSet!;
