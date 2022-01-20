@@ -1,6 +1,7 @@
+import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 
 export const MeasurementSpecification = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -15,6 +16,11 @@ export const MeasurementSpecification = () => {
               "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
             value: "NCQA/HEDIS",
             children: [
+              <CUI.Text size="sm" pb="3">
+                NCQA, the measure steward, changed its naming convention. HEDIS
+                MY 2020 refers to a different federal fiscal year (FFY) than
+                HEDIS 2020. Please note the FFY Core Set specification above.
+              </CUI.Text>,
               <QMR.Select
                 {...register("MeasurementSpecification-HEDISVersion")}
                 label="Specify the version of HEDIS measurement year used:"
@@ -23,6 +29,14 @@ export const MeasurementSpecification = () => {
                   {
                     displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
                     value: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
+                  },
+                  {
+                    displayValue: "HEDIS 2020 (FFY 2020 Core Set Reporting)",
+                    value: "HEDIS 2020 (FFY 2020 Core Set Reporting)",
+                  },
+                  {
+                    displayValue: "HEDIS 2019 (FFY 2019 Core Set Reporting)",
+                    value: "HEDIS 2019 (FFY 2019 Core Set Reporting)",
                   },
                 ]}
               />,

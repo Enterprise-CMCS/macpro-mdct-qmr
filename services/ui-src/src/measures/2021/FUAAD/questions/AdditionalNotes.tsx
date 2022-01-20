@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Upload } from "components/Upload";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 
 export const AdditionalNotes = () => {
   const register = useCustomRegister<Measure.Form>();
