@@ -69,7 +69,7 @@ describe("Test the Rate component", () => {
     fireEvent.type(numeratorTextBox, "123");
     fireEvent.type(denominatorTextBox, "123");
 
-    expect(rateTextBox).toHaveDisplayValue("1.0000");
+    expect(rateTextBox).toHaveDisplayValue("100.0000");
   });
 
   test("Check that the rate text box is readonly", async () => {

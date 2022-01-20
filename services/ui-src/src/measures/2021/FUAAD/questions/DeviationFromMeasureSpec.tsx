@@ -1,5 +1,5 @@
 import * as QMR from "components";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
 export const defaultDeviationOptions = [
