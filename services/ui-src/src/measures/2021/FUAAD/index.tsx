@@ -4,9 +4,27 @@ import * as Q from "./questions";
 import { Params } from "Routes";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { Measure } from "measures/types";
+import { Measure } from "./validation/types";
+import { useEffect } from "react";
+import { validationSchema } from "./validation/schema";
+import { validationFunctions } from "./validation/customValidationFunctions";
 
-export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
+export const FUAAD = ({
+  name,
+  year,
+  handleSubmit,
+  setMeasureSchema,
+  setValidationFunctions,
+}: Measure.Props) => {
+  useEffect(() => {
+    if (setMeasureSchema) {
+      setMeasureSchema(validationSchema);
+    }
+    if (setValidationFunctions) {
+      setValidationFunctions(validationFunctions);
+    }
+  }, [setMeasureSchema, setValidationFunctions]);
+
   const { coreSetId } = useParams<Params>();
   const { watch } = useFormContext<Measure.Form>();
 
@@ -108,7 +126,11 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
             textTransform: "capitalize",
           }}
           buttonText="Complete Measure"
-          onClick={handleSubmit}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+            console.log("testing");
+          }}
         />
       </CUI.Stack>
     </>
