@@ -1,6 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { MeasureStatus } from "../../types";
 import { measureEventValidator } from "../authUtils/checkAuth";
 
 export const createMeasure = handler(async (event, context) => {
@@ -28,7 +29,7 @@ export const createMeasure = handler(async (event, context) => {
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
-      status: "incomplete",
+      status: MeasureStatus.INCOMPLETE,
       description: body.description ?? "",
       data: body.data,
     },

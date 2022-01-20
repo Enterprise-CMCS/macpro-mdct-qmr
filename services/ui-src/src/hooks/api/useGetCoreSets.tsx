@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import { getAllCoreSets } from "libs/api";
 import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 import { useUser } from "hooks/authHooks";
 
 interface GetCoreSets {
@@ -23,10 +22,10 @@ const getCoreSets = ({ state, year, userState, userRole }: GetCoreSets) => {
 };
 
 export const useGetCoreSets = () => {
+  const { state, year } = useParams();
   const userInfo = useUser();
   const userState = userInfo!.userState!;
   const userRole = userInfo!.userRole!;
-  const { state, year } = useParams<Params>();
   if (state && year) {
     return useQuery(["coreSets", state, year], () =>
       getCoreSets({ state, year, userState, userRole })

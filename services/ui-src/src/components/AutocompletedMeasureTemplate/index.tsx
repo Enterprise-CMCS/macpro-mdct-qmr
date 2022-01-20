@@ -2,7 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 
 interface Props {
   measureTitle: string;
@@ -21,7 +20,7 @@ export const AutocompletedMeasureTemplate = ({
   isReportingOnMeasureYear,
   year,
 }: Props) => {
-  const { state, coreSetId } = useParams<Params>();
+  const { state, coreSetId } = useParams();
 
   return (
     <>

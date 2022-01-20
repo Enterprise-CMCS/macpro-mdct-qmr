@@ -1,7 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
-import { Params } from "Routes";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
@@ -25,7 +24,7 @@ export const FUAAD = ({
     }
   }, [setMeasureSchema, setValidationFunctions]);
 
-  const { coreSetId } = useParams<Params>();
+  const { coreSetId } = useParams();
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
