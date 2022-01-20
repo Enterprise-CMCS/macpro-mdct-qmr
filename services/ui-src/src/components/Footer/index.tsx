@@ -40,7 +40,12 @@ export function Footer(): JSX.Element {
             alignItems={{ base: "none", md: "center" }}
           >
             <img
-              style={{ display: "inline" }}
+              style={{ maxWidth: "140px" }}
+              src="/footer/mdct.png"
+              alt="Mdct logo"
+            />
+            <img
+              style={{ padding: "10px 0 0 50px" }}
               src="/footer/logo-MedicaidGov.svg"
               alt="Medicaid.gov logo"
             />
