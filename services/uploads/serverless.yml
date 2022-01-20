@@ -98,10 +98,6 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub ${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: AES256
         CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
@@ -142,9 +138,22 @@ resources:
               Principal:
                 AWS: ${ssm:/configuration/mpraccountid~true}
             - Action:
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal:
+                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/app-api-${self:custom.stage}-${self:custom.region}-lambdaRole
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}
+              Principal:
+                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/app-api-${self:custom.stage}-${self:custom.region}-lambdaRole
+            - Action:
                 - "s3:GetObject"
               Effect: "Deny"
-              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
               Principal: "*"
               Condition:
                 StringNotEquals:
@@ -175,6 +184,7 @@ resources:
                 - !Sub ${AttachmentsBucket.Arn}/*.txt
                 - !Sub ${AttachmentsBucket.Arn}/*.xls
                 - !Sub ${AttachmentsBucket.Arn}/*.xlsx
+                - !Sub ${AttachmentsBucket.Arn}/*.json
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:

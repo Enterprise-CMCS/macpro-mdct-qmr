@@ -4,9 +4,27 @@ import * as Q from "./questions";
 import { Params } from "Routes";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { Measure } from "measures/types";
+import { Measure } from "./validation/types";
+import { useEffect } from "react";
+import { validationSchema } from "./validation/schema";
+import { validationFunctions } from "./validation/customValidationFunctions";
 
-export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
+export const FUAAD = ({
+  name,
+  year,
+  handleSubmit,
+  setMeasureSchema,
+  setValidationFunctions,
+}: Measure.Props) => {
+  useEffect(() => {
+    if (setMeasureSchema) {
+      setMeasureSchema(validationSchema);
+    }
+    if (setValidationFunctions) {
+      setValidationFunctions(validationFunctions);
+    }
+  }, [setMeasureSchema, setValidationFunctions]);
+
   const { coreSetId } = useParams<Params>();
   const { watch } = useFormContext<Measure.Form>();
 
@@ -26,7 +44,6 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
     watchDataSourceAdmin?.indexOf("Other Data Source") !== -1;
   const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
   const isOtherSpecification = watchMeasureSpecification === "Other";
-
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
   const show30DaysAges18To64 =
     !!watchPerformanceMeasureAgeRates30Days?.[0]?.rate;
@@ -83,7 +100,12 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
           <Q.CombinedRates />
           <Q.OptionalMeasureStratification
             ageGroups={ageGroups}
-            totalLabel={Q.DefaultOptionalMeasureStratProps.totalLabel}
+            deviationConditions={{
+              show30DaysAges18To64,
+              show30DaysAges65AndOlder,
+              show7DaysAges18To64,
+              show7DaysAges65AndOlder,
+            }}
           />
         </>
       )}
@@ -103,7 +125,11 @@ export const FUAAD = ({ name, year, handleSubmit }: Measure.Props) => {
             textTransform: "capitalize",
           }}
           buttonText="Complete Measure"
-          onClick={handleSubmit}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+            console.log("testing");
+          }}
         />
       </CUI.Stack>
     </>

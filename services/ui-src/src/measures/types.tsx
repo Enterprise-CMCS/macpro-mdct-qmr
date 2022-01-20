@@ -1,8 +1,20 @@
+import Joi from "joi";
+import { ResolverResult } from "react-hook-form";
+export type CustomValidator = (res: ResolverResult) => ResolverResult;
+
 export namespace Measure {
+  export type CustomValidator = (res: ResolverResult) => ResolverResult;
+
   export interface Props {
     name: string;
     year: string;
     handleSubmit: any;
+    setMeasureSchema?: React.Dispatch<
+      React.SetStateAction<Joi.ObjectSchema<any>>
+    >;
+    setValidationFunctions?: React.Dispatch<
+      React.SetStateAction<CustomValidator[]>
+    >;
   }
 
   interface RateFields {
@@ -11,8 +23,13 @@ export namespace Measure {
     rate: string;
   }
 
+  interface followUpDays {
+    followUpWithin30Days: RateFields[];
+    followUpWithin7Days: RateFields[];
+  }
+
   interface AggregateRate {
-    subRate: RateFields[];
+    subRate: followUpDays[];
     total: RateFields[];
   }
 
@@ -105,6 +122,8 @@ export namespace Measure {
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
+    FollowUpWithin30: string;
+    FollowUpWithin7: string;
     "DeviationOptions-Within7-AgeRange": string[];
     "DeviationOptions-Within30-AgeRange": string[];
     "DeviationFields-Within7": {
@@ -112,13 +131,13 @@ export namespace Measure {
       denominator: string;
       numerator: string;
       other: string;
-    };
+    }[];
     "DeviationFields-Within30": {
       options: string[];
       denominator: string;
       numerator: string;
       other: string;
-    };
+    }[];
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeasure-AgeRates-30Days": {
       denominator: string;
