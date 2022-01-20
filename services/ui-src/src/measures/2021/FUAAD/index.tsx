@@ -30,7 +30,7 @@ export const FUAAD = ({
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
   const watchMeasureSpecification = watch("MeasurementSpecification");
-  const watchDataSourceAdmin = watch("DataSource");
+  const watchDataSourceAdmin = watch("DataSource") ?? [];
   const watchPerformanceMeasureAgeRates30Days = watch(
     "PerformanceMeasure-AgeRates-30Days"
   );
@@ -42,6 +42,7 @@ export const FUAAD = ({
   const isOtherDataSource =
     watchDataSourceAdmin?.indexOf("Other Data Source") !== -1;
   const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
+
   const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
   const show30DaysAges18To64 =
@@ -81,7 +82,7 @@ export const FUAAD = ({
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
-          {!isOtherSpecification && (
+          {isHEDIS && (
             <Q.DeviationFromMeasureSpec
               options={ageGroups}
               deviationConditions={{
@@ -93,7 +94,7 @@ export const FUAAD = ({
             />
           )}
           {/* Show Other Performance Measures when isHedis is not true and other is selected from one of two questions */}
-          {!isHEDIS && (isOtherSpecification || isOtherDataSource) && (
+          {(isOtherSpecification || isOtherDataSource) && (
             <Q.OtherPerformanceMeasure />
           )}
           <Q.CombinedRates />
