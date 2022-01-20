@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import { getAllCoreSets } from "libs/api";
 import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 
 interface GetCoreSets {
   state: string;
@@ -16,7 +15,7 @@ const getCoreSets = async ({ state, year }: GetCoreSets) => {
 };
 
 export const useGetCoreSets = () => {
-  const { state, year } = useParams<Params>();
+  const { state, year } = useParams();
   if (state && year) {
     return useQuery(["coreSets", state, year], () =>
       getCoreSets({ state, year })
