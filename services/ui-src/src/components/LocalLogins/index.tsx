@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import config from "config";
 import * as CUI from "@chakra-ui/react";
 import { useFormFields } from "../../libs/hooksLib";
 import { Auth } from "aws-amplify";
@@ -65,7 +64,6 @@ interface Props {
 }
 
 export const LocalLogins = ({ loginWithIDM }: Props) => {
-  const showIDMLogin = config.LOCAL_LOGIN === "true";
   return (
     <CUI.Container maxW="sm" h="full" my="auto">
       <CUI.Box textAlign="center" mb="6">
@@ -75,11 +73,9 @@ export const LocalLogins = ({ loginWithIDM }: Props) => {
         <CUI.Divider />
       </CUI.Box>
       <CUI.Stack spacing={8}>
-        {showIDMLogin && (
-          <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
-            Login with IDM
-          </CUI.Button>
-        )}
+        <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
+          Login with IDM
+        </CUI.Button>
         <LocalLogin />
       </CUI.Stack>
     </CUI.Container>
