@@ -12,3 +12,28 @@ export enum UserRoles {
   HELP = "mdctqmr-help-desk",
   BO = "mdctqmr-bo-user",
 }
+
+export enum MeasureStatus {
+  COMPLETE = "complete",
+  INCOMPLETE = "incomplete",
+}
+
+export interface Params {
+  state?: string;
+  year?: string;
+  coreSetId?: CoreSetAbbr;
+}
+
+export interface MeasureData<DataType = any> {
+  compoundKey: string;
+  coreSet: CoreSetAbbr;
+  createdAt: number;
+  description: string;
+  lastAltered: number;
+  measure: string;
+  state: string;
+  status: "incomplete" | "complete" | undefined;
+  reporting: "yes" | undefined;
+  year: number;
+  data: DataType;
+}

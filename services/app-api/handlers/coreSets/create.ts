@@ -3,21 +3,9 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
-import { eventValidator } from "../authUtils/checkAuth";
 import * as Types from "../../types";
 
 export const createCoreSet = handler(async (event, context) => {
-  const errorCode = eventValidator(event, "POST");
-  if (errorCode !== 200) {
-    return {
-      statusCode: errorCode,
-      body: JSON.stringify({
-        error: "Failure: HTTP Status Code ",
-        errorCode,
-      }),
-    };
-  }
-
   // The State Year and ID are all part of the path
   const state = event!.pathParameters!.state!;
   const year = event!.pathParameters!.year!;
@@ -91,9 +79,7 @@ const createDependentMeasures = async (
         measure: measureId,
         createdAt: Date.now(),
         lastAltered: Date.now(),
-        status: measure.autocompleteOnCreation
-          ? Types.MeasureStatus.COMPLETE
-          : Types.MeasureStatus.INCOMPLETE,
+        status: Types.MeasureStatus.INCOMPLETE,
         description: measure.description,
       },
     };

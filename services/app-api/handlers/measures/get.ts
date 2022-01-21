@@ -2,25 +2,12 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { measureEventValidator } from "../authUtils/checkAuth";
 
 export const listMeasures = handler(async (event, context) => {
-  const errorCode = measureEventValidator(event, "LIST");
-  if (errorCode !== 200) {
-    return {
-      statusCode: errorCode,
-      body: JSON.stringify({
-        error: "Failure: HTTP Status Code ",
-        errorCode,
-      }),
-    };
-  }
+  const state = event.pathParameters?.state;
+  const year = event.pathParameters?.year as string;
+  const coreSet = event.pathParameters?.coreSet;
 
-  const state = event!.pathParameters!.state!;
-  const year = event!.pathParameters!.year!;
-  const coreSet = event!.pathParameters!.coreSet!;
-
-  console.log(state, year, coreSet);
   const params = {
     TableName: process.env.measureTableName,
     ...convertToDynamoExpression(
@@ -33,17 +20,6 @@ export const listMeasures = handler(async (event, context) => {
 });
 
 export const getMeasure = handler(async (event, context) => {
-  const errorCode = measureEventValidator(event, "GET");
-  if (errorCode !== 200) {
-    return {
-      statusCode: errorCode,
-      body: JSON.stringify({
-        error: "Failure: HTTP Status Code ",
-        errorCode,
-      }),
-    };
-  }
-
   const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.measureTableName,

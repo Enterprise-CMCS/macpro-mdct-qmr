@@ -1,7 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useParams, useNavigate } from "react-router-dom";
-import { Params } from "Routes";
 import { useForm, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
@@ -28,7 +27,7 @@ export const AddHHCoreSet = () => {
 
   const register = useCustomRegister<HealthHome>();
 
-  const { state, year } = useParams<Params>();
+  const { state, year } = useParams();
 
   const sortedSPAs: SelectOption[] = SPA.filter((spa) => spa.postal === state)
     .map((spa) => {

@@ -18,6 +18,7 @@ export * from "./Notification";
 export * from "./ProgressCircle";
 export * from "./QuestionChild";
 export * from "./Rate";
+export * from "./SupportLinks";
 export * from "./Table";
 export * from "./Upload";
 export * from "./MultiSelect";
