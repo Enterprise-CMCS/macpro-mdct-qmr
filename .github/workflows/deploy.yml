@@ -100,7 +100,7 @@ jobs:
           name: test_results
           path: tests/nightwatch/tests_output
       - name: Slack Notification
-        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "production"]'), env.branch_name) && failure ()
+        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "production", "ish-slack-webhook"]'), env.branch_name) && failure ()
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
