@@ -146,7 +146,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     setShowModal(false);
 
     if (continueWithErrors) {
-      // submitDataToServer(data);
+      submitDataToServer(methods.getValues());
+      console.log("Submitted");
     }
   };
 

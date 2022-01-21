@@ -13,7 +13,7 @@ export const MeasureButtons = ({ handleSave, lastSavedText }: Props) => {
   const showCheck = lastSavedText?.toLowerCase() === "saved moments ago";
 
   return (
-    <CUI.Stack>
+    <CUI.Stack width="15rem">
       <CUI.HStack pl="1">
         <QMR.ContainedButton
           disabledStatus={!isStateUser}
