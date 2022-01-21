@@ -89,7 +89,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/get
           method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: ""
   createMeasure:
     handler: handlers/measures/create.createMeasure
     events:
