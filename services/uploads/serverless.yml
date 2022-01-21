@@ -152,15 +152,13 @@ resources:
                 - "s3:PutObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
-              Principal:
-                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/uploads-${self:custom.stage}-${self:custom.region}-lambdaRole
+              aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
                 - "s3:GetBucketLocation"
                 - "s3:ListBucket"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}
-              Principal:
-                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/uploads-${self:custom.stage}-${self:custom.region}-lambdaRole
+              aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"
