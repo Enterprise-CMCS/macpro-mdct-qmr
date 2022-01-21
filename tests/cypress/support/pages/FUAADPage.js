@@ -7,13 +7,13 @@ const FUAADAddFileBTN =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/div[11]/div[2]/div[1]/p[1]/button[1]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const verifyPDFIsUploaded =
-  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/div[11]/div[2]/div[2]/p[1]";
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/p[1]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const verifyTextFileIsUploaded =
-  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/div[11]/div[2]/div[3]/p[1]";
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[4]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const verifyPictureFileIsUploaded =
-  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/div[11]/div[2]/div[4]/p[1]";
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[5]/p[1]";
 
 export class FUAADPAGE {
   verifyURLContainsFUAAD() {

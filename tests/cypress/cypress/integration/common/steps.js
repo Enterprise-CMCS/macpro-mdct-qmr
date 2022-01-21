@@ -143,14 +143,14 @@ When("user enter username and password", () => {
   loginPage.clickAgreeTermAndConditions();
 });
 
-When("user enter email and password for Cognito login",()=>{
+When("user enter email and password for Cognito login", () => {
   loginPage.enterEmailwithCognitoLogin();
   loginPage.enterPasswordwithCognitoLogin();
-})
+});
 
-And("user click on Login with Cognito button",()=>{
+And("user click on Login with Cognito button", () => {
   loginPage.clickLoginWithCognitoButtn();
-})
+});
 
 And('user click "Sign In" button', () => {
   loginPage.clickSignIn();

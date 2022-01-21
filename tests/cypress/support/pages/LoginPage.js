@@ -1,7 +1,8 @@
 const usernameInput = "input#okta-signin-username";
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
-const loginWithCognitoButtn = "(//button[@class='chakra-button css-9n6wlp'])[2]";
+const loginWithCognitoButtn =
+  "(//button[@class='chakra-button css-9n6wlp'])[2]";
 const passwordInput = "input#okta-signin-password"; //pragma: allowlist secret
 const agreeTermCondition = "input#tandc";
 const signInBttn = "input#okta-signin-submit";
@@ -12,15 +13,15 @@ export class LoginPage {
     cy.get(usernameInput).type("TXState_QMR");
   }
 
-  enterEmailwithCognitoLogin(){
+  enterEmailwithCognitoLogin() {
     cy.xpath(emailForCognito).type("stateuser1@test.com");
   }
 
-  enterPasswordwithCognitoLogin(){
+  enterPasswordwithCognitoLogin() {
     cy.xpath(passwordForCognito).type("p@55W0rd!");
   }
 
-  clickLoginWithCognitoButtn(){
+  clickLoginWithCognitoButtn() {
     cy.xpath(loginWithCognitoButtn).click();
   }
 
@@ -47,7 +48,7 @@ export class LoginPage {
     cy.get(signInBttn).click();
   }
 
-  loginasAStateUserWithCognito(){
+  loginasAStateUserWithCognito() {
     cy.xpath(emailForCognito).type("stateuser1@test.com");
     cy.xpath(passwordForCognito).type("p@55W0rd!");
     cy.xpath(loginWithCognitoButtn).click();
