@@ -3,15 +3,12 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 
 export const deleteMeasure = handler(async (event, context) => {
-  if (!event.pathParameters) return; // throw error message
-  if (!event.pathParameters.coreSet) return; // throw error message
-
   const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.measureTableName,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event.pathParameters.coreSet,
+      coreSet: event!.pathParameters!.coreSet!,
     },
   };
 

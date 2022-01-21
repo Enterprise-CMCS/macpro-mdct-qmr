@@ -46,7 +46,7 @@ export namespace MeasureTableItem {
     abbr: string;
     title: string;
     rateComplete: number;
-    lastDateModified: string;
+    lastDateModified: number;
     actions: IKebabMenuItem[];
     isReporting: boolean | null;
   };

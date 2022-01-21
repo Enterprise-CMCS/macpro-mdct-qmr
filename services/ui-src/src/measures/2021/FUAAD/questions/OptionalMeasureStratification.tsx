@@ -1,8 +1,9 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 import { createContext, useState, useContext } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
   ageGroups: {
@@ -78,6 +79,16 @@ const AddAnotherButton = ({
 
 const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups, deviationConditions } = useContext(AgeDataContext);
+  const { watch } = useFormContext<Measure.Form>();
+
+  // Watch for dataSource data
+  const dataSourceWatch = watch("DataSource");
+
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source) => source === "I am reporting provisional data"
+    ) ?? true;
 
   return (
     <CUI.Box key={`${name}.ageData`}>
@@ -99,6 +110,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               (deviationConditions?.show30DaysAges65AndOlder && item.id === 1)
                 ? [
                     <QMR.Rate
+                      readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.followUpWithin30Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin30Days`}
                       rates={[
@@ -115,6 +127,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               (deviationConditions?.show7DaysAges65AndOlder && item.id === 1)
                 ? [
                     <QMR.Rate
+                      readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.followUpWithin7Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin7Days`}
                       rates={[
@@ -134,22 +147,42 @@ const AgeData = ({ name }: SubComponentProps) => {
   );
 };
 
+const configInitialStateArray = (template: string, dataArray?: string[]) => {
+  return dataArray?.length
+    ? dataArray.map((_, i) => `${template}.${i}`)
+    : [`${template}.0`];
+};
+
 export const OptionalMeasureStratification = ({
   ageGroups,
   deviationConditions,
 }: Props) => {
   const register = useCustomRegister<Measure.Form>();
+  const { getValues } = useFormContext<Measure.Form>();
+  const values = getValues();
 
-  const [addtnlNonHispanicRace, setAddtnlNonHispanicRace] = useState([
-    "AddtnlNonHispanicRace.0",
-  ]);
-  const [addtnlNonHispanicSubCat, setAddtnlNonHispanicSubCat] = useState([
-    "AddtnlNonHispanicSubCat.0",
-  ]);
-  const [addtnlEthnicity, setAddtnlEthnicity] = useState(["AddtnlEthnicity.0"]);
-  const [addtnlPrimaryLanguages, setAddtnlPrimaryLanguages] = useState([
-    "AddtnlPrimaryLanguage.0",
-  ]);
+  const [addtnlNonHispanicRace, setAddtnlNonHispanicRace] = useState(
+    configInitialStateArray(
+      "AddtnlNonHispanicRace",
+      values.AddtnlNonHispanicRace
+    )
+  );
+
+  const [addtnlNonHispanicSubCat, setAddtnlNonHispanicSubCat] = useState(
+    configInitialStateArray(
+      "AddtnlNonHispanicSubCat",
+      values.AddtnlNonHispanicSubCat
+    )
+  );
+  const [addtnlEthnicity, setAddtnlEthnicity] = useState(
+    configInitialStateArray("AddtnlEthnicity", values.AddtnlEthnicity)
+  );
+  const [addtnlPrimaryLanguages, setAddtnlPrimaryLanguages] = useState(
+    configInitialStateArray(
+      "AddtnlPrimaryLanguage",
+      values.AddtnlPrimaryLanguage
+    )
+  );
 
   const addNonHispanicRace = () => {
     setAddtnlNonHispanicRace((oldArray) => [

@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 import React from "react";
 
 export const OtherPerformanceMeasure = () => {
@@ -38,6 +38,7 @@ export const OtherPerformanceMeasure = () => {
               <QMR.Rate
                 rates={[item]}
                 name={`OtherPerformanceMeasure-Rates.${item.id}.rate`}
+                readOnly={false}
               />
             </CUI.Stack>
           );

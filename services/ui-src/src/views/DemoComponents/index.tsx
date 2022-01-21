@@ -506,7 +506,7 @@ const DemoComponentsForm = () => {
             <MultiSelect
               multiSelectList={multiSelectList}
               {...register("demoMultiSelectList")}
-            ></MultiSelect>
+            />
           </CUI.VStack>
         </CUI.Container>
         <QMR.ContainedButton
