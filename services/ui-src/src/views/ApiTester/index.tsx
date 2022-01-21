@@ -13,11 +13,13 @@ import {
   editMeasure,
   deleteMeasure,
 } from "libs/api";
+import { MeasureStatus } from "types";
 
 export const ApiTester = () => {
   const userInfo = useUser();
   const userState = userInfo.userState;
   const userRole = userInfo.userRole;
+  console.log(userInfo);
   return (
     <>
       <CUI.Flex flexWrap="wrap" spacing={5}>
@@ -173,7 +175,7 @@ export const ApiTester = () => {
                   data: {
                     test: "data",
                   },
-                  status: "incomplete",
+                  status: MeasureStatus.INCOMPLETE,
                 },
               })
             )

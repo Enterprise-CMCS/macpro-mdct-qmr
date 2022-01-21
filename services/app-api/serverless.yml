@@ -40,7 +40,7 @@ custom:
       enabled: true
       prewarm: true
       events:
-        - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule~true, ssm:/configuration/default/warmup/schedule~true, "4 minutes"})
+        - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule~true, ssm:/configuration/default/warmup/schedule~true, "60 minutes"})
       concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency~true, ssm:/configuration/default/warmup/concurrency~true, 5}
   authValue:
     master: aws_iam
@@ -79,7 +79,7 @@ functions:
     events:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/list
-          method: put
+          method: get
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getMeasure:
@@ -87,9 +87,9 @@ functions:
     events:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/get
-          method: put
+          method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: ""
   createMeasure:
     handler: handlers/measures/create.createMeasure
     events:
@@ -111,7 +111,7 @@ functions:
     events:
       - http:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/delete
-          method: put
+          method: delete
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getAllCoreSets:
@@ -119,7 +119,7 @@ functions:
     events:
       - http:
           path: coreset/{state}/{year}/list
-          method: put
+          method: get
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getCoreSet:
@@ -127,7 +127,7 @@ functions:
     events:
       - http:
           path: coreset/{state}/{year}/{coreSet}/get
-          method: put
+          method: get
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   createCoreSet:
@@ -151,7 +151,7 @@ functions:
     events:
       - http:
           path: coreset/{state}/{year}/{coreSet}/delete
-          method: put
+          method: delete
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   dynamoSync:

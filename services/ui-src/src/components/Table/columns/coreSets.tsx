@@ -11,10 +11,11 @@ const getStatus = ({
 }: CoreSetTableItem.Data): CoreSetTableItem.Status => {
   if (submitted) return CoreSetTableItem.Status.SUBMITTED;
 
-  const { numAvailable, numComplete } = progress;
   let status: CoreSetTableItem.Status = CoreSetTableItem.Status.IN_PROGRESS;
-  if (!numComplete) status = CoreSetTableItem.Status.NOT_STARTED;
-  if (numComplete === numAvailable) status = CoreSetTableItem.Status.COMPLETED;
+  if (progress && !progress?.numComplete)
+    status = CoreSetTableItem.Status.NOT_STARTED;
+  if (progress && progress?.numComplete === progress?.numAvailable)
+    status = CoreSetTableItem.Status.COMPLETED;
   return status;
 };
 
@@ -26,7 +27,7 @@ const CoreSetStatusText = (data: CoreSetTableItem.Data) => {
       <CUI.Text fontWeight="bold" textTransform="capitalize">
         {status}
       </CUI.Text>
-      <CUI.Text>{`${data.progress.numComplete} of ${data.progress.numAvailable} complete`}</CUI.Text>
+      <CUI.Text>{`${data?.progress?.numComplete} of ${data?.progress?.numAvailable} complete`}</CUI.Text>
     </CUI.Box>
   );
 };

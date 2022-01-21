@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 import { createContext, useState, useContext } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -147,22 +147,42 @@ const AgeData = ({ name }: SubComponentProps) => {
   );
 };
 
+const configInitialStateArray = (template: string, dataArray?: string[]) => {
+  return dataArray?.length
+    ? dataArray.map((_, i) => `${template}.${i}`)
+    : [`${template}.0`];
+};
+
 export const OptionalMeasureStratification = ({
   ageGroups,
   deviationConditions,
 }: Props) => {
   const register = useCustomRegister<Measure.Form>();
+  const { getValues } = useFormContext<Measure.Form>();
+  const values = getValues();
 
-  const [addtnlNonHispanicRace, setAddtnlNonHispanicRace] = useState([
-    "AddtnlNonHispanicRace.0",
-  ]);
-  const [addtnlNonHispanicSubCat, setAddtnlNonHispanicSubCat] = useState([
-    "AddtnlNonHispanicSubCat.0",
-  ]);
-  const [addtnlEthnicity, setAddtnlEthnicity] = useState(["AddtnlEthnicity.0"]);
-  const [addtnlPrimaryLanguages, setAddtnlPrimaryLanguages] = useState([
-    "AddtnlPrimaryLanguage.0",
-  ]);
+  const [addtnlNonHispanicRace, setAddtnlNonHispanicRace] = useState(
+    configInitialStateArray(
+      "AddtnlNonHispanicRace",
+      values.AddtnlNonHispanicRace
+    )
+  );
+
+  const [addtnlNonHispanicSubCat, setAddtnlNonHispanicSubCat] = useState(
+    configInitialStateArray(
+      "AddtnlNonHispanicSubCat",
+      values.AddtnlNonHispanicSubCat
+    )
+  );
+  const [addtnlEthnicity, setAddtnlEthnicity] = useState(
+    configInitialStateArray("AddtnlEthnicity", values.AddtnlEthnicity)
+  );
+  const [addtnlPrimaryLanguages, setAddtnlPrimaryLanguages] = useState(
+    configInitialStateArray(
+      "AddtnlPrimaryLanguage",
+      values.AddtnlPrimaryLanguage
+    )
+  );
 
   const addNonHispanicRace = () => {
     setAddtnlNonHispanicRace((oldArray) => [
