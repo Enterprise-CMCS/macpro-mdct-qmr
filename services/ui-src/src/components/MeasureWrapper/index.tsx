@@ -97,9 +97,14 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     if (validatedErrors) {
       setShowModal(true);
     } else {
+      submitDataToServer(data);
       console.log("submitted");
     }
+    console.log({ errors });
+    console.log({ data });
+  };
 
+  const submitDataToServer = (data: any) => {
     if (!mutationRunning && !loadingData && !errors) {
       setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(
@@ -114,8 +119,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         }
       );
     }
-    console.log({ errors });
-    console.log({ data });
   };
 
   const validateAndSetErrors = (data: any): boolean => {
@@ -143,8 +146,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     setShowModal(false);
 
     if (continueWithErrors) {
-      // submit measure
-      console.log("submitted");
+      // submitDataToServer(data);
     }
   };
 
