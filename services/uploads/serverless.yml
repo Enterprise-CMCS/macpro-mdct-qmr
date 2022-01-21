@@ -37,12 +37,26 @@ provider:
           Resource:
             - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
             - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}/*
+        - Effect: "Allow"
+          Action:
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: "*"
 
 custom:
   stage: ${opt:stage, self:provider.stage}
   region: ${opt:region, self:provider.region}
   iamPath: ${ssm:/configuration/${self:custom.stage}/iam/path~true, ssm:/configuration/default/iam/path~true}
   iamPermissionsBoundaryPolicy: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy~true, ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
+  coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
+  coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
+  measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
+  measureTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableArn}
   serverlessTerminationProtection:
     stages:
       - master
@@ -68,8 +82,15 @@ layers:
   clamDefs:
     package:
       artifact: lambda_layer.zip
-
 functions:
+  dynamoSync:
+    handler: src/dynamoSync/handler.syncDynamoToS3
+    events:
+      - schedule: cron(30 * * * ? *)
+    environment:
+      coreSetTableName: ${self:custom.coreSetTableName}
+      measureTableName: ${self:custom.measureTableName}
+      uploadS3BucketName: !Ref AttachmentsBucket
   avScan:
     handler: src/antivirus.lambdaHandleEvent
     name: ${self:service.name}-${self:custom.stage}-avScan
@@ -142,14 +163,14 @@ resources:
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
               Principal:
-                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/app-api-${self:custom.stage}-${self:custom.region}-lambdaRole
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
                 - "s3:GetBucketLocation"
                 - "s3:ListBucket"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}
               Principal:
-                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/app-api-${self:custom.stage}-${self:custom.region}-lambdaRole
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"

@@ -89,7 +89,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/get
           method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: ""
   createMeasure:
     handler: handlers/measures/create.createMeasure
     events:
@@ -154,11 +154,6 @@ functions:
           method: delete
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
-  dynamoSync:
-    handler: handlers/dynamoSync/handler.syncDynamoToS3
-    events:
-      - schedule: cron(30 1 ? * * *)
-    timeout: 600
 resources:
   Resources:
     GatewayResponseDefault4XX:
