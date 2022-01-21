@@ -4,16 +4,18 @@ interface Props {
   headerText: string;
   bodyText: string;
   handleModalResponse: (response: boolean) => void;
+  isOpen: boolean;
 }
 
 export const YesNoModalDialog = ({
   headerText,
   bodyText,
   handleModalResponse,
+  isOpen,
 }: Props) => {
   return (
     <>
-      <CUI.Modal isOpen={true} onClose={() => handleModalResponse(false)}>
+      <CUI.Modal isOpen={isOpen} onClose={() => handleModalResponse(false)}>
         <CUI.ModalOverlay />
         <CUI.ModalContent>
           <CUI.ModalHeader>{headerText}</CUI.ModalHeader>

@@ -28,7 +28,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const resolver = joiResolver(measureSchema);
   const { isStateUser } = useUser();
-  const [showModal, setShowModal] = useState<boolean>();
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [lastSavedText, setLastSavedText] = useState(
     "Awaiting Save Status Retrieval"
   );
@@ -184,13 +184,12 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   return (
     <FormProvider {...methods}>
-      {showModal && (
-        <QMR.YesNoModalDialog
-          headerText="Validation Error"
-          handleModalResponse={handleValidationModalResponse}
-          bodyText="There are still errors on this measure, would you still like to complete?"
-        ></QMR.YesNoModalDialog>
-      )}
+      <QMR.YesNoModalDialog
+        isOpen={showModal}
+        headerText="Validation Error"
+        handleModalResponse={handleValidationModalResponse}
+        bodyText="There are still errors on this measure, would you still like to complete?"
+      ></QMR.YesNoModalDialog>
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
