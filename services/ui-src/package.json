@@ -31,6 +31,7 @@
     "build": "react-scripts build",
     "coverage": "jest --coverage",
     "test": "jest --setupFiles dotenv/config",
+    "watchTest": "jest --setupFiles dotenv/config --watch",
     "eject": "react-scripts eject",
     "postinstall": "patch-package"
   },
@@ -73,6 +74,7 @@
       "!src/views/DemoMeasure/questions/OptionalMeasureStratification.tsx",
       "!src/views/DemoMeasure/questions/OtherPerformanceMeasure.tsx",
       "!src/components/Upload/index.tsx",
+      "!src/views/Qualifiers/**/*.{ts,tsx}",
       "!src/measures/**/*.{ts,tsx}"
     ],
     "moduleDirectories": [
