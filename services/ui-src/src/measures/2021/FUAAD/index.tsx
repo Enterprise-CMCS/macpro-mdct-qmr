@@ -71,7 +71,6 @@ export const FUAAD = ({
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
     otherRates.forEach((rate) => {
       if (rate.description) {
-        console.log(rate.description);
         ageGroups.push({ label: rate.description, id: ageGroups.length });
       }
     });
