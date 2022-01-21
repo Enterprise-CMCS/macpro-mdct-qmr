@@ -2,22 +2,10 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { eventValidator } from "../authUtils/checkAuth";
 import { createCoreSet } from "./create";
 import * as Types from "../../types";
 
 export const coreSetList = handler(async (event, context) => {
-  const errorCode = eventValidator(event, "LIST");
-  if (errorCode !== 200) {
-    return {
-      statusCode: errorCode,
-      body: JSON.stringify({
-        error: "Failure: HTTP Status Code ",
-        errorCode,
-      }),
-    };
-  }
-
   const params = {
     TableName: process.env.coreSetTableName,
     ...convertToDynamoExpression(
@@ -59,17 +47,6 @@ export const coreSetList = handler(async (event, context) => {
 });
 
 export const getCoreSet = handler(async (event, context) => {
-  const errorCode = eventValidator(event, "GET");
-  if (errorCode !== 200) {
-    return {
-      statusCode: errorCode,
-      body: JSON.stringify({
-        error: "Failure: HTTP Status Code ",
-        errorCode,
-      }),
-    };
-  }
-
   const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.coreSetTableName,

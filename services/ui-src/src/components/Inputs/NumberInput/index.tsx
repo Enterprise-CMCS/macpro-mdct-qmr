@@ -3,6 +3,7 @@ import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { allNumbers } from "utils/numberInputMasks";
+import { BsPercent } from "react-icons/bs";
 
 interface NumberInputProps extends QMR.InputWrapperProps {
   placeholder?: string;
@@ -32,11 +33,11 @@ export const NumberInput = ({
     name,
     control,
   });
-
   return (
     <QMR.InputWrapper
       isInvalid={!!objectPath.get(errors, name)?.message}
       errorMessage={objectPath.get(errors, name)?.message}
+      formControlProps={formControlProps}
       {...rest}
     >
       <CUI.InputGroup>
@@ -52,14 +53,14 @@ export const NumberInput = ({
           }
           data-testid="test-number-input"
           onBlur={field.onBlur}
+          type="text"
+          aria-label={name}
           {...numberInputProps}
         />
         {displayPercent && (
           <CUI.InputRightElement
             pointerEvents="none"
-            color="black.300"
-            fontSize="1.3em"
-            children="%"
+            children={<BsPercent />}
           />
         )}
       </CUI.InputGroup>

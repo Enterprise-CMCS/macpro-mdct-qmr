@@ -6,4 +6,3 @@ export * from "./errorLib";
 export * from "./helpers";
 export * from "./hooksLib";
 export * from "./territoryLib";
-export * from "./user";
