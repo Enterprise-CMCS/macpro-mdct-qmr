@@ -33,7 +33,7 @@ export const MeasureButtons = ({ handleSave, lastSavedText }: Props) => {
           </CUI.Box>
         )}
         {lastSavedText && (
-          <CUI.Text ml="2" fontSize="sm">
+          <CUI.Text ml={showCheck ? 2 : 0} fontSize="sm">
             {lastSavedText}
           </CUI.Text>
         )}
