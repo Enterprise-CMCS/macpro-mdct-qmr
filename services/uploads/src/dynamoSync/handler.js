@@ -1,12 +1,12 @@
-const handler = require("../libs/handler-lib");
-const dynamoDb = require("../dynamodb-lib");
-const json2csv = require("json2csv");
-const flat = require("flat");
+const { handler } = require("../libs/handler-lib");
+const { scan } = require("../libs/dynamodb-lib");
+const { flatten } = require("flat");
+const { parseAsync } = require("json2csv");
 const AWS = require("aws-sdk");
 
 const csvToS3 = async (scanResult) => {
-  const flattenedResults = scanResult.map((item) => flat.flatten(item));
-  const resultsCsvData = await json2csv.parseAsync(flattenedResults);
+  const flattenedResults = scanResult.map((item) => flatten(item));
+  const resultsCsvData = await parseAsync(flattenedResults);
   return resultsCsvData;
 };
 
@@ -37,7 +37,7 @@ const uploadFileToS3 = async (filePath, scanResult) => {
 };
 
 const scanAll = async (TableName) => {
-  let startingData = await dynamoDb.scan({
+  let startingData = await scan({
     TableName,
   });
   let dataList = startingData.Items;
@@ -49,7 +49,7 @@ const scanAll = async (TableName) => {
       ExclusiveStartKey,
     };
 
-    const results = await dynamoDb.scan(params);
+    const results = await scan(params);
     ExclusiveStartKey = results.LastEvaluatedKey;
     dataList = [...results.Items, ...dataList];
     console.log(results);
@@ -57,10 +57,12 @@ const scanAll = async (TableName) => {
   return dataList;
 };
 
-export const syncDynamoToS3 = handler(async (_event, _context) => {
+const syncDynamoToS3 = handler(async (_event, _context) => {
   console.log("Syncing Dynamo to Uploads");
-  const measureResults = (await scanAll(process.env.measureTableName)) ?? [];
-  const coreSetResults = (await scanAll(process.env.coreSetTableName)) ?? [];
+  const measureScanResults = await scanAll(process.env.measureTableName);
+  const coreSetScanResults = await scanAll(process.env.coreSetTableName);
+  const measureResults = measureScanResults ? measureScanResults : [];
+  const coreSetResults = coreSetScanResults ? coreSetScanResults : [];
 
   const measureCsv = await csvToS3(measureResults);
   await uploadFileToS3(`coreSetData/CSVmeasures/${Date.now()}.csv`, measureCsv);

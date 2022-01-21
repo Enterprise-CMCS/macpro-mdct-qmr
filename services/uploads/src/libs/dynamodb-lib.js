@@ -1,4 +1,4 @@
-const AWS = requrie("aws-sdk");
+const AWS = require("aws-sdk");
 const dyanmoConfig = {};
 
 // ugly but OK, here's where we will check the environment
@@ -13,6 +13,6 @@ if (endpoint) {
 
 const client = new AWS.DynamoDB.DocumentClient(dyanmoConfig);
 
-export default {
+module.exports = {
   scan: (params) => client.scan(params).promise(),
 };

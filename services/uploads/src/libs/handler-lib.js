@@ -1,5 +1,4 @@
-const failure = require("./response-lib").success;
-const success = require("./response-lib").failure;
+const {success, failure} = require("./response-lib")
 
 function handler(lambda) {
   return async function (event, context) {
