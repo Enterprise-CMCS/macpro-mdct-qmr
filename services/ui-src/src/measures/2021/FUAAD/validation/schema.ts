@@ -177,7 +177,7 @@ export const validationSchema = Joi.object<Measure.Form>({
         other: Joi.string().label("Other"),
         id: Joi.string(),
         label: Joi.string(),
-        rate: Joi.string(),
+        rate: Joi.string().label("Rate"),
       })
     )
     .sparse(),
@@ -190,7 +190,7 @@ export const validationSchema = Joi.object<Measure.Form>({
         other: Joi.string().label("Other"),
         id: Joi.string(),
         label: Joi.string(),
-        rate: Joi.string(),
+        rate: Joi.string().label("Rate"),
       })
     )
     .sparse(),
