@@ -188,7 +188,7 @@ export const CoreSet = () => {
           />
         </CUI.Box>
       </CUI.Flex>
-      <CUI.Box mt="15" maxH="xl" overflowY="auto">
+      <CUI.Box mt="4">
         <CUI.Skeleton noOfLines={7} isLoaded={!isLoading}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
