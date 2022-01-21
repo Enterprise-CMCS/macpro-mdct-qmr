@@ -1,27 +1,26 @@
-import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
-import aws from "aws-sdk";
-import { parseAsync } from "json2csv";
-import { flatten } from "flat";
-import AWS from "aws-sdk";
+const { handler } = require("../libs/handler-lib");
+const { scan } = require("../libs/dynamodb-lib");
+const { flatten } = require("flat");
+const { parseAsync } = require("json2csv");
+const AWS = require("aws-sdk");
 
-const csvToS3 = async (scanResult: any[]) => {
-  const flattenedResults: any = scanResult.map((item) => flatten(item));
+const csvToS3 = async (scanResult) => {
+  const flattenedResults = scanResult.map((item) => flatten(item));
   const resultsCsvData = await parseAsync(flattenedResults);
   return resultsCsvData;
 };
 
-const uploadFileToS3 = async (filePath: string, scanResult: string) => {
+const uploadFileToS3 = async (filePath, scanResult) => {
   const bucket = new AWS.S3();
 
   const s3Promise = new Promise((resolve, reject) => {
     bucket.upload(
       {
-        Bucket: process.env.uploadS3BucketName!,
+        Bucket: process.env.uploadS3BucketName,
         Key: filePath,
         Body: scanResult,
       },
-      function (err: Error, data: aws.S3.ManagedUpload.SendData) {
+      function (err, data) {
         if (err) {
           reject(err);
           throw err;
@@ -37,11 +36,11 @@ const uploadFileToS3 = async (filePath: string, scanResult: string) => {
   return await s3Promise;
 };
 
-const scanAll = async (TableName: string) => {
-  let startingData = await dynamoDb.scan({
+const scanAll = async (TableName) => {
+  let startingData = await scan({
     TableName,
   });
-  let dataList = startingData.Items!;
+  let dataList = startingData.Items;
   let ExclusiveStartKey = startingData.LastEvaluatedKey;
 
   while (ExclusiveStartKey) {
@@ -50,18 +49,20 @@ const scanAll = async (TableName: string) => {
       ExclusiveStartKey,
     };
 
-    const results = await dynamoDb.scan(params);
+    const results = await scan(params);
     ExclusiveStartKey = results.LastEvaluatedKey;
-    dataList = [...results.Items!, ...dataList];
+    dataList = [...results.Items, ...dataList];
     console.log(results);
   }
   return dataList;
 };
 
-export const syncDynamoToS3 = handler(async (_event, _context) => {
+const syncDynamoToS3 = handler(async (_event, _context) => {
   console.log("Syncing Dynamo to Uploads");
-  const measureResults = (await scanAll(process.env.measureTableName!)) ?? [];
-  const coreSetResults = (await scanAll(process.env.coreSetTableName!)) ?? [];
+  const measureScanResults = await scanAll(process.env.measureTableName);
+  const coreSetScanResults = await scanAll(process.env.coreSetTableName);
+  const measureResults = measureScanResults ? measureScanResults : [];
+  const coreSetResults = coreSetScanResults ? coreSetScanResults : [];
 
   const measureCsv = await csvToS3(measureResults);
   await uploadFileToS3(`coreSetData/CSVmeasures/${Date.now()}.csv`, measureCsv);
@@ -79,3 +80,6 @@ export const syncDynamoToS3 = handler(async (_event, _context) => {
   );
   console.log("Uploaded coreSet file to s3");
 });
+module.exports = {
+  syncDynamoToS3: syncDynamoToS3,
+};
