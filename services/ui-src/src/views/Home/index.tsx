@@ -11,7 +11,8 @@ export function Home() {
   if (
     userRole === UserRoles.HELP ||
     userRole === UserRoles.ADMIN ||
-    userRole === UserRoles.BO
+    userRole === UserRoles.BO ||
+    userRole === UserRoles.BOR
   ) {
     return <Navigate to={`/admin`} />;
   }
