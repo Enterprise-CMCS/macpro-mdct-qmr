@@ -2,8 +2,8 @@ Feature: Verify NCIDDS-AD page
 
       Scenario: User logins to QMR and verifies the NCIDDS-AD page
         Given user visits QMR home page
-        When  user enter username and password
-        And   user click "Sign In" button
+        When  user enter email and password for Cognito login
+        And   user click on Login with Cognito button
         Then  user should see the QMR 2021 Core Set Measures Reporting home page
         And   user click on link Adult Core Set Measures
         And   user click on link NCIDDS-AD

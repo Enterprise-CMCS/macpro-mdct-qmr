@@ -143,6 +143,15 @@ When("user enter username and password", () => {
   loginPage.clickAgreeTermAndConditions();
 });
 
+When("user enter email and password for Cognito login",()=>{
+  loginPage.enterEmailwithCognitoLogin();
+  loginPage.enterPasswordwithCognitoLogin();
+})
+
+And("user click on Login with Cognito button",()=>{
+  loginPage.clickLoginWithCognitoButtn();
+})
+
 And('user click "Sign In" button', () => {
   loginPage.clickSignIn();
 });
@@ -150,7 +159,7 @@ And('user click "Sign In" button', () => {
 Then("user should see the QMR home page", () => {});
 
 When("login as state user", () => {
-  loginPage.loginasAStateUser();
+  loginPage.loginasAStateUserWithCognito();
 });
 
 Then("verify Core Set Measures is displayed", () => {

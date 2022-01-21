@@ -1,5 +1,5 @@
 // measurements
-const nciddsAD = "(//p[@class='chakra-text css-hispwy'])[3]";
+const nciddsAD = "//p[contains(text(),'NCIDDS-AD')]";
 const pdentCH = "(//p[@class='chakra-text css-hispwy'])[5]";
 const lbwCH = "(//p[@class='chakra-text css-hispwy'])[7]";
 const lrcdCH = "(//p[@class='chakra-text css-hispwy'])[9]";
