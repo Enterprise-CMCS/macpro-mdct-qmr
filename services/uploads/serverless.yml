@@ -74,7 +74,7 @@ layers:
       artifact: lambda_layer.zip
 functions:
   dynamoSync:
-    handler: handlers/dynamoSync/handler.syncDynamoToS3
+    handler: src/dynamoSync/handler.syncDynamoToS3
     events:
       - schedule: cron(30 * * * ? *)
     environment:
@@ -152,13 +152,15 @@ resources:
                 - "s3:PutObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
-              aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
+              Principal:
+                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/uploads-${self:custom.stage}-${self:custom.region}-lambdaRole
             - Action:
                 - "s3:GetBucketLocation"
                 - "s3:ListBucket"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}
-              aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
+              Principal:
+                AWS: !Sub arn:aws:iam::${AWS::AccountId}:role/delegatedadmin/developer/uploads-${self:custom.stage}-${self:custom.region}-lambdaRole
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"
