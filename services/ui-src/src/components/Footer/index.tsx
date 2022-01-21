@@ -1,3 +1,4 @@
+import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Libs from "libs";
 
@@ -10,32 +11,18 @@ export function Footer(): JSX.Element {
       data-testid="footer"
     >
       <CUI.Container data-testid="help-section" maxW="7xl">
-        <CUI.Box maxW="4xl" py="6">
+        <CUI.Box maxW="4xl">
           <CUI.Text as="h3" fontSize="2xl" mb="3">
             Do you have questions or need support?
           </CUI.Text>
-          <CUI.Text fontSize="sm">
-            For technical questions regarding use of this application, please
-            reach out to{" "}
-            <CUI.Link
-              color="blue"
-              href={`mailto:${Libs.helpDeskContact.email}`}
-            >
-              {Libs.helpDeskContact.email}
-            </CUI.Link>
-            . For content-related questions, such as about measure
-            specifications or what information to enter in each field, please
-            reach out to{" "}
-            <CUI.Link color="blue" href={`mailto:${Libs.qualityContact.email}`}>
-              {Libs.qualityContact.email}
-            </CUI.Link>
-          </CUI.Text>
+          <CUI.Box fontSize="sm" mb="4">
+            <QMR.SupportLinks />
+          </CUI.Box>
         </CUI.Box>
       </CUI.Container>
-      <CUI.Box bg="blue.50">
+      <CUI.Box bg="blue.50" py="2">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
           <CUI.Box
-            py="4"
             display={{ base: "block", md: "flex" }}
             alignItems={{ base: "none", md: "center" }}
           >
@@ -50,7 +37,7 @@ export function Footer(): JSX.Element {
                 src="/footer/depthealthhumanservices_usa.svg"
                 alt="Department of Health and Human Services logo"
               />
-              <CUI.Box pl="3">
+              <CUI.Box>
                 A federal government website managed and paid for by the U.S.
                 Centers for Medicare and Medicaid Services and part of the
                 MACPro suite.
@@ -59,7 +46,7 @@ export function Footer(): JSX.Element {
           </CUI.Box>
         </CUI.Container>
       </CUI.Box>
-      <CUI.Box bg="#0071bc" color="white" py="4">
+      <CUI.Box bg="#0071bc" color="white" py="2">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
           <CUI.Box display={{ base: "block", md: "flex" }}>
             <CUI.Text>

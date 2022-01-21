@@ -1,20 +1,9 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { measureEventValidator } from "../authUtils/checkAuth";
+import { MeasureStatus } from "../../types";
 
 export const createMeasure = handler(async (event, context) => {
-  const errorCode = measureEventValidator(event, "POST");
-  if (errorCode !== 200) {
-    return {
-      statusCode: errorCode,
-      body: JSON.stringify({
-        error: "Failure: HTTP Status Code ",
-        errorCode,
-      }),
-    };
-  }
-
   const body = JSON.parse(event!.body!);
   const dynamoKey = createCompoundKey(event);
   const params = {
@@ -28,7 +17,7 @@ export const createMeasure = handler(async (event, context) => {
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
-      status: "incomplete",
+      status: MeasureStatus.INCOMPLETE,
       description: body.description ?? "",
       data: body.data,
     },
