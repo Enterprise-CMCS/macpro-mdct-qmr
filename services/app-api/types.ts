@@ -46,6 +46,7 @@ export enum UserRoles {
   STATE = "mdctqmr-state-user",
   HELP = "mdctqmr-help-desk",
   BO = "mdctqmr-bo-user",
+  BOR = "mdctqmr-bor",
 }
 
 export enum RequestMethods {
