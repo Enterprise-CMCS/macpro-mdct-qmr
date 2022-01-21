@@ -1,7 +1,9 @@
-export function success(body) {
+function success(body) {
   return buildResponse(200, body);
 }
 
-export function failure(body) {
+function failure(body) {
   return buildResponse(500, body);
 }
+
+module.exports = { success: success, failure: failure };

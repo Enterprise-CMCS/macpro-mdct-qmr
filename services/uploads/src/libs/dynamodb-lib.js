@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+const AWS = requrie("aws-sdk");
 const dyanmoConfig = {};
 
 // ugly but OK, here's where we will check the environment

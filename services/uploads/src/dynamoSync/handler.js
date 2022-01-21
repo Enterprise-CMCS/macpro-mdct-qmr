@@ -1,12 +1,12 @@
-import handler from "../libs/handler-lib";
-import dynamoDb from "../dynamodb-lib";
-import { parseAsync } from "json2csv";
-import { flatten } from "flat";
-import AWS from "aws-sdk";
+const handler = require("../libs/handler-lib");
+const dynamoDb = require("../dynamodb-lib");
+const json2csv = require("json2csv");
+const flat = require("flat");
+const AWS = require("aws-sdk");
 
 const csvToS3 = async (scanResult) => {
-  const flattenedResults = scanResult.map((item) => flatten(item));
-  const resultsCsvData = await parseAsync(flattenedResults);
+  const flattenedResults = scanResult.map((item) => flat.flatten(item));
+  const resultsCsvData = await json2csv.parseAsync(flattenedResults);
   return resultsCsvData;
 };
 
@@ -78,3 +78,6 @@ export const syncDynamoToS3 = handler(async (_event, _context) => {
   );
   console.log("Uploaded coreSet file to s3");
 });
+module.exports = {
+  syncDynamoToS3: syncDynamoToS3,
+};
