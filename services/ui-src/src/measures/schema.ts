@@ -1,16 +1,18 @@
 import Joi from "joi";
 import { Measure } from "./types";
 
-const RateJoiValidator = Joi.array().items(
-  Joi.object({
-    numerator: Joi.string().empty(""),
-    denominator: Joi.string().empty(""),
-    rate: Joi.string().empty(""),
-  })
-);
+const RateJoiValidator = Joi.array()
+  .items(
+    Joi.object({
+      numerator: Joi.string().empty(""),
+      denominator: Joi.string().empty(""),
+      rate: Joi.string().empty(""),
+    })
+  )
+  .sparse();
 
 const OptionalMeasureStratificationRateJoi = Joi.object({
-  ageData: Joi.array().items(Joi.string().empty("")),
+  ageData: Joi.array().items(Joi.string()).sparse(),
   subRates: Joi.array()
     .items(
       Joi.object({
@@ -226,21 +228,23 @@ export const validationSchema = Joi.object<Measure.Form>({
   //OptionalMeasureStratification
   CategoriesReported: Joi.array().items(Joi.string().empty("")),
 
-  AddtnlEthnicity: Joi.array().items(Joi.string().empty("")).sparse(),
-  AddtnlEthnicityRates: Joi.array().items(OptionalMeasureStratificationRateJoi),
+  AddtnlEthnicity: Joi.array().items(Joi.string()).sparse(),
+  AddtnlEthnicityRates: Joi.array()
+    .items(OptionalMeasureStratificationRateJoi)
+    .sparse(),
 
   AddtnlNonHispanicRace: Joi.array().items(Joi.string()).sparse(),
-  AddtnlNonHispanicRaceAggregation: Joi.array().items(Joi.string().empty("")),
-  AddtnlNonHispanicRaceRates: Joi.array().items(
-    OptionalMeasureStratificationRateJoi
-  ),
+  AddtnlNonHispanicRaceAggregation: Joi.array().items(Joi.string()).sparse(),
+  AddtnlNonHispanicRaceRates: Joi.array()
+    .items(OptionalMeasureStratificationRateJoi)
+    .sparse(),
 
-  AddtnlNonHispanicSubCat: Joi.array().items(Joi.string().empty("")),
-  AddtnlNonHispanicSubCatRates: Joi.array().items(
-    OptionalMeasureStratificationRateJoi
-  ),
+  AddtnlNonHispanicSubCat: Joi.array().items(Joi.string()).sparse(),
+  AddtnlNonHispanicSubCatRates: Joi.array()
+    .items(OptionalMeasureStratificationRateJoi)
+    .sparse(),
 
-  NonHispanicRacialCategories: Joi.array().items(Joi.string().empty("")),
+  NonHispanicRacialCategories: Joi.array().items(Joi.string()).sparse(),
   "NHRC-WhiteRates": OptionalMeasureStratificationRateJoi,
   "NHRC-BlackOrAfricanAmericanRates": OptionalMeasureStratificationRateJoi,
   "NHRC-AmericanIndianOrAlaskaNativeRates":
@@ -255,39 +259,40 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(OptionalMeasureStratificationRateJoi)
     .sparse(),
 
-  EthnicityCategories: Joi.array().items(Joi.string().empty("")),
+  EthnicityCategories: Joi.array().items(Joi.string()).sparse(),
+  EthnicitySubCategories: Joi.array().items(Joi.string()).sparse(),
   NonHispanicEthnicityRates: OptionalMeasureStratificationRateJoi,
   HispanicIndependentReporting: Joi.string().empty(""),
   HispanicEthnicityAggregateRate: OptionalMeasureStratificationRateJoi,
-  IndependentHispanicOptions: Joi.array().items(Joi.string().empty("")),
+  IndependentHispanicOptions: Joi.array().items(Joi.string()).sparse(),
   IndependentHispanicRates: Joi.array()
     .items(OptionalMeasureStratificationRateJoi)
     .sparse(),
 
-  AsianIndependentReporting: Joi.string().empty(""),
-  IndependentAsianOptions: Joi.array().items(Joi.string().empty("")),
-  NativeHawaiianIndependentReporting: Joi.string().empty(""),
-  IndependentNativeHawaiianOptions: Joi.array().items(Joi.string().empty("")),
+  AsianIndependentReporting: Joi.string(),
+  IndependentAsianOptions: Joi.array().items(Joi.string()).sparse(),
+  NativeHawaiianIndependentReporting: Joi.string(),
+  IndependentNativeHawaiianOptions: Joi.array().items(Joi.string()).sparse(),
 
-  SexOptions: Joi.array().items(Joi.string().empty("")),
+  SexOptions: Joi.array().items(Joi.string()).sparse(),
   MaleSexRates: OptionalMeasureStratificationRateJoi,
   FemaleSexRates: OptionalMeasureStratificationRateJoi,
 
-  AddtnlPrimaryLanguage: Joi.array().items(Joi.string().empty("")),
-  PrimaryLanguageOptions: Joi.array().items(Joi.string().empty("")),
+  AddtnlPrimaryLanguage: Joi.array().items(Joi.string()).sparse(),
+  PrimaryLanguageOptions: Joi.array().items(Joi.string()).sparse(),
   AddtnlPrimaryLanguageRates: Joi.array().items(
     OptionalMeasureStratificationRateJoi
   ),
   EnglishLanguageRate: OptionalMeasureStratificationRateJoi,
   SpanishLanguageRate: OptionalMeasureStratificationRateJoi,
 
-  DisabilityStatusOptions: Joi.array().items(Joi.string().empty("")),
+  DisabilityStatusOptions: Joi.array().items(Joi.string()).sparse(),
   DisabilitySSIRate: OptionalMeasureStratificationRateJoi,
   DisabilityNonSSIRate: OptionalMeasureStratificationRateJoi,
   AddtnlDisabilityStatusDesc: Joi.string().empty(""),
   AddtnlDisabilityRate: OptionalMeasureStratificationRateJoi,
 
-  GeographyOptions: Joi.array().items(Joi.string().empty("")),
+  GeographyOptions: Joi.array().items(Joi.string()).sparse(),
   UrbanGeographyRate: OptionalMeasureStratificationRateJoi,
   RuralGeographyRate: OptionalMeasureStratificationRateJoi,
   AddtnlGeographyDesc: Joi.string().empty(""),

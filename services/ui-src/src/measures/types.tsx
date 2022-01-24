@@ -190,6 +190,7 @@ export namespace Measure {
     "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
 
     EthnicityCategories: string[];
+    EthnicitySubCategories: string[];
     NonHispanicEthnicityRates: AggregateRate;
     HispanicIndependentReporting: string;
     HispanicEthnicityAggregateRate: AggregateRate;

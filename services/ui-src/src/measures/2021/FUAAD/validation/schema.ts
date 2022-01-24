@@ -240,7 +240,8 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(OptionalMeasureStratificationRateJoi)
     .sparse(),
 
-  EthnicityCategories: Joi.array().items(Joi.string().empty("")),
+  EthnicityCategories: Joi.array().items(Joi.string()),
+  EthnicitySubCategories: Joi.array().items(Joi.string()),
   NonHispanicEthnicityRates: OptionalMeasureStratificationRateJoi,
   HispanicIndependentReporting: Joi.string().empty(""),
   HispanicEthnicityAggregateRate: OptionalMeasureStratificationRateJoi,
