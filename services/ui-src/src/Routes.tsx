@@ -1,13 +1,10 @@
 import { ReactElement } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
-import { CognitoUser } from "@aws-amplify/auth";
 import * as Views from "views";
 import * as QMR from "components";
 import Measures from "measures";
 import { measuresList, MeasuresListItem } from "measures/measuresList";
-
-export type Params = "state" | "year" | "coreSetId";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -51,11 +48,11 @@ Object.keys(measuresList).forEach((year: string) => {
   });
 });
 
-export function AppRoutes({ user }: { user: CognitoUser }) {
+export function AppRoutes() {
   return (
     <main id="main-wrapper">
       <Routes>
-        <Route path="/" element={<Views.Home user={user} />} />
+        <Route path="/" element={<Views.Home />} />
         <Route path=":state/:year" element={<Views.StateHome />} />
         <Route path="admin" element={<Views.AdminHome />} />
         <Route
@@ -64,6 +61,7 @@ export function AppRoutes({ user }: { user: CognitoUser }) {
         />
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
+        <Route path=":state/:year/ACS/CSQ" element={<Views.ACSQualifiers />} />
         <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (

@@ -56,7 +56,6 @@ const startDateRangeValidator = (endDateRangeLabel: string) => {
           .max(Joi.ref(`...${endDateRangeLabel}.selectedYear`))
           .message("Start Year cannot be after End Year."),
       })
-
       .label("Start Year"),
   });
 };
@@ -224,7 +223,7 @@ export const validationSchema = Joi.object<Measure.Form>({
   AddtnlEthnicity: Joi.array().items(Joi.string()),
   AddtnlEthnicityRates: Joi.array().items(OptionalMeasureStratificationRateJoi),
 
-  AddtnlNonHispanicRace: Joi.array().items(Joi.string()),
+  AddtnlNonHispanicRace: Joi.array().items(Joi.string()).sparse(),
   AddtnlNonHispanicRaceAggregation: Joi.array().items(Joi.string()),
   AddtnlNonHispanicRaceRates: Joi.array().items(
     OptionalMeasureStratificationRateJoi

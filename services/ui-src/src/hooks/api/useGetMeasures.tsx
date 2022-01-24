@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { listMeasures } from "libs/api";
+import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 
 interface GetMeasures {
   state: string;
@@ -9,8 +9,8 @@ interface GetMeasures {
   coreSet: string;
 }
 
-const getMeasures = ({ state, year, coreSet }: GetMeasures) => {
-  return listMeasures({
+const getMeasures = async ({ state, year, coreSet }: GetMeasures) => {
+  return await listMeasures({
     state,
     year,
     coreSet,
@@ -18,10 +18,24 @@ const getMeasures = ({ state, year, coreSet }: GetMeasures) => {
 };
 
 export const useGetMeasures = () => {
-  const { state, year, coreSetId } = useParams<Params>();
-  if (state && year && coreSetId) {
+  const {
+    state: statePath,
+    year: yearPath,
+    coreSet: coreSetPath,
+  } = usePathParams();
+  const { state, year, coreSetId } = useParams();
+
+  if (
+    (state || statePath) &&
+    (year || yearPath) &&
+    (coreSetId || coreSetPath)
+  ) {
     return useQuery(["coreSets", state, year], () =>
-      getMeasures({ state, year, coreSet: coreSetId })
+      getMeasures({
+        state: state || statePath,
+        year: year || yearPath,
+        coreSet: coreSetId || coreSetPath,
+      })
     );
   }
   throw Error("state or year unavailable");

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "cd tests/cypress && npm test && cd -",
-    "test:ci": "cd tests/cypress && npm run test:ci"
+    "test:ci": "cd tests/cypress && yarn run test:ci"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/CMSgov/macpro-quickstart-serverless#readme",
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
+    "@types/flat": "^5.0.2",
     "@types/node": "^14.14.6",
     "@types/yargs": "^15.0.10",
     "@typescript-eslint/eslint-plugin": "^2.x",
@@ -30,6 +31,7 @@
     "aws-sdk": "^2.923.0",
     "cypress": "^8.4.0",
     "cypress-cucumber-preprocessor": "^4.2.0",
+    "cypress-file-upload": "^5.0.8",
     "cypress-tests": "file:tests/cypress",
     "dotenv": "^8.2.0",
     "eslint": "^7.32.0",

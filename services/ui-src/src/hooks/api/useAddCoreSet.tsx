@@ -1,8 +1,7 @@
 import { useMutation } from "react-query";
 import { createCoreSet } from "libs/api";
-import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 import { CoreSetAbbr } from "types";
+import { useParams } from "react-router-dom";
 
 interface AddCoreSet {
   state: string;
@@ -10,8 +9,8 @@ interface AddCoreSet {
   coreSet: CoreSetAbbr;
 }
 
-const addCoreSet = ({ state, year, coreSet }: AddCoreSet) => {
-  return createCoreSet({
+const addCoreSet = async ({ state, year, coreSet }: AddCoreSet) => {
+  return await createCoreSet({
     state,
     year,
     coreSet,
@@ -19,7 +18,7 @@ const addCoreSet = ({ state, year, coreSet }: AddCoreSet) => {
 };
 
 export const useAddCoreSet = () => {
-  const { state, year } = useParams<Params>();
+  const { state, year } = useParams();
   if (state && year) {
     return useMutation((coreSet: CoreSetAbbr) =>
       addCoreSet({ state, year, coreSet })

@@ -6,19 +6,12 @@ import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import * as Types from "../../types";
 
 export const createCoreSet = handler(async (event, context) => {
-  if (!event.pathParameters) return; // throw error message
-  if (
-    !event.pathParameters.state ||
-    !event.pathParameters.year ||
-    !event.pathParameters.coreSet
-  )
-    return; // throw error message
-
   // The State Year and ID are all part of the path
-  const state = event.pathParameters.state;
-  const year = event.pathParameters.year;
-  const coreSet = event.pathParameters.coreSet;
-  const type = coreSet?.substring(0, 1);
+  const state = event!.pathParameters!.state!;
+  const year = event!.pathParameters!.year!;
+  const coreSet = event!.pathParameters!.coreSet!;
+  const type = coreSet!.substring(0, 1);
+
   const coreSetQuery = await getCoreSet(event, context);
   const coreSetExists = !!Object.keys(JSON.parse(coreSetQuery.body)).length;
 
@@ -40,10 +33,11 @@ export const createCoreSet = handler(async (event, context) => {
   );
 
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTableName,
     Item: {
       compoundKey: dynamoKey,
       state: state,
+      // @ts-ignore
       year: parseInt(year),
       coreSet: coreSet,
       createdAt: Date.now(),
@@ -53,8 +47,9 @@ export const createCoreSet = handler(async (event, context) => {
       submitted: false,
     },
   };
-
-  return await dynamoDb.post(params);
+  //@ts-ignore
+  await dynamoDb.post(params);
+  return params;
 });
 
 const createDependentMeasures = async (
@@ -67,7 +62,7 @@ const createDependentMeasures = async (
     (measure: MeasureMetaData) => measure.type === type
   );
 
-  const dependentMeasures = [];
+  let dependentMeasures = [];
 
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
@@ -75,7 +70,7 @@ const createDependentMeasures = async (
     // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
     const dynamoKey = `${state}${year}${coreSet}${measureId}`;
     const params = {
-      TableName: process.env.measureTableName || "",
+      TableName: process.env.measureTableName,
       Item: {
         compoundKey: dynamoKey,
         state: state,
@@ -84,13 +79,12 @@ const createDependentMeasures = async (
         measure: measureId,
         createdAt: Date.now(),
         lastAltered: Date.now(),
-        status: measure.autocompleteOnCreation
-          ? Types.MeasureStatus.COMPLETE
-          : Types.MeasureStatus.INCOMPLETE,
+        status: Types.MeasureStatus.INCOMPLETE,
         description: measure.description,
       },
     };
     console.log("created measure: ", params);
+    //@ts-ignore
     const result = await dynamoDb.post(params);
     dependentMeasures.push(result);
   }
