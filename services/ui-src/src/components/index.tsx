@@ -3,6 +3,7 @@ export * from "./Breadcrumbs";
 export * from "./ContainedButton";
 export * from "./CoreQuestionWrapper";
 export * from "./DateRange";
+export * from "./DeleteWrapper";
 export * from "./Footer";
 export * from "./Header";
 export * from "./InputWrapper";

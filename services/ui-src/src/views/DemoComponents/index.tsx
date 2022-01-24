@@ -146,6 +146,31 @@ const DemoComponentsForm = () => {
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
+              Delete Wrapper
+            </CUI.Heading>
+            <QMR.DeleteWrapper>
+              <CUI.Text>Test Deletion Text object</CUI.Text>
+            </QMR.DeleteWrapper>
+            <QMR.DeleteWrapper>
+              <CUI.Text>Multiple Text Object tester</CUI.Text>
+              <CUI.Text>Multiple Text Object tester</CUI.Text>
+              <CUI.Text>Multiple Text Object tester</CUI.Text>
+            </QMR.DeleteWrapper>
+            <QMR.DeleteWrapper>
+              <QMR.DateRange {...register("demoDate3")} />
+            </QMR.DeleteWrapper>
+            <QMR.DeleteWrapper>
+              <QMR.RadioButton
+                {...register("demoRadioButton")}
+                label="hello world"
+                options={[
+                  { displayValue: "test1", value: "test1" },
+                  { displayValue: "test2", value: "test2" },
+                ]}
+              />
+            </QMR.DeleteWrapper>
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
               Text Input
             </CUI.Heading>
             <QMR.TextInput
