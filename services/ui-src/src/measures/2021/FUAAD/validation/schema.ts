@@ -3,14 +3,14 @@ import { Measure } from "../validation/types";
 
 const RateJoiValidator = Joi.array().items(
   Joi.object({
-    numerator: Joi.string(),
-    denominator: Joi.string(),
-    rate: Joi.string(),
+    numerator: Joi.string().empty(""),
+    denominator: Joi.string().empty(""),
+    rate: Joi.string().empty(""),
   })
 );
 
 const OptionalMeasureStratificationRateJoi = Joi.object({
-  ageData: Joi.array().items(Joi.string()),
+  ageData: Joi.array().items(Joi.string().empty("")),
   subRates: Joi.array().items(Joi.any()),
   total: RateJoiValidator,
 });
@@ -50,62 +50,62 @@ const startDateRangeValidator = (endDateRangeLabel: string) => {
 // This is the validation schema for any/all state measures
 export const validationSchema = Joi.object<Measure.Form>({
   //Report
-  DidReport: Joi.string().label("Are you reporting"),
+  DidReport: Joi.string().label("Are you reporting").empty(""),
 
   //Status
-  DataStatus: Joi.string().label("Status of Data Reported"),
-  "DataStatus-ProvisionalExplanation": Joi.string(),
+  DataStatus: Joi.string().label("Status of Data Reported").empty(""),
+  "DataStatus-ProvisionalExplanation": Joi.string().empty(""),
 
   //DataSource
-  DataSource: Joi.array().items(Joi.string()),
-  "DataSource-Administrative": Joi.array().items(Joi.string()),
-  "DataSource-Administrative-Other": Joi.string(),
-  "DataSource-Administrative-Other-Explanation": Joi.string(),
-  "DataSource-Other": Joi.string(),
-  "DataSource-Other-Explanation": Joi.string(),
-  "DataSource-Hybrid": Joi.array().items(Joi.string()),
-  "DataSource-Hybrid-Other": Joi.string(),
-  "DataSource-Hybrid-Other-Explanation": Joi.string(),
-  "DataSource-Hybrid-MedicalRecord-DataSoruce": Joi.string(),
-  "DataSource-ElectronicHealthRecords": Joi.string(),
-  "DataSource-ElectronicHealthRecords-Explanation": Joi.string(),
+  DataSource: Joi.array().items(Joi.string().empty("")),
+  "DataSource-Administrative": Joi.array().items(Joi.string().empty("")),
+  "DataSource-Administrative-Other": Joi.string().empty(""),
+  "DataSource-Administrative-Other-Explanation": Joi.string().empty(""),
+  "DataSource-Other": Joi.string().empty(""),
+  "DataSource-Other-Explanation": Joi.string().empty(""),
+  "DataSource-Hybrid": Joi.array().items(Joi.string().empty("")),
+  "DataSource-Hybrid-Other": Joi.string().empty(""),
+  "DataSource-Hybrid-Other-Explanation": Joi.string().empty(""),
+  "DataSource-Hybrid-MedicalRecord-DataSoruce": Joi.string().empty(""),
+  "DataSource-ElectronicHealthRecords": Joi.string().empty(""),
+  "DataSource-ElectronicHealthRecords-Explanation": Joi.string().empty(""),
 
   //CombinedRates
-  CombinedRates: Joi.string(),
-  "CombinedRates-CombinedRates": Joi.string(),
-  "CombinedRates-CombinedRates-Other-Explanation": Joi.string(),
+  CombinedRates: Joi.string().empty(""),
+  "CombinedRates-CombinedRates": Joi.string().empty(""),
+  "CombinedRates-CombinedRates-Other-Explanation": Joi.string().empty(""),
 
   //MeasurementSpecification
-  MeasurementSpecification: Joi.string(),
-  "MeasurementSpecification-HEDISVersion": Joi.string(),
+  MeasurementSpecification: Joi.string().empty(""),
+  "MeasurementSpecification-HEDISVersion": Joi.string().empty(""),
   "MeasurementSpecification-OtherMeasurementSpecificationDescription":
-    Joi.string(),
+    Joi.string().empty(""),
   "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload":
     Joi.array().items(Joi.any()),
 
   //WhyAreYouNotReporting
-  WhyAreYouNotReporting: Joi.array().items(Joi.string()),
-  AmountOfPopulationNotCovered: Joi.string(),
-  PartialPopulationNotCoveredExplanation: Joi.string(),
-  WhyIsDataNotAvailable: Joi.array().items(Joi.string()),
-  "WhyIsDataNotAvailable-Other": Joi.string(),
-  DataIconAccuracyIssues: Joi.string(),
-  DataSourceNotEasilyAccessible: Joi.array().items(Joi.string()),
-  "DataSourceNotEasilyAccessible-Other": Joi.string(),
-  InformationNotCollected: Joi.array().items(Joi.string()),
-  "InformationNotCollected-Other": Joi.string(),
-  LimitationWithDatCollecitonReportAccuracyCovid: Joi.string(),
-  SmallSampleSizeLessThan30: Joi.string(),
-  "WhyAreYouNotReporting-Other": Joi.string(),
+  WhyAreYouNotReporting: Joi.array().items(Joi.string().empty("")),
+  AmountOfPopulationNotCovered: Joi.string().empty(""),
+  PartialPopulationNotCoveredExplanation: Joi.string().empty(""),
+  WhyIsDataNotAvailable: Joi.array().items(Joi.string().empty("")),
+  "WhyIsDataNotAvailable-Other": Joi.string().empty(""),
+  DataIconAccuracyIssues: Joi.string().empty(""),
+  DataSourceNotEasilyAccessible: Joi.array().items(Joi.string().empty("")),
+  "DataSourceNotEasilyAccessible-Other": Joi.string().empty(""),
+  InformationNotCollected: Joi.array().items(Joi.string().empty("")),
+  "InformationNotCollected-Other": Joi.string().empty(""),
+  LimitationWithDatCollecitonReportAccuracyCovid: Joi.string().empty(""),
+  SmallSampleSizeLessThan30: Joi.string().empty(""),
+  "WhyAreYouNotReporting-Other": Joi.string().empty(""),
 
   //AdditionalNotes
-  "AdditionalNotes-AdditionalNotes": Joi.string(),
+  "AdditionalNotes-AdditionalNotes": Joi.string().empty(""),
   "AdditionalNotes-Upload": Joi.array().items(Joi.any()),
 
   //OttherPerformanceMeasure
-  "OtherPerformanceMeasure-Explanation": Joi.string(),
-  "OtherPerformanceMeasure-Notes": Joi.string(),
-  "OtherPerformanceMeasure-Rates-TextInput": Joi.string(),
+  "OtherPerformanceMeasure-Explanation": Joi.string().empty(""),
+  "OtherPerformanceMeasure-Notes": Joi.string().empty(""),
+  "OtherPerformanceMeasure-Rates-TextInput": Joi.string().empty(""),
   "OtherPerformanceMeasure-Rates": Joi.array()
     .items(
       Joi.object({
@@ -116,43 +116,47 @@ export const validationSchema = Joi.object<Measure.Form>({
     .sparse(),
 
   //DefinitionOfPopulation
-  DefinitionOfDenominator: Joi.array().items(Joi.string()),
-  "DefinitionOfDenominator-Other": Joi.string(),
-  ChangeInPopulationExplanation: Joi.string(),
-  DenominatorDefineTotalTechSpec: Joi.string(),
-  "DenominatorDefineTotalTechSpec-No-Explanation": Joi.string(),
+  DefinitionOfDenominator: Joi.array().items(Joi.string().empty("")),
+  "DefinitionOfDenominator-Other": Joi.string().empty(""),
+  ChangeInPopulationExplanation: Joi.string().empty(""),
+  DenominatorDefineTotalTechSpec: Joi.string().empty(""),
+  "DenominatorDefineTotalTechSpec-No-Explanation": Joi.string().empty(""),
   "DenominatorDefineTotalTechSpec-No-Size": Joi.string().empty(""),
-  DeliverySysRepresentationDenominator: Joi.array().items(Joi.string()),
-  "DeliverySys-FreeForService": Joi.string(),
-  "DeliverySys-FreeForService-No-Percent": Joi.string(),
-  "DeliverySys-FreeForService-No-Population": Joi.string(),
-  "DeliverySys-PrimaryCareManagement": Joi.string(),
-  "DeliverySys-PrimaryCareManagement-No-Percent": Joi.string(),
+  DeliverySysRepresentationDenominator: Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeliverySys-FreeForService": Joi.string().empty(""),
+  "DeliverySys-FreeForService-No-Percent": Joi.string().empty(""),
+  "DeliverySys-FreeForService-No-Population": Joi.string().empty(""),
+  "DeliverySys-PrimaryCareManagement": Joi.string().empty(""),
+  "DeliverySys-PrimaryCareManagement-No-Percent": Joi.string().empty(""),
   "DeliverySys-PrimaryCareManagement-No-Population": Joi.string().empty(""),
-  "DeliverySys-MCO_POHP": Joi.string(),
-  "DeliverySys-MCO_POHP-Percent": Joi.string(),
+  "DeliverySys-MCO_POHP": Joi.string().empty(""),
+  "DeliverySys-MCO_POHP-Percent": Joi.string().empty(""),
   "DeliverySys-MCO_POHP-NumberOfPlans": Joi.string().empty(""),
-  "DeliverySys-MCO_POHP-No-Included": Joi.string(),
-  "DeliverySys-MCO_POHP-No-Excluded": Joi.string(),
-  "DeliverySys-IntegratedCareModel": Joi.string(),
-  "DeliverySys-IntegratedCareModel-No-Percent": Joi.string(),
+  "DeliverySys-MCO_POHP-No-Included": Joi.string().empty(""),
+  "DeliverySys-MCO_POHP-No-Excluded": Joi.string().empty(""),
+  "DeliverySys-IntegratedCareModel": Joi.string().empty(""),
+  "DeliverySys-IntegratedCareModel-No-Percent": Joi.string().empty(""),
   "DeliverySys-IntegratedCareModel-No-Population": Joi.string().empty(""),
-  "DeliverySys-Other": Joi.string(),
-  "DeliverySys-Other-Percent": Joi.string(),
-  "DeliverySys-Other-NumberOfHealthPlans": Joi.string(),
-  "DeliverySys-Other-Population": Joi.string(),
+  "DeliverySys-Other": Joi.string().empty(""),
+  "DeliverySys-Other-Percent": Joi.string().empty(""),
+  "DeliverySys-Other-NumberOfHealthPlans": Joi.string().empty(""),
+  "DeliverySys-Other-Population": Joi.string().empty(""),
 
   //DeviationFromMeasureSpec
-  DidCalculationsDeviate: Joi.string(),
-  DeviationOptions: Joi.array().items(Joi.string()),
-  "DeviationOptions-Within7-AgeRange": Joi.array().items(Joi.string()),
+  DidCalculationsDeviate: Joi.string().empty(""),
+  DeviationOptions: Joi.array().items(Joi.string().empty("")),
+  "DeviationOptions-Within7-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
   "DeviationFields-Within7": Joi.array()
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
       })
     )
     .sparse(),
@@ -160,24 +164,26 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
       })
     )
     .sparse(),
-  "DeviationOptions-Within30-AgeRange": Joi.array().items(Joi.string()),
-  "PerformanceMeasure-Explanation": Joi.string(),
+  "DeviationOptions-Within30-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "PerformanceMeasure-Explanation": Joi.string().empty(""),
   "PerformanceMeasure-AgeRates-30Days": Joi.array()
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
         id: Joi.string(),
         label: Joi.string(),
-        rate: Joi.string(),
+        rate: Joi.string().empty(""),
       })
     )
     .sparse(),
@@ -185,12 +191,12 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
         id: Joi.string(),
         label: Joi.string(),
-        rate: Joi.string(),
+        rate: Joi.string().empty(""),
       })
     )
     .sparse(),
@@ -203,9 +209,9 @@ export const validationSchema = Joi.object<Measure.Form>({
   }),
 
   //OptionalMeasureStratification
-  CategoriesReported: Joi.array().items(Joi.string()),
+  CategoriesReported: Joi.array().items(Joi.string().empty("")),
 
-  AddtnlEthnicity: Joi.array().items(Joi.string()),
+  AddtnlEthnicity: Joi.array().items(Joi.string().empty("")).sparse(),
   AddtnlEthnicityRates: Joi.array().items(OptionalMeasureStratificationRateJoi),
 
   AddtnlNonHispanicRace: Joi.array().items(Joi.string()),
@@ -214,12 +220,12 @@ export const validationSchema = Joi.object<Measure.Form>({
     OptionalMeasureStratificationRateJoi
   ),
 
-  AddtnlNonHispanicSubCat: Joi.array().items(Joi.string()),
+  AddtnlNonHispanicSubCat: Joi.array().items(Joi.string().empty("")),
   AddtnlNonHispanicSubCatRates: Joi.array().items(
     OptionalMeasureStratificationRateJoi
   ),
 
-  NonHispanicRacialCategories: Joi.array().items(Joi.string()),
+  NonHispanicRacialCategories: Joi.array().items(Joi.string().empty("")),
   "NHRC-WhiteRates": OptionalMeasureStratificationRateJoi,
   "NHRC-BlackOrAfricanAmericanRates": OptionalMeasureStratificationRateJoi,
   "NHRC-AmericanIndianOrAlaskaNativeRates":
@@ -234,42 +240,42 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(OptionalMeasureStratificationRateJoi)
     .sparse(),
 
-  EthnicityCategories: Joi.array().items(Joi.string()),
+  EthnicityCategories: Joi.array().items(Joi.string().empty("")),
   NonHispanicEthnicityRates: OptionalMeasureStratificationRateJoi,
-  HispanicIndependentReporting: Joi.string(),
+  HispanicIndependentReporting: Joi.string().empty(""),
   HispanicEthnicityAggregateRate: OptionalMeasureStratificationRateJoi,
-  IndependentHispanicOptions: Joi.array().items(Joi.string()),
+  IndependentHispanicOptions: Joi.array().items(Joi.string().empty("")),
   IndependentHispanicRates: Joi.array()
     .items(OptionalMeasureStratificationRateJoi)
     .sparse(),
 
-  AsianIndependentReporting: Joi.string(),
-  IndependentAsianOptions: Joi.array().items(Joi.string()),
-  NativeHawaiianIndependentReporting: Joi.string(),
-  IndependentNativeHawaiianOptions: Joi.array().items(Joi.string()),
+  AsianIndependentReporting: Joi.string().empty(""),
+  IndependentAsianOptions: Joi.array().items(Joi.string().empty("")),
+  NativeHawaiianIndependentReporting: Joi.string().empty(""),
+  IndependentNativeHawaiianOptions: Joi.array().items(Joi.string().empty("")),
 
-  SexOptions: Joi.array().items(Joi.string()),
+  SexOptions: Joi.array().items(Joi.string().empty("")),
   MaleSexRates: OptionalMeasureStratificationRateJoi,
   FemaleSexRates: OptionalMeasureStratificationRateJoi,
 
-  AddtnlPrimaryLanguage: Joi.array().items(Joi.string()),
-  PrimaryLanguageOptions: Joi.array().items(Joi.string()),
+  AddtnlPrimaryLanguage: Joi.array().items(Joi.string().empty("")),
+  PrimaryLanguageOptions: Joi.array().items(Joi.string().empty("")),
   AddtnlPrimaryLanguageRates: Joi.array().items(
     OptionalMeasureStratificationRateJoi
   ),
   EnglishLanguageRate: OptionalMeasureStratificationRateJoi,
   SpanishLanguageRate: OptionalMeasureStratificationRateJoi,
 
-  DisabilityStatusOptions: Joi.array().items(Joi.string()),
+  DisabilityStatusOptions: Joi.array().items(Joi.string().empty("")),
   DisabilitySSIRate: OptionalMeasureStratificationRateJoi,
   DisabilityNonSSIRate: OptionalMeasureStratificationRateJoi,
-  AddtnlDisabilityStatusDesc: Joi.string(),
+  AddtnlDisabilityStatusDesc: Joi.string().empty(""),
   AddtnlDisabilityRate: OptionalMeasureStratificationRateJoi,
 
-  GeographyOptions: Joi.array().items(Joi.string()),
+  GeographyOptions: Joi.array().items(Joi.string().empty("")),
   UrbanGeographyRate: OptionalMeasureStratificationRateJoi,
   RuralGeographyRate: OptionalMeasureStratificationRateJoi,
-  AddtnlGeographyDesc: Joi.string(),
+  AddtnlGeographyDesc: Joi.string().empty(""),
   AddtnlGeographyRate: OptionalMeasureStratificationRateJoi,
 
   ACAGroupRate: OptionalMeasureStratificationRateJoi,

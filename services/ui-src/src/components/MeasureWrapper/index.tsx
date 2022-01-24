@@ -147,6 +147,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
     if (continueWithErrors) {
       submitDataToServer(methods.getValues());
+      setErrors(undefined);
       console.log("Submitted");
     }
   };
