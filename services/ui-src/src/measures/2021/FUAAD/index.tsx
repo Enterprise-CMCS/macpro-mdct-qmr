@@ -12,6 +12,7 @@ export const FUAAD = ({
   name,
   year,
   handleSubmit,
+  handleValidation,
   setMeasureSchema,
   setValidationFunctions,
 }: Measure.Props) => {
@@ -114,23 +115,37 @@ export const FUAAD = ({
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
         </CUI.Heading>
+        <CUI.Text pl="5">
+          Please select "Validate Measure" to check any error present on the
+          measure prior to completion
+        </CUI.Text>
         <CUI.Text p="3" pl="5">
           Complete the measure and mark it for submission to CMS for review
         </CUI.Text>
-        <QMR.ContainedButton
-          buttonProps={{
-            ml: "5",
-            type: "submit",
-            colorScheme: "blue",
-            textTransform: "capitalize",
-          }}
-          buttonText="Complete Measure"
-          onClick={(e) => {
-            e.preventDefault();
-            handleSubmit();
-            console.log("testing");
-          }}
-        />
+        <CUI.HStack>
+          <QMR.ContainedButton
+            buttonProps={{
+              ml: "5",
+              colorScheme: "green",
+              textTransform: "capitalize",
+            }}
+            buttonText="Validate Measure"
+            onClick={handleValidation}
+          />
+          <QMR.ContainedButton
+            buttonProps={{
+              type: "submit",
+              colorScheme: "blue",
+              textTransform: "capitalize",
+            }}
+            buttonText="Complete Measure"
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit();
+              console.log("testing");
+            }}
+          />
+        </CUI.HStack>
       </CUI.Stack>
     </>
   );
