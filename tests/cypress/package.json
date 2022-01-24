@@ -18,5 +18,8 @@
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true
+  },
+  "dependencies": {
+    "cypress-tags": "^0.3.0"
   }
 }
