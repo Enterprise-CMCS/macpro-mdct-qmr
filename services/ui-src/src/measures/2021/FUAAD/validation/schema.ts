@@ -174,32 +174,8 @@ export const validationSchema = Joi.object<Measure.Form>({
     Joi.string().empty("")
   ),
   "PerformanceMeasure-Explanation": Joi.string().empty(""),
-  "PerformanceMeasure-AgeRates-30Days": Joi.array()
-    .items(
-      Joi.object({
-        options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator").empty(""),
-        denominator: Joi.string().label("Denominator").empty(""),
-        other: Joi.string().label("Other").empty(""),
-        id: Joi.string(),
-        label: Joi.string(),
-        rate: Joi.string().empty(""),
-      })
-    )
-    .sparse(),
-  "PerformanceMeasure-AgeRates-7Days": Joi.array()
-    .items(
-      Joi.object({
-        options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator").empty(""),
-        denominator: Joi.string().label("Denominator").empty(""),
-        other: Joi.string().label("Other").empty(""),
-        id: Joi.string(),
-        label: Joi.string(),
-        rate: Joi.string().empty(""),
-      })
-    )
-    .sparse(),
+  "PerformanceMeasure-AgeRates-30Days": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-7Days": RateJoiValidator,
   DateRange: Joi.object({
     endDate: Joi.object({
       selectedMonth: Joi.number().label("End Month"),

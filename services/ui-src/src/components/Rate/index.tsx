@@ -1,6 +1,11 @@
 import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
-import { allNumbers } from "utils/numberInputMasks";
+import {
+  allNumbers,
+  eightNumbersOneDecimal,
+  rateThatAllowsFourDecimals,
+  rateThatAllowsOneDecimal,
+} from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
 import { useEffect } from "react";
@@ -14,6 +19,7 @@ interface Props extends QMR.InputWrapperProps {
   name: string;
   readOnly?: boolean;
   defaultNumDenValue?: number;
+  allowMultiple?: boolean;
 }
 
 interface RateValue {
@@ -25,6 +31,7 @@ interface RateValue {
 export const Rate = ({
   rates,
   name,
+  allowMultiple = false,
   readOnly = true,
   defaultNumDenValue,
   ...rest
@@ -49,18 +56,39 @@ export const Rate = ({
     if (type === "rate" && readOnly) return;
 
     const prevRate = [...field.value];
-    const editRate = { ...prevRate[index] };
-    editRate[type] = newValue;
 
-    if (type === "rate" && !readOnly && prevRate[index]?.rate !== undefined) {
-      prevRate[index].rate = newValue;
+    const editRate = { ...prevRate[index] };
+    const validEditRate = eightNumbersOneDecimal.test(newValue);
+
+    editRate[type] = validEditRate ? newValue : editRate[type];
+
+    if (type === "rate" && !readOnly) {
+      prevRate[index] ??= {
+        numerator: "",
+        denominator: "",
+        rate: "",
+      };
+
+      const regex = allowMultiple
+        ? rateThatAllowsFourDecimals
+        : rateThatAllowsOneDecimal;
+
+      prevRate[index].rate =
+        regex.test(newValue) || newValue === ""
+          ? newValue
+          : prevRate[index].rate;
+
       field.onChange([...prevRate]);
       return;
     }
 
-    if (parseInt(editRate.denominator) && editRate.numerator) {
+    if (
+      parseInt(editRate.denominator) &&
+      editRate.numerator &&
+      parseFloat(editRate.numerator) <= parseFloat(editRate.denominator)
+    ) {
       editRate.rate = ((editRate.numerator / editRate.denominator) * 100)
-        .toFixed(4)
+        .toFixed(1)
         .toString();
     } else if (editRate.rate) {
       editRate.rate = "";
@@ -163,6 +191,14 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
             </CUI.HStack>
+            {field.value[index]?.numerator >
+              field.value[index]?.denominator && (
+              <QMR.Notification
+                alertTitle="Rate Error"
+                alertDescription="Numerator cannot be greater than Denominator"
+                alertStatus="warning"
+              />
+            )}
           </CUI.Stack>
         );
       })}

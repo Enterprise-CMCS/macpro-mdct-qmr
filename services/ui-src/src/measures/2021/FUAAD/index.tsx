@@ -95,7 +95,7 @@ export const FUAAD = ({
             />
           )}
           {/* Show Other Performance Measures when isHedis is not true and other is selected from one of two questions */}
-          {(isOtherSpecification || isOtherDataSource) && (
+          {isOtherSpecification && isOtherDataSource && (
             <Q.OtherPerformanceMeasure />
           )}
           <Q.CombinedRates />
