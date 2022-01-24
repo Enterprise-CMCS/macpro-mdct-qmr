@@ -8,7 +8,6 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
-import { useEffect } from "react";
 export interface IRate {
   label?: string;
   id: number;
@@ -18,14 +17,7 @@ interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
   name: string;
   readOnly?: boolean;
-  defaultNumDenValue?: number;
   allowMultiple?: boolean;
-}
-
-interface RateValue {
-  numerator?: string;
-  denominator?: string;
-  rate?: string;
 }
 
 export const Rate = ({
@@ -33,7 +25,6 @@ export const Rate = ({
   name,
   allowMultiple = false,
   readOnly = true,
-  defaultNumDenValue,
   ...rest
 }: Props) => {
   const {
@@ -97,36 +88,6 @@ export const Rate = ({
     prevRate[index] = editRate;
     field.onChange([...prevRate]);
   };
-
-  useEffect(() => {
-    const newValues: (RateValue | undefined)[] = [];
-    rates.forEach((item, index) => {
-      if (
-        !field.value[index]?.numerator &&
-        !field.value[index]?.denominator &&
-        defaultNumDenValue !== undefined
-      ) {
-        newValues[item.id] = {
-          numerator: `${defaultNumDenValue}`,
-          denominator: `${defaultNumDenValue}`,
-          rate: `${defaultNumDenValue}`,
-        };
-      } else if (
-        field.value[index]?.numerator ||
-        field.value[index]?.denominator
-      ) {
-        newValues.push({
-          numerator: field.value[index]?.numerator ?? "",
-          denominator: field.value[index]?.denominator ?? "",
-          rate: field.value[index]?.rate ?? "",
-        });
-      } else {
-        newValues.push(undefined);
-      }
-    });
-    field.onChange([...newValues]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultNumDenValue, rates]);
 
   return (
     <>

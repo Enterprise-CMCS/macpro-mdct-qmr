@@ -128,7 +128,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
-                      defaultNumDenValue={0}
                       name={`${name}.subRates.${item.id}.followUpWithin30Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin30Days`}
                       rates={[
@@ -146,7 +145,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
-                      defaultNumDenValue={0}
                       name={`${name}.subRates.${item.id}.followUpWithin7Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin7Days`}
                       rates={[
