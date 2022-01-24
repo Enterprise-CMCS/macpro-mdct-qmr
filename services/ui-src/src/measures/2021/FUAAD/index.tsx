@@ -26,7 +26,7 @@ export const FUAAD = ({
   }, [setMeasureSchema, setValidationFunctions]);
 
   const { coreSetId } = useParams();
-  const { watch } = useFormContext<Measure.Form>();
+  const { watch, getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
@@ -37,6 +37,9 @@ export const FUAAD = ({
   );
   const watchPerformanceMeasureAgeRates7Days = watch(
     "PerformanceMeasure-AgeRates-7Days"
+  );
+  const watchOtherPerformanceMeasureRates = watch(
+    "OtherPerformanceMeasure-Rates"
   );
 
   // Conditionals for Performance Measures
@@ -53,6 +56,7 @@ export const FUAAD = ({
   const show7DaysAges18To64 = !!watchPerformanceMeasureAgeRates7Days?.[0]?.rate;
   const show7DaysAges65AndOlder =
     !!watchPerformanceMeasureAgeRates7Days?.[1]?.rate;
+  const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
   const ageGroups = [];
@@ -63,6 +67,14 @@ export const FUAAD = ({
 
   if (show30DaysAges65AndOlder || show7DaysAges65AndOlder) {
     ageGroups.push({ label: "Ages 65 and older", id: 1 });
+  }
+  if (showOtherPerformanceMeasureRates) {
+    let otherRates = getValues("OtherPerformanceMeasure-Rates");
+    otherRates.forEach((rate) => {
+      if (rate.description) {
+        ageGroups.push({ label: rate.description, id: ageGroups.length });
+      }
+    });
   }
 
   return (
@@ -91,6 +103,7 @@ export const FUAAD = ({
                 show30DaysAges65AndOlder,
                 show7DaysAges18To64,
                 show7DaysAges65AndOlder,
+                showOtherPerformanceMeasureRates,
               }}
             />
           )}
@@ -110,6 +123,7 @@ export const FUAAD = ({
                 show30DaysAges65AndOlder,
                 show7DaysAges18To64,
                 show7DaysAges65AndOlder,
+                showOtherPerformanceMeasureRates,
               }}
             />
           )}
