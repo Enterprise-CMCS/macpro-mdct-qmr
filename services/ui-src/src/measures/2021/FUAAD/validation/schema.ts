@@ -3,9 +3,9 @@ import { Measure } from "../validation/types";
 
 const RateJoiValidator = Joi.array().items(
   Joi.object({
-    numerator: Joi.string(),
-    denominator: Joi.string(),
-    rate: Joi.string(),
+    numerator: Joi.string().empty(""),
+    denominator: Joi.string().empty(""),
+    rate: Joi.string().empty(""),
   })
 );
 
@@ -168,32 +168,8 @@ export const validationSchema = Joi.object<Measure.Form>({
     .sparse(),
   "DeviationOptions-Within30-AgeRange": Joi.array().items(Joi.string()),
   "PerformanceMeasure-Explanation": Joi.string(),
-  "PerformanceMeasure-AgeRates-30Days": Joi.array()
-    .items(
-      Joi.object({
-        options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
-        id: Joi.string(),
-        label: Joi.string(),
-        rate: Joi.string().label("Rate"),
-      })
-    )
-    .sparse(),
-  "PerformanceMeasure-AgeRates-7Days": Joi.array()
-    .items(
-      Joi.object({
-        options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
-        id: Joi.string(),
-        label: Joi.string(),
-        rate: Joi.string().label("Rate"),
-      })
-    )
-    .sparse(),
+  "PerformanceMeasure-AgeRates-30Days": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-7Days": RateJoiValidator,
   DateRange: Joi.object({
     endDate: Joi.object({
       selectedMonth: Joi.number().label("End Month"),

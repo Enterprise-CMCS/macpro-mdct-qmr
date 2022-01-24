@@ -45,13 +45,13 @@ export const Rate = ({ rates, name, readOnly = true, ...rest }: Props) => {
 
     editRate[type] = validEditRate ? newValue : editRate[type];
 
-    if (
-      type === "rate" &&
-      !readOnly &&
-      prevRate[index]?.numerator &&
-      prevRate[index]?.denominator
-    ) {
-      console.log({ prevRate });
+    if (type === "rate" && !readOnly) {
+      prevRate[index] ??= {
+        numerator: "",
+        denominator: "",
+        rate: "",
+      };
+
       prevRate[index].rate =
         rateThatAllowsDecimals.test(newValue) || newValue === ""
           ? newValue
