@@ -3,10 +3,12 @@ import { useController, useFormContext } from "react-hook-form";
 import {
   allNumbers,
   eightNumbersOneDecimal,
-  rateThatAllowsDecimals,
+  rateThatAllowsFourDecimals,
+  rateThatAllowsOneDecimal,
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
+
 export interface IRate {
   label?: string;
   id: number;
@@ -16,9 +18,16 @@ interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
   name: string;
   readOnly?: boolean;
+  allowMultiple?: boolean;
 }
 
-export const Rate = ({ rates, name, readOnly = true, ...rest }: Props) => {
+export const Rate = ({
+  rates,
+  name,
+  allowMultiple = false,
+  readOnly = true,
+  ...rest
+}: Props) => {
   const {
     control,
     formState: { errors },
@@ -52,10 +61,15 @@ export const Rate = ({ rates, name, readOnly = true, ...rest }: Props) => {
         rate: "",
       };
 
+      const regex = allowMultiple
+        ? rateThatAllowsFourDecimals
+        : rateThatAllowsOneDecimal;
+
       prevRate[index].rate =
-        rateThatAllowsDecimals.test(newValue) || newValue === ""
+        regex.test(newValue) || newValue === ""
           ? newValue
           : prevRate[index].rate;
+
       field.onChange([...prevRate]);
       return;
     }
