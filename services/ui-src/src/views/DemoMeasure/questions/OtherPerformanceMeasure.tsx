@@ -32,7 +32,7 @@ export const OtherPerformanceMeasure = () => {
                 Describe the Rate:
               </CUI.Heading>
               <QMR.TextInput
-                label="For example, specify the age groups and whether you are reporting on a certain indicator:"
+                label="For example, specify the age groups and whether you are reporting on a certian indicator:"
                 name={`OtherPerformanceMeasure-Rates.${item.id}.description`}
               />
               <QMR.Rate

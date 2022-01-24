@@ -14,7 +14,6 @@ interface Props {
     show30DaysAges65AndOlder: boolean;
     show7DaysAges18To64: boolean;
     show7DaysAges65AndOlder: boolean;
-    showOtherPerformanceMeasureRates: boolean;
   };
 }
 

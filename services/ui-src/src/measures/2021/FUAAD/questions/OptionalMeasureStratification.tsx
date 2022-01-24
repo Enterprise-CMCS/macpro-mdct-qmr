@@ -15,7 +15,6 @@ interface Props {
     show30DaysAges65AndOlder: boolean;
     show7DaysAges18To64: boolean;
     show7DaysAges65AndOlder: boolean;
-    showOtherPerformanceMeasureRates: boolean;
   };
 }
 
@@ -105,22 +104,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Heading>,
-              // Dynamically hide or show children based on if other performance measuresections were completed
-              ...(deviationConditions?.showOtherPerformanceMeasureRates
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
               // Dynamically hide or show children based on if performance measure 30days/age sections were completed
               ...((deviationConditions?.show30DaysAges18To64 &&
                 item.id === 0) ||
