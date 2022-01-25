@@ -502,16 +502,16 @@ export const OptionalMeasureStratification = ({
                                   {...register("EthnicitySubCategories")}
                                   options={[
                                     ...IndependentEthnicityOptions.map(
-                                      (value) => {
+                                      (value, index) => {
                                         return {
                                           value: value.replace(/,| |\//g, ""),
                                           displayValue: value,
-                                          // children: [
-                                          //   <AgeData
-                                          //     name={`IndependentHispanicRates.${index}`}
-                                          //     key={`IndependentHispanicRates.${index}`}
-                                          //   />,
-                                          // ],
+                                          children: [
+                                            <AgeData
+                                              name={`IndependentHispanicRates.${index}`}
+                                              key={`IndependentHispanicRates.${index}`}
+                                            />,
+                                          ],
                                         };
                                       }
                                     ),

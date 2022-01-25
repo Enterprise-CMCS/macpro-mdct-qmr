@@ -31,7 +31,6 @@ export const FUAAD = ({
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
   const watchMeasureSpecification = watch("MeasurementSpecification");
-  const watchDataSourceAdmin = watch("DataSource") ?? [];
   const watchPerformanceMeasureAgeRates30Days = watch(
     "PerformanceMeasure-AgeRates-30Days"
   );
@@ -43,8 +42,6 @@ export const FUAAD = ({
   );
 
   // Conditionals for Performance Measures
-  const isOtherDataSource =
-    watchDataSourceAdmin?.indexOf("Other Data Source") !== -1;
   const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
 
   const isOtherSpecification = watchMeasureSpecification === "Other";
@@ -107,10 +104,8 @@ export const FUAAD = ({
               }}
             />
           )}
-          {/* Show Other Performance Measures when isHedis is not true and other is selected from one of two questions */}
-          {isOtherSpecification && isOtherDataSource && (
-            <Q.OtherPerformanceMeasure />
-          )}
+          {/* Show Other Performance Measures when isHedis is not true  */}
+          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
           <Q.CombinedRates />
           {(show30DaysAges18To64 ||
             show30DaysAges65AndOlder ||
