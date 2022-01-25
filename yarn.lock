@@ -1013,7 +1013,7 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
-"@cypress/browserify-preprocessor@^3.0.2":
+"@cypress/browserify-preprocessor@^3.0.1", "@cypress/browserify-preprocessor@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@cypress/browserify-preprocessor/-/browserify-preprocessor-3.0.2.tgz#1dbecae394937aed47a3524cad47086c2ded8c50"
   integrity sha512-y6mlFR+IR2cqcm3HabSp7AEcX9QfF1EUL4eOaw/7xexdhmdQU8ez6piyRopZQob4BK8oKTsc9PkupsU2rzjqMA==
@@ -4470,8 +4470,18 @@ cypress-file-upload@^5.0.8:
   resolved "https://registry.yarnpkg.com/cypress-file-upload/-/cypress-file-upload-5.0.8.tgz#d8824cbeaab798e44be8009769f9a6c9daa1b4a1"
   integrity sha512-+8VzNabRk3zG6x8f8BWArF/xA/W0VK4IZNx3MV0jFWrJS/qKn8eHfa5nU73P9fOQAgwHFJx7zjg4lwOnljMO8g==
 
+cypress-tags@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/cypress-tags/-/cypress-tags-0.3.0.tgz#ac1f5f6f442e29394a508287ecf9e351a6085b3d"
+  integrity sha512-bvrVl91Vn0ynpU32t5JEr+FulBC1vKIPiYfMeIR6mREyHuqc0bP/XLzk//JBXcluSMDE69eaMTn16ogA0mtsUQ==
+  dependencies:
+    "@cypress/browserify-preprocessor" "^3.0.1"
+    through "^2.3.8"
+
 "cypress-tests@file:tests/cypress":
   version "1.0.0"
+  dependencies:
+    cypress-tags "^0.3.0"
 
 cypress@^8.4.0:
   version "8.7.0"
