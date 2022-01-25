@@ -10,11 +10,7 @@ interface Props {
   reportingYear: string;
 }
 
-export const Reporting = ({
-  measureName,
-  reportingYear,
-  measureAbbreviation,
-}: Props) => {
+export const Reporting = ({ reportingYear }: Props) => {
   const register = useCustomRegister<Measure.Form>();
   const { watch } = useFormContext<Measure.Form>();
   const watchRadioStatus = watch("DidReport");
@@ -26,12 +22,12 @@ export const Reporting = ({
           {...register("DidReport")}
           options={[
             {
-              displayValue: `Yes, I am reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
-              value: "Yes, I am reporting",
+              displayValue: `Yes, we did collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid) (CPA-AD) for ${reportingYear} quality measure reporting.`,
+              value: "Yes, we did collect",
             },
             {
-              displayValue: `No, I am not reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
-              value: "No, I am not reporting",
+              displayValue: `No, we did not collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid) (CPA-AD) for ${reportingYear} quality measure reporting.`,
+              value: "No, we did not collect",
             },
           ]}
         />
