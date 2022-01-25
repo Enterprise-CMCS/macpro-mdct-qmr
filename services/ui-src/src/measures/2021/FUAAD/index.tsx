@@ -1,7 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
-import { Params } from "Routes";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
@@ -25,13 +24,13 @@ export const FUAAD = ({
     }
   }, [setMeasureSchema, setValidationFunctions]);
 
-  const { coreSetId } = useParams<Params>();
+  const { coreSetId } = useParams();
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
   const watchMeasureSpecification = watch("MeasurementSpecification");
-  const watchDataSourceAdmin = watch("DataSource");
+  const watchDataSourceAdmin = watch("DataSource") ?? [];
   const watchPerformanceMeasureAgeRates30Days = watch(
     "PerformanceMeasure-AgeRates-30Days"
   );
@@ -82,7 +81,7 @@ export const FUAAD = ({
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
-          {!isOtherSpecification && (
+          {isHEDIS && (
             <Q.DeviationFromMeasureSpec
               options={ageGroups}
               deviationConditions={{
@@ -94,7 +93,7 @@ export const FUAAD = ({
             />
           )}
           {/* Show Other Performance Measures when isHedis is not true and other is selected from one of two questions */}
-          {!isHEDIS && (isOtherSpecification || isOtherDataSource) && (
+          {(isOtherSpecification || isOtherDataSource) && (
             <Q.OtherPerformanceMeasure />
           )}
           <Q.CombinedRates />

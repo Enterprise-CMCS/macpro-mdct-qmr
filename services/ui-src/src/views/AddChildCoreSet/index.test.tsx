@@ -3,18 +3,13 @@ import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { AddChildCoreSet } from ".";
 import { QueryClient, QueryClientProvider } from "react-query";
-const queryClient = new QueryClient();
+import { useApiMock } from "utils/testUtils/useApiMock";
 
-jest.mock("hooks/api", () => ({
-  useAddCoreSet: jest.fn().mockReturnValue({
-    useMutation: () => {
-      mutate: () => {};
-    },
-  }),
-}));
+const queryClient = new QueryClient();
 
 describe("Test Add Child Core Set Component", () => {
   beforeEach(() => {
+    useApiMock({});
     render(
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>
