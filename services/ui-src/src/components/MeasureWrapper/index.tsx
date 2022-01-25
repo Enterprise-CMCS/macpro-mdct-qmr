@@ -28,6 +28,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const resolver = joiResolver(measureSchema);
   const { isStateUser } = useUser();
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [lastSavedText, setLastSavedText] = useState(
     "Awaiting Save Status Retrieval"
   );
@@ -67,6 +68,11 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     methods.reset(apiData?.Item?.data);
   }, [apiData, methods]);
 
+  const handleValidation = (data: any) => {
+    handleSave(data);
+    validateAndSetErrors(data);
+  };
+
   const handleSave = (data: any) => {
     if (!mutationRunning && !loadingData) {
       setLastSavedText("Awaiting Changed Save Status");
@@ -86,8 +92,36 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   };
 
   const handleSubmit = (data: any) => {
-    console.log("submitted");
-    console.log(validationFunctions);
+    const validatedErrors = validateAndSetErrors(data);
+
+    if (validatedErrors) {
+      setShowModal(true);
+    } else {
+      submitDataToServer(data);
+      console.log("submitted");
+    }
+    console.log({ errors });
+    console.log({ data });
+  };
+
+  const submitDataToServer = (data: any) => {
+    if (!mutationRunning && !loadingData) {
+      setLastSavedText("Awaiting Changed Save Status");
+      updateMeasure(
+        { data, status: MeasureStatus.COMPLETE },
+        {
+          onSettled: (data, error) => {
+            if (data && !error) refetch();
+
+            //TODO: some form of error showcasing should display here
+            if (error) setLastSavedText("Failed To Submit Form Information");
+          },
+        }
+      );
+    }
+  };
+
+  const validateAndSetErrors = (data: any): boolean => {
     const validationErrors = validationFunctions.reduce(
       (acc: any, current: any) => {
         const error = current(data);
@@ -105,23 +139,17 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     );
 
     setErrors(validationErrors.length > 0 ? validationErrors : undefined);
+    return validationErrors.length > 0;
+  };
 
-    if (!mutationRunning && !loadingData && !errors) {
-      setLastSavedText("Awaiting Changed Save Status");
-      updateMeasure(
-        { data, status: MeasureStatus.COMPLETE },
-        {
-          onSettled: (data, error) => {
-            if (data && !error) refetch();
+  const handleValidationModalResponse = (continueWithErrors: boolean) => {
+    setShowModal(false);
 
-            //TODO: some form of error showcasing should display here
-            if (error) setLastSavedText("Failed To Submit Form Information");
-          },
-        }
-      );
+    if (continueWithErrors) {
+      submitDataToServer(methods.getValues());
+      setErrors(undefined);
+      console.log("Submitted");
     }
-    console.log({ errors });
-    console.log({ data });
   };
 
   // interval for updating the last saved text
@@ -157,6 +185,12 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   return (
     <FormProvider {...methods}>
+      <QMR.YesNoModalDialog
+        isOpen={showModal}
+        headerText="Validation Error"
+        handleModalResponse={handleValidationModalResponse}
+        bodyText="There are still errors on this measure, would you still like to complete?"
+      ></QMR.YesNoModalDialog>
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
@@ -174,7 +208,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           //TODO: this needs some form of loading state for these buttons using mutationRunning
           <QMR.MeasureButtons
             handleSave={methods.handleSubmit(handleSave)}
-            handleSubmit={methods.handleSubmit(handleSubmit)}
             lastSavedText={lastSavedText}
           />
         }
@@ -206,6 +239,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   name,
                   year,
                   handleSubmit: methods.handleSubmit(handleSubmit),
+                  handleValidation: methods.handleSubmit(handleValidation),
                   setMeasureSchema,
                   setValidationFunctions,
                   //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms

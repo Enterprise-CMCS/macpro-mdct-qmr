@@ -18,10 +18,6 @@ export const DemoMeasure = () => {
     console.log("saved");
   };
 
-  const handleSubmit = () => {
-    console.log("submitted");
-  };
-
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -32,7 +28,6 @@ export const DemoMeasure = () => {
       buttons={
         <QMR.MeasureButtons
           handleSave={handleSave}
-          handleSubmit={handleSubmit}
           lastSavedText="Saved Moments Ago"
         />
       }
