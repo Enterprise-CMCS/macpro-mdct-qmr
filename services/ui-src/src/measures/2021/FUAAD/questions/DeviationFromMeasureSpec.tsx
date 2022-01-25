@@ -106,7 +106,7 @@ export const DeviationFromMeasureSpec = ({
         {...register("DidCalculationsDeviate")}
         formLabelProps={{ fontWeight: 600 }}
         label="Did your calculation of the measure deviate from the measure specification in any way?"
-        helperText="For Examples of deviation from measure specification might include different methodology, timeframe, or reported age groups."
+        helperText="For example: deviation from measure specification might include different methodology, timeframe, or reported age groups."
         options={[
           {
             displayValue:
