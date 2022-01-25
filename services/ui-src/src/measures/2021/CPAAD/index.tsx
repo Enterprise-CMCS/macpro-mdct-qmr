@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationSchema } from "./validation/schema";
-import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const CPAAD = ({
   name,
@@ -14,22 +13,18 @@ export const CPAAD = ({
   handleSubmit,
   handleValidation,
   setMeasureSchema,
-  setValidationFunctions,
 }: Measure.Props) => {
   useEffect(() => {
     if (setMeasureSchema) {
       setMeasureSchema(validationSchema);
     }
-    if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
-    }
-  }, [setMeasureSchema, setValidationFunctions]);
+  }, [setMeasureSchema]);
 
   const { coreSetId } = useParams();
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
-  const watchReportingRadio = watch("DidReport");
+  const watchReportingRadio = watch("DidCollect");
 
   return (
     <>
@@ -41,7 +36,7 @@ export const CPAAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
+          <Q.HowDidYouReport />
           <Q.MeasurementSpecification />
           <Q.DataSource />
           <Q.DefinitionOfPopulation />

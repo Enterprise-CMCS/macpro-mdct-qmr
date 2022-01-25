@@ -2,12 +2,12 @@ import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 
-export const WhyAreYouNotReporting = () => {
+export const WhyDidYouNotCollect = () => {
   const register = useCustomRegister<Measure.Form>();
   return (
-    <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
+    <QMR.CoreQuestionWrapper label="Why did you not collect this measure">
       <QMR.Checkbox
-        {...register("WhyAreYouNotReporting")}
+        {...register("WhyDidYouNotCollect")}
         helperText="Select all that apply:"
         renderHelperTextAbove
         options={[
@@ -170,7 +170,7 @@ export const WhyAreYouNotReporting = () => {
             children: [
               <QMR.TextArea
                 label="Explain:"
-                {...register("WhyAreYouNotReporting-Other")}
+                {...register("WhyDidYouNotCollect-Other")}
               />,
             ],
           },
