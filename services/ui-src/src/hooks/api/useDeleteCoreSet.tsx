@@ -8,8 +8,8 @@ interface DeleteCoreSet {
   coreSet: CoreSetAbbr;
 }
 
-const deleteCoreSet = ({ state, year, coreSet }: DeleteCoreSet) => {
-  return Api.deleteCoreSet({
+const deleteCoreSet = async ({ state, year, coreSet }: DeleteCoreSet) => {
+  return await Api.deleteCoreSet({
     state,
     year,
     coreSet,

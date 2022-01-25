@@ -1,9 +1,12 @@
+import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useParams } from "react-router-dom";
-import { Params } from "Routes";
 import { Link } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
+import { useGetMeasure, useGetMeasures } from "hooks/api";
+import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
+import { HiCheckCircle } from "react-icons/hi";
 
 enum coreSetType {
   ACS = "Adult",
@@ -29,95 +32,101 @@ enum coreSetQuestionsText {
   HHCS = "Health Homes Core Set Questions: User generated SPA name",
 }
 
-export const CoreSet = () => {
-  const { state, year, coreSetId } = useParams<Params>();
+interface MeasureTableItem {
+  Type: coreSetType;
+  title: string;
+  abbr: string;
+  path: string;
+  isReporting: boolean;
+  // I believe this part of the table is being removed in another ticket
+  rateComplete: number;
+  lastDateModified: number;
+  id: string;
+  actions: { itemText: string; handleSelect: () => void }[];
+}
 
-  // This is where a fetch for the measures would live and calculate progress completed
-  const measures = [
-    {
-      Type: "Adult",
-      title:
-        "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
-      abbr: "FUA-AD",
-      path: `/${state}/${year}/${coreSetId}/FUA-AD`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "FUA-AD",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-    {
-      Type: "Adult",
-      title: "National Core Indicators Survey",
-      abbr: "NCIDDS-AD",
-      path: `/${state}/${year}/${coreSetId}/NCIDDS-AD`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "NCIDDS-AD",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-    {
-      Type: "Child",
-      title: "Percentage of Eligibles Who Received Preventive Dental Services",
-      abbr: "PDENT-CH",
-      path: `/${state}/${year}/${coreSetId}/PDENT-CH`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "PDENT-CH",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-    {
-      Type: "Child",
-      title: "Live Births Weighing Less Than 2,500 Grams",
-      abbr: "LBW-CH",
-      path: `/${state}/${year}/${coreSetId}/LBW-CH`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "LBW-CH",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-    {
-      Type: "Child",
-      title: "Low-Risk Cesarean Delivery",
-      abbr: "LRCD-CH",
-      path: `/${state}/${year}/${coreSetId}/LRCD-CH`,
-      isReporting: false,
-      rateComplete: 0,
-      lastDateModified: "",
-      id: "LRCD-CH",
-      actions: [
-        {
-          itemText: "Edit",
-          handleSelect: () => console.log("Edit"),
-        },
-      ],
-    },
-  ];
+const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
+  if (isComplete) {
+    return (
+      <CUI.Flex alignItems="center">
+        <CUI.Box pr="1" pt="2px" color="green.500">
+          <HiCheckCircle />
+        </CUI.Box>
+        <CUI.Text>Complete</CUI.Text>
+      </CUI.Flex>
+    );
+  }
+  return <CUI.Text>Incomplete</CUI.Text>;
+};
+
+const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
+  // get the core set qualifier measure for the coreset and display the status
+  const { data, isLoading } = useGetMeasure({
+    coreSet: coreSetId,
+    measure: "CSQ",
+  });
+
+  const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
+  return (
+    <CUI.Box fontWeight="semibold" fontSize="sm">
+      <CUI.Text>Core Set Qualifiers</CUI.Text>
+      <Link to={"CSQ"}>
+        <CUI.Text color="blue">
+          {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
+        </CUI.Text>
+      </Link>
+
+      {isLoading ? (
+        <CUI.SkeletonText maxW={48} noOfLines={1} mt="1" />
+      ) : (
+        <QualifierStatus isComplete={isComplete} />
+      )}
+    </CUI.Box>
+  );
+};
+
+/**
+ * Create an array of the measure data to be usable by the table component from db pull
+ */
+const useMeasureTableDataBuilder = () => {
+  const { state, year, coreSetId } = useParams();
+  const { data, isLoading, isError, error } = useGetMeasures();
+  const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
+  useEffect(() => {
+    if (!isLoading && !isError && data && data.Items) {
+      const measureTableData = (data.Items as MeasureData[]).map((item) => {
+        return {
+          Type: coreSetType[item.coreSet],
+          title: item.description,
+          abbr: item.measure,
+          path: `/${state}/${year}/${coreSetId}/${item.measure}`,
+          isReporting: !!item.reporting,
+          // I believe this part of the table is being removed in another ticket
+          rateComplete: item.status === MeasureStatus.COMPLETE ? 1 : 0,
+          lastDateModified: item.lastAltered,
+          id: item.measure,
+          actions: [
+            {
+              itemText: "Edit",
+              handleSelect: () => console.log("Edit " + item.measure),
+            },
+          ],
+        };
+      });
+      measureTableData.sort((a, b) => a.abbr.localeCompare(b.abbr));
+      setMeasures(measureTableData);
+    }
+  }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
+
+  return { measures, isLoading, isError, error };
+};
+
+export const CoreSet = () => {
+  const { state, year, coreSetId } = useParams();
 
   const { isStateUser } = useUser();
+
+  const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
 
   return (
     <QMR.StateLayout
@@ -137,31 +146,19 @@ export const CoreSet = () => {
           flex="8"
           borderRadius="8"
           backgroundColor="gray.100"
-          p="4"
+          px="4"
+          py="2"
         >
-          <CUI.Box>
-            <CUI.Text fontSize="sm">Core Set Qualifiers</CUI.Text>
-            <Link to={"questions"}>
-              <CUI.Text fontSize="sm" color="blue">
-                {
-                  coreSetQuestionsText[
-                    coreSetId as keyof typeof coreSetQuestionsText
-                  ]
-                }
-              </CUI.Text>
-            </Link>
-          </CUI.Box>
+          <QualifiersStatusAndLink coreSetId={coreSetId as CoreSetAbbr} />
 
           <CUI.HStack>
-            <CUI.Box pr="10">
-              <CUI.Text fontSize="sm">
-                {`${
-                  coreSetType[coreSetId as keyof typeof coreSetType]
-                } Measures`}
-              </CUI.Text>
-              <CUI.Text fontSize="sm" fontWeight="600">
-                16% Complete
-              </CUI.Text>
+            <CUI.Box
+              textAlign="center"
+              mr="2"
+              fontWeight="semibold"
+              fontSize="sm"
+            >
+              <CUI.Text>Total Measures Completed</CUI.Text>
             </CUI.Box>
             <QMR.ProgressCircle
               circularProgressProps={{ color: "green", size: "4.5rem" }}
@@ -177,7 +174,7 @@ export const CoreSet = () => {
             buttonProps={{
               colorScheme: "blue",
             }}
-            buttonText="Submit Measures"
+            buttonText="Submit Core Set"
             disabledStatus={!isStateUser}
             helperText={`Complete all ${
               coreSetType[coreSetId as keyof typeof coreSetType]
@@ -191,8 +188,19 @@ export const CoreSet = () => {
           />
         </CUI.Box>
       </CUI.Flex>
-      <CUI.Box mt="15" maxH="md" overflowY="auto">
-        <QMR.Table data={measures} columns={QMR.measuresColumns} />
+      <CUI.Box mt="4">
+        <CUI.Skeleton noOfLines={7} isLoaded={!isLoading}>
+          {!isError && (
+            <QMR.Table data={measures} columns={QMR.measuresColumns} />
+          )}
+          {isError && (
+            <QMR.Notification
+              alertStatus="error"
+              alertTitle="Error In Measure Retrieval"
+              alertDescription={(error as Error)?.message}
+            />
+          )}
+        </CUI.Skeleton>
       </CUI.Box>
     </QMR.StateLayout>
   );

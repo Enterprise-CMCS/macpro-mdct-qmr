@@ -1,9 +1,7 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
-
 import config from "config";
-import { getLocalUserInfo, logoutLocalUser } from "libs";
 
 import { UserContext, UserContextInterface } from "./userContext";
 import { UserRoles } from "types";
@@ -33,14 +31,13 @@ const authenticateWithIDM = () => {
 export const UserProvider = ({ children }: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isIntegrationBranch = window.location.origin.includes("cms.gov");
+  const isProduction = window.location.origin.includes("mdctqmr.cms.gov");
 
   const [user, setUser] = useState<any>(null);
   const [showLocalLogins, setShowLocalLogins] = useState(false);
 
   const logout = useCallback(async () => {
     try {
-      logoutLocalUser();
       setUser(null);
       await Auth.signOut();
     } catch (error) {
@@ -54,22 +51,24 @@ export const UserProvider = ({ children }: Props) => {
       const authenticatedUser = await Auth.currentAuthenticatedUser();
       setUser(authenticatedUser);
     } catch (e) {
-      if (isIntegrationBranch) {
+      if (isProduction) {
         authenticateWithIDM();
       } else {
-        const localUser = getLocalUserInfo();
-        if (localUser) {
-          setUser(localUser);
-        } else {
-          setShowLocalLogins(true);
-        }
+        setShowLocalLogins(true);
       }
     }
-  }, [isIntegrationBranch]);
+  }, [isProduction]);
 
-  const isStateUser =
-    user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"] ===
-    UserRoles.STATE;
+  // "custom:cms_roles" is an string of concat roles so we need to check for the one applicable to qmr
+  const userRole = (
+    user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"] as
+      | string
+      | undefined
+  )
+    ?.split(",")
+    .find((r) => r.includes("mdctqmr"));
+
+  const isStateUser = userRole === UserRoles.STATE;
 
   const userState =
     user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
@@ -105,8 +104,9 @@ export const UserProvider = ({ children }: Props) => {
       loginWithIDM: authenticateWithIDM,
       isStateUser,
       userState,
+      userRole,
     }),
-    [user, logout, showLocalLogins, isStateUser, userState]
+    [user, logout, showLocalLogins, isStateUser, userState, userRole]
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

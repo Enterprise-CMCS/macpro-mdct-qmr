@@ -3,15 +3,22 @@ import { Measure } from "./types";
 
 const RateJoiValidator = Joi.array().items(
   Joi.object({
-    numerator: Joi.string(),
-    denominator: Joi.string(),
-    rate: Joi.string(),
+    numerator: Joi.string().empty(""),
+    denominator: Joi.string().empty(""),
+    rate: Joi.string().empty(""),
   })
 );
 
 const OptionalMeasureStratificationRateJoi = Joi.object({
   ageData: Joi.array().items(Joi.string()),
-  subRates: Joi.array().items(RateJoiValidator),
+  subRates: Joi.array()
+    .items(
+      Joi.object({
+        followUpWithin30Days: RateJoiValidator,
+        followUpWithin7Days: RateJoiValidator,
+      })
+    )
+    .sparse(),
   total: RateJoiValidator,
 });
 
@@ -49,7 +56,6 @@ const startDateRangeValidator = (endDateRangeLabel: string) => {
           .max(Joi.ref(`...${endDateRangeLabel}.selectedYear`))
           .message("Start Year cannot be after End Year."),
       })
-
       .label("Start Year"),
   });
 };
@@ -152,6 +158,8 @@ export const validationSchema = Joi.object<Measure.Form>({
   //DeviationFromMeasureSpec
   DidCalculationsDeviate: Joi.string(),
   DeviationOptions: Joi.array().items(Joi.string()),
+  FollowUpWithin30: Joi.string(),
+  FollowUpWithin7: Joi.string(),
   "DeviationOptions-Within7-AgeRange": Joi.array().items(Joi.string()),
   "DeviationFields-Within7": Joi.array()
     .items(
@@ -179,12 +187,12 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
         id: Joi.string(),
         label: Joi.string(),
-        rate: Joi.string(),
+        rate: Joi.string().empty(""),
       })
     )
     .sparse(),
@@ -192,12 +200,12 @@ export const validationSchema = Joi.object<Measure.Form>({
     .items(
       Joi.object({
         options: Joi.array().items(Joi.string()),
-        numerator: Joi.string().label("Numerator"),
-        denominator: Joi.string().label("Denominator"),
-        other: Joi.string().label("Other"),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
         id: Joi.string(),
         label: Joi.string(),
-        rate: Joi.string(),
+        rate: Joi.string().empty(""),
       })
     )
     .sparse(),
@@ -215,7 +223,7 @@ export const validationSchema = Joi.object<Measure.Form>({
   AddtnlEthnicity: Joi.array().items(Joi.string()),
   AddtnlEthnicityRates: Joi.array().items(OptionalMeasureStratificationRateJoi),
 
-  AddtnlNonHispanicRace: Joi.array().items(Joi.string()),
+  AddtnlNonHispanicRace: Joi.array().items(Joi.string()).sparse(),
   AddtnlNonHispanicRaceAggregation: Joi.array().items(Joi.string()),
   AddtnlNonHispanicRaceRates: Joi.array().items(
     OptionalMeasureStratificationRateJoi

@@ -4,16 +4,9 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 
 export const deleteCoreSet = handler(async (event, context) => {
-  if (!event.pathParameters) return; // throw error message
-  if (
-    !event.pathParameters.state ||
-    !event.pathParameters.year ||
-    !event.pathParameters.coreSet
-  )
-    return; // throw error message
-  const state = event.pathParameters.state;
-  const year = parseInt(event.pathParameters.year);
-  const coreSet = event.pathParameters.coreSet;
+  const state = event!.pathParameters!.state!;
+  const year = parseInt(event!.pathParameters!.year!);
+  const coreSet = event!.pathParameters!.coreSet!;
 
   const dynamoKey = createCompoundKey(event);
   const params = {
