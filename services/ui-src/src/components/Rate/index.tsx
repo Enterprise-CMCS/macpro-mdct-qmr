@@ -5,6 +5,7 @@ import {
   eightNumbersOneDecimal,
   rateThatAllowsFourDecimals,
   rateThatAllowsOneDecimal,
+  allPositiveIntegersWith8Digits,
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
@@ -52,7 +53,12 @@ export const Rate = ({
     const editRate = { ...prevRate[index] };
     const validEditRate = eightNumbersOneDecimal.test(newValue);
 
-    editRate[type] = validEditRate ? newValue : editRate[type];
+    if (
+      (type === "numerator" || type === "denominator") &&
+      allPositiveIntegersWith8Digits.test(newValue)
+    ) {
+      editRate[type] = validEditRate ? newValue : editRate[type];
+    }
 
     if (type === "rate" && !readOnly) {
       prevRate[index] ??= {
