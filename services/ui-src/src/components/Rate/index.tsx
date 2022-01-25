@@ -8,6 +8,7 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
+
 export interface IRate {
   label?: string;
   id: number;
@@ -152,11 +153,11 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
             </CUI.HStack>
-            {field.value[index]?.numerator >
-              field.value[index]?.denominator && (
+            {parseFloat(field.value[index]?.numerator) >
+              parseFloat(field.value[index]?.denominator) && (
               <QMR.Notification
                 alertTitle="Rate Error"
-                alertDescription="Numerator cannot be greater than Denominator"
+                alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
                 alertStatus="warning"
               />
             )}
