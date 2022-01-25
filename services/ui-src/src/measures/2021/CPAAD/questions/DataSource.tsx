@@ -5,17 +5,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 
 export const DataSource = () => {
-  // const methods = useFormContext<Measure.Form>();
   const register = useCustomRegister<Measure.Form>();
-  // const { watch } = methods;
-  // // Watch Checkboxes for DataSource Choices
-  // const watchOtherDataSource = watch("DataSource") ?? [];
-  // const watchAdminDataSource = watch("DataSource-Administrative") ?? [];
-  // // Return True or False based on if Other is selected or not
-  // const isOtherDataSource =
-  //   watchOtherDataSource?.indexOf("Other Data Source") !== -1;
-  // const isOtherAdminDataSource =
-  //   watchAdminDataSource?.indexOf("Administrative Data Other") !== -1;
 
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
