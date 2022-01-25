@@ -88,7 +88,7 @@ const AgeData = ({ name }: SubComponentProps) => {
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
     dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data"
+      (source) => source === "I am reporting provisional data."
     ) ?? true;
 
   return (
