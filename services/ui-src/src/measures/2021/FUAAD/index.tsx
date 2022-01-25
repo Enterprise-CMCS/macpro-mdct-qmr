@@ -115,7 +115,8 @@ export const FUAAD = ({
           {(show30DaysAges18To64 ||
             show30DaysAges65AndOlder ||
             show7DaysAges18To64 ||
-            show7DaysAges65AndOlder) && (
+            show7DaysAges65AndOlder ||
+            showOtherPerformanceMeasureRates) && (
             <Q.OptionalMeasureStratification
               ageGroups={ageGroups}
               deviationConditions={{
