@@ -58,7 +58,7 @@ const deviationOptions = ({
               value: `${item.id}.Numerator`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
+                  label="Explain:"
                   name={`${name}.${item.id}.numerator`}
                   key={`${name}.${item.id}.numerator`}
                 />,
@@ -69,7 +69,7 @@ const deviationOptions = ({
               value: `${item.id}.Denominator`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
+                  label="Explain:"
                   name={`${name}.${item.id}.denominator`}
                   key={`${name}.${item.id}.denominator`}
                 />,
@@ -80,7 +80,7 @@ const deviationOptions = ({
               value: `${item.id}.Other`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
+                  label="Explain:"
                   name={`${name}.${item.id}.other`}
                   key={`${name}.${item.id}.other`}
                 />,
