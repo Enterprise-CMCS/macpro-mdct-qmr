@@ -15,6 +15,7 @@ interface Props {
     show30DaysAges65AndOlder: boolean;
     show7DaysAges18To64: boolean;
     show7DaysAges65AndOlder: boolean;
+    showOtherPerformanceMeasureRates: boolean;
   };
 }
 
@@ -104,6 +105,22 @@ const AgeData = ({ name }: SubComponentProps) => {
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Heading>,
+              // Dynamically hide or show children based on if other performance measuresections were completed
+              ...(deviationConditions?.showOtherPerformanceMeasureRates
+                ? [
+                    <QMR.Rate
+                      readOnly={rateReadOnly}
+                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
+                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
+                      rates={[
+                        {
+                          id: 0,
+                          label: "",
+                        },
+                      ]}
+                    />,
+                  ]
+                : []),
               // Dynamically hide or show children based on if performance measure 30days/age sections were completed
               ...((deviationConditions?.show30DaysAges18To64 &&
                 item.id === 0) ||
@@ -294,12 +311,12 @@ export const OptionalMeasureStratification = ({
                         <QMR.RadioButton
                           {...register("AsianIndependentReporting")}
                           renderHelperTextAbove
-                          helperText="Are you only reporting aggregrated data for all Asian categories?"
+                          helperText="Are you only reporting aggregated data for all Asian categories?"
                           options={[
                             {
                               value: "YesAggregate",
                               displayValue:
-                                "Yes, we are only reporting aggregrated data for all Asian categories.",
+                                "Yes, we are only reporting aggregated data for all Asian categories.",
                               children: [
                                 <AgeData
                                   {...register("NHRC-AggregateAsianRates")}
@@ -341,12 +358,12 @@ export const OptionalMeasureStratification = ({
                         <QMR.RadioButton
                           {...register("NativeHawaiianIndependentReporting")}
                           renderHelperTextAbove
-                          helperText="Are you only reporting aggregrated data for all Native Hawaiian or Other Pacific Islander categories?"
+                          helperText="Are you only reporting aggregated data for all Native Hawaiian or Other Pacific Islander categories?"
                           options={[
                             {
                               value: "YesAggregate",
                               displayValue:
-                                "Yes, we are only reporting aggregrated data for all Native Hawaiian or Other Pacific Islander categories?",
+                                "Yes, we are only reporting aggregated data for all Native Hawaiian or Other Pacific Islander categories?",
                               children: [
                                 <AgeData
                                   {...register(
@@ -400,12 +417,12 @@ export const OptionalMeasureStratification = ({
                             <QMR.RadioButton
                               name={`AddtnlNonHispanicRaceAggregation.${index}`}
                               key={`AddtnlNonHispanicRaceAggregation.${index}`}
-                              label="Are you only reporting aggregrated data for all additional race categories?"
+                              label="Are you only reporting aggregated data for all additional race categories?"
                               options={[
                                 {
                                   value: `YesAggregateAddttnlNHR-i${index}`,
                                   displayValue:
-                                    "Yes, we are only reporting aggregrated data for all additional race categories.",
+                                    "Yes, we are only reporting aggregated data for all additional race categories.",
                                   children: [
                                     <AgeData
                                       name={`AddtnlNonHispanicRaceRates.${index}`}
@@ -462,12 +479,12 @@ export const OptionalMeasureStratification = ({
                         <QMR.RadioButton
                           {...register("HispanicIndependentReporting")}
                           renderHelperTextAbove
-                          helperText="Are you only reporting aggregrated data for all Hispanic, Latino/a, or Spanish origin categories?"
+                          helperText="Are you only reporting aggregated data for all Hispanic, Latino/a, or Spanish origin categories?"
                           options={[
                             {
                               value: "YesHispanicAggregate",
                               displayValue:
-                                "Yes, we are only reporting aggregrated data for all Hispanic, Latino/a, or Spanish origin categories.",
+                                "Yes, we are only reporting aggregated data for all Hispanic, Latino/a, or Spanish origin categories.",
                               children: [
                                 <AgeData
                                   {...register(
@@ -482,19 +499,19 @@ export const OptionalMeasureStratification = ({
                                 "No, we are reporting independent data for all Hispanic, Latino/a, or Spanish origin categories.",
                               children: [
                                 <QMR.Checkbox
-                                  {...register("EthnicityCategories")}
+                                  {...register("EthnicitySubCategories")}
                                   options={[
                                     ...IndependentEthnicityOptions.map(
-                                      (value, index) => {
+                                      (value) => {
                                         return {
                                           value: value.replace(/,| |\//g, ""),
                                           displayValue: value,
-                                          children: [
-                                            <AgeData
-                                              name={`IndependentHispanicRates.${index}`}
-                                              key={`IndependentHispanicRates.${index}`}
-                                            />,
-                                          ],
+                                          // children: [
+                                          //   <AgeData
+                                          //     name={`IndependentHispanicRates.${index}`}
+                                          //     key={`IndependentHispanicRates.${index}`}
+                                          //   />,
+                                          // ],
                                         };
                                       }
                                     ),

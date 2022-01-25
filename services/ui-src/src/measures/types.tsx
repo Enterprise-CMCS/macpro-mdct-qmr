@@ -8,7 +8,8 @@ export namespace Measure {
   export interface Props {
     name: string;
     year: string;
-    handleSubmit: any;
+    handleSubmit?: any;
+    handleValidation?: any;
     setMeasureSchema?: React.Dispatch<
       React.SetStateAction<Joi.ObjectSchema<any>>
     >;
@@ -189,6 +190,7 @@ export namespace Measure {
     "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
 
     EthnicityCategories: string[];
+    EthnicitySubCategories: string[];
     NonHispanicEthnicityRates: AggregateRate;
     HispanicIndependentReporting: string;
     HispanicEthnicityAggregateRate: AggregateRate;
