@@ -24,7 +24,7 @@ export const DataSource = () => {
         options={[
           {
             displayValue: "Administrative Data",
-            value: "I am reporting provisional data",
+            value: "I am reporting provisional data.",
             children: [
               <QMR.Checkbox
                 {...register("DataSource-Administrative")}

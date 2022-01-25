@@ -8,6 +8,7 @@ export namespace Measure {
   export interface Props {
     name: string;
     year: string;
+    measureId: string;
     handleSubmit?: any;
     handleValidation?: any;
     setMeasureSchema?: React.Dispatch<
