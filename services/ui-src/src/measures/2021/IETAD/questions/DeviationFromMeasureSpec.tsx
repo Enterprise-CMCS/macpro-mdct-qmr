@@ -5,16 +5,20 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 export const defaultDeviationOptions = [
   { label: "Ages 18 to 64", id: 0 },
   { label: "Age 65 and older", id: 1 },
+  { label: "Total Ages", id: 2 },
 ];
 
 interface Props {
   options: { label: string; id: number }[];
   deviationConditions: {
-    show30DaysAges18To64: boolean;
-    show30DaysAges65AndOlder: boolean;
-    show7DaysAges18To64: boolean;
-    show7DaysAges65AndOlder: boolean;
-    showOtherPerformanceMeasureRates: boolean;
+    showInitAlcohol: true;
+    showEngageAlcohol: true;
+    showInitOpioid: true;
+    showEngageOpioid: true;
+    showInitOther: true;
+    showEngageOther: true;
+    showInitTotal: true;
+    showEngageTotal: true;
   };
 }
 

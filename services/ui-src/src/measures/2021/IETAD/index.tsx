@@ -54,6 +54,35 @@ export const IETAD = ({
     !!watchPerformanceMeasureAgeRates7Days?.[1]?.rate;
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
+  const watchInitAlcohol = watch(
+    "PerformanceMeasure-AgeRates-Initiation-Alcohol"
+  );
+  const watchEngageAlcohol = watch(
+    "PerformanceMeasure-AgeRates-Engagement-Alcohol"
+  );
+  const watchInitOpioid = watch(
+    "PerformanceMeasure-AgeRates-Initiation-Opioid"
+  );
+  const watchEngageOpioid = watch(
+    "PerformanceMeasure-AgeRates-Engagement-Opioid"
+  );
+  const watchInitOther = watch("PerformanceMeasure-AgeRates-Initiation-Other");
+  const watchEngageOther = watch(
+    "PerformanceMeasure-AgeRates-Engagement-Other"
+  );
+  const watchInitTotal = watch("PerformanceMeasure-AgeRates-Initiation-Total");
+  const watchEngageTotal = watch(
+    "PerformanceMeasure-AgeRates-Engagement-Total"
+  );
+  const showInitAlcohol = !!watchInitAlcohol?.[0]?.rate;
+  const showEngageAlcohol = !!watchEngageAlcohol?.[0]?.rate;
+  const showInitOpioid = !!watchInitOpioid?.[0]?.rate;
+  const showEngageOpioid = !!watchEngageOpioid?.[0]?.rate;
+  const showInitOther = !!watchInitOther?.[0]?.rate;
+  const showEngageOther = !!watchEngageOther?.[0]?.rate;
+  const showInitTotal = !!watchInitTotal?.[0]?.rate;
+  const showEngageTotal = !!watchEngageTotal?.[0]?.rate;
+
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
   const ageGroups = [];
 
@@ -95,11 +124,14 @@ export const IETAD = ({
             <Q.DeviationFromMeasureSpec
               options={ageGroups}
               deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
-                showOtherPerformanceMeasureRates,
+                showInitAlcohol,
+                showEngageAlcohol,
+                showInitOpioid,
+                showEngageOpioid,
+                showInitOther,
+                showEngageOther,
+                showInitTotal,
+                showEngageTotal,
               }}
             />
           )}
