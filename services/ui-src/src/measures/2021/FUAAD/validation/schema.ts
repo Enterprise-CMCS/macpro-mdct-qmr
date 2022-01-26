@@ -191,25 +191,15 @@ export const validationSchema = Joi.object<Measure.Form>({
   AddtnlEthnicityRates: Joi.array().items(OptionalMeasureStratificationRateJoi),
 
   AddtnlNonHispanicRace: Joi.array().items(Joi.string()),
-  AddtnlNonHispanicRaceRates: Joi.array().items(
-    OptionalMeasureStratificationRateJoi
-  ),
-  AddtnlNonHispanicRaceSubCatTitle: Joi.array()
-    .items(Joi.object({ titles: Joi.array().items(Joi.string()).sparse() }))
+  AddtnlNonHispanicRaceRates: Joi.array()
+    .items(OptionalMeasureStratificationRateJoi)
     .sparse(),
-  AddtnlNonHispanicRaceSubCatOptions: Joi.array()
-    .items(Joi.array().items(Joi.string()).sparse())
-    .sparse(),
-  AddtnlNonHispanicRaceSubCatRates: Joi.array().items(
-    Joi.object({
-      rates: Joi.array().items(OptionalMeasureStratificationRateJoi),
-    })
-  ),
+  AddtnlNonHispanicRaceSubCatTitle: Joi.any(),
+  AddtnlNonHispanicRaceSubCatOptions: Joi.any(),
+  AddtnlNonHispanicRaceSubCatRates: Joi.any(),
 
-  AddtnlNonHispanicSubCat: Joi.array().items(Joi.string().empty("")),
-  AddtnlNonHispanicSubCatRates: Joi.array().items(
-    OptionalMeasureStratificationRateJoi
-  ),
+  AddtnlNonHispanicSubCat: Joi.any(),
+  AddtnlNonHispanicSubCatRates: Joi.any(),
 
   NonHispanicRacialCategories: Joi.array().items(Joi.string().empty("")),
   "NHRC-WhiteRates": OptionalMeasureStratificationRateJoi,
