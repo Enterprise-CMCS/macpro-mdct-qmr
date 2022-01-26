@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 
@@ -9,115 +9,53 @@ interface DeleteWrapperProps extends CUI.ColorProps {
   childWrapperProps?: CUI.BoxProps;
 }
 
-// export const DeleteWrapper = ({
-//   children,
-//   onDelete,
-//   childWrapperProps,
-//   color = "blue.600",
-//   textColor = "blue.600",
-//   allowDeletion = true,
-// }: DeleteWrapperProps) => {
-//   const [render, setRender] = useState(true);
-//   const [isHovered, setIsHovered] = useState(false);
-
-//   if (!render) return null;
-
-//   return (
-//     <CUI.HStack alignItems={"flex-start"} justifyContent={"space-between"}>
-//       <CUI.Box {...childWrapperProps}>{children}</CUI.Box>
-//       {allowDeletion && (
-//         <CUI.HStack
-//           as={"button"}
-//           alignItems={"center"}
-//           border={"1px"}
-//           padding={2}
-//           borderRadius={"md"}
-//           borderColor={color}
-//           data-testid="delete-wrapper"
-//           onMouseEnter={() => setIsHovered(true)}
-//           onMouseLeave={() => setIsHovered(false)}
-//           onClick={() => {
-//             onDelete && onDelete();
-//             setRender(false);
-//           }}
-//         >
-//           {isHovered && (
-//             <CUI.Text size={"sm"} color={textColor}>
-//               Delete
-//             </CUI.Text>
-//           )}
-
-//           <CUI.Icon color={textColor} fontSize={"xl"} as={BsTrash} />
-//         </CUI.HStack>
-//       )}
-//     </CUI.HStack>
-//   );
-// };
-
 export const DeleteWrapper = ({
   children,
   onDelete,
   childWrapperProps,
   color = "blue.600",
   textColor = "blue.600",
-  allowDeletion = true,
+  allowDeletion,
 }: DeleteWrapperProps) => {
   const [render, setRender] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    allowDeletion && setIsOpen(true);
-    return () => {
-      setIsOpen(false);
-    };
-  }, [allowDeletion]);
 
   if (!render) return null;
 
   return (
-    <CUI.Popover
-      eventListeners
-      isOpen={isOpen}
-      autoFocus={false}
-      placement="right-start"
-    >
-      <CUI.PopoverAnchor>
-        <CUI.Box {...childWrapperProps}>{children}</CUI.Box>
-      </CUI.PopoverAnchor>
-      <CUI.PopoverContent border={0} shadow={0} bg={"transparent"}>
-        <CUI.PopoverBody
-          justifyContent={"flex-start"}
-          alignItems={"flex-start"}
+    <CUI.Box position="relative" {...childWrapperProps}>
+      {allowDeletion && (
+        <CUI.HStack
+          top={0}
+          right={"-6rem"}
+          zIndex={2}
+          position={"absolute"}
+          padding={2}
+          as={"button"}
+          border={"1px"}
+          borderRadius={"md"}
+          borderColor={color}
+          alignItems={"center"}
+          data-testid="delete-wrapper"
+          aria-label="Delete Field"
+          onFocus={() => setIsHovered(true)}
+          onBlur={() => setIsHovered(false)}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={() => {
+            onDelete && onDelete();
+            setRender(false);
+          }}
         >
-          {allowDeletion && (
-            <CUI.HStack
-              as={"button"}
-              alignItems={"center"}
-              border={"1px"}
-              padding={2}
-              borderRadius={"md"}
-              borderColor={color}
-              data-testid="delete-wrapper"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              onClick={() => {
-                onDelete && onDelete();
-                setIsOpen(false);
-                setRender(false);
-              }}
-            >
-              {isHovered && (
-                <CUI.Text size={"sm"} color={textColor}>
-                  Delete
-                </CUI.Text>
-              )}
-
-              <CUI.Icon color={textColor} fontSize={"xl"} as={BsTrash} />
-            </CUI.HStack>
+          {isHovered && (
+            <CUI.Text size={"sm"} color={textColor}>
+              Delete
+            </CUI.Text>
           )}
-        </CUI.PopoverBody>
-      </CUI.PopoverContent>
-    </CUI.Popover>
+          <CUI.Icon color={textColor} fontSize={"xl"} as={BsTrash} />
+        </CUI.HStack>
+      )}
+      {children}
+    </CUI.Box>
   );
 };

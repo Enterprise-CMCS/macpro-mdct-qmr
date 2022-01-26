@@ -25,10 +25,13 @@ export const DemoValidationSchema = Joi.object({
   demoSelect: Joi.string().not("invalid"),
   demoTextArea: Joi.string().max(10),
   testCheckbox: Joi.array(),
+  testCheckboxDeleteWrapper: Joi.array(),
   testUpload1: Joi.any(),
   testUpload2: Joi.any(),
   demoRadioButton: Joi.string().required(),
+  testRadioButtonDeleteWrapper: Joi.string(),
   demoNumberInput1: Joi.string().pattern(new RegExp(regex)),
   demoMultiSelectList: Joi.any(),
   dateRange1: Joi.any(),
+  demoDate3: Joi.any(),
 });
