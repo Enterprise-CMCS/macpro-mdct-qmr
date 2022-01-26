@@ -25,6 +25,8 @@ const HEDISDropdown2020 =
   "(//div[@class='chakra-select__wrapper css-42b2qy']/select/option)[2]";
 const validateMeasureButton = "//button[@class='chakra-button css-gy0j0y']";
 const completeMeasureButton = "//button[@class='chakra-button css-qobkj']";
+const sentenceUnderCompleteMeasureOne = "//p[@class='chakra-text css-thvrsi']";
+const sentenceUnderCompleteMeasureTwo = "//p[@class='chakra-text css-1xpb69n']";
 const errorMessagePerformanceMeasure = "((//div[@class='css-0'])[27]/div)[1]";
 const errorMessageContent = "((//div[@class='css-0'])[27]/div)[2]";
 const popupBoxMessageHeader = "//header[@id='chakra-modal--header-137']";
@@ -40,10 +42,17 @@ export class FUAADPAGE {
     cy.xpath(browseBTN).should("be.visible");
   }
 
+  verifySentenceUnderCompleteMeasure(){
+    cy.xpath(sentenceUnderCompleteMeasureOne).should("be.visible");
+    cy.xpath(sentenceUnderCompleteMeasureOne).contains('Please select "Validate Measure" to check any error present on the measure prior to completion');
+    cy.xpath(sentenceUnderCompleteMeasureTwo).should("be.visible");
+    cy.xpath(sentenceUnderCompleteMeasureTwo).contains("Complete the measure and mark it for submission to CMS for review");
+  }
+
   clickSaveButtnVerifyStatus() {
-    cy.xpath(saveButtn).click({ force: true });
-    cy.wait(2000);
-    cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
+    cy.xpath(saveButtn).click();
+    cy.wait(500);
+    //cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
   }
 
   clickNCQAHEDIS() {
@@ -57,6 +66,7 @@ export class FUAADPAGE {
 
   clickValidateMeasureButtonVerify() {
     cy.xpath(validateMeasureButton).click();
+    cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
     cy.xpath(errorMessagePerformanceMeasure).should("be.visible");
     cy.xpath(errorMessageContent).contains(
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"

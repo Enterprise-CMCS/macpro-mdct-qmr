@@ -117,8 +117,8 @@ And("select NCQA HEDIS under Measurement Specification", () => {
   fUAADPage.clickNCQAHEDIS();
 });
 
-And("select HEDIS MY 2020 FFY 2021 Core Set Reporting", () => {
-  fUAADPage.clickHEDISMy2020();
+And("verify sentence under Complete the Measure", () => {
+  fUAADPage.verifySentenceUnderCompleteMeasure();
 });
 
 And(
