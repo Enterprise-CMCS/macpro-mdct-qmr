@@ -197,6 +197,9 @@ export const validationSchema = Joi.object<Measure.Form>({
   AddtnlNonHispanicRaceSubCatTitle: Joi.array()
     .items(Joi.array().items(Joi.string()).sparse())
     .sparse(),
+  AddtnlNonHispanicRaceSubCatOptions: Joi.array()
+    .items(Joi.array().items(Joi.string()).sparse())
+    .sparse(),
   AddtnlNonHispanicRaceSubCatRates: Joi.array()
     .items(Joi.array().items(OptionalMeasureStratificationRateJoi).sparse())
     .sparse(),

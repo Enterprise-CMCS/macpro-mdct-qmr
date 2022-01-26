@@ -194,8 +194,12 @@ export const OptionalMeasureStratification = ({
   deviationConditions,
 }: Props) => {
   const register = useCustomRegister<Measure.Form>();
-  const { getValues } = useFormContext<Measure.Form>();
+  const {
+    getValues,
+    formState: { errors },
+  } = useFormContext<Measure.Form>();
   const values = getValues();
+  console.log("errors", errors);
 
   const [addtnlNonHispanicRace, setAddtnlNonHispanicRace] = useState(
     configInitialStateArray(
@@ -459,8 +463,12 @@ export const OptionalMeasureStratification = ({
                               key={`AddtnlNonHispanicRaceRates.${index}`}
                             />
                             <QMR.Checkbox
-                              name={"AddtnlRaceSubCatOptions." + index}
-                              key={"AddtnlRaceSubCatOptions." + index}
+                              name={
+                                "AddtnlNonHispanicRaceSubCatOptions." + index
+                              }
+                              key={
+                                "AddtnlNonHispanicRaceSubCatOptions." + index
+                              }
                               options={
                                 addtnlNonHispanicRaceSubCat[index]
                                   ? addtnlNonHispanicRaceSubCat[index]?.map(
