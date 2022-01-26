@@ -9,7 +9,7 @@ describe("Test DeleteWrapper", () => {
   describe("DeleteWrapper enabled", () => {
     beforeEach(() => {
       render(
-        <DeleteWrapper onDelete={testFunction}>
+        <DeleteWrapper allowDeletion onDelete={testFunction}>
           <div>test label</div>
         </DeleteWrapper>
       );
