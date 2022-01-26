@@ -191,10 +191,18 @@ export const validationSchema = Joi.object<Measure.Form>({
   AddtnlEthnicityRates: Joi.array().items(OptionalMeasureStratificationRateJoi),
 
   AddtnlNonHispanicRace: Joi.array().items(Joi.string()),
-  AddtnlNonHispanicRaceAggregation: Joi.array().items(Joi.string()),
   AddtnlNonHispanicRaceRates: Joi.array().items(
     OptionalMeasureStratificationRateJoi
   ),
+  AddtnlNonHispanicRaceSubCatTitle: Joi.array()
+    .items(Joi.array().items(Joi.string()).sparse())
+    .sparse(),
+  AddtnlNonHispanicRaceSubCatOptions: Joi.array()
+    .items(Joi.array().items(Joi.string()).sparse())
+    .sparse(),
+  AddtnlNonHispanicRaceSubCatRates: Joi.array()
+    .items(Joi.array().items(OptionalMeasureStratificationRateJoi).sparse())
+    .sparse(),
 
   AddtnlNonHispanicSubCat: Joi.array().items(Joi.string().empty("")),
   AddtnlNonHispanicSubCatRates: Joi.array().items(

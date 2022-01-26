@@ -151,7 +151,7 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `30 Days Rates: Numerator must be less than or equal to Denominator for Age${
+          errorMessage: `30 Days Rate: Numerator must be less than or equal to Denominator for Age${
             isSingular ? "" : "s"
           } ${ageGroup}`,
         };
@@ -182,7 +182,7 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rates: Numerator must be less than or equal to Denominator for Age${
+          errorMessage: `7 Days Rate: Numerator must be less than or equal to Denominator for Age${
             isSingular ? "" : "s"
           } ${ageGroup}`,
         };
