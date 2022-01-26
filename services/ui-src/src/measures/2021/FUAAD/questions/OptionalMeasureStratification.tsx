@@ -175,13 +175,13 @@ const configInitialStateArray = (template: string, dataArray?: string[]) => {
 const advancedConfigInitialStateArray = (
   template: string,
   parentArray?: string[],
-  dataArray?: string[][]
+  dataArray?: { titles: string[] }[]
 ) => {
   const defaultTemplate = `${template}.0`;
   return dataArray?.length
     ? dataArray.map((item) =>
-        item?.length
-          ? item.map((_, index) => `${template}.${index}`)
+        item?.titles?.length
+          ? item.titles.map((_, index) => `${template}.${index}`)
           : [defaultTemplate]
       )
     : parentArray?.length
@@ -207,7 +207,7 @@ export const OptionalMeasureStratification = ({
   const [addtnlNonHispanicRaceSubCat, setaddtnlNonHispanicRaceSubCat] =
     useState(
       advancedConfigInitialStateArray(
-        "AddtnlNonHispanicRaceSubCateTitle",
+        "AddtnlNonHispanicRaceSubCatTitle",
         values.AddtnlNonHispanicRace,
         values.AddtnlNonHispanicRaceSubCatTitle
       )
@@ -235,7 +235,7 @@ export const OptionalMeasureStratification = ({
       newArray[index] ??= [];
       newArray[index] = [
         ...newArray[index],
-        `AddtnlNonHispanicRaceSubCateTitle.${newArray[index].length}`,
+        `AddtnlNonHispanicRaceSubCatTitle.${newArray[index].length}`,
       ];
       return newArray;
     });
@@ -470,30 +470,26 @@ export const OptionalMeasureStratification = ({
                                   ? addtnlNonHispanicRaceSubCat[index]?.map(
                                       (_, subIndex) => {
                                         return {
-                                          value:
-                                            "AddtnlRaceSubCatOptions." +
-                                            index +
-                                            "." +
-                                            subIndex,
+                                          value: `AddtnlRaceSubCatOptions.${index}.${subIndex}`,
                                           displayValue:
                                             "Additional/Alternative Classification/Sub-Category",
                                           children: [
                                             <CUI.Stack
-                                              key={`${value}.${index}`}
+                                              key={`NonHispanicSubCatStack.${index}.${subIndex}`}
                                             >
                                               <QMR.TextInput
                                                 label="Define the Alternative Classification/Sub-category"
-                                                name={`AddtnlNonHispanicRaceSubCatTitle.${index}.${subIndex}`}
+                                                name={`AddtnlNonHispanicRaceSubCatTitle.${index}.titles.${subIndex}`}
                                               />
                                               <AgeData
-                                                name={`AddtnlNonHispanicRaceSubCatRates.${index}.${subIndex}`}
+                                                name={`AddtnlNonHispanicRaceSubCatRates.${index}.rates.${subIndex}`}
                                               />
                                               {subIndex + 1 ===
                                                 addtnlNonHispanicRaceSubCat[
                                                   index
                                                 ].length && (
                                                 <AddAnotherButton
-                                                  key="NonHispanicSubCatAddition"
+                                                  key="NonHispanicRaceSubCatAddition"
                                                   onClick={() => {
                                                     addNonHispanicRaceSubCat(
                                                       index
