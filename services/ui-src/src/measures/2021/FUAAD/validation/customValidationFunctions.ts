@@ -11,7 +11,9 @@ const validateRates = (data: Measure.Form) => {
       if (
         sevenDays[index] &&
         thirtyDays[index] &&
-        sevenDays[index]?.denominator !== thirtyDays[index]?.denominator
+        sevenDays[index].denominator &&
+        thirtyDays[index].denominator &&
+        sevenDays[index].denominator !== thirtyDays[index].denominator
       ) {
         const ageGroup = index === 0 ? "18 to 64" : "65 and older";
         const isSingular = index === 1;
