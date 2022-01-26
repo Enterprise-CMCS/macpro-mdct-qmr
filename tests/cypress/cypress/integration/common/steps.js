@@ -79,6 +79,10 @@ Then(
   }
 );
 
+When("login as state user two",()=>{
+   loginPage.loginasAStateUserTwoWithCognito();
+});
+
 And("user click on link Adult Core Set Measures", () => {
   homePage.clickAdultCoreSetMeasures();
 });

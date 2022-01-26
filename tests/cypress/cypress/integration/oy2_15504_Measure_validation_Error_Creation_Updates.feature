@@ -2,8 +2,7 @@ Feature: OY2 15504 Measure Validation Error Creation Updates
 
     Scenario: verify save button validate measure and complete measure button
         Given user visits QMR home page
-        When  user enter email and password for Cognito login
-        And   user click on Login with Cognito button
+        When login as state user two
         Then  user should see the QMR 2021 Core Set Measures Reporting home page
         And   user click on link Adult Core Set Measures
         Then  verify url contains ACS
