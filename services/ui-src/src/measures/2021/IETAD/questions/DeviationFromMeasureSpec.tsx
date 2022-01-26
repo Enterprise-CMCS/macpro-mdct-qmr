@@ -11,14 +11,14 @@ export const defaultDeviationOptions = [
 interface Props {
   options: { label: string; id: number }[];
   deviationConditions: {
-    showInitAlcohol: true;
-    showEngageAlcohol: true;
-    showInitOpioid: true;
-    showEngageOpioid: true;
-    showInitOther: true;
-    showEngageOther: true;
-    showInitTotal: true;
-    showEngageTotal: true;
+    showInitAlcohol: boolean;
+    showEngageAlcohol: boolean;
+    showInitOpioid: boolean;
+    showEngageOpioid: boolean;
+    showInitOther: boolean;
+    showEngageOther: boolean;
+    showInitTotal: boolean;
+    showEngageTotal: boolean;
   };
 }
 
