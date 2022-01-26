@@ -16,7 +16,7 @@ export const MeasurementSpecification = () => {
               "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
             value: "NCQA/HEDIS",
             children: [
-              <CUI.Text size="sm" pb="3">
+              <CUI.Text key="measureSpecDescriptor" size="sm" pb="3">
                 NCQA, the measure steward, changed its naming convention. HEDIS
                 MY 2020 refers to a different federal fiscal year (FFY) than
                 HEDIS 2020. Please note the FFY Core Set specification above.
