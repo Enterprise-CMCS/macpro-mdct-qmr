@@ -10,7 +10,7 @@ export const DataSource = () => {
   const { watch } = methods;
   // Watch Checkboxes for DataSource Choices
   const watchOtherDataSource = watch("DataSource") ?? [];
-  const watchElectronicDataSource = watch("DataSource-Electronic") ?? [];
+  const watchElectronicDataSource = watch("DataSource") ?? [];
   const watchAdminDataSource = watch("DataSource-Administrative") ?? [];
   // Return True or False based on if Other is selected or not
   const isOtherDataSource =
@@ -19,7 +19,6 @@ export const DataSource = () => {
     watchAdminDataSource?.indexOf("Administrative Data Other") !== -1;
   const isElectronicDataSource =
     watchElectronicDataSource?.indexOf("Electronic Health Records") !== -1;
-
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
       <QMR.Checkbox
@@ -58,7 +57,7 @@ export const DataSource = () => {
             value: "Electronic Health Records",
             children: [
               <QMR.TextArea
-                label="Describe Electronic Health Records data source:"
+                label="Describe the Electronic Health Records:"
                 {...register("DataSource-Electronic")}
               />,
             ],
@@ -76,7 +75,9 @@ export const DataSource = () => {
         ]}
         label="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
       />
-      {(isOtherAdminDataSource || isOtherDataSource) && (
+      {(isOtherAdminDataSource ||
+        isOtherDataSource ||
+        isElectronicDataSource) && (
         <CUI.Text
           fontSize="sm"
           py="2"
@@ -107,8 +108,10 @@ export const DataSource = () => {
       )}
       {isElectronicDataSource && (
         <QMR.TextArea
-          label={`Electronic Data Source: ${watch("DataSource-Other") || ""}`}
-          {...register("DataSource-Electronic")}
+          label={`Electronic Data Source: ${
+            watch("DataSource-Electronic") || ""
+          }`}
+          {...register("DataSource-Electronic-Explanation")}
         />
       )}
     </QMR.CoreQuestionWrapper>

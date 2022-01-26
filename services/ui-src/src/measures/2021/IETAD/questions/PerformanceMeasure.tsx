@@ -32,22 +32,31 @@ export const PerformanceMeasure = () => {
       rate: "",
       id: 2,
     },
+    {
+      label: "Total Ages",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 3,
+    },
   ];
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      Percentage of emergency department (ED) visits for beneficiaries age 18
-      and older with a principal diagnosis of alcohol or other drug (AOD) abuse
-      or dependence who had a follow-up visit for AOD abuse or dependence. Two
-      rates are reported:
+      The percentage of beneficiaries age 18 and older with a new episode of
+      alcohol or other drug (AOD) abuse or dependence who received the following
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>
-          Percentage of ED visits for which the beneficiary received follow-up
-          within 30 days of the ED visit (31 total days)
+          Initiation of AOD Treatment: Percentage of beneficiaries who initiate
+          treatment through an inpatient AOD admission, outpatient visit,
+          intensive outpatient encounter, or partial hospitalization,
+          telehealth, or medication assisted treatment within 14 days of the
+          diagnosis.
         </CUI.ListItem>
         <CUI.ListItem>
-          Percentage of ED visits for which the beneficiary received follow-up
-          within 7 days of the ED visit (8 total days)
+          Engagement of AOD Treatment: Percentage of beneficiaries who initiated
+          treatment and who were engaged in ongoing AOD treatment within 34 days
+          of the initiation visit.
         </CUI.ListItem>
       </CUI.UnorderedList>
       <QMR.TextArea
@@ -59,20 +68,73 @@ export const PerformanceMeasure = () => {
         auto-calculate:
       </CUI.Text>
       <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 30 days of ED visit
+        Initiation of AOD Treatment: Alcohol Abuse or Dependence
       </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
         rates={ageRates}
-        {...register("PerformanceMeasure-AgeRates-30Days")}
+        {...register("PerformanceMeasure-AgeRates-Initiation-Alcohol")}
       />
       <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 7 days of ED visit
+        Engagement of AOD Treatment: Alcohol Abuse or Dependence
       </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
         rates={ageRates}
-        {...register("PerformanceMeasure-AgeRates-7Days")}
+        {...register("PerformanceMeasure-AgeRates-Engagement-Alcohol")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Initiation of AOD Treatment: Opioid Abuse or Dependence
+      </CUI.Text>
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-Initiation-Opioid")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Engagement of AOD Treatment: Opioid Abuse or Dependence
+      </CUI.Text>
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-Engagement-Opioid")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Initiation of AOD Treatment: Other Drug Abuse or Dependence
+      </CUI.Text>
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-Initiation-Other")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Engagement of AOD Treatment: Other Drug Abuse or Dependence
+      </CUI.Text>
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-Engagement-Other")}
+      />
+      <CUI.Text>Category Totals</CUI.Text>
+      <CUI.Text fontWeight="bold">
+        Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:
+      </CUI.Text>
+      <CUI.Text fontWeight="bold" my="5">
+        Initiation of AOD Treatment: Total AOD Abuse or Dependence
+      </CUI.Text>
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-Initiation-Total")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Engagement of AOD Treatment: Total AOD Abuse or Dependence
+      </CUI.Text>
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-Engagement-Total")}
       />
     </QMR.CoreQuestionWrapper>
   );

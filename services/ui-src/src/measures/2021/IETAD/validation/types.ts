@@ -42,7 +42,8 @@ export namespace Measure {
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;
     "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Electronic"?: string;
+    "DataSource-Electronic": string;
+    "DataSource-Electronic-Explanation": string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
     "DataSource-Hybrid"?: string[];
@@ -143,6 +144,70 @@ export namespace Measure {
       rate: string;
     }[];
     "PerformanceMeasure-AgeRates-7Days": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Alcohol": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Engagement-Alcohol": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Opioid": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Engagement-Opioid": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Other": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Engagement-Other": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Total": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Engagement-Total": {
       denominator: string;
       numerator: string;
       other: string;

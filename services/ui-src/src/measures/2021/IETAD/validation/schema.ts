@@ -62,6 +62,7 @@ export const validationSchema = Joi.object<Measure.Form>({
   "DataSource-Administrative-Other": Joi.string().empty(""),
   "DataSource-Administrative-Other-Explanation": Joi.string().empty(""),
   "DataSource-Electronic": Joi.string().empty(""),
+  "DataSource-Electronic-Explanation": Joi.string().empty(""),
   "DataSource-Other": Joi.string().empty(""),
   "DataSource-Other-Explanation": Joi.string().empty(""),
   "DataSource-Hybrid": Joi.array().items(Joi.string().empty("")),
@@ -177,6 +178,14 @@ export const validationSchema = Joi.object<Measure.Form>({
   "PerformanceMeasure-Explanation": Joi.string().empty(""),
   "PerformanceMeasure-AgeRates-30Days": RateJoiValidator,
   "PerformanceMeasure-AgeRates-7Days": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-Initiation-Alcohol": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-Engagement-Alcohol": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-Initiation-Opioid": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-Engagement-Opioid": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-Initiation-Other": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-Engagement-Other": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-Initiation-Total": RateJoiValidator,
+  "PerformanceMeasure-AgeRates-Engagement-Total": RateJoiValidator,
   DateRange: Joi.object({
     endDate: Joi.object({
       selectedMonth: Joi.number().label("End Month"),
