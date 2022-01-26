@@ -42,11 +42,15 @@ export class FUAADPAGE {
     cy.xpath(browseBTN).should("be.visible");
   }
 
-  verifySentenceUnderCompleteMeasure(){
+  verifySentenceUnderCompleteMeasure() {
     cy.xpath(sentenceUnderCompleteMeasureOne).should("be.visible");
-    cy.xpath(sentenceUnderCompleteMeasureOne).contains('Please select "Validate Measure" to check any error present on the measure prior to completion');
+    cy.xpath(sentenceUnderCompleteMeasureOne).contains(
+      'Please select "Validate Measure" to check any error present on the measure prior to completion'
+    );
     cy.xpath(sentenceUnderCompleteMeasureTwo).should("be.visible");
-    cy.xpath(sentenceUnderCompleteMeasureTwo).contains("Complete the measure and mark it for submission to CMS for review");
+    cy.xpath(sentenceUnderCompleteMeasureTwo).contains(
+      "Complete the measure and mark it for submission to CMS for review"
+    );
   }
 
   clickSaveButtnVerifyStatus() {
