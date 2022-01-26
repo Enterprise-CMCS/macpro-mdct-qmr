@@ -175,6 +175,110 @@ export const validationSchema = Joi.object<Measure.Form>({
   "DeviationOptions-Within30-AgeRange": Joi.array().items(
     Joi.string().empty("")
   ),
+  "DeviationOptions-InitAlcohol-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeviationFields-InitAlcohol": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
+      })
+    )
+    .sparse(),
+  "DeviationOptions-EngageAlcohol-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeviationFields-EngageAlcohol": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
+      })
+    )
+    .sparse(),
+  "DeviationOptions-InitOpioid-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeviationFields-InitOpioid": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
+      })
+    )
+    .sparse(),
+  "DeviationOptions-EngageOpioid-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeviationFields-EngageOpioid": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
+      })
+    )
+    .sparse(),
+  "DeviationOptions-InitOther-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeviationFields-InitOther": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
+      })
+    )
+    .sparse(),
+  "DeviationOptions-EngageOther-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeviationFields-EngageOther": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
+      })
+    )
+    .sparse(),
+  "DeviationOptions-InitTotal-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeviationFields-InitTotal": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
+      })
+    )
+    .sparse(),
+  "DeviationOptions-EngageTotal-AgeRange": Joi.array().items(
+    Joi.string().empty("")
+  ),
+  "DeviationFields-EngageTotal": Joi.array()
+    .items(
+      Joi.object({
+        options: Joi.array().items(Joi.string()),
+        numerator: Joi.string().label("Numerator").empty(""),
+        denominator: Joi.string().label("Denominator").empty(""),
+        other: Joi.string().label("Other").empty(""),
+      })
+    )
+    .sparse(),
   "PerformanceMeasure-Explanation": Joi.string().empty(""),
   "PerformanceMeasure-AgeRates-30Days": RateJoiValidator,
   "PerformanceMeasure-AgeRates-7Days": RateJoiValidator,
