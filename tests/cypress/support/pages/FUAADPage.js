@@ -15,12 +15,61 @@ const verifyTextFileIsUploaded =
 const verifyPictureFileIsUploaded =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/div[11]/div[2]/div[4]/p[1]";
 
+//OY2-15504
+const saveButtn = "//button[@class='chakra-button css-hp17lz']";
+const saveStatusUnderSaveButton = "//p[@class='chakra-text css-nr0v7p']";
+const NCQARadioButton = "(//span[@class='chakra-radio__control css-gzpnyx'])[5]";
+const selectOption = "//div[@class='chakra-select__wrapper css-42b2qy']";
+const HEDISDropdown2020 = "(//div[@class='chakra-select__wrapper css-42b2qy']/select/option)[2]";
+const validateMeasureButton = "//button[@class='chakra-button css-gy0j0y']";
+const completeMeasureButton = "//button[@class='chakra-button css-qobkj']";
+const errorMessagePerformanceMeasure = "((//div[@class='css-0'])[27]/div)[1]";
+const errorMessageContent = "((//div[@class='css-0'])[27]/div)[2]";
+const popupBoxMessageHeader = "//header[@id='chakra-modal--header-137']";
+const popupBoxMessageContent = "//div[@id='chakra-modal--body-137']";
+const popupBoxYes = "//button[@class='chakra-button css-mn8nh9']";
+const popupBoxNo = "//button[@class='chakra-button css-cirab6']";
+
+
+
 export class FUAADPAGE {
   verifyURLContainsFUAAD() {
     cy.url().should("include", "FUA-AD");
   }
   verifyBrowseExists() {
     cy.xpath(browseBTN).should("be.visible");
+  }
+
+  clickSaveButtnVerifyStatus(){
+    cy.xpath(saveButtn).click({force:true});
+    cy.wait(2000);
+    cy.xpath(saveStatusUnderSaveButton).contains('Saved Moments Ago');
+  }
+
+  clickNCQAHEDIS(){
+    cy.xpath(NCQARadioButton).click();
+  }
+
+  clickHEDISMy2020(){
+    cy.xpath(selectOption).click({force:true});
+    //cy.xpath(HEDISDropdown2020).click({force:true});
+  }
+
+  clickValidateMeasureButtonVerify(){
+    cy.xpath(validateMeasureButton).click();
+    cy.xpath(errorMessagePerformanceMeasure).should("be.visible");
+    cy.xpath(errorMessageContent).contains('At least one Performance Measure Numerator, Denominator, and Rate must be completed');
+  }
+
+  clickCompleteMeasureButtonVerify(){
+    cy.xpath(completeMeasureButton).click();
+    cy.xpath(popupBoxMessageHeader).should("be.visible");
+    cy.xpath(popupBoxMessageContent).contains('There are still errors on this measure, would you still like to complete?');
+  }
+
+  clickNoOption(){
+    cy.xpath(popupBoxYes).should("be.visible");
+    cy.xpath(popupBoxNo).click();
   }
 
   addFilesToFUAADPage() {
