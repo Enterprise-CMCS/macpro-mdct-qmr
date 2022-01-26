@@ -30,12 +30,6 @@ export const IETAD = ({
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
   const watchMeasureSpecification = watch("MeasurementSpecification");
-  const watchPerformanceMeasureAgeRates30Days = watch(
-    "PerformanceMeasure-AgeRates-30Days"
-  );
-  const watchPerformanceMeasureAgeRates7Days = watch(
-    "PerformanceMeasure-AgeRates-7Days"
-  );
   const watchOtherPerformanceMeasureRates = watch(
     "OtherPerformanceMeasure-Rates"
   );
@@ -45,13 +39,6 @@ export const IETAD = ({
 
   const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
-  const show30DaysAges18To64 =
-    !!watchPerformanceMeasureAgeRates30Days?.[0]?.rate;
-  const show30DaysAges65AndOlder =
-    !!watchPerformanceMeasureAgeRates30Days?.[1]?.rate;
-  const show7DaysAges18To64 = !!watchPerformanceMeasureAgeRates7Days?.[0]?.rate;
-  const show7DaysAges65AndOlder =
-    !!watchPerformanceMeasureAgeRates7Days?.[1]?.rate;
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   const watchInitAlcohol = watch(
@@ -201,18 +188,58 @@ export const IETAD = ({
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
           <Q.CombinedRates />
-          {(show30DaysAges18To64 ||
-            show30DaysAges65AndOlder ||
-            show7DaysAges18To64 ||
-            show7DaysAges65AndOlder ||
+          {(showInitAlcohol18To64 ||
+            showEngageAlcohol18To64 ||
+            showInitOpioid18To64 ||
+            showEngageOpioid18To64 ||
+            showInitOther18To64 ||
+            showEngageOther18To64 ||
+            showInitTotal18To64 ||
+            showEngageTotal18To64 ||
+            showInitAlcohol65Plus ||
+            showEngageAlcohol65Plus ||
+            showInitOpioid65Plus ||
+            showEngageOpioid65Plus ||
+            showInitOther65Plus ||
+            showEngageOther65Plus ||
+            showInitTotal65Plus ||
+            showEngageTotal65Plus ||
+            showInitAlcoholCombined ||
+            showEngageAlcoholCombined ||
+            showInitOpioidCombined ||
+            showEngageOpioidCombined ||
+            showInitOtherCombined ||
+            showEngageOtherCombined ||
+            showInitTotalCombined ||
+            showEngageTotalCombined ||
             showOtherPerformanceMeasureRates) && (
             <Q.OptionalMeasureStratification
               ageGroups={ageGroups}
               deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
+                showInitAlcohol18To64,
+                showEngageAlcohol18To64,
+                showInitOpioid18To64,
+                showEngageOpioid18To64,
+                showInitOther18To64,
+                showEngageOther18To64,
+                showInitTotal18To64,
+                showEngageTotal18To64,
+                showInitAlcohol65Plus,
+                showEngageAlcohol65Plus,
+                showInitOpioid65Plus,
+                showEngageOpioid65Plus,
+                showInitOther65Plus,
+                showEngageOther65Plus,
+                showInitTotal65Plus,
+                showEngageTotal65Plus,
+                showInitAlcoholCombined,
+                showEngageAlcoholCombined,
+                showInitOpioidCombined,
+                showEngageOpioidCombined,
+                showInitOtherCombined,
+                showEngageOtherCombined,
+                showInitTotalCombined,
+                showEngageTotalCombined,
                 showOtherPerformanceMeasureRates,
               }}
             />
