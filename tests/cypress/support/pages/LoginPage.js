@@ -43,5 +43,11 @@ export class LoginPage {
     cy.get(agreeTermCondition).click();
     cy.get(signInBttn).click();
   }
+
+  loginasAStateUserWithCognito() {
+    cy.xpath(emailForCognito).type("stateuser1@test.com");
+    cy.xpath(passwordForCognito).type("p@55W0rd!");
+    cy.xpath(loginWithCognitoButtn).click();
+  }
 }
 export default LoginPage;

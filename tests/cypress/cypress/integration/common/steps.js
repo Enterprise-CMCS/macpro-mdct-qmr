@@ -84,7 +84,7 @@ And("user click on link Adult Core Set Measures", () => {
 });
 
 When("login as state user", () => {
-  loginPage.loginasAStateUser();
+  loginPage.loginasAStateUserWithCognito();
 });
 
 Then("verify Core Set Measures is displayed", () => {
