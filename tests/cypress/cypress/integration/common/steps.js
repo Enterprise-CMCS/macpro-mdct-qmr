@@ -7,8 +7,7 @@ import NCIDDSadpage from "../../../support/pages/NCIDDSadpage";
 import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
-// demo
-
+import AdultCoreSetQuestionsPage from "../../../support/pages/AdultCoreSetQuestionsPage";
 import AuditCoreSetMeasuresPage from "../../../support/pages/AuditCoreSetMeasuresPage";
 import FUAADPAGE from "../../../support/pages/FUAADPage";
 
@@ -20,10 +19,9 @@ const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
-// demo
-
 const auditCoreSetMeasuresPage = new AuditCoreSetMeasuresPage();
 const fUAADPage = new FUAADPAGE();
+const adultCoreSetQuestionsPage = new AdultCoreSetQuestionsPage();
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -207,4 +205,129 @@ And("upload attachment picture", () => {
 
 And("verify picture is uploaded", () => {
   fUAADPage.verifyPictureFileIsUploaded();
+});
+
+And("verify Adult Core Set Questions is displayed", () => {
+  adultCoreSetQuestionsPage.verifyAdultCoreSetQuestionHeaderIsDisplayed();
+});
+
+And("verify Adult Core Set Questions content is displayed", () => {
+  adultCoreSetQuestionsPage.verifyadultCoreSetQuestionContentIsDisplayed();
+});
+
+And("verify Delivery System is displayed", () => {
+  adultCoreSetQuestionsPage.verifydeliverySystemIsDisplayed();
+});
+
+And("verify Delivery System content is displayed", () => {
+  adultCoreSetQuestionsPage.verifydeliverySystemContentIsDisplayed();
+});
+
+And("verify AGES 21 TO 64 is displayed", () => {
+  adultCoreSetQuestionsPage.verifyages21To64IsDisplayed();
+});
+
+And("verify AGE 65 AND OLDER is displayed", () => {
+  adultCoreSetQuestionsPage.verifyages65AndOlderIsDisplayed();
+});
+
+And("verify Fee-for-Service is displayed", () => {
+  adultCoreSetQuestionsPage.verifyfeeForServiceIsDisplayed();
+});
+
+And("verify PCCM is displayed", () => {
+  adultCoreSetQuestionsPage.verifyPCCMIsDisplayed();
+});
+
+And("verify Managed Care is displayed", () => {
+  adultCoreSetQuestionsPage.verifymanagedCareIsDisplayed();
+});
+
+And("verify Integrated Care Model ICM is displayed", () => {
+  adultCoreSetQuestionsPage.verifyintegratedCareModelICMIsDisplayed();
+});
+
+And("verify add Another box is displayed", () => {
+  adultCoreSetQuestionsPage.verifyaddAnotherBTNIsDisplayed();
+});
+
+And("verify Total all ages is displayed", () => {
+  adultCoreSetQuestionsPage.verifytotalAllAgesIsDisplayed();
+});
+
+And("verify AGES 21 TO 64 total value is displayed", () => {
+  adultCoreSetQuestionsPage.verifyages21To64TotalValueIsDisplayed();
+});
+
+And("verify AGE 65 AND OLDER total value is displayed", () => {
+  adultCoreSetQuestionsPage.verifyages65AndOlderTotalValueIsDisplayed();
+});
+
+And("verify Audit or Validation of Measures", () => {
+  adultCoreSetQuestionsPage.verifyagesauditOrValidationMeasuresIsDisplayed();
+});
+
+And("verify Audit or Validation of Measures content is displayed", () => {
+  adultCoreSetQuestionsPage.verifyauditOrValidationMeasuresValueIsDisplayed();
+});
+
+And("verify yes option on section 2 is displayed", () => {
+  adultCoreSetQuestionsPage.verifyyesSomeOfTheCoreSetMeasuresHaveBeenAuditedOrValidatedIsDisplayed();
+});
+
+And("verify no option on section 2 is displayed", () => {
+  adultCoreSetQuestionsPage.verifynoNoneOfTheCoreSetMeasuresHaveBeenAuditedOrValidatedIsDisplayed();
+});
+
+And("click yes option on section 2", () => {
+  adultCoreSetQuestionsPage.clickYesOptionOnSection2();
+});
+
+And("verify add another button is displayed", () => {
+  adultCoreSetQuestionsPage.verifyaddAnotherBTNUnderfirstYesIsDisplayed();
+});
+
+And("verify External Contractor is displayed", () => {
+  adultCoreSetQuestionsPage.verifyexternalContractorIsDisplayed();
+});
+
+And("verify External Contractor content is displayed", () => {
+  adultCoreSetQuestionsPage.verifyexternalContractorValueIsDisplayed();
+});
+
+And("verify yes option is displayed", () => {
+  adultCoreSetQuestionsPage.verifyyesUnderExternalContractorIsDisplayed();
+});
+
+And("verify no option is displayed", () => {
+  adultCoreSetQuestionsPage.verifynoUnderExternalContractorIsDisplayed();
+});
+
+And("click on yes option", () => {
+  adultCoreSetQuestionsPage.clickOnYesOption();
+});
+
+And("click on other", () => {
+  adultCoreSetQuestionsPage.verifyfourthBoxUnderYesIsDisplayed();
+});
+And(
+  "verify Complete all Adult Core Set and Child Core Set Measures to submit to CMS is displayed",
+  () => {
+    adultCoreSetQuestionsPage.verifycompleteAllAdultCoreSetAndChildCoreSetMeasuresToSubmitToCMSIsDisplayed();
+  }
+);
+
+And(
+  "verify Complete all Adult Core Set and Child Core Set Measures to submit to CMS content is displayed",
+  () => {
+    adultCoreSetQuestionsPage.verifycompleteAllAdultCoreSetAndChildCoreSetMeasuresToSubmitToCMSValueIsDisplayed();
+  }
+);
+
+And("verify complete core set questions button is enabled", () => {
+  adultCoreSetQuestionsPage.verifycompleteCoreSetQuestionsBTNIsDisplayed();
+});
+
+And("verify Do you have questions or need support is displayed", () => {
+  adultCoreSetQuestionsPage.verifydoYouHaveQuestionsOrNeedSupportIsDisplayed();
 });
