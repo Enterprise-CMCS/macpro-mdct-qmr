@@ -101,22 +101,25 @@ export const FUAAD = ({
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
           <Q.CombinedRates />
-          {(show30DaysAges18To64 ||
-            show30DaysAges65AndOlder ||
-            show7DaysAges18To64 ||
-            show7DaysAges65AndOlder ||
-            showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
-          )}
+          {
+            //TODO: after initial data load these values were still false but should not be
+            (show30DaysAges18To64 ||
+              show30DaysAges65AndOlder ||
+              show7DaysAges18To64 ||
+              show7DaysAges65AndOlder ||
+              showOtherPerformanceMeasureRates) && (
+              <Q.OptionalMeasureStratification
+                ageGroups={ageGroups}
+                deviationConditions={{
+                  show30DaysAges18To64,
+                  show30DaysAges65AndOlder,
+                  show7DaysAges18To64,
+                  show7DaysAges65AndOlder,
+                  showOtherPerformanceMeasureRates,
+                }}
+              />
+            )
+          }
         </>
       )}
       <Q.AdditionalNotes />
