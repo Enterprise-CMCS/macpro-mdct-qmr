@@ -1,11 +1,18 @@
 import { Measure } from "measures/types";
 import * as QMR from "components";
+import { useGetMeasure } from "hooks/api";
+import { CoreSetAbbr } from "types";
 
 export const NCIDDSAD = ({ name, year }: Measure.Props) => {
+  const { data } = useGetMeasure({
+    coreSet: CoreSetAbbr.ACS,
+    measure: "NCIDDS-AD",
+  });
+
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}
-      dateCompleted="Sep 30, 2021 12:01 AM EST" // display correct dateCompleted when api is hooked to client
+      dateCompleted={new Date(data.Item?.createdAt).toString()}
       isReportingOnMeasureYear={true}
       measureTitle={`NCIDDS-AD - ${name}`}
       performanceMeasureText="The National Core Indicators® (NCI®) provide information on

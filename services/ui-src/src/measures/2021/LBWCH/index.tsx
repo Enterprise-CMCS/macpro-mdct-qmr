@@ -1,11 +1,18 @@
 import { Measure } from "measures/types";
 import * as QMR from "components";
+import { useGetMeasure } from "hooks/api";
+import { CoreSetAbbr } from "types";
 
 export const LBWCH = ({ name, year }: Measure.Props) => {
+  const { data } = useGetMeasure({
+    coreSet: CoreSetAbbr.ACS,
+    measure: "LBW-CH",
+  });
+  console.log(test);
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}
-      dateCompleted="Sep 30, 2021 12:01 AM EST" // display correct dateCompleted when api is hooked to client
+      dateCompleted={new Date(data.Item?.createdAt).toString()}
       isReportingOnMeasureYear={true}
       measureTitle={`LBW-CH - ${name}`}
       performanceMeasureText="Percentage of live births that weighed less than 2,500 grams at birth during the measurement year."

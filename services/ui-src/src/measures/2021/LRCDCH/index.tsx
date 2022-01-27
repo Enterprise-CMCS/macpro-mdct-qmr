@@ -1,11 +1,18 @@
 import { Measure } from "measures/types";
 import * as QMR from "components";
+import { useGetMeasure } from "hooks/api";
+import { CoreSetAbbr } from "types";
 
 export const LRCDCH = ({ name, year }: Measure.Props) => {
+  const { data } = useGetMeasure({
+    coreSet: CoreSetAbbr.ACS,
+    measure: "LRCD-CH",
+  });
+
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}
-      dateCompleted="Sep 30, 2021 12:01 AM EST" // display correct dateCompleted when api is hooked to client
+      dateCompleted={new Date(data.Item?.createdAt).toString()}
       isReportingOnMeasureYear={true}
       measureTitle={`LRCD-CH - ${name}`}
       performanceMeasureText="Percentage of nulliparous (first birth), term (37 or more completed weeks based on the obstetric estimate), singleton (one fetus), in a cephalic presentation (head-first) births delivered by cesarean during the measurement year."
