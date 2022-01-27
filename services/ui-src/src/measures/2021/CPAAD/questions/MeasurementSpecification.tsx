@@ -26,12 +26,6 @@ export const MeasurementSpecification = () => {
                 )}
                 label="Please describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
               />,
-              <QMR.Upload
-                label="If you need additional space to describe your state's methodology, please attach further documentation below."
-                {...register(
-                  "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload"
-                )}
-              />,
             ],
           },
         ]}

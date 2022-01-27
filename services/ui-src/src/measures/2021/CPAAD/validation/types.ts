@@ -25,6 +25,7 @@ export namespace Measure {
     "DataSource-CAHPS-Version": string;
     "DataSource-CAHPS-Version-Other": string;
     "DataSource-Admin-Protocol": string;
+    "DataSource-Admin-Protocol-Other": string;
 
     //CombinedRates
     CombinedRates: string;
@@ -60,5 +61,6 @@ export namespace Measure {
     //DefinitionOfPopulation
     DefinitionOfSurveySample: string[];
     "DefinitionOfSurveySample-Other": string;
+    "DefinitionOfSurveySample-Changes": string;
   }
 }

@@ -29,7 +29,7 @@ export const DataSource = () => {
         ]}
       />
       <CUI.Heading size="sm">
-        Which Supplemental item Sets were included in the Survey
+        Which Supplemental Item Sets were included in the Survey
       </CUI.Heading>
       <QMR.Checkbox
         formControlProps={{ paddingBottom: 4 }}
@@ -76,7 +76,7 @@ export const DataSource = () => {
             children: [
               <QMR.TextArea
                 label="Explain:"
-                {...register("DataSource-CAHPS-Version-Other")}
+                {...register("DataSource-Admin-Protocol-Other")}
               />,
             ],
           },

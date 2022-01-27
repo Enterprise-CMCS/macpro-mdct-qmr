@@ -9,7 +9,7 @@ export const DefinitionOfPopulation = () => {
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
       <CUI.Heading size="sm" as="h3">
-        Definition of Population Included in the Survey Sample
+        Definition of population included in the survey sample
       </CUI.Heading>
       <CUI.Text mt="3">
         Please select all populations that are included. At least one population
@@ -47,12 +47,17 @@ export const DefinitionOfPopulation = () => {
             children: [
               <QMR.TextInput
                 formLabelProps={{ fontWeight: "400" }}
-                label="Define the other denominator population:"
+                label="Specify:"
                 {...register("DefinitionOfSurveySample-Other")}
               />,
             ],
           },
         ]}
+      />
+      <QMR.TextArea
+        label="If there has been a change in the included population from the previous reporting year, please provide any available context below:"
+        formControlProps={{ paddingTop: "15px" }}
+        {...register("DefinitionOfSurveySample-Changes")}
       />
     </QMR.CoreQuestionWrapper>
   );

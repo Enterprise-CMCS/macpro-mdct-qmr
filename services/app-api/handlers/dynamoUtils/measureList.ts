@@ -75,7 +75,7 @@ export const measures: Measure = {
     {
       type: "A",
       description:
-        "Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.10H, Adult Version (Medicaid)",
+        "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
       measure: "CPA-AD",
     },
     {

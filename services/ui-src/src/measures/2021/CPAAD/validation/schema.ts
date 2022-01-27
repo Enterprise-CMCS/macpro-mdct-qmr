@@ -18,6 +18,7 @@ export const validationSchema = Joi.object<Measure.Form>({
   "DataSource-CAHPS-Version": Joi.string().empty(""),
   "DataSource-CAHPS-Version-Other": Joi.string().empty(""),
   "DataSource-Admin-Protocol": Joi.string().empty(""),
+  "DataSource-Admin-Protocol-Other": Joi.string().empty(""),
 
   //CombinedRates
   CombinedRates: Joi.string().empty(""),
