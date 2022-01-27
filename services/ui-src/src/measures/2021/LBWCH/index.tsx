@@ -2,6 +2,7 @@ import { Measure } from "measures/types";
 import * as QMR from "components";
 import { useGetMeasure } from "hooks/api";
 import { CoreSetAbbr } from "types";
+import { format } from "date-fns";
 
 export const LBWCH = ({ name, year }: Measure.Props) => {
   const { data } = useGetMeasure({
@@ -12,7 +13,10 @@ export const LBWCH = ({ name, year }: Measure.Props) => {
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}
-      dateCompleted={new Date(data.Item?.createdAt).toString()}
+      dateCompleted={format(
+        new Date(data.Item?.createdAt),
+        "LLL d, yyyy h:mm a"
+      )}
       isReportingOnMeasureYear={true}
       measureTitle={`LBW-CH - ${name}`}
       performanceMeasureText="Percentage of live births that weighed less than 2,500 grams at birth during the measurement year."
