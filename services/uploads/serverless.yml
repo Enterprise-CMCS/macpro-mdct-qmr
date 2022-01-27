@@ -158,6 +158,12 @@ resources:
               Resource: !Sub ${ClamDefsBucket.Arn}
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${ClamDefsBucket.Arn}
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
     AttachmentsBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
