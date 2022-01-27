@@ -48,11 +48,6 @@ export class FUAadpage {
             cy.xpath(finalXapth).click();
             cy.wait(500);
         }
-        // cy.xpath(check_all_options).each((item, index, list) => {
-        //     cy.wrap(item).scrollIntoView();
-        //     cy.wrap(item).click({force:true});
-        //     cy.wait(500);
-        // });
 
         // Expanded checkbox clicks 
         const unched_checkbox = "//span[ contains(@class, 'check') and not(@data-checked)]";
@@ -129,52 +124,33 @@ export class FUAadpage {
         cy.xpath(num_sample_size).type(22);
     }
 
-    // verifyStatusOfDataReport() {
 
-    // }
+     verifyAges() {
+        // All numerator input 4 of them 
+        let numerator = "(//label[text()='Numerator']/../input)[";
+        for(let i = 1; i <= 4; i++) {
+            let finalXapth = numerator + i + "]";
+            cy.xpath(finalXapth).clear();
+            cy.xpath(finalXapth).type(10);
+            cy.wait(100);
+        }
 
-    // verifyMeasurementSpec() {
+        // All denominator input 4 of them
+        let denominator = "(//label[text()='Denominator']/../input)[";
+        for(let i = 1; i <= 4; i++) {
+            let finalXapth = denominator + i + "]";
+            cy.xpath(finalXapth).clear();
+            cy.xpath(finalXapth).type(20);
+            cy.wait(100);
+        }
 
-    // }
-
-    // verifyDataSource() {
-
-    // }
-
-    // verifyDateRange() {
-
-    // }
-
-    // verifyDefinitionOfDenominator() {
-
-    // }
-
-    // verifyDeliverySystem() {
-
-    // }
-
-    // verifyPerformanceMeasure() {
-
-    // }
-
-    // verifyAges() {
-
-    // }
-
-    // verifyDeviationsFromMeasureSpec() {
-
-    // }
-
-    // verifyCombinedRates() {
-
-    // }
-
-    // verifyOptionalMeasureStratification() {
-
-    // }
-
-    // verifyAddtionalNotes() {
-
-    // }
+        // All rate input, 4 of them 
+        let rate = "(//label[text()='Rate']/../input)[";
+        for(let i = 1; i <= 4; i++) {
+            let finalXapth = rate + i + "]";
+            cy.xpath(finalXapth).invoke('attr', 'value').should('eq', '50.0000');
+            cy.wait(500);
+        }
+     }
 }
 export default FUAadpage;

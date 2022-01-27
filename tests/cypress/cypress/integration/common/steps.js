@@ -78,6 +78,7 @@ And('user click on link Adult Core Set Measures',()=>{
 });
 
 
+
 And('user click on link FUA-AD',()=>{
   adultCoreSetMeasurespage.clickFUAadLink();
 });
@@ -88,6 +89,10 @@ And('user can see the FUA-AD follow up after emergency department vist for alcoh
 
 And('user can see the sentence below title',()=>{
 
+});
+
+And('user enters inputs to the Rate field and verify the correct Rate output', ()=>{
+  fuaAdpage.verifyAges();
 });
 
 And('user can click on No option for reporting on this measure',()=>{
