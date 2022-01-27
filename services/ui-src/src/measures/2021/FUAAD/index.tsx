@@ -4,7 +4,6 @@ import * as Q from "./questions";
 import { useFormContext } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import { validationSchema } from "./validation/schema";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const FUAAD = ({
@@ -13,21 +12,15 @@ export const FUAAD = ({
   measureId,
   handleSubmit,
   handleValidation,
-  setMeasureSchema,
   setValidationFunctions,
 }: Measure.Props) => {
   useEffect(() => {
-    if (setMeasureSchema) {
-      setMeasureSchema(validationSchema);
-    }
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
-  }, [setMeasureSchema, setValidationFunctions]);
+  }, [setValidationFunctions]);
 
-  const { watch, getValues, formState } = useFormContext<Measure.Form>();
-
-  console.log({ errors: formState.errors });
+  const { watch, getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
