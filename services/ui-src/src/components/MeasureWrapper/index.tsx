@@ -147,6 +147,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
     if (continueWithErrors) {
       submitDataToServer(methods.getValues());
+      setErrors(undefined);
       console.log("Submitted");
     }
   };
@@ -237,6 +238,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                 {cloneElement(measure, {
                   name,
                   year,
+                  measureId,
                   handleSubmit: methods.handleSubmit(handleSubmit),
                   handleValidation: methods.handleSubmit(handleValidation),
                   setMeasureSchema,

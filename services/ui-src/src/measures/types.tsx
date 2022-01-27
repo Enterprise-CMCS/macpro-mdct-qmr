@@ -8,6 +8,7 @@ export namespace Measure {
   export interface Props {
     name: string;
     year: string;
+    measureId: string;
     handleSubmit?: any;
     handleValidation?: any;
     setMeasureSchema?: React.Dispatch<
@@ -174,8 +175,9 @@ export namespace Measure {
     AddtnlEthnicityRates: AggregateRate[];
 
     AddtnlNonHispanicRace: string[];
-    AddtnlNonHispanicRaceAggregation: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
+    AddtnlNonHispanicRaceSubCatTitle: string[][];
+    AddtnlNonHispanicRaceSubCatRates: AggregateRate[][];
 
     AddtnlNonHispanicSubCat: string[];
     AddtnlNonHispanicSubCatRates: AggregateRate[];
@@ -190,6 +192,7 @@ export namespace Measure {
     "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
 
     EthnicityCategories: string[];
+    EthnicitySubCategories: string[];
     NonHispanicEthnicityRates: AggregateRate;
     HispanicIndependentReporting: string;
     HispanicEthnicityAggregateRate: AggregateRate;
