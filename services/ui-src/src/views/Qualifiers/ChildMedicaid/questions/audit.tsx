@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Q from "./";
+import * as Q from ".";
 import { ICheckbox } from "components/MultiSelect";
 import { useController, useFormContext } from "react-hook-form";
 import { AuditDetails } from "../types";
@@ -26,10 +26,9 @@ export const Audit = () => {
   });
 
   const [measureList, setMeasureList] = useState(field.value);
-
-  const adultMeasures = measuresList[2021]
+  const childMeasures = measuresList[2021]
     .filter((item) => {
-      return item.type === "AD";
+      return item.type === "CH";
     })
     .map((obj) => {
       return {
@@ -40,8 +39,8 @@ export const Audit = () => {
     });
 
   const multiSelectList = useMemo<ICheckbox[]>(
-    () => adultMeasures,
-    [adultMeasures]
+    () => childMeasures,
+    [childMeasures]
   );
 
   const handleAddMeasureList = () => {

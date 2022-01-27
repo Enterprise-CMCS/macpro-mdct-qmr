@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
 import { useForm, FormProvider } from "react-hook-form";
-import { ACSQualifierForm } from "./types";
+import { CCSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUpdateMeasure, useGetMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
@@ -27,7 +27,7 @@ const LastSavedText = ({ lastAltered }: { lastAltered?: number }) => {
   );
 };
 
-export const ACSQualifiers = () => {
+export const CCSQualifiers = () => {
   const { state, year } = useParams();
   const mutation = useUpdateMeasure();
   const queryClient = useQueryClient();
@@ -35,11 +35,11 @@ export const ACSQualifiers = () => {
 
   // get qualifier data and prepoulate default values if data exists
   const { data } = useGetMeasure({
-    coreSet: CoreSetAbbr.ACS,
+    coreSet: CoreSetAbbr.CCS,
     measure: "CSQ",
   });
 
-  const methods = useForm<ACSQualifierForm>({
+  const methods = useForm<CCSQualifierForm>({
     shouldUnregister: true,
     mode: "all",
     defaultValues: data?.Item?.data || {
@@ -47,29 +47,29 @@ export const ACSQualifiers = () => {
         {
           key: "FeeForService",
           label: "Fee-for-Service",
-          TwentyOneToSixtyFour: "",
-          GreaterThanSixtyFour: "",
+          UnderTwentyOneMedicaid: "",
+          UnderTwentyOneCHIP: "",
           userGenerated: false,
         },
         {
           key: "PCCM",
           label: "PCCM",
-          TwentyOneToSixtyFour: "",
-          GreaterThanSixtyFour: "",
+          UnderTwentyOneMedicaid: "",
+          UnderTwentyOneCHIP: "",
           userGenerated: false,
         },
         {
           key: "ManagedCare",
           label: "Managed Care",
-          TwentyOneToSixtyFour: "",
-          GreaterThanSixtyFour: "",
+          UnderTwentyOneMedicaid: "",
+          UnderTwentyOneCHIP: "",
           userGenerated: false,
         },
         {
           key: "IntegtatedCareModel",
           label: "Integrated Care Model (ICM)",
-          TwentyOneToSixtyFour: "",
-          GreaterThanSixtyFour: "",
+          UnderTwentyOneMedicaid: "",
+          UnderTwentyOneCHIP: "",
           userGenerated: false,
         },
       ],
@@ -82,19 +82,19 @@ export const ACSQualifiers = () => {
     },
   });
 
-  const handleSubmit = (data: ACSQualifierForm) => {
+  const handleSubmit = (data: CCSQualifierForm) => {
     const requestData = {
       data,
       measure: "CSQ",
       status: MeasureStatus.COMPLETE,
-      coreSet: CoreSetAbbr.ACS,
+      coreSet: CoreSetAbbr.CCS,
     };
 
     mutation.mutate(requestData, {
       onSuccess: () => {
         // refetch the qualifier measure and redirect to measure list page
         queryClient.refetchQueries(["measure", state, year, "CSQ"]);
-        navigate(`/${state}/${year}/${CoreSetAbbr.ACS}`);
+        navigate(`/${state}/${year}/${CoreSetAbbr.CCS}`);
       },
     });
   };
@@ -104,12 +104,12 @@ export const ACSQualifiers = () => {
       breadcrumbItems={[
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
-          path: `/${state}/${year}/${CoreSetAbbr.ACS}`,
+          path: `/${state}/${year}/${CoreSetAbbr.CCS}`,
           name: ``,
         },
         {
-          path: `/${state}/${year}/${CoreSetAbbr.ACS}/CSQ`,
-          name: `Adult Core Set Qualifiers`,
+          path: `/${state}/${year}/${CoreSetAbbr.CCS}/CSQ`,
+          name: `Child Core Set Qualifiers`,
         },
       ]}
       buttons={
@@ -123,7 +123,7 @@ export const ACSQualifiers = () => {
           <CUI.Box maxW="5xl" as="section">
             <CUI.Box mb="7" mt="3">
               <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
-                Adult Core Set Questions
+                Child Core Set Questions: Medicaid & CHIP
               </CUI.Text>
               <QMR.SupportLinks />
             </CUI.Box>
