@@ -16,7 +16,7 @@ export class AdultCoreSetMeasuresPage {
         // cy.xpath(fuaAD).click({force:true});
 
         // "//p[text()='FUA-AD']"
-
+        cy.xpath("//p[text()='FUA-AD']").scrollIntoView();
         cy.xpath("//p[text()='FUA-AD']").should("be.visible");
         cy.xpath("//p[text()='FUA-AD']").click({force:true});
 

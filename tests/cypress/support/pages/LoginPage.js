@@ -1,4 +1,8 @@
 const usernameInput = "input#okta-signin-username";
+const emailForCognito = "//input[@name='email']";
+const passwordForCognito = "//input[@name='password']";
+const loginWithCognitoButtn =
+  "(//button[@class='chakra-button css-9n6wlp'])[2]";
 const passwordInput = "input#okta-signin-password"; //pragma: allowlist secret
 const agreeTermCondition = "input#tandc";
 const signInBttn = "input#okta-signin-submit";
@@ -22,6 +26,12 @@ export class LoginPage {
 
   clickSignIn() {
     cy.get(signInBttn).click();
+  }
+
+  loginasAStateUserTwoWithCognito() {
+    cy.xpath(emailForCognito).type("stateuser2@test.com");
+    cy.xpath(passwordForCognito).type("p@55W0rd!");
+    cy.xpath(loginWithCognitoButtn).click();
   }
 }
 export default LoginPage;

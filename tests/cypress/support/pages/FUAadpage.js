@@ -28,22 +28,31 @@ const check_small_sample_size = "(//span[ contains(@class, 'check')]/p)[16]";
 const num_sample_size = "//input[contains(@data-testid, 'number')]";
 
 // ------- 
-const check_all_options = "//span[ contains(@class, 'check')]/p";
+
 const radio_all_options = "//span[ contains(@class, 'radio')]/p";
 
 export class FUAadpage {
 
     verifyReportingOnMeasureYes() {
-        cy.reload();
+      
         cy.wait(500);
         cy.xpath(reporting_yes).click();
 
         // Initial Checkbox clicks
-        cy.xpath(check_all_options).each((item, index, list) => {
-            cy.wrap(item).scrollIntoView();
-            cy.wrap(item).click({force:true});
+        const check_all_options = "//span[ contains(@class, 'check')]/p";
+        let checkXpath = "(//span[ contains(@class, 'check')]/p)[";
+        for(let i = 1; i <= 25; i++) {
+            let finalXapth = checkXpath + i + "]";
+            console.log(finalXapth);
+            cy.xpath(finalXapth).scrollIntoView();
+            cy.xpath(finalXapth).click();
             cy.wait(500);
-        });
+        }
+        // cy.xpath(check_all_options).each((item, index, list) => {
+        //     cy.wrap(item).scrollIntoView();
+        //     cy.wrap(item).click({force:true});
+        //     cy.wait(500);
+        // });
 
         // Expanded checkbox clicks 
         const unched_checkbox = "//span[ contains(@class, 'check') and not(@data-checked)]";
@@ -92,21 +101,9 @@ export class FUAadpage {
         cy.xpath(describe_rate).clear();
         cy.xpath(describe_rate).type("This is a QA testing for the Rate");
         cy.wait(500);
-
-        // forms 
-        cy.get("input#field-50").scrollIntoView();
-        cy.get("input#field-50").clear();
-        cy.get("input#field-50").type("10");
-
-        cy.get("input#field-51").clear();
-        cy.get("input#field-51").type("20")
-
-
-        cy.get("input#field-52").invoke('attr', 'value').should('eq', '0.5000');
     }
 
     VerifyReportingOnMeasureNo() {
-        cy.reload();
         cy.wait(500);
         cy.xpath(reporting_no).click();
         cy.xpath(check_service_not_covered).click();

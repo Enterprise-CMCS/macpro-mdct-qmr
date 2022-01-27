@@ -210,6 +210,10 @@ When("user enter username and password", () => {
   loginPage.clickAgreeTermAndConditions();
 });
 
+When("login as state user two",()=>{
+  loginPage.loginasAStateUserTwoWithCognito();
+});
+
 And('user click "Sign In" button', () => {
   loginPage.clickSignIn();
 });
