@@ -21,24 +21,6 @@ provider:
       statements:
         - Effect: "Allow"
           Action:
-            - s3:GetObject
-            - s3:GetObjectTagging
-            - s3:PutObject
-            - s3:PutObjectAcl
-            - s3:PutObjectTagging
-            - s3:PutObjectVersionTagging
-            - s3:ListBucket
-          Resource:
-            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*
-            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}/*
-        - Effect: "Allow"
-          Action:
-            - s3:ListBucket
-          Resource:
-            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
-            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}/*
-        - Effect: "Allow"
-          Action:
             - dynamodb:DescribeTable
             - dynamodb:Query
             - dynamodb:Scan
@@ -106,7 +88,7 @@ functions:
     events:
       - schedule: cron(0 */6 * * ? *)
     timeout: 300 # 300 seconds = 5 minutes
-    memorySize: 1024
+    memorySize: 3072
     layers:
       - !Ref ClamDefsLambdaLayer
     environment:
