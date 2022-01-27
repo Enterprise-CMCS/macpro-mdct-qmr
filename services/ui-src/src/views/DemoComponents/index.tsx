@@ -3,8 +3,6 @@ import * as CUI from "@chakra-ui/react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import React, { useEffect, useMemo, useState } from "react";
-import { DemoValidationSchema } from "./ValidationSchema";
-import { joiResolver } from "@hookform/resolvers/joi";
 import { Notification } from "components/Notification";
 import { MultiSelect, ICheckbox } from "components/MultiSelect";
 import { Divider } from "@chakra-ui/react";
@@ -23,7 +21,6 @@ export function DemoComponents(): JSX.Element {
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(DemoValidationSchema),
   });
 
   return (
