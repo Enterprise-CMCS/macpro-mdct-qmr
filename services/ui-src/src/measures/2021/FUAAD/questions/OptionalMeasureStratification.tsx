@@ -415,7 +415,7 @@ export const OptionalMeasureStratification = ({
                         children: [
                           <CUI.Stack key={`${value}.${index}`}>
                             <QMR.TextInput
-                              textInputProps={{ isRequired: true }}
+                              rules={{ required: true }}
                               label="Define the additional Race"
                               name={`AddtnlNonHispanicRace.${index}`}
                             />
@@ -443,9 +443,7 @@ export const OptionalMeasureStratification = ({
                                               key={`NonHispanicSubCatStack.${index}.${subIndex}`}
                                             >
                                               <QMR.TextInput
-                                                textInputProps={{
-                                                  isRequired: true,
-                                                }}
+                                                rules={{ required: true }}
                                                 label="Define the Alternative Classification/Sub-category"
                                                 name={`AddtnlNonHispanicRaceSubCatTitle.${index}.titles.${subIndex}`}
                                               />
