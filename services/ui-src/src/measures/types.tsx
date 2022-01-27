@@ -1,4 +1,3 @@
-import Joi from "joi";
 import { ResolverResult } from "react-hook-form";
 export type CustomValidator = (res: ResolverResult) => ResolverResult;
 
@@ -10,9 +9,7 @@ export namespace Measure {
     year: string;
     handleSubmit?: any;
     handleValidation?: any;
-    setMeasureSchema?: React.Dispatch<
-      React.SetStateAction<Joi.ObjectSchema<any>>
-    >;
+    measureId: string;
     setValidationFunctions?: React.Dispatch<
       React.SetStateAction<CustomValidator[]>
     >;
@@ -174,8 +171,9 @@ export namespace Measure {
     AddtnlEthnicityRates: AggregateRate[];
 
     AddtnlNonHispanicRace: string[];
-    AddtnlNonHispanicRaceAggregation: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
+    AddtnlNonHispanicRaceSubCatTitle: string[][];
+    AddtnlNonHispanicRaceSubCatRates: AggregateRate[][];
 
     AddtnlNonHispanicSubCat: string[];
     AddtnlNonHispanicSubCatRates: AggregateRate[];

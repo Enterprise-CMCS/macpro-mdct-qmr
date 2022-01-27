@@ -13,7 +13,7 @@ interface IUploadProps {
 }
 
 export const Upload = ({
-  maxSize = 80000000,
+  maxSize = 82000000,
   label,
   name,
   acceptedFileTypes = [
@@ -109,10 +109,10 @@ export const Upload = ({
   );
 
   const convertFileSize = (fileSize: number) => {
-    if (fileSize < 1000000) {
+    if (fileSize < 1030000) {
       return `${Math.ceil(fileSize / 1000)}KB`;
     } else {
-      return `${Math.ceil(fileSize / 1000000)}MB`;
+      return `${Math.ceil(fileSize / 1030000)}MB`;
     }
   };
 

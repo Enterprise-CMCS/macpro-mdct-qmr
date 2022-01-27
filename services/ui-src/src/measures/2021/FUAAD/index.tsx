@@ -2,30 +2,24 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
 import { useFormContext } from "react-hook-form";
-import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import { validationSchema } from "./validation/schema";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const FUAAD = ({
   name,
   year,
+  measureId,
   handleSubmit,
   handleValidation,
-  setMeasureSchema,
   setValidationFunctions,
 }: Measure.Props) => {
   useEffect(() => {
-    if (setMeasureSchema) {
-      setMeasureSchema(validationSchema);
-    }
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
-  }, [setMeasureSchema, setValidationFunctions]);
+  }, [setValidationFunctions]);
 
-  const { coreSetId } = useParams();
   const { watch, getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
@@ -79,7 +73,7 @@ export const FUAAD = ({
       <Q.Reporting
         reportingYear={year}
         measureName={name}
-        measureAbbreviation={coreSetId as string}
+        measureAbbreviation={measureId}
       />
 
       {!watchReportingRadio?.includes("No") && (

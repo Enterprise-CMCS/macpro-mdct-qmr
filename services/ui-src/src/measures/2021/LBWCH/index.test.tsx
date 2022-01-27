@@ -5,7 +5,11 @@ import { LBWCH } from ".";
 beforeEach(() => {
   render(
     <RouterWrappedComp>
-      <LBWCH name="Live Births Weighing Less Than 2,500 Grams" year="2021" />
+      <LBWCH
+        name="Live Births Weighing Less Than 2,500 Grams"
+        year="2021"
+        measureId="test"
+      />
     </RouterWrappedComp>
   );
 });
