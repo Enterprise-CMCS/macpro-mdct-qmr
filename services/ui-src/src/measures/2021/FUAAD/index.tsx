@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
@@ -20,20 +20,24 @@ export const FUAAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { watch, getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
-  const watchReportingRadio = watch("DidReport");
-  const watchMeasureSpecification = watch("MeasurementSpecification");
-  const watchPerformanceMeasureAgeRates30Days = watch(
-    "PerformanceMeasure-AgeRates-30Days"
-  );
-  const watchPerformanceMeasureAgeRates7Days = watch(
-    "PerformanceMeasure-AgeRates-7Days"
-  );
-  const watchOtherPerformanceMeasureRates = watch(
-    "OtherPerformanceMeasure-Rates"
-  );
+  const watchReportingRadio = useWatch({
+    name: "DidReport",
+  });
+  const watchMeasureSpecification = useWatch({
+    name: "MeasurementSpecification",
+  });
+  const watchPerformanceMeasureAgeRates30Days = useWatch({
+    name: "PerformanceMeasure-AgeRates-30Days",
+  });
+  const watchPerformanceMeasureAgeRates7Days = useWatch({
+    name: "PerformanceMeasure-AgeRates-7Days",
+  });
+  const watchOtherPerformanceMeasureRates = useWatch({
+    name: "OtherPerformanceMeasure-Rates",
+  });
 
   // Conditionals for Performance Measures
   const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
