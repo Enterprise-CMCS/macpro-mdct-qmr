@@ -2,10 +2,8 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { ReactElement, cloneElement, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
-import { joiResolver } from "@hookform/resolvers/joi";
 import { useUser } from "hooks/authHooks";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
@@ -21,12 +19,10 @@ interface Props {
 export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const params = useParams();
   const [errors, setErrors] = useState<any[]>();
-  const [measureSchema, setMeasureSchema] = useState(validationSchema);
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
 
-  const resolver = joiResolver(measureSchema);
   const { isStateUser } = useUser();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [lastSavedText, setLastSavedText] = useState(
@@ -61,7 +57,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     shouldUnregister: true,
     mode: "all",
     defaultValues: measureData?.data ?? undefined,
-    resolver,
   });
 
   useEffect(() => {
@@ -241,7 +236,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   measureId,
                   handleSubmit: methods.handleSubmit(handleSubmit),
                   handleValidation: methods.handleSubmit(handleValidation),
-                  setMeasureSchema,
                   setValidationFunctions,
                   //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
                   // whenever the buttons have a loading prop
