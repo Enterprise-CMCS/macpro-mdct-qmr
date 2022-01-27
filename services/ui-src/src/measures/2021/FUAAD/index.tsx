@@ -4,7 +4,6 @@ import * as Q from "./questions";
 import { useFormContext } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import { validationSchema } from "./validation/schema";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const FUAAD = ({
@@ -13,21 +12,15 @@ export const FUAAD = ({
   measureId,
   handleSubmit,
   handleValidation,
-  setMeasureSchema,
   setValidationFunctions,
 }: Measure.Props) => {
   useEffect(() => {
-    if (setMeasureSchema) {
-      setMeasureSchema(validationSchema);
-    }
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
-  }, [setMeasureSchema, setValidationFunctions]);
+  }, [setValidationFunctions]);
 
-  const { watch, getValues, formState } = useFormContext<Measure.Form>();
-
-  console.log({ errors: formState.errors });
+  const { watch, getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidReport");
@@ -108,22 +101,25 @@ export const FUAAD = ({
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
           <Q.CombinedRates />
-          {(show30DaysAges18To64 ||
-            show30DaysAges65AndOlder ||
-            show7DaysAges18To64 ||
-            show7DaysAges65AndOlder ||
-            showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
-          )}
+          {
+            //TODO: after initial data load these values were still false but should not be
+            (show30DaysAges18To64 ||
+              show30DaysAges65AndOlder ||
+              show7DaysAges18To64 ||
+              show7DaysAges65AndOlder ||
+              showOtherPerformanceMeasureRates) && (
+              <Q.OptionalMeasureStratification
+                ageGroups={ageGroups}
+                deviationConditions={{
+                  show30DaysAges18To64,
+                  show30DaysAges65AndOlder,
+                  show7DaysAges18To64,
+                  show7DaysAges65AndOlder,
+                  showOtherPerformanceMeasureRates,
+                }}
+              />
+            )
+          }
         </>
       )}
       <Q.AdditionalNotes />

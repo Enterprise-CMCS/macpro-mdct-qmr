@@ -1,5 +1,3 @@
-import Joi from "joi";
-
 export namespace Measure {
   export interface Props {
     name: string;
@@ -7,9 +5,6 @@ export namespace Measure {
     measureId: string;
     handleSubmit?: any;
     handleValidation?: any;
-    setMeasureSchema?: React.Dispatch<
-      React.SetStateAction<Joi.ObjectSchema<any>>
-    >;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 

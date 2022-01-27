@@ -1,4 +1,3 @@
-import Joi from "joi";
 import { ResolverResult } from "react-hook-form";
 export type CustomValidator = (res: ResolverResult) => ResolverResult;
 
@@ -8,12 +7,9 @@ export namespace Measure {
   export interface Props {
     name: string;
     year: string;
-    measureId: string;
     handleSubmit?: any;
     handleValidation?: any;
-    setMeasureSchema?: React.Dispatch<
-      React.SetStateAction<Joi.ObjectSchema<any>>
-    >;
+    measureId: string;
     setValidationFunctions?: React.Dispatch<
       React.SetStateAction<CustomValidator[]>
     >;
