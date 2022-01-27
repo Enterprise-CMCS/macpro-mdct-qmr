@@ -25,12 +25,12 @@ export const createCoreSet = handler(async (event, context) => {
   }
   const dynamoKey = createCompoundKey(event);
 
-  const dependentMeasures = await createDependentMeasures(
-    state,
-    parseInt(year),
-    coreSet,
-    type
-  );
+  createDependentMeasures(state, parseInt(year), coreSet, type);
+
+  const measureLengthWithoutQualifiers = measures[parseInt(year)].filter(
+    (measure: MeasureMetaData) =>
+      measure.type === type && measure.measure !== "CSQ"
+  )?.length;
 
   const params = {
     TableName: process.env.coreSetTableName,
@@ -43,7 +43,10 @@ export const createCoreSet = handler(async (event, context) => {
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
-      progress: { numAvailable: dependentMeasures.length, numComplete: 0 },
+      progress: {
+        numAvailable: measureLengthWithoutQualifiers,
+        numComplete: 0,
+      },
       submitted: false,
     },
   };
