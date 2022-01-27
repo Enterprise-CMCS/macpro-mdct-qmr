@@ -13,11 +13,12 @@ const getStatus = ({
 
   if (submitted) return CoreSetTableItem.Status.SUBMITTED;
   else if (
+    progress &&
     progress.numComplete > 0 &&
     progress.numComplete < progress.numAvailable
   ) {
     status = CoreSetTableItem.Status.IN_PROGRESS;
-  } else if (progress.numComplete === progress.numAvailable) {
+  } else if (progress && progress.numComplete === progress.numAvailable) {
     status = CoreSetTableItem.Status.COMPLETED;
   }
 

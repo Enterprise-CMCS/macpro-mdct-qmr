@@ -27,9 +27,15 @@ export const createCoreSet = handler(async (event, context) => {
 
   createDependentMeasures(state, parseInt(year), coreSet, type);
 
+  // filter out qualifier and account for autocomplete measures on creation
+  let autoCompletedMeasures = 0;
   const measuresLengthWithoutQualifiers = measures[parseInt(year)].filter(
-    (measure: MeasureMetaData) =>
-      measure.type === type && measure.measure !== "CSQ"
+    (measure: MeasureMetaData) => {
+      if (measure.autocompleteOnCreation && measure.type === type) {
+        autoCompletedMeasures++;
+      }
+      return measure.type === type && measure.measure !== "CSQ";
+    }
   )?.length;
 
   const params = {
@@ -45,7 +51,7 @@ export const createCoreSet = handler(async (event, context) => {
       lastAlteredBy: event.headers["cognito-identity-id"],
       progress: {
         numAvailable: measuresLengthWithoutQualifiers,
-        numComplete: 0,
+        numComplete: autoCompletedMeasures,
       },
       submitted: false,
     },
