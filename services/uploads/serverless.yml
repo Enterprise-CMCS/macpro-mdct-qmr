@@ -139,6 +139,25 @@ resources:
             - Event: s3:ObjectCreated:Put
               Function: !GetAtt AvScanLambdaFunction.Arn
       DependsOn: LambdaInvokePermission
+    AVBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref ClamDefsBucket
+        PolicyDocument:
+          Statement:
+            - Action:
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: !Sub ${ClamDefsBucket.Arn}/*
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${ClamDefsBucket.Arn}
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
     AttachmentsBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
