@@ -1,47 +1,45 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
-import { Params } from "Routes";
-import { useFormContext } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import { validationSchema } from "./validation/schema";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const FUAAD = ({
   name,
   year,
+  measureId,
   handleSubmit,
-  setMeasureSchema,
+  handleValidation,
   setValidationFunctions,
 }: Measure.Props) => {
   useEffect(() => {
-    if (setMeasureSchema) {
-      setMeasureSchema(validationSchema);
-    }
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
-  }, [setMeasureSchema, setValidationFunctions]);
+  }, [setValidationFunctions]);
 
-  const { coreSetId } = useParams<Params>();
-  const { watch } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
-  const watchReportingRadio = watch("DidReport");
-  const watchMeasureSpecification = watch("MeasurementSpecification");
-  const watchDataSourceAdmin = watch("DataSource") ?? [];
-  const watchPerformanceMeasureAgeRates30Days = watch(
-    "PerformanceMeasure-AgeRates-30Days"
-  );
-  const watchPerformanceMeasureAgeRates7Days = watch(
-    "PerformanceMeasure-AgeRates-7Days"
-  );
+  const watchReportingRadio = useWatch({
+    name: "DidReport",
+  });
+  const watchMeasureSpecification = useWatch({
+    name: "MeasurementSpecification",
+  });
+  const watchPerformanceMeasureAgeRates30Days = useWatch({
+    name: "PerformanceMeasure-AgeRates-30Days",
+  });
+  const watchPerformanceMeasureAgeRates7Days = useWatch({
+    name: "PerformanceMeasure-AgeRates-7Days",
+  });
+  const watchOtherPerformanceMeasureRates = useWatch({
+    name: "OtherPerformanceMeasure-Rates",
+  });
 
   // Conditionals for Performance Measures
-  const isOtherDataSource =
-    watchDataSourceAdmin?.indexOf("Other Data Source") !== -1;
   const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
 
   const isOtherSpecification = watchMeasureSpecification === "Other";
@@ -53,6 +51,7 @@ export const FUAAD = ({
   const show7DaysAges18To64 = !!watchPerformanceMeasureAgeRates7Days?.[0]?.rate;
   const show7DaysAges65AndOlder =
     !!watchPerformanceMeasureAgeRates7Days?.[1]?.rate;
+  const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
   const ageGroups = [];
@@ -64,13 +63,21 @@ export const FUAAD = ({
   if (show30DaysAges65AndOlder || show7DaysAges65AndOlder) {
     ageGroups.push({ label: "Ages 65 and older", id: 1 });
   }
+  if (showOtherPerformanceMeasureRates) {
+    let otherRates = getValues("OtherPerformanceMeasure-Rates");
+    otherRates.forEach((rate) => {
+      if (rate.description) {
+        ageGroups.push({ label: rate.description, id: ageGroups.length });
+      }
+    });
+  }
 
   return (
     <>
       <Q.Reporting
         reportingYear={year}
         measureName={name}
-        measureAbbreviation={coreSetId as string}
+        measureAbbreviation={measureId}
       />
 
       {!watchReportingRadio?.includes("No") && (
@@ -91,23 +98,29 @@ export const FUAAD = ({
                 show30DaysAges65AndOlder,
                 show7DaysAges18To64,
                 show7DaysAges65AndOlder,
+                showOtherPerformanceMeasureRates,
               }}
             />
           )}
-          {/* Show Other Performance Measures when isHedis is not true and other is selected from one of two questions */}
-          {(isOtherSpecification || isOtherDataSource) && (
-            <Q.OtherPerformanceMeasure />
-          )}
+          {/* Show Other Performance Measures when isHedis is not true  */}
+          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
           <Q.CombinedRates />
-          <Q.OptionalMeasureStratification
-            ageGroups={ageGroups}
-            deviationConditions={{
-              show30DaysAges18To64,
-              show30DaysAges65AndOlder,
-              show7DaysAges18To64,
-              show7DaysAges65AndOlder,
-            }}
-          />
+          {(show30DaysAges18To64 ||
+            show30DaysAges65AndOlder ||
+            show7DaysAges18To64 ||
+            show7DaysAges65AndOlder ||
+            showOtherPerformanceMeasureRates) && (
+            <Q.OptionalMeasureStratification
+              ageGroups={ageGroups}
+              deviationConditions={{
+                show30DaysAges18To64,
+                show30DaysAges65AndOlder,
+                show7DaysAges18To64,
+                show7DaysAges65AndOlder,
+                showOtherPerformanceMeasureRates,
+              }}
+            />
+          )}
         </>
       )}
       <Q.AdditionalNotes />
@@ -115,23 +128,37 @@ export const FUAAD = ({
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
         </CUI.Heading>
+        <CUI.Text pl="5">
+          Please select "Validate Measure" to check any error present on the
+          measure prior to completion
+        </CUI.Text>
         <CUI.Text p="3" pl="5">
           Complete the measure and mark it for submission to CMS for review
         </CUI.Text>
-        <QMR.ContainedButton
-          buttonProps={{
-            ml: "5",
-            type: "submit",
-            colorScheme: "blue",
-            textTransform: "capitalize",
-          }}
-          buttonText="Complete Measure"
-          onClick={(e) => {
-            e.preventDefault();
-            handleSubmit();
-            console.log("testing");
-          }}
-        />
+        <CUI.HStack>
+          <QMR.ContainedButton
+            buttonProps={{
+              ml: "5",
+              colorScheme: "green",
+              textTransform: "capitalize",
+            }}
+            buttonText="Validate Measure"
+            onClick={handleValidation}
+          />
+          <QMR.ContainedButton
+            buttonProps={{
+              type: "submit",
+              colorScheme: "blue",
+              textTransform: "capitalize",
+            }}
+            buttonText="Complete Measure"
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit();
+              console.log("testing");
+            }}
+          />
+        </CUI.HStack>
       </CUI.Stack>
     </>
   );

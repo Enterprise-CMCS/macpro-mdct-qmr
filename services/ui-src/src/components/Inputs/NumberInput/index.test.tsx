@@ -45,17 +45,4 @@ describe("Test the NumberInput component", () => {
       { timeout: 300 * 11 }
     );
   });
-
-  test("Check that percent symbol is rendered correctly", () => {
-    renderWithHookForm(
-      <NumberInput
-        label="label"
-        helperText="helper"
-        displayPercent
-        name="test-component"
-      />
-    );
-    // const { getByText } = render(<TestComponent renderPercent={true} />);
-    expect(screen.getByText("%")).toBeVisible();
-  });
 });
