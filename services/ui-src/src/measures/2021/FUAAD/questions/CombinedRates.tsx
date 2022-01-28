@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 
 export const CombinedRates = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -53,7 +53,6 @@ export const CombinedRates = () => {
         ]}
         label="Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate?"
         formLabelProps={{ fontWeight: 600 }}
-        helperText=" For additional information refer to the State-Level Rate Brief."
         renderHelperTextAbove
         {...register("CombinedRates")}
       />

@@ -35,5 +35,9 @@ export class AdultCoreSetMeasuresPage {
     cy.xpath(lrcdCH).should("be.visible");
     cy.xpath(lrcdCH).click({ force: true });
   }
+
+  verifyURLContainsACS() {
+    cy.url().should("include", "ACS");
+  }
 }
 export default AdultCoreSetMeasuresPage;

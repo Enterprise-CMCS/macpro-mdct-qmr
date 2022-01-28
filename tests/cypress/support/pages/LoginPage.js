@@ -42,7 +42,7 @@ export class LoginPage {
   }
 
   //old credentials
-  //state_QMR  Passw0rd!
+  //State_QMR  Passw0rd!
 
   clickAgreeTermAndConditions() {
     //cy.wait(2000);

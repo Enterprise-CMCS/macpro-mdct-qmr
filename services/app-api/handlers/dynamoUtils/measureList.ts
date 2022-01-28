@@ -3,7 +3,7 @@ interface Measure {
 }
 
 export interface MeasureMetaData {
-  type: string;
+  type: "A" | "C" | "H";
   description: string;
   measure: string;
   autocompleteOnCreation?: boolean;
@@ -11,6 +11,16 @@ export interface MeasureMetaData {
 
 export const measures: Measure = {
   2021: [
+    {
+      type: "A",
+      description: "Adult Qualifiers",
+      measure: "CSQ",
+    },
+    {
+      type: "C",
+      description: "Child Qualifiers",
+      measure: "CSQ",
+    },
     {
       type: "A",
       description: "Antidepressant Medication Management",

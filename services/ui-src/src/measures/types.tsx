@@ -1,8 +1,18 @@
+import { ResolverResult } from "react-hook-form";
+export type CustomValidator = (res: ResolverResult) => ResolverResult;
+
 export namespace Measure {
+  export type CustomValidator = (res: ResolverResult) => ResolverResult;
+
   export interface Props {
     name: string;
     year: string;
-    handleSubmit: any;
+    handleSubmit?: any;
+    handleValidation?: any;
+    measureId: string;
+    setValidationFunctions?: React.Dispatch<
+      React.SetStateAction<CustomValidator[]>
+    >;
   }
 
   interface RateFields {
@@ -161,8 +171,9 @@ export namespace Measure {
     AddtnlEthnicityRates: AggregateRate[];
 
     AddtnlNonHispanicRace: string[];
-    AddtnlNonHispanicRaceAggregation: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
+    AddtnlNonHispanicRaceSubCatTitle: string[][];
+    AddtnlNonHispanicRaceSubCatRates: AggregateRate[][];
 
     AddtnlNonHispanicSubCat: string[];
     AddtnlNonHispanicSubCatRates: AggregateRate[];
@@ -177,6 +188,7 @@ export namespace Measure {
     "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
 
     EthnicityCategories: string[];
+    EthnicitySubCategories: string[];
     NonHispanicEthnicityRates: AggregateRate;
     HispanicIndependentReporting: string;
     HispanicEthnicityAggregateRate: AggregateRate;

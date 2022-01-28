@@ -1,5 +1,5 @@
 import * as QMR from "components";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
 export const defaultDeviationOptions = [
@@ -14,6 +14,7 @@ interface Props {
     show30DaysAges65AndOlder: boolean;
     show7DaysAges18To64: boolean;
     show7DaysAges65AndOlder: boolean;
+    showOtherPerformanceMeasureRates: boolean;
   };
 }
 
@@ -57,7 +58,7 @@ const deviationOptions = ({
               value: `${item.id}.Numerator`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
+                  label="Explain:"
                   name={`${name}.${item.id}.numerator`}
                   key={`${name}.${item.id}.numerator`}
                 />,
@@ -68,7 +69,7 @@ const deviationOptions = ({
               value: `${item.id}.Denominator`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
+                  label="Explain:"
                   name={`${name}.${item.id}.denominator`}
                   key={`${name}.${item.id}.denominator`}
                 />,
@@ -79,7 +80,7 @@ const deviationOptions = ({
               value: `${item.id}.Other`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
+                  label="Explain:"
                   name={`${name}.${item.id}.other`}
                   key={`${name}.${item.id}.other`}
                 />,
@@ -105,7 +106,7 @@ export const DeviationFromMeasureSpec = ({
         {...register("DidCalculationsDeviate")}
         formLabelProps={{ fontWeight: 600 }}
         label="Did your calculation of the measure deviate from the measure specification in any way?"
-        helperText="For Examples of deviation from measure specification might include different methodology, timeframe, or reported age groups."
+        helperText="For example: deviation from measure specification might include different methodology, timeframe, or reported age groups."
         options={[
           {
             displayValue:

@@ -9,17 +9,21 @@ import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 // demo
 
-import FUAadpage from "../../../support/pages/FUAadpage";
+import AuditCoreSetMeasuresPage from "../../../support/pages/AuditCoreSetMeasuresPage";
+import FUAADPAGE from "../../../support/pages/FUAADPage";
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();
 const landingPage = new Landingpage();
 const adultCoreSetMeasurespage = new AdultCoreSetMeasuresPage();
-const fuaAdpage = new FUAadpage();
 const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
+// demo
+
+const auditCoreSetMeasuresPage = new AuditCoreSetMeasuresPage();
+const fUAADPage = new FUAADPAGE();
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -47,6 +51,10 @@ Then(
     homePage.verifyTheTitleCoreSetMeasureReporting();
   }
 );
+
+And("user click on link Adult Core Set Measures", () => {
+  homePage.clickAdultCoreSetMeasures();
+});
 
 And("user click on link NCIDDS-AD", () => {
   adultCoreSetMeasurespage.clickNCIDDSadLink();
@@ -93,88 +101,88 @@ And("user can see the sentence below title", () => {});
 And(
   "user enters inputs to the Rate field and verify the correct Rate output",
   () => {
-    fuaAdpage.verifyAges();
+    fUAADPage.verifyAges();
   }
 );
 
 And("user can click on No option for reporting on this measure", () => {
-  fuaAdpage.VerifyReportingOnMeasureNo();
+  fUAADPage.VerifyReportingOnMeasureNo();
 });
 
 And(
   "user can click on Yes option for Are you reporting on this measure",
   () => {
-    fuaAdpage.verifyReportingOnMeasureYes();
+    fUAADPage.verifyReportingOnMeasureYes();
   }
 );
 //steps below are OY2-8940 Deviation and Optional Measure Stratification related
 And(
   "user can click on Yes option for Are you reporting on this measure at first",
   () => {
-    fuaAdpage.clickYesForReportingMeasure();
+    fUAADPage.clickYesForReportingMeasure();
   }
 );
 
 And("user can click on NCQA HEDIS under Measurement Specifications", () => {
-  fuaAdpage.clickNCQAHEDISradio();
+  fUAADPage.clickNCQAHEDISradio();
 });
 
 And("user can enter numerator and denominator for age 18-64", () => {
-  fuaAdpage.enterNumeratorDenominator();
+  fUAADPage.enterNumeratorDenominator();
 });
 
 And(
   "user can click on Yes option for Deviations from Measure Specifications",
   () => {
-    fuaAdpage.clickYesDeviation();
+    fUAADPage.clickYesDeviation();
   }
 );
 
 And("user can click on Follow up within 30 days of ED visits", () => {
-  fuaAdpage.clickFollowUp30Days();
+  fUAADPage.clickFollowUp30Days();
 });
 
 And("user can click on ages 18-64", () => {
-  fuaAdpage.clickAge18to64();
+  fUAADPage.clickAge18to64();
 });
 
 And(
   "user can click on numerator denominator other checkbox and enter text in explain textbox",
   () => {
-    fuaAdpage.clickNumeratorDenominatorOtherExplain();
+    fUAADPage.clickNumeratorDenominatorOtherExplain();
   }
 );
 
 And(
   "user can click Race Non Hispanic under Optional Measure Stratification",
   () => {
-    fuaAdpage.clickRaceNonHispanic();
+    fUAADPage.clickRaceNonHispanic();
   }
 );
 
 And("user can click on White checkbox and ages 18 to 64", () => {
-  fuaAdpage.clickWhiteAge18to64();
+  fUAADPage.clickWhiteAge18to64();
 });
 
 And("user can enter numerator denominator to verify Rate", () => {
-  fuaAdpage.enterNumeratorDenominatorUnderRace();
+  fUAADPage.enterNumeratorDenominatorUnderRace();
 });
 
 And(
   "user can click on Additional Alternative Classification enter Define textbox",
   () => {
-    fuaAdpage.clickAdditionalRace();
+    fUAADPage.clickAdditionalRace();
   }
 );
 
 And("user can click on ages 18-64 under Additional Specifications", () => {
-  fuaAdpage.clickAge18to64UnderAdditionalRace();
+  fUAADPage.clickAge18to64UnderAdditionalRace();
 });
 
 And(
   "user can enter numerator denominatorto verify Rate under Additional section",
   () => {
-    fuaAdpage.enterNumeratorDenominatorUnderAdditionalRace();
+    fUAADPage.enterNumeratorDenominatorUnderAdditionalRace();
   }
 );
 
@@ -243,20 +251,20 @@ When("user enter email and password for Cognito login", () => {
 //Steps below belong to ticket OY2-15377 Other option under Measurement Specification
 
 And("user can click on Other option in Measurement Specifications", () => {
-  fuaAdpage.clickOtherUnderMeasureSpecification();
+  fUAADPage.clickOtherUnderMeasureSpecification();
 });
 
 And(
   "user can enter Describe the Rate under Other Proformane Measure section",
   () => {
-    fuaAdpage.enterDescribeRateUnderOPM();
+    fUAADPage.enterDescribeRateUnderOPM();
   }
 );
 
 And(
   "user can verify the exact text entered in Describe the Rate shows up in Optional Measure Stratification section",
   () => {
-    fuaAdpage.verifyDescribeRateUnderOMS();
+    fUAADPage.verifyDescribeRateUnderOMS();
   }
 );
 
@@ -265,6 +273,13 @@ And(
 And("user click on Login with Cognito button", () => {
   loginPage.clickLoginWithCognitoButtn();
 });
+
+And(
+  "user can see the LBW-CH Live Births Weighting Less Than 2500 Grams title",
+  () => {
+    lbwCH.verifyLBWchTitle();
+  }
+);
 
 And(
   "user can see the LBW-CH Live Births Weighting Less Than 2500 Grams title",
@@ -330,6 +345,15 @@ When("login as state user two", () => {
   loginPage.loginasAStateUserTwoWithCognito();
 });
 
+When("user enter email and password for Cognito login", () => {
+  loginPage.enterEmailwithCognitoLogin();
+  loginPage.enterPasswordwithCognitoLogin();
+});
+
+And("user click on Login with Cognito button", () => {
+  loginPage.clickLoginWithCognitoButtn();
+});
+
 And('user click "Sign In" button', () => {
   loginPage.clickSignIn();
 });
@@ -347,4 +371,122 @@ When("user logins with invalid credentials", () => {
 
 Then("user can see error message", () => {
   demoLoginPage.signIn();
+});
+Then(
+  "user should see the QMR 2021 Core Set Measures Reporting home page",
+  () => {
+    homePage.verifyTheTitleCoreSetMeasureReporting();
+  }
+);
+
+When("login as state user two", () => {
+  loginPage.loginasAStateUserTwoWithCognito();
+});
+
+And("user click on link Adult Core Set Measures", () => {
+  homePage.clickAdultCoreSetMeasures();
+});
+
+When("login as state user", () => {
+  loginPage.loginasAStateUserWithCognito();
+});
+
+Then("verify Core Set Measures is displayed", () => {
+  landingPage.validatecoreSetMeasureText();
+});
+
+Then("Click on Adult Core Set Measures", () => {
+  landingPage.clickAdultCoreSetMeasures();
+});
+
+Then("verify url contains ACS", () => {
+  auditCoreSetMeasuresPage.verifyURLContainsACS();
+});
+Then("Click on FUA-AD", () => {
+  auditCoreSetMeasuresPage.clickFUAADLink();
+});
+
+Then("verify url contains FUA-AD", () => {
+  fUAADPage.verifyURLContainsFUAAD();
+});
+
+And(
+  "verify the button Save on the top and click on it to see Saved Moments Ago shows up",
+  () => {
+    fUAADPage.clickSaveButtnVerifyStatus();
+  }
+);
+
+And("select NCQA HEDIS under Measurement Specification", () => {
+  fUAADPage.clickNCQAHEDIS();
+});
+
+And("verify sentence under Complete the Measure", () => {
+  fUAADPage.verifySentenceUnderCompleteMeasure();
+});
+
+And(
+  "click on button Validate Measure to verify it shows the error message",
+  () => {
+    fUAADPage.clickValidateMeasureButtonVerify();
+  }
+);
+
+And(
+  "click on button Complete Measure to verify it shows Validation Error popup box",
+  () => {
+    fUAADPage.clickCompleteMeasureButtonVerify();
+  }
+);
+
+And("click on No option in the popup box", () => {
+  fUAADPage.clickNoOption();
+});
+
+And("verify browse exists", () => {
+  fUAADPage.verifyBrowseExists();
+});
+
+And("upload attachment pdf", () => {
+  fUAADPage.addFilesToFUAADPage();
+});
+
+And("verify pdf is uploaded", () => {
+  fUAADPage.verifyPDFIsUploaded();
+});
+
+And("upload attachment text file", () => {
+  fUAADPage.addTextFilesToFUAADPage();
+});
+
+And("verify text file is uploaded", () => {
+  fUAADPage.verifyTextIsUploaded();
+});
+
+And("upload attachment picture", () => {
+  fUAADPage.addPictureFilesToFUAADPage();
+});
+
+And("verify picture is uploaded", () => {
+  fUAADPage.verifyPictureFileIsUploaded();
+});
+
+And("verify NCQA text exists", () => {
+  fUAADPage.verifyNcqaText();
+});
+
+And("Click on hedisdropdown", () => {
+  fUAADPage.hedisDropdown();
+});
+And("verify FFY2021 exists", () => {
+  fUAADPage.verifyFFY2021();
+});
+And("verify FFY2020 exists", () => {
+  fUAADPage.verifyFFY2020();
+});
+And("verify FFY2019 exists", () => {
+  fUAADPage.verifyFFY2019();
+});
+And("Click on National Committee for Quality Assurance Radio Button", () => {
+  fUAADPage.clicknationalCommitteForQualityAssuranceRadioBTN();
 });
