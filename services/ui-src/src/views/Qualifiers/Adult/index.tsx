@@ -2,8 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
 import { useForm, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
-import { validationSchema } from "./schema";
 import { ACSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUpdateMeasure, useGetMeasure } from "hooks/api";
@@ -44,7 +42,6 @@ export const ACSQualifiers = () => {
   const methods = useForm<ACSQualifierForm>({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(validationSchema),
     defaultValues: data?.Item.data || {
       PercentageEnrolledInEachDeliverySystem: [
         {

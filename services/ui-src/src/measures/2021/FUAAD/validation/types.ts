@@ -1,13 +1,10 @@
-import Joi from "joi";
-
 export namespace Measure {
   export interface Props {
     name: string;
     year: string;
-    handleSubmit: any;
-    setMeasureSchema?: React.Dispatch<
-      React.SetStateAction<Joi.ObjectSchema<any>>
-    >;
+    measureId: string;
+    handleSubmit?: any;
+    handleValidation?: any;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
@@ -165,8 +162,10 @@ export namespace Measure {
     AddtnlEthnicityRates: AggregateRate[];
 
     AddtnlNonHispanicRace: string[];
-    AddtnlNonHispanicRaceAggregation: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
+    AddtnlNonHispanicRaceSubCatTitle: { titles: string[] }[];
+    AddtnlNonHispanicRaceSubCatOptions: string[][];
+    AddtnlNonHispanicRaceSubCatRates: { rates: AggregateRate[] }[];
 
     AddtnlNonHispanicSubCat: string[];
     AddtnlNonHispanicSubCatRates: AggregateRate[];
@@ -181,6 +180,7 @@ export namespace Measure {
     "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
 
     EthnicityCategories: string[];
+    EthnicitySubCategories: string[];
     NonHispanicEthnicityRates: AggregateRate;
     HispanicIndependentReporting: string;
     HispanicEthnicityAggregateRate: AggregateRate;
