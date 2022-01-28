@@ -16,4 +16,3 @@ Feature: TEST
 # And   user can see "Your APS Submissions" page banner
 # And   user can see My Account link
 # And   user can see the footer
-

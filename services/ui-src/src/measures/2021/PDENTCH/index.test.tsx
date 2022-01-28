@@ -8,6 +8,7 @@ beforeEach(() => {
       <PDENTCH
         name="Percentage of Eligibles Who Received Preventive Dental Services"
         year="2021"
+        measureId="test"
       />
     </RouterWrappedComp>
   );

@@ -2,27 +2,19 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { SPA } from "libs/spaLib";
-import Joi from "joi";
 import { SelectOption } from "components";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
 }
 
-const HealthHomeValidationSchema = Joi.object<HealthHome>({
-  "HealthHomeCoreSet-SPA": Joi.string(),
-  "HealthHomeCoreSet-ShareSSM": Joi.string(),
-});
-
 export const AddHHCoreSet = () => {
   const navigate = useNavigate();
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(HealthHomeValidationSchema),
   });
 
   const register = useCustomRegister<HealthHome>();

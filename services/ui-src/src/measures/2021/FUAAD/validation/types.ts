@@ -1,14 +1,10 @@
-import Joi from "joi";
-
 export namespace Measure {
   export interface Props {
     name: string;
     year: string;
+    measureId: string;
     handleSubmit?: any;
     handleValidation?: any;
-    setMeasureSchema?: React.Dispatch<
-      React.SetStateAction<Joi.ObjectSchema<any>>
-    >;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
@@ -166,8 +162,10 @@ export namespace Measure {
     AddtnlEthnicityRates: AggregateRate[];
 
     AddtnlNonHispanicRace: string[];
-    AddtnlNonHispanicRaceAggregation: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
+    AddtnlNonHispanicRaceSubCatTitle: { titles: string[] }[];
+    AddtnlNonHispanicRaceSubCatOptions: string[][];
+    AddtnlNonHispanicRaceSubCatRates: { rates: AggregateRate[] }[];
 
     AddtnlNonHispanicSubCat: string[];
     AddtnlNonHispanicSubCatRates: AggregateRate[];

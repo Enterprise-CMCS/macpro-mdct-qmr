@@ -61,7 +61,7 @@ export function AppRoutes() {
         />
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
-        {/* <Route path=":state/:year/ACS/CSQ" element={<Views.ACSQualifiers />} /> */}
+        <Route path=":state/:year/ACS/CSQ" element={<Views.ACSQualifiers />} />
         <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
