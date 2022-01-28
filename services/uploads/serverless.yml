@@ -21,24 +21,6 @@ provider:
       statements:
         - Effect: "Allow"
           Action:
-            - s3:GetObject
-            - s3:GetObjectTagging
-            - s3:PutObject
-            - s3:PutObjectAcl
-            - s3:PutObjectTagging
-            - s3:PutObjectVersionTagging
-            - s3:ListBucket
-          Resource:
-            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*
-            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}/*
-        - Effect: "Allow"
-          Action:
-            - s3:ListBucket
-          Resource:
-            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
-            - !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-avscan-${AWS::AccountId}/*
-        - Effect: "Allow"
-          Action:
             - dynamodb:DescribeTable
             - dynamodb:Query
             - dynamodb:Scan
@@ -104,9 +86,9 @@ functions:
   avDownloadDefinitions:
     handler: src/download-definitions.lambdaHandleEvent
     events:
-      - schedule: cron(0 */6 * * ? *)
+      - schedule: cron(15 1 * * ? *)
     timeout: 300 # 300 seconds = 5 minutes
-    memorySize: 1024
+    memorySize: 3072
     layers:
       - !Ref ClamDefsLambdaLayer
     environment:
@@ -139,6 +121,31 @@ resources:
             - Event: s3:ObjectCreated:Put
               Function: !GetAtt AvScanLambdaFunction.Arn
       DependsOn: LambdaInvokePermission
+    AVBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref ClamDefsBucket
+        PolicyDocument:
+          Statement:
+            - Action:
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: !Sub ${ClamDefsBucket.Arn}/*
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${ClamDefsBucket.Arn}
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${ClamDefsBucket.Arn}/*
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
     AttachmentsBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -258,15 +265,23 @@ resources:
                     - s3:PutObjectAcl
                     - s3:PutObjectTagging
                     - s3:PutObjectVersionTagging
-                    - s3:ListBucket
-                  Resource: !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}/*
+                  Resource: !Sub ${AttachmentsBucket.Arn}/*
                 - Effect: "Allow"
                   Action:
                     - s3:ListBucket
-                  Resource: !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
+                  Resource: !Sub ${AttachmentsBucket.Arn}
+                - Effect: "Allow"
+                  Action:
+                    - s3:ListBucket
+                  Resource: !Sub ${ClamDefsBucket.Arn}
                 - Effect: "Allow"
                   Action:
                     - s3:GetObject
+                    - s3:GetObjectTagging
+                    - s3:PutObject
+                    - s3:PutObjectAcl
+                    - s3:PutObjectTagging
+                    - s3:PutObjectVersionTagging
                   Resource: !Sub ${ClamDefsBucket.Arn}/*
     BucketAVDownloadRole:
       Type: "AWS::IAM::Role"
