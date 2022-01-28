@@ -12,7 +12,6 @@ describe("Test State Layout Component", () => {
           buttons={
             <QMR.MeasureButtons
               handleSave={() => {}}
-              handleSubmit={() => {}}
               lastSavedText="Saved Moments Ago"
             />
           }
@@ -30,7 +29,6 @@ describe("Test State Layout Component", () => {
           buttons={
             <QMR.MeasureButtons
               handleSave={() => {}}
-              handleSubmit={() => {}}
               lastSavedText="Saved Moments Ago"
             />
           }
