@@ -5,6 +5,7 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { createCoreSet } from "./create";
 import * as Types from "../../types";
 import { listMeasures } from "../measures/get";
+import { PromiseResult } from "aws-sdk/lib/request";
 
 export const coreSetList = handler(async (event, context) => {
   const params = {
@@ -44,34 +45,31 @@ export const coreSetList = handler(async (event, context) => {
       throw new Error("Failed to create new coreset");
     }
   } else {
-    const updatedProgressResults = await updateCoreSetProgress(
-      results,
-      event,
-      context
-    );
-
-    return updatedProgressResults;
+    // Update the progress measure numComplete
+    const updatedCoreSetProgressResults =
+      (await updateCoreSetProgress(results, event, context)) || results;
+    return updatedCoreSetProgressResults;
   }
 });
 
 const updateCoreSetProgress = async (
-  coreSet: any,
+  coreSets: any,
   event: any,
   context: any
 ) => {
-  const waitingCoreset = await coreSet;
-  if (waitingCoreset.Items?.length) {
-    await waitingCoreset.Items.forEach(async (coreSet: any) => {
+  if (coreSets.Items?.length > 0) {
+    for (const coreSet of coreSets.Items) {
       event.pathParameters!.coreSet = coreSet.coreSet;
-      const measuresResposne = await listMeasures(event, context);
-      const measuresList = JSON.parse(measuresResposne.body);
+      const measuresResponse = await listMeasures(event, context);
+      const measuresList = JSON.parse(measuresResponse.body);
 
       const measures = measuresList.Items;
       const completedAmount = measures.filter(
         (measure: any) => measure.status === Types.MeasureStatus.COMPLETE
-      )?.length;
+      ).length;
       coreSet.progress.numComplete = completedAmount;
-    });
+    }
+    return coreSets;
   }
 };
 
