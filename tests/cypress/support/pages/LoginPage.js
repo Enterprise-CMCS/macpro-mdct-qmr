@@ -37,12 +37,11 @@ export class LoginPage {
     cy.xpath(loginWithCognitoButtn).click();
   }
 
-
   enterPassword() {
     cy.get(passwordInput).type("Passw0rd@");
   }
 
-  //old credentials 
+  //old credentials
   //state_QMR  Passw0rd!
 
   clickAgreeTermAndConditions() {

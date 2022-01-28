@@ -8,31 +8,31 @@ const performanceMeasureOne = "(//p[@class='chakra-text css-0'])[4]";
 //const performanceMeasureTwo = "(//p[@class='chakra-text css-0'])[5]";
 const backToCoreSetButton = "//button[@class='chakra-button css-bym7u4']";
 
-
 export class PDENTch {
-    verifyPDENTchTitle(){
-        cy.xpath(pdentCHtitle).should("be.visible");
-        cy.xpath(pdentCHtitle).contains('PDENT-CH - Percentage of Eligibles Who Received Preventive Dental Services');
-    }
+  verifyPDENTchTitle() {
+    cy.xpath(pdentCHtitle).should("be.visible");
+    cy.xpath(pdentCHtitle).contains(
+      "PDENT-CH - Percentage of Eligibles Who Received Preventive Dental Services"
+    );
+  }
 
-    verifyPrintButtonAndSentence(){
-        cy.xpath(sentenceBelowTitle).should("be.visible");
-        cy.xpath(printButton).should("be.visible");
-    }
+  verifyPrintButtonAndSentence() {
+    cy.xpath(sentenceBelowTitle).should("be.visible");
+    cy.xpath(printButton).should("be.visible");
+  }
 
-    verifyMeasureTitleDateAndReporting(){
-        cy.xpath(measureTitle).should("be.visible");
-        cy.xpath(dateCompleted).should("be.visible");
-        cy.xpath(reportingOnMeasure).should("be.visible");
-    }
+  verifyMeasureTitleDateAndReporting() {
+    cy.xpath(measureTitle).should("be.visible");
+    cy.xpath(dateCompleted).should("be.visible");
+    cy.xpath(reportingOnMeasure).should("be.visible");
+  }
 
-    verifyPerformanceMeasure(){
-        cy.xpath(performanceMeasureOne).should("be.visible");
-    }
+  verifyPerformanceMeasure() {
+    cy.xpath(performanceMeasureOne).should("be.visible");
+  }
 
-    verifyBackToCoreSetMeasureButton(){
-        cy.xpath(backToCoreSetButton).should("be.visible");
-    }
-
+  verifyBackToCoreSetMeasureButton() {
+    cy.xpath(backToCoreSetButton).should("be.visible");
+  }
 }
 export default PDENTch;

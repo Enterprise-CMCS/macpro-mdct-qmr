@@ -16,11 +16,11 @@ export class Homepage {
     cy.visit("https://d2ia6j7tn33yf.cloudfront.net/");
   }
 
-  verifyTheTitleCoreSetMeasureReporting(){
+  verifyTheTitleCoreSetMeasureReporting() {
     cy.xpath(coreSetMeasuresReportingTitle).should("be.visible");
   }
 
-  clickAdultCoreSetMeasures(){
+  clickAdultCoreSetMeasures() {
     cy.wait(3000);
     //cy.scrollTo('top');
     cy.xpath(adultCoreSetMeasures).click({ force: true });

@@ -8,32 +8,30 @@ const performanceMeasureOne = "(//p[@class='chakra-text css-0'])[4]";
 const performanceMeasureTwo = "(//p[@class='chakra-text css-0'])[5]";
 const backToCoreSetButton = "//button[@class='chakra-button css-bym7u4']";
 
-
 export class LRCDch {
-    verifyLRCDchTitle(){
-        cy.xpath(lrcdCHtitle).should("be.visible");
-        cy.xpath(lrcdCHtitle).contains('LRCD-CH - Low-Risk Cesarean Delivery');
-    }
+  verifyLRCDchTitle() {
+    cy.xpath(lrcdCHtitle).should("be.visible");
+    cy.xpath(lrcdCHtitle).contains("LRCD-CH - Low-Risk Cesarean Delivery");
+  }
 
-    verifyPrintButtonAndSentence(){
-        cy.xpath(sentenceBelowTitle).should("be.visible");
-        cy.xpath(printButton).should("be.visible");
-    }
+  verifyPrintButtonAndSentence() {
+    cy.xpath(sentenceBelowTitle).should("be.visible");
+    cy.xpath(printButton).should("be.visible");
+  }
 
-    verifyMeasureTitleDateAndReporting(){
-        cy.xpath(measureTitle).should("be.visible");
-        cy.xpath(dateCompleted).should("be.visible");
-        cy.xpath(reportingOnMeasure).should("be.visible");
-    }
+  verifyMeasureTitleDateAndReporting() {
+    cy.xpath(measureTitle).should("be.visible");
+    cy.xpath(dateCompleted).should("be.visible");
+    cy.xpath(reportingOnMeasure).should("be.visible");
+  }
 
-    verifyPerformanceMeasure(){
-        cy.xpath(performanceMeasureOne).should("be.visible");
-        cy.xpath(performanceMeasureTwo).should("be.visible");
-    }
+  verifyPerformanceMeasure() {
+    cy.xpath(performanceMeasureOne).should("be.visible");
+    cy.xpath(performanceMeasureTwo).should("be.visible");
+  }
 
-    verifyBackToCoreSetMeasureButton(){
-        cy.xpath(backToCoreSetButton).should("be.visible");
-    }
-
+  verifyBackToCoreSetMeasureButton() {
+    cy.xpath(backToCoreSetButton).should("be.visible");
+  }
 }
 export default LRCDch;
