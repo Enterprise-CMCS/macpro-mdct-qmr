@@ -8,7 +8,7 @@ beforeEach(() => {
       <LBWCH
         name="Live Births Weighing Less Than 2,500 Grams"
         year="2021"
-        handleSubmit={() => {}}
+        measureId="test"
       />
     </RouterWrappedComp>
   );

@@ -8,7 +8,7 @@ beforeEach(() => {
       <NCIDDSAD
         name="National Core Indicators Survey"
         year="2021"
-        handleSubmit={() => {}}
+        measureId="test"
       />
     </RouterWrappedComp>
   );
