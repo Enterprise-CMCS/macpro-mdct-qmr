@@ -36,7 +36,7 @@ export const createCoreSet = handler(async (event, context) => {
       }
       return measure.type === type && measure.measure !== "CSQ";
     }
-  )?.length;
+  ).length;
 
   const params = {
     TableName: process.env.coreSetTableName,
