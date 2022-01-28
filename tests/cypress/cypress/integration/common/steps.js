@@ -208,3 +208,23 @@ And("upload attachment picture", () => {
 And("verify picture is uploaded", () => {
   fUAADPage.verifyPictureFileIsUploaded();
 });
+
+And("verify NCQA text exists", () => {
+  fUAADPage.verifyNcqaText();
+});
+
+And("Click on hedisdropdown", () => {
+  fUAADPage.hedisDropdown();
+});
+And("verify FFY2021 exists", () => {
+  fUAADPage.verifyFFY2021();
+});
+And("verify FFY2020 exists", () => {
+  fUAADPage.verifyFFY2020();
+});
+And("verify FFY2019 exists", () => {
+  fUAADPage.verifyFFY2019();
+});
+And("Click on National Committee for Quality Assurance Radio Button", () => {
+  fUAADPage.clicknationalCommitteForQualityAssuranceRadioBTN();
+});
