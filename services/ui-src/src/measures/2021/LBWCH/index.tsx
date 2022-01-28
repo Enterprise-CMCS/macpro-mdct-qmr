@@ -2,21 +2,24 @@ import { Measure } from "measures/types";
 import * as QMR from "components";
 import { useGetMeasure } from "hooks/api";
 import { CoreSetAbbr } from "types";
-import { format } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 export const LBWCH = ({ name, year }: Measure.Props) => {
   const { data } = useGetMeasure({
     coreSet: CoreSetAbbr.ACS,
     measure: "LBW-CH",
   });
+  const currentTimeZone = Intl.DateTimeFormat()?.resolvedOptions()?.timeZone;
+  const formattedTime = formatInTimeZone(
+    new Date(data?.Item?.createdAt),
+    currentTimeZone,
+    "LLL d, yyyy h:mm a zzz"
+  );
 
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}
-      dateCompleted={format(
-        new Date(data.Item?.createdAt),
-        "LLL d, yyyy h:mm a"
-      )}
+      dateCompleted={formattedTime}
       isReportingOnMeasureYear={true}
       measureTitle={`LBW-CH - ${name}`}
       performanceMeasureText="Percentage of live births that weighed less than 2,500 grams at birth during the measurement year."
