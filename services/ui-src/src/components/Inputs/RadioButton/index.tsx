@@ -7,6 +7,8 @@ export interface RadioButtonOption {
   displayValue: string;
   value: string | number;
   children?: JSX.Element[];
+  removable?: boolean;
+  onDelete?: () => void;
 }
 
 interface RadioButtonProps extends QMR.InputWrapperProps {
@@ -52,7 +54,11 @@ export const RadioButton = ({
           {options.map((option) => {
             const showChildren = option.value === field.value;
             return (
-              <CUI.Box key={option.displayValue}>
+              <QMR.DeleteWrapper
+                key={option.displayValue}
+                allowDeletion={option.removable}
+                onDelete={option.onDelete}
+              >
                 <CUI.Radio value={option.value} key={option.value}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
@@ -65,7 +71,7 @@ export const RadioButton = ({
                     </QMR.QuestionChild>
                   )}
                 </CUI.Collapse>
-              </CUI.Box>
+              </QMR.DeleteWrapper>
             );
           })}
         </CUI.Stack>
