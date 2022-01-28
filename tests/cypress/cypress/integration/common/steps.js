@@ -7,8 +7,6 @@ import NCIDDSadpage from "../../../support/pages/NCIDDSadpage";
 import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
-// demo
-
 import AuditCoreSetMeasuresPage from "../../../support/pages/AuditCoreSetMeasuresPage";
 import FUAADPAGE from "../../../support/pages/FUAADPage";
 
@@ -20,8 +18,6 @@ const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
-// demo
-
 const auditCoreSetMeasuresPage = new AuditCoreSetMeasuresPage();
 const fUAADPage = new FUAADPAGE();
 
@@ -227,4 +223,75 @@ And("verify FFY2019 exists", () => {
 });
 And("Click on National Committee for Quality Assurance Radio Button", () => {
   fUAADPage.clicknationalCommitteForQualityAssuranceRadioBTN();
+});
+Then("Click on Administrative Data", () => {
+  fUAADPage.clickAdminstrativeDataRaioBTN();
+});
+Then("Click on Medicaid Management Information System", () => {
+  fUAADPage.clickMedicaidManagementInformationSystemMMISRadioBTN();
+});
+
+And("type numerator 321111", () => {
+  fUAADPage.typeAge65andolderNumeratorInputBox("321111");
+});
+
+And("type Denominator 111111", () => {
+  fUAADPage.typeAge65andolderDenominatorInputBox("111111");
+});
+
+And("verify error message is displayed", () => {
+  fUAADPage.veirfyRateErrorMessageIsDisplayed();
+});
+
+And("type Denominator 411111", () => {
+  fUAADPage.typeAge65andolderDenominatorInputBox("411111");
+});
+
+And("clear numerator input box", () => {
+  fUAADPage.clearAge65andolderNumeratorInputBox();
+});
+
+And("clear Denominator input box", () => {
+  fUAADPage.clearAge65andolderDenominatorInputBox();
+});
+
+And(
+  "verify that only one number after decimal can populate for auto calculated rate exists",
+  () => {
+    fUAADPage.verifyOnlyOneNumberAfterDecimalIsDisplayed();
+  }
+);
+And("type 8 digits numerator", () => {
+  fUAADPage.typeAge65andolderNumeratorInputBox("12345678");
+});
+And("type 8 digits Denominator", () => {
+  fUAADPage.typeAge65andolderDenominatorInputBox("21345678");
+});
+And("verify error message is not displayed", () => {
+  fUAADPage.veirfyRateErrorMessageIsNotDisplayed();
+});
+
+And("type letters numerator", () => {
+  fUAADPage.typeAge65andolderNumeratorInputBox("aaa");
+});
+And("type letters Denominator", () => {
+  fUAADPage.typeAge65andolderDenominatorInputBox("bbb");
+});
+And("verify there is no value in rate box", () => {
+  fUAADPage.veirfyRateErrorMessageIsNotDisplayed();
+});
+
+And("input text in rate box", () => {
+  fUAADPage.typeAge65andolderDenominatorInputBox("bbb");
+});
+And("verify user cannot manually override enter rate exists", () => {
+  fUAADPage.typeAge65andolderRateInputBox("88.1");
+});
+
+Then("Click on Other Data Source Radio Button", () => {
+  fUAADPage.clickOtherDataSourceRadioBTN();
+});
+
+And("verify user can manually override enter rate exists", () => {
+  fUAADPage.typeAge65andolderRateInputBox("88.1");
 });

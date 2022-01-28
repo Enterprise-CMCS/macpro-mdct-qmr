@@ -29,6 +29,19 @@ const verifyFFY2019 =
   "//option[contains(text(),'HEDIS 2019 (FFY 2019 Core Set Reporting)')]";
 const nationalCommitteForQualityAssuranceRadioBTN =
   "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch div.chakra-skeleton.css-cdkrf0 section.chakra-container.css-1a3ltpp div.css-1v7r4tf:nth-child(4) div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-0:nth-child(1) label.chakra-radio.css-1pw4d56 span.chakra-radio__label.css-1i8vu1i > p.chakra-text.css-1m49yyc";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const administrativeDataRadioBTN =
+  "//p[contains(text(),'Administrative Data')]";
+const MedicaidManagementInformationSystemMMISRadioBTN =
+  "//p[contains(text(),'Medicaid Management Information System (MMIS)')]";
+const Age65andolderNumeratorInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[1]/input[1]";
+const Age65andolderDenominatorInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[2]/input[1]";
+const Age65andolderRateInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[3]/input[1]";
+const rateErrorMessage = "//div[contains(text(),'Rate Error')]";
+const otherDataSourceRadioBTN = "//p[contains(text(),'Other Data Source')]";
 
 export class FUAADPAGE {
   verifyURLContainsFUAAD() {
@@ -84,7 +97,42 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
-    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click();
+    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click();
+  }
+  clickAdminstrativeDataRaioBTN() {
+    cy.xpath(administrativeDataRadioBTN).click();
+  }
+  clickMedicaidManagementInformationSystemMMISRadioBTN() {
+    cy.get(MedicaidManagementInformationSystemMMISRadioBTN).click();
+  }
+
+  typeAge65andolderNumeratorInputBox(s) {
+    cy.xpath(Age65andolderNumeratorInputBox).type(s);
+  }
+  typeAge65andolderDenominatorInputBox(s) {
+    cy.xpath(Age65andolderDenominatorInputBox).type(s);
+  }
+  typeAge65andolderRateInputBox(s) {
+    cy.xpath(Age65andolderRateInputBox).type(s);
+  }
+  veirfyRateErrorMessageIsDisplayed() {
+    cy.xpath(rateErrorMessage).should("be.visible");
+  }
+
+  clearAge65andolderNumeratorInputBox() {
+    cy.xpath(Age65andolderNumeratorInputBox).clear();
+  }
+  clearAge65andolderDenominatorInputBox() {
+    cy.xpath(Age65andolderDenominatorInputBox).clear();
+  }
+  verifyOnlyOneNumberAfterDecimalIsDisplayed() {
+    cy.xpath(Age65andolderRateInputBox).should("be.visible");
+  }
+  veirfyRateErrorMessageIsNotDisplayed() {
+    cy.xpath(rateErrorMessage).should("not.be.visible");
+  }
+  clickOtherDataSourceRadioBTN() {
+    cy.xpath(otherDataSourceRadioBTN).click();
   }
 }
 export default FUAADPAGE;
