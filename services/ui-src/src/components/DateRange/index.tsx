@@ -1,8 +1,8 @@
 import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
 import { MonthPicker } from "components/MonthPicker";
-import objectPath from "object-path";
-import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import { format } from "date-fns";
 
 interface Props {
   name: string;
@@ -14,47 +14,60 @@ interface Props {
   endYearLocked?: boolean;
 }
 
+const RangeNotification = ({ text }: { text: string }) => (
+  <QMR.Notification
+    alertTitle="Date Range Error"
+    alertDescription={text}
+    alertStatus="warning"
+  />
+);
+
+export const currentYear = format(new Date(), "yyyy");
+export const currentMonth = format(new Date(), "M");
+
+export const DateRangeError = ({ name }: { name: string }) => {
+  const { watch } = useFormContext();
+  const range = watch(name);
+
+  /* If the start date is a future date, then display a warning notification. */
+  if (
+    range?.startDate?.selectedYear >= currentYear &&
+    range?.startDate?.selectedMonth > currentMonth
+  ) {
+    return <RangeNotification text="Start date cannot be a future date" />;
+  }
+
+  /* If the end date is a future date, then display a warning notification. */
+  if (
+    range?.endDate?.selectedYear >= currentYear &&
+    range?.endDate?.selectedMonth > currentMonth
+  ) {
+    return <RangeNotification text="End date cannot be a future date" />;
+  }
+
+  /* If the start date is after the end date, then display a warning notification. */
+  if (
+    range?.startDate?.selectedYear >= range?.endDate?.selectedYear &&
+    range?.startDate?.selectedMonth > range?.endDate?.selectedMonth
+  ) {
+    return <RangeNotification text="Start Date must be before the end date" />;
+  }
+
+  return null;
+};
+
 export const DateRange = ({ name }: Props) => {
-  const {
-    watch,
-    trigger,
-    formState: { errors },
-  } = useFormContext();
-
-  // trigger needed all three for rerender
-  const watchEndMonth = watch(`${name}.endDate.selectedMonth`);
-  const watchEndYear = watch(`${name}.endDate.selectedYear`);
-  const watchDateRange = watch(name);
-
-  const errorMessage =
-    objectPath.get(errors, name + ".startDate.selectedMonth")?.message ||
-    objectPath.get(errors, name + ".startDate.selectedYear")?.message;
-  const isInvalid =
-    !!objectPath.get(errors, name + ".startDate.selectedMonth") ||
-    !!objectPath.get(errors, name + ".startDate.selectedYear")?.message;
-
-  useEffect(() => {
-    trigger(name);
-  }, [watchEndMonth, watchEndYear, watchDateRange, trigger, name]);
-
   return (
     <CUI.Stack>
-      <CUI.FormControl isInvalid={isInvalid}>
+      <CUI.FormControl>
         <CUI.FormLabel fontWeight={500}>{"Start Date"}</CUI.FormLabel>
-        <MonthPicker name={`${name}.startDate`} isInvalid={isInvalid} />
+        <MonthPicker name={`${name}.startDate`} />
         <CUI.FormLabel pt={5} fontWeight={500}>
           {"End Date"}
         </CUI.FormLabel>
-        <MonthPicker name={`${name}.endDate`} isInvalid={isInvalid} />
-        <CUI.FormErrorMessage>
-          <CUI.Stack>
-            <>
-              <CUI.Divider my="4" />
-              {errorMessage || "An Error Occured"}
-            </>
-          </CUI.Stack>
-        </CUI.FormErrorMessage>
+        <MonthPicker name={`${name}.endDate`} />
       </CUI.FormControl>
+      <DateRangeError name={name} />
     </CUI.Stack>
   );
 };

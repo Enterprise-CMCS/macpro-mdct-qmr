@@ -10,8 +10,8 @@ export const Status = () => {
         {...register("DataStatus")}
         options={[
           {
-            displayValue: "I am reporting provisional data",
-            value: "I am reporting provisional data",
+            displayValue: "I am reporting provisional data.",
+            value: "I am reporting provisional data.",
             children: [
               <QMR.TextArea
                 {...register("DataStatus-ProvisionalExplanation")}
@@ -24,8 +24,8 @@ export const Status = () => {
             ],
           },
           {
-            displayValue: "I am reporting final data",
-            value: "I am reporting final data",
+            displayValue: "I am reporting final data.",
+            value: "I am reporting final data.",
           },
         ]}
         label="What is the status of the data being reported?"

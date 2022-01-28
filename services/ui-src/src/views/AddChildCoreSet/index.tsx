@@ -2,8 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useParams, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import Joi from "joi";
-import { joiResolver } from "@hookform/resolvers/joi";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
 import { useQueryClient } from "react-query";
@@ -18,10 +16,6 @@ interface ChildCoreSetReportType {
   "ChildCoreSet-ReportType": ReportType;
 }
 
-const childCoreSetSchema = Joi.object<ChildCoreSetReportType>({
-  "ChildCoreSet-ReportType": Joi.string(),
-});
-
 export const AddChildCoreSet = () => {
   const mutation = Api.useAddCoreSet();
   const navigate = useNavigate();
@@ -30,7 +24,6 @@ export const AddChildCoreSet = () => {
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(childCoreSetSchema),
   });
 
   const watchReportType = methods.watch("ChildCoreSet-ReportType");
