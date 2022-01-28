@@ -95,76 +95,64 @@ const AgeData = ({ name }: SubComponentProps) => {
 
   return (
     <CUI.Box key={`${name}.ageData`}>
-      <QMR.Checkbox
-        name={`${name}.ageData`}
-        key={`${name}.ageData`}
-        options={ageGroups.map((item) => {
-          return {
-            value: item.label.replace(/ /g, ""),
-            displayValue: item.label,
-            children: [
-              <CUI.Heading key={item.id} size="sm">
-                Enter a number for the numerator and the denominator. Rate will
-                auto-calculate:
-              </CUI.Heading>,
-              // Dynamically hide or show children based on if other performance measuresections were completed
-              ...(deviationConditions?.showOtherPerformanceMeasureRates
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              // Dynamically hide or show children based on if performance measure 30days/age sections were completed
-              ...((deviationConditions?.showEffectiveContraceptionThreeDaysPostPartum &&
-                item.id === 0) ||
+      <CUI.Heading key={`${name}.header`} size="sm">
+        Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:
+      </CUI.Heading>
+      {ageGroups.map((item) => {
+        return (
+          <>
+            <CUI.Heading key={`${name}.subHeader`} size="sm">
+              {item.label}
+            </CUI.Heading>
+            {deviationConditions?.showOtherPerformanceMeasureRates && (
+              <QMR.Rate
+                readOnly={rateReadOnly}
+                name={`${name}.subRates.${item.id}.otherPerformanceRate`}
+                key={`${name}.subRates.${item.id}.otherPerformanceRate`}
+                rates={[
+                  {
+                    id: 0,
+                    label: item.label,
+                  },
+                ]}
+              />
+            )}
+            {((deviationConditions?.showEffectiveContraceptionThreeDaysPostPartum &&
+              item.id === 0) ||
               (deviationConditions?.showEffectiveContraceptionSixtyDaysPostPartum &&
-                item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "Follow-up within 30 days of ED visit",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
-              ...((deviationConditions?.showLongActingContraceptionThreeDaysPostPartum &&
-                item.id === 0) ||
+                item.id === 1)) && (
+              <QMR.Rate
+                readOnly={rateReadOnly}
+                name={`${name}.subRates.${item.id}.threeDaysPostPartum`}
+                key={`${name}.subRates.${item.id}.threeDaysPostPartum`}
+                rates={[
+                  {
+                    id: 0,
+                    label: "Three Days Postpartum Rate",
+                  },
+                ]}
+              />
+            )}
+            {((deviationConditions?.showLongActingContraceptionThreeDaysPostPartum &&
+              item.id === 0) ||
               (deviationConditions?.showLongActingContraceptionSixtyDaysPostPartum &&
-                item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      rates={[
-                        {
-                          id: 1,
-                          label: "Follow-up within 7 days of ED visit",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-            ],
-          };
-        })}
-      />
+                item.id === 1)) && (
+              <QMR.Rate
+                readOnly={rateReadOnly}
+                name={`${name}.subRates.${item.id}.sixtyDays`}
+                key={`${name}.subRates.${item.id}.sixtyDaysPostPartum`}
+                rates={[
+                  {
+                    id: 1,
+                    label: "Sixty Days Postpartum Rate",
+                  },
+                ]}
+              />
+            )}
+          </>
+        );
+      })}
     </CUI.Box>
   );
 };
