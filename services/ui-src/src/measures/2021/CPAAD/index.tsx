@@ -4,22 +4,13 @@ import * as Q from "./questions";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
-import { useEffect } from "react";
-import { validationSchema } from "./validation/schema";
 
 export const CPAAD = ({
   name,
   year,
   handleSubmit,
   handleValidation,
-  setMeasureSchema,
 }: Measure.Props) => {
-  useEffect(() => {
-    if (setMeasureSchema) {
-      setMeasureSchema(validationSchema);
-    }
-  }, [setMeasureSchema]);
-
   const { coreSetId } = useParams();
   const { watch } = useFormContext<Measure.Form>();
 
