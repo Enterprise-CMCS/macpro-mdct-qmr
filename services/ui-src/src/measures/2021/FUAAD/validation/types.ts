@@ -1,5 +1,3 @@
-import Joi from "joi";
-
 export namespace Measure {
   export interface Props {
     name: string;
@@ -7,9 +5,6 @@ export namespace Measure {
     measureId: string;
     handleSubmit?: any;
     handleValidation?: any;
-    setMeasureSchema?: React.Dispatch<
-      React.SetStateAction<Joi.ObjectSchema<any>>
-    >;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
@@ -168,9 +163,9 @@ export namespace Measure {
 
     AddtnlNonHispanicRace: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
-    AddtnlNonHispanicRaceSubCatTitle: string[][];
+    AddtnlNonHispanicRaceSubCatTitle: { titles: string[] }[];
     AddtnlNonHispanicRaceSubCatOptions: string[][];
-    AddtnlNonHispanicRaceSubCatRates: AggregateRate[][];
+    AddtnlNonHispanicRaceSubCatRates: { rates: AggregateRate[] }[];
 
     AddtnlNonHispanicSubCat: string[];
     AddtnlNonHispanicSubCatRates: AggregateRate[];
