@@ -10,11 +10,13 @@ export const LRCDCH = ({ name, year }: Measure.Props) => {
     measure: "LRCD-CH",
   });
   const currentTimeZone = Intl.DateTimeFormat()?.resolvedOptions()?.timeZone;
-  const formattedTime = formatInTimeZone(
-    new Date(data?.Item?.createdAt),
-    currentTimeZone,
-    "LLL d, yyyy h:mm a zzz"
-  );
+  const formattedTime = data?.Item?.createdAt
+    ? formatInTimeZone(
+        new Date(data.Item.createdAt),
+        currentTimeZone,
+        "LLL d, yyyy h:mm a zzz"
+      )
+    : "";
 
   return (
     <QMR.AutocompletedMeasureTemplate
