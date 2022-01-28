@@ -3,10 +3,12 @@ import * as QMR from "components";
 import { useGetMeasure } from "hooks/api";
 import { CoreSetAbbr } from "types";
 import { formatInTimeZone } from "date-fns-tz";
+import { useParams } from "react-router-dom";
 
 export const PDENTCH = ({ name, year }: Measure.Props) => {
+  const { coreSetId } = useParams();
   const { data } = useGetMeasure({
-    coreSet: CoreSetAbbr.CCS,
+    coreSet: CoreSetAbbr[coreSetId as keyof typeof CoreSetAbbr],
     measure: "PDENT-CH",
   });
   const currentTimeZone = Intl.DateTimeFormat()?.resolvedOptions()?.timeZone;

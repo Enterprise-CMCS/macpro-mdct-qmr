@@ -3,16 +3,18 @@ import * as QMR from "components";
 import { useGetMeasure } from "hooks/api";
 import { CoreSetAbbr } from "types";
 import { formatInTimeZone } from "date-fns-tz";
+import { useParams } from "react-router-dom";
 
 export const NCIDDSAD = ({ name, year }: Measure.Props) => {
+  const { coreSetId } = useParams();
   const { data } = useGetMeasure({
-    coreSet: CoreSetAbbr.ACS,
+    coreSet: CoreSetAbbr[coreSetId as keyof typeof CoreSetAbbr],
     measure: "NCIDDS-AD",
   });
   const currentTimeZone = Intl.DateTimeFormat()?.resolvedOptions()?.timeZone;
   const formattedTime = data?.Item?.createdAt
     ? formatInTimeZone(
-        new Date(data?.Item?.createdAt),
+        new Date(data.Item.createdAt),
         currentTimeZone,
         "LLL d, yyyy h:mm a zzz"
       )
