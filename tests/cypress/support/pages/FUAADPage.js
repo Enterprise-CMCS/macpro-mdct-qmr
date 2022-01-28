@@ -31,7 +31,7 @@ const nationalCommitteForQualityAssuranceRadioBTN =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[1]/label[1]/span[1]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const administrativeDataRadioBTN =
-  "//p[contains(text(),'Administrative Data')]";
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/label[1]/span[1]";
 const MedicaidManagementInformationSystemMMISRadioBTN =
   "//p[contains(text(),'Medicaid Management Information System (MMIS)')]";
 const Age65andolderNumeratorInputBox =
@@ -97,13 +97,19 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click();
+    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click({
+      force: true,
+    });
   }
   clickAdminstrativeDataRaioBTN() {
-    cy.xpath(administrativeDataRadioBTN).click();
+    cy.xpath(administrativeDataRadioBTN).click({
+      force: true,
+    });
   }
   clickMedicaidManagementInformationSystemMMISRadioBTN() {
-    cy.get(MedicaidManagementInformationSystemMMISRadioBTN).click();
+    cy.xpath(MedicaidManagementInformationSystemMMISRadioBTN).click({
+      force: true,
+    });
   }
 
   typeAge65andolderNumeratorInputBox(s) {
