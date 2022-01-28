@@ -102,64 +102,132 @@ And('user can click on No option for reporting on this measure',()=>{
 And('user can click on Yes option for Are you reporting on this measure',()=>{
   fuaAdpage.verifyReportingOnMeasureYes();
 });
-
-
-And('user can click on What is the status of the data being reported section',()=>{
-
+//steps below are OY2-8940 Deviation and Optional Measure Stratification related
+And('user can click on Yes option for Are you reporting on this measure at first',()=>{
+  fuaAdpage.clickYesForReportingMeasure();
 });
 
-And('user can click on Other option in Measurement Specification',()=>{
-
+And('user can click on NCQA HEDIS under Measurement Specifications',()=>{
+  fuaAdpage.clickNCQAHEDISradio();
 });
 
-And('user can click on National Committee for Quality Assurance HEDIS option in Measure Specification',()=>{
-
+And('user can enter numerator and denominator for age 18-64',()=>{
+  fuaAdpage.enterNumeratorDenominator();
 });
 
-And('user can click on Other Data Source option in Data Source section',()=>{
-
+And('user can click on Yes option for Deviations from Measure Specifications',()=>{
+  fuaAdpage.clickYesDeviation();
 });
 
-And('user can click on Administrative Data option in Data Source section',()=>{
-
+And('user can click on Follow up within 30 days of ED visits',()=>{
+  fuaAdpage.clickFollowUp30Days();
 });
 
-And('user can click on enter start and end date on Date Range section',()=>{
-
+And('user can click on ages 18-64',()=>{
+  fuaAdpage.clickAge18to64();
 });
 
-And('user can click on options in Definition of denominator section',()=>{
-
+And('user can click on numerator denominator other checkbox and enter text in explain textbox',()=>{
+  fuaAdpage.clickNumeratorDenominatorOtherExplain();
 });
 
-And('user can click on options in Which delivery systems are represented in the denominator section',()=>{
-
+And('user can click Race Non Hispanic under Optional Measure Stratification',()=>{
+  fuaAdpage.clickRaceNonHispanic();
 });
 
-And('user can fill out Performance Measure section',()=>{
-
+And('user can click on White checkbox and ages 18 to 64',()=>{
+  fuaAdpage.clickWhiteAge18to64();
 });
 
-And('user can fill out Follow-up within 30 days of ED visit section',()=>{
-
+And('user can enter numerator denominator to verify Rate',()=>{
+  fuaAdpage.enterNumeratorDenominatorUnderRace();
 });
 
-And('user can click on options for Deviations from Measure Specifications section',()=>{
-
+And('user can click on Additional Alternative Classification enter Define textbox',()=>{
+  fuaAdpage.clickAdditionalRace();
 });
 
-And('user can click on options for Combined Rate(s) from Multiple Reporting Units section',()=>{
-
+And('user can click on ages 18-64 under Additional Specifications',()=>{
+  fuaAdpage.clickAge18to64UnderAdditionalRace();
 });
 
-And('user can click on options for Optional Measure Stratification section',()=>{
-
+And('user can enter numerator denominatorto verify Rate under Additional section',()=>{
+  fuaAdpage.enterNumeratorDenominatorUnderAdditionalRace();
 });
 
-And('user can enter Additional Notes section',()=>{
 
-});
+// And('user can click on What is the status of the data being reported section',()=>{
+
+// });
+
+// And('user can click on Other option in Measurement Specification',()=>{
+
+// });
+
+// And('user can click on National Committee for Quality Assurance HEDIS option in Measure Specification',()=>{
+
+// });
+
+// And('user can click on Other Data Source option in Data Source section',()=>{
+
+// });
+
+// And('user can click on Administrative Data option in Data Source section',()=>{
+
+// });
+
+// And('user can click on enter start and end date on Date Range section',()=>{
+
+// });
+
+// And('user can click on options in Definition of denominator section',()=>{
+
+// });
+
+// And('user can click on options in Which delivery systems are represented in the denominator section',()=>{
+
+// });
+
+// And('user can fill out Performance Measure section',()=>{
+
+// });
+
+// And('user can fill out Follow-up within 30 days of ED visit section',()=>{
+
+// });
+
+// And('user can click on options for Deviations from Measure Specifications section',()=>{
+
+// });
+
+// And('user can click on options for Combined Rate(s) from Multiple Reporting Units section',()=>{
+
+// });
+
+// And('user can click on options for Optional Measure Stratification section',()=>{
+
+// });
+
+// And('user can enter Additional Notes section',()=>{
+
+// });
 // --- END NEW
+
+//Steps below belong to ticket OY2-15377 Other option under Measurement Specification
+
+And('user can click on Other option in Measurement Specifications',()=>{
+
+});
+
+And('user can enter Describe the Rate under Other Proformane Measure section',()=>{
+
+});
+
+And('user can verify the exact text entered in Describe the Rate shows up in Optional Measure Stratification section',()=>{
+
+});
+
+//OY2-15377 End
 
 And('user can see the LBW-CH Live Births Weighting Less Than 2500 Grams title',()=>{
   lbwCH.verifyLBWchTitle();

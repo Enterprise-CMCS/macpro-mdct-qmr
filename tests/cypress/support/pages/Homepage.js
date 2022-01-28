@@ -12,7 +12,8 @@ const adultCoreSetMeasures = "//p[text()='Adult Core Set Measures']";
 
 export class Homepage {
   launch() {
-    cy.visit("https://mdctqmrdev.cms.gov/");
+    //cy.visit("https://mdctqmrdev.cms.gov/");
+    cy.visit("https://d2ia6j7tn33yf.cloudfront.net/");
   }
 
   verifyTheTitleCoreSetMeasureReporting(){
@@ -20,8 +21,10 @@ export class Homepage {
   }
 
   clickAdultCoreSetMeasures(){
-    cy.scrollTo('top');
+    cy.wait(3000);
+    //cy.scrollTo('top');
     cy.xpath(adultCoreSetMeasures).click({ force: true });
+    //cy.xpath(adultCoreSetMeasures).click();
   }
 
   validateCoreSetReportingIcon() {

@@ -10,6 +10,7 @@ const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
 export class Landingpage {
   launch() {
     cy.visit("https://mdctqmrdev.cms.gov/");
+    //cy.visit("https://d2ia6j7tn33yf.cloudfront.net/");
   }
 
   validateCoreSetReportingIcon() {

@@ -4,6 +4,36 @@ const reporting_yes = "(//span[ contains(@class, 'radio')]/p)[1]";
 const reporting_no = "(//span[ contains(@class, 'radio')]/p)[2]";
 const sample_text = "This is a test from the QA !";
 
+//Elements for OY2-8940 Deviation and Optional Measure Stratification
+const yesOptionReportingfirst = "(//span[@class='chakra-radio__control css-gzpnyx'])[1]";
+const ncqaHedisRadio = "(//span[@class='chakra-radio__control css-gzpnyx'])[5]";
+const numeratorOne = "(//input[@class='chakra-input css-1c6j008'])[1]";
+const denominatorOne = "(//input[@class='chakra-input css-1c6j008'])[2]";
+const rateOne = "(//input[@class='chakra-input css-1c6j008'])[3]";
+const yesDeviations = "(//span[@class='chakra-radio__control css-gzpnyx'])[9]";
+const followUp30EDvisit = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[12]";
+const age18to64 = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[13]";
+const numeratorDeviation = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[14]";
+const numeratorExplaintext = "//textarea[@name='DeviationFields-Within30.0.numerator']";
+const denominatorDeviation = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[15]";
+const denominatorDeviationExplain = "//textarea[@name='DeviationFields-Within30.0.denominator']";
+const otherDeviation = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[16]";
+const otherDeviationExplain = "//textarea[@name='DeviationFields-Within30.0.other']";
+const raceNonHispanic = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[17]";
+const whiteUnderRace = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[18]";
+const age18to64Race = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[19]";
+const numeratorUnderRace = "(//input[@class='chakra-input css-1c6j008'])[13]";
+const denominatorUnderRace = "(//input[@class='chakra-input css-1c6j008'])[14]";
+const rateUnderRace = "(//input[@class='chakra-input css-1c6j008'])[15]";
+const additionalRace = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[24]";
+const defineAdditionalRace = "//input[@name='AddtnlNonHispanicRace.0']";
+const age18to64UnderAdditionalRace = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[25]";
+const numeratorUnderAdditionalRace = "(//input[@class='chakra-input css-1c6j008'])[17]";
+const denominatorUnderAdditionalRace = "(//input[@class='chakra-input css-1c6j008'])[18]";
+const raateUnderAdditionalRace = "//input[@id='field-149']";
+
+
+
 // -- SECTION: What you are not reporting on this measure? 
 const check_service_not_covered = "(//span[ contains(@class, 'check')]/p)[1]";
 const check_population_not_covered = "(//span[ contains(@class, 'check')]/p)[2]";
@@ -33,6 +63,77 @@ const radio_all_options = "//span[ contains(@class, 'radio')]/p";
 
 export class FUAadpage {
 
+    clickYesForReportingMeasure(){
+        cy.wait(2000);
+        cy.xpath(yesOptionReportingfirst).click();
+    }
+
+    clickNCQAHEDISradio(){
+        cy.xpath(ncqaHedisRadio).click();
+    }
+
+    enterNumeratorDenominator(){
+        cy.xpath(numeratorOne).type("10");
+        cy.xpath(denominatorOne).type("20");
+    }
+
+    clickYesDeviation(){
+        cy.wait(2000);
+        cy.xpath(yesDeviations).click();
+    }
+
+    clickFollowUp30Days(){
+        cy.xpath(followUp30EDvisit).click();
+    }
+
+    clickAge18to64(){
+        cy.xpath(age18to64).click();
+    }
+
+    clickNumeratorDenominatorOtherExplain(){
+        cy.xpath(numeratorDeviation).click();
+        cy.wait(2000);
+        cy.xpath(numeratorExplaintext).type("test");
+        cy.xpath(denominatorDeviation).click();
+        cy.wait(2000);
+        cy.xpath(denominatorDeviationExplain).type("test");
+        cy.xpath(otherDeviation).click();
+        cy.wait(2000);
+        cy.xpath(otherDeviationExplain).type("test");
+    }
+
+    clickRaceNonHispanic(){
+        cy.xpath(raceNonHispanic).click();
+    }
+
+    clickWhiteAge18to64(){
+        cy.xpath(whiteUnderRace).click();
+        cy.wait(1000);
+        cy.xpath(age18to64Race).click();
+    }
+
+    enterNumeratorDenominatorUnderRace(){
+        cy.wait(2000);
+        cy.xpath(numeratorUnderRace).type("10");
+        cy.wait(2000);
+        cy.xpath(denominatorUnderRace).type("20");
+    }
+
+    clickAdditionalRace(){
+        cy.xpath(additionalRace).click();
+        cy.xpath(defineAdditionalRace).type("test");
+    }
+
+    clickAge18to64UnderAdditionalRace(){
+        cy.xpath(age18to64UnderAdditionalRace).click();
+    }
+
+    enterNumeratorDenominatorUnderAdditionalRace(){
+        cy.xpath(numeratorUnderAdditionalRace).type("10");
+        cy.xpath(denominatorUnderAdditionalRace).type("20");
+    }
+
+
     verifyReportingOnMeasureYes() {
       
         cy.wait(500);
@@ -43,7 +144,6 @@ export class FUAadpage {
         let checkXpath = "(//span[ contains(@class, 'check')]/p)[";
         for(let i = 1; i <= 25; i++) {
             let finalXapth = checkXpath + i + "]";
-            console.log(finalXapth);
             cy.xpath(finalXapth).scrollIntoView();
             cy.xpath(finalXapth).click();
             cy.wait(500);
@@ -148,7 +248,7 @@ export class FUAadpage {
         let rate = "(//label[text()='Rate']/../input)[";
         for(let i = 1; i <= 4; i++) {
             let finalXapth = rate + i + "]";
-            cy.xpath(finalXapth).invoke('attr', 'value').should('eq', '50.0000');
+            cy.xpath(finalXapth).invoke('attr', 'value').should('eq', '50.0');
             cy.wait(500);
         }
      }
