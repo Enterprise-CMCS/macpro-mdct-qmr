@@ -9,7 +9,7 @@ export const LBWCH = ({ name, year }: Measure.Props) => {
     coreSet: CoreSetAbbr.ACS,
     measure: "LBW-CH",
   });
-  console.log(test);
+
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}
