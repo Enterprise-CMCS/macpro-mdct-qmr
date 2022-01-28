@@ -86,7 +86,7 @@ functions:
   avDownloadDefinitions:
     handler: src/download-definitions.lambdaHandleEvent
     events:
-      - schedule: cron(0 */6 * * ? *)
+      - schedule: cron(15 1 * * ? *)
     timeout: 300 # 300 seconds = 5 minutes
     memorySize: 3072
     layers:
