@@ -2,8 +2,9 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
+import { ControllerRules } from "global";
 
-interface TextInputProps extends QMR.InputWrapperProps {
+interface TextInputProps extends QMR.InputWrapperProps, ControllerRules {
   placeholder?: string;
   name: string;
   textInputProps?: CUI.InputProps;
@@ -13,6 +14,7 @@ export const TextInput = ({
   textInputProps,
   placeholder,
   name,
+  rules,
   ...rest
 }: TextInputProps) => {
   const {
@@ -23,12 +25,18 @@ export const TextInput = ({
   const { field } = useController({
     name,
     control,
+    rules,
   });
+
+  const path = objectPath.get(errors, name);
 
   return (
     <QMR.InputWrapper
-      isInvalid={!!objectPath.get(errors, name)?.message}
-      errorMessage={objectPath.get(errors, name)?.message}
+      isInvalid={!!path?.message || path?.type === "required"}
+      errorMessage={
+        path?.message ||
+        (path?.type === "required" && `This is a required field`)
+      }
       {...rest}
     >
       <CUI.Input

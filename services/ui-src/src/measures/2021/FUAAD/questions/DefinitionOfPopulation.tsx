@@ -47,7 +47,7 @@ export const DefinitionOfPopulation = () => {
             displayValue: "Other",
             value: "DenominatorIncOther",
             children: [
-              <QMR.TextInput
+              <QMR.TextArea
                 formLabelProps={{ fontWeight: "400" }}
                 label="Define the other denominator population:"
                 {...register("DefinitionOfDenominator-Other")}
@@ -305,7 +305,7 @@ export const DefinitionOfPopulation = () => {
                           displayPercent
                           mask={percentageAllowOneDecimalMax}
                           formLabelProps={{ fontWeight: "400" }}
-                          label="Percentage of measure-eligible state population represented in data reported:"
+                          label="What percent of your measure-eligible Integrated Care Models (ICM) population are included in the measure?"
                           {...register(
                             "DeliverySys-IntegratedCareModel-No-Percent"
                           )}
