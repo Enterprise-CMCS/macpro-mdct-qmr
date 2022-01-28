@@ -9,7 +9,6 @@ import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 // demo
 
-import AuditCoreSetMeasuresPage from "../../../support/pages/AuditCoreSetMeasuresPage";
 import FUAADPAGE from "../../../support/pages/FUAADPage";
 
 const homePage = new Homepage();
@@ -22,7 +21,6 @@ const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
 // demo
 
-const auditCoreSetMeasuresPage = new AuditCoreSetMeasuresPage();
 const fUAADPage = new FUAADPAGE();
 
 Given("user visits QMR home page", () => {
@@ -400,10 +398,10 @@ Then("Click on Adult Core Set Measures", () => {
 });
 
 Then("verify url contains ACS", () => {
-  auditCoreSetMeasuresPage.verifyURLContainsACS();
+  adultCoreSetMeasurespage.verifyURLContainsACS();
 });
 Then("Click on FUA-AD", () => {
-  auditCoreSetMeasuresPage.clickFUAADLink();
+  adultCoreSetMeasurespage.clickFUAadLink();
 });
 
 Then("verify url contains FUA-AD", () => {
