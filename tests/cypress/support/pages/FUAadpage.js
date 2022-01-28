@@ -31,6 +31,14 @@ const age18to64UnderAdditionalRace = "(//span[@class='chakra-checkbox__control c
 const numeratorUnderAdditionalRace = "(//input[@class='chakra-input css-1c6j008'])[17]";
 const denominatorUnderAdditionalRace = "(//input[@class='chakra-input css-1c6j008'])[18]";
 const raateUnderAdditionalRace = "//input[@id='field-149']";
+const otherOptionUnderMeasurementSpecification = "(//span[@class='chakra-radio__control css-gzpnyx'])[6]";
+const describeRateUnderOPM = "//input[@name='OtherPerformanceMeasure-Rates.0.description']";
+const raceUnderOMS = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[12]";
+const whiteUnderOMS = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[13]";
+const describeRateUnderOMS = "(//p[@class='chakra-text css-1m49yyc'])[24]";
+
+
+
 
 
 
@@ -133,6 +141,20 @@ export class FUAadpage {
         cy.xpath(denominatorUnderAdditionalRace).type("20");
     }
 
+    clickOtherUnderMeasureSpecification(){
+        cy.xpath(otherOptionUnderMeasurementSpecification).click();
+    }
+
+    enterDescribeRateUnderOPM(){
+        cy.xpath(describeRateUnderOPM).clear();
+        cy.xpath(describeRateUnderOPM).type("test66");
+    }
+
+    verifyDescribeRateUnderOMS(){
+        cy.xpath(raceUnderOMS).click();
+        cy.xpath(whiteUnderOMS).click();
+        cy.xpath(describeRateUnderOMS).contains("test66");
+    }
 
     verifyReportingOnMeasureYes() {
       

@@ -8,7 +8,7 @@ import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 // demo
-import DemoLoginPage from "../../../support/pages/DemoLoginPage";
+
 import FUAadpage from "../../../support/pages/FUAadpage";
 
 const homePage = new Homepage();
@@ -20,8 +20,7 @@ const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
-// demo 
-const demoLoginPage = new DemoLoginPage();
+
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -155,6 +154,10 @@ And('user can enter numerator denominatorto verify Rate under Additional section
   fuaAdpage.enterNumeratorDenominatorUnderAdditionalRace();
 });
 
+When("user enter email and password for Cognito login", () => {
+  loginPage.enterEmailwithCognitoLogin();
+  loginPage.enterPasswordwithCognitoLogin();
+});
 
 // And('user can click on What is the status of the data being reported section',()=>{
 
@@ -216,18 +219,22 @@ And('user can enter numerator denominatorto verify Rate under Additional section
 //Steps below belong to ticket OY2-15377 Other option under Measurement Specification
 
 And('user can click on Other option in Measurement Specifications',()=>{
-
+  fuaAdpage.clickOtherUnderMeasureSpecification();
 });
 
 And('user can enter Describe the Rate under Other Proformane Measure section',()=>{
-
+  fuaAdpage.enterDescribeRateUnderOPM();
 });
 
 And('user can verify the exact text entered in Describe the Rate shows up in Optional Measure Stratification section',()=>{
-
+  fuaAdpage.verifyDescribeRateUnderOMS();
 });
 
 //OY2-15377 End
+
+And("user click on Login with Cognito button", () => {
+  loginPage.clickLoginWithCognitoButtn();
+});
 
 And('user can see the LBW-CH Live Births Weighting Less Than 2500 Grams title',()=>{
   lbwCH.verifyLBWchTitle();

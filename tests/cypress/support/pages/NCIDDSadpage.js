@@ -1,4 +1,5 @@
-const nciddsADtitle = "(//h2)[3]";
+const nciddsADtitle =
+  "//p[contains(text(),'NCIDDS-AD - National Core Indicators Survey')]";
 const sentenceBelowTitle = "(//p[@class='chakra-text css-itvw0n'])[1]";
 const printButton = "//button[@class='chakra-button css-11qozvn']";
 const measureTitle = "(//p[@class='chakra-text css-0'])[1]";
@@ -8,32 +9,32 @@ const performanceMeasureOne = "(//p[@class='chakra-text css-0'])[4]";
 const performanceMeasureTwo = "(//p[@class='chakra-text css-0'])[5]";
 const backToCoreSetButton = "//button[@class='chakra-button css-6ccodv']";
 
-
 export class NCIDDSadpage {
-    verifyNCIDDSadTitle(){
-        cy.xpath(nciddsADtitle).should("be.visible");
-        cy.xpath(nciddsADtitle).contains('NCIDDS-AD - National Core Indicators Survey');
-    }
+  verifyNCIDDSadTitle() {
+    cy.xpath(nciddsADtitle).should("be.visible");
+    cy.xpath(nciddsADtitle).contains(
+      "NCIDDS-AD - National Core Indicators Survey"
+    );
+  }
 
-    verifyPrintButtonAndSentence(){
-        cy.xpath(sentenceBelowTitle).should("be.visible");
-        cy.xpath(printButton).should("be.visible");
-    }
+  verifyPrintButtonAndSentence() {
+    cy.xpath(sentenceBelowTitle).should("be.visible");
+    cy.xpath(printButton).should("be.visible");
+  }
 
-    verifyMeasureTitleDateAndReporting(){
-        cy.xpath(measureTitle).should("be.visible");
-        cy.xpath(dateCompleted).should("be.visible");
-        cy.xpath(reportingOnMeasure).should("be.visible");
-    }
+  verifyMeasureTitleDateAndReporting() {
+    cy.xpath(measureTitle).should("be.visible");
+    cy.xpath(dateCompleted).should("be.visible");
+    cy.xpath(reportingOnMeasure).should("be.visible");
+  }
 
-    verifyPerformanceMeasure(){
-        cy.xpath(performanceMeasureOne).should("be.visible");
-        cy.xpath(performanceMeasureTwo).should("be.visible");
-    }
+  verifyPerformanceMeasure() {
+    cy.xpath(performanceMeasureOne).should("be.visible");
+    cy.xpath(performanceMeasureTwo).should("be.visible");
+  }
 
-    verifyBackToCoreSetMeasureButton(){
-        cy.xpath(backToCoreSetButton).should("be.visible");
-    }
-
+  verifyBackToCoreSetMeasureButton() {
+    cy.xpath(backToCoreSetButton).should("be.visible");
+  }
 }
 export default NCIDDSadpage;
