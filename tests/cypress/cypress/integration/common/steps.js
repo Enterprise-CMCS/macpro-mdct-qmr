@@ -158,6 +158,21 @@ And('user click "Sign In" button', () => {
 
 Then("user should see the QMR home page", () => {});
 
+Then(
+  "user should see the QMR 2021 Core Set Measures Reporting home page",
+  () => {
+    homePage.verifyTheTitleCoreSetMeasureReporting();
+  }
+);
+
+When("login as state user two", () => {
+  loginPage.loginasAStateUserTwoWithCognito();
+});
+
+And("user click on link Adult Core Set Measures", () => {
+  homePage.clickAdultCoreSetMeasures();
+});
+
 When("login as state user", () => {
   loginPage.loginasAStateUserWithCognito();
 });
@@ -179,6 +194,39 @@ Then("Click on FUA-AD", () => {
 
 Then("verify url contains FUA-AD", () => {
   fUAADPage.verifyURLContainsFUAAD();
+});
+
+And(
+  "verify the button Save on the top and click on it to see Saved Moments Ago shows up",
+  () => {
+    fUAADPage.clickSaveButtnVerifyStatus();
+  }
+);
+
+And("select NCQA HEDIS under Measurement Specification", () => {
+  fUAADPage.clickNCQAHEDIS();
+});
+
+And("verify sentence under Complete the Measure", () => {
+  fUAADPage.verifySentenceUnderCompleteMeasure();
+});
+
+And(
+  "click on button Validate Measure to verify it shows the error message",
+  () => {
+    fUAADPage.clickValidateMeasureButtonVerify();
+  }
+);
+
+And(
+  "click on button Complete Measure to verify it shows Validation Error popup box",
+  () => {
+    fUAADPage.clickCompleteMeasureButtonVerify();
+  }
+);
+
+And("click on No option in the popup box", () => {
+  fUAADPage.clickNoOption();
 });
 
 And("verify browse exists", () => {
