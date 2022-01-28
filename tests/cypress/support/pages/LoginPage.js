@@ -25,6 +25,18 @@ export class LoginPage {
     cy.xpath(loginWithCognitoButtn).click();
   }
 
+  enterEmailwithCognitoLogin() {
+    cy.xpath(emailForCognito).type("stateuser2@test.com");
+  }
+
+  enterPasswordwithCognitoLogin() {
+    cy.xpath(passwordForCognito).type("p@55W0rd!");
+  }
+
+  clickLoginWithCognitoButtn() {
+    cy.xpath(loginWithCognitoButtn).click();
+  }
+
   enterPassword() {
     cy.get(passwordInput).type("Passw0rd@");
   }
@@ -50,6 +62,12 @@ export class LoginPage {
 
   loginasAStateUserWithCognito() {
     cy.xpath(emailForCognito).type("stateuser1@test.com");
+    cy.xpath(passwordForCognito).type("p@55W0rd!");
+    cy.xpath(loginWithCognitoButtn).click();
+  }
+
+  loginasAStateUserTwoWithCognito() {
+    cy.xpath(emailForCognito).type("stateuser2@test.com");
     cy.xpath(passwordForCognito).type("p@55W0rd!");
     cy.xpath(loginWithCognitoButtn).click();
   }
