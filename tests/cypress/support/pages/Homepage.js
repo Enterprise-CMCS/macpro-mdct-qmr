@@ -12,7 +12,7 @@ const adultCoreSetMeasures = "//a[ contains(@href, 'ACS') ]";
 
 export class Homepage {
   launch() {
-    cy.visit("/");
+    cy.visit("https://d2ia6j7tn33yf.cloudfront.net/");
   }
 
   verifyTheTitleCoreSetMeasureReporting() {
@@ -20,8 +20,10 @@ export class Homepage {
   }
 
   clickAdultCoreSetMeasures() {
+    cy.wait(3000);
     cy.scrollTo("top");
     cy.xpath(adultCoreSetMeasures).click({ force: true });
+    //cy.xpath(adultCoreSetMeasures).click();
   }
 
   validateCoreSetReportingIcon() {
