@@ -27,14 +27,6 @@ interface Props {
     showEngageOther65Plus: boolean;
     showInitTotal65Plus: boolean;
     showEngageTotal65Plus: boolean;
-    showInitAlcoholCombined: boolean;
-    showEngageAlcoholCombined: boolean;
-    showInitOpioidCombined: boolean;
-    showEngageOpioidCombined: boolean;
-    showInitOtherCombined: boolean;
-    showEngageOtherCombined: boolean;
-    showInitTotalCombined: boolean;
-    showEngageTotalCombined: boolean;
     showOtherPerformanceMeasureRates: boolean;
   };
 }
@@ -47,7 +39,6 @@ export const DefaultOptionalMeasureStratProps: Props = {
   ageGroups: [
     { label: "Ages 18 to 64", id: 0 },
     { label: "Ages 65 and older", id: 1 },
-    { label: "Total Ages", id: 2 },
   ],
 };
 
@@ -147,8 +138,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               // Dynamically hide or show children based on if performance measure 30days/age sections were completed
               ...((deviationConditions?.showInitAlcohol18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showInitAlcohol65Plus && item.id === 1) ||
-              (deviationConditions?.showInitAlcoholCombined && item.id === 2)
+              (deviationConditions?.showInitAlcohol65Plus && item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
@@ -167,8 +157,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.showEngageAlcohol18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showEngageAlcohol65Plus && item.id === 1) ||
-              (deviationConditions?.showEngageAlcoholCombined && item.id === 2)
+              (deviationConditions?.showEngageAlcohol65Plus && item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
@@ -186,8 +175,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 : []),
               ...((deviationConditions?.showInitOpioid18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showInitOpioid65Plus && item.id === 1) ||
-              (deviationConditions?.showInitOpioidCombined && item.id === 2)
+              (deviationConditions?.showInitOpioid65Plus && item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
@@ -206,8 +194,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.showEngageOpioid18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showEngageOpioid65Plus && item.id === 1) ||
-              (deviationConditions?.showEngageOpioidCombined && item.id === 2)
+              (deviationConditions?.showEngageOpioid65Plus && item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
@@ -224,8 +211,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                   ]
                 : []),
               ...((deviationConditions?.showInitOther18To64 && item.id === 0) ||
-              (deviationConditions?.showInitOther65Plus && item.id === 1) ||
-              (deviationConditions?.showInitOtherCombined && item.id === 2)
+              (deviationConditions?.showInitOther65Plus && item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
@@ -244,8 +230,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.showEngageOther18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showEngageOther65Plus && item.id === 1) ||
-              (deviationConditions?.showEngageOtherCombined && item.id === 2)
+              (deviationConditions?.showEngageOther65Plus && item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
@@ -262,8 +247,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                   ]
                 : []),
               ...((deviationConditions?.showInitTotal18To64 && item.id === 0) ||
-              (deviationConditions?.showInitTotal65Plus && item.id === 1) ||
-              (deviationConditions?.showInitTotalCombined && item.id === 2)
+              (deviationConditions?.showInitTotal65Plus && item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
@@ -282,8 +266,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.showEngageTotal18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showEngageTotal65Plus && item.id === 1) ||
-              (deviationConditions?.showEngageTotalCombined && item.id === 2)
+              (deviationConditions?.showEngageTotal65Plus && item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}

@@ -78,14 +78,6 @@ export const IETAD = ({
   const showEngageOther65Plus = !!watchEngageOther?.[1]?.rate;
   const showInitTotal65Plus = !!watchInitTotal?.[1]?.rate;
   const showEngageTotal65Plus = !!watchEngageTotal?.[1]?.rate;
-  const showInitAlcoholCombined = !!watchInitAlcohol?.[2]?.rate;
-  const showEngageAlcoholCombined = !!watchEngageAlcohol?.[2]?.rate;
-  const showInitOpioidCombined = !!watchInitOpioid?.[2]?.rate;
-  const showEngageOpioidCombined = !!watchEngageOpioid?.[2]?.rate;
-  const showInitOtherCombined = !!watchInitOther?.[2]?.rate;
-  const showEngageOtherCombined = !!watchEngageOther?.[2]?.rate;
-  const showInitTotalCombined = !!watchInitTotal?.[2]?.rate;
-  const showEngageTotalCombined = !!watchEngageTotal?.[2]?.rate;
 
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
   const ageGroups = [];
@@ -114,19 +106,6 @@ export const IETAD = ({
     showEngageTotal65Plus
   ) {
     ageGroups.push({ label: "Ages 65 and older", id: 1 });
-  }
-
-  if (
-    showInitAlcoholCombined ||
-    showEngageAlcoholCombined ||
-    showInitOpioidCombined ||
-    showEngageOpioidCombined ||
-    showInitOtherCombined ||
-    showEngageOtherCombined ||
-    showInitTotalCombined ||
-    showEngageTotalCombined
-  ) {
-    ageGroups.push({ label: "Total Ages", id: 2 });
   }
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
@@ -175,14 +154,6 @@ export const IETAD = ({
                 showEngageOther65Plus,
                 showInitTotal65Plus,
                 showEngageTotal65Plus,
-                showInitAlcoholCombined,
-                showEngageAlcoholCombined,
-                showInitOpioidCombined,
-                showEngageOpioidCombined,
-                showInitOtherCombined,
-                showEngageOtherCombined,
-                showInitTotalCombined,
-                showEngageTotalCombined,
               }}
             />
           )}
@@ -205,14 +176,6 @@ export const IETAD = ({
             showEngageOther65Plus ||
             showInitTotal65Plus ||
             showEngageTotal65Plus ||
-            showInitAlcoholCombined ||
-            showEngageAlcoholCombined ||
-            showInitOpioidCombined ||
-            showEngageOpioidCombined ||
-            showInitOtherCombined ||
-            showEngageOtherCombined ||
-            showInitTotalCombined ||
-            showEngageTotalCombined ||
             showOtherPerformanceMeasureRates) && (
             <Q.OptionalMeasureStratification
               ageGroups={ageGroups}
@@ -233,14 +196,6 @@ export const IETAD = ({
                 showEngageOther65Plus,
                 showInitTotal65Plus,
                 showEngageTotal65Plus,
-                showInitAlcoholCombined,
-                showEngageAlcoholCombined,
-                showInitOpioidCombined,
-                showEngageOpioidCombined,
-                showInitOtherCombined,
-                showEngageOtherCombined,
-                showInitTotalCombined,
-                showEngageTotalCombined,
                 showOtherPerformanceMeasureRates,
               }}
             />

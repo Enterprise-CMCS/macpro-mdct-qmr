@@ -27,14 +27,6 @@ interface Props {
     showEngageOther65Plus: boolean;
     showInitTotal65Plus: boolean;
     showEngageTotal65Plus: boolean;
-    showInitAlcoholCombined: boolean;
-    showEngageAlcoholCombined: boolean;
-    showInitOpioidCombined: boolean;
-    showEngageOpioidCombined: boolean;
-    showInitOtherCombined: boolean;
-    showEngageOtherCombined: boolean;
-    showInitTotalCombined: boolean;
-    showEngageTotalCombined: boolean;
   };
 }
 
@@ -52,64 +44,56 @@ const deviationOptions = ({
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showInitAlcohol18To64 && option.id === 0) ||
-        (deviationConditions.showInitAlcohol65Plus && option.id === 1) ||
-        (deviationConditions.showInitAlcoholCombined && option.id === 2)
+        (deviationConditions.showInitAlcohol65Plus && option.id === 1)
       );
     });
   } else if (name.includes("EngageAlcohol")) {
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showEngageAlcohol18To64 && option.id === 0) ||
-        (deviationConditions.showEngageAlcohol65Plus && option.id === 1) ||
-        (deviationConditions.showEngageAlcoholCombined && option.id === 2)
+        (deviationConditions.showEngageAlcohol65Plus && option.id === 1)
       );
     });
   } else if (name.includes("InitOpioid")) {
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showInitOpioid18To64 && option.id === 0) ||
-        (deviationConditions.showInitOpioid65Plus && option.id === 1) ||
-        (deviationConditions.showInitOpioidCombined && option.id === 2)
+        (deviationConditions.showInitOpioid65Plus && option.id === 1)
       );
     });
   } else if (name.includes("EngageOpioid")) {
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showEngageOpioid18To64 && option.id === 0) ||
-        (deviationConditions.showEngageOpioid65Plus && option.id === 1) ||
-        (deviationConditions.showEngageOpioidCombined && option.id === 2)
+        (deviationConditions.showEngageOpioid65Plus && option.id === 1)
       );
     });
   } else if (name.includes("InitOther")) {
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showInitOther18To64 && option.id === 0) ||
-        (deviationConditions.showInitOther65Plus && option.id === 1) ||
-        (deviationConditions.showInitOtherCombined && option.id === 2)
+        (deviationConditions.showInitOther65Plus && option.id === 1)
       );
     });
   } else if (name.includes("EngageOther")) {
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showEngageOther18To64 && option.id === 0) ||
-        (deviationConditions.showEngageOther65Plus && option.id === 1) ||
-        (deviationConditions.showEngageOtherCombined && option.id === 2)
+        (deviationConditions.showEngageOther65Plus && option.id === 1)
       );
     });
   } else if (name.includes("InitTotal")) {
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showInitTotal18To64 && option.id === 0) ||
-        (deviationConditions.showInitTotal65Plus && option.id === 1) ||
-        (deviationConditions.showInitTotalCombined && option.id === 2)
+        (deviationConditions.showInitTotal65Plus && option.id === 1)
       );
     });
   } else {
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showEngageTotal18To64 && option.id === 0) ||
-        (deviationConditions.showEngageTotal65Plus && option.id === 1) ||
-        (deviationConditions.showEngageTotalCombined && option.id === 2)
+        (deviationConditions.showEngageTotal65Plus && option.id === 1)
       );
     });
   }
@@ -189,8 +173,7 @@ export const DeviationFromMeasureSpec = ({
                 // Dynamically hide or show children based on if performance measure 30days/age sections were completed
                 options={[
                   ...(deviationConditions.showInitAlcohol18To64 ||
-                  deviationConditions.showInitAlcohol65Plus ||
-                  deviationConditions.showInitAlcoholCombined
+                  deviationConditions.showInitAlcohol65Plus
                     ? [
                         {
                           value: "ShowInitAlcohol",
@@ -214,8 +197,7 @@ export const DeviationFromMeasureSpec = ({
                     : []),
                   // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.showEngageAlcohol18To64 ||
-                  deviationConditions.showEngageAlcohol65Plus ||
-                  deviationConditions.showEngageAlcoholCombined
+                  deviationConditions.showEngageAlcohol65Plus
                     ? [
                         {
                           value: "ShowEngageAlcohol",
@@ -238,8 +220,7 @@ export const DeviationFromMeasureSpec = ({
                       ]
                     : []),
                   ...(deviationConditions.showInitOpioid18To64 ||
-                  deviationConditions.showInitOpioid65Plus ||
-                  deviationConditions.showInitOpioidCombined
+                  deviationConditions.showInitOpioid65Plus
                     ? [
                         {
                           value: "ShowInitOpioid",
@@ -263,8 +244,7 @@ export const DeviationFromMeasureSpec = ({
                     : []),
                   // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.showEngageOpioid18To64 ||
-                  deviationConditions.showEngageOpioid65Plus ||
-                  deviationConditions.showEngageOpioidCombined
+                  deviationConditions.showEngageOpioid65Plus
                     ? [
                         {
                           value: "ShowEngageOpioid",
@@ -287,8 +267,7 @@ export const DeviationFromMeasureSpec = ({
                       ]
                     : []),
                   ...(deviationConditions.showInitOther18To64 ||
-                  deviationConditions.showInitOther65Plus ||
-                  deviationConditions.showInitOtherCombined
+                  deviationConditions.showInitOther65Plus
                     ? [
                         {
                           value: "ShowInitOther",
@@ -312,8 +291,7 @@ export const DeviationFromMeasureSpec = ({
                     : []),
                   // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.showEngageOther18To64 ||
-                  deviationConditions.showEngageOther65Plus ||
-                  deviationConditions.showEngageOtherCombined
+                  deviationConditions.showEngageOther65Plus
                     ? [
                         {
                           value: "ShowEngageOther",
@@ -336,8 +314,7 @@ export const DeviationFromMeasureSpec = ({
                       ]
                     : []),
                   ...(deviationConditions.showEngageOpioid18To64 ||
-                  deviationConditions.showEngageOpioid65Plus ||
-                  deviationConditions.showEngageOpioidCombined
+                  deviationConditions.showEngageOpioid65Plus
                     ? [
                         {
                           value: "ShowEngageOpioid",
@@ -360,8 +337,7 @@ export const DeviationFromMeasureSpec = ({
                       ]
                     : []),
                   ...(deviationConditions.showInitTotal18To64 ||
-                  deviationConditions.showInitTotal65Plus ||
-                  deviationConditions.showInitTotalCombined
+                  deviationConditions.showInitTotal65Plus
                     ? [
                         {
                           value: "ShowInitTotal",
@@ -385,8 +361,7 @@ export const DeviationFromMeasureSpec = ({
                     : []),
                   // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.showEngageTotal18To64 ||
-                  deviationConditions.showEngageTotal65Plus ||
-                  deviationConditions.showEngageTotalCombined
+                  deviationConditions.showEngageTotal65Plus
                     ? [
                         {
                           value: "ShowEngageTotal",
