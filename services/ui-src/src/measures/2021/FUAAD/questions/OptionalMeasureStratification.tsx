@@ -213,13 +213,6 @@ export const OptionalMeasureStratification = ({
       )
     );
 
-
-  const [addtnlNonHispanicSubCat, setAddtnlNonHispanicSubCat] = useState(
-    configInitialStateArray(
-      "AddtnlNonHispanicSubCat",
-      values.AddtnlNonHispanicSubCat
-    )
-  );
   const [addtnlEthnicity, setAddtnlEthnicity] = useState(
     configInitialStateArray("AddtnlEthnicity", values.AddtnlEthnicity)
   );
@@ -295,30 +288,6 @@ export const OptionalMeasureStratification = ({
                       displayValue: "White",
                       children: [<AgeData {...register("NHRC-WhiteRates")} />],
                     },
-                    ...addtnlNonHispanicSubCat.map((value, index) => {
-                      return {
-                        value: value,
-                        displayValue:
-                          "Additional/Alternative Classification/Sub-Category",
-                        children: [
-                          <CUI.Stack key={`${value}.${index}`}>
-                            <QMR.TextInput
-                              label="Define the Alternative Classification/Sub-category"
-                              name={`AddtnlNonHispanicSubCat.${index}`}
-                            />
-                            <AgeData
-                              name={`AddtnlNonHispanicSubCatRates.${index}`}
-                            />
-                            {index + 1 === addtnlNonHispanicSubCat.length && (
-                              <AddAnotherButton
-                                key="NonHispanicSubCatAddition"
-                                onClick={addNonHispanicSubCat}
-                              />
-                            )}
-                          </CUI.Stack>,
-                        ],
-                      };
-                    }),
                     {
                       value: "BlackOrAfricanAmerican",
                       displayValue: "Black or African American",
@@ -474,9 +443,7 @@ export const OptionalMeasureStratification = ({
                                               key={`NonHispanicSubCatStack.${index}.${subIndex}`}
                                             >
                                               <QMR.TextInput
-
                                                 rules={{ required: true }}
-
                                                 label="Define the Alternative Classification/Sub-category"
                                                 name={`AddtnlNonHispanicRaceSubCatTitle.${index}.titles.${subIndex}`}
                                               />
