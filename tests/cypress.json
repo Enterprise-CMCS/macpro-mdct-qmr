@@ -2,7 +2,7 @@
   "nodeVersion": "system",
   "baseUrl": "https://d2ia6j7tn33yf.cloudfront.net/",
   "redirectionLimit": 20,
-  "retries": 5,
+  "retries": 0,
   "watchForFileChanges": true,
   "testFiles": "**/*.feature",
   "fixturesFolder": "cypress/fixtures",
