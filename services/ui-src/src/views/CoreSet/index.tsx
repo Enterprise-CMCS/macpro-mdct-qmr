@@ -93,8 +93,12 @@ const useMeasureTableDataBuilder = () => {
   const { data, isLoading, isError, error } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   useEffect(() => {
-    if (!isLoading && !isError && data && data.Items) {
-      const measureTableData = (data.Items as MeasureData[]).map((item) => {
+    let mounted = true;
+    if (!isLoading && !isError && data && data.Items && mounted) {
+      const filteredItems = (data.Items as MeasureData[]).filter(
+        (item) => item.measure
+      );
+      const measureTableData = (filteredItems as MeasureData[]).map((item) => {
         return {
           Type: coreSetType[item.coreSet],
           title: item.description,
@@ -113,9 +117,12 @@ const useMeasureTableDataBuilder = () => {
           ],
         };
       });
-      measureTableData.sort((a, b) => a.abbr.localeCompare(b.abbr));
-      setMeasures(measureTableData);
+      measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
+      mounted && setMeasures(measureTableData);
     }
+    return () => {
+      mounted = false;
+    };
   }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
 
   return { measures, isLoading, isError, error };

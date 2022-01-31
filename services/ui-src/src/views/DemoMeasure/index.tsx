@@ -2,24 +2,17 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
 import { useForm, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
-import { validationSchema } from "measures/schema";
 import { Measure } from "measures/types";
 
 export const DemoMeasure = () => {
   const methods = useForm<Measure.Form>({
     shouldUnregister: true,
     mode: "all",
-    resolver: joiResolver(validationSchema),
   });
   const watchReportingRadio = methods.watch("DidReport");
 
   const handleSave = () => {
     console.log("saved");
-  };
-
-  const handleSubmit = () => {
-    console.log("submitted");
   };
 
   return (
@@ -32,7 +25,6 @@ export const DemoMeasure = () => {
       buttons={
         <QMR.MeasureButtons
           handleSave={handleSave}
-          handleSubmit={handleSubmit}
           lastSavedText="Saved Moments Ago"
         />
       }
