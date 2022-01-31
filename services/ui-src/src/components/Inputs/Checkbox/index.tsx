@@ -59,7 +59,7 @@ export const Checkbox = ({
                 allowDeletion={option.removable}
                 onDelete={option.onDelete}
               >
-                <CUI.Checkbox value={option.value}>
+                <CUI.Checkbox value={option.value} id={name}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>
