@@ -15,14 +15,12 @@ const validateRates = (data: Measure.Form) => {
         thirtyDays[index].denominator &&
         sevenDays[index].denominator !== thirtyDays[index].denominator
       ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
+        const timeSet =
+          index === 0 ? "Three Days Postpartum" : "Sixty Days Postpartum";
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both 30 days rate and 7 days rate for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}.`,
+          errorMessage: `Denominators must be the same for both Most Effective/Moderately Effective Contraception rate and Long-acting Reversible Contraception (LARC) rate for ${timeSet}.`,
         };
 
         errorArray.push(error);
@@ -58,7 +56,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
           error = {
             errorLocation: "Performance Measure",
             errorMessage:
-              "Information has been included in the Age 65 and older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
+              "Information has been included in the Sixty Days Postpartum Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
           };
         }
       }
@@ -72,13 +70,13 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
+          "Missing data on Performance Measure for Sixty Days Postpartum",
       };
     } else if (!sevenDays65orOlder[1] && !thirtyDays65orOlder[1]) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
+          "Missing data on Performance Measure for Sixty Days Postpartum",
       };
     } else if (
       (!sevenDays65orOlder[1]?.numerator || // either not filled in
@@ -89,7 +87,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       return {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 7 days of ED visit)",
+          "Missing data on Performance Measure for Sixty Days Postpartum (Most Effective or Moderately Effective Method of Contraceptive)",
       };
     } else if (
       (!thirtyDays65orOlder[1]?.numerator ||
@@ -100,7 +98,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       return {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 30 days of ED visit)",
+          "Missing data on Performance Measure for Sixty Days Postpartum (Long-acting Reversible Method of Contraception (LARC))",
       };
     }
   }
@@ -120,13 +118,11 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
         thirtyDays[index] &&
         parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
       ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
+        const ageGroup =
+          index === 0 ? "Three Days Postpartum" : "Sixty Days Postpartum";
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
+          errorMessage: `Most Effective or Moderately Effective Method of Contraception Rate should not be higher than Long-acting Reversible Method of Contraception (LARC) Rate for ${ageGroup}`,
         };
 
         errorArray.push(error);
@@ -150,14 +146,12 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         thirtyDay.denominator &&
         parseFloat(thirtyDay?.numerator) > parseFloat(thirtyDay?.denominator)
       ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
+        const ageGroup =
+          index === 0 ? "Three Days Postpartum" : "Sixty Days Postpartum";
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `30 Days Rate: Numerator must be less than or equal to Denominator for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
+          errorMessage: `Most Effective/Moderately Effective Contraceptive: Numerator must be less than or equal to Denominator for ${ageGroup}`,
         };
 
         errorArray.push(error);
@@ -181,14 +175,12 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
         sevenDay.denominator &&
         parseFloat(sevenDay?.numerator) > parseFloat(sevenDay?.denominator)
       ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
+        const ageGroup =
+          index === 0 ? "Three Days Postpartum" : "Sixty Days Postpartum";
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate: Numerator must be less than or equal to Denominator for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
+          errorMessage: `Long-acting Reversible Contraceptive (LARC): Numerator must be less than or equal to Denominator for ${ageGroup}`,
         };
 
         errorArray.push(error);
@@ -199,13 +191,14 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
+//TODO:
 const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   let error;
   const measureSpecification = data["MeasurementSpecification"];
   const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
   const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
   const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
-  const isHEDIS = measureSpecification === "NCQA/HEDIS";
+  const isHEDIS = measureSpecification === "HHS-OPA";
 
   let doesOtherNDRExist = false;
   otherPerformanceRates.forEach((ndr) => {

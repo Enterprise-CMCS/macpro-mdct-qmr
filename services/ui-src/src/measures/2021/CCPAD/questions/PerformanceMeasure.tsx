@@ -58,7 +58,7 @@ export const PerformanceMeasure = () => {
         {...register("PerformanceMeasure-AgeRates-effectiveContraception")}
       />
       <CUI.Text fontWeight="bold" my="5">
-        Most effective or moderately effective method of contraception
+        Long-acting reversible method of contraception (LARC)
       </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}

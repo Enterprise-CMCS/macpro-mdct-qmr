@@ -59,16 +59,22 @@ export const CCPAD = ({
 
   if (
     showEffectiveContraceptionThreeDaysPostPartum ||
-    showLongActingContraceptionThreeDaysPostPartum
+    showEffectiveContraceptionSixtyDaysPostPartum
   ) {
-    ageGroups.push({ label: "Three Days Postpartum Rate", id: 0 });
+    ageGroups.push({
+      label: "Most effective or moderately effective method of contraception",
+      id: 0,
+    });
   }
 
   if (
-    showEffectiveContraceptionSixtyDaysPostPartum ||
+    showLongActingContraceptionThreeDaysPostPartum ||
     showLongActingContraceptionSixtyDaysPostPartum
   ) {
-    ageGroups.push({ label: "Sixty Days Postpartum Rate", id: 1 });
+    ageGroups.push({
+      label: "Long-acting reversible method of contraception (LARC)",
+      id: 1,
+    });
   }
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");

@@ -95,14 +95,14 @@ const AgeData = ({ name }: SubComponentProps) => {
 
   return (
     <CUI.Box key={`${name}.ageData`}>
-      <CUI.Heading key={`${name}.header`} size="sm">
+      <CUI.Heading key={`${name}.header`} size="sm" mb={6}>
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Heading>
-      {ageGroups.map((item) => {
+      {ageGroups.map((item, index) => {
         return (
-          <>
-            <CUI.Heading key={`${name}.subHeader`} size="sm">
+          <CUI.Box key={`${item.label}.${item.id}.${index}`}>
+            <CUI.Heading key={`${name}.${index}.subHeader`} size="sm">
               {item.label}
             </CUI.Heading>
             {deviationConditions?.showOtherPerformanceMeasureRates && (
@@ -120,7 +120,7 @@ const AgeData = ({ name }: SubComponentProps) => {
             )}
             {((deviationConditions?.showEffectiveContraceptionThreeDaysPostPartum &&
               item.id === 0) ||
-              (deviationConditions?.showEffectiveContraceptionSixtyDaysPostPartum &&
+              (deviationConditions?.showLongActingContraceptionThreeDaysPostPartum &&
                 item.id === 1)) && (
               <QMR.Rate
                 readOnly={rateReadOnly}
@@ -134,7 +134,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ]}
               />
             )}
-            {((deviationConditions?.showLongActingContraceptionThreeDaysPostPartum &&
+            {((deviationConditions?.showEffectiveContraceptionSixtyDaysPostPartum &&
               item.id === 0) ||
               (deviationConditions?.showLongActingContraceptionSixtyDaysPostPartum &&
                 item.id === 1)) && (
@@ -150,7 +150,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ]}
               />
             )}
-          </>
+          </CUI.Box>
         );
       })}
     </CUI.Box>
