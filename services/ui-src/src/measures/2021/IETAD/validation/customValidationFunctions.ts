@@ -1,246 +1,269 @@
 import { Measure } from "./types";
 
-const validateRates = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+const ageGroups = ["Ages 18 to 64", "Ages 65 and Older"];
+
+// For each age group the denominators need to be the same for both
+// Initiation AND Engagement
+const validateEqualDenominators = (data: Measure.Form) => {
+  let performanceMeasureArray = [
+    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
+    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
+    data["PerformanceMeasure-AgeRates-Initiation-Other"],
+    data["PerformanceMeasure-AgeRates-Engagement-Other"],
+    data["PerformanceMeasure-AgeRates-Initiation-Total"],
+    data["PerformanceMeasure-AgeRates-Engagement-Total"],
+  ];
   let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj, index) => {
+  let errorArray: any[] = [];
+  ageGroups.forEach((ageGroup, i) => {
+    let filledInData: any[] = [];
+    performanceMeasureArray.forEach((_performanceObj, index) => {
       if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        sevenDays[index].denominator &&
-        thirtyDays[index].denominator &&
-        sevenDays[index].denominator !== thirtyDays[index].denominator
+        performanceMeasureArray[index] &&
+        performanceMeasureArray[index][i] &&
+        performanceMeasureArray[index][i].denominator
       ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
+        filledInData.push(performanceMeasureArray[index][i]);
+      }
+    });
+    if (filledInData.length > 1) {
+      const firstDenominator = filledInData[0].denominator;
+      let denominatorsNotEqual = false;
+      filledInData.forEach((_filledInDataObj, index) => {
+        if (filledInData[index].denominator !== firstDenominator) {
+          denominatorsNotEqual = true;
+        }
+      });
+      if (denominatorsNotEqual) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both 30 days rate and 7 days rate for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}.`,
+          errorMessage: `Denominators must be the same for all performance measures for ${ageGroup}`,
         };
 
         errorArray.push(error);
       }
-    });
-  }
-
+    }
+  });
   return error ? errorArray : error;
 };
 
-const validateDualPopulationInformation = (data: Measure.Form) => {
-  const sevenDays65orOlder = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays65orOlder = data["PerformanceMeasure-AgeRates-30Days"];
-  const DualEligibleCheck = data["DefinitionOfDenominator"] ?? [];
-
-  let error;
-
-  if (sevenDays65orOlder || thirtyDays65orOlder) {
-    if (sevenDays65orOlder[1] || thirtyDays65orOlder[1]) {
+// For every performance measure the Numerators must always be less than the denominators
+const validateNumeratorsLessThanDenominators = (data: Measure.Form) => {
+  let performanceMeasureArray = [
+    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
+    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
+    data["PerformanceMeasure-AgeRates-Initiation-Other"],
+    data["PerformanceMeasure-AgeRates-Engagement-Other"],
+    data["PerformanceMeasure-AgeRates-Initiation-Total"],
+    data["PerformanceMeasure-AgeRates-Engagement-Total"],
+  ];
+  let error = false;
+  let errorArray: any[] = [];
+  ageGroups.forEach((_ageGroup, i) => {
+    performanceMeasureArray.forEach((_performanceObj, index) => {
       if (
-        sevenDays65orOlder[1]?.numerator ||
-        thirtyDays65orOlder[1]?.numerator ||
-        sevenDays65orOlder[1]?.denominator ||
-        thirtyDays65orOlder[1]?.denominator
+        performanceMeasureArray[index] &&
+        performanceMeasureArray[index][i] &&
+        performanceMeasureArray[index][i].denominator &&
+        performanceMeasureArray[index][i].numerator
       ) {
         if (
-          DualEligibleCheck.indexOf(
-            "DenominatorIncMedicareMedicaidDualEligible"
-          ) === -1
+          performanceMeasureArray[index][i].denominator <
+          performanceMeasureArray[index][i].numerator
         ) {
-          error = {
-            errorLocation: "Performance Measure",
-            errorMessage:
-              "Information has been included in the Age 65 and older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
-          };
+          error = true;
         }
       }
+    });
+  });
+  if (error) {
+    errorArray.push({
+      errorLocation: "Performance Measure",
+      errorMessage: `Numerators must be less than Denominators for all applicable performance measures`,
+    });
+  }
+  return error ? errorArray : error;
+};
+
+// // The AOM totals Numerator needs to be equal or greater than the largest initiation/engagement
+const validateTotalsEqualOrGreaterThan = (data: Measure.Form) => {
+  let initiationArray = [
+    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
+    data["PerformanceMeasure-AgeRates-Initiation-Other"],
+  ];
+  let engagementArray = [
+    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
+    data["PerformanceMeasure-AgeRates-Engagement-Other"],
+  ];
+  let error = false;
+  let errorArray: any[] = [];
+  ageGroups.forEach((ageGroup, i) => {
+    let initiationError = false;
+    let engagementError = false;
+    initiationArray.forEach((_initObj, index) => {
+      if (
+        initiationArray[index] &&
+        initiationArray[index][i] &&
+        initiationArray[index][i].numerator
+      ) {
+        if (
+          !(
+            data["PerformanceMeasure-AgeRates-Initiation-Total"][i] &&
+            data["PerformanceMeasure-AgeRates-Initiation-Total"][i].numerator
+          ) ||
+          initiationArray[index][i].numerator >
+            data["PerformanceMeasure-AgeRates-Initiation-Total"][i].numerator
+        ) {
+          engagementError = true;
+          error = true;
+        }
+      }
+    });
+    engagementArray.forEach((_engageObj, index) => {
+      if (
+        initiationArray[index] &&
+        initiationArray[index][i] &&
+        initiationArray[index][i].numerator
+      ) {
+        if (
+          !(
+            data["PerformanceMeasure-AgeRates-Engagement-Total"][i] &&
+            data["PerformanceMeasure-AgeRates-Engagement-Total"][i].numerator
+          ) ||
+          initiationArray[index][i].numerator >
+            data["PerformanceMeasure-AgeRates-Engagement-Total"][i].numerator
+        ) {
+          error = true;
+          engagementError = true;
+        }
+      }
+    });
+    if (initiationError) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage: `Numerator for Initiation of AOD Treatment: AOD Abuse or Dependence must be greater than or equal to the highest number in its sub-categories for ${ageGroup}`,
+      });
     }
-  }
-  if (
-    DualEligibleCheck.indexOf("DenominatorIncMedicareMedicaidDualEligible") !==
-    -1
-  ) {
-    if (!sevenDays65orOlder && !thirtyDays65orOlder) {
-      error = {
+    if (engagementError) {
+      errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
-      };
-    } else if (!sevenDays65orOlder[1] && !thirtyDays65orOlder[1]) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
-      };
-    } else if (
-      (!sevenDays65orOlder[1]?.numerator || // either not filled in
-        !sevenDays65orOlder[1]?.denominator) && // either not filled in
-      !thirtyDays65orOlder[1]?.numerator && //both filled in
-      !thirtyDays65orOlder[1]?.denominator //both filled in
-    ) {
-      return {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 7 days of ED visit)",
-      };
-    } else if (
-      (!thirtyDays65orOlder[1]?.numerator ||
-        !thirtyDays65orOlder[1]?.denominator) &&
-      !sevenDays65orOlder[1]?.numerator &&
-      !sevenDays65orOlder[1]?.denominator
-    ) {
-      return {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 30 days of ED visit)",
-      };
+        errorMessage: `Numerator for Initiation of AOD Treatment: AOD Abuse or Dependence must be greater than or equal to the highest number in its sub-categories for ${ageGroup}`,
+      });
     }
-  }
-  return error;
-};
-
-const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj, index) => {
-      if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
+  });
   return error ? errorArray : error;
 };
 
-const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
-  let error;
-  const errorArray: any[] = [];
+const atLeastOneRateComplete = (data: Measure.Form) => {
+  let performanceMeasureArray = [
+    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
+    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
+    data["PerformanceMeasure-AgeRates-Initiation-Other"],
+    data["PerformanceMeasure-AgeRates-Engagement-Other"],
+    data["PerformanceMeasure-AgeRates-Initiation-Total"],
+    data["PerformanceMeasure-AgeRates-Engagement-Total"],
+  ];
+  let error = true;
+  let errorArray: any[] = [];
 
-  if (thirtyDays) {
-    thirtyDays.forEach((thirtyDay, index) => {
-      if (
-        thirtyDay &&
-        thirtyDay.numerator &&
-        thirtyDay.denominator &&
-        parseFloat(thirtyDay?.numerator) > parseFloat(thirtyDay?.denominator)
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `30 Days Rate: Numerator must be less than or equal to Denominator for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-
-const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays) {
-    sevenDays.forEach((sevenDay, index) => {
-      if (
-        sevenDay &&
-        sevenDay.numerator &&
-        sevenDay.denominator &&
-        parseFloat(sevenDay?.numerator) > parseFloat(sevenDay?.denominator)
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate: Numerator must be less than or equal to Denominator for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-
-const validateAtLeastOneNDRSet = (data: Measure.Form) => {
-  let error;
-  const measureSpecification = data["MeasurementSpecification"];
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
-  const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
-  const isHEDIS = measureSpecification === "NCQA/HEDIS";
-
-  let doesOtherNDRExist = false;
-  otherPerformanceRates.forEach((ndr) => {
-    const ndrRate = ndr?.rate?.[0]?.rate;
-    if (ndrRate) {
-      doesOtherNDRExist = true;
+  // Check OPM first
+  ageGroups.forEach((_ageGroup, i) => {
+    if (
+      data["OtherPerformanceMeasure-Rates"] &&
+      data["OtherPerformanceMeasure-Rates"][i] &&
+      data["OtherPerformanceMeasure-Rates"][i].rate
+    ) {
+      error = false;
     }
   });
 
-  if (
-    isHEDIS &&
-    !sevenDays?.[0]?.rate &&
-    !sevenDays?.[1]?.rate &&
-    !thirtyDays?.[0]?.rate &&
-    !thirtyDays?.[1]?.rate
-  ) {
-    error = {
+  // Then Check regular Performance Measures
+  ageGroups.forEach((_ageGroup, i) => {
+    performanceMeasureArray.forEach((_performanceObj, index) => {
+      if (
+        performanceMeasureArray[index] &&
+        performanceMeasureArray[index][i] &&
+        performanceMeasureArray[index][i].denominator &&
+        performanceMeasureArray[index][i].numerator
+      ) {
+        error = false;
+      }
+    });
+  });
+  if (error) {
+    errorArray.push({
+      errorLocation: "Performance Measure",
+      errorMessage: `At least one performance measure must be completed`,
+    });
+  }
+  return error ? errorArray : error;
+};
+
+const validateDualPopInformation = (data: Measure.Form) => {
+  let performanceMeasureArray = [
+    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
+    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
+    data["PerformanceMeasure-AgeRates-Initiation-Other"],
+    data["PerformanceMeasure-AgeRates-Engagement-Other"],
+    data["PerformanceMeasure-AgeRates-Initiation-Total"],
+    data["PerformanceMeasure-AgeRates-Engagement-Total"],
+  ];
+  let dualEligible;
+  if (data["DefinitionOfDenominator"]) {
+    dualEligible =
+      data["DefinitionOfDenominator"].indexOf(
+        "DenominatorIncMedicareMedicaidDualEligible"
+      ) !== -1;
+  } else {
+    dualEligible = false;
+  }
+  let error;
+  let errorArray: any[] = [];
+  let filledInData: any[] = [];
+  const i = 1;
+  performanceMeasureArray.forEach((_performanceObj, index) => {
+    if (
+      performanceMeasureArray[index] &&
+      performanceMeasureArray[index][i] &&
+      (performanceMeasureArray[index][i].denominator ||
+        performanceMeasureArray[index][i].numerator)
+    ) {
+      filledInData.push(performanceMeasureArray[index][i]);
+    }
+  });
+  if (dualEligible && filledInData.length > 0) {
+    error = true;
+    errorArray.push({
       errorLocation: "Performance Measure",
       errorMessage:
-        "At least one Performance Measure Numerator, Denominator, and Rate must be completed",
-    };
-  } else if (measureSpecification && !isHEDIS && !doesOtherNDRExist) {
-    error = {
-      errorLocation: "Other Performance Measure",
-      errorMessage:
-        "At least one Other Performance Measure Numerator, Denominator, and Rate must be completed",
-    };
+        "Information has been included in the Age 65 and older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
+    });
   }
-
-  return error;
+  if (!dualEligible && filledInData.length < performanceMeasureArray.length) {
+    error = true;
+    errorArray.push({
+      errorLocation: "Performance Measure",
+      errorMessage:
+        "The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for Age 65 and Older",
+    });
+  }
+  return error ? errorArray : error;
 };
 
 export const validationFunctions = [
-  validateRates,
-  validate7DaysGreaterThan30Days,
-  validateSevenDayNumeratorLessThanDenominator,
-  validateThirtyDayNumeratorLessThanDenominator,
-  validateAtLeastOneNDRSet,
-  validateDualPopulationInformation,
+  validateEqualDenominators,
+  validateTotalsEqualOrGreaterThan,
+  validateNumeratorsLessThanDenominators,
+  atLeastOneRateComplete,
+  validateDualPopInformation,
 ];
