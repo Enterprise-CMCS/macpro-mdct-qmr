@@ -7,6 +7,7 @@ import { AMMAD } from "./AMMAD";
 import { FUAAD } from "./FUAAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
+import { OUDAD } from "./OUDAD";
 import { NCIDDSAD } from "./NCIDDSAD";
 import { PDENTCH } from "./PDENTCH";
 
@@ -14,6 +15,7 @@ const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
+  "OUD-AD": OUDAD,
   "NCIDDS-AD": NCIDDSAD,
   "PDENT-CH": PDENTCH,
   "FUA-AD": FUAAD,
