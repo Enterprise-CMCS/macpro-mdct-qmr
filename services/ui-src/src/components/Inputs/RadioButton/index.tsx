@@ -42,6 +42,7 @@ export const RadioButton = ({
       <CUI.RadioGroup
         name={field.name}
         ref={field.ref}
+        id={field.name + "_radiogroup"}
         size="lg"
         value={field.value}
         onBlur={field.onBlur}
@@ -60,7 +61,11 @@ export const RadioButton = ({
                 onDelete={option.onDelete}
               >
                 <CUI.Radio value={option.value} key={option.value}>
-                  <CUI.Text fontWeight="normal" fontSize="normal">
+                  <CUI.Text
+                    fontWeight="normal"
+                    fontSize="normal"
+                    id={field.name + "-" + (option.value + "").replace("/", "")}
+                  >
                     {option.displayValue}
                   </CUI.Text>
                 </CUI.Radio>
