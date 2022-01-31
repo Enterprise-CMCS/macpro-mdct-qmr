@@ -56,7 +56,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
           error = {
             errorLocation: "Performance Measure",
             errorMessage:
-              "Information has been included in the Age 65 and older Performance Mesure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
+              "Information has been included in the Age 65 and older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
           };
         }
       }

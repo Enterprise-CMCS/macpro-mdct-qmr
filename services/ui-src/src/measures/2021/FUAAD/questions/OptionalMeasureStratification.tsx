@@ -213,6 +213,7 @@ export const OptionalMeasureStratification = ({
       )
     );
 
+
   const [addtnlNonHispanicSubCat, setAddtnlNonHispanicSubCat] = useState(
     configInitialStateArray(
       "AddtnlNonHispanicSubCat",
@@ -245,12 +246,6 @@ export const OptionalMeasureStratification = ({
     setAddtnlNonHispanicRace((oldArray) => [
       ...oldArray,
       `AddtnlNonHispanicRace.${oldArray.length}`,
-    ]);
-  };
-  const addNonHispanicSubCat = () => {
-    setAddtnlNonHispanicSubCat((oldArray) => [
-      ...oldArray,
-      `AddtnlNonHispanicSubCat.${oldArray.length}`,
     ]);
   };
   const addEthnicity = () => {
@@ -451,6 +446,7 @@ export const OptionalMeasureStratification = ({
                         children: [
                           <CUI.Stack key={`${value}.${index}`}>
                             <QMR.TextInput
+                              rules={{ required: true }}
                               label="Define the additional Race"
                               name={`AddtnlNonHispanicRace.${index}`}
                             />
@@ -478,6 +474,9 @@ export const OptionalMeasureStratification = ({
                                               key={`NonHispanicSubCatStack.${index}.${subIndex}`}
                                             >
                                               <QMR.TextInput
+
+                                                rules={{ required: true }}
+
                                                 label="Define the Alternative Classification/Sub-category"
                                                 name={`AddtnlNonHispanicRaceSubCatTitle.${index}.titles.${subIndex}`}
                                               />

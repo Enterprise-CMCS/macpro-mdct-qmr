@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Notification } from "components/Notification";
 import { MultiSelect, ICheckbox } from "components/MultiSelect";
 import { Divider } from "@chakra-ui/react";
@@ -32,7 +32,11 @@ export function DemoComponents(): JSX.Element {
 
 const DemoComponentsForm = () => {
   const register = useCustomRegister();
-  const { setValue } = useFormContext();
+  const {
+    setValue,
+    formState: { errors },
+  } = useFormContext();
+  console.log("errors", errors);
   const [progressCircleValue, setProgressCircle] = React.useState(5);
   const [showSuccessAlert, setSuccessAlert] = React.useState(false);
   const [showWarningAlert, setWarningAlert] = React.useState(false);
@@ -72,6 +76,35 @@ const DemoComponentsForm = () => {
       id: 5,
     },
   ];
+
+  const [removableOptions, setRemovableOptions] = useState<
+    QMR.CheckboxOption[]
+  >([
+    {
+      value: `Option ${0}`,
+      displayValue: `Option ${0}`,
+      children: [<CUI.Text key="check3">Example Child</CUI.Text>],
+      removable: true,
+      onDelete: () => {
+        console.log(`Deleting checkbox option ${0}`);
+      },
+    },
+  ]);
+
+  const addAnotherOption = () => {
+    setRemovableOptions((oldArray) => [
+      ...oldArray,
+      {
+        value: `Option ${oldArray.length}`,
+        displayValue: `Option ${oldArray.length}`,
+        children: [<CUI.Text key="check3">Example Child</CUI.Text>],
+        removable: true,
+        onDelete: () => {
+          console.log(`Deleting checkbox option ${oldArray.length}`);
+        },
+      },
+    ]);
+  };
 
   const KebabMenuItems: QMR.IKebabMenuItem[] = [
     { itemText: "Edit", handleSelect: () => console.log("Edit") },
@@ -140,6 +173,75 @@ const DemoComponentsForm = () => {
                 { displayValue: "test1", value: "test1" },
                 { displayValue: "test2", value: "test2" },
               ]}
+            />
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Delete Wrapper
+            </CUI.Heading>
+            <QMR.DeleteWrapper allowDeletion>
+              <CUI.Text>Test Deletion Text object</CUI.Text>
+            </QMR.DeleteWrapper>
+            <QMR.DeleteWrapper allowDeletion>
+              <CUI.Text>
+                LargeText Test: Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Lacus luctus accumsan tortor posuere ac.
+                Facilisis volutpat est velit egestas dui id ornare. Mollis nunc
+                sed id semper risus in. Lectus quam id leo in vitae. Sit amet
+                mauris commodo quis imperdiet massa tincidunt nunc. Mi tempus
+                imperdiet nulla malesuada. Mi bibendum neque egestas congue
+                quisque egestas. Scelerisque fermentum dui faucibus in. Ac
+                tortor dignissim convallis aenean et. Arcu ac tortor dignissim
+                convallis aenean et tortor at risus. Sit amet mauris commodo
+                quis imperdiet massa tincidunt nunc.
+              </CUI.Text>
+            </QMR.DeleteWrapper>
+            <QMR.DeleteWrapper allowDeletion>
+              <CUI.Text>Multiple Text Object tester</CUI.Text>
+              <CUI.Text>Multiple Text Object tester</CUI.Text>
+              <CUI.Text>Multiple Text Object tester</CUI.Text>
+            </QMR.DeleteWrapper>
+            <QMR.DeleteWrapper allowDeletion>
+              <QMR.DateRange {...register("demoDate3")} />
+            </QMR.DeleteWrapper>
+            <QMR.DeleteWrapper allowDeletion>
+              <QMR.RadioButton
+                {...register("demoRadioButton")}
+                label="hello world"
+                options={[
+                  { displayValue: "test1", value: "test1" },
+                  { displayValue: "test2", value: "test2" },
+                ]}
+              />
+            </QMR.DeleteWrapper>
+            <CUI.Divider />
+            <CUI.Heading size="sm" as="h3">
+              Delete Wrapper CheckBox/Radio Options
+            </CUI.Heading>
+            <QMR.Checkbox
+              {...register("testCheckboxDeleteWrapper")}
+              options={removableOptions}
+              label="checkbox"
+            />
+            <QMR.RadioButton
+              {...register("testRadioButtonDeleteWrapper")}
+              options={removableOptions}
+              label="radio button"
+            />
+            <CUI.Text>
+              This button will add one object to both of the above components
+              which share an array
+            </CUI.Text>
+            <QMR.ContainedButton
+              buttonText={"+ Add Another"}
+              buttonProps={{
+                variant: "outline",
+                colorScheme: "blue",
+                textTransform: "capitalize",
+              }}
+              onClick={() => {
+                addAnotherOption();
+              }}
             />
             <CUI.Divider />
             <CUI.Heading size="sm" as="h3">
