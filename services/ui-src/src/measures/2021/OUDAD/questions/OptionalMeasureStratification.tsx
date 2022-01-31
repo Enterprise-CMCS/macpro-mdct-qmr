@@ -11,10 +11,11 @@ interface Props {
     label: string;
   }[];
   deviationConditions?: {
-    show30DaysAges18To64: boolean;
-    show30DaysAges65AndOlder: boolean;
-    show7DaysAges18To64: boolean;
-    show7DaysAges65AndOlder: boolean;
+    showTotalRate: boolean;
+    showBuprenorphine: boolean;
+    showOralNaltrexone: boolean;
+    showInjectableNaltrexone: boolean;
+    showMethadone: boolean;
     showOtherPerformanceMeasureRates: boolean;
   };
 }

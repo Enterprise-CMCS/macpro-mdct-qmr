@@ -19,18 +19,39 @@ export const PerformanceMeasure = () => {
 
   const ageRates = [
     {
-      label: "Ages 18 to 64",
+      label: "Total Rate",
       denominator: "",
       numerator: "",
       rate: "",
       id: 1,
     },
     {
-      label: "Age 65 and older",
+      label: "Buprenorphine",
       denominator: "",
       numerator: "",
       rate: "",
       id: 2,
+    },
+    {
+      label: "Oral naltrexone",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 3,
+    },
+    {
+      label: "Long-acting, injectable naltrexone",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 4,
+    },
+    {
+      label: "Methadone",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 5,
     },
   ];
 
@@ -64,22 +85,14 @@ export const PerformanceMeasure = () => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
-      <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 30 days of ED visit
-      </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
         rates={ageRates}
-        {...register("PerformanceMeasure-AgeRates-30Days")}
+        {...register("PerformanceMeasure-Rates")}
       />
       <CUI.Text fontWeight="bold" my="5">
         Follow-up within 7 days of ED visit
       </CUI.Text>
-      <QMR.Rate
-        readOnly={rateReadOnly}
-        rates={ageRates}
-        {...register("PerformanceMeasure-AgeRates-7Days")}
-      />
     </QMR.CoreQuestionWrapper>
   );
 };
