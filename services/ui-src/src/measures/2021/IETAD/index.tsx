@@ -1,10 +1,9 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import { validationSchema } from "./validation/schema";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const IETAD = ({
@@ -13,26 +12,24 @@ export const IETAD = ({
   measureId,
   handleSubmit,
   handleValidation,
-  setMeasureSchema,
   setValidationFunctions,
 }: Measure.Props) => {
   useEffect(() => {
-    if (setMeasureSchema) {
-      setMeasureSchema(validationSchema);
-    }
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
-  }, [setMeasureSchema, setValidationFunctions]);
+  }, [setValidationFunctions]);
 
-  const { watch, getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
-  const watchReportingRadio = watch("DidReport");
-  const watchMeasureSpecification = watch("MeasurementSpecification");
-  const watchOtherPerformanceMeasureRates = watch(
-    "OtherPerformanceMeasure-Rates"
-  );
+  const watchReportingRadio = useWatch({ name: "DidReport" });
+  const watchMeasureSpecification = useWatch({
+    name: "MeasurementSpecification",
+  });
+  const watchOtherPerformanceMeasureRates = useWatch({
+    name: "OtherPerformanceMeasure-Rates",
+  });
 
   // Conditionals for Performance Measures
   const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
@@ -41,26 +38,30 @@ export const IETAD = ({
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
-  const watchInitAlcohol = watch(
-    "PerformanceMeasure-AgeRates-Initiation-Alcohol"
-  );
-  const watchEngageAlcohol = watch(
-    "PerformanceMeasure-AgeRates-Engagement-Alcohol"
-  );
-  const watchInitOpioid = watch(
-    "PerformanceMeasure-AgeRates-Initiation-Opioid"
-  );
-  const watchEngageOpioid = watch(
-    "PerformanceMeasure-AgeRates-Engagement-Opioid"
-  );
-  const watchInitOther = watch("PerformanceMeasure-AgeRates-Initiation-Other");
-  const watchEngageOther = watch(
-    "PerformanceMeasure-AgeRates-Engagement-Other"
-  );
-  const watchInitTotal = watch("PerformanceMeasure-AgeRates-Initiation-Total");
-  const watchEngageTotal = watch(
-    "PerformanceMeasure-AgeRates-Engagement-Total"
-  );
+  const watchInitAlcohol = useWatch({
+    name: "PerformanceMeasure-AgeRates-Initiation-Alcohol",
+  });
+  const watchEngageAlcohol = useWatch({
+    name: "PerformanceMeasure-AgeRates-Engagement-Alcohol",
+  });
+  const watchInitOpioid = useWatch({
+    name: "PerformanceMeasure-AgeRates-Initiation-Opioid",
+  });
+  const watchEngageOpioid = useWatch({
+    name: "PerformanceMeasure-AgeRates-Engagement-Opioid",
+  });
+  const watchInitOther = useWatch({
+    name: "PerformanceMeasure-AgeRates-Initiation-Other",
+  });
+  const watchEngageOther = useWatch({
+    name: "PerformanceMeasure-AgeRates-Engagement-Other",
+  });
+  const watchInitTotal = useWatch({
+    name: "PerformanceMeasure-AgeRates-Initiation-Total",
+  });
+  const watchEngageTotal = useWatch({
+    name: "PerformanceMeasure-AgeRates-Engagement-Total",
+  });
   const showInitAlcohol18To64 = !!watchInitAlcohol?.[0]?.rate;
   const showEngageAlcohol18To64 = !!watchEngageAlcohol?.[0]?.rate;
   const showInitOpioid18To64 = !!watchInitOpioid?.[0]?.rate;
