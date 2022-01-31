@@ -236,6 +236,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   measureId,
                   handleSubmit: methods.handleSubmit(handleSubmit),
                   handleValidation: methods.handleSubmit(handleValidation),
+                  setMeasureSchema,
                   setValidationFunctions,
                   //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
                   // whenever the buttons have a loading prop

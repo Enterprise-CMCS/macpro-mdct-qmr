@@ -1,18 +1,16 @@
-import { ResolverResult } from "react-hook-form";
-export type CustomValidator = (res: ResolverResult) => ResolverResult;
+import Joi from "joi";
 
 export namespace Measure {
-  export type CustomValidator = (res: ResolverResult) => ResolverResult;
-
   export interface Props {
     name: string;
     year: string;
+    measureId: string;
     handleSubmit?: any;
     handleValidation?: any;
-    measureId: string;
-    setValidationFunctions?: React.Dispatch<
-      React.SetStateAction<CustomValidator[]>
+    setMeasureSchema?: React.Dispatch<
+      React.SetStateAction<Joi.ObjectSchema<any>>
     >;
+    setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
   interface RateFields {
@@ -21,14 +19,14 @@ export namespace Measure {
     rate: string;
   }
 
-  interface followUpDays {
-    followUpWithin30Days: RateFields[];
-    followUpWithin7Days: RateFields[];
+  interface AggregateRate {
+    subRate: RateFields[];
+    total: RateFields[];
   }
 
-  interface AggregateRate {
-    subRate: followUpDays[];
-    total: RateFields[];
+  interface OtherRatesFields {
+    description: string[];
+    rate: RateFields[];
   }
 
   export interface Form {
@@ -44,7 +42,8 @@ export namespace Measure {
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;
     "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Electronic?": string;
+    "DataSource-Electronic": string;
+    "DataSource-Electronic-Explanation": string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
     "DataSource-Hybrid"?: string[];
@@ -83,7 +82,7 @@ export namespace Measure {
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": string[];
+    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
 
@@ -121,22 +120,76 @@ export namespace Measure {
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    FollowUpWithin30: string;
-    FollowUpWithin7: string;
     "DeviationOptions-Within7-AgeRange": string[];
     "DeviationOptions-Within30-AgeRange": string[];
+    "DeviationOptions-InitAlcohol-AgeRange": string[];
+    "DeviationFields-InitAlcohol": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationOptions-EngageAlcohol-AgeRange": string[];
+    "DeviationFields-EngageAlcohol": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationOptions-InitOpioid-AgeRange": string[];
+    "DeviationFields-InitOpioid": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationOptions-EngageOpioid-AgeRange": string[];
+    "DeviationFields-EngageOpioid": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationOptions-InitOther-AgeRange": string[];
+    "DeviationFields-InitOther": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationOptions-EngageOther-AgeRange": string[];
+    "DeviationFields-EngageOther": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationOptions-InitTotal-AgeRange": string[];
+    "DeviationFields-InitTotal": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationOptions-EngageTotal-AgeRange": string[];
+    "DeviationFields-EngageTotal": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
     "DeviationFields-Within7": {
       options: string[];
       denominator: string;
       numerator: string;
       other: string;
-    }[];
+    };
     "DeviationFields-Within30": {
       options: string[];
       denominator: string;
       numerator: string;
       other: string;
-    }[];
+    };
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeasure-AgeRates-30Days": {
       denominator: string;
@@ -147,6 +200,70 @@ export namespace Measure {
       rate: string;
     }[];
     "PerformanceMeasure-AgeRates-7Days": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Alcohol": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Engagement-Alcohol": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Opioid": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Engagement-Opioid": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Other": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Engagement-Other": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Total": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-Engagement-Total": {
       denominator: string;
       numerator: string;
       other: string;
@@ -174,6 +291,7 @@ export namespace Measure {
     AddtnlNonHispanicRace: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
     AddtnlNonHispanicRaceSubCatTitle: string[][];
+    AddtnlNonHispanicRaceSubCatOptions: string[][];
     AddtnlNonHispanicRaceSubCatRates: AggregateRate[][];
 
     AddtnlNonHispanicSubCat: string[];
