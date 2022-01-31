@@ -12,7 +12,7 @@ const adultCoreSetMeasures = "//a[ contains(@href, 'ACS') ]";
 
 export class Homepage {
   launch() {
-    cy.visit("https://d2ia6j7tn33yf.cloudfront.net/");
+    cy.visit("/");
   }
 
   verifyTheTitleCoreSetMeasureReporting() {
