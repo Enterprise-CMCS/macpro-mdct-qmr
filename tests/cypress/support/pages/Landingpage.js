@@ -13,8 +13,7 @@ const AdultCoreSetMeasures = "//tbody/tr[1]/td[1]/a[1]/p[1]";
 
 export class Landingpage {
   launch() {
-    //cy.visit("https://mdctqmrdev.cms.gov/");
-    cy.visit("https://d2ia6j7tn33yf.cloudfront.net/");
+    cy.visit("/");
   }
 
   validateCoreSetReportingIcon() {
