@@ -57,7 +57,7 @@ export const DataSource = () => {
             value: "Electronic Health Records",
             children: [
               <QMR.TextArea
-                label="Describe the Electronic Health Records:"
+                label="Describe Electronic Health Records Data Source:"
                 {...register("DataSource-Electronic")}
               />,
             ],
@@ -100,18 +100,18 @@ export const DataSource = () => {
         />
       )}
       {/* This will be visible if Other is selected at the root of the data source question */}
-      {isOtherDataSource && (
-        <QMR.TextArea
-          label={`Other Data Source: ${watch("DataSource-Other") || ""}`}
-          {...register("DataSource-Other-Explanation")}
-        />
-      )}
       {isElectronicDataSource && (
         <QMR.TextArea
           label={`Electronic Data Source: ${
             watch("DataSource-Electronic") || ""
           }`}
           {...register("DataSource-Electronic-Explanation")}
+        />
+      )}
+      {isOtherDataSource && (
+        <QMR.TextArea
+          label={`Other Data Source: ${watch("DataSource-Other") || ""}`}
+          {...register("DataSource-Other-Explanation")}
         />
       )}
     </QMR.CoreQuestionWrapper>
