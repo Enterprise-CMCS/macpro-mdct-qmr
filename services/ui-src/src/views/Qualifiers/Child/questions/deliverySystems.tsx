@@ -51,7 +51,7 @@ const CustomDeliverySystemTableRecord = ({
         <QMR.TextInput
           {...register(
             // @ts-ignore
-            `${record}.key`
+            `${record}.label`
           )}
         />
       </CUI.Td>

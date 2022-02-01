@@ -45,28 +45,24 @@ export const CCSQualifiers = () => {
     defaultValues: data?.Item?.data || {
       PercentageEnrolledInEachDeliverySystem: [
         {
-          key: "FeeForService",
           label: "Fee-for-Service",
           UnderTwentyOneMedicaid: "",
           UnderTwentyOneCHIP: "",
           userGenerated: false,
         },
         {
-          key: "PCCM",
           label: "PCCM",
           UnderTwentyOneMedicaid: "",
           UnderTwentyOneCHIP: "",
           userGenerated: false,
         },
         {
-          key: "ManagedCare",
           label: "Managed Care",
           UnderTwentyOneMedicaid: "",
           UnderTwentyOneCHIP: "",
           userGenerated: false,
         },
         {
-          key: "IntegtatedCareModel",
           label: "Integrated Care Model (ICM)",
           UnderTwentyOneMedicaid: "",
           UnderTwentyOneCHIP: "",

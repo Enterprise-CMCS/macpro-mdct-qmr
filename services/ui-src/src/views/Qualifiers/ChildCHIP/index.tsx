@@ -45,26 +45,22 @@ export const CCSCQualifiers = () => {
     defaultValues: data?.Item?.data || {
       PercentageEnrolledInEachDeliverySystem: [
         {
-          key: "FeeForService",
           label: "Fee-for-Service",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
           userGenerated: false,
         },
         {
-          key: "PCCM",
           label: "PCCM",
           UnderTwentyOne: "",
           userGenerated: false,
         },
         {
-          key: "ManagedCare",
           label: "Managed Care",
           UnderTwentyOne: "",
           userGenerated: false,
         },
         {
-          key: "IntegtatedCareModel",
           label: "Integrated Care Model (ICM)",
           UnderTwentyOne: "",
           userGenerated: false,

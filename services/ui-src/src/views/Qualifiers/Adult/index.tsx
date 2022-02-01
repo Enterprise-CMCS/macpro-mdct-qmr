@@ -45,28 +45,24 @@ export const ACSQualifiers = () => {
     defaultValues: data?.Item?.data || {
       PercentageEnrolledInEachDeliverySystem: [
         {
-          key: "FeeForService",
           label: "Fee-for-Service",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
           userGenerated: false,
         },
         {
-          key: "PCCM",
           label: "PCCM",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
           userGenerated: false,
         },
         {
-          key: "ManagedCare",
           label: "Managed Care",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
           userGenerated: false,
         },
         {
-          key: "IntegtatedCareModel",
           label: "Integrated Care Model (ICM)",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",

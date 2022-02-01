@@ -8,7 +8,6 @@ export interface CCSCQualifierForm {
 }
 
 export interface DeliverySystem {
-  key: string;
   label: string;
   UnderTwentyOne: string;
   userGenerated: boolean;

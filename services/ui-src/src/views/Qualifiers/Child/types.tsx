@@ -8,7 +8,6 @@ export interface CCSQualifierForm {
 }
 
 export interface DeliverySystem {
-  key: string;
   label: string;
   UnderTwentyOneMedicaid: string;
   UnderTwentyOneCHIP: string;
