@@ -53,7 +53,8 @@
     "moduleDirectories": [
       "node_modules",
       "handlers",
-      "libs"
+      "libs",
+      "util"
     ],
     "setupFilesAfterEnv": []
   }
