@@ -8,7 +8,7 @@ export const ExternalContractor = () => {
       <Q.QualifierHeader
         header="External Contractor"
         description="Please indicate whether your state obtained assistance from one or
-        more external contractors in collecting, calculating and/or reporting
+        more external contractors in collecting, calculating, and/or reporting
         Core Set data (optional)."
       />
       <CUI.Spacer />
@@ -21,37 +21,41 @@ export const ExternalContractor = () => {
             options={[
               {
                 displayValue:
-                  "Yes, we did obtained assistance from one or more external contractors in collecting, calculating and/or reporting Core Set data.",
+                  "Yes, we did obtain assistance from one or more external contractors in collecting, calculating, and/or reporting Core Set data.",
                 value: "yes",
                 children: [
-                  <QMR.Checkbox
-                    name="ExternalContractorsUsed"
-                    options={[
-                      {
-                        displayValue:
-                          "External Quality Review Organization (EQRO)",
-                        value: "EQRO",
-                      },
-                      {
-                        displayValue: "MMIS Contractor",
-                        value: "MMIS",
-                      },
-                      {
-                        displayValue: "Data Analytics Contractor",
-                        value: "dataAnalytics",
-                      },
-                      {
-                        displayValue: "Other",
-                        value: "Other",
-                        children: [
-                          <QMR.TextArea
-                            label="Explain the Data inconsistencies/Accuracy issues:"
-                            name="OtherContractorDetails"
-                          />,
-                        ],
-                      },
-                    ]}
-                  />,
+                  <>
+                    <CUI.Text>Select all that apply:</CUI.Text>
+                    <QMR.Checkbox
+                      name="ExternalContractorsUsed"
+                      options={[
+                        {
+                          displayValue:
+                            "External Quality Review Organization (EQRO)",
+                          value: "EQRO",
+                        },
+                        {
+                          displayValue: "MMIS Contractor",
+                          value: "MMIS",
+                        },
+                        {
+                          displayValue: "Data Analytics Contractor",
+                          value: "dataAnalytics",
+                        },
+                        {
+                          displayValue: "Other",
+                          value: "Other",
+                          children: [
+                            <QMR.TextArea
+                              label="Please explain:"
+                              name="OtherContractorDetails"
+                            />,
+                          ],
+                        },
+                      ]}
+                    />
+                    ,
+                  </>,
                 ],
               },
               {

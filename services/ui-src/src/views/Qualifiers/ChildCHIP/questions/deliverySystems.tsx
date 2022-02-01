@@ -91,8 +91,8 @@ export const DeliverySystems = () => {
     <CUI.ListItem>
       <Q.QualifierHeader
         header="Delivery System"
-        description="As of September 30, 2021 what percentage of your Medicaid/CHIP
-          enrolees (above age 21) were enrolled in each delivery system?"
+        description="As of September 30, 2021 what percentage of your CHIP
+          enrollees (under age 21) were enrolled in each delivery system?"
       />
       <CUI.Table variant="simple" mt="4" size="md">
         <CUI.Thead>
