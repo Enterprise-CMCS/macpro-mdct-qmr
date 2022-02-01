@@ -38,3 +38,10 @@ export interface MeasureData<DataType = any> {
   year: number;
   data: DataType;
 }
+
+export enum AutoCompletedMeasures {
+  "LBW-CH" = "LBW-CH",
+  "LRCD-CH" = "LRCD-CH",
+  "PDENT-CH" = "PDENT-CH",
+  "NCIDDS-AD" = "NCIDDS-AD",
+}
