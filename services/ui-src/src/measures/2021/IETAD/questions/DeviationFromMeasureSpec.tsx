@@ -170,7 +170,6 @@ export const DeviationFromMeasureSpec = ({
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
-                // Dynamically hide or show children based on if performance measure 30days/age sections were completed
                 options={[
                   ...(deviationConditions.showInitAlcohol18To64 ||
                   deviationConditions.showInitAlcohol65Plus
@@ -195,7 +194,6 @@ export const DeviationFromMeasureSpec = ({
                         },
                       ]
                     : []),
-                  // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.showEngageAlcohol18To64 ||
                   deviationConditions.showEngageAlcohol65Plus
                     ? [
@@ -242,7 +240,6 @@ export const DeviationFromMeasureSpec = ({
                         },
                       ]
                     : []),
-                  // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.showEngageOpioid18To64 ||
                   deviationConditions.showEngageOpioid65Plus
                     ? [
@@ -289,7 +286,6 @@ export const DeviationFromMeasureSpec = ({
                         },
                       ]
                     : []),
-                  // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.showEngageOther18To64 ||
                   deviationConditions.showEngageOther65Plus
                     ? [
@@ -359,7 +355,6 @@ export const DeviationFromMeasureSpec = ({
                         },
                       ]
                     : []),
-                  // Dynamically hide or show children based on if performance measure 7days/age sections were completed
                   ...(deviationConditions.showEngageTotal18To64 ||
                   deviationConditions.showEngageTotal65Plus
                     ? [

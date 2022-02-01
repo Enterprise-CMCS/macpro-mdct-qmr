@@ -115,8 +115,6 @@ export namespace Measure {
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    "DeviationOptions-Within7-AgeRange": string[];
-    "DeviationOptions-Within30-AgeRange": string[];
     "DeviationOptions-InitAlcohol-AgeRange": string[];
     "DeviationFields-InitAlcohol": {
       options: string[];
@@ -173,35 +171,7 @@ export namespace Measure {
       numerator: string;
       other: string;
     };
-    "DeviationFields-Within7": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-Within30": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
     "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-30Days": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-7Days": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
     "PerformanceMeasure-AgeRates-Initiation-Alcohol": {
       denominator: string;
       numerator: string;

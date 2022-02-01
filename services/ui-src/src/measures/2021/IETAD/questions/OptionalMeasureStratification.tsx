@@ -135,7 +135,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                     />,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure 30days/age sections were completed
               ...((deviationConditions?.showInitAlcohol18To64 &&
                 item.id === 0) ||
               (deviationConditions?.showInitAlcohol65Plus && item.id === 1)
@@ -154,7 +153,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                     />,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.showEngageAlcohol18To64 &&
                 item.id === 0) ||
               (deviationConditions?.showEngageAlcohol65Plus && item.id === 1)
@@ -191,7 +189,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                     />,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.showEngageOpioid18To64 &&
                 item.id === 0) ||
               (deviationConditions?.showEngageOpioid65Plus && item.id === 1)
@@ -227,7 +224,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                     />,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.showEngageOther18To64 &&
                 item.id === 0) ||
               (deviationConditions?.showEngageOther65Plus && item.id === 1)
@@ -263,7 +259,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                     />,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
               ...((deviationConditions?.showEngageTotal18To64 &&
                 item.id === 0) ||
               (deviationConditions?.showEngageTotal65Plus && item.id === 1)
