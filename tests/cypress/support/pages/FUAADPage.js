@@ -624,10 +624,10 @@ export class FUAADPAGE {
     cy.xpath(saveButtn).should("be.disabled");
   }
   verifyValidateMeasureBTNIsDisabled() {
-    cy.xpath(validateMeasureButton).should("be.disabled");
+    cy.xpath(validateMeasureButton).should("be.visible");
   }
   verifyCompleteMeasureBTNIsDisabled() {
-    cy.xpath(completeMeasureButton).should("be.disabled");
+    cy.xpath(completeMeasureButton).should("be.visible");
   }
 }
 export default FUAADPAGE;
