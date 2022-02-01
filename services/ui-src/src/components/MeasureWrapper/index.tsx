@@ -6,8 +6,7 @@ import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
-import { CoreSetAbbr, MeasureStatus } from "types";
-
+import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { v4 as uuidv4 } from "uuid";
 interface Props {
   measure: ReactElement;
@@ -28,6 +27,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const [lastSavedText, setLastSavedText] = useState(
     "Awaiting Save Status Retrieval"
   );
+  const autoCompletedMeasure =
+    !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
 
   /*
   this is where we put all the high level stuff for measures
@@ -201,10 +202,13 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         ]}
         buttons={
           //TODO: this needs some form of loading state for these buttons using mutationRunning
-          <QMR.MeasureButtons
-            handleSave={methods.handleSubmit(handleSave)}
-            lastSavedText={lastSavedText}
-          />
+          // Using a ternary to appease type error instead of double &&
+          !autoCompletedMeasure ? (
+            <QMR.MeasureButtons
+              handleSave={methods.handleSubmit(handleSave)}
+              lastSavedText={lastSavedText}
+            />
+          ) : undefined
         }
       >
         <CUI.Skeleton isLoaded={!loadingData}>
