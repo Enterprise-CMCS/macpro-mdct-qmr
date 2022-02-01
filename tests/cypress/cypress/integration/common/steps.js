@@ -596,6 +596,7 @@ And("verify complete core set questions button is enabled", () => {
 
 And("verify Do you have questions or need support is displayed", () => {
   adultCoreSetQuestionsPage.verifydoYouHaveQuestionsOrNeedSupportIsDisplayed();
+});
 And("verify NCQA text exists", () => {
   fUAADPage.verifyNcqaText();
 });
