@@ -8,7 +8,7 @@ Feature: OY2 15672 Numerical Value/Calculations Logic QMR
         Then Click on FUA-AD
         Then verify url contains FUA-AD
         And Click on National Committee for Quality Assurance Radio Button
-        # Then Click on Administrative Data
+        Then Click on Administrative Data
         Then Click on Medicaid Management Information System
         And clear numerator input box
         And clear Denominator input box
@@ -45,7 +45,7 @@ Feature: OY2 15672 Numerical Value/Calculations Logic QMR
         Then Click on FUA-AD
         Then verify url contains FUA-AD
         And Click on National Committee for Quality Assurance Radio Button
-        # Then Click on Administrative Data
+        Then Click on Administrative Data
         Then Click on Medicaid Management Information System
         Then Click on Other Data Source Radio Button
         And clear numerator input box
