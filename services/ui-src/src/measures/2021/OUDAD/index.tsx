@@ -123,17 +123,7 @@ export const OUDAD = ({
             showInjectableNaltrexone ||
             showMethadone ||
             showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                showTotalRate,
-                showBuprenorphine,
-                showOralNaltrexone,
-                showInjectableNaltrexone,
-                showMethadone,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <Q.OptionalMeasureStratification ageGroups={ageGroups} />
           )}
         </>
       )}

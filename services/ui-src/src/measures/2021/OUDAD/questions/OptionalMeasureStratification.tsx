@@ -10,14 +10,6 @@ interface Props {
     id: number;
     label: string;
   }[];
-  deviationConditions?: {
-    showTotalRate: boolean;
-    showBuprenorphine: boolean;
-    showOralNaltrexone: boolean;
-    showInjectableNaltrexone: boolean;
-    showMethadone: boolean;
-    showOtherPerformanceMeasureRates: boolean;
-  };
 }
 
 interface SubComponentProps {
@@ -82,7 +74,7 @@ const AddAnotherButton = ({
 };
 
 const AgeData = ({ name }: SubComponentProps) => {
-  const { ageGroups, deviationConditions } = useContext(AgeDataContext);
+  const { ageGroups } = useContext(AgeDataContext);
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch for dataSource data
@@ -108,57 +100,17 @@ const AgeData = ({ name }: SubComponentProps) => {
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Heading>,
-              // Dynamically hide or show children based on if other performance measuresections were completed
-              ...(deviationConditions?.showOtherPerformanceMeasureRates
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              // Dynamically hide or show children based on if performance measure 30days/age sections were completed
-              ...((deviationConditions?.show30DaysAges18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.show30DaysAges65AndOlder && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "Follow-up within 30 days of ED visit",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
-              ...((deviationConditions?.show7DaysAges18To64 && item.id === 0) ||
-              (deviationConditions?.show7DaysAges65AndOlder && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      rates={[
-                        {
-                          id: 1,
-                          label: "Follow-up within 7 days of ED visit",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
+              <QMR.Rate
+                readOnly={rateReadOnly}
+                name={`${name}.subRates.${item.label}`}
+                key={`${name}.subRates.${item.label}`}
+                rates={[
+                  {
+                    id: item.id,
+                    label: `${item.label}`,
+                  },
+                ]}
+              />,
             ],
           };
         })}
@@ -190,10 +142,7 @@ const advancedConfigInitialStateArray = (
     : [[defaultTemplate]];
 };
 
-export const OptionalMeasureStratification = ({
-  ageGroups,
-  deviationConditions,
-}: Props) => {
+export const OptionalMeasureStratification = ({ ageGroups }: Props) => {
   const register = useCustomRegister<Measure.Form>();
   const { getValues } = useFormContext<Measure.Form>();
   const values = getValues();
@@ -256,7 +205,7 @@ export const OptionalMeasureStratification = ({
   };
 
   return (
-    <AgeDataContext.Provider value={{ ageGroups, deviationConditions }}>
+    <AgeDataContext.Provider value={{ ageGroups }}>
       <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
         <CUI.Text py="3">
           If this measure is also reported by additional
