@@ -2,10 +2,13 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
+
 export interface CheckboxOption {
   displayValue: string;
   value: string | number;
   children?: JSX.Element[];
+  removable?: boolean;
+  onDelete?: () => void;
 }
 
 interface CheckboxProps extends QMR.InputWrapperProps {
@@ -51,8 +54,12 @@ export const Checkbox = ({
             );
 
             return (
-              <CUI.Box key={option.value}>
-                <CUI.Checkbox value={option.value}>
+              <QMR.DeleteWrapper
+                key={option.value}
+                allowDeletion={option.removable}
+                onDelete={option.onDelete}
+              >
+                <CUI.Checkbox value={option.value} id={name}>
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>
@@ -64,7 +71,7 @@ export const Checkbox = ({
                     </QMR.QuestionChild>
                   )}
                 </CUI.Collapse>
-              </CUI.Box>
+              </QMR.DeleteWrapper>
             );
           })}
         </CUI.Stack>

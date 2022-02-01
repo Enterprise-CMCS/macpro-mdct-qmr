@@ -6,7 +6,6 @@ const medicaidLogo = "img[alt='Medicaid.gov logo']";
 const emailBottomLeft = ".footer-email";
 const federalLogo = "img[alt='Department of Health and Human Services logo']";
 const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
-//verify FFY 2021 Core Set Measures Reporting title
 const coreSetMeasuresReportingTitle =
   "//h2[contains(text(),'FFY 2021 Core Set Measures Reporting')]";
 const adultCoreSetMeasures = "//a[ contains(@href, 'ACS') ]";
@@ -21,8 +20,10 @@ export class Homepage {
   }
 
   clickAdultCoreSetMeasures() {
+    cy.wait(3000);
     cy.scrollTo("top");
     cy.xpath(adultCoreSetMeasures).click({ force: true });
+    //cy.xpath(adultCoreSetMeasures).click();
   }
 
   validateCoreSetReportingIcon() {
