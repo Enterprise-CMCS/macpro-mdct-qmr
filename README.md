@@ -77,6 +77,14 @@ brew install yarn
 ./dev local
 ```
 
+## DynamoDB locally
+
+In order to run dynamodb locally you will need to have java installed on your system. If not currently installed go here: https://java.com/en/download/ to download the latest version.
+
+If you want to a visual view of your dynamodb after the application is up and running you can install the dynamodb-admin tool from here: https://www.npmjs.com/package/dynamodb-admin
+
+- to run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window
+
 ## Cypress Testing
 
 [See here](./tests/cypress/README.md)
