@@ -125,7 +125,7 @@ export const ACSQualifiers = () => {
               <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
                 Adult Core Set Questions
               </CUI.Text>
-              <QMR.SupportLinks />
+              <QMR.SupportLinksNoStatements />
             </CUI.Box>
             <CUI.OrderedList>
               <Q.DeliverySystems />

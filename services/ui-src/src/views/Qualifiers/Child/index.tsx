@@ -125,7 +125,7 @@ export const CCSQualifiers = () => {
               <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
                 Child Core Set Questions: Medicaid & CHIP
               </CUI.Text>
-              <QMR.SupportLinks />
+              <QMR.SupportLinksNoStatements />
             </CUI.Box>
             <CUI.OrderedList>
               <Q.DeliverySystems />

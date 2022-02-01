@@ -122,7 +122,7 @@ export const CCSCQualifiers = () => {
               <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
                 Child Core Set Questions: CHIP
               </CUI.Text>
-              <QMR.SupportLinks />
+              <QMR.SupportLinksNoStatements />
             </CUI.Box>
             <CUI.OrderedList>
               <Q.DeliverySystems />
