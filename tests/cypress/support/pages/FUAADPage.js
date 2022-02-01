@@ -46,7 +46,21 @@ const verifyFFY2020 =
 const verifyFFY2019 =
   "//option[contains(text(),'HEDIS 2019 (FFY 2019 Core Set Reporting)')]";
 const nationalCommitteForQualityAssuranceRadioBTN =
-  "//p[contains(text(),'National Committee for Quality Assurance (NCQA)/He')]";
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[1]/label[1]/span[1]";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const administrativeDataRadioBTN =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/label[1]/span[1]";
+const MedicaidManagementInformationSystemMMISRadioBTN =
+  "//p[contains(text(),'Medicaid Management Information System (MMIS)')]";
+const Age65andolderNumeratorInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[1]/input[1]";
+const Age65andolderDenominatorInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[2]/input[1]";
+const Age65andolderRateInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[3]/input[1]";
+const rateErrorMessage = "//div[contains(text(),'Rate Error')]";
+const otherDataSourceRadioBTN = "//p[contains(text(),'Other Data Source')]";
+("//p[contains(text(),'National Committee for Quality Assurance (NCQA)/He')]");
 // element is xpath, please use cy.xapth() instead of cy.get();
 
 const all_check_box = "//span[ contains(@class, 'check')]/p";
@@ -353,6 +367,48 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
+    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click({
+      force: true,
+    });
+  }
+  clickAdminstrativeDataRaioBTN() {
+    cy.xpath(administrativeDataRadioBTN).click({
+      force: true,
+    });
+  }
+  clickMedicaidManagementInformationSystemMMISRadioBTN() {
+    cy.xpath(MedicaidManagementInformationSystemMMISRadioBTN).click({
+      force: true,
+    });
+  }
+
+  typeAge65andolderNumeratorInputBox(s) {
+    cy.xpath(Age65andolderNumeratorInputBox).type(s);
+  }
+  typeAge65andolderDenominatorInputBox(s) {
+    cy.xpath(Age65andolderDenominatorInputBox).type(s);
+  }
+  typeAge65andolderRateInputBox(s) {
+    cy.xpath(Age65andolderRateInputBox).type(s);
+  }
+  veirfyRateErrorMessageIsDisplayed() {
+    cy.xpath(rateErrorMessage).should("be.visible");
+  }
+
+  clearAge65andolderNumeratorInputBox() {
+    cy.xpath(Age65andolderNumeratorInputBox).clear();
+  }
+  clearAge65andolderDenominatorInputBox() {
+    cy.xpath(Age65andolderDenominatorInputBox).clear();
+  }
+  verifyOnlyOneNumberAfterDecimalIsDisplayed() {
+    cy.xpath(Age65andolderRateInputBox).should("be.visible");
+  }
+  veirfyRateErrorMessageIsNotDisplayed() {
+    cy.xpath(rateErrorMessage).should("not.be.visible");
+  }
+  clickOtherDataSourceRadioBTN() {
+    cy.xpath(otherDataSourceRadioBTN).click();
     cy.wait(2000);
     cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click();
   }
