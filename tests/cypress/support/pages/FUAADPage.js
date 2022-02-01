@@ -31,8 +31,8 @@ const sentenceUnderCompleteMeasureTwo = "//p[@class='chakra-text css-1xpb69n']";
 const errorMessagePerformanceMeasure = "((//div[@class='css-0'])[27]/div)[1]";
 const errorMessageContent =
   "//div[contains(text(),'At least one Performance Measure Numerator, Denomi')]";
-const popupBoxMessageHeader = "//header[@id='chakra-modal--header-137']";
-const popupBoxMessageContent = "//div[@id='chakra-modal--body-137']";
+const popupBoxMessageHeader = "#yes-no-header";
+const popupBoxMessageContent = "#yes-no-body";
 const popupBoxYes = "//button[@class='chakra-button css-mn8nh9']";
 const popupBoxNo = "//button[@class='chakra-button css-cirab6']";
 // element is xpath, please use cy.xapth() instead of cy.get();
@@ -149,11 +149,22 @@ const num_sample_size = "//input[contains(@data-testid, 'number')]";
 
 // -------
 
+//oy2-15212 QMR MDCT Medicaid Logo
+const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
+const mdctLogo = "//img[@alt='Mdct logo']";
+const medicaidLogoBottom = "//img[@alt='Medicaid.gov logo']";
+
 const radio_all_options = "//span[ contains(@class, 'radio')]/p";
 
 export class FUAADPAGE {
   verifyURLContainsFUAAD() {
     cy.url().should("include", "FUA-AD");
+  }
+
+  verifyQMRMDCTMedicaidLogoAtfuaAdPage() {
+    cy.xpath(qualityMeasureReportingLogo).should("be.visible");
+    cy.xpath(mdctLogo).should("be.visible");
+    cy.xpath(medicaidLogoBottom).should("be.visible");
   }
 
   verifyBrowseExists() {
@@ -195,8 +206,8 @@ export class FUAADPAGE {
 
   clickCompleteMeasureButtonVerify() {
     cy.xpath(completeMeasureButton).click();
-    cy.xpath(popupBoxMessageHeader).should("be.visible");
-    cy.xpath(popupBoxMessageContent).contains(
+    cy.get(popupBoxMessageHeader).should("be.visible");
+    cy.get(popupBoxMessageContent).contains(
       "There are still errors on this measure, would you still like to complete?"
     );
   }
@@ -299,8 +310,8 @@ export class FUAADPAGE {
 
   clickCompleteMeasureButtonVerify() {
     cy.xpath(completeMeasureButton).click();
-    cy.xpath(popupBoxMessageHeader).should("be.visible");
-    cy.xpath(popupBoxMessageContent).contains(
+    cy.get(popupBoxMessageHeader).should("be.visible");
+    cy.get(popupBoxMessageContent).contains(
       "There are still errors on this measure, would you still like to complete?"
     );
   }
@@ -608,6 +619,15 @@ export class FUAADPAGE {
       cy.xpath(finalXapth).invoke("attr", "value").should("eq", "50.0");
       cy.wait(500);
     }
+  }
+  verifySaveBTNIsDisabled() {
+    cy.xpath(saveButtn).should("be.disabled");
+  }
+  verifyValidateMeasureBTNIsDisabled() {
+    cy.xpath(validateMeasureButton).should("be.visible");
+  }
+  verifyCompleteMeasureBTNIsDisabled() {
+    cy.xpath(completeMeasureButton).should("be.visible");
   }
 }
 export default FUAADPAGE;
