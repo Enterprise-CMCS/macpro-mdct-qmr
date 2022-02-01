@@ -100,8 +100,8 @@ export const validateNumeratorsLessThanDenominators = (
         performanceMeasureArray[index][i].numerator
       ) {
         if (
-          performanceMeasureArray[index][i].denominator <
-          performanceMeasureArray[index][i].numerator
+          parseInt(performanceMeasureArray[index][i].denominator) <
+          parseInt(performanceMeasureArray[index][i].numerator)
         ) {
           error = true;
         }
