@@ -6,7 +6,7 @@ const loginWithCognitoButtn =
 const passwordInput = "input#okta-signin-password"; //pragma: allowlist secret
 const agreeTermCondition = "input#tandc";
 const signInBttn = "input#okta-signin-submit";
-
+const goToStateHomeBTN = "//button[contains(text(),'Go To State Home')]";
 export class LoginPage {
   enterUserName() {
     //cy.get(usernameInput).type("State_QMR2");
@@ -70,6 +70,15 @@ export class LoginPage {
     cy.xpath(emailForCognito).type("stateuser2@test.com");
     cy.xpath(passwordForCognito).type("p@55W0rd!");
     cy.xpath(loginWithCognitoButtn).click();
+  }
+
+  loginasApproverCognito() {
+    cy.xpath(emailForCognito).type("adminuser@test.com");
+    cy.xpath(passwordForCognito).type("p@55W0rd!");
+    cy.xpath(loginWithCognitoButtn).click();
+  }
+  clickGoToStateHome() {
+    cy.xpath(goToStateHomeBTN).click();
   }
 }
 export default LoginPage;
