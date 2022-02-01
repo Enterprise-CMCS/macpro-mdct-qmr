@@ -31,8 +31,8 @@ const sentenceUnderCompleteMeasureTwo = "//p[@class='chakra-text css-1xpb69n']";
 const errorMessagePerformanceMeasure = "((//div[@class='css-0'])[27]/div)[1]";
 const errorMessageContent =
   "//div[contains(text(),'At least one Performance Measure Numerator, Denomi')]";
-const popupBoxMessageHeader = "//header[@id='chakra-modal--header-137']";
-const popupBoxMessageContent = "//div[@id='chakra-modal--body-137']";
+const popupBoxMessageHeader = "#yes-no-header";
+const popupBoxMessageContent = "#yes-no-body";
 const popupBoxYes = "//button[@class='chakra-button css-mn8nh9']";
 const popupBoxNo = "//button[@class='chakra-button css-cirab6']";
 // element is xpath, please use cy.xapth() instead of cy.get();
@@ -46,7 +46,21 @@ const verifyFFY2020 =
 const verifyFFY2019 =
   "//option[contains(text(),'HEDIS 2019 (FFY 2019 Core Set Reporting)')]";
 const nationalCommitteForQualityAssuranceRadioBTN =
-  "//p[contains(text(),'National Committee for Quality Assurance (NCQA)/He')]";
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[1]/label[1]/span[1]";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const administrativeDataRadioBTN =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/label[1]/span[1]";
+const MedicaidManagementInformationSystemMMISRadioBTN =
+  "//p[contains(text(),'Medicaid Management Information System (MMIS)')]";
+const Age65andolderNumeratorInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[1]/input[1]";
+const Age65andolderDenominatorInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[2]/input[1]";
+const Age65andolderRateInputBox =
+  "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[3]/input[1]";
+const rateErrorMessage = "//div[contains(text(),'Rate Error')]";
+const otherDataSourceRadioBTN = "//p[contains(text(),'Other Data Source')]";
+("//p[contains(text(),'National Committee for Quality Assurance (NCQA)/He')]");
 // element is xpath, please use cy.xapth() instead of cy.get();
 
 const all_check_box = "//span[ contains(@class, 'check')]/p";
@@ -135,11 +149,22 @@ const num_sample_size = "//input[contains(@data-testid, 'number')]";
 
 // -------
 
+//oy2-15212 QMR MDCT Medicaid Logo
+const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
+const mdctLogo = "//img[@alt='Mdct logo']";
+const medicaidLogoBottom = "//img[@alt='Medicaid.gov logo']";
+
 const radio_all_options = "//span[ contains(@class, 'radio')]/p";
 
 export class FUAADPAGE {
   verifyURLContainsFUAAD() {
     cy.url().should("include", "FUA-AD");
+  }
+
+  verifyQMRMDCTMedicaidLogoAtfuaAdPage() {
+    cy.xpath(qualityMeasureReportingLogo).should("be.visible");
+    cy.xpath(mdctLogo).should("be.visible");
+    cy.xpath(medicaidLogoBottom).should("be.visible");
   }
 
   verifyBrowseExists() {
@@ -181,8 +206,8 @@ export class FUAADPAGE {
 
   clickCompleteMeasureButtonVerify() {
     cy.xpath(completeMeasureButton).click();
-    cy.xpath(popupBoxMessageHeader).should("be.visible");
-    cy.xpath(popupBoxMessageContent).contains(
+    cy.get(popupBoxMessageHeader).should("be.visible");
+    cy.get(popupBoxMessageContent).contains(
       "There are still errors on this measure, would you still like to complete?"
     );
   }
@@ -285,8 +310,8 @@ export class FUAADPAGE {
 
   clickCompleteMeasureButtonVerify() {
     cy.xpath(completeMeasureButton).click();
-    cy.xpath(popupBoxMessageHeader).should("be.visible");
-    cy.xpath(popupBoxMessageContent).contains(
+    cy.get(popupBoxMessageHeader).should("be.visible");
+    cy.get(popupBoxMessageContent).contains(
       "There are still errors on this measure, would you still like to complete?"
     );
   }
@@ -342,6 +367,48 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
+    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click({
+      force: true,
+    });
+  }
+  clickAdminstrativeDataRaioBTN() {
+    cy.xpath(administrativeDataRadioBTN).click({
+      force: true,
+    });
+  }
+  clickMedicaidManagementInformationSystemMMISRadioBTN() {
+    cy.xpath(MedicaidManagementInformationSystemMMISRadioBTN).click({
+      force: true,
+    });
+  }
+
+  typeAge65andolderNumeratorInputBox(s) {
+    cy.xpath(Age65andolderNumeratorInputBox).type(s);
+  }
+  typeAge65andolderDenominatorInputBox(s) {
+    cy.xpath(Age65andolderDenominatorInputBox).type(s);
+  }
+  typeAge65andolderRateInputBox(s) {
+    cy.xpath(Age65andolderRateInputBox).type(s);
+  }
+  veirfyRateErrorMessageIsDisplayed() {
+    cy.xpath(rateErrorMessage).should("be.visible");
+  }
+
+  clearAge65andolderNumeratorInputBox() {
+    cy.xpath(Age65andolderNumeratorInputBox).clear();
+  }
+  clearAge65andolderDenominatorInputBox() {
+    cy.xpath(Age65andolderDenominatorInputBox).clear();
+  }
+  verifyOnlyOneNumberAfterDecimalIsDisplayed() {
+    cy.xpath(Age65andolderRateInputBox).should("be.visible");
+  }
+  veirfyRateErrorMessageIsNotDisplayed() {
+    cy.xpath(rateErrorMessage).should("not.be.visible");
+  }
+  clickOtherDataSourceRadioBTN() {
+    cy.xpath(otherDataSourceRadioBTN).click();
     cy.wait(2000);
     cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click();
   }

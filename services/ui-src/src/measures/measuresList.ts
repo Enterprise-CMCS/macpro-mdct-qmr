@@ -8,6 +8,7 @@ export interface MeasuresListItem {
   type: MeasureType;
   name: string;
   measureId: string;
+  autocompleteOnCreation?: boolean;
 }
 
 export const measuresList: MeasureList = {
@@ -116,6 +117,7 @@ export const measuresList: MeasureList = {
       type: "AD",
       name: "National Core Indicators Survey",
       measureId: "NCIDDS-AD",
+      autocompleteOnCreation: true,
     },
     {
       type: "AD",
@@ -251,16 +253,19 @@ export const measuresList: MeasureList = {
       type: "CH",
       name: "Live Births Weighing Less Than 2,500 Grams",
       measureId: "LBW-CH",
+      autocompleteOnCreation: true,
     },
     {
       type: "CH",
       name: "Low-Risk Cesarean Delivery",
       measureId: "LRCD-CH",
+      autocompleteOnCreation: true,
     },
     {
       type: "CH",
       name: "Percentage of Eligibles Who Received Preventive Dental Services",
       measureId: "PDENT-CH",
+      autocompleteOnCreation: true,
     },
     {
       type: "CH",
