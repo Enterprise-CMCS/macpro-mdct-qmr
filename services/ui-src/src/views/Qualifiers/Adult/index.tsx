@@ -69,12 +69,6 @@ export const ACSQualifiers = () => {
           userGenerated: false,
         },
       ],
-      CoreSetMeasuresAuditedOrValidatedDetails: [
-        {
-          MeasuresAuditedOrValidated: [],
-          WhoConductedAuditOrValidation: "",
-        },
-      ],
     },
   });
 
@@ -128,7 +122,7 @@ export const ACSQualifiers = () => {
               <Q.DeliverySystems />
               <Q.Audit />
               <Q.ExternalContractor />
-              <Q.CompleteCoreSets completeEnabled={methods.formState.isDirty} />
+              <Q.CompleteCoreSets />
             </CUI.OrderedList>
           </CUI.Box>
         </form>

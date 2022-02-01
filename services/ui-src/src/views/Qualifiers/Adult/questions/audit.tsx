@@ -9,6 +9,13 @@ import { HiX } from "react-icons/hi";
 import { measuresList } from "measures/measuresList";
 import { useParams } from "react-router-dom";
 
+const initialMeasureList = [
+  {
+    MeasuresAuditedOrValidated: [],
+    WhoConductedAuditOrValidation: "",
+  },
+];
+
 export const CloseButton = ({ onClick }: { onClick: () => void }) => (
   <CUI.IconButton
     fontSize="1.5em"
@@ -28,7 +35,9 @@ export const Audit = () => {
     control,
   });
 
-  const [measureList, setMeasureList] = useState(field.value);
+  const [measureList, setMeasureList] = useState(
+    field.value?.length ? field.value : initialMeasureList
+  );
 
   const adultMeasures = measuresList[year as string]
     .filter((item) => {
@@ -93,6 +102,7 @@ export const Audit = () => {
                         >
                           <CUI.Flex>
                             <QMR.TextInput
+                              rules={{ required: true }}
                               formLabelProps={{ fontWeight: "400" }}
                               label="Who conducted the audit or validation?"
                               name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.WhoConductedAuditOrValidation`}

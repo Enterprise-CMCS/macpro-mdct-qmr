@@ -3,10 +3,10 @@ import * as CUI from "@chakra-ui/react";
 import * as Q from ".";
 
 interface Props {
-  completeEnabled: boolean;
+  completeEnabled?: boolean;
 }
 
-export const CompleteCoreSets = ({ completeEnabled }: Props) => {
+export const CompleteCoreSets = ({ completeEnabled = true }: Props) => {
   return (
     <CUI.ListItem>
       <Q.QualifierHeader

@@ -128,7 +128,7 @@ export const CCSQualifiers = () => {
               <Q.DeliverySystems />
               <Q.Audit />
               <Q.ExternalContractor />
-              <Q.CompleteCoreSets completeEnabled={methods.formState.isDirty} />
+              <Q.CompleteCoreSets />
             </CUI.OrderedList>
           </CUI.Box>
         </form>
