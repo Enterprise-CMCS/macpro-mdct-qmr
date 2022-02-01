@@ -1,6 +1,6 @@
-import { testEvent } from "../util/testEvents";
-import { isAuthorized } from "./authorization";
-import { UserRoles } from "../types";
+import { testEvent } from "../../util/testEvents";
+import { isAuthorized } from "../authorization";
+import { UserRoles } from "../../types";
 
 const mockedDecode = jest.fn();
 
@@ -39,7 +39,7 @@ describe("Authorization Lib Function", () => {
       expect(isAuthorized(event)).toBeFalsy();
     });
 
-    test("authorization should pass for GET, but skip if from missing requestState", () => {
+    test("authorization should pass for GET, but skip if check from missing requestState", () => {
       event.pathParameters = null;
       expect(isAuthorized(event)).toBeTruthy();
     });
@@ -68,7 +68,7 @@ describe("Authorization Lib Function", () => {
       expect(isAuthorized(event)).toBeTruthy();
     });
 
-    test("authorization should fail", () => {
+    test("authorization should fail from unauthorized http method", () => {
       event.httpMethod = "POST";
       expect(isAuthorized(event)).toBeFalsy();
     });
