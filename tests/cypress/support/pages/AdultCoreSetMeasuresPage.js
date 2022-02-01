@@ -3,6 +3,8 @@ const nciddsAD = "//p[contains(text(),'NCIDDS-AD')]";
 const pdentCH = "(//p[@class='chakra-text css-hispwy'])[5]";
 const lbwCH = "(//p[@class='chakra-text css-hispwy'])[7]";
 const lrcdCH = "(//p[@class='chakra-text css-hispwy'])[9]";
+const AdultCoreSetQuestions =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/div[1]/div[1]/a[1]/p[1]";
 const fuaAD = "//p[contains(text(),'FUA-AD')]";
 //oy2-15212 QMR MDCT Medicaid Logo
 const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
@@ -48,6 +50,9 @@ export class AdultCoreSetMeasuresPage {
 
   verifyURLContainsACS() {
     cy.url().should("include", "ACS");
+  }
+  clickAdultCoreSetQuestions() {
+    cy.xpath(AdultCoreSetQuestions).click();
   }
 }
 export default AdultCoreSetMeasuresPage;
