@@ -4,7 +4,6 @@ import { ReactElement, cloneElement, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
-import { useUser } from "hooks/authHooks";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 
@@ -23,7 +22,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     []
   );
 
-  const { isStateUser } = useUser();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [lastSavedText, setLastSavedText] = useState(
     "Awaiting Save Status Retrieval"
@@ -209,18 +207,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
       >
         <CUI.Skeleton isLoaded={!loadingData}>
           <>
-            {!isStateUser && (
-              <CUI.Box
-                top={0}
-                left={0}
-                position="fixed"
-                width="100vw"
-                height="100vh"
-                zIndex={2}
-                backgroundColor="gray.100"
-                opacity={0.2}
-              />
-            )}
+            <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
               <CUI.Container maxW="5xl" as="section">
                 <CUI.Text fontSize="sm">

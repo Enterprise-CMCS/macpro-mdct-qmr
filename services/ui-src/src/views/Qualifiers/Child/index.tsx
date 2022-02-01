@@ -119,13 +119,14 @@ export const CCSQualifiers = () => {
       }
     >
       <FormProvider {...methods}>
+        <QMR.AdminMask />
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="5xl" as="section">
             <CUI.Box mb="7" mt="3">
               <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
                 Child Core Set Questions: Medicaid & CHIP
               </CUI.Text>
-              <QMR.SupportLinksNoStatements />
+              <QMR.SupportLinks />
             </CUI.Box>
             <CUI.OrderedList>
               <Q.DeliverySystems />

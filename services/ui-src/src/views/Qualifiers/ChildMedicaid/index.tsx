@@ -115,6 +115,7 @@ export const CCSMQualifiers = () => {
       }
     >
       <FormProvider {...methods}>
+        <QMR.AdminMask />
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="5xl" as="section">
             <CUI.Box mb="7" mt="3">
