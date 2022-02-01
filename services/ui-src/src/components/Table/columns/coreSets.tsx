@@ -9,13 +9,19 @@ const getStatus = ({
   progress,
   submitted,
 }: CoreSetTableItem.Data): CoreSetTableItem.Status => {
-  if (submitted) return CoreSetTableItem.Status.SUBMITTED;
+  let status = CoreSetTableItem.Status.NOT_STARTED;
 
-  let status: CoreSetTableItem.Status = CoreSetTableItem.Status.IN_PROGRESS;
-  if (progress && !progress?.numComplete)
-    status = CoreSetTableItem.Status.NOT_STARTED;
-  if (progress && progress?.numComplete === progress?.numAvailable)
+  if (submitted) return CoreSetTableItem.Status.SUBMITTED;
+  else if (
+    progress &&
+    progress.numComplete > 0 &&
+    progress.numComplete < progress.numAvailable
+  ) {
+    status = CoreSetTableItem.Status.IN_PROGRESS;
+  } else if (progress && progress.numComplete === progress.numAvailable) {
     status = CoreSetTableItem.Status.COMPLETED;
+  }
+
   return status;
 };
 
