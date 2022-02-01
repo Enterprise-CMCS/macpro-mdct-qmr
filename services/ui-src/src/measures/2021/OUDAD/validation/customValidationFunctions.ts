@@ -1,20 +1,25 @@
 import { Measure } from "./types";
 export const atLeastOneRateComplete = (
-  performanceMeasureArray: any,
-  ageGroups: string[],
-  OPM: any
+  performanceMeasureArray: Measure.Form["PerformanceMeasure-Rates"],
+  OPMs: Measure.Form["OtherPerformanceMeasure-Rates"]
 ) => {
   let error = true;
   let errorArray: any[] = [];
   // Check OPM first
-  ageGroups.forEach((_ageGroup, i) => {
-    if (OPM && OPM[i] && OPM[i].rate) {
+  OPMs?.forEach((opm) => {
+    console.log(opm);
+    if (
+      opm.description &&
+      opm.rate[0]?.denominator &&
+      opm.rate[0]?.numerator &&
+      opm.rate[0]?.rate
+    ) {
       error = false;
     }
   });
 
   // Then Check regular Performance Measures
-  performanceMeasureArray.forEach((performanceObj: any) => {
+  performanceMeasureArray?.forEach((performanceObj) => {
     if (
       performanceObj &&
       performanceObj.denominator &&
@@ -33,24 +38,25 @@ export const atLeastOneRateComplete = (
 };
 
 export const validateNumeratorsLessThanDenominators = (
-  performanceMeasureArray: any
+  performanceMeasureArray: Measure.Form["PerformanceMeasure-Rates"]
 ) => {
   let error = false;
   let errorArray: any[] = [];
 
-  performanceMeasureArray.forEach((performanceObj: any) => {
-    console.log(performanceObj);
+  performanceMeasureArray?.forEach((performanceObj) => {
     if (
       performanceObj &&
       performanceObj.denominator &&
       performanceObj.numerator
     ) {
-      if (performanceObj.denominator < performanceObj.numerator) {
+      if (
+        parseFloat(performanceObj.denominator) <
+        parseFloat(performanceObj.numerator)
+      ) {
         error = true;
       }
     }
   });
-  console.log(error);
   if (error) {
     errorArray.push({
       errorLocation: "Performance Measure",
@@ -60,12 +66,14 @@ export const validateNumeratorsLessThanDenominators = (
   return error ? errorArray : [];
 };
 
-export const validateEqualDenominators = (performanceMeasureArray: any) => {
+export const validateEqualDenominators = (
+  performanceMeasureArray: Measure.Form["PerformanceMeasure-Rates"]
+) => {
   let error;
   let errorArray: any[] = [];
   let filledInData: any[] = [];
 
-  performanceMeasureArray.forEach((performanceObj: any) => {
+  performanceMeasureArray?.forEach((performanceObj) => {
     if (performanceObj && performanceObj.denominator) {
       filledInData.push(performanceObj);
     }
@@ -91,14 +99,13 @@ export const validateEqualDenominators = (performanceMeasureArray: any) => {
   return error ? errorArray : [];
 };
 const OUDValidation = (data: Measure.Form) => {
-  const ageGroups = ["Age Group"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray: any = data["PerformanceMeasure-Rates"];
-  console.log(performanceMeasureArray);
+
+  const performanceMeasureArray = data["PerformanceMeasure-Rates"];
   let errorArray: any[] = [];
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, ageGroups, OPM),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM),
     ...validateNumeratorsLessThanDenominators(performanceMeasureArray),
     ...validateEqualDenominators(performanceMeasureArray),
   ];
