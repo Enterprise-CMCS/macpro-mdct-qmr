@@ -10,8 +10,8 @@ export const CompleteCoreSets = ({ completeEnabled }: Props) => {
   return (
     <CUI.ListItem>
       <Q.QualifierHeader
-        header="Complete all Child Core Set and Child Core Set Measures to submit to CMS"
-        description="Complete all Child Core Set and Child Core Set Measures to submit to CMS for review"
+        header="Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS"
+        description="Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS for review"
       />
 
       <QMR.ContainedButton
