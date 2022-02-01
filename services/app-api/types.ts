@@ -13,7 +13,7 @@ export interface CreateCoreSet {
   };
 }
 
-export enum MeasureStatus {
+export const enum MeasureStatus {
   COMPLETE = "complete",
   INCOMPLETE = "incomplete",
 }
@@ -33,7 +33,7 @@ export interface CreateMeasure {
   };
 }
 
-export enum CoreSetAbbr {
+export const enum CoreSetAbbr {
   ACS = "ACS",
   CCS = "CCS",
   CCSM = "CCSM",
@@ -41,7 +41,7 @@ export enum CoreSetAbbr {
   HHCS = "HHCS",
 }
 
-export enum UserRoles {
+export const enum UserRoles {
   ADMIN = "mdctqmr-approver",
   STATE = "mdctqmr-state-user",
   HELP = "mdctqmr-help-desk",
@@ -49,7 +49,7 @@ export enum UserRoles {
   BOR = "mdctqmr-bor",
 }
 
-export enum RequestMethods {
+export const enum RequestMethods {
   POST = "POST",
   GET = "GET",
   PUT = "PUT",

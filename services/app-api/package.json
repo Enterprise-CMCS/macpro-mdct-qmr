@@ -35,6 +35,9 @@
     "transform": {
       "^.+\\.ts?$": "ts-jest"
     },
+    "globals": {
+      "isolatedModules": true
+    },
     "coverageReporters": [
       "json",
       [
