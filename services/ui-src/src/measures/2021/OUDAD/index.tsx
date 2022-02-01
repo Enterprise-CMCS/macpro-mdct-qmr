@@ -36,7 +36,6 @@ export const OUDAD = ({
     name: "OtherPerformanceMeasure-Rates",
   });
 
-  console.log(watchPerformanceMeasureRates);
   // Conditionals for Performance Measures
   const isCMS = watchMeasureSpecification === "CMS";
 
