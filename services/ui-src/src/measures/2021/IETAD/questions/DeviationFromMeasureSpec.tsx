@@ -309,36 +309,13 @@ export const DeviationFromMeasureSpec = ({
                         },
                       ]
                     : []),
-                  ...(deviationConditions.showEngageOpioid18To64 ||
-                  deviationConditions.showEngageOpioid65Plus
-                    ? [
-                        {
-                          value: "ShowEngageOpioid",
-                          displayValue:
-                            "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-                          children: [
-                            <QMR.Checkbox
-                              {...register(
-                                "DeviationOptions-EngageOpioid-AgeRange"
-                              )}
-                              formLabelProps={{ fontWeight: 600 }}
-                              options={deviationOptions({
-                                options,
-                                ...register("DeviationFields-EngageOpioid"),
-                                deviationConditions,
-                              })}
-                            />,
-                          ],
-                        },
-                      ]
-                    : []),
                   ...(deviationConditions.showInitTotal18To64 ||
                   deviationConditions.showInitTotal65Plus
                     ? [
                         {
                           value: "ShowInitTotal",
                           displayValue:
-                            "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
+                            "Initiation of AOD Treatment: AOD Abuse or Dependence",
                           children: [
                             <QMR.Checkbox
                               {...register(
@@ -361,7 +338,7 @@ export const DeviationFromMeasureSpec = ({
                         {
                           value: "ShowEngageTotal",
                           displayValue:
-                            "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
+                            "Engagement of AOD Treatment: AOD Abuse or Dependence",
                           children: [
                             <QMR.Checkbox
                               {...register(

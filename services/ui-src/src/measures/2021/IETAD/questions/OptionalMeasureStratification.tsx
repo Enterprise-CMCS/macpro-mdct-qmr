@@ -253,7 +253,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                         {
                           id: 0,
                           label:
-                            "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
+                            "Initiation of AOD Treatment: AOD Abuse or Dependence",
                         },
                       ]}
                     />,
@@ -271,7 +271,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                         {
                           id: 1,
                           label:
-                            "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
+                            "Engagement of AOD Treatment: AOD Abuse or Dependence",
                         },
                       ]}
                     />,
