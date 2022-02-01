@@ -134,6 +134,9 @@ export const CoreSet = () => {
   const { isStateUser } = useUser();
 
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
+  const completedAmount = measures.filter(
+    (measure) => measure.rateComplete > 0
+  )?.length;
 
   return (
     <QMR.StateLayout
@@ -170,7 +173,7 @@ export const CoreSet = () => {
             <QMR.ProgressCircle
               circularProgressProps={{ color: "green", size: "4.5rem" }}
               circularProgressLabelProps={{ fontSize: ".8rem" }}
-              currentProgress={2}
+              currentProgress={completedAmount}
               maxValue={measures.length}
             />
           </CUI.HStack>
