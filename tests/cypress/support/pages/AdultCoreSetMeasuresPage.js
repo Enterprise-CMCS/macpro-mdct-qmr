@@ -4,6 +4,8 @@ const pdentCH = "(//p[@class='chakra-text css-hispwy'])[5]";
 const lbwCH = "(//p[@class='chakra-text css-hispwy'])[7]";
 const lrcdCH = "(//p[@class='chakra-text css-hispwy'])[9]";
 const fuaAD = "(//p[@class='chakra-text css-hispwy'])[1]";
+const AdultCoreSetQuestions =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/div[1]/div[1]/a[1]/p[1]";
 
 export class AdultCoreSetMeasuresPage {
   clickNCIDDSadLink() {
@@ -38,6 +40,9 @@ export class AdultCoreSetMeasuresPage {
 
   verifyURLContainsACS() {
     cy.url().should("include", "ACS");
+  }
+  clickAdultCoreSetQuestions() {
+    cy.xpath(AdultCoreSetQuestions).click();
   }
 }
 export default AdultCoreSetMeasuresPage;

@@ -685,3 +685,23 @@ Then("Click on Other Data Source Radio Button", () => {
 And("verify user can manually override enter rate exists", () => {
   fUAADPage.typeAge65andolderRateInputBox("88.1");
 });
+
+Then("Click on Adult Core Set Questions", () => {
+  adultCoreSetMeasurespage.clickAdultCoreSetQuestions("88.1");
+});
+
+And("verify External Quality Review Organization EQRO is displayed", () => {
+  adultCoreSetQuestionsPage.verifyexternalQualityReviewOrganizationIsDisplayed();
+});
+
+And("verify MMIS Contractor is displayed", () => {
+  adultCoreSetQuestionsPage.verifyMMISContractorIsDisplayed();
+});
+
+And("verify Data Analytics Contractor is displayed", () => {
+  adultCoreSetQuestionsPage.verifydataAnalyticsContractorIsDisplayed();
+});
+
+And("verify other under external contractor is displayed", () => {
+  adultCoreSetQuestionsPage.verifyotherUnderExternalContractorIsDisplayed();
+});

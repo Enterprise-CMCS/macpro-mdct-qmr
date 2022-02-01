@@ -77,6 +77,19 @@ const completeCoreSetQuestionsBTN =
   "//button[contains(text(),'Complete Core Set Questions')]";
 const doYouHaveQuestionsOrNeedSupport =
   "//h3[contains(text(),'Do you have questions or need support?')]";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const externalQualityReviewOrganization =
+  "//p[contains(text(),'External Quality Review Organization (EQRO)')]";
+
+// element is xpath, please use cy.xapth() instead of cy.get();
+const MMISContractor = "//p[contains(text(),'MMIS Contractor')]";
+
+// element is xpath, please use cy.xapth() instead of cy.get();
+const dataAnalyticsContractor =
+  "//p[contains(text(),'Data Analytics Contractor')]";
+
+// element is xpath, please use cy.xapth() instead of cy.get();
+const otherUnderExternalContractor = "//p[contains(text(),'Other')]";
 
 export class AdultCoreSetQuestionsPage {
   verifyAdultCoreSetQuestionHeaderIsDisplayed() {
@@ -217,6 +230,26 @@ export class AdultCoreSetQuestionsPage {
 
   verifycompleteCoreSetQuestionsBTNIsDisplayed() {
     cy.xpath(completeCoreSetQuestionsBTN).should("be.visible");
+  }
+
+  verifyexternalQualityReviewOrganizationIsDisplayed() {
+    cy.xpath(externalQualityReviewOrganization).should("be.visible");
+  }
+
+  verifyMMISContractorIsDisplayed() {
+    cy.xpath(MMISContractor).should("be.visible");
+  }
+
+  verifydataAnalyticsContractorIsDisplayed() {
+    cy.xpath(dataAnalyticsContractor).should("be.visible");
+  }
+
+  verifyotherUnderExternalContractorIsDisplayed() {
+    cy.xpath(otherUnderExternalContractor).should("be.visible");
+  }
+
+  clickotherUnderExternalContractor() {
+    cy.xpath(otherUnderExternalContractor).click();
   }
 
   verifydoYouHaveQuestionsOrNeedSupportIsDisplayed() {
