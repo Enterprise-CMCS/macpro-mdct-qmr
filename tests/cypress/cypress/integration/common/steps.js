@@ -8,7 +8,6 @@ import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 import AdultCoreSetQuestionsPage from "../../../support/pages/AdultCoreSetQuestionsPage";
-import AuditCoreSetMeasuresPage from "../../../support/pages/AuditCoreSetMeasuresPage";
 // demo
 
 import FUAADPAGE from "../../../support/pages/FUAADPage";
@@ -21,7 +20,6 @@ const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
-const auditCoreSetMeasuresPage = new AuditCoreSetMeasuresPage();
 // demo
 
 const fUAADPage = new FUAADPAGE();
