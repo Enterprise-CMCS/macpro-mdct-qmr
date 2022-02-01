@@ -158,13 +158,26 @@ resources:
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mpraccountid~true}
+                AWS: ${ssm:/configuration/mpriamrole~true}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mpraccountid~true}
+                AWS: ${ssm:/configuration/mpriamrole~true}
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}
+              Principal:
+                AWS: ${ssm:/configuration/mprdeviam~true}
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mprdeviam~true}
             - Action:
                 - "s3:PutObject"
               Effect: "Allow"
