@@ -135,11 +135,23 @@ const num_sample_size = "//input[contains(@data-testid, 'number')]";
 
 // -------
 
+//oy2-15212 QMR MDCT Medicaid Logo
+const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
+const mdctLogo = "//img[@alt='Mdct logo']";
+const medicaidLogoBottom = "//img[@alt='Medicaid.gov logo']";
+
+
 const radio_all_options = "//span[ contains(@class, 'radio')]/p";
 
 export class FUAADPAGE {
   verifyURLContainsFUAAD() {
     cy.url().should("include", "FUA-AD");
+  }
+
+  verifyQMRMDCTMedicaidLogoAtfuaAdPage(){
+    cy.xpath(qualityMeasureReportingLogo).should("be.visible");
+    cy.xpath(mdctLogo).should("be.visible");
+    cy.xpath(medicaidLogoBottom).should("be.visible");
   }
 
   verifyBrowseExists() {
