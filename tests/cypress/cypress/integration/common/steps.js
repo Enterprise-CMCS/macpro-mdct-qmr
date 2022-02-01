@@ -54,6 +54,35 @@ And("user click on link Adult Core Set Measures", () => {
   homePage.clickAdultCoreSetMeasures();
 });
 
+And(
+  "user should see the QMR logo at top and MDCT Medicaid logo at the bottom of the home page",
+  () => {
+    homePage.verifyQMRMDCTMedicaidLogoAtHomePage();
+  }
+);
+
+And("user click on Adult Core Set Measure link", () => {
+  homePage.clickAdultCoreSetMeasures();
+});
+
+And(
+  "user should see the QMR logo at top and MDCT Medicaid logo at the bottom of the Adult core set measure page",
+  () => {
+    adultCoreSetMeasurespage.verifyQMRMDCTMedicaidLogoAtAdultCoreSetMeasurePage();
+  }
+);
+
+Then("click on FUA-AD", () => {
+  adultCoreSetMeasurespage.clickFUAadLink();
+});
+
+And(
+  "user should see the QMR logo at top and MDCT Medicaid logo at the bottom of the FUA-AD page",
+  () => {
+    fUAADPage.verifyQMRMDCTMedicaidLogoAtfuaAdPage();
+  }
+);
+
 And("user click on link NCIDDS-AD", () => {
   adultCoreSetMeasurespage.clickNCIDDSadLink();
 });
