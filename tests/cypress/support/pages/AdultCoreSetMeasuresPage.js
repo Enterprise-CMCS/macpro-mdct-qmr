@@ -11,6 +11,8 @@ const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
 const mdctLogo = "//img[@alt='Mdct logo']";
 const medicaidLogoBottom = "//img[@alt='Medicaid.gov logo']";
 
+const submitCoreSetBTN = "//button[contains(text(),'Submit Core Set')]";
+
 export class AdultCoreSetMeasuresPage {
   clickNCIDDSadLink() {
     cy.xpath(nciddsAD).should("be.visible");
@@ -53,6 +55,10 @@ export class AdultCoreSetMeasuresPage {
   }
   clickAdultCoreSetQuestions() {
     cy.xpath(AdultCoreSetQuestions).click();
+  }
+
+  verifysubmitCoreSetBTNIsDisabled() {
+    cy.xpath(submitCoreSetBTN).should("be.disabled");
   }
 }
 export default AdultCoreSetMeasuresPage;

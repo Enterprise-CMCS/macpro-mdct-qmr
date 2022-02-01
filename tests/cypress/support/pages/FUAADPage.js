@@ -620,5 +620,14 @@ export class FUAADPAGE {
       cy.wait(500);
     }
   }
+  verifySaveBTNIsDisabled() {
+    cy.xpath(saveButtn).should("be.disabled");
+  }
+  verifyValidateMeasureBTNIsDisabled() {
+    cy.xpath(validateMeasureButton).should("be.disabled");
+  }
+  verifyCompleteMeasureBTNIsDisabled() {
+    cy.xpath(completeMeasureButton).should("be.disabled");
+  }
 }
 export default FUAADPAGE;
