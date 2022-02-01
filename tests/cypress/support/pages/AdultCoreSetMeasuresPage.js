@@ -9,14 +9,13 @@ const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
 const mdctLogo = "//img[@alt='Mdct logo']";
 const medicaidLogoBottom = "//img[@alt='Medicaid.gov logo']";
 
-
 export class AdultCoreSetMeasuresPage {
   clickNCIDDSadLink() {
     cy.xpath(nciddsAD).should("be.visible");
     cy.xpath(nciddsAD).click({ force: true });
   }
 
-  verifyQMRMDCTMedicaidLogoAtAdultCoreSetMeasurePage(){
+  verifyQMRMDCTMedicaidLogoAtAdultCoreSetMeasurePage() {
     cy.xpath(qualityMeasureReportingLogo).should("be.visible");
     cy.xpath(mdctLogo).should("be.visible");
     cy.xpath(medicaidLogoBottom).should("be.visible");

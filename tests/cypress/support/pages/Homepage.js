@@ -19,7 +19,7 @@ export class Homepage {
     cy.visit("/");
   }
 
-  verifyQMRMDCTMedicaidLogoAtHomePage(){
+  verifyQMRMDCTMedicaidLogoAtHomePage() {
     cy.xpath(qualityMeasureReportingLogo).should("be.visible");
     cy.xpath(mdctLogo).should("be.visible");
     cy.xpath(medicaidLogoBottom).should("be.visible");
