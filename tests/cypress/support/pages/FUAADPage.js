@@ -31,8 +31,8 @@ const sentenceUnderCompleteMeasureTwo = "//p[@class='chakra-text css-1xpb69n']";
 const errorMessagePerformanceMeasure = "((//div[@class='css-0'])[27]/div)[1]";
 const errorMessageContent =
   "//div[contains(text(),'At least one Performance Measure Numerator, Denomi')]";
-const popupBoxMessageHeader = "//header[@id='chakra-modal--header-137']";
-const popupBoxMessageContent = "//div[@id='chakra-modal--body-137']";
+const popupBoxMessageHeader = "#yes-no-header";
+const popupBoxMessageContent = "#yes-no-body";
 const popupBoxYes = "//button[@class='chakra-button css-mn8nh9']";
 const popupBoxNo = "//button[@class='chakra-button css-cirab6']";
 // element is xpath, please use cy.xapth() instead of cy.get();
@@ -206,8 +206,8 @@ export class FUAADPAGE {
 
   clickCompleteMeasureButtonVerify() {
     cy.xpath(completeMeasureButton).click();
-    cy.xpath(popupBoxMessageHeader).should("be.visible");
-    cy.xpath(popupBoxMessageContent).contains(
+    cy.get(popupBoxMessageHeader).should("be.visible");
+    cy.get(popupBoxMessageContent).contains(
       "There are still errors on this measure, would you still like to complete?"
     );
   }
@@ -310,8 +310,8 @@ export class FUAADPAGE {
 
   clickCompleteMeasureButtonVerify() {
     cy.xpath(completeMeasureButton).click();
-    cy.xpath(popupBoxMessageHeader).should("be.visible");
-    cy.xpath(popupBoxMessageContent).contains(
+    cy.get(popupBoxMessageHeader).should("be.visible");
+    cy.get(popupBoxMessageContent).contains(
       "There are still errors on this measure, would you still like to complete?"
     );
   }
