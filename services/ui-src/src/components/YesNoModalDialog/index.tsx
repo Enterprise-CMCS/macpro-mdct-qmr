@@ -18,9 +18,9 @@ export const YesNoModalDialog = ({
       <CUI.Modal isOpen={isOpen} onClose={() => handleModalResponse(false)}>
         <CUI.ModalOverlay />
         <CUI.ModalContent>
-          <CUI.ModalHeader>{headerText}</CUI.ModalHeader>
+          <CUI.ModalHeader id="yes-no-header">{headerText}</CUI.ModalHeader>
           <CUI.ModalCloseButton />
-          <CUI.ModalBody>{bodyText}</CUI.ModalBody>
+          <CUI.ModalBody id="yes-no-body">{bodyText}</CUI.ModalBody>
           <CUI.ModalFooter>
             <CUI.Button
               colorScheme="blue"
