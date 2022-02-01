@@ -41,6 +41,7 @@ export const Select = ({
     >
       <CUI.Select
         ref={field.ref}
+        className={name}
         value={field.value}
         onBlur={field.onBlur}
         borderRadius="sm"
