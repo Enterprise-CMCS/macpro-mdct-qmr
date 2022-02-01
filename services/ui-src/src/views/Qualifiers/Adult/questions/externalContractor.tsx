@@ -21,7 +21,7 @@ export const ExternalContractor = () => {
             options={[
               {
                 displayValue:
-                  "Yes, we did obtained assistance from one or more external contractors in collecting, calculating, and/or reporting Core Set data.",
+                  "Yes, we did obtain assistance from one or more external contractors in collecting, calculating, and/or reporting Core Set data.",
                 value: "yes",
                 children: [
                   <>
