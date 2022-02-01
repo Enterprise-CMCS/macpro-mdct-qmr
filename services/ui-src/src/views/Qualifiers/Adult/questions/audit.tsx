@@ -6,7 +6,8 @@ import { ICheckbox } from "components/MultiSelect";
 import { useController, useFormContext } from "react-hook-form";
 import { AuditDetails } from "../types";
 import { HiX } from "react-icons/hi";
-import { measuresList } from "../../../../measures/measuresList";
+import { measuresList } from "measures/measuresList";
+import { useParams } from "react-router-dom";
 
 export const CloseButton = ({ onClick }: { onClick: () => void }) => (
   <CUI.IconButton
@@ -20,6 +21,8 @@ export const CloseButton = ({ onClick }: { onClick: () => void }) => (
 
 export const Audit = () => {
   const { control } = useFormContext();
+  const { year } = useParams();
+
   const { field } = useController({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
     control,
@@ -27,7 +30,7 @@ export const Audit = () => {
 
   const [measureList, setMeasureList] = useState(field.value);
 
-  const adultMeasures = measuresList[2021]
+  const adultMeasures = measuresList[year as string]
     .filter((item) => {
       return item.type === "AD";
     })

@@ -196,7 +196,7 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
-        <CUI.Skeleton noOfLines={7} isLoaded={!isLoading}>
+        <QMR.LoadingWrapper isLoaded={!isLoading}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
           )}
@@ -207,7 +207,7 @@ export const CoreSet = () => {
               alertDescription={(error as Error)?.message}
             />
           )}
-        </CUI.Skeleton>
+        </QMR.LoadingWrapper>
       </CUI.Box>
     </QMR.StateLayout>
   );
