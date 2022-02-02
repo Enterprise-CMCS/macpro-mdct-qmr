@@ -10,10 +10,14 @@ export const defaultDeviationOptions = [
 interface Props {
   options: { label: string; id: number }[];
   deviationConditions: {
-    show30DaysAges18To64: boolean;
-    show30DaysAges65AndOlder: boolean;
-    show7DaysAges18To64: boolean;
-    show7DaysAges65AndOlder: boolean;
+    showAdvisingUsersAges18To64: boolean;
+    showAdvisingUsers65AndOlder: boolean;
+    showDiscussingMedicationsAges18To64: boolean;
+    showDiscussingMedications65AndOlder: boolean;
+    showDiscussingStrategiesAges18To64: boolean;
+    showDiscussingStrategies65AndOlder: boolean;
+    showPercentageUsersAges18To64: boolean;
+    showPercentageUsers65AndOlder: boolean;
     showOtherPerformanceMeasureRates: boolean;
   };
 }
@@ -27,22 +31,23 @@ const deviationOptions = ({
   name,
   deviationConditions,
 }: OptionProps): QMR.CheckboxOption[] => {
-  let filteredOptions: Props["options"];
-  if (name.includes("Within30")) {
-    filteredOptions = options.filter((option) => {
-      return (
-        (deviationConditions.show30DaysAges18To64 && option.id === 0) ||
-        (deviationConditions.show30DaysAges65AndOlder && option.id === 1)
-      );
-    });
-  } else {
-    filteredOptions = options.filter((option) => {
-      return (
-        (deviationConditions.show7DaysAges18To64 && option.id === 0) ||
-        (deviationConditions.show7DaysAges65AndOlder && option.id === 1)
-      );
-    });
-  }
+  let filteredOptions: Props["options"] = [];
+  console.log(options, deviationConditions);
+  // if (name.includes("Within30")) {
+  //   filteredOptions = options.filter((option) => {
+  //     return (
+  //       (deviationConditions.show30DaysAges18To64 && option.id === 0) ||
+  //       (deviationConditions.show30DaysAges65AndOlder && option.id === 1)
+  //     );
+  //   });
+  // } else {
+  //   filteredOptions = options.filter((option) => {
+  //     return (
+  //       (deviationConditions.show7DaysAges18To64 && option.id === 0) ||
+  //       (deviationConditions.show7DaysAges65AndOlder && option.id === 1)
+  //     );
+  //   });
+  // }
 
   return filteredOptions.map((item) => {
     return {
@@ -116,23 +121,26 @@ export const DeviationFromMeasureSpec = ({
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
-                // Dynamically hide or show children based on if performance measure 30days/age sections were completed
+                // Dynamically hide or show children based on if performance measure AdvisingUsersToQuit sections were completed
                 options={[
-                  ...(deviationConditions.show30DaysAges18To64 ||
-                  deviationConditions.show30DaysAges65AndOlder
+                  ...(deviationConditions.showAdvisingUsersAges18To64 ||
+                  deviationConditions.showAdvisingUsers65AndOlder
                     ? [
                         {
-                          value: "FollowUpWithin30",
-                          displayValue: "Follow-up within 30 days of ED visit",
+                          value: "AdvisingUsersToQuit",
+                          displayValue:
+                            "Advising Smokers and Tobacco Users to Quit",
                           children: [
                             <QMR.Checkbox
                               {...register(
-                                "DeviationOptions-Within30-AgeRange"
+                                "DeviationOptions-AdvisingUsersToQuit-AgeRange"
                               )}
                               formLabelProps={{ fontWeight: 600 }}
                               options={deviationOptions({
                                 options,
-                                ...register("DeviationFields-Within30"),
+                                ...register(
+                                  "DeviationFields-AdvisingUsersToQuit"
+                                ),
                                 deviationConditions,
                               })}
                             />,
@@ -140,20 +148,77 @@ export const DeviationFromMeasureSpec = ({
                         },
                       ]
                     : []),
-                  // Dynamically hide or show children based on if performance measure 7days/age sections were completed
-                  ...(deviationConditions.show7DaysAges18To64 ||
-                  deviationConditions.show7DaysAges65AndOlder
+                  // Dynamically hide or show children based on if performance measure DiscussingMedications sections were completed
+                  ...(deviationConditions.showDiscussingMedicationsAges18To64 ||
+                  deviationConditions.showDiscussingMedications65AndOlder
                     ? [
                         {
-                          value: "FollowUpWithin7",
-                          displayValue: "Follow-up within 7 days of ED visit",
+                          value: "DiscussingCessationMedications",
+                          displayValue: "Discussing Cessation Medications",
                           children: [
                             <QMR.Checkbox
-                              {...register("DeviationOptions-Within7-AgeRange")}
+                              {...register(
+                                "DeviationOptions-DiscussingCessationMedications-AgeRange"
+                              )}
                               formLabelProps={{ fontWeight: 600 }}
                               options={deviationOptions({
                                 options,
-                                ...register("DeviationFields-Within7"),
+                                ...register(
+                                  "DeviationFields-DiscussingCessationMedications"
+                                ),
+                                deviationConditions,
+                              })}
+                            />,
+                          ],
+                        },
+                      ]
+                    : []),
+
+                  // Dynamically hide or show children based on if performance measure showDiscussingStrategies sections were completed
+                  ...(deviationConditions.showDiscussingStrategiesAges18To64 ||
+                  deviationConditions.showDiscussingStrategies65AndOlder
+                    ? [
+                        {
+                          value: "DiscussingCessationStrategies",
+                          displayValue: "Discussing Cessation Strategies",
+                          children: [
+                            <QMR.Checkbox
+                              {...register(
+                                "DeviationOptions-DiscussingCessationStrategies-AgeRange"
+                              )}
+                              formLabelProps={{ fontWeight: 600 }}
+                              options={deviationOptions({
+                                options,
+                                ...register(
+                                  "DeviationFields-DiscussingCessationStrategies"
+                                ),
+                                deviationConditions,
+                              })}
+                            />,
+                          ],
+                        },
+                      ]
+                    : []),
+
+                  // Dynamically hide or show children based on if performance measure showPercentageUsers sections were completed
+                  ...(deviationConditions.showPercentageUsersAges18To64 ||
+                  deviationConditions.showPercentageUsers65AndOlder
+                    ? [
+                        {
+                          value: "PercentageOfUsers",
+                          displayValue:
+                            "Percentage of Current Smokers and Tobacco Users",
+                          children: [
+                            <QMR.Checkbox
+                              {...register(
+                                "DeviationOptions-PercentageOfUsers-AgeRange"
+                              )}
+                              formLabelProps={{ fontWeight: 600 }}
+                              options={deviationOptions({
+                                options,
+                                ...register(
+                                  "DeviationFields-PercentageOfUsers"
+                                ),
                                 deviationConditions,
                               })}
                             />,

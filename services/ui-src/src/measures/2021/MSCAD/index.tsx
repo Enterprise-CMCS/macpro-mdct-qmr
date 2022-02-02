@@ -29,11 +29,17 @@ export const MSCAD = ({
   const watchMeasureSpecification = useWatch({
     name: "MeasurementSpecification",
   });
-  const watchPerformanceMeasureAgeRates30Days = useWatch({
-    name: "PerformanceMeasure-AgeRates-30Days",
+  const watchPerformanceMeasureAdvisingUsers = useWatch({
+    name: "PerformanceMeasure-AgeRates-AdvisingUsers",
   });
-  const watchPerformanceMeasureAgeRates7Days = useWatch({
-    name: "PerformanceMeasure-AgeRates-7Days",
+  const watchPerformanceMeasureDiscussingMedications = useWatch({
+    name: "PerformanceMeasure-AgeRates-DiscussingMedications",
+  });
+  const watchPerformanceMeasureDiscussingStrategies = useWatch({
+    name: "PerformanceMeasure-AgeRates-DiscussingStrategies",
+  });
+  const watchPerformanceMeasurePercentageUsers = useWatch({
+    name: "PerformanceMeasure-AgeRates-PercentageUsers",
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
@@ -44,23 +50,46 @@ export const MSCAD = ({
 
   const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
-  const show30DaysAges18To64 =
-    !!watchPerformanceMeasureAgeRates30Days?.[0]?.rate;
-  const show30DaysAges65AndOlder =
-    !!watchPerformanceMeasureAgeRates30Days?.[1]?.rate;
-  const show7DaysAges18To64 = !!watchPerformanceMeasureAgeRates7Days?.[0]?.rate;
-  const show7DaysAges65AndOlder =
-    !!watchPerformanceMeasureAgeRates7Days?.[1]?.rate;
+  const showAdvisingUsersAges18To64 =
+    !!watchPerformanceMeasureAdvisingUsers?.[0]?.rate;
+  const showAdvisingUsers65AndOlder =
+    !!watchPerformanceMeasureAdvisingUsers?.[1]?.rate;
+
+  const showDiscussingMedicationsAges18To64 =
+    !!watchPerformanceMeasureDiscussingMedications?.[0]?.rate;
+  const showDiscussingMedications65AndOlder =
+    !!watchPerformanceMeasureDiscussingMedications?.[1]?.rate;
+
+  const showDiscussingStrategiesAges18To64 =
+    !!watchPerformanceMeasureDiscussingStrategies?.[0]?.rate;
+  const showDiscussingStrategies65AndOlder =
+    !!watchPerformanceMeasureDiscussingStrategies?.[1]?.rate;
+
+  const showPercentageUsersAges18To64 =
+    !!watchPerformanceMeasurePercentageUsers?.[0]?.rate;
+  const showPercentageUsers65AndOlder =
+    !!watchPerformanceMeasurePercentageUsers?.[1]?.rate;
+
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
   const ageGroups = [];
 
-  if (show30DaysAges18To64 || show7DaysAges18To64) {
+  if (
+    showAdvisingUsersAges18To64 ||
+    showDiscussingMedicationsAges18To64 ||
+    showDiscussingStrategiesAges18To64 ||
+    showPercentageUsersAges18To64
+  ) {
     ageGroups.push({ label: "Ages 18 to 64", id: 0 });
   }
 
-  if (show30DaysAges65AndOlder || show7DaysAges65AndOlder) {
+  if (
+    showAdvisingUsers65AndOlder ||
+    showDiscussingMedications65AndOlder ||
+    showDiscussingStrategies65AndOlder ||
+    showPercentageUsers65AndOlder
+  ) {
     ageGroups.push({ label: "Ages 65 and older", id: 1 });
   }
   if (showOtherPerformanceMeasureRates) {
@@ -94,10 +123,14 @@ export const MSCAD = ({
             <Q.DeviationFromMeasureSpec
               options={ageGroups}
               deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
+                showAdvisingUsersAges18To64,
+                showAdvisingUsers65AndOlder,
+                showDiscussingMedicationsAges18To64,
+                showDiscussingMedications65AndOlder,
+                showDiscussingStrategiesAges18To64,
+                showDiscussingStrategies65AndOlder,
+                showPercentageUsersAges18To64,
+                showPercentageUsers65AndOlder,
                 showOtherPerformanceMeasureRates,
               }}
             />
@@ -105,18 +138,26 @@ export const MSCAD = ({
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
           <Q.CombinedRates />
-          {(show30DaysAges18To64 ||
-            show30DaysAges65AndOlder ||
-            show7DaysAges18To64 ||
-            show7DaysAges65AndOlder ||
+          {(showAdvisingUsersAges18To64 ||
+            showAdvisingUsers65AndOlder ||
+            showDiscussingMedicationsAges18To64 ||
+            showDiscussingMedications65AndOlder ||
+            showDiscussingStrategiesAges18To64 ||
+            showDiscussingStrategies65AndOlder ||
+            showPercentageUsersAges18To64 ||
+            showPercentageUsers65AndOlder ||
             showOtherPerformanceMeasureRates) && (
             <Q.OptionalMeasureStratification
               ageGroups={ageGroups}
               deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
+                showAdvisingUsersAges18To64,
+                showAdvisingUsers65AndOlder,
+                showDiscussingMedicationsAges18To64,
+                showDiscussingMedications65AndOlder,
+                showDiscussingStrategiesAges18To64,
+                showDiscussingStrategies65AndOlder,
+                showPercentageUsersAges18To64,
+                showPercentageUsers65AndOlder,
                 showOtherPerformanceMeasureRates,
               }}
             />

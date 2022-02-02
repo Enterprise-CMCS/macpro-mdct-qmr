@@ -103,15 +103,30 @@ export namespace Measure {
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    "DeviationOptions-Within7-AgeRange": string[];
-    "DeviationOptions-Within30-AgeRange": string[];
-    "DeviationFields-Within7": {
+    "DeviationOptions-DiscussingCessationMedications-AgeRange": string[];
+    "DeviationOptions-AdvisingUsersToQuit-AgeRange": string[];
+    "DeviationOptions-DiscussingCessationStrategies-AgeRange": string[];
+    "DeviationOptions-PercentageOfUsers-AgeRange": string[];
+
+    "DeviationFields-DiscussingCessationMedications": {
       options: string[];
       denominator: string;
       numerator: string;
       other: string;
     };
-    "DeviationFields-Within30": {
+    "DeviationFields-AdvisingUsersToQuit": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationFields-DiscussingCessationStrategies": {
+      options: string[];
+      denominator: string;
+      numerator: string;
+      other: string;
+    };
+    "DeviationFields-PercentageOfUsers": {
       options: string[];
       denominator: string;
       numerator: string;
@@ -126,6 +141,8 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
+
+    // Performance Measure
     "PerformanceMeasure-AgeRates-DiscussingMedications": {
       denominator: string;
       numerator: string;

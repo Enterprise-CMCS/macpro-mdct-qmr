@@ -11,10 +11,14 @@ interface Props {
     label: string;
   }[];
   deviationConditions?: {
-    show30DaysAges18To64: boolean;
-    show30DaysAges65AndOlder: boolean;
-    show7DaysAges18To64: boolean;
-    show7DaysAges65AndOlder: boolean;
+    showAdvisingUsersAges18To64: boolean;
+    showAdvisingUsers65AndOlder: boolean;
+    showDiscussingMedicationsAges18To64: boolean;
+    showDiscussingMedications65AndOlder: boolean;
+    showDiscussingStrategiesAges18To64: boolean;
+    showDiscussingStrategies65AndOlder: boolean;
+    showPercentageUsersAges18To64: boolean;
+    showPercentageUsers65AndOlder: boolean;
     showOtherPerformanceMeasureRates: boolean;
   };
 }
@@ -112,26 +116,29 @@ const AgeData = ({ name }: SubComponentProps) => {
                     />,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure 30days/age sections were completed
-              ...((deviationConditions?.show30DaysAges18To64 &&
+              // Dynamically hide or show children based on if performance measure AdvisingUsersToQuit sections were completed
+              ...((deviationConditions?.showAdvisingUsersAges18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.show30DaysAges65AndOlder && item.id === 1)
+              (deviationConditions?.showAdvisingUsers65AndOlder &&
+                item.id === 1)
                 ? [
                     <QMR.Rate
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
+                      name={`${name}.subRates.${item.id}.AdvisingUsers`}
+                      key={`${name}.subRates.${item.id}.AdvisingUsers`}
                       rates={[
                         {
                           id: 0,
-                          label: "Follow-up within 30 days of ED visit",
+                          label: "Advising Smokers and Tobacco Users to Quit",
                         },
                       ]}
                     />,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
-              ...((deviationConditions?.show7DaysAges18To64 && item.id === 0) ||
-              (deviationConditions?.show7DaysAges65AndOlder && item.id === 1)
+              // Dynamically hide or show children based on if performance measure DiscussingMedications sections were completed
+              ...((deviationConditions?.showDiscussingMedicationsAges18To64 &&
+                item.id === 0) ||
+              (deviationConditions?.showDiscussingMedications65AndOlder &&
+                item.id === 1)
                 ? [
                     <QMR.Rate
                       name={`${name}.subRates.${item.id}.followUpWithin7Days`}
