@@ -8,11 +8,12 @@ export const atLeastOneRateComplete = (
   let error = true;
   let errorArray: any[] = [];
   // Check OPM first
-  OPM.forEach((measure: any) => {
-    if (measure.rate && measure.rate[0] && measure.rate[0].rate) {
-      error = false;
-    }
-  });
+  OPM &&
+    OPM.forEach((measure: any) => {
+      if (measure.rate && measure.rate[0] && measure.rate[0].rate) {
+        error = false;
+      }
+    });
 
   // Then Check regular Performance Measures
   ageGroups.forEach((_ageGroup, i) => {
@@ -117,13 +118,14 @@ export const validateNumeratorsLessThanDenominators = (
       }
     });
   });
-  OPM.forEach((performanceMeasure: any) => {
-    performanceMeasure.rate.forEach((rate: any) => {
-      if (parseInt(rate.numerator) > parseInt(rate.denominator)) {
-        error = true;
-      }
+  OPM &&
+    OPM.forEach((performanceMeasure: any) => {
+      performanceMeasure.rate.forEach((rate: any) => {
+        if (parseInt(rate.numerator) > parseInt(rate.denominator)) {
+          error = true;
+        }
+      });
     });
-  });
   if (error) {
     errorArray.push({
       errorLocation: "Performance Measure",
@@ -179,7 +181,8 @@ export const validateNoNonZeroNumOrDenom = (
   OPM: any,
   ageGroups: string[]
 ) => {
-  let error = false;
+  let nonZeroRateError = false;
+  let zeroRateError = false;
   let errorArray: any[] = [];
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray.forEach((performanceMeasure) => {
@@ -187,29 +190,52 @@ export const validateNoNonZeroNumOrDenom = (
         performanceMeasure &&
         performanceMeasure[i] &&
         performanceMeasure[i].denominator &&
-        performanceMeasure[i].numerator
+        performanceMeasure[i].numerator &&
+        performanceMeasure[i].rate
       ) {
         if (
-          parseInt(performanceMeasure[i].denominator) === 0 ||
+          parseInt(performanceMeasure[i].rate) !== 0 &&
           parseInt(performanceMeasure[i].numerator) === 0
         ) {
-          error = true;
+          nonZeroRateError = true;
+        }
+        if (
+          parseInt(performanceMeasure[i].rate) === 0 &&
+          parseInt(performanceMeasure[i].numerator) !== 0 &&
+          parseInt(performanceMeasure[i].denominator) !== 0
+        ) {
+          zeroRateError = true;
         }
       }
     });
   });
-  OPM.forEach((performanceMeasure: any) => {
-    performanceMeasure.rate.forEach((rate: any) => {
-      if (parseInt(rate.numerator) === 0 || parseInt(rate.denominator) === 0) {
-        error = true;
-      }
+
+  OPM &&
+    OPM.forEach((performanceMeasure: any) => {
+      performanceMeasure.rate.forEach((rate: any) => {
+        if (parseInt(rate.numerator) === 0 && parseInt(rate.rate) !== 0) {
+          nonZeroRateError = true;
+        }
+        if (
+          parseInt(rate.numerator) !== 0 &&
+          parseInt(rate.denominator) !== 0 &&
+          parseInt(rate.rate) === 0
+        ) {
+          zeroRateError = true;
+        }
+      });
     });
-  });
-  if (error) {
+  if (nonZeroRateError) {
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage: `You cannot have a numerator or denominator equal to zero`,
+      errorMessage: `Manually entered rate should be 0 if numerator is 0`,
     });
   }
-  return error ? errorArray : [];
+  if (zeroRateError) {
+    errorArray.push({
+      errorLocation: "Performance Measure",
+      errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0`,
+    });
+  }
+  return zeroRateError || nonZeroRateError ? errorArray : [];
 };
