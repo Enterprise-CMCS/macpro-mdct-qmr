@@ -171,6 +171,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
             isLoading={mutationRunning}
             handleSave={methods.handleSubmit(handleSave)}
             lastAltered={measureData?.data && measureData?.lastAltered}
+            isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
           />
         }
       >

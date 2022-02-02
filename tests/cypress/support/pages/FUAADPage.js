@@ -18,7 +18,7 @@ const verifyPictureFileIsUploaded =
 
 //OY2-15504
 const saveButtn = "//button[@class='chakra-button css-hp17lz']";
-const saveStatusUnderSaveButton = "//p[@class='chakra-text css-nr0v7p']";
+const saveStatusUnderSaveButton = "//p[@id='last-saved-text']";
 const NCQARadioButton =
   "(//span[@class='chakra-radio__control css-gzpnyx'])[5]";
 const selectOption = "//div[@class='chakra-select__wrapper css-42b2qy']";
@@ -173,7 +173,6 @@ export class FUAADPAGE {
   clickSaveButtnVerifyStatus() {
     cy.xpath(saveButtn).click();
     cy.wait(500);
-    //cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
   }
 
   clickNCQAHEDIS() {
@@ -187,7 +186,7 @@ export class FUAADPAGE {
 
   clickValidateMeasureButtonVerify() {
     cy.xpath(validateMeasureButton).click();
-    cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
+    // cy.get(saveStatusUnderSaveButton).contains("Saved");
     cy.xpath(errorMessageContent).contains(
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
     );
@@ -277,7 +276,6 @@ export class FUAADPAGE {
   clickSaveButtnVerifyStatus() {
     cy.xpath(saveButtn).click();
     cy.wait(500);
-    //cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
   }
 
   clickNCQAHEDIS() {
@@ -291,7 +289,7 @@ export class FUAADPAGE {
 
   clickValidateMeasureButtonVerify() {
     cy.xpath(validateMeasureButton).click();
-    cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
+    // cy.get(saveStatusUnderSaveButton).contains("Saved");
     cy.xpath(errorMessageContent).contains(
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
     );

@@ -5,12 +5,14 @@ interface Props {
   handleSave: () => void;
   lastAltered?: number;
   isLoading?: boolean;
+  isSubmitted?: boolean;
 }
 
 export const MeasureButtons = ({
   handleSave,
   lastAltered,
   isLoading,
+  isSubmitted,
 }: Props) => {
   const { isStateUser } = useUser();
 
@@ -30,7 +32,10 @@ export const MeasureButtons = ({
       </CUI.HStack>
       {lastAltered && (
         <CUI.Flex mb={{ base: "1", lg: "0" }} data-testid="last-saved-text">
-          <QMR.LastSavedText lastAltered={lastAltered} />
+          <QMR.LastSavedText
+            lastAltered={lastAltered}
+            isSubmitted={isSubmitted}
+          />
         </CUI.Flex>
       )}
     </CUI.Stack>

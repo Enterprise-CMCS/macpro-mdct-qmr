@@ -2,7 +2,11 @@ import { formatDistanceToNow } from "date-fns";
 import * as CUI from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
 
-export const LastSavedText = ({ lastAltered }: { lastAltered?: number }) => {
+interface Props {
+  lastAltered?: number;
+  isSubmitted?: boolean;
+}
+export const LastSavedText = ({ lastAltered, isSubmitted }: Props) => {
   if (!lastAltered) return null;
   const lastAlteredText = formatDistanceToNow(new Date(lastAltered), {
     addSuffix: true,
@@ -12,8 +16,8 @@ export const LastSavedText = ({ lastAltered }: { lastAltered?: number }) => {
       <CUI.Box mt="1">
         <FaCheckCircle />
       </CUI.Box>
-      <CUI.Text ml="2" fontSize="sm">
-        {`Submitted ${lastAlteredText}`}
+      <CUI.Text ml="2" fontSize="sm" id="last-saved-text">
+        {`${isSubmitted ? "Submitted" : "Saved"} ${lastAlteredText}`}
       </CUI.Text>
     </CUI.Flex>
   );
