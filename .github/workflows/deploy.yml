@@ -60,6 +60,7 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
         with:
           coverageLocations: |
+            ${{github.workspace}}/services/app-api/coverage/lcov.info:lcov
             ${{github.workspace}}/services/ui-src/coverage/lcov.info:lcov
       - name: Store unit test reults
         uses: actions/upload-artifact@v2
