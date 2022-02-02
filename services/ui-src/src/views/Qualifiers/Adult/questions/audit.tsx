@@ -49,7 +49,7 @@ export const Audit = () => {
         isVisible: true,
       },
       {
-        label: "CCP-AD - Contraceptive Care Postpartum Women Ages 21 - 44",
+        label: "CCP-AD - Contraceptive Care - Postpartum Women Ages 21 to 44",
         value: "CCP-AD",
         isVisible: true,
       },
