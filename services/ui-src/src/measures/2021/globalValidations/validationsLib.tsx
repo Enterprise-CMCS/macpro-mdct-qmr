@@ -175,7 +175,9 @@ export const validateEqualDenominators = (
   return error ? errorArray : [];
 };
 
-// If a user manually over-rides a rate
+// If a user manually over-rides a rate it must not violate two rules:
+// It must be zero if the numerator is zero or
+// It Must be greater than zero if the Num and Denom are greater than zero
 export const validateNoNonZeroNumOrDenom = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
