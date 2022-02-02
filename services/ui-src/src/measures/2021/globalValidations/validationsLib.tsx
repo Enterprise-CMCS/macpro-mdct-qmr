@@ -62,7 +62,17 @@ export const validateDualPopInformation = (
       (performanceMeasureArray[index][i].denominator ||
         performanceMeasureArray[index][i].numerator)
     ) {
-      filledInData.push(performanceMeasureArray[index][i]);
+      if (
+        !(
+          performanceMeasureArray[index][i].denominator &&
+          performanceMeasureArray[index][i].numerator &&
+          parseInt(performanceMeasureArray[index][i].denominator) === 0 &&
+          parseInt(performanceMeasureArray[index][i].numerator) === 0
+        )
+      ) {
+        console.log(performanceMeasureArray[index][i]);
+        filledInData.push(performanceMeasureArray[index][i]);
+      }
     }
   });
   if (!dualEligible && filledInData.length > 0) {
