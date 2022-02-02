@@ -1,5 +1,4 @@
 {
-  "nodeVersion": "system",
   "baseUrl": "http://localhost:3000/",
   "redirectionLimit": 20,
   "retries": 2,
