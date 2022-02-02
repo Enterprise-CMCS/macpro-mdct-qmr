@@ -96,7 +96,8 @@ const useMeasureTableDataBuilder = () => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
       const filteredItems = (data.Items as MeasureData[]).filter(
-        (item) => item.measure
+        // filter out the coreset qualifiers
+        (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
         return {
