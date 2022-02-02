@@ -6,6 +6,7 @@ import { useController, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { DeliverySystem, CCSQualifierForm } from "../types";
 import { BsPercent } from "react-icons/bs";
+import { percentageAllowOneDecimalMax } from "utils/numberInputMasks";
 
 interface DefaultDeliverySystemTableRecordProps {
   record: string;
@@ -25,6 +26,7 @@ const DefaultDeliverySystemTableRecord = ({
         displayPercent
         name={`${record}.UnderTwentyOneMedicaid`}
         numberInputProps={{ textAlign: "right" }}
+        mask={percentageAllowOneDecimalMax}
       />
     </CUI.Td>
     <CUI.Td>
@@ -32,6 +34,7 @@ const DefaultDeliverySystemTableRecord = ({
         displayPercent
         name={`${record}.UnderTwentyOneCHIP`}
         numberInputProps={{ textAlign: "right" }}
+        mask={percentageAllowOneDecimalMax}
       />
     </CUI.Td>
   </CUI.Tr>
@@ -60,6 +63,7 @@ const CustomDeliverySystemTableRecord = ({
           displayPercent
           name={`${record}.UnderTwentyOneMedicaid`}
           numberInputProps={{ textAlign: "right" }}
+          mask={percentageAllowOneDecimalMax}
         />
       </CUI.Td>
       <CUI.Td>
@@ -67,6 +71,7 @@ const CustomDeliverySystemTableRecord = ({
           displayPercent
           name={`${record}.UnderTwentyOneCHIP`}
           numberInputProps={{ textAlign: "right" }}
+          mask={percentageAllowOneDecimalMax}
         />
       </CUI.Td>
     </CUI.Tr>
