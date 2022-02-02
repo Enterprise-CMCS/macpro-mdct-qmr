@@ -39,7 +39,7 @@ describe("test audit or validation component", () => {
       )
     ).toBeInTheDocument();
     expect(
-      await screen.findByText("No, we calculated all the measure internally.")
+      await screen.findByText("No, we calculated all the measures internally.")
     ).toBeInTheDocument();
 
     fireEvent.click(

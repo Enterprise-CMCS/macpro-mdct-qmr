@@ -59,7 +59,7 @@ export const ExternalContractor = () => {
                 ],
               },
               {
-                displayValue: "No, we calculated all the measure internally.",
+                displayValue: "No, we calculated all the measures internally.",
                 value: "no",
               },
             ]}
