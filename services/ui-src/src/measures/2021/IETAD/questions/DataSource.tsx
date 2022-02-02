@@ -102,7 +102,7 @@ export const DataSource = () => {
       {/* This will be visible if Other is selected at the root of the data source question */}
       {isElectronicDataSource && (
         <QMR.TextArea
-          label={`Electronic Data Source: ${
+          label={`Electronic Health Records: ${
             watch("DataSource-Electronic") || ""
           }`}
           {...register("DataSource-Electronic-Explanation")}
