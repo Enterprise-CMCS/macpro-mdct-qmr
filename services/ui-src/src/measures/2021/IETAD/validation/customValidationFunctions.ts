@@ -97,7 +97,7 @@ const IEDValidation = (data: Measure.Form) => {
   //@ts-ignore
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, ageGroups, OPM),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateDualPopInformation(
       performanceMeasureArray,
       age65PlusIndex,
@@ -105,6 +105,7 @@ const IEDValidation = (data: Measure.Form) => {
     ),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
+      OPM,
       ageGroups
     ),
     ...validateEqualDenominators(performanceMeasureArray, ageGroups),

@@ -2,15 +2,14 @@ import { PerformanceMeasure } from "./types";
 
 export const atLeastOneRateComplete = (
   performanceMeasureArray: PerformanceMeasure[][],
-  ageGroups: string[],
-  OPM: any
+  OPM: any,
+  ageGroups: string[]
 ) => {
   let error = true;
   let errorArray: any[] = [];
-
   // Check OPM first
-  ageGroups.forEach((_ageGroup, i) => {
-    if (OPM && OPM[i] && OPM[i].rate) {
+  OPM.forEach((measure: any) => {
+    if (measure.rate && measure.rate[0] && measure.rate[0].rate) {
       error = false;
     }
   });
@@ -70,7 +69,6 @@ export const validateDualPopInformation = (
           parseInt(performanceMeasureArray[index][i].numerator) === 0
         )
       ) {
-        console.log(performanceMeasureArray[index][i]);
         filledInData.push(performanceMeasureArray[index][i]);
       }
     }
@@ -97,24 +95,32 @@ export const validateDualPopInformation = (
 // For every performance measure the Numerators must always be less than the denominators
 export const validateNumeratorsLessThanDenominators = (
   performanceMeasureArray: PerformanceMeasure[][],
+  OPM: any,
   ageGroups: string[]
 ) => {
   let error = false;
   let errorArray: any[] = [];
   ageGroups.forEach((_ageGroup, i) => {
-    performanceMeasureArray.forEach((_performanceObj, index) => {
+    performanceMeasureArray.forEach((performanceMeasure) => {
       if (
-        performanceMeasureArray[index] &&
-        performanceMeasureArray[index][i] &&
-        performanceMeasureArray[index][i].denominator &&
-        performanceMeasureArray[index][i].numerator
+        performanceMeasure &&
+        performanceMeasure[i] &&
+        performanceMeasure[i].denominator &&
+        performanceMeasure[i].numerator
       ) {
         if (
-          parseInt(performanceMeasureArray[index][i].denominator) <
-          parseInt(performanceMeasureArray[index][i].numerator)
+          parseInt(performanceMeasure[i].denominator) <
+          parseInt(performanceMeasure[i].numerator)
         ) {
           error = true;
         }
+      }
+    });
+  });
+  OPM.forEach((performanceMeasure: any) => {
+    performanceMeasure.rate.forEach((rate: any) => {
+      if (parseInt(rate.numerator) > parseInt(rate.denominator)) {
+        error = true;
       }
     });
   });
