@@ -53,13 +53,13 @@ const validateTotalsEqualOrGreaterThan = (
     if (initiationError) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `Numerator for Initiation of AOD Treatment: AOD Abuse or Dependence must be greater than or equal to the highest number in its sub-categories for ${ageGroup}`,
+        errorMessage: `In the Category Totals for Initiation for ${ageGroups[i]} the numerator must be equal to or greater than the numerators in the other categories`,
       });
     }
     if (engagementError) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `Numerator for Initiation of AOD Treatment: AOD Abuse or Dependence must be greater than or equal to the highest number in its sub-categories for ${ageGroup}`,
+        errorMessage: `In the Category Totals for Engagement for ${ageGroups[i]} the numerator must be equal to or greater than the numerators in the other categories`,
       });
     }
   });
