@@ -66,7 +66,7 @@ const validateTotalsEqualOrGreaterThan = (
 };
 
 const IEDValidation = (data: Measure.Form) => {
-  const ageGroups = ["Ages 18 to 64", "Ages 65 and Older"];
+  const ageGroups = ["Ages 18 to 64", "Age 65 and Older"];
   const age65PlusIndex = 1;
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = [

@@ -38,7 +38,7 @@ interface SubComponentProps {
 export const DefaultOptionalMeasureStratProps: Props = {
   ageGroups: [
     { label: "Ages 18 to 64", id: 0 },
-    { label: "Ages 65 and older", id: 1 },
+    { label: "Age 65 and older", id: 1 },
   ],
 };
 

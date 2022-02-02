@@ -105,7 +105,7 @@ export const IETAD = ({
     showInitTotal65Plus ||
     showEngageTotal65Plus
   ) {
-    ageGroups.push({ label: "Ages 65 and older", id: 1 });
+    ageGroups.push({ label: "Age 65 and older", id: 1 });
   }
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
