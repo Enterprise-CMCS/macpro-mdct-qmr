@@ -10,6 +10,12 @@ const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
 const coreSetMeasureText = "//a[contains(text(),'Core Set Measures')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const AdultCoreSetMeasures = "//tbody/tr[1]/td[1]/a[1]/p[1]";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const addChildCoreSet =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[2]/aside[1]/div[1]/a[1]/div[1]/button[1]";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const addHealthHomesCoreSet =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[2]/aside[2]/div[1]/a[1]/div[1]/button[1]";
 
 export class Landingpage {
   launch() {
@@ -56,6 +62,14 @@ export class Landingpage {
 
   clickAdultCoreSetMeasures() {
     cy.xpath(AdultCoreSetMeasures).click();
+  }
+
+  verifyaddChildCoreSetisDisabled() {
+    cy.xpath(addChildCoreSet).should("be.disabled");
+  }
+
+  verifyaddHealthHomesCoreSetisDisabled() {
+    cy.xpath(addHealthHomesCoreSet).should("be.disabled");
   }
 }
 export default Landingpage;
