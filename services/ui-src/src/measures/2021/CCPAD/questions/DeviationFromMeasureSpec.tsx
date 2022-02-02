@@ -126,16 +126,16 @@ export const DeviationFromMeasureSpec = ({
                   deviationConditions.showEffectiveContraceptionSixtyDaysPostPartum
                     ? [
                         {
-                          value: "3daysPostPartum",
+                          value: "MostEffective",
                           displayValue:
                             "Most effective or moderately effective method of contraception",
                           children: [
                             <QMR.Checkbox
-                              {...register("DeviationOptions-3daysPostPartum")}
+                              {...register("DeviationOptions-MostEffective")}
                               formLabelProps={{ fontWeight: 600 }}
                               options={deviationOptions({
                                 options,
-                                ...register("DeviationFields-3days"),
+                                ...register("DeviationFields-MostEffective"),
                                 deviationConditions,
                               })}
                             />,
@@ -148,16 +148,16 @@ export const DeviationFromMeasureSpec = ({
                   deviationConditions.showLongActingContraceptionSixtyDaysPostPartum
                     ? [
                         {
-                          value: "60daysPostPartum",
+                          value: "LongLasting",
                           displayValue:
                             "Long-acting reversible method of contraception (LARC)",
                           children: [
                             <QMR.Checkbox
-                              {...register("DeviationOptions-3daysPostPartum")}
+                              {...register("DeviationOptions-LARC")}
                               formLabelProps={{ fontWeight: 600 }}
                               options={deviationOptions({
                                 options,
-                                ...register("DeviationFields-60days"),
+                                ...register("DeviationFields-LARC"),
                                 deviationConditions,
                               })}
                             />,

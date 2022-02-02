@@ -35,7 +35,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Contraceptive Care Postpartum Women Ages 21-44",
+      name: "Contraceptive Care - Postpartum Women Ages 21 to 44",
       measureId: "CCP-AD",
     },
     {

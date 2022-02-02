@@ -93,6 +93,13 @@ const AgeData = ({ name }: SubComponentProps) => {
       (source) => source === "I am reporting provisional data."
     ) ?? true;
 
+  const showEffective =
+    !!deviationConditions?.showEffectiveContraceptionThreeDaysPostPartum ||
+    !!deviationConditions?.showEffectiveContraceptionSixtyDaysPostPartum;
+  const showLongLast =
+    !!deviationConditions?.showLongActingContraceptionThreeDaysPostPartum ||
+    !!deviationConditions?.showLongActingContraceptionSixtyDaysPostPartum;
+
   return (
     <CUI.Box key={`${name}.ageData`}>
       <CUI.Heading key={`${name}.header`} size="sm" mb={6}>
@@ -102,9 +109,18 @@ const AgeData = ({ name }: SubComponentProps) => {
       {ageGroups.map((item, index) => {
         return (
           <CUI.Box key={`${item.label}.${item.id}.${index}`}>
-            <CUI.Heading key={`${name}.${index}.subHeader`} size="sm">
-              {item.label}
-            </CUI.Heading>
+            {(deviationConditions?.showOtherPerformanceMeasureRates ||
+              showEffective ||
+              showLongLast) && (
+              <CUI.Heading key={`${name}.${index}.subHeader`} size="sm">
+                {(deviationConditions?.showOtherPerformanceMeasureRates &&
+                  item.label) ||
+                  (item.id === 0 &&
+                    "Most effective or moderately effective method of contraception") ||
+                  (item.id === 1 &&
+                    "Long-acting reversible method of contraception (LARC)")}
+              </CUI.Heading>
+            )}
             {deviationConditions?.showOtherPerformanceMeasureRates && (
               <QMR.Rate
                 readOnly={rateReadOnly}
@@ -113,7 +129,6 @@ const AgeData = ({ name }: SubComponentProps) => {
                 rates={[
                   {
                     id: 0,
-                    label: item.label,
                   },
                 ]}
               />

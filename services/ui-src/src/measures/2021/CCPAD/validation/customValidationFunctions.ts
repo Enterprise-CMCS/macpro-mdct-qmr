@@ -20,7 +20,7 @@ const validateRates = (data: Measure.Form) => {
 
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both Most Effective/Moderately Effective Contraception rate and Long-acting Reversible Contraception (LARC) rate for ${timeSet}.`,
+          errorMessage: `Denominators must be the same for both Most Effective or Moderately Effective Contraception rate and Long-acting Reversible Contraception (LARC) rate for ${timeSet}.`,
         };
 
         errorArray.push(error);
@@ -29,6 +29,109 @@ const validateRates = (data: Measure.Form) => {
   }
 
   return error ? errorArray : error;
+};
+
+// const validateUserEnteredRate = (data: Measure.Form) => {
+//   const longActing = data["PerformanceMeasure-AgeRates-longActingContraception"];
+//   const mostEffective = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+//   let error;
+//   const errorArray: any[] = [];
+
+//   if(mostEffective || longActing) {
+//     mostEffective.forEach((item, index) => {
+//       if(item.rate) {
+//         const rateVal = parseInt(item.rate);
+//         const numValue = item.numerator && parseInt(item.numerator)
+//         const denValue = item.denominator && parseInt(item.denominator)
+//         const range = index === 0 ? "Three Days Postpartum" : "Sixty Days Postpartum";
+
+//         if(numValue && denValue){
+//           if(numValue > 0 && denValue > 0 && rateVal <= 0){
+//             //error
+//           }
+//         }
+//       }
+//     })
+//   }
+// }
+
+const CCPADValidation = (data: Measure.Form) => {
+  const ageGroups = ["3 days postpartem", "60 days postpartem"];
+  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = [
+    data["PerformanceMeasure-AgeRates-longActingContraception"],
+    data["PerformanceMeasure-AgeRates-effectiveContraception"],
+  ];
+  let errorArray: any[] = [];
+  //@ts-ignore
+  errorArray = [
+    ...errorArray,
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+  ];
+  return errorArray;
+};
+
+export const validateNoNonZeroNumOrDenom = (
+  performanceMeasureArray: any[][],
+  OPM: any,
+  ageGroups: string[]
+) => {
+  let nonZeroRateError = false;
+  let zeroRateError = false;
+  let errorArray: any[] = [];
+  ageGroups.forEach((_ageGroup, i) => {
+    performanceMeasureArray.forEach((performanceMeasure) => {
+      if (
+        performanceMeasure &&
+        performanceMeasure[i] &&
+        performanceMeasure[i].denominator &&
+        performanceMeasure[i].numerator &&
+        performanceMeasure[i].rate
+      ) {
+        if (
+          parseInt(performanceMeasure[i].rate) !== 0 &&
+          parseInt(performanceMeasure[i].numerator) === 0
+        ) {
+          nonZeroRateError = true;
+        }
+        if (
+          parseInt(performanceMeasure[i].rate) === 0 &&
+          parseInt(performanceMeasure[i].numerator) !== 0 &&
+          parseInt(performanceMeasure[i].denominator) !== 0
+        ) {
+          zeroRateError = true;
+        }
+      }
+    });
+  });
+  OPM &&
+    OPM.forEach((performanceMeasure: any) => {
+      performanceMeasure.rate.forEach((rate: any) => {
+        if (parseInt(rate.numerator) === 0 && parseInt(rate.rate) !== 0) {
+          nonZeroRateError = true;
+        }
+        if (
+          parseInt(rate.numerator) !== 0 &&
+          parseInt(rate.denominator) !== 0 &&
+          parseInt(rate.rate) === 0
+        ) {
+          zeroRateError = true;
+        }
+      });
+    });
+  if (nonZeroRateError) {
+    errorArray.push({
+      errorLocation: "Performance Measure",
+      errorMessage: `Manually entered rate should be 0 if numerator is 0`,
+    });
+  }
+  if (zeroRateError) {
+    errorArray.push({
+      errorLocation: "Performance Measure",
+      errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0`,
+    });
+  }
+  return zeroRateError || nonZeroRateError ? errorArray : [];
 };
 
 const validateDualPopulationInformation = (data: Measure.Form) => {
@@ -103,34 +206,6 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
     }
   }
   return error;
-};
-
-const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj, index) => {
-      if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
-      ) {
-        const ageGroup =
-          index === 0 ? "Three Days Postpartum" : "Sixty Days Postpartum";
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `Most Effective or Moderately Effective Method of Contraception Rate should not be higher than Long-acting Reversible Method of Contraception (LARC) Rate for ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
 };
 
 const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
@@ -233,7 +308,7 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
 
 export const validationFunctions = [
   validateRates,
-  validate7DaysGreaterThan30Days,
+  CCPADValidation,
   validateSevenDayNumeratorLessThanDenominator,
   validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,

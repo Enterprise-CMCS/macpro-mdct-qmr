@@ -62,7 +62,7 @@ export const CCPAD = ({
     showEffectiveContraceptionSixtyDaysPostPartum
   ) {
     ageGroups.push({
-      label: "Most effective or moderately effective method of contraception",
+      label: "Three Days Postpartum Rate",
       id: 0,
     });
   }
@@ -72,7 +72,7 @@ export const CCPAD = ({
     showLongActingContraceptionSixtyDaysPostPartum
   ) {
     ageGroups.push({
-      label: "Long-acting reversible method of contraception (LARC)",
+      label: "Sixty Days Postpartum Rate",
       id: 1,
     });
   }

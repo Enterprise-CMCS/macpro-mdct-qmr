@@ -115,15 +115,15 @@ export namespace Measure {
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    "DeviationOptions-3daysPostPartum": string[];
-    "DeviationOptions-60daysPostPartum": string[];
-    "DeviationFields-3days": {
+    "DeviationOptions-MostEffective": string[];
+    "DeviationOptions-LARC": string[];
+    "DeviationFields-MostEffective": {
       options: string[];
       denominator: string;
       numerator: string;
       other: string;
     };
-    "DeviationFields-60days": {
+    "DeviationFields-LARC": {
       options: string[];
       denominator: string;
       numerator: string;
