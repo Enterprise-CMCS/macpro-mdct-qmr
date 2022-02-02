@@ -63,18 +63,32 @@ export const PerformanceMeasure = () => {
         auto-calculate:
       </CUI.Text>
       <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 30 days of ED visit
+        Advising Smokers and Tobacco Users to Quit
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
-        {...register("PerformanceMeasure-AgeRates-30Days")}
+        {...register("PerformanceMeasure-AgeRates-AdvisingUsers")}
       />
       <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 7 days of ED visit
+        Discussing Cessation Medications
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
-        {...register("PerformanceMeasure-AgeRates-7Days")}
+        {...register("PerformanceMeasure-AgeRates-DiscussingMedications")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Discussing Cessation Strategies
+      </CUI.Text>
+      <QMR.Rate
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-DiscussingStrategies")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Percentage of Current Smokers and Tobacco Users
+      </CUI.Text>
+      <QMR.Rate
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-PercentageUsers")}
       />
     </QMR.CoreQuestionWrapper>
   );

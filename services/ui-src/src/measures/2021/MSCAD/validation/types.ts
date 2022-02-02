@@ -118,7 +118,7 @@ export namespace Measure {
       other: string;
     };
     "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-30Days": {
+    "PerformanceMeasure-AgeRates-AdvisingUsers": {
       denominator: string;
       numerator: string;
       other: string;
@@ -126,7 +126,23 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    "PerformanceMeasure-AgeRates-7Days": {
+    "PerformanceMeasure-AgeRates-DiscussingMedications": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-DiscussingStrategies": {
+      denominator: string;
+      numerator: string;
+      other: string;
+      id: string;
+      label: string;
+      rate: string;
+    }[];
+    "PerformanceMeasure-AgeRates-PercentageUsers": {
       denominator: string;
       numerator: string;
       other: string;
