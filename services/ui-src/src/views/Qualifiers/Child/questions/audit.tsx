@@ -67,6 +67,7 @@ export const Audit = () => {
   const removeAuditItem = (index: number) => {
     const newMeasureList = [...measureList];
     newMeasureList.splice(index, 1);
+    field.value.splice(index, 1);
     setMeasureList(newMeasureList);
   };
 
