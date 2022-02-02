@@ -105,7 +105,6 @@ export const FUHAD = ({
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
           <Q.CombinedRates />
-          <Q.AdditionalNotes />
           {(show30DaysAges18To64 ||
             show30DaysAges65AndOlder ||
             show7DaysAges18To64 ||
@@ -122,6 +121,7 @@ export const FUHAD = ({
               }}
             />
           )}
+          <Q.AdditionalNotes />
         </>
       )}
       <CUI.Stack alignItems="flex-start">
