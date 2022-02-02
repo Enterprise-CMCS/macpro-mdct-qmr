@@ -53,13 +53,13 @@ const validateTotalsEqualOrGreaterThan = (
     if (initiationError) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `In the Category Totals for Initiation for ${ageGroups[i]} the numerator must be equal to or greater than the numerators in the other categories`,
+        errorMessage: `In the Category Totals for Initiation for ${ageGroup} the numerator must be equal to or greater than the numerators in the other categories`,
       });
     }
     if (engagementError) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `In the Category Totals for Engagement for ${ageGroups[i]} the numerator must be equal to or greater than the numerators in the other categories`,
+        errorMessage: `In the Category Totals for Engagement for ${ageGroup} the numerator must be equal to or greater than the numerators in the other categories`,
       });
     }
   });
