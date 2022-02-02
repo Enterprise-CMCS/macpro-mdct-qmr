@@ -10,6 +10,7 @@ export * from "./Header";
 export * from "./InputWrapper";
 export * from "./Inputs";
 export * from "./KebabMenu";
+export * from "./LastSavedText";
 export * from "./Layouts";
 export * from "./LocalLogins";
 export * from "./LoadingWave";

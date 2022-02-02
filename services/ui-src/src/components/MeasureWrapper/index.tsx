@@ -23,9 +23,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   );
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [lastSavedText, setLastSavedText] = useState(
-    "Awaiting Save Status Retrieval"
-  );
 
   /*
   this is where we put all the high level stuff for measures
@@ -68,7 +65,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const handleSave = (data: any) => {
     if (!mutationRunning && !loadingData) {
-      setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(
         { data, status: measureData?.status },
         {
@@ -77,7 +73,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
               refetch();
             }
             //TODO: some form of error showcasing should display here
-            if (error) setLastSavedText("Failed To Save Form Information");
+            if (error) console.log(error);
           },
         }
       );
@@ -99,7 +95,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const submitDataToServer = (data: any) => {
     if (!mutationRunning && !loadingData) {
-      setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(
         { data, status: MeasureStatus.COMPLETE },
         {
@@ -107,7 +102,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
             if (data && !error) refetch();
 
             //TODO: some form of error showcasing should display here
-            if (error) setLastSavedText("Failed To Submit Form Information");
+            if (error) console.log(error);
           },
         }
       );
@@ -145,33 +140,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     }
   };
 
-  // interval for updating the last saved text
-  useEffect(() => {
-    const checkSavedTime = () => {
-      const lastTime = measureData?.lastAltered / 1000;
-      const currentTime = new Date().getTime() / 1000;
-      if (lastTime && currentTime) {
-        const timeElapsed = currentTime - lastTime;
-        if (timeElapsed < 1 * 60) {
-          setLastSavedText("Saved Moments Ago");
-        } else if (timeElapsed < 60 * 60) {
-          setLastSavedText(
-            `Last Saved ${(timeElapsed / 60).toFixed()} Minute(s) Ago`
-          );
-        } else {
-          setLastSavedText(
-            `Last Saved ${(timeElapsed / (60 * 60)).toFixed()} Hour(s) Ago`
-          );
-        }
-      }
-    };
-    checkSavedTime();
-    const interval = setInterval(checkSavedTime, 30 * 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [measureData, setLastSavedText]);
-
   if (!params.coreSetId || !params.state) {
     return null;
   }
@@ -200,8 +168,9 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         buttons={
           //TODO: this needs some form of loading state for these buttons using mutationRunning
           <QMR.MeasureButtons
+            isLoading={mutationRunning}
             handleSave={methods.handleSubmit(handleSave)}
-            lastSavedText={lastSavedText}
+            lastAltered={measureData?.data && measureData?.lastAltered}
           />
         }
       >
