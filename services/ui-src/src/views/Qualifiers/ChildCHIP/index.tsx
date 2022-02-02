@@ -47,12 +47,6 @@ export const CCSCQualifiers = () => {
           userGenerated: false,
         },
       ],
-      CoreSetMeasuresAuditedOrValidatedDetails: [
-        {
-          MeasuresAuditedOrValidated: [],
-          WhoConductedAuditOrValidation: "",
-        },
-      ],
     },
   });
 

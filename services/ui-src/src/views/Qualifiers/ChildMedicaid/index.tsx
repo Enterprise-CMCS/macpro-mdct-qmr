@@ -46,12 +46,6 @@ export const CCSMQualifiers = () => {
           userGenerated: false,
         },
       ],
-      CoreSetMeasuresAuditedOrValidatedDetails: [
-        {
-          MeasuresAuditedOrValidated: [],
-          WhoConductedAuditOrValidation: "",
-        },
-      ],
     },
   });
 

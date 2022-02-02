@@ -50,12 +50,6 @@ export const CCSQualifiers = () => {
           userGenerated: false,
         },
       ],
-      CoreSetMeasuresAuditedOrValidatedDetails: [
-        {
-          MeasuresAuditedOrValidated: [],
-          WhoConductedAuditOrValidation: "",
-        },
-      ],
     },
   });
 
