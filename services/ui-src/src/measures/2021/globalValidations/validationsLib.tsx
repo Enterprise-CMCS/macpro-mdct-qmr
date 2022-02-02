@@ -172,3 +172,44 @@ export const validateEqualDenominators = (
   });
   return error ? errorArray : [];
 };
+
+// If a user manually over-rides a rate
+export const validateNoNonZeroNumOrDenom = (
+  performanceMeasureArray: PerformanceMeasure[][],
+  OPM: any,
+  ageGroups: string[]
+) => {
+  let error = false;
+  let errorArray: any[] = [];
+  ageGroups.forEach((_ageGroup, i) => {
+    performanceMeasureArray.forEach((performanceMeasure) => {
+      if (
+        performanceMeasure &&
+        performanceMeasure[i] &&
+        performanceMeasure[i].denominator &&
+        performanceMeasure[i].numerator
+      ) {
+        if (
+          parseInt(performanceMeasure[i].denominator) === 0 ||
+          parseInt(performanceMeasure[i].numerator) === 0
+        ) {
+          error = true;
+        }
+      }
+    });
+  });
+  OPM.forEach((performanceMeasure: any) => {
+    performanceMeasure.rate.forEach((rate: any) => {
+      if (parseInt(rate.numerator) === 0 || parseInt(rate.denominator) === 0) {
+        error = true;
+      }
+    });
+  });
+  if (error) {
+    errorArray.push({
+      errorLocation: "Performance Measure",
+      errorMessage: `You cannot have a numerator or denominator equal to zero`,
+    });
+  }
+  return error ? errorArray : [];
+};

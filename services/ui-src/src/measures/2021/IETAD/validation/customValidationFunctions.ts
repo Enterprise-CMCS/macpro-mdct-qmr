@@ -4,6 +4,7 @@ import {
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateEqualDenominators,
+  validateNoNonZeroNumOrDenom,
 } from "../../globalValidations/validationsLib";
 
 // // The AOM totals Numerator needs to be equal or greater than the largest initiation/engagement
@@ -116,6 +117,7 @@ const IEDValidation = (data: Measure.Form) => {
       totalEngagement,
       ageGroups
     ),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
   return errorArray;
