@@ -101,6 +101,7 @@ const IEDValidation = (data: Measure.Form) => {
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateDualPopInformation(
       performanceMeasureArray,
+      OPM,
       age65PlusIndex,
       DefinitionOfDenominator
     ),

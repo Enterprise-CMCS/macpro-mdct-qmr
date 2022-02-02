@@ -7,6 +7,7 @@ export const atLeastOneRateComplete = (
 ) => {
   let error = true;
   let errorArray: any[] = [];
+  const OPMError = OPM ? "Other " : "";
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
@@ -30,7 +31,7 @@ export const atLeastOneRateComplete = (
   });
   if (error) {
     errorArray.push({
-      errorLocation: "Performance Measure",
+      errorLocation: `${OPMError}Performance Measure`,
       errorMessage: `At least one performance measure must be completed`,
     });
   }
@@ -39,9 +40,13 @@ export const atLeastOneRateComplete = (
 
 export const validateDualPopInformation = (
   performanceMeasureArray: PerformanceMeasure[][],
+  OPM: any,
   age65PlusIndex: number,
   DefinitionOfDenominator: any
 ) => {
+  if (OPM) {
+    return [];
+  }
   let dualEligible;
   if (DefinitionOfDenominator) {
     dualEligible =
@@ -55,23 +60,15 @@ export const validateDualPopInformation = (
   let errorArray: any[] = [];
   let filledInData: any[] = [];
   const i = age65PlusIndex;
-  performanceMeasureArray.forEach((_performanceObj, index) => {
+  performanceMeasureArray.forEach((performanceMeasure) => {
     if (
-      performanceMeasureArray[index] &&
-      performanceMeasureArray[index][i] &&
-      (performanceMeasureArray[index][i].denominator ||
-        performanceMeasureArray[index][i].numerator)
+      performanceMeasure &&
+      performanceMeasure[i] &&
+      performanceMeasure[i].denominator &&
+      performanceMeasure[i].numerator &&
+      performanceMeasure[i].rate
     ) {
-      if (
-        !(
-          performanceMeasureArray[index][i].denominator &&
-          performanceMeasureArray[index][i].numerator &&
-          parseInt(performanceMeasureArray[index][i].denominator) === 0 &&
-          parseInt(performanceMeasureArray[index][i].numerator) === 0
-        )
-      ) {
-        filledInData.push(performanceMeasureArray[index][i]);
-      }
+      filledInData.push(performanceMeasure[i]);
     }
   });
   if (!dualEligible && filledInData.length > 0) {
@@ -82,7 +79,7 @@ export const validateDualPopInformation = (
         "Information has been included in the Age 65 and older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
     });
   }
-  if (dualEligible && filledInData.length < performanceMeasureArray.length) {
+  if (dualEligible && filledInData.length === 0) {
     error = true;
     errorArray.push({
       errorLocation: "Performance Measure",
@@ -101,6 +98,7 @@ export const validateNumeratorsLessThanDenominators = (
 ) => {
   let error = false;
   let errorArray: any[] = [];
+  const OPMError = OPM ? "Other " : "";
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray.forEach((performanceMeasure) => {
       if (
@@ -128,7 +126,7 @@ export const validateNumeratorsLessThanDenominators = (
     });
   if (error) {
     errorArray.push({
-      errorLocation: "Performance Measure",
+      errorLocation: `${OPMError}Performance Measure`,
       errorMessage: `Numerators must be less than Denominators for all applicable performance measures`,
     });
   }
@@ -186,6 +184,7 @@ export const validateNoNonZeroNumOrDenom = (
   let nonZeroRateError = false;
   let zeroRateError = false;
   let errorArray: any[] = [];
+  const OPMError = OPM ? "Other " : "";
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray.forEach((performanceMeasure) => {
       if (
@@ -229,13 +228,13 @@ export const validateNoNonZeroNumOrDenom = (
     });
   if (nonZeroRateError) {
     errorArray.push({
-      errorLocation: "Performance Measure",
+      errorLocation: `${OPMError}Performance Measure`,
       errorMessage: `Manually entered rate should be 0 if numerator is 0`,
     });
   }
   if (zeroRateError) {
     errorArray.push({
-      errorLocation: "Performance Measure",
+      errorLocation: `${OPMError}Performance Measure`,
       errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0`,
     });
   }
