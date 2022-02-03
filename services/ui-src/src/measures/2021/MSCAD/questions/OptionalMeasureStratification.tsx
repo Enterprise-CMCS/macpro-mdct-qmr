@@ -105,8 +105,8 @@ const AgeData = ({ name }: SubComponentProps) => {
               ...(deviationConditions?.showOtherPerformanceMeasureRates
                 ? [
                     <QMR.Rate
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
+                      name={`${name}.subRates.${item.id}.otherPerformanceMeasure`}
+                      key={`${name}.subRates.${item.id}.otherPerformanceMeasure`}
                       rates={[
                         {
                           id: 0,
@@ -123,8 +123,8 @@ const AgeData = ({ name }: SubComponentProps) => {
                 item.id === 1)
                 ? [
                     <QMR.Rate
-                      name={`${name}.subRates.${item.id}.AdvisingUsers`}
-                      key={`${name}.subRates.${item.id}.AdvisingUsers`}
+                      name={`${name}.subRates.${item.id}.advisingUsers`}
+                      key={`${name}.subRates.${item.id}.advisingUsers`}
                       rates={[
                         {
                           id: 0,
@@ -141,12 +141,48 @@ const AgeData = ({ name }: SubComponentProps) => {
                 item.id === 1)
                 ? [
                     <QMR.Rate
-                      name={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin7Days`}
+                      name={`${name}.subRates.${item.id}.discussingMedications`}
+                      key={`${name}.subRates.${item.id}.discussingMedications`}
                       rates={[
                         {
                           id: 1,
-                          label: "Follow-up within 7 days of ED visit",
+                          label: "Discussing Cessation Medications",
+                        },
+                      ]}
+                    />,
+                  ]
+                : []),
+              ...((deviationConditions?.showDiscussingStrategiesAges18To64 &&
+                item.id === 0) ||
+              (deviationConditions?.showDiscussingStrategies65AndOlder &&
+                item.id === 1)
+                ? [
+                    <QMR.Rate
+                      name={`${name}.subRates.${item.id}.discussingStrategies`}
+                      key={`${name}.subRates.${item.id}.discussingStrategies`}
+                      rates={[
+                        {
+                          id: 2,
+                          label: "Discussing Cessation Strategies",
+                        },
+                      ]}
+                    />,
+                  ]
+                : []),
+
+              ...((deviationConditions?.showPercentageUsersAges18To64 &&
+                item.id === 0) ||
+              (deviationConditions?.showPercentageUsers65AndOlder &&
+                item.id === 1)
+                ? [
+                    <QMR.Rate
+                      name={`${name}.subRates.${item.id}.percentageUsers`}
+                      key={`${name}.subRates.${item.id}.percentageUsers`}
+                      rates={[
+                        {
+                          id: 3,
+                          label:
+                            "Percentage of Current Smokers and Tobacco Users",
                         },
                       ]}
                     />,
