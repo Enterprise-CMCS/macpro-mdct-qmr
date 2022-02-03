@@ -41,9 +41,10 @@ const CustomDeliverySystemTableRecord = ({
 }: CustomDeliverySystemTableRecordProps) => {
   const register = useCustomRegister<CCSCQualifierForm>();
   return (
-    <CUI.Tr>
+    <CUI.Tr verticalAlign="top">
       <CUI.Td px="none">
         <QMR.TextInput
+          rules={{ required: true }}
           {...register(
             // @ts-ignore
             `${record}.label`

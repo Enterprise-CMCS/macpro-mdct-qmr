@@ -52,6 +52,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     shouldUnregister: true,
     mode: "all",
     defaultValues: measureData?.data ?? undefined,
+    criteriaMode: "firstError",
+    shouldFocusError: true,
   });
 
   useEffect(() => {
