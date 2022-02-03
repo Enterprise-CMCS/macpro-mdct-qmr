@@ -1,7 +1,7 @@
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-describe("Cypress Studio Demo", () => {
+describe("Adult Qualifiers", () => {
   beforeEach(() => {
     // Seed database with test data
     cy.visit("/");
@@ -16,10 +16,16 @@ describe("Cypress Studio Demo", () => {
     cy.get('[data-cy="core-set-qualifiers-link"]').click();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
+    ).click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
     ).clear();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
     ).type("1");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFour"]'
+    ).click();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFour"]'
     ).clear();
@@ -43,25 +49,25 @@ describe("Cypress Studio Demo", () => {
     ).clear();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.1.GreaterThanSixtyFour"]'
+    ).type("4");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+    ).click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
     ).type("5");
     cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
     ).click();
     cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
     ).clear();
     cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
     ).type("6");
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
-    ).click();
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
-    ).type("7");
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.3.TwentyOneToSixtyFour"]'
     ).click();
@@ -79,10 +85,10 @@ describe("Cypress Studio Demo", () => {
     ).clear();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]'
-    ).type("6");
+    ).type("8");
     cy.get(":nth-child(2) > .chakra-input__group > .chakra-input").should(
       "have.value",
-      "17"
+      "16"
     );
     cy.get(":nth-child(3) > .chakra-input__group > .chakra-input").should(
       "have.value",
