@@ -32,7 +32,7 @@ export const atLeastOneRateComplete = (
   if (error) {
     errorArray.push({
       errorLocation: `${OPMError}Performance Measure`,
-      errorMessage: `At least one performance measure must be completed`,
+      errorMessage: `At least one ${OPMError}Performance Measure must be completed`,
     });
   }
   return error ? errorArray : [];
