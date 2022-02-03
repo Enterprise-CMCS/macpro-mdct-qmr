@@ -41,7 +41,10 @@ async function downloadAVDefinitions() {
   const downloadPromises = constants.CLAMAV_DEFINITIONS_FILES.map(
     (filenameToDownload) => {
       return new Promise((resolve, reject) => {
-        let destinationFile = path.join("/tmp/", filenameToDownload);
+        let destinationFile = path.join(
+          `${constants.PATH_TO_AV_DEFINITIONS}`,
+          filenameToDownload
+        );
 
         utils.generateSystemMessage(
           `Downloading ${filenameToDownload} from S3 to ${destinationFile}`
