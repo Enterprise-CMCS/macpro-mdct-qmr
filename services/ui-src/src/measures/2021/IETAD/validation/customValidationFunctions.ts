@@ -30,7 +30,7 @@ const validateTotalsEqualOrGreaterThan = (
           !(totalInitiation[i] && totalInitiation[i].numerator) ||
           initiationArray[index][i].numerator > totalInitiation[i].numerator
         ) {
-          engagementError = true;
+          initiationError = true;
           error = true;
         }
       }
