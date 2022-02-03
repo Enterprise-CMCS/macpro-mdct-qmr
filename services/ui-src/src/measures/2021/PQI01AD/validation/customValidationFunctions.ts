@@ -2,7 +2,6 @@ import {
   atLeastOneRateCompleteSingleArray,
   validateNumeratorsLessThanDenominatorsSingleArray,
   validateNoNonZeroNumOrDenomSingleArray,
-  validateEqualDenominatorsSingleArray,
 } from "../../globalValidations/validationsLib";
 const PQI01Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -16,7 +15,6 @@ const PQI01Validation = (data: any) => {
       performanceMeasureArray,
       OPM
     ),
-    ...validateEqualDenominatorsSingleArray(performanceMeasureArray),
     ...validateNoNonZeroNumOrDenomSingleArray(performanceMeasureArray, OPM),
   ];
 
