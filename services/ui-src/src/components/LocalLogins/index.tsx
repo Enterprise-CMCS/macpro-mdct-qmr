@@ -52,6 +52,7 @@ const LocalLogin = () => {
           handleLogin();
         }}
         isFullWidth
+        data-cy="login-with-cognito-button"
       >
         Login with Cognito
       </CUI.Button>
