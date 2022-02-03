@@ -52,7 +52,7 @@ const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
         <CUI.Box pr="1" pt="2px" color="green.500">
           <HiCheckCircle />
         </CUI.Box>
-        <CUI.Text>Complete</CUI.Text>
+        <CUI.Text data-cy="qualifier-status-text">Complete</CUI.Text>
       </CUI.Flex>
     );
   }
@@ -71,7 +71,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     <CUI.Box fontWeight="semibold" fontSize="sm">
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
-        <CUI.Text color="blue">
+        <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
           {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
         </CUI.Text>
       </Link>
@@ -135,6 +135,9 @@ export const CoreSet = () => {
   const { isStateUser } = useUser();
 
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
+  const completedAmount = measures.filter(
+    (measure) => measure.rateComplete > 0
+  )?.length;
 
   return (
     <QMR.StateLayout
@@ -171,7 +174,7 @@ export const CoreSet = () => {
             <QMR.ProgressCircle
               circularProgressProps={{ color: "green", size: "4.5rem" }}
               circularProgressLabelProps={{ fontSize: ".8rem" }}
-              currentProgress={2}
+              currentProgress={completedAmount}
               maxValue={measures.length}
             />
           </CUI.HStack>

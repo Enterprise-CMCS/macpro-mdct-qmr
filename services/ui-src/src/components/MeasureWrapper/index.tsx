@@ -5,8 +5,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
-import { CoreSetAbbr, MeasureStatus } from "types";
-
+import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { v4 as uuidv4 } from "uuid";
 interface Props {
   measure: ReactElement;
@@ -23,6 +22,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   );
 
   const [showModal, setShowModal] = useState<boolean>(false);
+  const autoCompletedMeasure =
+    !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
 
   /*
   this is where we put all the high level stuff for measures
@@ -168,13 +169,15 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           },
         ]}
         buttons={
-          //TODO: this needs some form of loading state for these buttons using mutationRunning
+          // Using a ternary to appease type error instead of double &&
+          !autoCompletedMeasure ? (
           <QMR.MeasureButtons
             isLoading={mutationRunning}
             handleSave={methods.handleSubmit(handleSave)}
             lastAltered={measureData?.data && measureData?.lastAltered}
             isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
           />
+          ) : undefined
         }
       >
         <CUI.Skeleton isLoaded={!loadingData}>
