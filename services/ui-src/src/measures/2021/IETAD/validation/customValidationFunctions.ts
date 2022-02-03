@@ -37,13 +37,13 @@ const validateTotalsEqualOrGreaterThan = (
     });
     engagementArray.forEach((_engageObj, index) => {
       if (
-        initiationArray[index] &&
-        initiationArray[index][i] &&
-        initiationArray[index][i].numerator
+        engagementArray[index] &&
+        engagementArray[index][i] &&
+        engagementArray[index][i].numerator
       ) {
         if (
           !(totalEngagement[i] && totalEngagement[i].numerator) ||
-          initiationArray[index][i].numerator > totalEngagement[i].numerator
+          engagementArray[index][i].numerator > totalEngagement[i].numerator
         ) {
           error = true;
           engagementError = true;
