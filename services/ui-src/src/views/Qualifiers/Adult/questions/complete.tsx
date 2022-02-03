@@ -15,6 +15,7 @@ export const CompleteCoreSets = ({ completeEnabled }: Props) => {
       />
 
       <QMR.ContainedButton
+        testId="complete-core-set-questions-button"
         buttonText="Complete Core Set Questions"
         disabledStatus={!completeEnabled}
         buttonProps={{
