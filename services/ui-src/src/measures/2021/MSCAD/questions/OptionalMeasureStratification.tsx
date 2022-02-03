@@ -86,7 +86,13 @@ const AddAnotherButton = ({
 
 const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups, deviationConditions } = useContext(AgeDataContext);
+  const { watch } = useFormContext<Measure.Form>();
 
+  // Watch for dataSource data
+  const dataSourceWatch = watch("DataSource-CAHPS-Version");
+
+  // Conditional check to let rate be readonly when other option is not selected
+  const rateReadOnly = dataSourceWatch !== "Other";
   return (
     <CUI.Box key={`${name}.ageData`}>
       <QMR.Checkbox
@@ -105,6 +111,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               ...(deviationConditions?.showOtherPerformanceMeasureRates
                 ? [
                     <QMR.Rate
+                      readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.otherPerformanceMeasure`}
                       key={`${name}.subRates.${item.id}.otherPerformanceMeasure`}
                       rates={[
@@ -123,6 +130,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 item.id === 1)
                 ? [
                     <QMR.Rate
+                      readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.advisingUsers`}
                       key={`${name}.subRates.${item.id}.advisingUsers`}
                       rates={[
@@ -141,6 +149,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 item.id === 1)
                 ? [
                     <QMR.Rate
+                      readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.discussingMedications`}
                       key={`${name}.subRates.${item.id}.discussingMedications`}
                       rates={[
@@ -158,6 +167,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 item.id === 1)
                 ? [
                     <QMR.Rate
+                      readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.discussingStrategies`}
                       key={`${name}.subRates.${item.id}.discussingStrategies`}
                       rates={[
@@ -176,6 +186,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 item.id === 1)
                 ? [
                     <QMR.Rate
+                      readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.percentageUsers`}
                       key={`${name}.subRates.${item.id}.percentageUsers`}
                       rates={[

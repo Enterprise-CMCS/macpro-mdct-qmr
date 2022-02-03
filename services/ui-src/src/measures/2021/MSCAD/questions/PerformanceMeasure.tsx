@@ -2,9 +2,17 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
+import { useFormContext } from "react-hook-form";
 
 export const PerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
+  const { watch } = useFormContext<Measure.Form>();
+
+  // Watch for dataSource data
+  const dataSourceWatch = watch("DataSource-CAHPS-Version");
+
+  // Conditional check to let rate be readonly when other option is not selected
+  const rateReadOnly = dataSourceWatch !== "Other";
 
   const ageRates = [
     {
@@ -67,6 +75,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
+        readOnly={rateReadOnly}
         {...register("PerformanceMeasure-AgeRates-AdvisingUsers")}
       />
       <CUI.Text fontWeight="bold" my="5">
@@ -74,6 +83,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
+        readOnly={rateReadOnly}
         {...register("PerformanceMeasure-AgeRates-DiscussingMedications")}
       />
       <CUI.Text fontWeight="bold" my="5">
@@ -81,6 +91,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
+        readOnly={rateReadOnly}
         {...register("PerformanceMeasure-AgeRates-DiscussingStrategies")}
       />
       <CUI.Text fontWeight="bold" my="5">
@@ -88,6 +99,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
+        readOnly={rateReadOnly}
         {...register("PerformanceMeasure-AgeRates-PercentageUsers")}
       />
     </QMR.CoreQuestionWrapper>
