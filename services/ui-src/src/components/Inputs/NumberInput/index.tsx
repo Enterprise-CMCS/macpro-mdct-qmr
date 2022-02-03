@@ -53,6 +53,7 @@ export const NumberInput = ({
               : null
           }
           data-testid="test-number-input"
+          data-cy={name}
           onBlur={field.onBlur}
           type="text"
           aria-label={name}
