@@ -31,6 +31,7 @@ const deviationOptions = ({
   name,
   deviationConditions,
 }: OptionProps): QMR.CheckboxOption[] => {
+  // Filter options depending on whether or not each group/age group performance data is completed
   let filteredOptions = options;
   if (name.includes("dvisingUsersToQuit")) {
     filteredOptions = options.filter((option) => {
