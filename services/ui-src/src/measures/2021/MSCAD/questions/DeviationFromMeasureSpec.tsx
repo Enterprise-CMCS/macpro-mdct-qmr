@@ -31,23 +31,47 @@ const deviationOptions = ({
   name,
   deviationConditions,
 }: OptionProps): QMR.CheckboxOption[] => {
-  let filteredOptions: Props["options"] = [];
-  console.log(options, deviationConditions);
-  // if (name.includes("Within30")) {
-  //   filteredOptions = options.filter((option) => {
-  //     return (
-  //       (deviationConditions.show30DaysAges18To64 && option.id === 0) ||
-  //       (deviationConditions.show30DaysAges65AndOlder && option.id === 1)
-  //     );
-  //   });
-  // } else {
-  //   filteredOptions = options.filter((option) => {
-  //     return (
-  //       (deviationConditions.show7DaysAges18To64 && option.id === 0) ||
-  //       (deviationConditions.show7DaysAges65AndOlder && option.id === 1)
-  //     );
-  //   });
-  // }
+  let filteredOptions = options;
+  if (name.includes("dvisingUsersToQuit")) {
+    filteredOptions = options.filter((option) => {
+      return (
+        (deviationConditions.showAdvisingUsersAges18To64 && option.id === 0) ||
+        (deviationConditions.showAdvisingUsers65AndOlder && option.id === 1)
+      );
+    });
+  }
+
+  if (name.includes("DiscussingCessationMedications")) {
+    filteredOptions = options.filter((option) => {
+      return (
+        (deviationConditions.showDiscussingMedicationsAges18To64 &&
+          option.id === 0) ||
+        (deviationConditions.showDiscussingMedications65AndOlder &&
+          option.id === 1)
+      );
+    });
+  }
+
+  if (name.includes("DiscussingCessationStrategies")) {
+    filteredOptions = options.filter((option) => {
+      return (
+        (deviationConditions.showDiscussingStrategiesAges18To64 &&
+          option.id === 0) ||
+        (deviationConditions.showDiscussingStrategies65AndOlder &&
+          option.id === 1)
+      );
+    });
+  }
+
+  if (name.includes("PercentageOfUsers")) {
+    filteredOptions = options.filter((option) => {
+      return (
+        (deviationConditions.showPercentageUsersAges18To64 &&
+          option.id === 0) ||
+        (deviationConditions.showPercentageUsers65AndOlder && option.id === 1)
+      );
+    });
+  }
 
   return filteredOptions.map((item) => {
     return {
