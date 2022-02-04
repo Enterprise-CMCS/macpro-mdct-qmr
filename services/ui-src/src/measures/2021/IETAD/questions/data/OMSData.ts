@@ -1,4 +1,18 @@
-export const OMSData = [
+export interface OmsNode {
+  id: string;
+  addMore?: boolean;
+  flagSubCat?: boolean;
+  options?: OmsNode[];
+  aggregateTitle?: string;
+}
+
+export interface TopLevelOmsNode {
+  id: string;
+  options?: OmsNode[];
+  addMore?: boolean;
+}
+
+export const OMSData: TopLevelOmsNode[] = [
   {
     id: "Race (Non-Hispanic)",
     options: [
@@ -20,13 +34,13 @@ export const OMSData = [
       },
       {
         id: "Native Hawaiian or Other Pacific Islander",
-        endNode: false,
         options: [
           { id: "Native Hawaiian", flagSubCat: true },
           { id: "Guamanian or Chamorro", flagSubCat: true },
           { id: "Samoan", flagSubCat: true },
           { id: "Other Pacific Islander", flagSubCat: true },
         ],
+        flagSubCat: true,
       },
     ],
     addMore: true,
@@ -37,6 +51,7 @@ export const OMSData = [
       { id: "Not of Hispanic, Latino/a, or Spanish origin" },
       {
         id: "Hispanic or Latino",
+        aggregateTitle: "Hispanic, Latino/a, or Spanish origin",
         options: [
           { id: "Mexican, Mexican American, Chicano/a" },
           { id: "Puerto Rican" },
@@ -56,7 +71,6 @@ export const OMSData = [
     id: "Language",
     options: [{ id: "English" }, { id: "Spanish" }],
     addMore: true,
-    endNode: false,
   },
   {
     id: "Disability Status",
