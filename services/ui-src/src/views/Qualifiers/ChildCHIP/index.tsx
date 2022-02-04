@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
@@ -23,12 +24,11 @@ export const CCSCQualifiers = () => {
   const methods = useForm<CCSCQualifierForm>({
     shouldUnregister: true,
     mode: "all",
-    defaultValues: data?.Item?.data || {
+    defaultValues: {
       PercentageEnrolledInEachDeliverySystem: [
         {
           label: "Fee-for-Service",
-          TwentyOneToSixtyFour: "",
-          GreaterThanSixtyFour: "",
+          UnderTwentyOne: "",
           userGenerated: false,
         },
         {
@@ -49,6 +49,10 @@ export const CCSCQualifiers = () => {
       ],
     },
   });
+
+  useEffect(() => {
+    methods.reset(data?.Item?.data);
+  }, [data, methods]);
 
   const handleSubmit = (data: CCSCQualifierForm) => {
     const requestData = {

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./questions";
@@ -23,7 +24,7 @@ export const ACSQualifiers = () => {
   const methods = useForm<ACSQualifierForm>({
     shouldUnregister: true,
     mode: "all",
-    defaultValues: data?.Item?.data || {
+    defaultValues: {
       PercentageEnrolledInEachDeliverySystem: [
         {
           label: "Fee-for-Service",
@@ -52,6 +53,10 @@ export const ACSQualifiers = () => {
       ],
     },
   });
+
+  useEffect(() => {
+    methods.reset(data?.Item?.data);
+  }, [data, methods]);
 
   const handleSubmit = (data: ACSQualifierForm) => {
     const requestData = {
