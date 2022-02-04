@@ -95,6 +95,8 @@ const IEDValidation = (data: Measure.Form) => {
   const totalInitiation = data["PerformanceMeasure-AgeRates-Initiation-Total"];
   const totalEngagement = data["PerformanceMeasure-AgeRates-Engagement-Total"];
   let errorArray: any[] = [];
+
+  console.log(OPM);
   //@ts-ignore
   errorArray = [
     ...errorArray,

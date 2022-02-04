@@ -1,3 +1,7 @@
+// Left off working on NDRs
+
+
+
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
@@ -9,6 +13,7 @@ import {
   ageGroups,
   performanceMeasureDescriptions,
 } from "./data/performanceMeasureData";
+import { OpenMode } from "fs";
 
 interface HookFormProps {
   name: string;
@@ -18,12 +23,46 @@ interface HookFormProps {
  * Builds the NDR Sets for "AgeGroups" given
  */
 const renderNDRSets = () => {
-  return <div />;
+  const { OPM } = useContext(PerformanceMeasureContext);
+  if (OPM) {
+    return [...OPMNDRSets(OPM)];
+  }
+  return [...AgeGroupNDRSets(performanceMeasureArray)];
 };
 
 const AgeGroupNDRSets = ({}: HookFormProps) => {
   return <div />;
 };
+
+const OPMNDRSets = ({}: HookFormProps) => {
+  const { OPM } = useContext(PerformanceMeasureContext);
+  return (
+    <QMR.Checkbox
+      name="TODO: registration name"
+      key="copy name"
+      // @ts-ignore
+      options={OPM!.map((item, idx) => {
+        return {
+          value: `${item.description}.${idx}`.replace(/,| |\//g, ""),
+          displayValue: item.description,
+          children: [
+            <CUI.Heading key="shtuff">
+              Enter a number for the numerator and the denominator. Rate will
+              auto-calculate
+            </CUI.Heading>,
+            renderNDRSets(),
+          ],
+        };
+      })}
+    />
+  );
+};
+
+const renderBaseNdrSet = ({
+  numerator: string,
+  denominator: string,
+  rate: string,
+}) => {};
 
 /**
  * Build Additional SubCategory/Classification Section for Race fields and the associated Button
@@ -192,6 +231,12 @@ const buildCheckboxes = (
   });
 };
 
+interface contextProps {
+  OPM?: any[];
+  performanceMeasureArray?: any[][];
+}
+
+const PerformanceMeasureContext = createContext<contextProps>({});
 /**
  * Final OMS built
  */
@@ -211,10 +256,14 @@ export const OMS2 = (data: Measure.Form) => {
   const checkBoxOptions = buildCheckboxes(OPM, performanceMeasureArray);
 
   return (
-    <QMR.Checkbox
-      {...register("CategoriesReported")}
-      options={checkBoxOptions}
-    />
+    <PerformanceMeasureContext.Provider
+      value={{ OPM, performanceMeasureArray }}
+    >
+      <QMR.Checkbox
+        {...register("CategoriesReported")}
+        options={checkBoxOptions}
+      />
+    </PerformanceMeasureContext.Provider>
   );
 };
 
