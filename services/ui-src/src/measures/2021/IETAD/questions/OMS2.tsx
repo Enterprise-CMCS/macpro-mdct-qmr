@@ -29,19 +29,6 @@ const buildSubCatSection = ({}: HookFormProps): JSX.Element[] => {
 };
 
 /**
- * Build Additional Major Options and the associated AddAnother Button
- * ex: AdditionalRace fields
- */
-const buildAddAnotherSection = ({}: HookFormProps): QMR.CheckboxOption[] => {
-  return [
-    {
-      value: "",
-      displayValue: "",
-    },
-  ];
-};
-
-/**
  * Builds child level checkbox options
  * ex: Race -> White, African American, Asian, etc.
  */
@@ -100,6 +87,62 @@ const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
 };
 
 /**
+ * Build Additional Major Options and the associated AddAnother Button
+ * ex: AdditionalRace fields
+ */
+ const buildAddAnotherSection = ({}: HookFormProps): QMR.CheckboxOption[] => {
+  return [
+    {
+      value: "",
+      displayValue: "",
+    },
+  ];
+};
+
+const buildAddAnotherButton = (parentDisplayName: string) => {
+  return 
+  <div>
+    `Add Another ${parentDisplayName}`
+  </div>
+};
+
+
+const buildCheckBoxChildren = (
+  options: OmsNode[] | undefined,
+  addMore: boolean,
+  parentId: string,
+  parentDisplayName: string
+) => {
+  if (!options) {
+    return [
+      <AgeGroupNDRSets
+        name={"TODO: registration name"}
+        key={"Use whatever is in name"}
+      />,
+    ];
+  }
+  
+  const arrayOfMoreOptions = [...stateVarWithExistingOptions];
+  if(addMore){
+    arrayOfMoreOptions = [...arrayOfMoreOptions, ...functionthatdoesathing(?)]
+  }
+  return [
+    <QMR.Checkbox
+      name={"TODO: registration name"}
+      key={"Use whatever we decide on the name being"}
+      options={[
+        ...options.map((lvlTwoOption) => {
+          return buildChildCheckboxOption(lvlTwoOption);
+        }),
+      ]}
+    />,
+    ...(addMore
+      ? [buildAddAnotherButton(`Additional-${parentId}`, parentDisplayName)]
+      : []),
+  ];
+};
+
+/**
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
@@ -108,31 +151,15 @@ const buildCheckboxes = (
   performanceMeasureArray: any
 ): QMR.CheckboxOption[] => {
   return OMSData.map((lvlOneOption) => {
-    return {
-      value: lvlOneOption.id.replace(/,| |\//g, ""),
-      displayValue: lvlOneOption.id,
-      children: !lvlOneOption.options
-        ? [
-            <AgeGroupNDRSets
-              name={"TODO: registration name"}
-              key={"Use whatever is in name"}
-            />,
-          ]
-        : [
-            <QMR.Checkbox
-              name={"TODO: registration name"}
-              key={"Use whatever we decide on the name being"}
-              options={[
-                ...lvlOneOption.options.map((lvlTwoOption) => {
-                  return buildChildCheckboxOption(lvlTwoOption);
-                }),
-                ...(lvlOneOption.addMore
-                  ? buildAddAnotherSection({ name: "TODO: registration name" })
-                  : []),
-              ]}
-            />,
-          ],
-    };
+    const value = lvlOneOption.id.replace(/,| |\//g, "");
+    const displayValue = lvlOneOption.id;
+    const children = buildCheckBoxChildren(
+      lvlOneOption.options,
+      !!lvlOneOption.addMore,
+      value,
+      lvlOneOption.id
+    );
+    return { value, displayValue, children };
   });
 };
 
