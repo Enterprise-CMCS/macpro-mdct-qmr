@@ -4,35 +4,15 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { createContext, useState, useContext } from "react";
 import { useFormContext } from "react-hook-form";
+import { OMSData } from "./data/OMSData";
+import {
+  ageGroups,
+  performanceMeasureDescriptions,
+} from "./data/performanceMeasureData";
 
-interface Props {
-  ageGroups: string[];
-  deviationConditions?: {};
+const buildCheckboxes = (OPM, performanceMeasureArray) => {
+  
 }
-
-const ageGroups = ["Ages 18 to 64", "Age 65 and older"];
-const IndepententAsianOptions = [
-  "Asian Indian",
-  "Chinese",
-  "Filipino",
-  "Japanese",
-  "Korean",
-  "Vietnamese",
-  "Other Asian",
-];
-const IndependentHawaiianOtherPacificOptions = [
-  "Native Hawaiian",
-  "Guamanian or Chamorro",
-  "Samoan",
-  "Other Pacific Islander",
-];
-const IndependentEthnicityOptions = [
-  "Mexican, Mexican American, Chicano/a",
-  "Puerto Rican",
-  "Cuban",
-  "Another Hispanic, Latino/a or Spanish origin",
-];
-const race = [];
 
 export const OMS2 = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -46,18 +26,7 @@ export const OMS2 = (data: Measure.Form) => {
     data["PerformanceMeasure-AgeRates-Initiation-Total"],
     data["PerformanceMeasure-AgeRates-Engagement-Total"],
   ];
-};
+  const checkBoxes = buildCheckboxes(OPM, performanceMeasureArray);
 
-const buildAllTheCheckboxes = (
-  allTheData: any,
-  OPM: any,
-  performanceMeasureArray: any
-) => {
-  allTheData.forEach((firstLevelCheckbox: any) => {
-    firstLevelCheckbox.forEach((secondLevelCheckbox: any) => {
-      if (secondLevelCheckbox.isAddAnother) {
-        const doTheLogicToAddAnotherThing = "stuff";
-      }
-    });
-  });
+  return <div>${allTheStuff}</div>;
 };
