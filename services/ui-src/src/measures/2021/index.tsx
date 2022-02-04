@@ -4,6 +4,7 @@ the key should be the measure id as a string (with '-XX' included)
 */
 
 import { AMMAD } from "./AMMAD";
+import { CCWAD } from "./CCWAD";
 import { FUAAD } from "./FUAAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
@@ -17,6 +18,7 @@ const twentyTwentyOneMeasures = {
   "NCIDDS-AD": NCIDDSAD,
   "PDENT-CH": PDENTCH,
   "FUA-AD": FUAAD,
+  "CCW-AD": CCWAD,
 };
 
 export default twentyTwentyOneMeasures;
