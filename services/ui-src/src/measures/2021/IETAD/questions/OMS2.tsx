@@ -90,7 +90,7 @@ const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
  * Build Additional Major Options and the associated AddAnother Button
  * ex: AdditionalRace fields
  */
- const buildAddAnotherSection = ({}: HookFormProps): QMR.CheckboxOption[] => {
+const buildAddAnotherSection = ({}: HookFormProps): QMR.CheckboxOption[] => {
   return [
     {
       value: "",
@@ -99,18 +99,27 @@ const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
   ];
 };
 
-const buildAddAnotherButton = (parentDisplayName: string) => {
-  return 
-  <div>
-    `Add Another ${parentDisplayName}`
-  </div>
+const buildAddAnotherButton = (
+  onClick: React.MouseEventHandler<HTMLButtonElement>,
+  additionalText?: string
+) => {
+  return (
+    <QMR.ContainedButton
+      buttonText={"+ Add Another " + additionalText}
+      buttonProps={{
+        variant: "outline",
+        colorScheme: "blue",
+        textTransform: "capitalize",
+      }}
+      onClick={onClick}
+    />
+  );
 };
-
 
 const buildCheckBoxChildren = (
   options: OmsNode[] | undefined,
   addMore: boolean,
-  parentId: string,
+  // parentId: string,
   parentDisplayName: string
 ) => {
   if (!options) {
@@ -121,11 +130,12 @@ const buildCheckBoxChildren = (
       />,
     ];
   }
-  
-  const arrayOfMoreOptions = [...stateVarWithExistingOptions];
-  if(addMore){
-    arrayOfMoreOptions = [...arrayOfMoreOptions, ...functionthatdoesathing(?)]
-  }
+
+  // const arrayOfMoreOptions = [...stateVarWithExistingOptions];
+  // if(addMore){
+  //   arrayOfMoreOptions = [...arrayOfMoreOptions, ...functionthatdoesathing(?)]
+  // }
+
   return [
     <QMR.Checkbox
       name={"TODO: registration name"}
@@ -134,11 +144,11 @@ const buildCheckBoxChildren = (
         ...options.map((lvlTwoOption) => {
           return buildChildCheckboxOption(lvlTwoOption);
         }),
+        //TODO: render additional options
+        // use parentId for registration names
       ]}
     />,
-    ...(addMore
-      ? [buildAddAnotherButton(`Additional-${parentId}`, parentDisplayName)]
-      : []),
+    ...(addMore ? [buildAddAnotherButton(() => {}, parentDisplayName)] : []),
   ];
 };
 
@@ -156,7 +166,7 @@ const buildCheckboxes = (
     const children = buildCheckBoxChildren(
       lvlOneOption.options,
       !!lvlOneOption.addMore,
-      value,
+      // value,
       lvlOneOption.id
     );
     return { value, displayValue, children };
