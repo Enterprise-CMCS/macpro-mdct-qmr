@@ -9,6 +9,7 @@ interface ContainedButtonProps {
   icon?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   zIndex?: number;
+  testId?: string;
 }
 
 export const ContainedButton = ({
@@ -20,6 +21,7 @@ export const ContainedButton = ({
   icon,
   onClick,
   zIndex,
+  testId,
 }: ContainedButtonProps) => {
   const printIcon = icon === "print" ? <FaPrint /> : undefined;
   const plusIcon = icon === "plus" ? <FaPlusCircle /> : undefined;
@@ -28,6 +30,7 @@ export const ContainedButton = ({
   return (
     <CUI.Box>
       <CUI.Button
+        data-cy={testId || buttonText}
         leftIcon={printIcon}
         rightIcon={plusIcon}
         onClick={onClick}

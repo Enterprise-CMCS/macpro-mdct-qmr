@@ -12,6 +12,7 @@ interface NumberInputProps extends QMR.InputWrapperProps {
   name: string;
   mask?: RegExp;
   readonly?: boolean;
+  testId?: string;
 }
 
 export const NumberInput = ({
@@ -22,6 +23,7 @@ export const NumberInput = ({
   formControlProps,
   readonly,
   mask = allNumbers,
+  testId,
   ...rest
 }: NumberInputProps) => {
   const {
@@ -46,6 +48,8 @@ export const NumberInput = ({
           placeholder={placeholder ?? ""}
           value={field.value ?? ""}
           name={name}
+          id={name}
+          data-cy={testId || name}
           onChange={(v) =>
             mask.test(v.target.value) || !v.target.value
               ? field.onChange(v.target.value || "")
