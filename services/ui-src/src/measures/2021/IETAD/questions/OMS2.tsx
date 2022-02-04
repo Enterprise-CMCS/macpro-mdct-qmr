@@ -33,56 +33,60 @@ const buildSubCatSection = ({}: HookFormProps): JSX.Element[] => {
  * ex: Race -> White, African American, Asian, etc.
  */
 const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
+  const value = omsNode.id.replace(/,| |\//g, "");
+  const displayValue = omsNode.id;
+  let children = [];
+  if (!omsNode.options) {
+    children = [
+      <AgeGroupNDRSets
+        name={"TODO: registration name"}
+        key={"Use whatever is in name"}
+      />,
+      ...(!omsNode.flagSubCat
+        ? []
+        : buildSubCatSection({ name: "TODO: registration name" })),
+    ];
+  } else {
+    children = [
+      <QMR.RadioButton
+        name="TODO: registration name"
+        key={"Use whatever we decide on the name being"}
+        options={[
+          {
+            value: `Yes, we are only reporting aggregated data for all ${
+              omsNode.aggregateTitle || omsNode.id
+            } categories.`,
+            displayValue: "YesAggregateData",
+            children: [
+              <AgeGroupNDRSets
+                name={"TODO: registration name"}
+                key={"Use whatever is in name"}
+              />,
+            ],
+          },
+          {
+            value: `No, we are reporting independent data for all ${
+              omsNode.aggregateTitle || omsNode.id
+            } categories`,
+            displayValue: "NoIndependentData",
+            children: [
+              <QMR.Checkbox
+                name={"TODO: registration name"}
+                key={"Use whatever name is"}
+                options={omsNode.options.map((item) => {
+                  return buildChildCheckboxOption(item);
+                })}
+              />,
+            ],
+          },
+        ]}
+      />,
+    ];
+  }
   return {
-    value: omsNode.id.replace(/,| |\//g, ""),
-    displayValue: omsNode.id,
-    children: [
-      ...(!omsNode.options
-        ? [
-            <AgeGroupNDRSets
-              name={"TODO: registration name"}
-              key={"Use whatever is in name"}
-            />,
-            ...(!omsNode.flagSubCat
-              ? []
-              : buildSubCatSection({ name: "TODO: registration name" })),
-          ]
-        : [
-            <QMR.RadioButton
-              name="TODO: registration name"
-              key={"Use whatever we decide on the name being"}
-              options={[
-                {
-                  value: `Yes, we are only reporting aggregated data for all ${
-                    omsNode.aggregateTitle || omsNode.id
-                  } categories.`,
-                  displayValue: "YesAggregateData",
-                  children: [
-                    <AgeGroupNDRSets
-                      name={"TODO: registration name"}
-                      key={"Use whatever is in name"}
-                    />,
-                  ],
-                },
-                {
-                  value: `No, we are reporting independent data for all ${
-                    omsNode.aggregateTitle || omsNode.id
-                  } categories`,
-                  displayValue: "NoIndependentData",
-                  children: [
-                    <QMR.Checkbox
-                      name={"TODO: registration name"}
-                      key={"Use whatever name is"}
-                      options={omsNode.options.map((item) => {
-                        return buildChildCheckboxOption(item);
-                      })}
-                    />,
-                  ],
-                },
-              ]}
-            />,
-          ]),
-    ],
+    value,
+    displayValue,
+    children,
   };
 };
 
@@ -122,6 +126,7 @@ const buildCheckBoxChildren = (
   // parentId: string,
   parentDisplayName: string
 ) => {
+  useState([]);
   if (!options) {
     return [
       <AgeGroupNDRSets
@@ -131,9 +136,9 @@ const buildCheckBoxChildren = (
     ];
   }
 
-  // const arrayOfMoreOptions = [...stateVarWithExistingOptions];
-  // if(addMore){
-  //   arrayOfMoreOptions = [...arrayOfMoreOptions, ...functionthatdoesathing(?)]
+  // let arrayOfMoreOptions = [];
+  // if (addMore) {
+  //   arrayOfMoreOptions = [...arrayOfMoreOptions, ...onClickForAddAnother(info)];
   // }
 
   return [
@@ -198,3 +203,5 @@ export const OMS2 = (data: Measure.Form) => {
     />
   );
 };
+
+const currentOMSState = [];
