@@ -4,6 +4,7 @@ export interface OmsNode {
   flagSubCat?: boolean;
   options?: OmsNode[];
   aggregateTitle?: string;
+  addMoreSubCatFlag?: boolean;
 }
 
 export const OMSData: OmsNode[] = [
@@ -38,6 +39,7 @@ export const OMSData: OmsNode[] = [
       },
     ],
     addMore: true,
+    addMoreSubCatFlag: true,
   },
   {
     id: "Ethnicity",

@@ -17,6 +17,10 @@ interface HookFormProps {
 /**
  * Builds the NDR Sets for "AgeGroups" given
  */
+const renderNDRSets = () => {
+  return <div />;
+};
+
 const AgeGroupNDRSets = ({}: HookFormProps) => {
   return <div />;
 };
@@ -25,7 +29,59 @@ const AgeGroupNDRSets = ({}: HookFormProps) => {
  * Build Additional SubCategory/Classification Section for Race fields and the associated Button
  */
 const buildSubCatSection = ({}: HookFormProps): JSX.Element[] => {
-  return [<div />];
+  const [addtnlSubCat, setAddtnlSubCat] = useState<OmsNode[]>([]);
+  const addAddtnlSubCat = () => {
+    setAddtnlSubCat((oldArray) => [
+      ...oldArray,
+      { id: "Additional/Alternative Classification/Sub-Category" },
+    ]);
+  };
+
+  //registration will be wonky
+  return [
+    <QMR.Checkbox
+      name="TODO: registration name"
+      key="copy name"
+      options={addtnlSubCat.map((item, idx) => {
+        return {
+          value: `${item.id}.${idx}`.replace(/,| |\//g, ""),
+          displayValue: item.id,
+          children: [
+            <QMR.TextInput name="TODO: registration" key="use name" />,
+            renderNDRSets(),
+          ],
+        };
+      })}
+    />,
+    buildAddAnotherButton(addAddtnlSubCat, "Sub-Category"),
+  ];
+};
+
+const renderRadioButtonOptions = (omsNode: OmsNode) => {
+  return [
+    {
+      value: `Yes, we are only reporting aggregated data for all ${
+        omsNode.aggregateTitle || omsNode.id
+      } categories.`,
+      displayValue: "YesAggregateData",
+      children: [renderNDRSets(), ...buildSubCatSection({ name: "TODO" })],
+    },
+    {
+      value: `No, we are reporting independent data for all ${
+        omsNode.aggregateTitle || omsNode.id
+      } categories`,
+      displayValue: "NoIndependentData",
+      children: [
+        <QMR.Checkbox
+          name={"TODO: registration name"}
+          key={"Use whatever name is"}
+          options={omsNode.options!.map((item) => {
+            return buildChildCheckboxOption(item);
+          })}
+        />,
+      ],
+    },
+  ];
 };
 
 /**
@@ -38,10 +94,7 @@ const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
   let children = [];
   if (!omsNode.options) {
     children = [
-      <AgeGroupNDRSets
-        name={"TODO: registration name"}
-        key={"Use whatever is in name"}
-      />,
+      renderNDRSets(),
       ...(!omsNode.flagSubCat
         ? []
         : buildSubCatSection({ name: "TODO: registration name" })),
@@ -51,35 +104,7 @@ const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
       <QMR.RadioButton
         name="TODO: registration name"
         key={"Use whatever we decide on the name being"}
-        options={[
-          {
-            value: `Yes, we are only reporting aggregated data for all ${
-              omsNode.aggregateTitle || omsNode.id
-            } categories.`,
-            displayValue: "YesAggregateData",
-            children: [
-              <AgeGroupNDRSets
-                name={"TODO: registration name"}
-                key={"Use whatever is in name"}
-              />,
-            ],
-          },
-          {
-            value: `No, we are reporting independent data for all ${
-              omsNode.aggregateTitle || omsNode.id
-            } categories`,
-            displayValue: "NoIndependentData",
-            children: [
-              <QMR.Checkbox
-                name={"TODO: registration name"}
-                key={"Use whatever name is"}
-                options={omsNode.options.map((item) => {
-                  return buildChildCheckboxOption(item);
-                })}
-              />,
-            ],
-          },
-        ]}
+        options={renderRadioButtonOptions(omsNode)}
       />,
     ];
   }
@@ -88,19 +113,6 @@ const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
     displayValue,
     children,
   };
-};
-
-/**
- * Build Additional Major Options and the associated AddAnother Button
- * ex: AdditionalRace fields
- */
-const buildAddAnotherSection = ({}: HookFormProps): QMR.CheckboxOption[] => {
-  return [
-    {
-      value: "",
-      displayValue: "",
-    },
-  ];
 };
 
 const buildAddAnotherButton = (
@@ -124,36 +136,37 @@ const buildCheckBoxChildren = (
   options: OmsNode[] | undefined,
   addMore: boolean,
   // parentId: string,
-  parentDisplayName: string
+  parentDisplayName: string,
+  addMoreSubCatFlag: boolean
 ) => {
-  useState([]);
+  const [addtnlOptions, setAddtnlOptions] = useState<OmsNode[]>([]);
+
+  const addAnotherAddtnl = () => {
+    setAddtnlOptions((oldArray) => [
+      ...oldArray,
+      { id: `Additional ${parentDisplayName}`, flagSubCat: addMoreSubCatFlag },
+    ]);
+  };
+
   if (!options) {
-    return [
-      <AgeGroupNDRSets
-        name={"TODO: registration name"}
-        key={"Use whatever is in name"}
-      />,
-    ];
+    return [renderNDRSets()];
   }
 
-  // let arrayOfMoreOptions = [];
-  // if (addMore) {
-  //   arrayOfMoreOptions = [...arrayOfMoreOptions, ...onClickForAddAnother(info)];
-  // }
+  const combinedOptions = [...options, ...addtnlOptions];
 
   return [
     <QMR.Checkbox
       name={"TODO: registration name"}
       key={"Use whatever we decide on the name being"}
       options={[
-        ...options.map((lvlTwoOption) => {
+        ...combinedOptions.map((lvlTwoOption) => {
           return buildChildCheckboxOption(lvlTwoOption);
         }),
-        //TODO: render additional options
-        // use parentId for registration names
       ]}
     />,
-    ...(addMore ? [buildAddAnotherButton(() => {}, parentDisplayName)] : []),
+    ...(addMore
+      ? [buildAddAnotherButton(addAnotherAddtnl, parentDisplayName)]
+      : []),
   ];
 };
 
@@ -172,7 +185,8 @@ const buildCheckboxes = (
       lvlOneOption.options,
       !!lvlOneOption.addMore,
       // value,
-      lvlOneOption.id
+      lvlOneOption.id,
+      !!lvlOneOption.addMoreSubCatFlag
     );
     return { value, displayValue, children };
   });
