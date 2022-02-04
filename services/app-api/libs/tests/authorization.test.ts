@@ -1,4 +1,4 @@
-import { testEvent } from "../../util/testEvents";
+import { testEvent } from "../../test-util/testEvents";
 import { isAuthorized } from "../authorization";
 import { UserRoles } from "../../types";
 

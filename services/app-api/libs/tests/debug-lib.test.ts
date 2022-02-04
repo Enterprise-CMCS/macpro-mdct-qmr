@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { testEvent } from "../../util/testEvents";
+import { testEvent } from "../../test-util/testEvents";
 import debug, { clearLogs, flush, init } from "../debug-lib";
 
 jest.mock("aws-sdk", () => ({
