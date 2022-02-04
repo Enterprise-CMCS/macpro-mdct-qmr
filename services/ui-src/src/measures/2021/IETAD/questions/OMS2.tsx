@@ -10,9 +10,18 @@ import {
   performanceMeasureDescriptions,
 } from "./data/performanceMeasureData";
 
-const buildCheckboxes = (OPM, performanceMeasureArray) => {
-  
-}
+const buildCheckboxes = (OPM: any, performanceMeasureArray: any) => {
+  OMSData.forEach((lvlOneOption: any) => {
+    
+    ifOptionalBlahblah: do bla bla bla
+
+    lvlOneOption.options.forEach((lvlTwoOption: any) => {
+      lvlTwoOption.options.forEach((lvlThreeOption: any) => {
+
+      })
+    });
+  });
+};
 
 export const OMS2 = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
