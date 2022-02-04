@@ -6,13 +6,7 @@ export interface OmsNode {
   aggregateTitle?: string;
 }
 
-export interface TopLevelOmsNode {
-  id: string;
-  options?: OmsNode[];
-  addMore?: boolean;
-}
-
-export const OMSData: TopLevelOmsNode[] = [
+export const OMSData: OmsNode[] = [
   {
     id: "Race (Non-Hispanic)",
     options: [
