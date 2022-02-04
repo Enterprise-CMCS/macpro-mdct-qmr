@@ -66,8 +66,8 @@ export const Audit = () => {
 
   const removeAuditItem = (index: number) => {
     const newMeasureList = [...measureList];
-    newMeasureList.splice(index, 1);
-    field.value.splice(index, 1);
+    newMeasureList?.splice(index, 1);
+    field.value?.splice(index, 1);
     setMeasureList(newMeasureList);
   };
 
@@ -123,6 +123,7 @@ export const Audit = () => {
                             </CUI.Text>
 
                             <QMR.MultiSelect
+                              isRequired
                               multiSelectList={multiSelectList}
                               name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.MeasuresAuditedOrValidated`}
                             />
