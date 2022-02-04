@@ -25,7 +25,7 @@ export const createCoreSet = handler(async (event, context) => {
   }
   const dynamoKey = createCompoundKey(event);
 
-  createDependentMeasures(state, parseInt(year), coreSet, type);
+  await createDependentMeasures(state, parseInt(year), coreSet, type);
 
   // filter out qualifier and account for autocomplete measures on creation
   let autoCompletedMeasures = 0;
