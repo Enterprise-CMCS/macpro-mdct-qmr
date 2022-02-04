@@ -9,3 +9,4 @@ export * from "./AddHHCoreSet";
 export * from "./ApiTester";
 export * from "./DemoMeasure";
 export * from "./Qualifiers";
+export * from "./FAQ";

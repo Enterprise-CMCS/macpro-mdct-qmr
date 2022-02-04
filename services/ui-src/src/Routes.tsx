@@ -53,6 +53,7 @@ export function AppRoutes() {
     <main id="main-wrapper">
       <Routes>
         <Route path="/" element={<Views.Home />} />
+        <Route path="/faq" element={<Views.FAQ />} />
         <Route path=":state/:year" element={<Views.StateHome />} />
         <Route path="admin" element={<Views.AdminHome />} />
         <Route
