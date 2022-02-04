@@ -29,11 +29,16 @@ const buildSubCatSection = ({}: HookFormProps): JSX.Element[] => {
 };
 
 /**
- * Build Additional Major Option and the associated Button
+ * Build Additional Major Options and the associated AddAnother Button
  * ex: AdditionalRace fields
  */
-const buildAddAnotherSection = ({}: HookFormProps): JSX.Element[] => {
-  return [<div />];
+const buildAddAnotherSection = ({}: HookFormProps): QMR.CheckboxOption[] => {
+  return [
+    {
+      value: "",
+      displayValue: "",
+    },
+  ];
 };
 
 /**
@@ -117,13 +122,15 @@ const buildCheckboxes = (
             <QMR.Checkbox
               name={"TODO: registration name"}
               key={"Use whatever we decide on the name being"}
-              options={lvlOneOption.options.map((lvlTwoOption) => {
-                return buildChildCheckboxOption(lvlTwoOption);
-              })}
+              options={[
+                ...lvlOneOption.options.map((lvlTwoOption) => {
+                  return buildChildCheckboxOption(lvlTwoOption);
+                }),
+                ...(lvlOneOption.addMore
+                  ? buildAddAnotherSection({ name: "TODO: registration name" })
+                  : []),
+              ]}
             />,
-            ...(lvlOneOption.addMore
-              ? buildAddAnotherSection({ name: "TODO: registration name" })
-              : []),
           ],
     };
   });
