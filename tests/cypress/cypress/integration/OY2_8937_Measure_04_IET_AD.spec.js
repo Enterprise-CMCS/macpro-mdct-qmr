@@ -276,8 +276,8 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     ).click();
     cy.xpath("//p[contains(text(),'Administrative Data')]").click();
     // cy.get("#field-125-label").should("be.visible");
-    cy.get(
-      '[data-cy="DataSource-Administrative0"] > .chakra-checkbox__label > .chakra-text'
+    cy.xpath(
+      "//p[contains(text(),'Medicaid Management Information System (MMIS)')]"
     ).should("have.text", "Medicaid Management Information System (MMIS)");
     cy.get(
       '[data-cy="DataSource-Administrative1"] > .chakra-checkbox__label > .chakra-text'
