@@ -274,10 +274,12 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
-    cy.xpath("//p[contains(text(),'Administrative Data')]").click();
+    cy.xpath("//p[contains(text(),'Administrative Data')]").click({
+      force: true,
+    });
     // cy.get("#field-125-label").should("be.visible");
-    cy.xpath(
-      "//p[contains(text(),'Medicaid Management Information System (MMIS)')]"
+    cy.get(
+      '[data-cy="DataSource-Administrative0"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Medicaid Management Information System (MMIS)");
     cy.get(
       '[data-cy="DataSource-Administrative1"] > .chakra-checkbox__label > .chakra-text'
