@@ -40,6 +40,7 @@ interface MeasureTableItem {
   isReporting: boolean;
   // I believe this part of the table is being removed in another ticket
   rateComplete: number;
+  createdAt: number;
   lastDateModified: number;
   id: string;
   actions: { itemText: string; handleSelect: () => void }[];
@@ -104,10 +105,10 @@ const useMeasureTableDataBuilder = () => {
           title: item.description,
           abbr: item.measure,
           path: `/${state}/${year}/${coreSetId}/${item.measure}`,
-          isReporting: !!item.reporting,
-          // I believe this part of the table is being removed in another ticket
+          isReporting: item.reporting === "yes",
           rateComplete: item.status === MeasureStatus.COMPLETE ? 1 : 0,
           lastDateModified: item.lastAltered,
+          createdAt: item.createdAt,
           id: item.measure,
           actions: [
             {

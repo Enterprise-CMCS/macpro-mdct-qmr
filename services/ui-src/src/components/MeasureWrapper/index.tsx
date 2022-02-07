@@ -69,11 +69,16 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     validateAndSetErrors(data);
   };
 
-  const handleSave = (data: any) => {
+  const handleSave = (data: Measure.Form) => {
     if (!mutationRunning && !loadingData) {
       setLastSavedText("Awaiting Changed Save Status");
+      console.log(measureData?.status);
       updateMeasure(
-        { data, status: measureData?.status },
+        {
+          data,
+          status: MeasureStatus.INCOMPLETE,
+          reporting: handleReporting(data),
+        },
         {
           onSettled: (data, error) => {
             if (data && !error) {
@@ -100,11 +105,27 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     console.log({ data });
   };
 
-  const submitDataToServer = (data: any) => {
+  const handleReporting = (data: Measure.Form, submit?: boolean) => {
+    if (
+      submit &&
+      (data["DidReport"]?.includes("Yes") ||
+        data["DidCollect"]?.includes("yes"))
+    ) {
+      return "yes";
+    }
+
+    return "no";
+  };
+
+  const submitDataToServer = (data: Measure.Form) => {
     if (!mutationRunning && !loadingData) {
       setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(
-        { data, status: MeasureStatus.COMPLETE },
+        {
+          data,
+          status: MeasureStatus.COMPLETE,
+          reporting: handleReporting(data, true),
+        },
         {
           onSettled: (data, error) => {
             if (data && !error) refetch();

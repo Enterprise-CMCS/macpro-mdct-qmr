@@ -34,6 +34,7 @@ export namespace Measure {
   export interface Form {
     //Report
     DidReport: string;
+    DidCollect: string;
 
     //Status
     DataStatus: string[];

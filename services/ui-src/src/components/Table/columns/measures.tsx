@@ -9,15 +9,13 @@ import { measuresList } from "measures/measuresList";
 // Get status string from measure data
 const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
   // If completed all questions or if not reporting -> Complete
-  if (
-    data.rateComplete === 1 ||
-    (data.isReporting && data.isReporting !== null && !data.isReporting)
-  ) {
-    return MeasureTableItem.Status.COMPLETED;
-  }
+  if (data.rateComplete === 1) return MeasureTableItem.Status.COMPLETED;
 
+  if (data.lastDateModified !== data.createdAt) {
+    return MeasureTableItem.Status.IN_PROGRESS;
+  }
   // Otherwise -> Not Started
-  return MeasureTableItem.Status.IN_PROGRESS;
+  return MeasureTableItem.Status.NOT_STARTED;
 };
 
 // Format date string: ex. Nov 26, 2021 12:53 PM see: https://date-fns.org/v2.26.0/docs/format
@@ -88,6 +86,7 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
       )?.autocompleteOnCreation;
 
       let reportingText = "--";
+
       if (data.isReporting) reportingText = "yes";
       if (data.isReporting !== null && !data.isReporting) reportingText = "no";
       if (autoCompletedMeasure) reportingText = "N/A";
