@@ -269,36 +269,14 @@ describe("OY2 8937 Measure 04 IET AD", () => {
       "have.text",
       "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
     );
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
+
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
     cy.xpath("//p[contains(text(),'Administrative Data')]").click({
       force: true,
     });
-    // cy.get("#field-125-label").should("be.visible");
-    // cy.get(
-    //   '[data-cy="DataSource-Administrative0"] > .chakra-checkbox__label > .chakra-text'
-    // ).should("have.text", "Medicaid Management Information System (MMIS)");
-    // cy.get(
-    //   '[data-cy="DataSource-Administrative1"] > .chakra-checkbox__label > .chakra-text'
-    // ).should("have.text", "Other");
-    // cy.get(
-    //   '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
-    // ).click();
-    // cy.xpath("//p[contains(text(),'Other Data Source')]").click();
-    // cy.get('[data-cy="DataSource-Other"]').should("be.visible");
-    // cy.xpath(
-    //   "//p[contains(text(),'For each data source selected above, describe whic')]"
-    // ).should(
-    //   "have.text",
-    //   "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:"
-    // );
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[4]/div[3]/label[1]"
-    // ).should("be.visible");
-    // cy.get('[data-cy="DataSource-Other-Explanation"]').should("be.visible");
+
     cy.get(":nth-child(6) > .css-1ddmh30").should("have.text", "Date Range");
     cy.get(".css-1u5a18p > :nth-child(1)").should(
       "have.text",
@@ -326,23 +304,7 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     cy.xpath(
       "//p[contains(text(),'Denominator includes Medicare and Medicaid Dually-')]"
     ).click();
-    // cy.get(
-    //   '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__label > .chakra-text'
-    // ).click();
-    // cy.get(
-    //   '[data-cy="DefinitionOfDenominator2"] > #DefinitionOfDenominator'
-    // ).check();
-    // cy.get(
-    //   '[data-cy="DefinitionOfDenominator3"] > .chakra-checkbox__label > .chakra-text'
-    // ).click();
-    // cy.xpath(
-    //   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[1]/div[1]/div[4]/label[1]/span[2]/p[1]"
-    // ).click();
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/label[1]"
-    // ).should("have.text", "Define the other denominator population:");
-    // cy.get('[data-cy="DefinitionOfDenominator-Other"]').should("be.visible");
-    // cy.get('[data-cy="ChangeInPopulationExplanation"]').should("be.visible");
+
     cy.get(
       "#DenominatorDefineTotalTechSpec-YesRepresentsTotalEligiblePop"
     ).click();
@@ -357,142 +319,18 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     cy.get('[data-cy="DenominatorDefineTotalTechSpec-No-Size"]').should(
       "be.visible"
     );
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
+
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
-    // cy.xpath(
-    //   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[1]/label[1]/span[2]/p[1]"
-    // ).click({ force: true });
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "Is all of your measure-eligible Fee-for-Service (FFS) population included in this measure?"
-    // );
-    // cy.get("#DeliverySys-FreeForService-YesAllFFS").should(
-    //   "have.text",
-    //   "Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure."
-    // );
-    // cy.get("#DeliverySys-FreeForService-NoAllFFS").should(
-    //   "have.text",
-    //   "No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure."
-    // );
-    // cy.get(
-    //   '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__label > .chakra-text'
-    // ).click();
-    // cy.xpath(
-    //   "//p[contains(text(),'Primary Care Case Management (PCCM)')]"
-    // ).click();
-    // cy.get("#DeliverySys-PrimaryCareManagement-YesAllPCCM").should(
-    //   "have.text",
-    //   "Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure."
-    // );
-    // cy.get("#DeliverySys-PrimaryCareManagement-NoAllPCCM").should(
-    //   "have.text",
-    //   "No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure."
-    // );
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "Is all of your measure-eligible Primary Care Case Management (PCCM) population included in this measure?"
-    // );
+
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__label > .chakra-text'
     ).click();
     cy.xpath(
       "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/label[1]/span[2]/p[1]"
     ).click();
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in the measure?"
-    // );
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data (optional)?"
-    // );
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[3]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "Is all of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population included in this measure?"
-    // );
-    // cy.get("#DeliverySys-MCO_POHP-YesAllMCO-PIHP").should(
-    //   "have.text",
-    //   "Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure."
-    // );
-    // cy.get("#DeliverySys-MCO_POHP-NoAllMCO-PIHP").should(
-    //   "have.text",
-    //   "No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure."
-    // );
-    // cy.get(
-    //   '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__label > .chakra-text'
-    // ).click();
-    // cy.xpath(
-    //   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[4]/label[1]/span[2]/p[1]"
-    // ).click();
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "Is all of your measure-eligible Integrated Care Models (ICM) population included in this measure?"
-    // );
-    // cy.get("#DeliverySys-IntegratedCareModel-YesAllICM").should(
-    //   "have.text",
-    //   "Yes, all of our measure-eligible Integrated Care Models (ICM) population are included in this measure."
-    // );
-    // cy.get("#DeliverySys-IntegratedCareModel-NoAllICM").should(
-    //   "have.text",
-    //   "No, not all of our measure-eligible Integrated Care Models (ICM) population are included in this measure."
-    // );
-    // cy.get(
-    //   '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__label > .chakra-text'
-    // ).click();
-    // cy.xpath(
-    //   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[5]/label[1]/span[2]/p[1]"
-    // ).click();
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "Describe the Other Delivery System represented in the denominator:"
-    // );
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[5]/div[1]/div[1]/div[2]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "Percentage of measure-eligible state population represented in data reported:"
-    // );
-    // cy.get('[data-cy="DeliverySys-Other"]').should("be.visible");
-    // cy.get('[data-cy="DeliverySys-Other-Percent"]').should("be.visible");
 
-    // cy.get(".css-zhlq69 > :nth-child(3) > .chakra-text").should(
-    //   "have.text",
-    //   "The percentage provided here should represent the percentage of the denominator population(s) included in the measure (i.e., Medicaid, CHIP, etc.) that receives items/services through the selected delivery system. For example, if the population included in the reported data represents all managed care enrollees and half of your state’s fee-for-service enrollees, select managed care, and select fee-for-service and enter 50."
-    // );
-
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[5]/div[1]/div[1]/div[4]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "If applicable, list the number of Health Plans represented:"
-    // );
-    // cy.get('[data-cy="DeliverySys-Other-NumberOfHealthPlans"]').should(
-    //   "be.visible"
-    // );
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[5]/div[1]/div[1]/div[5]/div[1]/label[1]"
-    // ).should(
-    //   "have.text",
-    //   "Number of measure-eligible state population represented in data reported:"
-    // );
-    // cy.get('[data-cy="DeliverySys-Other-Population"]').should("be.visible");
     /* ==== End Cypress Studio ==== */
   });
   it("First Calculation Test With Yes Option", () => {
