@@ -329,9 +329,9 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     cy.get(
       '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__label > .chakra-text'
     ).click();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator2"] > #DefinitionOfDenominator'
-    ).check();
+    // cy.get(
+    //   '[data-cy="DefinitionOfDenominator2"] > #DefinitionOfDenominator'
+    // ).check();
     cy.get(
       '[data-cy="DefinitionOfDenominator3"] > .chakra-checkbox__label > .chakra-text'
     ).click();
