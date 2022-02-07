@@ -341,8 +341,8 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     // cy.xpath(
     //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/label[1]"
     // ).should("have.text", "Define the other denominator population:");
-    cy.get('[data-cy="DefinitionOfDenominator-Other"]').should("be.visible");
-    cy.get('[data-cy="ChangeInPopulationExplanation"]').should("be.visible");
+    // cy.get('[data-cy="DefinitionOfDenominator-Other"]').should("be.visible");
+    // cy.get('[data-cy="ChangeInPopulationExplanation"]').should("be.visible");
     cy.get(
       "#DenominatorDefineTotalTechSpec-YesRepresentsTotalEligiblePop"
     ).click();
