@@ -174,39 +174,34 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Other");
-    cy.get(":nth-child(8) > .css-1ddmh30").should(
-      "have.text",
-      "Combined Rate(s) from Multiple Reporting Units"
-    );
-    cy.get("#field-201-label").should(
-      "have.text",
-      "Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate?"
-    );
-    cy.get("#field-205-label").click();
-    cy.get('[data-cy="AdditionalNotes-AdditionalNotes"]').click();
-    cy.get("#field-205-label").click();
-    cy.get('[data-cy="AdditionalNotes-AdditionalNotes"]').click();
-    cy.get("#CombinedRates-Yes\\,\\ combine").should(
-      "have.text",
-      "Yes, we combined rates from multiple reporting units to create a State-Level rate."
-    );
-    cy.get("#CombinedRates-No\\,\\ did\\ not\\ combine").should(
-      "have.text",
-      "No, we did not combine rates from multiple reporting units to create a State-Level rate."
-    );
-    cy.get(":nth-child(9) > .css-1ddmh30").should(
-      "have.text",
-      "Additional Notes/Comments on the measure (optional)"
-    );
-    cy.get("#field-205-label").should(
-      "have.text",
-      "Please add any additional notes or comments on the measure not otherwise captured above:"
-    );
-    cy.get('[data-cy="AdditionalNotes-AdditionalNotes"]').should("be.visible");
-    cy.get(".css-1bpnzr3 > .css-0").should(
-      "have.text",
-      "If you need additional space to include comments or supplemental information, please attach further documentation below."
-    );
+    cy.xpath(
+      "//label[contains(text(),'Combined Rate(s) from Multiple Reporting Units')]"
+    ).should("have.text", "Combined Rate(s) from Multiple Reporting Units");
+    // cy.get("#field-205-label").click();
+    // cy.get('[data-cy="AdditionalNotes-AdditionalNotes"]').click();
+    // cy.get("#field-205-label").click();
+    // cy.get('[data-cy="AdditionalNotes-AdditionalNotes"]').click();
+    // cy.get("#CombinedRates-Yes\\,\\ combine").should(
+    //   "have.text",
+    //   "Yes, we combined rates from multiple reporting units to create a State-Level rate."
+    // );
+    // cy.get("#CombinedRates-No\\,\\ did\\ not\\ combine").should(
+    //   "have.text",
+    //   "No, we did not combine rates from multiple reporting units to create a State-Level rate."
+    // );
+    // cy.get(":nth-child(9) > .css-1ddmh30").should(
+    //   "have.text",
+    //   "Additional Notes/Comments on the measure (optional)"
+    // );
+    // cy.get("#field-205-label").should(
+    //   "have.text",
+    //   "Please add any additional notes or comments on the measure not otherwise captured above:"
+    // );
+    // cy.get('[data-cy="AdditionalNotes-AdditionalNotes"]').should("be.visible");
+    // cy.get(".css-1bpnzr3 > .css-0").should(
+    //   "have.text",
+    //   "If you need additional space to include comments or supplemental information, please attach further documentation below."
+    // );
     cy.get(".chakra-stack > img").should("be.visible");
     cy.get(".css-1h4ws66 > .chakra-heading").should(
       "have.text",
