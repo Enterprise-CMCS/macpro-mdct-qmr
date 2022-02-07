@@ -362,43 +362,43 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
-    cy.xpath(
-      "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[1]/label[1]/span[2]/p[1]"
-    ).click({ force: true });
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/label[1]"
-    ).should(
-      "have.text",
-      "Is all of your measure-eligible Fee-for-Service (FFS) population included in this measure?"
-    );
-    cy.get("#DeliverySys-FreeForService-YesAllFFS").should(
-      "have.text",
-      "Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure."
-    );
-    cy.get("#DeliverySys-FreeForService-NoAllFFS").should(
-      "have.text",
-      "No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure."
-    );
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__label > .chakra-text'
-    ).click();
-    cy.xpath(
-      "//p[contains(text(),'Primary Care Case Management (PCCM)')]"
-    ).click();
-    cy.get("#DeliverySys-PrimaryCareManagement-YesAllPCCM").should(
-      "have.text",
-      "Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure."
-    );
-    cy.get("#DeliverySys-PrimaryCareManagement-NoAllPCCM").should(
-      "have.text",
-      "No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure."
-    );
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/label[1]"
-    ).should(
-      "have.text",
-      "Is all of your measure-eligible Primary Care Case Management (PCCM) population included in this measure?"
-    );
+    // cy.xpath(
+    //   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[1]/label[1]/span[2]/p[1]"
+    // ).click({ force: true });
+    // cy.xpath(
+    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/label[1]"
+    // ).should(
+    //   "have.text",
+    //   "Is all of your measure-eligible Fee-for-Service (FFS) population included in this measure?"
+    // );
+    // cy.get("#DeliverySys-FreeForService-YesAllFFS").should(
+    //   "have.text",
+    //   "Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure."
+    // );
+    // cy.get("#DeliverySys-FreeForService-NoAllFFS").should(
+    //   "have.text",
+    //   "No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure."
+    // );
+    // cy.get(
+    //   '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__label > .chakra-text'
+    // ).click();
+    // cy.xpath(
+    //   "//p[contains(text(),'Primary Care Case Management (PCCM)')]"
+    // ).click();
+    // cy.get("#DeliverySys-PrimaryCareManagement-YesAllPCCM").should(
+    //   "have.text",
+    //   "Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure."
+    // );
+    // cy.get("#DeliverySys-PrimaryCareManagement-NoAllPCCM").should(
+    //   "have.text",
+    //   "No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure."
+    // );
+    // cy.xpath(
+    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/label[1]"
+    // ).should(
+    //   "have.text",
+    //   "Is all of your measure-eligible Primary Care Case Management (PCCM) population included in this measure?"
+    // );
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__label > .chakra-text'
     ).click();
