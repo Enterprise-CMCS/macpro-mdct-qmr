@@ -405,32 +405,32 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     cy.xpath(
       "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/label[1]/span[2]/p[1]"
     ).click();
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/label[1]"
-    ).should(
-      "have.text",
-      "What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in the measure?"
-    );
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/label[1]"
-    ).should(
-      "have.text",
-      "What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data (optional)?"
-    );
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[3]/div[1]/label[1]"
-    ).should(
-      "have.text",
-      "Is all of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population included in this measure?"
-    );
-    cy.get("#DeliverySys-MCO_POHP-YesAllMCO-PIHP").should(
-      "have.text",
-      "Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure."
-    );
-    cy.get("#DeliverySys-MCO_POHP-NoAllMCO-PIHP").should(
-      "have.text",
-      "No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure."
-    );
+    // cy.xpath(
+    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/label[1]"
+    // ).should(
+    //   "have.text",
+    //   "What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in the measure?"
+    // );
+    // cy.xpath(
+    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/label[1]"
+    // ).should(
+    //   "have.text",
+    //   "What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data (optional)?"
+    // );
+    // cy.xpath(
+    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[3]/div[1]/div[1]/div[3]/div[1]/label[1]"
+    // ).should(
+    //   "have.text",
+    //   "Is all of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population included in this measure?"
+    // );
+    // cy.get("#DeliverySys-MCO_POHP-YesAllMCO-PIHP").should(
+    //   "have.text",
+    //   "Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure."
+    // );
+    // cy.get("#DeliverySys-MCO_POHP-NoAllMCO-PIHP").should(
+    //   "have.text",
+    //   "No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure."
+    // );
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__label > .chakra-text'
     ).click();
