@@ -120,6 +120,10 @@ And("user click on link FUA-AD", () => {
   adultCoreSetMeasurespage.clickFUAadLink();
 });
 
+And("user click on link CCP-AD",()=>{
+  adultCoreSetMeasurespage.clickCCPadLink();
+});
+
 And(
   "user can see the FUA-AD follow up after emergency department vist for alcohol and other drug abuse title",
   () => {}
