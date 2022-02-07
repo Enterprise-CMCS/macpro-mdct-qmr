@@ -364,7 +364,7 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     ).click();
     cy.xpath(
       "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[1]/label[1]/span[2]/p[1]"
-    ).click();
+    ).click({ force: true });
     cy.xpath(
       "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/label[1]"
     ).should(
