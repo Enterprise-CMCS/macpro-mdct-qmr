@@ -72,12 +72,11 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
   const handleSave = (data: Measure.Form) => {
     if (!mutationRunning && !loadingData) {
       setLastSavedText("Awaiting Changed Save Status");
-      console.log(measureData?.status);
       updateMeasure(
         {
           data,
           status: MeasureStatus.INCOMPLETE,
-          reporting: handleReporting(data),
+          reporting: handleReportingResponse(data),
         },
         {
           onSettled: (data, error) => {
@@ -105,7 +104,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     console.log({ data });
   };
 
-  const handleReporting = (data: Measure.Form, submit?: boolean) => {
+  const handleReportingResponse = (data: Measure.Form, submit?: boolean) => {
     if (
       submit &&
       (data["DidReport"]?.includes("Yes") ||
@@ -124,7 +123,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         {
           data,
           status: MeasureStatus.COMPLETE,
-          reporting: handleReporting(data, true),
+          reporting: handleReportingResponse(data, true),
         },
         {
           onSettled: (data, error) => {

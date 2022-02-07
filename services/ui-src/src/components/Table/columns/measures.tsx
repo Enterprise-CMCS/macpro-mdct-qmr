@@ -11,6 +11,7 @@ const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
   // If completed all questions or if not reporting -> Complete
   if (data.rateComplete === 1) return MeasureTableItem.Status.COMPLETED;
 
+  // If the modified date is different than the creation date, it is in progress
   if (data.lastDateModified !== data.createdAt) {
     return MeasureTableItem.Status.IN_PROGRESS;
   }
@@ -86,7 +87,6 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
       )?.autocompleteOnCreation;
 
       let reportingText = "--";
-
       if (data.isReporting) reportingText = "yes";
       if (data.isReporting !== null && !data.isReporting) reportingText = "no";
       if (autoCompletedMeasure) reportingText = "N/A";

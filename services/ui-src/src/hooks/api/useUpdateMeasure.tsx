@@ -15,7 +15,7 @@ interface UpdateMeasure<DataType = any> {
   data: DataType;
   measure?: string;
   status: MeasureStatus;
-  reporting?: string;
+  reporting: string;
 }
 
 const updateMeasure = ({
