@@ -92,7 +92,10 @@ describe("OY2 8937 Measure 04 IET AD", () => {
       "have.text",
       "Definition of Population Included in the Measure"
     );
-    cy.get(".css-9f6g39").should("have.text", "Definition of denominator");
+    cy.xpath("//h3[contains(text(),'Definition of denominator')]").should(
+      "have.text",
+      "Definition of denominator"
+    );
     cy.get(".css-1art13b").should(
       "have.text",
       "Please select all populations that are included. For example, if your data include both non-dual Medicaid enrollees and Medicare and Medicaid Dual Eligibles, select both:"
