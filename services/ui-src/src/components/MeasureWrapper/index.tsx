@@ -105,8 +105,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const handleReportingResponse = (data: Measure.Form) => {
     if (
-      data["DidReport"]?.includes("Yes") ||
-      data["DidCollect"]?.includes("yes")
+      data["DidReport"]?.toLocaleLowerCase()?.includes("yes") ||
+      data["DidCollect"]?.toLocaleLowerCase()?.includes("yes")
     ) {
       return "yes";
     }
