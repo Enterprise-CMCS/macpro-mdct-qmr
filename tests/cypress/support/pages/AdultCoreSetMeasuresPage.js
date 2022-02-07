@@ -18,9 +18,9 @@ export class AdultCoreSetMeasuresPage {
     cy.xpath(nciddsAD).click({ force: true });
   }
 
-  clickCCPadLink(){
+  clickCCPadLink() {
     cy.xpath(ccpAD).should("be.visible");
-    cy.xpath(ccpAD).click({force:true});
+    cy.xpath(ccpAD).click({ force: true });
   }
 
   verifyQMRMDCTMedicaidLogoAtAdultCoreSetMeasurePage() {

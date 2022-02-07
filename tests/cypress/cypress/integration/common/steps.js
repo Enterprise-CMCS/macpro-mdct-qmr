@@ -120,7 +120,7 @@ And("user click on link FUA-AD", () => {
   adultCoreSetMeasurespage.clickFUAadLink();
 });
 
-And("user click on link CCP-AD",()=>{
+And("user click on link CCP-AD", () => {
   adultCoreSetMeasurespage.clickCCPadLink();
 });
 
