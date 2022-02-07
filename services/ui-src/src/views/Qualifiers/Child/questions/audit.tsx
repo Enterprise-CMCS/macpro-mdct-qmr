@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from ".";
@@ -54,6 +54,10 @@ export const Audit = () => {
     [childMeasures]
   );
 
+  useEffect(() => {
+    setMeasureList(field.value);
+  }, [field.value]);
+
   const handleAddMeasureList = () => {
     setMeasureList([
       ...measureList,
@@ -91,7 +95,7 @@ export const Audit = () => {
                   "Yes, some of the Core Set measures have been audited or validated",
                 children: [
                   <CUI.Stack mb="5" spacing="6">
-                    {measureList.map((m: AuditDetails, index: number) => {
+                    {measureList?.map((m: AuditDetails, index: number) => {
                       return (
                         <CUI.Box
                           border="1px"
