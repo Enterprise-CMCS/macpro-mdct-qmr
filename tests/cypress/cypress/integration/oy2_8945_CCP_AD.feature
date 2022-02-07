@@ -18,6 +18,7 @@ Feature: Verify and fill out CCP-AD measurement
             And   upload attachment text file
             And   upload attachment picture
             And   user enters inputs to the Rate field and verify the correct Rate output
+            And   button on the page is clickable 
 
     Scenario: Verify Numerical Value/Calculations with Administrative Data option
         Given user visits QMR home page
