@@ -80,6 +80,72 @@ const AddAnotherButton = ({
   );
 };
 
+const buildOtherPerformanceRates = (
+  name: string,
+  rateReadOnly: boolean,
+  ageGroups: { id: number; label: string }[]
+) => {
+  return ageGroups.map((item, index) => {
+    return (
+      <CUI.Box key={`${name}.${index}.wrapper`}>
+        <CUI.Heading key={`${name}.${index}.subHeader`} size="sm">
+          {item.label}
+        </CUI.Heading>
+        <QMR.Rate
+          readOnly={rateReadOnly}
+          name={`${name}.subRates.${item.id}.otherPerformanceRate`}
+          key={`${name}.subRates.${item.id}.otherPerformanceRate`}
+          rates={[{ id: 0 }]}
+        />
+      </CUI.Box>
+    );
+  });
+};
+
+const buildPerfRates = (
+  name: string,
+  label: string,
+  show3: boolean,
+  show60: boolean,
+  rateReadOnly: boolean
+) => {
+  return (
+    <>
+      {(show3 || show60) && (
+        <CUI.Heading key={`${name}.subHeader`} size="sm">
+          {label}
+        </CUI.Heading>
+      )}
+      {show3 && (
+        <QMR.Rate
+          readOnly={rateReadOnly}
+          name={`${name}.subRates.${0}.threeDaysPostPartum`}
+          key={`${name}.subRates.${0}.threeDaysPostPartum`}
+          rates={[
+            {
+              id: 0,
+              label: "Three Days Postpartum Rate",
+            },
+          ]}
+        />
+      )}
+      {show60 && (
+        <QMR.Rate
+          readOnly={rateReadOnly}
+          name={`${name}.subRates.${1}.sixtyDays`}
+          key={`${name}.subRates.${1}.sixtyDaysPostPartum`}
+          rates={[
+            {
+              id: 1,
+              label: "Sixty Days Postpartum Rate",
+            },
+          ]}
+        />
+      )}
+    </>
+  );
+};
+
 const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups, deviationConditions } = useContext(AgeDataContext);
   const { watch } = useFormContext<Measure.Form>();
@@ -106,68 +172,24 @@ const AgeData = ({ name }: SubComponentProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Heading>
-      {ageGroups.map((item, index) => {
-        return (
-          <CUI.Box key={`${item.label}.${item.id}.${index}`}>
-            {(deviationConditions?.showOtherPerformanceMeasureRates ||
-              showEffective ||
-              showLongLast) && (
-              <CUI.Heading key={`${name}.${index}.subHeader`} size="sm">
-                {(deviationConditions?.showOtherPerformanceMeasureRates &&
-                  item.label) ||
-                  (item.id === 0 &&
-                    "Most effective or moderately effective method of contraception") ||
-                  (item.id === 1 &&
-                    "Long-acting reversible method of contraception (LARC)")}
-              </CUI.Heading>
-            )}
-            {deviationConditions?.showOtherPerformanceMeasureRates && (
-              <QMR.Rate
-                readOnly={rateReadOnly}
-                name={`${name}.subRates.${item.id}.otherPerformanceRate`}
-                key={`${name}.subRates.${item.id}.otherPerformanceRate`}
-                rates={[
-                  {
-                    id: 0,
-                  },
-                ]}
-              />
-            )}
-            {((deviationConditions?.showEffectiveContraceptionThreeDaysPostPartum &&
-              item.id === 0) ||
-              (deviationConditions?.showLongActingContraceptionThreeDaysPostPartum &&
-                item.id === 1)) && (
-              <QMR.Rate
-                readOnly={rateReadOnly}
-                name={`${name}.subRates.${item.id}.threeDaysPostPartum`}
-                key={`${name}.subRates.${item.id}.threeDaysPostPartum`}
-                rates={[
-                  {
-                    id: 0,
-                    label: "Three Days Postpartum Rate",
-                  },
-                ]}
-              />
-            )}
-            {((deviationConditions?.showEffectiveContraceptionSixtyDaysPostPartum &&
-              item.id === 0) ||
-              (deviationConditions?.showLongActingContraceptionSixtyDaysPostPartum &&
-                item.id === 1)) && (
-              <QMR.Rate
-                readOnly={rateReadOnly}
-                name={`${name}.subRates.${item.id}.sixtyDays`}
-                key={`${name}.subRates.${item.id}.sixtyDaysPostPartum`}
-                rates={[
-                  {
-                    id: 1,
-                    label: "Sixty Days Postpartum Rate",
-                  },
-                ]}
-              />
-            )}
-          </CUI.Box>
-        );
-      })}
+      {deviationConditions?.showOtherPerformanceMeasureRates &&
+        buildOtherPerformanceRates(name, rateReadOnly, ageGroups)}
+      {showEffective &&
+        buildPerfRates(
+          `${name}.showEffective`,
+          "Most effective or moderately effective method of contraception",
+          deviationConditions.showEffectiveContraceptionThreeDaysPostPartum,
+          deviationConditions.showEffectiveContraceptionSixtyDaysPostPartum,
+          rateReadOnly
+        )}
+      {showLongLast &&
+        buildPerfRates(
+          `${name}.showLarc`,
+          "Long-acting reversible method of contraception (LARC)",
+          deviationConditions.showLongActingContraceptionThreeDaysPostPartum,
+          deviationConditions.showLongActingContraceptionSixtyDaysPostPartum,
+          rateReadOnly
+        )}
     </CUI.Box>
   );
 };

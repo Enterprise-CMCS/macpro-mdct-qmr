@@ -15,10 +15,12 @@ export namespace Measure {
   }
 
   interface AggregateRate {
-    subRate: {
-      [key: string]: RateFields;
+    [ageGroup: string]: {
+      subRate: {
+        [key: string]: RateFields;
+      };
+      total: RateFields[];
     };
-    total: RateFields[];
   }
 
   interface OtherRatesFields {

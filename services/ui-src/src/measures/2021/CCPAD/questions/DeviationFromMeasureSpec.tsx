@@ -28,7 +28,7 @@ const deviationOptions = ({
   deviationConditions,
 }: OptionProps): QMR.CheckboxOption[] => {
   let filteredOptions: Props["options"];
-  if (name.includes("3days")) {
+  if (name.includes("MostEffective")) {
     filteredOptions = options.filter((option) => {
       return (
         (deviationConditions.showEffectiveContraceptionThreeDaysPostPartum &&

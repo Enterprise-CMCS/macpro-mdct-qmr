@@ -45,13 +45,13 @@ export const CCPAD = ({
   const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
   const showEffectiveContraceptionThreeDaysPostPartum =
-    !!watchPerformanceMeasureAgeRatesEffectiveContraception?.[0]?.rate;
+    !!watchPerformanceMeasureAgeRatesEffectiveContraception?.[0];
   const showEffectiveContraceptionSixtyDaysPostPartum =
-    !!watchPerformanceMeasureAgeRatesEffectiveContraception?.[1]?.rate;
+    !!watchPerformanceMeasureAgeRatesEffectiveContraception?.[1];
   const showLongActingContraceptionThreeDaysPostPartum =
-    !!watchPerformanceMeasureAgeRatesLongActingContraception?.[0]?.rate;
+    !!watchPerformanceMeasureAgeRatesLongActingContraception?.[0];
   const showLongActingContraceptionSixtyDaysPostPartum =
-    !!watchPerformanceMeasureAgeRatesLongActingContraception?.[1]?.rate;
+    !!watchPerformanceMeasureAgeRatesLongActingContraception?.[1];
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
@@ -59,7 +59,7 @@ export const CCPAD = ({
 
   if (
     showEffectiveContraceptionThreeDaysPostPartum ||
-    showEffectiveContraceptionSixtyDaysPostPartum
+    showLongActingContraceptionThreeDaysPostPartum
   ) {
     ageGroups.push({
       label: "Three Days Postpartum Rate",
@@ -68,7 +68,7 @@ export const CCPAD = ({
   }
 
   if (
-    showLongActingContraceptionThreeDaysPostPartum ||
+    showEffectiveContraceptionSixtyDaysPostPartum ||
     showLongActingContraceptionSixtyDaysPostPartum
   ) {
     ageGroups.push({
