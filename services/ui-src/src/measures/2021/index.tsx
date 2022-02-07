@@ -9,14 +9,16 @@ import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { NCIDDSAD } from "./NCIDDSAD";
 import { PDENTCH } from "./PDENTCH";
+import { PQI05 } from "./PQI05AD";
 
 const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
+  "FUA-AD": FUAAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "NCIDDS-AD": NCIDDSAD,
   "PDENT-CH": PDENTCH,
-  "FUA-AD": FUAAD,
+  "PQI05-AD": PQI05,
 };
 
 export default twentyTwentyOneMeasures;
