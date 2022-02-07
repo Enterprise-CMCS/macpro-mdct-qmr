@@ -5,81 +5,95 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { createContext, useState, useContext } from "react";
-import { useFormContext } from "react-hook-form";
 import { OMSData, OmsNode } from "./data/OMSData";
 import {
   ageGroups,
   performanceMeasureDescriptions,
 } from "./data/performanceMeasureData";
-import { OpenMode } from "fs";
+import { useFormContext } from "react-hook-form";
 
 interface HookFormProps {
   name: string;
 }
 
-/**
- * Builds the NDR Sets for "AgeGroups" given
- */
+//Builds Base level NDR Sets
 const renderNDRSets = () => {
   const { OPM } = useContext(PerformanceMeasureContext);
   if (OPM) {
-    return [...OPMNDRSets(OPM)];
+    return [OPMNDRSets({ name: "nothing1" })];
   }
-  return [...AgeGroupNDRSets()];
+  return [AgeGroupNDRSets({ name: "nothing2" })];
+};
+
+const renderSingleNdrWithLabel = (uniqueId: string, label: string) => {
+  const { rateReadOnly } = useContext(PerformanceMeasureContext);
+  return (
+    <QMR.Rate
+      readOnly={rateReadOnly}
+      name={uniqueId}
+      key={uniqueId}
+      rates={[
+        {
+          id: 0,
+          label: label,
+        },
+      ]}
+    />
+  );
+};
+
+const renderAgeGroupsCheckboxes = (uniqueId: string) => {
+  const { performanceMeasureArray } = useContext(PerformanceMeasureContext);
+  const checkboxes: any = [];
+  ageGroups.forEach((ageGroup: string, i: number) => {
+    let ndrSets: any = [];
+    performanceMeasureArray!.forEach((performanceMeasure, index: number) => {
+      let uniqueId = "i'm super unique";
+      if (performanceMeasure[i] && performanceMeasure[i].rate) {
+        ndrSets.push(
+          renderSingleNdrWithLabel(
+            uniqueId,
+            performanceMeasureDescriptions[index]
+          )
+        );
+      }
+    });
+    const ageGroupCheckBox = {
+      value: `${uniqueId}${ageGroup}`.replace(/,| |\//g, ""),
+      displayValue: ageGroup,
+      children: ndrSets,
+    };
+    checkboxes.push(ageGroupCheckBox);
+  });
+  return checkboxes;
 };
 
 const AgeGroupNDRSets = ({}: HookFormProps) => {
-  const { performanceMeasureArray } = useContext(PerformanceMeasureContext);
-  const ageGroupsOptions = [];
-
-  <QMR.Checkbox
-    name="TODO: registration name"
-    key="copy name"
-    // @ts-ignore
-    options={...ageGroups.map((ageGroup) => {
-      return {
-        value: `${ageGroup}`.replace(/,| |\//g, ""),
-        displayValue: ageGroup,
-        children: [
-          <CUI.Heading key="shtuff">
-            Enter a number for the numerator and the denominator. Rate will
-            auto-calculate
-          </CUI.Heading>,
-          ...performanceMeasureArray.map(
-            (performanceMeasure: any, id: number) => {
-              if (performanceMeasure) {
-                return (
-                  <QMR.Rate
-                    rates={[
-                      {
-                        id: 12345,
-                      },
-                    ]}
-                    name={performanceMeasureDescriptions[id]}
-                    readOnly={false}
-                  />
-                );
-              }
-              return null;
-            }
-          ),
-        ],
-      };
-    })}
-  />;
-  return <div />;
-};
-
-const OPMNDRSets = ({}: HookFormProps) => {
-  const { OPM } = useContext(PerformanceMeasureContext);
+  const ageGroupsOptions = renderAgeGroupsCheckboxes("uniqueId");
   return (
     <QMR.Checkbox
       name="TODO: registration name"
       key="copy name"
       // @ts-ignore
-      options={performanceMeasureArray!.map((item, idx) => {
+      options={ageGroupsOptions}
+    />
+  );
+};
+
+// render age checkboxes
+// for each age checkbox render the NDR set with description
+
+const OPMNDRSets = ({}: HookFormProps) => {
+  const { OPM, rateReadOnly } = useContext(PerformanceMeasureContext);
+  return (
+    <QMR.Checkbox
+      name="TODO: registration name"
+      key="copy name"
+      // @ts-ignore
+      options={OPM!.map((item, id: number) => {
+        const uniqueId = "somestuff";
         return {
-          value: `${item.description}.${idx}`.replace(/,| |\//g, ""),
+          value: `${item.description}.${id}`.replace(/,| |\//g, ""),
           displayValue: item.description,
           children: [
             <CUI.Heading key="shtuff">
@@ -89,29 +103,15 @@ const OPMNDRSets = ({}: HookFormProps) => {
             <QMR.Rate
               rates={[
                 {
-                  id: 12345,
+                  id,
                 },
               ]}
-              name={`PerformanceMeasure-Rates.${12345}.rate`}
-              readOnly={false}
+              name={uniqueId}
+              readOnly={rateReadOnly}
             />,
           ],
         };
       })}
-    />
-  );
-};
-
-const renderBaseNdrSet = ({ rate: string }) => {
-  return (
-    <QMR.Rate
-      rates={[
-        {
-          id: rate,
-        },
-      ]}
-      name={`OtherPerformanceMeasure-Rates.${index}.rate`}
-      readOnly={false}
     />
   );
 };
@@ -133,6 +133,7 @@ const buildSubCatSection = ({}: HookFormProps): JSX.Element[] => {
     <QMR.Checkbox
       name="TODO: registration name"
       key="copy name"
+      //@ts-ignore
       options={addtnlSubCat.map((item, idx) => {
         return {
           value: `${item.id}.${idx}`.replace(/,| |\//g, ""),
@@ -166,6 +167,7 @@ const renderRadioButtonOptions = (omsNode: OmsNode) => {
         <QMR.Checkbox
           name={"TODO: registration name"}
           key={"Use whatever name is"}
+          //@ts-ignore
           options={omsNode.options!.map((item) => {
             return buildChildCheckboxOption(item);
           })}
@@ -179,7 +181,7 @@ const renderRadioButtonOptions = (omsNode: OmsNode) => {
  * Builds child level checkbox options
  * ex: Race -> White, African American, Asian, etc.
  */
-const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
+const buildChildCheckboxOption = (omsNode: OmsNode) => {
   const value = omsNode.id.replace(/,| |\//g, "");
   const displayValue = omsNode.id;
   let children = [];
@@ -195,6 +197,7 @@ const buildChildCheckboxOption = (omsNode: OmsNode): QMR.CheckboxOption => {
       <QMR.RadioButton
         name="TODO: registration name"
         key={"Use whatever we decide on the name being"}
+        //@ts-ignore
         options={renderRadioButtonOptions(omsNode)}
       />,
     ];
@@ -249,6 +252,7 @@ const buildCheckBoxChildren = (
     <QMR.Checkbox
       name={"TODO: registration name"}
       key={"Use whatever we decide on the name being"}
+      //@ts-ignore
       options={[
         ...combinedOptions.map((lvlTwoOption) => {
           return buildChildCheckboxOption(lvlTwoOption);
@@ -265,10 +269,7 @@ const buildCheckBoxChildren = (
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
-const buildCheckboxes = (
-  OPM: any,
-  performanceMeasureArray: any
-): QMR.CheckboxOption[] => {
+const buildCheckboxes = () => {
   return OMSData.map((lvlOneOption) => {
     const value = lvlOneOption.id.replace(/,| |\//g, "");
     const displayValue = lvlOneOption.id;
@@ -286,6 +287,7 @@ const buildCheckboxes = (
 interface contextProps {
   OPM?: any[];
   performanceMeasureArray?: any[][];
+  rateReadOnly?: boolean;
 }
 
 const PerformanceMeasureContext = createContext<contextProps>({});
@@ -293,6 +295,14 @@ const PerformanceMeasureContext = createContext<contextProps>({});
  * Final OMS built
  */
 export const OMS2 = (data: Measure.Form) => {
+  const { watch } = useFormContext<Measure.Form>();
+  // Watch for dataSource data
+  const dataSourceWatch = watch("DataSource");
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source) => source === "I am reporting provisional data."
+    ) ?? true;
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = [
     data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
@@ -305,18 +315,17 @@ export const OMS2 = (data: Measure.Form) => {
     data["PerformanceMeasure-AgeRates-Engagement-Total"],
   ];
   const register = useCustomRegister();
-  const checkBoxOptions = buildCheckboxes(OPM, performanceMeasureArray);
+  const checkBoxOptions = buildCheckboxes();
 
   return (
     <PerformanceMeasureContext.Provider
-      value={{ OPM, performanceMeasureArray }}
+      value={{ OPM, performanceMeasureArray, rateReadOnly }}
     >
       <QMR.Checkbox
         {...register("CategoriesReported")}
+        //@ts-ignore
         options={checkBoxOptions}
       />
     </PerformanceMeasureContext.Provider>
   );
 };
-
-const currentOMSState = [];
