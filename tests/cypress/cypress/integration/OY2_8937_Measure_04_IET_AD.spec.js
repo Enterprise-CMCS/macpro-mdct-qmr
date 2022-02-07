@@ -46,7 +46,7 @@ describe("OY2 8937 Measure 04 IET AD", () => {
       "have.text",
       "I am reporting final data."
     );
-    cy.get(":nth-child(4) > .chakra-form__label").should(
+    cy.xpath("//label[contains(text(),'Measurement Specification')]").should(
       "have.text",
       "Measurement Specification"
     );
