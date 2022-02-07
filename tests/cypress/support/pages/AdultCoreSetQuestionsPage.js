@@ -54,7 +54,7 @@ const externalContractorValue =
   "//h3[contains(text(),'Please indicate whether your state obtained assist')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const yesUnderExternalContractor =
-  "//p[contains(text(),'Yes, we did obtained assistance from one or more e')]";
+  "//p[contains(text(),'Yes, we did obtain assistance from one or more e')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const noUnderExternalContractor =
   "//p[contains(text(),'No, we calculated all the measure internally.')]";
