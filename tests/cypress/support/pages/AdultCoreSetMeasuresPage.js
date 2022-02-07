@@ -4,6 +4,7 @@ const pdentCH = "(//p[@class='chakra-text css-hispwy'])[5]";
 const lbwCH = "(//p[@class='chakra-text css-hispwy'])[7]";
 const lrcdCH = "(//p[@class='chakra-text css-hispwy'])[9]";
 const fuaAD = "(//p[@class='chakra-text css-hispwy'])[1]";
+const CPAadLink = "//p[contains(text(),'CPA-AD')]";
 
 export class AdultCoreSetMeasuresPage {
   clickNCIDDSadLink() {
@@ -25,7 +26,9 @@ export class AdultCoreSetMeasuresPage {
     cy.xpath(pdentCH).should("be.visible");
     cy.xpath(pdentCH).click({ force: true });
   }
-
+  clickCPAadLink() {
+    cy.xpath(CPAadLink).click();
+  }
   clickLBWchLink() {
     cy.xpath(lbwCH).should("be.visible");
     cy.xpath(lbwCH).click({ force: true });

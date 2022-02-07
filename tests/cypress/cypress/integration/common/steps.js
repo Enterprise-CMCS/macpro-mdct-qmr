@@ -10,6 +10,7 @@ import LRCDch from "../../../support/pages/LRCDch";
 // demo
 
 import FUAADPAGE from "../../../support/pages/FUAADPage";
+import CPAADPAGE from "../../../support/pages/CPAADPage";
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();
@@ -22,6 +23,7 @@ const lrcdCH = new LRCDch();
 // demo
 
 const fUAADPage = new FUAADPAGE();
+const cPAADPage = new CPAADPAGE();
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -64,6 +66,10 @@ And("user click on link PDENT-CH", () => {
 
 And("user click on link LRCD-CH", () => {
   adultCoreSetMeasurespage.clickLRCDchLink();
+});
+
+And("user click on link CPA-CH", () => {
+  adultCoreSetMeasurespage.clickCPAadLink();
 });
 
 And("user can see the LRCD-CH Low Risk Cesarean Delivery title", () => {
@@ -332,7 +338,9 @@ And("user can see the footer", () => {
 When('user clicks on "Login" link', () => {
   homePage.clickLoginButton();
 });
-
+And('user click on link CPA-AD', () => {
+  adultCoreSetMeasurespage.clickCPAadLink();
+});
 When("user enter username and password", () => {
   loginPage.enterUserName();
   loginPage.enterPassword();
@@ -488,3 +496,66 @@ And("verify FFY2019 exists", () => {
 And("Click on National Committee for Quality Assurance Radio Button", () => {
   fUAADPage.clicknationalCommitteForQualityAssuranceRadioBTN();
 });
+//steps below are OY2-9942 CPA-AD
+
+And("user can click on No option for reporting on this measure", () => {
+  cPAADPage.VerifyReportingOnMeasureNo();
+});
+
+And(
+  "user can click on Yes option for Are you reporting on this measure",
+  () => {
+    cPAADPage.verifyReportingOnMeasureYes();
+  }
+);
+And("user can verify the title", () => {
+  cPAADPage.verifycpaADtitle();
+});
+And("user can verify the sentence below the title", () => {
+  cPAADPage.verifysentenceBelowTitle();
+});
+And("user can click on Yes option for Did you collect this measure?", () => {
+  cPAADPage.clickdidYouCollectThisMeasure();
+});
+And("user can click on AHRQ option for How did you report this measure?", () => {
+  cPAADPage.clickhowDidYouReportThisMeasure();
+});
+And("user can click on AHRQ option for Measurement Specification", () => {
+  cPAADPage.clickmeasurementSpecificationAHRQ();
+});
+And("user can click CAHPS for Data Source", () => {
+  cPAADPage.clickdataSource();
+});
+And("user can click on No supplemental Item Sets were included for Which Supplemental Item Sets were included in the Survey", () => {
+  cPAADPage.clicknoSupplemental();
+});
+And("user can click AHRQ administrative protocol", () => {
+  cPAADPage.clickahrqAdministrativeProtocol();
+});
+And("user can click on Survey sample Medicaid population", () => {
+  cPAADPage.clicksurveySampleMedicaidPopulation();
+});
+And("user can verify Performance Measure text", () => {
+  cPAADPage.verifyperformanceMeasure();
+});
+//And("user enters data for the additional notes text box", () => {
+//  cPAADPage.verifyadditionalNotes();
+//});
+//And("user can attach a text file", () => {
+ // cPAADPage.addTextFilesToFUAADPage();
+//});
+//And("user can verify the uploaded text file", () => {
+ // cPAADPage.verifyTextIsUploaded();
+//});
+And("user can verify that validate and complete measure buttons are enabled and clickable", () => {
+  cPAADPage.verifyvalidateMeasureButton();
+});
+
+
+
+
+
+
+
+
+
