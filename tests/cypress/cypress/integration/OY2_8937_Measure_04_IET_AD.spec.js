@@ -284,17 +284,17 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     // cy.get(
     //   '[data-cy="DataSource-Administrative1"] > .chakra-checkbox__label > .chakra-text'
     // ).should("have.text", "Other");
-    cy.get(
-      '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
-    ).click();
-    cy.xpath("//p[contains(text(),'Other Data Source')]").click();
-    cy.get('[data-cy="DataSource-Other"]').should("be.visible");
-    cy.xpath(
-      "//p[contains(text(),'For each data source selected above, describe whic')]"
-    ).should(
-      "have.text",
-      "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:"
-    );
+    // cy.get(
+    //   '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
+    // ).click();
+    // cy.xpath("//p[contains(text(),'Other Data Source')]").click();
+    // cy.get('[data-cy="DataSource-Other"]').should("be.visible");
+    // cy.xpath(
+    //   "//p[contains(text(),'For each data source selected above, describe whic')]"
+    // ).should(
+    //   "have.text",
+    //   "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:"
+    // );
     // cy.xpath(
     //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[4]/div[3]/label[1]"
     // ).should("be.visible");
