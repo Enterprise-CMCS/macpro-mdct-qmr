@@ -298,7 +298,7 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     // cy.xpath(
     //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[4]/div[3]/label[1]"
     // ).should("be.visible");
-    cy.get('[data-cy="DataSource-Other-Explanation"]').should("be.visible");
+    // cy.get('[data-cy="DataSource-Other-Explanation"]').should("be.visible");
     cy.get(":nth-child(6) > .css-1ddmh30").should("have.text", "Date Range");
     cy.get(".css-1u5a18p > :nth-child(1)").should(
       "have.text",
