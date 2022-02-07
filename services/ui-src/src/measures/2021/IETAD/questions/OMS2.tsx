@@ -1,7 +1,5 @@
 // Left off working on NDRs
 
-
-
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
@@ -27,10 +25,48 @@ const renderNDRSets = () => {
   if (OPM) {
     return [...OPMNDRSets(OPM)];
   }
-  return [...AgeGroupNDRSets(performanceMeasureArray)];
+  return [...AgeGroupNDRSets()];
 };
 
 const AgeGroupNDRSets = ({}: HookFormProps) => {
+  const { performanceMeasureArray } = useContext(PerformanceMeasureContext);
+  const ageGroupsOptions = [];
+
+  <QMR.Checkbox
+    name="TODO: registration name"
+    key="copy name"
+    // @ts-ignore
+    options={...ageGroups.map((ageGroup) => {
+      return {
+        value: `${ageGroup}`.replace(/,| |\//g, ""),
+        displayValue: ageGroup,
+        children: [
+          <CUI.Heading key="shtuff">
+            Enter a number for the numerator and the denominator. Rate will
+            auto-calculate
+          </CUI.Heading>,
+          ...performanceMeasureArray.map(
+            (performanceMeasure: any, id: number) => {
+              if (performanceMeasure) {
+                return (
+                  <QMR.Rate
+                    rates={[
+                      {
+                        id: 12345,
+                      },
+                    ]}
+                    name={performanceMeasureDescriptions[id]}
+                    readOnly={false}
+                  />
+                );
+              }
+              return null;
+            }
+          ),
+        ],
+      };
+    })}
+  />;
   return <div />;
 };
 
@@ -41,7 +77,7 @@ const OPMNDRSets = ({}: HookFormProps) => {
       name="TODO: registration name"
       key="copy name"
       // @ts-ignore
-      options={OPM!.map((item, idx) => {
+      options={performanceMeasureArray!.map((item, idx) => {
         return {
           value: `${item.description}.${idx}`.replace(/,| |\//g, ""),
           displayValue: item.description,
@@ -50,7 +86,15 @@ const OPMNDRSets = ({}: HookFormProps) => {
               Enter a number for the numerator and the denominator. Rate will
               auto-calculate
             </CUI.Heading>,
-            renderNDRSets(),
+            <QMR.Rate
+              rates={[
+                {
+                  id: 12345,
+                },
+              ]}
+              name={`PerformanceMeasure-Rates.${12345}.rate`}
+              readOnly={false}
+            />,
           ],
         };
       })}
@@ -58,11 +102,19 @@ const OPMNDRSets = ({}: HookFormProps) => {
   );
 };
 
-const renderBaseNdrSet = ({
-  numerator: string,
-  denominator: string,
-  rate: string,
-}) => {};
+const renderBaseNdrSet = ({ rate: string }) => {
+  return (
+    <QMR.Rate
+      rates={[
+        {
+          id: rate,
+        },
+      ]}
+      name={`OtherPerformanceMeasure-Rates.${index}.rate`}
+      readOnly={false}
+    />
+  );
+};
 
 /**
  * Build Additional SubCategory/Classification Section for Race fields and the associated Button
