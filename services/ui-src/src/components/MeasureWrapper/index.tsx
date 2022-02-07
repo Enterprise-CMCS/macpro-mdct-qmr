@@ -171,12 +171,12 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         buttons={
           // Using a ternary to appease type error instead of double &&
           !autoCompletedMeasure ? (
-          <QMR.MeasureButtons
-            isLoading={mutationRunning}
-            handleSave={methods.handleSubmit(handleSave)}
-            lastAltered={measureData?.data && measureData?.lastAltered}
-            isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
-          />
+            <QMR.MeasureButtons
+              isLoading={mutationRunning}
+              handleSave={methods.handleSubmit(handleSave)}
+              lastAltered={measureData?.data && measureData?.lastAltered}
+              isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
+            />
           ) : undefined
         }
       >
