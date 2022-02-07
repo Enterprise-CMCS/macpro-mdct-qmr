@@ -122,7 +122,7 @@ And("user click on link CCP-AD", () => {
   adultCoreSetMeasurespage.clickCCPadLink();
 });
 
-And("button on the page is clickable",()=>{
+And("button on the page is clickable", () => {
   ccpADpage.verifySaveValidateCompletebuttonClickable();
 });
 
