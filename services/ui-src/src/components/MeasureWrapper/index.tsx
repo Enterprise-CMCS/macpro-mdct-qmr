@@ -76,7 +76,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         {
           data,
           status: MeasureStatus.INCOMPLETE,
-          reporting: handleReportingResponse(data),
         },
         {
           onSettled: (data, error) => {
@@ -104,11 +103,10 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     console.log({ data });
   };
 
-  const handleReportingResponse = (data: Measure.Form, submit?: boolean) => {
+  const handleReportingResponse = (data: Measure.Form) => {
     if (
-      submit &&
-      (data["DidReport"]?.includes("Yes") ||
-        data["DidCollect"]?.includes("yes"))
+      data["DidReport"]?.includes("Yes") ||
+      data["DidCollect"]?.includes("yes")
     ) {
       return "yes";
     }
@@ -123,7 +121,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         {
           data,
           status: MeasureStatus.COMPLETE,
-          reporting: handleReportingResponse(data, true),
+          reporting: handleReportingResponse(data),
         },
         {
           onSettled: (data, error) => {
