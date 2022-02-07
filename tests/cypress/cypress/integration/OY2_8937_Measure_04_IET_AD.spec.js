@@ -100,11 +100,12 @@ describe("OY2 8937 Measure 04 IET AD", () => {
       "have.text",
       "Please select all populations that are included. For example, if your data include both non-dual Medicaid enrollees and Medicare and Medicaid Dual Eligibles, select both:"
     );
-    cy.get(".css-14tgbft > :nth-child(1)").should(
-      "have.text",
-      "Denominator includes Medicaid population"
-    );
-    cy.get(".css-14tgbft > :nth-child(2)").should(
+    cy.xpath(
+      "//li[contains(text(),'Denominator includes Medicaid population')]"
+    ).should("have.text", "Denominator includes Medicaid population");
+    cy.xpath(
+      "//li[contains(text(),'Denominator includes Medicare and Medicaid Dually-')]"
+    ).should(
       "have.text",
       "Denominator includes Medicare and Medicaid Dually-Eligible population"
     );
