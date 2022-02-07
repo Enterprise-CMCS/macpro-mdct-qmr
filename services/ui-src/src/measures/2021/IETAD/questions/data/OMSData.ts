@@ -74,7 +74,7 @@ export const OMSData: OmsNode[] = [
     addMore: true,
   },
   {
-    id: "Ethnicity",
+    id: "Geography",
     options: [{ id: "Urban" }, { id: "Rural" }],
     addMore: true,
   },
