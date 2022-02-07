@@ -326,21 +326,21 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     cy.xpath(
       "//p[contains(text(),'Denominator includes Medicare and Medicaid Dually-')]"
     ).click();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__label > .chakra-text'
-    ).click();
+    // cy.get(
+    //   '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__label > .chakra-text'
+    // ).click();
     // cy.get(
     //   '[data-cy="DefinitionOfDenominator2"] > #DefinitionOfDenominator'
     // ).check();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator3"] > .chakra-checkbox__label > .chakra-text'
-    ).click();
-    cy.xpath(
-      "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[1]/div[1]/div[4]/label[1]/span[2]/p[1]"
-    ).click();
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/label[1]"
-    ).should("have.text", "Define the other denominator population:");
+    // cy.get(
+    //   '[data-cy="DefinitionOfDenominator3"] > .chakra-checkbox__label > .chakra-text'
+    // ).click();
+    // cy.xpath(
+    //   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]/div[1]/div[1]/div[4]/label[1]/span[2]/p[1]"
+    // ).click();
+    // cy.xpath(
+    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[6]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/label[1]"
+    // ).should("have.text", "Define the other denominator population:");
     cy.get('[data-cy="DefinitionOfDenominator-Other"]').should("be.visible");
     cy.get('[data-cy="ChangeInPopulationExplanation"]').should("be.visible");
     cy.get(
