@@ -24,6 +24,24 @@ export namespace Measure {
     rate: RateFields[];
   }
 
+  interface LowLevelOmsNode {
+    // if just ndr sets
+    rates?: AggregateRate;
+
+    // if sub-options
+    aggregate?: boolean;
+    options?: string[];
+    selections?: {
+      [option: string]: LowLevelOmsNode;
+    };
+
+    // for additional subCats/add anothers
+    subCategories: {
+      description: string;
+      rates: AggregateRate;
+    }[];
+  }
+
   export interface Form {
     //Report
     DidReport: string;
@@ -307,5 +325,22 @@ export namespace Measure {
     AddtnlGeographyRate: AggregateRate;
 
     ACAGroupRate: AggregateRate;
+
+    OptionalMeasureStratification: {
+      options: string[]; //checkbox
+      selections: {
+        [option: string]: {
+          // top level child, ex: Race, Sex, Ethnicity
+          options?: string[]; // checkbox
+          additionalCategories?: []; // add another section
+          selections?: {
+            [option: string]: LowLevelOmsNode; // "lowest" level children
+          };
+
+          // catch case for ACA
+          rates?: AggregateRate;
+        };
+      };
+    };
   }
 }
