@@ -54,7 +54,6 @@ const renderSingleNdrWithLabel = (uniqueId: string, label: string) => {
 
 const renderAgeGroupsCheckboxes = (id: string) => {
   const { performanceMeasureArray } = useContext(PerformanceMeasureContext);
-  console.log(useContext(PerformanceMeasureContext));
   const checkboxes: any = [];
   ageGroups.forEach((ageGroup: string, i: number) => {
     let ndrSets: any = [];
