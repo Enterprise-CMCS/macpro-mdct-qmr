@@ -6,6 +6,7 @@ const lrcdCH = "(//p[@class='chakra-text css-hispwy'])[9]";
 const AdultCoreSetQuestions =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/div[1]/div[1]/a[1]/p[1]";
 const fuaAD = "//p[contains(text(),'FUA-AD')]";
+const ccpAD = "//p[contains(text(),'CCP-AD')]";
 //oy2-15212 QMR MDCT Medicaid Logo
 const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
 const mdctLogo = "//img[@alt='Mdct logo']";
@@ -17,6 +18,11 @@ export class AdultCoreSetMeasuresPage {
   clickNCIDDSadLink() {
     cy.xpath(nciddsAD).should("be.visible");
     cy.xpath(nciddsAD).click({ force: true });
+  }
+
+  clickCCPadLink() {
+    cy.xpath(ccpAD).should("be.visible");
+    cy.xpath(ccpAD).click({ force: true });
   }
 
   verifyQMRMDCTMedicaidLogoAtAdultCoreSetMeasurePage() {
