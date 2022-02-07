@@ -45,13 +45,13 @@ export const CCPAD = ({
   const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
   const showEffectiveContraceptionThreeDaysPostPartum =
-    !!watchPerformanceMeasureAgeRatesEffectiveContraception?.[0];
+    !!watchPerformanceMeasureAgeRatesEffectiveContraception?.[0]?.rate;
   const showEffectiveContraceptionSixtyDaysPostPartum =
-    !!watchPerformanceMeasureAgeRatesEffectiveContraception?.[1];
+    !!watchPerformanceMeasureAgeRatesEffectiveContraception?.[1]?.rate;
   const showLongActingContraceptionThreeDaysPostPartum =
-    !!watchPerformanceMeasureAgeRatesLongActingContraception?.[0];
+    !!watchPerformanceMeasureAgeRatesLongActingContraception?.[0]?.rate;
   const showLongActingContraceptionSixtyDaysPostPartum =
-    !!watchPerformanceMeasureAgeRatesLongActingContraception?.[1];
+    !!watchPerformanceMeasureAgeRatesLongActingContraception?.[1]?.rate;
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification

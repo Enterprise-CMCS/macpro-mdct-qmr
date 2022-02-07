@@ -31,30 +31,6 @@ const validateRates = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-// const validateUserEnteredRate = (data: Measure.Form) => {
-//   const longActing = data["PerformanceMeasure-AgeRates-longActingContraception"];
-//   const mostEffective = data["PerformanceMeasure-AgeRates-effectiveContraception"];
-//   let error;
-//   const errorArray: any[] = [];
-
-//   if(mostEffective || longActing) {
-//     mostEffective.forEach((item, index) => {
-//       if(item.rate) {
-//         const rateVal = parseInt(item.rate);
-//         const numValue = item.numerator && parseInt(item.numerator)
-//         const denValue = item.denominator && parseInt(item.denominator)
-//         const range = index === 0 ? "Three Days Postpartum" : "Sixty Days Postpartum";
-
-//         if(numValue && denValue){
-//           if(numValue > 0 && denValue > 0 && rateVal <= 0){
-//             //error
-//           }
-//         }
-//       }
-//     })
-//   }
-// }
-
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = ["3 days postpartem", "60 days postpartem"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -266,6 +242,34 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
+const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
+  const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
+  const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+  let error;
+  const errorArray: any[] = [];
+
+  if (sevenDays && thirtyDays) {
+    sevenDays.forEach((_sevenDaysObj, index) => {
+      if (
+        sevenDays[index] &&
+        thirtyDays[index] &&
+        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
+      ) {
+        const ageGroup =
+          index === 0 ? "3 Days Postpartum" : "60 Days Postpartum";
+        error = {
+          errorLocation: "Performance Measure",
+          errorMessage: `Long-acting Reversible Contraception (LARC) Rate should not be higher than Most Effective or Moderately Effective Contraception Rate for ${ageGroup} Rates`,
+        };
+
+        errorArray.push(error);
+      }
+    });
+  }
+
+  return error ? errorArray : error;
+};
+
 //TODO:
 const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   let error;
@@ -313,4 +317,5 @@ export const validationFunctions = [
   validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
+  validate7DaysGreaterThan30Days,
 ];
