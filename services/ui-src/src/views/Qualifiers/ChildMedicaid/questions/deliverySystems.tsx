@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Q from ".";
@@ -80,6 +80,10 @@ export const DeliverySystems = () => {
     },
     0
   );
+
+  useEffect(() => {
+    setDeliverySystems(field.value);
+  }, [field.value]);
 
   const handleAddDeliverySystemValue = () => {
     setDeliverySystems([

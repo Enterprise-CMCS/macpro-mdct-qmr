@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Q from ".";
@@ -87,7 +87,6 @@ export const DeliverySystems = () => {
   });
 
   const [deliverySystems, setDeliverySystems] = useState(field.value);
-
   const values = watch("PercentageEnrolledInEachDeliverySystem");
 
   const under21PercentMedicaid = values.reduce(
@@ -103,6 +102,10 @@ export const DeliverySystems = () => {
     },
     0
   );
+
+  useEffect(() => {
+    setDeliverySystems(field.value);
+  }, [field.value]);
 
   const handleAddDeliverySystemValue = () => {
     setDeliverySystems([
