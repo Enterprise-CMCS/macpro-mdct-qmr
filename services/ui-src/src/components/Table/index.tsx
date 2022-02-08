@@ -33,7 +33,6 @@ export const Table = <T extends TableData>({
               return (
                 <CUI.Td
                   key={column.id + "_td"}
-                  data-cy={column.id + "_td"}
                   maxW="2xs"
                   {...column.styleProps}
                 >

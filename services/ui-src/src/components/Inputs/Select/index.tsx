@@ -55,7 +55,7 @@ export const Select = ({
         data-cy={name}
       >
         {options.map(({ displayValue, value }) => (
-          <option value={value} key={value} data-cy={name + "-" + value}>
+          <option value={value} key={value} data-cy={`${name}-${value}`}>
             {displayValue}
           </option>
         ))}
