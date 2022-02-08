@@ -6,7 +6,7 @@ import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
-export const PQI08 = ({
+export const PQI08AD = ({
   name,
   year,
   measureId,
