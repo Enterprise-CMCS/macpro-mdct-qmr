@@ -10,6 +10,7 @@ export const FUAAD = ({
   name,
   year,
   measureId,
+  handleClear,
   handleSubmit,
   handleValidation,
   setValidationFunctions,
@@ -155,7 +156,19 @@ export const FUAAD = ({
             onClick={(e) => {
               e.preventDefault();
               handleSubmit();
-              console.log("testing");
+              console.log("testing");  //TODO: Does this need to be here?
+            }}
+          />
+          {/* TODO: should these buttons be part of a footer component? */}
+          {/* Do not display if production */}
+          <QMR.ContainedButton
+            buttonProps={{
+              colorScheme: "red",
+              textTransform: "capitalize",
+            }}
+            buttonText="Clear Data"
+            onClick={()=> {
+              handleClear();
             }}
           />
         </CUI.HStack>

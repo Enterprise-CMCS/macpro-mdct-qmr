@@ -24,6 +24,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const { isStateUser } = useUser();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showClearDataModal, setShowClearDataModal] = useState<boolean>(false);
   const [lastSavedText, setLastSavedText] = useState(
     "Awaiting Save Status Retrieval"
   );
@@ -87,6 +88,20 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     }
   };
 
+  const handleClear = () => {
+    setShowClearDataModal(true);
+  };
+
+  const handleClearDataModalResponse = (continueWithErrors: boolean) => {
+    setShowClearDataModal(false);
+
+    if (continueWithErrors) {
+      submitDataToServer({ data: {} }, MeasureStatus.INCOMPLETE);
+      console.log("measure cleared");
+      console.log({ errors });
+    }
+  };
+
   const handleSubmit = (data: any) => {
     const validatedErrors = validateAndSetErrors(data);
 
@@ -100,11 +115,11 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     console.log({ data });
   };
 
-  const submitDataToServer = (data: any) => {
+  const submitDataToServer = (data: any, status: MeasureStatus=MeasureStatus.COMPLETE) => {
     if (!mutationRunning && !loadingData) {
       setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(
-        { data, status: MeasureStatus.COMPLETE },
+        { data, status },
         {
           onSettled: (data, error) => {
             if (data && !error) refetch();
@@ -187,6 +202,12 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         handleModalResponse={handleValidationModalResponse}
         bodyText="There are still errors on this measure, would you still like to complete?"
       ></QMR.YesNoModalDialog>
+      <QMR.YesNoModalDialog
+        isOpen={showClearDataModal}
+        headerText="Clear Data"
+        handleModalResponse={handleClearDataModalResponse}
+        bodyText="Do you want to clear all measure data?"
+      ></QMR.YesNoModalDialog>
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
@@ -238,6 +259,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   name,
                   year,
                   measureId,
+                  handleClear: methods.handleSubmit(handleClear),
                   handleSubmit: methods.handleSubmit(handleSubmit),
                   handleValidation: methods.handleSubmit(handleValidation),
                   setValidationFunctions,
