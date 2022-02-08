@@ -160,17 +160,19 @@ export const FUAAD = ({
             }}
           />
           {/* TODO: should these buttons be part of a footer component? */}
-          {/* Do not display if production */}
-          <QMR.ContainedButton
-            buttonProps={{
-              colorScheme: "red",
-              textTransform: "capitalize",
-            }}
-            buttonText="Clear Data"
-            onClick={()=> {
-              handleClear();
-            }}
-          />
+          {/* { process.env.ENV_NAME !== "production" && */}
+          { process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== "production" &&
+            <QMR.ContainedButton
+              buttonProps={{
+                colorScheme: "red",
+                textTransform: "capitalize",
+              }}
+              buttonText="Clear Data"
+              onClick={()=> {
+                handleClear();
+              }}
+            />
+          }
         </CUI.HStack>
       </CUI.Stack>
     </>
