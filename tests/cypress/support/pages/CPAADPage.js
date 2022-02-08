@@ -1,21 +1,30 @@
 const CPAadLink = "//p[contains(text(),'CPA-AD')]";
 const cpaADtitle =
   "//a[contains(text(),'CPA-AD - Consumer Assessment of Healthcare Provide')]";
-const sentenceBelowTitle = "//p[contains(text(),'For technical questions regarding use of this appl')]";
+const sentenceBelowTitle =
+  "//p[contains(text(),'For technical questions regarding use of this appl')]";
 //const printButton = "//button[@class='chakra-button css-11qozvn']";
-const didYouCollectThisMeasure = "//p[contains(text(),'Yes, we did collect data for the Consumer Assessme')]";
-const howDidYouReportThisMeasure = "//p[contains(text(),'Submitted raw data to AHRQ (CAHPS Database)')]";
-const measurementSpecificationAHRQ = "//p[contains(text(),'Agency for Healthcare Research and Quality (AHRQ) ')]";
-const dataSource = "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/div[1]/label[1]/span[2]/p[1]";
+const didYouCollectThisMeasure =
+  "//p[contains(text(),'Yes, we did collect data for the Consumer Assessme')]";
+const howDidYouReportThisMeasure =
+  "//p[contains(text(),'Submitted raw data to AHRQ (CAHPS Database)')]";
+const measurementSpecificationAHRQ =
+  "//p[contains(text(),'Agency for Healthcare Research and Quality (AHRQ) ')]";
+const dataSource =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/div[1]/label[1]/span[2]/p[1]";
 const dataSourceOtherTextbox = "//textarea[@id='field-911']";
 //const noSupplemental = "//p[contains(text(),'No Supplemental Item Sets were included')]";
 const otherCAHPSItemSet = "//p[contains(text(),'Other CAHPS Item Set')]";
-const noSupplemental = "//p[contains(text(),'No Supplemental Item Sets were included')]";
+const noSupplemental =
+  "//p[contains(text(),'No Supplemental Item Sets were included')]";
 const noSupplementalOther = "//textarea[@id='field-915']";
-const ahrqAdministrativeProtocol = "//p[contains(text(),'AHRQ CAHPS administrative protocol')]";
+const ahrqAdministrativeProtocol =
+  "//p[contains(text(),'AHRQ CAHPS administrative protocol')]";
 const otherAdministrativeProtocolExplain = "//textarea[@id='field-913']";
-const surveySampleMedicaidPopulation = "//p[contains(text(),'Survey sample includes Medicaid population')]";
-const performanceMeasureText = "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]";
+const surveySampleMedicaidPopulation =
+  "//p[contains(text(),'Survey sample includes Medicaid population')]";
+const performanceMeasureText =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[6]";
 const all_check_box = "//span[ contains(@class, 'check')]/p";
 const reporting_yes = "(//span[ contains(@class, 'radio')]/p)[1]";
 const reporting_no = "(//span[ contains(@class, 'radio')]/p)[2]";
@@ -26,9 +35,9 @@ const completeMeasureButton = "//button[contains(text(),'Complete Measure')]";
 const saveStatusUnderSaveButton = "//p[@class='chakra-text css-nr0v7p']";
 const additionalNotes = "//textarea[@id='field-832']";
 const verifyTextFileIsUploaded =
- // "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[11]/div[2]/div[3]";
-"//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/p[1]/button[1]";
-  // element is xpath, please use cy.xapth() instead of cy.get();
+  // "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[11]/div[2]/div[3]";
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/p[1]/button[1]";
+// element is xpath, please use cy.xapth() instead of cy.get();
 
 // -- SECTION: What you are not reporting on this measure?
 const check_service_not_covered = "(//span[ contains(@class, 'check')]/p)[1]";
@@ -67,58 +76,54 @@ export class CPAADPAGE {
     );
   }
 
-    verifysentenceBelowTitle() {
+  verifysentenceBelowTitle() {
     cy.xpath(sentenceBelowTitle).should("be.visible");
-    
-}
-clickdidYouCollectThisMeasure() {
+  }
+  clickdidYouCollectThisMeasure() {
     cy.xpath(didYouCollectThisMeasure).click();
-}
-clickhowDidYouReportThisMeasure() {
+  }
+  clickhowDidYouReportThisMeasure() {
     cy.xpath(howDidYouReportThisMeasure).click();
-}
-clickmeasurementSpecificationAHRQ() {
+  }
+  clickmeasurementSpecificationAHRQ() {
     cy.xpath(measurementSpecificationAHRQ).click();
-}
+  }
 
-clickdataSource() {
+  clickdataSource() {
     cy.xpath(dataSource).click();
-    
-}
+  }
 
-clicknoSupplemental() {
+  clicknoSupplemental() {
     cy.xpath(noSupplemental).click();
-    
-}
-clickahrqAdministrativeProtocol(){
+  }
+  clickahrqAdministrativeProtocol() {
     cy.xpath(ahrqAdministrativeProtocol).click();
     //cy.xpath(otherAdministrativeProtocolExplain).type("test");
-}
-clicksurveySampleMedicaidPopulation(){
+  }
+  clicksurveySampleMedicaidPopulation() {
     cy.xpath(surveySampleMedicaidPopulation).click();
-}
-verifyperformanceMeasure(){
+  }
+  verifyperformanceMeasure() {
     cy.xpath(performanceMeasureText).should("be.visible");
-}
-//verifyadditionalNotes(){
- //   cy.xpath(additionalNotes).type("test");
-//}
-//addTextFilesToFUAADPage() {
+  }
+  //verifyadditionalNotes(){
+  //   cy.xpath(additionalNotes).type("test");
+  //}
+  //addTextFilesToFUAADPage() {
   //  const filePath = "/files/";
-    //cy.xpath(browseBTN).attachFile(filePath + "test3.docx", {
-      //subjectType: "drag-n-drop",
-    //});
+  //cy.xpath(browseBTN).attachFile(filePath + "test3.docx", {
+  //subjectType: "drag-n-drop",
+  //});
   //}
   //verifyTextIsUploaded() {
-    //cy.xpath(verifyTextFileIsUploaded).should("be.visible");
+  //cy.xpath(verifyTextFileIsUploaded).should("be.visible");
   //}
-verifyvalidateMeasureButton(){
-    cy.xpath(validateMeasureButton).should('be.enabled');
+  verifyvalidateMeasureButton() {
+    cy.xpath(validateMeasureButton).should("be.enabled");
     cy.xpath(validateMeasureButton).click();
-    cy.xpath(completeMeasureButton).should('be.enabled');
+    cy.xpath(completeMeasureButton).should("be.enabled");
     cy.xpath(completeMeasureButton).click();
     cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
-
   }
 
   VerifyReportingOnMeasureNo() {
@@ -146,7 +151,5 @@ verifyvalidateMeasureButton(){
     cy.xpath(check_small_sample_size).click();
     cy.xpath(num_sample_size).type(22);
   }
-
-  
 }
 export default CPAADPAGE;
