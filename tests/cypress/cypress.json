@@ -1,10 +1,10 @@
 {
-  "nodeVersion": "system",
-  "baseUrl": "https://d2ia6j7tn33yf.cloudfront.net/",
+  "baseUrl": "http://localhost:3000/",
+  "experimentalStudio": true,
   "redirectionLimit": 20,
   "retries": 2,
   "watchForFileChanges": true,
-  "testFiles": "**/*.feature",
+  "testFiles": ["**/*.feature", "**/*.spec.js"],
   "fixturesFolder": "fixtures",
   "pluginsFile": "plugins/index.js",
   "screenshotsFolder": "screenshots",

@@ -9,10 +9,20 @@ const addressBottomRight = '(//div[@class="footer-wrapper"]/div)[2]';
 const coreSetMeasuresReportingTitle =
   "//h2[contains(text(),'FFY 2021 Core Set Measures Reporting')]";
 const adultCoreSetMeasures = "//a[ contains(@href, 'ACS') ]";
+//oy2-15212 qmr mdct logo
+const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
+const mdctLogo = "//img[@alt='Mdct logo']";
+const medicaidLogoBottom = "//img[@alt='Medicaid.gov logo']";
 
 export class Homepage {
   launch() {
-    cy.visit("https://d2ia6j7tn33yf.cloudfront.net/");
+    cy.visit("/");
+  }
+
+  verifyQMRMDCTMedicaidLogoAtHomePage() {
+    cy.xpath(qualityMeasureReportingLogo).should("be.visible");
+    cy.xpath(mdctLogo).should("be.visible");
+    cy.xpath(medicaidLogoBottom).should("be.visible");
   }
 
   verifyTheTitleCoreSetMeasureReporting() {
