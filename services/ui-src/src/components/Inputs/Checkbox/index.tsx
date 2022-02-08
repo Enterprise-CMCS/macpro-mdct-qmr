@@ -15,12 +15,14 @@ interface CheckboxProps extends QMR.InputWrapperProps {
   options: CheckboxOption[];
   checkboxGroupProps?: CUI.CheckboxGroupProps;
   name: string;
+  testId?: string;
 }
 
 export const Checkbox = ({
   options,
   checkboxGroupProps,
   name,
+  testId,
   ...rest
 }: CheckboxProps) => {
   const {
@@ -48,7 +50,7 @@ export const Checkbox = ({
         {...checkboxGroupProps}
       >
         <CUI.Stack>
-          {options.map((option) => {
+          {options.map((option, idx) => {
             const showChildren = !!field.value?.find(
               (valueToCheck: string) => valueToCheck === option.value
             );
@@ -59,7 +61,11 @@ export const Checkbox = ({
                 allowDeletion={option.removable}
                 onDelete={option.onDelete}
               >
-                <CUI.Checkbox value={option.value}>
+                <CUI.Checkbox
+                  value={option.value}
+                  id={name}
+                  data-cy={(testId || name) + idx}
+                >
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>
