@@ -26,33 +26,29 @@ export const ACSQualifiers = () => {
     shouldUnregister: true,
     mode: "all",
     defaultValues: {
+      CoreSetMeasuresAuditedOrValidatedDetails: [Common.initialAuditValues],
       PercentageEnrolledInEachDeliverySystem: [
         {
           label: "Fee-for-Service",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
-          userGenerated: false,
         },
         {
           label: "PCCM",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
-          userGenerated: false,
         },
         {
           label: "Managed Care",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
-          userGenerated: false,
         },
         {
           label: "Integrated Care Model (ICM)",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
-          userGenerated: false,
         },
       ],
-      CoreSetMeasuresAuditedOrValidatedDetails: [Common.initialAuditValues],
     },
   });
 
