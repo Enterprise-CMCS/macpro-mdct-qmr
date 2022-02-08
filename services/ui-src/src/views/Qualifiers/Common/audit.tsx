@@ -32,7 +32,6 @@ export const Audit = ({ type }: Props) => {
   const { fields, append, remove, replace } = useFieldArray({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
   });
-  console.log(fields);
 
   const multiSelectMeasures = measuresList[year as string]
     .filter((item) => {
