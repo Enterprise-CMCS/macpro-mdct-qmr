@@ -18,7 +18,10 @@ export interface KebabMenuProps {
 export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
   return (
     <CUI.Menu>
-      <CUI.MenuButton aria-label="Action Menu">
+      <CUI.MenuButton
+        aria-label="Action Menu"
+        data-cy={`${menuItems[0].type}-kebab-menu`}
+      >
         <BsThreeDotsVertical />
       </CUI.MenuButton>
       <CUI.MenuList bg="blue.500" maxW="40px" p="0">
