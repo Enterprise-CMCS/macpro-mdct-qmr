@@ -1,20 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Q from "./";
 import { ICheckbox } from "components/MultiSelect";
-import { useController, useFormContext } from "react-hook-form";
-import { AuditDetails } from "../types";
+import { useFieldArray } from "react-hook-form";
 import { HiX } from "react-icons/hi";
 import { measuresList } from "measures/measuresList";
 import { useParams } from "react-router-dom";
 
-const initialMeasureList = [
-  {
-    MeasuresAuditedOrValidated: [],
-    WhoConductedAuditOrValidation: "",
-  },
-];
+export const initialAuditValues = {
+  MeasuresAuditedOrValidated: [],
+  WhoConductedAuditOrValidation: "",
+};
 
 export const CloseButton = ({ onClick }: { onClick: () => void }) => (
   <CUI.IconButton
@@ -27,17 +24,11 @@ export const CloseButton = ({ onClick }: { onClick: () => void }) => (
 );
 
 export const Audit = () => {
-  const { control } = useFormContext();
   const { year } = useParams();
 
-  const { field } = useController({
+  const { fields, append, remove } = useFieldArray({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
-    control,
   });
-
-  const [measureList, setMeasureList] = useState(
-    field.value?.length ? field.value : initialMeasureList
-  );
 
   const adultMeasures = measuresList[year as string]
     .filter((item) => {
@@ -55,27 +46,6 @@ export const Audit = () => {
     () => adultMeasures,
     [adultMeasures]
   );
-
-  useEffect(() => {
-    setMeasureList(field.value);
-  }, [field.value]);
-
-  const handleAddMeasureList = () => {
-    setMeasureList([
-      ...measureList,
-      {
-        MeasuresAuditedOrValidated: [],
-        WhoConductedAuditOrValidation: "",
-      },
-    ]);
-  };
-
-  const removeAuditItem = (index: number) => {
-    const newMeasureList = [...measureList];
-    newMeasureList?.splice(index, 1);
-    field.value?.splice(index, 1);
-    setMeasureList(newMeasureList);
-  };
 
   return (
     <CUI.ListItem>
@@ -97,13 +67,13 @@ export const Audit = () => {
                   "Yes, some of the Core Set measures have been audited or validated",
                 children: [
                   <CUI.Stack mb="5" spacing="6">
-                    {measureList?.map((m: AuditDetails, index: number) => {
+                    {fields?.map((field, index: number) => {
                       return (
                         <CUI.Box
                           border="1px"
                           borderColor="gray.200"
                           borderRadius="md"
-                          key={`${Object.keys(m).join("-")}${index}.key`}
+                          key={field.id}
                         >
                           <CUI.Flex>
                             <QMR.TextInput
@@ -118,9 +88,7 @@ export const Audit = () => {
                             />
                             <CUI.Spacer />
                             {index !== 0 && (
-                              <CloseButton
-                                onClick={() => removeAuditItem(index)}
-                              />
+                              <CloseButton onClick={() => remove(index)} />
                             )}
                           </CUI.Flex>
                           <CUI.Box p="5">
@@ -145,7 +113,7 @@ export const Audit = () => {
                       colorScheme: "blue",
                       textTransform: "capitalize",
                     }}
-                    onClick={handleAddMeasureList}
+                    onClick={() => append(initialAuditValues)}
                   />,
                 ],
               },

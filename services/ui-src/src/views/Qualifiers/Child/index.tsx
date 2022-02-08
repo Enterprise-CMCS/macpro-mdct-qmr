@@ -51,6 +51,7 @@ export const CCSQualifiers = () => {
           userGenerated: false,
         },
       ],
+      CoreSetMeasuresAuditedOrValidatedDetails: [Q.initialAuditValues],
     },
   });
 

@@ -47,6 +47,7 @@ export const CCSMQualifiers = () => {
           userGenerated: false,
         },
       ],
+      CoreSetMeasuresAuditedOrValidatedDetails: [Q.initialAuditValues],
     },
   });
 
