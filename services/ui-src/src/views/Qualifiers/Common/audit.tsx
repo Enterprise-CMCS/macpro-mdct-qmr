@@ -29,9 +29,10 @@ interface Props {
 
 export const Audit = ({ type }: Props) => {
   const { year } = useParams();
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, replace } = useFieldArray({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
   });
+  console.log(fields);
 
   const multiSelectMeasures = measuresList[year as string]
     .filter((item) => {
@@ -119,12 +120,20 @@ export const Audit = ({ type }: Props) => {
                     onClick={() => append(initialAuditValues)}
                   />,
                 ],
+                onClick: () => {
+                  if (fields.length === 0) {
+                    replace(initialAuditValues);
+                  }
+                },
               },
               {
                 displayValue:
                   "No, none of the Core Set measures have been audited or validated",
                 value:
                   "No, none of the Core Set measures have been audited or validated",
+                onClick: () => {
+                  remove();
+                },
               },
             ]}
           />
