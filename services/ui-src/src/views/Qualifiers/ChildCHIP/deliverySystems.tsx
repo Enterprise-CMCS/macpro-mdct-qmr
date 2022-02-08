@@ -1,108 +1,35 @@
-import { useEffect, useState } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Common from "../Common";
-import { useController, useFormContext } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { DeliverySystem, CCSCQualifierForm } from "./types";
+import { useFieldArray, useWatch } from "react-hook-form";
+import { DeliverySystem } from "./types";
 import { BsPercent } from "react-icons/bs";
 import { percentageAllowOneDecimalMax } from "utils/numberInputMasks";
 
-interface DefaultDeliverySystemTableRecordProps {
-  record: string;
-  label: string;
-}
-
-const DefaultDeliverySystemTableRecord = ({
-  record,
-  label,
-}: DefaultDeliverySystemTableRecordProps) => (
-  <CUI.Tr>
-    <CUI.Td px="none">
-      <CUI.Text>{label}</CUI.Text>
-    </CUI.Td>
-    <CUI.Td>
-      <QMR.NumberInput
-        displayPercent
-        name={`${record}.UnderTwentyOne`}
-        numberInputProps={{ textAlign: "right" }}
-        mask={percentageAllowOneDecimalMax}
-      />
-    </CUI.Td>
-  </CUI.Tr>
-);
-
-interface CustomDeliverySystemTableRecordProps {
-  record: string;
-}
-
-const CustomDeliverySystemTableRecord = ({
-  record,
-}: CustomDeliverySystemTableRecordProps) => {
-  const register = useCustomRegister<CCSCQualifierForm>();
-  return (
-    <CUI.Tr verticalAlign="top">
-      <CUI.Td px="none">
-        <QMR.TextInput
-          rules={{ required: true }}
-          {...register(
-            // @ts-ignore
-            `${record}.label`
-          )}
-        />
-      </CUI.Td>
-      <CUI.Td>
-        <QMR.NumberInput
-          displayPercent
-          name={`${record}.UnderTwentyOne`}
-          numberInputProps={{ textAlign: "right" }}
-          mask={percentageAllowOneDecimalMax}
-        />
-      </CUI.Td>
-    </CUI.Tr>
-  );
+const initialDeliverySystemValue = {
+  label: "",
+  UnderTwentyOne: "",
 };
 
 export const DeliverySystems = () => {
-  const { control, watch } = useFormContext();
-  const { field } = useController({
+  const { fields, append, remove } = useFieldArray({
     name: "PercentageEnrolledInEachDeliverySystem",
-    control,
   });
 
-  const [deliverySystems, setDeliverySystems] = useState(field.value);
-
-  const values = watch("PercentageEnrolledInEachDeliverySystem");
+  const values = useWatch({ name: "PercentageEnrolledInEachDeliverySystem" });
 
   const underTwentyOne = values.reduce((acc: number, curr: DeliverySystem) => {
     return acc + parseFloat(curr.UnderTwentyOne || "0");
   }, 0);
 
-  useEffect(() => {
-    setDeliverySystems(field.value);
-  }, [field.value]);
-
-  const handleAddDeliverySystemValue = () => {
-    setDeliverySystems([
-      ...deliverySystems,
-      {
-        key: `CustomDeliverySystemRecord_${values.length}`,
-        label: "",
-        TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
-        userGenerated: true,
-      },
-    ]);
-  };
-
   return (
-    <CUI.ListItem>
+    <CUI.ListItem mr="4">
       <Common.QualifierHeader
         header="Delivery System"
         description="As of September 30, 2021 what percentage of your CHIP
           enrollees (under age 21) were enrolled in each delivery system?"
       />
-      <CUI.Table variant="simple" mt="4" size="md">
+      <CUI.Table variant="simple" mt="4" size="md" verticalAlign="top">
         <CUI.Thead>
           <CUI.Tr>
             <CUI.Th></CUI.Th>
@@ -113,20 +40,43 @@ export const DeliverySystems = () => {
           </CUI.Tr>
         </CUI.Thead>
         <CUI.Tbody>
-          {deliverySystems.map((ds: DeliverySystem, index: number) =>
-            !ds.userGenerated ? (
-              <DefaultDeliverySystemTableRecord
-                record={`PercentageEnrolledInEachDeliverySystem.${index}`}
-                key={`PercentageEnrolledInEachDeliverySystem.${index}`}
-                label={ds.label}
-              />
-            ) : (
-              <CustomDeliverySystemTableRecord
-                record={`PercentageEnrolledInEachDeliverySystem.${index}`}
-                key={`PercentageEnrolledInEachDeliverySystem.${index}`}
-              />
-            )
-          )}
+          {fields.map((field, index: number) => (
+            <CUI.Tr verticalAlign="top" key={field.id}>
+              <CUI.Td px="none">
+                {index >= 4 ? (
+                  <QMR.TextInput
+                    rules={{ required: true }}
+                    name={`PercentageEnrolledInEachDeliverySystem.${index}.label`}
+                  />
+                ) : (
+                  <QMR.TextInput
+                    rules={{ required: true }}
+                    textInputProps={{
+                      isReadOnly: true,
+                      border: "none",
+                      pl: "0",
+                      tabIndex: -1,
+                    }}
+                    name={`PercentageEnrolledInEachDeliverySystem.${index}.label`}
+                  />
+                )}
+              </CUI.Td>
+              <CUI.Td>
+                <QMR.DeleteWrapper
+                  allowDeletion={index >= 4}
+                  onDelete={() => remove(index)}
+                  showText={false}
+                >
+                  <QMR.NumberInput
+                    displayPercent
+                    name={`PercentageEnrolledInEachDeliverySystem.${index}.UnderTwentyOne`}
+                    numberInputProps={{ textAlign: "right" }}
+                    mask={percentageAllowOneDecimalMax}
+                  />
+                </QMR.DeleteWrapper>
+              </CUI.Td>
+            </CUI.Tr>
+          ))}
           <QMR.ContainedButton
             buttonText={"+ Add Another"}
             buttonProps={{
@@ -135,7 +85,7 @@ export const DeliverySystems = () => {
               textTransform: "capitalize",
               my: "5",
             }}
-            onClick={handleAddDeliverySystemValue}
+            onClick={() => append(initialDeliverySystemValue)}
           />
         </CUI.Tbody>
         <CUI.Tfoot borderTop="2px">

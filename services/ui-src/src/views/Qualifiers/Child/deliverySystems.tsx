@@ -34,13 +34,13 @@ export const DeliverySystems = () => {
   );
 
   return (
-    <CUI.ListItem>
+    <CUI.ListItem mr="4">
       <Common.QualifierHeader
         header="Delivery System"
         description="As of September 30, 2021 what percentage of your Medicaid/CHIP
           enrollees (under age 21) were enrolled in each delivery system?"
       />
-      <CUI.Table variant="simple" mt="4" size="md">
+      <CUI.Table variant="simple" mt="4" size="md" verticalAlign="top">
         <CUI.Thead>
           <CUI.Tr>
             <CUI.Th></CUI.Th>

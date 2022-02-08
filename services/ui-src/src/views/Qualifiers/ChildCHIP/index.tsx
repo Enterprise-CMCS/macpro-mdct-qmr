@@ -30,22 +30,18 @@ export const CCSCQualifiers = () => {
         {
           label: "Fee-for-Service",
           UnderTwentyOne: "",
-          userGenerated: false,
         },
         {
           label: "PCCM",
           UnderTwentyOne: "",
-          userGenerated: false,
         },
         {
           label: "Managed Care",
           UnderTwentyOne: "",
-          userGenerated: false,
         },
         {
           label: "Integrated Care Model (ICM)",
           UnderTwentyOne: "",
-          userGenerated: false,
         },
       ],
       CoreSetMeasuresAuditedOrValidatedDetails: [Common.initialAuditValues],
