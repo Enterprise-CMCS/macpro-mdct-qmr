@@ -57,8 +57,8 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: MeasureTableItem.Data) => {
       return (
-        <Link to={data.path}>
-          <CUI.Text fontWeight="bold" color="blue.600">
+        <Link to={data.path} data-cy={data.path}>
+          <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.abbr}>
             {data.abbr}
           </CUI.Text>
         </Link>
@@ -70,8 +70,12 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     id: "title_column_header",
     cell: (data: MeasureTableItem.Data) => {
       return (
-        <Link to={data.path}>
-          <CUI.Text fontWeight="bold" color="blue.600">
+        <Link to={data.path} data-cy={data.path}>
+          <CUI.Text
+            fontWeight="bold"
+            color="blue.600"
+            data-cy={data.path + "-title"}
+          >
             {data.title}
           </CUI.Text>
         </Link>

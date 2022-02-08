@@ -17,6 +17,7 @@ export const Table = <T extends TableData>({
               scope="col"
               key={column.id}
               letterSpacing="sm"
+              data-cy={column.header}
               {...column.styleProps}
             >
               {column.header}
@@ -32,6 +33,7 @@ export const Table = <T extends TableData>({
               return (
                 <CUI.Td
                   key={column.id + "_td"}
+                  data-cy={column.id + "_td"}
                   maxW="2xs"
                   {...column.styleProps}
                 >
