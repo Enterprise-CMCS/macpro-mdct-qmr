@@ -11,6 +11,8 @@ const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
 const mdctLogo = "//img[@alt='Mdct logo']";
 const medicaidLogoBottom = "//img[@alt='Medicaid.gov logo']";
 
+const submitCoreSetBTN = "//button[contains(text(),'Submit Core Set')]";
+
 export class AdultCoreSetMeasuresPage {
   clickNCIDDSadLink() {
     cy.xpath(nciddsAD).should("be.visible");
@@ -28,9 +30,9 @@ export class AdultCoreSetMeasuresPage {
     // cy.xpath(fuaAD).click({force:true});
 
     // "//p[text()='FUA-AD']"
-    cy.xpath("//p[text()='FUA-AD']").scrollIntoView();
-    cy.xpath("//p[text()='FUA-AD']").should("be.visible");
-    cy.xpath("//p[text()='FUA-AD']").click({ force: true });
+    cy.xpath("//p[contains(text(),'FUA-AD')]").scrollIntoView();
+    cy.xpath("//p[contains(text(),'FUA-AD')]").should("be.visible");
+    cy.xpath("//p[contains(text(),'FUA-AD')]").click({ force: true });
   }
 
   clickPDENTchLink() {
@@ -53,6 +55,10 @@ export class AdultCoreSetMeasuresPage {
   }
   clickAdultCoreSetQuestions() {
     cy.xpath(AdultCoreSetQuestions).click();
+  }
+
+  verifysubmitCoreSetBTNIsDisabled() {
+    cy.xpath(submitCoreSetBTN).should("be.disabled");
   }
 }
 export default AdultCoreSetMeasuresPage;

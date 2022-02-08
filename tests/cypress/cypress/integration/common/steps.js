@@ -734,3 +734,31 @@ And("verify Data Analytics Contractor is displayed", () => {
 And("verify other under external contractor is displayed", () => {
   adultCoreSetQuestionsPage.verifyotherUnderExternalContractorIsDisplayed();
 });
+
+When("login as approver", () => {
+  loginPage.loginasApproverCognito();
+});
+
+Then("click on go to state home", () => {
+  loginPage.clickGoToStateHome();
+});
+
+Then("verify add child core set is disabled", () => {
+  landingPage.verifyaddChildCoreSetisDisabled();
+});
+
+Then("verify add health homes core set is disabled", () => {
+  landingPage.verifyaddHealthHomesCoreSetisDisabled();
+});
+Then("verify submit core set button is disabled", () => {
+  adultCoreSetMeasurespage.verifysubmitCoreSetBTNIsDisabled();
+});
+And("verify save button is disabled", () => {
+  fUAADPage.verifySaveBTNIsDisabled();
+});
+And("verify validate measure button is disabled", () => {
+  fUAADPage.verifyValidateMeasureBTNIsDisabled();
+});
+And("verify complete measure button is disabled", () => {
+  fUAADPage.verifyCompleteMeasureBTNIsDisabled();
+});
