@@ -29,27 +29,30 @@ export const DateRangeError = ({ name }: { name: string }) => {
   const { watch } = useFormContext();
   const range = watch(name);
 
+  const startYear = range?.startDate?.selectedYear;
+  const startMonth = range?.startDate?.selectedMonth;
+
+  const endYear = range?.endDate?.selectedYear;
+  const endMonth = range?.endDate?.selectedMonth;
+
   /* If the start date is a future date, then display a warning notification. */
   if (
-    range?.startDate?.selectedYear >= currentYear &&
-    range?.startDate?.selectedMonth > currentMonth
+    startYear > currentYear ||
+    (startMonth > currentMonth && startYear == currentYear)
   ) {
     return <RangeNotification text="Start date cannot be a future date" />;
   }
 
   /* If the end date is a future date, then display a warning notification. */
   if (
-    range?.endDate?.selectedYear >= currentYear &&
-    range?.endDate?.selectedMonth > currentMonth
+    endYear > currentYear ||
+    (endMonth > currentMonth && endYear == currentYear)
   ) {
     return <RangeNotification text="End date cannot be a future date" />;
   }
 
   /* If the start date is after the end date, then display a warning notification. */
-  if (
-    range?.startDate?.selectedYear >= range?.endDate?.selectedYear &&
-    range?.startDate?.selectedMonth > range?.endDate?.selectedMonth
-  ) {
+  if (startYear > endYear || (startMonth >= endMonth && startYear == endYear)) {
     return <RangeNotification text="Start Date must be before the end date" />;
   }
 
