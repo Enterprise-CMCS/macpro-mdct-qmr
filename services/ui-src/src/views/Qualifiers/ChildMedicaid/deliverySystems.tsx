@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import * as Q from ".";
+import * as Common from "../Common";
 import { useController, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DeliverySystem, CCSCQualifierForm } from "../types";
+import { DeliverySystem, CCSMQualifierForm } from "./types";
 import { BsPercent } from "react-icons/bs";
 import { percentageAllowOneDecimalMax } from "utils/numberInputMasks";
 
@@ -39,7 +39,7 @@ interface CustomDeliverySystemTableRecordProps {
 const CustomDeliverySystemTableRecord = ({
   record,
 }: CustomDeliverySystemTableRecordProps) => {
-  const register = useCustomRegister<CCSCQualifierForm>();
+  const register = useCustomRegister<CCSMQualifierForm>();
   return (
     <CUI.Tr verticalAlign="top">
       <CUI.Td px="none">
@@ -74,9 +74,12 @@ export const DeliverySystems = () => {
 
   const values = watch("PercentageEnrolledInEachDeliverySystem");
 
-  const underTwentyOne = values.reduce((acc: number, curr: DeliverySystem) => {
-    return acc + parseFloat(curr.UnderTwentyOne || "0");
-  }, 0);
+  const totalUnder21Percent = values.reduce(
+    (acc: number, curr: DeliverySystem) => {
+      return acc + parseFloat(curr.UnderTwentyOne || "0");
+    },
+    0
+  );
 
   useEffect(() => {
     setDeliverySystems(field.value);
@@ -88,8 +91,7 @@ export const DeliverySystems = () => {
       {
         key: `CustomDeliverySystemRecord_${values.length}`,
         label: "",
-        TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
+        UnderTwentyOne: "",
         userGenerated: true,
       },
     ]);
@@ -97,9 +99,9 @@ export const DeliverySystems = () => {
 
   return (
     <CUI.ListItem>
-      <Q.QualifierHeader
+      <Common.QualifierHeader
         header="Delivery System"
-        description="As of September 30, 2021 what percentage of your CHIP
+        description="As of September 30, 2021 what percentage of your Medicaid
           enrollees (under age 21) were enrolled in each delivery system?"
       />
       <CUI.Table variant="simple" mt="4" size="md">
@@ -107,7 +109,6 @@ export const DeliverySystems = () => {
           <CUI.Tr>
             <CUI.Th></CUI.Th>
             <CUI.Th textAlign="center" fontSize="md">
-              <CUI.Text>CHIP</CUI.Text>
               <CUI.Text fontSize="sm">Under Age 21</CUI.Text>
             </CUI.Th>
           </CUI.Tr>
@@ -149,13 +150,12 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={underTwentyOne}
+                  value={totalUnder21Percent}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
                   tabIndex={-1}
                 />
-
                 <CUI.InputRightElement
                   pointerEvents="none"
                   children={<BsPercent />}

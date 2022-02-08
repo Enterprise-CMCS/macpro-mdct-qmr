@@ -1,11 +1,11 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Q from "./";
+import * as Common from ".";
 
 export const ExternalContractor = () => {
   return (
     <CUI.ListItem>
-      <Q.QualifierHeader
+      <Common.QualifierHeader
         header="External Contractor"
         description="Please indicate whether your state obtained assistance from one or
         more external contractors in collecting, calculating, and/or reporting

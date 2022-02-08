@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Q from "./questions";
+import { DeliverySystems } from "./deliverySystems";
+import * as Common from "../Common";
 import { useForm, FormProvider } from "react-hook-form";
 import { CCSMQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
@@ -47,7 +48,7 @@ export const CCSMQualifiers = () => {
           userGenerated: false,
         },
       ],
-      CoreSetMeasuresAuditedOrValidatedDetails: [Q.initialAuditValues],
+      CoreSetMeasuresAuditedOrValidatedDetails: [Common.initialAuditValues],
     },
   });
 
@@ -102,10 +103,10 @@ export const CCSMQualifiers = () => {
               <QMR.SupportLinks />
             </CUI.Box>
             <CUI.OrderedList>
-              <Q.DeliverySystems />
-              <Q.Audit />
-              <Q.ExternalContractor />
-              <Q.CompleteCoreSets />
+              <DeliverySystems />
+              <Common.Audit type="CH" />
+              <Common.ExternalContractor />
+              <Common.CompleteCoreSets type="CH" />
             </CUI.OrderedList>
           </CUI.Box>
         </form>

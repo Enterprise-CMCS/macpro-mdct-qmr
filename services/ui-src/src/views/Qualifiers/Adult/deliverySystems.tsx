@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import * as Q from ".";
+import * as Common from "../Common";
 import { useController, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { DeliverySystem, CCSMQualifierForm } from "../types";
+import { DeliverySystem, ACSQualifierForm } from "./types";
 import { BsPercent } from "react-icons/bs";
 import { percentageAllowOneDecimalMax } from "utils/numberInputMasks";
 
@@ -24,7 +24,15 @@ const DefaultDeliverySystemTableRecord = ({
     <CUI.Td>
       <QMR.NumberInput
         displayPercent
-        name={`${record}.UnderTwentyOne`}
+        name={`${record}.TwentyOneToSixtyFour`}
+        numberInputProps={{ textAlign: "right" }}
+        mask={percentageAllowOneDecimalMax}
+      />
+    </CUI.Td>
+    <CUI.Td>
+      <QMR.NumberInput
+        displayPercent
+        name={`${record}.GreaterThanSixtyFour`}
         numberInputProps={{ textAlign: "right" }}
         mask={percentageAllowOneDecimalMax}
       />
@@ -39,7 +47,7 @@ interface CustomDeliverySystemTableRecordProps {
 const CustomDeliverySystemTableRecord = ({
   record,
 }: CustomDeliverySystemTableRecordProps) => {
-  const register = useCustomRegister<CCSMQualifierForm>();
+  const register = useCustomRegister<ACSQualifierForm>();
   return (
     <CUI.Tr verticalAlign="top">
       <CUI.Td px="none">
@@ -54,7 +62,15 @@ const CustomDeliverySystemTableRecord = ({
       <CUI.Td>
         <QMR.NumberInput
           displayPercent
-          name={`${record}.UnderTwentyOne`}
+          name={`${record}.TwentyOneToSixtyFour`}
+          numberInputProps={{ textAlign: "right" }}
+          mask={percentageAllowOneDecimalMax}
+        />
+      </CUI.Td>
+      <CUI.Td>
+        <QMR.NumberInput
+          displayPercent
+          name={`${record}.GreaterThanSixtyFour`}
           numberInputProps={{ textAlign: "right" }}
           mask={percentageAllowOneDecimalMax}
         />
@@ -74,9 +90,16 @@ export const DeliverySystems = () => {
 
   const values = watch("PercentageEnrolledInEachDeliverySystem");
 
-  const totalUnder21Percent = values.reduce(
+  const total21To64Percent = values.reduce(
     (acc: number, curr: DeliverySystem) => {
-      return acc + parseFloat(curr.UnderTwentyOne || "0");
+      return acc + parseFloat(curr.TwentyOneToSixtyFour || "0");
+    },
+    0
+  );
+
+  const total65AndOlderPercent = values.reduce(
+    (acc: number, curr: DeliverySystem) => {
+      return acc + parseFloat(curr.GreaterThanSixtyFour || "0");
     },
     0
   );
@@ -91,7 +114,8 @@ export const DeliverySystems = () => {
       {
         key: `CustomDeliverySystemRecord_${values.length}`,
         label: "",
-        UnderTwentyOne: "",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
         userGenerated: true,
       },
     ]);
@@ -99,17 +123,20 @@ export const DeliverySystems = () => {
 
   return (
     <CUI.ListItem>
-      <Q.QualifierHeader
+      <Common.QualifierHeader
         header="Delivery System"
-        description="As of September 30, 2021 what percentage of your Medicaid
-          enrollees (under age 21) were enrolled in each delivery system?"
+        description="As of September 30, 2021 what percentage of your Medicaid/CHIP
+          enrollees (above age 21) were enrolled in each delivery system?"
       />
       <CUI.Table variant="simple" mt="4" size="md">
         <CUI.Thead>
           <CUI.Tr>
             <CUI.Th></CUI.Th>
             <CUI.Th textAlign="center" fontSize="md">
-              <CUI.Text fontSize="sm">Under Age 21</CUI.Text>
+              <CUI.Text>Ages 21 to 64</CUI.Text>
+            </CUI.Th>
+            <CUI.Th textAlign="center" fontSize="md">
+              <CUI.Text>Age 65 and older</CUI.Text>
             </CUI.Th>
           </CUI.Tr>
         </CUI.Thead>
@@ -150,12 +177,30 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={totalUnder21Percent}
+                  value={total21To64Percent}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
                   tabIndex={-1}
                 />
+
+                <CUI.InputRightElement
+                  pointerEvents="none"
+                  children={<BsPercent />}
+                />
+              </CUI.InputGroup>
+            </CUI.Td>
+            <CUI.Td>
+              <CUI.InputGroup>
+                <CUI.Input
+                  isReadOnly
+                  value={total65AndOlderPercent}
+                  border="none"
+                  textAlign="right"
+                  fontWeight="bold"
+                  tabIndex={-1}
+                />
+
                 <CUI.InputRightElement
                   pointerEvents="none"
                   children={<BsPercent />}

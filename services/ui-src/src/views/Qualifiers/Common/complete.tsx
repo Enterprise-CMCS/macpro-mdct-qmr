@@ -1,23 +1,24 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import * as Q from "./";
+import * as Common from ".";
 
 interface Props {
-  completeEnabled?: boolean;
+  type: "AD" | "CH";
 }
 
-export const CompleteCoreSets = ({ completeEnabled = true }: Props) => {
+export const CompleteCoreSets = ({ type }: Props) => {
+  const qualifierType = type === "AD" ? "Adult" : "Child";
+
   return (
     <CUI.ListItem>
-      <Q.QualifierHeader
-        header="Complete all Adult Core Set Questions and Adult Core Set Measures to submit to CMS"
-        description="Complete all Adult Core Set Questions and Adult Core Set Measures to submit to CMS for review"
+      <Common.QualifierHeader
+        header={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS`}
+        description={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS for review`}
       />
 
       <QMR.ContainedButton
         testId="complete-core-set-questions-button"
         buttonText="Complete Core Set Questions"
-        disabledStatus={!completeEnabled}
         buttonProps={{
           bg: "blue.600",
           colorScheme: "blue",

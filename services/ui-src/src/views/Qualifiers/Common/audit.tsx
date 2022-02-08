@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Q from ".";
+import { QualifierHeader } from "./qualifierHeader";
 import { ICheckbox } from "components/MultiSelect";
 import { useFieldArray } from "react-hook-form";
 import { HiX } from "react-icons/hi";
@@ -23,16 +23,19 @@ export const CloseButton = ({ onClick }: { onClick: () => void }) => (
   />
 );
 
-export const Audit = () => {
+interface Props {
+  type: "CH" | "AD";
+}
+
+export const Audit = ({ type }: Props) => {
   const { year } = useParams();
-  const { fields, remove, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
   });
 
-  const childMeasures = measuresList[year as string]
-
+  const multiSelectMeasures = measuresList[year as string]
     .filter((item) => {
-      return item.type === "CH";
+      return item.type === type;
     })
     .map((obj) => {
       return {
@@ -43,13 +46,13 @@ export const Audit = () => {
     });
 
   const multiSelectList = useMemo<ICheckbox[]>(
-    () => childMeasures,
-    [childMeasures]
+    () => multiSelectMeasures,
+    [multiSelectMeasures]
   );
 
   return (
     <CUI.ListItem>
-      <Q.QualifierHeader
+      <QualifierHeader
         header="Audit or Validation of Measures"
         description="Were any of the Core Set meaures audited or validated?"
       />
