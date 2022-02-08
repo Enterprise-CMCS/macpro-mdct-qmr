@@ -22,23 +22,23 @@ const RangeNotification = ({ text }: { text: string }) => (
   />
 );
 
-export const currentYear = format(new Date(), "yyyy");
-export const currentMonth = format(new Date(), "M");
+export const currentYear = parseInt(format(new Date(), "yyyy"));
+export const currentMonth = parseInt(format(new Date(), "M"));
 
 export const DateRangeError = ({ name }: { name: string }) => {
   const { watch } = useFormContext();
   const range = watch(name);
 
-  const startYear = range?.startDate?.selectedYear;
-  const startMonth = range?.startDate?.selectedMonth;
+  const startYear = parseInt(range?.startDate?.selectedYear);
+  const startMonth = parseInt(range?.startDate?.selectedMonth);
 
-  const endYear = range?.endDate?.selectedYear;
-  const endMonth = range?.endDate?.selectedMonth;
+  const endYear = parseInt(range?.endDate?.selectedYear);
+  const endMonth = parseInt(range?.endDate?.selectedMonth);
 
   /* If the start date is a future date, then display a warning notification. */
   if (
     startYear > currentYear ||
-    (startMonth > currentMonth && startYear == currentYear)
+    (startMonth > currentMonth && startYear === currentYear)
   ) {
     return <RangeNotification text="Start date cannot be a future date" />;
   }
@@ -46,13 +46,16 @@ export const DateRangeError = ({ name }: { name: string }) => {
   /* If the end date is a future date, then display a warning notification. */
   if (
     endYear > currentYear ||
-    (endMonth > currentMonth && endYear == currentYear)
+    (endMonth > currentMonth && endYear === currentYear)
   ) {
     return <RangeNotification text="End date cannot be a future date" />;
   }
 
   /* If the start date is after the end date, then display a warning notification. */
-  if (startYear > endYear || (startMonth >= endMonth && startYear == endYear)) {
+  if (
+    startYear > endYear ||
+    (startMonth >= endMonth && startYear === endYear)
+  ) {
     return <RangeNotification text="Start Date must be before the end date" />;
   }
 
