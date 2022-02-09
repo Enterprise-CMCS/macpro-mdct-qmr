@@ -1,7 +1,7 @@
 import {
-  atLeastOneRateCompleteSingleArray,
-  validateNumeratorsLessThanDenominatorsSingleArray,
-  validateNoNonZeroNumOrDenomSingleArray,
+  atLeastOneRateComplete,
+  validateNumeratorsLessThanDenominators,
+  validateNoNonZeroNumOrDenom,
 } from "../../globalValidations/validationsLib";
 const PQI01Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -10,12 +10,13 @@ const PQI01Validation = (data: any) => {
   let errorArray: any[] = [];
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateCompleteSingleArray(performanceMeasureArray, OPM),
-    ...validateNumeratorsLessThanDenominatorsSingleArray(
-      performanceMeasureArray,
-      OPM
-    ),
-    ...validateNoNonZeroNumOrDenomSingleArray(performanceMeasureArray, OPM),
+    ...atLeastOneRateComplete([performanceMeasureArray], OPM, ["age-groups"]),
+    ...validateNumeratorsLessThanDenominators([performanceMeasureArray], OPM, [
+      "age-groups",
+    ]),
+    ...validateNoNonZeroNumOrDenom([performanceMeasureArray], OPM, [
+      "age-groups",
+    ]),
   ];
 
   return errorArray;
