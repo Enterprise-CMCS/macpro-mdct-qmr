@@ -47,6 +47,7 @@ export const NumberInput = ({
           value={field.value ?? ""}
           name={name}
           id={name}
+          data-cy={name}
           onChange={(v) =>
             mask.test(v.target.value) || !v.target.value
               ? field.onChange(v.target.value || "")

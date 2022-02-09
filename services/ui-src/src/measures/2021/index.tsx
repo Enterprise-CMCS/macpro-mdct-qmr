@@ -4,7 +4,9 @@ the key should be the measure id as a string (with '-XX' included)
 */
 
 import { AMMAD } from "./AMMAD";
+import { CPAAD } from "./CPAAD";
 import { FUAAD } from "./FUAAD";
+import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { NCIDDSAD } from "./NCIDDSAD";
@@ -13,11 +15,13 @@ import { FUMAD } from "./FUMAD";
 
 const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
+  "CPA-AD": CPAAD,
+  "FUA-AD": FUAAD,
+  "IET-AD": IETAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "NCIDDS-AD": NCIDDSAD,
   "PDENT-CH": PDENTCH,
-  "FUA-AD": FUAAD,
   "FUM-AD": FUMAD,
 };
 

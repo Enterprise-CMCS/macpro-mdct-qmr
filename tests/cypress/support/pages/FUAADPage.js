@@ -28,7 +28,8 @@ const validateMeasureButton = "//button[@class='chakra-button css-gy0j0y']";
 const completeMeasureButton = "//button[@class='chakra-button css-qobkj']";
 const sentenceUnderCompleteMeasureOne = "//p[@class='chakra-text css-thvrsi']";
 const sentenceUnderCompleteMeasureTwo = "//p[@class='chakra-text css-1xpb69n']";
-const errorMessagePerformanceMeasure = "((//div[@class='css-0'])[27]/div)[1]";
+const errorMessagePerformanceMeasure =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]";
 const errorMessageContent =
   "//div[contains(text(),'At least one Performance Measure Numerator, Denomi')]";
 const popupBoxMessageHeader = "#yes-no-header";
