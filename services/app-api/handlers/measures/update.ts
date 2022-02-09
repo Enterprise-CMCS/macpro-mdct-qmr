@@ -11,7 +11,7 @@ export const editMeasure = handler(async (event, context) => {
     : "branchUser";
 
   const params = {
-    TableName: process.env.measureTableName,
+    TableName: process.env.measureTableName!,
     Key: {
       compoundKey: dynamoKey,
       coreSet: event!.pathParameters!.coreSet!,

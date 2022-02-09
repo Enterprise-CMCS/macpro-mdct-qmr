@@ -65,7 +65,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.10H, Adult Version (Medicaid)",
+      name: "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
       measureId: "CPA-AD",
     },
     {
@@ -105,7 +105,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
+      name: "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
       measureId: "IET-AD",
     },
     {
@@ -324,7 +324,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "HH",
-      name: "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
+      name: "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
       measureId: "IET-HH",
     },
     {
