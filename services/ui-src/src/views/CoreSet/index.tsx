@@ -91,7 +91,6 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
 const useMeasureTableDataBuilder = () => {
   const { state, year, coreSetId } = useParams();
   const { data, isLoading, isError, error } = useGetMeasures();
-  console.log("measures", data);
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   useEffect(() => {
     let mounted = true;
