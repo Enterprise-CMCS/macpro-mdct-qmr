@@ -73,6 +73,7 @@ export const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
   const { data, error, isLoading } = Api.useGetCoreSets();
+  console.log("data", data);
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
   if (userState && userState !== state && userRole === UserRoles.STATE) {

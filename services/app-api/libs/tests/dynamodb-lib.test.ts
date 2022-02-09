@@ -1,5 +1,5 @@
 import dynamoLib, { createDbClient } from "../dynamodb-lib";
-import { MeasureStatus } from "../../types";
+import { CoreSetAbbr, MeasureStatus } from "../../types";
 import AWS from "aws-sdk";
 
 const mockPromiseCall = jest.fn();
@@ -25,28 +25,40 @@ jest.mock("aws-sdk", () => ({
 
 describe("Test DynamoDB Interaction API Build Structure", () => {
   test("API structure should be callable", () => {
-    dynamoLib.get(true);
-    dynamoLib.put(true);
+    const testKeyTable = {
+      Key: { compoundKey: "testKey", coreSet: CoreSetAbbr.ACS },
+      TableName: "testTable",
+    };
+    const testItem = {
+      compoundKey: "dynamoKey",
+      state: "FL",
+      year: 2019,
+      coreSet: CoreSetAbbr.ACS,
+      measure: "event!.pathParameters!.measure!",
+      createdAt: Date.now(),
+      lastAltered: Date.now(),
+      lastAlteredBy: `event.headers["cognito-identity-id"]`,
+      status: MeasureStatus.COMPLETE,
+      description: "",
+      data: {},
+    };
     dynamoLib.query(true);
-    dynamoLib.scan(true);
-    dynamoLib.update(true);
-    dynamoLib.delete(true);
+    dynamoLib.get(testKeyTable);
+    dynamoLib.delete(testKeyTable);
+    dynamoLib.put({ TableName: "testTable", Item: testItem });
+    dynamoLib.scan({
+      ...testKeyTable,
+      ExpressionAttributeNames: {},
+      ExpressionAttributeValues: {},
+    });
+    dynamoLib.update({
+      ...testKeyTable,
+      ExpressionAttributeNames: {},
+      ExpressionAttributeValues: {},
+    });
     dynamoLib.post({
       TableName: "",
-      Item: {
-        compoundKey: "dynamoKey",
-        state: "FL",
-        year: 2019,
-        coreSet: "event!.pathParameters!.coreSet!",
-        measure: "event!.pathParameters!.measure!",
-        createdAt: Date.now(),
-        lastAltered: Date.now(),
-        lastAlteredBy: `event.headers["cognito-identity-id"]`,
-        status: MeasureStatus.COMPLETE,
-        description: "",
-        ///@ts-ignore
-        data: {},
-      },
+      Item: testItem,
     });
 
     expect(mockPromiseCall).toHaveBeenCalledTimes(7);

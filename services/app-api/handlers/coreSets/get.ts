@@ -1,14 +1,14 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
+import { updateCoreSetProgress } from "../../libs/updateCoreProgress";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { createCoreSet } from "./create";
 import * as Types from "../../types";
-import { listMeasures } from "../measures/get";
 
 export const coreSetList = handler(async (event, context) => {
   const params = {
-    TableName: process.env.coreSetTableName,
+    TableName: process.env.coreSetTableName!,
     ...convertToDynamoExpression(
       {
         state: event!.pathParameters!.state!,
@@ -18,7 +18,7 @@ export const coreSetList = handler(async (event, context) => {
     ),
   };
 
-  const results = await dynamoDb.scan(params);
+  const results = await dynamoDb.scan<Types.CoreSet>(params);
 
   // if the query value contains no results
   if (results.Count === 0) {
@@ -50,31 +50,10 @@ export const coreSetList = handler(async (event, context) => {
   }
 });
 
-const updateCoreSetProgress = async (
-  coreSets: any,
-  event: any,
-  context: any
-) => {
-  if (coreSets.Items?.length > 0) {
-    for (const coreSet of coreSets.Items) {
-      event.pathParameters!.coreSet = coreSet.coreSet;
-      const measuresResponse = await listMeasures(event, context);
-      const measuresList = JSON.parse(measuresResponse.body);
-
-      const measures = measuresList.Items;
-      const completedAmount = measures.filter(
-        (measure: any) => measure.status === Types.MeasureStatus.COMPLETE
-      ).length;
-      coreSet.progress.numComplete = completedAmount;
-    }
-    return coreSets;
-  }
-};
-
 export const getCoreSet = handler(async (event, context) => {
   const dynamoKey = createCompoundKey(event);
   const params = {
-    TableName: process.env.coreSetTableName,
+    TableName: process.env.coreSetTableName!,
     Key: {
       compoundKey: dynamoKey,
       coreSet: event!.pathParameters!.coreSet!,

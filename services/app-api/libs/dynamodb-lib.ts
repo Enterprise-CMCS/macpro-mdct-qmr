@@ -1,6 +1,14 @@
 import AWS from "aws-sdk";
 import { ServiceConfigurationOptions } from "aws-sdk/lib/service";
-import * as Types from "../types";
+import {
+  CoreSet,
+  Measure,
+  DynamoCreate,
+  DynamoDelete,
+  DynamoUpdate,
+  DynamoFetch,
+  DynamoScan,
+} from "../types";
 
 export function createDbClient() {
   const dynamoConfig: AWS.DynamoDB.DocumentClient.DocumentClientOptions &
@@ -23,12 +31,19 @@ export function createDbClient() {
 const client = createDbClient();
 
 export default {
-  get: (params: any) => client.get(params).promise(),
-  put: (params: any) => client.put(params).promise(),
-  post: (params: Types.CreateCoreSet | Types.CreateMeasure) =>
-    client.put(params).promise(),
+  get: async <Result = CoreSet | Measure>(params: DynamoFetch) => {
+    const result = await client.get(params).promise();
+    return { ...result, Item: result?.Item as Result | undefined };
+  },
+  put: (params: DynamoCreate) => client.put(params).promise(),
+  post: (params: DynamoCreate) => client.put(params).promise(),
+  scan: async <Result = CoreSet | Measure>(params: DynamoScan) => {
+    const result = await client.scan(params).promise();
+    return { ...result, Items: result?.Items as Result[] | undefined };
+  },
+  update: (params: DynamoUpdate) => client.update(params).promise(),
+  delete: (params: DynamoDelete) => client.delete(params).promise(),
+
+  // unused
   query: (params: any) => client.query(params).promise(),
-  scan: (params: any) => client.scan(params).promise(),
-  update: (params: any) => client.update(params).promise(),
-  delete: (params: any) => client.delete(params).promise(),
 };

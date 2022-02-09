@@ -9,7 +9,7 @@ export const createCoreSet = handler(async (event, context) => {
   // The State Year and ID are all part of the path
   const state = event!.pathParameters!.state!;
   const year = event!.pathParameters!.year!;
-  const coreSet = event!.pathParameters!.coreSet!;
+  const coreSet = event!.pathParameters!.coreSet! as Types.CoreSetAbbr;
   const type = coreSet!.substring(0, 1);
 
   const coreSetQuery = await getCoreSet(event, context);
@@ -39,7 +39,7 @@ export const createCoreSet = handler(async (event, context) => {
   ).length;
 
   const params = {
-    TableName: process.env.coreSetTableName,
+    TableName: process.env.coreSetTableName!,
     Item: {
       compoundKey: dynamoKey,
       state: state,
@@ -56,15 +56,14 @@ export const createCoreSet = handler(async (event, context) => {
       submitted: false,
     },
   };
-  //@ts-ignore
-  await dynamoDb.post(params);
+
   return params;
 });
 
 const createDependentMeasures = async (
   state: string,
   year: number,
-  coreSet: string,
+  coreSet: Types.CoreSetAbbr,
   type: string
 ) => {
   const filteredMeasures = measures[year].filter(
@@ -79,7 +78,7 @@ const createDependentMeasures = async (
     // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
     const dynamoKey = `${state}${year}${coreSet}${measureId}`;
     const params = {
-      TableName: process.env.measureTableName,
+      TableName: process.env.measureTableName!,
       Item: {
         compoundKey: dynamoKey,
         state: state,
@@ -94,10 +93,8 @@ const createDependentMeasures = async (
         description: measure.description,
       },
     };
-    console.log("created measure: ", params);
-    //@ts-ignore
+
     const result = await dynamoDb.post(params);
     dependentMeasures.push(result);
   }
-  return dependentMeasures;
 };

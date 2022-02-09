@@ -1,35 +1,79 @@
-export interface CreateCoreSet {
+export interface CoreSet {
+  compoundKey: string;
+  coreSet: CoreSetAbbr;
+  createdAt: number;
+  lastAltered: number;
+  lastAlteredBy?: string;
+  progress: {
+    numAvailable: number;
+    numComplete: number;
+  };
+  state: string;
+  submitted: boolean;
+  year: number;
+}
+
+export interface DynamoCoreSetList {
+  Items?: CoreSet[];
+  Count?: number;
+  ScannedCount?: number;
+}
+
+export interface Measure {
+  compoundKey: string;
+  coreSet: CoreSetAbbr;
+  createdAt: number;
+  description: string;
+  lastAltered: number;
+  lastAlteredBy?: string;
+  measure: string;
+  state: string;
+  status: MeasureStatus;
+  year: number;
+}
+
+export interface DynamoMeasureList {
+  Items?: Measure[];
+  Count?: number;
+  ScannedCount?: number;
+}
+
+export interface DynamoCreate {
   TableName: string;
-  Item: {
+  Item: Measure | CoreSet;
+}
+
+export interface DynamoDelete {
+  TableName: string;
+  Key: {
     compoundKey: string;
-    state: string;
-    year: number;
     coreSet: string;
-    createdAt: number;
-    lastAltered: number;
-    lastAlteredBy?: string;
-    progress: { numAvailable: number; numComplete: number };
-    submitted: boolean;
   };
 }
 
-export const enum MeasureStatus {
-  COMPLETE = "complete",
-  INCOMPLETE = "incomplete",
+export interface DynamoUpdate {
+  TableName: string;
+  Key: {
+    compoundKey: string;
+    coreSet: string;
+  };
+  UpdateExpression?: string;
+  ExpressionAttributeNames: { [key: string]: string };
+  ExpressionAttributeValues: { [key: string]: any };
 }
 
-export interface CreateMeasure {
+export interface DynamoScan {
   TableName: string;
-  Item: {
+  FilterExpression?: string;
+  ExpressionAttributeNames: { [key: string]: string };
+  ExpressionAttributeValues: { [key: string]: any };
+}
+
+export interface DynamoFetch {
+  TableName: string;
+  Key: {
     compoundKey: string;
-    state: string;
-    year: number;
     coreSet: string;
-    measure: string;
-    createdAt: number;
-    lastAltered: number;
-    status: MeasureStatus;
-    description: string;
   };
 }
 
@@ -39,6 +83,11 @@ export const enum CoreSetAbbr {
   CCSM = "CCSM",
   CCSC = "CCSC",
   HHCS = "HHCS",
+}
+
+export const enum MeasureStatus {
+  COMPLETE = "complete",
+  INCOMPLETE = "incomplete",
 }
 
 export const enum UserRoles {
