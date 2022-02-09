@@ -18,6 +18,9 @@ describe("Test CompleteMeasureFooter", () => {
 
   /* TODO: Possibly mock out the functions for each button, in the interim
    it should be safe to assume that tests that rely on these will be substantial.
+
+   Because the functionality is currently in the MeasureWrapper,
+   should these tests be written there?
   
    it("Check that the fuctions fire", () => {});
   */
