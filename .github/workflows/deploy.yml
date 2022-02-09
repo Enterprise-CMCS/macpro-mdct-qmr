@@ -76,7 +76,7 @@ jobs:
   cypress-test:
     name: Cypress Tests
     needs: deploy
-    if: ${{ github.ref != 'refs/heads/production' && github.ref != 'refs/heads/master' }}
+    if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
     steps:
       - name: set branch_name
@@ -138,7 +138,7 @@ jobs:
           path: tests/cypress/screenshots/
 
       - name: Slack Notification
-        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "production"]'), env.branch_name) && failure ()
+        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
