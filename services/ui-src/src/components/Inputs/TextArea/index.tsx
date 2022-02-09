@@ -8,14 +8,12 @@ interface TextAreaProps extends QMR.InputWrapperProps {
   name: string;
   isRequired?: boolean;
   textAreaProps?: CUI.TextareaProps;
-  testId?: string;
 }
 
 export const TextArea = ({
   placeholder,
   textAreaProps,
   name,
-  testId,
   ...rest
 }: TextAreaProps) => {
   const {
@@ -40,7 +38,7 @@ export const TextArea = ({
         placeholder={placeholder}
         onChange={field.onChange}
         onBlur={field.onBlur}
-        data-cy={testId || name}
+        data-cy={name}
         {...textAreaProps}
       />
     </QMR.InputWrapper>

@@ -5,7 +5,6 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { createCoreSet } from "./create";
 import * as Types from "../../types";
 import { listMeasures } from "../measures/get";
-import { PromiseResult } from "aws-sdk/lib/request";
 
 export const coreSetList = handler(async (event, context) => {
   const params = {
@@ -14,7 +13,6 @@ export const coreSetList = handler(async (event, context) => {
       {
         state: event!.pathParameters!.state!,
         year: parseInt(event!.pathParameters!.year!),
-        coreSet: Types.CoreSetAbbr.ACS,
       },
       "list"
     ),

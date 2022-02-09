@@ -46,6 +46,7 @@ export const TextInput = ({
         value={field.value ?? ""}
         onChange={field.onChange}
         onBlur={field.onBlur}
+        data-cy={name}
         {...textInputProps}
       />
     </QMR.InputWrapper>
