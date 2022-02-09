@@ -57,6 +57,7 @@ export const createCoreSet = handler(async (event, context) => {
     },
   };
 
+  await dynamoDb.post(params);
   return params;
 });
 

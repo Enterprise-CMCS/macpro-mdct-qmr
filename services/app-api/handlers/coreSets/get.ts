@@ -36,7 +36,10 @@ export const coreSetList = handler(async (event, context) => {
         context
       );
       if (createCoreSetResult.statusCode === 200) {
-        return await dynamoDb.scan(params);
+        const res = await dynamoDb.scan(params);
+        return res;
+      } else {
+        throw new Error("Creation failed");
       }
     } catch (e) {
       console.log(e);
