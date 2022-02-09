@@ -256,7 +256,7 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     );
     cy.get("#MeasurementSpecification-NCQAHEDIS").click();
     cy.get("#radio-182").check();
-    cy.get(
+    cy.xpath(
       "//p[contains(text(),'NCQA, the measure steward, changed its naming conv')]"
     ).should(
       "have.text",
@@ -338,7 +338,7 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("a > .chakra-text").click();
     cy.get(":nth-child(20) > :nth-child(1) > a > .chakra-text").click();
-    cy.xpath("[data-cy='DidReport0']").click({ force: true });
+    cy.get("[data-cy='DidReport0']").click({ force: true });
     cy.get("#radio-174").check();
     cy.get("#DataStatus-I\\ am\\ reporting\\ provisional\\ data\\.").click();
     cy.get("#radio-178").check();
