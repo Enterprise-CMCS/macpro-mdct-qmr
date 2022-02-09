@@ -61,8 +61,5 @@ custom:
         export S3_ATTACHMENTS_BUCKET_NAME=${self:custom.s3_attachments_bucket_name}
         export LOCAL_LOGIN=false
         export BRANCH_NAME=${self:custom.stage}
-        export _BRANCH_NAME=${self:custom.stage}
-        echo $BRANCH_NAME
-        echo $_BRANCH_NAME
         ./env.sh
         cp public/env-config.js build/env-config.js

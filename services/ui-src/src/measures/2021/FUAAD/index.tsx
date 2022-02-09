@@ -74,9 +74,6 @@ export const FUAAD = ({
     });
   }
 
-  console.log("BRANCH_NAME: ", config.BRANCH_NAME);
-  console.log("_BRANCH_NAME: ", config._BRANCH_NAME);
-
   return (
     <>
       <Q.Reporting
@@ -164,7 +161,7 @@ export const FUAAD = ({
             }}
           />
           {/* TODO: should these buttons be part of a footer component? */}
-          { config._BRANCH_NAME !== undefined && config._BRANCH_NAME !== "prod" &&
+          { config.BRANCH_NAME !== undefined && config.BRANCH_NAME !== "prod" &&
             <QMR.ContainedButton
               buttonProps={{
                 colorScheme: "red",
