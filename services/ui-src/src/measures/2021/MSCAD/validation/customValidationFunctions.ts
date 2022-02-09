@@ -19,7 +19,6 @@ const MSCADValidation = (data: Measure.Form) => {
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
-  //@ts-ignore
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
