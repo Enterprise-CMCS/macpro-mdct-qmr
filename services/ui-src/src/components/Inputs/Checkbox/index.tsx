@@ -15,14 +15,12 @@ interface CheckboxProps extends QMR.InputWrapperProps {
   options: CheckboxOption[];
   checkboxGroupProps?: CUI.CheckboxGroupProps;
   name: string;
-  testId?: string;
 }
 
 export const Checkbox = ({
   options,
   checkboxGroupProps,
   name,
-  testId,
   ...rest
 }: CheckboxProps) => {
   const {
@@ -64,7 +62,7 @@ export const Checkbox = ({
                 <CUI.Checkbox
                   value={option.value}
                   id={name}
-                  data-cy={(testId || name) + idx}
+                  data-cy={name + idx}
                 >
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
