@@ -1,9 +1,9 @@
 import { Measure } from "./types";
 import {
-  atLeastOneRateCompleteSingleArray,
-  validateNumeratorsLessThanDenominatorsSingleArray,
-  validateNoNonZeroNumOrDenomSingleArray,
-  validateEqualDenominatorsSingleArray,
+  atLeastOneRateComplete,
+  validateNumeratorsLessThanDenominators,
+  validateNoNonZeroNumOrDenom,
+  validateEqualDenominators,
 } from "../../globalValidations/validationsLib";
 
 const OUDValidation = (data: Measure.Form) => {
@@ -11,15 +11,21 @@ const OUDValidation = (data: Measure.Form) => {
 
   const performanceMeasureArray = data["PerformanceMeasure-Rates"];
   let errorArray: any[] = [];
+
+  const arrayToTestEqualDenominators = performanceMeasureArray.map((item) => {
+    return [item];
+  });
+
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateCompleteSingleArray(performanceMeasureArray, OPM),
-    ...validateNumeratorsLessThanDenominatorsSingleArray(
-      performanceMeasureArray,
-      OPM
-    ),
-    ...validateEqualDenominatorsSingleArray(performanceMeasureArray),
-    ...validateNoNonZeroNumOrDenomSingleArray(performanceMeasureArray, OPM),
+    ...atLeastOneRateComplete([performanceMeasureArray], OPM, ["age-group"]),
+    ...validateNumeratorsLessThanDenominators([performanceMeasureArray], OPM, [
+      "age-group",
+    ]),
+    ...validateEqualDenominators(arrayToTestEqualDenominators, ["age-group"]),
+    ...validateNoNonZeroNumOrDenom([performanceMeasureArray], OPM, [
+      "age-group",
+    ]),
   ];
 
   return errorArray;
