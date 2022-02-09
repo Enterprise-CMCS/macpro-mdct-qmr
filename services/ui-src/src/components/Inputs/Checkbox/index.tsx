@@ -48,7 +48,7 @@ export const Checkbox = ({
         {...checkboxGroupProps}
       >
         <CUI.Stack>
-          {options.map((option) => {
+          {options.map((option, idx) => {
             const showChildren = !!field.value?.find(
               (valueToCheck: string) => valueToCheck === option.value
             );
@@ -59,7 +59,11 @@ export const Checkbox = ({
                 allowDeletion={option.removable}
                 onDelete={option.onDelete}
               >
-                <CUI.Checkbox value={option.value} id={name}>
+                <CUI.Checkbox
+                  value={option.value}
+                  id={name}
+                  data-cy={name + idx}
+                >
                   <CUI.Text fontWeight="normal" fontSize="normal">
                     {option.displayValue}
                   </CUI.Text>

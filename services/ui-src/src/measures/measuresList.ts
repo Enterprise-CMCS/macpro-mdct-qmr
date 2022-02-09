@@ -105,7 +105,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
+      name: "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
       measureId: "IET-AD",
     },
     {
@@ -324,7 +324,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "HH",
-      name: "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
+      name: "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
       measureId: "IET-HH",
     },
     {
