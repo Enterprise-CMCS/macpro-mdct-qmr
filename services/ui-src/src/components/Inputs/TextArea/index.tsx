@@ -38,6 +38,7 @@ export const TextArea = ({
         placeholder={placeholder}
         onChange={field.onChange}
         onBlur={field.onBlur}
+        data-cy={name}
         {...textAreaProps}
       />
     </QMR.InputWrapper>

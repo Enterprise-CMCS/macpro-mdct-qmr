@@ -11,10 +11,10 @@ export const editCoreSet = handler(async (event, context) => {
     : "branchUser";
 
   const params = {
-    TableName: process.env.coreSetTableName,
+    TableName: process.env.coreSetTableName!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event!.pathParameters!.coreSet,
+      coreSet: event!.pathParameters!.coreSet!,
     },
     ...convertToDynamoExpression(
       { status: status, lastAltered: Date.now(), lastAlteredBy: lastAlteredBy },

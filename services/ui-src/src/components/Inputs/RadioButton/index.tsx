@@ -52,7 +52,7 @@ export const RadioButton = ({
         {...radioGroupProps}
       >
         <CUI.Stack>
-          {options.map((option) => {
+          {options.map((option, idx) => {
             const showChildren = option.value === field.value;
             return (
               <QMR.DeleteWrapper
@@ -60,7 +60,11 @@ export const RadioButton = ({
                 allowDeletion={option.removable}
                 onDelete={option.onDelete}
               >
-                <CUI.Radio value={option.value} key={option.value}>
+                <CUI.Radio
+                  value={option.value}
+                  key={option.value}
+                  data-cy={name + idx}
+                >
                   <CUI.Text
                     fontWeight="normal"
                     fontSize="normal"
