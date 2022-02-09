@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:3000/",
+  "baseUrl": "https://mdctqmrdev.cms.gov/",
   "experimentalStudio": true,
   "redirectionLimit": 20,
   "retries": 2,
