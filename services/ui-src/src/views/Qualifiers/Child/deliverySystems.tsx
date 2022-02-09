@@ -122,7 +122,7 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={under21PercentMedicaid}
+                  value={under21PercentMedicaid.toFixed(1)}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
@@ -139,7 +139,7 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={underTwentyOneCHIP}
+                  value={underTwentyOneCHIP.toFixed(1)}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"

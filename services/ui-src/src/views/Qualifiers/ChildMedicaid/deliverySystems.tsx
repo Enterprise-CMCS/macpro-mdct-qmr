@@ -101,7 +101,7 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={totalUnder21Percent}
+                  value={totalUnder21Percent.toFixed(1)}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
