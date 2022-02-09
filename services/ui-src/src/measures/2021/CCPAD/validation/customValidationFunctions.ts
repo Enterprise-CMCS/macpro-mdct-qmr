@@ -110,80 +110,6 @@ export const validateNoNonZeroNumOrDenom = (
   return zeroRateError || nonZeroRateError ? errorArray : [];
 };
 
-const validateDualPopulationInformation = (data: Measure.Form) => {
-  const sevenDays65orOlder =
-    data["PerformanceMeasure-AgeRates-longActingContraception"];
-  const thirtyDays65orOlder =
-    data["PerformanceMeasure-AgeRates-effectiveContraception"];
-  const DualEligibleCheck = data["DefinitionOfDenominator"] ?? [];
-
-  let error;
-
-  if (sevenDays65orOlder || thirtyDays65orOlder) {
-    if (sevenDays65orOlder[1] || thirtyDays65orOlder[1]) {
-      if (
-        sevenDays65orOlder[1]?.numerator ||
-        thirtyDays65orOlder[1]?.numerator ||
-        sevenDays65orOlder[1]?.denominator ||
-        thirtyDays65orOlder[1]?.denominator
-      ) {
-        if (
-          DualEligibleCheck.indexOf(
-            "DenominatorIncMedicareMedicaidDualEligible"
-          ) === -1
-        ) {
-          error = {
-            errorLocation: "Performance Measure",
-            errorMessage:
-              "Information has been included in the Sixty Days Postpartum Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
-          };
-        }
-      }
-    }
-  }
-  if (
-    DualEligibleCheck.indexOf("DenominatorIncMedicareMedicaidDualEligible") !==
-    -1
-  ) {
-    if (!sevenDays65orOlder && !thirtyDays65orOlder) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Sixty Days Postpartum",
-      };
-    } else if (!sevenDays65orOlder[1] && !thirtyDays65orOlder[1]) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Sixty Days Postpartum",
-      };
-    } else if (
-      (!sevenDays65orOlder[1]?.numerator || // either not filled in
-        !sevenDays65orOlder[1]?.denominator) && // either not filled in
-      !thirtyDays65orOlder[1]?.numerator && //both filled in
-      !thirtyDays65orOlder[1]?.denominator //both filled in
-    ) {
-      return {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Sixty Days Postpartum (Most Effective or Moderately Effective Method of Contraceptive)",
-      };
-    } else if (
-      (!thirtyDays65orOlder[1]?.numerator ||
-        !thirtyDays65orOlder[1]?.denominator) &&
-      !sevenDays65orOlder[1]?.numerator &&
-      !sevenDays65orOlder[1]?.denominator
-    ) {
-      return {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Sixty Days Postpartum (Long-acting Reversible Method of Contraception (LARC))",
-      };
-    }
-  }
-  return error;
-};
-
 const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
   let error;
@@ -310,12 +236,42 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   return error;
 };
 
+const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
+  const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
+  const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+  console.log("sevenDays", sevenDays);
+  console.log("thirtyDays", thirtyDays);
+
+  const errorArray: any[] = [];
+
+  if (sevenDays?.length === 2) {
+    if (parseInt(sevenDays[0].rate) > parseInt(sevenDays[1].rate)) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Most Effective or Moderately Effective Method of Contraception",
+      });
+    }
+  }
+  if (thirtyDays?.length === 2) {
+    if (parseInt(thirtyDays[0].rate) > parseInt(thirtyDays[1].rate)) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Long-acting Reversible Method of Contraception (LARC)",
+      });
+    }
+  }
+
+  return errorArray;
+};
+
 export const validationFunctions = [
   validateRates,
   CCPADValidation,
   validateSevenDayNumeratorLessThanDenominator,
   validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
-  validateDualPopulationInformation,
   validate7DaysGreaterThan30Days,
+  validate3daysLessOrEqualTo30days,
 ];
