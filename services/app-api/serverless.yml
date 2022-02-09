@@ -26,7 +26,7 @@ custom:
     stages:
       - master
       - val
-      - production
+      - prod
   coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
   coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
   measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
@@ -45,7 +45,7 @@ custom:
   authValue:
     master: aws_iam
     val: aws_iam
-    production: aws_iam
+    prod: aws_iam
 provider:
   name: aws
   runtime: nodejs12.x

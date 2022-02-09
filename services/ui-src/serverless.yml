@@ -21,7 +21,7 @@ custom:
     stages:
       - master
       - val
-      - production
+      - prod
   api_region: ${cf:app-api-${self:custom.stage}.Region}
   api_url: ${cf:app-api-${self:custom.stage}.ApiGatewayRestApiUrl}
   cognito_region: ${cf:ui-auth-${self:custom.stage}.Region}
