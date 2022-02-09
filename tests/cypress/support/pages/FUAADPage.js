@@ -322,54 +322,6 @@ export class FUAADPAGE {
     cy.xpath(popupBoxNo).click();
   }
 
-  verifySentenceUnderCompleteMeasure() {
-    cy.xpath(sentenceUnderCompleteMeasureOne).should("be.visible");
-    cy.xpath(sentenceUnderCompleteMeasureOne).contains(
-      'Please select "Validate Measure" to check any error present on the measure prior to completion'
-    );
-    cy.xpath(sentenceUnderCompleteMeasureTwo).should("be.visible");
-    cy.xpath(sentenceUnderCompleteMeasureTwo).contains(
-      "Complete the measure and mark it for submission to CMS for review"
-    );
-  }
-
-  clickSaveButtnVerifyStatus() {
-    cy.xpath(saveButtn).click();
-    cy.wait(500);
-    //cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
-  }
-
-  clickNCQAHEDIS() {
-    cy.xpath(NCQARadioButton).click();
-  }
-
-  clickHEDISMy2020() {
-    cy.xpath(selectOption).click({ force: true });
-    //cy.xpath(HEDISDropdown2020).click({force:true});
-  }
-
-  clickValidateMeasureButtonVerify() {
-    cy.xpath(validateMeasureButton).click();
-    cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
-    cy.xpath(errorMessagePerformanceMeasure).should("be.visible");
-    cy.xpath(errorMessageContent).contains(
-      "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
-    );
-  }
-
-  clickCompleteMeasureButtonVerify() {
-    cy.xpath(completeMeasureButton).click();
-    cy.get(popupBoxMessageHeader).should("be.visible");
-    cy.get(popupBoxMessageContent).contains(
-      "There are still errors on this measure, would you still like to complete?"
-    );
-  }
-
-  clickNoOption() {
-    cy.xpath(popupBoxYes).should("be.visible");
-    cy.xpath(popupBoxNo).click();
-  }
-
   addFilesToFUAADPage() {
     const filePath = "/files/";
     cy.xpath(browseBTN).attachFile(filePath + "adobe.pdf", {
