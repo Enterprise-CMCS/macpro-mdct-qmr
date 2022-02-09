@@ -26,7 +26,7 @@ export class AdultCoreSetMeasuresPage {
     cy.xpath(medicaidLogoBottom).should("be.visible");
   }
 
-  clickOUDadLink(){
+  clickOUDadLink() {
     cy.xpath(oudAD).scrollIntoView();
     cy.xpath(oudAD).should("be.visible");
     cy.xpath(oudAD).click({ force: true });

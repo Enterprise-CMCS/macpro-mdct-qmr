@@ -58,7 +58,7 @@ And("user click on link Adult Core Set Measures", () => {
   homePage.clickAdultCoreSetMeasures();
 });
 
-And("button on the page is clickable",()=>{
+And("button on the page is clickable", () => {
   oudADpage.verifySaveValidateCompletebuttonClickable();
 });
 
@@ -126,9 +126,9 @@ And("user click on link FUA-AD", () => {
   adultCoreSetMeasurespage.clickFUAadLink();
 });
 
-And("user click on link OUD-AD",()=>{
+And("user click on link OUD-AD", () => {
   adultCoreSetMeasurespage.clickOUDadLink();
-})
+});
 
 And(
   "user can see the FUA-AD follow up after emergency department vist for alcohol and other drug abuse title",
