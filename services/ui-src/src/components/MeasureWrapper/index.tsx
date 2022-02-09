@@ -92,10 +92,10 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     setShowClearDataModal(true);
   };
 
-  const handleClearDataModalResponse = (continueWithErrors: boolean) => {
+  const handleClearDataModalResponse = (continueClear: boolean) => {
     setShowClearDataModal(false);
 
-    if (continueWithErrors) {
+    if (continueClear) {
       submitDataToServer({ data: {} }, MeasureStatus.INCOMPLETE);
       console.log("measure cleared");
       console.log({ errors });
@@ -259,13 +259,15 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   name,
                   year,
                   measureId,
-                  handleClear: methods.handleSubmit(handleClear),
-                  handleSubmit: methods.handleSubmit(handleSubmit),
-                  handleValidation: methods.handleSubmit(handleValidation),
                   setValidationFunctions,
                   //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
                   // whenever the buttons have a loading prop
                 })}
+                <QMR.CompleteMeasureFooter
+                  handleClear={methods.handleSubmit(handleClear)}
+                  handleSubmit={methods.handleSubmit(handleSubmit)}
+                  handleValidation={methods.handleSubmit(handleValidation)}
+                />
               </CUI.Container>
               {errors?.map((error, index) => (
                 <QMR.Notification
