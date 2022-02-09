@@ -15,14 +15,12 @@ interface RadioButtonProps extends QMR.InputWrapperProps {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
-  testId?: string;
 }
 
 export const RadioButton = ({
   options,
   radioGroupProps,
   name,
-  testId,
   ...rest
 }: RadioButtonProps) => {
   const {
@@ -65,7 +63,7 @@ export const RadioButton = ({
                 <CUI.Radio
                   value={option.value}
                   key={option.value}
-                  data-cy={(testId || name) + idx}
+                  data-cy={name + idx}
                 >
                   <CUI.Text
                     fontWeight="normal"
