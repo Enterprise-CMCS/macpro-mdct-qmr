@@ -15,7 +15,6 @@ export function createDbClient() {
     ServiceConfigurationOptions &
     AWS.DynamoDB.ClientApiVersions = {};
 
-  // ugly but OK, here's where we will check the environment
   const endpoint = process.env.DYNAMODB_URL;
   if (endpoint) {
     dynamoConfig.endpoint = endpoint;

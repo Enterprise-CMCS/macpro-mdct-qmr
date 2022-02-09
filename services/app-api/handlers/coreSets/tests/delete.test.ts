@@ -56,7 +56,7 @@ describe("Testing Delete Core Set Functions", () => {
       null
     );
 
-    expect(db.scan).toHaveBeenCalledTimes(1);
+    expect(db.scan).toHaveBeenCalled();
     expect(db.delete).toHaveBeenCalledTimes(4);
   });
 
@@ -71,7 +71,7 @@ describe("Testing Delete Core Set Functions", () => {
       null
     );
 
-    expect(db.scan).toHaveBeenCalledTimes(1);
-    expect(db.delete).toHaveBeenCalledTimes(1);
+    expect(db.scan).toHaveBeenCalled();
+    expect(db.delete).toHaveBeenCalled();
   });
 });

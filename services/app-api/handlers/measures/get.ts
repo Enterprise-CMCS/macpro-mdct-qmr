@@ -25,7 +25,7 @@ export const getMeasure = handler(async (event, context) => {
     TableName: process.env.measureTableName!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event!.pathParameters!.coreSet!,
+      coreSet: event.pathParameters!.coreSet!,
     },
   };
   const queryValue = await dynamoDb.get(params);
