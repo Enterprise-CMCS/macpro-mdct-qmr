@@ -24,11 +24,11 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     );
     cy.get("#DidReport-Yes\\,\\ I\\ am\\ reporting").should(
       "have.text",
-      "Yes, I am reporting Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment (IET-AD) for FFY 2021 quality measure reporting."
+      "Yes, I am reporting Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment (IET-AD) for FFY 2021 quality measure reporting."
     );
     cy.get("#DidReport-No\\,\\ I\\ am\\ not\\ reporting").should(
       "have.text",
-      "No, I am not reporting Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment (IET-AD) for FFY 2021 quality measure reporting."
+      "No, I am not reporting Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment (IET-AD) for FFY 2021 quality measure reporting."
     );
     cy.get(":nth-child(3) > .css-1ddmh30").should(
       "have.text",
