@@ -66,6 +66,7 @@ export const RadioButton = ({
                   value={option.value}
                   key={option.value}
                   data-cy={(testId || name) + idx}
+                  id={(testId || name) + idx}
                 >
                   <CUI.Text
                     fontWeight="normal"
