@@ -1,7 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { CoreSetAbbr } from "../../types";
 
 export const deleteMeasure = handler(async (event, context) => {
   const dynamoKey = createCompoundKey(event);
