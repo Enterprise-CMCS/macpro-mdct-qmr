@@ -102,7 +102,9 @@ export const Rate = ({
         return (
           <CUI.Stack key={rate.id} my={8}>
             {rate.label && (
-              <CUI.FormLabel fontWeight={700}>{rate.label}</CUI.FormLabel>
+              <CUI.FormLabel fontWeight={700} data-cy={rate.label}>
+                {rate.label}
+              </CUI.FormLabel>
             )}
             <CUI.HStack spacing={16}>
               <QMR.InputWrapper
