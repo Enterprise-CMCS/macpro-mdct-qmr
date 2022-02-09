@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import config from "config";
 
 export const FUAAD = ({
   name,
@@ -72,6 +73,9 @@ export const FUAAD = ({
       }
     });
   }
+
+  console.log("BRANCH_NAME: ", config.BRANCH_NAME);
+  console.log("_BRANCH_NAME: ", config._BRANCH_NAME);
 
   return (
     <>
@@ -160,8 +164,7 @@ export const FUAAD = ({
             }}
           />
           {/* TODO: should these buttons be part of a footer component? */}
-          {/* { process.env.ENV_NAME !== "production" && */}
-          { process.env.NODE_ENV !== undefined && process.env.NODE_ENV !== "production" &&
+          { config._BRANCH_NAME !== undefined && config._BRANCH_NAME !== "prod" &&
             <QMR.ContainedButton
               buttonProps={{
                 colorScheme: "red",
