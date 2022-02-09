@@ -8,6 +8,7 @@ import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 import AdultCoreSetQuestionsPage from "../../../support/pages/AdultCoreSetQuestionsPage";
+import OUDadPage from "../../../support/pages/OUDadPage";
 // demo
 
 import FUAADPAGE from "../../../support/pages/FUAADPage";
@@ -20,6 +21,7 @@ const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
+const oudADpage = new OUDadPage();
 // demo
 
 const fUAADPage = new FUAADPAGE();
@@ -54,6 +56,10 @@ Then(
 
 And("user click on link Adult Core Set Measures", () => {
   homePage.clickAdultCoreSetMeasures();
+});
+
+And("button on the page is clickable", () => {
+  oudADpage.verifySaveValidateCompletebuttonClickable();
 });
 
 And(
@@ -118,6 +124,10 @@ And("user click on link Adult Core Set Measures", () => {
 
 And("user click on link FUA-AD", () => {
   adultCoreSetMeasurespage.clickFUAadLink();
+});
+
+And("user click on link OUD-AD", () => {
+  adultCoreSetMeasurespage.clickOUDadLink();
 });
 
 And(
