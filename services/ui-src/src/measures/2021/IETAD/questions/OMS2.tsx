@@ -12,6 +12,8 @@ import {
 } from "./data/performanceMeasureData";
 import { useFormContext } from "react-hook-form";
 
+const nonWordCharsRegex = /[^\w]/g;
+
 interface HookFormProps {
   name: string;
 }
@@ -22,7 +24,7 @@ const generateUniqueId = (inputs: any[]) => {
   inputs.forEach((input) => {
     uniqueId = uniqueId + String(input);
   });
-  uniqueId = uniqueId.replace(/,| |\//g, "");
+  uniqueId = uniqueId.replace(nonWordCharsRegex, "");
   return uniqueId;
 };
 
@@ -223,7 +225,13 @@ const renderRadioButtonOptions = (omsNode: OmsNode) => {
  * Builds child level checkbox options
  * ex: Race -> White, African American, Asian, etc.
  */
-const buildChildCheckboxOption = (omsNode: OmsNode, parentId: string) => {
+const buildChildCheckboxOption = ({
+  omsNode,
+  name,
+}: {
+  omsNode: OmsNode;
+  name: string;
+}) => {
   const value = generateUniqueId([parentId, omsNode.id]);
   const displayValue = omsNode.id;
   let children = [];
@@ -271,42 +279,35 @@ const AddAnotherButton = ({
   );
 };
 
-const CheckBoxChildren = ({
-  options,
+const AddAnotherSection = ({
+  name,
+  parentDisplayName,
   addMore,
   addMoreSubCatFlag,
-  parentDisplayName,
-}: {
-  options: OmsNode[] | undefined;
-  addMore: boolean;
-  // parentId: string,
-  parentDisplayName: string;
-  addMoreSubCatFlag: boolean;
-}) => {
-  const [addtnlOptions, setAddtnlOptions] = useState<OmsNode[]>([]);
-  const uniqueId = generateUniqueId([parentDisplayName]);
+}: CheckBoxChildrenProps) => {
+  const { getValues } = useFormContext();
+  const values: string[] | undefined =
+    getValues()[`${name}.additionalCategories`];
+
+  const cleanParentValue = parentDisplayName.replace(nonWordCharsRegex, "");
+  const [addtnlOptions, setAddtnlOptions] = useState<string[]>(values?.map);
+
   const addAnotherAddtnl = () => {
-    setAddtnlOptions((oldArray) => [
-      ...oldArray,
-      { id: `Additional ${parentDisplayName}`, flagSubCat: addMoreSubCatFlag },
-    ]);
+    setAddtnlOptions((old) => {
+      const oldArray = old ?? [];
+      return [...oldArray, `Additional${cleanParentValue}.${oldArray.length}`];
+    });
   };
 
-  if (!options) {
-    return <NDRSets name={uniqueId} />;
-  }
-
-  const combinedOptions = [...options, ...addtnlOptions];
   return (
     <CUI.Box>
       <QMR.Checkbox
-        name={parentDisplayName}
-        key={uniqueId}
-        //@ts-ignore
+        name={`${name}.options`}
+        key={name}
         options={[
-          ...combinedOptions.map((lvlTwoOption) => {
-            return buildChildCheckboxOption(lvlTwoOption, uniqueId);
-          }),
+          ...addtnlOptions.map((lvlTwoOption) =>
+            buildChildCheckboxOption({ omsNode: lvlTwoOption, name })
+          ),
         ]}
       />
       {addMore && (
@@ -319,22 +320,55 @@ const CheckBoxChildren = ({
   );
 };
 
+interface CheckBoxChildrenProps extends OmsNode, HookFormProps {
+  parentDisplayName: string;
+}
+
+const CheckBoxChildren = (props: CheckBoxChildrenProps) => {
+  if (!props.options) {
+    return <NDRSets name={`${name}.rates`} />;
+  }
+
+  return (
+    <CUI.Box>
+      <QMR.Checkbox
+        name={`${props.name}.options`}
+        key={props.name}
+        //@ts-ignore
+        options={[
+          ...props.options.map((lvlTwoOption) => {
+            return buildChildCheckboxOption({
+              omsNode: lvlTwoOption,
+              name: props.name,
+            });
+          }),
+        ]}
+      />
+      <AddAnotherSection {...props} />
+    </CUI.Box>
+  );
+};
+
 /**
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
-const buildCheckboxes = () => {
+const buildCheckboxes = ({ name }: HookFormProps) => {
   return OMSData.map((lvlOneOption) => {
-    const value = generateUniqueId([lvlOneOption.id]);
     const displayValue = lvlOneOption.id;
+    const value = lvlOneOption.id.replace(nonWordCharsRegex, "");
+
     const children = [
       <CheckBoxChildren
         options={lvlOneOption.options}
         addMore={!!lvlOneOption.addMore}
         parentDisplayName={lvlOneOption.id}
         addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
+        name={`${name}.selections.${value}`}
+        id={displayValue}
       />,
     ];
+
     return { value, displayValue, children };
   });
 };
@@ -353,8 +387,10 @@ const PerformanceMeasureContext = createContext<contextProps>({
 /**
  * Final OMS built
  */
-export const OMS2 = (data: Measure.Form) => {
-  const { watch } = useFormContext<Measure.Form>();
+export const OMS2 = () => {
+  const { watch, getValues } = useFormContext<Measure.Form>();
+  // retrieve data
+  const data = getValues();
   // Watch for dataSource data
   const dataSourceWatch = watch("DataSource");
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
@@ -374,14 +410,16 @@ export const OMS2 = (data: Measure.Form) => {
     data["PerformanceMeasure-AgeRates-Engagement-Total"],
   ];
   const register = useCustomRegister();
-  const checkBoxOptions = buildCheckboxes();
+  const checkBoxOptions = buildCheckboxes({
+    ...register("OptionalMeasureStratification.selections"),
+  });
 
   return (
     <PerformanceMeasureContext.Provider
       value={{ OPM, performanceMeasureArray, rateReadOnly }}
     >
       <QMR.Checkbox
-        {...register("CategoriesReported")}
+        {...register("OptionalMeasureStratification.options")}
         //@ts-ignore
         options={checkBoxOptions}
       />

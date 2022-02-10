@@ -29,28 +29,20 @@ export namespace Measure {
     rates?: AggregateRate;
 
     // for additional subCats/add anothers
+    subCatOptions?: string[];
     subCategories?: {
       description: string;
       rates: AggregateRate;
     }[];
   }
 
-  interface MidLevelOMSNode {
-    // if just ndr sets
-    rates?: AggregateRate;
-
+  interface MidLevelOMSNode extends LowLevelOmsNode {
     // if sub-options
     aggregate?: boolean;
     options?: string[];
     selections?: {
       [option: string]: LowLevelOmsNode;
     };
-
-    // for additional subCats/add anothers
-    subCategories?: {
-      description: string;
-      rates: AggregateRate;
-    }[];
   }
 
   interface TopLevelOmsNode {
@@ -60,9 +52,14 @@ export namespace Measure {
     selections?: {
       [option: string]: MidLevelOMSNode;
     };
+    additionalSelections?: AddtnlOmsNode[];
 
     // catch case for ACA
     rates?: AggregateRate;
+  }
+
+  interface AddtnlOmsNode extends LowLevelOmsNode {
+    description: string;
   }
 
   interface DeviationFields {
