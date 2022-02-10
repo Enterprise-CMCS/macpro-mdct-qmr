@@ -251,7 +251,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.WhoConductedAuditOrValidation"]'
     ).type("no one");
-    cy.get('[data-cy="which-measures-did-they-audit"]').should(
+    cy.get('[data-cy="which-measures-did-they-audit-0"]').should(
       "have.text",
       "Which measures did they audit or validate?"
     );
@@ -390,7 +390,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.1.WhoConductedAuditOrValidation"]'
     ).type("test");
-    cy.get('[data-cy="which-measures-did-they-audit"]').should(
+    cy.get('[data-cy="which-measures-did-they-audit-0"]').should(
       "have.text",
       "Which measures did they audit or validate?"
     );
@@ -648,7 +648,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get(
       "#CoreSetMeasuresAuditedOrValidated-Yes\\,\\ some\\ of\\ the\\ Core\\ Set\\ measures\\ have\\ been\\ audited\\ or\\ validated"
     ).click({ force: true });
-    cy.get('[data-cy="which-measures-did-they-audit"]').should(
+    cy.get('[data-cy="which-measures-did-they-audit-0"]').should(
       "have.text",
       "Which measures did they audit or validate?"
     );
@@ -893,7 +893,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get(
       "#CoreSetMeasuresAuditedOrValidated-Yes\\,\\ some\\ of\\ the\\ Core\\ Set\\ measures\\ have\\ been\\ audited\\ or\\ validated"
     ).click({ force: true });
-    cy.get('[data-cy="which-measures-did-they-audit"]').should(
+    cy.get('[data-cy="which-measures-did-they-audit-0"]').should(
       "have.text",
       "Which measures did they audit or validate?"
     );
