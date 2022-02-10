@@ -123,7 +123,7 @@ export class CPAADPAGE {
     cy.xpath(validateMeasureButton).click();
     cy.xpath(completeMeasureButton).should("be.enabled");
     cy.xpath(completeMeasureButton).click({ force: true });
-    cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
+    // cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
   }
 
   VerifyReportingOnMeasureNo() {
