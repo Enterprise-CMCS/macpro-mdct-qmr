@@ -368,7 +368,7 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click({
+    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click({
       force: true,
     });
   }
@@ -411,7 +411,7 @@ export class FUAADPAGE {
   clickOtherDataSourceRadioBTN() {
     cy.xpath(otherDataSourceRadioBTN).click();
     cy.wait(2000);
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click();
+    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click({ force: true });
   }
   clickYesForReportingMeasure() {
     cy.wait(2000);
