@@ -22,5 +22,9 @@ type Paths<T, D extends number = 10> = [D] extends [never]
 // End of code found online
 
 export function useCustomRegister<T = string>() {
-  return (name: T extends string ? string : Paths<T>) => ({ name, key: name });
+  return (name: T extends string ? string : Paths<T>) => ({
+    name,
+    key: name,
+    testId: name,
+  });
 }

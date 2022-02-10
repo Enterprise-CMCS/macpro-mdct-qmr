@@ -52,9 +52,10 @@ export const Select = ({
         placeholder={placeholder}
         isInvalid={!!objectPath.get(errors, name)?.message}
         icon={<TiArrowUnsorted />}
+        data-cy={name}
       >
         {options.map(({ displayValue, value }) => (
-          <option value={value} key={value}>
+          <option value={value} key={value} data-cy={`${name}-${value}`}>
             {displayValue}
           </option>
         ))}

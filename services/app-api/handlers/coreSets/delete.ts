@@ -2,6 +2,7 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
+import { Measure } from "../../types";
 
 export const deleteCoreSet = handler(async (event, context) => {
   const state = event!.pathParameters!.state!;
@@ -10,7 +11,7 @@ export const deleteCoreSet = handler(async (event, context) => {
 
   const dynamoKey = createCompoundKey(event);
   const params = {
-    TableName: process.env.coreSetTableName,
+    TableName: process.env.coreSetTableName!,
     Key: {
       compoundKey: dynamoKey,
       coreSet: coreSet,
@@ -34,26 +35,25 @@ const deleteDependentMeasures = async (
   for await (const { measure } of Items) {
     const dynamoKey = `${state}${year}${coreSet}${measure}`;
     const params = {
-      TableName: process.env.measureTableName,
+      TableName: process.env.measureTableName!,
       Key: {
         compoundKey: dynamoKey,
         coreSet: coreSet,
       },
     };
 
-    console.log("created measure: ", params);
     await dynamoDb.delete(params);
   }
 };
 
 const getMeasures = async (state: string, year: number, coreSet: string) => {
   const params = {
-    TableName: process.env.measureTableName,
+    TableName: process.env.measureTableName!,
     ...convertToDynamoExpression(
       { state: state, year: year, coreSet: coreSet },
       "list"
     ),
   };
-  const queryValue = await dynamoDb.scan(params);
+  const queryValue = await dynamoDb.scan<Measure>(params);
   return queryValue;
 };
