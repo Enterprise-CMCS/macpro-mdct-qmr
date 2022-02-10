@@ -97,7 +97,7 @@ export const Audit = ({ type }: Props) => {
                           <CUI.Box p="5">
                             <CUI.Text
                               mb="4"
-                              data-cy="which-measures-did-they-audit"
+                              data-cy={`which-measures-did-they-audit-${index}`}
                             >
                               Which measures did they audit or validate?
                             </CUI.Text>
