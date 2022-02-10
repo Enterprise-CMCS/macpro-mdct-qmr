@@ -21,6 +21,9 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
         ).click({ force: true });
         cy.get(
           "body.chakra-ui-light:nth-child(2) div.chakra-portal:nth-child(4) div.chakra-modal__overlay.css-hdd9l7 div.chakra-modal__content-container.css-v9b9hc section.chakra-modal__content.css-hxtskf form:nth-child(1) div.chakra-modal__body.css-qlig70 > input.chakra-input.css-1abuxor"
+        ).click();
+        cy.get(
+          "body.chakra-ui-light:nth-child(2) div.chakra-portal:nth-child(4) div.chakra-modal__overlay.css-hdd9l7 div.chakra-modal__content-container.css-v9b9hc section.chakra-modal__content.css-hxtskf form:nth-child(1) div.chakra-modal__body.css-qlig70 > input.chakra-input.css-1abuxor"
         ).type("delete{enter}");
       } else {
         console.log("do something else");
