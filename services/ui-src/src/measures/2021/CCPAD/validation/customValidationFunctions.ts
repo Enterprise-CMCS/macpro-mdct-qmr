@@ -249,7 +249,7 @@ const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
-          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Most Effective or Moderately Effective Method of Contraception",
+          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Long-acting Reversible Method of Contraception (LARC)",
       });
     }
   }
@@ -258,7 +258,7 @@ const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
-          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Long-acting Reversible Method of Contraception (LARC)",
+          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Most Effective or Moderately Effective Method of Contraception",
       });
     }
   }
