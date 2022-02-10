@@ -13,9 +13,16 @@ interface Props {
   name: string;
   year: string;
   measureId: string;
+  autocompleteOnCreation?: boolean;
 }
 
-export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
+export const MeasureWrapper = ({
+  measure,
+  name,
+  year,
+  measureId,
+  autocompleteOnCreation,
+}: Props) => {
   const params = useParams();
   const [errors, setErrors] = useState<any[]>();
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
@@ -266,11 +273,13 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
                   // whenever the buttons have a loading prop
                 })}
-                <QMR.CompleteMeasureFooter
-                  handleClear={methods.handleSubmit(handleClear)}
-                  handleSubmit={methods.handleSubmit(handleSubmit)}
-                  handleValidation={methods.handleSubmit(handleValidation)}
-                />
+                {!autocompleteOnCreation && (
+                  <QMR.CompleteMeasureFooter
+                    handleClear={methods.handleSubmit(handleClear)}
+                    handleSubmit={methods.handleSubmit(handleSubmit)}
+                    handleValidation={methods.handleSubmit(handleValidation)}
+                  />
+                )}
               </CUI.Container>
               {errors?.map((error, index) => (
                 <QMR.Notification
