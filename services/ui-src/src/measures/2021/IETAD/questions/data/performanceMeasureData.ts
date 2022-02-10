@@ -6,7 +6,6 @@ export const performanceMeasureDescriptions = [
   "Engagement of AOD Treatment: Opioid Abuse or Dependence",
   "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
   "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-  "Initiation of AOD Treatment: AOD Abuse or Dependence",
-  "Engagement of AOD Treatment: AOD Abuse or Dependence",
+  "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
+  "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
 ];
-

@@ -114,7 +114,7 @@ export const PerformanceMeasure = () => {
         auto-calculate:
       </CUI.Text>
       <CUI.Text fontWeight="bold" my="5">
-        Initiation of AOD Treatment: AOD Abuse or Dependence
+        Initiation of AOD Treatment: Total AOD Abuse or Dependence
       </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
@@ -122,7 +122,7 @@ export const PerformanceMeasure = () => {
         {...register("PerformanceMeasure-AgeRates-Initiation-Total")}
       />
       <CUI.Text fontWeight="bold" my="5">
-        Engagement of AOD Treatment: AOD Abuse or Dependence
+        Engagement of AOD Treatment: Total AOD Abuse or Dependence
       </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
