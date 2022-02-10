@@ -29,31 +29,31 @@ Feature: Verify and fill out OUD-AD measurement
         And Click on Centers for Medicare & Medicaid Services Radio Button
         Then Click on Administrative Data
         Then Click on Medicaid Management Information System
-        And clear numerator input box
-        And clear Denominator input box
-        And type numerator 321111
-        And type Denominator 111111
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type total rate numerator 321111
+        And type total rate Denominator 111111
         And verify error message is displayed
-        And clear numerator input box
-        And clear Denominator input box
-        And type numerator 321111
-        And type Denominator 411111
-        And verify that only one number after decimal can populate for auto calculated rate exists
-        And clear numerator input box
-        And clear Denominator input box
-        And type 8 digits numerator
-        And type 8 digits Denominator
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type total rate numerator 321111
+        And type total rate Denominator 411111
+        And verify that only one number after decimal can populate for auto calculated total rate exists
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type 8 digits total rate numerator
+        And type 8 digits total rate Denominator
         # And verify error message is not displayed
-        And clear numerator input box
-        And clear Denominator input box
-        And type letters numerator
-        And type letters Denominator
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type letters total rate numerator
+        And type letters total rate Denominator
         # And verify there is no value in rate box
-        And clear numerator input box
-        And clear Denominator input box
-        And type numerator 321111
-        And type Denominator 411111
-        And input text in rate box
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type total rate numerator 321111
+        And type total rate Denominator 411111
+        And input text in total rate box
     # And verify user cannot manually override enter rate exists
     Scenario: Verify Numerical Value/Calculations with Administrative Data and Other Data Source options
         Given user visits QMR home page
@@ -66,28 +66,28 @@ Feature: Verify and fill out OUD-AD measurement
         Then Click on Administrative Data
         Then Click on Medicaid Management Information System
         Then Click on OUDAD Other Data Source Radio Button
-        And clear numerator input box
-        And clear Denominator input box
-        And type numerator 321111
-        And type Denominator 111111
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type total rate numerator 321111
+        And type total rate Denominator 111111
         And verify error message is displayed
-        And clear numerator input box
-        And clear Denominator input box
-        And type numerator 321111
-        And type Denominator 411111
-        And verify that only one number after decimal can populate for auto calculated rate exists
-        And clear numerator input box
-        And clear Denominator input box
-        And type 8 digits numerator
-        And type 8 digits Denominator
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type total rate numerator 321111
+        And type total rate Denominator 411111
+        And verify that only one number after decimal can populate for auto calculated total rate exists
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type 8 digits total rate numerator
+        And type 8 digits total rate Denominator
         # And verify error message is not displayed
-        And clear numerator input box
-        And clear Denominator input box
-        And type letters numerator
-        And type letters Denominator
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type letters total rate numerator
+        And type letters total rate Denominator
         # And verify there is no value in rate box
-        And clear numerator input box
-        And clear Denominator input box
-        And type numerator 321111
-        And type Denominator 411111
-# And verify user can manually override enter rate exists
+        And clear total rate numerator input box
+        And clear total rate Denominator input box
+        And type total rate numerator 321111
+        And type total rate Denominator 411111
+# And verify user can manually override enter total rate exists
