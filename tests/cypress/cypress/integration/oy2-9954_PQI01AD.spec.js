@@ -206,8 +206,8 @@ describe("Measure: PQI01-AD", () => {
   // values entered in other performance measure are presented in:
   //  - Optional Measure specification
   it("Age ranges are represented in OMS when other measure spec", () => {
-    cy.wait(1000);
-    cy.get('[data-cy="DidReport0"]').click();
+    cy.wait(2000);
+    cy.get('[data-cy="DidReport0"]').click({ force: true });
     cy.get('[data-cy="MeasurementSpecification1"]').click();
     cy.get('[id="DataSource0-checkbox"]').check({ force: true });
     cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
