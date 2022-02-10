@@ -9,11 +9,10 @@ interface Props {
 }
 
 export const CompleteMeasureFooter = ({
-    handleClear,
-    handleSubmit,
-    handleValidation,
-  }: Props) => {
-
+  handleClear,
+  handleSubmit,
+  handleValidation,
+}: Props) => {
   return (
     <>
       <CUI.Stack alignItems="flex-start">
@@ -49,20 +48,20 @@ export const CompleteMeasureFooter = ({
               handleSubmit();
             }}
           />
-          { config.BRANCH_NAME !== undefined && config.BRANCH_NAME !== "prod" &&
+          {config.BRANCH_NAME !== undefined && config.BRANCH_NAME !== "prod" && (
             <QMR.ContainedButton
               buttonProps={{
-                  colorScheme: "red",
-                  textTransform: "capitalize",
+                colorScheme: "red",
+                textTransform: "capitalize",
               }}
               buttonText="Clear Data"
-              onClick={()=> {
-                  handleClear();
+              onClick={() => {
+                handleClear();
               }}
             />
-          }
+          )}
         </CUI.HStack>
       </CUI.Stack>
     </>
   );
-}
+};

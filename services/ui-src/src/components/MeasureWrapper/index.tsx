@@ -115,7 +115,10 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     console.log({ data });
   };
 
-  const submitDataToServer = (data: any, status: MeasureStatus=MeasureStatus.COMPLETE) => {
+  const submitDataToServer = (
+    data: any,
+    status: MeasureStatus = MeasureStatus.COMPLETE
+  ) => {
     if (!mutationRunning && !loadingData) {
       setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(

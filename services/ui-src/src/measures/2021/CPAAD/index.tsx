@@ -3,10 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
 
-export const CPAAD = ({
-  name,
-  year,
-}: Measure.Props) => {
+export const CPAAD = ({ name, year }: Measure.Props) => {
   const { coreSetId } = useParams();
   const { watch } = useFormContext<Measure.Form>();
 
