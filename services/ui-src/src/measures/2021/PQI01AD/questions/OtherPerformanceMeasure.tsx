@@ -40,6 +40,7 @@ export const OtherPerformanceMeasure = () => {
                   },
                 ]}
                 name={`OtherPerformanceMeasure-Rates.${index}.rate`}
+                rateMultiplicationValue={100000}
                 readOnly={false}
               />
             </CUI.Stack>
