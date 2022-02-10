@@ -279,6 +279,32 @@ const AddAnotherButton = ({
   );
 };
 
+const configInitialStateArray = (template: string, dataArray?: string[]) => {
+  return dataArray?.length
+    ? dataArray.map((_, i) => `${template}.${i}`)
+    : [`${template}.0`];
+};
+
+const buildAdditionalChildCheckboxOptions = ({
+  omsNode,
+  name,
+}: {
+  omsNode: OmsNode;
+  name: string;
+}) => {
+  const value = generateUniqueId([name, omsNode.id]);
+  const displayValue = omsNode.id;
+  const children = [
+    <NDRSets name={value} />,
+    <BuildSubCatSection /*name={`Add Additional ${displayValue}`}*/ />,
+  ];
+  return {
+    value,
+    displayValue,
+    children,
+  };
+};
+
 const AddAnotherSection = ({
   name,
   parentDisplayName,
@@ -286,11 +312,16 @@ const AddAnotherSection = ({
   addMoreSubCatFlag,
 }: CheckBoxChildrenProps) => {
   const { getValues } = useFormContext();
-  const values: string[] | undefined =
+  const additionalCategoryValues: string[] | undefined =
     getValues()[`${name}.additionalCategories`];
 
   const cleanParentValue = parentDisplayName.replace(nonWordCharsRegex, "");
-  const [addtnlOptions, setAddtnlOptions] = useState<string[]>(values?.map);
+  const [addtnlOptions, setAddtnlOptions] = useState<string[]>(
+    configInitialStateArray(
+      `additional${cleanParentValue}`,
+      additionalCategoryValues
+    )
+  );
 
   const addAnotherAddtnl = () => {
     setAddtnlOptions((old) => {
@@ -299,16 +330,28 @@ const AddAnotherSection = ({
     });
   };
 
+  const additionalOptions: QMR.CheckboxOption[] = addtnlOptions.map(
+    (additionalOption, i) => {
+      const value = additionalOption;
+      const displayValue = `Additional ${parentDisplayName}`;
+      const omsNode: OmsNode = {
+        id: displayValue,
+        flagSubCat: true,
+      };
+      const children = buildAdditionalChildCheckboxOptions({
+        omsNode,
+        name: `${name}.additionalSelections.${i}`,
+      });
+      return { value, displayValue, children };
+    }
+  );
+
   return (
     <CUI.Box>
       <QMR.Checkbox
         name={`${name}.options`}
         key={name}
-        options={[
-          ...addtnlOptions.map((lvlTwoOption) =>
-            buildChildCheckboxOption({ omsNode: lvlTwoOption, name })
-          ),
-        ]}
+        options={additionalOptions}
       />
       {addMore && (
         <AddAnotherButton
