@@ -129,6 +129,7 @@ const DeleteMenuItemAlertDialog = ({
                 value={userInput}
                 placeholder="Enter 'DELETE' to confirm"
                 onChange={(e) => setUserInput(e.target.value)}
+                data-cy="delete-table-item-input"
               />
               <CUI.Text fontSize="xs" fontWeight="bold">
                 Enter DELETE to confirm.
@@ -136,7 +137,11 @@ const DeleteMenuItemAlertDialog = ({
             </CUI.AlertDialogBody>
 
             <CUI.AlertDialogFooter>
-              <CUI.Button ref={cancelRef} onClick={onClose}>
+              <CUI.Button
+                ref={cancelRef}
+                onClick={onClose}
+                data-cy="canel-delete-table-item-button"
+              >
                 Cancel
               </CUI.Button>
               <CUI.Button
@@ -145,6 +150,7 @@ const DeleteMenuItemAlertDialog = ({
                 ml={3}
                 type="submit"
                 isDisabled={userInput.toLocaleLowerCase() !== "delete"}
+                data-cy="delete-table-item-button"
               >
                 Delete
               </CUI.Button>
