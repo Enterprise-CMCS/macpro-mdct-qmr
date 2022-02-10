@@ -110,6 +110,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
+                      multipledAmount={100000}
                       name={`${name}.subRates.${item.id}.followUpWithin30Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin30Days`}
                       rates={[
@@ -126,6 +127,7 @@ const AgeData = ({ name }: SubComponentProps) => {
               (deviationConditions?.showAges65AndOlder && item.id === 1)
                 ? [
                     <QMR.Rate
+                      multipledAmount={100000}
                       readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.followUpWithin7Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin7Days`}
