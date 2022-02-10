@@ -962,7 +962,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       ":nth-child(12) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
     ).should(
       "have.text",
-      "CPA-AD - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.10H, Adult Version (Medicaid)"
+      "CPA-AD - Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)"
     );
     cy.get(
       ":nth-child(13) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
@@ -1004,7 +1004,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       ":nth-child(20) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
     ).should(
       "have.text",
-      "IET-AD - Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment"
+      "IET-AD - Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment"
     );
     cy.get(
       ":nth-child(21) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
