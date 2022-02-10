@@ -4,7 +4,7 @@ import { CompleteMeasureFooter } from "components/CompleteMeasureFooter";
 describe("Test CompleteMeasureFooter", () => {
   test("Check that the Contained Buttons in this footer component render", () => {
     const { getByText } = render(
-      <CompleteMeasureFooter 
+      <CompleteMeasureFooter
         handleClear={() => {}}
         handleSubmit={() => {}}
         handleValidation={() => {}}
