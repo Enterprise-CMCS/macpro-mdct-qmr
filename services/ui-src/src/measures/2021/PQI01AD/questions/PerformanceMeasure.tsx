@@ -51,7 +51,6 @@ export const PerformanceMeasure = () => {
       <QMR.Rate
         readOnly={rateReadOnly}
         rates={ageRates}
-        multipledAmount={100000}
         {...register("PerformanceMeasure-AgeRates")}
       />
     </QMR.CoreQuestionWrapper>
