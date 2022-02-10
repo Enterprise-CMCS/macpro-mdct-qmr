@@ -49,7 +49,9 @@ export const CCSMQualifiers = () => {
   });
 
   useEffect(() => {
-    methods.reset(data?.Item?.data);
+    if (!methods.formState.isDirty) {
+      methods.reset(data?.Item?.data);
+    }
   }, [data, methods]);
 
   const handleSubmit = (data: CCSMQualifierForm) => {

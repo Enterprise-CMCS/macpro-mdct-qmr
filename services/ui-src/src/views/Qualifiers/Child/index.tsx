@@ -53,7 +53,9 @@ export const CCSQualifiers = () => {
   });
 
   useEffect(() => {
-    methods.reset(data?.Item?.data);
+    if (!methods.formState.isDirty) {
+      methods.reset(data?.Item?.data);
+    }
   }, [data, methods]);
 
   const handleSubmit = (data: CCSQualifierForm) => {
