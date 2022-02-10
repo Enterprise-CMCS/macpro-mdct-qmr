@@ -99,7 +99,7 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={underTwentyOne}
+                  value={underTwentyOne.toFixed(1)}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
