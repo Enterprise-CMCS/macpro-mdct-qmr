@@ -108,11 +108,6 @@ export const PerformanceMeasure = () => {
         rates={ageRates}
         {...register("PerformanceMeasure-AgeRates-Engagement-Other")}
       />
-      <CUI.Text>Category Totals</CUI.Text>
-      <CUI.Text fontWeight="bold">
-        Enter a number for the numerator and the denominator. Rate will
-        auto-calculate:
-      </CUI.Text>
       <CUI.Text fontWeight="bold" my="5">
         Initiation of AOD Treatment: Total AOD Abuse or Dependence
       </CUI.Text>

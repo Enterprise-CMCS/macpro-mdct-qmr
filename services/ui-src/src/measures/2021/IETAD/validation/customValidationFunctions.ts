@@ -53,13 +53,13 @@ const validateTotalsEqualOrGreaterThan = (
     if (initiationError) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `In the Category Totals for Initiation for ${ageGroup} the numerator must be equal to or greater than the numerators in the other categories`,
+        errorMessage: `Initiation of AOD Treatment: Total AOD Abuse or Dependence for ${ageGroup} the numerator must be equal to or greater than the numerators in the other categories`,
       });
     }
     if (engagementError) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `In the Category Totals for Engagement for ${ageGroup} the numerator must be equal to or greater than the numerators in the other categories`,
+        errorMessage: `Engagement of AOD Treatment: Total AOD Abuse or Dependence for ${ageGroup} the numerator must be equal to or greater than the numerators in the other categories`,
       });
     }
   });
@@ -95,9 +95,8 @@ const IEDValidation = (data: Measure.Form) => {
   const totalInitiation = data["PerformanceMeasure-AgeRates-Initiation-Total"];
   const totalEngagement = data["PerformanceMeasure-AgeRates-Engagement-Total"];
   let errorArray: any[] = [];
-
-  console.log(OPM);
   //@ts-ignore
+  if (data["DidReport"] === "No, I am not reporting") return errorArray;
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
