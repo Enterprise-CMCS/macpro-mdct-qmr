@@ -205,6 +205,7 @@ export const Upload = ({
             <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
             <CUI.Button
               data-testid={`test-delete-btn-${index}`}
+              data-cy={`upload-delete-btn-${index}`}
               background="none"
               onClick={() => clearFile(index)}
             >
