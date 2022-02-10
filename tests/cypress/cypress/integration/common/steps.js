@@ -60,10 +60,6 @@ And("user click on link Adult Core Set Measures", () => {
   homePage.clickAdultCoreSetMeasures();
 });
 
-And("button on the page is clickable", () => {
-  oudADpage.verifySaveValidateCompletebuttonClickable();
-});
-
 And(
   "user should see the QMR logo at top and MDCT Medicaid logo at the bottom of the home page",
   () => {
@@ -844,4 +840,16 @@ And("verify validate measure button is disabled", () => {
 });
 And("verify complete measure button is disabled", () => {
   fUAADPage.verifyCompleteMeasureBTNIsDisabled();
+});
+
+And("button on the page is clickable", () => {
+  oudADpage.verifySaveValidateCompletebuttonClickable();
+});
+
+And("Click on Centers for Medicare & Medicaid Services Radio Button", () => {
+  oudADpage.clickCentersForMedicareMedicaidServicesRadioBTN();
+});
+
+Then("Click on OUDAD Other Data Source Radio Button", () => {
+  oudADpage.clickOtherDataSourceRadioBTN();
 });

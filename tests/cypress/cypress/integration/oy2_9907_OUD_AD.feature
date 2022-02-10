@@ -26,7 +26,7 @@ Feature: Verify and fill out OUD-AD measurement
         Then Click on Adult Core Set Measures
         Then verify url contains ACS
         And  user click on link OUD-AD
-        And Click on National Committee for Quality Assurance Radio Button
+        And Click on Centers for Medicare & Medicaid Services Radio Button
         Then Click on Administrative Data
         Then Click on Medicaid Management Information System
         And clear numerator input box
@@ -62,10 +62,10 @@ Feature: Verify and fill out OUD-AD measurement
         Then Click on Adult Core Set Measures
         Then verify url contains ACS
         And   user click on link OUD-AD
-        And Click on National Committee for Quality Assurance Radio Button
+        And Click on Centers for Medicare & Medicaid Services Radio Button
         Then Click on Administrative Data
         Then Click on Medicaid Management Information System
-        Then Click on Other Data Source Radio Button
+        Then Click on OUDAD Other Data Source Radio Button
         And clear numerator input box
         And clear Denominator input box
         And type numerator 321111
