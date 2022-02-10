@@ -68,7 +68,6 @@ const validateTotalsEqualOrGreaterThan = (
 };
 
 const IEDValidation = (data: Measure.Form) => {
-  console.log(data);
   const ageGroups = ["Ages 18 to 64", "Age 65 and Older"];
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -104,6 +103,39 @@ const IEDValidation = (data: Measure.Form) => {
     return errorArray;
   }
 
+  let sameDenominatorError = [
+    ...validateEqualDenominators(
+      [
+        data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
+        data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
+      ],
+      ageGroups
+    ),
+    ...validateEqualDenominators(
+      [
+        data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
+        data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
+      ],
+      ageGroups
+    ),
+    ...validateEqualDenominators(
+      [
+        data["PerformanceMeasure-AgeRates-Initiation-Other"],
+        data["PerformanceMeasure-AgeRates-Engagement-Other"],
+      ],
+      ageGroups
+    ),
+    ...validateEqualDenominators(
+      [
+        data["PerformanceMeasure-AgeRates-Initiation-Total"],
+        data["PerformanceMeasure-AgeRates-Engagement-Total"],
+      ],
+      ageGroups
+    ),
+  ];
+  sameDenominatorError =
+    sameDenominatorError.length > 0 ? [sameDenominatorError[0]] : [];
+
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -118,7 +150,7 @@ const IEDValidation = (data: Measure.Form) => {
       OPM,
       ageGroups
     ),
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
+    ...sameDenominatorError,
     ...validateTotalsEqualOrGreaterThan(
       initiationArray,
       engagementArray,

@@ -163,7 +163,7 @@ export const validateEqualDenominators = (
       if (denominatorsNotEqual) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for all performance measures for ${ageGroup}`,
+          errorMessage: `Denominators must be the same for each category of performance measures for ${ageGroup}`,
         };
 
         errorArray.push(error);
