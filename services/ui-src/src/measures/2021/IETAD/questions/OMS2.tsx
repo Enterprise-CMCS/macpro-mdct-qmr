@@ -75,7 +75,11 @@ const renderAgeGroupsCheckboxes = ({
           performanceMeasureDescriptions[index],
           index,
         ]);
-        if (performanceMeasure[i] && performanceMeasure[i].rate) {
+        if (
+          performanceMeasure &&
+          performanceMeasure[i] &&
+          performanceMeasure[i].rate
+        ) {
           ndrSets.push(
             <SingleNdrWithLabel
               name={measureId}
