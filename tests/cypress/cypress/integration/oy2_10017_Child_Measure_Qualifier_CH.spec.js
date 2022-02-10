@@ -8,25 +8,10 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.xpath(emailForCognito).type("stateuser1@test.com");
     cy.xpath(passwordForCognito).type("p@55W0rd!");
     cy.get('[data-cy="login-with-cognito-button"]').click();
+    cy.deleteChildCoreSets();
   });
-  it("Screen Enhancement and adding child core set seperate", () => {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get("tbody").then(($tbody) => {
-      if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-        cy.get(
-          ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
-        ).click({ force: true });
-        cy.get(
-          "body.chakra-ui-light:nth-child(2) div.chakra-portal:nth-child(4) div.chakra-modal__overlay.css-hdd9l7 div.chakra-modal__content-container.css-v9b9hc section.chakra-modal__content.css-hxtskf form:nth-child(1) div.chakra-modal__body.css-qlig70 > input.chakra-input.css-1abuxor"
-        ).type("delete{enter}");
-      } else {
-        console.log("do something else");
-      }
-    });
 
+  it("Screen Enhancement and adding child core set seperate", () => {
     cy.get('[data-cy="Add Child Core Set"]').click(); //asserting text
     cy.get(".css-1au6mu0 > .chakra-heading").should(
       "have.text",
@@ -90,22 +75,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     /* ==== End Cypress Studio ==== */
   });
   it("Adding child core set combined", () => {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get("tbody").then(($tbody) => {
-      if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-        cy.get(
-          ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[3]/div[1]/div[3]/div[1]/section[1]/form[1]/div[1]/input[1]"
-        ).type("delete{enter}");
-      } else {
-        console.log("do something else");
-      }
-    });
     cy.get('[data-cy="Add Child Core Set"]').click(); // clicking on adding child core set measures
     cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
     cy.get('[data-cy="Create"]').click(); //clicking create
@@ -116,21 +85,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     /* ==== End Cypress Studio ==== */
   });
   it("Child Core Set Measures: Medicaid", () => {
-    cy.get("tbody").then(($tbody) => {
-      if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-        cy.get(
-          ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[3]/div[1]/div[3]/div[1]/section[1]/form[1]/div[1]/input[1]"
-        ).type("delete{enter}");
-      } else {
-        console.log("do something else");
-      }
-    });
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="Add Child Core Set"]').click(); //clicking on add child core set measures
     cy.get("#ChildCoreSet-ReportType-separate").click({ force: true }); //clicking on combined
@@ -632,21 +586,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     /* ==== End Cypress Studio ==== */
   });
   it("Child Core Set Measures: Chip", () => {
-    cy.get("tbody").then(($tbody) => {
-      if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-        cy.get(
-          ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[3]/div[1]/div[3]/div[1]/section[1]/form[1]/div[1]/input[1]"
-        ).type("delete{enter}");
-      } else {
-        console.log("do something else");
-      }
-    });
     //Adding Child Core Set Measure, combined
     cy.get('[data-cy="Add Child Core Set"]').click();
     cy.get("#ChildCoreSet-ReportType-separate").click({ force: true });
@@ -888,21 +827,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     );
   });
   it("Child Core Set Measures: Combined", () => {
-    cy.get("tbody").then(($tbody) => {
-      if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-        cy.get(
-          ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
-        ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[3]/div[1]/div[3]/div[1]/section[1]/form[1]/div[1]/input[1]"
-        ).type("delete{enter}");
-      } else {
-        console.log("do something else");
-      }
-    });
     //creating child core set combined and navigating to questions page
     cy.get('[data-cy="Add Child Core Set"]').click();
     cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
