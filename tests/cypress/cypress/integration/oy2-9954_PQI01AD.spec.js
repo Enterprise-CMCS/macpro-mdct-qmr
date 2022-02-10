@@ -231,36 +231,16 @@ describe("Measure: PQI01-AD", () => {
       "have.value",
       "50000.0"
     );
-    cy.get('[data-cy="+ Add Another"]').click();
-    cy.get('[data-cy="OtherPerformanceMeasure-Rates.1.description"]').clear();
-    cy.get('[data-cy="OtherPerformanceMeasure-Rates.1.description"]').type(
-      "example 2"
-    );
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.numerator"]'
-    ).clear();
-    cy.get('[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.numerator"]').type(
-      "10"
-    );
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.denominator"]'
-    ).type("20");
     cy.get(
       '[data-cy="CategoriesReported1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#CategoriesReported1-checkbox").check();
+    cy.get("#CategoriesReported1-checkbox").check({ force: true });
     cy.get(
       '[data-cy="EthnicityCategories0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#EthnicityCategories0-checkbox").check();
+    cy.get("#EthnicityCategories0-checkbox").check({ force: true });
     cy.get(
       '[data-cy="NonHispanicEthnicityRates.ageData0"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
-    cy.get(
-      '[data-cy="NonHispanicEthnicityRates.ageData1"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.denominator"]'
