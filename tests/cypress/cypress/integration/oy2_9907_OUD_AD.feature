@@ -1,24 +1,23 @@
 Feature: Verify and fill out OUD-AD measurement
 
-      Scenario: User logins to QMR and verifies fill out the OUD-AD measurement page for No option
+    Scenario: User logins to QMR and verifies fill out the OUD-AD measurement page for No option
         Given user visits QMR home page
         When  login as state user two
         And   user click on link Adult Core Set Measures
         And   user click on link OUD-AD
         And   user can click on No option for reporting on this measure
-       
+
 
     Scenario: User logins to QMR and verifies fill out the OUD-AD measurement page for Yes option
-            Given user visits QMR home page
-            When  login as state user two
-            And   user click on link Adult Core Set Measures
-            And   user click on link OUD-AD
-            And   user can click on Yes option for Are you reporting on this measure
-            And   upload attachment pdf
-            And   upload attachment text file
-            And   upload attachment picture
-            And   user enters inputs to the Rate field and verify the correct Rate output
-            And   button on the page is clickable 
+        Given user visits QMR home page
+        When  login as state user two
+        And   user click on link Adult Core Set Measures
+        And   user click on link OUD-AD
+        And   upload attachment pdf
+        And   upload attachment text file
+        And   upload attachment picture
+        And   user enters inputs to the Rate field and verify the correct Rate output
+        And   button on the page is clickable
 
     Scenario: Verify Numerical Value/Calculations with Administrative Data option
         Given user visits QMR home page
@@ -91,4 +90,4 @@ Feature: Verify and fill out OUD-AD measurement
         And clear Denominator input box
         And type numerator 321111
         And type Denominator 411111
-        # And verify user can manually override enter rate exists
+# And verify user can manually override enter rate exists
