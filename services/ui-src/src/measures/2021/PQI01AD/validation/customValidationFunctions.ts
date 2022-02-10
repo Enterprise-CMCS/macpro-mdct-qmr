@@ -14,7 +14,7 @@ const PQI01Validation = (data: any) => {
   const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
     (pma: PerformanceMeasure[]) => [pma]
   );
-  const validateDualPopInformationArray = [performanceMeasureArrayToCheck[1]];
+  const validateDualPopInformationArray = [performanceMeasureArrayToCheck?.[1]];
 
   errorArray = [
     ...errorArray,
