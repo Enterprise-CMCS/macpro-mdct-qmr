@@ -27,21 +27,27 @@ const generateUniqueId = (inputs: any[]) => {
 };
 
 //Builds Base level NDR Sets
-const renderNDRSets = (uniqueId: string) => {
+const NDRSets = ({ name }: HookFormProps) => {
   const { OPM } = useContext(PerformanceMeasureContext);
   if (OPM) {
-    return [OPMNDRSets({ name: "nothing1" }, uniqueId)];
+    return <OPMNDRSets name={name} />;
   }
-  return [AgeGroupNDRSets({ name: "nothing2" }, uniqueId)];
+  return <AgeGroupNDRSets name={name} />;
 };
 
-const renderSingleNdrWithLabel = (uniqueId: string, label: string) => {
+const SingleNdrWithLabel = ({
+  name,
+  label,
+}: {
+  name: string;
+  label: string;
+}) => {
   const { rateReadOnly } = useContext(PerformanceMeasureContext);
   return (
     <QMR.Rate
       readOnly={rateReadOnly}
-      name={uniqueId}
-      key={uniqueId}
+      name={name}
+      key={name}
       rates={[
         {
           id: 0,
@@ -52,28 +58,33 @@ const renderSingleNdrWithLabel = (uniqueId: string, label: string) => {
   );
 };
 
-const renderAgeGroupsCheckboxes = (id: string) => {
-  const { performanceMeasureArray } = useContext(PerformanceMeasureContext);
+const renderAgeGroupsCheckboxes = ({
+  name,
+  performanceMeasureArray,
+}: {
+  name: string;
+  performanceMeasureArray: any[][];
+}) => {
   const checkboxes: any = [];
   ageGroups.forEach((ageGroup: string, i: number) => {
     let ndrSets: any = [];
     performanceMeasureArray &&
       performanceMeasureArray.forEach((performanceMeasure, index: number) => {
         const measureId = generateUniqueId([
-          id,
+          name,
           performanceMeasureDescriptions[index],
           index,
         ]);
         if (performanceMeasure[i] && performanceMeasure[i].rate) {
           ndrSets.push(
-            renderSingleNdrWithLabel(
-              measureId,
-              performanceMeasureDescriptions[index]
-            )
+            <SingleNdrWithLabel
+              name={measureId}
+              label={performanceMeasureDescriptions[index]}
+            />
           );
         }
       });
-    const ageGroupId = generateUniqueId([id, ageGroup]);
+    const ageGroupId = generateUniqueId([name, ageGroup]);
     const ageGroupCheckBox = {
       value: ageGroupId,
       displayValue: ageGroup,
@@ -84,12 +95,16 @@ const renderAgeGroupsCheckboxes = (id: string) => {
   return checkboxes;
 };
 
-const AgeGroupNDRSets = ({}: HookFormProps, uniqueId: string) => {
-  const ageGroupsOptions = renderAgeGroupsCheckboxes(uniqueId);
+const AgeGroupNDRSets = ({ name: regName }: HookFormProps) => {
+  const { performanceMeasureArray } = useContext(PerformanceMeasureContext);
+  const ageGroupsOptions = renderAgeGroupsCheckboxes({
+    name: regName,
+    performanceMeasureArray,
+  });
   return (
     <QMR.Checkbox
-      name={uniqueId}
-      key={uniqueId}
+      name={regName}
+      key={regName}
       // @ts-ignore
       options={ageGroupsOptions}
     />
@@ -99,15 +114,15 @@ const AgeGroupNDRSets = ({}: HookFormProps, uniqueId: string) => {
 // render age checkboxes
 // for each age checkbox render the NDR set with description
 
-const OPMNDRSets = ({}: HookFormProps, uniqueId: string) => {
+const OPMNDRSets = ({ name: regName }: HookFormProps) => {
   const { OPM, rateReadOnly } = useContext(PerformanceMeasureContext);
   return (
     <QMR.Checkbox
-      name={uniqueId}
-      key={uniqueId}
+      name={regName}
+      key={regName}
       // @ts-ignore
       options={OPM!.map((item, id: number) => {
-        const newUniqueId = generateUniqueId([uniqueId, item.description, id]);
+        const newUniqueId = generateUniqueId([regName, item.description, id]);
         return {
           value: newUniqueId,
           displayValue: item.description,
@@ -135,7 +150,7 @@ const OPMNDRSets = ({}: HookFormProps, uniqueId: string) => {
 /**
  * Build Additional SubCategory/Classification Section for Race fields and the associated Button
  */
-const buildSubCatSection = ({}: HookFormProps): JSX.Element[] => {
+const BuildSubCatSection = () => {
   const [addtnlSubCat, setAddtnlSubCat] = useState<OmsNode[]>([]);
   const addAddtnlSubCat = () => {
     setAddtnlSubCat((oldArray) => [
@@ -145,25 +160,30 @@ const buildSubCatSection = ({}: HookFormProps): JSX.Element[] => {
   };
 
   //registration will be wonky
-  return [
-    <QMR.Checkbox
-      name="TODO: registration name"
-      key="copy name"
-      //@ts-ignore
-      options={addtnlSubCat.map((item, idx) => {
-        const uniqueId = generateUniqueId([item.id, idx]);
-        return {
-          value: uniqueId,
-          displayValue: item.id,
-          children: [
-            <QMR.TextInput name="TODO: registration" key="use name" />,
-            renderNDRSets(uniqueId),
-          ],
-        };
-      })}
-    />,
-    buildAddAnotherButton(addAddtnlSubCat, "Sub-Category"),
-  ];
+  return (
+    <CUI.Box>
+      <QMR.Checkbox
+        name="TODO: registration name"
+        key="copy name"
+        //@ts-ignore
+        options={addtnlSubCat.map((item, idx) => {
+          const uniqueId = generateUniqueId([item.id, idx]);
+          return {
+            value: uniqueId,
+            displayValue: item.id,
+            children: [
+              <QMR.TextInput name="TODO: registration" key="use name" />,
+              <NDRSets name={uniqueId} />,
+            ],
+          };
+        })}
+      />
+      <AddAnotherButton
+        onClick={addAddtnlSubCat}
+        additionalText="Sub-Category"
+      />
+    </CUI.Box>
+  );
 };
 
 const renderRadioButtonOptions = (omsNode: OmsNode) => {
@@ -174,10 +194,7 @@ const renderRadioButtonOptions = (omsNode: OmsNode) => {
         omsNode.aggregateTitle || omsNode.id
       } categories.`,
       displayValue: "YesAggregateData",
-      children: [
-        renderNDRSets(uniqueId),
-        ...buildSubCatSection({ name: "TODO" }),
-      ],
+      children: [<NDRSets name={uniqueId} />, <BuildSubCatSection />],
     },
     {
       value: `No, we are reporting independent data for all ${
@@ -208,10 +225,10 @@ const buildChildCheckboxOption = (omsNode: OmsNode, parentId: string) => {
   let children = [];
   if (!omsNode.options) {
     children = [
-      renderNDRSets(value),
+      <NDRSets name={value} />,
       ...(!omsNode.flagSubCat
         ? []
-        : buildSubCatSection({ name: `Add Additional ${displayValue}` })),
+        : [<BuildSubCatSection /*name={`Add Additional ${displayValue}`}*/ />]),
     ];
   } else {
     children = [
@@ -230,10 +247,13 @@ const buildChildCheckboxOption = (omsNode: OmsNode, parentId: string) => {
   };
 };
 
-const buildAddAnotherButton = (
-  onClick: React.MouseEventHandler<HTMLButtonElement>,
-  additionalText?: string
-) => {
+const AddAnotherButton = ({
+  onClick,
+  additionalText,
+}: {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  additionalText?: string;
+}) => {
   return (
     <QMR.ContainedButton
       buttonText={"+ Add Another " + additionalText}
@@ -247,13 +267,18 @@ const buildAddAnotherButton = (
   );
 };
 
-const buildCheckBoxChildren = (
-  options: OmsNode[] | undefined,
-  addMore: boolean,
+const CheckBoxChildren = ({
+  options,
+  addMore,
+  addMoreSubCatFlag,
+  parentDisplayName,
+}: {
+  options: OmsNode[] | undefined;
+  addMore: boolean;
   // parentId: string,
-  parentDisplayName: string,
-  addMoreSubCatFlag: boolean
-) => {
+  parentDisplayName: string;
+  addMoreSubCatFlag: boolean;
+}) => {
   const [addtnlOptions, setAddtnlOptions] = useState<OmsNode[]>([]);
   const uniqueId = generateUniqueId([parentDisplayName]);
   const addAnotherAddtnl = () => {
@@ -264,25 +289,30 @@ const buildCheckBoxChildren = (
   };
 
   if (!options) {
-    return [renderNDRSets(uniqueId)];
+    return <NDRSets name={uniqueId} />;
   }
 
   const combinedOptions = [...options, ...addtnlOptions];
-  return [
-    <QMR.Checkbox
-      name={parentDisplayName}
-      key={uniqueId}
-      //@ts-ignore
-      options={[
-        ...combinedOptions.map((lvlTwoOption) => {
-          return buildChildCheckboxOption(lvlTwoOption, uniqueId);
-        }),
-      ]}
-    />,
-    ...(addMore
-      ? [buildAddAnotherButton(addAnotherAddtnl, parentDisplayName)]
-      : []),
-  ];
+  return (
+    <CUI.Box>
+      <QMR.Checkbox
+        name={parentDisplayName}
+        key={uniqueId}
+        //@ts-ignore
+        options={[
+          ...combinedOptions.map((lvlTwoOption) => {
+            return buildChildCheckboxOption(lvlTwoOption, uniqueId);
+          }),
+        ]}
+      />
+      {addMore && (
+        <AddAnotherButton
+          onClick={addAnotherAddtnl}
+          additionalText={parentDisplayName}
+        />
+      )}
+    </CUI.Box>
+  );
 };
 
 /**
@@ -293,13 +323,14 @@ const buildCheckboxes = () => {
   return OMSData.map((lvlOneOption) => {
     const value = generateUniqueId([lvlOneOption.id]);
     const displayValue = lvlOneOption.id;
-    const children = buildCheckBoxChildren(
-      lvlOneOption.options,
-      !!lvlOneOption.addMore,
-      // value,
-      lvlOneOption.id,
-      !!lvlOneOption.addMoreSubCatFlag
-    );
+    const children = [
+      <CheckBoxChildren
+        options={lvlOneOption.options}
+        addMore={!!lvlOneOption.addMore}
+        parentDisplayName={lvlOneOption.id}
+        addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
+      />,
+    ];
     return { value, displayValue, children };
   });
 };
@@ -310,7 +341,11 @@ interface contextProps {
   rateReadOnly: boolean;
 }
 
-const PerformanceMeasureContext = createContext<contextProps>({});
+const PerformanceMeasureContext = createContext<contextProps>({
+  OPM: [],
+  performanceMeasureArray: [[]],
+  rateReadOnly: true,
+});
 /**
  * Final OMS built
  */

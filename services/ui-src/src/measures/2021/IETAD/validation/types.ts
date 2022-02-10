@@ -28,13 +28,6 @@ export namespace Measure {
     // if just ndr sets
     rates?: AggregateRate;
 
-    // if sub-options
-    aggregate?: boolean;
-    options?: string[];
-    selections?: {
-      [option: string]: LowLevelOmsNode;
-    };
-
     // for additional subCats/add anothers
     subCategories: {
       description: string;
@@ -332,9 +325,25 @@ export namespace Measure {
         [option: string]: {
           // top level child, ex: Race, Sex, Ethnicity
           options?: string[]; // checkbox
-          additionalCategories?: []; // add another section
+          additionalCategories?: string[]; // add another section
           selections?: {
-            [option: string]: LowLevelOmsNode; // "lowest" level children
+            [option: string]: {
+              // if just ndr sets
+              rates?: AggregateRate;
+
+              // if sub-options
+              aggregate?: boolean;
+              options?: string[];
+              selections?: {
+                [option: string]: LowLevelOmsNode;
+              };
+
+              // for additional subCats/add anothers
+              subCategories: {
+                description: string;
+                rates: AggregateRate;
+              }[];
+            };
           };
 
           // catch case for ACA
