@@ -5,6 +5,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
+  validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 
 // // The AOM totals Numerator needs to be equal or greater than the largest initiation/engagement
@@ -70,6 +71,7 @@ const IEDValidation = (data: Measure.Form) => {
   console.log(data);
   const ageGroups = ["Ages 18 to 64", "Age 65 and Older"];
   const age65PlusIndex = 1;
+  const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = [
     data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
@@ -97,7 +99,11 @@ const IEDValidation = (data: Measure.Form) => {
   const totalEngagement = data["PerformanceMeasure-AgeRates-Engagement-Total"];
   let errorArray: any[] = [];
   //@ts-ignore
-  if (data["DidReport"] === "No, I am not reporting") return errorArray;
+  if (data["DidReport"] === "No, I am not reporting") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
+
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),

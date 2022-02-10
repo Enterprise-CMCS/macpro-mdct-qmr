@@ -240,3 +240,20 @@ export const validateNoNonZeroNumOrDenom = (
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];
 };
+
+export const validateReasonForNotReporting = (whyNotReporting: any) => {
+  let error = false;
+  let errorArray: any[] = [];
+
+  if (!(whyNotReporting && whyNotReporting.length > 0)) {
+    error = true;
+  }
+  if (error) {
+    errorArray.push({
+      errorLocation: "Why Are You Not Reporting On This Measure",
+      errorMessage:
+        "You Must Select At Least One Reason For Not Reporting On This Measure",
+    });
+  }
+  return errorArray;
+};
