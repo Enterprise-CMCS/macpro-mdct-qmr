@@ -14,9 +14,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
         cy.get(
           ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
         ).click({ force: true });
-        cy.xpath(
-          "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
-        ).click({ force: true });
+        cy.xpath("//p[contains(text(),'Delete')]").click({ force: true });
         cy.xpath(
           "/html[1]/body[1]/div[3]/div[1]/div[3]/div[1]/section[1]/form[1]/div[1]/input[1]"
         ).type("delete{enter}");
