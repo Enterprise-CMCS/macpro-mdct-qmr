@@ -17,8 +17,8 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
         cy.xpath(
           "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
         ).click({ force: true });
-        cy.get(
-          "body.chakra-ui-light:nth-child(2) div.chakra-portal:nth-child(4) div.chakra-modal__overlay.css-hdd9l7 div.chakra-modal__content-container.css-v9b9hc section.chakra-modal__content.css-hxtskf form:nth-child(1) div.chakra-modal__body.css-qlig70 > input.chakra-input.css-1abuxor"
+        cy.xpath(
+          "//body/div[3]/div[1]/div[3]/div[1]/section[1]/form[1]/div[1]/input[1]"
         ).type("delete{enter}");
       } else {
         console.log("do something else");
