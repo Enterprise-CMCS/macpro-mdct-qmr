@@ -102,7 +102,9 @@ export const Rate = ({
         return (
           <CUI.Stack key={rate.id} my={8}>
             {rate.label && (
-              <CUI.FormLabel fontWeight={700}>{rate.label}</CUI.FormLabel>
+              <CUI.FormLabel fontWeight={700} data-cy={rate.label}>
+                {rate.label}
+              </CUI.FormLabel>
             )}
             <CUI.HStack spacing={16}>
               <QMR.InputWrapper
@@ -118,6 +120,7 @@ export const Rate = ({
               >
                 <CUI.Input
                   value={field.value[index]?.numerator ?? ""}
+                  data-cy={`${name}.${index}.numerator`}
                   onChange={(e) =>
                     changeRate(index, "numerator", e.target.value)
                   }
@@ -137,6 +140,7 @@ export const Rate = ({
               >
                 <CUI.Input
                   value={field.value[index]?.denominator ?? ""}
+                  data-cy={`${name}.${index}.denominator`}
                   onChange={(e) =>
                     changeRate(index, "denominator", e.target.value)
                   }
@@ -154,6 +158,7 @@ export const Rate = ({
               >
                 <CUI.Input
                   value={field.value[index]?.rate ?? ""}
+                  data-cy={`${name}.${index}.rate`}
                   onChange={(e) => changeRate(index, "rate", e.target.value)}
                   readOnly={readOnly}
                 />
