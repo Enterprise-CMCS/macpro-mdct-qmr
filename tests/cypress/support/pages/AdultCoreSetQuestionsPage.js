@@ -14,14 +14,16 @@ const ages21To64 = "//p[contains(text(),'Ages 21 to 64')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const ages65AndOlder = "//p[contains(text(),'Age 65 and older')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
-const feeForService = "//p[contains(text(),'Fee-for-Service')]";
+const feeForService =
+  '[data-cy="PercentageEnrolledInEachDeliverySystem.0.label"]';
 // element is xpath, please use cy.xapth() instead of cy.get();
-const PCCM = "//p[contains(text(),'PCCM')]";
+const PCCM = '[data-cy="PercentageEnrolledInEachDeliverySystem.1.label"]';
 // element is xpath, please use cy.xapth() instead of cy.get();
-const managedCare = "//p[contains(text(),'Managed Care')]";
+const managedCare =
+  '[data-cy="PercentageEnrolledInEachDeliverySystem.2.label"]';
 // element is xpath, please use cy.xapth() instead of cy.get();
 const integratedCareModelICM =
-  "//p[contains(text(),'Integrated Care Model (ICM)')]";
+  '[data-cy="PercentageEnrolledInEachDeliverySystem.3.label"]';
 // element is xpath, please use cy.xapth() instead of cy.get();
 const addAnotherBTN = "//tbody/div[1]/button[1]";
 // element is xpath, please use cy.xapth() instead of cy.get();
@@ -54,10 +56,10 @@ const externalContractorValue =
   "//h3[contains(text(),'Please indicate whether your state obtained assist')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const yesUnderExternalContractor =
-  "//p[contains(text(),'Yes, we did obtained assistance from one or more e')]";
+  "//p[contains(text(),'Yes, we did obtain assistance from one or more e')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const noUnderExternalContractor =
-  "//p[contains(text(),'No, we calculated all the measure internally.')]";
+  "//p[contains(text(),'No, we calculated all the measures internally.')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const firstBoxUnderYes =
   "//p[contains(text(),'External Quality Review Organization (EQRO)')]";
@@ -69,10 +71,10 @@ const thirdBoxUnderYes = "//p[contains(text(),'Data Analytics Contractor')]";
 const fourthBoxUnderYes = "//p[contains(text(),'Other')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const completeAllAdultCoreSetAndChildCoreSetMeasuresToSubmitToCMS =
-  "//p[contains(text(),'Complete all Adult Core Set and Child Core Set Mea')]";
+  "//p[contains(text(),'Complete all Adult Core Set')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const completeAllAdultCoreSetAndChildCoreSetMeasuresToSubmitToCMSValue =
-  "//h3[contains(text(),'Complete all Adult Core Set and Adult Core Set Mea')]";
+  "//h3[contains(text(),'Complete all Adult Core Set')]";
 const completeCoreSetQuestionsBTN =
   "//button[contains(text(),'Complete Core Set Questions')]";
 const doYouHaveQuestionsOrNeedSupport =
@@ -117,19 +119,19 @@ export class AdultCoreSetQuestionsPage {
   }
 
   verifyfeeForServiceIsDisplayed() {
-    cy.xpath(feeForService).should("be.visible");
+    cy.get(feeForService).should("be.visible");
   }
 
   verifyPCCMIsDisplayed() {
-    cy.xpath(PCCM).should("be.visible");
+    cy.get(PCCM).should("be.visible");
   }
 
   verifymanagedCareIsDisplayed() {
-    cy.xpath(managedCare).should("be.visible");
+    cy.get(managedCare).should("be.visible");
   }
 
   verifyintegratedCareModelICMIsDisplayed() {
-    cy.xpath(integratedCareModelICM).should("be.visible");
+    cy.get(integratedCareModelICM).should("be.visible");
   }
 
   verifyaddAnotherBTNIsDisplayed() {
