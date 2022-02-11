@@ -52,7 +52,7 @@ const nationalCommitteForQualityAssuranceRadioBTN =
 const administrativeDataRadioBTN =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/label[1]/span[1]";
 const MedicaidManagementInformationSystemMMISRadioBTN =
-  "DataSource-Administrative0";
+  "//p[contains(text(),'Medicaid Management Information System (MMIS)')]";
 const Age65andolderNumeratorInputBox =
   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[3]/div[1]/div[1]/input[1]";
 const Age65andolderDenominatorInputBox =
@@ -378,7 +378,7 @@ export class FUAADPAGE {
     });
   }
   clickMedicaidManagementInformationSystemMMISRadioBTN() {
-    cy.get(MedicaidManagementInformationSystemMMISRadioBTN).click({
+    cy.xpath(MedicaidManagementInformationSystemMMISRadioBTN).click({
       force: true,
     });
   }

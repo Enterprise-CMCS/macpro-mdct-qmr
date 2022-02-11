@@ -28,7 +28,7 @@ Feature: Verify and fill out OUD-AD measurement
         And  user click on link OUD-AD
         And Click on Centers for Medicare & Medicaid Services Radio Button
         Then Click on Administrative Data
-        Then Click on Medicaid Management Information System
+        # Then Click on Medicaid Management Information System
         And clear total rate numerator input box
         And clear total rate Denominator input box
         And type total rate numerator 321111
