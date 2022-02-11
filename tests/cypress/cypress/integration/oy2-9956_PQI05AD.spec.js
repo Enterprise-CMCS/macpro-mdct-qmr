@@ -1,12 +1,12 @@
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-describe("Measure: PQI01-AD", () => {
+describe("Measure: PQI05-AD", () => {
   before(() => {
     cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
-    cy.goToMeasure("PQI01-AD");
+    cy.goToMeasure("PQI05-AD");
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
@@ -210,7 +210,7 @@ describe("Measure: PQI01-AD", () => {
     // cy.get('[data-cy="DidReport0"]').click({ force: true });
     cy.get('[data-cy="MeasurementSpecification1"]').click();
     cy.get('[id="DataSource0-checkbox"]').check({ force: true });
-    cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
+    cy.get('[id="DataSource1-checkbox"]').check({ force: true });
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.description"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.description"]').type(
       "example 1"
