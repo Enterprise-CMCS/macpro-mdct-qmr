@@ -32,6 +32,14 @@ export const PerformanceMeasure = () => {
       rate: "",
       id: 2,
     },
+    {
+      label: "Total (Ages 19 to 64)",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 3,
+      isTotal: true,
+    },
   ];
 
   // TODO: The Performance Measures should total automagically

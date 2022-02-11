@@ -44,6 +44,10 @@ export const Rate = ({
     defaultValue: [],
   });
 
+  const calculateTotals = () => {
+    console.log(field);
+  };
+
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate",
@@ -101,6 +105,8 @@ export const Rate = ({
 
     prevRate[index] = editRate;
     field.onChange([...prevRate]);
+
+    calculateTotals();
   };
 
   return (
