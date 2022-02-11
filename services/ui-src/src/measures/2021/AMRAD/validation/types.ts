@@ -119,62 +119,6 @@ export namespace Measure {
       other: string;
     };
 
-    "DeviationOptions-InitAlcohol-AgeRange": string[];
-    "DeviationFields-InitAlcohol": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationOptions-EngageAlcohol-AgeRange": string[];
-    "DeviationFields-EngageAlcohol": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationOptions-InitOpioid-AgeRange": string[];
-    "DeviationFields-InitOpioid": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationOptions-EngageOpioid-AgeRange": string[];
-    "DeviationFields-EngageOpioid": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationOptions-InitOther-AgeRange": string[];
-    "DeviationFields-InitOther": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationOptions-EngageOther-AgeRange": string[];
-    "DeviationFields-EngageOther": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationOptions-InitTotal-AgeRange": string[];
-    "DeviationFields-InitTotal": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationOptions-EngageTotal-AgeRange": string[];
-    "DeviationFields-EngageTotal": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeasure-AgeRates-Persistent-Asthma": {
       denominator: string;
