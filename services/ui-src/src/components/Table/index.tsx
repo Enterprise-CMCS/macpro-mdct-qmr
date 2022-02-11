@@ -17,6 +17,7 @@ export const Table = <T extends TableData>({
               scope="col"
               key={column.id}
               letterSpacing="sm"
+              data-cy={column.header}
               {...column.styleProps}
             >
               {column.header}

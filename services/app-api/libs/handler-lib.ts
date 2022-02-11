@@ -9,7 +9,7 @@ type LambdaFunction = (
 ) => Promise<any>;
 
 export default function handler(lambda: LambdaFunction) {
-  return async function (event: any, context: any) {
+  return async function (event: APIGatewayProxyEvent, context: any) {
     // Start debugger
     debug.init(event, context);
 

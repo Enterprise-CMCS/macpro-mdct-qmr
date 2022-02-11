@@ -57,7 +57,7 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     cell: (data: MeasureTableItem.Data) => {
       return (
         <Link to={data.path}>
-          <CUI.Text fontWeight="bold" color="blue.600">
+          <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.abbr}>
             {data.abbr}
           </CUI.Text>
         </Link>
@@ -70,7 +70,7 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     cell: (data: MeasureTableItem.Data) => {
       return (
         <Link to={data.path}>
-          <CUI.Text fontWeight="bold" color="blue.600">
+          <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.path}>
             {data.title}
           </CUI.Text>
         </Link>

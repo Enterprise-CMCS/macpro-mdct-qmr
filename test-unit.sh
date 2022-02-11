@@ -4,6 +4,7 @@ set -e
 
 services=(
   'ui-src'
+  'app-api'
 )
 
 install_deps() {

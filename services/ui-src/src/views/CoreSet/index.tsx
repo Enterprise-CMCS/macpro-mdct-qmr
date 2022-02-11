@@ -97,7 +97,8 @@ const useMeasureTableDataBuilder = () => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
       const filteredItems = (data.Items as MeasureData[]).filter(
-        (item) => item.measure
+        // filter out the coreset qualifiers
+        (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
         return {
@@ -200,7 +201,7 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
-        <CUI.Skeleton noOfLines={7} isLoaded={!isLoading}>
+        <QMR.LoadingWrapper isLoaded={!isLoading}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
           )}
@@ -211,7 +212,7 @@ export const CoreSet = () => {
               alertDescription={(error as Error)?.message}
             />
           )}
-        </CUI.Skeleton>
+        </QMR.LoadingWrapper>
       </CUI.Box>
     </QMR.StateLayout>
   );
