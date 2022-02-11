@@ -11,6 +11,7 @@ interface AddAnotherButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   /** additional text to display after "+ Add Another" on the button */
   additionalText?: string;
+  isDisabled?: boolean;
 }
 
 interface SubCatSectionProps {
@@ -24,6 +25,7 @@ interface SubCatSectionProps {
 export const AddAnotherButton = ({
   onClick,
   additionalText,
+  isDisabled,
 }: AddAnotherButtonProps) => {
   return (
     <QMR.ContainedButton
@@ -35,6 +37,7 @@ export const AddAnotherButton = ({
       }}
       key={"AddAnotherButton"}
       onClick={onClick}
+      disabledStatus={isDisabled}
     />
   );
 };

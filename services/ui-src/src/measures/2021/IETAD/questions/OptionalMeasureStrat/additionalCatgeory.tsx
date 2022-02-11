@@ -1,10 +1,9 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { AddAnotherButton, SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./ndrSets";
-import { useState } from "react";
 
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
@@ -53,42 +52,47 @@ export const AddAnotherSection = ({
   parentName,
   flagSubCat,
 }: AdditonalCategoryProps) => {
+  const { control, watch } = useFormContext();
   const { fields, append } = useFieldArray({
     name: `${name}.additionalSelections`,
+    control,
     shouldUnregister: true,
   });
 
-  const [fieldArray, setfieldArray] = useState(
-    fields.map(
-      (_, idx) => `additional${parentName.replace(/[^\w]/g, "")}.${idx}`
-    )
-  );
+  const watchFieldArray = watch(`${name}.additionalSelections`, []);
+  const controlledFields =
+    (watchFieldArray &&
+      fields.map((field, index) => {
+        console.log({ watchFieldArray });
+        return {
+          ...field,
+          ...watchFieldArray[index],
+        };
+      })) ||
+    [];
 
+  console.log({ controlledFields });
   const addAnotherField = () => {
     append({}, { shouldFocus: false });
-    setfieldArray((old) => {
-      return [
-        ...old,
-        `additional${parentName.replace(/[^\w]/g, "")}.${old.length}`,
-      ];
-    });
   };
 
-  const testOptions: QMR.CheckboxOption[] = fieldArray.map((val, idx) => {
-    return {
-      value: val,
-      displayValue: `Additional ${parentName}`,
-      childKey: fields[idx].id,
-      children: [
-        <AdditionalCategoryCheckboxChildren
-          flagSubCat={flagSubCat}
-          name={`${name}.additionalSelections.${idx}`}
-          key={`${name}.additionalSelections.${idx}`}
-          parentName={parentName}
-        />,
-      ],
-    };
-  });
+  const testOptions: QMR.CheckboxOption[] = controlledFields.map(
+    (_: any, idx: number) => {
+      return {
+        value: `additional${parentName.replace(/[^\w]/g, "")}.${idx}`,
+        displayValue: `Additional ${parentName}`,
+        childKey: _.id,
+        children: [
+          <AdditionalCategoryCheckboxChildren
+            flagSubCat={flagSubCat}
+            name={`${name}.additionalSelections.${idx}`}
+            key={`${name}.additionalSelections.${idx}`}
+            parentName={parentName}
+          />,
+        ],
+      };
+    }
+  );
 
   return (
     <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
@@ -100,6 +104,10 @@ export const AddAnotherSection = ({
       <AddAnotherButton
         onClick={addAnotherField}
         additionalText={parentName}
+        isDisabled={
+          controlledFields.length > 0 &&
+          !controlledFields[controlledFields.length - 1]?.description
+        }
         key={`${name}.additionalCategoriesButton`}
       />
     </CUI.Box>
