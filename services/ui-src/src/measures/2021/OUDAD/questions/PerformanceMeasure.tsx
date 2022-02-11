@@ -90,9 +90,6 @@ export const PerformanceMeasure = () => {
         rates={ageRates}
         {...register("PerformanceMeasure-Rates")}
       />
-      <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 7 days of ED visit
-      </CUI.Text>
     </QMR.CoreQuestionWrapper>
   );
 };

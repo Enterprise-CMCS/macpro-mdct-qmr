@@ -102,8 +102,8 @@ const AgeData = ({ name }: SubComponentProps) => {
               </CUI.Heading>,
               <QMR.Rate
                 readOnly={rateReadOnly}
-                name={`${name}.subRates.${item.label}`}
-                key={`${name}.subRates.${item.label}`}
+                name={`${name}.subRates.${item.label.replace(/[ ,]/g, "")}`}
+                key={`${name}.subRates.${item.label.replace(/[ ,]/g, "")}`}
                 rates={[
                   {
                     id: item.id,

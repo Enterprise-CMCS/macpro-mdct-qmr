@@ -8,22 +8,27 @@ import {
 
 const OUDValidation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
-
   const performanceMeasureArray = data["PerformanceMeasure-Rates"];
   let errorArray: any[] = [];
 
-  const arrayToTestEqualDenominators = performanceMeasureArray.map((item) => {
-    return [item];
-  });
+  const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
+    (item) => {
+      return [item];
+    }
+  );
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete([performanceMeasureArray], OPM, ["age-group"]),
-    ...validateNumeratorsLessThanDenominators([performanceMeasureArray], OPM, [
+    ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
       "age-group",
     ]),
-    ...validateEqualDenominators(arrayToTestEqualDenominators, ["age-group"]),
-    ...validateNoNonZeroNumOrDenom([performanceMeasureArray], OPM, [
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArrayToCheck,
+      OPM,
+      ["age-group"]
+    ),
+    ...validateEqualDenominators(performanceMeasureArrayToCheck, ["age-group"]),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
       "age-group",
     ]),
   ];
