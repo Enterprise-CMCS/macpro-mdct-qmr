@@ -1,10 +1,10 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useFieldArray } from "react-hook-form";
 
 import { NDRSets } from "./ndrSets";
+import { useState } from "react";
 
 interface AddAnotherButtonProps {
   /** onClick state updating function for dynamic rendering */
@@ -17,33 +17,6 @@ interface SubCatSectionProps {
   /** name for react-hook-form registration */
   name: string;
 }
-
-type SubCatHook = ({ name }: { name: string }) => [string[], () => void];
-
-/**
- * Hook for tracking current subCat options
- */
-const useSubCatFields: SubCatHook = ({ name }) => {
-  const { getValues } = useFormContext();
-  const subCatValues: string[] | undefined = getValues(`${name}.subCatOptions`);
-
-  // set initial state to be either a single unit or however many were saved last
-  const [subCatOptions, setSubCatOptions] = useState<string[]>(
-    subCatValues?.length
-      ? subCatValues.map((_, i) => `${`additionalSubCat`}.${i}`)
-      : [`additionalSubCat.0`]
-  );
-
-  // function for click event
-  const addAnotherSubCat = () => {
-    setSubCatOptions((old) => {
-      const oldArray = old ?? [];
-      return [...oldArray, `additionalSubCat.${oldArray.length}`];
-    });
-  };
-
-  return [subCatOptions, addAnotherSubCat];
-};
 
 /**
  * Button for handling additional values in dynamic rendering
@@ -70,7 +43,21 @@ export const AddAnotherButton = ({
  * Build Additional SubCategory/Classification Section for Race fields and the associated Button
  */
 export const SubCatSection = ({ name }: SubCatSectionProps) => {
-  const [subCatFields, addAnotherSubCat] = useSubCatFields({ name });
+  const { fields, append } = useFieldArray({
+    name: `${name}.subCategories`,
+    shouldUnregister: true,
+  });
+
+  const [subCatFields, setfieldArray] = useState(
+    fields.map((_, idx) => `additionalSubCat.${idx}`)
+  );
+
+  const addAnotherField = () => {
+    append({}, { shouldFocus: false });
+    setfieldArray((old) => {
+      return [...old, `additionalSubCat.${old.length}`];
+    });
+  };
 
   return (
     <CUI.Box key={`${name}.subCatWrapper`}>
@@ -96,7 +83,7 @@ export const SubCatSection = ({ name }: SubCatSectionProps) => {
         })}
       />
       <AddAnotherButton
-        onClick={addAnotherSubCat}
+        onClick={addAnotherField}
         additionalText="Sub-Category"
         key={`${name}.AddAnotherSubCatButton`}
       />
