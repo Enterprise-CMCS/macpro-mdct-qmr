@@ -1027,7 +1027,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       ":nth-child(28) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
     ).should(
       "have.text",
-      "PQI01-AD - PQI 01: Diabetes Short-term Complications Admission Rate"
+      "PQI01-AD - PQI 01: Diabetes Short-Term Complications Admission Rate"
     );
     cy.get(
       ":nth-child(29) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
