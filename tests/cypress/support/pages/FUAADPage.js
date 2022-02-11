@@ -28,7 +28,8 @@ const validateMeasureButton = "//button[@class='chakra-button css-gy0j0y']";
 const completeMeasureButton = "//button[@class='chakra-button css-qobkj']";
 const sentenceUnderCompleteMeasureOne = "//p[@class='chakra-text css-thvrsi']";
 const sentenceUnderCompleteMeasureTwo = "//p[@class='chakra-text css-1xpb69n']";
-const errorMessagePerformanceMeasure = "((//div[@class='css-0'])[27]/div)[1]";
+const errorMessagePerformanceMeasure =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]";
 const errorMessageContent =
   "//div[contains(text(),'At least one Performance Measure Numerator, Denomi')]";
 const popupBoxMessageHeader = "#yes-no-header";
@@ -46,7 +47,7 @@ const verifyFFY2020 =
 const verifyFFY2019 =
   "//option[contains(text(),'HEDIS 2019 (FFY 2019 Core Set Reporting)')]";
 const nationalCommitteForQualityAssuranceRadioBTN =
-  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[1]/label[1]/span[1]";
+  "#MeasurementSpecification-NCQAHEDIS";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const administrativeDataRadioBTN =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/label[1]/span[1]";
@@ -263,7 +264,7 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click({
+    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click({
       force: true,
     });
   }
@@ -367,7 +368,7 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click({
+    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click({
       force: true,
     });
   }
@@ -410,7 +411,7 @@ export class FUAADPAGE {
   clickOtherDataSourceRadioBTN() {
     cy.xpath(otherDataSourceRadioBTN).click();
     cy.wait(2000);
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click();
+    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click({ force: true });
   }
   clickYesForReportingMeasure() {
     cy.wait(2000);
