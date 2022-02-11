@@ -16,7 +16,7 @@ export function Footer(): JSX.Element {
             Do you have questions or need support?
           </CUI.Text>
           <CUI.Box fontSize="sm" mb="4">
-            <QMR.SupportLinks />
+            <QMR.SupportInfo />
           </CUI.Box>
         </CUI.Box>
       </CUI.Container>
@@ -27,7 +27,12 @@ export function Footer(): JSX.Element {
             alignItems={{ base: "none", md: "center" }}
           >
             <img
-              style={{ display: "inline" }}
+              style={{ maxWidth: "140px" }}
+              src="/footer/mdct.png"
+              alt="Mdct logo"
+            />
+            <img
+              style={{ padding: "10px 0 0 50px" }}
               src="/footer/logo-MedicaidGov.svg"
               alt="Medicaid.gov logo"
             />

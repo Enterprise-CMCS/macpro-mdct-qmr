@@ -22,12 +22,7 @@ export const DemoMeasure = () => {
         { path: `/OH/2021/ACS`, name: `Adult` },
         { path: `/OH/2021/ACS/AIF-HH`, name: `DQT-AD: Demo Questions` },
       ]}
-      buttons={
-        <QMR.MeasureButtons
-          handleSave={handleSave}
-          lastSavedText="Saved Moments Ago"
-        />
-      }
+      buttons={<QMR.MeasureButtons handleSave={handleSave} />}
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => console.log(data))}>

@@ -20,6 +20,8 @@ interface Props extends QMR.InputWrapperProps {
   name: string;
   readOnly?: boolean;
   allowMultiple?: boolean;
+  rateMultiplicationValue?: number;
+  allowAnyRate?: boolean;
 }
 
 export const Rate = ({
@@ -27,6 +29,8 @@ export const Rate = ({
   name,
   allowMultiple = false,
   readOnly = true,
+  rateMultiplicationValue = 100,
+  allowAnyRate,
   ...rest
 }: Props) => {
   const {
@@ -72,7 +76,7 @@ export const Rate = ({
         : rateThatAllowsOneDecimal;
 
       prevRate[index].rate =
-        regex.test(newValue) || newValue === ""
+        regex.test(newValue) || newValue === "" || allowAnyRate
           ? newValue
           : prevRate[index].rate;
 
@@ -85,7 +89,10 @@ export const Rate = ({
       editRate.numerator &&
       parseFloat(editRate.numerator) <= parseFloat(editRate.denominator)
     ) {
-      editRate.rate = ((editRate.numerator / editRate.denominator) * 100)
+      editRate.rate = (
+        (editRate.numerator / editRate.denominator) *
+        rateMultiplicationValue
+      )
         .toFixed(1)
         .toString();
     } else if (editRate.rate) {
@@ -102,7 +109,9 @@ export const Rate = ({
         return (
           <CUI.Stack key={rate.id} my={8}>
             {rate.label && (
-              <CUI.FormLabel fontWeight={700}>{rate.label}</CUI.FormLabel>
+              <CUI.FormLabel fontWeight={700} data-cy={rate.label}>
+                {rate.label}
+              </CUI.FormLabel>
             )}
             <CUI.HStack spacing={16}>
               <QMR.InputWrapper
@@ -118,6 +127,7 @@ export const Rate = ({
               >
                 <CUI.Input
                   value={field.value[index]?.numerator ?? ""}
+                  data-cy={`${name}.${index}.numerator`}
                   onChange={(e) =>
                     changeRate(index, "numerator", e.target.value)
                   }
@@ -137,6 +147,7 @@ export const Rate = ({
               >
                 <CUI.Input
                   value={field.value[index]?.denominator ?? ""}
+                  data-cy={`${name}.${index}.denominator`}
                   onChange={(e) =>
                     changeRate(index, "denominator", e.target.value)
                   }
@@ -154,6 +165,7 @@ export const Rate = ({
               >
                 <CUI.Input
                   value={field.value[index]?.rate ?? ""}
+                  data-cy={`${name}.${index}.rate`}
                   onChange={(e) => changeRate(index, "rate", e.target.value)}
                   readOnly={readOnly}
                 />

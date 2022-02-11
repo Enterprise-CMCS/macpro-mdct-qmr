@@ -7,9 +7,11 @@ import NCIDDSadpage from "../../../support/pages/NCIDDSadpage";
 import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
+import AdultCoreSetQuestionsPage from "../../../support/pages/AdultCoreSetQuestionsPage";
 // demo
 
 import FUAADPAGE from "../../../support/pages/FUAADPage";
+import CPAADPAGE from "../../../support/pages/CPAADPage";
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();
@@ -22,6 +24,8 @@ const lrcdCH = new LRCDch();
 // demo
 
 const fUAADPage = new FUAADPAGE();
+const cPAADPage = new CPAADPAGE();
+const adultCoreSetQuestionsPage = new AdultCoreSetQuestionsPage();
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -54,6 +58,35 @@ And("user click on link Adult Core Set Measures", () => {
   homePage.clickAdultCoreSetMeasures();
 });
 
+And(
+  "user should see the QMR logo at top and MDCT Medicaid logo at the bottom of the home page",
+  () => {
+    homePage.verifyQMRMDCTMedicaidLogoAtHomePage();
+  }
+);
+
+And("user click on Adult Core Set Measure link", () => {
+  homePage.clickAdultCoreSetMeasures();
+});
+
+And(
+  "user should see the QMR logo at top and MDCT Medicaid logo at the bottom of the Adult core set measure page",
+  () => {
+    adultCoreSetMeasurespage.verifyQMRMDCTMedicaidLogoAtAdultCoreSetMeasurePage();
+  }
+);
+
+Then("click on FUA-AD", () => {
+  adultCoreSetMeasurespage.clickFUAadLink();
+});
+
+And(
+  "user should see the QMR logo at top and MDCT Medicaid logo at the bottom of the FUA-AD page",
+  () => {
+    fUAADPage.verifyQMRMDCTMedicaidLogoAtfuaAdPage();
+  }
+);
+
 And("user click on link NCIDDS-AD", () => {
   adultCoreSetMeasurespage.clickNCIDDSadLink();
 });
@@ -64,6 +97,10 @@ And("user click on link PDENT-CH", () => {
 
 And("user click on link LRCD-CH", () => {
   adultCoreSetMeasurespage.clickLRCDchLink();
+});
+
+And("user click on link CPA-CH", () => {
+  adultCoreSetMeasurespage.clickCPAadLink();
 });
 
 And("user can see the LRCD-CH Low Risk Cesarean Delivery title", () => {
@@ -332,7 +369,9 @@ And("user can see the footer", () => {
 When('user clicks on "Login" link', () => {
   homePage.clickLoginButton();
 });
-
+And("user click on link CPA-AD", () => {
+  adultCoreSetMeasurespage.clickCPAadLink();
+});
 When("user enter username and password", () => {
   loginPage.enterUserName();
   loginPage.enterPassword();
@@ -469,6 +508,130 @@ And("verify picture is uploaded", () => {
   fUAADPage.verifyPictureFileIsUploaded();
 });
 
+And("verify Adult Core Set Questions is displayed", () => {
+  adultCoreSetQuestionsPage.verifyAdultCoreSetQuestionHeaderIsDisplayed();
+});
+
+And("verify Adult Core Set Questions content is displayed", () => {
+  adultCoreSetQuestionsPage.verifyadultCoreSetQuestionContentIsDisplayed();
+});
+
+And("verify Delivery System is displayed", () => {
+  adultCoreSetQuestionsPage.verifydeliverySystemIsDisplayed();
+});
+
+And("verify Delivery System content is displayed", () => {
+  adultCoreSetQuestionsPage.verifydeliverySystemContentIsDisplayed();
+});
+
+And("verify AGES 21 TO 64 is displayed", () => {
+  adultCoreSetQuestionsPage.verifyages21To64IsDisplayed();
+});
+
+And("verify AGE 65 AND OLDER is displayed", () => {
+  adultCoreSetQuestionsPage.verifyages65AndOlderIsDisplayed();
+});
+
+And("verify Fee-for-Service is displayed", () => {
+  adultCoreSetQuestionsPage.verifyfeeForServiceIsDisplayed();
+});
+
+And("verify PCCM is displayed", () => {
+  adultCoreSetQuestionsPage.verifyPCCMIsDisplayed();
+});
+
+And("verify Managed Care is displayed", () => {
+  adultCoreSetQuestionsPage.verifymanagedCareIsDisplayed();
+});
+
+And("verify Integrated Care Model ICM is displayed", () => {
+  adultCoreSetQuestionsPage.verifyintegratedCareModelICMIsDisplayed();
+});
+
+And("verify add Another box is displayed", () => {
+  adultCoreSetQuestionsPage.verifyaddAnotherBTNIsDisplayed();
+});
+
+And("verify Total all ages is displayed", () => {
+  adultCoreSetQuestionsPage.verifytotalAllAgesIsDisplayed();
+});
+
+And("verify AGES 21 TO 64 total value is displayed", () => {
+  adultCoreSetQuestionsPage.verifyages21To64TotalValueIsDisplayed();
+});
+
+And("verify AGE 65 AND OLDER total value is displayed", () => {
+  adultCoreSetQuestionsPage.verifyages65AndOlderTotalValueIsDisplayed();
+});
+
+And("verify Audit or Validation of Measures", () => {
+  adultCoreSetQuestionsPage.verifyagesauditOrValidationMeasuresIsDisplayed();
+});
+
+And("verify Audit or Validation of Measures content is displayed", () => {
+  adultCoreSetQuestionsPage.verifyauditOrValidationMeasuresValueIsDisplayed();
+});
+
+And("verify yes option on section 2 is displayed", () => {
+  adultCoreSetQuestionsPage.verifyyesSomeOfTheCoreSetMeasuresHaveBeenAuditedOrValidatedIsDisplayed();
+});
+
+And("verify no option on section 2 is displayed", () => {
+  adultCoreSetQuestionsPage.verifynoNoneOfTheCoreSetMeasuresHaveBeenAuditedOrValidatedIsDisplayed();
+});
+
+And("click yes option on section 2", () => {
+  adultCoreSetQuestionsPage.clickYesOptionOnSection2();
+});
+
+And("verify add another button is displayed", () => {
+  adultCoreSetQuestionsPage.verifyaddAnotherBTNUnderfirstYesIsDisplayed();
+});
+
+And("verify External Contractor is displayed", () => {
+  adultCoreSetQuestionsPage.verifyexternalContractorIsDisplayed();
+});
+
+And("verify External Contractor content is displayed", () => {
+  adultCoreSetQuestionsPage.verifyexternalContractorValueIsDisplayed();
+});
+
+And("verify yes option is displayed", () => {
+  adultCoreSetQuestionsPage.verifyyesUnderExternalContractorIsDisplayed();
+});
+
+And("verify no option is displayed", () => {
+  adultCoreSetQuestionsPage.verifynoUnderExternalContractorIsDisplayed();
+});
+
+And("click on yes option", () => {
+  adultCoreSetQuestionsPage.clickOnYesOption();
+});
+
+And("click on other", () => {
+  adultCoreSetQuestionsPage.verifyfourthBoxUnderYesIsDisplayed();
+});
+And(
+  "verify Complete all Adult Core Set and Child Core Set Measures to submit to CMS is displayed",
+  () => {
+    adultCoreSetQuestionsPage.verifycompleteAllAdultCoreSetAndChildCoreSetMeasuresToSubmitToCMSIsDisplayed();
+  }
+);
+
+And(
+  "verify Complete all Adult Core Set and Child Core Set Measures to submit to CMS content is displayed",
+  () => {
+    adultCoreSetQuestionsPage.verifycompleteAllAdultCoreSetAndChildCoreSetMeasuresToSubmitToCMSValueIsDisplayed();
+  }
+);
+
+And("verify complete core set questions button is enabled", () => {
+  adultCoreSetQuestionsPage.verifycompleteCoreSetQuestionsBTNIsDisplayed();
+});
+
+And("verify Do you have questions or need support is displayed", () => {
+  adultCoreSetQuestionsPage.verifydoYouHaveQuestionsOrNeedSupportIsDisplayed();
+});
 And("verify NCQA text exists", () => {
   fUAADPage.verifyNcqaText();
 });
@@ -488,6 +651,71 @@ And("verify FFY2019 exists", () => {
 And("Click on National Committee for Quality Assurance Radio Button", () => {
   fUAADPage.clicknationalCommitteForQualityAssuranceRadioBTN();
 });
+
+//steps below are OY2-9942 CPA-AD
+
+And("user can click on No option for reporting on this measure", () => {
+  cPAADPage.VerifyReportingOnMeasureNo();
+});
+
+And(
+  "user can click on Yes option for Are you reporting on this measure",
+  () => {
+    cPAADPage.verifyReportingOnMeasureYes();
+  }
+);
+And("user can verify the title", () => {
+  cPAADPage.verifycpaADtitle();
+});
+And("user can verify the sentence below the title", () => {
+  cPAADPage.verifysentenceBelowTitle();
+});
+And("user can click on Yes option for Did you collect this measure?", () => {
+  cPAADPage.clickdidYouCollectThisMeasure();
+});
+And(
+  "user can click on AHRQ option for How did you report this measure?",
+  () => {
+    cPAADPage.clickhowDidYouReportThisMeasure();
+  }
+);
+And("user can click on AHRQ option for Measurement Specification", () => {
+  cPAADPage.clickmeasurementSpecificationAHRQ();
+});
+And("user can click CAHPS for Data Source", () => {
+  cPAADPage.clickdataSource();
+});
+And(
+  "user can click on No supplemental Item Sets were included for Which Supplemental Item Sets were included in the Survey",
+  () => {
+    cPAADPage.clicknoSupplemental();
+  }
+);
+And("user can click AHRQ administrative protocol", () => {
+  cPAADPage.clickahrqAdministrativeProtocol();
+});
+And("user can click on Survey sample Medicaid population", () => {
+  cPAADPage.clicksurveySampleMedicaidPopulation();
+});
+And("user can verify Performance Measure text", () => {
+  cPAADPage.verifyperformanceMeasure();
+});
+//And("user enters data for the additional notes text box", () => {
+//  cPAADPage.verifyadditionalNotes();
+//});
+//And("user can attach a text file", () => {
+// cPAADPage.addTextFilesToFUAADPage();
+//});
+//And("user can verify the uploaded text file", () => {
+// cPAADPage.verifyTextIsUploaded();
+//});
+And(
+  "user can verify that validate and complete measure buttons are enabled and clickable",
+  () => {
+    cPAADPage.verifyvalidateMeasureButton();
+  }
+);
+
 Then("Click on Administrative Data", () => {
   fUAADPage.clickAdminstrativeDataRaioBTN();
 });
@@ -558,4 +786,52 @@ Then("Click on Other Data Source Radio Button", () => {
 
 And("verify user can manually override enter rate exists", () => {
   fUAADPage.typeAge65andolderRateInputBox("88.1");
+});
+
+Then("Click on Adult Core Set Questions", () => {
+  adultCoreSetMeasurespage.clickAdultCoreSetQuestions("88.1");
+});
+
+And("verify External Quality Review Organization EQRO is displayed", () => {
+  adultCoreSetQuestionsPage.verifyexternalQualityReviewOrganizationIsDisplayed();
+});
+
+And("verify MMIS Contractor is displayed", () => {
+  adultCoreSetQuestionsPage.verifyMMISContractorIsDisplayed();
+});
+
+And("verify Data Analytics Contractor is displayed", () => {
+  adultCoreSetQuestionsPage.verifydataAnalyticsContractorIsDisplayed();
+});
+
+And("verify other under external contractor is displayed", () => {
+  adultCoreSetQuestionsPage.verifyotherUnderExternalContractorIsDisplayed();
+});
+
+When("login as approver", () => {
+  loginPage.loginasApproverCognito();
+});
+
+Then("click on go to state home", () => {
+  loginPage.clickGoToStateHome();
+});
+
+Then("verify add child core set is disabled", () => {
+  landingPage.verifyaddChildCoreSetisDisabled();
+});
+
+Then("verify add health homes core set is disabled", () => {
+  landingPage.verifyaddHealthHomesCoreSetisDisabled();
+});
+Then("verify submit core set button is disabled", () => {
+  adultCoreSetMeasurespage.verifysubmitCoreSetBTNIsDisabled();
+});
+And("verify save button is disabled", () => {
+  fUAADPage.verifySaveBTNIsDisabled();
+});
+And("verify validate measure button is disabled", () => {
+  fUAADPage.verifyValidateMeasureBTNIsDisabled();
+});
+And("verify complete measure button is disabled", () => {
+  fUAADPage.verifyCompleteMeasureBTNIsDisabled();
 });

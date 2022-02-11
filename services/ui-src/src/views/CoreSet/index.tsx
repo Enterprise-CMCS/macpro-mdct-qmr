@@ -52,7 +52,7 @@ const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
         <CUI.Box pr="1" pt="2px" color="green.500">
           <HiCheckCircle />
         </CUI.Box>
-        <CUI.Text>Complete</CUI.Text>
+        <CUI.Text data-cy="qualifier-status-text">Complete</CUI.Text>
       </CUI.Flex>
     );
   }
@@ -71,7 +71,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     <CUI.Box fontWeight="semibold" fontSize="sm">
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
-        <CUI.Text color="blue">
+        <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
           {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
         </CUI.Text>
       </Link>
@@ -96,7 +96,8 @@ const useMeasureTableDataBuilder = () => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
       const filteredItems = (data.Items as MeasureData[]).filter(
-        (item) => item.measure
+        // filter out the coreset qualifiers
+        (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
         return {
@@ -199,7 +200,7 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
-        <CUI.Skeleton noOfLines={7} isLoaded={!isLoading}>
+        <QMR.LoadingWrapper isLoaded={!isLoading}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
           )}
@@ -210,7 +211,7 @@ export const CoreSet = () => {
               alertDescription={(error as Error)?.message}
             />
           )}
-        </CUI.Skeleton>
+        </QMR.LoadingWrapper>
       </CUI.Box>
     </QMR.StateLayout>
   );
