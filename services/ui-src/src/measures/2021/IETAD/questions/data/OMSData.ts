@@ -1,10 +1,16 @@
 export interface OmsNode {
+  /** displayName value for option */
   id: string;
+  /** should additional category render? */
   addMore?: boolean;
+  /** should this node have a subCatOption? */
   flagSubCat?: boolean;
+  /** additional checkbox options below this node */
   options?: OmsNode[];
-  aggregateTitle?: string;
+  /** should additional category values have subCatOptions? */
   addMoreSubCatFlag?: boolean;
+  /**s hould the aggregate question have a diffrent title than id? */
+  aggregateTitle?: string;
 }
 
 export const OMSData: OmsNode[] = [

@@ -8,7 +8,7 @@ export namespace Measure {
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
-  interface RateFields {
+  export interface RateFields {
     numerator: string;
     denominator: string;
     rate: string;
@@ -19,26 +19,33 @@ export namespace Measure {
     total: RateFields[];
   }
 
-  interface OtherRatesFields {
-    description: string[];
+  export interface OtherRatesFields {
+    description: string;
     rate: RateFields[];
+  }
+
+  interface OmsRateFields {
+    options: string[];
+    rates: {
+      [ageRange: string]: RateFields[];
+    };
   }
 
   interface LowLevelOmsNode {
     // if just ndr sets
-    rates?: AggregateRate;
+    ageRangeRates?: OmsRateFields;
 
     // for additional subCats/add anothers
     subCatOptions?: string[];
     subCategories?: {
       description: string;
-      rates: AggregateRate;
+      ageRangeRates: OmsRateFields;
     }[];
   }
 
   interface MidLevelOMSNode extends LowLevelOmsNode {
     // if sub-options
-    aggregate?: boolean;
+    aggregate?: string;
     options?: string[];
     selections?: {
       [option: string]: LowLevelOmsNode;
@@ -55,7 +62,7 @@ export namespace Measure {
     additionalSelections?: AddtnlOmsNode[];
 
     // catch case for ACA
-    rates?: AggregateRate;
+    ageRangeRates?: OmsRateFields;
   }
 
   interface AddtnlOmsNode extends LowLevelOmsNode {

@@ -35,6 +35,7 @@ export const Checkbox = ({
     control,
   });
 
+  console.log("checkBoxName", name);
   return (
     <QMR.InputWrapper
       isInvalid={!!objectPath.get(errors, name)?.message}
