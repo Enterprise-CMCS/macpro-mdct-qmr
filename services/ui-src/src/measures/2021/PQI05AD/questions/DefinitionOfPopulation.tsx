@@ -233,7 +233,7 @@ export const DefinitionOfPopulation = () => {
                   <QMR.NumberInput
                     formLabelProps={{ fontWeight: "400" }}
                     mask={allPositiveIntegers}
-                    label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data"
+                    label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data?"
                     {...register("DeliverySys-MCO_POHP-NumberOfPlans")}
                   />
                 </CUI.Box>,
