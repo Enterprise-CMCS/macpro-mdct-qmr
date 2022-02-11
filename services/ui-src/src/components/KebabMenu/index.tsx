@@ -96,7 +96,7 @@ const DeleteMenuItemAlertDialog = ({
   if (type === CoreSetTableItem.Type.CHILD) {
     alertBodyText +=
       "This will delete all Child Core Sets and their associated measures from this fiscal year's reporting.";
-  } else if (type === CoreSetTableItem.Type.HEALTH_HOMES) {
+  } else if (type === CoreSetTableItem.Type.HEALTH_HOME) {
     alertBodyText +=
       "This will delete this Health Home Core Set and all associated measures from this fiscal year's reporting.";
   }

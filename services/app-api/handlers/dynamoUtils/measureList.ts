@@ -115,7 +115,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "HIV Viral Loan Suppression",
+      description: "HIV Viral Load Suppression",
       measure: "HVL-AD",
     },
     {

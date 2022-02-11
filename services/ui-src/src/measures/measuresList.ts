@@ -100,7 +100,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "HIV Viral Loan Suppression",
+      name: "HIV Viral Load Suppression",
       measureId: "HVL-AD",
     },
     {

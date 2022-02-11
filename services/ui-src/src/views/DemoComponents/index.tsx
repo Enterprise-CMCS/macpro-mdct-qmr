@@ -401,7 +401,7 @@ const DemoComponentsForm = () => {
             </CUI.HStack>
             <CUI.HStack>
               <QMR.ContainedButton
-                buttonText={`Add Health Homes Core Set`}
+                buttonText={`Add Health Home Core Set`}
                 icon="plus"
                 buttonProps={{
                   variant: "outline",
