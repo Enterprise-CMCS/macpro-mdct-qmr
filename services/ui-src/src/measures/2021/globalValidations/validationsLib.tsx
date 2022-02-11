@@ -18,7 +18,7 @@ export const atLeastOneRateComplete = (
 
   // Then Check regular Performance Measures
   ageGroups.forEach((_ageGroup, i) => {
-    performanceMeasureArray.forEach((_performanceObj, index) => {
+    performanceMeasureArray?.forEach((_performanceObj, index) => {
       if (
         performanceMeasureArray[index] &&
         performanceMeasureArray[index][i] &&
@@ -60,7 +60,7 @@ export const validateDualPopInformation = (
   let errorArray: any[] = [];
   let filledInData: any[] = [];
   const i = age65PlusIndex;
-  performanceMeasureArray.forEach((performanceMeasure) => {
+  performanceMeasureArray?.forEach((performanceMeasure) => {
     if (
       performanceMeasure &&
       performanceMeasure[i] &&
@@ -100,7 +100,7 @@ export const validateNumeratorsLessThanDenominators = (
   let errorArray: any[] = [];
   const OPMError = OPM ? "Other " : "";
   ageGroups.forEach((_ageGroup, i) => {
-    performanceMeasureArray.forEach((performanceMeasure) => {
+    performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
         performanceMeasure &&
         performanceMeasure[i] &&
@@ -143,7 +143,7 @@ export const validateEqualDenominators = (
   let errorArray: any[] = [];
   ageGroups.forEach((ageGroup, i) => {
     let filledInData: any[] = [];
-    performanceMeasureArray.forEach((_performanceObj, index) => {
+    performanceMeasureArray?.forEach((_performanceObj, index) => {
       if (
         performanceMeasureArray[index] &&
         performanceMeasureArray[index][i] &&
@@ -186,7 +186,7 @@ export const validateNoNonZeroNumOrDenom = (
   let errorArray: any[] = [];
   const OPMError = OPM ? "Other " : "";
   ageGroups.forEach((_ageGroup, i) => {
-    performanceMeasureArray.forEach((performanceMeasure) => {
+    performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
         performanceMeasure &&
         performanceMeasure[i] &&
