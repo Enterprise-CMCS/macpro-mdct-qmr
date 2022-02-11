@@ -27,14 +27,12 @@ export const DeleteWrapper = ({
       {allowDeletion && (
         <CUI.HStack
           top={0}
-          right={"-6rem"}
+          right={0}
           zIndex={2}
           position={"absolute"}
           padding={2}
           as={"button"}
-          border={"1px"}
-          borderRadius={"md"}
-          borderColor={color}
+          borderColor={isHovered ? "red.700" : color}
           alignItems={"center"}
           data-testid="delete-wrapper"
           aria-label="Delete Field"
@@ -47,12 +45,12 @@ export const DeleteWrapper = ({
             setRender(false);
           }}
         >
-          {isHovered && (
-            <CUI.Text size={"sm"} color={textColor}>
-              Delete
-            </CUI.Text>
-          )}
-          <CUI.Icon color={textColor} fontSize={"xl"} as={BsTrash} />
+          <CUI.Icon
+            color={isHovered ? "red.700" : textColor}
+            fontSize={"lg"}
+            as={BsTrash}
+            transition={"linear 0.1s color"}
+          />
         </CUI.HStack>
       )}
       {children}
