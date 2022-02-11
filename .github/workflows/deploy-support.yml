@@ -57,7 +57,7 @@ jobs:
           ./deploySupport.sh $STAGE_PREFIX$branch_name
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
-        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "production"]'), env.branch_name) && failure ()
+        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_USERNAME: GitHub Actions Alerts

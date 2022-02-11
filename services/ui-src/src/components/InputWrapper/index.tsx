@@ -30,17 +30,23 @@ export const InputWrapper = ({
 }: InputWrapperProps) => {
   return (
     <CUI.FormControl {...formControlProps} isInvalid={isInvalid}>
-      {label && <CUI.FormLabel {...formLabelProps}>{label}</CUI.FormLabel>}
+      {label && (
+        <CUI.FormLabel {...formLabelProps} data-cy={label}>
+          {label}
+        </CUI.FormLabel>
+      )}
       {helperText && renderHelperTextAbove && (
         <CUI.FormHelperText mb={2}>{helperText}</CUI.FormHelperText>
       )}
       {children}
       <CUI.Flex>
         {helperText && !renderHelperTextAbove && (
-          <CUI.FormHelperText>{helperText}</CUI.FormHelperText>
+          <CUI.FormHelperText data-cy={helperText}>
+            {helperText}
+          </CUI.FormHelperText>
         )}
         <CUI.Spacer />
-        <CUI.FormErrorMessage>
+        <CUI.FormErrorMessage data-cy={"error-message-" + errorMessage}>
           {errorMessage || "An Error Occured"}
         </CUI.FormErrorMessage>
       </CUI.Flex>
