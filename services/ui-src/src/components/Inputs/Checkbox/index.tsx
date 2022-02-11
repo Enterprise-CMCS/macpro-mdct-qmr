@@ -61,7 +61,7 @@ export const Checkbox = ({
               >
                 <CUI.Checkbox
                   value={option.value}
-                  id={name}
+                  id={name + idx + "-checkbox"}
                   data-cy={name + idx}
                 >
                   <CUI.Text fontWeight="normal" fontSize="normal">
