@@ -36,7 +36,8 @@ export const PerformanceMeasure = () => {
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      Number of inpatient hospital admissions for heart failure per 100,000
+      Number of inpatient hospital admissions for diabetes short-term
+      complications (ketoacidosis, hyperosmolarity, or coma) per 100,000
       beneficiary months for beneficiaries age 18 and older.
       <QMR.TextArea
         formControlProps={{ py: "4" }}
@@ -50,8 +51,8 @@ export const PerformanceMeasure = () => {
       <QMR.Rate
         readOnly={rateReadOnly}
         rates={ageRates}
-        rateMultiplicationValue={100000}
         allowAnyRate={!rateReadOnly}
+        rateMultiplicationValue={100000}
         {...register("PerformanceMeasure-AgeRates")}
       />
     </QMR.CoreQuestionWrapper>
