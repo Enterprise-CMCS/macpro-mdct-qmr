@@ -243,12 +243,6 @@ describe("Measure: PQI01-AD", () => {
       '[data-cy="NonHispanicEthnicityRates.ageData0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.numerator"]'
-    ).clear();
-    cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
     ).clear();
     cy.get(
