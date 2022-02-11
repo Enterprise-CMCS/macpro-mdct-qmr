@@ -4,7 +4,6 @@ import { ReactElement, cloneElement, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
-import { useUser } from "hooks/authHooks";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { v4 as uuidv4 } from "uuid";
@@ -22,11 +21,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     []
   );
 
-  const { isStateUser } = useUser();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [lastSavedText, setLastSavedText] = useState(
-    "Awaiting Save Status Retrieval"
-  );
   const autoCompletedMeasure =
     !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
 
@@ -58,6 +53,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     shouldUnregister: true,
     mode: "all",
     defaultValues: measureData?.data ?? undefined,
+    criteriaMode: "firstError",
+    shouldFocusError: true,
   });
 
   useEffect(() => {
@@ -71,7 +68,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const handleSave = (data: any) => {
     if (!mutationRunning && !loadingData) {
-      setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(
         { data, status: measureData?.status },
         {
@@ -80,7 +76,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
               refetch();
             }
             //TODO: some form of error showcasing should display here
-            if (error) setLastSavedText("Failed To Save Form Information");
+            if (error) console.log(error);
           },
         }
       );
@@ -102,7 +98,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
 
   const submitDataToServer = (data: any) => {
     if (!mutationRunning && !loadingData) {
-      setLastSavedText("Awaiting Changed Save Status");
       updateMeasure(
         { data, status: MeasureStatus.COMPLETE },
         {
@@ -110,7 +105,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
             if (data && !error) refetch();
 
             //TODO: some form of error showcasing should display here
-            if (error) setLastSavedText("Failed To Submit Form Information");
+            if (error) console.log(error);
           },
         }
       );
@@ -148,33 +143,6 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     }
   };
 
-  // interval for updating the last saved text
-  useEffect(() => {
-    const checkSavedTime = () => {
-      const lastTime = measureData?.lastAltered / 1000;
-      const currentTime = new Date().getTime() / 1000;
-      if (lastTime && currentTime) {
-        const timeElapsed = currentTime - lastTime;
-        if (timeElapsed < 1 * 60) {
-          setLastSavedText("Saved Moments Ago");
-        } else if (timeElapsed < 60 * 60) {
-          setLastSavedText(
-            `Last Saved ${(timeElapsed / 60).toFixed()} Minute(s) Ago`
-          );
-        } else {
-          setLastSavedText(
-            `Last Saved ${(timeElapsed / (60 * 60)).toFixed()} Hour(s) Ago`
-          );
-        }
-      }
-    };
-    checkSavedTime();
-    const interval = setInterval(checkSavedTime, 30 * 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [measureData, setLastSavedText]);
-
   if (!params.coreSetId || !params.state) {
     return null;
   }
@@ -201,30 +169,20 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
           },
         ]}
         buttons={
-          //TODO: this needs some form of loading state for these buttons using mutationRunning
           // Using a ternary to appease type error instead of double &&
           !autoCompletedMeasure ? (
             <QMR.MeasureButtons
+              isLoading={mutationRunning}
               handleSave={methods.handleSubmit(handleSave)}
-              lastSavedText={lastSavedText}
+              lastAltered={measureData?.data && measureData?.lastAltered}
+              isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
             />
           ) : undefined
         }
       >
         <CUI.Skeleton isLoaded={!loadingData}>
           <>
-            {!isStateUser && (
-              <CUI.Box
-                top={0}
-                left={0}
-                position="fixed"
-                width="100vw"
-                height="100vh"
-                zIndex={2}
-                backgroundColor="gray.100"
-                opacity={0.2}
-              />
-            )}
+            <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
               <CUI.Container maxW="5xl" as="section">
                 <CUI.Text fontSize="sm">
