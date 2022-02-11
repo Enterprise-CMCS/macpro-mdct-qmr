@@ -127,13 +127,11 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitAlcohol`}
-                      key={`${name}.subRates.${item.id}.InitAlcohol`}
+                      name={`${name}.subRates.${item.id}.PersistentAsthma`}
+                      key={`${name}.subRates.${item.id}.PersistentAsthma`}
                       rates={[
                         {
                           id: 0,
-                          label:
-                            "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
                         },
                       ]}
                     />,

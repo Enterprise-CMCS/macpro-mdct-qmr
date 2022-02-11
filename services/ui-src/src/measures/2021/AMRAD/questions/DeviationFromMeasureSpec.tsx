@@ -116,7 +116,7 @@ export const DeviationFromMeasureSpec = ({
                   deviationConditions.showPersistentAsthmaTotal
                     ? [
                         {
-                          value: "ShowInitAlcohol",
+                          value: "ShowPersistentAsthma",
                           displayValue:
                             "Beneficiaries identified as having persistent asthma",
                           children: [
