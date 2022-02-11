@@ -1,12 +1,12 @@
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-describe("Measure: PQI01-AD", () => {
+describe("Measure: PQI08-AD", () => {
   before(() => {
     cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
-    cy.goToMeasure("PQI01-AD");
+    cy.goToMeasure("PQI08-AD");
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
