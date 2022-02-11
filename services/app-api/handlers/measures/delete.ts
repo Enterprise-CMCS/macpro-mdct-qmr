@@ -5,7 +5,7 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 export const deleteMeasure = handler(async (event, context) => {
   const dynamoKey = createCompoundKey(event);
   const params = {
-    TableName: process.env.measureTableName,
+    TableName: process.env.measureTableName!,
     Key: {
       compoundKey: dynamoKey,
       coreSet: event!.pathParameters!.coreSet!,
