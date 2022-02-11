@@ -272,12 +272,14 @@ export const DefinitionOfPopulation = () => {
                           <CUI.Text my="5" key="AdditionalMCOExcludedText">
                             {" "}
                             {
-                              "How many of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans are excluded from the measure? If none are excluded, please enter zero."
+                              "How many of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans are"
                             }
                             <CUI.Text as="i" fontWeight="600">
                               {" excluded "}
                             </CUI.Text>
-                            {"in the measure?"}
+                            {
+                              "from the measure? If none are excluded, please enter zero."
+                            }
                           </CUI.Text>,
                           <QMR.NumberInput
                             mask={allPositiveIntegers}
