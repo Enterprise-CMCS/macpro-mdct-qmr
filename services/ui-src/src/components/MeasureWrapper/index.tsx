@@ -31,7 +31,6 @@ export const MeasureWrapper = ({
 
   const { isStateUser } = useUser();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [showClearDataModal, setShowClearDataModal] = useState<boolean>(false);
   const [lastSavedText, setLastSavedText] = useState(
     "Awaiting Save Status Retrieval"
   );
@@ -96,17 +95,7 @@ export const MeasureWrapper = ({
   };
 
   const handleClear = () => {
-    setShowClearDataModal(true);
-  };
-
-  const handleClearDataModalResponse = (continueClear: boolean) => {
-    setShowClearDataModal(false);
-
-    if (continueClear) {
-      submitDataToServer({ data: {} }, MeasureStatus.INCOMPLETE);
-      console.log("measure cleared");
-      console.log({ errors });
-    }
+    submitDataToServer({ data: {} }, MeasureStatus.INCOMPLETE);
   };
 
   const handleSubmit = (data: any) => {
@@ -116,10 +105,7 @@ export const MeasureWrapper = ({
       setShowModal(true);
     } else {
       submitDataToServer(data);
-      console.log("submitted");
     }
-    console.log({ errors });
-    console.log({ data });
   };
 
   const submitDataToServer = (
@@ -211,13 +197,7 @@ export const MeasureWrapper = ({
         headerText="Validation Error"
         handleModalResponse={handleValidationModalResponse}
         bodyText="There are still errors on this measure, would you still like to complete?"
-      ></QMR.YesNoModalDialog>
-      <QMR.YesNoModalDialog
-        isOpen={showClearDataModal}
-        headerText="Clear Data"
-        handleModalResponse={handleClearDataModalResponse}
-        bodyText="Do you want to clear all measure data?"
-      ></QMR.YesNoModalDialog>
+      />
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },

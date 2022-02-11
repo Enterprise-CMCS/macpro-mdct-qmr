@@ -3,9 +3,10 @@ import * as QMR from "components";
 
 import config from "config";
 interface Props {
-  handleClear: any;
-  handleSubmit: any;
-  handleValidation: any;
+  // these functions do not return a value
+  handleClear: () => void;
+  handleSubmit: () => void;
+  handleValidation: () => void;
 }
 
 export const CompleteMeasureFooter = ({
@@ -55,9 +56,7 @@ export const CompleteMeasureFooter = ({
                 textTransform: "capitalize",
               }}
               buttonText="Clear Data"
-              onClick={() => {
-                handleClear();
-              }}
+              onClick={handleClear}
             />
           )}
         </CUI.HStack>
