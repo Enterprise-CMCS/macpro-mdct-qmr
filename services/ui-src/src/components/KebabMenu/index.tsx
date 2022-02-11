@@ -18,7 +18,10 @@ export interface KebabMenuProps {
 export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
   return (
     <CUI.Menu>
-      <CUI.MenuButton aria-label="Action Menu">
+      <CUI.MenuButton
+        aria-label="Action Menu"
+        data-cy={`${menuItems[0].type}-kebab-menu`}
+      >
         <BsThreeDotsVertical />
       </CUI.MenuButton>
       <CUI.MenuList bg="blue.500" maxW="40px" p="0">
@@ -126,6 +129,7 @@ const DeleteMenuItemAlertDialog = ({
                 value={userInput}
                 placeholder="Enter 'DELETE' to confirm"
                 onChange={(e) => setUserInput(e.target.value)}
+                data-cy="delete-table-item-input"
               />
               <CUI.Text fontSize="xs" fontWeight="bold">
                 Enter DELETE to confirm.
@@ -133,7 +137,11 @@ const DeleteMenuItemAlertDialog = ({
             </CUI.AlertDialogBody>
 
             <CUI.AlertDialogFooter>
-              <CUI.Button ref={cancelRef} onClick={onClose}>
+              <CUI.Button
+                ref={cancelRef}
+                onClick={onClose}
+                data-cy="canel-delete-table-item-button"
+              >
                 Cancel
               </CUI.Button>
               <CUI.Button
@@ -142,6 +150,7 @@ const DeleteMenuItemAlertDialog = ({
                 ml={3}
                 type="submit"
                 isDisabled={userInput.toLocaleLowerCase() !== "delete"}
+                data-cy="delete-table-item-button"
               >
                 Delete
               </CUI.Button>

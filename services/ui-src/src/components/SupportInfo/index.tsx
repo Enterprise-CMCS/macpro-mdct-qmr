@@ -1,21 +1,30 @@
 import * as CUI from "@chakra-ui/react";
-export const SupportLinks = () => (
-  <>
-    <CUI.Text>
-      For technical questions regarding use of this application, please reach
-      out to{" "}
-      <CUI.Link href="mailto:MDCT_help@cms.hhs.gov" color="blue.600">
-        MDCT_help@cms.hhs.gov
-      </CUI.Link>
-      . For content related questions, such as about measure specifications or
-      what information to enter into each field, please reach out to{" "}
-      <CUI.Link href="mailto:MACQualityTA@cms.hhs.gov" color="blue.600">
-        MACQualityTA@cms.hhs.gov
-      </CUI.Link>
-      .
-    </CUI.Text>
 
-    <CUI.Text paddingTop="8" fontSize="x-small" color="gray.700">
+export const SupportLinks = () => (
+  <CUI.Text>
+    For technical questions regarding use of this application, please reach out
+    to{" "}
+    <CUI.Link href="mailto:MDCT_help@cms.hhs.gov" color="blue.600">
+      MDCT_help@cms.hhs.gov
+    </CUI.Link>
+    . For content related questions, such as about measure specifications or
+    what information to enter into each field, please reach out to{" "}
+    <CUI.Link href="mailto:MACQualityTA@cms.hhs.gov" color="blue.600">
+      MACQualityTA@cms.hhs.gov
+    </CUI.Link>
+    .
+  </CUI.Text>
+);
+export const SupportInfo = () => (
+  <>
+    <SupportLinks />
+
+    <CUI.Text
+      paddingTop="4"
+      fontSize="x-small"
+      color="gray.700"
+      line-height="normal"
+    >
       PRA Disclosure Statement: Centers for Medicare & Medicaid Services (CMS)
       collects this mandatory information in accordance with (42 U.S.C. 1396a)
       and (42 CFR 430.12); which sets forth the authority for the submittal and
