@@ -14,36 +14,6 @@ interface AdditonalCategoryProps {
   flagSubCat: boolean;
 }
 
-interface CheckboxChildrenProps {
-  /** name for react-hook-form registration */
-  name: string;
-  /** should this section have a subCat option? */
-  flagSubCat: boolean;
-  /** parent category name for description label */
-  parentName: string;
-}
-
-/**
- * Children for each Additional Category Section
- */
-const AdditionalCategoryCheckboxChildren = ({
-  name,
-  flagSubCat,
-  parentName,
-}: CheckboxChildrenProps) => {
-  return (
-    <CUI.Box key={`${name}.ageRangeWrapper`}>
-      <QMR.TextInput
-        name={`${name}.description`}
-        key={`${name}.description`}
-        label={`Define the additional ${parentName}`}
-      />
-      <NDRSets name={`${name}.ageRangeRates`} key={`${name}.ageRangeRates`} />
-      {flagSubCat && <SubCatSection name={name} key={name} />}
-    </CUI.Box>
-  );
-};
-
 /**
  * Additional [Race/Sex/Language/Etc] Category Section
  */
@@ -52,62 +22,43 @@ export const AddAnotherSection = ({
   parentName,
   flagSubCat,
 }: AdditonalCategoryProps) => {
-  const { control, watch } = useFormContext();
-  const { fields, append } = useFieldArray({
+  const { control } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
     name: `${name}.additionalSelections`,
     control,
     shouldUnregister: true,
   });
 
-  const watchFieldArray = watch(`${name}.additionalSelections`, []);
-  const controlledFields =
-    (watchFieldArray &&
-      fields.map((field, index) => {
-        console.log({ watchFieldArray });
-        return {
-          ...field,
-          ...watchFieldArray[index],
-        };
-      })) ||
-    [];
-
-  console.log({ controlledFields });
-  const addAnotherField = () => {
-    append({}, { shouldFocus: false });
-  };
-
-  const testOptions: QMR.CheckboxOption[] = controlledFields.map(
-    (_: any, idx: number) => {
-      return {
-        value: `additional${parentName.replace(/[^\w]/g, "")}.${idx}`,
-        displayValue: `Additional ${parentName}`,
-        childKey: _.id,
-        children: [
-          <AdditionalCategoryCheckboxChildren
-            flagSubCat={flagSubCat}
-            name={`${name}.additionalSelections.${idx}`}
-            key={`${name}.additionalSelections.${idx}`}
-            parentName={parentName}
-          />,
-        ],
-      };
-    }
-  );
-
   return (
     <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
-      <QMR.Checkbox
-        name={`${name}.additionalCategories`}
-        key={`${name}.additionalCategories`}
-        options={testOptions}
-      />
+      {fields.map((field: any, idx: number) => (
+        <QMR.DeleteWrapper
+          allowDeletion
+          onDelete={() => remove(idx)}
+          key={field.id}
+        >
+          <CUI.Box ml="6" key={field.id}>
+            <CUI.Text
+              size={"xl"}
+              ml="-6"
+              my="3"
+              onClick={() => remove(idx)}
+            >{`Additional ${parentName}`}</CUI.Text>
+            <QMR.TextInput
+              name={`${name}.additionalSelections.${idx}.description`}
+              label={`Define the additional ${parentName}`}
+              rules={{ required: true }}
+            />
+            <NDRSets
+              name={`${name}.additionalSelections.${idx}.ageRangeRates`}
+            />
+            {flagSubCat && <SubCatSection name={name} />}
+          </CUI.Box>
+        </QMR.DeleteWrapper>
+      ))}
       <AddAnotherButton
-        onClick={addAnotherField}
+        onClick={() => append({})}
         additionalText={parentName}
-        isDisabled={
-          controlledFields.length > 0 &&
-          !controlledFields[controlledFields.length - 1]?.description
-        }
         key={`${name}.additionalCategoriesButton`}
       />
     </CUI.Box>
