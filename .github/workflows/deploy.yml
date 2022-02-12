@@ -128,10 +128,10 @@ jobs:
     if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
     steps:
+      - uses: cypress-io/github-action@v2.11.7
       - name: Run cypress tests
-        uses: cypress-io/github-action@v2.11.7
         with:
-          working-directory: ../tests/cypress
+          working-directory: tests/cypress
           browser: chrome
           headless: true
           config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
@@ -140,7 +140,7 @@ jobs:
         if: failure()
         with:
           name: cypress-screenshots
-          path: ../tests/cypress/screenshots/
+          path: tests/cypress/screenshots/
 
       - name: Slack Notification
         if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
