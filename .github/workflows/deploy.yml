@@ -128,8 +128,8 @@ jobs:
     if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: cypress-io/github-action@v2.11.7
       - name: Run cypress tests
+        uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
           browser: chrome
