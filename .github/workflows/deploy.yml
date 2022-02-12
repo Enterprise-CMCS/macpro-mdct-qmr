@@ -72,9 +72,8 @@ jobs:
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
           # This can optionally be set as an GitHub Actions Secret
           ./deploy.sh $STAGE_PREFIX$branch_name
-
-  cypress-test:
-    name: Cypress Tests
+  init-cypress:
+    name: Initialize Cypress
     needs: deploy
     if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
@@ -123,7 +122,13 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Run Cypress Tests
+  cypress-tests:
+    name: Cypress Tests
+    needs: init-cypress
+    if: ${{ github.ref != 'refs/heads/prod' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run cypress tests
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
