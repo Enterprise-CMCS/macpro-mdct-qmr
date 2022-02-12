@@ -75,7 +75,6 @@ jobs:
           ./deploy.sh $STAGE_PREFIX$branch_name
   init-cypress:
     name: Initialize Cypress
-    needs: deploy
     if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
     steps:
