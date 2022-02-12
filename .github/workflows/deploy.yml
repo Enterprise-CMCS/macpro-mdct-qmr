@@ -10,6 +10,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.ref != 'refs/heads/parallel-e2e' }}
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
@@ -131,16 +132,16 @@ jobs:
       - name: Run cypress tests
         uses: cypress-io/github-action@v2.11.7
         with:
-          working-directory: tests/cypress
+          working-directory: ../tests/cypress
           browser: chrome
           headless: true
-          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: cypress-screenshots
-          path: tests/cypress/screenshots/
+          path: ../tests/cypress/screenshots/
 
       - name: Slack Notification
         if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
