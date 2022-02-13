@@ -78,6 +78,10 @@ jobs:
     name: Cypress Tests
     if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [cpaAD, fuaAD]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
