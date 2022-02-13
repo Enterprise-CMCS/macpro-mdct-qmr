@@ -76,7 +76,7 @@ jobs:
 
   cypress-test:
     name: Cypress Tests
-    needs: depploy
+    needs: deploy
     if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
     strategy:
