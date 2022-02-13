@@ -145,10 +145,10 @@ jobs:
           KNAPSACK_PRO_FIXED_QUEUE_SPLIT: true
         run: |
           $(npm bin)/knapsack-pro-cypress
-        with:
-          browser: chrome
-          headless: true
-          config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
+        # with:
+        #   browser: chrome
+        #   headless: true
+        #   config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
       # - name: Run Cypress Tests
       #   uses: cypress-io/github-action@v2.11.7
       #   with:
