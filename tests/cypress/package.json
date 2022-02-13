@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@knapsack-pro/cypress": "^4.5.0",
     "concurrently": "^6.2.1",
     "cypress": "^9.4.1",
     "cypress-xpath": "^1.6.2"

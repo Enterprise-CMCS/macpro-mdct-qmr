@@ -81,8 +81,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers:
-          [oy2_10017_Child_Measure_Qualifier_CH.spec, oy2-9954_PQI01AD.spec]
+        # node-version: [8.x]
+        # Set N number of parallel jobs you want to run tests on.
+        # Use higher number if you have slow tests to split them on more parallel jobs.
+        # Remember to update ci_node_index below to 0..N-1
+        ci_node_total: [2]
+        # set N-1 indexes for parallel jobs
+        # When you run 2 parallel jobs then first job will have index 0, the second job will have index 1 etc
+        ci_node_index: [0, 1]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
@@ -128,14 +134,28 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Run Cypress Tests
-        uses: cypress-io/github-action@v2.11.7
+      - name: Run tests with Knapsack Pro
+        working-directory: tests/cypress
+        env:
+          KNAPSACK_PRO_TEST_SUITE_TOKEN_CYPRESS: ${{ secrets.KNAPSACK_PRO_TEST_SUITE_TOKEN_CYPRESS }}
+          KNAPSACK_PRO_CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
+          KNAPSACK_PRO_CI_NODE_INDEX: ${{ matrix.ci_node_index }}
+          # allows rerun parallel jobs with the same set of tests
+          # that were consumed from Queue in the very first CI build run
+          KNAPSACK_PRO_FIXED_QUEUE_SPLIT: true
+        run: |
+          $(npm bin)/knapsack-pro-cypress
         with:
-          working-directory: tests/cypress
-          spec: cypress/integration/${{ matrix.containers }}.js
           browser: chrome
           headless: true
           config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
+      # - name: Run Cypress Tests
+      #   uses: cypress-io/github-action@v2.11.7
+      #   with:
+      #     working-directory: tests/cypress
+      #     browser: chrome
+      #     headless: true
+      #     config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
