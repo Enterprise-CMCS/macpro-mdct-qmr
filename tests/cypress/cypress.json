@@ -6,7 +6,7 @@
   "watchForFileChanges": true,
   "testFiles": ["**/*.feature", "**/*.spec.js"],
   "fixturesFolder": "fixtures",
-  "pluginsFile": "/tests/cypress/plugins/index.js",
+  "pluginsFile": "tests/cypress/plugins/index.js",
   "screenshotsFolder": "screenshots",
   "videosFolder": "videos",
   "downloadsFolder": "downloads",
