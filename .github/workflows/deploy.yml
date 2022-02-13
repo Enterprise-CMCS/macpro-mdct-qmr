@@ -81,15 +81,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [cpaAD.feature, fuaAD.feature]
+        containers:
+          [oy2_10017_Child_Measure_Qualifier_CH.spec, oy2-9954_PQI01AD.spec]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
       - name: set branch specific variable names
         run: ./.github/build_vars.sh set_names
       - name: set variable values
@@ -131,29 +128,14 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Run tests with Knapsack Pro
-        # working-directory: tests/cypress
-        env:
-          KNAPSACK_PRO_TEST_SUITE_TOKEN_CYPRESS: ${{ secrets.KNAPSACK_PRO_TEST_SUITE_TOKEN_CYPRESS }}
-          KNAPSACK_PRO_CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
-          KNAPSACK_PRO_CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-          # allows rerun parallel jobs with the same set of tests
-          # that were consumed from Queue in the very first CI build run
-          KNAPSACK_PRO_FIXED_QUEUE_SPLIT: true
-        run: |
-          export KNAPSACK_PRO_TEST_FILE_PATTERN="tests/cypress/cypress/integration/**/*.{js,feature}"
-          $(npm bin)/knapsack-pro-cypress
-        # with:
-        #   browser: chrome
-        #   headless: true
-        #   config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
-      # - name: Run Cypress Tests
-      #   uses: cypress-io/github-action@v2.11.7
-      #   with:
-      #     working-directory: tests/cypress
-      #     browser: chrome
-      #     headless: true
-      #     config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v2.11.7
+        with:
+          working-directory: tests/cypress
+          spec: cypress/integration/${{ matrix.containers }}.js
+          browser: chrome
+          headless: true
+          config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
