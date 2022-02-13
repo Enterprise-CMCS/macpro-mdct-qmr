@@ -10,7 +10,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.ref != 'refs/heads/parallel-e2e' }}
+    if: ${{ github.ref != 'refs/heads/prod' }}
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
@@ -74,10 +74,32 @@ jobs:
           # This can optionally be set as an GitHub Actions Secret
           ./deploy.sh $STAGE_PREFIX$branch_name
 
-  cypress-init:
-    name: Set up cypress
+  cypress-test:
+    name: Cypress Tests
+    needs: depploy
     if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers:
+          [
+            oy2_10017_Child_Measure_Qualifier_CH.spec.js,
+            oy2-9954_PQI01AD.spec.js,
+            cpaAD.spec.feature,
+            fuaAD.spec.feature,
+            fuaADoy2_8940.spec.feature,
+            fuaADoy2_15377.spec.feature,
+            lbwCH.spec.feature,
+            lrcdCH.spec.feature,
+            nciddsAD.spec.feature,
+            oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
+            oy2_14767_Allow_files_to_be_uploaded_to_s3.spec.feature,
+            oy2_15013_Update_user_auth_handling_in_ui.spec.feature,
+            oy2_15212_qmr_mdct_logo.spec.feature,
+            oy2_15504_Measure_validation_Error_Creation_Updates.spec.feature,
+            pdentCH.spec.feature,
+          ]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
@@ -123,78 +145,6 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-
-  cypress-test:
-    name: Cypress Tests
-    needs: cypress-init
-    if: ${{ github.ref != 'refs/heads/prod' }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        containers:
-          [
-            oy2_10017_Child_Measure_Qualifier_CH.spec.js,
-            oy2-9954_PQI01AD.spec.js,
-            cpaAD.spec.feature,
-            fuaAD.spec.feature,
-            fuaADoy2_8940.spec.feature,
-            fuaADoy2_15377.spec.feature,
-            lbwCH.spec.feature,
-            lrcdCH.spec.feature,
-            nciddsAD.spec.feature,
-            oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
-            oy2_14767_Allow_files_to_be_uploaded_to_s3.spec.feature,
-            oy2_15013_Update_user_auth_handling_in_ui.spec.feature,
-            oy2_15212_qmr_mdct_logo.spec.feature,
-            oy2_15504_Measure_validation_Error_Creation_Updates.spec.feature,
-            pdentCH.spec.feature,
-          ]
-    steps:
-      # - name: set branch_name
-      #   run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-      # - uses: actions/checkout@v1
-      # - name: set branch specific variable names
-      #   run: ./.github/build_vars.sh set_names
-      # - name: set variable values
-      #   run: ./.github/build_vars.sh set_values
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_ACCESS_KEY_ID] || secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_SECRET_ACCESS_KEY] || secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
-      #     INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
-      #     STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
-      #     COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     node-version: "12.x"
-      # - name: Combine yarn.lock files to single file
-      #   run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
-      # - name: cache service dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: |
-      #       services/app-api/node_modules
-      #       services/uploads/node_modules
-      #       services/stream-functions/node_modules
-      #       services/ui/node_modules
-      #       services/ui-auth/node_modules
-      #       services/ui-src/node_modules
-      #       node_modules
-      #     key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
-      # - name: Install dependencies
-      #   run: yarn install --frozen-lockfile
-      # - name: set path
-      #   run: |
-      #     echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      # - name: Endpoint
-      #   run: |
-      #     pushd services
-      #     export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
-      #     echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
-      #     echo "Application endpoint: $APPLICATION_ENDPOINT"
-      #     popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -202,7 +152,7 @@ jobs:
           spec: cypress/integration/${{ matrix.containers }}
           browser: chrome
           headless: true
-          config: baseUrl=https://d3reid24vp4yiu.cloudfront.net # baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
