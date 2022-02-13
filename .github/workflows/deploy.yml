@@ -10,7 +10,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.ref != 'refs/heads/prod' }}
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
