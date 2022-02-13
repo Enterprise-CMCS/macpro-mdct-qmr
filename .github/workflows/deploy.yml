@@ -81,7 +81,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [cpaAD.feature, fuaAD.feature]
+        containers:
+          [oy2_10017_Child_Measure_Qualifier_CH.spec, oy2-9954_PQI01AD.spec]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
