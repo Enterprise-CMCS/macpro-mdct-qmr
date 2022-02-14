@@ -175,31 +175,7 @@ export const IETAD = ({
             showEngageTotal65Plus ||
             showOtherPerformanceMeasureRates) && (
             <>
-              {" "}
-              {/* @ts-ignore */}
               <Q.OMS2 />
-              <Q.OptionalMeasureStratification
-                ageGroups={ageGroups}
-                deviationConditions={{
-                  showInitAlcohol18To64,
-                  showEngageAlcohol18To64,
-                  showInitOpioid18To64,
-                  showEngageOpioid18To64,
-                  showInitOther18To64,
-                  showEngageOther18To64,
-                  showInitTotal18To64,
-                  showEngageTotal18To64,
-                  showInitAlcohol65Plus,
-                  showEngageAlcohol65Plus,
-                  showInitOpioid65Plus,
-                  showEngageOpioid65Plus,
-                  showInitOther65Plus,
-                  showEngageOther65Plus,
-                  showInitTotal65Plus,
-                  showEngageTotal65Plus,
-                  showOtherPerformanceMeasureRates,
-                }}
-              />{" "}
             </>
           )}
         </>
