@@ -9,6 +9,15 @@ import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
+const LastModifiedBy = ({ user }: { user: string | undefined }) => {
+  if (!user) return null;
+  return (
+    <CUI.Box textAlign="right" mb="2">
+      <CUI.Text fontWeight="hairline">{`Last modified by: ${user}`}</CUI.Text>
+    </CUI.Box>
+  );
+};
+
 interface Props {
   measure: ReactElement;
   name: string;
@@ -181,6 +190,8 @@ export const MeasureWrapper = ({
     return null;
   }
 
+  console.log(measureData);
+
   return (
     <FormProvider {...methods}>
       <QMR.YesNoModalDialog
@@ -219,6 +230,7 @@ export const MeasureWrapper = ({
             <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
               <CUI.Container maxW="5xl" as="section">
+                <LastModifiedBy user={measureData?.lastAlteredBy} />
                 <CUI.Text fontSize="sm">
                   For technical questions regarding use of this application,
                   please reach out to MDCT_Help@cms.hhs.gov. For content-related
