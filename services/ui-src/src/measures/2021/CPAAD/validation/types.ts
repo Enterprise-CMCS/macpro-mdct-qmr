@@ -2,8 +2,6 @@ export namespace Measure {
   export interface Props {
     name: string;
     year: string;
-    handleSubmit?: any;
-    handleValidation?: any;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
   export interface Form {
