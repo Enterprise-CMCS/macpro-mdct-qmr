@@ -55,6 +55,7 @@ export const NumberInput = ({
           }
           data-testid="test-number-input"
           onBlur={field.onBlur}
+          ref={field.ref}
           type="text"
           aria-label={name}
           {...numberInputProps}

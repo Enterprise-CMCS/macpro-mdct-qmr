@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
-import { ACSQualifiers } from ".";
+import { CCSMQualifiers } from ".";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
 const queryClient = new QueryClient();
@@ -20,7 +20,7 @@ beforeEach(() => {
   render(
     <QueryClientProvider client={queryClient}>
       <RouterWrappedComp>
-        <ACSQualifiers />
+        <CCSMQualifiers />
       </RouterWrappedComp>
     </QueryClientProvider>
   );
