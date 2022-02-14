@@ -32,6 +32,7 @@ export const Table = <T extends TableData>({
               const element = column.cell(row);
               return (
                 <CUI.Td
+                  data-cy={`${column.header}-${row.id}`}
                   key={column.id + "_td"}
                   maxW="2xs"
                   {...column.styleProps}
