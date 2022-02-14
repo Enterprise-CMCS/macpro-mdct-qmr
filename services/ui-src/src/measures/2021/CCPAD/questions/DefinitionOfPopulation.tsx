@@ -21,8 +21,8 @@ export const DefinitionOfPopulation = () => {
       </CUI.Heading>
       <CUI.Text mt="3">
         Please select all populations that are included. For example, if your
-        data include both non-dual Medicaid enrollees and Medicare and Medicaid
-        Dual Eligibles, select both:
+        data include both non-dual Medicaid beneficiaries and Medicare and
+        Medicaid Dual Eligibles, select both:
       </CUI.Text>
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>Denominator includes Medicaid population</CUI.ListItem>
