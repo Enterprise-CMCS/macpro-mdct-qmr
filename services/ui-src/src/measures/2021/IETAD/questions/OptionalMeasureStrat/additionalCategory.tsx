@@ -52,7 +52,9 @@ export const AddAnotherSection = ({
             <NDRSets
               name={`${name}.additionalSelections.${idx}.ageRangeRates`}
             />
-            {flagSubCat && <SubCatSection name={name} />}
+            {flagSubCat && (
+              <SubCatSection name={`${name}.additionalSelections.${idx}`} />
+            )}
           </CUI.Box>
         </QMR.DeleteWrapper>
       ))}

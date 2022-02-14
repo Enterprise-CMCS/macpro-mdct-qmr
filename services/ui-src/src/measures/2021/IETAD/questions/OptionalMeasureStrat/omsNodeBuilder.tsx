@@ -28,7 +28,7 @@ const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
       <NDRSets name={`${name}.ageRangeRates`} key={`${name}.ageRangeRates`} />
-      {flagSubCat && <SubCatSection name={name} key={`${name}.subCatFields`} />}
+      {flagSubCat && <SubCatSection name={name} />}
     </CUI.Box>
   );
 };
