@@ -608,27 +608,6 @@ export const OptionalMeasureStratification = ({
               ],
             },
             {
-              value: "Sex",
-              displayValue: "Sex",
-              children: [
-                <QMR.Checkbox
-                  {...register("SexOptions")}
-                  options={[
-                    {
-                      value: "Male",
-                      displayValue: "Male",
-                      children: [<AgeData {...register("MaleSexRates")} />],
-                    },
-                    {
-                      value: "Female",
-                      displayValue: "Female",
-                      children: [<AgeData {...register("FemaleSexRates")} />],
-                    },
-                  ]}
-                />,
-              ],
-            },
-            {
               value: "PrimaryLanguageIncSignLanguage",
               displayValue: "Primary Language (including sign language)",
               children: [

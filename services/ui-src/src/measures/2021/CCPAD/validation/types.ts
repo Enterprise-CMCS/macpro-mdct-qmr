@@ -196,10 +196,6 @@ export namespace Measure {
     NativeHawaiianIndependentReporting: string;
     IndependentNativeHawaiianOptions: string[];
 
-    SexOptions: string[];
-    MaleSexRates: AggregateRate;
-    FemaleSexRates: AggregateRate;
-
     PrimaryLanguageOptions: string[];
     AddtnlPrimaryLanguage: string[];
     AddtnlPrimaryLanguageRates: AggregateRate[];

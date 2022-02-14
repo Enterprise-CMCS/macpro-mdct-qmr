@@ -40,7 +40,7 @@ export const CCPAD = ({
   });
 
   // Conditionals for Performance Measures
-  const isHHSOPA = watchMeasureSpecification === "HHS-OPA";
+  const isUSOPA = watchMeasureSpecification === "US-OPA";
 
   const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
@@ -101,9 +101,9 @@ export const CCPAD = ({
           <Q.DateRange type="adult" />
           <Q.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHHSOPA && <Q.PerformanceMeasure />}
+          {isUSOPA && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
-          {isHHSOPA && (
+          {isUSOPA && (
             <Q.DeviationFromMeasureSpec
               options={ageGroups}
               deviationConditions={{

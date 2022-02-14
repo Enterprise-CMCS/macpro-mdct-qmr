@@ -196,14 +196,13 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-//TODO:
 const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   let error;
   const measureSpecification = data["MeasurementSpecification"];
   const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
   const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
   const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
-  const isHEDIS = measureSpecification === "HHS-OPA";
+  const isHEDIS = measureSpecification === "US-OPA";
 
   let doesOtherNDRExist = false;
   otherPerformanceRates.forEach((ndr) => {
@@ -239,8 +238,6 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
 const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
   const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
   const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
-  console.log("sevenDays", sevenDays);
-  console.log("thirtyDays", thirtyDays);
 
   const errorArray: any[] = [];
 
@@ -266,6 +263,34 @@ const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
   return errorArray;
 };
 
+const validateDenominatorsAreEqual = (data: Measure.Form) => {
+  const larcCont = data["PerformanceMeasure-AgeRates-longActingContraception"];
+  const memeCont = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+  const errorArray: any[] = [];
+
+  if (larcCont?.length && memeCont?.length) {
+    for (const larcRate of larcCont) {
+      for (const memeRate of memeCont) {
+        if (larcRate?.denominator && memeRate?.denominator) {
+          const larcParsedInt = parseInt(larcRate.denominator);
+          const memeParsedInt = parseInt(memeRate.denominator);
+          if (larcParsedInt !== memeParsedInt) {
+            errorArray.push({
+              errorLocation: "Performance MEasure",
+              errorMessage:
+                "The denominators of Long-acting Reversible Method of Contraception (LARC) Rates and Most Effective or Moderately Effective Method of Contraception must be the same.",
+            });
+            break;
+          }
+        }
+      }
+      if (errorArray.length) break;
+    }
+  }
+
+  return errorArray;
+};
+
 export const validationFunctions = [
   validateRates,
   CCPADValidation,
@@ -274,4 +299,5 @@ export const validationFunctions = [
   validateAtLeastOneNDRSet,
   validate7DaysGreaterThan30Days,
   validate3daysLessOrEqualTo30days,
+  validateDenominatorsAreEqual,
 ];

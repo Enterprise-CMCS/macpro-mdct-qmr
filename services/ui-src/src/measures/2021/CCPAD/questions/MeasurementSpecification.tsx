@@ -11,8 +11,8 @@ export const MeasurementSpecification = () => {
         {...register("MeasurementSpecification")}
         options={[
           {
-            displayValue: "HHS Office of Population Affairs (OPA)",
-            value: "HHS-OPA",
+            displayValue: "U.S. Office of Population Affairs (OPA)",
+            value: "US-OPA",
           },
           {
             displayValue: "Other",
