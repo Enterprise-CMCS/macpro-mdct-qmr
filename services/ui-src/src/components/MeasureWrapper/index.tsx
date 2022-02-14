@@ -7,14 +7,24 @@ import { useParams } from "react-router-dom";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+
 interface Props {
   measure: ReactElement;
   name: string;
   year: string;
   measureId: string;
+  autocompleteOnCreation?: boolean;
 }
 
-export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
+export const MeasureWrapper = ({
+  measure,
+  name,
+  year,
+  measureId,
+  autocompleteOnCreation,
+}: Props) => {
+  const navigate = useNavigate();
   const params = useParams();
   const [errors, setErrors] = useState<any[]>();
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
@@ -83,26 +93,51 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     }
   };
 
+  const handleClear = () => {
+    submitDataToServer({
+      data: {},
+      status: MeasureStatus.INCOMPLETE,
+      callback: () => {
+        navigate(-1);
+      },
+    });
+  };
+
   const handleSubmit = (data: any) => {
     const validatedErrors = validateAndSetErrors(data);
 
     if (validatedErrors) {
       setShowModal(true);
     } else {
-      submitDataToServer(data);
-      console.log("submitted");
+      submitDataToServer({
+        data,
+        callback: () => {
+          navigate(-1);
+        },
+      });
     }
-    console.log({ errors });
-    console.log({ data });
   };
 
-  const submitDataToServer = (data: any) => {
+  const submitDataToServer = ({
+    data,
+    status = MeasureStatus.COMPLETE,
+    callback,
+  }: {
+    data: any;
+    status?: MeasureStatus;
+    callback?: () => void;
+  }) => {
     if (!mutationRunning && !loadingData) {
       updateMeasure(
-        { data, status: MeasureStatus.COMPLETE },
+        { data, status },
         {
           onSettled: (data, error) => {
-            if (data && !error) refetch();
+            if (data && !error) {
+              refetch();
+              if (callback) {
+                callback();
+              }
+            }
 
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
@@ -137,9 +172,8 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
     setShowModal(false);
 
     if (continueWithErrors) {
-      submitDataToServer(methods.getValues());
+      submitDataToServer({ data: methods.getValues() });
       setErrors(undefined);
-      console.log("Submitted");
     }
   };
 
@@ -154,7 +188,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         headerText="Validation Error"
         handleModalResponse={handleValidationModalResponse}
         bodyText="There are still errors on this measure, would you still like to complete?"
-      ></QMR.YesNoModalDialog>
+      />
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${params.state}/${year}`, name: `FFY ${year}` },
@@ -196,12 +230,17 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
                   name,
                   year,
                   measureId,
-                  handleSubmit: methods.handleSubmit(handleSubmit),
-                  handleValidation: methods.handleSubmit(handleValidation),
                   setValidationFunctions,
                   //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
                   // whenever the buttons have a loading prop
                 })}
+                {!autocompleteOnCreation && (
+                  <QMR.CompleteMeasureFooter
+                    handleClear={methods.handleSubmit(handleClear)}
+                    handleSubmit={methods.handleSubmit(handleSubmit)}
+                    handleValidation={methods.handleSubmit(handleValidation)}
+                  />
+                )}
               </CUI.Container>
               {errors?.map((error, index) => (
                 <QMR.Notification
