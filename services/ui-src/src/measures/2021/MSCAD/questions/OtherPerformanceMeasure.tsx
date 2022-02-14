@@ -15,17 +15,6 @@ export const OtherPerformanceMeasure = () => {
     ]
   );
 
-  const { watch } = useFormContext<Measure.Form>();
-
-  // Watch for dataSource data
-  const dataSourceWatch = watch("DataSource");
-
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
-
   return (
     <QMR.CoreQuestionWrapper label="Other Performance Measure">
       <QMR.TextArea
@@ -51,7 +40,7 @@ export const OtherPerformanceMeasure = () => {
                   },
                 ]}
                 name={`OtherPerformanceMeasure-Rates.${index}.rate`}
-                readOnly={rateReadOnly}
+                readOnly={false}
               />
             </CUI.Stack>
           );

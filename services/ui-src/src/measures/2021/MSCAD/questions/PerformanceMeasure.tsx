@@ -67,6 +67,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
+        readOnly={false}
         {...register("PerformanceMeasure-AgeRates-AdvisingUsers")}
       />
       <CUI.Text fontWeight="bold" my="5">
@@ -74,6 +75,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
+        readOnly={false}
         {...register("PerformanceMeasure-AgeRates-DiscussingMedications")}
       />
       <CUI.Text fontWeight="bold" my="5">
@@ -81,6 +83,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
+        readOnly={false}
         {...register("PerformanceMeasure-AgeRates-DiscussingStrategies")}
       />
       <CUI.Text fontWeight="bold" my="5">
@@ -88,6 +91,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       <QMR.Rate
         rates={ageRates}
+        readOnly={false}
         {...register("PerformanceMeasure-AgeRates-PercentageUsers")}
       />
     </QMR.CoreQuestionWrapper>
