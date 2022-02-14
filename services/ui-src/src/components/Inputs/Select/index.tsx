@@ -14,7 +14,6 @@ interface SelectProps extends QMR.InputWrapperProps {
   placeholder?: string;
   options: SelectOption[];
   name: string;
-  testId?: string;
 }
 
 export const Select = ({
@@ -22,7 +21,6 @@ export const Select = ({
   placeholder,
   options,
   name,
-  testId,
   ...rest
 }: SelectProps) => {
   const {
@@ -54,10 +52,10 @@ export const Select = ({
         placeholder={placeholder}
         isInvalid={!!objectPath.get(errors, name)?.message}
         icon={<TiArrowUnsorted />}
-        data-cy={testId || name}
+        data-cy={name}
       >
         {options.map(({ displayValue, value }) => (
-          <option value={value} key={value}>
+          <option value={value} key={value} data-cy={`${name}-${value}`}>
             {displayValue}
           </option>
         ))}

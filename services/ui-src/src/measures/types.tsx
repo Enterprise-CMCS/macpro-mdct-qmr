@@ -45,6 +45,7 @@ export namespace Measure {
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;
     "DataSource-Administrative-Other-Explanation"?: string;
+    "DataSource-Electronic?": string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
     "DataSource-Hybrid"?: string[];

@@ -32,9 +32,11 @@ export const Notification = ({
     >
       <CUI.AlertIcon alignSelf="start" />
       <CUI.Box>
-        <CUI.AlertTitle>{alertTitle}</CUI.AlertTitle>
+        <CUI.AlertTitle data-cy={alertTitle}>{alertTitle}</CUI.AlertTitle>
         {alertDescription && (
-          <CUI.AlertDescription>{alertDescription}</CUI.AlertDescription>
+          <CUI.AlertDescription data-cy={alertDescription}>
+            {alertDescription}
+          </CUI.AlertDescription>
         )}
       </CUI.Box>
       {close && (
