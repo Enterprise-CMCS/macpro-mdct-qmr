@@ -125,15 +125,7 @@ export const StateHome = () => {
     );
   }
   if (isLoading || !data.Items) {
-    // we should have a loading state here
-    return (
-      <CUI.Box data-testid="no-state-data">
-        <QMR.Notification
-          alertStatus="warning"
-          alertTitle="Data is currently loading or not found"
-        />
-      </CUI.Box>
-    );
+    return <QMR.LoadingWave />;
   }
 
   const formattedTableItems = formatTableItems({
