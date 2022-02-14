@@ -1,4 +1,5 @@
 import { Measure } from "./types";
+import { validateNoNonZeroNumOrDenom } from "../../globalValidations/validationsLib";
 
 const validateRates = (data: Measure.Form) => {
   const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
@@ -236,6 +237,17 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   return error;
 };
 
+export const validateManuallyEnteredRates = (data: Measure.Form) => {
+  return validateNoNonZeroNumOrDenom(
+    [
+      data["PerformanceMeasure-AgeRates-7Days"],
+      data["PerformanceMeasure-AgeRates-30Days"],
+    ],
+    data["OtherPerformanceMeasure-Rates"],
+    ["Ages 18 - 64", "Age 65 and older"]
+  );
+};
+
 export const validationFunctions = [
   validateRates,
   validate7DaysGreaterThan30Days,
@@ -243,4 +255,5 @@ export const validationFunctions = [
   validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
+  validateManuallyEnteredRates,
 ];

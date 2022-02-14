@@ -278,7 +278,7 @@ describe("OY2 8943 Measure 10: FUH-AD", () => {
     );
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch div.chakra-skeleton.css-cdkrf0 section.chakra-container.css-1a3ltpp div.css-1v7r4tf:nth-child(9) div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-form-control.css-1kxonj9 div.chakra-stack.css-n21gh5 div.css-79elbk label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
+      "body.chakra-ui-light:nth-child(2) div:nth-child(1) main:nth-child(2) div.chakra-container.css-4hb9ch div.chakra-skeleton.css-cdkrf0 > form:nth-child(1)"
     ).should("be.visible");
 
     cy.get(
