@@ -255,7 +255,7 @@ export const DefinitionOfPopulation = () => {
                         children: [
                           <CUI.Text mb="5" key="AdditionalMCOIncludedText">
                             {
-                              "What number of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are"
+                              "What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are"
                             }
                             <CUI.Text as="i" fontWeight="600">
                               {" included "}
