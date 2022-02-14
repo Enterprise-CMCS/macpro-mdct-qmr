@@ -18,7 +18,7 @@ const verifyPictureFileIsUploaded =
 
 //OY2-15504
 const saveButtn = "//button[@class='chakra-button css-hp17lz']";
-const saveStatusUnderSaveButton = "//p[@class='chakra-text css-nr0v7p']";
+const saveStatusUnderSaveButton = "//p[@id='last-saved-text']";
 const NCQARadioButton =
   "(//span[@class='chakra-radio__control css-gzpnyx'])[5]";
 const selectOption = "//div[@class='chakra-select__wrapper css-42b2qy']";
@@ -47,7 +47,7 @@ const verifyFFY2020 =
 const verifyFFY2019 =
   "//option[contains(text(),'HEDIS 2019 (FFY 2019 Core Set Reporting)')]";
 const nationalCommitteForQualityAssuranceRadioBTN =
-  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[3]/div[1]/div[1]/div[1]/div[1]/label[1]/span[1]";
+  "#MeasurementSpecification-NCQAHEDIS";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const administrativeDataRadioBTN =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/label[1]/span[1]";
@@ -185,7 +185,6 @@ export class FUAADPAGE {
   clickSaveButtnVerifyStatus() {
     cy.xpath(saveButtn).click();
     cy.wait(500);
-    //cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
   }
 
   clickNCQAHEDIS() {
@@ -199,7 +198,7 @@ export class FUAADPAGE {
 
   clickValidateMeasureButtonVerify() {
     cy.xpath(validateMeasureButton).click();
-    cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
+    // cy.get(saveStatusUnderSaveButton).contains("Saved");
     cy.xpath(errorMessageContent).contains(
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
     );
@@ -264,7 +263,7 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click({
+    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click({
       force: true,
     });
   }
@@ -289,7 +288,6 @@ export class FUAADPAGE {
   clickSaveButtnVerifyStatus() {
     cy.xpath(saveButtn).click();
     cy.wait(500);
-    //cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
   }
 
   clickNCQAHEDIS() {
@@ -303,7 +301,7 @@ export class FUAADPAGE {
 
   clickValidateMeasureButtonVerify() {
     cy.xpath(validateMeasureButton).click();
-    cy.xpath(saveStatusUnderSaveButton).contains("Saved Moments Ago");
+    // cy.get(saveStatusUnderSaveButton).contains("Saved");
     cy.xpath(errorMessageContent).contains(
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
     );
@@ -368,7 +366,7 @@ export class FUAADPAGE {
     cy.xpath(verifyFFY2019).should("be.visible");
   }
   clicknationalCommitteForQualityAssuranceRadioBTN() {
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click({
+    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click({
       force: true,
     });
   }
@@ -411,7 +409,7 @@ export class FUAADPAGE {
   clickOtherDataSourceRadioBTN() {
     cy.xpath(otherDataSourceRadioBTN).click();
     cy.wait(2000);
-    cy.xpath(nationalCommitteForQualityAssuranceRadioBTN).click();
+    cy.get(nationalCommitteForQualityAssuranceRadioBTN).click({ force: true });
   }
   clickYesForReportingMeasure() {
     cy.wait(2000);

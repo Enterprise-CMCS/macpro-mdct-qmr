@@ -8,7 +8,6 @@ export interface ACSQualifierForm {
 }
 
 export interface DeliverySystem {
-  key: string;
   label: string;
   TwentyOneToSixtyFour: string;
   GreaterThanSixtyFour: string;
