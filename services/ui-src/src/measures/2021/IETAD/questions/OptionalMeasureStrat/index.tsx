@@ -9,6 +9,7 @@ import { OMSData } from "../data/OMSData";
 
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
+import * as CUI from "@chakra-ui/react";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -71,13 +72,30 @@ export const OMS2 = () => {
   });
 
   return (
-    <PerformanceMeasureProvider
-      value={{ OPM, performanceMeasureArray, rateReadOnly }}
-    >
-      <QMR.Checkbox
-        {...register("OptionalMeasureStratification.options")}
-        options={checkBoxOptions}
-      />
-    </PerformanceMeasureProvider>
+    <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
+      <PerformanceMeasureProvider
+        value={{ OPM, performanceMeasureArray, rateReadOnly }}
+      >
+        <CUI.Text py="3">
+          If this measure is also reported by additional
+          classifications/sub-categories, e.g. racial, ethnic, sex, language,
+          disability status, or geography, complete the following as applicable.
+          If your state reported for classifications/sub-categories other than
+          those listed below, or reported for different rate sets, please click
+          on “Add Another” to add Additional/Alternative
+          Classification/Sub-categories as needed.
+        </CUI.Text>
+        <CUI.Text py="3">
+          Do not select categories and sub-classifications for which you will
+          not be reporting any data. If a sub-classification is selected, the
+          system will enter zeros by default and report this as the data for
+          your state/territory.
+        </CUI.Text>
+        <QMR.Checkbox
+          {...register("OptionalMeasureStratification.options")}
+          options={checkBoxOptions}
+        />
+      </PerformanceMeasureProvider>
+    </QMR.CoreQuestionWrapper>
   );
 };
