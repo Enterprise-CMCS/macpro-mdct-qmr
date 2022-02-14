@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+
 interface Props {
   measure: ReactElement;
   name: string;
@@ -22,6 +24,7 @@ export const MeasureWrapper = ({
   measureId,
   autocompleteOnCreation,
 }: Props) => {
+  const navigate = useNavigate();
   const params = useParams();
   const [errors, setErrors] = useState<any[]>();
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
@@ -91,7 +94,13 @@ export const MeasureWrapper = ({
   };
 
   const handleClear = () => {
-    submitDataToServer({ data: {} }, MeasureStatus.INCOMPLETE);
+    submitDataToServer({
+      data: {},
+      status: MeasureStatus.INCOMPLETE,
+      callback: () => {
+        navigate(-1);
+      },
+    });
   };
 
   const handleSubmit = (data: any) => {
@@ -100,20 +109,35 @@ export const MeasureWrapper = ({
     if (validatedErrors) {
       setShowModal(true);
     } else {
-      submitDataToServer(data);
+      submitDataToServer({
+        data,
+        callback: () => {
+          navigate(-1);
+        },
+      });
     }
   };
 
-  const submitDataToServer = (
-    data: any,
-    status: MeasureStatus = MeasureStatus.COMPLETE
-  ) => {
+  const submitDataToServer = ({
+    data,
+    status = MeasureStatus.COMPLETE,
+    callback,
+  }: {
+    data: any;
+    status?: MeasureStatus;
+    callback?: () => void;
+  }) => {
     if (!mutationRunning && !loadingData) {
       updateMeasure(
         { data, status },
         {
           onSettled: (data, error) => {
-            if (data && !error) refetch();
+            if (data && !error) {
+              refetch();
+              if (callback) {
+                callback();
+              }
+            }
 
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
@@ -148,9 +172,8 @@ export const MeasureWrapper = ({
     setShowModal(false);
 
     if (continueWithErrors) {
-      submitDataToServer(methods.getValues());
+      submitDataToServer({ data: methods.getValues() });
       setErrors(undefined);
-      console.log("Submitted");
     }
   };
 
