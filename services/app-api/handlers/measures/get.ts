@@ -9,7 +9,7 @@ export const listMeasures = handler(async (event, context) => {
   const coreSet = event.pathParameters?.coreSet;
 
   const params = {
-    TableName: process.env.measureTableName,
+    TableName: process.env.measureTableName!,
     ...convertToDynamoExpression(
       { state: state, year: parseInt(year), coreSet: coreSet },
       "list"
@@ -22,10 +22,10 @@ export const listMeasures = handler(async (event, context) => {
 export const getMeasure = handler(async (event, context) => {
   const dynamoKey = createCompoundKey(event);
   const params = {
-    TableName: process.env.measureTableName,
+    TableName: process.env.measureTableName!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event!.pathParameters!.coreSet!,
+      coreSet: event.pathParameters!.coreSet!,
     },
   };
   const queryValue = await dynamoDb.get(params);

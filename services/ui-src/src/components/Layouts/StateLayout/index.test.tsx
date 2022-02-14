@@ -9,12 +9,7 @@ describe("Test State Layout Component", () => {
       <RouterWrappedComp>
         <StateLayout
           breadcrumbItems={[{ path: `/OH/2021`, name: `FFY 2021` }]}
-          buttons={
-            <QMR.MeasureButtons
-              handleSave={() => {}}
-              lastSavedText="Saved Moments Ago"
-            />
-          }
+          buttons={<QMR.MeasureButtons handleSave={() => {}} />}
         />
       </RouterWrappedComp>
     );
@@ -29,7 +24,7 @@ describe("Test State Layout Component", () => {
           buttons={
             <QMR.MeasureButtons
               handleSave={() => {}}
-              lastSavedText="Saved Moments Ago"
+              lastAltered={1643771392904}
             />
           }
         />

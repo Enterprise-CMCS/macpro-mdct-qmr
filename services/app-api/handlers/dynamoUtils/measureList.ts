@@ -75,7 +75,7 @@ export const measures: Measure = {
     {
       type: "A",
       description:
-        "Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.10H, Adult Version (Medicaid)",
+        "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
       measure: "CPA-AD",
     },
     {
@@ -162,7 +162,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "PQI 01: Diabetes Short-term Complications Admission Rate",
+      description: "PQI 01: Diabetes Short-Term Complications Admission Rate",
       measure: "PQI01-AD",
     },
     {
