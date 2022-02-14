@@ -1,11 +1,17 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Q from "./";
+import { QualifierHeader } from "./qualifierHeader";
 import { ICheckbox } from "components/MultiSelect";
-import { useController, useFormContext } from "react-hook-form";
-import { AuditDetails } from "../types";
+import { useFieldArray } from "react-hook-form";
 import { HiX } from "react-icons/hi";
+import { measuresList } from "measures/measuresList";
+import { useParams } from "react-router-dom";
+
+export const initialAuditValues = {
+  MeasuresAuditedOrValidated: [],
+  WhoConductedAuditOrValidation: "",
+};
 
 export const CloseButton = ({ onClick }: { onClick: () => void }) => (
   <CUI.IconButton
@@ -17,65 +23,40 @@ export const CloseButton = ({ onClick }: { onClick: () => void }) => (
   />
 );
 
-export const Audit = () => {
-  const { control } = useFormContext();
-  const { field } = useController({
+interface Props {
+  type: "CH" | "AD";
+}
+
+export const Audit = ({ type }: Props) => {
+  const { year } = useParams();
+  const { fields, append, remove, replace } = useFieldArray({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
-    control,
   });
 
-  const [measureList, setMeasureList] = useState(field.value);
+  const multiSelectMeasures = measuresList[year as string]
+    .filter((item) => {
+      return item.type === type;
+    })
+    // filter out the survey measures.
+    .filter((item) => {
+      return !item.autocompleteOnCreation;
+    })
+    .map((obj) => {
+      return {
+        label: obj.measureId + " - " + obj.name,
+        value: obj.measureId,
+        isVisible: true,
+      };
+    });
 
   const multiSelectList = useMemo<ICheckbox[]>(
-    () => [
-      {
-        label: "AMM-AD - Antidepressant Medication Management",
-        value: "AMM-AD",
-        isVisible: true,
-      },
-      {
-        label: "AMR-AD - Asthma Medication Ratio: Ages 19 to 64",
-        value: "AMR-AD",
-        isVisible: true,
-      },
-      {
-        label: "BCS-AD - Breast Cancer Screening",
-        value: "BCS-AD",
-        isVisible: true,
-      },
-      {
-        label: "CBP-AD - Controlling High Blood Pressue",
-        value: "CBP-AD",
-        isVisible: true,
-      },
-      {
-        label: "CCP-AD - Contraceptive Care Postpartum Women Ages 21 - 44",
-        value: "CCP-AD",
-        isVisible: true,
-      },
-    ],
-    []
+    () => multiSelectMeasures,
+    [multiSelectMeasures]
   );
-
-  const handleAddMeasureList = () => {
-    setMeasureList([
-      ...measureList,
-      {
-        MeasuresAuditedOrValidated: [],
-        WhoConductedAuditOrValidation: "",
-      },
-    ]);
-  };
-
-  const removeAuditItem = (index: number) => {
-    const newMeasureList = [...measureList];
-    newMeasureList.splice(index, 1);
-    setMeasureList(newMeasureList);
-  };
 
   return (
     <CUI.ListItem>
-      <Q.QualifierHeader
+      <QualifierHeader
         header="Audit or Validation of Measures"
         description="Were any of the Core Set meaures audited or validated?"
       />
@@ -93,16 +74,17 @@ export const Audit = () => {
                   "Yes, some of the Core Set measures have been audited or validated",
                 children: [
                   <CUI.Stack mb="5" spacing="6">
-                    {measureList.map((m: AuditDetails, index: number) => {
+                    {fields?.map((field, index: number) => {
                       return (
                         <CUI.Box
                           border="1px"
                           borderColor="gray.200"
                           borderRadius="md"
-                          key={`${Object.keys(m).join("-")}${index}.key`}
+                          key={field.id}
                         >
                           <CUI.Flex>
                             <QMR.TextInput
+                              rules={{ required: true }}
                               formLabelProps={{ fontWeight: "400" }}
                               label="Who conducted the audit or validation?"
                               name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.WhoConductedAuditOrValidation`}
@@ -113,17 +95,19 @@ export const Audit = () => {
                             />
                             <CUI.Spacer />
                             {index !== 0 && (
-                              <CloseButton
-                                onClick={() => removeAuditItem(index)}
-                              />
+                              <CloseButton onClick={() => remove(index)} />
                             )}
                           </CUI.Flex>
                           <CUI.Box p="5">
-                            <CUI.Text mb="4">
+                            <CUI.Text
+                              mb="4"
+                              data-cy={`which-measures-did-they-audit-${index}`}
+                            >
                               Which measures did they audit or validate?
                             </CUI.Text>
 
                             <QMR.MultiSelect
+                              isRequired
                               multiSelectList={multiSelectList}
                               name={`CoreSetMeasuresAuditedOrValidatedDetails.${index}.MeasuresAuditedOrValidated`}
                             />
@@ -139,15 +123,23 @@ export const Audit = () => {
                       colorScheme: "blue",
                       textTransform: "capitalize",
                     }}
-                    onClick={handleAddMeasureList}
+                    onClick={() => append(initialAuditValues)}
                   />,
                 ],
+                onClick: () => {
+                  if (fields.length === 0) {
+                    replace(initialAuditValues);
+                  }
+                },
               },
               {
                 displayValue:
                   "No, none of the Core Set measures have been audited or validated",
                 value:
                   "No, none of the Core Set measures have been audited or validated",
+                onClick: () => {
+                  remove();
+                },
               },
             ]}
           />

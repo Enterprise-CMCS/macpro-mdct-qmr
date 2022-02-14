@@ -16,7 +16,7 @@ export function Footer(): JSX.Element {
             Do you have questions or need support?
           </CUI.Text>
           <CUI.Box fontSize="sm" mb="4">
-            <QMR.SupportLinks />
+            <QMR.SupportInfo />
           </CUI.Box>
         </CUI.Box>
       </CUI.Container>

@@ -7,6 +7,7 @@ interface DeleteWrapperProps extends CUI.ColorProps {
   onDelete?: () => void;
   allowDeletion?: boolean;
   childWrapperProps?: CUI.BoxProps;
+  showText?: boolean;
 }
 
 export const DeleteWrapper = ({
@@ -15,6 +16,7 @@ export const DeleteWrapper = ({
   childWrapperProps,
   color = "blue.600",
   textColor = "blue.600",
+  showText = true,
   allowDeletion,
 }: DeleteWrapperProps) => {
   const [render, setRender] = useState(true);
@@ -27,7 +29,7 @@ export const DeleteWrapper = ({
       {allowDeletion && (
         <CUI.HStack
           top={0}
-          right={"-6rem"}
+          right={showText ? "-6rem" : "-3rem"}
           zIndex={2}
           position={"absolute"}
           padding={2}
@@ -46,8 +48,9 @@ export const DeleteWrapper = ({
             onDelete && onDelete();
             setRender(false);
           }}
+          tabIndex={-1}
         >
-          {isHovered && (
+          {isHovered && showText && (
             <CUI.Text size={"sm"} color={textColor}>
               Delete
             </CUI.Text>
