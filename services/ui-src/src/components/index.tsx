@@ -1,6 +1,7 @@
 export * from "./AutocompletedMeasureTemplate";
 export * from "./AdminMask";
 export * from "./Breadcrumbs";
+export * from "./CompleteMeasureFooter";
 export * from "./ContainedButton";
 export * from "./CoreQuestionWrapper";
 export * from "./DateRange";

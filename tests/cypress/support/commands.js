@@ -22,6 +22,9 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
   cy.get(`[data-cy="${measure}"]`).click();
+  cy.wait(2000);
+  cy.get(`[data-cy="Clear Data"]`).click();
+  cy.get(`[data-cy="${measure}"]`).click();
 });
 
 // Correct sections visible when user is reporting data on measure
