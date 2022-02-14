@@ -6,7 +6,7 @@ export namespace Measure {
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
-  interface RateFields {
+  export interface RateFields {
     numerator: string;
     denominator: string;
     rate: string;
@@ -17,9 +17,61 @@ export namespace Measure {
     total: RateFields[];
   }
 
-  interface OtherRatesFields {
-    description: string[];
+  export interface OtherRatesFields {
+    description: string;
     rate: RateFields[];
+  }
+
+  interface OmsRateFields {
+    options: string[];
+    rates: {
+      [ageRange: string]: RateFields[];
+    };
+  }
+
+  interface LowLevelOmsNode {
+    // if just ndr sets
+    ageRangeRates?: OmsRateFields;
+
+    // for additional subCats/add anothers
+    subCatOptions?: string[];
+    subCategories?: {
+      description: string;
+      ageRangeRates: OmsRateFields;
+    }[];
+  }
+
+  interface MidLevelOMSNode extends LowLevelOmsNode {
+    // if sub-options
+    aggregate?: string;
+    options?: string[];
+    selections?: {
+      [option: string]: LowLevelOmsNode;
+    };
+  }
+
+  interface TopLevelOmsNode {
+    // top level child, ex: Race, Sex, Ethnicity
+    options?: string[]; // checkbox
+    additionalCategories?: string[]; // add another section
+    selections?: {
+      [option: string]: MidLevelOMSNode;
+    };
+    additionalSelections?: AddtnlOmsNode[];
+
+    // catch case for ACA
+    ageRangeRates?: OmsRateFields;
+  }
+
+  interface AddtnlOmsNode extends LowLevelOmsNode {
+    description: string;
+  }
+
+  interface DeviationFields {
+    options: string[];
+    denominator: string;
+    numerator: string;
+    other: string;
   }
 
   export interface Form {
@@ -110,126 +162,41 @@ export namespace Measure {
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
     "DeviationOptions-InitAlcohol-AgeRange": string[];
-    "DeviationFields-InitAlcohol": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-InitAlcohol": DeviationFields;
+
     "DeviationOptions-EngageAlcohol-AgeRange": string[];
-    "DeviationFields-EngageAlcohol": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-EngageAlcohol": DeviationFields;
+
     "DeviationOptions-InitOpioid-AgeRange": string[];
-    "DeviationFields-InitOpioid": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-InitOpioid": DeviationFields;
+
     "DeviationOptions-EngageOpioid-AgeRange": string[];
-    "DeviationFields-EngageOpioid": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-EngageOpioid": DeviationFields;
+
     "DeviationOptions-InitOther-AgeRange": string[];
-    "DeviationFields-InitOther": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-InitOther": DeviationFields;
+
     "DeviationOptions-EngageOther-AgeRange": string[];
-    "DeviationFields-EngageOther": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-EngageOther": DeviationFields;
+
     "DeviationOptions-InitTotal-AgeRange": string[];
-    "DeviationFields-InitTotal": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-InitTotal": DeviationFields;
+
     "DeviationOptions-EngageTotal-AgeRange": string[];
-    "DeviationFields-EngageTotal": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-EngageTotal": DeviationFields;
+
+    //PerformanceMeasure
     "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-Initiation-Alcohol": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Engagement-Alcohol": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Initiation-Opioid": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Engagement-Opioid": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Initiation-Other": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Engagement-Other": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Initiation-Total": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Engagement-Total": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
+    "PerformanceMeasure-AgeRates-Initiation-Alcohol": RateFields[];
+    "PerformanceMeasure-AgeRates-Engagement-Alcohol": RateFields[];
+    "PerformanceMeasure-AgeRates-Initiation-Opioid": RateFields[];
+    "PerformanceMeasure-AgeRates-Engagement-Opioid": RateFields[];
+    "PerformanceMeasure-AgeRates-Initiation-Other": RateFields[];
+    "PerformanceMeasure-AgeRates-Engagement-Other": RateFields[];
+    "PerformanceMeasure-AgeRates-Initiation-Total": RateFields[];
+    "PerformanceMeasure-AgeRates-Engagement-Total": RateFields[];
+
+    //DateRange
     DateRange: {
       endDate: {
         selectedMonth: number;
@@ -301,5 +268,12 @@ export namespace Measure {
     AddtnlGeographyRate: AggregateRate;
 
     ACAGroupRate: AggregateRate;
+
+    OptionalMeasureStratification: {
+      options: string[]; //checkbox
+      selections: {
+        [option: string]: TopLevelOmsNode;
+      };
+    };
   }
 }
