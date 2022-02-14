@@ -1,31 +1,14 @@
+import { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Q from "./questions";
+import { DeliverySystems } from "./deliverySystems";
+import * as Common from "../Common";
 import { useForm, FormProvider } from "react-hook-form";
 import { ACSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUpdateMeasure, useGetMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { useQueryClient } from "react-query";
-import { formatDistanceToNow } from "date-fns";
-import { FaCheckCircle } from "react-icons/fa";
-
-const LastSavedText = ({ lastAltered }: { lastAltered?: number }) => {
-  if (!lastAltered) return null;
-  const lastAlteredText = formatDistanceToNow(new Date(lastAltered), {
-    addSuffix: true,
-  });
-  return (
-    <CUI.Flex justifyContent="center">
-      <CUI.Box mt="1">
-        <FaCheckCircle />
-      </CUI.Box>
-      <CUI.Text ml="2" fontSize="sm">
-        {`Submitted ${lastAlteredText}`}
-      </CUI.Text>
-    </CUI.Flex>
-  );
-};
 
 export const ACSQualifiers = () => {
   const { state, year } = useParams();
@@ -42,45 +25,38 @@ export const ACSQualifiers = () => {
   const methods = useForm<ACSQualifierForm>({
     shouldUnregister: true,
     mode: "all",
-    defaultValues: data?.Item.data || {
+    defaultValues: {
+      CoreSetMeasuresAuditedOrValidatedDetails: [Common.initialAuditValues],
       PercentageEnrolledInEachDeliverySystem: [
         {
-          key: "FeeForService",
           label: "Fee-for-Service",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
-          userGenerated: false,
         },
         {
-          key: "PCCM",
           label: "PCCM",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
-          userGenerated: false,
         },
         {
-          key: "ManagedCare",
           label: "Managed Care",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
-          userGenerated: false,
         },
         {
-          key: "IntegtatedCareModel",
           label: "Integrated Care Model (ICM)",
           TwentyOneToSixtyFour: "",
           GreaterThanSixtyFour: "",
-          userGenerated: false,
-        },
-      ],
-      CoreSetMeasuresAuditedOrValidatedDetails: [
-        {
-          MeasuresAuditedOrValidated: [],
-          WhoConductedAuditOrValidation: "",
         },
       ],
     },
   });
+
+  useEffect(() => {
+    if (!methods.formState.isDirty) {
+      methods.reset(data?.Item?.data);
+    }
+  }, [data, methods]);
 
   const handleSubmit = (data: ACSQualifierForm) => {
     const requestData = {
@@ -113,12 +89,13 @@ export const ACSQualifiers = () => {
         },
       ]}
       buttons={
-        data?.Item.data && (
-          <LastSavedText lastAltered={data?.Item.lastAltered} />
+        data?.Item?.data && (
+          <QMR.LastSavedText lastAltered={data?.Item.lastAltered} />
         )
       }
     >
       <FormProvider {...methods}>
+        <QMR.AdminMask />
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="5xl" as="section">
             <CUI.Box mb="7" mt="3">
@@ -128,10 +105,10 @@ export const ACSQualifiers = () => {
               <QMR.SupportLinks />
             </CUI.Box>
             <CUI.OrderedList>
-              <Q.DeliverySystems />
-              <Q.Audit />
-              <Q.ExternalContractor />
-              <Q.CompleteCoreSets completeEnabled={methods.formState.isDirty} />
+              <DeliverySystems />
+              <Common.Audit type="AD" />
+              <Common.ExternalContractor />
+              <Common.CompleteCoreSets type="AD" />
             </CUI.OrderedList>
           </CUI.Box>
         </form>
