@@ -181,7 +181,12 @@ export const MeasureWrapper = ({
     setShowModal(false);
 
     if (continueWithErrors) {
-      submitDataToServer({ data: methods.getValues() });
+      submitDataToServer({
+        data: methods.getValues(),
+        callback: () => {
+          navigate(-1);
+        },
+      });
       setErrors(undefined);
     }
   };
