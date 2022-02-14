@@ -72,6 +72,7 @@ export const MeasureWrapper = ({ measure, name, year, measureId }: Props) => {
         {
           data,
           status: MeasureStatus.INCOMPLETE,
+          reporting: handleReportingResponse(data),
         },
         {
           onSettled: (data, error) => {
