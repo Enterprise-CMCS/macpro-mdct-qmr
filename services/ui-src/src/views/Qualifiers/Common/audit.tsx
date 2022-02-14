@@ -37,6 +37,10 @@ export const Audit = ({ type }: Props) => {
     .filter((item) => {
       return item.type === type;
     })
+    // filter out the survey measures.
+    .filter((item) => {
+      return !item.autocompleteOnCreation;
+    })
     .map((obj) => {
       return {
         label: obj.measureId + " - " + obj.name,
