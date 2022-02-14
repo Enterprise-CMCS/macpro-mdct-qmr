@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 
 import { OmsNode } from "../data/OMSData";
 
-import { AddAnotherSection } from "./additionalCatgeory";
+import { AddAnotherSection } from "./additionalCategory";
 import { SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./ndrSets";
 
