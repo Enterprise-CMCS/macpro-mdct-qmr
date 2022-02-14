@@ -29,23 +29,26 @@ interface MeasureRoute {
 const measureRoutes: MeasureRoute[] = [];
 
 Object.keys(measuresList).forEach((year: string) => {
-  measuresList[year].forEach(({ measureId, name }: MeasuresListItem) => {
-    if (measureId in Measures[year]) {
-      const Comp = Measures[year][measureId];
+  measuresList[year].forEach(
+    ({ measureId, name, autocompleteOnCreation }: MeasuresListItem) => {
+      if (measureId in Measures[year]) {
+        const Comp = Measures[year][measureId];
 
-      measureRoutes.push({
-        path: `:state/${year}/:coreSetId/${measureId}`,
-        el: (
-          <QMR.MeasureWrapper
-            name={name}
-            year={year}
-            measureId={measureId}
-            measure={createElement(Comp)}
-          />
-        ),
-      });
+        measureRoutes.push({
+          path: `:state/${year}/:coreSetId/${measureId}`,
+          el: (
+            <QMR.MeasureWrapper
+              name={name}
+              year={year}
+              measureId={measureId}
+              measure={createElement(Comp)}
+              autocompleteOnCreation={autocompleteOnCreation ?? false}
+            />
+          ),
+        });
+      }
     }
-  });
+  );
 });
 
 export function AppRoutes() {
@@ -62,6 +65,15 @@ export function AppRoutes() {
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
         <Route path=":state/:year/ACS/CSQ" element={<Views.ACSQualifiers />} />
+        <Route path=":state/:year/CCS/CSQ" element={<Views.CCSQualifiers />} />
+        <Route
+          path=":state/:year/CCSM/CSQ"
+          element={<Views.CCSMQualifiers />}
+        />
+        <Route
+          path=":state/:year/CCSC/CSQ"
+          element={<Views.CCSCQualifiers />}
+        />
         <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
