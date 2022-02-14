@@ -1,4 +1,4 @@
-export interface ACSQualifierForm {
+export interface CCSQualifierForm {
   PercentageEnrolledInEachDeliverySystem: DeliverySystem[];
   CoreSetMeasuresAuditedOrValidated: string;
   CoreSetMeasuresAuditedOrValidatedDetails: AuditDetails[];
@@ -9,8 +9,8 @@ export interface ACSQualifierForm {
 
 export interface DeliverySystem {
   label: string;
-  TwentyOneToSixtyFour: string;
-  GreaterThanSixtyFour: string;
+  UnderTwentyOneMedicaid: string;
+  UnderTwentyOneCHIP: string;
   userGenerated: boolean;
 }
 
