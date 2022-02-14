@@ -138,7 +138,7 @@ export namespace Measure {
 
     //Performance Measure
     "PerformanceMeasure-Explanation": string;
-    ModeratelyEffectiveMethodOfContraceptionRate: {
+    "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate": {
       denominator: string;
       numerator: string;
       other: string;
@@ -146,7 +146,7 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    ReversibleMethodOfContraceptionRate: {
+    "PerformanceMeasure-ReversibleMethodOfContraceptionRate": {
       denominator: string;
       numerator: string;
       other: string;
