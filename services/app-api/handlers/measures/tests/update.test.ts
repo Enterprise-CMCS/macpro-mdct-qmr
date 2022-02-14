@@ -55,6 +55,7 @@ describe("Test Update Measure Handler", () => {
         status: "status",
         lastAltered: 20,
         lastAlteredBy: "test",
+        reporting: "no",
         data: {},
       },
       "post"
@@ -88,6 +89,7 @@ describe("Test Update Measure Handler", () => {
         status: "status",
         lastAltered: 20,
         lastAlteredBy: "branchUser",
+        reporting: "no",
         data: {},
       },
       "post"
