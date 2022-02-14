@@ -13,14 +13,13 @@ describe("OY2 15211 Reporting in FY21 Tag for Alt Data Sources", () => {
   it("N/A And Completed Statuses", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("a > .chakra-text").click();
-    cy.get(":nth-child(22) > :nth-child(3) > .chakra-text").should(
+    cy.get("[data-cy='Reporting FFY 2021-NCIDDS-AD'] > p").should(
       "have.text",
       "N/A"
     );
-    cy.get(".css-1utstxm > .css-dw5ttn > .css-sv7ztq").should(
-      "have.text",
-      "completecomplete"
-    );
+    cy.get(
+      "[data-cy='Status-NCIDDS-AD'] > div > div:last-child > p:first-child"
+    ).should("have.text", "complete");
     /* ==== End Cypress Studio ==== */
   });
 });
