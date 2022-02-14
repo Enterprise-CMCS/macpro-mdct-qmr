@@ -7,8 +7,6 @@ export namespace Measure {
   export interface Props {
     name: string;
     year: string;
-    handleSubmit?: any;
-    handleValidation?: any;
     measureId: string;
     setValidationFunctions?: React.Dispatch<
       React.SetStateAction<CustomValidator[]>
