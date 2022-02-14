@@ -1,4 +1,5 @@
 import { Measure } from "../validation/types";
+import { validateNoNonZeroNumOrDenom } from "../../globalValidations/validationsLib";
 
 const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
   const reversibleRates =
@@ -154,10 +155,22 @@ const validateDenominatorsAreTheSame = (data: Measure.Form) => {
   return error;
 };
 
+const validateNonZeroDenom = (data: Measure.Form) => {
+  return validateNoNonZeroNumOrDenom(
+    [
+      data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
+      data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
+    ],
+    data["OtherPerformanceMeasure-Rates"],
+    []
+  );
+};
+
 export const validationFunctions = [
   validateReversibleNumeratorLessThanDenominator,
   validateModeratelyNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
   validateLarcRateGreater,
   validateDenominatorsAreTheSame,
+  validateNonZeroDenom,
 ];
