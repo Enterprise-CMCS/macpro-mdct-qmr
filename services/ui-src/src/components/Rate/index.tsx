@@ -9,10 +9,12 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
+import { useEffect } from "react";
 
 export interface IRate {
   label?: string;
   id: number;
+  isTotal?: boolean;
 }
 
 interface Props extends QMR.InputWrapperProps {
@@ -38,20 +40,41 @@ export const Rate = ({
     formState: { errors },
   } = useFormContext();
 
+  useEffect(() => {
+    // Establish a total field
+    console.log("Before: ", field);
+    const prevRate = [...field.value];
+    rates.map((rate, index) => {
+      console.log(index);
+      console.log(prevRate[index]);
+      // console.log("rate", rate);
+      if (prevRate[index] === undefined) {
+        console.log("inside undefined");
+        prevRate[index] = {
+          numerator: "",
+          denominator: "",
+          rate: "",
+        };
+      }
+      prevRate[index]["isTotal"] = rate.isTotal ?? false;
+    });
+    console.log(prevRate);
+    field.value = prevRate;
+    // field.onChange([...prevRate]);
+    console.log("After: ", field);
+  }, []);
+
   const { field } = useController({
     name,
     control,
     defaultValue: [],
   });
 
-  const calculateTotals = () => {
-    console.log(field);
-  };
-
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate",
-    newValue: string
+    newValue: string,
+    isTotal: boolean
   ) => {
     if (!allNumbers.test(newValue)) return;
     if (type === "rate" && readOnly) return;
@@ -104,14 +127,50 @@ export const Rate = ({
     }
 
     prevRate[index] = editRate;
-    field.onChange([...prevRate]);
 
-    calculateTotals();
+    if (!isTotal) {
+      console.log("PrevRate: ", prevRate);
+      calculateTotals(prevRate);
+    }
+    field.onChange([...prevRate]);
+  };
+
+  const calculateTotals = (prevRate: any[]) => {
+    let numeratorSum = 0;
+    let denominatorSum = 0;
+
+    let totalIndex = undefined;
+
+    prevRate.map((f, index) => {
+      if (f !== null && !f["isTotal"]) {
+        numeratorSum += parseInt(f["numerator"]) || 0;
+        denominatorSum += parseInt(f["denominator"]) || 0;
+      } else {
+        totalIndex = index;
+      }
+    });
+
+    if (totalIndex) {
+      prevRate[totalIndex]["numerator"] = numeratorSum;
+      prevRate[totalIndex]["denominator"] = denominatorSum;
+      if (numeratorSum <= denominatorSum) {
+        prevRate[totalIndex]["rate"] = (
+          (numeratorSum / denominatorSum) *
+          rateMultiplicationValue
+        )
+          .toFixed(1)
+          .toString();
+      } else {
+        prevRate[totalIndex]["rate"] = "";
+      }
+      console.log("PrevRate: ", prevRate);
+    }
   };
 
   return (
     <>
       {rates.map((rate, index) => {
+        const isTotal = rate.isTotal ?? false;
         return (
           <CUI.Stack key={rate.id} my={8}>
             {rate.label && (
@@ -135,7 +194,7 @@ export const Rate = ({
                   value={field.value[index]?.numerator ?? ""}
                   data-cy={`${name}.${index}.numerator`}
                   onChange={(e) =>
-                    changeRate(index, "numerator", e.target.value)
+                    changeRate(index, "numerator", e.target.value, isTotal)
                   }
                 />
               </QMR.InputWrapper>
@@ -155,7 +214,7 @@ export const Rate = ({
                   value={field.value[index]?.denominator ?? ""}
                   data-cy={`${name}.${index}.denominator`}
                   onChange={(e) =>
-                    changeRate(index, "denominator", e.target.value)
+                    changeRate(index, "denominator", e.target.value, isTotal)
                   }
                 />
               </QMR.InputWrapper>
@@ -172,7 +231,9 @@ export const Rate = ({
                 <CUI.Input
                   value={field.value[index]?.rate ?? ""}
                   data-cy={`${name}.${index}.rate`}
-                  onChange={(e) => changeRate(index, "rate", e.target.value)}
+                  onChange={(e) =>
+                    changeRate(index, "rate", e.target.value, isTotal)
+                  }
                   readOnly={readOnly}
                 />
               </QMR.InputWrapper>
