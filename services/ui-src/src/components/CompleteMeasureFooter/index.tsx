@@ -20,17 +20,16 @@ export const CompleteMeasureFooter = ({
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
         </CUI.Heading>
-        <CUI.Text pl="5">
+        <CUI.Text>
           Please select "Validate Measure" to check any error present on the
           measure prior to completion
         </CUI.Text>
-        <CUI.Text p="3" pl="5">
+        <CUI.Text py="3">
           Complete the measure and mark it for submission to CMS for review
         </CUI.Text>
         <CUI.HStack>
           <QMR.ContainedButton
             buttonProps={{
-              ml: "5",
               colorScheme: "green",
               textTransform: "capitalize",
             }}

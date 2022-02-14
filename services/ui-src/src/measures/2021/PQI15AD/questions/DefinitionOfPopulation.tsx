@@ -1,7 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useWatch } from "react-hook-form";
 import { Measure } from "../validation/types";
 import {
   allPositiveIntegers,
@@ -10,10 +9,6 @@ import {
 
 export const DefinitionOfPopulation = () => {
   const register = useCustomRegister<Measure.Form>();
-  const showDeliverySystemOtherPopulation =
-    useWatch({
-      name: "DenominatorDefineTotalTechSpec",
-    }) !== "NoRepresentsTotalEligiblePop";
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
@@ -405,18 +400,14 @@ export const DefinitionOfPopulation = () => {
                     {...register("DeliverySys-Other-NumberOfHealthPlans")}
                   />
                 </CUI.Box>,
-                ...(showDeliverySystemOtherPopulation
-                  ? [
-                      <CUI.Box pt="5" key="DeliverySys-Other-Population">
-                        <QMR.NumberInput
-                          mask={allPositiveIntegers}
-                          formLabelProps={{ fontWeight: "400" }}
-                          label="Number of measure-eligible state population represented in data reported:"
-                          {...register("DeliverySys-Other-Population")}
-                        />
-                      </CUI.Box>,
-                    ]
-                  : []),
+                <CUI.Box pt="5" key="DeliverySys-Other-Population">
+                  <QMR.NumberInput
+                    mask={allPositiveIntegers}
+                    formLabelProps={{ fontWeight: "400" }}
+                    label="Number of measure-eligible state population represented in data reported:"
+                    {...register("DeliverySys-Other-Population")}
+                  />
+                </CUI.Box>,
               ],
             },
           ]}
