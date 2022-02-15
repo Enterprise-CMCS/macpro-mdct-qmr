@@ -9,6 +9,9 @@ import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 import AdultCoreSetQuestionsPage from "../../../support/pages/AdultCoreSetQuestionsPage";
 import CCPadPage from "../../../support/pages/CCPadPage";
+import OUDadPage from "../../../support/pages/OUDadPage";
+// demo
+
 import FUAADPAGE from "../../../support/pages/FUAADPage";
 import CPAADPAGE from "../../../support/pages/CPAADPage";
 
@@ -20,6 +23,9 @@ const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
+const oudADpage = new OUDadPage();
+// demo
+
 const fUAADPage = new FUAADPAGE();
 const cPAADPage = new CPAADPAGE();
 const adultCoreSetQuestionsPage = new AdultCoreSetQuestionsPage();
@@ -130,6 +136,10 @@ And("user click on link CCP-AD", () => {
 
 And("button on the page is clickable", () => {
   ccpADpage.verifySaveValidateCompletebuttonClickable();
+});
+
+And("user click on link OUD-AD", () => {
+  adultCoreSetMeasurespage.clickOUDadLink();
 });
 
 And(
@@ -840,4 +850,72 @@ And("verify validate measure button is disabled", () => {
 });
 And("verify complete measure button is disabled", () => {
   fUAADPage.verifyCompleteMeasureBTNIsDisabled();
+});
+
+// oudAD page specific steps
+And("button on the page is clickable", () => {
+  oudADpage.verifySaveValidateCompletebuttonClickable();
+});
+
+And("Click on Centers for Medicare & Medicaid Services Radio Button", () => {
+  oudADpage.clickCentersForMedicareMedicaidServicesRadioBTN();
+});
+
+Then("Click on OUDAD Other Data Source Radio Button", () => {
+  oudADpage.clickOtherDataSourceRadioBTN();
+});
+
+And("type total rate numerator 321111", () => {
+  oudADpage.typeTotalRateNumeratorInputBox("321111");
+});
+
+And("type total rate Denominator 111111", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("111111");
+});
+
+And("type total rate Denominator 411111", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("411111");
+});
+
+And("clear total rate input box", () => {
+  oudADpage.clearTotalRateInputBox();
+});
+
+And("clear total rate numerator input box", () => {
+  oudADpage.clearTotalRateNumeratorInputBox();
+});
+
+And("clear total rate Denominator input box", () => {
+  oudADpage.clearTotalRateDenominatorInputBox();
+});
+
+And(
+  "verify that only one number after decimal can populate for auto calculated total rate exists",
+  () => {
+    oudADpage.verifyOnlyOneNumberAfterDecimalIsDisplayed();
+  }
+);
+
+And("type 8 digits total rate numerator", () => {
+  oudADpage.typeTotalRateNumeratorInputBox("12345678");
+});
+
+And("type 8 digits total rate Denominator", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("21345678");
+});
+
+And("type letters total rate numerator", () => {
+  oudADpage.typeTotalRateNumeratorInputBox("aaa");
+});
+
+And("type letters total rate Denominator", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("bbb");
+});
+
+And("input text in total rate box", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("bbb");
+});
+
+And("verify user can manually override enter total rate exists", () => {
+  oudADpage.typeTotalRateInputBox("88.1");
 });
