@@ -1,36 +1,5 @@
 import { Measure } from "../validation/types";
 
-const validateRates = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj, index) => {
-      if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        sevenDays[index].denominator &&
-        thirtyDays[index].denominator &&
-        sevenDays[index].denominator !== thirtyDays[index].denominator
-      ) {
-        const timeSet =
-          index === 0 ? "Three Days Postpartum" : "Sixty Days Postpartum";
-
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both Most Effective or Moderately Effective Contraception rate and Long-acting Reversible Contraception (LARC) rate for ${timeSet}.`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = ["3 days postpartem", "60 days postpartem"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -292,7 +261,6 @@ const validateDenominatorsAreEqual = (data: Measure.Form) => {
 };
 
 export const validationFunctions = [
-  validateRates,
   CCPADValidation,
   validateSevenDayNumeratorLessThanDenominator,
   validateThirtyDayNumeratorLessThanDenominator,
