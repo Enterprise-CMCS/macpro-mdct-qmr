@@ -49,8 +49,7 @@ const verifyFFY2019 =
 const nationalCommitteForQualityAssuranceRadioBTN =
   "#MeasurementSpecification-NCQAHEDIS";
 // element is xpath, please use cy.xapth() instead of cy.get();
-const administrativeDataRadioBTN =
-  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/label[1]/span[1]";
+const administrativeDataRadioBTN = "[data-cy='DataSource0']";
 const MedicaidManagementInformationSystemMMISRadioBTN =
   "//p[contains(text(),'Medicaid Management Information System (MMIS)')]";
 const Age65andolderNumeratorInputBox =
@@ -371,7 +370,7 @@ export class FUAADPAGE {
     });
   }
   clickAdminstrativeDataRaioBTN() {
-    cy.xpath(administrativeDataRadioBTN).click({
+    cy.get(administrativeDataRadioBTN).click({
       force: true,
     });
   }
