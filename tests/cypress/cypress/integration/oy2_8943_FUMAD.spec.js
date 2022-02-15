@@ -131,6 +131,7 @@ describe("Measure: FUM-AD", () => {
     );
   });
 
+  // ! uncomment when validation in OY2-16341 is applied to this measure
   // it("Ensure that warning appears if N=0, D>0, then R should be = 0 for user entered rates.", () => {
   //   cy.wait(1000);
   //   cy.get('[data-cy="DidReport0"]').click();
