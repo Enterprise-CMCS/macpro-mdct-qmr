@@ -9,6 +9,7 @@ interface UpdateMeasure<DataType = any> {
   data: DataType;
   measure?: string;
   status: MeasureStatus;
+  reporting?: string | undefined;
 }
 
 const updateMeasure = ({
@@ -16,6 +17,7 @@ const updateMeasure = ({
   year,
   coreSet,
   status,
+  reporting,
   data,
   measure,
 }: UpdateMeasure & Params) => {
@@ -26,6 +28,7 @@ const updateMeasure = ({
     measure,
     body: {
       data,
+      reporting,
       status,
     },
   });

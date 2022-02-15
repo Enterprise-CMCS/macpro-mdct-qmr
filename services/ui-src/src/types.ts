@@ -34,7 +34,7 @@ export interface MeasureData<DataType = any> {
   measure: string;
   state: string;
   status: "incomplete" | "complete" | undefined;
-  reporting: "yes" | undefined;
+  reporting: "yes" | "no" | null | undefined;
   year: number;
   data: DataType;
 }
