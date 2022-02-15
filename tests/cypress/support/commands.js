@@ -22,6 +22,9 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
   cy.get(`[data-cy="${measure}"]`).click();
+  cy.wait(2000);
+  cy.get(`[data-cy="Clear Data"]`).click();
+  cy.get(`[data-cy="${measure}"]`).click();
 });
 
 // Correct sections visible when user is reporting data on measure
@@ -74,4 +77,21 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
   cy.get(
     '[data-cy="Additional Notes/Comments on the measure (optional)"]'
   ).should("be.visible");
+});
+
+Cypress.Commands.add("deleteChildCoreSets", () => {
+  cy.get("tbody").then(($tbody) => {
+    if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
+      cy.get(
+        ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
+      ).click({ force: true });
+      cy.xpath(
+        "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
+      ).click({ force: true });
+      cy.wait(1000);
+      cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
+    } else {
+      console.log("do something else");
+    }
+  });
 });

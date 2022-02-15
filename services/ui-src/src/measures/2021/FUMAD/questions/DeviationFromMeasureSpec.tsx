@@ -123,7 +123,8 @@ export const DeviationFromMeasureSpec = ({
                     ? [
                         {
                           value: "FollowUpWithin30",
-                          displayValue: "Follow-up within 30 days of ED visit",
+                          displayValue:
+                            "30-day follow-up after ED visit for mental illness",
                           children: [
                             <QMR.Checkbox
                               {...register(
@@ -146,7 +147,8 @@ export const DeviationFromMeasureSpec = ({
                     ? [
                         {
                           value: "FollowUpWithin7",
-                          displayValue: "Follow-up within 7 days of ED visit",
+                          displayValue:
+                            "7-day follow-up after ED visit for mental illness",
                           children: [
                             <QMR.Checkbox
                               {...register("DeviationOptions-Within7-AgeRange")}
