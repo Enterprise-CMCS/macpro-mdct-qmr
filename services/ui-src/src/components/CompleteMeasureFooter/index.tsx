@@ -20,11 +20,11 @@ export const CompleteMeasureFooter = ({
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
         </CUI.Heading>
-        <CUI.Text>
+        <CUI.Text data-cy="complete measure sub-1">
           Please select "Validate Measure" to check any error present on the
           measure prior to completion
         </CUI.Text>
-        <CUI.Text py="3">
+        <CUI.Text py="3" data-cy="complete measure sub-2">
           Complete the measure and mark it for submission to CMS for review
         </CUI.Text>
         <CUI.HStack>
