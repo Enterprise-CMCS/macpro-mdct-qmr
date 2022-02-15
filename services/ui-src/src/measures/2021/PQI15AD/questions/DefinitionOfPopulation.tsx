@@ -269,7 +269,7 @@ export const DefinitionOfPopulation = () => {
                               care enrollees and half of your state’s
                               fee-for-service enrollees, select managed care, and
                               select fee-for-service and enter 50."
-                            mask={allPositiveIntegers}
+                            mask={percentageAllowOneDecimalMax}
                             {...register("DeliverySys-MCO_POHP-No-Included")}
                           />,
                           <CUI.Text my="5" key="AdditionalMCOExcludedText">
