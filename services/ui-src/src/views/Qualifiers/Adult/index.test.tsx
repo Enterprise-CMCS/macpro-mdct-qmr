@@ -39,7 +39,7 @@ describe("test audit or validation component", () => {
       )
     ).toBeInTheDocument();
     expect(
-      await screen.findByText("No, we calculated all the measure internally.")
+      await screen.findByText("No, we calculated all the measures internally.")
     ).toBeInTheDocument();
 
     fireEvent.click(
@@ -55,13 +55,13 @@ describe("test external ontractor component", () => {
   it("renders components properly", async () => {
     expect(
       await screen.findByText(
-        "Yes, we did obtained assistance from one or more external contractors in collecting, calculating and/or reporting Core Set data."
+        "Yes, we did obtain assistance from one or more external contractors in collecting, calculating, and/or reporting Core Set data."
       )
     ).toBeInTheDocument();
 
     fireEvent.click(
       await screen.getByLabelText(
-        /Yes, we did obtained assistance from one or more external contractors in collecting, calculating and\/or reporting Core Set data./i
+        /Yes, we did obtain assistance from one or more external contractors in collecting, calculating, and\/or reporting Core Set data./i
       )
     );
     expect(
