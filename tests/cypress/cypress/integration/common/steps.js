@@ -149,9 +149,12 @@ And(
   }
 );
 
-And("user can click on Yes option for Are you reporting on this MSC AD measure",()=>{
-   fUAADPage.verifyReportingOnMSCadMeasureYes();
-});
+And(
+  "user can click on Yes option for Are you reporting on this MSC AD measure",
+  () => {
+    fUAADPage.verifyReportingOnMSCadMeasureYes();
+  }
+);
 //steps below are OY2-8940 Deviation and Optional Measure Stratification related
 And(
   "user can click on Yes option for Are you reporting on this measure at first",

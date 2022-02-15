@@ -505,7 +505,6 @@ export class FUAADPAGE {
     cy.xpath("(//span[@class='chakra-radio__control css-gzpnyx'])[5]").click();
     cy.xpath("(//span[@class='chakra-radio__control css-gzpnyx'])[8]").click();
     cy.xpath("(//span[@class='chakra-radio__control css-gzpnyx'])[9]").click();
-    
 
     // Initial Checkbox clicks
     const check_all_options = "//span[ contains(@class, 'check')]/p";
@@ -513,7 +512,7 @@ export class FUAADPAGE {
     for (let i = 1; i <= 9; i++) {
       let finalXapth = checkXpath + i + "]";
       cy.xpath(finalXapth).scrollIntoView();
-      cy.xpath(finalXapth).click({force:true});
+      cy.xpath(finalXapth).click({ force: true });
       cy.wait(500);
     }
 
@@ -569,11 +568,6 @@ export class FUAADPAGE {
     // cy.xpath(describe_rate).type("This is a QA testing for the Rate");
     // cy.wait(500);
   }
-
-
-
-
-
 
   verifyReportingOnMeasureYes() {
     cy.wait(500);
