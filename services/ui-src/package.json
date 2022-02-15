@@ -51,6 +51,7 @@
       "src/components/**/*.{ts,tsx}",
       "src/views/**/*.{ts,tsx}",
       "!src/components/CoreQuestions/index.tsx",
+      "!src/components/CoreQuestionWrapper/index.tsx",
       "!src/components/index.tsx",
       "!src/components/LocalLogins/index.tsx",
       "!src/components/LocalLogins/mockUsers.ts",
