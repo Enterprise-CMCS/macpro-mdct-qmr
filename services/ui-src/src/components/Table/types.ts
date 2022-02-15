@@ -49,7 +49,7 @@ export namespace MeasureTableItem {
     createdAt: number;
     lastDateModified: number;
     actions: IKebabMenuItem[];
-    isReporting: boolean | null;
+    reporting: string | undefined | null;
   };
 
   export interface StatusTextProps {

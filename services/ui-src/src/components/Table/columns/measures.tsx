@@ -87,8 +87,7 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
       )?.autocompleteOnCreation;
 
       let reportingText = "--";
-      if (data.isReporting) reportingText = "yes";
-      if (data.isReporting !== null && !data.isReporting) reportingText = "no";
+      if (data.reporting) reportingText = data.reporting;
       if (autoCompletedMeasure) reportingText = "N/A";
       return (
         <CUI.Text fontSize="xs" textTransform="capitalize">

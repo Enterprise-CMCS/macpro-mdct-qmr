@@ -11,7 +11,7 @@ export const exampleMeasuresData: MeasureTableItem.Data[] = [
     createdAt: 1642190951029,
     lastDateModified: 1642190951029,
     id: "test1",
-    isReporting: null,
+    reporting: undefined,
   },
   {
     path: "/example-measures-path-2",
@@ -22,7 +22,7 @@ export const exampleMeasuresData: MeasureTableItem.Data[] = [
     actions: [{ itemText: "Edit", handleSelect: () => console.log("1") }],
     lastDateModified: 1642190951029,
     id: "test2",
-    isReporting: null,
+    reporting: undefined,
   },
   {
     path: "/example-measures-path-3",
@@ -33,7 +33,7 @@ export const exampleMeasuresData: MeasureTableItem.Data[] = [
     lastDateModified: 1642190951029,
     createdAt: 1642190951029,
     id: "test3",
-    isReporting: true,
+    reporting: "yes",
   },
   {
     path: "/example-measures-path-4",
@@ -44,6 +44,6 @@ export const exampleMeasuresData: MeasureTableItem.Data[] = [
     actions: [{ itemText: "Edit", handleSelect: () => console.log("1") }],
     lastDateModified: 1642190951029,
     id: "test4",
-    isReporting: false,
+    reporting: "no",
   },
 ];

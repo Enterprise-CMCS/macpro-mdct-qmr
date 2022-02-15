@@ -4,7 +4,8 @@ import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpress
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 
 export const editMeasure = handler(async (event, context) => {
-  const { data, status, reporting = "no" } = JSON.parse(event!.body!);
+  const { data, status, reporting = null } = JSON.parse(event!.body!);
+
   const dynamoKey = createCompoundKey(event);
   const lastAlteredBy = event.headers["cognito-identity-id"]
     ? event.headers["cognito-identity-id"]

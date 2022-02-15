@@ -139,21 +139,26 @@ export const MeasureWrapper = ({
       data["DidCollect"]?.toLocaleLowerCase()?.includes("yes")
     ) {
       return "yes";
+    } else if (
+      data["DidReport"]?.toLocaleLowerCase()?.includes("no") ||
+      data["DidCollect"]?.toLocaleLowerCase()?.includes("no")
+    ) {
+      return "no";
     }
 
-    return "no";
+    return undefined;
   };
 
   const submitDataToServer = ({
     data,
     status = MeasureStatus.COMPLETE,
     callback,
-    reporting = "no",
+    reporting,
   }: {
     data: any;
     status?: MeasureStatus;
     callback?: () => void;
-    reporting: string;
+    reporting: string | undefined;
   }) => {
     if (!mutationRunning && !loadingData) {
       updateMeasure(
@@ -212,8 +217,6 @@ export const MeasureWrapper = ({
   if (!params.coreSetId || !params.state) {
     return null;
   }
-
-  console.log(measureData);
 
   return (
     <FormProvider {...methods}>
