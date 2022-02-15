@@ -46,7 +46,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get("[data-cy=DidReport0]").click({ force: true });
     //cy.get("#radio-177").check({ force: true });
     cy.get("[data-cy=DataStatus0]").click({ force: true });
-    cy.get("#radio-181").check({ force: true });
+    //cy.get("#radio-181").check({ force: true });
     cy.get("[data-cy=MeasurementSpecification0]").click({ force: true });
     cy.xpath("(//span[@class='chakra-radio__control css-gzpnyx'])[7]").click();
     //cy.get('#radio-234').check({force:true});
