@@ -5,6 +5,9 @@ import { UserRoles, RequestMethods } from "../types";
 interface DecodedToken {
   "custom:cms_roles": UserRoles;
   "custom:cms_state"?: string;
+  given_name?: string;
+  family_name?: string;
+  identities?: [{ userId?: string }];
 }
 
 export const isAuthorized = (event: APIGatewayProxyEvent) => {
@@ -28,4 +31,23 @@ export const isAuthorized = (event: APIGatewayProxyEvent) => {
 
   // if user is an admin - they can only GET resources
   return requestMethod === RequestMethods.GET;
+};
+
+export const getUserNameFromJwt = (event: APIGatewayProxyEvent) => {
+  let userName = "branchUser";
+  if (!event?.headers || !event.headers?.["x-api-key"]) return userName;
+
+  const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+
+  if (decoded["given_name"] && decoded["family_name"]) {
+    userName = `${decoded["given_name"]} ${decoded["family_name"]}`;
+    return userName;
+  }
+
+  if (decoded.identities && decoded.identities[0]?.userId) {
+    userName = decoded?.identities[0].userId;
+    return userName;
+  }
+
+  return userName;
 };
