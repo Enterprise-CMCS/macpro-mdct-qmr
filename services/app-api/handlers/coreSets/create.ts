@@ -43,7 +43,6 @@ export const createCoreSet = handler(async (event, context) => {
     Item: {
       compoundKey: dynamoKey,
       state: state,
-      // @ts-ignore
       year: parseInt(year),
       coreSet: coreSet,
       createdAt: Date.now(),
