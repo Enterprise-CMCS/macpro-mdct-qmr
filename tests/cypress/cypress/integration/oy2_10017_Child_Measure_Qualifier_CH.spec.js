@@ -916,7 +916,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       ":nth-child(6) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
     ).should(
       "have.text",
-      "CCP-AD - Contraceptive Care Postpartum Women Ages 21-44"
+      "CCP-AD - Contraceptive Care - Postpartum Women Ages 21 to 44"
     );
     cy.get(
       ":nth-child(7) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
