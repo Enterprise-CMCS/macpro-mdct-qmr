@@ -276,9 +276,9 @@ const validateDenominatorsAreEqual = (data: Measure.Form) => {
           const memeParsedInt = parseInt(memeRate.denominator);
           if (larcParsedInt !== memeParsedInt) {
             errorArray.push({
-              errorLocation: "Performance MEasure",
+              errorLocation: "Performance Measure",
               errorMessage:
-                "The denominators of Long-acting Reversible Method of Contraception (LARC) Rates and Most Effective or Moderately Effective Method of Contraception must be the same.",
+                "All denominators of Long-acting Reversible Method of Contraception (LARC) Rates and Most Effective and Moderately Effective Method of Contraception must be the same.",
             });
             break;
           }
