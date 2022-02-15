@@ -42,26 +42,18 @@ export const Rate = ({
 
   useEffect(() => {
     // Establish a total field
-    console.log("Before: ", field);
     const prevRate = [...field.value];
     rates.map((rate, index) => {
-      console.log(index);
-      console.log(prevRate[index]);
-      // console.log("rate", rate);
       if (prevRate[index] === undefined) {
-        console.log("inside undefined");
         prevRate[index] = {
-          numerator: "",
-          denominator: "",
-          rate: "",
+          // numerator: "",
+          // denominator: "",
+          // rate: "",
         };
       }
-      prevRate[index]["isTotal"] = rate.isTotal ?? false;
+      prevRate[index]["isTotal"] = rate.isTotal ?? undefined;
     });
-    console.log(prevRate);
-    field.value = prevRate;
-    // field.onChange([...prevRate]);
-    console.log("After: ", field);
+    field.onChange([...prevRate]);
   }, []);
 
   const { field } = useController({
@@ -74,7 +66,7 @@ export const Rate = ({
     index: number,
     type: "numerator" | "denominator" | "rate",
     newValue: string,
-    isTotal: boolean
+    isTotal?: boolean
   ) => {
     if (!allNumbers.test(newValue)) return;
     if (type === "rate" && readOnly) return;
@@ -129,7 +121,6 @@ export const Rate = ({
     prevRate[index] = editRate;
 
     if (!isTotal) {
-      console.log("PrevRate: ", prevRate);
       calculateTotals(prevRate);
     }
     field.onChange([...prevRate]);
@@ -163,14 +154,13 @@ export const Rate = ({
       } else {
         prevRate[totalIndex]["rate"] = "";
       }
-      console.log("PrevRate: ", prevRate);
     }
   };
 
   return (
     <>
       {rates.map((rate, index) => {
-        const isTotal = rate.isTotal ?? false;
+        const isTotal = rate.isTotal ?? undefined;
         return (
           <CUI.Stack key={rate.id} my={8}>
             {rate.label && (
