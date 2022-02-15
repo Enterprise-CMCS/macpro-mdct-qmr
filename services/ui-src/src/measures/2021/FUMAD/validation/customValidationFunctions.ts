@@ -87,7 +87,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       return {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 7 days of ED visit)",
+          "Missing data on Performance Measure for Age 65 and older",
       };
     } else if (
       (!thirtyDays65orOlder[1]?.numerator ||
@@ -98,7 +98,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       return {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 30 days of ED visit)",
+          "Missing data on Performance Measure for Age 65 and older",
       };
     }
   }

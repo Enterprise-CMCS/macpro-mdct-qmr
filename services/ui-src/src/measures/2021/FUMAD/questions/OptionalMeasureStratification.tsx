@@ -136,7 +136,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                         {
                           id: 0,
                           label:
-                            "Follow-up within 30 days of ED visit for mental illness",
+                            "30-day follow-up after ED visit for mental illness",
                         },
                       ]}
                     />,
@@ -154,7 +154,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                         {
                           id: 1,
                           label:
-                            "Follow-up within 7 days of ED visit for mental illness",
+                            "7-day follow-up after ED visit for mental illness",
                         },
                       ]}
                     />,

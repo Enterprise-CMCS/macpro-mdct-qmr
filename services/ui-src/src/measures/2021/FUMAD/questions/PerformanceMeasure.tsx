@@ -37,17 +37,17 @@ export const PerformanceMeasure = () => {
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
       Percentage of emergency department (ED) visits for beneficiaries age 18
-      and older with a principal diagnosis of alcohol or other drug (AOD) abuse
-      or dependence who had a follow-up visit for AOD abuse or dependence. Two
-      rates are reported:
+      and older with a principal diagnosis of mental illness or intentional
+      self-harm and who had a follow-up visit for mental illness. Two rates are
+      reported:
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>
-          Percentage of ED visits for which the beneficiary received follow-up
-          within 30 days of the ED visit (31 total days)
+          Percentage of ED visits for mental illness for which the beneficiary
+          received follow-up within 30 days of the ED visit (31 total days)
         </CUI.ListItem>
         <CUI.ListItem>
-          Percentage of ED visits for which the beneficiary received follow-up
-          within 7 days of the ED visit (8 total days)
+          Percentage of ED visits for mental illness for which the beneficiary
+          received follow-up within 7 days of the ED visit (8 total days)
         </CUI.ListItem>
       </CUI.UnorderedList>
       <QMR.TextArea
@@ -59,7 +59,7 @@ export const PerformanceMeasure = () => {
         auto-calculate:
       </CUI.Text>
       <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 30 days of ED visit
+        30-day follow-up after ED visit for mental illness
       </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
@@ -67,7 +67,7 @@ export const PerformanceMeasure = () => {
         {...register("PerformanceMeasure-AgeRates-30Days")}
       />
       <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 7 days of ED visit
+        7-day follow-up after ED visit for mental illness
       </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
