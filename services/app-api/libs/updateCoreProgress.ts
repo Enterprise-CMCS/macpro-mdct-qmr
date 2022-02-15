@@ -18,7 +18,9 @@ export const updateCoreSetProgress = async (
 
       const measures = measuresList.Items;
       const completedAmount = measures?.filter(
-        (measure) => measure.status === Types.MeasureStatus.COMPLETE
+        (measure) =>
+          measure.status === Types.MeasureStatus.COMPLETE &&
+          measure.measure !== "CSQ"
       ).length;
       coreSet.progress.numComplete =
         completedAmount ?? coreSet.progress.numComplete;
