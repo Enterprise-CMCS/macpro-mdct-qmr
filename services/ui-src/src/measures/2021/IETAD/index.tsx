@@ -173,11 +173,7 @@ export const IETAD = ({
             showEngageOther65Plus ||
             showInitTotal65Plus ||
             showEngageTotal65Plus ||
-            showOtherPerformanceMeasureRates) && (
-            <>
-              <Q.OMS2 />
-            </>
-          )}
+            showOtherPerformanceMeasureRates) && <Q.OptionalMeasureStrat />}
         </>
       )}
       <Q.AdditionalNotes />

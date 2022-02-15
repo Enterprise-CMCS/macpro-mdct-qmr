@@ -1,9 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 
-import { useEffect } from "react";
-import { useFormContext } from "react-hook-form";
-
 import { Measure } from "../../validation/types";
 import { usePerformanceMeasureContext } from "./context";
 import {
@@ -49,16 +46,6 @@ const renderAgeGroupsCheckboxes = ({
       ageGroup?.replace(/[^\w]/g, "") ?? "AGE_GROUP_NOT_SET";
     const ndrSets: React.ReactElement[] = [];
 
-    ndrSets.push(
-      <CUI.Heading
-        key={`${name}.rates.${cleanedAgeGroupLabel}Header`}
-        size={"sm"}
-      >
-        Enter a number for the numerator and the denominator. Rate will
-        auto-calculate
-      </CUI.Heading>
-    );
-
     // create NDR sets for applicable PMs
     performanceMeasureArray.forEach((performanceMeasure, idx) => {
       if (
@@ -86,12 +73,23 @@ const renderAgeGroupsCheckboxes = ({
     });
 
     // add tp checkbox options
-    const ageGroupCheckBox = {
-      value: cleanedAgeGroupLabel,
-      displayValue: ageGroup,
-      children: ndrSets,
-    };
-    checkboxes.push(ageGroupCheckBox);
+    if (ndrSets.length) {
+      const ageGroupCheckBox = {
+        value: cleanedAgeGroupLabel,
+        displayValue: ageGroup,
+        children: [
+          <CUI.Heading
+            key={`${name}.rates.${cleanedAgeGroupLabel}Header`}
+            size={"sm"}
+          >
+            Enter a number for the numerator and the denominator. Rate will
+            auto-calculate
+          </CUI.Heading>,
+          ...ndrSets,
+        ],
+      };
+      checkboxes.push(ageGroupCheckBox);
+    }
   });
 
   return checkboxes;
@@ -179,14 +177,6 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  */
 export const NDRSets = ({ name }: NdrProps) => {
   const { OPM } = usePerformanceMeasureContext();
-  const { watch, unregister } = useFormContext();
-  const watchDataSourceSwitch = watch("MeasurementSpecification");
-
-  useEffect(() => {
-    return () => {
-      unregister(name);
-    };
-  }, [watchDataSourceSwitch, name, unregister]);
 
   if (OPM) {
     return <OPMNDRSets name={name} key={name} />;

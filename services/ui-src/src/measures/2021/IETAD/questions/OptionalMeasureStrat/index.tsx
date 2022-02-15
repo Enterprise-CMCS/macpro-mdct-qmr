@@ -10,6 +10,7 @@ import { OMSData } from "../data/OMSData";
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import * as CUI from "@chakra-ui/react";
+import { useEffect } from "react";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -44,8 +45,8 @@ export const buildOmsCheckboxes = ({ name }: OmsCheckboxProps) => {
 /**
  * Final OMS built
  */
-export const OMS2 = () => {
-  const { watch, getValues } = useFormContext<Measure.Form>();
+export const OptionalMeasureStrat = () => {
+  const { watch, getValues, unregister } = useFormContext<Measure.Form>();
   // retrieve data
   const data = getValues();
   // Watch for dataSource data
@@ -70,6 +71,16 @@ export const OMS2 = () => {
   const checkBoxOptions = buildOmsCheckboxes({
     ...register("OptionalMeasureStratification"),
   });
+  const watchDataSourceSwitch = watch("MeasurementSpecification");
+
+  /**
+   * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
+   */
+  useEffect(() => {
+    return () => {
+      unregister("OptionalMeasureStratification");
+    };
+  }, [watchDataSourceSwitch, unregister]);
 
   return (
     <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
