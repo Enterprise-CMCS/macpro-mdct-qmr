@@ -10,7 +10,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get('[data-cy="login-with-cognito-button"]').click();
   });
 
-  it("Screen Enhancement", () => {
+  it("User click on No option for the first question and fill out the form with No option", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("a > .chakra-text").click();
     cy.get(":nth-child(21) > :nth-child(1) > a > .chakra-text").click();
@@ -44,7 +44,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
       force: true,
     });
     cy.get("[data-cy=DidReport0]").click({ force: true });
-    cy.get("#radio-177").check({ force: true });
+    //cy.get("#radio-177").check({ force: true });
     cy.get("[data-cy=DataStatus0]").click({ force: true });
     cy.get("#radio-181").check({ force: true });
     cy.get("[data-cy=MeasurementSpecification0]").click({ force: true });
