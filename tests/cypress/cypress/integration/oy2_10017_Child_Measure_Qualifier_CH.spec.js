@@ -21,10 +21,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       "have.text",
       "Complete the details below and when finished create the additional Child Core Set report(s)."
     ); //asserting text
-    cy.get("#field-5-label").should(
-      "have.text",
-      "1. How are you reporting Child Core Set measures?"
-    ); //asserting text
     cy.get("#ChildCoreSet-ReportType-separate").should(
       "have.text",
       "Reporting Medicaid and CHIP measures in separate core sets"
@@ -262,120 +258,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get(
       ".chakra-form-control > :nth-child(1) > .chakra-checkbox__label > .chakra-text"
     ).should("have.text", "Select All");
-    cy.get(
-      ".chakra-form-control > :nth-child(2) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "ADD-CH - Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication"
-    );
-    cy.get(
-      ":nth-child(3) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "AMB-CH - Ambulatory Care: Emergency Department (ED) Visits"
-    );
-    cy.get(
-      ":nth-child(4) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "AMR-CH - Asthma Medication Ratio: Ages 5 to 18");
-    cy.get(
-      ":nth-child(5) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "APM-CH - Metabolic Monitoring for Children and Adolescents on Antipsychotics"
-    );
-    cy.get(
-      ":nth-child(6) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "APP-CH - Use of First-Line Psychosocial Care for Children and Adolescents on Antipsychotics"
-    );
-    cy.get(
-      ":nth-child(7) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "AUD-CH - Audiological Diagnosis No Later Than 3 Months of Age"
-    );
-    cy.get(
-      ":nth-child(8) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.class", "chakra-text");
-    cy.get(
-      ":nth-child(9) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "CCW-CH - Contraceptive Care - All Women Ages 15-20");
-    cy.get(
-      ":nth-child(10) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"
-    );
-    cy.get(
-      ":nth-child(11) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CHL-CH - Chlamydia Screening in Women Ages 16 to 20"
-    );
-    cy.get(
-      ":nth-child(12) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "CIS-CH - Childhood Immunization Status");
-    cy.get(
-      ":nth-child(13) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"
-    );
-    cy.get(
-      ":nth-child(14) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "DEV-CH - Developmental Screening in the First Three Years of Life"
-    );
-    cy.get(
-      ":nth-child(15) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "FUH-CH - Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17"
-    );
-    cy.get(
-      ":nth-child(16) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "IMA-CH - Immunizations for Adolescents");
-    cy.get(
-      ":nth-child(17) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "LBW-CH - Live Births Weighing Less Than 2,500 Grams"
-    );
-    cy.get(
-      ":nth-child(18) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "LRCD-CH - Low-Risk Cesarean Delivery");
-    cy.get(
-      ":nth-child(19) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "PDENT-CH - Percentage of Eligibles Who Received Preventive Dental Services"
-    );
-    cy.get(
-      ":nth-child(20) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "PPC-CH - Prenatal and Postpartum Care: Timeliness of Prenatal Care"
-    );
-    cy.get(
-      ":nth-child(21) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "SFM-CH - Sealant Receipt on Permanent First Molars");
-    cy.get(
-      ":nth-child(22) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "W30-CH - Well-Child Visits in the First 30 Months of Life"
-    );
-    cy.get(
-      ":nth-child(23) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"
-    );
-    cy.get(
-      ":nth-child(24) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "WCV-CH - Child and Adolescent Well-Care Visits");
+
     //adding another under the same section and asserting all text
     /* ==== Generated with Cypress Studio ==== */
     cy.get('.css-zhlq69 > .css-0 > [data-cy="+ Add Another"]').click({
@@ -402,128 +285,65 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/ol[1]/li[2]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/label[1]/span[2]/p[1]"
     ).should("have.text", "Select All");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(2) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "ADD-CH - Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-ADD-CH - Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(3) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "AMB-CH - Ambulatory Care: Emergency Department (ED) Visits"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AMB-CH - Ambulatory Care: Emergency Department (ED) Visits"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(4) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should("have.text", "AMR-CH - Asthma Medication Ratio: Ages 5 to 18");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AMR-CH - Asthma Medication Ratio: Ages 5 to 18"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(5) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "APM-CH - Metabolic Monitoring for Children and Adolescents on Antipsychotics"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-APM-CH - Metabolic Monitoring for Children and Adolescents on Antipsychotics"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(5) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "APM-CH - Metabolic Monitoring for Children and Adolescents on Antipsychotics"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-APP-CH - Use of First-Line Psychosocial Care for Children and Adolescents on Antipsychotics"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(6) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "APP-CH - Use of First-Line Psychosocial Care for Children and Adolescents on Antipsychotics"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AUD-CH - Audiological Diagnosis No Later Than 3 Months of Age"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(7) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "AUD-CH - Audiological Diagnosis No Later Than 3 Months of Age"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(8) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15-20"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(9) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should("have.text", "CCW-CH - Contraceptive Care - All Women Ages 15-20");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(10) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CHL-CH - Chlamydia Screening in Women Ages 16 to 20"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(11) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "CHL-CH - Chlamydia Screening in Women Ages 16 to 20"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CIS-CH - Childhood Immunization Status"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(12) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should("have.text", "CIS-CH - Childhood Immunization Status");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(13) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-DEV-CH - Developmental Screening in the First Three Years of Life"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(14) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "DEV-CH - Developmental Screening in the First Three Years of Life"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-CH - Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(15) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "FUH-CH - Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IMA-CH - Immunizations for Adolescents"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(16) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should("have.text", "IMA-CH - Immunizations for Adolescents");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-PPC-CH - Prenatal and Postpartum Care: Timeliness of Prenatal Care"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(17) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "LBW-CH - Live Births Weighing Less Than 2,500 Grams"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-SFM-CH - Sealant Receipt on Permanent First Molars"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(18) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should("have.text", "LRCD-CH - Low-Risk Cesarean Delivery");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-W30-CH - Well-Child Visits in the First 30 Months of Life"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(19) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "PDENT-CH - Percentage of Eligibles Who Received Preventive Dental Services"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"]'
+    ).should("be.visible");
     cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(20) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "PPC-CH - Prenatal and Postpartum Care: Timeliness of Prenatal Care"
-    );
-    cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(21) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should("have.text", "SFM-CH - Sealant Receipt on Permanent First Molars");
-    cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(22) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "W30-CH - Well-Child Visits in the First 30 Months of Life"
-    );
-    cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(23) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should(
-      "have.text",
-      "WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"
-    );
-    cy.get(
-      "body.chakra-ui-light:nth-child(2) div.chakra-container.css-4hb9ch section.css-1c54vx9 ol.css-1dg6mvm li.css-0:nth-child(2) div.chakra-stack.css-n21gh5:nth-child(3) div.css-1rwovhe div.chakra-form-control.css-1kxonj9 div.chakra-radio-group.css-0 div.chakra-stack.css-n21gh5 div.css-79elbk:nth-child(1) div.chakra-collapse div.css-zhlq69 div.chakra-stack.css-87vs99 div.css-j43fqm:nth-child(2) div.css-r4358i div.css-15inwrb div.chakra-stack.css-6pejbm div.chakra-form-control.css-1kxonj9 div.css-1xv6f1u:nth-child(24) label.chakra-checkbox.css-1uiwwan span.chakra-checkbox__label.css-7venl8 > p.chakra-text.css-1m49yyc"
-    ).should("have.text", "WCV-CH - Child and Adolescent Well-Care Visits");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCV-CH - Child and Adolescent Well-Care Visits"]'
+    ).should("be.visible");
     //testing section 3. External Contractor
 
     cy.get(":nth-child(3) > .css-1vvfi3 > .css-722v25").should(
@@ -657,120 +477,65 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       ".chakra-form-control > :nth-child(1) > .chakra-checkbox__label > .chakra-text"
     ).should("have.text", "Select All");
     cy.get(
-      ".chakra-form-control > :nth-child(2) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "ADD-CH - Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-ADD-CH - Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(3) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "AMB-CH - Ambulatory Care: Emergency Department (ED) Visits"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AMB-CH - Ambulatory Care: Emergency Department (ED) Visits"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(4) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "AMR-CH - Asthma Medication Ratio: Ages 5 to 18");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AMR-CH - Asthma Medication Ratio: Ages 5 to 18"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(5) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "APM-CH - Metabolic Monitoring for Children and Adolescents on Antipsychotics"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-APM-CH - Metabolic Monitoring for Children and Adolescents on Antipsychotics"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(6) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "APP-CH - Use of First-Line Psychosocial Care for Children and Adolescents on Antipsychotics"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-APP-CH - Use of First-Line Psychosocial Care for Children and Adolescents on Antipsychotics"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(7) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "AUD-CH - Audiological Diagnosis No Later Than 3 Months of Age"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AUD-CH - Audiological Diagnosis No Later Than 3 Months of Age"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(8) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(9) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "CCW-CH - Contraceptive Care - All Women Ages 15-20");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15-20"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(10) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(11) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CHL-CH - Chlamydia Screening in Women Ages 16 to 20"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CHL-CH - Chlamydia Screening in Women Ages 16 to 20"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(12) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "CIS-CH - Childhood Immunization Status");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CIS-CH - Childhood Immunization Status"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(13) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"
-    );
-    cy.get(".chakra-form-control > :nth-child(14)").should(
-      "have.text",
-      "DEV-CH - Developmental Screening in the First Three Years of Life"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(15) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "FUH-CH - Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-DEV-CH - Developmental Screening in the First Three Years of Life"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(16) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "IMA-CH - Immunizations for Adolescents");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-CH - Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(17) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "LBW-CH - Live Births Weighing Less Than 2,500 Grams"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IMA-CH - Immunizations for Adolescents"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(18) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "LRCD-CH - Low-Risk Cesarean Delivery");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-PPC-CH - Prenatal and Postpartum Care: Timeliness of Prenatal Care"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(19) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "PDENT-CH - Percentage of Eligibles Who Received Preventive Dental Services"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-SFM-CH - Sealant Receipt on Permanent First Molars"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(20) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "PPC-CH - Prenatal and Postpartum Care: Timeliness of Prenatal Care"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-W30-CH - Well-Child Visits in the First 30 Months of Life"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(21) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "SFM-CH - Sealant Receipt on Permanent First Molars");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(22) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "W30-CH - Well-Child Visits in the First 30 Months of Life"
-    );
-    cy.get(
-      ":nth-child(23) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"
-    );
-    cy.get(
-      ":nth-child(24) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "WCV-CH - Child and Adolescent Well-Care Visits");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCV-CH - Child and Adolescent Well-Care Visits"]'
+    ).should("be.visible");
     cy.get('.css-zhlq69 > .css-0 > [data-cy="+ Add Another"]').should(
       "be.enabled"
     );
@@ -897,165 +662,71 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       "have.text",
       "Which measures did they audit or validate?"
     );
+
+    // begining of checking multiselect for values
+
     cy.get(
-      ".chakra-form-control > :nth-child(1) > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "Select All");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-ADD-CH - Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication"]'
+    ).should("be.visible");
     cy.get(
-      ".chakra-form-control > :nth-child(2) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "AMM-AD - Antidepressant Medication Management");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AMB-CH - Ambulatory Care: Emergency Department (ED) Visits"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(3) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "AMR-AD - Asthma Medication Ratio: Ages 19 to 64");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AMR-CH - Asthma Medication Ratio: Ages 5 to 18"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(4) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "BCS-AD - Breast Cancer Screening");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-APM-CH - Metabolic Monitoring for Children and Adolescents on Antipsychotics"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(5) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "CBP-AD - Controlling High Blood Pressure");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-APP-CH - Use of First-Line Psychosocial Care for Children and Adolescents on Antipsychotics"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(6) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CCP-AD - Contraceptive Care - Postpartum Women Ages 21 to 44"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AUD-CH - Audiological Diagnosis No Later Than 3 Months of Age"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(7) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "CCS-AD - Cervical Cancer Screening");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(8) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CCW-AD - Contraceptive Care - All Women Ages 21 to 44"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15-20"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(9) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CDF-AD - Screening for Depression and Follow-Up Plan: Age 18 and older"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(10) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "CHL-AD - Chlamydia Screening in Women Ages 21-24");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CHL-CH - Chlamydia Screening in Women Ages 16 to 20"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(11) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "COB-AD - Concurrent Use of Opioids and Benzodiazepines"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CIS-CH - Childhood Immunization Status"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(12) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "CPA-AD - Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(13) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "FUA-AD - Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-DEV-CH - Developmental Screening in the First Three Years of Life"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(14) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "FUH-AD - Follow-up after Hospitalization for Mental Illness: Age 18 and older"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-CH - Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(15) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "FUM-AD - Follow-Up after Emergency Department Visit for Mental Illness"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IMA-CH - Immunizations for Adolescents"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(16) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "FVA-AD - Flu Vaccinations for Adults Ages 18 to 64");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-PPC-CH - Prenatal and Postpartum Care: Timeliness of Prenatal Care"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(17) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "HPC-AD - Comprehensive Diabetes Care: Hemoglobin A1c Poor Control (>9.0%)"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-SFM-CH - Sealant Receipt on Permanent First Molars"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(18) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "HPCMI-AD - Diabetes Care for People with Serious Mental Illness: Hemoglobin A1C (HbA1c) Poor Control (>9.0%)"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-W30-CH - Well-Child Visits in the First 30 Months of Life"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(19) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "HVL-AD - HIV Viral Loan Suppression");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"]'
+    ).should("be.visible");
     cy.get(
-      ":nth-child(20) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "IET-AD - Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment"
-    );
-    cy.get(
-      ":nth-child(21) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "MSC-AD - Medical Assistance with Smoking and Tobacco Use Cessation"
-    );
-    cy.get(
-      ":nth-child(22) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "NCIDDS-AD - National Core Indicators Survey");
-    cy.get(
-      ":nth-child(23) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "OHD-AD - User of Opioids at High Dosage in Persons Without Cancer"
-    );
-    cy.get(
-      ":nth-child(24) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "OUD-AD - Use of Pharmacotherapy for Opioid Use Disorder"
-    );
-    cy.get(
-      ":nth-child(25) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "PC01-AD - PC-01: Elective Delivery");
-    cy.get(
-      ":nth-child(26) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "PCR-AD - Plan All-Cause Readmissions");
-    cy.get(
-      ":nth-child(27) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "PPC-AD - Prenatal and PostPartum Care: Postpartum Care"
-    );
-    cy.get(
-      ":nth-child(28) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "PQI01-AD - PQI 01: Diabetes Short-Term Complications Admission Rate"
-    );
-    cy.get(
-      ":nth-child(29) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "PQI05-AD - PQI 05: Chronic Obstructive Pulmonary Disease (COPD) or Asthma in Older Adults Admission Rate"
-    );
-    cy.get(
-      ":nth-child(30) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should("have.text", "PQI08-AD - PQI 08: Heart Failure Admission Rate");
-    cy.get(
-      ":nth-child(31) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "PQI15-AD - PQI 15: Asthma in Younger Adults Admission Rate"
-    );
-    cy.get(
-      ":nth-child(32) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "SAA-AD - Adherence to Antipsychotic Medications for Individuals with Schizophrenia"
-    );
-    cy.get(
-      ":nth-child(33) > .chakra-checkbox > .chakra-checkbox__label > .chakra-text"
-    ).should(
-      "have.text",
-      "SSD-AD - Diabetes Screening for People with Schizophrenia or Bipolar Disorder Who Are Using Antipsychotic Medications"
-    );
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCV-CH - Child and Adolescent Well-Care Visits"]'
+    ).should("be.visible");
+    // end of checking multiselect for values
+
     cy.get('.css-zhlq69 > .css-0 > [data-cy="+ Add Another"]').should(
       "be.enabled"
     );
@@ -1092,11 +763,11 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     //testing sections 4 and rest of page
     cy.get(":nth-child(4) > .chakra-stack > .css-722v25").should(
       "have.text",
-      "Complete all Adult Core Set Questions and Adult Core Set Measures to submit to CMS"
+      "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS"
     );
     cy.get(":nth-child(4) > .chakra-stack > .css-0").should(
       "have.text",
-      "Complete all Adult Core Set Questions and Adult Core Set Measures to submit to CMS for review"
+      "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS for review"
     );
     cy.get('[data-cy="complete-core-set-questions-button"]').should(
       "be.enabled"

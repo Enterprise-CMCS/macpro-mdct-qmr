@@ -106,9 +106,9 @@ export const CCSQualifiers = () => {
             </CUI.Box>
             <CUI.OrderedList>
               <DeliverySystems />
-              <Common.Audit type="AD" />
+              <Common.Audit type="CH" />
               <Common.ExternalContractor />
-              <Common.CompleteCoreSets type="AD" />
+              <Common.CompleteCoreSets type="CH" />
             </CUI.OrderedList>
           </CUI.Box>
         </form>
