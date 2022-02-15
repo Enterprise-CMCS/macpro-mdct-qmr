@@ -131,7 +131,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "National Core Indicators",
+      description: "National Core Indicators Survey",
       measure: "NCIDDS-AD",
       autocompleteOnCreation: true,
     },
