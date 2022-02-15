@@ -37,13 +37,8 @@ export const AddAnotherSection = ({
           onDelete={() => remove(idx)}
           key={field.id}
         >
-          <CUI.Box ml="6" key={field.id}>
-            <CUI.Text
-              size={"xl"}
-              ml="-6"
-              my="3"
-              onClick={() => remove(idx)}
-            >{`Additional ${parentName}`}</CUI.Text>
+          <CUI.Text size={"2xl"} my="3">{`Additional ${parentName}`}</CUI.Text>
+          <QMR.QuestionChild show key={field.id}>
             <QMR.TextInput
               name={`${name}.additionalSelections.${idx}.description`}
               label={`Define the additional ${parentName}`}
@@ -55,7 +50,7 @@ export const AddAnotherSection = ({
             {flagSubCat && (
               <SubCatSection name={`${name}.additionalSelections.${idx}`} />
             )}
-          </CUI.Box>
+          </QMR.QuestionChild>
         </QMR.DeleteWrapper>
       ))}
       <AddAnotherButton

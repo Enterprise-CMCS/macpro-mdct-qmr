@@ -54,15 +54,11 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
   return (
     <CUI.Box key={`${name}.additionalSubCategoriesWrapper`}>
       {fields.map((field: any, idx: number) => (
-        <QMR.DeleteWrapper
-          allowDeletion
-          onDelete={() => remove(idx)}
-          key={field.id}
-        >
-          <CUI.Box ml="6" key={field.id}>
-            <CUI.Text size={"xl"} ml="-6" my="3" onClick={() => remove(idx)}>
-              {"Additional/Alternative Classification/Sub-category"}
-            </CUI.Text>
+        <QMR.DeleteWrapper allowDeletion key={field.id}>
+          <CUI.Text size={"xl"} my="3" onClick={() => remove(idx)}>
+            {"Additional/Alternative Classification/Sub-category"}
+          </CUI.Text>
+          <QMR.QuestionChild show key={field.id}>
             <QMR.TextInput
               name={`${name}.additionalSubCategories.${idx}.description`}
               label={"Define the Alternative Classification/Sub-category"}
@@ -71,7 +67,7 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
             <NDRSets
               name={`${name}.additionalSubCategories.${idx}.ageRangeRates`}
             />
-          </CUI.Box>
+          </QMR.QuestionChild>
         </QMR.DeleteWrapper>
       ))}
       <AddAnotherButton
