@@ -15,7 +15,7 @@ interface CheckboxChildrenProps extends OmsNode {
 }
 
 interface ChildCheckBoxOptionProps {
-  omsNode: OmsNode;
+  omsNode?: OmsNode;
   name: string;
 }
 
@@ -44,28 +44,32 @@ const renderRadioButtonOptions = ({
   return [
     {
       displayValue: `Yes, we are only reporting aggregated data for all ${
-        omsNode.aggregateTitle || omsNode.id
+        omsNode?.aggregateTitle || omsNode?.id
       } categories.`,
       value: "YesAggregateData",
       children: [
-        <NdrNode flagSubCat={!!omsNode.flagSubCat} name={name} key={name} />,
+        <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
       ],
     },
     {
       displayValue: `No, we are reporting independent data for all ${
-        omsNode.aggregateTitle || omsNode.id
+        omsNode?.aggregateTitle || omsNode?.id
       } categories`,
       value: "NoIndependentData",
       children: [
         <QMR.Checkbox
           name={`${name}.options`}
           key={`${name}.options`}
-          options={omsNode.options!.map((node) => {
-            return buildChildCheckboxOption({
-              omsNode: node,
-              name: `${name}.selections.${node.id.replace(/[^\w]/g, "")}`,
-            });
-          })}
+          options={
+            omsNode?.options!.map((node) => {
+              return buildChildCheckboxOption({
+                omsNode: node,
+                name: `${name}.selections.${
+                  node.id?.replace(/[^\w]/g, "") ?? "ID_NOT_SET"
+                }`,
+              });
+            }) || []
+          }
         />,
       ],
     },
@@ -81,11 +85,11 @@ const buildChildCheckboxOption = ({
   name,
 }: ChildCheckBoxOptionProps) => {
   let children = [];
-  const cleanedName = omsNode.id.replace(/[^\w]/g, "");
+  const cleanedName = omsNode?.id?.replace(/[^\w]/g, "") ?? "ID_NOT_SET";
 
-  if (!omsNode.options) {
+  if (!omsNode?.options) {
     children = [
-      <NdrNode flagSubCat={!!omsNode.flagSubCat} name={name} key={name} />,
+      <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
     ];
   }
   // catch condition for subCategory ex: Asian -> Korean
@@ -100,7 +104,7 @@ const buildChildCheckboxOption = ({
   }
   return {
     value: cleanedName,
-    displayValue: omsNode.id,
+    displayValue: omsNode?.id ?? "DISPLAY_ID_NOT_SET",
     children,
   };
 };
@@ -121,7 +125,8 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
         key={`${props.name}.options`}
         options={[
           ...props.options.map((lvlTwoOption) => {
-            const cleanedId = lvlTwoOption.id.replace(/[^\w]/g, "");
+            const cleanedId =
+              lvlTwoOption?.id?.replace(/[^\w]/g, "") ?? "LVL_TWO_ID_NOT_SET";
 
             return buildChildCheckboxOption({
               omsNode: lvlTwoOption,

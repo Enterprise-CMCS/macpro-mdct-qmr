@@ -108,8 +108,8 @@ export const validateNumeratorsLessThanDenominators = (
         performanceMeasure[i].numerator
       ) {
         if (
-          parseInt(performanceMeasure[i].denominator) <
-          parseInt(performanceMeasure[i].numerator)
+          parseInt(performanceMeasure[i].denominator!) <
+          parseInt(performanceMeasure[i].numerator!)
         ) {
           error = true;
         }
@@ -195,15 +195,15 @@ export const validateNoNonZeroNumOrDenom = (
         performanceMeasure[i].rate
       ) {
         if (
-          parseInt(performanceMeasure[i].rate) !== 0 &&
-          parseInt(performanceMeasure[i].numerator) === 0
+          parseInt(performanceMeasure[i].rate!) !== 0 &&
+          parseInt(performanceMeasure[i].numerator!) === 0
         ) {
           nonZeroRateError = true;
         }
         if (
-          parseInt(performanceMeasure[i].rate) === 0 &&
-          parseInt(performanceMeasure[i].numerator) !== 0 &&
-          parseInt(performanceMeasure[i].denominator) !== 0
+          parseInt(performanceMeasure[i].rate!) === 0 &&
+          parseInt(performanceMeasure[i].numerator!) !== 0 &&
+          parseInt(performanceMeasure[i].denominator!) !== 0
         ) {
           zeroRateError = true;
         }

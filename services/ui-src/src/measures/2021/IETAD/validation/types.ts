@@ -7,24 +7,24 @@ export namespace Measure {
   }
 
   export interface RateFields {
-    numerator: string;
-    denominator: string;
-    rate: string;
+    numerator?: string;
+    denominator?: string;
+    rate?: string;
   }
 
   interface AggregateRate {
-    subRate: RateFields[];
-    total: RateFields[];
+    subRate?: RateFields[];
+    total?: RateFields[];
   }
 
   export interface OtherRatesFields {
-    description: string;
-    rate: RateFields[];
+    description?: string;
+    rate?: RateFields[];
   }
 
   interface OmsRateFields {
-    options: string[];
-    rates: {
+    options?: string[];
+    rates?: {
       [ageRange: string]: RateFields[];
     };
   }
@@ -36,8 +36,8 @@ export namespace Measure {
     // for additional subCats/add anothers
     subCatOptions?: string[];
     subCategories?: {
-      description: string;
-      ageRangeRates: OmsRateFields;
+      description?: string;
+      ageRangeRates?: OmsRateFields;
     }[];
   }
 
@@ -64,7 +64,7 @@ export namespace Measure {
   }
 
   interface AddtnlOmsNode extends LowLevelOmsNode {
-    description: string;
+    description?: string;
   }
 
   interface DeviationFields {

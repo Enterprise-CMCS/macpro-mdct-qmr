@@ -190,8 +190,6 @@ export const MeasureWrapper = ({
     return null;
   }
 
-  console.log(measureData);
-
   return (
     <FormProvider {...methods}>
       <QMR.YesNoModalDialog
