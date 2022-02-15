@@ -9,6 +9,7 @@ import { FUAAD } from "./FUAAD";
 import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
+import { OUDAD } from "./OUDAD";
 import { NCIDDSAD } from "./NCIDDSAD";
 import { PDENTCH } from "./PDENTCH";
 import { PQI01AD } from "./PQI01AD";
@@ -20,6 +21,7 @@ const twentyTwentyOneMeasures = {
   "IET-AD": IETAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
+  "OUD-AD": OUDAD,
   "NCIDDS-AD": NCIDDSAD,
   "PDENT-CH": PDENTCH,
   "PQI01-AD": PQI01AD,
