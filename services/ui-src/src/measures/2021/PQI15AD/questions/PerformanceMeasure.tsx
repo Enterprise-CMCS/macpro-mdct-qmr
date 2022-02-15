@@ -3,6 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { useFormContext } from "react-hook-form";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const PerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -42,7 +43,7 @@ export const PerformanceMeasure = () => {
       <QMR.Rate
         readOnly={rateReadOnly}
         rates={ageRates}
-        allowAnyRate={!rateReadOnly}
+        customMask={positiveNumbersWithMaxDecimalPlaces(1)}
         rateMultiplicationValue={100000}
         {...register("PerformanceMeasure-AgeRates")}
       />

@@ -4,6 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const OtherPerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -45,6 +46,7 @@ export const OtherPerformanceMeasure = () => {
                 name={`OtherPerformanceMeasure-Rates.${index}.description`}
               />
               <QMR.Rate
+                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 rates={[
                   {
                     id: index,
