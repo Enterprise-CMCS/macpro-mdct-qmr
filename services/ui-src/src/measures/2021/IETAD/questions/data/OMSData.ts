@@ -9,8 +9,10 @@ export interface OmsNode {
   options?: OmsNode[];
   /** should additional category values have subCatOptions? */
   addMoreSubCatFlag?: boolean;
-  /**s hould the aggregate question have a diffrent title than id? */
+  /** should the aggregate question have a diffrent title than id? */
   aggregateTitle?: string;
+  /** should NDR sets be totaled? */
+  calcTotal?: boolean;
 }
 
 export const OMSData: OmsNode[] = [
