@@ -16,6 +16,7 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
 jest.mock("../../../libs/authorization", () => ({
   __esModule: true,
   isAuthorized: jest.fn().mockReturnValue(true),
+  getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -54,7 +55,7 @@ describe("Test Update Measure Handler", () => {
       {
         status: "status",
         lastAltered: 20,
-        lastAlteredBy: "test",
+        lastAlteredBy: "branchUser",
         data: {},
       },
       "post"
