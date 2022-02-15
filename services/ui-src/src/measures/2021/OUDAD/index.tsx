@@ -4,7 +4,7 @@ import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
-export const FUAAD = ({
+export const OUDAD = ({
   name,
   year,
   measureId,
@@ -25,40 +25,50 @@ export const FUAAD = ({
   const watchMeasureSpecification = useWatch({
     name: "MeasurementSpecification",
   });
-  const watchPerformanceMeasureAgeRates30Days = useWatch({
-    name: "PerformanceMeasure-AgeRates-30Days",
-  });
-  const watchPerformanceMeasureAgeRates7Days = useWatch({
-    name: "PerformanceMeasure-AgeRates-7Days",
+  const watchPerformanceMeasureRates = useWatch({
+    name: "PerformanceMeasure-Rates",
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
   });
 
   // Conditionals for Performance Measures
-  const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
+  const isCMS = watchMeasureSpecification === "CMS";
 
   const isOtherSpecification = watchMeasureSpecification === "Other";
-  // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
-  const show30DaysAges18To64 =
-    !!watchPerformanceMeasureAgeRates30Days?.[0]?.rate;
-  const show30DaysAges65AndOlder =
-    !!watchPerformanceMeasureAgeRates30Days?.[1]?.rate;
-  const show7DaysAges18To64 = !!watchPerformanceMeasureAgeRates7Days?.[0]?.rate;
-  const show7DaysAges65AndOlder =
-    !!watchPerformanceMeasureAgeRates7Days?.[1]?.rate;
+  // Age Conditionals for Deviations from Measure Specifications
+
+  const showTotalRate = !!watchPerformanceMeasureRates?.[0]?.rate;
+  const showBuprenorphine = !!watchPerformanceMeasureRates?.[1]?.rate;
+  const showOralNaltrexone = !!watchPerformanceMeasureRates?.[2]?.rate;
+  const showInjectableNaltrexone = !!watchPerformanceMeasureRates?.[3]?.rate;
+  const showMethadone = !!watchPerformanceMeasureRates?.[4]?.rate;
+
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
   const ageGroups = [];
 
-  if (show30DaysAges18To64 || show7DaysAges18To64) {
-    ageGroups.push({ label: "Ages 18 to 64", id: 0 });
+  if (showTotalRate) {
+    ageGroups.push({ label: "Total Rate", id: 1 });
   }
 
-  if (show30DaysAges65AndOlder || show7DaysAges65AndOlder) {
-    ageGroups.push({ label: "Ages 65 and older", id: 1 });
+  if (showBuprenorphine) {
+    ageGroups.push({ label: "Buprenorphine", id: 2 });
   }
+
+  if (showOralNaltrexone) {
+    ageGroups.push({ label: "Oral naltrexone", id: 3 });
+  }
+
+  if (showInjectableNaltrexone) {
+    ageGroups.push({ label: "Long-acting, injectable naltrexone", id: 4 });
+  }
+
+  if (showMethadone) {
+    ageGroups.push({ label: "Methadone", id: 5 });
+  }
+
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
     otherRates.forEach((rate) => {
@@ -83,39 +93,32 @@ export const FUAAD = ({
           <Q.DataSource />
           <Q.DateRange type="adult" />
           <Q.DefinitionOfPopulation />
-          {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && <Q.PerformanceMeasure />}
+          {/* Show Performance Measure when CMS is selected from DataSource */}
+          {isCMS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
-          {isHEDIS && (
+          {isCMS && (
             <Q.DeviationFromMeasureSpec
               options={ageGroups}
               deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
+                showTotalRate,
+                showBuprenorphine,
+                showOralNaltrexone,
+                showInjectableNaltrexone,
+                showMethadone,
                 showOtherPerformanceMeasureRates,
               }}
             />
           )}
-          {/* Show Other Performance Measures when isHedis is not true  */}
+          {/* Show Other Performance Measures when isCMS is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
           <Q.CombinedRates />
-          {(show30DaysAges18To64 ||
-            show30DaysAges65AndOlder ||
-            show7DaysAges18To64 ||
-            show7DaysAges65AndOlder ||
+          {(showTotalRate ||
+            showBuprenorphine ||
+            showOralNaltrexone ||
+            showInjectableNaltrexone ||
+            showMethadone ||
             showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <Q.OptionalMeasureStratification ageGroups={ageGroups} />
           )}
         </>
       )}

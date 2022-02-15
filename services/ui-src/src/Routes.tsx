@@ -29,23 +29,26 @@ interface MeasureRoute {
 const measureRoutes: MeasureRoute[] = [];
 
 Object.keys(measuresList).forEach((year: string) => {
-  measuresList[year].forEach(({ measureId, name }: MeasuresListItem) => {
-    if (measureId in Measures[year]) {
-      const Comp = Measures[year][measureId];
+  measuresList[year].forEach(
+    ({ measureId, name, autocompleteOnCreation }: MeasuresListItem) => {
+      if (measureId in Measures[year]) {
+        const Comp = Measures[year][measureId];
 
-      measureRoutes.push({
-        path: `:state/${year}/:coreSetId/${measureId}`,
-        el: (
-          <QMR.MeasureWrapper
-            name={name}
-            year={year}
-            measureId={measureId}
-            measure={createElement(Comp)}
-          />
-        ),
-      });
+        measureRoutes.push({
+          path: `:state/${year}/:coreSetId/${measureId}`,
+          el: (
+            <QMR.MeasureWrapper
+              name={name}
+              year={year}
+              measureId={measureId}
+              measure={createElement(Comp)}
+              autocompleteOnCreation={autocompleteOnCreation ?? false}
+            />
+          ),
+        });
+      }
     }
-  });
+  );
 });
 
 export function AppRoutes() {

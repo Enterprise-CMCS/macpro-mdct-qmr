@@ -120,7 +120,11 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
                       value={item.value}
                       onChange={(e) => handleChange(e)}
                     >
-                      <CUI.Text fontWeight="normal" fontSize="normal">
+                      <CUI.Text
+                        fontWeight="normal"
+                        fontSize="normal"
+                        data-cy={name + "-" + item.label}
+                      >
                         {item.label}
                       </CUI.Text>
                     </CUI.Checkbox>
