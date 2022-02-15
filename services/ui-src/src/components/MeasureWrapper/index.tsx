@@ -110,7 +110,7 @@ export const MeasureWrapper = ({
     submitDataToServer({
       data: {},
       status: MeasureStatus.INCOMPLETE,
-      reporting: "no",
+      reporting: undefined,
       callback: () => {
         navigate(-1);
       },
