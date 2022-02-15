@@ -9,6 +9,7 @@ export interface RadioButtonOption {
   children?: JSX.Element[];
   removable?: boolean;
   onDelete?: () => void;
+  onClick?: () => void;
 }
 
 interface RadioButtonProps extends QMR.InputWrapperProps {
@@ -63,9 +64,11 @@ export const RadioButton = ({
                 <CUI.Radio
                   value={option.value}
                   key={option.value}
+                  onClick={option.onClick}
                   data-cy={name + idx}
                 >
                   <CUI.Text
+                    onClick={option.onClick}
                     fontWeight="normal"
                     fontSize="normal"
                     id={field.name + "-" + (option.value + "").replace("/", "")}
