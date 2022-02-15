@@ -266,7 +266,7 @@ export const DefinitionOfPopulation = () => {
                             displayPercent
                             helperText="The percentage provided here should represent the percentage of the denominator population(s) included in the measure (i.e., Medicaid, CHIP, etc.) that receives items/services through the selected delivery system. For example, if the population included in the reported data represents all managed care enrollees and half of your state’s fee-for-service enrollees, select managed care, and select fee-for-service and enter 50."
                             renderHelperTextAbove
-                            mask={allPositiveIntegers}
+                            mask={percentageAllowOneDecimalMax}
                             {...register("DeliverySys-MCO_POHP-No-Included")}
                           />,
                           <CUI.Text my="5" key="AdditionalMCOExcludedText">
