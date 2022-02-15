@@ -40,6 +40,12 @@ export const Rate = ({
     formState: { errors },
   } = useFormContext();
 
+  const { field } = useController({
+    name,
+    control,
+    defaultValue: [],
+  });
+
   useEffect(() => {
     // Establish a total field
     const prevRate = [...field.value];
@@ -55,12 +61,6 @@ export const Rate = ({
     });
     field.onChange([...prevRate]);
   }, []);
-
-  const { field } = useController({
-    name,
-    control,
-    defaultValue: [],
-  });
 
   const changeRate = (
     index: number,
@@ -100,6 +100,7 @@ export const Rate = ({
           : prevRate[index].rate;
 
       field.onChange([...prevRate]);
+      console.log("field: ", field);
       return;
     }
 
