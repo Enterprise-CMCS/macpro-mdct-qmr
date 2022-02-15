@@ -5,7 +5,8 @@ import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { getUserNameFromJwt } from "../../libs/authorization";
 
 export const editMeasure = handler(async (event, context) => {
-  const { data, status } = JSON.parse(event!.body!);
+  const { data, status, reporting = null } = JSON.parse(event!.body!);
+
   const dynamoKey = createCompoundKey(event);
   const lastAlteredBy = getUserNameFromJwt(event);
 
@@ -18,6 +19,7 @@ export const editMeasure = handler(async (event, context) => {
     ...convertToDynamoExpression(
       {
         status,
+        reporting,
         lastAltered: Date.now(),
         lastAlteredBy,
         data,
