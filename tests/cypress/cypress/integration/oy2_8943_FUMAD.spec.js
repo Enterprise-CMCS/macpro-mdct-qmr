@@ -230,12 +230,6 @@ describe("Measure: FUM-AD", () => {
     cy.get(
       '[data-cy="DeviationOptions0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
-    // cy.get(
-    //   '[data-cy="DeviationOptions-AgeRanges1"] > .chakra-checkbox__label > .chakra-text'
-    // ).should("be.visible");
-    // cy.get(
-    //   '[data-cy="DeviationOptions0"]'
-    // ).click();
     cy.get("[data-cy='DeviationOptions0']").click();
     cy.get('[data-cy="DeviationOptions-Within30-AgeRange0"]').click();
 
