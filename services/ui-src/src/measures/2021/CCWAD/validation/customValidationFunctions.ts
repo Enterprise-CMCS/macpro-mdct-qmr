@@ -162,7 +162,7 @@ const validateNonZeroDenom = (data: Measure.Form) => {
       data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
     ],
     data["OtherPerformanceMeasure-Rates"],
-    []
+    [""]
   );
 };
 

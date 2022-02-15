@@ -24,10 +24,10 @@ export const CCWAD = ({ setValidationFunctions }: Measure.Props) => {
     name: "OtherPerformanceMeasure-Rates",
   });
   const watchReversibleRates = useWatch({
-    name: "ReversibleMethodOfContraceptionRate",
+    name: "PerformanceMeasure-ReversibleMethodOfContraceptionRate",
   });
   const watchModeratelyRates = useWatch({
-    name: "ModeratelyEffectiveMethodOfContraceptionRate",
+    name: "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate",
   });
 
   // Conditionals for Performance Measures
