@@ -19,7 +19,7 @@ describe("Adult Qualifiers", () => {
     cy.get("#MeasurementSpecification-Other").click({ force: true });
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
-    ).clear();
+    ).clear({ force: true });
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "1"
     );
@@ -45,7 +45,7 @@ describe("Adult Qualifiers", () => {
     ).click({ force: true });
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
-    ).clear();
+    ).clear({ force: true });
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "1"
     );
@@ -76,7 +76,7 @@ describe("Adult Qualifiers", () => {
     ).click({ force: true });
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
-    ).clear();
+    ).clear({ force: true });
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "1"
     );
