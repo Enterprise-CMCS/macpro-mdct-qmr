@@ -4,7 +4,6 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const OtherPerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -51,9 +50,7 @@ export const OtherPerformanceMeasure = () => {
                     id: index,
                   },
                 ]}
-                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 name={`OtherPerformanceMeasure-Rates.${index}.rate`}
-                rateMultiplicationValue={100000}
                 readOnly={rateReadOnly}
               />
             </CUI.Stack>

@@ -51,10 +51,10 @@ export const OtherPerformanceMeasure = () => {
                     id: index,
                   },
                 ]}
-                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 name={`OtherPerformanceMeasure-Rates.${index}.rate`}
-                rateMultiplicationValue={100000}
                 readOnly={rateReadOnly}
+                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+                rateMultiplicationValue={100000}
               />
             </CUI.Stack>
           );
