@@ -1005,7 +1005,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
       "[data-cy=NonHispanicRacialCategories4] > #NonHispanicRacialCategories"
     ).check();
     cy.get("[data-cy=NativeHawaiianIndependentReporting0]").click();
-    cy.get("#radio-417").check();
+    //cy.get("#radio-417").check();
     cy.get(
       '[data-cy="NHRC-AggregateHawaiianOrPacificIslanderRates.ageData0"]'
     ).click();
@@ -1345,7 +1345,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get("[data-cy=EthnicityCategories1]").click();
     cy.get("[data-cy=EthnicityCategories1] > #EthnicityCategories").check();
     cy.get("[data-cy=HispanicIndependentReporting0]").click();
-    cy.get("#radio-499").check();
+    //cy.get("#radio-499").check();
     cy.get(
       '[data-cy="HispanicEthnicityAggregateRate.ageData0"] > .chakra-checkbox__control'
     ).click();
