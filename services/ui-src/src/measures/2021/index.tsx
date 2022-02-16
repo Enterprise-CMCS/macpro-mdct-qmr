@@ -4,19 +4,27 @@ the key should be the measure id as a string (with '-XX' included)
 */
 
 import { AMMAD } from "./AMMAD";
+import { CPAAD } from "./CPAAD";
 import { FUAAD } from "./FUAAD";
+import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
+import { OUDAD } from "./OUDAD";
 import { NCIDDSAD } from "./NCIDDSAD";
 import { PDENTCH } from "./PDENTCH";
+import { PQI01AD } from "./PQI01AD";
 
 const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
+  "CPA-AD": CPAAD,
+  "FUA-AD": FUAAD,
+  "IET-AD": IETAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
+  "OUD-AD": OUDAD,
   "NCIDDS-AD": NCIDDSAD,
   "PDENT-CH": PDENTCH,
-  "FUA-AD": FUAAD,
+  "PQI01-AD": PQI01AD,
 };
 
 export default twentyTwentyOneMeasures;

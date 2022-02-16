@@ -2,16 +2,16 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { getUserNameFromJwt } from "../../libs/authorization";
 
 export const editMeasure = handler(async (event, context) => {
-  const { data, status } = JSON.parse(event!.body!);
+  const { data, status, reporting = null } = JSON.parse(event!.body!);
+
   const dynamoKey = createCompoundKey(event);
-  const lastAlteredBy = event.headers["cognito-identity-id"]
-    ? event.headers["cognito-identity-id"]
-    : "branchUser";
+  const lastAlteredBy = getUserNameFromJwt(event);
 
   const params = {
-    TableName: process.env.measureTableName,
+    TableName: process.env.measureTableName!,
     Key: {
       compoundKey: dynamoKey,
       coreSet: event!.pathParameters!.coreSet!,
@@ -19,6 +19,7 @@ export const editMeasure = handler(async (event, context) => {
     ...convertToDynamoExpression(
       {
         status,
+        reporting,
         lastAltered: Date.now(),
         lastAlteredBy,
         data,

@@ -37,9 +37,9 @@ interface MeasureTableItem {
   title: string;
   abbr: string;
   path: string;
-  isReporting: boolean;
-  // I believe this part of the table is being removed in another ticket
+  reporting: string | undefined | null;
   rateComplete: number;
+  createdAt: number;
   lastDateModified: number;
   id: string;
   actions: { itemText: string; handleSelect: () => void }[];
@@ -96,7 +96,8 @@ const useMeasureTableDataBuilder = () => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
       const filteredItems = (data.Items as MeasureData[]).filter(
-        (item) => item.measure
+        // filter out the coreset qualifiers
+        (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
         return {
@@ -104,10 +105,10 @@ const useMeasureTableDataBuilder = () => {
           title: item.description,
           abbr: item.measure,
           path: `/${state}/${year}/${coreSetId}/${item.measure}`,
-          isReporting: !!item.reporting,
-          // I believe this part of the table is being removed in another ticket
+          reporting: item.reporting,
           rateComplete: item.status === MeasureStatus.COMPLETE ? 1 : 0,
           lastDateModified: item.lastAltered,
+          createdAt: item.createdAt,
           id: item.measure,
           actions: [
             {
@@ -199,7 +200,7 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
-        <CUI.Skeleton noOfLines={7} isLoaded={!isLoading}>
+        <QMR.LoadingWrapper isLoaded={!isLoading}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
           )}
@@ -210,7 +211,7 @@ export const CoreSet = () => {
               alertDescription={(error as Error)?.message}
             />
           )}
-        </CUI.Skeleton>
+        </QMR.LoadingWrapper>
       </CUI.Box>
     </QMR.StateLayout>
   );
