@@ -1464,7 +1464,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get(
       '[data-cy="MaleSexRates.ageData0"] > #MaleSexRates\\.ageData'
     ).check();
-    cy.get("#field-528-label").click();
+    //cy.get("#field-528-label").click();
     cy.get(
       '[data-cy="MaleSexRates.subRates.0.advisingUsers.0.numerator"]'
     ).click();
