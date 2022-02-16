@@ -12,7 +12,7 @@ interface Props {
     label: string;
   }[];
   deviationConditions?: {
-    showAges18To64: boolean;
+    showAges40To64: boolean;
     showAges65AndOlder: boolean;
     showOtherPerformanceMeasureRates: boolean;
   };
@@ -24,7 +24,7 @@ interface SubComponentProps {
 
 export const DefaultOptionalMeasureStratProps: Props = {
   ageGroups: [
-    { label: "Ages 18 to 64", id: 0 },
+    { label: "Ages 40 to 64", id: 0 },
     { label: "Ages 65 and older", id: 1 },
   ],
 };
@@ -125,7 +125,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                   ]
                 : []),
               // Dynamically hide or show children based on if performance measure sections were completed
-              ...((deviationConditions?.showAges18To64 && item.id === 0) ||
+              ...((deviationConditions?.showAges40To64 && item.id === 0) ||
               (deviationConditions?.showAges65AndOlder && item.id === 1)
                 ? [
                     <QMR.Rate
@@ -692,8 +692,8 @@ export const OptionalMeasureStratification = ({
                       ],
                     },
                     {
-                      value: "AdditonalGeography",
-                      displayValue: "Additonal Geography",
+                      value: "AdditionalGeography",
+                      displayValue: "Additional Geography",
                       children: [
                         <CUI.Box mb="4" key="AddtnlGeographyDescWrapper">
                           <QMR.TextInput
