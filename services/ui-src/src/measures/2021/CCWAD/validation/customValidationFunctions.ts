@@ -1,5 +1,8 @@
 import { Measure } from "../validation/types";
-import { validateNoNonZeroNumOrDenom } from "../../globalValidations/validationsLib";
+import {
+  atLeastOneRateComplete,
+  validateNoNonZeroNumOrDenom,
+} from "../../globalValidations/validationsLib";
 
 const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
   const reversibleRates =
@@ -11,8 +14,8 @@ const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
     reversibleRates.forEach((reversibleRate, _index) => {
       if (
         reversibleRate &&
-        reversibleRate.numerator &&
-        reversibleRate.denominator &&
+        reversibleRate?.numerator &&
+        reversibleRate?.denominator &&
         parseFloat(reversibleRate?.numerator) >
           parseFloat(reversibleRate?.denominator)
       ) {
@@ -56,41 +59,6 @@ const validateModeratelyNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateAtLeastOneNDRSet = (data: Measure.Form) => {
-  let error;
-  const measureSpecification = data["MeasurementSpecification"];
-  const moderatelyRate =
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"];
-  const reversibleRate =
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"];
-  const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
-  const isOpa = measureSpecification === "OPA";
-
-  let doesOtherNDRExist = false;
-  otherPerformanceRates.forEach((ndr) => {
-    const ndrRate = ndr?.rate?.[0]?.rate;
-    if (ndrRate) {
-      doesOtherNDRExist = true;
-    }
-  });
-
-  if (isOpa && !moderatelyRate?.[0]?.rate && !reversibleRate?.[0]?.rate) {
-    error = {
-      errorLocation: "Performance Measure",
-      errorMessage:
-        "At least one Performance Measure Numerator, Denominator, and Rate must be completed",
-    };
-  } else if (measureSpecification && !isOpa && !doesOtherNDRExist) {
-    error = {
-      errorLocation: "Other Performance Measure",
-      errorMessage:
-        "At least one Other Performance Measure Numerator, Denominator, and Rate must be completed",
-    };
-  }
-
-  return error;
-};
-
 const validateLarcRateGreater = (data: Measure.Form) => {
   let error;
 
@@ -98,8 +66,8 @@ const validateLarcRateGreater = (data: Measure.Form) => {
     data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"] &&
     data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"] &&
     data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"][0]
-      .rate &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0].rate
+      ?.rate &&
+    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]?.rate
   ) {
     if (
       parseFloat(
@@ -129,9 +97,9 @@ const validateDenominatorsAreTheSame = (data: Measure.Form) => {
     data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"] &&
     data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"] &&
     data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"][0]
-      .denominator &&
+      ?.denominator &&
     data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]
-      .denominator
+      ?.denominator
   ) {
     if (
       parseFloat(
@@ -166,11 +134,22 @@ const validateNonZeroDenom = (data: Measure.Form) => {
   );
 };
 
+const validateAtLeastOneNPR = (data: Measure.Form) => {
+  return atLeastOneRateComplete(
+    [
+      data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
+      data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
+    ],
+    data["OtherPerformanceMeasure-Rates"],
+    [""]
+  );
+};
+
 export const validationFunctions = [
   validateReversibleNumeratorLessThanDenominator,
   validateModeratelyNumeratorLessThanDenominator,
-  validateAtLeastOneNDRSet,
   validateLarcRateGreater,
   validateDenominatorsAreTheSame,
   validateNonZeroDenom,
+  validateAtLeastOneNPR,
 ];
