@@ -85,10 +85,14 @@ export const MeasureWrapper = ({
     validateAndSetErrors(data);
   };
 
-  const handleSave = (data: any) => {
+  const handleSave = (data: Measure.Form) => {
     if (!mutationRunning && !loadingData) {
       updateMeasure(
-        { data, status: measureData?.status },
+        {
+          data,
+          status: MeasureStatus.INCOMPLETE,
+          reporting: handleReportingResponse(data),
+        },
         {
           onSettled: (data, error) => {
             if (data && !error) {
@@ -106,6 +110,7 @@ export const MeasureWrapper = ({
     submitDataToServer({
       data: {},
       status: MeasureStatus.INCOMPLETE,
+      reporting: undefined,
       callback: () => {
         navigate(-1);
       },
@@ -120,6 +125,7 @@ export const MeasureWrapper = ({
     } else {
       submitDataToServer({
         data,
+        reporting: handleReportingResponse(data),
         callback: () => {
           navigate(-1);
         },
@@ -127,18 +133,36 @@ export const MeasureWrapper = ({
     }
   };
 
+  const handleReportingResponse = (data: Measure.Form) => {
+    if (
+      data["DidReport"]?.toLocaleLowerCase()?.includes("yes") ||
+      data["DidCollect"]?.toLocaleLowerCase()?.includes("yes")
+    ) {
+      return "yes";
+    } else if (
+      data["DidReport"]?.toLocaleLowerCase()?.includes("no") ||
+      data["DidCollect"]?.toLocaleLowerCase()?.includes("no")
+    ) {
+      return "no";
+    }
+
+    return undefined;
+  };
+
   const submitDataToServer = ({
     data,
     status = MeasureStatus.COMPLETE,
     callback,
+    reporting,
   }: {
     data: any;
     status?: MeasureStatus;
     callback?: () => void;
+    reporting: string | undefined;
   }) => {
     if (!mutationRunning && !loadingData) {
       updateMeasure(
-        { data, status },
+        { data, status, reporting },
         {
           onSettled: (data, error) => {
             if (data && !error) {
@@ -181,7 +205,11 @@ export const MeasureWrapper = ({
     setShowModal(false);
 
     if (continueWithErrors) {
-      submitDataToServer({ data: methods.getValues() });
+      const data = methods.getValues();
+      submitDataToServer({
+        data,
+        reporting: handleReportingResponse(data),
+      });
       setErrors(undefined);
     }
   };

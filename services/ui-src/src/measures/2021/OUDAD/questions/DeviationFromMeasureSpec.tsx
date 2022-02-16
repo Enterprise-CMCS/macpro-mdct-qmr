@@ -1,16 +1,17 @@
 import * as QMR from "components";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 import { useCustomRegister } from "hooks/useCustomRegister";
-
-export const defaultDeviationOptions = [
-  { label: "Ages 18 to 64", id: 0 },
-  { label: "Ages 65 to 74", id: 1 },
-  { label: "Ages 75 to 84", id: 2 },
-  { label: "Age 85 and older", id: 3 },
-];
 
 interface Props {
   options: { label: string; id: number }[];
+  deviationConditions: {
+    showTotalRate: boolean;
+    showBuprenorphine: boolean;
+    showOralNaltrexone: boolean;
+    showInjectableNaltrexone: boolean;
+    showMethadone: boolean;
+    showOtherPerformanceMeasureRates: boolean;
+  };
 }
 
 interface OptionProps extends Props {
@@ -21,23 +22,23 @@ const deviationOptions = ({
   options,
   name,
 }: OptionProps): QMR.CheckboxOption[] => {
-  return options.map((item, index) => {
+  return options.map((item) => {
     return {
       displayValue: item.label,
-      value: `${item.id}-${item.label.replace(/ /g, "").substring(0, 10)}`,
+      value: `${item.id}-${item.label.replace(/ /g, "")}`,
       children: [
         <QMR.Checkbox
-          name={`${name}.${index}.options`}
-          key={`${name}.${index}.options`}
+          name={`${name}.${item.id}.options`}
+          key={`${name}.${item.id}.options`}
           options={[
             {
               displayValue: "Numerator",
               value: `${item.id}.Numerator`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
-                  name={`${name}.${index}.numerator`}
-                  key={`${name}.${index}.numerator`}
+                  label="Explain:"
+                  name={`${name}.${item.id}.numerator`}
+                  key={`${name}.${item.id}.numerator`}
                 />,
               ],
             },
@@ -46,9 +47,9 @@ const deviationOptions = ({
               value: `${item.id}.Denominator`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
-                  name={`${name}.${index}.denominator`}
-                  key={`${name}.${index}.denominator`}
+                  label="Explain:"
+                  name={`${name}.${item.id}.denominator`}
+                  key={`${name}.${item.id}.denominator`}
                 />,
               ],
             },
@@ -57,9 +58,9 @@ const deviationOptions = ({
               value: `${item.id}.Other`,
               children: [
                 <QMR.TextArea
-                  label="Explain"
-                  name={`${name}.${index}.other`}
-                  key={`${name}.${index}.other`}
+                  label="Explain:"
+                  name={`${name}.${item.id}.other`}
+                  key={`${name}.${item.id}.other`}
                 />,
               ],
             },
@@ -70,7 +71,10 @@ const deviationOptions = ({
   });
 };
 
-export const DeviationFromMeasureSpec = ({ options }: Props) => {
+export const DeviationFromMeasureSpec = ({
+  options,
+  deviationConditions,
+}: Props) => {
   const register = useCustomRegister<Measure.Form>();
 
   return (
@@ -80,7 +84,7 @@ export const DeviationFromMeasureSpec = ({ options }: Props) => {
         {...register("DidCalculationsDeviate")}
         formLabelProps={{ fontWeight: 600 }}
         label="Did your calculation of the measure deviate from the measure specification in any way?"
-        helperText="For Examples of deviation from measure specification might include different methodology, timeframe, or reported age groups."
+        helperText="For example: deviation from measure specification might include different methodology, timeframe, or reported age groups."
         options={[
           {
             displayValue:
@@ -89,11 +93,12 @@ export const DeviationFromMeasureSpec = ({ options }: Props) => {
             children: [
               <QMR.Checkbox
                 {...register("DeviationOptions")}
-                label="Select and explain the deviation(s):"
                 formLabelProps={{ fontWeight: 600 }}
+                label="Select and explain the deviation(s):"
                 options={deviationOptions({
                   options,
-                  ...register("DeviationFields-Within30"),
+                  ...register("DeviationFields"),
+                  deviationConditions,
                 })}
               />,
             ],
