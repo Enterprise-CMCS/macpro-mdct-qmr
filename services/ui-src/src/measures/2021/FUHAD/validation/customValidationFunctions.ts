@@ -71,13 +71,13 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
+          "The Checkmark for (Denominator includes Medicare and Medicaid Dually-eligible population) is checked but you are missing Performance Measure data for age 65 and older",
       };
     } else if (!sevenDays65orOlder[1] && !thirtyDays65orOlder[1]) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
+          "The Checkmark for (Denominator includes Medicare and Medicaid Dually-eligible population) is checked but you are missing Performance Measure data for age 65 and older",
       };
     } else if (
       (!sevenDays65orOlder[1]?.numerator || // either not filled in
@@ -88,7 +88,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       return {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 7 days after discharge)",
+          "The Checkmark for (Denominator includes Medicare and Medicaid Dually-eligible population) is checked but you are missing Performance Measure data for age 65 and older",
       };
     } else if (
       (!thirtyDays65orOlder[1]?.numerator ||
@@ -99,7 +99,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
       return {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 30 days after discharge)",
+          "The Checkmark for (Denominator includes Medicare and Medicaid Dually-eligible population) is checked but you are missing Performance Measure data for age 65 and older",
       };
     }
   }
