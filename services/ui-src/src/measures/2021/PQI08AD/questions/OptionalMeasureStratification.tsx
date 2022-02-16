@@ -4,6 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { createContext, useState, useContext } from "react";
 import { useFormContext } from "react-hook-form";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 interface Props {
   ageGroups: {
@@ -110,6 +111,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ? [
                     <QMR.Rate
                       rateMultiplicationValue={100000}
+                      customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                       readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.followUpWithin30Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin30Days`}
@@ -128,6 +130,7 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ? [
                     <QMR.Rate
                       rateMultiplicationValue={100000}
+                      customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                       readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.followUpWithin7Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin7Days`}
