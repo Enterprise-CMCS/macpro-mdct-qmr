@@ -39,12 +39,19 @@ export namespace Measure {
     "DataStatus-ProvisionalExplanation": string;
 
     //DataSource
-    "DataSource-CAHPS-Version": string;
-    "DataSource-CAHPS-Version-Other": string;
-    "DataSource-Included-ItemSets": string[];
-    "DataSource-Included-ItemSets-Other": string;
-    "DataSource-Admin-Protocol"?: string;
-    "DataSource-Admin-Protocol-Other"?: string;
+    DataSource: string[];
+    "DataSource-Administrative"?: string[];
+    "DataSource-Administrative-Other"?: string;
+    "DataSource-Administrative-Other-Explanation"?: string;
+    "DataSource-Electronic?": string;
+    "DataSource-Other": string;
+    "DataSource-Other-Explanation": string;
+    "DataSource-Hybrid"?: string[];
+    "DataSource-Hybrid-Other"?: string;
+    "DataSource-Hybrid-Other-Explanation"?: string;
+    "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
+    "DataSource-ElectronicHealthRecords"?: string;
+    "DataSource-ElectronicHealthRecords-Explanation"?: string;
 
     //CombinedRates
     CombinedRates: string;
