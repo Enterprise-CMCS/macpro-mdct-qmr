@@ -99,7 +99,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
       "[data-cy=DeliverySysRepresentationDenominator0] > #DeliverySysRepresentationDenominator"
     ).check();
     cy.get("[data-cy=DeliverySys-FreeForService0]").click();
-    cy.get("#radio-246").check();
+    //cy.get("#radio-246").check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
@@ -107,7 +107,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
       "[data-cy=DeliverySysRepresentationDenominator1] > #DeliverySysRepresentationDenominator"
     ).check();
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement0]").click();
-    cy.get("#radio-250").check();
+    //cy.get("#radio-250").check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
@@ -119,7 +119,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get("[data-cy=DeliverySys-MCO_POHP-NumberOfPlans]").clear();
     cy.get("[data-cy=DeliverySys-MCO_POHP-NumberOfPlans]").type("20");
     cy.get("[data-cy=DeliverySys-MCO_POHP0]").click();
-    cy.get("#radio-256").check();
+    //cy.get("#radio-256").check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
@@ -127,7 +127,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
       "[data-cy=DeliverySysRepresentationDenominator3] > #DeliverySysRepresentationDenominator"
     ).check();
     cy.get("[data-cy=DeliverySys-IntegratedCareModel0]").click();
-    cy.get("#radio-260").check();
+    //cy.get("#radio-260").check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator4] > .chakra-checkbox__control"
     ).click();
@@ -252,7 +252,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get(
       "#DidCalculationsDeviate_radiogroup > .chakra-stack > :nth-child(1) > .chakra-radio"
     ).click();
-    cy.get("#radio-241").check();
+    //cy.get("#radio-241").check();
     cy.get("[data-cy=DeviationOptions0] > .chakra-checkbox__control").click();
     cy.get("[data-cy=DeviationOptions0] > #DeviationOptions").check();
     cy.get(
@@ -512,15 +512,15 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     ).check();
     cy.get('[data-cy="DeviationFields-PercentageOfUsers.1.other"]').click();
     cy.get("[data-cy=CombinedRates0]").click();
-    cy.get("#radio-209").check();
+    //cy.get("#radio-209").check();
     cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
-    cy.get("#radio-306").check();
+    //cy.get("#radio-306").check();
     cy.get(
       "#CombinedRates-CombinedRates_radiogroup > .chakra-stack > :nth-child(2) > .chakra-radio"
     ).click();
-    cy.get("#radio-307").check();
+    //cy.get("#radio-307").check();
     cy.get("[data-cy=CombinedRates-CombinedRates2]").click();
-    cy.get("#radio-308").check();
+    //cy.get("#radio-308").check();
     cy.get("[data-cy=CombinedRates-CombinedRates-Other-Explanation]").click();
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
@@ -889,7 +889,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
       "[data-cy=NonHispanicRacialCategories3] > #NonHispanicRacialCategories"
     ).check();
     cy.get("[data-cy=AsianIndependentReporting0]").click();
-    cy.get("#radio-388").check();
+    //cy.get("#radio-388").check();
     cy.get(
       '[data-cy="NHRC-AggregateAsianRates.ageData0"] > .chakra-checkbox__control'
     ).click();
