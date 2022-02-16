@@ -38,7 +38,7 @@ describe("OY2 8976 CCW-AD", () => {
     cy.xpath("//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/label[1]/span[1]").click({force: true});
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
-    cy.xpath("//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/label[1]/span[1]").click({force: true});
+    //cy.xpath("//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/label[1]/span[1]").click({force: true});
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="DateRange.startDate-month"]').click({force: true});
@@ -55,19 +55,19 @@ describe("OY2 8976 CCW-AD", () => {
 
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
-    cy.get(':nth-child(7) > .css-1ddmh30').should('be.visible');
-    cy.get('[data-cy="DefinitionOfDenominator0"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="DefinitionOfDenominator0"] > #DefinitionOfDenominator').check();
+    //cy.get(':nth-child(7) > .css-1ddmh30').should('be.visible');
+    //cy.get('[data-cy="DefinitionOfDenominator0"] > .chakra-checkbox__control').click();
+    //cy.get('[data-cy="DefinitionOfDenominator0"] > #DefinitionOfDenominator').check();
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
-    cy.get('#DenominatorDefineTotalTechSpec0').check();
+    //cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
+    //cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').check();
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="DeliverySysRepresentationDenominator0"] > #DeliverySysRepresentationDenominator').check();
-    cy.get('[data-cy="DeliverySys-FreeForService0"]').click();
-    cy.get('#DeliverySys-FreeForService0').check();
+    //cy.get('[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control').click();
+    //cy.get('[data-cy="DeliverySysRepresentationDenominator0"] > #DeliverySysRepresentationDenominator').check();
+    //cy.get('[data-cy="DeliverySys-FreeForService0"]').click();
+    // cy.get('#DeliverySys-FreeForService0').check();
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="PerformanceMeasure-Explanation"]').click({force: true});
@@ -84,48 +84,8 @@ describe("OY2 8976 CCW-AD", () => {
     cy.get('[data-cy="ReversibleMethodOfContraceptionRate.0.denominator"]').type('3');
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="DidCalculationsDeviate0"]').click();
-    cy.get('#DidCalculationsDeviate0').check();
-    cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="DeviationOptions0"] > #DeviationOptions').check();
-    cy.get('[data-cy="moderate-method-deviation.options0"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="moderate-method-deviation.options0"] > #moderate-method-deviation\\.options').check();
-    cy.get('[data-cy="moderate-method-deviation.explain.numerator"]').click({force: true});
-    cy.get('[data-cy="moderate-method-deviation.explain.numerator"]').type('Test1');
 
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="moderate-method-deviation.options1"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="moderate-method-deviation.options1"] > #moderate-method-deviation\\.options').check();
-    cy.get('[data-cy="moderate-method-deviation.explain.denominator"]').click({force: true});
-    cy.get('[data-cy="moderate-method-deviation.explain.denominator"]').type('Test2');
-    cy.get('[data-cy="moderate-method-deviation.options2"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="moderate-method-deviation.options2"] > #moderate-method-deviation\\.options').check();
-    cy.get('[data-cy="moderate-method-deviation.explain.other"]').click({force: true});
-    cy.get('[data-cy="moderate-method-deviation.explain.other"]').type('Test3');
 
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="DeviationOptions1"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="DeviationOptions1"] > #DeviationOptions').check();
-    cy.get('[data-cy="reversible-method-deviation.options0"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="reversible-method-deviation.options0"] > #reversible-method-deviation\\.options').check();
-    cy.get('[data-cy="reversible-method-deviation.explain.numerator"]').click({force: true});
-    cy.get('[data-cy="reversible-method-deviation.explain.numerator"]').type('Test4');
-    cy.get('[data-cy="reversible-method-deviation.options1"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="reversible-method-deviation.options1"] > #reversible-method-deviation\\.options').check();
-    cy.get('[data-cy="reversible-method-deviation.explain.denominator"]').click({force: true});
-    cy.get('[data-cy="reversible-method-deviation.explain.denominator"]').type('Test5');
-    cy.get('[data-cy="reversible-method-deviation.options2"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="reversible-method-deviation.options2"] > #reversible-method-deviation\\.options').check();
-    cy.get('[data-cy="reversible-method-deviation.explain.other"]').click({force: true});
-    cy.get('[data-cy="reversible-method-deviation.explain.other"]').type('Test6');
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="CombinedRates0"]').click();
-    cy.get('#CombinedRates0').check();
-    cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
-    cy.get('#CombinedRates-CombinedRates0').check();
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="CategoriesReported0"] > .chakra-checkbox__control').click();
@@ -148,52 +108,102 @@ describe("OY2 8976 CCW-AD", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="NonHispanicRacialCategories5"] > .chakra-checkbox__control').click();
     cy.get('[data-cy="NonHispanicRacialCategories5"] > #NonHispanicRacialCategories').check();
-    cy.get('#field-276').clear();
-    cy.get('#field-276').type('North');
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.contraceptionData0"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.contraceptionData0"] > #AddtnlNonHispanicRaceRates\\.0\\.contraceptionData').check();
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.moderate-method.0.numerator"]').clear();
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.moderate-method.0.numerator"]').type('1');
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.moderate-method.0.denominator"]').clear();
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.moderate-method.0.denominator"]').type('2');
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.contraceptionData1"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.contraceptionData1"] > #AddtnlNonHispanicRaceRates\\.0\\.contraceptionData').check();
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.reversible-method.0.numerator"]').clear();
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.reversible-method.0.numerator"]').type('3');
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.reversible-method.0.denominator"]').clear();
-    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.reversible-method.0.denominator"]').type('4');
+
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="Validate Measure"]').should('be.enabled');
     cy.get('[data-cy="Complete Measure"]').should('be.enabled');
     /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="AddtnlNonHispanicRace.0"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRace.0"]').type('North');
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.contraceptionData0"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.contraceptionData0"] > #AddtnlNonHispanicRaceRates\\.0\\.contraceptionData').check();
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.moderate-method.0.numerator"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.moderate-method.0.numerator"]').type('3');
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.moderate-method.0.denominator"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.moderate-method.0.denominator"]').type('4');
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.contraceptionData1"]').click();
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.contraceptionData1"] > #AddtnlNonHispanicRaceRates\\.0\\.contraceptionData').check();
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.reversible-method.0.numerator"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.reversible-method.0.numerator"]').type('234');
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.reversible-method.0.denominator"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceRates.0.subRates.0.reversible-method.0.denominator"]').type('534');
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatOptions.00"] > .chakra-checkbox__control').click();
+    cy.get('#AddtnlNonHispanicRaceSubCatOptions\\.0').check();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatTitle.0.titles.0"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatTitle.0.titles.0"]').type('South');
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.contraceptionData0"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.contraceptionData0"] > #AddtnlNonHispanicRaceSubCatRates\\.0\\.rates\\.0\\.contraceptionData').check();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.subRates.0.moderate-method.0.numerator"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.subRates.0.moderate-method.0.numerator"]').type('34');
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.subRates.0.moderate-method.0.denominator"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.subRates.0.moderate-method.0.denominator"]').type('54');
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.contraceptionData1"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.contraceptionData1"] > #AddtnlNonHispanicRaceSubCatRates\\.0\\.rates\\.0\\.contraceptionData').check();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.subRates.0.reversible-method.0.numerator"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.subRates.0.reversible-method.0.numerator"]').type('566');
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.subRates.0.reversible-method.0.denominator"]').clear();
+    cy.get('[data-cy="AddtnlNonHispanicRaceSubCatRates.0.rates.0.subRates.0.reversible-method.0.denominator"]').type('7765');
+    cy.get(':nth-child(1) > :nth-child(2) > :nth-child(1) > :nth-child(1) > :nth-child(2) > :nth-child(1) > .css-n21gh5 > :nth-child(2) > .chakra-collapse > .css-zhlq69').click();
+    /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get(':nth-child(9) > .css-1ddmh30').should('be.visible');
+    cy.get('[data-cy="DidCalculationsDeviate0"]').click();
+    cy.get('#radio-229').check();
+    cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="DeviationOptions0"] > #DeviationOptions').check();
+    cy.get('[data-cy="moderate-method-deviation.options0"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="moderate-method-deviation.options0"] > #moderate-method-deviation\\.options').check();
+    cy.get('[data-cy="moderate-method-deviation.explain.numerator"]').click({force: true});
+    cy.get('[data-cy="moderate-method-deviation.explain.numerator"]').type('Test1');
+    cy.get('[data-cy="moderate-method-deviation.options1"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="moderate-method-deviation.options1"] > #moderate-method-deviation\\.options').check();
+    cy.get('[data-cy="moderate-method-deviation.explain.denominator"]').click({force: true});
+    cy.get('[data-cy="moderate-method-deviation.explain.denominator"]').type('Test2');
+    cy.get('[data-cy="moderate-method-deviation.options2"]').click();
+    cy.get('[data-cy="moderate-method-deviation.options2"] > #moderate-method-deviation\\.options').check();
+    cy.get('[data-cy="moderate-method-deviation.explain.other"]').click({force: true});
+    cy.get('[data-cy="moderate-method-deviation.explain.other"]').type('Test3');
+    cy.get('[data-cy="DeviationOptions1"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="DeviationOptions1"] > #DeviationOptions').check();
+    cy.get('[data-cy="reversible-method-deviation.options0"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="reversible-method-deviation.options0"] > #reversible-method-deviation\\.options').check();
+    cy.get('[data-cy="reversible-method-deviation.explain.numerator"]').click({force: true});
+    cy.get('[data-cy="reversible-method-deviation.explain.numerator"]').type('Test4');
+    cy.get('[data-cy="reversible-method-deviation.options1"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="reversible-method-deviation.options1"] > #reversible-method-deviation\\.options').check();
+    cy.get('[data-cy="reversible-method-deviation.explain.denominator"]').click({force: true});
+    cy.get('[data-cy="reversible-method-deviation.explain.denominator"]').type('Test5');
+    cy.get('[data-cy="reversible-method-deviation.options2"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="reversible-method-deviation.options2"] > #reversible-method-deviation\\.options').check();
+    cy.get('[data-cy="reversible-method-deviation.explain.other"]').click({force: true});
+    cy.get('[data-cy="reversible-method-deviation.explain.other"]').type('Test6');
+    /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="moderate-method-deviation.explain.numerator"]').click();
+    cy.get('[data-cy="moderate-method-deviation.explain.denominator"]').click();
+    cy.get(':nth-child(1) > :nth-child(1) > :nth-child(1) > :nth-child(2) > :nth-child(1) > :nth-child(1) > .chakra-stack > :nth-child(1) > .chakra-collapse > .css-zhlq69').click();
+    cy.get('[data-cy="CombinedRates0"]').click();
+    cy.get('#radio-233').check();
+    cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
+    cy.get('#radio-275').check();
+    /* ==== End Cypress Studio ==== */
   } );
 
-   it("No for Reporting", () => {
-     /* ==== Generated with Cypress Studio ==== */
-     cy.get('[data-cy="ACS"]').click();
-     cy.get('[data-cy="CCW-AD"]').click();
-     cy.get('[data-cy="DidReport1"]').click({ force: true });
-     
-     
-     /* ==== End Cypress Studio ==== */
-   } );
-
+   
 it("Other Performance Measure", () => {
   /* ==== Generated with Cypress Studio ==== */
   cy.get('[data-cy="ACS"]').click();
   cy.get('[data-cy="CCW-AD"]').click();
   cy.get('[data-cy="MeasurementSpecification1"]').click({force: true});
-  cy.get('[data-cy="MeasurementSpecification-OtherMeasurementSpecificationDescription"]').click({force: true});
-  cy.get('[data-cy="MeasurementSpecification-OtherMeasurementSpecificationDescription"]').type('Test');
+  cy.xpath("//p[@id='MeasurementSpecification-Other']").click({force: true});
+  cy.xpath("//textarea[@id='field-238']").type('Test');
+  cy.wait(500);
 
   /* ==== End Cypress Studio ==== */
   /* ==== Generated with Cypress Studio ==== */
-  cy.get('.css-zhlq69 > .chakra-form-control').click();
-  cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-  cy.get('[data-cy="DataSource0"] > #DataSource').check();
-  cy.get('[data-cy="DataSource-Administrative0"] > .chakra-checkbox__control').click();
-  cy.get('[data-cy="DataSource-Administrative0"] > #DataSource-Administrative').check();
+
   /* ==== End Cypress Studio ==== */
   /* ==== Generated with Cypress Studio ==== */
   cy.get('[data-cy="OtherPerformanceMeasure-Explanation"]').click({force: true});
@@ -217,6 +227,49 @@ it("Other Performance Measure", () => {
   /* ==== Generated with Cypress Studio ==== */
   cy.get('[data-cy="Validate Measure"]').should('be.enabled');
   cy.get('[data-cy="Complete Measure"]').should('be.enabled');
+  /* ==== End Cypress Studio ==== */
+  /* ==== Generated with Cypress Studio ==== */
+  cy.get('[data-cy="DataSource-Administrative0"] > .chakra-checkbox__control').click();
+  cy.get('[data-cy="DataSource-Administrative0"] > #DataSource-Administrative').check();
+  cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+  cy.get('[data-cy="DataSource1"] > #DataSource').check();
+  /* ==== End Cypress Studio ==== */
+  /* ==== Generated with Cypress Studio ==== */
+
+  /* ==== End Cypress Studio ==== */
+  /* ==== Generated with Cypress Studio ==== */
+  cy.get('[data-cy="+ Add Another"]').click();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.description"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.description"]').type('Test3');
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.rate.0.numerator"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.rate.0.numerator"]').type('11');
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.rate.0.denominator"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.rate.0.denominator"]').type('2');
+  cy.get('[data-cy="Rate Error"]').should('be.visible');
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.rate.0.denominator"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.rate.0.denominator"]').type('23');
+  cy.get('[data-cy="+ Add Another"]').click();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.description"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.description"]').type('Test4');
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.numerator"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.numerator"]').type('0');
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.denominator"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.denominator"]').type('2');
+  cy.get(':nth-child(4) > .css-6s7dc > .chakra-stack').click();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').type('4');
+  cy.get('[data-cy="+ Add Another"]').click();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.4.description"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.4.description"]').type('Test5');
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.4.rate.0.numerator"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.4.rate.0.numerator"]').type('1');
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.4.rate.0.denominator"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.4.rate.0.denominator"]').type('2');
+  cy.get(':nth-child(8) > .css-1bpnzr3').click();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.4.rate.0.rate"]').clear();
+  cy.get('[data-cy="OtherPerformanceMeasure-Rates.4.rate.0.rate"]').type('0');
+  cy.get(':nth-child(8) > .css-1bpnzr3 > .css-0').click();
+  cy.get('[data-cy="Validate Measure"]').click();
   /* ==== End Cypress Studio ==== */
 } );
   }); 
