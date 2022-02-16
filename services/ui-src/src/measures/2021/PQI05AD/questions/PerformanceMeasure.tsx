@@ -20,7 +20,7 @@ export const PerformanceMeasure = () => {
 
   const ageRates = [
     {
-      label: "Ages 18 to 64",
+      label: "Ages 40 to 64",
       denominator: "",
       numerator: "",
       rate: "",
@@ -37,9 +37,9 @@ export const PerformanceMeasure = () => {
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      Number of inpatient hospital admissions for diabetes short-term
-      complications (ketoacidosis, hyperosmolarity, or coma) per 100,000
-      beneficiary months for beneficiaries age 18 and older.
+      Number of inpatient hospital admissions for chronic obstructive pulmonary
+      disease (COPD) or asthma per 100,000 beneficiary months for beneficiaries
+      age 40 and older.
       <QMR.TextArea
         formControlProps={{ py: "4" }}
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
