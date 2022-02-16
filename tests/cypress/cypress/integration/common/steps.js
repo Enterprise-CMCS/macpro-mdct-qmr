@@ -8,9 +8,11 @@ import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 import AdultCoreSetQuestionsPage from "../../../support/pages/AdultCoreSetQuestionsPage";
+import OUDadPage from "../../../support/pages/OUDadPage";
 // demo
 
 import FUAADPAGE from "../../../support/pages/FUAADPage";
+import CPAADPAGE from "../../../support/pages/CPAADPage";
 
 const homePage = new Homepage();
 const loginPage = new LoginPage();
@@ -20,9 +22,11 @@ const nciddsADpage = new NCIDDSadpage();
 const pdentCH = new PDENTch();
 const lbwCH = new LBWch();
 const lrcdCH = new LRCDch();
+const oudADpage = new OUDadPage();
 // demo
 
 const fUAADPage = new FUAADPAGE();
+const cPAADPage = new CPAADPAGE();
 const adultCoreSetQuestionsPage = new AdultCoreSetQuestionsPage();
 
 Given("user visits QMR home page", () => {
@@ -101,6 +105,10 @@ And("user click on link LRCD-CH", () => {
   adultCoreSetMeasurespage.clickLRCDchLink();
 });
 
+And("user click on link CPA-CH", () => {
+  adultCoreSetMeasurespage.clickCPAadLink();
+});
+
 And("user can see the LRCD-CH Low Risk Cesarean Delivery title", () => {
   lrcdCH.verifyLRCDchTitle();
 });
@@ -122,6 +130,10 @@ And("user click on link Adult Core Set Measures", () => {
 
 And("user click on link FUA-AD", () => {
   adultCoreSetMeasurespage.clickFUAadLink();
+});
+
+And("user click on link OUD-AD", () => {
+  adultCoreSetMeasurespage.clickOUDadLink();
 });
 
 And(
@@ -374,7 +386,9 @@ And("user can see the footer", () => {
 When('user clicks on "Login" link', () => {
   homePage.clickLoginButton();
 });
-
+And("user click on link CPA-AD", () => {
+  adultCoreSetMeasurespage.clickCPAadLink();
+});
 When("user enter username and password", () => {
   loginPage.enterUserName();
   loginPage.enterPassword();
@@ -654,6 +668,71 @@ And("verify FFY2019 exists", () => {
 And("Click on National Committee for Quality Assurance Radio Button", () => {
   fUAADPage.clicknationalCommitteForQualityAssuranceRadioBTN();
 });
+
+//steps below are OY2-9942 CPA-AD
+
+And("user can click on No option for reporting on this measure", () => {
+  cPAADPage.VerifyReportingOnMeasureNo();
+});
+
+And(
+  "user can click on Yes option for Are you reporting on this measure",
+  () => {
+    cPAADPage.verifyReportingOnMeasureYes();
+  }
+);
+And("user can verify the title", () => {
+  cPAADPage.verifycpaADtitle();
+});
+And("user can verify the sentence below the title", () => {
+  cPAADPage.verifysentenceBelowTitle();
+});
+And("user can click on Yes option for Did you collect this measure?", () => {
+  cPAADPage.clickdidYouCollectThisMeasure();
+});
+And(
+  "user can click on AHRQ option for How did you report this measure?",
+  () => {
+    cPAADPage.clickhowDidYouReportThisMeasure();
+  }
+);
+And("user can click on AHRQ option for Measurement Specification", () => {
+  cPAADPage.clickmeasurementSpecificationAHRQ();
+});
+And("user can click CAHPS for Data Source", () => {
+  cPAADPage.clickdataSource();
+});
+And(
+  "user can click on No supplemental Item Sets were included for Which Supplemental Item Sets were included in the Survey",
+  () => {
+    cPAADPage.clicknoSupplemental();
+  }
+);
+And("user can click AHRQ administrative protocol", () => {
+  cPAADPage.clickahrqAdministrativeProtocol();
+});
+And("user can click on Survey sample Medicaid population", () => {
+  cPAADPage.clicksurveySampleMedicaidPopulation();
+});
+And("user can verify Performance Measure text", () => {
+  cPAADPage.verifyperformanceMeasure();
+});
+//And("user enters data for the additional notes text box", () => {
+//  cPAADPage.verifyadditionalNotes();
+//});
+//And("user can attach a text file", () => {
+// cPAADPage.addTextFilesToFUAADPage();
+//});
+//And("user can verify the uploaded text file", () => {
+// cPAADPage.verifyTextIsUploaded();
+//});
+And(
+  "user can verify that validate and complete measure buttons are enabled and clickable",
+  () => {
+    cPAADPage.verifyvalidateMeasureButton();
+  }
+);
+
 Then("Click on Administrative Data", () => {
   fUAADPage.clickAdminstrativeDataRaioBTN();
 });
@@ -772,4 +851,72 @@ And("verify validate measure button is disabled", () => {
 });
 And("verify complete measure button is disabled", () => {
   fUAADPage.verifyCompleteMeasureBTNIsDisabled();
+});
+
+// oudAD page specific steps
+And("button on the page is clickable", () => {
+  oudADpage.verifySaveValidateCompletebuttonClickable();
+});
+
+And("Click on Centers for Medicare & Medicaid Services Radio Button", () => {
+  oudADpage.clickCentersForMedicareMedicaidServicesRadioBTN();
+});
+
+Then("Click on OUDAD Other Data Source Radio Button", () => {
+  oudADpage.clickOtherDataSourceRadioBTN();
+});
+
+And("type total rate numerator 321111", () => {
+  oudADpage.typeTotalRateNumeratorInputBox("321111");
+});
+
+And("type total rate Denominator 111111", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("111111");
+});
+
+And("type total rate Denominator 411111", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("411111");
+});
+
+And("clear total rate input box", () => {
+  oudADpage.clearTotalRateInputBox();
+});
+
+And("clear total rate numerator input box", () => {
+  oudADpage.clearTotalRateNumeratorInputBox();
+});
+
+And("clear total rate Denominator input box", () => {
+  oudADpage.clearTotalRateDenominatorInputBox();
+});
+
+And(
+  "verify that only one number after decimal can populate for auto calculated total rate exists",
+  () => {
+    oudADpage.verifyOnlyOneNumberAfterDecimalIsDisplayed();
+  }
+);
+
+And("type 8 digits total rate numerator", () => {
+  oudADpage.typeTotalRateNumeratorInputBox("12345678");
+});
+
+And("type 8 digits total rate Denominator", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("21345678");
+});
+
+And("type letters total rate numerator", () => {
+  oudADpage.typeTotalRateNumeratorInputBox("aaa");
+});
+
+And("type letters total rate Denominator", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("bbb");
+});
+
+And("input text in total rate box", () => {
+  oudADpage.typeTotalRateDenominatorInputBox("bbb");
+});
+
+And("verify user can manually override enter total rate exists", () => {
+  oudADpage.typeTotalRateInputBox("88.1");
 });

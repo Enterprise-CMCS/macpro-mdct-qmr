@@ -60,6 +60,7 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
         with:
           coverageLocations: |
+            ${{github.workspace}}/services/app-api/coverage/lcov.info:lcov
             ${{github.workspace}}/services/ui-src/coverage/lcov.info:lcov
       - name: Store unit test reults
         uses: actions/upload-artifact@v2
@@ -75,8 +76,29 @@ jobs:
   cypress-test:
     name: Cypress Tests
     needs: deploy
-    if: ${{ github.ref != 'refs/heads/production' && github.ref != 'refs/heads/master' }}
+    if: ${{ github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers:
+          [
+            oy2_10017_Child_Measure_Qualifier_CH.spec.js,
+            oy2-9954_PQI01AD.spec.js,
+            cpaAD.spec.feature,
+            fuaAD.spec.feature,
+            fuaADoy2_8940.spec.feature,
+            fuaADoy2_15377.spec.feature,
+            lbwCH.spec.feature,
+            lrcdCH.spec.feature,
+            nciddsAD.spec.feature,
+            oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
+            oy2_14767_Allow_files_to_be_uploaded_to_s3.spec.feature,
+            oy2_15013_Update_user_auth_handling_in_ui.spec.feature,
+            oy2_15212_qmr_mdct_logo.spec.feature,
+            oy2_15504_Measure_validation_Error_Creation_Updates.spec.feature,
+            pdentCH.spec.feature,
+          ]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
@@ -126,6 +148,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
+          spec: cypress/integration/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
@@ -137,7 +160,7 @@ jobs:
           path: tests/cypress/screenshots/
 
       - name: Slack Notification
-        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "production"]'), env.branch_name) && failure ()
+        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
