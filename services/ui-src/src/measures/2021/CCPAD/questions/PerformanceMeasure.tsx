@@ -3,7 +3,6 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { useFormContext } from "react-hook-form";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const PerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -20,28 +19,29 @@ export const PerformanceMeasure = () => {
 
   const ageRates = [
     {
-      label: "Ages 18 to 64",
-      denominator: "",
-      numerator: "",
-      rate: "",
+      label: "Three Days Postpartum Rate",
       id: 1,
     },
     {
-      label: "Age 65 and older",
-      denominator: "",
-      numerator: "",
-      rate: "",
+      label: "Sixty Days Postpartum Rate",
       id: 2,
     },
   ];
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      Number of inpatient hospital admissions for diabetes short-term
-      complications (ketoacidosis, hyperosmolarity, or coma) per 100,000
-      beneficiary months for beneficiaries age 18 and older.
+      Among women ages 21 to 44 who had a live birth, the percentage that:
+      <CUI.UnorderedList m="5" ml="10">
+        <CUI.ListItem>
+          Were provided a most effective or moderately effective method of
+          contraception within 3 and 60 days of delivery
+        </CUI.ListItem>
+        <CUI.ListItem>
+          Were provided a long-acting reversible method of contraception (LARC)
+          within 3 and 60 days of delivery
+        </CUI.ListItem>
+      </CUI.UnorderedList>
       <QMR.TextArea
-        formControlProps={{ py: "4" }}
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
         {...register("PerformanceMeasure-Explanation")}
       />
@@ -49,12 +49,21 @@ export const PerformanceMeasure = () => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
+      <CUI.Text fontWeight="bold" my="5">
+        Most effective or moderately effective method of contraception
+      </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
         rates={ageRates}
-        rateMultiplicationValue={100000}
-        customMask={positiveNumbersWithMaxDecimalPlaces(1)}
-        {...register("PerformanceMeasure-AgeRates")}
+        {...register("PerformanceMeasure-AgeRates-effectiveContraception")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        Long-acting reversible method of contraception (LARC)
+      </CUI.Text>
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-longActingContraception")}
       />
     </QMR.CoreQuestionWrapper>
   );

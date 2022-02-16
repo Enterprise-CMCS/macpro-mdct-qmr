@@ -4,7 +4,6 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { createContext, useState, useContext } from "react";
 import { useFormContext } from "react-hook-form";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 interface Props {
   ageGroups: {
@@ -12,8 +11,10 @@ interface Props {
     label: string;
   }[];
   deviationConditions?: {
-    showAges18To64: boolean;
-    showAges65AndOlder: boolean;
+    showEffectiveContraceptionThreeDaysPostPartum: boolean;
+    showEffectiveContraceptionSixtyDaysPostPartum: boolean;
+    showLongActingContraceptionThreeDaysPostPartum: boolean;
+    showLongActingContraceptionSixtyDaysPostPartum: boolean;
     showOtherPerformanceMeasureRates: boolean;
   };
 }
@@ -79,6 +80,72 @@ const AddAnotherButton = ({
   );
 };
 
+const buildOtherPerformanceRates = (
+  name: string,
+  rateReadOnly: boolean,
+  ageGroups: { id: number; label: string }[]
+) => {
+  return ageGroups.map((item, index) => {
+    return (
+      <CUI.Box key={`${name}.${index}.wrapper`}>
+        <CUI.Heading key={`${name}.${index}.subHeader`} size="sm">
+          {item.label}
+        </CUI.Heading>
+        <QMR.Rate
+          readOnly={rateReadOnly}
+          name={`${name}.subRates.${item.id}.otherPerformanceRate`}
+          key={`${name}.subRates.${item.id}.otherPerformanceRate`}
+          rates={[{ id: 0 }]}
+        />
+      </CUI.Box>
+    );
+  });
+};
+
+const buildPerfRates = (
+  name: string,
+  label: string,
+  show3: boolean,
+  show60: boolean,
+  rateReadOnly: boolean
+) => {
+  return (
+    <>
+      {(show3 || show60) && (
+        <CUI.Heading key={`${name}.subHeader`} size="sm">
+          {label}
+        </CUI.Heading>
+      )}
+      {show3 && (
+        <QMR.Rate
+          readOnly={rateReadOnly}
+          name={`${name}.subRates.${0}.threeDaysPostPartum`}
+          key={`${name}.subRates.${0}.threeDaysPostPartum`}
+          rates={[
+            {
+              id: 0,
+              label: "Three Days Postpartum Rate",
+            },
+          ]}
+        />
+      )}
+      {show60 && (
+        <QMR.Rate
+          readOnly={rateReadOnly}
+          name={`${name}.subRates.${1}.sixtyDays`}
+          key={`${name}.subRates.${1}.sixtyDaysPostPartum`}
+          rates={[
+            {
+              id: 1,
+              label: "Sixty Days Postpartum Rate",
+            },
+          ]}
+        />
+      )}
+    </>
+  );
+};
+
 const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups, deviationConditions } = useContext(AgeDataContext);
   const { watch } = useFormContext<Measure.Form>();
@@ -92,60 +159,37 @@ const AgeData = ({ name }: SubComponentProps) => {
       (source) => source === "I am reporting provisional data."
     ) ?? true;
 
+  const showEffective =
+    !!deviationConditions?.showEffectiveContraceptionThreeDaysPostPartum ||
+    !!deviationConditions?.showEffectiveContraceptionSixtyDaysPostPartum;
+  const showLongLast =
+    !!deviationConditions?.showLongActingContraceptionThreeDaysPostPartum ||
+    !!deviationConditions?.showLongActingContraceptionSixtyDaysPostPartum;
+
   return (
     <CUI.Box key={`${name}.ageData`}>
-      <QMR.Checkbox
-        name={`${name}.ageData`}
-        key={`${name}.ageData`}
-        options={ageGroups.map((item) => {
-          return {
-            value: item.label.replace(/ /g, ""),
-            displayValue: item.label,
-            children: [
-              <CUI.Heading key={item.id} size="sm">
-                Enter a number for the numerator and the denominator. Rate will
-                auto-calculate:
-              </CUI.Heading>,
-              // Dynamically hide or show children based on if other performance measuresections were completed
-              ...(deviationConditions?.showOtherPerformanceMeasureRates
-                ? [
-                    <QMR.Rate
-                      rateMultiplicationValue={100000}
-                      customMask={positiveNumbersWithMaxDecimalPlaces(1)}
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              // Dynamically hide or show children based on if performance measure sections were completed
-              ...((deviationConditions?.showAges18To64 && item.id === 0) ||
-              (deviationConditions?.showAges65AndOlder && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      rateMultiplicationValue={100000}
-                      customMask={positiveNumbersWithMaxDecimalPlaces(1)}
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      rates={[
-                        {
-                          id: 1,
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-            ],
-          };
-        })}
-      />
+      <CUI.Heading key={`${name}.header`} size="sm" mb={6}>
+        Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:
+      </CUI.Heading>
+      {deviationConditions?.showOtherPerformanceMeasureRates &&
+        buildOtherPerformanceRates(name, rateReadOnly, ageGroups)}
+      {showEffective &&
+        buildPerfRates(
+          `${name}.showEffective`,
+          "Most effective or moderately effective method of contraception",
+          deviationConditions.showEffectiveContraceptionThreeDaysPostPartum,
+          deviationConditions.showEffectiveContraceptionSixtyDaysPostPartum,
+          rateReadOnly
+        )}
+      {showLongLast &&
+        buildPerfRates(
+          `${name}.showLarc`,
+          "Long-acting reversible method of contraception (LARC)",
+          deviationConditions.showLongActingContraceptionThreeDaysPostPartum,
+          deviationConditions.showLongActingContraceptionSixtyDaysPostPartum,
+          rateReadOnly
+        )}
     </CUI.Box>
   );
 };
@@ -564,27 +608,6 @@ export const OptionalMeasureStratification = ({
               ],
             },
             {
-              value: "Sex",
-              displayValue: "Sex",
-              children: [
-                <QMR.Checkbox
-                  {...register("SexOptions")}
-                  options={[
-                    {
-                      value: "Male",
-                      displayValue: "Male",
-                      children: [<AgeData {...register("MaleSexRates")} />],
-                    },
-                    {
-                      value: "Female",
-                      displayValue: "Female",
-                      children: [<AgeData {...register("FemaleSexRates")} />],
-                    },
-                  ]}
-                />,
-              ],
-            },
-            {
               value: "PrimaryLanguageIncSignLanguage",
               displayValue: "Primary Language (including sign language)",
               children: [
@@ -692,8 +715,8 @@ export const OptionalMeasureStratification = ({
                       ],
                     },
                     {
-                      value: "AdditonalGeography",
-                      displayValue: "Additonal Geography",
+                      value: "AdditionalGeography",
+                      displayValue: "Additional Geography",
                       children: [
                         <CUI.Box mb="4" key="AddtnlGeographyDescWrapper">
                           <QMR.TextInput
