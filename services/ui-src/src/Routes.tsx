@@ -56,6 +56,7 @@ export function AppRoutes() {
     <main id="main-wrapper">
       <Routes>
         <Route path="/" element={<Views.Home />} />
+        <Route path="/faq" element={<Views.FAQ />} />
         <Route path=":state/:year" element={<Views.StateHome />} />
         <Route path="admin" element={<Views.AdminHome />} />
         <Route
@@ -74,12 +75,10 @@ export function AppRoutes() {
           path=":state/:year/CCSC/CSQ"
           element={<Views.CCSCQualifiers />}
         />
-        <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route path={m.path} element={m.el} key={m.path} />
         ))}
-        <Route path="components" element={<Views.DemoComponents />} />
         <Route path="*" element={<Views.NotFound />} />
       </Routes>
     </main>
