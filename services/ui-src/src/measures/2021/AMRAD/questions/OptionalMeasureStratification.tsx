@@ -92,8 +92,6 @@ const AgeData = ({ name }: SubComponentProps) => {
       (source) => source === "I am reporting provisional data."
     ) ?? true;
 
-  console.log(ageGroups);
-
   return (
     <CUI.Box key={`${name}.ageData`}>
       <CUI.Heading size="sm">
@@ -101,69 +99,12 @@ const AgeData = ({ name }: SubComponentProps) => {
         auto-calculate:
       </CUI.Heading>
 
-      {ageGroups.map((item) => {
-        return (
-          <QMR.Rate
-            readOnly={rateReadOnly}
-            name={`${name}.subRates.${item.id}.PersistentAsthma`}
-            key={`${name}.subRates.${item.id}.PersistentAsthma`}
-            rates={[
-              {
-                id: 0,
-                label: item.label,
-                isTotal: item.isTotal ?? false,
-              },
-            ]}
-          />
-        );
-      })}
-
-      {/*  
-      <QMR.Checkbox
-        name={`${name}.ageData`}
-        key={`${name}.ageData`}
-        options={ageGroups.map((item) => {
-          return {
-            value: item.label.replace(/ /g, ""),
-            displayValue: item.label,
-            children: [
-              // Dynamically hide or show children based on if other performance measuresections were completed
-              // ...(deviationConditions?.showOtherPerformanceMeasureRates
-              //   ? [
-              //       <QMR.Rate
-              //         readOnly={rateReadOnly}
-              //         name={`${name}.subRates.${item.id}.OtherPerformance`}
-              //         key={`${name}.subRates.${item.id}.OtherPerformance`}
-              //         rates={[
-              //           {
-              //             id: 0,
-              //             label: "",
-              //           },
-              //         ]}
-              //       />,
-              //     ]
-              //   : []),
-              ...((deviationConditions?.showPersistentAsthma19To50 &&
-                item.id === 0) ||
-              (deviationConditions?.showPersistentAsthma51To64 && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.PersistentAsthma`}
-                      key={`${name}.subRates.${item.id}.PersistentAsthma`}
-                      rates={[
-                        {
-                          id: 0,
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-            ],
-          };
-        })}
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        name={`${name}.subRates.PersistentAsthma`}
+        key={`${name}.subRates.PersistentAsthma`}
+        rates={ageGroups}
       />
-      */}
     </CUI.Box>
   );
 };

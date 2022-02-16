@@ -134,7 +134,7 @@ export const Rate = ({
     let totalIndex = undefined;
 
     prevRate.map((f, index) => {
-      if (f !== null && !f["isTotal"]) {
+      if (f !== undefined && f !== null && !f["isTotal"]) {
         numeratorSum += parseInt(f["numerator"]) || 0;
         denominatorSum += parseInt(f["denominator"]) || 0;
       } else {
