@@ -7,11 +7,8 @@ const CPAadLink = "//p[contains(text(),'CPA-AD')]";
 const AdultCoreSetQuestions =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/div[1]/div[1]/a[1]/p[1]";
 const fuaAD = "//p[contains(text(),'FUA-AD')]";
-<<<<<<< HEAD
 const mscAD = "//p[contains(text(),'MSC-AD')]";
-=======
 const oudAD = "//p[contains(text(),'OUD-AD')]";
->>>>>>> oy2-8977-mscad
 //oy2-15212 QMR MDCT Medicaid Logo
 const qualityMeasureReportingLogo = "//img[@alt='QMR Logo']";
 const mdctLogo = "//img[@alt='Mdct logo']";
