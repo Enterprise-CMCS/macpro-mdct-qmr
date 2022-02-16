@@ -9,6 +9,7 @@ interface Props {
   ageGroups: {
     id: number;
     label: string;
+    isTotal?: boolean;
   }[];
   deviationConditions?: {
     showPersistentAsthma19To50: boolean;
@@ -79,7 +80,7 @@ const AddAnotherButton = ({
 };
 
 const AgeData = ({ name }: SubComponentProps) => {
-  const { ageGroups, deviationConditions } = useContext(AgeDataContext);
+  const { ageGroups } = useContext(AgeDataContext);
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch for dataSource data
@@ -91,8 +92,33 @@ const AgeData = ({ name }: SubComponentProps) => {
       (source) => source === "I am reporting provisional data."
     ) ?? true;
 
+  console.log(ageGroups);
+
   return (
     <CUI.Box key={`${name}.ageData`}>
+      <CUI.Heading size="sm">
+        Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:
+      </CUI.Heading>
+
+      {ageGroups.map((item) => {
+        return (
+          <QMR.Rate
+            readOnly={rateReadOnly}
+            name={`${name}.subRates.${item.id}.PersistentAsthma`}
+            key={`${name}.subRates.${item.id}.PersistentAsthma`}
+            rates={[
+              {
+                id: 0,
+                label: item.label,
+                isTotal: item.isTotal ?? false,
+              },
+            ]}
+          />
+        );
+      })}
+
+      {/*  
       <QMR.Checkbox
         name={`${name}.ageData`}
         key={`${name}.ageData`}
@@ -101,10 +127,6 @@ const AgeData = ({ name }: SubComponentProps) => {
             value: item.label.replace(/ /g, ""),
             displayValue: item.label,
             children: [
-              <CUI.Heading key={item.id} size="sm">
-                Enter a number for the numerator and the denominator. Rate will
-                auto-calculate:
-              </CUI.Heading>,
               // Dynamically hide or show children based on if other performance measuresections were completed
               // ...(deviationConditions?.showOtherPerformanceMeasureRates
               //   ? [
@@ -141,6 +163,7 @@ const AgeData = ({ name }: SubComponentProps) => {
           };
         })}
       />
+      */}
     </CUI.Box>
   );
 };

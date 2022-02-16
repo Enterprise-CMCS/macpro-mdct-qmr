@@ -54,7 +54,7 @@ export const AMRAD = ({
   }
 
   if (showPersistentAsthmaTotal) {
-    ageGroups.push({ label: "Total", id: 2 });
+    ageGroups.push({ label: "Total", id: 2, isTotal: true });
   }
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
