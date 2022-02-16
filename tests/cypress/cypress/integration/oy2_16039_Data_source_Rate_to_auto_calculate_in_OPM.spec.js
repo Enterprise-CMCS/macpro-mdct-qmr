@@ -12,7 +12,7 @@ describe("Adult Qualifiers", () => {
 
   it("Check Auto Calculation with Administrative Data", () => {
     cy.get("a > .chakra-text").click();
-    cy.get(":nth-child(13) > :nth-child(1) > a > .chakra-text").click();
+    cy.xpath("//p[contains(text(),'FUA-AD')]").click();
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
@@ -38,7 +38,7 @@ describe("Adult Qualifiers", () => {
   });
   it("Check Auto Calculation with Other", () => {
     cy.get("a > .chakra-text").click();
-    cy.get(":nth-child(13) > :nth-child(1) > a > .chakra-text").click();
+    cy.xpath("//p[contains(text(),'FUA-AD')]").click();
     cy.get("#MeasurementSpecification-Other").click({ force: true });
     cy.get(
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
@@ -66,7 +66,7 @@ describe("Adult Qualifiers", () => {
   });
   it("Check Auto Calculation with Administrative Data and Other", () => {
     cy.get("a > .chakra-text").click();
-    cy.get(":nth-child(13) > :nth-child(1) > a > .chakra-text").click();
+    cy.xpath("//p[contains(text(),'FUA-AD')]").click();
     cy.get("#MeasurementSpecification-Other").click({ force: true });
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
