@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 
 export const Status = () => {
   const register = useCustomRegister<Measure.Form>();

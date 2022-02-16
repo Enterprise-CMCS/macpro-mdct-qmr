@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 
 export const MeasurementSpecification = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -11,22 +11,8 @@ export const MeasurementSpecification = () => {
         {...register("MeasurementSpecification")}
         options={[
           {
-            displayValue:
-              "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
-            value: "NCQA/HEDIS",
-            children: [
-              <QMR.Select
-                {...register("MeasurementSpecification-HEDISVersion")}
-                label="Specify the version of HEDIS measurement year used:"
-                placeholder="Select option"
-                options={[
-                  {
-                    displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
-                    value: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
-                  },
-                ]}
-              />,
-            ],
+            displayValue: "Centers for Medicare & Medicaid Services (CMS)",
+            value: "CMS",
           },
           {
             displayValue: "Other",

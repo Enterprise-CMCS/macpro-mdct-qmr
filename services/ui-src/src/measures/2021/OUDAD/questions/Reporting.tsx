@@ -1,13 +1,13 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "measures/types";
+import { Measure } from "../validation/types";
 import { useFormContext } from "react-hook-form";
 import { WhyAreYouNotReporting } from ".";
 
 interface Props {
   measureName: string;
   measureAbbreviation: string;
-  reportingYear: number;
+  reportingYear: string;
 }
 
 export const Reporting = ({
