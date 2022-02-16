@@ -43,7 +43,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get(":nth-child(21) > :nth-child(1) > a > .chakra-text").click({
       force: true,
     });
-    cy.get("[data-cy=DidReport0]").click({ force: true });
+    cy.get("[data-cy=DidReport0]").click({ force: true }); // clicking yes
     //cy.get("#radio-177").check({ force: true });
     cy.get("[data-cy=DataStatus0]").click({ force: true });
     //cy.get("#radio-181").check({ force: true });
