@@ -1120,8 +1120,8 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get(
       "[data-cy=NonHispanicRacialCategories5] > #NonHispanicRacialCategories"
     ).check();
-    cy.get("#field-444").clear();
-    cy.get("#field-444").type("test");
+    //cy.get("#field-444").clear();
+    //cy.get("#field-444").type("test");
     cy.get(
       '[data-cy="AddtnlNonHispanicRaceRates.0.ageData0"] > .chakra-checkbox__control'
     ).click();
