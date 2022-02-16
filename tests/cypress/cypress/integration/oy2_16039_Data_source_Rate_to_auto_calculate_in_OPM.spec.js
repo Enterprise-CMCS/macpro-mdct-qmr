@@ -20,7 +20,7 @@ describe("Adult Qualifiers", () => {
     cy.xpath(
       "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
     ).clear({ force: true });
-    cy.get(
+    cy.xpath(
       "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
     ).type("1");
     cy.get(
@@ -43,10 +43,10 @@ describe("Adult Qualifiers", () => {
     cy.get(
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.get(
+    cy.xpath(
       "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
     ).clear({ force: true });
-    cy.get(
+    cy.xpath(
       "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
     ).type("1");
     cy.get(
@@ -74,10 +74,10 @@ describe("Adult Qualifiers", () => {
     cy.get(
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.get(
+    cy.xpath(
       "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
     ).clear({ force: true });
-    cy.get(
+    cy.xpath(
       "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
     ).type("1");
     cy.get(
