@@ -1,7 +1,7 @@
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-describe("Adult Qualifiers", () => {
+describe("OY2 16039 Data source/ Rate to auto calculate in OPM", () => {
   beforeEach(() => {
     // Seed database with test data
     cy.visit("/");
@@ -17,12 +17,12 @@ describe("Adult Qualifiers", () => {
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
     cy.get("#MeasurementSpecification-Other").click({ force: true });
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
+    cy.get(
+      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
     ).clear({ force: true });
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
-    ).type("1");
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
+      "1"
+    );
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
     ).clear();
@@ -43,12 +43,12 @@ describe("Adult Qualifiers", () => {
     cy.get(
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
+    cy.get(
+      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
     ).clear({ force: true });
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
-    ).type("1");
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
+      "1"
+    );
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
     ).clear();
@@ -74,12 +74,12 @@ describe("Adult Qualifiers", () => {
     cy.get(
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
+    cy.get(
+      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
     ).clear({ force: true });
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[7]/div[2]/div[1]/div[2]/div[1]/div[1]/input[1]"
-    ).type("1");
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
+      "1"
+    );
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
     ).clear();
