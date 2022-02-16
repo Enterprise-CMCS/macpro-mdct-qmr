@@ -14,6 +14,7 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
 jest.mock("../../../libs/authorization", () => ({
   __esModule: true,
   isAuthorized: jest.fn().mockReturnValue(true),
+  getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -38,7 +39,7 @@ describe("Testing Updating Core Set Functions", () => {
     const res = await editCoreSet(
       {
         ...testEvent,
-        headers: { "cognito-identity-id": "test-user" },
+        headers: { "cognito-identity-id": "branchUser" },
         pathParameters: { coreSet: "ACS" },
         body: "{}",
       },
@@ -50,7 +51,7 @@ describe("Testing Updating Core Set Functions", () => {
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
       {
         lastAltered: 20,
-        lastAlteredBy: "test-user",
+        lastAlteredBy: "branchUser",
         status: undefined,
       },
       "post"

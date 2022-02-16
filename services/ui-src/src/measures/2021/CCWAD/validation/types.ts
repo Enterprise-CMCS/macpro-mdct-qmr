@@ -58,12 +58,6 @@ export namespace Measure {
     "DataSource-Administrative-Other-Explanation"?: string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
-    "DataSource-Hybrid"?: string[];
-    "DataSource-Hybrid-Other"?: string;
-    "DataSource-Hybrid-Other-Explanation"?: string;
-    "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
-    "DataSource-ElectronicHealthRecords"?: string;
-    "DataSource-ElectronicHealthRecords-Explanation"?: string;
 
     //CombinedRates
     CombinedRates: string;
@@ -138,7 +132,7 @@ export namespace Measure {
 
     //Performance Measure
     "PerformanceMeasure-Explanation": string;
-    ModeratelyEffectiveMethodOfContraceptionRate: {
+    "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate": {
       denominator: string;
       numerator: string;
       other: string;
@@ -146,7 +140,7 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    ReversibleMethodOfContraceptionRate: {
+    "PerformanceMeasure-ReversibleMethodOfContraceptionRate": {
       denominator: string;
       numerator: string;
       other: string;

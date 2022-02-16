@@ -35,7 +35,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Contraceptive Care Postpartum Women Ages 21-44",
+      name: "Contraceptive Care - Postpartum Women Ages 21 to 44",
       measureId: "CCP-AD",
     },
     {
@@ -146,7 +146,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "PQI 01: Diabetes Short-term Complications Admission Rate",
+      name: "PQI 01: Diabetes Short-Term Complications Admission Rate",
       measureId: "PQI01-AD",
     },
     {

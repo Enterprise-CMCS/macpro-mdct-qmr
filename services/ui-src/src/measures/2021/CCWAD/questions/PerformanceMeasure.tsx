@@ -48,13 +48,15 @@ export const PerformanceMeasure = () => {
             id: 1,
           },
         ]}
-        {...register("ModeratelyEffectiveMethodOfContraceptionRate")}
+        {...register(
+          "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"
+        )}
       />
       <CUI.Text fontWeight="bold" my="5">
         Long-acting reversible method of contraception (LARC)
       </CUI.Text>
       <QMR.Rate
-        {...register("ReversibleMethodOfContraceptionRate")}
+        {...register("PerformanceMeasure-ReversibleMethodOfContraceptionRate")}
         readOnly={rateReadOnly}
         rates={[
           {

@@ -43,7 +43,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "Contraceptive Care Postpartum Women Ages 21-44",
+      description: "Contraceptive Care - Postpartum Women Ages 21 to 44",
       measure: "CCP-AD",
     },
     {
@@ -162,7 +162,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "PQI 01: Diabetes Short-term Complications Admission Rate",
+      description: "PQI 01: Diabetes Short-Term Complications Admission Rate",
       measure: "PQI01-AD",
     },
     {
