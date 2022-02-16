@@ -5,7 +5,7 @@ describe("Adult Qualifiers", () => {
   beforeEach(() => {
     // Seed database with test data
     cy.visit("/");
-    cy.xpath(emailForCognito).type("stateuser1@test.com");
+    cy.xpath(emailForCognito).type("stateuser2@test.com");
     cy.xpath(passwordForCognito).type("p@55W0rd!");
     cy.get('[data-cy="login-with-cognito-button"]').click();
   });
