@@ -46,9 +46,10 @@ export namespace MeasureTableItem {
     abbr: string;
     title: string;
     rateComplete: number;
+    createdAt: number;
     lastDateModified: number;
     actions: IKebabMenuItem[];
-    isReporting: boolean | null;
+    reporting: string | undefined | null;
   };
 
   export interface StatusTextProps {
