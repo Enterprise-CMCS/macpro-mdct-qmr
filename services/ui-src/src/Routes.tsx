@@ -75,12 +75,10 @@ export function AppRoutes() {
           path=":state/:year/CCSC/CSQ"
           element={<Views.CCSCQualifiers />}
         />
-        <Route path="OH/2021/ACS/AIF-HH" element={<Views.DemoMeasure />} />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route path={m.path} element={m.el} key={m.path} />
         ))}
-        <Route path="components" element={<Views.DemoComponents />} />
         <Route path="*" element={<Views.NotFound />} />
       </Routes>
     </main>
