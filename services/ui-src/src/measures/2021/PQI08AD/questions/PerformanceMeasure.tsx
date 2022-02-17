@@ -2,8 +2,8 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
-import { useFormContext } from "react-hook-form";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
+import { useFormContext } from "react-hook-form";
 
 export const PerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -37,8 +37,7 @@ export const PerformanceMeasure = () => {
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      Number of inpatient hospital admissions for diabetes short-term
-      complications (ketoacidosis, hyperosmolarity, or coma) per 100,000
+      Number of inpatient hospital admissions for heart failure per 100,000
       beneficiary months for beneficiaries age 18 and older.
       <QMR.TextArea
         formControlProps={{ py: "4" }}

@@ -8,6 +8,7 @@ import PDENTch from "../../../support/pages/PDENTch";
 import LBWch from "../../../support/pages/LBWch";
 import LRCDch from "../../../support/pages/LRCDch";
 import AdultCoreSetQuestionsPage from "../../../support/pages/AdultCoreSetQuestionsPage";
+import CCPadPage from "../../../support/pages/CCPadPage";
 import OUDadPage from "../../../support/pages/OUDadPage";
 // demo
 
@@ -28,6 +29,7 @@ const oudADpage = new OUDadPage();
 const fUAADPage = new FUAADPAGE();
 const cPAADPage = new CPAADPAGE();
 const adultCoreSetQuestionsPage = new AdultCoreSetQuestionsPage();
+const ccpADpage = new CCPadPage();
 
 Given("user visits QMR home page", () => {
   homePage.launch();
@@ -126,6 +128,14 @@ And("user click on link Adult Core Set Measures", () => {
 
 And("user click on link FUA-AD", () => {
   adultCoreSetMeasurespage.clickFUAadLink();
+});
+
+And("user click on link CCP-AD", () => {
+  adultCoreSetMeasurespage.clickCCPadLink();
+});
+
+And("button on the page is clickable", () => {
+  ccpADpage.verifySaveValidateCompletebuttonClickable();
 });
 
 And("user click on link OUD-AD", () => {

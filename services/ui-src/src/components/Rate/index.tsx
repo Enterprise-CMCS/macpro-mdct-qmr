@@ -23,7 +23,7 @@ interface Props extends QMR.InputWrapperProps {
   readOnly?: boolean;
   allowMultiple?: boolean;
   rateMultiplicationValue?: number;
-  allowAnyRate?: boolean;
+  customMask?: RegExp;
 }
 
 export const Rate = ({
@@ -32,7 +32,7 @@ export const Rate = ({
   allowMultiple = false,
   readOnly = true,
   rateMultiplicationValue = 100,
-  allowAnyRate,
+  customMask,
   ...rest
 }: Props) => {
   const {
@@ -92,7 +92,7 @@ export const Rate = ({
         : rateThatAllowsOneDecimal;
 
       prevRate[index].rate =
-        regex.test(newValue) || newValue === "" || allowAnyRate
+        regex.test(newValue) || newValue === "" || customMask?.test(newValue)
           ? newValue
           : prevRate[index].rate;
 
