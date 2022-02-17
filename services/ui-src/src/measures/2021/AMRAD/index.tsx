@@ -53,6 +53,7 @@ export const AMRAD = ({
     ageGroups[1] = { label: "Ages 51 to 64", id: 1, isTotal: false };
   }
 
+  // Total field should show in OMS section if any of the NDRs in Performance Measures have been filled out.
   if (
     showPersistentAsthma19To50 ||
     showPersistentAsthma51To64 ||
@@ -60,6 +61,7 @@ export const AMRAD = ({
   ) {
     ageGroups[2] = { label: "Total", id: 2, isTotal: true };
   }
+
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
     otherRates.forEach((rate) => {

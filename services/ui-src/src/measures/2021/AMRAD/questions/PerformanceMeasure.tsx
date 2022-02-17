@@ -17,6 +17,7 @@ export const PerformanceMeasure = () => {
       (source) => source === "I am reporting provisional data."
     ) ?? true;
 
+  // The intended "Total" N/D/R has a value isTotal: true that is used to display total values on QMR.Rate
   const ageRates = [
     {
       label: "Ages 19 to 50",

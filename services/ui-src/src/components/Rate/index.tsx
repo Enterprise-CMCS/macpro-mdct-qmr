@@ -46,8 +46,11 @@ export const Rate = ({
     defaultValue: [],
   });
 
+  /*
+  On component render, verify that all NDRs have a label and isTotal value.
+  This is required for accurate data representation in DB and to calculateTotals().
+  */
   useEffect(() => {
-    // Establish a total field
     const prevRate = [...field.value];
     rates.map((rate, index) => {
       if (prevRate[index] === undefined) {
@@ -69,7 +72,6 @@ export const Rate = ({
     if (type === "rate" && readOnly) return;
 
     const prevRate = [...field.value];
-
     const editRate = { ...prevRate[index] };
     const validEditRate = eightNumbersOneDecimal.test(newValue);
 
@@ -117,18 +119,25 @@ export const Rate = ({
 
     prevRate[index] = editRate;
 
+    // Totals NDR should be independently editable
     if (!isTotal) {
       calculateTotals(prevRate);
     }
+
     field.onChange([...prevRate]);
   };
 
+  /*
+  Iterate over all numerators and denominators of NDRs where isTotal is false.
+  Sum these values and set the NDR where isTotal is true to be these sumed values.
+  */
   const calculateTotals = (prevRate: any[]) => {
+    // TODO: This needs a test
     let numeratorSum = 0;
     let denominatorSum = 0;
-
     let totalIndex = undefined;
 
+    // Sum all Ns and Ds - get index of NDR where isTotal is true
     prevRate.map((f, index) => {
       if (f !== undefined && f !== null && !f["isTotal"]) {
         numeratorSum += parseInt(f["numerator"]) || 0;
@@ -138,6 +147,7 @@ export const Rate = ({
       }
     });
 
+    // Set total values and calculate total rate
     if (totalIndex) {
       prevRate[totalIndex]["numerator"] = numeratorSum;
       prevRate[totalIndex]["denominator"] = denominatorSum;

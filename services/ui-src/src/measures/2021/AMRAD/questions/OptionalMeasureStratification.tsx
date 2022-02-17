@@ -79,16 +79,26 @@ const AddAnotherButton = ({
   );
 };
 
+/*
+AgeData displays NDRs in the OMS section conditionally. If the corresponding NDR has been modified in Performance Measures section.
+Also maintains data integrity by verifying values stored in the Measure.Form representation match provided ageGroups.
+
+Unlike other implementations of the OMS section, the QMR.Rate component is responsible for generating a running "totals" NDR. To do
+this, a single QMR.Rate component is being provided a list of ageGroups as opposed to generating multiple Rate components, one for
+each group. This de-couples the Rate component from the data in Measure.Form hence the need for additional data management.
+*/
 const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups } = useContext(AgeDataContext);
   const { watch, getValues, setValue } = useFormContext<Measure.Form>();
 
+  // On component load, check for any NDRs in subRates.PersistentAsthma that do not have corresponding NDRs in Performance Measures.
   useEffect(() => {
     const ageGroupIds = ageGroups.map((x) => x.id);
     const missingIds = [0, 1, 2].filter((id) => {
       return !ageGroupIds.includes(id);
     });
 
+    // TODO: it would be nice to not have these ts-ignores–unsure how to elegantly create these in types.ts
     missingIds.forEach((id) => {
       /// @ts-ignore
       if (isEmpty(getValues(`${name}.subRates.PersistentAsthma.${id}`))) {
@@ -98,7 +108,9 @@ const AgeData = ({ name }: SubComponentProps) => {
     });
   }, [ageGroups]);
 
-  // Verify that a given object has no key/value pairs
+  /*
+  Verify that a given object has no key/value pairs
+  */
   const isEmpty = (obj: any) => {
     if (Object.keys(obj).length > 0) {
       return false;
