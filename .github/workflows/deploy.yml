@@ -188,7 +188,27 @@ jobs:
         ccwadPage,
         cdfadPage,
         chladPage,
-        cobadPage,]
+        cobadPage,
+        cpaadPage,
+        fuhadPage,
+        fumadPage,
+        fvaadPage,
+        hpcadPage,
+        hpcmiadPage,
+        hvladPage,
+        mscadPage,
+        nciddsPage,
+        ohdadPage,
+        oudadPage,
+        pc01adPage,
+        pcradPage,
+        ppcadPage,
+        pqi01adPage,
+        pqi05adPage,
+        pqi08Page,
+        pqi15adPage,
+        ssaPage,
+        ssdadPage]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
