@@ -3,7 +3,6 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { useFormContext } from "react-hook-form";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const PerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -37,11 +36,21 @@ export const PerformanceMeasure = () => {
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      Number of inpatient hospital admissions for diabetes short-term
-      complications (ketoacidosis, hyperosmolarity, or coma) per 100,000
-      beneficiary months for beneficiaries age 18 and older.
+      Percentage of emergency department (ED) visits for beneficiaries age 18
+      and older with a principal diagnosis of mental illness or intentional
+      self-harm and who had a follow-up visit for mental illness. Two rates are
+      reported:
+      <CUI.UnorderedList m="5" ml="10">
+        <CUI.ListItem>
+          Percentage of ED visits for mental illness for which the beneficiary
+          received follow-up within 30 days of the ED visit (31 total days)
+        </CUI.ListItem>
+        <CUI.ListItem>
+          Percentage of ED visits for mental illness for which the beneficiary
+          received follow-up within 7 days of the ED visit (8 total days)
+        </CUI.ListItem>
+      </CUI.UnorderedList>
       <QMR.TextArea
-        formControlProps={{ py: "4" }}
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
         {...register("PerformanceMeasure-Explanation")}
       />
@@ -49,12 +58,21 @@ export const PerformanceMeasure = () => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
+      <CUI.Text fontWeight="bold" my="5">
+        30-day follow-up after ED visit for mental illness
+      </CUI.Text>
       <QMR.Rate
         readOnly={rateReadOnly}
         rates={ageRates}
-        rateMultiplicationValue={100000}
-        customMask={positiveNumbersWithMaxDecimalPlaces(1)}
-        {...register("PerformanceMeasure-AgeRates")}
+        {...register("PerformanceMeasure-AgeRates-30Days")}
+      />
+      <CUI.Text fontWeight="bold" my="5">
+        7-day follow-up after ED visit for mental illness
+      </CUI.Text>
+      <QMR.Rate
+        readOnly={rateReadOnly}
+        rates={ageRates}
+        {...register("PerformanceMeasure-AgeRates-7Days")}
       />
     </QMR.CoreQuestionWrapper>
   );
