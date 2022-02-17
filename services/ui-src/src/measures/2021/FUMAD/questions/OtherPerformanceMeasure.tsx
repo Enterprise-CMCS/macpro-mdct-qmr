@@ -4,7 +4,6 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const OtherPerformanceMeasure = () => {
   const register = useCustomRegister<Measure.Form>();
@@ -15,6 +14,17 @@ export const OtherPerformanceMeasure = () => {
       { rate: [{ denominator: "", numerator: "", rate: "" }], description: "" },
     ]
   );
+
+  const { watch } = useFormContext<Measure.Form>();
+
+  // Watch for dataSource data
+  const dataSourceWatch = watch("DataSource");
+
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source) => source === "I am reporting provisional data."
+    ) ?? true;
 
   return (
     <QMR.CoreQuestionWrapper label="Other Performance Measure">
@@ -40,10 +50,8 @@ export const OtherPerformanceMeasure = () => {
                     id: index,
                   },
                 ]}
-                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 name={`OtherPerformanceMeasure-Rates.${index}.rate`}
-                rateMultiplicationValue={100000}
-                readOnly={false}
+                readOnly={rateReadOnly}
               />
             </CUI.Stack>
           );
