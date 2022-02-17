@@ -51,12 +51,9 @@ export const Rate = ({
     const prevRate = [...field.value];
     rates.map((rate, index) => {
       if (prevRate[index] === undefined) {
-        prevRate[index] = {
-          // numerator: "",
-          // denominator: "",
-          // rate: "",
-        };
+        prevRate[index] = {};
       }
+      prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["isTotal"] = rate.isTotal ?? undefined;
     });
     field.onChange([...prevRate]);
