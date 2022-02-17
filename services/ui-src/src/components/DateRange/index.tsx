@@ -3,6 +3,7 @@ import * as QMR from "components";
 import { MonthPicker } from "components/MonthPicker";
 import { useFormContext } from "react-hook-form";
 import { format } from "date-fns";
+import objectPath from "object-path";
 
 interface Props {
   name: string;
@@ -26,7 +27,12 @@ export const currentYear = parseInt(format(new Date(), "yyyy"));
 export const currentMonth = parseInt(format(new Date(), "M"));
 
 export const DateRangeError = ({ name }: { name: string }) => {
-  const { watch } = useFormContext();
+  const {
+    watch,
+    setValue,
+    setError,
+    formState: { errors },
+  } = useFormContext();
   const range = watch(name);
 
   const startYear = parseInt(range?.startDate?.selectedYear);
@@ -34,6 +40,24 @@ export const DateRangeError = ({ name }: { name: string }) => {
 
   const endYear = parseInt(range?.endDate?.selectedYear);
   const endMonth = parseInt(range?.endDate?.selectedMonth);
+
+  /* If the start date is after the end date, then display a warning notification. */
+  if (
+    startYear > endYear ||
+    (startMonth >= endMonth && startYear === endYear)
+  ) {
+    const endDate = `${name}.endDate`;
+    setValue(endDate, undefined);
+
+    setTimeout(() => {
+      setError(endDate, { message: "Start Date must be before the end date" });
+    });
+  }
+
+  const endDateBeforeStartDateError = objectPath.get(errors, `${name}.endDate`);
+  if (endDateBeforeStartDateError) {
+    return <RangeNotification text={endDateBeforeStartDateError.message} />;
+  }
 
   /* If the start date is a future date, then display a warning notification. */
   if (
@@ -49,14 +73,6 @@ export const DateRangeError = ({ name }: { name: string }) => {
     (endMonth > currentMonth && endYear === currentYear)
   ) {
     return <RangeNotification text="End date cannot be a future date" />;
-  }
-
-  /* If the start date is after the end date, then display a warning notification. */
-  if (
-    startYear > endYear ||
-    (startMonth >= endMonth && startYear === endYear)
-  ) {
-    return <RangeNotification text="Start Date must be before the end date" />;
   }
 
   return null;
