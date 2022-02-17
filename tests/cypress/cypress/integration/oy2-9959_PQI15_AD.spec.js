@@ -14,17 +14,17 @@ describe("Measure: PQI15-AD", () => {
     cy.displaysSectionsWhenUserIsReporting();
   });
 
-  it("Ensure Data Source question includes Administrative Data, and Other Data Source selections.", () => {
-    // admin data
-    cy.get(
-      '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
+  // it("Ensure Data Source question includes Administrative Data, and Other Data Source selections.", () => {
+  //   // admin data
+  //   cy.get(
+  //     '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
+  //   ).should("be.visible");
 
-    // other data source
-    cy.get(
-      '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
-  });
+  //   // other data source
+  //   cy.get(
+  //     '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
+  //   ).should("be.visible");
+  // });
 
   it("Rate calculation should be correct", () => {
     // select is reporting
