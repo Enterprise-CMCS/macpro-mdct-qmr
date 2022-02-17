@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
-import { useFormContext } from "react-hook-form";
 import config from "config";
 import {
   BsFillCalendar2DateFill,
@@ -40,27 +39,8 @@ export const MonthPickerCalendar = ({
   yearLocked = false,
   onChange: handleChange,
 }: CalendarProps) => {
-  const { watch } = useFormContext();
-  const range = watch("DateRange");
-  let startYear = !range ? parseInt(selectedYear) : undefined;
-  const startYearString = range?.startDate?.selectedYear?.toString();
-
-  if (range?.startDate && !range.endDate && startYearString?.length === 4) {
-    const inputStartYear = parseInt(range.startDate.selectedYear);
-    const inputStartMonth = parseInt(range.startDate.selectedMonth);
-
-    if (inputStartYear >= minYear) {
-      startYear = inputStartYear;
-
-      if (inputStartMonth === 12 && startYear < maxYear) {
-        startYear++;
-      }
-    }
-  }
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [year, setYear] = useState(
-    startYear || parseInt(selectedYear) || maxYear
-  );
+  const [year, setYear] = useState(parseInt(selectedYear) || maxYear);
   const [month, setMonth] = useState(
     (selectedMonth && parseInt(selectedMonth)) || undefined
   );
