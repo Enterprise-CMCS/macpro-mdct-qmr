@@ -128,7 +128,19 @@ export const DefinitionOfPopulation = () => {
                           formLabelProps={{ fontWeight: "400" }}
                           label="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"
                           mask={percentageAllowOneDecimalMax}
+                          displayPercent
                         />,
+                        <CUI.Text py="4">
+                          The percentage provided here should represent the
+                          percentage of the denominator population(s) included
+                          in the measure (i.e., Medicaid, CHIP, etc.) that
+                          receives items/services through the selected delivery
+                          system. For example, if the population included in the
+                          reported data represents all managed care enrollees
+                          and half of your state’s fee-for-service enrollees,
+                          select managed care, and select fee-for-service and
+                          enter 50.
+                        </CUI.Text>,
                         <QMR.NumberInput
                           {...register(
                             "DeliverySys-FreeForService-No-Population"
@@ -216,7 +228,7 @@ export const DefinitionOfPopulation = () => {
                   <QMR.NumberInput
                     formLabelProps={{ fontWeight: "400" }}
                     mask={allPositiveIntegers}
-                    label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data?"
+                    label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data? (optional)"
                     {...register("DeliverySys-MCO_POHP-NumberOfPlans")}
                   />
                 </CUI.Box>,

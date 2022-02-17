@@ -556,12 +556,10 @@ export const OptionalMeasureStratification = ({
                     {
                       value: "Male",
                       displayValue: "Male",
-                      children: [<AgeData {...register("MaleSexRates")} />],
                     },
                     {
                       value: "Female",
                       displayValue: "Female",
-                      children: [<AgeData {...register("FemaleSexRates")} />],
                     },
                   ]}
                 />,

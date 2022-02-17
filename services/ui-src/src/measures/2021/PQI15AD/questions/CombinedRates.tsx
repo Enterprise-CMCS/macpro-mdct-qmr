@@ -8,6 +8,7 @@ export const CombinedRates = () => {
   return (
     <QMR.CoreQuestionWrapper label="Combined Rate(s) from Multiple Reporting Units">
       <QMR.RadioButton
+        helperText=" For additional information refer to the State-Level Rate Brief."
         options={[
           {
             displayValue:
