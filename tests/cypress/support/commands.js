@@ -95,3 +95,21 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
     }
   });
 });
+
+// axe api documentation: https://www.deque.com/axe/core-documentation/api-documentation/
+Cypress.Commands.add("checkA11yOfPage", () => {
+  cy.wait(3000);
+  cy.injectAxe();
+  cy.checkA11y(
+    null,
+    {
+      values: ["wcag2a", "wcag2aa"],
+      includedImpacts: ["minor", "moderate", "serious", "critical"], // options: "minor", "moderate", "serious", "critical"
+    },
+    (err) => {
+      console.log("Accessibility violations:");
+      console.log({ err });
+    },
+    true // does not fail tests for ally violations
+  );
+});
