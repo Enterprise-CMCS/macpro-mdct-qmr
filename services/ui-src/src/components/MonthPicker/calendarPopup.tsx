@@ -46,8 +46,8 @@ export const MonthPickerCalendar = ({
   const startYearString = range?.startDate?.selectedYear?.toString();
 
   if (range?.startDate && !range.endDate && startYearString?.length === 4) {
-    const inputStartYear = parseInt(range?.startDate?.selectedYear);
-    const inputStartMonth = parseInt(range?.startDate?.selectedMonth);
+    const inputStartYear = parseInt(range.startDate.selectedYear);
+    const inputStartMonth = parseInt(range.startDate.selectedMonth);
 
     if (inputStartYear >= minYear) {
       startYear = inputStartYear;
