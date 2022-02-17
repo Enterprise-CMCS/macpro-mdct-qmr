@@ -11,3 +11,4 @@ export const performanceMeasureDescriptions = [
   "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
 ];
 // export const performanceMeasureDescriptions = [];
+// export const showTotalFlag = false;

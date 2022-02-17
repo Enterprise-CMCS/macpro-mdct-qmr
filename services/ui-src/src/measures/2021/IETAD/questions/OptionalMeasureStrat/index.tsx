@@ -47,11 +47,8 @@ export const buildOmsCheckboxes = ({ name }: OmsCheckboxProps) => {
  */
 export const OptionalMeasureStrat = () => {
   const { watch, getValues, unregister } = useFormContext<Measure.Form>();
-  // retrieve data
   const data = getValues();
-  // Watch for dataSource data
   const dataSourceWatch = watch("DataSource");
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
     dataSourceWatch?.every(
       (source) => source === "I am reporting provisional data."
