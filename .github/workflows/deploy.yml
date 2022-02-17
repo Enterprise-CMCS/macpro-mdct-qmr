@@ -98,6 +98,7 @@ jobs:
             oy2_15212_qmr_mdct_logo.spec.feature,
             oy2_15504_Measure_validation_Error_Creation_Updates.spec.feature,
             pdentCH.spec.feature,
+            oy2_8976_Measure_14_CCW_AD.spec.js,
           ]
     steps:
       - name: set branch_name
