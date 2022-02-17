@@ -13,7 +13,7 @@ enum coreSetType {
   CCS = "Child",
   CCSM = "Child - Medicaid",
   CCSC = "Child - CHIP",
-  HHCS = "Health Homes",
+  HHCS = "Health Home",
 }
 
 export enum coreSetMeasureTitle {
@@ -21,7 +21,7 @@ export enum coreSetMeasureTitle {
   CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
   CCSC = "Child Core Set Measures: CHIP",
-  HHCS = "Health Homes Core Set Measures: User generated SPA name",
+  HHCS = "Health Home Core Set Measures: User generated SPA name",
 }
 
 enum coreSetQuestionsText {
@@ -29,7 +29,7 @@ enum coreSetQuestionsText {
   CCS = "Child Core Set Questions",
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",
-  HHCS = "Health Homes Core Set Questions: User generated SPA name",
+  HHCS = "Health Home Core Set Questions: User generated SPA name",
 }
 
 interface MeasureTableItem {
