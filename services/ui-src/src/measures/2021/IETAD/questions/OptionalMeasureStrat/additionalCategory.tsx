@@ -47,9 +47,11 @@ export const AddAnotherSection = ({
             <NDRSets
               name={`${name}.additionalSelections.${idx}.ageRangeRates`}
             />
-            {flagSubCat && (
-              <SubCatSection name={`${name}.additionalSelections.${idx}`} />
-            )}
+            <>
+              {flagSubCat && (
+                <SubCatSection name={`${name}.additionalSelections.${idx}`} />
+              )}
+            </>
           </QMR.QuestionChild>
         </QMR.DeleteWrapper>
       ))}
