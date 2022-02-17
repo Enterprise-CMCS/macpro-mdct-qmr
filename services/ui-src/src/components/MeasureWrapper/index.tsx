@@ -87,7 +87,6 @@ export const MeasureWrapper = ({
 
   const handleSave = (data: Measure.Form) => {
     if (!mutationRunning && !loadingData) {
-      console.log("Before:", data);
       updateMeasure(
         {
           data,
@@ -96,7 +95,6 @@ export const MeasureWrapper = ({
         },
         {
           onSettled: (data, error) => {
-            console.log("After:", data);
             if (data && !error) {
               refetch();
             }
