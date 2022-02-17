@@ -31,12 +31,12 @@ interface OPMProps {
   name: string;
 }
 
-interface TotalProps {
-  /** name for react-hook-form registration */
-  name: string;
-  /** should rate be user editable? */
-  rateReadOnly: boolean;
-}
+// interface TotalProps {
+//   /** name for react-hook-form registration */
+//   name: string;
+//   /** should rate be user editable? */
+//   rateReadOnly: boolean;
+// }
 
 interface NdrOptionBuilderProps extends AgeGroupProps {
   values: string[];
@@ -61,9 +61,9 @@ type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
 /**
  * Total Rate NDR that calculates from filled OMS NDR sets
  */
-const CalcTotalNDR = ({}: TotalProps) => {
-  return <div>Example Placement</div>;
-};
+// const CalcTotalNDR = ({}: TotalProps) => {
+//   return <div>Example Placement</div>;
+// };
 
 const buildConditionalRateArray = ({
   addSecondaryRegisterTag,
@@ -85,7 +85,8 @@ const buildConditionalRateArray = ({
     ) {
       const cleanedPMDescLabel =
         addSecondaryRegisterTag && performanceMeasureDescriptions[idx]
-          ? `_${performanceMeasureDescriptions[idx].replace(/[^\w]/g, "")}`
+          ? // @ts-ignore
+            `_${performanceMeasureDescriptions[idx].replace(/[^\w]/g, "")}`
           : "";
 
       const adjustedName =
@@ -99,7 +100,11 @@ const buildConditionalRateArray = ({
           rates={[
             {
               id: 0,
-              label: performanceMeasureDescriptions[idx],
+              label: `${
+                performanceMeasureDescriptions[idx]
+                  ? performanceMeasureDescriptions[idx]
+                  : ""
+              }`,
             },
           ]}
         />
@@ -257,18 +262,18 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM, calcTotal, rateReadOnly } = usePerformanceMeasureContext();
+  const { OPM } = usePerformanceMeasureContext();
   return (
     <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
       {OPM && <OPMNDRSets name={name} key={name} />}
       {!OPM && <AgeGroupNDRSets name={name} key={name} />}
-      {calcTotal && (
+      {/* {!OPM && calcTotal && (
         <CalcTotalNDR
           name={name}
           key={`${name}.TotalWrapper`}
           rateReadOnly={!!rateReadOnly}
         />
-      )}
+      )} */}
     </CUI.VStack>
   );
 };
