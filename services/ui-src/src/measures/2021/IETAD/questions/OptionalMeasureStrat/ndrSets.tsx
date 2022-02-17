@@ -53,6 +53,7 @@ interface ConditionalRateBuilderProps {
   performanceMeasureArray: Measure.RateFields[][];
   majorIndex: number;
   value: string;
+  name: string;
 }
 
 type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
@@ -64,24 +65,23 @@ const CalcTotalNDR = ({}: TotalProps) => {
   return <div>Example Placement</div>;
 };
 
-const buildConditionalRateArray = (
-  {
-    addSecondaryRegisterTag,
-    rateReadOnly,
-    performanceMeasureArray = [[]],
-  }: NdrOptionBuilderProps,
-  i: number,
-  val: string
-) => {
+const buildConditionalRateArray = ({
+  addSecondaryRegisterTag,
+  rateReadOnly,
+  performanceMeasureArray = [[]],
+  majorIndex,
+  value,
+  name,
+}: ConditionalRateBuilderProps) => {
   const ndrSets: React.ReactElement[] = [];
-  const cleanedLabel = val?.replace(/[^\w]/g, "") ?? "CHECKBOX_VALUE_NOT_SET";
+  const cleanedLabel = value?.replace(/[^\w]/g, "") ?? "CHECKBOX_VALUE_NOT_SET";
 
   // create NDR sets for applicable PMs
   performanceMeasureArray.forEach((performanceMeasure, idx) => {
     if (
       performanceMeasure &&
-      performanceMeasure[i] &&
-      performanceMeasure[i].rate
+      performanceMeasure[majorIndex] &&
+      performanceMeasure[majorIndex].rate
     ) {
       const cleanedPMDescLabel =
         addSecondaryRegisterTag && performanceMeasureDescriptions[idx]
@@ -126,7 +126,16 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
 
   values.forEach((val, i) => {
     // add tp checkbox options
+    const ndrSets = buildConditionalRateArray({
+      value: val,
+      addSecondaryRegisterTag,
+      performanceMeasureArray,
+      rateReadOnly,
+      majorIndex: i,
+      name,
+    });
     if (ndrSets.length) {
+      const cleanedLabel = val.replace(/[^\w]/g, "");
       const ageGroupCheckBox = {
         value: cleanedLabel,
         displayValue: val,
@@ -158,7 +167,7 @@ const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
   }
   return buildPerformanceMeasureNDRCheckboxOptions({
     ...props,
-    addSecondaryRegisterTag: false,
+    addSecondaryRegisterTag: true,
     values: ageGroups,
   });
 };
@@ -248,7 +257,6 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  */
 export const NDRSets = ({ name }: NdrProps) => {
   const { OPM, calcTotal, rateReadOnly } = usePerformanceMeasureContext();
-
   return (
     <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
       {OPM && <OPMNDRSets name={name} key={name} />}
