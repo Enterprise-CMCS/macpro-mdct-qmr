@@ -46,6 +46,8 @@ export const Rate = ({
     defaultValue: [],
   });
 
+  console.log({ rates, name });
+
   useEffect(() => {
     // Establish a total field
     const prevRate = [...field.value];
@@ -100,7 +102,6 @@ export const Rate = ({
           : prevRate[index].rate;
 
       field.onChange([...prevRate]);
-      console.log("field: ", field);
       return;
     }
 

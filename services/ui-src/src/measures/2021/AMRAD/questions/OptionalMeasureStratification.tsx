@@ -83,6 +83,8 @@ const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups } = useContext(AgeDataContext);
   const { watch } = useFormContext<Measure.Form>();
 
+  console.log({ ageGroups });
+
   // Watch for dataSource data
   const dataSourceWatch = watch("DataSource");
 
