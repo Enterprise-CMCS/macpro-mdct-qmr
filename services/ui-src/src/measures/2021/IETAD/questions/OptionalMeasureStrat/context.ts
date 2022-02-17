@@ -5,12 +5,14 @@ interface ContextProps {
   OPM?: Measure.OtherRatesFields[];
   performanceMeasureArray?: Measure.RateFields[][];
   rateReadOnly?: boolean;
+  calcTotal?: boolean;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
   OPM: [],
   performanceMeasureArray: [[]],
   rateReadOnly: true,
+  calcTotal: false,
 });
 
 export const usePerformanceMeasureContext = () =>

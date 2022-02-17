@@ -25,8 +25,10 @@ export namespace Measure {
   interface OmsRateFields {
     options?: string[];
     rates?: {
-      [ageRange: string]: RateFields[];
+      /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
+      [rateLabel: string]: RateFields[];
     };
+    total?: RateFields[];
   }
 
   interface LowLevelOmsNode {

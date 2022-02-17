@@ -85,7 +85,7 @@ export const OptionalMeasureStrat = () => {
   return (
     <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
       <PerformanceMeasureProvider
-        value={{ OPM, performanceMeasureArray, rateReadOnly }}
+        value={{ OPM, performanceMeasureArray, rateReadOnly, calcTotal: true }}
       >
         <CUI.Text py="3">
           If this measure is also reported by additional

@@ -11,8 +11,6 @@ export interface OmsNode {
   addMoreSubCatFlag?: boolean;
   /** should the aggregate question have a diffrent title than id? */
   aggregateTitle?: string;
-  /** should NDR sets be totaled? */
-  calcTotal?: boolean;
 }
 
 export const OMSData: OmsNode[] = [
