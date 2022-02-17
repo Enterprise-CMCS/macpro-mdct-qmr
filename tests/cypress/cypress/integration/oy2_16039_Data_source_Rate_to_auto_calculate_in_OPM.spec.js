@@ -13,6 +13,8 @@ describe("OY2 16039 Data source/ Rate to auto calculate in OPM", () => {
   it("Check Auto Calculation with Administrative Data", () => {
     cy.get('[data-cy="ACS"]').click();
     cy.xpath("//p[contains(text(),'FUA-AD')]").click();
+    cy.xpath("//button[contains(text(),'Clear Data')]").click();
+    cy.xpath("//p[contains(text(),'FUA-AD')]").click();
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
@@ -38,6 +40,8 @@ describe("OY2 16039 Data source/ Rate to auto calculate in OPM", () => {
   });
   it("Check Auto Calculation with Other", () => {
     cy.get('[data-cy="ACS"]').click();
+    cy.xpath("//p[contains(text(),'FUA-AD')]").click();
+    cy.xpath("//button[contains(text(),'Clear Data')]").click();
     cy.xpath("//p[contains(text(),'FUA-AD')]").click();
     cy.get("#MeasurementSpecification-Other").click({ force: true });
     cy.get(
@@ -66,6 +70,8 @@ describe("OY2 16039 Data source/ Rate to auto calculate in OPM", () => {
   });
   it("Check Auto Calculation with Administrative Data and Other", () => {
     cy.get('[data-cy="ACS"]').click();
+    cy.xpath("//p[contains(text(),'FUA-AD')]").click();
+    cy.xpath("//button[contains(text(),'Clear Data')]").click();
     cy.xpath("//p[contains(text(),'FUA-AD')]").click();
     cy.get("#MeasurementSpecification-Other").click({ force: true });
     cy.get(
