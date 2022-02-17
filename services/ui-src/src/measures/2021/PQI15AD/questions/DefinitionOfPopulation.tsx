@@ -127,20 +127,8 @@ export const DefinitionOfPopulation = () => {
                           {...register("DeliverySys-FreeForService-No-Percent")}
                           formLabelProps={{ fontWeight: "400" }}
                           label="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"
-                          displayPercent
                           mask={percentageAllowOneDecimalMax}
                         />,
-                        <CUI.Text my="5" key="AdditionalFFSText">
-                          The percentage provided here should represent the
-                          percentage of the denominator population(s) included
-                          in the measure (i.e., Medicaid, CHIP, etc.) that
-                          receives items/services through the selected delivery
-                          system. For example, if the population included in the
-                          reported data represents all managed care enrollees
-                          and half of your state’s fee-for-service enrollees,
-                          select managed care, and select fee-for-service and
-                          enter 50.
-                        </CUI.Text>,
                         <QMR.NumberInput
                           {...register(
                             "DeliverySys-FreeForService-No-Population"
@@ -258,17 +246,6 @@ export const DefinitionOfPopulation = () => {
                             {"in the measure?"}
                           </CUI.Text>,
                           <QMR.NumberInput
-                            displayPercent
-                            renderHelperTextAbove
-                            helperText="The percentage provided here should represent the
-                              percentage of the denominator population(s) included
-                              in the measure (i.e., Medicaid, CHIP, etc.) that
-                              receives items/services through the selected
-                              delivery system. For example, if the population
-                              included in the reported data represents all managed
-                              care enrollees and half of your state’s
-                              fee-for-service enrollees, select managed care, and
-                              select fee-for-service and enter 50."
                             mask={percentageAllowOneDecimalMax}
                             {...register("DeliverySys-MCO_POHP-No-Included")}
                           />,
@@ -315,16 +292,6 @@ export const DefinitionOfPopulation = () => {
                       value: "NoAllICM",
                       children: [
                         <QMR.NumberInput
-                          helperText="The percentage provided here should represent the
-                        percentage of the denominator population(s) included
-                        in the measure (i.e., Medicaid, CHIP, etc.) that
-                        receives items/services through the selected
-                        delivery system. For example, if the population
-                        included in the reported data represents all managed
-                        care enrollees and half of your state’s
-                        fee-for-service enrollees, select managed care, and
-                        select fee-for-service and enter 50."
-                          renderHelperTextAbove
                           displayPercent
                           mask={percentageAllowOneDecimalMax}
                           formLabelProps={{ fontWeight: "400" }}
@@ -349,7 +316,7 @@ export const DefinitionOfPopulation = () => {
                         <QMR.NumberInput
                           mask={allPositiveIntegers}
                           formLabelProps={{ fontWeight: "400" }}
-                          label="How many of your measure-eligible Integrated Care Models (ICM) plans are excluded from the measure? If none are excluded, please enter zero."
+                          label="What number of your measure-eligible Integrated Care Models (ICM) population are included in the measure? (optional)"
                           {...register(
                             "DeliverySys-IntegratedCareModel-No-Population"
                           )}
