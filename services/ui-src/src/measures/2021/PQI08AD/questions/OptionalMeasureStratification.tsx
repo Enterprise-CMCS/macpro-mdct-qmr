@@ -252,7 +252,9 @@ export const OptionalMeasureStratification = ({
         </CUI.Text>
         <CUI.Text py="3">
           Do not select categories and sub-classifications for which you will
-          not be reporting any data.
+          not be reporting any data. If a sub-classification is selected, the
+          system will enter zeros by default and report this as the data for
+          your state/territory.
         </CUI.Text>
         <QMR.Checkbox
           label="Check all that apply"
@@ -690,8 +692,8 @@ export const OptionalMeasureStratification = ({
                       ],
                     },
                     {
-                      value: "AdditonalGeography",
-                      displayValue: "Additonal Geography",
+                      value: "AdditionalGeography",
+                      displayValue: "Additional Geography",
                       children: [
                         <CUI.Box mb="4" key="AddtnlGeographyDescWrapper">
                           <QMR.TextInput

@@ -4,7 +4,6 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { createContext, useState, useContext } from "react";
 import { useFormContext } from "react-hook-form";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 interface Props {
   ageGroups: {
@@ -12,8 +11,10 @@ interface Props {
     label: string;
   }[];
   deviationConditions?: {
-    showAges18To64: boolean;
-    showAges65AndOlder: boolean;
+    show30DaysAges18To64: boolean;
+    show30DaysAges65AndOlder: boolean;
+    show7DaysAges18To64: boolean;
+    show7DaysAges65AndOlder: boolean;
     showOtherPerformanceMeasureRates: boolean;
   };
 }
@@ -110,8 +111,6 @@ const AgeData = ({ name }: SubComponentProps) => {
               ...(deviationConditions?.showOtherPerformanceMeasureRates
                 ? [
                     <QMR.Rate
-                      rateMultiplicationValue={100000}
-                      customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                       readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.followUpWithin30Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin30Days`}
@@ -124,19 +123,38 @@ const AgeData = ({ name }: SubComponentProps) => {
                     />,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure sections were completed
-              ...((deviationConditions?.showAges18To64 && item.id === 0) ||
-              (deviationConditions?.showAges65AndOlder && item.id === 1)
+              // Dynamically hide or show children based on if performance measure 30days/age sections were completed
+              ...((deviationConditions?.show30DaysAges18To64 &&
+                item.id === 0) ||
+              (deviationConditions?.show30DaysAges65AndOlder && item.id === 1)
                 ? [
                     <QMR.Rate
-                      rateMultiplicationValue={100000}
-                      customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+                      readOnly={rateReadOnly}
+                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
+                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
+                      rates={[
+                        {
+                          id: 0,
+                          label:
+                            "30-day follow-up after ED visit for mental illness",
+                        },
+                      ]}
+                    />,
+                  ]
+                : []),
+              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
+              ...((deviationConditions?.show7DaysAges18To64 && item.id === 0) ||
+              (deviationConditions?.show7DaysAges65AndOlder && item.id === 1)
+                ? [
+                    <QMR.Rate
                       readOnly={rateReadOnly}
                       name={`${name}.subRates.${item.id}.followUpWithin7Days`}
                       key={`${name}.subRates.${item.id}.followUpWithin7Days`}
                       rates={[
                         {
                           id: 1,
+                          label:
+                            "7-day follow-up after ED visit for mental illness",
                         },
                       ]}
                     />,
@@ -252,7 +270,9 @@ export const OptionalMeasureStratification = ({
         </CUI.Text>
         <CUI.Text py="3">
           Do not select categories and sub-classifications for which you will
-          not be reporting any data.
+          not be reporting any data. If a sub-classification is selected, the
+          system will enter zeros by default and report this as the data for
+          your state/territory.
         </CUI.Text>
         <QMR.Checkbox
           label="Check all that apply"
@@ -690,8 +710,8 @@ export const OptionalMeasureStratification = ({
                       ],
                     },
                     {
-                      value: "AdditonalGeography",
-                      displayValue: "Additonal Geography",
+                      value: "AdditionalGeography",
+                      displayValue: "Additional Geography",
                       children: [
                         <CUI.Box mb="4" key="AddtnlGeographyDescWrapper">
                           <QMR.TextInput
