@@ -82,10 +82,10 @@ export class CPAADPAGE {
     cy.get(didYouCollectThisMeasure).click({ force: true });
   }
   clickhowDidYouReportThisMeasure() {
-    cy.xpath(howDidYouReportThisMeasure).click();
+    cy.xpath(howDidYouReportThisMeasure).click({ force: true });
   }
   clickmeasurementSpecificationAHRQ() {
-    cy.xpath(measurementSpecificationAHRQ).click();
+    cy.xpath(measurementSpecificationAHRQ).click({ force: true });
   }
 
   clickdataSource() {
