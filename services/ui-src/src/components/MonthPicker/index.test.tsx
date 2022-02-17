@@ -1,11 +1,11 @@
-import { fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as QMR from "components";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
 describe("Test MonthPickerPopup", () => {
   test("Check MonthPicker Renders", () => {
-    const { getByRole } = renderWithHookForm(
+    const { getByRole } = render(
       <QMR.MonthPickerCalendar onChange={() => {}} />
     );
 
@@ -13,7 +13,7 @@ describe("Test MonthPickerPopup", () => {
   });
 
   test("Check passed year is focused", () => {
-    const { getByRole, getByText } = renderWithHookForm(
+    const { getByRole, getByText } = render(
       <QMR.MonthPickerCalendar selectedYear={"1995"} onChange={() => {}} />
     );
 
@@ -23,7 +23,7 @@ describe("Test MonthPickerPopup", () => {
 
   test("onChange Fires when a month is selected", async () => {
     const mockChangeFn = jest.fn();
-    const { getByRole, findByRole } = renderWithHookForm(
+    const { getByRole, findByRole } = render(
       <QMR.MonthPickerCalendar selectedYear={"1995"} onChange={mockChangeFn} />
     );
 
@@ -36,7 +36,7 @@ describe("Test MonthPickerPopup", () => {
 
   test("Year changes on previous button event", async () => {
     const mockChangeFn = jest.fn();
-    const { getByRole, findByRole, queryByText } = renderWithHookForm(
+    const { getByRole, findByRole, queryByText } = render(
       <QMR.MonthPickerCalendar selectedYear={"1995"} onChange={mockChangeFn} />
     );
 
@@ -51,7 +51,7 @@ describe("Test MonthPickerPopup", () => {
 
   test("Year changes on next button event", async () => {
     const mockChangeFn = jest.fn();
-    const { getByRole, findByRole, queryByText } = renderWithHookForm(
+    const { getByRole, findByRole, queryByText } = render(
       <QMR.MonthPickerCalendar selectedYear={"1995"} onChange={mockChangeFn} />
     );
 
@@ -65,7 +65,7 @@ describe("Test MonthPickerPopup", () => {
   });
 
   test("Locked Year Picker has no year toggle buttons", async () => {
-    const { getByRole, queryByLabelText } = renderWithHookForm(
+    const { getByRole, queryByLabelText } = render(
       <QMR.MonthPickerCalendar yearLocked={true} onChange={() => {}} />
     );
 
