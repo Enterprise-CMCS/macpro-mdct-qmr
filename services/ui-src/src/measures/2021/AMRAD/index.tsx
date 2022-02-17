@@ -46,15 +46,19 @@ export const AMRAD = ({
   const ageGroups = [];
 
   if (showPersistentAsthma19To50) {
-    ageGroups.push({ label: "Ages 19 to 50", id: 0, isTotal: false });
+    ageGroups[0] = { label: "Ages 19 to 50", id: 0, isTotal: false };
   }
 
   if (showPersistentAsthma51To64) {
-    ageGroups.push({ label: "Ages 51 to 64", id: 1, isTotal: false });
+    ageGroups[1] = { label: "Ages 51 to 64", id: 1, isTotal: false };
   }
 
-  if (showPersistentAsthmaTotal) {
-    ageGroups.push({ label: "Total", id: 2, isTotal: true });
+  if (
+    showPersistentAsthma19To50 ||
+    showPersistentAsthma51To64 ||
+    showPersistentAsthmaTotal
+  ) {
+    ageGroups[2] = { label: "Total", id: 2, isTotal: true };
   }
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");

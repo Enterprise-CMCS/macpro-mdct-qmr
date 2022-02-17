@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface Props {
@@ -81,9 +81,30 @@ const AddAnotherButton = ({
 
 const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups } = useContext(AgeDataContext);
-  const { watch } = useFormContext<Measure.Form>();
+  const { watch, getValues, setValue } = useFormContext<Measure.Form>();
 
-  console.log({ ageGroups });
+  useEffect(() => {
+    const ageGroupIds = ageGroups.map((x) => x.id);
+    const missingIds = [0, 1, 2].filter((id) => {
+      return !ageGroupIds.includes(id);
+    });
+
+    missingIds.forEach((id) => {
+      /// @ts-ignore
+      if (isEmpty(getValues(`${name}.subRates.PersistentAsthma.${id}`))) {
+        /// @ts-ignore
+        setValue(`${name}.subRates.PersistentAsthma.${id}`, {});
+      }
+    });
+  }, [ageGroups]);
+
+  // Verify that a given object has no key/value pairs
+  const isEmpty = (obj: any) => {
+    if (Object.keys(obj).length > 0) {
+      return false;
+    }
+    return true;
+  };
 
   // Watch for dataSource data
   const dataSourceWatch = watch("DataSource");
