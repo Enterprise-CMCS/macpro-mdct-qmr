@@ -7,9 +7,7 @@ beforeEach(() => {
     <RouterWrappedComp>
       <AutocompletedMeasureTemplate
         measureTitle="Test title"
-        dateCompleted="test"
         performanceMeasureText="test measure test"
-        isReportingOnMeasureYear={true}
         year="2021"
       />
     </RouterWrappedComp>

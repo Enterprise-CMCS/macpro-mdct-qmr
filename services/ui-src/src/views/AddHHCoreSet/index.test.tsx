@@ -35,7 +35,7 @@ describe("Test HealthHome coreset component", () => {
 
     expect(
       screen.getByText(
-        /remember to complete all Health Homes Core Set Questions and Health Homes Core Set Measures to submit for CMS review./i
+        /remember to complete all Health Home Core Set Questions and Health Home Core Set Measures to submit for CMS review./i
       )
     ).toBeInTheDocument();
   });
