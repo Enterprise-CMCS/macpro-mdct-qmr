@@ -145,6 +145,7 @@ export namespace Measure {
 
     AddtnlNonHispanicRace: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
+    AddtnlNonHispanicRaceSubCat: any[];
     AddtnlNonHispanicRaceSubCatTitle: { titles: string[] }[];
     AddtnlNonHispanicRaceSubCatOptions: string[][];
     AddtnlNonHispanicRaceSubCatRates: { rates: AggregateRate[] }[];

@@ -20,6 +20,7 @@ interface Props {
 
 interface SubComponentProps {
   name: string;
+  includeRate?: boolean;
 }
 
 export const DefaultOptionalMeasureStratProps: Props = {
@@ -80,7 +81,6 @@ const AddAnotherButton = ({
 };
 
 const AgeData = ({ name }: SubComponentProps) => {
-  // const register = useCustomRegister<Measure.Form>();
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch for dataSource data
@@ -124,21 +124,100 @@ const AgeData = ({ name }: SubComponentProps) => {
                 label="Define the Alternative Classification/Sub-category"
                 name={`${name}.AdditionalClassificationDescription`}
               />,
-              <QMR.Rate
-                rateMultiplicationValue={100000}
-                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
-                readOnly={rateReadOnly}
-                name={`${name}.AdditionalClassificationRate`}
-                key={`${name}.AdditionalClassificationRate`}
-                rates={[
-                  {
-                    id: 0,
-                    label:
-                      "Enter a number for the numerator and the denominator. Rate will auto-calculate:",
-                  },
-                ]}
-              />,
             ],
+          },
+        ]}
+      />
+    </CUI.Box>
+  );
+};
+
+const NonHispanicSubCat = ({ name }: SubComponentProps) => {
+  const { watch } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Measure.Form>();
+  const values = getValues();
+
+  const [addtnlNonHispanicRaceSubCat, setaddtnlNonHispanicRaceSubCat] =
+    useState(
+      configInitialStateArray(
+        "AddtnlNonHispanicRaceSubCat",
+        values.AddtnlNonHispanicRaceSubCat
+      )
+    );
+
+  const addWhiteRaceCat = () => {
+    setaddtnlNonHispanicRaceSubCat((oldArray) => [
+      ...oldArray,
+      `AddtnlNonHispanicRaceSubCat.${oldArray.length}`,
+    ]);
+  };
+  // Watch for dataSource data
+  const dataSourceWatch = watch("DataSource");
+
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source) => source === "I am reporting provisional data."
+    ) ?? true;
+
+  return (
+    <CUI.Box key={`${name}.ageData`}>
+      <CUI.Heading size="sm">
+        Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:
+      </CUI.Heading>
+
+      <QMR.Rate
+        rateMultiplicationValue={100000}
+        customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+        readOnly={rateReadOnly}
+        name={`${name}.subRates`}
+        key={`${name}.subRates`}
+        rates={[
+          {
+            id: 0,
+            label: "",
+          },
+        ]}
+      />
+      <QMR.Checkbox
+        name={`${name}.AdditionalClassification`}
+        options={[
+          {
+            value: "Additional Classification Used",
+            displayValue: "Additional/Alternative Classification/Sub-category",
+            children: addtnlNonHispanicRaceSubCat.map((_, idx: number) => {
+              return (
+                <>
+                  <QMR.TextInput
+                    rules={{ required: true }}
+                    label="Define the Alternative Classification/Sub-category"
+                    name={`${name}.AdditionalClassificationDescription.${idx}`}
+                  />
+
+                  <QMR.Rate
+                    rateMultiplicationValue={100000}
+                    customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+                    readOnly={rateReadOnly}
+                    name={`${name}.AdditionalClassificationRate.${idx}`}
+                    key={`${name}.AdditionalClassificationRate.${idx}`}
+                    rates={[
+                      {
+                        id: 0,
+                        label:
+                          "Enter a number for the numerator and the denominator. Rate will auto-calculate:",
+                      },
+                    ]}
+                  />
+                  {idx === addtnlNonHispanicRaceSubCat.length - 1 && (
+                    <AddAnotherButton
+                      key={`${name}.AdditionalClassificationRate-Other`}
+                      onClick={addWhiteRaceCat}
+                    />
+                  )}
+                </>
+              );
+            }),
           },
         ]}
       />
@@ -150,23 +229,6 @@ const configInitialStateArray = (template: string, dataArray?: string[]) => {
   return dataArray?.length
     ? dataArray.map((_, i) => `${template}.${i}`)
     : [`${template}.0`];
-};
-
-const advancedConfigInitialStateArray = (
-  template: string,
-  parentArray?: string[],
-  dataArray?: { titles: string[] }[]
-) => {
-  const defaultTemplate = `${template}.0`;
-  return dataArray?.length
-    ? dataArray.map((item) =>
-        item?.titles?.length
-          ? item.titles.map((_, index) => `${template}.${index}`)
-          : [defaultTemplate]
-      )
-    : parentArray?.length
-    ? parentArray.map((_, index) => [`${template}.${index}`])
-    : [[defaultTemplate]];
 };
 
 export const OptionalMeasureStratification = ({
@@ -184,15 +246,6 @@ export const OptionalMeasureStratification = ({
     )
   );
 
-  const [addtnlNonHispanicRaceSubCat, setaddtnlNonHispanicRaceSubCat] =
-    useState(
-      advancedConfigInitialStateArray(
-        "AddtnlNonHispanicRaceSubCatTitle",
-        values.AddtnlNonHispanicRace,
-        values.AddtnlNonHispanicRaceSubCatTitle
-      )
-    );
-
   const [addtnlEthnicity, setAddtnlEthnicity] = useState(
     configInitialStateArray("AddtnlEthnicity", values.AddtnlEthnicity)
   );
@@ -203,19 +256,7 @@ export const OptionalMeasureStratification = ({
     )
   );
 
-  const addNonHispanicRaceSubCat = (index: number) => {
-    setaddtnlNonHispanicRaceSubCat((oldArray) => {
-      const newArray = [...oldArray];
-      newArray[index] ??= [];
-      newArray[index] = [
-        ...newArray[index],
-        `AddtnlNonHispanicRaceSubCatTitle.${newArray[index].length}`,
-      ];
-      return newArray;
-    });
-  };
   const addNonHispanicRace = () => {
-    addNonHispanicRaceSubCat(addtnlNonHispanicRace.length);
     setAddtnlNonHispanicRace((oldArray) => [
       ...oldArray,
       `AddtnlNonHispanicRace.${oldArray.length}`,
@@ -266,7 +307,9 @@ export const OptionalMeasureStratification = ({
                     {
                       value: "White",
                       displayValue: "White",
-                      children: [<AgeData {...register("NHRC-WhiteRates")} />],
+                      children: [
+                        <NonHispanicSubCat {...register("NHRC-WhiteRates")} />,
+                      ],
                     },
                     {
                       value: "BlackOrAfricanAmerican",
@@ -399,59 +442,7 @@ export const OptionalMeasureStratification = ({
                               label="Define the additional Race"
                               name={`AddtnlNonHispanicRace.${index}`}
                             />
-                            <AgeData
-                              name={`AddtnlNonHispanicRaceRates.${index}`}
-                              key={`AddtnlNonHispanicRaceRates.${index}`}
-                            />
-                            <QMR.Checkbox
-                              name={
-                                "AddtnlNonHispanicRaceSubCatOptions." + index
-                              }
-                              key={
-                                "AddtnlNonHispanicRaceSubCatOptions." + index
-                              }
-                              options={
-                                addtnlNonHispanicRaceSubCat[index]
-                                  ? addtnlNonHispanicRaceSubCat[index]?.map(
-                                      (_, subIndex) => {
-                                        return {
-                                          value: `AddtnlRaceSubCatOptions.${index}.${subIndex}`,
-                                          displayValue:
-                                            "Additional/Alternative Classification/Sub-Category",
-                                          children: [
-                                            <CUI.Stack
-                                              key={`NonHispanicSubCatStack.${index}.${subIndex}`}
-                                            >
-                                              <QMR.TextInput
-                                                rules={{ required: true }}
-                                                label="Define the Alternative Classification/Sub-category"
-                                                name={`AddtnlNonHispanicRaceSubCatTitle.${index}.titles.${subIndex}`}
-                                              />
-                                              <AgeData
-                                                name={`AddtnlNonHispanicRaceSubCatRates.${index}.rates.${subIndex}`}
-                                              />
-                                              {subIndex + 1 ===
-                                                addtnlNonHispanicRaceSubCat[
-                                                  index
-                                                ].length && (
-                                                <AddAnotherButton
-                                                  key="NonHispanicRaceSubCatAddition"
-                                                  onClick={() => {
-                                                    addNonHispanicRaceSubCat(
-                                                      index
-                                                    );
-                                                  }}
-                                                  additionalText="Sub-Category"
-                                                />
-                                              )}
-                                            </CUI.Stack>,
-                                          ],
-                                        };
-                                      }
-                                    )
-                                  : []
-                              }
-                            />
+
                             {index + 1 === addtnlNonHispanicRace.length && (
                               <AddAnotherButton
                                 key="NonHispanicRaceAddition"
@@ -544,10 +535,6 @@ export const OptionalMeasureStratification = ({
                               label="Define the Additional Ethnicity"
                             />
                           </CUI.Box>,
-                          <AgeData
-                            name={`AddtnlEthnicityRates.${index}`}
-                            key={`AddtnlEthnicityRates.${index}`}
-                          />,
                         ],
                       };
                     }),
@@ -590,16 +577,10 @@ export const OptionalMeasureStratification = ({
                     {
                       value: "English",
                       displayValue: "English",
-                      children: [
-                        <AgeData {...register("EnglishLanguageRate")} />,
-                      ],
                     },
                     {
                       value: "Spanish",
                       displayValue: "Spanish",
-                      children: [
-                        <AgeData {...register("SpanishLanguageRate")} />,
-                      ],
                     },
                     ...addtnlPrimaryLanguages.map((value, index) => {
                       return {
@@ -613,10 +594,6 @@ export const OptionalMeasureStratification = ({
                               name={`AddtnlPrimaryLanguage.${index}`}
                             />
                           </CUI.Box>,
-                          <AgeData
-                            name={`AddtnlPrimaryLanguageRates.${index}`}
-                            key={`AddtnlPrimaryLanguageRates.${index}`}
-                          />,
                         ],
                       };
                     }),
@@ -638,16 +615,10 @@ export const OptionalMeasureStratification = ({
                     {
                       value: "SSI",
                       displayValue: "SSI",
-                      children: [
-                        <AgeData {...register("DisabilitySSIRate")} />,
-                      ],
                     },
                     {
                       value: "Non-SSI",
                       displayValue: "Non-SSI",
-                      children: [
-                        <AgeData {...register("DisabilityNonSSIRate")} />,
-                      ],
                     },
                     {
                       value: "AdditionalDisabilityStatus",
@@ -659,7 +630,6 @@ export const OptionalMeasureStratification = ({
                             label="Define the Additional Disability Status"
                           />
                         </CUI.Box>,
-                        <AgeData {...register("AddtnlDisabilityRate")} />,
                       ],
                     },
                   ]}
@@ -676,16 +646,10 @@ export const OptionalMeasureStratification = ({
                     {
                       value: "Urban",
                       displayValue: "Urban",
-                      children: [
-                        <AgeData {...register("UrbanGeographyRate")} />,
-                      ],
                     },
                     {
                       value: "Rural",
                       displayValue: "Rural",
-                      children: [
-                        <AgeData {...register("RuralGeographyRate")} />,
-                      ],
                     },
                     {
                       value: "AdditionalGeography",
@@ -697,7 +661,6 @@ export const OptionalMeasureStratification = ({
                             label="Define the Additional Geography"
                           />
                         </CUI.Box>,
-                        <AgeData {...register("AddtnlGeographyRate")} />,
                       ],
                     },
                   ]}
@@ -707,7 +670,6 @@ export const OptionalMeasureStratification = ({
             {
               value: "ACAGroup",
               displayValue: "Adult Eligibility Group (ACA Expansion Group)",
-              children: [<AgeData {...register("ACAGroupRate")} />],
             },
           ]}
         />

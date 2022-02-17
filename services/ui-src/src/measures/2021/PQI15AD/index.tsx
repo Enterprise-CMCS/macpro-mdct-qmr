@@ -26,7 +26,6 @@ export const PQI15AD = ({
     name: "MeasurementSpecification",
   });
 
-  console.log({ watchMeasureSpecification });
   const watchPerformanceMeasureAgeRates = useWatch({
     name: "PerformanceMeasure-AgeRates",
   });
