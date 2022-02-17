@@ -110,7 +110,7 @@ Cypress.Commands.add("checkA11yOfPage", () => {
     (err) => {
       console.log("Accessibility violations:");
       console.log({ err });
-    }
-    // true // does not fail tests for ally violations
+    },
+    true // does not fail tests for ally violations
   );
 });

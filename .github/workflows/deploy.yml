@@ -178,7 +178,17 @@ jobs:
       matrix:
         containers: [commonPages,
         fuadPage,
-        ietadPage]
+        ietadPage,
+        ammadPage,
+        amradPage,
+        bcsadPage,
+        cbpadPage,
+        ccpadPage,
+        ccsadPage,
+        ccwadPage,
+        cdfadPage,
+        chladPage,
+        cobadPage,]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
