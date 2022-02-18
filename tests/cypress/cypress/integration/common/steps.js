@@ -62,6 +62,10 @@ And("user click on link Adult Core Set Measures", () => {
   homePage.clickAdultCoreSetMeasures();
 });
 
+And("user click on link MSC-AD", () => {
+  adultCoreSetMeasurespage.clickMSCadLink();
+});
+
 And(
   "user should see the QMR logo at top and MDCT Medicaid logo at the bottom of the home page",
   () => {
@@ -164,6 +168,13 @@ And(
   "user can click on Yes option for Are you reporting on this measure",
   () => {
     fUAADPage.verifyReportingOnMeasureYes();
+  }
+);
+
+And(
+  "user can click on Yes option for Are you reporting on this MSC AD measure",
+  () => {
+    fUAADPage.verifyReportingOnMSCadMeasureYes();
   }
 );
 //steps below are OY2-8940 Deviation and Optional Measure Stratification related

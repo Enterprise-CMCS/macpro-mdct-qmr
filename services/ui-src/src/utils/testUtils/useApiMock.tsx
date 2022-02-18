@@ -64,7 +64,7 @@ export const defaultMockValues = {
           coreSet: "ACS",
           createdAt: 1642167976771,
           description:
-            "Initiation and Engagement of Alochol and Other Drug Abuse or Dependence Treatment",
+            "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
           lastAltered: 1642167976771,
           measure: "IET-AD",
           state: "AL",

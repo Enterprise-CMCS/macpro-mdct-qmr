@@ -38,8 +38,8 @@ export const PerformanceMeasure = () => {
     <QMR.CoreQuestionWrapper label="Performance Measure">
       Percentage of emergency department (ED) visits for beneficiaries age 18
       and older with a principal diagnosis of alcohol or other drug (AOD) abuse
-      or dependence who had a follow-up visit for AOD abuse or dependence. Two
-      rates are reported:
+      or dependence who had a follow-up visit for Total AOD Abuse or Dependence.
+      Two rates are reported:
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>
           Percentage of ED visits for which the beneficiary received follow-up
