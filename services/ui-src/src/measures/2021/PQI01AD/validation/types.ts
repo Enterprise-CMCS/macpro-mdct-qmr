@@ -26,7 +26,12 @@ export namespace Measure {
   }
 
   export interface Form
-    extends Types.CombinedRates,
+    extends Types.DefinitionOfPopulation,
+      Types.StatusOfData,
+      Types.DateRange,
+      Types.DidReport,
+      Types.WhyAreYouNotReporting,
+      Types.CombinedRates,
       Types.OtherPerformanceMeasure {
     //Report
     DidReport: string;
@@ -48,22 +53,6 @@ export namespace Measure {
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 
-    //WhyAreYouNotReporting
-    WhyAreYouNotReporting: string[];
-    AmountOfPopulationNotCovered: string;
-    PopulationNotCovered: string;
-    PartialPopulationNotCoveredExplanation: string;
-    WhyIsDataNotAvailable: string;
-    "WhyIsDataNotAvailable-Other": string;
-    DataIconAccuracyIssues: string;
-    DataSourceNotEasilyAccessible: string;
-    "DataSourceNotEasilyAccessible-Other": string;
-    InformationNotCollected: string;
-    "InformationNotCollected-Other": string;
-    LimitationWithDatCollecitonReportAccuracyCovid: string;
-    SmallSampleSizeLessThan30: string;
-    "WhyAreYouNotReporting-Other": string;
-
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
@@ -73,33 +62,6 @@ export namespace Measure {
     //AdditionalNotes
     "AdditionalNotes-AdditionalNotes"?: string;
     "AdditionalNotes-Upload"?: File[];
-
-    //DefinitionOfPopulation
-    DefinitionOfDenominator: string[];
-    "DefinitionOfDenominator-Other": string;
-    ChangeInPopulationExplanation: string;
-    DenominatorDefineTotalTechSpec: string;
-    "DenominatorDefineTotalTechSpec-No-Explanation": string;
-    "DenominatorDefineTotalTechSpec-No-Size": string;
-    DeliverySysRepresentationDenominator: string[];
-    "DeliverySys-FreeForService": string;
-    "DeliverySys-FreeForService-No-Percent": string;
-    "DeliverySys-FreeForService-No-Population": string;
-    "DeliverySys-PrimaryCareManagement": string;
-    "DeliverySys-PrimaryCareManagement-No-Percent": string;
-    "DeliverySys-PrimaryCareManagement-No-Population": string;
-    "DeliverySys-MCO_POHP": string;
-    "DeliverySys-MCO_POHP-Percent": string;
-    "DeliverySys-MCO_POHP-NumberOfPlans": string;
-    "DeliverySys-MCO_POHP-No-Included": string;
-    "DeliverySys-MCO_POHP-No-Excluded": string;
-    "DeliverySys-IntegratedCareModel": string;
-    "DeliverySys-IntegratedCareModel-No-Percent": string;
-    "DeliverySys-IntegratedCareModel-No-Population": string;
-    "DeliverySys-Other": string;
-    "DeliverySys-Other-Percent": string;
-    "DeliverySys-Other-NumberOfHealthPlans": string;
-    "DeliverySys-Other-Population": string;
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
@@ -121,16 +83,6 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    DateRange: {
-      endDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-      startDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-    };
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

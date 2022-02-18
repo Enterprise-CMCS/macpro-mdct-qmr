@@ -18,8 +18,17 @@ export namespace Measure {
     total: RateFields[];
   }
 
+  interface OtherRatesFields {
+    description: string[];
+    rate: RateFields[];
+  }
+
   export interface Form
     extends Types.DefinitionOfPopulation,
+      Types.DateRange,
+      Types.DidReport,
+      Types.WhyAreYouNotReporting,
+      Types.StatusOfData,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure {
     //Report
@@ -27,9 +36,7 @@ export namespace Measure {
 
     //Status
     DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string;
-
-    //DataSource
+    "DataStatus-ProvisionalExplanation": string; //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;
@@ -62,6 +69,12 @@ export namespace Measure {
     LimitationWithDatCollecitonReportAccuracyCovid: string;
     SmallSampleSizeLessThan30: string;
     "WhyAreYouNotReporting-Other": string;
+
+    //Other Performance Measure
+    "OtherPerformanceMeasure-Explanation": string;
+    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
+    "OtherPerformanceMeasure-Notes": string;
+    "OtherPerformanceMeasure-Rates-TextInput": string;
 
     //AdditionalNotes
     "AdditionalNotes-AdditionalNotes"?: string;
@@ -191,16 +204,6 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    DateRange: {
-      endDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-      startDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-    };
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

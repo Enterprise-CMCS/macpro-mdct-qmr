@@ -49,3 +49,40 @@ export interface OtherPerformanceMeasure {
   "OtherPerformanceMeasure-Notes": string;
   "OtherPerformanceMeasure-Rates-TextInput": string;
 }
+export interface DateRange {
+  DateRange: {
+    endDate: {
+      selectedMonth: number;
+      selectedYear: number;
+    };
+    startDate: {
+      selectedMonth: number;
+      selectedYear: number;
+    };
+  };
+}
+export interface WhyAreYouNotReporting {
+  WhyAreYouNotReporting: string[];
+  AmountOfPopulationNotCovered: string;
+  PopulationNotCovered: string;
+  PartialPopulationNotCoveredExplanation: string;
+  WhyIsDataNotAvailable: string;
+  "WhyIsDataNotAvailable-Other": string;
+  DataIconAccuracyIssues: string;
+  DataSourceNotEasilyAccessible: string;
+  "DataSourceNotEasilyAccessible-Other": string;
+  InformationNotCollected: string;
+  "InformationNotCollected-Other": string;
+  LimitationWithDatCollecitonReportAccuracyCovid: string;
+  SmallSampleSizeLessThan30: string;
+  "WhyAreYouNotReporting-Other": string;
+}
+
+export interface DidReport {
+  DidReport: string;
+}
+
+export interface StatusOfData {
+  DataStatus: string[];
+  "DataStatus-ProvisionalExplanation": string;
+}
