@@ -26,6 +26,18 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-Population": string;
 }
 
+export interface DateRange {
+  DateRange: {
+    endDate: {
+      selectedMonth: number;
+      selectedYear: number;
+    };
+    startDate: {
+      selectedMonth: number;
+      selectedYear: number;
+    };
+  };
+}
 export interface WhyAreYouNotReporting {
   WhyAreYouNotReporting: string[];
   AmountOfPopulationNotCovered: string;

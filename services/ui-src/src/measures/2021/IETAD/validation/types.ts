@@ -25,12 +25,10 @@ export namespace Measure {
 
   export interface Form
     extends Types.DefinitionOfPopulation,
+      Types.DateRange,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.StatusOfData {
-    //Report
-    DidReport: string;
-
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -53,22 +51,6 @@ export namespace Measure {
     "MeasurementSpecification-HEDISVersion": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
-
-    //WhyAreYouNotReporting
-    WhyAreYouNotReporting: string[];
-    AmountOfPopulationNotCovered: string;
-    PopulationNotCovered: string;
-    PartialPopulationNotCoveredExplanation: string;
-    WhyIsDataNotAvailable: string;
-    "WhyIsDataNotAvailable-Other": string;
-    DataIconAccuracyIssues: string;
-    DataSourceNotEasilyAccessible: string;
-    "DataSourceNotEasilyAccessible-Other": string;
-    InformationNotCollected: string;
-    "InformationNotCollected-Other": string;
-    LimitationWithDatCollecitonReportAccuracyCovid: string;
-    SmallSampleSizeLessThan30: string;
-    "WhyAreYouNotReporting-Other": string;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
@@ -204,16 +186,6 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    DateRange: {
-      endDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-      startDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-    };
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

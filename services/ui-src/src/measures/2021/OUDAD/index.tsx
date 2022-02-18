@@ -4,7 +4,6 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
-import * as CMQ from "../CommonQuestions";
 
 export const OUDAD = ({
   name,
@@ -93,7 +92,7 @@ export const OUDAD = ({
           <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
-          <Q.DateRange type="adult" />
+          <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when CMS is selected from DataSource */}
           {isCMS && <Q.PerformanceMeasure />}

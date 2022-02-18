@@ -3,7 +3,6 @@ import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import * as CMQ from "../CommonQuestions";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const MSCAD = ({
@@ -112,7 +111,7 @@ export const MSCAD = ({
           <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
-          <Q.DateRange type="adult" />
+          <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
