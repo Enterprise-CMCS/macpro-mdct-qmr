@@ -25,3 +25,16 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-NumberOfHealthPlans": string;
   "DeliverySys-Other-Population": string;
 }
+
+export interface DateRange {
+  DateRange: {
+    endDate: {
+      selectedMonth: number;
+      selectedYear: number;
+    };
+    startDate: {
+      selectedMonth: number;
+      selectedYear: number;
+    };
+  };
+}

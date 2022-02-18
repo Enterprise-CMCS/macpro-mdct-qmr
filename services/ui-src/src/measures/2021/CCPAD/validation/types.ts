@@ -30,7 +30,7 @@ export namespace Measure {
     rate: RateFields[];
   }
 
-  export interface Form extends Types.DefinitionOfPopulation {
+  export interface Form extends Types.DefinitionOfPopulation, Types.DateRange {
     //Report
     DidReport: string;
 
@@ -123,16 +123,6 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    DateRange: {
-      endDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-      startDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-    };
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

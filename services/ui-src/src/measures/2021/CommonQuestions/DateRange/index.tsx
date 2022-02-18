@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "../validation/types";
+import * as Types from "../types";
 
 const measurementPeriodTableLinks = {
   adult:
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const DateRange = ({ type }: Props) => {
-  const register = useCustomRegister<Measure.Form>();
+  const register = useCustomRegister<Types.DateRange>();
   const link = measurementPeriodTableLinks[type];
 
   return (
