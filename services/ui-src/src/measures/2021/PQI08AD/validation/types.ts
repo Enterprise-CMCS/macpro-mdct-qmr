@@ -29,6 +29,7 @@ export namespace Measure {
     extends Types.DefinitionOfPopulation,
       Types.DateRange,
       Types.DidReport,
+      Types.AdditionalNotes,
       Types.WhyAreYouNotReporting,
       Types.StatusOfData {
     //DataSource
@@ -49,10 +50,6 @@ export namespace Measure {
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //AdditionalNotes
-    "AdditionalNotes-AdditionalNotes"?: string;
-    "AdditionalNotes-Upload"?: File[];
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;

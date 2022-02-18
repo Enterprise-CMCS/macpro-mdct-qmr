@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
@@ -27,7 +28,7 @@ export const CPAAD = ({ name, year }: Measure.Props) => {
           <Q.PerformanceMeasure />
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };

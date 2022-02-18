@@ -26,6 +26,10 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-Population": string;
 }
 
+export interface AdditionalNotes {
+  "AdditionalNotes-AdditionalNotes": string;
+  "AdditionalNotes-Upload": File[];
+}
 export interface CombinedRates {
   CombinedRates: string;
   "CombinedRates-CombinedRates": string;

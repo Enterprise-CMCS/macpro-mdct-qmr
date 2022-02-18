@@ -31,6 +31,7 @@ export namespace Measure {
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.StatusOfData,
+      Types.AdditionalNotes,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure {
     //DataSource
@@ -46,31 +47,11 @@ export namespace Measure {
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 
-    //WhyAreYouNotReporting
-    WhyAreYouNotReporting: string[];
-    AmountOfPopulationNotCovered: string;
-    PopulationNotCovered: string;
-    PartialPopulationNotCoveredExplanation: string;
-    WhyIsDataNotAvailable: string;
-    "WhyIsDataNotAvailable-Other": string;
-    DataIconAccuracyIssues: string;
-    DataSourceNotEasilyAccessible: string;
-    "DataSourceNotEasilyAccessible-Other": string;
-    InformationNotCollected: string;
-    "InformationNotCollected-Other": string;
-    LimitationWithDatCollecitonReportAccuracyCovid: string;
-    SmallSampleSizeLessThan30: string;
-    "WhyAreYouNotReporting-Other": string;
-
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //AdditionalNotes
-    "AdditionalNotes-AdditionalNotes"?: string;
-    "AdditionalNotes-Upload"?: File[];
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;

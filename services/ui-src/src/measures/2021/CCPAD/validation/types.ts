@@ -30,6 +30,7 @@ export namespace Measure {
 
   export interface Form
     extends Types.DidReport,
+      Types.AdditionalNotes,
       Types.WhyAreYouNotReporting,
       Types.DefinitionOfPopulation,
       Types.StatusOfData,
@@ -77,10 +78,6 @@ export namespace Measure {
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //AdditionalNotes
-    "AdditionalNotes-AdditionalNotes"?: string;
-    "AdditionalNotes-Upload"?: File[];
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;

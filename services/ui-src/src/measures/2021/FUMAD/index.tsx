@@ -121,7 +121,7 @@ export const FUMAD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };
