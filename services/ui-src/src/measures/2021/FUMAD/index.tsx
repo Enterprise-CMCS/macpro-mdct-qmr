@@ -3,6 +3,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { DataSource } from "../CommonQuestions";
 
 export const FUMAD = ({
   name,
@@ -80,7 +81,7 @@ export const FUMAD = ({
         <>
           <Q.Status />
           <Q.MeasurementSpecification />
-          <Q.DataSource />
+          <DataSource data={Q.DataSourceData} />
           <Q.DateRange type="adult" />
           <Q.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
