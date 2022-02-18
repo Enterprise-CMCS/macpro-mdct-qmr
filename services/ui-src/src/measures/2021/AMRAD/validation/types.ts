@@ -37,12 +37,8 @@ export namespace Measure {
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;
     "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Electronic": string;
-    "DataSource-Electronic-Explanation": string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
-    "DataSource-ElectronicHealthRecords"?: string;
-    "DataSource-ElectronicHealthRecords-Explanation"?: string;
 
     //CombinedRates
     CombinedRates: string;

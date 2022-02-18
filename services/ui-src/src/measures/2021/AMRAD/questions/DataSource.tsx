@@ -10,15 +10,12 @@ export const DataSource = () => {
   const { watch } = methods;
   // Watch Checkboxes for DataSource Choices
   const watchOtherDataSource = watch("DataSource") ?? [];
-  const watchElectronicDataSource = watch("DataSource") ?? [];
   const watchAdminDataSource = watch("DataSource-Administrative") ?? [];
   // Return True or False based on if Other is selected or not
   const isOtherDataSource =
     watchOtherDataSource?.indexOf("Other Data Source") !== -1;
   const isOtherAdminDataSource =
     watchAdminDataSource?.indexOf("Administrative Data Other") !== -1;
-  const isElectronicDataSource =
-    watchElectronicDataSource?.indexOf("Electronic Health Records") !== -1;
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
       <QMR.Checkbox
@@ -65,9 +62,7 @@ export const DataSource = () => {
         ]}
         label="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
       />
-      {(isOtherAdminDataSource ||
-        isOtherDataSource ||
-        isElectronicDataSource) && (
+      {(isOtherAdminDataSource || isOtherDataSource) && (
         <CUI.Text
           fontSize="sm"
           py="2"
@@ -87,15 +82,6 @@ export const DataSource = () => {
             watch("DataSource-Administrative-Other") || ""
           }`}
           {...register("DataSource-Administrative-Other-Explanation")}
-        />
-      )}
-      {/* This will be visible if Other is selected at the root of the data source question */}
-      {isElectronicDataSource && (
-        <QMR.TextArea
-          label={`Electronic Health Records: ${
-            watch("DataSource-Electronic") || ""
-          }`}
-          {...register("DataSource-Electronic-Explanation")}
         />
       )}
       {isOtherDataSource && (
