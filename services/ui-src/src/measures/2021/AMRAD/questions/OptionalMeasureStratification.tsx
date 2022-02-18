@@ -106,7 +106,7 @@ const AgeData = ({ name }: SubComponentProps) => {
         setValue(`${name}.subRates.PersistentAsthma.${id}`, {});
       }
     });
-  }, [ageGroups]);
+  }, [ageGroups]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   /*
   Verify that a given object has no key/value pairs

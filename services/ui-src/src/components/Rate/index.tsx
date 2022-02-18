@@ -52,7 +52,7 @@ export const Rate = ({
   */
   useEffect(() => {
     const prevRate = [...field.value];
-    rates.map((rate, index) => {
+    rates.forEach((rate, index) => {
       if (prevRate[index] === undefined) {
         prevRate[index] = {};
       }
@@ -60,7 +60,7 @@ export const Rate = ({
       prevRate[index]["isTotal"] = rate.isTotal ?? undefined;
     });
     field.onChange([...prevRate]);
-  }, []);
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const changeRate = (
     index: number,
@@ -138,7 +138,7 @@ export const Rate = ({
     let totalIndex = undefined;
 
     // Sum all Ns and Ds - get index of NDR where isTotal is true
-    prevRate.map((f, index) => {
+    prevRate.forEach((f, index) => {
       if (f !== undefined && f !== null && !f["isTotal"]) {
         numeratorSum += parseInt(f["numerator"]) || 0;
         denominatorSum += parseInt(f["denominator"]) || 0;
