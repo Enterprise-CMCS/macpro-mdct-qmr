@@ -2,14 +2,14 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useWatch } from "react-hook-form";
-import { Measure } from "../validation/types";
+import * as Types from "../types";
 import {
   allPositiveIntegers,
   percentageAllowOneDecimalMax,
 } from "utils/numberInputMasks";
 
 export const DefinitionOfPopulation = () => {
-  const register = useCustomRegister<Measure.Form>();
+  const register = useCustomRegister<Types.DefinitionOfPopulation>();
   const showDeliverySystemOtherPopulation =
     useWatch({
       name: "DenominatorDefineTotalTechSpec",
