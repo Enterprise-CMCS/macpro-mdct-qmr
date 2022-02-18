@@ -50,7 +50,7 @@ export const DateRangeError = ({ name }: { name: string }) => {
     setValue(endDate, undefined);
 
     setTimeout(() => {
-      setError(endDate, { message: "Start Date must be before the end date" });
+      setError(endDate, { message: "Start Date must be before the End Date" });
     });
   }
 
