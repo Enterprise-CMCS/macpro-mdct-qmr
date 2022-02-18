@@ -71,8 +71,8 @@ export const AddCoreSetCards = ({
         coreSetExists={childCoreSetExists}
       />
       <AddCoreSetCard
-        title="Need to report on Health Homes data?"
-        buttonText="Add Health Homes Core Set"
+        title="Need to report on Health Home data?"
+        buttonText="Add Health Home Core Set"
         to="add-hh"
         coreSetExists={healthHomesCoreSetExists}
       />

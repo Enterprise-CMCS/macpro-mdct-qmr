@@ -115,7 +115,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "HIV Viral Loan Suppression",
+      description: "HIV Viral Load Suppression",
       measure: "HVL-AD",
     },
     {
@@ -131,7 +131,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "National Core Indicators",
+      description: "National Core Indicators Survey",
       measure: "NCIDDS-AD",
       autocompleteOnCreation: true,
     },
