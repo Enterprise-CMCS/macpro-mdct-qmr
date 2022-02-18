@@ -31,3 +31,21 @@ export interface CombinedRates {
   "CombinedRates-CombinedRates": string;
   "CombinedRates-CombinedRates-Other-Explanation": string;
 }
+
+interface RateFields {
+  numerator: string;
+  denominator: string;
+  rate: string;
+}
+
+interface OtherRatesFields {
+  description: string[];
+  rate: RateFields[];
+}
+export interface OtherPerformanceMeasure {
+  //Other Performance Measure
+  "OtherPerformanceMeasure-Explanation": string;
+  "OtherPerformanceMeasure-Rates": OtherRatesFields[];
+  "OtherPerformanceMeasure-Notes": string;
+  "OtherPerformanceMeasure-Rates-TextInput": string;
+}

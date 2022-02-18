@@ -25,7 +25,9 @@ export namespace Measure {
     rate: RateFields[];
   }
 
-  export interface Form extends Types.CombinedRates {
+  export interface Form
+    extends Types.CombinedRates,
+      Types.OtherPerformanceMeasure {
     //Report
     DidReport: string;
 

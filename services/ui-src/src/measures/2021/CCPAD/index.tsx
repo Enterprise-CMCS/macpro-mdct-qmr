@@ -1,5 +1,6 @@
 import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
+import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -17,7 +18,7 @@ export const CCPAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({
@@ -113,7 +114,7 @@ export const CCPAD = ({
             />
           )}
           {/* Show Other Performance Measures when isHHSOPA is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {(showEffectiveContraceptionThreeDaysPostPartum ||
             showEffectiveContraceptionSixtyDaysPostPartum ||

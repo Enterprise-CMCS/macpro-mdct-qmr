@@ -1,14 +1,23 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "../validation/types";
+import * as Types from "../types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
-export const OtherPerformanceMeasure = () => {
-  const register = useCustomRegister<Measure.Form>();
-  const { getValues } = useFormContext<Measure.Form>();
+export interface Props {
+  rateAlwaysEditable?: boolean;
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
+}
+
+export const OtherPerformanceMeasure = ({
+  rateAlwaysEditable,
+  rateMultiplicationValue,
+  customMask,
+}: Props) => {
+  const register = useCustomRegister<Types.OtherPerformanceMeasure>();
+  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
   const savedRates = getValues("OtherPerformanceMeasure-Rates");
   const [showRates, setRates] = React.useState(
     savedRates ?? [
@@ -16,16 +25,19 @@ export const OtherPerformanceMeasure = () => {
     ]
   );
 
-  const { watch } = useFormContext<Measure.Form>();
+  // ! Waiting for data source refactor to type data source here
+  const { watch } = useFormContext<any>();
 
   // Watch for dataSource data
   const dataSourceWatch = watch("DataSource");
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
+    rateAlwaysEditable !== undefined && rateAlwaysEditable
+      ? false
+      : dataSourceWatch?.every(
+          (source: any) => source === "I am reporting provisional data."
+        ) ?? true;
 
   return (
     <QMR.CoreQuestionWrapper label="Other Performance Measure">
@@ -52,9 +64,9 @@ export const OtherPerformanceMeasure = () => {
                   },
                 ]}
                 name={`OtherPerformanceMeasure-Rates.${index}.rate`}
+                rateMultiplicationValue={rateMultiplicationValue}
+                customMask={customMask}
                 readOnly={rateReadOnly}
-                rateMultiplicationValue={100000}
-                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               />
             </CUI.Stack>
           );

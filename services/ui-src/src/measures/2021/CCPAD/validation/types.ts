@@ -24,12 +24,9 @@ export namespace Measure {
     };
   }
 
-  interface OtherRatesFields {
-    description: string[];
-    rate: RateFields[];
-  }
-
-  export interface Form extends Types.CombinedRates {
+  export interface Form
+    extends Types.CombinedRates,
+      Types.OtherPerformanceMeasure {
     //Report
     DidReport: string;
 
@@ -72,12 +69,6 @@ export namespace Measure {
     LimitationWithDatCollecitonReportAccuracyCovid: string;
     SmallSampleSizeLessThan30: string;
     "WhyAreYouNotReporting-Other": string;
-
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
 
     //AdditionalNotes
     "AdditionalNotes-AdditionalNotes"?: string;
