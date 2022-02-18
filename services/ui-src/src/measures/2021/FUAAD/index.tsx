@@ -79,7 +79,7 @@ export const FUAAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
+          <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
           <Q.DateRange type="adult" />

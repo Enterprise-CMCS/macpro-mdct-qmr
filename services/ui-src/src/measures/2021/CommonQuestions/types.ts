@@ -25,3 +25,8 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-NumberOfHealthPlans": string;
   "DeliverySys-Other-Population": string;
 }
+
+export interface StatusOfData {
+    DataStatus: string[];
+    "DataStatus-ProvisionalExplanation": string;
+}

@@ -30,13 +30,9 @@ export namespace Measure {
     rate: RateFields[];
   }
 
-  export interface Form extends Types.DefinitionOfPopulation {
+  export interface Form extends Types.DefinitionOfPopulation, Types.StatusOfData {
     //Report
     DidReport: string;
-
-    //Status
-    DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string;
 
     //DataSource
     DataSource: string[];
