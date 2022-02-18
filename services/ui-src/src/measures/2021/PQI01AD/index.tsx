@@ -3,6 +3,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import * as CMQ from "../CommonQuestions";
 
 export const PQI01AD = ({
   name,
@@ -97,7 +98,7 @@ export const PQI01AD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };

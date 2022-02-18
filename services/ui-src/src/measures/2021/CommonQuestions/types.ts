@@ -25,3 +25,8 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-NumberOfHealthPlans": string;
   "DeliverySys-Other-Population": string;
 }
+
+export interface AdditionalNotes {
+  "AdditionalNotes-AdditionalNotes": string;
+  "AdditionalNotes-Upload": File[];
+}

@@ -199,7 +199,7 @@ export const IETAD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };
