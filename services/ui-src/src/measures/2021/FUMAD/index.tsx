@@ -79,7 +79,7 @@ export const FUMAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
+          <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
           <CMQ.DateRange type="adult" />

@@ -38,3 +38,7 @@ export interface DateRange {
     };
   };
 }
+export interface StatusOfData {
+  DataStatus: string[];
+  "DataStatus-ProvisionalExplanation": string;
+}
