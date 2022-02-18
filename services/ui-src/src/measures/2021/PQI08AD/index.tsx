@@ -3,6 +3,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import * as CMQ from "../CommonQuestions";
 
 export const PQI08AD = ({
   name,
@@ -63,7 +64,7 @@ export const PQI08AD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}

@@ -2,6 +2,7 @@ import * as Q from "./questions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
+import * as CMQ from "../CommonQuestions";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const FUMAD = ({
@@ -70,7 +71,7 @@ export const FUMAD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}

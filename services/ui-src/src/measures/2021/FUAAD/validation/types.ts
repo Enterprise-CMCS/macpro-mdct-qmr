@@ -1,3 +1,5 @@
+import * as Types from "../../CommonQuestions/types";
+
 export namespace Measure {
   export interface Props {
     name: string;
@@ -22,7 +24,7 @@ export namespace Measure {
     rate: RateFields[];
   }
 
-  export interface Form {
+  export interface Form extends Types.DidReport, Types.WhyAreYouNotReporting {
     //Report
     DidReport: string;
 
