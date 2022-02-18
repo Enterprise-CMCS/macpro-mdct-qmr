@@ -23,7 +23,9 @@ export namespace Measure {
     rate: RateFields[];
   }
 
-  export interface Form extends Types.DefinitionOfPopulation {
+  export interface Form
+    extends Types.DefinitionOfPopulation,
+      Types.CombinedRates {
     //Report
     DidReport: string;
 
@@ -42,11 +44,6 @@ export namespace Measure {
     "DataSource-Other-Explanation": string;
     "DataSource-ElectronicHealthRecords"?: string;
     "DataSource-ElectronicHealthRecords-Explanation"?: string;
-
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
 
     //MeasurementSpecification
     MeasurementSpecification: string;

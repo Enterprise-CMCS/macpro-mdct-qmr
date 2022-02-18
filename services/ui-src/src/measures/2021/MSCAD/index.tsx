@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -133,7 +134,7 @@ export const MSCAD = ({
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          <CMQ.CombinedRates />
           {(showAdvisingUsersAges18To64 ||
             showAdvisingUsers65AndOlder ||
             showDiscussingMedicationsAges18To64 ||

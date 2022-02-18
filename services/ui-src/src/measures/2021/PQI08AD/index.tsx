@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -82,7 +83,7 @@ export const PQI08AD = ({
           {isAHRQ && <Q.DeviationFromMeasureSpec options={ageGroups} />}
           {/* Show Other Performance Measures when isAHRQ is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          <CMQ.CombinedRates />
           {(showAges18To64 ||
             showAges65AndOlder ||
             showOtherPerformanceMeasureRates) && (

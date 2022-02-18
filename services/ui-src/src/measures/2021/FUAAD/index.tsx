@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -100,7 +101,7 @@ export const FUAAD = ({
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          <CMQ.CombinedRates />
           {(show30DaysAges18To64 ||
             show30DaysAges65AndOlder ||
             show7DaysAges18To64 ||

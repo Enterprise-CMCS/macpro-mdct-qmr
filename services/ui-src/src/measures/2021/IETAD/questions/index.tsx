@@ -1,5 +1,4 @@
 export * from "./AdditionalNotes";
-export * from "./CombinedRates";
 export * from "./DataSource";
 export * from "./DateRange";
 export * from "./DeviationFromMeasureSpec";

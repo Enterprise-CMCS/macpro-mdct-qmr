@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -113,7 +114,7 @@ export const CCPAD = ({
           )}
           {/* Show Other Performance Measures when isHHSOPA is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          <CMQ.CombinedRates />
           {(showEffectiveContraceptionThreeDaysPostPartum ||
             showEffectiveContraceptionSixtyDaysPostPartum ||
             showLongActingContraceptionThreeDaysPostPartum ||

@@ -1,3 +1,4 @@
+import * as Types from "../../CommonQuestions/types";
 export namespace Measure {
   export interface Props {
     name: string;
@@ -24,7 +25,7 @@ export namespace Measure {
     rate: RateFields[];
   }
 
-  export interface Form {
+  export interface Form extends Types.CombinedRates {
     //Report
     DidReport: string;
 
@@ -35,11 +36,6 @@ export namespace Measure {
     //DataSource
     "DataSource-CAHPS-Version": string;
     "DataSource-CAHPS-Version-Other": string;
-
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
 
     //MeasurementSpecification
     MeasurementSpecification: string;

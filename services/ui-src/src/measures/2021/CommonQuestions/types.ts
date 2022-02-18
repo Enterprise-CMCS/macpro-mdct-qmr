@@ -25,3 +25,9 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-NumberOfHealthPlans": string;
   "DeliverySys-Other-Population": string;
 }
+
+export interface CombinedRates {
+  CombinedRates: string;
+  "CombinedRates-CombinedRates": string;
+  "CombinedRates-CombinedRates-Other-Explanation": string;
+}

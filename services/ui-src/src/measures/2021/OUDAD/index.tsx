@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -111,7 +112,7 @@ export const OUDAD = ({
           )}
           {/* Show Other Performance Measures when isCMS is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          <CMQ.CombinedRates />
           {(showTotalRate ||
             showBuprenorphine ||
             showOralNaltrexone ||

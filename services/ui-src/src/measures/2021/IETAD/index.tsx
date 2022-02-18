@@ -156,7 +156,7 @@ export const IETAD = ({
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          <CMQ.CombinedRates />
           {(showInitAlcohol18To64 ||
             showEngageAlcohol18To64 ||
             showInitOpioid18To64 ||
