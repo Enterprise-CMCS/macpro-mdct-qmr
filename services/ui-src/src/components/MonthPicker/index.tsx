@@ -40,6 +40,7 @@ export const MonthPicker = ({
           <CUI.FormLabel my={0}>{"Month:"}</CUI.FormLabel>
           <CUI.HStack>
             <CUI.Input
+              data-cy={`${name}-month`}
               width="4rem"
               label="Month"
               aria-label="Month Input Field"
@@ -67,6 +68,7 @@ export const MonthPicker = ({
               label="Year"
               aria-label="Year Input Field"
               name={`${name}.year`}
+              data-cy={`${name}-year`}
               value={field.value?.selectedYear ?? ""}
               onChange={(e) =>
                 yearRegex.test(e.target.value)

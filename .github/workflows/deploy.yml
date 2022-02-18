@@ -103,6 +103,7 @@ jobs:
             oy2_15504_Measure_validation_Error_Creation_Updates.spec.feature,
             oy2-9954_PQI01AD.spec.js,
             pdentCH.spec.feature,
+            oy2_8976_Measure_14_CCW_AD.spec.js,
             oy2_16039_Data_source_Rate_to_auto_calculate_in_OPM.spec.js,
           ]
     steps:
