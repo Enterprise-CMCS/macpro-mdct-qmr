@@ -1,6 +1,5 @@
 import * as CMQ from "../CommonQuestions";
 import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
