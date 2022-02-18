@@ -5,8 +5,6 @@ import { useParams } from "react-router-dom";
 
 interface Props {
   measureTitle: string;
-  dateCompleted: string;
-  isReportingOnMeasureYear: boolean;
   performanceMeasureText: string;
   performanceMeasureSubtext?: string;
   year: string;
@@ -14,10 +12,8 @@ interface Props {
 
 export const AutocompletedMeasureTemplate = ({
   measureTitle,
-  dateCompleted,
   performanceMeasureText,
   performanceMeasureSubtext,
-  isReportingOnMeasureYear,
   year,
 }: Props) => {
   const { state, coreSetId } = useParams();
@@ -40,28 +36,12 @@ export const AutocompletedMeasureTemplate = ({
           onClick={() => window.print()}
         />
       </CUI.HStack>
-
-      <CUI.Stack spacing={12}>
+      <CUI.Stack spacing={2}>
         <CUI.Box>
           <CUI.Heading size="sm" fontWeight="700">
             Measure Title
           </CUI.Heading>
           <CUI.Text>{measureTitle}</CUI.Text>
-        </CUI.Box>
-
-        <CUI.Box>
-          <CUI.Heading size="sm" fontWeight="700">
-            Date Completed
-          </CUI.Heading>
-          <CUI.Text>Auto-completed on {dateCompleted}</CUI.Text>
-        </CUI.Box>
-
-        <CUI.Box>
-          <CUI.Heading
-            size="sm"
-            fontWeight="700"
-          >{`Reporting on Measure FFY ${year}`}</CUI.Heading>
-          <CUI.Text>{isReportingOnMeasureYear ? "Yes" : "No"}</CUI.Text>
         </CUI.Box>
 
         <CUI.Stack spacing={6}>

@@ -39,21 +39,15 @@ export const MonthPickerCalendar = ({
   yearLocked = false,
   onChange: handleChange,
 }: CalendarProps) => {
-  const now = new Date();
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [year, setYear] = useState(parseInt(selectedYear) || now.getFullYear());
+  const [year, setYear] = useState(parseInt(selectedYear) || maxYear);
   const [month, setMonth] = useState(
     (selectedMonth && parseInt(selectedMonth)) || undefined
   );
 
   useEffect(() => {
-    const now = new Date();
     setMonth((selectedMonth && parseInt(selectedMonth)) || undefined);
-    setYear(
-      (selectedYear?.length === 4 && parseInt(selectedYear)) ||
-        now.getFullYear()
-    );
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth]);
 
   const handleMonthClick = (month: number) => {
     setMonth(month);

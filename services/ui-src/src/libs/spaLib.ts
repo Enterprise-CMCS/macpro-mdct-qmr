@@ -103,7 +103,7 @@ export const SPA = [
   },
   {
     state: "Minnesota",
-    name: "Minnesota Behavioral Health Homes",
+    name: "Minnesota Behavioral Health Home",
     id: "MN 19-0015",
     postal: "MN",
   },
@@ -211,7 +211,7 @@ export const SPA = [
   },
   {
     state: "West Virginia",
-    name: "West Virginia Health Homes for Individuals with Chronic Conditions",
+    name: "West Virginia Health Home for Individuals with Chronic Conditions",
     id: "WV 16-0008",
     postal: "WV",
   },
