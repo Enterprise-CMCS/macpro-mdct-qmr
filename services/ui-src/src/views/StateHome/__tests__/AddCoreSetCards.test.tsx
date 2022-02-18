@@ -17,9 +17,9 @@ describe("Test AddCoreSetCards Component", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the add health homes core set card", () => {
+  it("renders the add health home core set card", () => {
     expect(
-      screen.getByText(/Need to report on Health homes data/i)
+      screen.getByText(/Need to report on Health home data/i)
     ).toBeInTheDocument();
   });
 });

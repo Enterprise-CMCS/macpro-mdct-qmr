@@ -1,4 +1,6 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
+import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -16,7 +18,7 @@ export const FUMAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({
@@ -70,7 +72,7 @@ export const FUMAD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
@@ -78,11 +80,11 @@ export const FUMAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
+          <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
@@ -99,8 +101,8 @@ export const FUMAD = ({
             />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          <CMQ.CombinedRates />
           {(show30DaysAges18To64 ||
             show30DaysAges65AndOlder ||
             show7DaysAges18To64 ||
@@ -119,7 +121,7 @@ export const FUMAD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };
