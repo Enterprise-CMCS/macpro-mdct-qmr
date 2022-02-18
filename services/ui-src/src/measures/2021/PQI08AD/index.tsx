@@ -1,9 +1,11 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
+import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
-import * as CMQ from "../CommonQuestions";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const PQI08AD = ({
   name,
@@ -17,7 +19,7 @@ export const PQI08AD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({
@@ -64,7 +66,7 @@ export const PQI08AD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
@@ -72,18 +74,23 @@ export const PQI08AD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
+          <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isAHRQ && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
           {isAHRQ && <Q.DeviationFromMeasureSpec options={ageGroups} />}
           {/* Show Other Performance Measures when isAHRQ is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && (
+            <CMQ.OtherPerformanceMeasure
+              rateMultiplicationValue={100000}
+              customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+            />
+          )}
+          <CMQ.CombinedRates />
           {(showAges18To64 ||
             showAges65AndOlder ||
             showOtherPerformanceMeasureRates) && (

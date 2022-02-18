@@ -20,11 +20,6 @@ export namespace Measure {
     "DataSource-Admin-Protocol": string;
     "DataSource-Admin-Protocol-Other": string;
 
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
-
     //MeasurementSpecification
     MeasurementSpecification: string;
     "MeasurementSpecification-HEDISVersion": string;
