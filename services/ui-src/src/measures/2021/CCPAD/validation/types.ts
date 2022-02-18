@@ -1,3 +1,4 @@
+import * as Types from "../../CommonQuestions/types";
 export namespace Measure {
   export interface Props {
     name: string;
@@ -28,13 +29,9 @@ export namespace Measure {
     rate: RateFields[];
   }
 
-  export interface Form {
+  export interface Form extends Types.StatusOfData{
     //Report
     DidReport: string;
-
-    //Status
-    DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string;
 
     //DataSource
     DataSource: string[];
