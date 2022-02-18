@@ -4,6 +4,7 @@ export * from "./DataSource";
 export * from "./DateRange";
 export * from "./DeviationFromMeasureSpec";
 export * from "./MeasurementSpecification";
+export * from "./Status";
 export * from "./Reporting";
 export * from "./WhyAreYouNotReporting";
 export * from "./PerformanceMeasure";

@@ -26,7 +26,28 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-Population": string;
 }
 
+export interface WhyAreYouNotReporting {
+  WhyAreYouNotReporting: string[];
+  AmountOfPopulationNotCovered: string;
+  PopulationNotCovered: string;
+  PartialPopulationNotCoveredExplanation: string;
+  WhyIsDataNotAvailable: string;
+  "WhyIsDataNotAvailable-Other": string;
+  DataIconAccuracyIssues: string;
+  DataSourceNotEasilyAccessible: string;
+  "DataSourceNotEasilyAccessible-Other": string;
+  InformationNotCollected: string;
+  "InformationNotCollected-Other": string;
+  LimitationWithDatCollecitonReportAccuracyCovid: string;
+  SmallSampleSizeLessThan30: string;
+  "WhyAreYouNotReporting-Other": string;
+}
+
+export interface DidReport {
+  DidReport: string;
+}
+
 export interface StatusOfData {
-    DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string;
+  DataStatus: string[];
+  "DataStatus-ProvisionalExplanation": string;
 }
