@@ -28,6 +28,33 @@ Local dev is built around the Serverless plugin [`serverless-offline`](https://g
 
 When run locally, auth bypasses Cognito. The frontend mimics login in local storage with a mock user and sends an id in the `cognito-identity-id` header on every request. `serverless-offline` expects that and sets it as the cognitoId in the requestContext for your lambdas, just like Cognito would in AWS.
 
+### Prettier Linter
+
+We use Prettier to format all code. This runs as part of a Git Hook and changes to files will cause the deploy to fail.
+
+Most IDEs have a Prettier plugin that can be configured to run on file save. You can also run the format manually:
+
+```
+npx prettier --write "**/*.tsx"
+```
+
+### Testing
+
+#### ui-src
+
+**Unit Tests**
+From application root
+```
+yarn run test
+yarn run watchTest  # Live reload
+```
+
+**Cypress**
+```
+cd tests/cypress
+yarn test:ci
+```
+
 ## Usage
 
 See master build [here](https://github.com/CMSgov/cms-mdct-qmr/actions?query=branch%3Amaster)
