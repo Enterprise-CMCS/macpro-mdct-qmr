@@ -66,7 +66,7 @@ export const OtherPerformanceMeasure = () => {
           }}
           onClick={() => {
             showRates.push({
-              description: [""],
+              description: "",
               rate: [
                 {
                   denominator: "",

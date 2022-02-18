@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 
 interface Props {
   show: boolean;
-  children?: JSX.Element[];
+  children?: React.ReactNode;
 }
 
 export const QuestionChild = ({ show, children }: Props) => {

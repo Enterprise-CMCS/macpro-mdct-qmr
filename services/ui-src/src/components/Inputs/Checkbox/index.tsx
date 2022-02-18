@@ -9,6 +9,7 @@ export interface CheckboxOption {
   children?: JSX.Element[];
   removable?: boolean;
   onDelete?: () => void;
+  childKey?: string;
 }
 
 interface CheckboxProps extends QMR.InputWrapperProps {
@@ -55,7 +56,7 @@ export const Checkbox = ({
 
             return (
               <QMR.DeleteWrapper
-                key={option.value}
+                key={option.childKey ?? option.value}
                 allowDeletion={option.removable}
                 onDelete={option.onDelete}
               >
