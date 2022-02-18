@@ -210,7 +210,8 @@ jobs:
         ssaPage,
         ssdadPage,
         faqPage,
-        childCoreSetMeasuresPage]
+        childCoreSetMeasuresPage,
+        adultCoreSetMeasuresQuestionsPage]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
