@@ -11,22 +11,14 @@ interface Props {
     label: string;
   }[];
   deviationConditions?: {
-    showInitAlcohol18To64: boolean;
-    showEngageAlcohol18To64: boolean;
-    showInitOpioid18To64: boolean;
-    showEngageOpioid18To64: boolean;
-    showInitOther18To64: boolean;
-    showEngageOther18To64: boolean;
-    showInitTotal18To64: boolean;
-    showEngageTotal18To64: boolean;
-    showInitAlcohol65Plus: boolean;
-    showEngageAlcohol65Plus: boolean;
-    showInitOpioid65Plus: boolean;
-    showEngageOpioid65Plus: boolean;
-    showInitOther65Plus: boolean;
-    showEngageOther65Plus: boolean;
-    showInitTotal65Plus: boolean;
-    showEngageTotal65Plus: boolean;
+    showAdvisingUsersAges18To64: boolean;
+    showAdvisingUsers65AndOlder: boolean;
+    showDiscussingMedicationsAges18To64: boolean;
+    showDiscussingMedications65AndOlder: boolean;
+    showDiscussingStrategiesAges18To64: boolean;
+    showDiscussingStrategies65AndOlder: boolean;
+    showPercentageUsersAges18To64: boolean;
+    showPercentageUsers65AndOlder: boolean;
     showOtherPerformanceMeasureRates: boolean;
   };
 }
@@ -38,7 +30,7 @@ interface SubComponentProps {
 export const DefaultOptionalMeasureStratProps: Props = {
   ageGroups: [
     { label: "Ages 18 to 64", id: 0 },
-    { label: "Age 65 and older", id: 1 },
+    { label: "Ages 65 and older", id: 1 },
   ],
 };
 
@@ -97,14 +89,10 @@ const AgeData = ({ name }: SubComponentProps) => {
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch for dataSource data
-  const dataSourceWatch = watch("DataSource");
+  const dataSourceWatch = watch("DataSource-CAHPS-Version");
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
-
+  // Conditional check to let rate be readonly when other option is not selected
+  const rateReadOnly = dataSourceWatch !== "Other";
   return (
     <CUI.Box key={`${name}.ageData`}>
       <QMR.Checkbox
@@ -124,8 +112,8 @@ const AgeData = ({ name }: SubComponentProps) => {
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.OtherPerformance`}
-                      key={`${name}.subRates.${item.id}.OtherPerformance`}
+                      name={`${name}.subRates.${item.id}.otherPerformanceMeasure`}
+                      key={`${name}.subRates.${item.id}.otherPerformanceMeasure`}
                       rates={[
                         {
                           id: 0,
@@ -135,143 +123,77 @@ const AgeData = ({ name }: SubComponentProps) => {
                     />,
                   ]
                 : []),
-              ...((deviationConditions?.showInitAlcohol18To64 &&
+              // Dynamically hide or show children based on if performance measure AdvisingUsersToQuit sections were completed
+              ...((deviationConditions?.showAdvisingUsersAges18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showInitAlcohol65Plus && item.id === 1)
+              (deviationConditions?.showAdvisingUsers65AndOlder &&
+                item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitAlcohol`}
-                      key={`${name}.subRates.${item.id}.InitAlcohol`}
+                      name={`${name}.subRates.${item.id}.advisingUsers`}
+                      key={`${name}.subRates.${item.id}.advisingUsers`}
                       rates={[
                         {
                           id: 0,
-                          label:
-                            "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
+                          label: "Advising Smokers and Tobacco Users to Quit",
                         },
                       ]}
                     />,
                   ]
                 : []),
-              ...((deviationConditions?.showEngageAlcohol18To64 &&
+              // Dynamically hide or show children based on if performance measure DiscussingMedications sections were completed
+              ...((deviationConditions?.showDiscussingMedicationsAges18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showEngageAlcohol65Plus && item.id === 1)
+              (deviationConditions?.showDiscussingMedications65AndOlder &&
+                item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.EngageAlcohol`}
-                      key={`${name}.subRates.${item.id}.EngageAlcohol`}
+                      name={`${name}.subRates.${item.id}.discussingMedications`}
+                      key={`${name}.subRates.${item.id}.discussingMedications`}
                       rates={[
                         {
                           id: 1,
-                          label:
-                            "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
+                          label: "Discussing Cessation Medications",
                         },
                       ]}
                     />,
                   ]
                 : []),
-              ...((deviationConditions?.showInitOpioid18To64 &&
+              ...((deviationConditions?.showDiscussingStrategiesAges18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showInitOpioid65Plus && item.id === 1)
+              (deviationConditions?.showDiscussingStrategies65AndOlder &&
+                item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitOpioid`}
-                      key={`${name}.subRates.${item.id}.InitOpioid`}
+                      name={`${name}.subRates.${item.id}.discussingStrategies`}
+                      key={`${name}.subRates.${item.id}.discussingStrategies`}
                       rates={[
                         {
-                          id: 0,
-                          label:
-                            "Initiation of AOD Treatment: Opioid Abuse or Dependence",
+                          id: 2,
+                          label: "Discussing Cessation Strategies",
                         },
                       ]}
                     />,
                   ]
                 : []),
-              ...((deviationConditions?.showEngageOpioid18To64 &&
+
+              ...((deviationConditions?.showPercentageUsersAges18To64 &&
                 item.id === 0) ||
-              (deviationConditions?.showEngageOpioid65Plus && item.id === 1)
+              (deviationConditions?.showPercentageUsers65AndOlder &&
+                item.id === 1)
                 ? [
                     <QMR.Rate
                       readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.EngageOpioid`}
-                      key={`${name}.subRates.${item.id}.EngageOpioid`}
+                      name={`${name}.subRates.${item.id}.percentageUsers`}
+                      key={`${name}.subRates.${item.id}.percentageUsers`}
                       rates={[
                         {
-                          id: 1,
+                          id: 3,
                           label:
-                            "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showInitOther18To64 && item.id === 0) ||
-              (deviationConditions?.showInitOther65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitOther`}
-                      key={`${name}.subRates.${item.id}.InitOther`}
-                      rates={[
-                        {
-                          id: 0,
-                          label:
-                            "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showEngageOther18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.showEngageOther65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.EngageOther`}
-                      key={`${name}.subRates.${item.id}.EngageOther`}
-                      rates={[
-                        {
-                          id: 1,
-                          label:
-                            "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showInitTotal18To64 && item.id === 0) ||
-              (deviationConditions?.showInitTotal65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitTotal`}
-                      key={`${name}.subRates.${item.id}.InitTotal`}
-                      rates={[
-                        {
-                          id: 0,
-                          label:
-                            "Initiation of AOD Treatment: AOD Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showEngageTotal18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.showEngageTotal65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.EngageTotal`}
-                      key={`${name}.subRates.${item.id}.EngageTotal`}
-                      rates={[
-                        {
-                          id: 1,
-                          label:
-                            "Engagement of AOD Treatment: AOD Abuse or Dependence",
+                            "Percentage of Current Smokers and Tobacco Users",
                         },
                       ]}
                     />,
@@ -331,6 +253,7 @@ export const OptionalMeasureStratification = ({
         values.AddtnlNonHispanicRaceSubCatTitle
       )
     );
+
   const [addtnlEthnicity, setAddtnlEthnicity] = useState(
     configInitialStateArray("AddtnlEthnicity", values.AddtnlEthnicity)
   );
@@ -566,7 +489,7 @@ export const OptionalMeasureStratification = ({
                                                 name={`AddtnlNonHispanicRaceSubCatTitle.${index}.titles.${subIndex}`}
                                               />
                                               <AgeData
-                                                name={`AddtnlNonHispanicRaceSubCatRates.${index}.${subIndex}`}
+                                                name={`AddtnlNonHispanicRaceSubCatRates.${index}.rates.${subIndex}`}
                                               />
                                               {subIndex + 1 ===
                                                 addtnlNonHispanicRaceSubCat[
