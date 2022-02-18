@@ -31,13 +31,6 @@ export namespace Measure {
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.StatusOfData {
-    //Report
-    DidReport: string;
-
-    //Status
-    DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string;
-
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];

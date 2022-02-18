@@ -31,12 +31,7 @@ export namespace Measure {
       Types.StatusOfData,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure {
-    //Report
-    DidReport: string;
-
-    //Status
-    DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string; //DataSource
+    //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;

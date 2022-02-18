@@ -33,12 +33,7 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure {
-    //Report
-    DidReport: string;
-
-    //Status
-    DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string; //DataSource
+    //DataSource
     "DataSource-CAHPS-Version": string;
     "DataSource-CAHPS-Version-Other": string;
 
