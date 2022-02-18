@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -89,11 +90,11 @@ export const OUDAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
+          <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
           <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when CMS is selected from DataSource */}
           {isCMS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}

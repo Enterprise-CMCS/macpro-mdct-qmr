@@ -26,6 +26,7 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-Population": string;
 }
 
+
 export interface WhyAreYouNotReporting {
   WhyAreYouNotReporting: string[];
   AmountOfPopulationNotCovered: string;
@@ -45,4 +46,10 @@ export interface WhyAreYouNotReporting {
 
 export interface DidReport {
   DidReport: string;
+}
+
+export interface StatusOfData {
+    DataStatus: string[];
+    "DataStatus-ProvisionalExplanation": string;
+
 }
