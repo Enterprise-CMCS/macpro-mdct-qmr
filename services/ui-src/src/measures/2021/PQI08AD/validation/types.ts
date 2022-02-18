@@ -26,8 +26,11 @@ export namespace Measure {
     rate: RateFields[];
   }
 
-  export interface Form extends Types.DidReport, Types.WhyAreYouNotReporting,Types.DefinitionOfPopulation, Types.StatusOfData {
-
+  export interface Form
+    extends Types.DidReport,
+      Types.WhyAreYouNotReporting,
+      Types.DefinitionOfPopulation,
+      Types.StatusOfData {
     //Report
     DidReport: string;
 
