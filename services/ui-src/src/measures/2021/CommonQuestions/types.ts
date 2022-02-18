@@ -1,3 +1,5 @@
+import { DataSourceData } from "./DataSource/data";
+
 export interface DefinitionOfPopulation {
   DefinitionOfDenominator: string[];
   "DefinitionOfDenominator-Other": string;
@@ -24,4 +26,21 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-Percent": string;
   "DeliverySys-Other-NumberOfHealthPlans": string;
   "DeliverySys-Other-Population": string;
+}
+
+export interface DataSource {
+  DataSource: string[];
+  DataSourceSelections: {
+    [label: string]: {
+      selected: string[];
+      descriptions?: {
+        [label: string]: string;
+      };
+    };
+  };
+  DataSourceDescription: string;
+}
+
+export namespace DataDrivenTypes {
+  export type DataSource = DataSourceData;
 }
