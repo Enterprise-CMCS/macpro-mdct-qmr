@@ -26,6 +26,29 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-Population": string;
 }
 
+export interface CombinedRates {
+  CombinedRates: string;
+  "CombinedRates-CombinedRates": string;
+  "CombinedRates-CombinedRates-Other-Explanation": string;
+}
+
+interface RateFields {
+  numerator: string;
+  denominator: string;
+  rate: string;
+}
+
+interface OtherRatesFields {
+  description: string[];
+  rate: RateFields[];
+}
+export interface OtherPerformanceMeasure {
+  //Other Performance Measure
+  "OtherPerformanceMeasure-Explanation": string;
+  "OtherPerformanceMeasure-Rates": OtherRatesFields[];
+  "OtherPerformanceMeasure-Notes": string;
+  "OtherPerformanceMeasure-Rates-TextInput": string;
+}
 export interface DateRange {
   DateRange: {
     endDate: {

@@ -1,9 +1,11 @@
 import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
+import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const PQI01AD = ({
   name,
@@ -17,7 +19,7 @@ export const PQI01AD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({
@@ -82,8 +84,13 @@ export const PQI01AD = ({
           {/* Show Deviation only when Other is not selected */}
           {isAHRQ && <Q.DeviationFromMeasureSpec options={ageGroups} />}
           {/* Show Other Performance Measures when isAHRQ is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && (
+            <CMQ.OtherPerformanceMeasure
+              rateMultiplicationValue={100000}
+              customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+            />
+          )}
+          <CMQ.CombinedRates />
           {(showAges18To64 ||
             showAges65AndOlder ||
             showOtherPerformanceMeasureRates) && (

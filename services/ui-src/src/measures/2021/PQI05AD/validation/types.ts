@@ -31,7 +31,15 @@ export namespace Measure {
       Types.DateRange,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
-      Types.StatusOfData {
+      Types.StatusOfData,
+      Types.CombinedRates,
+      Types.OtherPerformanceMeasure {
+    //Report
+    DidReport: string;
+
+    //Status
+    DataStatus: string[];
+    "DataStatus-ProvisionalExplanation": string;
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -39,11 +47,6 @@ export namespace Measure {
     "DataSource-Administrative-Other-Explanation"?: string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
-
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
 
     //MeasurementSpecification
     MeasurementSpecification: string;

@@ -1,5 +1,4 @@
 import * as Types from "../../CommonQuestions/types";
-
 export namespace Measure {
   export interface Props {
     name: string;
@@ -32,6 +31,13 @@ export namespace Measure {
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.StatusOfData {
+    //Report
+    DidReport: string;
+
+    //Status
+    DataStatus: string[];
+    "DataStatus-ProvisionalExplanation": string;
+
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -39,11 +45,6 @@ export namespace Measure {
     "DataSource-Administrative-Other-Explanation"?: string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
-
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
 
     //MeasurementSpecification
     MeasurementSpecification: string;

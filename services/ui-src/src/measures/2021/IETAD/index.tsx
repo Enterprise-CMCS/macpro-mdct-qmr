@@ -1,5 +1,6 @@
 import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
+import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -17,7 +18,7 @@ export const IETAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({ name: "DidReport" });
@@ -155,8 +156,8 @@ export const IETAD = ({
             />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          <CMQ.CombinedRates />
           {(showInitAlcohol18To64 ||
             showEngageAlcohol18To64 ||
             showInitOpioid18To64 ||

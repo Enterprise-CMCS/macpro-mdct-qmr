@@ -25,27 +25,44 @@ export namespace Measure {
     description: string[];
     rate: RateFields[];
   }
-
   export interface Form
     extends Types.DefinitionOfPopulation,
       Types.StatusOfData,
       Types.DateRange,
       Types.DidReport,
-      Types.WhyAreYouNotReporting {
-    //DataSource
+      Types.WhyAreYouNotReporting,
+      Types.CombinedRates,
+      Types.OtherPerformanceMeasure {
+    //Report
+    DidReport: string;
+
+    //Status
+    DataStatus: string[];
+    "DataStatus-ProvisionalExplanation": string; //DataSource
     "DataSource-CAHPS-Version": string;
     "DataSource-CAHPS-Version-Other": string;
-
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
 
     //MeasurementSpecification
     MeasurementSpecification: string;
     "MeasurementSpecification-HEDISVersion": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
+
+    //WhyAreYouNotReporting
+    WhyAreYouNotReporting: string[];
+    AmountOfPopulationNotCovered: string;
+    PopulationNotCovered: string;
+    PartialPopulationNotCoveredExplanation: string;
+    WhyIsDataNotAvailable: string;
+    "WhyIsDataNotAvailable-Other": string;
+    DataIconAccuracyIssues: string;
+    DataSourceNotEasilyAccessible: string;
+    "DataSourceNotEasilyAccessible-Other": string;
+    InformationNotCollected: string;
+    "InformationNotCollected-Other": string;
+    LimitationWithDatCollecitonReportAccuracyCovid: string;
+    SmallSampleSizeLessThan30: string;
+    "WhyAreYouNotReporting-Other": string;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;

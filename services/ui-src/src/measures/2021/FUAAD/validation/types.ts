@@ -1,5 +1,4 @@
 import * as Types from "../../CommonQuestions/types";
-
 export namespace Measure {
   export interface Props {
     name: string;
@@ -23,13 +22,21 @@ export namespace Measure {
     description: string[];
     rate: RateFields[];
   }
-
   export interface Form
     extends Types.DefinitionOfPopulation,
       Types.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
-      Types.DateRange {
+      Types.DateRange,
+      Types.CombinedRates,
+      Types.OtherPerformanceMeasure {
+    //Report
+    DidReport: string;
+
+    //Status
+    DataStatus: string[];
+    "DataStatus-ProvisionalExplanation": string;
+
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -44,16 +51,27 @@ export namespace Measure {
     "DataSource-ElectronicHealthRecords"?: string;
     "DataSource-ElectronicHealthRecords-Explanation"?: string;
 
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
-
     //MeasurementSpecification
     MeasurementSpecification: string;
     "MeasurementSpecification-HEDISVersion": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
+
+    //WhyAreYouNotReporting
+    WhyAreYouNotReporting: string[];
+    AmountOfPopulationNotCovered: string;
+    PopulationNotCovered: string;
+    PartialPopulationNotCoveredExplanation: string;
+    WhyIsDataNotAvailable: string;
+    "WhyIsDataNotAvailable-Other": string;
+    DataIconAccuracyIssues: string;
+    DataSourceNotEasilyAccessible: string;
+    "DataSourceNotEasilyAccessible-Other": string;
+    InformationNotCollected: string;
+    "InformationNotCollected-Other": string;
+    LimitationWithDatCollecitonReportAccuracyCovid: string;
+    SmallSampleSizeLessThan30: string;
+    "WhyAreYouNotReporting-Other": string;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;

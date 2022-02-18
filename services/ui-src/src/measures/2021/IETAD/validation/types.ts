@@ -28,8 +28,15 @@ export namespace Measure {
       Types.DateRange,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
-      Types.StatusOfData {
-    //DataSource
+      Types.StatusOfData,
+      Types.CombinedRates,
+      Types.OtherPerformanceMeasure {
+    //Report
+    DidReport: string;
+
+    //Status
+    DataStatus: string[];
+    "DataStatus-ProvisionalExplanation": string; //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;
@@ -41,16 +48,27 @@ export namespace Measure {
     "DataSource-ElectronicHealthRecords"?: string;
     "DataSource-ElectronicHealthRecords-Explanation"?: string;
 
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
-
     //MeasurementSpecification
     MeasurementSpecification: string;
     "MeasurementSpecification-HEDISVersion": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
+
+    //WhyAreYouNotReporting
+    WhyAreYouNotReporting: string[];
+    AmountOfPopulationNotCovered: string;
+    PopulationNotCovered: string;
+    PartialPopulationNotCoveredExplanation: string;
+    WhyIsDataNotAvailable: string;
+    "WhyIsDataNotAvailable-Other": string;
+    DataIconAccuracyIssues: string;
+    DataSourceNotEasilyAccessible: string;
+    "DataSourceNotEasilyAccessible-Other": string;
+    InformationNotCollected: string;
+    "InformationNotCollected-Other": string;
+    LimitationWithDatCollecitonReportAccuracyCovid: string;
+    SmallSampleSizeLessThan30: string;
+    "WhyAreYouNotReporting-Other": string;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
