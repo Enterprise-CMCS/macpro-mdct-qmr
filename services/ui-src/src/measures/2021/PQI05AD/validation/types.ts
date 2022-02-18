@@ -33,6 +33,7 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.StatusOfData,
       Types.CombinedRates,
+      Types.AdditionalNotes,
       Types.OtherPerformanceMeasure {
     //DataSource
     DataSource: string[];
@@ -52,10 +53,6 @@ export namespace Measure {
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //AdditionalNotes
-    "AdditionalNotes-AdditionalNotes"?: string;
-    "AdditionalNotes-Upload"?: File[];
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;

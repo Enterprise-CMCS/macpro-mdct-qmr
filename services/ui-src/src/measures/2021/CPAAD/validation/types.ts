@@ -1,10 +1,12 @@
+import * as Types from "../../CommonQuestions/types";
+
 export namespace Measure {
   export interface Props {
     name: string;
     year: string;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
-  export interface Form {
+  export interface Form extends Types.AdditionalNotes {
     //Report
     DidCollect: string;
 
@@ -41,10 +43,6 @@ export namespace Measure {
     LimitationWithDatCollecitonReportAccuracyCovid: string;
     SmallSampleSizeLessThan30: string;
     "WhyDidYouNotCollect-Other": string;
-
-    //AdditionalNotes
-    "AdditionalNotes-AdditionalNotes"?: string;
-    "AdditionalNotes-Upload"?: File[];
 
     //DefinitionOfPopulation
     DefinitionOfSurveySample: string[];
