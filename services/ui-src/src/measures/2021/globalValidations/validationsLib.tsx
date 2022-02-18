@@ -1,5 +1,5 @@
 import { PerformanceMeasure } from "./types";
-
+import { Measure } from "../../types";
 export const atLeastOneRateComplete = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
@@ -239,4 +239,39 @@ export const validateNoNonZeroNumOrDenom = (
     });
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];
+};
+
+// Ensure the user completes the data range if data was inputted in the start or end date:
+export const ensureBothDatesCompletedInRange = (
+  dateRange: Measure.Form["DateRange"]
+) => {
+  let errorArray: any[] = [];
+  let rangeErrorLocation;
+  let error;
+
+  if (dateRange) {
+    const startDateCompleted =
+      !!dateRange.startDate?.selectedMonth &&
+      !!dateRange.startDate?.selectedYear;
+
+    const endDateCompleted =
+      !!dateRange.endDate?.selectedMonth && !!dateRange.endDate?.selectedYear;
+
+    if (
+      (startDateCompleted && !endDateCompleted) ||
+      (!startDateCompleted && endDateCompleted)
+    ) {
+      error = true;
+      rangeErrorLocation = startDateCompleted ? "End Date" : "Start Date";
+    }
+
+    if (error) {
+      errorArray.push({
+        errorLocation: `Date Range`,
+        errorMessage: `Date Range must have a ${rangeErrorLocation}`,
+      });
+    }
+  }
+
+  return error ? errorArray : [];
 };

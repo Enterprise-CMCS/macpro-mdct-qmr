@@ -1,6 +1,7 @@
 import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateEqualDenominators,
@@ -94,6 +95,7 @@ const IEDValidation = (data: Measure.Form) => {
   ];
   const totalInitiation = data["PerformanceMeasure-AgeRates-Initiation-Total"];
   const totalEngagement = data["PerformanceMeasure-AgeRates-Engagement-Total"];
+  const dateRange = data["DateRange"];
   let errorArray: any[] = [];
   //@ts-ignore
   errorArray = [
@@ -119,6 +121,7 @@ const IEDValidation = (data: Measure.Form) => {
       ageGroups
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...ensureBothDatesCompletedInRange(dateRange),
   ];
 
   return errorArray;
