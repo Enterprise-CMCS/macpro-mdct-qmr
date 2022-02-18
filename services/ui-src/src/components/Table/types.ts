@@ -11,7 +11,7 @@ export namespace CoreSetTableItem {
   export enum Type {
     ADULT = "adult",
     CHILD = "child",
-    HEALTH_HOMES = "health homes",
+    HEALTH_HOME = "health home",
   }
 
   export enum Status {

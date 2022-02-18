@@ -34,16 +34,16 @@ export const AddHHCoreSet = () => {
     <QMR.StateLayout
       breadcrumbItems={[
         { path: `/${state}/${year}`, name: `FFY ${year}` },
-        { path: `/${state}/${year}/add-hh`, name: "Add Health Homes Core Set" },
+        { path: `/${state}/${year}/add-hh`, name: "Add Health Home Core Set" },
       ]}
     >
       <CUI.Box maxW="container.lg">
         <CUI.Heading fontSize="2xl" fontWeight="600" my="2">
-          Health Homes Core Set Details
+          Health Home Core Set Details
         </CUI.Heading>
         <CUI.Text>
           Complete the details below and when finished create the additional
-          Health Homes Core Set package. You can submit one Health Home Core set
+          Health Home Core Set package. You can submit one Health Home Core set
           for each SPA that requires reporting.
         </CUI.Text>
         <FormProvider {...methods}>
@@ -82,11 +82,11 @@ export const AddHHCoreSet = () => {
                 <CUI.ListItem>
                   <CUI.Box>
                     <CUI.Text fontWeight="600">
-                      Finish to create a Health Homes Core Set
+                      Finish to create a Health Home Core Set
                     </CUI.Text>
                     <CUI.Text pt={1}>
-                      Remember to complete all Health Homes Core Set Questions
-                      and Health Homes Core Set Measures to submit for CMS
+                      Remember to complete all Health Home Core Set Questions
+                      and Health Home Core Set Measures to submit for CMS
                       review.
                     </CUI.Text>
 

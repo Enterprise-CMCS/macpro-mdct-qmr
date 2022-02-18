@@ -1,8 +1,8 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useWatch } from "react-hook-form";
 import { Measure } from "../validation/types";
+import { useWatch } from "react-hook-form";
 import {
   allPositiveIntegers,
   percentageAllowOneDecimalMax,
@@ -253,7 +253,7 @@ export const DefinitionOfPopulation = () => {
                           "No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.",
                         value: "NoAllMCO-PIHP",
                         children: [
-                          <CUI.Text key="AdditionalMCOIncludedText">
+                          <CUI.Text mb="5" key="AdditionalMCOIncludedText">
                             {
                               "What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are"
                             }
@@ -265,15 +265,7 @@ export const DefinitionOfPopulation = () => {
                           <QMR.NumberInput
                             displayPercent
                             renderHelperTextAbove
-                            helperText="The percentage provided here should represent the
-                              percentage of the denominator population(s) included
-                              in the measure (i.e., Medicaid, CHIP, etc.) that
-                              receives items/services through the selected
-                              delivery system. For example, if the population
-                              included in the reported data represents all managed
-                              care enrollees and half of your state’s
-                              fee-for-service enrollees, select managed care, and
-                              select fee-for-service and enter 50."
+                            helperText="The percentage provided here should represent the percentage of the denominator population(s) included in the measure (i.e., Medicaid, CHIP, etc.) that receives items/services through the selected delivery system. For example, if the population included in the reported data represents all managed care enrollees and half of your state’s fee-for-service enrollees, select managed care, and select fee-for-service and enter 50."
                             mask={percentageAllowOneDecimalMax}
                             {...register("DeliverySys-MCO_POHP-No-Included")}
                           />,
@@ -320,6 +312,16 @@ export const DefinitionOfPopulation = () => {
                       value: "NoAllICM",
                       children: [
                         <QMR.NumberInput
+                          renderHelperTextAbove
+                          helperText="The percentage provided here should represent the
+                        percentage of the denominator population(s) included
+                        in the measure (i.e., Medicaid, CHIP, etc.) that
+                        receives items/services through the selected
+                        delivery system. For example, if the population
+                        included in the reported data represents all managed
+                        care enrollees and half of your state’s
+                        fee-for-service enrollees, select managed care, and
+                        select fee-for-service and enter 50."
                           displayPercent
                           mask={percentageAllowOneDecimalMax}
                           formLabelProps={{ fontWeight: "400" }}
@@ -327,19 +329,8 @@ export const DefinitionOfPopulation = () => {
                           {...register(
                             "DeliverySys-IntegratedCareModel-No-Percent"
                           )}
-                          helperText="The percentage provided here should represent the
-                          percentage of the denominator population(s) included
-                          in the measure (i.e., Medicaid, CHIP, etc.) that
-                          receives items/services through the selected
-                          delivery system. For example, if the population
-                          included in the reported data represents all managed
-                          care enrollees and half of your state’s
-                          fee-for-service enrollees, select managed care, and
-                          select fee-for-service and enter 50."
-                          renderHelperTextAbove
                         />,
                         <QMR.NumberInput
-                          formControlProps={{ paddingTop: "4" }}
                           mask={allPositiveIntegers}
                           formLabelProps={{ fontWeight: "400" }}
                           label="How many of your measure-eligible Integrated Care Models (ICM) plans are excluded from the measure? If none are excluded, please enter zero."
