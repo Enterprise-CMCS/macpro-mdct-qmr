@@ -33,7 +33,7 @@ const getCoreSetType = (type: CoreSetAbbr) => {
       result = CoreSetTableItem.Type.ADULT;
       break;
     case CoreSetAbbr.HHCS:
-      result = CoreSetTableItem.Type.HEALTH_HOMES;
+      result = CoreSetTableItem.Type.HEALTH_HOME;
       break;
     case CoreSetAbbr.CCS:
     case CoreSetAbbr.CCSC:

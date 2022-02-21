@@ -23,11 +23,11 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     ); //asserting text
     cy.get("#ChildCoreSet-ReportType-separate").should(
       "have.text",
-      "Reporting Medicaid and CHIP measures in separate core sets"
+      "Reporting Medicaid and CHIP measures in separate Core sets"
     ); //asserting text
     cy.get("#ChildCoreSet-ReportType-combined").should(
       "have.text",
-      "Reporting Medicaid and CHIP measures in combined core sets"
+      "Reporting Medicaid and CHIP measures in combined Core sets"
     ); //asserting text
     cy.get(".css-35ezg3").should(
       "have.text",
@@ -54,7 +54,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     ); //asserting text
     cy.get(":nth-child(2) > .chakra-stack > .chakra-text").should(
       "have.text",
-      "Need to report on Health Homes data?"
+      "Need to report on Health Home data?"
     ); //asserting text
     cy.get(".css-nejllv").should(
       "have.text",
@@ -97,7 +97,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     ); //asserting text
     cy.get(".css-1wb0lb9 > .css-0").should(
       "have.text",
-      "For technical questions regaring use of this application, please reach out to MDCT_help@cms.hhs.gov. For content related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
+      "For technical questions regarding use of this application, please reach out to MDCT_help@cms.hhs.gov. For content related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
     ); //asserting text on top of screen
     cy.get(".css-2lzsxm > .chakra-stack > .css-722v25").should(
       "have.text",
@@ -419,7 +419,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     );
     cy.get(".css-1wb0lb9 > .css-0").should(
       "have.text",
-      "For technical questions regaring use of this application, please reach out to MDCT_help@cms.hhs.gov. For content related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
+      "For technical questions regarding use of this application, please reach out to MDCT_help@cms.hhs.gov. For content related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
     );
     cy.get(".css-2lzsxm > .chakra-stack > .css-722v25").should(
       "have.text",
@@ -605,7 +605,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     );
     cy.get(".css-1wb0lb9 > .css-0").should(
       "have.text",
-      "For technical questions regaring use of this application, please reach out to MDCT_help@cms.hhs.gov. For content related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
+      "For technical questions regarding use of this application, please reach out to MDCT_help@cms.hhs.gov. For content related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
     );
     cy.get(".css-2lzsxm > .chakra-stack > .css-722v25").should(
       "have.text",
