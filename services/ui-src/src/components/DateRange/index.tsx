@@ -3,7 +3,6 @@ import * as QMR from "components";
 import { MonthPicker } from "components/MonthPicker";
 import { useFormContext } from "react-hook-form";
 import { format } from "date-fns";
-import objectPath from "object-path";
 
 interface Props {
   name: string;
@@ -27,14 +26,9 @@ export const currentYear = parseInt(format(new Date(), "yyyy"));
 export const currentMonth = parseInt(format(new Date(), "M"));
 
 export const DateRangeError = ({ name }: { name: string }) => {
-  const {
-    watch,
-    setValue,
-    setError,
-    formState: { errors },
-  } = useFormContext();
+  const { resetField, watch } = useFormContext();
   const range = watch(name);
-
+  const toast = CUI.useToast();
   const startYear = parseInt(range?.startDate?.selectedYear);
   const startMonth = parseInt(range?.startDate?.selectedMonth);
 
@@ -47,16 +41,12 @@ export const DateRangeError = ({ name }: { name: string }) => {
     (startYear > endYear || (startMonth >= endMonth && startYear === endYear))
   ) {
     const endDate = `${name}.endDate`;
-    setValue(endDate, undefined);
-
-    setTimeout(() => {
-      setError(endDate, { message: "Start Date must be before the End Date" });
+    resetField(endDate);
+    toast({
+      status: "warning",
+      description: "Start Date must be before the End Date",
+      duration: 4000,
     });
-  }
-
-  const endDateBeforeStartDateError = objectPath.get(errors, `${name}.endDate`);
-  if (endDateBeforeStartDateError) {
-    return <RangeNotification text={endDateBeforeStartDateError.message} />;
   }
 
   /* If the start date is a future date, then display a warning notification. */
