@@ -28,6 +28,71 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-Population": string;
 }
 
+export interface AdditionalNotes {
+  "AdditionalNotes-AdditionalNotes": string;
+  "AdditionalNotes-Upload": File[];
+}
+export interface CombinedRates {
+  CombinedRates: string;
+  "CombinedRates-CombinedRates": string;
+  "CombinedRates-CombinedRates-Other-Explanation": string;
+}
+
+interface RateFields {
+  numerator: string;
+  denominator: string;
+  rate: string;
+}
+
+interface OtherRatesFields {
+  description: string[];
+  rate: RateFields[];
+}
+export interface OtherPerformanceMeasure {
+  //Other Performance Measure
+  "OtherPerformanceMeasure-Explanation": string;
+  "OtherPerformanceMeasure-Rates": OtherRatesFields[];
+  "OtherPerformanceMeasure-Notes": string;
+  "OtherPerformanceMeasure-Rates-TextInput": string;
+}
+export interface DateRange {
+  DateRange: {
+    endDate: {
+      selectedMonth: number;
+      selectedYear: number;
+    };
+    startDate: {
+      selectedMonth: number;
+      selectedYear: number;
+    };
+  };
+}
+export interface WhyAreYouNotReporting {
+  WhyAreYouNotReporting: string[];
+  AmountOfPopulationNotCovered: string;
+  PopulationNotCovered: string;
+  PartialPopulationNotCoveredExplanation: string;
+  WhyIsDataNotAvailable: string;
+  "WhyIsDataNotAvailable-Other": string;
+  DataIconAccuracyIssues: string;
+  DataSourceNotEasilyAccessible: string;
+  "DataSourceNotEasilyAccessible-Other": string;
+  InformationNotCollected: string;
+  "InformationNotCollected-Other": string;
+  LimitationWithDatCollecitonReportAccuracyCovid: string;
+  SmallSampleSizeLessThan30: string;
+  "WhyAreYouNotReporting-Other": string;
+}
+
+export interface DidReport {
+  DidReport: string;
+}
+
+export interface StatusOfData {
+  DataStatus: string[];
+  "DataStatus-ProvisionalExplanation": string;
+}
+
 export interface DataSource {
   DataSource: string[];
   DataSourceSelections: {
