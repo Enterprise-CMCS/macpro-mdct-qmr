@@ -209,6 +209,9 @@ export const MeasureWrapper = ({
       submitDataToServer({
         data,
         reporting: handleReportingResponse(data),
+        callback: () => {
+          navigate(-1);
+        },
       });
       setErrors(undefined);
     }

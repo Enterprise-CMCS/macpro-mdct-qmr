@@ -67,7 +67,7 @@ export const OMSData: OmsNode[] = [
   {
     id: "Sex",
     options: [{ id: "Male" }, { id: "Female" }],
-    addMore: true,
+    addMore: false,
   },
   {
     id: "Language",

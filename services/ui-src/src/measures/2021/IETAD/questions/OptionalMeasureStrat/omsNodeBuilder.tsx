@@ -135,12 +135,14 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           }),
         ]}
       />
-      <AddAnotherSection
-        name={props.name}
-        flagSubCat
-        parentName={props.parentDisplayName}
-        key={`${props.name}.AdditionalCategorySection`}
-      />
+      {props.addMore && (
+        <AddAnotherSection
+          name={props.name}
+          flagSubCat
+          parentName={props.parentDisplayName}
+          key={`${props.name}.AdditionalCategorySection`}
+        />
+      )}
     </CUI.Box>
   );
 };
