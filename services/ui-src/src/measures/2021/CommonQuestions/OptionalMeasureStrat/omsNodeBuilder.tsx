@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 
-import { OmsNode } from "../data/OMSData";
+import { OmsNode } from "./OMSData";
 
 import { AddAnotherSection } from "./additionalCategory";
 import { SubCatSection } from "./subCatClassification";

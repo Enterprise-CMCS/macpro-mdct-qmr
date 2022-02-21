@@ -4,8 +4,8 @@ import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
 
-import { Measure } from "../../validation/types";
-import { OMSData } from "../data/OMSData";
+import * as Types from "../types";
+import { OMSData } from "./OMSData";
 
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
@@ -42,33 +42,41 @@ export const buildOmsCheckboxes = ({ name }: OmsCheckboxProps) => {
   });
 };
 
+interface Props extends Types.AgeGroups, Types.PerformanceMeasureDescriptions {
+  performanceMeasureArray: Types.RateFields[][];
+}
+
 /**
  * Final OMS built
  */
-export const OptionalMeasureStrat = () => {
-  const { watch, getValues, unregister } = useFormContext<Measure.Form>();
+
+type OMSType = Types.OptionalMeasureStratification & {
+  DataSource: string[];
+} & { MeasurementSpecification: string } & {
+  "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
+};
+
+export const OptionalMeasureStrat = ({
+  performanceMeasureArray,
+  ageGroups,
+  performanceMeasureDescriptions,
+}: Props) => {
+  const { watch, getValues, unregister } = useFormContext<OMSType>();
   const data = getValues();
+
   const dataSourceWatch = watch("DataSource");
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
-    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
-    data["PerformanceMeasure-AgeRates-Initiation-Other"],
-    data["PerformanceMeasure-AgeRates-Engagement-Other"],
-    data["PerformanceMeasure-AgeRates-Initiation-Total"],
-    data["PerformanceMeasure-AgeRates-Engagement-Total"],
-  ];
+  const watchDataSourceSwitch = watch("MeasurementSpecification");
+
   const register = useCustomRegister();
   const checkBoxOptions = buildOmsCheckboxes({
     ...register("OptionalMeasureStratification"),
   });
-  const watchDataSourceSwitch = watch("MeasurementSpecification");
+
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source) => source === "I am reporting provisional data."
+    ) ?? true;
 
   /**
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
@@ -82,7 +90,14 @@ export const OptionalMeasureStrat = () => {
   return (
     <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
       <PerformanceMeasureProvider
-        value={{ OPM, performanceMeasureArray, rateReadOnly, calcTotal: true }}
+        value={{
+          OPM,
+          performanceMeasureArray,
+          rateReadOnly,
+          calcTotal: true,
+          ageGroups,
+          performanceMeasureDescriptions,
+        }}
       >
         <CUI.Text py="3">
           If this measure is also reported by additional

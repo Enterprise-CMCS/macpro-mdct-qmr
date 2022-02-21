@@ -36,16 +36,6 @@ export interface CombinedRates {
   "CombinedRates-CombinedRates-Other-Explanation": string;
 }
 
-interface RateFields {
-  numerator?: string;
-  denominator?: string;
-  rate?: string;
-}
-
-interface OtherRatesFields {
-  description?: string[] | string;
-  rate?: RateFields[];
-}
 export interface OtherPerformanceMeasure {
   //Other Performance Measure
   "OtherPerformanceMeasure-Explanation": string;
@@ -89,4 +79,152 @@ export interface DidReport {
 export interface StatusOfData {
   DataStatus: string[];
   "DataStatus-ProvisionalExplanation": string;
+}
+
+export interface RateFields {
+  numerator?: string;
+  denominator?: string;
+  rate?: string;
+}
+
+export interface DeviationFields {
+  options: string[];
+  denominator: string;
+  numerator: string;
+  other: string;
+}
+
+interface AggregateRate {
+  subRate?: RateFields[];
+  total?: RateFields[];
+}
+
+export interface OtherRatesFields {
+  description?: string;
+  rate?: RateFields[];
+}
+
+interface OmsRateFields {
+  options?: string[];
+  rates?: {
+    /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
+    [rateLabel: string]: RateFields[];
+  };
+  total?: RateFields[];
+}
+
+interface LowLevelOmsNode {
+  // if just ndr sets
+  ageRangeRates?: OmsRateFields;
+
+  // for additional subCats/add anothers
+  subCatOptions?: string[];
+  subCategories?: {
+    description?: string;
+    ageRangeRates?: OmsRateFields;
+  }[];
+}
+
+interface MidLevelOMSNode extends LowLevelOmsNode {
+  // if sub-options
+  aggregate?: string;
+  options?: string[];
+  selections?: {
+    [option: string]: LowLevelOmsNode;
+  };
+}
+
+interface TopLevelOmsNode {
+  // top level child, ex: Race, Sex, Ethnicity
+  options?: string[]; // checkbox
+  additionalCategories?: string[]; // add another section
+  selections?: {
+    [option: string]: MidLevelOMSNode;
+  };
+  additionalSelections?: AddtnlOmsNode[];
+
+  // catch case for ACA
+  ageRangeRates?: OmsRateFields;
+}
+
+interface AddtnlOmsNode extends LowLevelOmsNode {
+  description?: string;
+}
+
+export interface AgeGroups {
+  ageGroups: string[];
+}
+
+export interface PerformanceMeasureDescriptions {
+  performanceMeasureDescriptions: string[];
+}
+
+export interface OptionalMeasureStratification {
+  //OptionalMeasureStratification
+  CategoriesReported: string[];
+
+  AddtnlEthnicity: string[];
+  AddtnlEthnicityRates: AggregateRate[];
+
+  AddtnlNonHispanicRace: string[];
+  AddtnlNonHispanicRaceRates: AggregateRate[];
+  AddtnlNonHispanicRaceSubCatTitle: { titles: string[] }[];
+  AddtnlNonHispanicRaceSubCatOptions: string[][];
+  AddtnlNonHispanicRaceSubCatRates: { rates: AggregateRate[] }[];
+
+  AddtnlNonHispanicSubCat: string[];
+  AddtnlNonHispanicSubCatRates: AggregateRate[];
+
+  NonHispanicRacialCategories: string[];
+  "NHRC-WhiteRates": AggregateRate;
+  "NHRC-BlackOrAfricanAmericanRates": AggregateRate;
+  "NHRC-AmericanIndianOrAlaskaNativeRates": AggregateRate;
+  "NHRC-AggregateAsianRates": AggregateRate;
+  "NHRC-IndependentAsianRates": AggregateRate[];
+  "NHRC-AggregateHawaiianOrPacificIslanderRates": AggregateRate;
+  "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
+
+  EthnicityCategories: string[];
+  EthnicitySubCategories: string[];
+  NonHispanicEthnicityRates: AggregateRate;
+  HispanicIndependentReporting: string;
+  HispanicEthnicityAggregateRate: AggregateRate;
+  IndependentHispanicOptions: string[];
+  IndependentHispanicRates: AggregateRate[];
+
+  AsianIndependentReporting: string;
+  IndependentAsianOptions: string[];
+  NativeHawaiianIndependentReporting: string;
+  IndependentNativeHawaiianOptions: string[];
+
+  SexOptions: string[];
+  MaleSexRates: AggregateRate;
+  FemaleSexRates: AggregateRate;
+
+  PrimaryLanguageOptions: string[];
+  AddtnlPrimaryLanguage: string[];
+  AddtnlPrimaryLanguageRates: AggregateRate[];
+  EnglishLanguageRate: AggregateRate;
+  SpanishLanguageRate: AggregateRate;
+
+  DisabilityStatusOptions: string[];
+  DisabilitySSIRate: AggregateRate;
+  DisabilityNonSSIRate: AggregateRate;
+  AddtnlDisabilityStatusDesc: string;
+  AddtnlDisabilityRate: AggregateRate;
+
+  GeographyOptions: string[];
+  UrbanGeographyRate: AggregateRate;
+  RuralGeographyRate: AggregateRate;
+  AddtnlGeographyDesc: string;
+  AddtnlGeographyRate: AggregateRate;
+
+  ACAGroupRate: AggregateRate;
+
+  OptionalMeasureStratification: {
+    options: string[]; //checkbox
+    selections: {
+      [option: string]: TopLevelOmsNode;
+    };
+  };
 }
