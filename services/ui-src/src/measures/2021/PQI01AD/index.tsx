@@ -36,7 +36,6 @@ export const PQI01AD = ({
     name: "OtherPerformanceMeasure-Rates",
   });
 
-  console.log({ watchMeasureSpecification });
   // Conditionals for Performance Measures
   const isAHRQ = watchMeasureSpecification === "AHRQ";
 
