@@ -21,7 +21,7 @@ export namespace Measure {
   }
 
   interface OtherRatesFields {
-    description: string[];
+    description: string;
     rate: RateFields[];
   }
 

@@ -2,7 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { ReactElement, cloneElement, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
@@ -68,7 +67,7 @@ export const MeasureWrapper = ({
   });
   const measureData = apiData?.Item;
 
-  const methods = useForm<Measure.Form>({
+  const methods = useForm({
     shouldUnregister: true,
     mode: "all",
     defaultValues: measureData?.data ?? undefined,
@@ -87,7 +86,7 @@ export const MeasureWrapper = ({
     validateAndSetErrors(data);
   };
 
-  const handleSave = (data: Measure.Form) => {
+  const handleSave = (data: any) => {
     if (!mutationRunning && !loadingData) {
       updateMeasure(
         {
@@ -135,7 +134,7 @@ export const MeasureWrapper = ({
     }
   };
 
-  const handleReportingResponse = (data: Measure.Form) => {
+  const handleReportingResponse = (data: any) => {
     if (
       data["DidReport"]?.toLocaleLowerCase()?.includes("yes") ||
       data["DidCollect"]?.toLocaleLowerCase()?.includes("yes")
@@ -211,6 +210,9 @@ export const MeasureWrapper = ({
       submitDataToServer({
         data,
         reporting: handleReportingResponse(data),
+        callback: () => {
+          navigate(-1);
+        },
       });
       setErrors(undefined);
     }
