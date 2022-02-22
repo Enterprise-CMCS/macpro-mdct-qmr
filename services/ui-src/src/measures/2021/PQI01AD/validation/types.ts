@@ -4,8 +4,6 @@ export namespace Measure {
     name: string;
     year: string;
     measureId: string;
-    handleSubmit?: any;
-    handleValidation?: any;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
