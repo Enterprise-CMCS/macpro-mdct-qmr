@@ -148,5 +148,3 @@ export const OptionalMeasureStrat = ({
     </QMR.CoreQuestionWrapper>
   );
 };
-
-export type OmsDataNode = OmsNode;
