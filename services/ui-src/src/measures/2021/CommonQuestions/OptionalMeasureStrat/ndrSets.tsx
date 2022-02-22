@@ -251,17 +251,15 @@ const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
 const OPMNDRSets = ({ name }: NdrProps) => {
   const { OPM = [], rateReadOnly } = usePerformanceMeasureContext();
   return (
-    <>
-      <QMR.Checkbox
-        name={`${name}.options`}
-        key={`${name}.options`}
-        options={renderOPMChckboxOptions({
-          OPM,
-          name,
-          rateReadOnly: !!rateReadOnly,
-        })}
-      />
-    </>
+    <QMR.Checkbox
+      name={`${name}.options`}
+      key={`${name}.options`}
+      options={renderOPMChckboxOptions({
+        OPM,
+        name,
+        rateReadOnly: !!rateReadOnly,
+      })}
+    />
   );
 };
 
@@ -274,13 +272,16 @@ export const NDRSets = ({ name }: NdrProps) => {
     <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
       {OPM && <OPMNDRSets name={name} key={name} />}
       {!OPM && <AgeGroupNDRSets name={name} key={name} />}
-      {/* {!OPM && calcTotal && (
+      {
+        //TODO: finish Total section for NDRs
+        /* {!OPM && calcTotal && (
         <CalcTotalNDR
           name={name}
           key={`${name}.TotalWrapper`}
           rateReadOnly={!!rateReadOnly}
         />
-      )} */}
+      )} */
+      }
     </CUI.VStack>
   );
 };

@@ -194,6 +194,7 @@ export const IETAD = ({
               performanceMeasureDescriptions={
                 PerformanceMeasureData.performanceMeasureDescriptions
               }
+              adultMeasure
             />
           )}
         </>

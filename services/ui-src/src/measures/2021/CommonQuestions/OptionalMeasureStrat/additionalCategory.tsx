@@ -39,19 +39,22 @@ export const AddAnotherSection = ({
         >
           <CUI.Text size={"2xl"} my="3">{`Additional ${parentName}`}</CUI.Text>
           <QMR.QuestionChild show key={field.id}>
-            <QMR.TextInput
-              name={`${name}.additionalSelections.${idx}.description`}
-              label={`Define the additional ${parentName}`}
-              rules={{ required: true }}
-            />
-            <NDRSets
-              name={`${name}.additionalSelections.${idx}.ageRangeRates`}
-            />
-            <>
-              {flagSubCat && (
-                <SubCatSection name={`${name}.additionalSelections.${idx}`} />
-              )}
-            </>
+            <CUI.Stack spacing={"5"}>
+              <QMR.TextInput
+                name={`${name}.additionalSelections.${idx}.description`}
+                label={`Define the additional ${parentName}`}
+                rules={{ required: true }}
+              />
+              <NDRSets
+                name={`${name}.additionalSelections.${idx}.ageRangeRates`}
+              />
+            </CUI.Stack>
+            {flagSubCat && (
+              <SubCatSection
+                name={`${name}.additionalSelections.${idx}`}
+                key={`${name}.additionalSelections.${idx}`}
+              />
+            )}
           </QMR.QuestionChild>
         </QMR.DeleteWrapper>
       ))}
