@@ -35,7 +35,7 @@ export const DateRangeError = ({ name }: { name: string }) => {
   const endYear = parseInt(range?.endDate?.selectedYear);
   const endMonth = parseInt(range?.endDate?.selectedMonth);
 
-  /* If the start date is after the end date, then reset the end date and then display a warning notification. */
+  /* If the start date is after the end date, then reset the end date and then display a temporary warning notification. */
   if (
     endYear.toString()?.length === 4 &&
     (startYear > endYear || (startMonth >= endMonth && startYear === endYear))
