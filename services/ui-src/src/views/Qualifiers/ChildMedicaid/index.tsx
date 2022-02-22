@@ -90,21 +90,7 @@ export const CCSMQualifiers = () => {
   };
 
   const validateAndSetErrors = (data: CCSMQualifierForm): boolean => {
-    const validationErrors = validationFunctions.reduce(
-      (acc: any, current: any) => {
-        const error = current(data);
-        let errorArray = [];
-
-        if (Array.isArray(error)) {
-          errorArray = [...error];
-        } else {
-          errorArray = [error];
-        }
-
-        return error ? [...acc, ...errorArray] : acc;
-      },
-      []
-    );
+    const validationErrors = Common.validateData(validationFunctions, data);
     setErrors(validationErrors.length > 0 ? validationErrors : undefined);
     return validationErrors.length > 0;
   };
