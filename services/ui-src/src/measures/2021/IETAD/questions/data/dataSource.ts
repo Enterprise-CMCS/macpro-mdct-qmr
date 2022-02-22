@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "../../../CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 
 export const data: DataDrivenTypes.DataSource = {
   optionsLabel:
@@ -14,14 +14,15 @@ export const data: DataDrivenTypes.DataSource = {
           },
           {
             value: "Administrative Data Other",
-            descriptionField: true,
           },
         ],
       },
     },
     {
+      value: "Electronic Health Records",
+    },
+    {
       value: "Other Data Source",
-      descriptionField: true,
     },
   ],
 };

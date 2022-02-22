@@ -31,15 +31,8 @@ export namespace Measure {
       Types.DidReport,
       Types.AdditionalNotes,
       Types.WhyAreYouNotReporting,
-      Types.StatusOfData {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-
+      Types.StatusOfData,
+      Types.DataSource {
     //MeasurementSpecification
     MeasurementSpecification: string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;

@@ -76,7 +76,7 @@ export const PQI05AD = ({
         <>
           <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
-          <Q.DataSource />
+          <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}

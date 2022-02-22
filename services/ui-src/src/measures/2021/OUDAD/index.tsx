@@ -92,7 +92,7 @@ export const OUDAD = ({
         <>
           <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
-          <Q.DataSource />
+          <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when CMS is selected from DataSource */}

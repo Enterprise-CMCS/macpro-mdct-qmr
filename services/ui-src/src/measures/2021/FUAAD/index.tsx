@@ -82,7 +82,7 @@ export const FUAAD = ({
         <>
           <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
-          <CMQ.DataSource data={Q.DataSourceData} />
+          <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}

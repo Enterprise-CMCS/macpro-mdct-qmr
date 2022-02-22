@@ -1,3 +1,4 @@
+import * as Types from "../../CommonQuestions/types";
 export namespace Measure {
   export interface Props {
     name: string;
@@ -43,7 +44,7 @@ export namespace Measure {
     options: DeviationCheckBoxOptions;
   }
 
-  export interface Form {
+  export interface Form extends Types.DataSource {
     //Report
     DidReport: string;
 

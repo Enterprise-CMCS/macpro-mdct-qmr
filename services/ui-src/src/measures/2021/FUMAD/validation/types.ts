@@ -34,15 +34,8 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.CombinedRates,
       Types.AdditionalNotes,
-      Types.OtherPerformanceMeasure {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-
+      Types.OtherPerformanceMeasure,
+      Types.DataSource {
     //MeasurementSpecification
     MeasurementSpecification: string;
     "MeasurementSpecification-HEDISVersion": string;
