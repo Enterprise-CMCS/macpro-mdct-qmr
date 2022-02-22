@@ -41,7 +41,9 @@ export const DateRangeError = ({ name }: { name: string }) => {
     (startYear > endYear || (startMonth >= endMonth && startYear === endYear))
   ) {
     const endDate = `${name}.endDate`;
-    resetField(endDate);
+    setTimeout(() => {
+      resetField(endDate);
+    });
     toast({
       status: "warning",
       description: "Start Date must be before the End Date",
