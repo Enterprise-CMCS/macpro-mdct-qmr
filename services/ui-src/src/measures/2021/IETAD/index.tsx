@@ -1,10 +1,10 @@
 import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
-import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import * as PerformanceMeasureData from "./questions/data/performanceMeasureData";
 
 export const IETAD = ({
   name,
@@ -18,7 +18,19 @@ export const IETAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
+  const { getValues } = useFormContext<Measure.Form>();
+  const data = getValues();
+
+  const performanceMeasureArray = [
+    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
+    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
+    data["PerformanceMeasure-AgeRates-Initiation-Other"],
+    data["PerformanceMeasure-AgeRates-Engagement-Other"],
+    data["PerformanceMeasure-AgeRates-Initiation-Total"],
+    data["PerformanceMeasure-AgeRates-Engagement-Total"],
+  ];
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({ name: "DidReport" });
@@ -175,7 +187,16 @@ export const IETAD = ({
             showEngageOther65Plus ||
             showInitTotal65Plus ||
             showEngageTotal65Plus ||
-            showOtherPerformanceMeasureRates) && <Q.OptionalMeasureStrat />}
+            showOtherPerformanceMeasureRates) && (
+            <CMQ.OptionalMeasureStrat
+              performanceMeasureArray={performanceMeasureArray}
+              ageGroups={PerformanceMeasureData.ageGroups}
+              performanceMeasureDescriptions={
+                PerformanceMeasureData.performanceMeasureDescriptions
+              }
+              adultMeasure
+            />
+          )}
         </>
       )}
       <CMQ.AdditionalNotes />

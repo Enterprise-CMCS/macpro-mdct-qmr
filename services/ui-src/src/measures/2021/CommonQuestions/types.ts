@@ -1,3 +1,5 @@
+import { OmsDataNode } from "./OptionalMeasureStrat";
+
 export interface DefinitionOfPopulation {
   DefinitionOfDenominator: string[];
   "DefinitionOfDenominator-Other": string;
@@ -36,16 +38,6 @@ export interface CombinedRates {
   "CombinedRates-CombinedRates-Other-Explanation": string;
 }
 
-interface RateFields {
-  numerator?: string;
-  denominator?: string;
-  rate?: string;
-}
-
-interface OtherRatesFields {
-  description?: string[] | string;
-  rate?: RateFields[];
-}
 export interface OtherPerformanceMeasure {
   //Other Performance Measure
   "OtherPerformanceMeasure-Explanation": string;
@@ -89,4 +81,90 @@ export interface DidReport {
 export interface StatusOfData {
   DataStatus: string[];
   "DataStatus-ProvisionalExplanation": string;
+}
+
+export interface RateFields {
+  numerator?: string;
+  denominator?: string;
+  rate?: string;
+}
+
+export interface DeviationFields {
+  options: string[];
+  denominator: string;
+  numerator: string;
+  other: string;
+}
+
+export interface OtherRatesFields {
+  description?: string;
+  rate?: RateFields[];
+}
+
+interface OmsRateFields {
+  options?: string[];
+  rates?: {
+    /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
+    [rateLabel: string]: RateFields[];
+  };
+  total?: RateFields[];
+}
+
+interface LowLevelOmsNode {
+  // if just ndr sets
+  ageRangeRates?: OmsRateFields;
+
+  // for additional subCats/add anothers
+  subCatOptions?: string[];
+  subCategories?: {
+    description?: string;
+    ageRangeRates?: OmsRateFields;
+  }[];
+}
+
+interface MidLevelOMSNode extends LowLevelOmsNode {
+  // if sub-options
+  aggregate?: string;
+  options?: string[];
+  selections?: {
+    [option: string]: LowLevelOmsNode;
+  };
+}
+
+interface TopLevelOmsNode {
+  // top level child, ex: Race, Sex, Ethnicity
+  options?: string[]; // checkbox
+  additionalCategories?: string[]; // add another section
+  selections?: {
+    [option: string]: MidLevelOMSNode;
+  };
+  additionalSelections?: AddtnlOmsNode[];
+
+  // catch case for ACA
+  ageRangeRates?: OmsRateFields;
+}
+
+interface AddtnlOmsNode extends LowLevelOmsNode {
+  description?: string;
+}
+
+export interface AgeGroups {
+  ageGroups: string[];
+}
+
+export interface PerformanceMeasureDescriptions {
+  performanceMeasureDescriptions: string[];
+}
+
+export interface OptionalMeasureStratification {
+  OptionalMeasureStratification: {
+    options: string[]; //checkbox
+    selections: {
+      [option: string]: TopLevelOmsNode;
+    };
+  };
+}
+
+export namespace DataDrivenTypes {
+  export type OptionalMeasureStrat = OmsDataNode[];
 }

@@ -59,14 +59,18 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
             {"Additional/Alternative Classification/Sub-category"}
           </CUI.Text>
           <QMR.QuestionChild show key={field.id}>
-            <QMR.TextInput
-              name={`${name}.additionalSubCategories.${idx}.description`}
-              label={"Define the Alternative Classification/Sub-category"}
-              rules={{ required: true }}
-            />
-            <NDRSets
-              name={`${name}.additionalSubCategories.${idx}.ageRangeRates`}
-            />
+            <CUI.Stack spacing={"5"}>
+              <QMR.TextInput
+                name={`${name}.additionalSubCategories.${idx}.description`}
+                key={`${name}.additionalSubCategories.${idx}.description`}
+                label={"Define the Alternative Classification/Sub-category"}
+                rules={{ required: true }}
+              />
+              <NDRSets
+                name={`${name}.additionalSubCategories.${idx}.ageRangeRates`}
+                key={`${name}.additionalSubCategories.${idx}.ageRangeRates`}
+              />
+            </CUI.Stack>
           </QMR.QuestionChild>
         </QMR.DeleteWrapper>
       ))}

@@ -1,16 +1,14 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 
-import { Measure } from "../../validation/types";
+import * as Types from "../types";
 import { usePerformanceMeasureContext } from "./context";
-import {
-  ageGroups,
-  performanceMeasureDescriptions,
-} from "../data/performanceMeasureData";
 
 interface NdrProps {
   /** name for react-hook-form registration */
   name: string;
+  // ageGroups: Types.AgeGroups;
+  // performanceMeasureDescriptions: Types.PerformanceMeasureDescriptions;
 }
 
 interface AgeGroupProps {
@@ -19,12 +17,14 @@ interface AgeGroupProps {
   /** should rate be user editable? */
   rateReadOnly: boolean;
   /** Which performance measure rates are filled in */
-  performanceMeasureArray?: Measure.RateFields[][];
+  performanceMeasureArray?: Types.RateFields[][];
+  ageGroups: string[];
+  performanceMeasureDescriptions: string[];
 }
 
 interface OPMProps {
   /** Rate fields and descs from OPM */
-  OPM: Measure.OtherRatesFields[];
+  OPM: Types.OtherRatesFields[];
   /** should rate be user editable? */
   rateReadOnly: boolean;
   /** name for react-hook-form registration */
@@ -41,16 +41,14 @@ interface OPMProps {
 interface NdrOptionBuilderProps extends AgeGroupProps {
   values: string[];
   addSecondaryRegisterTag: boolean;
-}
-interface NdrOptionBuilderProps extends AgeGroupProps {
-  values: string[];
-  addSecondaryRegisterTag: boolean;
+  performanceMeasureDescriptions: string[];
 }
 
 interface ConditionalRateBuilderProps {
   addSecondaryRegisterTag: boolean;
   rateReadOnly: boolean;
-  performanceMeasureArray: Measure.RateFields[][];
+  performanceMeasureArray: Types.RateFields[][];
+  performanceMeasureDescriptions: string[];
   majorIndex: number;
   value: string;
   name: string;
@@ -72,6 +70,7 @@ const buildConditionalRateArray = ({
   majorIndex,
   value,
   name,
+  performanceMeasureDescriptions,
 }: ConditionalRateBuilderProps) => {
   const ndrSets: React.ReactElement[] = [];
   const cleanedLabel = value?.replace(/[^\w]/g, "") ?? "CHECKBOX_VALUE_NOT_SET";
@@ -127,6 +126,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
   performanceMeasureArray = [[]],
   name,
   rateReadOnly,
+  performanceMeasureDescriptions,
 }: NdrOptionBuilderProps) => {
   const checkboxes: QMR.CheckboxOption[] = [];
 
@@ -139,6 +139,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
       rateReadOnly,
       majorIndex: i,
       name,
+      performanceMeasureDescriptions,
     });
     if (ndrSets.length) {
       const cleanedLabel = val.replace(/[^\w]/g, "");
@@ -164,17 +165,17 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
  * Builds Performance Measure AgeGroup Checkboxes
  */
 const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
-  if (!ageGroups.length) {
+  if (!props.ageGroups.length) {
     return buildPerformanceMeasureNDRCheckboxOptions({
       ...props,
       addSecondaryRegisterTag: false,
-      values: performanceMeasureDescriptions,
+      values: props.performanceMeasureDescriptions,
     });
   }
   return buildPerformanceMeasureNDRCheckboxOptions({
     ...props,
     addSecondaryRegisterTag: true,
-    values: ageGroups,
+    values: props.ageGroups,
   });
 };
 
@@ -182,12 +183,18 @@ const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
  * Builds NDRs for Performance Measure AgeGroups
  */
 const AgeGroupNDRSets = ({ name }: NdrProps) => {
-  const { performanceMeasureArray, rateReadOnly } =
-    usePerformanceMeasureContext();
+  const {
+    performanceMeasureArray,
+    rateReadOnly,
+    ageGroups,
+    performanceMeasureDescriptions,
+  } = usePerformanceMeasureContext();
   const ageGroupsOptions = buildAgeGroupsCheckboxes({
     name: name,
     rateReadOnly: !!rateReadOnly,
     performanceMeasureArray,
+    ageGroups,
+    performanceMeasureDescriptions,
   });
 
   return (
@@ -244,17 +251,15 @@ const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
 const OPMNDRSets = ({ name }: NdrProps) => {
   const { OPM = [], rateReadOnly } = usePerformanceMeasureContext();
   return (
-    <>
-      <QMR.Checkbox
-        name={`${name}.options`}
-        key={`${name}.options`}
-        options={renderOPMChckboxOptions({
-          OPM,
-          name,
-          rateReadOnly: !!rateReadOnly,
-        })}
-      />
-    </>
+    <QMR.Checkbox
+      name={`${name}.options`}
+      key={`${name}.options`}
+      options={renderOPMChckboxOptions({
+        OPM,
+        name,
+        rateReadOnly: !!rateReadOnly,
+      })}
+    />
   );
 };
 
@@ -267,13 +272,16 @@ export const NDRSets = ({ name }: NdrProps) => {
     <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
       {OPM && <OPMNDRSets name={name} key={name} />}
       {!OPM && <AgeGroupNDRSets name={name} key={name} />}
-      {/* {!OPM && calcTotal && (
+      {
+        //TODO: finish Total section for NDRs
+        /* {!OPM && calcTotal && (
         <CalcTotalNDR
           name={name}
           key={`${name}.TotalWrapper`}
           rateReadOnly={!!rateReadOnly}
         />
-      )} */}
+      )} */
+      }
     </CUI.VStack>
   );
 };
