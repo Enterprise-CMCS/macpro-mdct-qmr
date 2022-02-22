@@ -11,23 +11,9 @@ interface Props {
     label: string;
   }[];
   deviationConditions?: {
-    showInitAlcohol18To64: boolean;
-    showEngageAlcohol18To64: boolean;
-    showInitOpioid18To64: boolean;
-    showEngageOpioid18To64: boolean;
-    showInitOther18To64: boolean;
-    showEngageOther18To64: boolean;
-    showInitTotal18To64: boolean;
-    showEngageTotal18To64: boolean;
-    showInitAlcohol65Plus: boolean;
-    showEngageAlcohol65Plus: boolean;
-    showInitOpioid65Plus: boolean;
-    showEngageOpioid65Plus: boolean;
-    showInitOther65Plus: boolean;
-    showEngageOther65Plus: boolean;
-    showInitTotal65Plus: boolean;
-    showEngageTotal65Plus: boolean;
+    showModeratelyRates: boolean;
     showOtherPerformanceMeasureRates: boolean;
+    showReversibleRates: boolean;
   };
 }
 
@@ -38,7 +24,7 @@ interface SubComponentProps {
 export const DefaultOptionalMeasureStratProps: Props = {
   ageGroups: [
     { label: "Ages 18 to 64", id: 0 },
-    { label: "Age 65 and older", id: 1 },
+    { label: "Ages 65 and older", id: 1 },
   ],
 };
 
@@ -93,7 +79,7 @@ const AddAnotherButton = ({
 };
 
 const AgeData = ({ name }: SubComponentProps) => {
-  const { ageGroups, deviationConditions } = useContext(AgeDataContext);
+  const { ageGroups } = useContext(AgeDataContext);
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch for dataSource data
@@ -106,11 +92,12 @@ const AgeData = ({ name }: SubComponentProps) => {
     ) ?? true;
 
   return (
-    <CUI.Box key={`${name}.ageData`}>
+    <CUI.Box key={`${name}.contraceptionData`}>
       <QMR.Checkbox
-        name={`${name}.ageData`}
-        key={`${name}.ageData`}
-        options={ageGroups.map((item) => {
+        name={`${name}.contraceptionData`}
+        key={`${name}.contraceptionData`}
+        options={ageGroups.map((item, index) => {
+          const label = index === 0 ? "moderate-method" : "reversible-method";
           return {
             value: item.label.replace(/ /g, ""),
             displayValue: item.label,
@@ -119,164 +106,16 @@ const AgeData = ({ name }: SubComponentProps) => {
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Heading>,
-              // Dynamically hide or show children based on if other performance measuresections were completed
-              ...(deviationConditions?.showOtherPerformanceMeasureRates
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.OtherPerformance`}
-                      key={`${name}.subRates.${item.id}.OtherPerformance`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showInitAlcohol18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.showInitAlcohol65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitAlcohol`}
-                      key={`${name}.subRates.${item.id}.InitAlcohol`}
-                      rates={[
-                        {
-                          id: 0,
-                          label:
-                            "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showEngageAlcohol18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.showEngageAlcohol65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.EngageAlcohol`}
-                      key={`${name}.subRates.${item.id}.EngageAlcohol`}
-                      rates={[
-                        {
-                          id: 1,
-                          label:
-                            "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showInitOpioid18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.showInitOpioid65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitOpioid`}
-                      key={`${name}.subRates.${item.id}.InitOpioid`}
-                      rates={[
-                        {
-                          id: 0,
-                          label:
-                            "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showEngageOpioid18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.showEngageOpioid65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.EngageOpioid`}
-                      key={`${name}.subRates.${item.id}.EngageOpioid`}
-                      rates={[
-                        {
-                          id: 1,
-                          label:
-                            "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showInitOther18To64 && item.id === 0) ||
-              (deviationConditions?.showInitOther65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitOther`}
-                      key={`${name}.subRates.${item.id}.InitOther`}
-                      rates={[
-                        {
-                          id: 0,
-                          label:
-                            "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showEngageOther18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.showEngageOther65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.EngageOther`}
-                      key={`${name}.subRates.${item.id}.EngageOther`}
-                      rates={[
-                        {
-                          id: 1,
-                          label:
-                            "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showInitTotal18To64 && item.id === 0) ||
-              (deviationConditions?.showInitTotal65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.InitTotal`}
-                      key={`${name}.subRates.${item.id}.InitTotal`}
-                      rates={[
-                        {
-                          id: 0,
-                          label:
-                            "Initiation of AOD Treatment: AOD Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              ...((deviationConditions?.showEngageTotal18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.showEngageTotal65Plus && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.EngageTotal`}
-                      key={`${name}.subRates.${item.id}.EngageTotal`}
-                      rates={[
-                        {
-                          id: 1,
-                          label:
-                            "Engagement of AOD Treatment: AOD Abuse or Dependence",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
+              <QMR.Rate
+                readOnly={rateReadOnly}
+                name={`${name}.subRates.${item.id}.${label}`}
+                key={`${name}.subRates.${item.id}.${label}`}
+                rates={[
+                  {
+                    id: 1,
+                  },
+                ]}
+              />,
             ],
           };
         })}
@@ -331,6 +170,7 @@ export const OptionalMeasureStratification = ({
         values.AddtnlNonHispanicRaceSubCatTitle
       )
     );
+
   const [addtnlEthnicity, setAddtnlEthnicity] = useState(
     configInitialStateArray("AddtnlEthnicity", values.AddtnlEthnicity)
   );
@@ -566,7 +406,7 @@ export const OptionalMeasureStratification = ({
                                                 name={`AddtnlNonHispanicRaceSubCatTitle.${index}.titles.${subIndex}`}
                                               />
                                               <AgeData
-                                                name={`AddtnlNonHispanicRaceSubCatRates.${index}.${subIndex}`}
+                                                name={`AddtnlNonHispanicRaceSubCatRates.${index}.rates.${subIndex}`}
                                               />
                                               {subIndex + 1 ===
                                                 addtnlNonHispanicRaceSubCat[
@@ -694,27 +534,6 @@ export const OptionalMeasureStratification = ({
                 <AddAnotherButton
                   key="EthnicityAddition"
                   onClick={addEthnicity}
-                />,
-              ],
-            },
-            {
-              value: "Sex",
-              displayValue: "Sex",
-              children: [
-                <QMR.Checkbox
-                  {...register("SexOptions")}
-                  options={[
-                    {
-                      value: "Male",
-                      displayValue: "Male",
-                      children: [<AgeData {...register("MaleSexRates")} />],
-                    },
-                    {
-                      value: "Female",
-                      displayValue: "Female",
-                      children: [<AgeData {...register("FemaleSexRates")} />],
-                    },
-                  ]}
                 />,
               ],
             },

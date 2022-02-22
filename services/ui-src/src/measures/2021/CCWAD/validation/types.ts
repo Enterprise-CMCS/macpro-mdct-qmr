@@ -1,16 +1,11 @@
-import { ResolverResult } from "react-hook-form";
-export type CustomValidator = (res: ResolverResult) => ResolverResult;
-
 export namespace Measure {
-  export type CustomValidator = (res: ResolverResult) => ResolverResult;
-
   export interface Props {
     name: string;
     year: string;
     measureId: string;
-    setValidationFunctions?: React.Dispatch<
-      React.SetStateAction<CustomValidator[]>
-    >;
+    handleSubmit?: any;
+    handleValidation?: any;
+    setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
   interface RateFields {
@@ -19,20 +14,38 @@ export namespace Measure {
     rate: string;
   }
 
-  interface followUpDays {
-    followUpWithin30Days: RateFields[];
-    followUpWithin7Days: RateFields[];
+  interface AggregateRate {
+    subRate: RateFields[];
+    total: RateFields[];
   }
 
-  interface AggregateRate {
-    subRate: followUpDays[];
-    total: RateFields[];
+  interface OtherRatesFields {
+    description: string[];
+    rate: RateFields[];
+  }
+
+  interface ExplainDeviationFields {
+    numerator: string;
+    denominator: string;
+    other: string;
+  }
+
+  type DeviationCheckBoxOptions =
+    | "moderate-method-deviation-Numerator"
+    | "moderate-method-deviation-Denominator"
+    | "moderate-method-deviation-Other"
+    | "reversible-method-deviation-Numerator"
+    | "reversible-method-deviation-Denominator"
+    | "reversible-method-deviation-Other";
+
+  interface DeviationFromMeasureSpec {
+    explain: ExplainDeviationFields;
+    options: DeviationCheckBoxOptions;
   }
 
   export interface Form {
     //Report
     DidReport: string;
-    DidCollect: string;
 
     //Status
     DataStatus: string[];
@@ -75,7 +88,7 @@ export namespace Measure {
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": string[];
+    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
 
@@ -111,26 +124,15 @@ export namespace Measure {
     "DeliverySys-Other-Population": string;
 
     //DeviationFromMeasureSpec
+
+    "moderate-method-deviation": DeviationFromMeasureSpec;
+    "reversible-method-deviation": DeviationFromMeasureSpec;
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    FollowUpWithin30: string;
-    FollowUpWithin7: string;
-    "DeviationOptions-Within7-AgeRange": string[];
-    "DeviationOptions-Within30-AgeRange": string[];
-    "DeviationFields-Within7": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    }[];
-    "DeviationFields-Within30": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    }[];
+
+    //Performance Measure
     "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-30Days": {
+    "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate": {
       denominator: string;
       numerator: string;
       other: string;
@@ -138,7 +140,7 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    "PerformanceMeasure-AgeRates-7Days": {
+    "PerformanceMeasure-ReversibleMethodOfContraceptionRate": {
       denominator: string;
       numerator: string;
       other: string;
@@ -165,8 +167,9 @@ export namespace Measure {
 
     AddtnlNonHispanicRace: string[];
     AddtnlNonHispanicRaceRates: AggregateRate[];
-    AddtnlNonHispanicRaceSubCatTitle: string[][];
-    AddtnlNonHispanicRaceSubCatRates: AggregateRate[][];
+    AddtnlNonHispanicRaceSubCatTitle: { titles: string[] }[];
+    AddtnlNonHispanicRaceSubCatOptions: string[][];
+    AddtnlNonHispanicRaceSubCatRates: { rates: AggregateRate[] }[];
 
     AddtnlNonHispanicSubCat: string[];
     AddtnlNonHispanicSubCatRates: AggregateRate[];
