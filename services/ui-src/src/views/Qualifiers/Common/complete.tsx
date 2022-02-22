@@ -11,7 +11,7 @@ export const CompleteCoreSets = ({ handleValidation, type }: Props) => {
   const qualifierType = type === "AD" ? "Adult" : "Child";
 
   return (
-    <CUI.ListItem>
+    <CUI.ListItem data-cy="complete-CoreSet">
       <Common.QualifierHeader
         header={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS`}
         description={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS for review`}

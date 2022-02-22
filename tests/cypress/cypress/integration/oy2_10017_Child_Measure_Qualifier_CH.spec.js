@@ -392,7 +392,9 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       "have.text",
       "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS"
     );
-    cy.get(":nth-child(4) > .chakra-stack > .css-0").should(
+    cy.get(
+      "[data-cy='complete-CoreSet']  [data-cy='qualifier-header-description']"
+    ).should(
       "have.text",
       "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS for review"
     );
@@ -579,7 +581,9 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       "have.text",
       "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS"
     );
-    cy.get(":nth-child(4) > .chakra-stack > .css-0").should(
+    cy.get(
+      "[data-cy='complete-CoreSet']  [data-cy='qualifier-header-description']"
+    ).should(
       "have.text",
       "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS for review"
     );
@@ -765,7 +769,9 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       "have.text",
       "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS"
     );
-    cy.get(":nth-child(4) > .chakra-stack > .css-0").should(
+    cy.get(
+      "[data-cy='complete-CoreSet']  [data-cy='qualifier-header-description']"
+    ).should(
       "have.text",
       "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS for review"
     );
