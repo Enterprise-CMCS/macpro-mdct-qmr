@@ -57,7 +57,6 @@ export const ACSQualifiers = () => {
   });
 
   useEffect(() => {
-    debugger;
     if (!methods.formState.isDirty) {
       methods.reset(data?.Item?.data);
     }
@@ -65,6 +64,7 @@ export const ACSQualifiers = () => {
 
   const handleValidation = (data: ACSQualifierForm) => {
     validateAndSetErrors(data);
+    handleSave(data);
     console.log(data);
   };
 
@@ -120,6 +120,7 @@ export const ACSQualifiers = () => {
     setShowModal(false);
 
     if (continueWithErrors) {
+      const data = methods.getValues();
       handleSave(data, true);
       setErrors(undefined);
     }
