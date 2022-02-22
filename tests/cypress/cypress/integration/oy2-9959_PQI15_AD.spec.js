@@ -14,17 +14,37 @@ describe("Measure: PQI15-AD", () => {
     cy.displaysSectionsWhenUserIsReporting();
   });
 
-  // it("Ensure Data Source question includes Administrative Data, and Other Data Source selections.", () => {
-  //   // admin data
-  //   cy.get(
-  //     '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
-  //   ).should("be.visible");
+  it("User click on No option for the first question and fill out the form with No option", () => {
+    cy.get(".css-itvw0n").should(
+      "have.text",
+      "For technical questions regarding use of this application, please reach out to MDCT_Help@cms.hhs.gov. For content-related questions about measure specifications, or what information to enter in each field, please reach out to MACQualityTA@cms.hhs.gov."
+    );
+    cy.get("[data-cy=DidReport1]").click({ force: true });
+    cy.get(
+      "[data-cy=WhyAreYouNotReporting0] > .chakra-checkbox__control"
+    ).click({ force: true });
 
-  //   // other data source
-  //   cy.get(
-  //     '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
-  //   ).should("be.visible");
-  // });
+    cy.get(
+      "[data-cy=WhyAreYouNotReporting1] > .chakra-checkbox__control"
+    ).click();
+  });
+
+    /* ==== Test Created with Cypress Studio ==== */
+    it("File upload and button verification", function () {
+      const filePath = "/files/";
+      cy.xpath("//u[contains(text(),'browse')]").scrollIntoView();
+      const browseBTN = "//u[contains(text(),'browse')]";
+      cy.xpath(browseBTN).attachFile(filePath + "test3.docx", {
+        subjectType: "drag-n-drop",
+      });
+      cy.get(".css-9uu7yb > .chakra-text").should("be.visible");
+      cy.get('[data-cy="Validate Measure"]').should("be.visible");
+      cy.get('[data-cy="Complete Measure"]').should("be.visible");
+      cy.get("[data-cy=Save]").should("be.visible");
+      cy.get('[href="/MA/2021/ACS/PQI15-AD"]').should("be.visible");
+    });
+  
+  
 
   it("Rate calculation should be correct", () => {
     // select is reporting
