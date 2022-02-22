@@ -24,7 +24,7 @@ export namespace Measure {
     };
   }
   interface OtherRatesFields {
-    description: string[];
+    description: string;
     rate: RateFields[];
   }
 
@@ -35,8 +35,7 @@ export namespace Measure {
       Types.DefinitionOfPopulation,
       Types.StatusOfData,
       Types.DateRange,
-      Types.CombinedRates,
-      Types.OtherPerformanceMeasure {
+      Types.CombinedRates {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];

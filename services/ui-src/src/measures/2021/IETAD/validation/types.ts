@@ -7,22 +7,6 @@ export namespace Measure {
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
-  interface RateFields {
-    numerator: string;
-    denominator: string;
-    rate: string;
-  }
-
-  interface AggregateRate {
-    subRate: RateFields[];
-    total: RateFields[];
-  }
-
-  interface OtherRatesFields {
-    description: string[];
-    rate: RateFields[];
-  }
-
   export interface Form
     extends Types.DefinitionOfPopulation,
       Types.DateRange,
@@ -52,7 +36,7 @@ export namespace Measure {
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
+    "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
 
@@ -60,186 +44,38 @@ export namespace Measure {
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
     "DeviationOptions-InitAlcohol-AgeRange": string[];
-    "DeviationFields-InitAlcohol": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-InitAlcohol": Types.DeviationFields;
+
     "DeviationOptions-EngageAlcohol-AgeRange": string[];
-    "DeviationFields-EngageAlcohol": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-EngageAlcohol": Types.DeviationFields;
+
     "DeviationOptions-InitOpioid-AgeRange": string[];
-    "DeviationFields-InitOpioid": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-InitOpioid": Types.DeviationFields;
+
     "DeviationOptions-EngageOpioid-AgeRange": string[];
-    "DeviationFields-EngageOpioid": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-EngageOpioid": Types.DeviationFields;
+
     "DeviationOptions-InitOther-AgeRange": string[];
-    "DeviationFields-InitOther": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-InitOther": Types.DeviationFields;
+
     "DeviationOptions-EngageOther-AgeRange": string[];
-    "DeviationFields-EngageOther": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-EngageOther": Types.DeviationFields;
+
     "DeviationOptions-InitTotal-AgeRange": string[];
-    "DeviationFields-InitTotal": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-InitTotal": Types.DeviationFields;
+
     "DeviationOptions-EngageTotal-AgeRange": string[];
-    "DeviationFields-EngageTotal": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+    "DeviationFields-EngageTotal": Types.DeviationFields;
+
+    //PerformanceMeasure
     "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-Initiation-Alcohol": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Engagement-Alcohol": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Initiation-Opioid": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Engagement-Opioid": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Initiation-Other": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Engagement-Other": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Initiation-Total": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-Engagement-Total": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-
-    //OptionalMeasureStratification
-    CategoriesReported: string[];
-
-    AddtnlEthnicity: string[];
-    AddtnlEthnicityRates: AggregateRate[];
-
-    AddtnlNonHispanicRace: string[];
-    AddtnlNonHispanicRaceRates: AggregateRate[];
-    AddtnlNonHispanicRaceSubCatTitle: { titles: string[] }[];
-    AddtnlNonHispanicRaceSubCatOptions: string[][];
-    AddtnlNonHispanicRaceSubCatRates: { rates: AggregateRate[] }[];
-
-    AddtnlNonHispanicSubCat: string[];
-    AddtnlNonHispanicSubCatRates: AggregateRate[];
-
-    NonHispanicRacialCategories: string[];
-    "NHRC-WhiteRates": AggregateRate;
-    "NHRC-BlackOrAfricanAmericanRates": AggregateRate;
-    "NHRC-AmericanIndianOrAlaskaNativeRates": AggregateRate;
-    "NHRC-AggregateAsianRates": AggregateRate;
-    "NHRC-IndependentAsianRates": AggregateRate[];
-    "NHRC-AggregateHawaiianOrPacificIslanderRates": AggregateRate;
-    "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
-
-    EthnicityCategories: string[];
-    EthnicitySubCategories: string[];
-    NonHispanicEthnicityRates: AggregateRate;
-    HispanicIndependentReporting: string;
-    HispanicEthnicityAggregateRate: AggregateRate;
-    IndependentHispanicOptions: string[];
-    IndependentHispanicRates: AggregateRate[];
-
-    AsianIndependentReporting: string;
-    IndependentAsianOptions: string[];
-    NativeHawaiianIndependentReporting: string;
-    IndependentNativeHawaiianOptions: string[];
-
-    SexOptions: string[];
-    MaleSexRates: AggregateRate;
-    FemaleSexRates: AggregateRate;
-
-    PrimaryLanguageOptions: string[];
-    AddtnlPrimaryLanguage: string[];
-    AddtnlPrimaryLanguageRates: AggregateRate[];
-    EnglishLanguageRate: AggregateRate;
-    SpanishLanguageRate: AggregateRate;
-
-    DisabilityStatusOptions: string[];
-    DisabilitySSIRate: AggregateRate;
-    DisabilityNonSSIRate: AggregateRate;
-    AddtnlDisabilityStatusDesc: string;
-    AddtnlDisabilityRate: AggregateRate;
-
-    GeographyOptions: string[];
-    UrbanGeographyRate: AggregateRate;
-    RuralGeographyRate: AggregateRate;
-    AddtnlGeographyDesc: string;
-    AddtnlGeographyRate: AggregateRate;
-
-    ACAGroupRate: AggregateRate;
+    "PerformanceMeasure-AgeRates-Initiation-Alcohol": Types.RateFields[];
+    "PerformanceMeasure-AgeRates-Engagement-Alcohol": Types.RateFields[];
+    "PerformanceMeasure-AgeRates-Initiation-Opioid": Types.RateFields[];
+    "PerformanceMeasure-AgeRates-Engagement-Opioid": Types.RateFields[];
+    "PerformanceMeasure-AgeRates-Initiation-Other": Types.RateFields[];
+    "PerformanceMeasure-AgeRates-Engagement-Other": Types.RateFields[];
+    "PerformanceMeasure-AgeRates-Initiation-Total": Types.RateFields[];
+    "PerformanceMeasure-AgeRates-Engagement-Total": Types.RateFields[];
   }
 }

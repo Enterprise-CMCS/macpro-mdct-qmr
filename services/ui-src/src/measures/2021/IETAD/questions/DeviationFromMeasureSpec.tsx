@@ -315,7 +315,7 @@ export const DeviationFromMeasureSpec = ({
                         {
                           value: "ShowInitTotal",
                           displayValue:
-                            "Initiation of AOD Treatment: AOD Abuse or Dependence",
+                            "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
                           children: [
                             <QMR.Checkbox
                               {...register(
@@ -338,7 +338,7 @@ export const DeviationFromMeasureSpec = ({
                         {
                           value: "ShowEngageTotal",
                           displayValue:
-                            "Engagement of AOD Treatment: AOD Abuse or Dependence",
+                            "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
                           children: [
                             <QMR.Checkbox
                               {...register(
