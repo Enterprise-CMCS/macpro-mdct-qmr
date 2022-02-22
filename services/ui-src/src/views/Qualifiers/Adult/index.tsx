@@ -9,6 +9,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useUpdateMeasure, useGetMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { useQueryClient } from "react-query";
+import { validationFunctions } from "./validationFunctions";
+import { v4 as uuidv4 } from "uuid";
 
 export const ACSQualifiers = () => {
   const { state, year } = useParams();
@@ -16,9 +18,7 @@ export const ACSQualifiers = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [validationFunctions, setValidationFunctions] = useState<Function[]>(
-    []
-  );
+  const [errors, setErrors] = useState<any[]>();
 
   // get qualifier data and prepoulate default values if data exists
   const { data } = useGetMeasure({
@@ -57,6 +57,7 @@ export const ACSQualifiers = () => {
   });
 
   useEffect(() => {
+    debugger;
     if (!methods.formState.isDirty) {
       methods.reset(data?.Item?.data);
     }
@@ -110,7 +111,8 @@ export const ACSQualifiers = () => {
       },
       []
     );
-
+    console.log(validationErrors);
+    setErrors(validationErrors.length > 0 ? validationErrors : undefined);
     return validationErrors.length > 0;
   };
 
@@ -119,6 +121,7 @@ export const ACSQualifiers = () => {
 
     if (continueWithErrors) {
       handleSave(data, true);
+      setErrors(undefined);
     }
   };
 
@@ -167,6 +170,20 @@ export const ACSQualifiers = () => {
               />
             </CUI.OrderedList>
           </CUI.Box>
+          {errors?.map((error, index) => (
+            <QMR.Notification
+              key={uuidv4()}
+              alertProps={{ my: "3" }}
+              alertStatus="error"
+              alertTitle={`${error.errorLocation} Error`}
+              alertDescription={error.errorMessage}
+              close={() => {
+                const newErrors = [...errors];
+                newErrors.splice(index, 1);
+                setErrors(newErrors);
+              }}
+            />
+          ))}
         </form>
       </FormProvider>
     </QMR.StateLayout>
