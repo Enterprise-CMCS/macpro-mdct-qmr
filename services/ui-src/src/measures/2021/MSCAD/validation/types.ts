@@ -31,16 +31,11 @@ export namespace Measure {
       Types.AdditionalNotes,
       Types.WhyAreYouNotReporting,
       Types.CombinedRates,
-      Types.OtherPerformanceMeasure {
+      Types.OtherPerformanceMeasure,
+      Types.MeasurementSpecification {
     //DataSource
     "DataSource-CAHPS-Version": string;
     "DataSource-CAHPS-Version-Other": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;

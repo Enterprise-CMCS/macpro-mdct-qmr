@@ -31,7 +31,8 @@ export namespace Measure {
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.CombinedRates,
-      Types.OtherPerformanceMeasure {
+      Types.OtherPerformanceMeasure,
+      Types.MeasurementSpecification {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -39,11 +40,6 @@ export namespace Measure {
     "DataSource-Administrative-Other-Explanation"?: string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;

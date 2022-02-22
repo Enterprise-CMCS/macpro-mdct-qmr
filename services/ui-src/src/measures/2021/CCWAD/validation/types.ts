@@ -1,3 +1,5 @@
+import * as Types from "../../CommonQuestions/types";
+
 export namespace Measure {
   export interface Props {
     name: string;
@@ -41,7 +43,7 @@ export namespace Measure {
     options: DeviationCheckBoxOptions;
   }
 
-  export interface Form {
+  export interface Form extends Types.MeasurementSpecification {
     //Report
     DidReport: string;
 
@@ -61,12 +63,6 @@ export namespace Measure {
     CombinedRates: string;
     "CombinedRates-CombinedRates": string;
     "CombinedRates-CombinedRates-Other-Explanation": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 
     //WhyAreYouNotReporting
     WhyAreYouNotReporting: string[];

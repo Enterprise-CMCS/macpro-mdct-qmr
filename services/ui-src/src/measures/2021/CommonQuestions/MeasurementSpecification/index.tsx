@@ -20,15 +20,15 @@ const HEDISChildren = () => {
         options={[
           {
             displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
-            value: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
+            value: "HEDIS MY 2020",
           },
           {
             displayValue: "HEDIS 2020 (FFY 2020 Core Set Reporting)",
-            value: "HEDIS 2020 (FFY 2020 Core Set Reporting)",
+            value: "HEDIS 2020",
           },
           {
             displayValue: "HEDIS 2019 (FFY 2019 Core Set Reporting)",
-            value: "HEDIS 2019 (FFY 2019 Core Set Reporting)",
+            value: "HEDIS 2019",
           },
         ]}
       />
@@ -37,7 +37,7 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA";
+  type: "HEDIS" | "OPA" | "AHRQ" | "CMS";
 }
 
 const specifications = {
@@ -48,8 +48,17 @@ const specifications = {
     children: [<HEDISChildren />],
   },
   OPA: {
-    displayValue: "U.S. Office of Population Affairs (OPA)",
-    value: "US-OPA",
+    displayValue: "HHS Office of Population Affairs (OPA)",
+    value: "OPA",
+  },
+  AHRQ: {
+    displayValue:
+      "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
+    value: "AHRQ/HEDIS",
+  },
+  CMS: {
+    displayValue: "Centers for Medicare & Medicaid Services (CMS)",
+    value: "CMS",
   },
 };
 

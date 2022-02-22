@@ -1,10 +1,19 @@
 import { OmsDataNode } from "./OptionalMeasureStrat";
 
 export interface MeasurementSpecification {
-  //MeasurementSpecification
-  MeasurementSpecification: string;
-  "MeasurementSpecification-HEDISVersion": string;
+  // Selected Measurement Specification
+  MeasurementSpecification: "NCQA/HEDIS" | "OPA" | "AHRQ/HEDIS" | "CMS";
+
+  // if Measure Spec is NCQA/HEDIS -> which version are they using
+  "MeasurementSpecification-HEDISVersion":
+    | "HEDIS MY 2020"
+    | "HEDIS 2020"
+    | "HEDIS 2019";
+
+  // If user selects "Other measurement specification" -> this is the description
   "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
+
+  // If user selects "Other measurement specification" -> this is optional file upload
   "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 }
 

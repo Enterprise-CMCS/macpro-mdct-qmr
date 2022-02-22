@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -72,7 +73,7 @@ export const CCWAD = ({ setValidationFunctions }: Measure.Props) => {
       {!watchReportingRadio?.includes("No") && (
         <>
           <Q.Status />
-          <Q.MeasurementSpecification />
+          <CMQ.MeasurementSpecification type="OPA" />
           <Q.DataSource />
           <Q.DateRange type="adult" />
           <Q.DefinitionOfPopulation />

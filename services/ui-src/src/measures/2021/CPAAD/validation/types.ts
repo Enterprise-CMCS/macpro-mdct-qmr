@@ -6,7 +6,9 @@ export namespace Measure {
     year: string;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
-  export interface Form extends Types.AdditionalNotes {
+  export interface Form
+    extends Types.AdditionalNotes,
+      Types.MeasurementSpecification {
     //Report
     DidCollect: string;
 
@@ -21,12 +23,6 @@ export namespace Measure {
     "DataSource-CAHPS-Version-Other": string;
     "DataSource-Admin-Protocol": string;
     "DataSource-Admin-Protocol-Other": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 
     //WhyDidYouNotCollect
     WhyDidYouNotCollect: string[];
