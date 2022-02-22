@@ -54,7 +54,7 @@ const specifications = {
   AHRQ: {
     displayValue:
       "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
-    value: "AHRQ/HEDIS",
+    value: "AHRQ",
   },
   CMS: {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",

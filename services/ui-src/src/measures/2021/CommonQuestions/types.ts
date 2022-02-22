@@ -2,7 +2,7 @@ import { OmsDataNode } from "./OptionalMeasureStrat";
 
 export interface MeasurementSpecification {
   // Selected Measurement Specification
-  MeasurementSpecification: "NCQA/HEDIS" | "OPA" | "AHRQ/HEDIS" | "CMS";
+  MeasurementSpecification: "NCQA/HEDIS" | "OPA" | "AHRQ" | "CMS";
 
   // if Measure Spec is NCQA/HEDIS -> which version are they using
   "MeasurementSpecification-HEDISVersion":
@@ -87,7 +87,7 @@ export interface DateRange {
   };
 }
 export interface WhyAreYouNotReporting {
-  // if a user is not reporting -> the reason they are not reporting
+  // if a user is not reporting -> the reason(s) they are not reporting
   WhyAreYouNotReporting: Array<
     | "ServiceNotCovered"
     | "PopulationNotCovered"
