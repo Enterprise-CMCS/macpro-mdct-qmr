@@ -32,93 +32,6 @@ const TestComponent2 = () => {
   return <Rate rates={rates} name="test-component" readOnly={false} />;
 };
 
-const TestTotalComponent = () => {
-  const rates = [
-    {
-      label: "test1",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 1,
-    },
-    {
-      label: "test2",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 2,
-    },
-    {
-      label: "total",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 3,
-      isTotal: true,
-    },
-  ];
-
-  return <Rate rates={rates} name="test-total-component" readOnly={false} />;
-};
-
-describe.only("Test the total Rate component", () => {
-  beforeEach(() => {
-    renderWithHookForm(<TestTotalComponent />, {
-      defaultValues: {
-        "test-total-component": [
-          {
-            numerator: "1",
-            denominator: "1",
-            rate: "1",
-          },
-          {
-            numerator: "2",
-            denominator: "2",
-            rate: "1",
-          },
-        ],
-      },
-    });
-  });
-
-  test("Check that the components render and include their labels", () => {
-    expect(screen.getByText(/test1/i)).toBeVisible();
-    expect(screen.getByText(/test2/i)).toBeVisible();
-    expect(screen.getByText(/total/i)).toBeVisible();
-  });
-
-  test("Check numerators for expected default values", () => {
-    expect(screen.getAllByLabelText(/numerator/i)[0]).toHaveValue("1");
-    expect(screen.getAllByLabelText(/numerator/i)[1]).toHaveValue("2");
-    expect(screen.getAllByLabelText(/numerator/i)[2]).toHaveValue("");
-  });
-
-  test("Check denominators for expected default values", () => {
-    expect(screen.getAllByLabelText(/denominator/i)[0]).toHaveValue("1");
-    expect(screen.getAllByLabelText(/denominator/i)[1]).toHaveValue("2");
-    expect(screen.getAllByLabelText(/denominator/i)[2]).toHaveValue("");
-  });
-
-  test("Check that numerator total is calculated correctly", () => {
-    const numerator1 = screen.getAllByLabelText(/numerator/i)[0];
-    const numerator2 = screen.getAllByLabelText(/numerator/i)[1];
-
-    const numeratorTotal = screen.getAllByLabelText(/numerator/i)[2];
-    const denominatorTotal = screen.getAllByLabelText(/denominator/i)[2];
-
-    // Change the numerator from 1 to 5
-    userEvent.type(numerator1, "5");
-    expect(numerator1).toHaveValue("5");
-    // Expect the rate to add the numerator (5) and denominator (2)
-    expect(numeratorTotal).toHaveValue("7");
-    expect(denominatorTotal).toHaveValue("3");
-
-    userEvent.type(numerator2, "5");
-    expect(numerator2).toHaveValue("5");
-    expect(numeratorTotal).toHaveValue("10");
-  });
-});
-
 describe("Test the Rate component", () => {
   beforeEach(() => {
     renderWithHookForm(<TestComponent />, {
@@ -188,5 +101,219 @@ describe("Test non-readonly rate component", () => {
     fireEvent.type(rateTextBox, "43");
 
     expect(rateTextBox).toHaveDisplayValue("43");
+  });
+});
+
+const TestComponentWithTotal = () => {
+  // Rates that include a total field
+  const rates = [
+    {
+      label: "test1",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 1,
+    },
+    {
+      label: "test2",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 2,
+    },
+    {
+      label: "total",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 3,
+      isTotal: true,
+    },
+  ];
+
+  return <Rate rates={rates} name="test-total-component" readOnly={false} />;
+};
+
+describe.only("Test the Rate component when it includes a total NDR", () => {
+  beforeEach(() => {
+    renderWithHookForm(<TestComponentWithTotal />, {
+      defaultValues: {
+        "test-total-component": [
+          {
+            numerator: "1",
+            denominator: "1",
+            rate: "1",
+          },
+          {
+            numerator: "2",
+            denominator: "2",
+            rate: "1",
+          },
+        ],
+      },
+    });
+  });
+
+  /* Iterate over all NDRs of rate component and confirm values match provided expectedValues. */
+  const checkNDRs = (expectedValues: any) => {
+    screen.getAllByLabelText(/numerator/i).forEach((numerator, index) => {
+      expect(numerator).toHaveValue(expectedValues[index].numerator);
+    });
+    screen.getAllByLabelText(/denominator/i).forEach((numerator, index) => {
+      expect(numerator).toHaveValue(expectedValues[index].denominator);
+    });
+    screen.getAllByLabelText(/rate/i).forEach((numerator, index) => {
+      expect(numerator).toHaveValue(expectedValues[index].rate);
+    });
+  };
+
+  test("Check that the components render and include their labels", () => {
+    expect(screen.getByText(/test1/i)).toBeVisible();
+    expect(screen.getByText(/test2/i)).toBeVisible();
+    expect(screen.getByText(/total/i)).toBeVisible();
+  });
+
+  test("Check that the component renders with the correct default values", () => {
+    const expectedValues = [
+      {
+        label: "test1",
+        numerator: "1",
+        denominator: "1",
+        rate: "1",
+      },
+      {
+        label: "test2",
+        numerator: "2",
+        denominator: "2",
+        rate: "1",
+      },
+      {
+        label: "total",
+        numerator: "",
+        denominator: "",
+        rate: "",
+      },
+    ];
+
+    checkNDRs(expectedValues);
+  });
+
+  test("Check that user input in a non-total field triggers total calculation", () => {
+    // Change the test2 numerator from 2 to 1
+    const numeratorToChange = screen.getAllByLabelText(/numerator/i)[1];
+    userEvent.type(numeratorToChange, "1");
+
+    const expectedValues = [
+      {
+        label: "test1",
+        numerator: "1",
+        denominator: "1",
+        rate: "1",
+      },
+      {
+        label: "test2",
+        numerator: "1",
+        denominator: "2",
+        rate: "50.0",
+      },
+      {
+        label: "total",
+        numerator: "2",
+        denominator: "3",
+        rate: "66.7",
+      },
+    ];
+
+    checkNDRs(expectedValues);
+
+    // Change the test1 denominator from 1 to 5
+    const denominatorToChange = screen.getAllByLabelText(/denominator/i)[0];
+    userEvent.type(denominatorToChange, "5");
+
+    expectedValues[0] = {
+      label: "test1",
+      numerator: "1",
+      denominator: "5",
+      rate: "20.0",
+    };
+    expectedValues[2] = {
+      label: "total",
+      numerator: "2",
+      denominator: "7",
+      rate: "28.6",
+    };
+
+    checkNDRs(expectedValues);
+  });
+
+  test("Check that if numerator > denominator, the calculated total rate should be empty", () => {
+    // Change the numerator from 1 to 5
+    const numeratorToChange = screen.getAllByLabelText(/numerator/i)[0];
+    userEvent.type(numeratorToChange, "5");
+
+    const expectedValues = [
+      {
+        label: "test1",
+        numerator: "5",
+        denominator: "1",
+        rate: "",
+      },
+      {
+        label: "test2",
+        numerator: "2",
+        denominator: "2",
+        rate: "1",
+      },
+      {
+        label: "total",
+        numerator: "7",
+        denominator: "3",
+        rate: "",
+      },
+    ];
+
+    checkNDRs(expectedValues);
+  });
+
+  test("Check that user input in a total field does not trigger total calculation", () => {
+    // Manually set the total numerator
+    const numeratorToChange = screen.getAllByLabelText(/numerator/i)[2];
+    userEvent.type(numeratorToChange, "5");
+
+    const expectedValues = [
+      {
+        label: "test1",
+        numerator: "1",
+        denominator: "1",
+        rate: "1",
+      },
+      {
+        label: "test2",
+        numerator: "2",
+        denominator: "2",
+        rate: "1",
+      },
+      {
+        label: "total",
+        numerator: "5",
+        denominator: "",
+        rate: "",
+      },
+    ];
+
+    checkNDRs(expectedValues);
+
+    // Manually set the total denominator
+    const denominatorToChange = screen.getAllByLabelText(/denominator/i)[2];
+    userEvent.type(denominatorToChange, "10");
+
+    expectedValues[2] = {
+      label: "total",
+      numerator: "5",
+      denominator: "10",
+      rate: "50.0",
+    };
+
+    checkNDRs(expectedValues);
   });
 });
