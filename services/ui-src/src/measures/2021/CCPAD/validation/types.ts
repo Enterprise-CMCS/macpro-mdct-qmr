@@ -35,7 +35,8 @@ export namespace Measure {
       Types.DefinitionOfPopulation,
       Types.StatusOfData,
       Types.DateRange,
-      Types.CombinedRates {
+      Types.CombinedRates,
+      Types.MeasurementSpecification {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -49,28 +50,6 @@ export namespace Measure {
     "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
     "DataSource-ElectronicHealthRecords"?: string;
     "DataSource-ElectronicHealthRecords-Explanation"?: string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
-
-    //WhyAreYouNotReporting
-    WhyAreYouNotReporting: string[];
-    AmountOfPopulationNotCovered: string;
-    PopulationNotCovered: string;
-    PartialPopulationNotCoveredExplanation: string;
-    WhyIsDataNotAvailable: string;
-    "WhyIsDataNotAvailable-Other": string;
-    DataIconAccuracyIssues: string;
-    DataSourceNotEasilyAccessible: string;
-    "DataSourceNotEasilyAccessible-Other": string;
-    InformationNotCollected: string;
-    "InformationNotCollected-Other": string;
-    LimitationWithDatCollecitonReportAccuracyCovid: string;
-    SmallSampleSizeLessThan30: string;
-    "WhyAreYouNotReporting-Other": string;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;

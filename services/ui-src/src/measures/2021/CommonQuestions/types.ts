@@ -1,5 +1,13 @@
 import { OmsDataNode } from "./OptionalMeasureStrat";
 
+export interface MeasurementSpecification {
+  //MeasurementSpecification
+  MeasurementSpecification: string;
+  "MeasurementSpecification-HEDISVersion": string;
+  "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
+  "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
+}
+
 export interface DefinitionOfPopulation {
   DefinitionOfDenominator: string[];
   "DefinitionOfDenominator-Other": string;

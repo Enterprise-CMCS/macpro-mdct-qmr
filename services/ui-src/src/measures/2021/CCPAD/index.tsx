@@ -94,7 +94,7 @@ export const CCPAD = ({
       {!watchReportingRadio?.includes("No") && (
         <>
           <CMQ.StatusOfData />
-          <Q.MeasurementSpecification />
+          <CMQ.MeasurementSpecification type="OPA" />
           <Q.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
