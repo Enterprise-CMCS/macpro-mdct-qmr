@@ -54,6 +54,10 @@ export const CCSCQualifiers = () => {
     }
   }, [data, methods]);
 
+  const handleValidation = (data: CCSCQualifierForm) => {
+    console.log(data);
+  };
+
   const handleSubmit = (data: CCSCQualifierForm) => {
     const requestData = {
       data,
@@ -104,7 +108,10 @@ export const CCSCQualifiers = () => {
               <DeliverySystems />
               <Common.Audit type="CH" />
               <Common.ExternalContractor />
-              <Common.CompleteCoreSets type="CH" />
+              <Common.CompleteCoreSets
+                handleValidation={handleValidation}
+                type="CH"
+              />
             </CUI.OrderedList>
           </CUI.Box>
         </form>

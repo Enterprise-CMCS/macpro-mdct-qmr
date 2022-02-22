@@ -58,6 +58,10 @@ export const ACSQualifiers = () => {
     }
   }, [data, methods]);
 
+  const handleValidation = (data: ACSQualifierForm) => {
+    console.log(data);
+  };
+
   const handleSubmit = (data: ACSQualifierForm) => {
     const requestData = {
       data,
@@ -108,7 +112,10 @@ export const ACSQualifiers = () => {
               <DeliverySystems />
               <Common.Audit type="AD" />
               <Common.ExternalContractor />
-              <Common.CompleteCoreSets type="AD" />
+              <Common.CompleteCoreSets
+                handleValidation={handleValidation}
+                type="AD"
+              />
             </CUI.OrderedList>
           </CUI.Box>
         </form>
