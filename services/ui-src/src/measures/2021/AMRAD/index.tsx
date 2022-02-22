@@ -1,4 +1,5 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -73,7 +74,7 @@ export const AMRAD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
@@ -81,11 +82,12 @@ export const AMRAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
+          <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
@@ -101,7 +103,7 @@ export const AMRAD = ({
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          <CMQ.CombinedRates />
           {(showPersistentAsthma19To50 ||
             showPersistentAsthma51To64 ||
             showPersistentAsthmaTotal ||
@@ -118,7 +120,7 @@ export const AMRAD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };
