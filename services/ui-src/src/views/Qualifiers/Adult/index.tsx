@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { DeliverySystems } from "./deliverySystems";
@@ -15,6 +15,10 @@ export const ACSQualifiers = () => {
   const mutation = useUpdateMeasure();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [validationFunctions, setValidationFunctions] = useState<Function[]>(
+    []
+  );
 
   // get qualifier data and prepoulate default values if data exists
   const { data } = useGetMeasure({
@@ -59,10 +63,21 @@ export const ACSQualifiers = () => {
   }, [data, methods]);
 
   const handleValidation = (data: ACSQualifierForm) => {
+    validateAndSetErrors(data);
     console.log(data);
   };
 
   const handleSubmit = (data: ACSQualifierForm) => {
+    const validatedErrors = validateAndSetErrors(data);
+    // proceed to submit?
+    if (validatedErrors) {
+      setShowModal(true);
+    } else {
+      handleSave(data, true);
+    }
+  };
+
+  const handleSave = (data: ACSQualifierForm, navigateAway?: boolean) => {
     const requestData = {
       data,
       measure: "CSQ",
@@ -74,9 +89,37 @@ export const ACSQualifiers = () => {
       onSuccess: () => {
         // refetch the qualifier measure and redirect to measure list page
         queryClient.refetchQueries(["measure", state, year, "CSQ"]);
-        navigate(`/${state}/${year}/${CoreSetAbbr.ACS}`);
+        navigateAway && navigate(`/${state}/${year}/${CoreSetAbbr.ACS}`);
       },
     });
+  };
+
+  const validateAndSetErrors = (data: ACSQualifierForm): boolean => {
+    const validationErrors = validationFunctions.reduce(
+      (acc: any, current: any) => {
+        const error = current(data);
+        let errorArray = [];
+
+        if (Array.isArray(error)) {
+          errorArray = [...error];
+        } else {
+          errorArray = [error];
+        }
+
+        return error ? [...acc, ...errorArray] : acc;
+      },
+      []
+    );
+
+    return validationErrors.length > 0;
+  };
+
+  const handleValidationModalResponse = (continueWithErrors: boolean) => {
+    setShowModal(false);
+
+    if (continueWithErrors) {
+      handleSave(data, true);
+    }
   };
 
   return (
@@ -99,6 +142,12 @@ export const ACSQualifiers = () => {
       }
     >
       <FormProvider {...methods}>
+        <QMR.YesNoModalDialog
+          isOpen={showModal}
+          headerText="Validation Error"
+          handleModalResponse={handleValidationModalResponse}
+          bodyText="There are still errors on this measure, would you still like to complete?"
+        />
         <QMR.AdminMask />
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="5xl" as="section">
@@ -113,7 +162,7 @@ export const ACSQualifiers = () => {
               <Common.Audit type="AD" />
               <Common.ExternalContractor />
               <Common.CompleteCoreSets
-                handleValidation={handleValidation}
+                handleValidation={methods.handleSubmit(handleValidation)}
                 type="AD"
               />
             </CUI.OrderedList>

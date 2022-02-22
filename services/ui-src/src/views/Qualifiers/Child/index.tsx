@@ -59,10 +59,19 @@ export const CCSQualifiers = () => {
   }, [data, methods]);
 
   const handleValidation = (data: CCSQualifierForm) => {
+    // handle save
+    handleSave(data);
+    // validateAndSetErrors
     console.log(data);
   };
 
   const handleSubmit = (data: CCSQualifierForm) => {
+    // validateAndSetErrors
+    // proceed to submit?
+    handleSave(data, true);
+  };
+
+  const handleSave = (data: CCSQualifierForm, navigateAway?: boolean) => {
     const requestData = {
       data,
       measure: "CSQ",
@@ -74,7 +83,7 @@ export const CCSQualifiers = () => {
       onSuccess: () => {
         // refetch the qualifier measure and redirect to measure list page
         queryClient.refetchQueries(["measure", state, year, "CSQ"]);
-        navigate(`/${state}/${year}/${CoreSetAbbr.CCS}`);
+        navigateAway && navigate(`/${state}/${year}/${CoreSetAbbr.CCS}`);
       },
     });
   };
@@ -113,7 +122,7 @@ export const CCSQualifiers = () => {
               <Common.Audit type="CH" />
               <Common.ExternalContractor />
               <Common.CompleteCoreSets
-                handleValidation={handleValidation}
+                handleValidation={methods.handleSubmit(handleValidation)}
                 type="CH"
               />
             </CUI.OrderedList>
