@@ -93,12 +93,19 @@ jobs:
             lbwCH.spec.feature,
             lrcdCH.spec.feature,
             nciddsAD.spec.feature,
+            oy2_7763_FAQ_Page_State_View.spec.js,
+            oy2_8977_MSC_AD.spec.js,
+            oy2_9907_OUD_AD.spec.feature,
             oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
             oy2_14767_Allow_files_to_be_uploaded_to_s3.spec.feature,
             oy2_15013_Update_user_auth_handling_in_ui.spec.feature,
+            oy2_15211_Reporting_in_FY21_Tag_for_Alt_Data_Sources.spec.js,
             oy2_15212_qmr_mdct_logo.spec.feature,
             oy2_15504_Measure_validation_Error_Creation_Updates.spec.feature,
+            oy2-9954_PQI01AD.spec.js,
             pdentCH.spec.feature,
+            oy2_8976_Measure_14_CCW_AD.spec.js,
+            oy2_16039_Data_source_Rate_to_auto_calculate_in_OPM.spec.js,
           ]
     steps:
       - name: set branch_name
