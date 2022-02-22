@@ -62,6 +62,7 @@ export interface OtherPerformanceMeasure {
   "OtherPerformanceMeasure-Notes": string;
   "OtherPerformanceMeasure-Rates-TextInput": string;
 }
+
 export interface DateRange {
   DateRange: {
     endDate: {
