@@ -27,7 +27,7 @@ export const currentYear = parseInt(format(new Date(), "yyyy"));
 export const currentMonth = parseInt(format(new Date(), "M"));
 
 export const DateRangeError = ({ name }: { name: string }) => {
-  const { resetField, watch } = useFormContext();
+  const { setValue, watch } = useFormContext();
   const range = watch(name);
   const toast = CUI.useToast();
   const startYear = parseInt(range?.startDate?.selectedYear);
@@ -43,14 +43,14 @@ export const DateRangeError = ({ name }: { name: string }) => {
       (startYear > endYear || (startMonth >= endMonth && startYear === endYear))
     ) {
       const endDate = `${name}.endDate`;
-      resetField(endDate);
+      setValue(endDate, {});
       toast({
         status: "warning",
         description: "Start Date must be before the End Date",
         duration: 4000,
       });
     }
-  }, [endMonth, endYear, resetField, name, startMonth, startYear, toast]);
+  }, [endMonth, endYear, setValue, name, startMonth, startYear, toast]);
 
   /* If the start date is a future date, then display a warning notification. */
   if (
