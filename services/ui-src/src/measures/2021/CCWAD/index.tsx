@@ -1,10 +1,16 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 
-export const CCWAD = ({ setValidationFunctions }: Measure.Props) => {
+export const CCWAD = ({
+  setValidationFunctions,
+  measureId,
+  name,
+  year,
+}: Measure.Props) => {
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
@@ -67,15 +73,19 @@ export const CCWAD = ({ setValidationFunctions }: Measure.Props) => {
 
   return (
     <>
-      <Q.Reporting />
+      <CMQ.Reporting
+        measureAbbreviation={measureId}
+        measureName={name}
+        reportingYear={year}
+      />
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
-          <Q.MeasurementSpecification />
+          <CMQ.StatusOfData />
+          <CMQ.MeasurementSpecification type="OPA" />
           <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isOpa && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
@@ -91,7 +101,7 @@ export const CCWAD = ({ setValidationFunctions }: Measure.Props) => {
           )}
           {/* Show Other Performance Measures when isOpa is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          <CMQ.CombinedRates />
           {(showReversibleRates ||
             showModeratelyRates ||
             showOtherPerformanceMeasureRates) && (
@@ -106,7 +116,7 @@ export const CCWAD = ({ setValidationFunctions }: Measure.Props) => {
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };
