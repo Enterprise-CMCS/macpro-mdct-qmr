@@ -18,6 +18,7 @@ interface DataSourceCheckboxBuilderProps {
 type DSCBFunc = ({
   data,
 }: DataSourceCheckboxBuilderProps) => QMR.CheckboxOption[];
+
 type DSCBChildFunc = ({
   data,
 }: DataSourceCheckboxBuilderProps) => React.ReactElement[];
@@ -62,23 +63,6 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         parentName: adjustedParentName,
       }),
     ];
-
-    //NOTE: possibly removed, unclear AC
-    if (node.descriptionField) {
-      children.push(
-        <QMR.TextArea
-          label={`Describe ${
-            node.value.includes("Other") ? "Other" : node.value
-          } Data Source:`}
-          name={`DataSourceSelections.${
-            parentName ?? cleanedNodeValue
-          }.descriptions.${adjustedParentName}`}
-          key={`DataSourceSelections.${
-            parentName ?? cleanedNodeValue
-          }.descriptions.${adjustedParentName}`}
-        />
-      );
-    }
 
     checkBoxOptions.push({
       value: cleanedNodeValue,

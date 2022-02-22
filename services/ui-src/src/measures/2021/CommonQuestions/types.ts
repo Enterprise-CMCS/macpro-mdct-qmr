@@ -98,9 +98,6 @@ export interface DataSource {
   DataSourceSelections: {
     [label: string]: {
       selected: string[];
-      descriptions?: {
-        [label: string]: string;
-      };
     };
   };
   DataSourceDescription: string;

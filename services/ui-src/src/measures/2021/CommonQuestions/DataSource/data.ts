@@ -1,6 +1,5 @@
 export interface OptionNode {
   value: string;
-  descriptionField?: boolean;
   subOptions?: {
     label?: string;
     options: OptionNode[];
@@ -26,18 +25,12 @@ export const defaultData: DataSourceData = {
           },
           {
             value: "Administrative Data Other",
-            descriptionField: true,
           },
         ],
       },
     },
     {
-      value: "Electronic Health Records",
-      descriptionField: true,
-    },
-    {
       value: "Other Data Source",
-      descriptionField: true,
     },
   ],
 };
