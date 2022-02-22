@@ -65,12 +65,10 @@ export const ACSQualifiers = () => {
   const handleValidation = (data: ACSQualifierForm) => {
     validateAndSetErrors(data);
     handleSave(data);
-    console.log(data);
   };
 
   const handleSubmit = (data: ACSQualifierForm) => {
     const validatedErrors = validateAndSetErrors(data);
-    // proceed to submit?
     if (validatedErrors) {
       setShowModal(true);
     } else {
@@ -111,7 +109,6 @@ export const ACSQualifiers = () => {
       },
       []
     );
-    console.log(validationErrors);
     setErrors(validationErrors.length > 0 ? validationErrors : undefined);
     return validationErrors.length > 0;
   };

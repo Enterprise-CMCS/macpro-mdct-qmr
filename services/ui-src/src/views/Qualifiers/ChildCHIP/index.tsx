@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { DeliverySystems } from "./deliverySystems";
@@ -9,12 +9,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useUpdateMeasure, useGetMeasure } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { useQueryClient } from "react-query";
+import { validationFunctions } from "./validationFunctions";
+import { v4 as uuidv4 } from "uuid";
 
 export const CCSCQualifiers = () => {
   const { state, year } = useParams();
   const mutation = useUpdateMeasure();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [errors, setErrors] = useState<any[]>();
 
   // get qualifier data and prepoulate default values if data exists
   const { data } = useGetMeasure({
@@ -55,16 +59,17 @@ export const CCSCQualifiers = () => {
   }, [data, methods]);
 
   const handleValidation = (data: CCSCQualifierForm) => {
-    // handle save
+    validateAndSetErrors(data);
     handleSave(data);
-    // validateAndSetErrors
-    console.log(data);
   };
 
   const handleSubmit = (data: CCSCQualifierForm) => {
-    // validateAndSetErrors
-    // proceed to submit?
-    handleSave(data, true);
+    const validatedErrors = validateAndSetErrors(data);
+    if (validatedErrors) {
+      setShowModal(true);
+    } else {
+      handleSave(data, true);
+    }
   };
 
   const handleSave = (data: CCSCQualifierForm, navigateAway?: boolean) => {
@@ -82,6 +87,36 @@ export const CCSCQualifiers = () => {
         navigateAway && navigate(`/${state}/${year}/${CoreSetAbbr.CCSC}`);
       },
     });
+  };
+
+  const validateAndSetErrors = (data: CCSCQualifierForm): boolean => {
+    const validationErrors = validationFunctions.reduce(
+      (acc: any, current: any) => {
+        const error = current(data);
+        let errorArray = [];
+
+        if (Array.isArray(error)) {
+          errorArray = [...error];
+        } else {
+          errorArray = [error];
+        }
+
+        return error ? [...acc, ...errorArray] : acc;
+      },
+      []
+    );
+    setErrors(validationErrors.length > 0 ? validationErrors : undefined);
+    return validationErrors.length > 0;
+  };
+
+  const handleValidationModalResponse = (continueWithErrors: boolean) => {
+    setShowModal(false);
+
+    if (continueWithErrors) {
+      const data = methods.getValues();
+      handleSave(data, true);
+      setErrors(undefined);
+    }
   };
 
   return (
@@ -104,6 +139,12 @@ export const CCSCQualifiers = () => {
       }
     >
       <FormProvider {...methods}>
+        <QMR.YesNoModalDialog
+          isOpen={showModal}
+          headerText="Validation Error"
+          handleModalResponse={handleValidationModalResponse}
+          bodyText="There are still errors on this measure, would you still like to complete?"
+        />
         <QMR.AdminMask />
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="5xl" as="section">
@@ -123,6 +164,20 @@ export const CCSCQualifiers = () => {
               />
             </CUI.OrderedList>
           </CUI.Box>
+          {errors?.map((error, index) => (
+            <QMR.Notification
+              key={uuidv4()}
+              alertProps={{ my: "3" }}
+              alertStatus="error"
+              alertTitle={`${error.errorLocation} Error`}
+              alertDescription={error.errorMessage}
+              close={() => {
+                const newErrors = [...errors];
+                newErrors.splice(index, 1);
+                setErrors(newErrors);
+              }}
+            />
+          ))}
         </form>
       </FormProvider>
     </QMR.StateLayout>
