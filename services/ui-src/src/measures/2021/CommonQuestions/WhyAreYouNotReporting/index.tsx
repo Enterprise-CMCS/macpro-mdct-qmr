@@ -64,7 +64,7 @@ export const WhyAreYouNotReporting = () => {
                     children: [
                       <QMR.TextArea
                         label="Explain the Data inconsistencies/Accuracy issues:"
-                        {...register("DataIconAccuracyIssues")}
+                        {...register("DataInconsistenciesAccuracyIssues")}
                       />,
                     ],
                   },

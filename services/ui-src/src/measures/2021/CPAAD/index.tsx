@@ -22,7 +22,7 @@ export const CPAAD = ({ name, year }: Measure.Props) => {
       {!watchReportingRadio?.includes("No") && (
         <>
           <Q.HowDidYouReport />
-          <Q.MeasurementSpecification />
+          <CMQ.MeasurementSpecification type="AHRQ" />
           <Q.DataSource />
           <Q.DefinitionOfPopulation />
           <Q.PerformanceMeasure />
