@@ -60,7 +60,7 @@ export const Rate = ({
       prevRate[index]["isTotal"] = rate.isTotal ?? undefined;
     });
     field.onChange([...prevRate]);
-  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const changeRate = (
     index: number,
