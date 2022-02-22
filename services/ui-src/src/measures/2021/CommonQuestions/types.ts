@@ -46,12 +46,23 @@ export interface DefinitionOfPopulation {
 }
 
 export interface AdditionalNotes {
+  // Additional notes or comments on the measure
   "AdditionalNotes-AdditionalNotes": string;
+
+  // Additional attachments upload
   "AdditionalNotes-Upload": File[];
 }
 export interface CombinedRates {
-  CombinedRates: string;
-  "CombinedRates-CombinedRates": string;
+  // if the user combined rates from multiple reporting units
+  CombinedRates: "Yes, combine" | "No, did not combine";
+
+  // if the user combined rates -> the reporting units they combined
+  "CombinedRates-CombinedRates":
+    | "Combined Not Weighted Rates"
+    | "Combined Weighted Rates"
+    | "Combined Weighted Rates Other";
+
+  // if the user selected "Combined Weighted Rates Other" -> the explaination of the other weighing factor
   "CombinedRates-CombinedRates-Other-Explanation": string;
 }
 
@@ -76,19 +87,62 @@ export interface DateRange {
   };
 }
 export interface WhyAreYouNotReporting {
-  WhyAreYouNotReporting: string[];
-  AmountOfPopulationNotCovered: string;
-  PopulationNotCovered: string;
+  // if a user is not reporting -> the reason they are not reporting
+  WhyAreYouNotReporting: Array<
+    | "ServiceNotCovered"
+    | "PopulationNotCovered"
+    | "DataNotAvailable"
+    | "LimitationWithDatCollecitonReportAccuracyCovid"
+    | "SmallSampleSizeLessThan30"
+    | "Other"
+  >;
+
+  // if "PopulationNotCovered" selected in "WhyAreYouNotReporting"
+  AmountOfPopulationNotCovered:
+    | "EntirePopulationNotCovered"
+    | "PartialPopulationNotCovered";
+
+  // if "PartialPopulationNotCovered" in "WhyAreYouNotReporting" selected -> explaination of the population not covered
   PartialPopulationNotCoveredExplanation: string;
-  WhyIsDataNotAvailable: string;
+
+  // if "DataNotAvailable" selected in "WhyAreYouNotReporting"
+  WhyIsDataNotAvailable: Array<
+    | "BudgetConstraints"
+    | "StaffConstraints"
+    | "DataSourceNotEasilyAccessible"
+    | "DataInconsistenciesAccuracyIssues"
+    | "InformationNotCollected"
+    | "Other"
+  >;
+
+  // if "Other" selected in "WhyIsDataNotAvailable" -> an explaination
   "WhyIsDataNotAvailable-Other": string;
-  DataIconAccuracyIssues: string;
-  DataSourceNotEasilyAccessible: string;
+
+  // if "DataInconsistenciesAccuracyIssues" selected in "WhyIsDataNotAvailable" -> an explaination
+  DataInconsistenciesAccuracyIssues: string;
+
+  // if "DataSourceNotEasilyAccessible" selected in "WhyIsDataNotAvailable"
+  DataSourceNotEasilyAccessible: Array<
+    "RequiresMedicalRecordReview" | "RequireDataLinkage" | "Other"
+  >;
+
+  // if "Other" selected in "DataSourceNotEasilyAccessible" -> an explaination
   "DataSourceNotEasilyAccessible-Other": string;
-  InformationNotCollected: string;
+
+  InformationNotCollected: Array<
+    "NotCollectedByProviderHospitalHealthPlan" | "Other"
+  >;
+
+  // if "Other" selected in "InformationNotCollected" -> an explaination
   "InformationNotCollected-Other": string;
+
+  // if "LimitationWithDatCollecitonReportAccuracyCovid" selected in "WhyAreYouNotReporting" -> an explaination
   LimitationWithDatCollecitonReportAccuracyCovid: string;
+
+  // if "SmallSampleSizeLessThan30" in "WhyAreYouNotReporting" -> an explaination of sample size
   SmallSampleSizeLessThan30: string;
+
+  // if "Other" selected in "WhyAreYouNotReporting" -> an explaination
   "WhyAreYouNotReporting-Other": string;
 }
 

@@ -31,7 +31,7 @@ export namespace Measure {
     PartialPopulationNotCoveredExplanation: string;
     WhyIsDataNotAvailable: string;
     "WhyIsDataNotAvailable-Other": string;
-    DataIconAccuracyIssues: string;
+    DataInconsistenciesAccuracyIssues: string;
     DataSourceNotEasilyAccessible: string;
     "DataSourceNotEasilyAccessible-Other": string;
     InformationNotCollected: string;
