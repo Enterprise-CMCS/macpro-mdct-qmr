@@ -1,8 +1,10 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import * as PerformanceMeasureData from "./questions/data/performanceMeasureData";
 
 export const IETAD = ({
   name,
@@ -17,6 +19,18 @@ export const IETAD = ({
   }, [setValidationFunctions]);
 
   const { getValues } = useFormContext<Measure.Form>();
+  const data = getValues();
+
+  const performanceMeasureArray = [
+    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
+    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
+    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
+    data["PerformanceMeasure-AgeRates-Initiation-Other"],
+    data["PerformanceMeasure-AgeRates-Engagement-Other"],
+    data["PerformanceMeasure-AgeRates-Initiation-Total"],
+    data["PerformanceMeasure-AgeRates-Engagement-Total"],
+  ];
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({ name: "DidReport" });
@@ -115,7 +129,7 @@ export const IETAD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
@@ -123,11 +137,11 @@ export const IETAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
+          <CMQ.StatusOfData />
           <Q.MeasurementSpecification />
           <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
@@ -155,8 +169,8 @@ export const IETAD = ({
             />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          <CMQ.CombinedRates />
           {(showInitAlcohol18To64 ||
             showEngageAlcohol18To64 ||
             showInitOpioid18To64 ||
@@ -173,10 +187,19 @@ export const IETAD = ({
             showEngageOther65Plus ||
             showInitTotal65Plus ||
             showEngageTotal65Plus ||
-            showOtherPerformanceMeasureRates) && <Q.OptionalMeasureStrat />}
+            showOtherPerformanceMeasureRates) && (
+            <CMQ.OptionalMeasureStrat
+              performanceMeasureArray={performanceMeasureArray}
+              ageGroups={PerformanceMeasureData.ageGroups}
+              performanceMeasureDescriptions={
+                PerformanceMeasureData.performanceMeasureDescriptions
+              }
+              adultMeasure
+            />
+          )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };
