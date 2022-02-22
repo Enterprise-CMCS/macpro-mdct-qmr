@@ -20,6 +20,11 @@ export namespace Measure {
     total: RateFields[];
   }
 
+  interface OtherRatesFields {
+    description: string[];
+    rate: RateFields[];
+  }
+
   export interface Form
     extends Types.DefinitionOfPopulation,
       Types.DateRange,
@@ -27,8 +32,7 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.StatusOfData,
       Types.AdditionalNotes,
-      Types.CombinedRates,
-      Types.OtherPerformanceMeasure {
+      Types.CombinedRates {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -42,6 +46,12 @@ export namespace Measure {
     "MeasurementSpecification-HEDISVersion": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
     "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
+
+    //Other Performance Measure
+    "OtherPerformanceMeasure-Explanation": string;
+    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
+    "OtherPerformanceMeasure-Notes": string;
+    "OtherPerformanceMeasure-Rates-TextInput": string;
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
