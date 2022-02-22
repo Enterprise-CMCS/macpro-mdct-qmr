@@ -1,8 +1,10 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const PQI15AD = ({
   name,
@@ -19,18 +21,18 @@ export const PQI15AD = ({
   const { getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
-  const watchReportingRadio = useWatch({
+  const watchReportingRadio = useWatch<Measure.Form>({
     name: "DidReport",
   });
-  const watchMeasureSpecification = useWatch({
+  const watchMeasureSpecification = useWatch<Measure.Form>({
     name: "MeasurementSpecification",
   });
 
-  const watchPerformanceMeasureAgeRates = useWatch({
+  const watchPerformanceMeasureAgeRates = useWatch<Measure.Form>({
     name: "PerformanceMeasure-AgeRates",
   });
 
-  const watchOtherPerformanceMeasureRates = useWatch({
+  const watchOtherPerformanceMeasureRates = useWatch<Measure.Form>({
     name: "OtherPerformanceMeasure-Rates",
   });
 
@@ -64,7 +66,7 @@ export const PQI15AD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
@@ -72,18 +74,23 @@ export const PQI15AD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
-          <Q.MeasurementSpecification />
+          <CMQ.StatusOfData />
+          <CMQ.MeasurementSpecification type="AHRQ" />
           <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isAHRQ && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
           {isAHRQ && <Q.DeviationFromMeasureSpec />}
           {/* Show Other Performance Measures when isAHRQ is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && (
+            <CMQ.OtherPerformanceMeasure
+              rateMultiplicationValue={100000}
+              customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+            />
+          )}
+          <CMQ.CombinedRates />
           {(showAges18To64 ||
             showAges65AndOlder ||
             showOtherPerformanceMeasureRates) && (
@@ -98,7 +105,7 @@ export const PQI15AD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };
