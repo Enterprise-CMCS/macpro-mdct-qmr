@@ -57,6 +57,12 @@ export const OtherPerformanceMeasure = ({
                 label="For example, specify the age groups and whether you are reporting on a certain indicator:"
                 name={`OtherPerformanceMeasure-Rates.${index}.description`}
               />
+              {!rateReadOnly && (
+                <CUI.Text py="2" fontWeight="700">
+                  “Rate will auto-calculate. Please review the auto-calculated
+                  rate and revise if needed.”
+                </CUI.Text>
+              )}
               <QMR.Rate
                 rates={[
                   {
