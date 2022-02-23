@@ -1,6 +1,11 @@
-import { Measure } from "measures/types";
 import * as QMR from "components";
-export const LRCDCH = ({ name, year }: Measure.Props) => {
+
+interface Props {
+  name: string;
+  year: string;
+}
+
+export const LRCDCH = ({ name, year }: Props) => {
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}

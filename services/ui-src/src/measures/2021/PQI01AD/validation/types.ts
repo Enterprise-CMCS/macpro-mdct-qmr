@@ -1,10 +1,9 @@
+import * as Types from "../../CommonQuestions/types";
 export namespace Measure {
   export interface Props {
     name: string;
     year: string;
     measureId: string;
-    handleSubmit?: any;
-    handleValidation?: any;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
@@ -20,18 +19,20 @@ export namespace Measure {
   }
 
   interface OtherRatesFields {
-    description: string[];
+    description: string;
     rate: RateFields[];
   }
 
-  export interface Form {
-    //Report
-    DidReport: string;
-
-    //Status
-    DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string;
-
+  export interface Form
+    extends Types.DefinitionOfPopulation,
+      Types.StatusOfData,
+      Types.DateRange,
+      Types.AdditionalNotes,
+      Types.DidReport,
+      Types.WhyAreYouNotReporting,
+      Types.CombinedRates,
+      Types.OtherPerformanceMeasure,
+      Types.MeasurementSpecification {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -40,68 +41,11 @@ export namespace Measure {
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
 
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
-
-    //WhyAreYouNotReporting
-    WhyAreYouNotReporting: string[];
-    AmountOfPopulationNotCovered: string;
-    PopulationNotCovered: string;
-    PartialPopulationNotCoveredExplanation: string;
-    WhyIsDataNotAvailable: string;
-    "WhyIsDataNotAvailable-Other": string;
-    DataIconAccuracyIssues: string;
-    DataSourceNotEasilyAccessible: string;
-    "DataSourceNotEasilyAccessible-Other": string;
-    InformationNotCollected: string;
-    "InformationNotCollected-Other": string;
-    LimitationWithDatCollecitonReportAccuracyCovid: string;
-    SmallSampleSizeLessThan30: string;
-    "WhyAreYouNotReporting-Other": string;
-
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //AdditionalNotes
-    "AdditionalNotes-AdditionalNotes"?: string;
-    "AdditionalNotes-Upload"?: File[];
-
-    //DefinitionOfPopulation
-    DefinitionOfDenominator: string[];
-    "DefinitionOfDenominator-Other": string;
-    ChangeInPopulationExplanation: string;
-    DenominatorDefineTotalTechSpec: string;
-    "DenominatorDefineTotalTechSpec-No-Explanation": string;
-    "DenominatorDefineTotalTechSpec-No-Size": string;
-    DeliverySysRepresentationDenominator: string[];
-    "DeliverySys-FreeForService": string;
-    "DeliverySys-FreeForService-No-Percent": string;
-    "DeliverySys-FreeForService-No-Population": string;
-    "DeliverySys-PrimaryCareManagement": string;
-    "DeliverySys-PrimaryCareManagement-No-Percent": string;
-    "DeliverySys-PrimaryCareManagement-No-Population": string;
-    "DeliverySys-MCO_POHP": string;
-    "DeliverySys-MCO_POHP-Percent": string;
-    "DeliverySys-MCO_POHP-NumberOfPlans": string;
-    "DeliverySys-MCO_POHP-No-Included": string;
-    "DeliverySys-MCO_POHP-No-Excluded": string;
-    "DeliverySys-IntegratedCareModel": string;
-    "DeliverySys-IntegratedCareModel-No-Percent": string;
-    "DeliverySys-IntegratedCareModel-No-Population": string;
-    "DeliverySys-Other": string;
-    "DeliverySys-Other-Percent": string;
-    "DeliverySys-Other-NumberOfHealthPlans": string;
-    "DeliverySys-Other-Population": string;
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
@@ -123,16 +67,6 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    DateRange: {
-      endDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-      startDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-    };
 
     //OptionalMeasureStratification
     CategoriesReported: string[];
