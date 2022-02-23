@@ -63,7 +63,7 @@ export const PQI15AD = ({
         measureAbbreviation={measureId}
       />
 
-      {!watchReportingRadio?.includes("No") && (
+      {!(watchReportingRadio as string)?.includes("No") && (
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="AHRQ" />
