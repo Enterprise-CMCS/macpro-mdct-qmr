@@ -24,7 +24,7 @@ export const defaultData: DataSourceData = {
             value: "Medicaid Management Information System (MMIS)",
           },
           {
-            value: "Administrative Data Other",
+            value: "Other",
           },
         ],
       },

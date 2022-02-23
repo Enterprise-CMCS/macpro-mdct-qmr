@@ -13,7 +13,7 @@ export const data: DataDrivenTypes.DataSource = {
             value: "Medicaid Management Information System (MMIS)",
           },
           {
-            value: "Administrative Data Other",
+            value: "Other",
           },
         ],
       },
