@@ -102,7 +102,7 @@ export const AMRAD = ({
             />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {(showPersistentAsthma19To50 ||
             showPersistentAsthma51To64 ||
