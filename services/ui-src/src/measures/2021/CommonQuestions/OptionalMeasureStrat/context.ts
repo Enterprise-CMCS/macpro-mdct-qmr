@@ -6,7 +6,7 @@ interface ContextProps {
   performanceMeasureArray?: Types.RateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
-  performanceMeasureDescriptions: string[];
+  performanceMeasureDescriptions?: string[];
   ageGroups: string[];
 }
 

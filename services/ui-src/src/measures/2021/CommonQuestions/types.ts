@@ -225,7 +225,7 @@ export interface AgeGroups {
 }
 
 export interface PerformanceMeasureDescriptions {
-  performanceMeasureDescriptions: string[];
+  performanceMeasureDescriptions?: string[];
 }
 
 export interface OptionalMeasureStratification {
