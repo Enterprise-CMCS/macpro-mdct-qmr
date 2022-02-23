@@ -134,7 +134,7 @@ const TestComponentWithTotal = () => {
   return <Rate rates={rates} name="test-total-component" readOnly={false} />;
 };
 
-describe.only("Test the Rate component when it includes a total NDR", () => {
+describe("Test the Rate component when it includes a total NDR", () => {
   beforeEach(() => {
     renderWithHookForm(<TestComponentWithTotal />, {
       defaultValues: {
