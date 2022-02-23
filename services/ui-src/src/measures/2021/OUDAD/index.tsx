@@ -91,7 +91,7 @@ export const OUDAD = ({
       {!watchReportingRadio?.includes("No") && (
         <>
           <CMQ.StatusOfData />
-          <Q.MeasurementSpecification />
+          <CMQ.MeasurementSpecification type="CMS" />
           <Q.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

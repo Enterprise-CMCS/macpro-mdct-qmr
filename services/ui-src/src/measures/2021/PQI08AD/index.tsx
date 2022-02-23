@@ -75,7 +75,7 @@ export const PQI08AD = ({
       {!watchReportingRadio?.includes("No") && (
         <>
           <CMQ.StatusOfData />
-          <Q.MeasurementSpecification />
+          <CMQ.MeasurementSpecification type="AHRQ" />
           <Q.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
