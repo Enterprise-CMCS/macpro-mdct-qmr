@@ -151,6 +151,18 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
+          ...(!rateReadOnly
+            ? [
+                <CUI.Text
+                  pt="3"
+                  key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+                  fontWeight="700"
+                >
+                  Rate will auto-calculate. Please review the auto-calculated
+                  rate and revise if needed.
+                </CUI.Text>,
+              ]
+            : []),
           ...ndrSets,
         ],
       };
@@ -227,6 +239,18 @@ const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
+          ...(!rateReadOnly
+            ? [
+                <CUI.Text
+                  py="2"
+                  fontWeight="700"
+                  key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
+                >
+                  “Rate will auto-calculate. Please review the auto-calculated
+                  rate and revise if needed.”
+                </CUI.Text>,
+              ]
+            : []),
           <QMR.Rate
             rates={[
               {
