@@ -241,10 +241,9 @@ export const validateNoNonZeroNumOrDenom = (
   return zeroRateError || nonZeroRateError ? errorArray : [];
 };
 
-// Ensure the user completes the data range if data was inputted in the start or end date:
+// Ensure the user populates the data range
 export const ensureBothDatesCompletedInRange = (dateRange: any) => {
   let errorArray: any[] = [];
-  let rangeErrorLocation;
   let error;
 
   if (dateRange) {
@@ -255,18 +254,14 @@ export const ensureBothDatesCompletedInRange = (dateRange: any) => {
     const endDateCompleted =
       !!dateRange.endDate?.selectedMonth && !!dateRange.endDate?.selectedYear;
 
-    if (
-      (startDateCompleted && !endDateCompleted) ||
-      (!startDateCompleted && endDateCompleted)
-    ) {
+    if (!startDateCompleted || !endDateCompleted) {
       error = true;
-      rangeErrorLocation = startDateCompleted ? "End Date" : "Start Date";
     }
 
     if (error) {
       errorArray.push({
         errorLocation: `Date Range`,
-        errorMessage: `Date Range must have a ${rangeErrorLocation}`,
+        errorMessage: `Date Range must be completed`,
       });
     }
   }
