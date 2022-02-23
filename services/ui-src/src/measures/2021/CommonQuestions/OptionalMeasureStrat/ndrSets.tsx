@@ -153,14 +153,14 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
           </CUI.Heading>,
           ...(!rateReadOnly
             ? [
-                <CUI.Text
-                  pt="3"
+                <CUI.Heading
+                  pt="1"
                   key={`${name}.rates.${cleanedLabel}HeaderHelper`}
-                  fontWeight="700"
+                  size={"sm"}
                 >
                   Rate will auto-calculate. Please review the auto-calculated
                   rate and revise if needed.
-                </CUI.Text>,
+                </CUI.Heading>,
               ]
             : []),
           ...ndrSets,
@@ -241,14 +241,14 @@ const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
           </CUI.Heading>,
           ...(!rateReadOnly
             ? [
-                <CUI.Text
-                  py="2"
-                  fontWeight="700"
+                <CUI.Heading
+                  pt="1"
+                  size={"sm"}
                   key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
                 >
-                  “Rate will auto-calculate. Please review the auto-calculated
-                  rate and revise if needed.”
-                </CUI.Text>,
+                  Rate will auto-calculate. Please review the auto-calculated
+                  rate and revise if needed.
+                </CUI.Heading>,
               ]
             : []),
           <QMR.Rate

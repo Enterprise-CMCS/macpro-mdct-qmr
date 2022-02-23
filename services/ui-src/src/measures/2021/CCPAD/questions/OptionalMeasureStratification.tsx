@@ -172,6 +172,12 @@ const AgeData = ({ name }: SubComponentProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Heading>
+      {!rateReadOnly && (
+        <CUI.Heading pb="5" size={"sm"} key={`${name}.helper`}>
+          Rate will auto-calculate. Please review the auto-calculated rate and
+          revise if needed.
+        </CUI.Heading>
+      )}
       {deviationConditions?.showOtherPerformanceMeasureRates &&
         buildOtherPerformanceRates(name, rateReadOnly, ageGroups)}
       {showEffective &&

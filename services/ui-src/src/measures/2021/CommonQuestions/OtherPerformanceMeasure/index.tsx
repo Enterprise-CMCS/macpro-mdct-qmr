@@ -58,10 +58,10 @@ export const OtherPerformanceMeasure = ({
                 name={`OtherPerformanceMeasure-Rates.${index}.description`}
               />
               {!rateReadOnly && (
-                <CUI.Text py="2" fontWeight="700">
-                  “Rate will auto-calculate. Please review the auto-calculated
-                  rate and revise if needed.”
-                </CUI.Text>
+                <CUI.Heading pt="5" size={"sm"}>
+                  Rate will auto-calculate. Please review the auto-calculated
+                  rate and revise if needed.
+                </CUI.Heading>
               )}
               <QMR.Rate
                 rates={[
