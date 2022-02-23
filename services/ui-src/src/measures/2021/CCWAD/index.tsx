@@ -7,9 +7,9 @@ import { validationFunctions } from "./validation/customValidationFunctions";
 
 export const CCWAD = ({
   setValidationFunctions,
+  measureId,
   name,
   year,
-  measureId,
 }: Measure.Props) => {
   useEffect(() => {
     if (setValidationFunctions) {
@@ -74,15 +74,15 @@ export const CCWAD = ({
   return (
     <>
       <CMQ.Reporting
-        reportingYear={year}
-        measureName={name}
         measureAbbreviation={measureId}
+        measureName={name}
+        reportingYear={year}
       />
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
-          <Q.MeasurementSpecification />
+          <CMQ.StatusOfData />
+          <CMQ.MeasurementSpecification type="OPA" />
           <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

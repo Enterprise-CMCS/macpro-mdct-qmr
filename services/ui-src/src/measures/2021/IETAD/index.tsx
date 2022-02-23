@@ -138,8 +138,8 @@ export const IETAD = ({
       {!watchReportingRadio?.includes("No") && (
         <>
           <CMQ.StatusOfData />
-          <Q.MeasurementSpecification />
-          <CMQ.DataSource data={Q.DataSourceData} />
+          <CMQ.MeasurementSpecification type="HEDIS" />
+          <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}

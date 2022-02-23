@@ -38,7 +38,7 @@ export const CCPAD = ({
   });
 
   // Conditionals for Performance Measures
-  const isUSOPA = watchMeasureSpecification === "US-OPA";
+  const isUSOPA = watchMeasureSpecification === "OPA";
 
   const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
@@ -94,7 +94,7 @@ export const CCPAD = ({
       {!watchReportingRadio?.includes("No") && (
         <>
           <CMQ.StatusOfData />
-          <Q.MeasurementSpecification />
+          <CMQ.MeasurementSpecification type="OPA" />
           <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
@@ -134,7 +134,7 @@ export const CCPAD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };

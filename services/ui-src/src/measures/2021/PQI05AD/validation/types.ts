@@ -5,8 +5,6 @@ export namespace Measure {
     name: string;
     year: string;
     measureId: string;
-    handleSubmit?: any;
-    handleValidation?: any;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
@@ -35,12 +33,8 @@ export namespace Measure {
       Types.CombinedRates,
       Types.AdditionalNotes,
       Types.OtherPerformanceMeasure,
-      Types.DataSource {
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
-
+      Types.DataSource,
+      Types.MeasurementSpecification {
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];

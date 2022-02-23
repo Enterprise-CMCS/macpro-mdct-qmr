@@ -330,15 +330,16 @@ export const DefinitionOfPopulation = () => {
                             "DeliverySys-IntegratedCareModel-No-Percent"
                           )}
                         />,
-                        <CUI.Box py="5" key="AdditionalICMText"></CUI.Box>,
-                        <QMR.NumberInput
-                          mask={allPositiveIntegers}
-                          formLabelProps={{ fontWeight: "400" }}
-                          label="How many of your measure-eligible Integrated Care Models (ICM) plans are excluded from the measure? If none are excluded, please enter zero."
-                          {...register(
-                            "DeliverySys-IntegratedCareModel-No-Population"
-                          )}
-                        />,
+                        <CUI.Box py="5" key="AdditionalICMText">
+                          <QMR.NumberInput
+                            mask={allPositiveIntegers}
+                            formLabelProps={{ fontWeight: "400" }}
+                            label="How many of your measure-eligible Integrated Care Models (ICM) plans are excluded from the measure? If none are excluded, please enter zero."
+                            {...register(
+                              "DeliverySys-IntegratedCareModel-No-Population"
+                            )}
+                          />
+                        </CUI.Box>,
                       ],
                     },
                   ]}

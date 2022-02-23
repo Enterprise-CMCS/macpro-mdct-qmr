@@ -16,13 +16,8 @@ export namespace Measure {
       Types.AdditionalNotes,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
-      Types.DataSource {
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
-
+      Types.DataSource,
+      Types.MeasurementSpecification {
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];

@@ -20,7 +20,7 @@ export const CombinedRates = () => {
                   {
                     displayValue:
                       "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a State-Level rate.",
-                    value: "CombinedRates",
+                    value: "Combined Not Weighted Rates",
                   },
                   {
                     displayValue:
