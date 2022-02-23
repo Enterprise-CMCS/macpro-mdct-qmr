@@ -4,7 +4,7 @@ module.exports = (on, config) => {
   return config;
 };
 
-module.exports = (on) => {
+module.exports = (on, config) => {
   on("task", {
     log(message) {
       console.log(message);
