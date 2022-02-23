@@ -144,6 +144,9 @@ export const IETAD = ({
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
+          {isHEDIS && (
+            <CMQ.PerformanceMeasure data={PerformanceMeasureData.data} />
+          )}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
             <Q.DeviationFromMeasureSpec

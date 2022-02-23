@@ -1,4 +1,5 @@
 import { OmsDataNode } from "./OptionalMeasureStrat";
+import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 
 export interface MeasurementSpecification {
   // Selected Measurement Specification
@@ -172,6 +173,12 @@ export interface OtherRatesFields {
   description?: string;
   rate?: RateFields[];
 }
+export interface PerformanceMeasure {
+  PerformanceMeasure: {
+    explanation: string;
+    rates: { [label: string]: RateFields[] };
+  };
+}
 
 interface OmsRateFields {
   options?: string[];
@@ -239,4 +246,5 @@ export interface OptionalMeasureStratification {
 
 export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsDataNode[];
+  export type PerformanceMeasure = PerformanceMeasureData;
 }
