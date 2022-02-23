@@ -16,7 +16,6 @@ export const CombinedRates = () => {
             children: [
               <QMR.RadioButton
                 {...register("CombinedRates-CombinedRates")}
-                rules={{ required: true }}
                 options={[
                   {
                     displayValue:

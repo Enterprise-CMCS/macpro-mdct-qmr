@@ -3,6 +3,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 const PQI01Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -35,6 +36,7 @@ const PQI01Validation = (data: any) => {
       age65PlusIndex,
       DefinitionOfDenominator
     ),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

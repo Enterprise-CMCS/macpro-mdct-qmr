@@ -2,6 +2,7 @@ import { Measure } from "../validation/types";
 import {
   atLeastOneRateComplete,
   validateNoNonZeroNumOrDenom,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 
 const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
@@ -152,4 +153,5 @@ export const validationFunctions = [
   validateDenominatorsAreTheSame,
   validateNonZeroDenom,
   validateAtLeastOneNPR,
+  validateRequiredRadioButtonForCombinedRates,
 ];

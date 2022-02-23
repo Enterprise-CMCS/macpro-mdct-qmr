@@ -6,6 +6,7 @@ import {
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 
 // // The AOM totals Numerator needs to be equal or greater than the largest initiation/engagement
@@ -159,6 +160,7 @@ const IEDValidation = (data: Measure.Form) => {
       ageGroups
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

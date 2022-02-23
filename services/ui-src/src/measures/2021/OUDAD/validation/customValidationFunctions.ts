@@ -4,6 +4,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateEqualDenominators,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 
 const OUDValidation = (data: Measure.Form) => {
@@ -31,6 +32,7 @@ const OUDValidation = (data: Measure.Form) => {
     ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
       "age-group",
     ]),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

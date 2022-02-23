@@ -1,3 +1,4 @@
+import * as Types from "../CommonQuestions/types";
 import { PerformanceMeasure } from "./types";
 
 export const atLeastOneRateComplete = (
@@ -243,7 +244,7 @@ export const validateNoNonZeroNumOrDenom = (
 
 export const validateReasonForNotReporting = (whyNotReporting: any) => {
   let error = false;
-  let errorArray: any[] = [];
+  const errorArray: any[] = [];
 
   if (!(whyNotReporting && whyNotReporting.length > 0)) {
     error = true;
@@ -255,5 +256,23 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
         "You Must Select At Least One Reason For Not Reporting On This Measure",
     });
   }
+  return errorArray;
+};
+
+export const validateRequiredRadioButtonForCombinedRates = (
+  data: Types.CombinedRates
+) => {
+  const errorArray: any[] = [];
+
+  if (data.CombinedRates && data.CombinedRates.includes("Yes")) {
+    if (!data["CombinedRates-CombinedRates"]) {
+      errorArray.push({
+        errorLocation: "Combined Rate(s)",
+        errorMessage:
+          "You Must Select At Least One Option for Combined Rate(s) Details if Yes is Selected.",
+      });
+    }
+  }
+
   return errorArray;
 };

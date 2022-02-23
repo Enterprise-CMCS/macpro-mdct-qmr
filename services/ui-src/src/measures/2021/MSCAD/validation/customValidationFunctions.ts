@@ -4,6 +4,7 @@ import {
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 
 const MSCADValidation = (data: Measure.Form) => {
@@ -34,6 +35,7 @@ const MSCADValidation = (data: Measure.Form) => {
       ageGroups
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;
