@@ -54,7 +54,7 @@ export namespace Measure {
       denominator: string;
       numerator: string;
       other: string;
-    };
+    }[];
 
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeasure-AgeRates": {

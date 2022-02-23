@@ -39,28 +39,28 @@ export namespace Measure {
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
     "DeviationOptions-InitAlcohol-AgeRange": string[];
-    "DeviationFields-InitAlcohol": Types.DeviationFields;
+    "DeviationFields-InitAlcohol": Types.DeviationFields[];
 
     "DeviationOptions-EngageAlcohol-AgeRange": string[];
-    "DeviationFields-EngageAlcohol": Types.DeviationFields;
+    "DeviationFields-EngageAlcohol": Types.DeviationFields[];
 
     "DeviationOptions-InitOpioid-AgeRange": string[];
-    "DeviationFields-InitOpioid": Types.DeviationFields;
+    "DeviationFields-InitOpioid": Types.DeviationFields[];
 
     "DeviationOptions-EngageOpioid-AgeRange": string[];
-    "DeviationFields-EngageOpioid": Types.DeviationFields;
+    "DeviationFields-EngageOpioid": Types.DeviationFields[];
 
     "DeviationOptions-InitOther-AgeRange": string[];
-    "DeviationFields-InitOther": Types.DeviationFields;
+    "DeviationFields-InitOther": Types.DeviationFields[];
 
     "DeviationOptions-EngageOther-AgeRange": string[];
-    "DeviationFields-EngageOther": Types.DeviationFields;
+    "DeviationFields-EngageOther": Types.DeviationFields[];
 
     "DeviationOptions-InitTotal-AgeRange": string[];
-    "DeviationFields-InitTotal": Types.DeviationFields;
+    "DeviationFields-InitTotal": Types.DeviationFields[];
 
     "DeviationOptions-EngageTotal-AgeRange": string[];
-    "DeviationFields-EngageTotal": Types.DeviationFields;
+    "DeviationFields-EngageTotal": Types.DeviationFields[];
 
     //PerformanceMeasure
     "PerformanceMeasure-Explanation": string;

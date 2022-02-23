@@ -66,13 +66,13 @@ export namespace Measure {
       denominator: string;
       numerator: string;
       other: string;
-    };
+    }[];
     "DeviationFields-LARC": {
       options: string[];
       denominator: string;
       numerator: string;
       other: string;
-    };
+    }[];
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeasure-AgeRates-effectiveContraception": {
       denominator: string;

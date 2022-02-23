@@ -3,6 +3,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
 const PQI01Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -14,6 +15,10 @@ const PQI01Validation = (data: any) => {
     (pma: PerformanceMeasure[]) => [pma]
   );
   const validateDualPopInformationArray = [performanceMeasureArrayToCheck?.[1]];
+  // Array of deviation NDRs with empty/undefined values removed
+  const deviationArray =
+    data["DeviationFields"]?.filter((data: any) => data) || [];
+
   let errorArray: any[] = [];
   console.log(performanceMeasureArrayToCheck, validateDualPopInformationArray);
   errorArray = [
@@ -34,6 +39,11 @@ const PQI01Validation = (data: any) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator
+    ),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArrayToCheck,
+      ["age-groups"],
+      deviationArray
     ),
   ];
 

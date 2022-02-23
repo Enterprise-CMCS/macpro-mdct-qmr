@@ -6,6 +6,7 @@ import {
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
 
 // // The AOM totals Numerator needs to be equal or greater than the largest initiation/engagement
@@ -96,8 +97,20 @@ const IEDValidation = (data: Measure.Form) => {
   ];
   const totalInitiation = data["PerformanceMeasure-AgeRates-Initiation-Total"];
   const totalEngagement = data["PerformanceMeasure-AgeRates-Engagement-Total"];
+
+  // Array of deviation NDRs with empty/undefined values removed
+  const deviationArray = [
+    ...(data["DeviationFields-InitAlcohol"] || []),
+    ...(data["DeviationFields-EngageAlcohol"] || []),
+    ...(data["DeviationFields-InitOpioid"] || []),
+    ...(data["DeviationFields-EngageOpioid"] || []),
+    ...(data["DeviationFields-InitOther"] || []),
+    ...(data["DeviationFields-EngageOther"] || []),
+    ...(data["DeviationFields-InitTotal"] || []),
+    ...(data["DeviationFields-EngageTotal"] || []),
+  ].filter((data) => data);
+
   let errorArray: any[] = [];
-  //@ts-ignore
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
@@ -159,6 +172,11 @@ const IEDValidation = (data: Measure.Form) => {
       ageGroups
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray
+    ),
   ];
 
   return errorArray;

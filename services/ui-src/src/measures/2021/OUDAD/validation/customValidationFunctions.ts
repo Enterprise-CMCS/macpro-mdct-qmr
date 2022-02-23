@@ -4,6 +4,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateEqualDenominators,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
 
 const OUDValidation = (data: Measure.Form) => {
@@ -16,6 +17,9 @@ const OUDValidation = (data: Measure.Form) => {
       return [item];
     }
   );
+
+  // Array of deviation NDRs with empty/undefined values removed
+  const deviationArray = data["DeviationFields"]?.filter((data) => data) || [];
 
   errorArray = [
     ...errorArray,
@@ -31,6 +35,11 @@ const OUDValidation = (data: Measure.Form) => {
     ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
       "age-group",
     ]),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArrayToCheck,
+      ["age-group"],
+      deviationArray
+    ),
   ];
 
   return errorArray;

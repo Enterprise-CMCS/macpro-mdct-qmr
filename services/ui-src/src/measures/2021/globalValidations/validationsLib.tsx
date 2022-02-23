@@ -1,3 +1,4 @@
+import * as Types from "../CommonQuestions/types";
 import { PerformanceMeasure } from "./types";
 
 export const atLeastOneRateComplete = (
@@ -255,5 +256,51 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
         "You Must Select At Least One Reason For Not Reporting On This Measure",
     });
   }
+  return errorArray;
+};
+
+// When a user inputs data in multiple NDR sets in a performance measure
+// Then the user must complete at least one NDR set in the Deviation of measure specification.
+
+export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
+  performanceMeasureArray: PerformanceMeasure[][],
+  ageGroups: string[],
+  deviationArray: Types.DeviationFields[] | any
+) => {
+  let errorArray: any[] = [];
+  let ndrCount = 0;
+  ageGroups.forEach((_ageGroup, i) => {
+    performanceMeasureArray?.forEach((_performanceObj, index) => {
+      if (
+        performanceMeasureArray[index] &&
+        performanceMeasureArray[index][i] &&
+        performanceMeasureArray[index][i].denominator &&
+        performanceMeasureArray[index][i].numerator
+      ) {
+        ndrCount++;
+      }
+    });
+  });
+
+  if (ndrCount > 1) {
+    const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
+      if (
+        deviationNDR.denominator &&
+        deviationNDR.numerator &&
+        deviationNDR.other
+      ) {
+        return true;
+      }
+      return false;
+    });
+
+    if (!atLeastOneDevNDR) {
+      errorArray.push({
+        errorLocation: "Deviations from Measure Specifications",
+        errorMessage: "You must complete one NDR set",
+      });
+    }
+  }
+
   return errorArray;
 };

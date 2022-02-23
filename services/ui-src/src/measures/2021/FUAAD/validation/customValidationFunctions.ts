@@ -1,4 +1,5 @@
 import { Measure } from "../validation/types";
+import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "../../globalValidations/validationsLib";
 
 const validateRates = (data: Measure.Form) => {
   const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
@@ -236,6 +237,25 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   return error;
 };
 
+const validateAtLeastOneDeviationNDR = (data: Measure.Form) => {
+  const performanceMeasureArray = [
+    data["PerformanceMeasure-AgeRates-7Days"],
+    data["PerformanceMeasure-AgeRates-30Days"],
+  ];
+
+  // Array of deviation NDRs with empty/undefined values removed
+  const deviationArray = [
+    ...(data["DeviationFields-Within30"] || []),
+    ...(data["DeviationFields-Within7"] || []),
+  ].filter((data) => data);
+
+  return validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    performanceMeasureArray,
+    ["18 to 64", "65 and older"],
+    deviationArray
+  );
+};
+
 export const validationFunctions = [
   validateRates,
   validate7DaysGreaterThan30Days,
@@ -243,4 +263,5 @@ export const validationFunctions = [
   validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
+  validateAtLeastOneDeviationNDR,
 ];

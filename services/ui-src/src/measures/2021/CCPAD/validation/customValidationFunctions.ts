@@ -1,4 +1,5 @@
 import { Measure } from "../validation/types";
+import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "../../globalValidations/validationsLib";
 
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = ["3 days postpartem", "60 days postpartem"];
@@ -7,10 +8,20 @@ const CCPADValidation = (data: Measure.Form) => {
     data["PerformanceMeasure-AgeRates-longActingContraception"],
     data["PerformanceMeasure-AgeRates-effectiveContraception"],
   ];
+
+  // Array of deviation NDRs with empty/undefined values removed
+  const deviationArray = [
+    ...(data["DeviationFields-MostEffective"] || []),
+    ...(data["DeviationFields-LARC"] || []),
+  ].filter((data) => data);
   let errorArray: any[] = [];
-  //@ts-ignore
   errorArray = [
     ...errorArray,
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray
+    ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
   return errorArray;
@@ -211,7 +222,7 @@ const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
   const errorArray: any[] = [];
 
   if (sevenDays?.length === 2) {
-    if (parseInt(sevenDays[0].rate) > parseInt(sevenDays[1].rate)) {
+    if (parseInt(sevenDays[0]?.rate) > parseInt(sevenDays[1]?.rate)) {
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
