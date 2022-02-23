@@ -10,11 +10,11 @@ module.exports = (on, config) => {
       console.log(message);
 
       return null;
-      // },
-      // table(message) {
-      //   console.table(message);
+    },
+    table(message) {
+      console.table(message);
 
-      //   return null;
+      return null;
     },
   });
 };
