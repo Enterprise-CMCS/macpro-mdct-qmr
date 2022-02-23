@@ -171,7 +171,7 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
   const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
   const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
-  const isHEDIS = measureSpecification === "US-OPA";
+  const isHEDIS = measureSpecification === "OPA";
 
   let doesOtherNDRExist = false;
   otherPerformanceRates.forEach((ndr) => {
