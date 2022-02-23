@@ -5,23 +5,7 @@ export namespace Measure {
     name: string;
     year: string;
     measureId: string;
-    handleSubmit?: any;
-    handleValidation?: any;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
-  }
-
-  interface RateFields {
-    numerator: string;
-    denominator: string;
-    rate: string;
-  }
-
-  interface AggregateRate {
-    subRate: RateFields[];
-    total: RateFields[];
-    AdditionalClassification: string[];
-    AdditionalClassificationDescription: string;
-    AdditionalClassificationRates: RateFields[];
   }
 
   export interface Form
@@ -33,7 +17,8 @@ export namespace Measure {
       Types.DateRange,
       Types.DefinitionOfPopulation,
       Types.MeasurementSpecification,
-      Types.OtherPerformanceMeasure {
+      Types.OtherPerformanceMeasure,
+      Types.OptionalMeasureStratification {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -62,67 +47,5 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-
-    //OptionalMeasureStratification
-    CategoriesReported: string[];
-
-    AddtnlEthnicity: string[];
-    AddtnlEthnicityRates: AggregateRate[];
-
-    AddtnlNonHispanicRace: string[];
-    AddtnlNonHispanicRaceRates: AggregateRate[];
-    AddtnlNonHispanicRaceSubCat: any[];
-    AddtnlNonHispanicRaceSubCatTitle: { titles: string[] }[];
-    AddtnlNonHispanicRaceSubCatOptions: string[][];
-    AddtnlNonHispanicRaceSubCatRates: { rates: AggregateRate[] }[];
-
-    AddtnlNonHispanicSubCat: string[];
-    AddtnlNonHispanicSubCatRates: AggregateRate[];
-
-    NonHispanicRacialCategories: string[];
-    "NHRC-WhiteRates": AggregateRate;
-    "NHRC-BlackOrAfricanAmericanRates": AggregateRate;
-    "NHRC-AmericanIndianOrAlaskaNativeRates": AggregateRate;
-    "NHRC-AggregateAsianRates": AggregateRate;
-    "NHRC-IndependentAsianRates": AggregateRate[];
-    "NHRC-AggregateHawaiianOrPacificIslanderRates": AggregateRate;
-    "NHRC-IndependentHawaiianOrPacificIslanderRates": AggregateRate[];
-
-    EthnicityCategories: string[];
-    EthnicitySubCategories: string[];
-    NonHispanicEthnicityRates: AggregateRate;
-    HispanicIndependentReporting: string;
-    HispanicEthnicityAggregateRate: AggregateRate;
-    IndependentHispanicOptions: string[];
-    IndependentHispanicRates: AggregateRate[];
-
-    AsianIndependentReporting: string;
-    IndependentAsianOptions: string[];
-    NativeHawaiianIndependentReporting: string;
-    IndependentNativeHawaiianOptions: string[];
-
-    SexOptions: string[];
-    MaleSexRates: AggregateRate;
-    FemaleSexRates: AggregateRate;
-
-    PrimaryLanguageOptions: string[];
-    AddtnlPrimaryLanguage: string[];
-    AddtnlPrimaryLanguageRates: AggregateRate[];
-    EnglishLanguageRate: AggregateRate;
-    SpanishLanguageRate: AggregateRate;
-
-    DisabilityStatusOptions: string[];
-    DisabilitySSIRate: AggregateRate;
-    DisabilityNonSSIRate: AggregateRate;
-    AddtnlDisabilityStatusDesc: string;
-    AddtnlDisabilityRate: AggregateRate;
-
-    GeographyOptions: string[];
-    UrbanGeographyRate: AggregateRate;
-    RuralGeographyRate: AggregateRate;
-    AddtnlGeographyDesc: string;
-    AddtnlGeographyRate: AggregateRate;
-
-    ACAGroupRate: AggregateRate;
   }
 }
