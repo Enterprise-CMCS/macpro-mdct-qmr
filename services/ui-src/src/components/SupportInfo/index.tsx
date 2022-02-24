@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 
 export const SupportLinks = () => (
   <CUI.Text>
-    For technical questions regaring use of this application, please reach out
+    For technical questions regarding use of this application, please reach out
     to{" "}
     <CUI.Link href="mailto:MDCT_help@cms.hhs.gov" color="blue.600">
       MDCT_help@cms.hhs.gov

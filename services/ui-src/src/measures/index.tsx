@@ -1,9 +1,20 @@
+import { ResolverResult } from "react-hook-form";
 import twentyTwentyOneMeasures from "./2021";
-import { Measure } from "./types";
+
+export type CustomValidator = (res: ResolverResult) => ResolverResult;
+
+export interface Props {
+  name: string;
+  year: string;
+  measureId: string;
+  setValidationFunctions?: React.Dispatch<
+    React.SetStateAction<CustomValidator[]>
+  >;
+}
 
 interface MeasuresByYear {
   [year: string]: {
-    [measure: string]: (props: Measure.Props) => JSX.Element;
+    [measure: string]: (props: Props) => JSX.Element;
   };
 }
 
