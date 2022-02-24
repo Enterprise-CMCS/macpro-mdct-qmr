@@ -59,4 +59,3 @@ const FUAADValidation = (data: Measure.Form) => {
 };
 
 export const validationFunctions = [FUAADValidation];
-

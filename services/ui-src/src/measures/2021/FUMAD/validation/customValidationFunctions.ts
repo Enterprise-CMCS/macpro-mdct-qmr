@@ -59,4 +59,3 @@ const FUMADValidation = (data: Measure.Form) => {
 };
 
 export const validationFunctions = [FUMADValidation];
-

@@ -59,4 +59,3 @@ const CCPADValidation = (data: Measure.Form) => {
 };
 
 export const validationFunctions = [CCPADValidation];
-
