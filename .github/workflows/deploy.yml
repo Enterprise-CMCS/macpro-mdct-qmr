@@ -186,7 +186,7 @@ jobs:
             commonPages,
             fuadPage,
             ietadPage,
-            ammadPage,
+            #ammadPage,
             # amradPage,
             # bcsadPage,
             # cbpadPage,
@@ -217,7 +217,7 @@ jobs:
             # ssaPage,
             # ssdadPage,
             faqPage,
-            childCoreSetMeasuresPage,
+            #childCoreSetMeasuresPage,
             adultCoreSetMeasuresQuestionsPage,
           ]
     steps:
