@@ -1,155 +1,38 @@
 import { Measure } from "../validation/types";
 import {
   atLeastOneRateComplete,
+  validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
+  validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 
-const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const reversibleRates =
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"];
-  let error;
-  const errorArray: any[] = [];
+const CCWADValidation = (data: Measure.Form) => {
+  const ageGroups = ["21 to 44"];
+  const whyNotReporting = data["WhyAreYouNotReporting"];
+  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = [
+    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
+    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
+  ];
 
-  if (reversibleRates) {
-    reversibleRates.forEach((reversibleRate, _index) => {
-      if (
-        reversibleRate &&
-        reversibleRate?.numerator &&
-        reversibleRate?.denominator &&
-        parseFloat(reversibleRate?.numerator) >
-          parseFloat(reversibleRate?.denominator)
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `Reversible Method of Contraception Rate: Numerator must be less than or equal to Denominator for Age`,
-        };
-
-        errorArray.push(error);
-      }
-    });
+  let errorArray: any[] = [];
+  if (data["DidReport"] === "No, I am not reporting") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
   }
 
-  return error ? errorArray : error;
-};
-const validateModeratelyNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const moderatelyRates =
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"];
-  let error;
-  const errorArray: any[] = [];
+  errorArray = [
+    ...errorArray,
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+  ];
 
-  if (moderatelyRates) {
-    moderatelyRates.forEach((moderatelyRate, _index) => {
-      if (
-        moderatelyRate &&
-        moderatelyRate.numerator &&
-        moderatelyRate.denominator &&
-        parseFloat(moderatelyRate?.numerator) >
-          parseFloat(moderatelyRate?.denominator)
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `Moderately Effective Method of Contraception Rate: Numerator must be less than or equal to Denominator for Age`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
+  return errorArray;
 };
 
-const validateLarcRateGreater = (data: Measure.Form) => {
-  let error;
-
-  if (
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"] &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"] &&
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"][0]
-      ?.rate &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]?.rate
-  ) {
-    if (
-      parseFloat(
-        data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]?.rate
-      ) >
-      parseFloat(
-        data[
-          "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"
-        ][0].rate
-      )
-    ) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate",
-      };
-    }
-  }
-
-  return error;
-};
-
-const validateDenominatorsAreTheSame = (data: Measure.Form) => {
-  let error;
-
-  if (
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"] &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"] &&
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"][0]
-      ?.denominator &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]
-      ?.denominator
-  ) {
-    if (
-      parseFloat(
-        data[
-          "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"
-        ][0].denominator
-      ) !==
-      parseFloat(
-        data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]
-          .denominator
-      )
-    ) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Long-acting reversible method of contraception (LARC) rate must have the same denominator as Most effective or moderately effective method of contraception rate",
-      };
-    }
-  }
-
-  return error;
-};
-
-const validateNonZeroDenom = (data: Measure.Form) => {
-  return validateNoNonZeroNumOrDenom(
-    [
-      data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
-      data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
-    ],
-    data["OtherPerformanceMeasure-Rates"],
-    [""]
-  );
-};
-
-const validateAtLeastOneNPR = (data: Measure.Form) => {
-  return atLeastOneRateComplete(
-    [
-      data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
-      data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
-    ],
-    data["OtherPerformanceMeasure-Rates"],
-    [""]
-  );
-};
-
-export const validationFunctions = [
-  validateReversibleNumeratorLessThanDenominator,
-  validateModeratelyNumeratorLessThanDenominator,
-  validateLarcRateGreater,
-  validateDenominatorsAreTheSame,
-  validateNonZeroDenom,
-  validateAtLeastOneNPR,
-];
+export const validationFunctions = [CCWADValidation];
