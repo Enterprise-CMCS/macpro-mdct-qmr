@@ -14,6 +14,7 @@ export const data: DataDrivenTypes.DataSource = {
           },
           {
             value: "Other",
+            description: true,
           },
         ],
       },
@@ -23,6 +24,7 @@ export const data: DataDrivenTypes.DataSource = {
     },
     {
       value: "Other Data Source",
+      description: true,
     },
   ],
 };

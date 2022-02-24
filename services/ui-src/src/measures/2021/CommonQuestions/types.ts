@@ -160,6 +160,7 @@ export interface DataSource {
   DataSource: string[];
   DataSourceSelections: {
     [label: string]: {
+      description: string;
       selected: string[];
     };
   };

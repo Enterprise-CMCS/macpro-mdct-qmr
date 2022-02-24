@@ -4,6 +4,7 @@ export interface OptionNode {
     label?: string;
     options: OptionNode[];
   };
+  description?: boolean;
 }
 
 export interface DataSourceData {
@@ -24,13 +25,15 @@ export const defaultData: DataSourceData = {
             value: "Medicaid Management Information System (MMIS)",
           },
           {
-            value: "Other",
+            value: "Administrative Data Other",
+            description: true,
           },
         ],
       },
     },
     {
       value: "Other Data Source",
+      description: true,
     },
   ],
 };

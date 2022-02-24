@@ -64,6 +64,16 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
       }),
     ];
 
+    if (node.description) {
+      children.push(
+        <QMR.TextArea
+          label="Describe the data source:"
+          name={`DataSourceSelections.${adjustedParentName}.descriptions`}
+          key={`DataSourceSelections.${adjustedParentName}.descriptions`}
+        />
+      );
+    }
+
     checkBoxOptions.push({
       value: cleanedNodeValue,
       displayValue: node.value,
