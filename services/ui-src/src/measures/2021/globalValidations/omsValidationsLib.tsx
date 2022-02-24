@@ -23,6 +23,25 @@ export const omsValidations = (data: Measure.Form) => {
 
   const test = omsFilledNDRCheckbox({ filteredPaths, selectedOptions });
 
+  const flattenedOMSDataNotSafe: any = flatten(
+    data.OptionalMeasureStratification,
+    {
+      safe: false,
+    }
+  );
+  console.log({ flattenedOMSDataNotSafe });
+
+  const additionalSelectionOptions = Object.keys(flattenedOMSDataNotSafe)
+    .filter((key) => {
+      return key.includes("additionalSelections.");
+    })
+    .filter((nestedKey) => {
+      return /(numerator|denominator|rate)/.test(nestedKey);
+    })
+    .map((filteredPath) => flattenedOMSDataNotSafe[filteredPath]);
+
+  console.log({ additionalSelectionOptions });
+
   console.log({ test });
 
   console.log({ filteredPaths, selectedOptions });
