@@ -109,7 +109,7 @@ export const MSCAD = ({
       {!watchReportingRadio?.includes("No") && (
         <>
           <CMQ.StatusOfData />
-          <Q.MeasurementSpecification />
+          <CMQ.MeasurementSpecification type="HEDIS" />
           <Q.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

@@ -1,4 +1,5 @@
 import * as Types from "../../CommonQuestions/types";
+
 export namespace Measure {
   export interface Props {
     name: string;
@@ -7,21 +8,11 @@ export namespace Measure {
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
-  interface RateFields {
-    numerator: string;
-    denominator: string;
-    rate: string;
-  }
-
   interface AggregateRate {
-    subRate: RateFields[];
-    total: RateFields[];
+    subRate: Types.RateFields[];
+    total: Types.RateFields[];
   }
 
-  interface OtherRatesFields {
-    description: string;
-    rate: RateFields[];
-  }
   export interface Form
     extends Types.DefinitionOfPopulation,
       Types.StatusOfData,
@@ -30,7 +21,8 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.DateRange,
       Types.CombinedRates,
-      Types.OtherPerformanceMeasure {
+      Types.OtherPerformanceMeasure,
+      Types.MeasurementSpecification {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -44,18 +36,6 @@ export namespace Measure {
     "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
     "DataSource-ElectronicHealthRecords"?: string;
     "DataSource-ElectronicHealthRecords-Explanation"?: string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
-
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
