@@ -10,7 +10,6 @@ import {
 } from "../../globalValidations/validationsLib";
 
 import { omsValidations } from "../../globalValidations/omsValidationsLib";
-import { flatten } from "flat";
 
 // // The AOM totals Numerator needs to be equal or greater than the largest initiation/engagement
 const validateTotalsEqualOrGreaterThan = (
@@ -152,10 +151,6 @@ const IEDValidation = (data: Measure.Form) => {
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [sameDenominatorError[0]] : [];
 
-  const flatData = flatten(data["OptionalMeasureStratification"], {
-    safe: true,
-  });
-  console.log(flatData);
   /* This is a place holder for the OMS validation functions. */
   // const omsErrors = [];
 
@@ -187,7 +182,7 @@ const IEDValidation = (data: Measure.Form) => {
       ageGroups,
       deviationArray
     ),
-    ...omsValidations(flatData),
+    ...omsValidations(data),
   ];
 
   return errorArray;
