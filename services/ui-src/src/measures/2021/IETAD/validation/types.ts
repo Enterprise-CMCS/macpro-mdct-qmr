@@ -16,7 +16,8 @@ export namespace Measure {
       Types.AdditionalNotes,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
-      Types.MeasurementSpecification {
+      Types.MeasurementSpecification,
+      Types.OptionalMeasureStratification {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
