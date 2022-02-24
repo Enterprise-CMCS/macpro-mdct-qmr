@@ -17,43 +17,48 @@ interface NdrSetProps {
   calcTotal: boolean;
 }
 
-const buildCategoryNdrSets = ({
+/** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
+const CategoryNdrSets = ({
   rateReadOnly,
   categories = [],
   qualifiers,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
-  return categories.map((item) => {
-    const rates: QMR.IRate[] = qualifiers?.map((cat, i) => ({
-      label: cat,
-      id: i,
-    })) ?? [{ id: 0 }];
+  return (
+    <>
+      {categories.map((item) => {
+        const rates: QMR.IRate[] = qualifiers?.map((cat, idx) => ({
+          label: cat,
+          id: idx,
+        })) ?? [{ id: 0 }];
 
-    return (
-      <>
-        <CUI.Text fontWeight="bold" my="5">
-          {item}
-        </CUI.Text>
-        <QMR.Rate
-          readOnly={rateReadOnly}
-          rates={rates}
-          {...register(`PerformanceMeasure.rates.${item}`)}
-        />
-      </>
-    );
-  });
+        const cleanedName = item.replace(/[^\w]/g, "");
+
+        return (
+          <>
+            <CUI.Text key={item} fontWeight="bold" my="5">
+              {item}
+            </CUI.Text>
+            <QMR.Rate
+              readOnly={rateReadOnly}
+              rates={rates}
+              {...register(`PerformanceMeasure.rates.${cleanedName}`)}
+            />
+          </>
+        );
+      })}
+    </>
+  );
 };
 
-const buildQualifierNdrSets = ({
-  rateReadOnly,
-  qualifiers = [],
-}: NdrSetProps) => {
+/** If no categories, we still need a rate for the PM */
+const QualifierNdrSets = ({ rateReadOnly, qualifiers = [] }: NdrSetProps) => {
   const register = useCustomRegister();
 
-  const rates: QMR.IRate[] = qualifiers.map((item, id) => ({
+  const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
     label: item,
-    id,
+    id: idx,
   }));
   return (
     <QMR.Rate
@@ -64,18 +69,20 @@ const buildQualifierNdrSets = ({
   );
 };
 
+/** Creates the NDR sets based on given categories and qualifiers */
 const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   let ndrSets;
 
   if (props.categories?.length) {
-    ndrSets = buildCategoryNdrSets(props);
+    ndrSets = <CategoryNdrSets {...props} />;
   } else if (props.qualifiers?.length) {
-    ndrSets = buildQualifierNdrSets(props);
+    ndrSets = <QualifierNdrSets {...props} />;
   }
 
   return <CUI.Box key="PerformanceMeasureNdrSets">{ndrSets}</CUI.Box>;
 };
 
+/** Data Driven Performance Measure Comp */
 export const PerformanceMeasure = ({
   data,
   calcTotal = false,
@@ -101,7 +108,7 @@ export const PerformanceMeasure = ({
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
         {...register("PerformanceMeasure.explanation")}
       />
-      <CUI.Text fontWeight="bold">
+      <CUI.Text fontWeight="bold" mt={5}>
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>

@@ -174,9 +174,9 @@ export interface OtherRatesFields {
   rate?: RateFields[];
 }
 export interface PerformanceMeasure {
-  PerformanceMeasure: {
-    explanation: string;
-    rates: { [label: string]: RateFields[] };
+  PerformanceMeasure?: {
+    explanation?: string;
+    rates?: { [label: string]: RateFields[] | undefined };
   };
 }
 

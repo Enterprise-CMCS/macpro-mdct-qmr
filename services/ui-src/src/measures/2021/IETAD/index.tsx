@@ -127,6 +127,13 @@ export const IETAD = ({
     });
   }
 
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const dataSourceWatch = useWatch({ name: "DataSource" });
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source: string) => source === "I am reporting provisional data."
+    ) ?? true;
+
   return (
     <>
       <CMQ.Reporting
@@ -145,7 +152,10 @@ export const IETAD = ({
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
           {isHEDIS && (
-            <CMQ.PerformanceMeasure data={PerformanceMeasureData.data} />
+            <CMQ.PerformanceMeasure
+              data={PerformanceMeasureData.data}
+              rateReadOnly={rateReadOnly}
+            />
           )}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
