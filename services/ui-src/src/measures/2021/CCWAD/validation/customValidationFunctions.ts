@@ -102,5 +102,5 @@ const CCWADValidation = (data: Measure.Form) => {
 export const validationFunctions = [
   CCWADValidation,
   validateDenominatorsAreTheSame,
-  validateLarcRateGreater
+  validateLarcRateGreater,
 ];
