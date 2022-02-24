@@ -253,7 +253,7 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
     errorArray.push({
       errorLocation: "Why Are You Not Reporting On This Measure",
       errorMessage:
-        "You Must Select At Least One Reason For Not Reporting On This Measure",
+        "You must select at least one reason for not reporting on this measure",
     });
   }
   return errorArray;
@@ -269,7 +269,7 @@ export const validateRequiredRadioButtonForCombinedRates = (
       errorArray.push({
         errorLocation: "Combined Rate(s)",
         errorMessage:
-          "You Must Select At Least One Option for Combined Rate(s) Details if Yes is Selected.",
+          "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
       });
     }
   }
