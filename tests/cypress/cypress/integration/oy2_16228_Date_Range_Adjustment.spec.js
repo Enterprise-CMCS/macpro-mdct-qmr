@@ -52,12 +52,12 @@ describe("OY2-16228 Date Range Adjustment for Start/End date", () => {
     cy.get("[data-cy=ACS]").click();
     cy.get("[data-cy=FUA-AD]").click();
     cy.wait(2000);
-    cy.xpath('(//input[@label="Year"])[0]').clear();
-    cy.xpath('(//input[@label="Month"])[0]').clear();
     cy.xpath('(//input[@label="Month"])[1]').clear();
     cy.xpath('(//input[@label="Month"])[1]').type("4");
     cy.xpath('(//input[@label="Year"])[1]').clear();
     cy.xpath('(//input[@label="Year"])[1]').type("2020");
+    cy.xpath('(//input[@label="Year"])[2]').clear();
+    cy.xpath('(//input[@label="Month"])[2]').clear();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="Date Range must be completed"]').should("be.visible");
     /* ==== End Cypress Studio ==== */
