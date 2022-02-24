@@ -149,6 +149,10 @@ const IEDValidation = (data: Measure.Form) => {
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [sameDenominatorError[0]] : [];
 
+
+
+  const omsErrors = [...omsValidations]
+
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
