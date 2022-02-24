@@ -30,7 +30,7 @@ export const atLeastOneRateComplete = (
   });
   if (error) {
     errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure Error`,
+      errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `At least one Performance Measure Numerator, Denominator, and Rate must be completed`,
     });
   }
@@ -124,7 +124,7 @@ export const validateNumeratorsLessThanDenominators = (
     });
   if (error) {
     errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure Error`,
+      errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Numerators must be less than Denominators for all applicable performance measures`,
     });
   }
@@ -225,13 +225,13 @@ export const validateNoNonZeroNumOrDenom = (
     });
   if (nonZeroRateError) {
     errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure Error`,
+      errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Manually entered rate should be 0 if numerator is 0`,
     });
   }
   if (zeroRateError) {
     errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure Error`,
+      errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
     });
   }
