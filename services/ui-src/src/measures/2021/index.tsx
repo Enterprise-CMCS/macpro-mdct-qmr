@@ -14,6 +14,7 @@ import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
 import { OUDAD } from "./OUDAD";
 import { NCIDDSAD } from "./NCIDDSAD";
+import { PCRAD } from "./PCRAD";
 import { PDENTCH } from "./PDENTCH";
 import { PQI08AD } from "./PQI08AD";
 import { PQI01AD } from "./PQI01AD";
@@ -30,6 +31,7 @@ const twentyTwentyOneMeasures = {
   "MSC-AD": MSCAD,
   "OUD-AD": OUDAD,
   "NCIDDS-AD": NCIDDSAD,
+  "PCR-AD": PCRAD,
   "PDENT-CH": PDENTCH,
   "CCW-AD": CCWAD,
   "PQI08-AD": PQI08AD,
