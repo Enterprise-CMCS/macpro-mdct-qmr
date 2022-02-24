@@ -158,8 +158,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
                   key={`${name}.rates.${cleanedLabel}HeaderHelper`}
                   size={"sm"}
                 >
-                  Rate will auto-calculate. Please review the auto-calculated
-                  rate and revise if needed.
+                  Please review the auto-calculated rate and revise if needed.
                 </CUI.Heading>,
               ]
             : []),
@@ -246,8 +245,7 @@ const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
                   size={"sm"}
                   key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
                 >
-                  Rate will auto-calculate. Please review the auto-calculated
-                  rate and revise if needed.
+                  Please review the auto-calculated rate and revise if needed.
                 </CUI.Heading>,
               ]
             : []),

@@ -57,10 +57,13 @@ export const OtherPerformanceMeasure = ({
                 label="For example, specify the age groups and whether you are reporting on a certain indicator:"
                 name={`OtherPerformanceMeasure-Rates.${index}.description`}
               />
+              <CUI.Text fontWeight="bold">
+                Enter a number for the numerator and the denominator. Rate will
+                auto-calculate:
+              </CUI.Text>
               {!rateReadOnly && (
                 <CUI.Heading pt="5" size={"sm"}>
-                  Rate will auto-calculate. Please review the auto-calculated
-                  rate and revise if needed.
+                  Please review the auto-calculated rate and revise if needed.
                 </CUI.Heading>
               )}
               <QMR.Rate

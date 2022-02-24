@@ -60,8 +60,7 @@ export const PerformanceMeasure = () => {
       </CUI.Text>
       {!rateReadOnly && (
         <CUI.Heading pt="1" size={"sm"}>
-          Rate will auto-calculate. Please review the auto-calculated rate and
-          revise if needed.
+          Please review the auto-calculated rate and revise if needed.
         </CUI.Heading>
       )}
       <CUI.Text fontWeight="bold" my="5">

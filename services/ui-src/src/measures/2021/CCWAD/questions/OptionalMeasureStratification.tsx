@@ -109,8 +109,8 @@ const AgeData = ({ name }: SubComponentProps) => {
               ...(!rateReadOnly
                 ? [
                     <CUI.Heading pt="1" size={"sm"} key={`${item.id}-helper`}>
-                      Rate will auto-calculate. Please review the
-                      auto-calculated rate and revise if needed.
+                      Please review the auto-calculated rate and revise if
+                      needed.
                     </CUI.Heading>,
                   ]
                 : []),

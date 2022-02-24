@@ -174,8 +174,7 @@ const AgeData = ({ name }: SubComponentProps) => {
       </CUI.Heading>
       {!rateReadOnly && (
         <CUI.Heading pb="5" size={"sm"} key={`${name}.helper`}>
-          Rate will auto-calculate. Please review the auto-calculated rate and
-          revise if needed.
+          Please review the auto-calculated rate and revise if needed.
         </CUI.Heading>
       )}
       {deviationConditions?.showOtherPerformanceMeasureRates &&
