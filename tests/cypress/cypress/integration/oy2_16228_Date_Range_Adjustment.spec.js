@@ -13,15 +13,15 @@ describe("OY2-16228 Date Range Adjustment for Start/End date", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("[data-cy=ACS]").click();
     cy.get("[data-cy=CCP-AD]").click();
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get("#popover-trigger-185 > svg").click();
-    cy.get('#popover-body-185 > .css-1isix7b > [aria-label="January"]').click();
-    cy.get("#popover-trigger-189").click();
-    cy.get("#popover-trigger-189").click();
-    cy.get("#popover-trigger-189").click();
-    cy.get('#popover-body-189 > .css-1isix7b > [aria-label="January"]').click();
-    cy.get(":nth-child(3) > :nth-child(1) > :nth-child(4)").click();
+    cy.wait(2000);
+    cy.xpath('(//input[@label="Month"])[1]').clear();
+    cy.xpath('(//input[@label="Month"])[1]').type('1');
+    cy.xpath('(//input[@label="Year"])[1]').clear();
+    cy.xpath('(//input[@label="Year"])[1]').type("2020");
+    cy.xpath('(//input[@label="Month"])[2]').clear();
+    cy.xpath('(//input[@label="Month"])[2]').type('1');
+    cy.xpath('(//input[@label="Year"])[2]').clear();
+    cy.xpath('(//input[@label="Year"])[2]').type("2020");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="Date Range must have a End Date"]').should("be.visible");
     /* ==== End Cypress Studio ==== */
@@ -32,17 +32,15 @@ describe("OY2-16228 Date Range Adjustment for Start/End date", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("[data-cy=ACS]").click();
     cy.get("[data-cy=CCP-AD]").click();
-
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get("#popover-trigger-189").click();
-    cy.get(
-      '#popover-header-189 > .chakra-stack > [aria-label="Previous Year"]'
-    ).click();
-    cy.get('#popover-body-189 > .css-1isix7b > [aria-label="January"]').click();
-    cy.get(".chakra-toast > .chakra-toast__inner > #\\31 ").should(
-      "be.visible"
-    );
+    cy.wait(2000);
+    cy.xpath('(//input[@label="Month"])[1]').clear();
+    cy.xpath('(//input[@label="Month"])[1]').type('1');
+    cy.xpath('(//input[@label="Year"])[1]').clear();
+    cy.xpath('(//input[@label="Year"])[1]').type("2021");
+    cy.xpath('(//input[@label="Month"])[2]').clear();
+    cy.xpath('(//input[@label="Month"])[2]').type('1');
+    cy.xpath('(//input[@label="Year"])[2]').clear();
+    cy.xpath('(//input[@label="Year"])[2]').type("2020");  
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="Date Range must have a End Date"]').should("be.visible");
     /* ==== End Cypress Studio ==== */
@@ -53,12 +51,11 @@ describe("OY2-16228 Date Range Adjustment for Start/End date", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("[data-cy=ACS]").click();
     cy.get("[data-cy=FUA-AD]").click();
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get("#popover-trigger-185").click();
-    cy.get(
-      '#popover-body-185 > .css-1isix7b > [aria-label="February"]'
-    ).click();
+    cy.wait(2000);
+    cy.xpath('(//input[@label="Month"])[1]').clear();
+    cy.xpath('(//input[@label="Month"])[1]').type('4');
+    cy.xpath('(//input[@label="Year"])[1]').clear();
+    cy.xpath('(//input[@label="Year"])[1]').type("2020");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="Date Range must have a End Date"]').should("be.visible");
     /* ==== End Cypress Studio ==== */
