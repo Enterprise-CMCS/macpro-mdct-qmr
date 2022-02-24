@@ -6,6 +6,70 @@ import {
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 
+const validateLarcRateGreater = (data: Measure.Form) => {
+  let error;
+
+  if (
+    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"] &&
+    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"] &&
+    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"][0]
+      ?.rate &&
+    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]?.rate
+  ) {
+    if (
+      parseFloat(
+        data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]?.rate
+      ) >
+      parseFloat(
+        data[
+          "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"
+        ][0].rate
+      )
+    ) {
+      error = {
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate",
+      };
+    }
+  }
+
+  return error;
+};
+
+const validateDenominatorsAreTheSame = (data: Measure.Form) => {
+  let error;
+
+  if (
+    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"] &&
+    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"] &&
+    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"][0]
+      ?.denominator &&
+    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]
+      ?.denominator
+  ) {
+    if (
+      parseFloat(
+        data[
+          "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"
+        ][0].denominator
+      ) !==
+      parseFloat(
+        data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]
+          .denominator
+      )
+    ) {
+      error = {
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "Long-acting reversible method of contraception (LARC) rate must have the same denominator as Most effective or moderately effective method of contraception rate",
+      };
+    }
+  }
+
+  return error;
+};
+
 const CCWADValidation = (data: Measure.Form) => {
   const ageGroups = ["21 to 44"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -35,4 +99,8 @@ const CCWADValidation = (data: Measure.Form) => {
   return errorArray;
 };
 
-export const validationFunctions = [CCWADValidation];
+export const validationFunctions = [
+  CCWADValidation,
+  validateDenominatorsAreTheSame,
+  validateLarcRateGreater
+];
