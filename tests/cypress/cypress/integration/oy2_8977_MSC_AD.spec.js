@@ -25,7 +25,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it("Click on Yes option from first question", function () {
+  it.skip("Click on Yes option from first question", function () {
     cy.get("[data-cy=DidReport0]").click({ force: true }); // clicking yes
     cy.get("[data-cy=DataStatus0]").click({ force: true });
     cy.get("[data-cy=MeasurementSpecification0]").click({ force: true });

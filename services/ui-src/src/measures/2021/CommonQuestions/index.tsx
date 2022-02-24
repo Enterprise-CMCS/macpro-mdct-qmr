@@ -6,3 +6,5 @@ export * from "./OtherPerformanceMeasure";
 export * from "./Reporting";
 export * from "./StatusOfData";
 export * from "./WhyAreYouNotReporting";
+export * from "./OptionalMeasureStrat";
+export * from "./MeasurementSpecification";

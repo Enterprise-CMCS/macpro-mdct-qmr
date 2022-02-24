@@ -1,23 +1,13 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
+import { Measure } from "../validation/types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-export interface Props {
-  rateAlwaysEditable?: boolean;
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-}
-
-export const OtherPerformanceMeasure = ({
-  rateAlwaysEditable,
-  rateMultiplicationValue,
-  customMask,
-}: Props) => {
-  const register = useCustomRegister<Types.OtherPerformanceMeasure>();
-  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
+export const OtherPerformanceMeasure = () => {
+  const register = useCustomRegister<Measure.Form>();
+  const { getValues } = useFormContext<Measure.Form>();
   const savedRates = getValues("OtherPerformanceMeasure-Rates");
   const [showRates, setRates] = React.useState(
     savedRates ?? [
@@ -25,19 +15,16 @@ export const OtherPerformanceMeasure = ({
     ]
   );
 
-  // ! Waiting for data source refactor to type data source here
-  const { watch } = useFormContext<any>();
+  const { watch } = useFormContext<Measure.Form>();
 
   // Watch for dataSource data
   const dataSourceWatch = watch("DataSource");
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
-    rateAlwaysEditable !== undefined && rateAlwaysEditable
-      ? false
-      : dataSourceWatch?.every(
-          (source: any) => source === "I am reporting provisional data."
-        ) ?? true;
+    dataSourceWatch?.every(
+      (source) => source === "I am reporting provisional data."
+    ) ?? true;
 
   return (
     <QMR.CoreQuestionWrapper label="Other Performance Measure">
@@ -64,8 +51,6 @@ export const OtherPerformanceMeasure = ({
                   },
                 ]}
                 name={`OtherPerformanceMeasure-Rates.${index}.rate`}
-                rateMultiplicationValue={rateMultiplicationValue}
-                customMask={customMask}
                 readOnly={rateReadOnly}
               />
             </CUI.Stack>
@@ -81,7 +66,7 @@ export const OtherPerformanceMeasure = ({
           }}
           onClick={() => {
             showRates.push({
-              description: "",
+              description: [""],
               rate: [
                 {
                   denominator: "",

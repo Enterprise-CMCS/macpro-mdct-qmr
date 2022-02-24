@@ -1,4 +1,5 @@
 import * as Types from "../../CommonQuestions/types";
+
 export namespace Measure {
   export interface Props {
     name: string;
@@ -14,41 +15,50 @@ export namespace Measure {
   }
 
   interface AggregateRate {
-    [ageGroup: string]: {
-      subRate: {
-        [key: string]: RateFields;
-      };
-      total: RateFields[];
-    };
+    subRate: RateFields[];
+    total: RateFields[];
   }
+
   interface OtherRatesFields {
-    description: string;
+    description: string[];
     rate: RateFields[];
   }
 
+  interface ExplainDeviationFields {
+    numerator: string;
+    denominator: string;
+    other: string;
+  }
+
+  type DeviationCheckBoxOptions =
+    | "moderate-method-deviation-Numerator"
+    | "moderate-method-deviation-Denominator"
+    | "moderate-method-deviation-Other"
+    | "reversible-method-deviation-Numerator"
+    | "reversible-method-deviation-Denominator"
+    | "reversible-method-deviation-Other";
+
+  interface DeviationFromMeasureSpec {
+    explain: ExplainDeviationFields;
+    options: DeviationCheckBoxOptions;
+  }
+
   export interface Form
-    extends Types.DidReport,
+    extends Types.MeasurementSpecification,
       Types.AdditionalNotes,
-      Types.WhyAreYouNotReporting,
+      Types.CombinedRates,
+      Types.DateRange,
       Types.DefinitionOfPopulation,
       Types.StatusOfData,
-      Types.DateRange,
-      Types.CombinedRates,
-      Types.MeasurementSpecification {
+      Types.DidReport,
+      Types.WhyAreYouNotReporting {
     //DataSource
-
     DataSource: string[];
     "DataSource-Administrative"?: string[];
     "DataSource-Administrative-Other"?: string;
     "DataSource-Administrative-Other-Explanation"?: string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
-    "DataSource-Hybrid"?: string[];
-    "DataSource-Hybrid-Other"?: string;
-    "DataSource-Hybrid-Other-Explanation"?: string;
-    "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
-    "DataSource-ElectronicHealthRecords"?: string;
-    "DataSource-ElectronicHealthRecords-Explanation"?: string;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
@@ -57,24 +67,14 @@ export namespace Measure {
     "OtherPerformanceMeasure-Rates-TextInput": string;
 
     //DeviationFromMeasureSpec
+    "moderate-method-deviation": DeviationFromMeasureSpec;
+    "reversible-method-deviation": DeviationFromMeasureSpec;
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-    "DeviationOptions-MostEffective": string[];
-    "DeviationOptions-LARC": string[];
-    "DeviationFields-MostEffective": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-LARC": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
+
+    //Performance Measure
     "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-effectiveContraception": {
+    "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate": {
       denominator: string;
       numerator: string;
       other: string;
@@ -82,7 +82,7 @@ export namespace Measure {
       label: string;
       rate: string;
     }[];
-    "PerformanceMeasure-AgeRates-longActingContraception": {
+    "PerformanceMeasure-ReversibleMethodOfContraceptionRate": {
       denominator: string;
       numerator: string;
       other: string;
@@ -127,6 +127,10 @@ export namespace Measure {
     IndependentAsianOptions: string[];
     NativeHawaiianIndependentReporting: string;
     IndependentNativeHawaiianOptions: string[];
+
+    SexOptions: string[];
+    MaleSexRates: AggregateRate;
+    FemaleSexRates: AggregateRate;
 
     PrimaryLanguageOptions: string[];
     AddtnlPrimaryLanguage: string[];

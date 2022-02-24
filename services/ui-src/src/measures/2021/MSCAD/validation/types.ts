@@ -5,8 +5,6 @@ export namespace Measure {
     name: string;
     year: string;
     measureId: string;
-    handleSubmit?: any;
-    handleValidation?: any;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
@@ -22,7 +20,7 @@ export namespace Measure {
   }
 
   interface OtherRatesFields {
-    description: string[];
+    description: string;
     rate: RateFields[];
   }
   export interface Form
@@ -33,16 +31,11 @@ export namespace Measure {
       Types.AdditionalNotes,
       Types.WhyAreYouNotReporting,
       Types.CombinedRates,
-      Types.OtherPerformanceMeasure {
+      Types.OtherPerformanceMeasure,
+      Types.MeasurementSpecification {
     //DataSource
     "DataSource-CAHPS-Version": string;
     "DataSource-CAHPS-Version-Other": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;

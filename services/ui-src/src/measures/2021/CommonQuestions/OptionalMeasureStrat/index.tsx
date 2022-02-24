@@ -1,11 +1,9 @@
-// Left off working on NDRs
-
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
 
-import { Measure } from "../../validation/types";
-import { OMSData } from "../data/OMSData";
+import * as Types from "../types";
+import { OMSData, OmsNode } from "./data";
 
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
@@ -15,14 +13,16 @@ import { useEffect } from "react";
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
   name: string;
+  /** data object for dynamic rendering */
+  data: OmsNode[];
 }
 
 /**
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
-export const buildOmsCheckboxes = ({ name }: OmsCheckboxProps) => {
-  return OMSData.map((lvlOneOption) => {
+export const buildOmsCheckboxes = ({ name, data }: OmsCheckboxProps) => {
+  return data.map((lvlOneOption) => {
     const displayValue = lvlOneOption.id;
     const value = lvlOneOption.id.replace(/[^\w]/g, "");
 
@@ -42,33 +42,69 @@ export const buildOmsCheckboxes = ({ name }: OmsCheckboxProps) => {
   });
 };
 
+interface BaseProps
+  extends Types.AgeGroups,
+    Types.PerformanceMeasureDescriptions {
+  /** string array for perfromance measure descriptions */
+  performanceMeasureArray: Types.RateFields[][];
+  /** should the total for each portion of OMS be calculated? */
+  calcTotal?: boolean;
+}
+
+/** data for dynamic rendering will be provided */
+interface DataDrivenProp {
+  /** data array for dynamic rendering */
+  data: OmsNode[];
+  /** cannot set adultMeasure if using custom data*/
+  adultMeasure?: never;
+}
+
+/** default data is being used for this component */
+interface DefaultDataProp {
+  /** is this an adult measure? Should this contain the ACA portion? */
+  adultMeasure: boolean;
+  /** cannot set data if using default data */
+  data?: never;
+}
+
+type Props = BaseProps & (DataDrivenProp | DefaultDataProp);
+
+/** OMS react-hook-form typing */
+type OMSType = Types.OptionalMeasureStratification & {
+  DataSource: string[];
+} & { MeasurementSpecification: string } & {
+  "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
+};
+
 /**
  * Final OMS built
  */
-export const OptionalMeasureStrat = () => {
-  const { watch, getValues, unregister } = useFormContext<Measure.Form>();
-  const data = getValues();
+export const OptionalMeasureStrat = ({
+  performanceMeasureArray,
+  ageGroups,
+  performanceMeasureDescriptions,
+  data,
+  calcTotal = false,
+  adultMeasure,
+}: Props) => {
+  const omsData = data ?? OMSData(adultMeasure);
+  const { watch, getValues, unregister } = useFormContext<OMSType>();
+  const values = getValues();
+
   const dataSourceWatch = watch("DataSource");
+  const OPM = values["OtherPerformanceMeasure-Rates"];
+  const watchDataSourceSwitch = watch("MeasurementSpecification");
+
+  const register = useCustomRegister();
+  const checkBoxOptions = buildOmsCheckboxes({
+    ...register("OptionalMeasureStratification"),
+    data: omsData,
+  });
+
   const rateReadOnly =
     dataSourceWatch?.every(
       (source) => source === "I am reporting provisional data."
     ) ?? true;
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
-    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
-    data["PerformanceMeasure-AgeRates-Initiation-Other"],
-    data["PerformanceMeasure-AgeRates-Engagement-Other"],
-    data["PerformanceMeasure-AgeRates-Initiation-Total"],
-    data["PerformanceMeasure-AgeRates-Engagement-Total"],
-  ];
-  const register = useCustomRegister();
-  const checkBoxOptions = buildOmsCheckboxes({
-    ...register("OptionalMeasureStratification"),
-  });
-  const watchDataSourceSwitch = watch("MeasurementSpecification");
 
   /**
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
@@ -82,7 +118,14 @@ export const OptionalMeasureStrat = () => {
   return (
     <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
       <PerformanceMeasureProvider
-        value={{ OPM, performanceMeasureArray, rateReadOnly, calcTotal: true }}
+        value={{
+          OPM,
+          performanceMeasureArray,
+          rateReadOnly,
+          calcTotal,
+          ageGroups,
+          performanceMeasureDescriptions,
+        }}
       >
         <CUI.Text py="3">
           If this measure is also reported by additional
@@ -105,3 +148,5 @@ export const OptionalMeasureStrat = () => {
     </QMR.CoreQuestionWrapper>
   );
 };
+
+export type OmsDataNode = OmsNode;

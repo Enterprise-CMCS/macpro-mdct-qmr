@@ -1,11 +1,13 @@
 import { createContext, useContext } from "react";
-import { Measure } from "../../validation/types";
+import * as Types from "../types";
 
 interface ContextProps {
-  OPM?: Measure.OtherRatesFields[];
-  performanceMeasureArray?: Measure.RateFields[][];
+  OPM?: Types.OtherRatesFields[];
+  performanceMeasureArray?: Types.RateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
+  performanceMeasureDescriptions: string[];
+  ageGroups: string[];
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
@@ -13,6 +15,8 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   performanceMeasureArray: [[]],
   rateReadOnly: true,
   calcTotal: false,
+  performanceMeasureDescriptions: [],
+  ageGroups: [],
 });
 
 export const usePerformanceMeasureContext = () =>
