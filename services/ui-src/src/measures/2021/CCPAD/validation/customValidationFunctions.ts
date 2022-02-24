@@ -9,8 +9,6 @@ const CCPADValidation = (data: Measure.Form) => {
   ];
   const dateRange = data["DateRange"];
   let errorArray: any[] = [];
-
-  //@ts-ignore
   errorArray = [
     ...errorArray,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),

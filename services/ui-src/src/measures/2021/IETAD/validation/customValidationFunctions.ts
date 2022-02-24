@@ -99,7 +99,6 @@ const IEDValidation = (data: Measure.Form) => {
   const totalEngagement = data["PerformanceMeasure-AgeRates-Engagement-Total"];
   const dateRange = data["DateRange"];
   let errorArray: any[] = [];
-  //@ts-ignore
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
