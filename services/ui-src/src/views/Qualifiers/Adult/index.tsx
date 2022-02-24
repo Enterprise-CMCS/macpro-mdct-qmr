@@ -64,7 +64,7 @@ export const ACSQualifiers = () => {
 
   const handleValidation = (data: ACSQualifierForm) => {
     validateAndSetErrors(data);
-    handleSave(data);
+    saveDataToServer({ data });
   };
 
   const handleSubmit = (data: ACSQualifierForm) => {
@@ -72,11 +72,22 @@ export const ACSQualifiers = () => {
     if (validatedErrors) {
       setShowModal(true);
     } else {
-      handleSave(data, true);
+      saveDataToServer({
+        data,
+        callback: () => {
+          navigate(-1);
+        },
+      });
     }
   };
 
-  const handleSave = (data: ACSQualifierForm, navigateAway?: boolean) => {
+  const saveDataToServer = ({
+    data,
+    callback,
+  }: {
+    data: ACSQualifierForm;
+    callback?: () => void;
+  }) => {
     const requestData = {
       data,
       measure: "CSQ",
@@ -86,9 +97,12 @@ export const ACSQualifiers = () => {
 
     mutation.mutate(requestData, {
       onSuccess: () => {
-        // refetch the qualifier measure and redirect to measure list page
+        // refetch the qualifier measure and redirect to measure list page if specified
         queryClient.refetchQueries(["measure", state, year, "CSQ"]);
-        navigateAway && navigate(`/${state}/${year}/${CoreSetAbbr.ACS}`);
+
+        if (callback) {
+          callback();
+        }
       },
     });
   };
@@ -104,7 +118,12 @@ export const ACSQualifiers = () => {
 
     if (continueWithErrors) {
       const data = methods.getValues();
-      handleSave(data, true);
+      saveDataToServer({
+        data,
+        callback: () => {
+          navigate(-1);
+        },
+      });
       setErrors(undefined);
     }
   };

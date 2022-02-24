@@ -60,7 +60,7 @@ export const CCSCQualifiers = () => {
 
   const handleValidation = (data: CCSCQualifierForm) => {
     validateAndSetErrors(data);
-    handleSave(data);
+    saveDataToServer({ data });
   };
 
   const handleSubmit = (data: CCSCQualifierForm) => {
@@ -68,11 +68,22 @@ export const CCSCQualifiers = () => {
     if (validatedErrors) {
       setShowModal(true);
     } else {
-      handleSave(data, true);
+      saveDataToServer({
+        data,
+        callback: () => {
+          navigate(-1);
+        },
+      });
     }
   };
 
-  const handleSave = (data: CCSCQualifierForm, navigateAway?: boolean) => {
+  const saveDataToServer = ({
+    data,
+    callback,
+  }: {
+    data: CCSCQualifierForm;
+    callback?: () => void;
+  }) => {
     const requestData = {
       data,
       measure: "CSQ",
@@ -82,9 +93,12 @@ export const CCSCQualifiers = () => {
 
     mutation.mutate(requestData, {
       onSuccess: () => {
-        // refetch the qualifier measure and redirect to measure list page
+        // refetch the qualifier measure and redirect to measure list page if specified
         queryClient.refetchQueries(["measure", state, year, "CSQ"]);
-        navigateAway && navigate(`/${state}/${year}/${CoreSetAbbr.CCSC}`);
+
+        if (callback) {
+          callback();
+        }
       },
     });
   };
@@ -100,7 +114,12 @@ export const CCSCQualifiers = () => {
 
     if (continueWithErrors) {
       const data = methods.getValues();
-      handleSave(data, true);
+      saveDataToServer({
+        data,
+        callback: () => {
+          navigate(-1);
+        },
+      });
       setErrors(undefined);
     }
   };
