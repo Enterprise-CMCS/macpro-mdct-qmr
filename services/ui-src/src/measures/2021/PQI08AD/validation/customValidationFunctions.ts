@@ -3,7 +3,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
-  validateReasonForNotReporting
+  validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 const PQI01Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];

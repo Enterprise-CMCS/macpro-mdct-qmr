@@ -4,7 +4,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateEqualDenominators,
-  validateReasonForNotReporting
+  validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 
 const OUDValidation = (data: Measure.Form) => {

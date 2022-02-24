@@ -4,7 +4,7 @@ import {
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting
+  validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 
 const MSCADValidation = (data: Measure.Form) => {

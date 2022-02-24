@@ -3,7 +3,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
-  validateReasonForNotReporting
+  validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 const PQI01Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -11,7 +11,6 @@ const PQI01Validation = (data: any) => {
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const performanceMeasureArray = data["PerformanceMeasure-AgeRates"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
-
 
   const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
     (pma: PerformanceMeasure[]) => [pma]
