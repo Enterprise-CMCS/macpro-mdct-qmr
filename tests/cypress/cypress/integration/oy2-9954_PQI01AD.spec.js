@@ -156,7 +156,9 @@ describe("Measure: PQI01-AD", () => {
       "have.text",
       "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
-    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should(
+    cy.get(
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should(
       "have.text",
       "Performance Measure/Other Performance Measure Error"
     );
