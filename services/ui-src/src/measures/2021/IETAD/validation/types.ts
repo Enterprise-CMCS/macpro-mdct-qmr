@@ -62,16 +62,5 @@ export namespace Measure {
 
     "DeviationOptions-EngageTotal-AgeRange": string[];
     "DeviationFields-EngageTotal": Types.DeviationFields;
-
-    //PerformanceMeasure
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-Initiation-Alcohol": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Engagement-Alcohol": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Initiation-Opioid": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Engagement-Opioid": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Initiation-Other": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Engagement-Other": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Initiation-Total": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Engagement-Total": Types.RateFields[];
   }
 }

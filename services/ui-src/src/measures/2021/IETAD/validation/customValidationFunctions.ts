@@ -1,4 +1,5 @@
 import { Measure } from "./types";
+import { data as PMD } from "../questions/data/performanceMeasureData";
 import {
   atLeastOneRateComplete,
   validateDualPopInformation,
@@ -7,6 +8,7 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "../../globalValidations";
 
 // // The AOM totals Numerator needs to be equal or greater than the largest initiation/engagement
 const validateTotalsEqualOrGreaterThan = (
@@ -72,66 +74,53 @@ const IEDValidation = (data: Measure.Form) => {
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
-    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
-    data["PerformanceMeasure-AgeRates-Initiation-Other"],
-    data["PerformanceMeasure-AgeRates-Engagement-Other"],
-    data["PerformanceMeasure-AgeRates-Initiation-Total"],
-    data["PerformanceMeasure-AgeRates-Engagement-Total"],
-  ];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
-  const initiationArray = [
-    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
-    data["PerformanceMeasure-AgeRates-Initiation-Other"],
-  ];
-  const engagementArray = [
-    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
-    data["PerformanceMeasure-AgeRates-Engagement-Other"],
-  ];
-  const totalInitiation = data["PerformanceMeasure-AgeRates-Initiation-Total"];
-  const totalEngagement = data["PerformanceMeasure-AgeRates-Engagement-Total"];
+  const initiationArray = performanceMeasureArray.filter(
+    (_, idx) =>
+      PMD.categories?.[idx].includes("Initiation") &&
+      !PMD.categories?.[idx].includes("Total")
+  );
+
+  const engagementArray = performanceMeasureArray.filter(
+    (_, idx) =>
+      PMD.categories?.[idx].includes("Engagement") &&
+      !PMD.categories?.[idx].includes("Total")
+  );
+
+  const totalInitiation = performanceMeasureArray.filter(
+    (_, idx) =>
+      PMD.categories?.[idx].includes("Initiation") &&
+      PMD.categories?.[idx].includes("Total")
+  )[0];
+
+  const totalEngagement = performanceMeasureArray.filter(
+    (_, idx) =>
+      PMD.categories?.[idx].includes("Engagement") &&
+      PMD.categories?.[idx].includes("Total")
+  )[0];
+
   let errorArray: any[] = [];
-  //@ts-ignore
+
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
-  let sameDenominatorError = [
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
-        data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
-      ],
-      ageGroups
-    ),
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
-        data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
-      ],
-      ageGroups
-    ),
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-Initiation-Other"],
-        data["PerformanceMeasure-AgeRates-Engagement-Other"],
-      ],
-      ageGroups
-    ),
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-Initiation-Total"],
-        data["PerformanceMeasure-AgeRates-Engagement-Total"],
-      ],
-      ageGroups
-    ),
+  let sameDenominatorError: any[] = [];
+  for (let i = 0; i < performanceMeasureArray.length; i += 2) {
+    sameDenominatorError = [
+      ...sameDenominatorError,
+      ...validateEqualDenominators(
+        [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
+        ageGroups
+      ),
+    ];
+  }
+  sameDenominatorError = [
+    ...sameDenominatorError,
+    ...validateEqualDenominators([totalInitiation, totalEngagement], ageGroups),
   ];
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [sameDenominatorError[0]] : [];

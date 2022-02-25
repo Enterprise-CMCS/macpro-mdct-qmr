@@ -7,7 +7,7 @@ import { PerformanceMeasure as PM } from "./types";
  * Should be in order of category string array.
  * If no categories, grabs singleCat backup from data.
  */
-export const extractPerformanceMeasureRateArray = (
+export const getPerfMeasureRateArray = (
   formData: Types.PerformanceMeasure,
   renderData: DDT.PerformanceMeasure
 ) => {
