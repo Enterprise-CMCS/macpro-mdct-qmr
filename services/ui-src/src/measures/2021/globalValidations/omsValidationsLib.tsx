@@ -6,8 +6,10 @@ import { Measure } from "../IETAD/validation/types";
 
 export const omsValidations = (data: Measure.Form) => {
   const flattenedOMSData: any = flatten(data.OptionalMeasureStratification, {
-    safe: true,
+    safe: false,
   });
+
+  danielsIdea(data);
 
   console.log({ flattenedOMSData });
 
@@ -97,3 +99,25 @@ const omsFilledNDRCheckbox = ({ filteredPaths, selectedOptions }: any) => {
 // const validateUndefinedSelections = (objectToValidate) => {
 
 // }
+
+const danielsIdea = (data: Measure.Form) => {
+  for (const selection of data.OptionalMeasureStratification.options) {
+    const topLevelMap =
+      data.OptionalMeasureStratification.selections[selection];
+    console.log({ topLevelMap });
+    for (const nestedSelection of topLevelMap.options ?? []) {
+      const test = topLevelMap?.selections;
+
+      if (test) {
+        console.log("rates", test[nestedSelection].ageRangeRates?.rates);
+        for (const daniel of Object.keys(
+          test[nestedSelection].ageRangeRates?.rates ?? {}
+        )) {
+          console.log(test[nestedSelection].ageRangeRates?.rates?.[daniel], {
+            [selection]: true,
+          });
+        }
+      }
+    }
+  }
+};
