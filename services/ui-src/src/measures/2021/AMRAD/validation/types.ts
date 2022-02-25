@@ -28,7 +28,8 @@ export namespace Measure {
       Types.StatusOfData,
       Types.AdditionalNotes,
       Types.OtherPerformanceMeasure,
-      Types.CombinedRates {
+      Types.CombinedRates,
+      Types.MeasurementSpecification {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -36,12 +37,6 @@ export namespace Measure {
     "DataSource-Administrative-Other-Explanation"?: string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
 
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
