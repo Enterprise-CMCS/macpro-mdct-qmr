@@ -2,11 +2,6 @@ import * as QMR from "components";
 import { Measure } from "../validation/types";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
-export const defaultDeviationOptions = [
-  { label: "Ages 18 to 64", id: 0 },
-  { label: "Age 65 and older", id: 1 },
-];
-
 interface Props {
   options: { label: string; id: number }[];
   deviationConditions: {

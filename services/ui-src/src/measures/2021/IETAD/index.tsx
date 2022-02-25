@@ -6,6 +6,41 @@ import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import * as PerformanceMeasureData from "./questions/data/performanceMeasureData";
 
+const categories = [
+  {
+    watch: "PerformanceMeasure-AgeRates-Initiation-Alcohol",
+    title: "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
+  },
+  {
+    watch: "PerformanceMeasure-AgeRates-Engagement-Alcohol",
+    title: "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
+  },
+  {
+    watch: "PerformanceMeasure-AgeRates-Initiation-Opioid",
+    title: "Initiation of AOD Treatment: Opioid Abuse or Dependence",
+  },
+  {
+    watch: "PerformanceMeasure-AgeRates-Engagement-Opioid",
+    title: "Engagement of AOD Treatment: Opioid Abuse or Dependence",
+  },
+  {
+    watch: "PerformanceMeasure-AgeRates-Initiation-Other",
+    title: "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
+  },
+  {
+    watch: "PerformanceMeasure-AgeRates-Engagement-Other",
+    title: "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
+  },
+  {
+    watch: "PerformanceMeasure-AgeRates-Initiation-Total",
+    title: "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
+  },
+  {
+    watch: "PerformanceMeasure-AgeRates-Engagement-Total",
+    title: "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
+  },
+];
+
 export const IETAD = ({
   name,
   year,
@@ -145,29 +180,7 @@ export const IETAD = ({
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
-          {isHEDIS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showInitAlcohol18To64,
-                showEngageAlcohol18To64,
-                showInitOpioid18To64,
-                showEngageOpioid18To64,
-                showInitOther18To64,
-                showEngageOther18To64,
-                showInitTotal18To64,
-                showEngageTotal18To64,
-                showInitAlcohol65Plus,
-                showEngageAlcohol65Plus,
-                showInitOpioid65Plus,
-                showEngageOpioid65Plus,
-                showInitOther65Plus,
-                showEngageOther65Plus,
-                showInitTotal65Plus,
-                showEngageTotal65Plus,
-              }}
-            />
-          )}
+          {isHEDIS && <CMQ.DeviationFromMeasureSpec categories={categories} />}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />

@@ -240,3 +240,11 @@ export interface OptionalMeasureStratification {
 export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsDataNode[];
 }
+
+export interface DeviationFromMeasureSpecification {
+  DidCalculationsDeviate: string;
+  DeviationOptions: string[];
+  Deviations: {
+    [option: string]: any;
+  };
+}
