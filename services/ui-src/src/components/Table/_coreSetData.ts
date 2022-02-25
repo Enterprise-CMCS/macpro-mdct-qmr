@@ -35,8 +35,8 @@ export const exampleCoreSetData: CoreSetTableItem.Data[] = [
   },
   {
     coreSet: CoreSetAbbr.HHCS,
-    title: "Health Homes Core Set Questions: SPA Name",
-    type: CoreSetTableItem.Type.HEALTH_HOMES,
+    title: "Health Home Core Set Questions: SPA Name",
+    type: CoreSetTableItem.Type.HEALTH_HOME,
     progress: { numAvailable: 12, numComplete: 4 },
     actions: [{ itemText: "Export", handleSelect: () => console.log("1") }],
     submitted: false,

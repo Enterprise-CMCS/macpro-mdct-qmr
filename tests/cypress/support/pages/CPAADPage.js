@@ -4,14 +4,12 @@ const cpaADtitle =
 const sentenceBelowTitle =
   "//p[contains(text(),'For technical questions regarding use of this appl')]";
 //const printButton = "//button[@class='chakra-button css-11qozvn']";
-const didYouCollectThisMeasure =
-  "//p[contains(text(),'Yes, we did collect data for the Consumer Assessme')]";
+const didYouCollectThisMeasure = "[data-cy='DidCollect0']";
 const howDidYouReportThisMeasure =
   "//p[contains(text(),'Submitted raw data to AHRQ (CAHPS Database)')]";
 const measurementSpecificationAHRQ =
   "//p[contains(text(),'Agency for Healthcare Research and Quality (AHRQ) ')]";
-const dataSource =
-  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[4]/div[1]/div[1]/div[1]/div[1]/label[1]/span[2]/p[1]";
+const dataSource = "[data-cy='DataSource-CAHPS-Version0']";
 const dataSourceOtherTextbox = "//textarea[@id='field-911']";
 //const noSupplemental = "//p[contains(text(),'No Supplemental Item Sets were included')]";
 const otherCAHPSItemSet = "//p[contains(text(),'Other CAHPS Item Set')]";
@@ -80,17 +78,17 @@ export class CPAADPAGE {
     cy.xpath(sentenceBelowTitle).should("be.visible");
   }
   clickdidYouCollectThisMeasure() {
-    cy.xpath(didYouCollectThisMeasure).click();
+    cy.get(didYouCollectThisMeasure).click({ force: true });
   }
   clickhowDidYouReportThisMeasure() {
-    cy.xpath(howDidYouReportThisMeasure).click();
+    cy.xpath(howDidYouReportThisMeasure).click({ force: true });
   }
   clickmeasurementSpecificationAHRQ() {
-    cy.xpath(measurementSpecificationAHRQ).click();
+    cy.xpath(measurementSpecificationAHRQ).click({ force: true });
   }
 
   clickdataSource() {
-    cy.xpath(dataSource).click();
+    cy.get(dataSource).click();
   }
 
   clicknoSupplemental() {

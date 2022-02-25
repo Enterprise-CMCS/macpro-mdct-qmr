@@ -1,10 +1,14 @@
+import * as Types from "../../CommonQuestions/types";
+
 export namespace Measure {
   export interface Props {
     name: string;
     year: string;
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
-  export interface Form {
+  export interface Form
+    extends Types.AdditionalNotes,
+      Types.MeasurementSpecification {
     //Report
     DidCollect: string;
 
@@ -20,17 +24,6 @@ export namespace Measure {
     "DataSource-Admin-Protocol": string;
     "DataSource-Admin-Protocol-Other": string;
 
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
-
     //WhyDidYouNotCollect
     WhyDidYouNotCollect: string[];
     AmountOfPopulationNotCovered: string;
@@ -38,7 +31,7 @@ export namespace Measure {
     PartialPopulationNotCoveredExplanation: string;
     WhyIsDataNotAvailable: string;
     "WhyIsDataNotAvailable-Other": string;
-    DataIconAccuracyIssues: string;
+    DataInconsistenciesAccuracyIssues: string;
     DataSourceNotEasilyAccessible: string;
     "DataSourceNotEasilyAccessible-Other": string;
     InformationNotCollected: string;
@@ -46,10 +39,6 @@ export namespace Measure {
     LimitationWithDatCollecitonReportAccuracyCovid: string;
     SmallSampleSizeLessThan30: string;
     "WhyDidYouNotCollect-Other": string;
-
-    //AdditionalNotes
-    "AdditionalNotes-AdditionalNotes"?: string;
-    "AdditionalNotes-Upload"?: File[];
 
     //DefinitionOfPopulation
     DefinitionOfSurveySample: string[];
