@@ -100,7 +100,7 @@ export const CCWAD = ({
             />
           )}
           {/* Show Other Performance Measures when isOpa is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {(showReversibleRates ||
             showModeratelyRates ||
