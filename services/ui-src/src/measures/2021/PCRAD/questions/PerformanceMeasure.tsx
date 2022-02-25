@@ -36,19 +36,27 @@ export const PerformanceMeasure = () => {
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      Percentage of emergency department (ED) visits for beneficiaries age 18
-      and older with a principal diagnosis of alcohol or other drug (AOD) abuse
-      or dependence who had a follow-up visit for Total AOD Abuse or Dependence.
-      Two rates are reported:
+      For beneficiaries ages 18 to 64, the number of acute inpatient and
+      observation stays during the measurement year that were followed by an
+      unplanned acute readmission for any diagnosis within 30 days and the
+      predicted probability of an acute readmission. Data are reported in the
+      following categories:
+      <CUI.UnorderedList m="5" ml="10">
+        <CUI.ListItem>Count of Index Hospital Stays (IHS)</CUI.ListItem>
+        <CUI.ListItem>Count of Observed 30-Day Readmissions</CUI.ListItem>
+        <CUI.ListItem>Count of Expected 30-Day Readmissions</CUI.ListItem>
+      </CUI.UnorderedList>
+      <CUI.Box my={4}>
+        For beneficiaries ages 18 to 64, states should also report the rate of
+        beneficiaries who are identified as outliers based on high rates of
+        inpatient and observation stays during the measurement year. Data are
+        reported in the following categories:
+      </CUI.Box>
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>
-          Percentage of ED visits for which the beneficiary received follow-up
-          within 30 days of the ED visit (31 total days)
+          Count of Beneficiaries in Medicaid Population
         </CUI.ListItem>
-        <CUI.ListItem>
-          Percentage of ED visits for which the beneficiary received follow-up
-          within 7 days of the ED visit (8 total days)
-        </CUI.ListItem>
+        <CUI.ListItem>Number of Outliers</CUI.ListItem>
       </CUI.UnorderedList>
       <QMR.TextArea
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
