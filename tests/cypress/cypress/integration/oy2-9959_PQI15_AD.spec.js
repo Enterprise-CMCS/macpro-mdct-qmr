@@ -223,21 +223,45 @@ describe("Measure: PQI15-AD", () => {
       "50000.0"
     );
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.options1-checkbox').check();
-    cy.get('[data-cy=CombinedRates0]').click();
-    cy.get('[data-cy=CombinedRates-CombinedRates0]').click();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.selections\\.Ethnicity\\.options0-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.options0"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.selections\\.Ethnicity\\.selections\\.NotofHispanicLatinoaorSpanishorigin\\.ageRangeRates\\.options0-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.options0"] > .chakra-checkbox__label > .chakra-text').should('be.visible');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.numerator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.numerator"]').type('5');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.denominator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.denominator"]').type('10');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.rate"]').should('be.visible');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.rate"]').should('have.value', '50.0');
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control'
+    ).click();
+    cy.get("#OptionalMeasureStratification\\.options1-checkbox").check();
+    cy.get("[data-cy=CombinedRates0]").click();
+    cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#OptionalMeasureStratification\\.selections\\.Ethnicity\\.options0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.options0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#OptionalMeasureStratification\\.selections\\.Ethnicity\\.selections\\.NotofHispanicLatinoaorSpanishorigin\\.ageRangeRates\\.options0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.options0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.numerator"]'
+    ).type("5");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.denominator"]'
+    ).type("10");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.rate"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.rate"]'
+    ).should("have.value", "50.0");
     /* ==== End Cypress Studio ==== */
   });
 
@@ -370,7 +394,7 @@ describe("Measure: PQI15-AD", () => {
     ).click();
     cy.get("#DeliverySysRepresentationDenominator4-checkbox").check();
     cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
-    cy.get('.css-bxak8j').should('be.visible');
+    cy.get(".css-bxak8j").should("be.visible");
     /* ==== End Cypress Studio ==== */
   });
 });
