@@ -31,31 +31,29 @@ export const omsValidations = (data: Measure.Form) => {
     }
   );
 
-  const additionalSelectionOptions = Object.keys(flattenedOMSDataNotSafe)
-    .filter((key) => {
-      return key.includes("additionalSelections.");
-    })
-    .filter((nestedKey) => {
-      return /(rate|numerator|denominator)$/g.test(nestedKey);
-    })
-    .map((filteredPath) => ({
-      [filteredPath]: flattenedOMSDataNotSafe[filteredPath],
-    }));
-  // .reduce((prev, current) => {
-  //   return {
-  //     ...prev,
-  //     ...current,
-  //   };
-  // }, {});
-
+  const additionalNDRObjects: any = [];
+  const selectedOptionObj: any = {};
   for (const selectedOption of selectedOptions) {
-    const something = Object.keys(additionalSelectionOptions).filter((rate) =>
-      rate.includes(selectedOption)
-    );
-    console.log(something.length);
-  }
+    selectedOptionObj[selectedOption] = [];
 
-  console.log({ additionalSelectionOptions });
+    for (const additionalSelectionOption in flattenedOMSDataNotSafe) {
+      if (
+        additionalSelectionOption.includes(selectedOption) &&
+        /(rate|numerator|denominator)$/g.test(additionalSelectionOption)
+      ) {
+        if (additionalSelectionOption.includes("numerator")) {
+          selectedOptionObj[selectedOption].push({
+            ...selectedOptionObj[selectedOption],
+            numerator: flattenedOMSDataNotSafe[additionalSelectionOption],
+          });
+        }
+        // console.log(selectedOption, additionalSelectionOption);
+      }
+    }
+    console.log(selectedOptionObj);
+    additionalNDRObjects.push(selectedOptionObj);
+  }
+  console.log(additionalNDRObjects);
 
   return test; //array of errors to print at bottom of screen
 };
