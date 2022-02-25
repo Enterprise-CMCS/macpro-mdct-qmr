@@ -325,11 +325,8 @@ describe("Measure: PQI15-AD", () => {
   it("Combined rates from multiple reporting", function () {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("[data-cy=DidReport0]").click();
-    cy.get("#radio-397").check();
     cy.get("[data-cy=DataStatus0]").click();
-    //cy.get('#radio-401').check();
     cy.get("[data-cy=MeasurementSpecification0]").click();
-    //cy.get('#radio-405').check();
     cy.get("[data-cy=DataSource0] > .chakra-checkbox__control").click();
     cy.get("#DataSource0-checkbox").check();
     cy.get(
@@ -341,11 +338,8 @@ describe("Measure: PQI15-AD", () => {
     ).click();
     cy.get("#DefinitionOfDenominator0-checkbox").check();
     cy.get("[data-cy=DenominatorDefineTotalTechSpec0]").click();
-    //cy.get('#radio-421').check();
     cy.get("[data-cy=CombinedRates0]").click();
-    //cy.get('#radio-426').check();
     cy.get("[data-cy=DidCalculationsDeviate0]").click();
-    //cy.get('#radio-436').check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator0] > .chakra-checkbox__control"
     ).click();
@@ -353,19 +347,16 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "#DeliverySys-FreeForService_radiogroup > .chakra-stack > :nth-child(1) > .chakra-radio"
     ).click();
-    //cy.get('#radio-447').check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
     cy.get("#DeliverySysRepresentationDenominator1-checkbox").check();
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement0]").click();
-    //cy.get('#radio-451').check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
     cy.get("#DeliverySysRepresentationDenominator2-checkbox").check();
     cy.get("[data-cy=DeliverySys-MCO_POHP0]").click();
-    //cy.get('#radio-457').check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
@@ -379,13 +370,11 @@ describe("Measure: PQI15-AD", () => {
     ).click();
     cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
     cy.get("[data-cy=DeliverySys-IntegratedCareModel0]").click();
-    //.get('#radio-465').check();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator4] > .chakra-checkbox__control"
     ).click();
     cy.get("#DeliverySysRepresentationDenominator4-checkbox").check();
     cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
-    //cy.get('#radio-441').check();
     /* ==== End Cypress Studio ==== */
   });
 });
