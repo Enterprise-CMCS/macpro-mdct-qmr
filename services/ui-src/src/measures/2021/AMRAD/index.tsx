@@ -114,7 +114,6 @@ export const AMRAD = ({
                 showPersistentAsthma19To50,
                 showPersistentAsthma51To64,
                 showPersistentAsthmaTotal,
-                // showOtherPerformanceMeasureRates,
               }}
             />
           )}
