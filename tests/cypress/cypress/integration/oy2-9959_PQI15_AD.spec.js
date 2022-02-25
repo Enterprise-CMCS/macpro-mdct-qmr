@@ -335,32 +335,4 @@ describe("Measure: PQI15-AD", () => {
     //cy.get('#radio-441').check();
     /* ==== End Cypress Studio ==== */
   });
-
-  /* ==== Test Created with Cypress Studio ==== */
-  it('oms section verify', function() {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy=DidReport0]').click();
-    cy.get('#radio-397').check();
-    cy.get('[data-cy=DataStatus0]').click();
-    //cy.get('#radio-401').check();
-    cy.get('[data-cy=MeasurementSpecification0]').click();
-    //cy.get('#radio-405').check();
-    cy.get('[data-cy=DataSource0] > .chakra-checkbox__control').click();
-    //cy.get('#DataSource0-checkbox').check();
-    //cy.get('[data-cy=DataSource-Administrative0] > .chakra-checkbox__control').click();
-    cy.get('#DataSource-Administrative0-checkbox').check();
-    cy.get('[data-cy=DefinitionOfDenominator0] > .chakra-checkbox__control').click();
-    cy.get('#DefinitionOfDenominator0-checkbox').check();
-    cy.get('[data-cy=DenominatorDefineTotalTechSpec0]').click();
-    //cy.get('#radio-421').check();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type('10');
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type('20');
-    cy.get('[data-cy=CategoriesReported0] > .chakra-checkbox__control').click();
-    cy.get('#CategoriesReported0-checkbox').check();
-    cy.get('[data-cy=NonHispanicRacialCategories0] > .chakra-checkbox__control').click();
-    cy.get('#NonHispanicRacialCategories0-checkbox').check();
-    /* ==== End Cypress Studio ==== */
-  });
 });
