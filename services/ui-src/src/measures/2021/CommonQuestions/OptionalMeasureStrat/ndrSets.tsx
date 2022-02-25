@@ -88,8 +88,7 @@ const buildConditionalRateArray = ({
             `_${performanceMeasureDescriptions[idx].replace(/[^\w]/g, "")}`
           : "";
 
-      const adjustedName =
-        `${name}.rates.${cleanedLabel}.${idx}` + cleanedPMDescLabel;
+      const adjustedName = `${name}.rates.${cleanedLabel}${cleanedPMDescLabel}`;
 
       ndrSets.push(
         <QMR.Rate
