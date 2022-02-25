@@ -43,7 +43,6 @@ export const PerformanceMeasure = () => {
     },
   ];
 
-  // TODO: The Performance Measures should total automagically
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <CUI.Text my="5">
