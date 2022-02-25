@@ -199,7 +199,6 @@ describe("Measure: PQI15-AD", () => {
   //  - Optional Measure specification
   it("Age ranges are represented in OMS when other measure spec", () => {
     cy.wait(2000);
-    // cy.get('[data-cy="DidReport0"]').click({ force: true });
     cy.get('[data-cy="MeasurementSpecification1"]').click();
     cy.get('[id="DataSource0-checkbox"]').check({ force: true });
     cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
@@ -223,20 +222,23 @@ describe("Measure: PQI15-AD", () => {
       "have.value",
       "50000.0"
     );
-    cy.get(
-      '[data-cy="CategoriesReported1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get("#CategoriesReported1-checkbox").check({ force: true });
-    cy.get(
-      '[data-cy="EthnicityCategories0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get("#EthnicityCategories0-checkbox").check({ force: true });
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
-    ).clear();
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.options1-checkbox').check();
+    cy.get('[data-cy=CombinedRates0]').click();
+    cy.get('[data-cy=CombinedRates-CombinedRates0]').click();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.selections\\.Ethnicity\\.options0-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.options0"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.selections\\.Ethnicity\\.selections\\.NotofHispanicLatinoaorSpanishorigin\\.ageRangeRates\\.options0-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.options0"] > .chakra-checkbox__label > .chakra-text').should('be.visible');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.numerator"]').clear();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.numerator"]').type('5');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.denominator"]').clear();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.denominator"]').type('10');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.rate"]').should('be.visible');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.rate"]').should('have.value', '50.0');
+    /* ==== End Cypress Studio ==== */
   });
 
   /* ==== Test Created with Cypress Studio ==== */
@@ -283,19 +285,12 @@ describe("Measure: PQI15-AD", () => {
     cy.get("[data-cy=DeliverySys-MCO_POHP0]").click();
     cy.get("[data-cy=DeliverySys-MCO_POHP1]").click();
     cy.get(".css-98urqk > .chakra-text").should("be.visible");
-    cy.get(".css-zhlq69 > .css-1u9gfme").should(
-      "have.text",
-      " How many of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans are excluded from the measure? If none are excluded, please enter zero."
-    );
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
     cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
     cy.get("[data-cy=DeliverySys-IntegratedCareModel0]").click();
     cy.get("[data-cy=DeliverySys-IntegratedCareModel1]").click();
-    cy.get(
-      "#DeliverySys-IntegratedCareModel_radiogroup > .chakra-stack > :nth-child(2) > .chakra-collapse > .css-zhlq69 > .css-1f2vcwt > .chakra-text"
-    ).should("be.visible");
     cy.get("[data-cy=DeliverySysRepresentationDenominator4]").click();
     cy.get(
       ":nth-child(5) > .chakra-collapse > .css-zhlq69 > :nth-child(3) > .chakra-text"
@@ -375,6 +370,7 @@ describe("Measure: PQI15-AD", () => {
     ).click();
     cy.get("#DeliverySysRepresentationDenominator4-checkbox").check();
     cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
+    cy.get('.css-bxak8j').should('be.visible');
     /* ==== End Cypress Studio ==== */
   });
 });
