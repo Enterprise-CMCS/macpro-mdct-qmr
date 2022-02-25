@@ -63,7 +63,6 @@ const IEDValidation = (data: Measure.Form) => {
   ];
 
   let filteredSameDenominatorErrors: any = [];
-  // @ts-ignore
   let errorList: string[] = [];
   unfilteredSameDenominatorErrors.forEach((error) => {
     if (!(errorList.indexOf(error.errorMessage) > -1)) {
