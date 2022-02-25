@@ -14,7 +14,7 @@ interface Props {
 
 interface OptionProps {
   name: string;
-  qualifiers: { label: string; id: number }[];
+  qualifiers: { label: string }[];
 }
 
 export const deviationOptions = ({
@@ -22,16 +22,14 @@ export const deviationOptions = ({
   name,
 }: OptionProps): QMR.CheckboxOption[] => {
   return qualifiers.map((item) => {
+    const value = `${name}.${item.label.replace(/ /g, "")}`;
     return {
       displayValue: item.label,
-      value: `${name}.${item.label.replace(/ /g, "")}`,
+      value,
       children: [
         <QMR.Checkbox
-          name={`${name}.${item.label.replace(
-            / /g,
-            ""
-          )}.RateDeviationsSelected`}
-          key={`${name}.${item.label.replace(/ /g, "")}.RateDeviationsSelected`}
+          name={`${value}.RateDeviationsSelected`}
+          key={`${value}.RateDeviationsSelected`}
           options={[
             {
               displayValue: "Numerator",
@@ -39,8 +37,8 @@ export const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain:"
-                  name={`${name}.${item.label.replace(/ /g, "")}.numerator`}
-                  key={`${name}.${item.label.replace(/ /g, "")}.numerator`}
+                  name={`${value}.numerator`}
+                  key={`${value}.numerator`}
                 />,
               ],
             },
@@ -50,8 +48,8 @@ export const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain:"
-                  name={`${name}.${item.label.replace(/ /g, "")}.denominator`}
-                  key={`${name}.${item.label.replace(/ /g, "")}.denominator`}
+                  name={`${value}.denominator`}
+                  key={`${value}.denominator`}
                 />,
               ],
             },
@@ -61,8 +59,8 @@ export const deviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain:"
-                  name={`${name}.${item.label.replace(/ /g, "")}.other`}
-                  key={`${name}.${item.label.replace(/ /g, "")}.other`}
+                  name={`${value}.other`}
+                  key={`${value}.other`}
                 />,
               ],
             },
@@ -89,24 +87,12 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
     return categories
       .filter((category) => {
         return (
-          // if the value exists in data and is not an empty array and has numerator and denominator
-          // TODO: Clean this garbage up
-          data[
+          data?.[
             category.watch as keyof Types.DeviationFromMeasureSpecification
-          ] &&
-          (
-            data[
-              category.watch as keyof Types.DeviationFromMeasureSpecification
-            ] as any[]
-          )?.length > 0 &&
-          (
-            data[
-              category.watch as keyof Types.DeviationFromMeasureSpecification
-            ] as any[]
-          )?.some((el) => el?.numerator && el?.denominator)
-        );
+          ] as any[]
+        )?.some((el) => el?.numerator && el?.denominator);
       })
-      .map((category) => {
+      ?.map((category) => {
         return {
           value: category.title.replace(/[^\w]/g, ""),
           displayValue: category.title,
@@ -120,9 +106,13 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
               )}
               formLabelProps={{ fontWeight: 600 }}
               options={deviationOptions({
-                // @ts-ignore
-                qualifiers: data[category.watch].filter((el) => el),
-                // name: `Deviations.${category.title.replace(/[^\w]/g, "")}`,
+                qualifiers: (
+                  data[
+                    category.watch as keyof Types.DeviationFromMeasureSpecification
+                  ] as any[]
+                ).filter(
+                  (el: Types.RateFields) => el && el.numerator && el.denominator
+                ),
                 name: `Deviations.${category.watch}`,
               })}
             />,
