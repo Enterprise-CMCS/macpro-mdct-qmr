@@ -2,6 +2,7 @@
 
 import { flatten } from "flat";
 import { Measure } from "../IETAD/validation/types";
+// import objectPath from "object-path";
 
 export const omsValidations = (data: Measure.Form) => {
   const flattenedOMSData: any = flatten(data.OptionalMeasureStratification, {
@@ -29,24 +30,32 @@ export const omsValidations = (data: Measure.Form) => {
       safe: false,
     }
   );
-  console.log({ flattenedOMSDataNotSafe });
 
   const additionalSelectionOptions = Object.keys(flattenedOMSDataNotSafe)
     .filter((key) => {
       return key.includes("additionalSelections.");
     })
     .filter((nestedKey) => {
-      return /(numerator|denominator|rate)/.test(nestedKey);
+      return /(rate|numerator|denominator)$/g.test(nestedKey);
     })
-    .map((filteredPath) => flattenedOMSDataNotSafe[filteredPath]);
+    .map((filteredPath) => ({
+      [filteredPath]: flattenedOMSDataNotSafe[filteredPath],
+    }));
+  // .reduce((prev, current) => {
+  //   return {
+  //     ...prev,
+  //     ...current,
+  //   };
+  // }, {});
+
+  for (const selectedOption of selectedOptions) {
+    const something = Object.keys(additionalSelectionOptions).filter((rate) =>
+      rate.includes(selectedOption)
+    );
+    console.log(something.length);
+  }
 
   console.log({ additionalSelectionOptions });
-
-  console.log({ test });
-
-  console.log({ filteredPaths, selectedOptions });
-
-  // const stuff = validateUndefinedSelections(objectToValidate) // looks like [error, error, error]
 
   return test; //array of errors to print at bottom of screen
 };
