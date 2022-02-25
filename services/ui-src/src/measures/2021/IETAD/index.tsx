@@ -4,7 +4,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
-import * as PMD from "./questions/data/performanceMeasureData";
+import { PMD } from "./questions/data";
 import { getPerfMeasureRateArray } from "../globalValidations";
 
 export const IETAD = ({

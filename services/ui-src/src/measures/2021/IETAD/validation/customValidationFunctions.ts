@@ -1,5 +1,5 @@
 import { Measure } from "./types";
-import { data as PMD } from "../questions/data/performanceMeasureData";
+import { PMD } from "../questions/data";
 import {
   atLeastOneRateComplete,
   validateDualPopInformation,
@@ -74,31 +74,31 @@ const IEDValidation = (data: Measure.Form) => {
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD);
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   const initiationArray = performanceMeasureArray.filter(
     (_, idx) =>
-      PMD.categories?.[idx].includes("Initiation") &&
-      !PMD.categories?.[idx].includes("Total")
+      PMD.data.categories?.[idx].includes("Initiation") &&
+      !PMD.data.categories?.[idx].includes("Total")
   );
 
   const engagementArray = performanceMeasureArray.filter(
     (_, idx) =>
-      PMD.categories?.[idx].includes("Engagement") &&
-      !PMD.categories?.[idx].includes("Total")
+      PMD.data.categories?.[idx].includes("Engagement") &&
+      !PMD.data.categories?.[idx].includes("Total")
   );
 
   const totalInitiation = performanceMeasureArray.filter(
     (_, idx) =>
-      PMD.categories?.[idx].includes("Initiation") &&
-      PMD.categories?.[idx].includes("Total")
+      PMD.data.categories?.[idx].includes("Initiation") &&
+      PMD.data.categories?.[idx].includes("Total")
   )[0];
 
   const totalEngagement = performanceMeasureArray.filter(
     (_, idx) =>
-      PMD.categories?.[idx].includes("Engagement") &&
-      PMD.categories?.[idx].includes("Total")
+      PMD.data.categories?.[idx].includes("Engagement") &&
+      PMD.data.categories?.[idx].includes("Total")
   )[0];
 
   let errorArray: any[] = [];

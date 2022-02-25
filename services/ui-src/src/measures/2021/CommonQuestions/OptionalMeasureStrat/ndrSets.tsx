@@ -18,8 +18,8 @@ interface AgeGroupProps {
   rateReadOnly: boolean;
   /** Which performance measure rates are filled in */
   performanceMeasureArray?: Types.RateFields[][];
-  ageGroups: string[];
-  performanceMeasureDescriptions: string[];
+  qualifiers: string[];
+  categories: string[];
 }
 
 interface OPMProps {
@@ -41,14 +41,14 @@ interface OPMProps {
 interface NdrOptionBuilderProps extends AgeGroupProps {
   values: string[];
   addSecondaryRegisterTag: boolean;
-  performanceMeasureDescriptions: string[];
+  categories: string[];
 }
 
 interface ConditionalRateBuilderProps {
   addSecondaryRegisterTag: boolean;
   rateReadOnly: boolean;
   performanceMeasureArray: Types.RateFields[][];
-  performanceMeasureDescriptions: string[];
+  categories: string[];
   majorIndex: number;
   value: string;
   name: string;
@@ -70,7 +70,7 @@ const buildConditionalRateArray = ({
   majorIndex,
   value,
   name,
-  performanceMeasureDescriptions,
+  categories,
 }: ConditionalRateBuilderProps) => {
   const ndrSets: React.ReactElement[] = [];
   const cleanedLabel = value?.replace(/[^\w]/g, "") ?? "CHECKBOX_VALUE_NOT_SET";
@@ -83,9 +83,8 @@ const buildConditionalRateArray = ({
       performanceMeasure[majorIndex].rate
     ) {
       const cleanedPMDescLabel =
-        addSecondaryRegisterTag && performanceMeasureDescriptions[idx]
-          ? // @ts-ignore
-            `_${performanceMeasureDescriptions[idx].replace(/[^\w]/g, "")}`
+        addSecondaryRegisterTag && categories[idx]
+          ? `_${categories[idx].replace(/[^\w]/g, "")}`
           : "";
 
       const adjustedName =
@@ -99,11 +98,7 @@ const buildConditionalRateArray = ({
           rates={[
             {
               id: 0,
-              label: `${
-                performanceMeasureDescriptions[idx]
-                  ? performanceMeasureDescriptions[idx]
-                  : ""
-              }`,
+              label: `${categories[idx] ? categories[idx] : ""}`,
             },
           ]}
         />
@@ -126,7 +121,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
   performanceMeasureArray = [[]],
   name,
   rateReadOnly,
-  performanceMeasureDescriptions,
+  categories,
 }: NdrOptionBuilderProps) => {
   const checkboxes: QMR.CheckboxOption[] = [];
 
@@ -139,7 +134,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
       rateReadOnly,
       majorIndex: i,
       name,
-      performanceMeasureDescriptions,
+      categories,
     });
     if (ndrSets.length) {
       const cleanedLabel = val.replace(/[^\w]/g, "");
@@ -165,17 +160,17 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
  * Builds Performance Measure AgeGroup Checkboxes
  */
 const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
-  if (!props.ageGroups.length) {
+  if (!props.qualifiers.length) {
     return buildPerformanceMeasureNDRCheckboxOptions({
       ...props,
       addSecondaryRegisterTag: false,
-      values: props.performanceMeasureDescriptions,
+      values: props.categories,
     });
   }
   return buildPerformanceMeasureNDRCheckboxOptions({
     ...props,
     addSecondaryRegisterTag: true,
-    values: props.ageGroups,
+    values: props.qualifiers,
   });
 };
 
@@ -183,18 +178,14 @@ const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
  * Builds NDRs for Performance Measure AgeGroups
  */
 const AgeGroupNDRSets = ({ name }: NdrProps) => {
-  const {
-    performanceMeasureArray,
-    rateReadOnly,
-    ageGroups,
-    performanceMeasureDescriptions,
-  } = usePerformanceMeasureContext();
+  const { performanceMeasureArray, rateReadOnly, qualifiers, categories } =
+    usePerformanceMeasureContext();
   const ageGroupsOptions = buildAgeGroupsCheckboxes({
     name: name,
     rateReadOnly: !!rateReadOnly,
     performanceMeasureArray,
-    ageGroups,
-    performanceMeasureDescriptions,
+    qualifiers,
+    categories,
   });
 
   return (

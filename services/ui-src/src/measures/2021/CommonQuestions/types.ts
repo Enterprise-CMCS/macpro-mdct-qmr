@@ -227,12 +227,12 @@ interface AddtnlOmsNode extends LowLevelOmsNode {
   description?: string;
 }
 
-export interface AgeGroups {
-  ageGroups: string[];
+export interface Qualifiers {
+  qualifiers: string[];
 }
 
-export interface PerformanceMeasureDescriptions {
-  performanceMeasureDescriptions: string[];
+export interface Categories {
+  categories: string[];
 }
 
 export interface OptionalMeasureStratification {

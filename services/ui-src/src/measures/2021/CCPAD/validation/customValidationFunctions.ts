@@ -1,12 +1,11 @@
 import { Measure } from "../validation/types";
+import { PMD } from "../questions/data";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 
 const CCPADValidation = (data: Measure.Form) => {
-  const ageGroups = ["3 days postpartem", "60 days postpartem"];
+  const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-longActingContraception"],
-    data["PerformanceMeasure-AgeRates-effectiveContraception"],
-  ];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
   //@ts-ignore
   errorArray = [
@@ -34,15 +33,15 @@ export const validateNoNonZeroNumOrDenom = (
         performanceMeasure[i].rate
       ) {
         if (
-          parseInt(performanceMeasure[i].rate) !== 0 &&
-          parseInt(performanceMeasure[i].numerator) === 0
+          parseFloat(performanceMeasure[i].rate) !== 0 &&
+          parseFloat(performanceMeasure[i].numerator) === 0
         ) {
           nonZeroRateError = true;
         }
         if (
-          parseInt(performanceMeasure[i].rate) === 0 &&
-          parseInt(performanceMeasure[i].numerator) !== 0 &&
-          parseInt(performanceMeasure[i].denominator) !== 0
+          parseFloat(performanceMeasure[i].rate) === 0 &&
+          parseFloat(performanceMeasure[i].numerator) !== 0 &&
+          parseFloat(performanceMeasure[i].denominator) !== 0
         ) {
           zeroRateError = true;
         }
@@ -52,13 +51,13 @@ export const validateNoNonZeroNumOrDenom = (
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
       performanceMeasure.rate.forEach((rate: any) => {
-        if (parseInt(rate.numerator) === 0 && parseInt(rate.rate) !== 0) {
+        if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
           nonZeroRateError = true;
         }
         if (
-          parseInt(rate.numerator) !== 0 &&
-          parseInt(rate.denominator) !== 0 &&
-          parseInt(rate.rate) === 0
+          parseFloat(rate.numerator) !== 0 &&
+          parseFloat(rate.denominator) !== 0 &&
+          parseFloat(rate.rate) === 0
         ) {
           zeroRateError = true;
         }
@@ -80,7 +79,7 @@ export const validateNoNonZeroNumOrDenom = (
 };
 
 const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+  const thirtyDays = getPerfMeasureRateArray(data, PMD.data)[0];
   let error;
   const errorArray: any[] = [];
 
@@ -109,7 +108,7 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
 };
 
 const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
+  const sevenDays = getPerfMeasureRateArray(data, PMD.data)[1];
   let error;
   const errorArray: any[] = [];
 
@@ -138,8 +137,9 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
 };
 
 const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+  const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
+  const sevenDays = perfMeasure[1];
+  const thirtyDays = perfMeasure[0];
   let error;
   const errorArray: any[] = [];
 
@@ -148,7 +148,8 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
       if (
         sevenDays[index] &&
         thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
+        parseFloat(sevenDays[index]?.rate ?? "") >
+          parseFloat(thirtyDays[index]?.rate ?? "")
       ) {
         const ageGroup =
           index === 0 ? "3 Days Postpartum" : "60 Days Postpartum";
@@ -168,8 +169,9 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
 const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   let error;
   const measureSpecification = data["MeasurementSpecification"];
-  const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+  const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
+  const sevenDays = perfMeasure[1];
+  const thirtyDays = perfMeasure[0];
   const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
   const isHEDIS = measureSpecification === "OPA";
 
@@ -205,13 +207,16 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
 };
 
 const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-longActingContraception"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+  const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
+  const sevenDays = perfMeasure[1];
+  const thirtyDays = perfMeasure[0];
 
   const errorArray: any[] = [];
 
   if (sevenDays?.length === 2) {
-    if (parseInt(sevenDays[0].rate) > parseInt(sevenDays[1].rate)) {
+    if (
+      parseFloat(sevenDays[0].rate ?? "") > parseFloat(sevenDays[1].rate ?? "")
+    ) {
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
@@ -220,7 +225,10 @@ const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
     }
   }
   if (thirtyDays?.length === 2) {
-    if (parseInt(thirtyDays[0].rate) > parseInt(thirtyDays[1].rate)) {
+    if (
+      parseFloat(thirtyDays[0].rate ?? "") >
+      parseFloat(thirtyDays[1].rate ?? "")
+    ) {
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
@@ -233,16 +241,17 @@ const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
 };
 
 const validateDenominatorsAreEqual = (data: Measure.Form) => {
-  const larcCont = data["PerformanceMeasure-AgeRates-longActingContraception"];
-  const memeCont = data["PerformanceMeasure-AgeRates-effectiveContraception"];
+  const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
+  const larcCont = perfMeasure[1];
+  const memeCont = perfMeasure[0];
   const errorArray: any[] = [];
 
   if (larcCont?.length && memeCont?.length) {
     for (const larcRate of larcCont) {
       for (const memeRate of memeCont) {
         if (larcRate?.denominator && memeRate?.denominator) {
-          const larcParsedInt = parseInt(larcRate.denominator);
-          const memeParsedInt = parseInt(memeRate.denominator);
+          const larcParsedInt = parseFloat(larcRate.denominator);
+          const memeParsedInt = parseFloat(memeRate.denominator);
           if (larcParsedInt !== memeParsedInt) {
             errorArray.push({
               errorLocation: "Performance Measure",
