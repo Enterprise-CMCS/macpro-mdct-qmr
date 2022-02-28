@@ -1,6 +1,7 @@
 import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
@@ -11,6 +12,7 @@ const PQI01Validation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const dateRange = data["DateRange"];
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
@@ -19,6 +21,7 @@ const PQI01Validation = (data: Measure.Form) => {
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-groups"]),
+    ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
       "age-groups",
     ]),

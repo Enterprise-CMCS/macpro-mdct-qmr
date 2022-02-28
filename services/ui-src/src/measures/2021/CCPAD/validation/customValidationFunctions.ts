@@ -2,15 +2,17 @@ import { Measure } from "../validation/types";
 import { PMD } from "../questions/data";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 
+import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const dateRange = data["DateRange"];
   let errorArray: any[] = [];
-  //@ts-ignore
   errorArray = [
     ...errorArray,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...ensureBothDatesCompletedInRange(dateRange),
   ];
   return errorArray;
 };

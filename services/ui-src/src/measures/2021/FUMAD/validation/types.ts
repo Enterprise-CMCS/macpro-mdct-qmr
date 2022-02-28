@@ -28,16 +28,9 @@ export namespace Measure {
       Types.CombinedRates,
       Types.AdditionalNotes,
       Types.OtherPerformanceMeasure,
+      Types.DataSource,
       Types.MeasurementSpecification,
       Types.PerformanceMeasure {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];

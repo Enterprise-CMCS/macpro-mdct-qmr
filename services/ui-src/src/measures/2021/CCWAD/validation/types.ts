@@ -52,15 +52,8 @@ export namespace Measure {
       Types.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
+      Types.DataSource,
       Types.PerformanceMeasure {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];

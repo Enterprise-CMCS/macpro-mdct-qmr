@@ -1,6 +1,7 @@
 import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateEqualDenominators,
@@ -11,11 +12,13 @@ import { PMD } from "../questions/data";
 const OUDValidation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
+  const dateRange = data["DateRange"];
   let errorArray: any[] = [];
 
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),
+    ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
       "age-group",
     ]),

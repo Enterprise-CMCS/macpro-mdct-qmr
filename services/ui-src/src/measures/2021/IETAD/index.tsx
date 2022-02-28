@@ -138,7 +138,7 @@ export const IETAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <Q.DataSource />
+          <CMQ.DataSource data={Q.DataSourceData} />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}

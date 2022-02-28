@@ -100,9 +100,7 @@ export const OptionalMeasureStrat = ({
   });
 
   const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ?? true;
 
   /**
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
@@ -146,5 +144,3 @@ export const OptionalMeasureStrat = ({
     </QMR.CoreQuestionWrapper>
   );
 };
-
-export type OmsDataNode = OmsNode;
