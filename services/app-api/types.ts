@@ -25,7 +25,7 @@ export interface Measure {
   createdAt: number;
   description: string;
   lastAltered: number;
-  lastAlteredBy?: string;
+  lastAlteredBy: string;
   measure: string;
   state: string;
   status: MeasureStatus;
@@ -78,11 +78,11 @@ export interface DynamoFetch {
 }
 
 export const enum CoreSetAbbr {
-  ACS = "ACS",
-  CCS = "CCS",
-  CCSM = "CCSM",
-  CCSC = "CCSC",
-  HHCS = "HHCS",
+  ACS = "ACS", // adult
+  CCS = "CCS", // child combined
+  CCSM = "CCSM", // child medicaid
+  CCSC = "CCSC", // child chip
+  HHCS = "HHCS", // helth homes
 }
 
 export const enum MeasureStatus {

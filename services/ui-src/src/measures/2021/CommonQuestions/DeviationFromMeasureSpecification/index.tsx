@@ -1,35 +1,32 @@
 import * as QMR from "components";
 import * as Types from "../types";
-import { useFormContext } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
-interface DeviationCategory {
-  watch: string;
-  title: string;
-}
-
 interface Props {
-  categories: DeviationCategory[];
+  categories: string[];
 }
 
 interface OptionProps {
   name: string;
-  qualifiers: { label: string }[];
+  qualifiers?: Types.RateFields[];
 }
 
 export const getLowLvlDeviationOptions = ({
   qualifiers,
   name,
 }: OptionProps): QMR.CheckboxOption[] => {
+  if (!qualifiers || qualifiers.length === 0) return [];
+  // @ts-ignore
   return qualifiers.map((item) => {
-    const value = `${name}.${item.label.replace(/ /g, "")}`;
+    const value = `${item.label?.replace(/[^\w]/g, "")}`;
     return {
       displayValue: item.label,
       value,
       children: [
         <QMR.Checkbox
-          name={`${value}.RateDeviationsSelected`}
-          key={`${value}.RateDeviationsSelected`}
+          name={`${name}.${value}.RateDeviationsSelected`}
+          key={`${name}.${value}.RateDeviationsSelected`}
           options={[
             {
               displayValue: "Numerator",
@@ -37,8 +34,8 @@ export const getLowLvlDeviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain:"
-                  name={`${value}.numerator`}
-                  key={`${value}.numerator`}
+                  name={`${name}.${value}.numerator`}
+                  key={`${name}.${value}.numerator`}
                 />,
               ],
             },
@@ -48,8 +45,8 @@ export const getLowLvlDeviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain:"
-                  name={`${value}.denominator`}
-                  key={`${value}.denominator`}
+                  name={`${name}.${value}.denominator`}
+                  key={`${name}.${value}.denominator`}
                 />,
               ],
             },
@@ -59,8 +56,8 @@ export const getLowLvlDeviationOptions = ({
               children: [
                 <QMR.TextArea
                   label="Explain:"
-                  name={`${value}.other`}
-                  key={`${value}.other`}
+                  name={`${name}.${value}.other`}
+                  key={`${name}.${value}.other`}
                 />,
               ],
             },
@@ -73,52 +70,62 @@ export const getLowLvlDeviationOptions = ({
 
 export const DeviationFromMeasureSpec = ({ categories }: Props) => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
-  const { getValues } =
-    useFormContext<Types.DeviationFromMeasureSpecification>();
-  const data = getValues();
+  const watchPerformanceMeasure = useWatch({
+    name: "PerformanceMeasure",
+  });
 
   const getTopLvlDeviationOptions = ({
     categories,
-    data,
   }: {
-    categories: DeviationCategory[];
-    data: Types.DeviationFromMeasureSpecification;
+    categories: string[];
   }) => {
-    return categories
-      .filter((category) => {
-        return (
-          data?.[
-            category.watch as keyof Types.DeviationFromMeasureSpecification
-          ] as any[]
-        )?.some((el) => el?.numerator && el?.denominator);
-      })
-      ?.map((category) => {
-        return {
-          value: category.title.replace(/[^\w]/g, ""),
-          displayValue: category.title,
-          children: [
-            <QMR.Checkbox
-              {...register(
-                `Deviations.${category.title.replace(
-                  /[^\w]/g,
-                  ""
-                )}.SelectedOptions`
-              )}
-              formLabelProps={{ fontWeight: 600 }}
-              options={getLowLvlDeviationOptions({
-                qualifiers: (
-                  data[
-                    category.watch as keyof Types.DeviationFromMeasureSpecification
-                  ] as any[]
-                ).filter(
-                  (el: Types.RateFields) => el && el.numerator && el.denominator
-                ),
-                name: `Deviations.${category.watch}`,
-              })}
-            />,
-          ],
-        };
+    if (categories.length > 0 && watchPerformanceMeasure?.rates) {
+      // if no categories use singleCat to create low level Deviation Options
+      const topLvlOptions: {
+        displayValue: string;
+        rates: Types.RateFields[] | undefined;
+        key: string;
+      }[] = [];
+      const { rates } = watchPerformanceMeasure;
+
+      Object.keys(rates).forEach((key) => {
+        // if some of the rates have both num and den
+        if (
+          rates[key]?.some(
+            (el: Types.RateFields) => el?.numerator && el?.denominator
+          )
+        ) {
+          // add the rates that have num and den to topLvlOptions along with its display value from categories
+          topLvlOptions.push({
+            rates: rates[key]?.filter(
+              (el: Types.RateFields) => el?.numerator && el?.denominator
+            ) as Types.RateFields[],
+            displayValue:
+              categories.find((cat) => cat.replace(/[^\w]/g, "") === key) || "",
+            key,
+          });
+        }
       });
+      return (
+        topLvlOptions?.map((option) => {
+          return {
+            value: option.key,
+            displayValue: option.displayValue,
+            children: [
+              <QMR.Checkbox
+                {...register(`Deviations.${option.key}.SelectedOptions`)}
+                formLabelProps={{ fontWeight: 600 }}
+                options={getLowLvlDeviationOptions({
+                  qualifiers: option.rates,
+                  name: `Deviations.${option.key}`,
+                })}
+              />,
+            ],
+          };
+        }) ?? []
+      );
+    }
+    return [];
   };
 
   return (
@@ -138,7 +145,9 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
-                options={getTopLvlDeviationOptions({ categories, data })}
+                options={getTopLvlDeviationOptions({
+                  categories,
+                })}
               />,
             ],
           },

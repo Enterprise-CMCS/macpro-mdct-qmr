@@ -157,6 +157,7 @@ export interface StatusOfData {
 }
 
 export interface RateFields {
+  label?: string;
   numerator?: string;
   denominator?: string;
   rate?: string;
@@ -250,9 +251,21 @@ export namespace DataDrivenTypes {
 }
 
 export interface DeviationFromMeasureSpecification {
-  DidCalculationsDeviate: string;
+  // does the calculation of the measure deviate from the measure specification
+  DidCalculationsDeviate: "YesCalcDeviated" | "NoCalcDidNotDeviate";
+  // if "YesCalcDeviated" selected from "DidCalculationsDeviate" -> which deviations options selected
   DeviationOptions: string[];
+  // the Deviation 'options' below will match the "DeviationOptions" above
   Deviations: {
-    [option: string]: any;
+    [option: string]: {
+      // deviations selected for the given option
+      RateDeviationsSelected: Array<"numerator" | "denominator" | "other">;
+      // if "numerator" selected for "RateDeviationsSelected" -> an explaination
+      numerator: string;
+      // if "denominator" selected for "RateDeviationsSelected" -> an explaination
+      denominator: string;
+      // if "other" selected for "RateDeviationsSelected" -> an explaination
+      other: string;
+    };
   };
 }

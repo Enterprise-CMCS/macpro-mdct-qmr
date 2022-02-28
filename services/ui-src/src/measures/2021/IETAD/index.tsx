@@ -7,41 +7,6 @@ import { validationFunctions } from "./validation/customValidationFunctions";
 import { PMD } from "./questions/data";
 import { getPerfMeasureRateArray } from "../globalValidations";
 
-const categories = [
-  {
-    watch: "PerformanceMeasure-AgeRates-Initiation-Alcohol",
-    title: "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-  },
-  {
-    watch: "PerformanceMeasure-AgeRates-Engagement-Alcohol",
-    title: "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-  },
-  {
-    watch: "PerformanceMeasure-AgeRates-Initiation-Opioid",
-    title: "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-  },
-  {
-    watch: "PerformanceMeasure-AgeRates-Engagement-Opioid",
-    title: "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-  },
-  {
-    watch: "PerformanceMeasure-AgeRates-Initiation-Other",
-    title: "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-  },
-  {
-    watch: "PerformanceMeasure-AgeRates-Engagement-Other",
-    title: "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-  },
-  {
-    watch: "PerformanceMeasure-AgeRates-Initiation-Total",
-    title: "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-  },
-  {
-    watch: "PerformanceMeasure-AgeRates-Engagement-Total",
-    title: "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
-  },
-];
-
 export const IETAD = ({
   name,
   year,
@@ -56,6 +21,8 @@ export const IETAD = ({
 
   const { getValues } = useFormContext<Measure.Form>();
   const data = getValues();
+
+  console.log({ data });
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
@@ -186,7 +153,7 @@ export const IETAD = ({
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
             <CMQ.DeviationFromMeasureSpec
-              categories={categories}
+              categories={PMD.performanceMeasureDescriptions}
               // qualifiers={["Ages 18 to 39", "Age 65 and older"]}
             />
           )}
