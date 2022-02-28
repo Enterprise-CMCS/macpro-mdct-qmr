@@ -228,11 +228,11 @@ interface AddtnlOmsNode extends LowLevelOmsNode {
 }
 
 export interface Qualifiers {
-  qualifiers: string[];
+  qualifiers?: string[];
 }
 
 export interface Categories {
-  categories: string[];
+  categories?: string[];
 }
 
 export interface OptionalMeasureStratification {

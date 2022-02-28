@@ -194,10 +194,8 @@ export const IETAD = ({
             showOtherPerformanceMeasureRates) && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              ageGroups={PMD.ageGroups}
-              performanceMeasureDescriptions={
-                PMD.performanceMeasureDescriptions
-              }
+              qualifiers={PMD.ageGroups}
+              categories={PMD.performanceMeasureDescriptions}
               adultMeasure
             />
           )}

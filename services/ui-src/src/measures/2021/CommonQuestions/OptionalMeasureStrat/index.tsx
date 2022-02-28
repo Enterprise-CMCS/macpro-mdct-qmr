@@ -79,8 +79,8 @@ type OMSType = Types.OptionalMeasureStratification & {
  */
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
-  qualifiers,
-  categories,
+  qualifiers = [],
+  categories = [],
   data,
   calcTotal = false,
   adultMeasure,
