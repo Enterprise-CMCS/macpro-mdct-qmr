@@ -36,7 +36,7 @@ export const OtherPerformanceMeasure = ({
     rateAlwaysEditable !== undefined && rateAlwaysEditable
       ? false
       : dataSourceWatch?.every(
-          (source: any) => source === "I am reporting provisional data."
+          (source: any) => source === "AdministrativeData"
         ) ?? true;
 
   return (

@@ -47,15 +47,8 @@ export namespace Measure {
       Types.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
+      Types.DataSource,
       Types.OtherPerformanceMeasure {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-
     //DeviationFromMeasureSpec
     "moderate-method-deviation": DeviationFromMeasureSpec;
     "reversible-method-deviation": DeviationFromMeasureSpec;
