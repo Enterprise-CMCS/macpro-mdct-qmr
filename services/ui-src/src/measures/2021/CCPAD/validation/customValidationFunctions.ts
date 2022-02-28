@@ -1,6 +1,7 @@
 import { Measure } from "../validation/types";
 import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "../../globalValidations/validationsLib";
 
+import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = ["3 days postpartem", "60 days postpartem"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -14,6 +15,7 @@ const CCPADValidation = (data: Measure.Form) => {
     ...(data["DeviationFields-MostEffective"] || []),
     ...(data["DeviationFields-LARC"] || []),
   ].filter((data) => data);
+  const dateRange = data["DateRange"];
   let errorArray: any[] = [];
   errorArray = [
     ...errorArray,
@@ -23,6 +25,7 @@ const CCPADValidation = (data: Measure.Form) => {
       deviationArray
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...ensureBothDatesCompletedInRange(dateRange),
   ];
   return errorArray;
 };

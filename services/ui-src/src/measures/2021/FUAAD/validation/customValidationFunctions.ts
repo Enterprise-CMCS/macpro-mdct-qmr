@@ -1,5 +1,6 @@
 import { Measure } from "../validation/types";
 import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "../../globalValidations/validationsLib";
+import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 
 const validateRates = (data: Measure.Form) => {
   const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
@@ -255,6 +256,10 @@ const validateAtLeastOneDeviationNDR = (data: Measure.Form) => {
     deviationArray
   );
 };
+const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+  const dateRange = data["DateRange"];
+  return [...ensureBothDatesCompletedInRange(dateRange)];
+};
 
 export const validationFunctions = [
   validateRates,
@@ -264,4 +269,5 @@ export const validationFunctions = [
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
   validateAtLeastOneDeviationNDR,
+  validateBothDatesCompletedInRange,
 ];

@@ -1,4 +1,5 @@
-import { OmsDataNode } from "./OptionalMeasureStrat";
+import { DataSourceData } from "./DataSource/data";
+import { OmsNode } from "./OptionalMeasureStrat/data";
 
 export interface MeasurementSpecification {
   // Selected Measurement Specification
@@ -155,6 +156,16 @@ export interface StatusOfData {
   "DataStatus-ProvisionalExplanation": string;
 }
 
+export interface DataSource {
+  DataSource: string[];
+  DataSourceSelections: {
+    [label: string]: {
+      description: string;
+      selected: string[];
+    };
+  };
+  DataSourceDescription: string;
+}
 export interface RateFields {
   numerator?: string;
   denominator?: string;
@@ -238,5 +249,7 @@ export interface OptionalMeasureStratification {
 }
 
 export namespace DataDrivenTypes {
-  export type OptionalMeasureStrat = OmsDataNode[];
+  export type OptionalMeasureStrat = OmsNode[];
+
+  export type DataSource = DataSourceData;
 }

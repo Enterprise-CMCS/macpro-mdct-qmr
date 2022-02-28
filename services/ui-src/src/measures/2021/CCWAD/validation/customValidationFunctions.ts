@@ -1,6 +1,7 @@
 import { Measure } from "../validation/types";
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
@@ -165,7 +166,13 @@ const validateAtLeastOneDeviationNDR = (data: Measure.Form) => {
   );
 };
 
+const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+  const dateRange = data["DateRange"];
+  return [...ensureBothDatesCompletedInRange(dateRange)];
+};
+
 export const validationFunctions = [
+  validateBothDatesCompletedInRange,
   validateReversibleNumeratorLessThanDenominator,
   validateModeratelyNumeratorLessThanDenominator,
   validateLarcRateGreater,

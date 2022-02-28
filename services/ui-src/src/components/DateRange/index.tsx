@@ -3,7 +3,7 @@ import * as QMR from "components";
 import { MonthPicker } from "components/MonthPicker";
 import { useFormContext } from "react-hook-form";
 import { format } from "date-fns";
-import objectPath from "object-path";
+import { useEffect } from "react";
 
 interface Props {
   name: string;
@@ -27,37 +27,30 @@ export const currentYear = parseInt(format(new Date(), "yyyy"));
 export const currentMonth = parseInt(format(new Date(), "M"));
 
 export const DateRangeError = ({ name }: { name: string }) => {
-  const {
-    watch,
-    setValue,
-    setError,
-    formState: { errors },
-  } = useFormContext();
+  const { setValue, watch } = useFormContext();
   const range = watch(name);
-
+  const toast = CUI.useToast();
   const startYear = parseInt(range?.startDate?.selectedYear);
   const startMonth = parseInt(range?.startDate?.selectedMonth);
 
   const endYear = parseInt(range?.endDate?.selectedYear);
   const endMonth = parseInt(range?.endDate?.selectedMonth);
 
-  /* If the start date is after the end date, then reset the end date and then display a warning notification. */
-  if (
-    endYear.toString()?.length === 4 &&
-    (startYear > endYear || (startMonth >= endMonth && startYear === endYear))
-  ) {
-    const endDate = `${name}.endDate`;
-    setValue(endDate, undefined);
-
-    setTimeout(() => {
-      setError(endDate, { message: "Start Date must be before the end date" });
-    });
-  }
-
-  const endDateBeforeStartDateError = objectPath.get(errors, `${name}.endDate`);
-  if (endDateBeforeStartDateError) {
-    return <RangeNotification text={endDateBeforeStartDateError.message} />;
-  }
+  useEffect(() => {
+    /* If the start date is after the end date, then reset the end date and then display a temporary warning notification. */
+    if (
+      endYear.toString()?.length === 4 &&
+      (startYear > endYear || (startMonth >= endMonth && startYear === endYear))
+    ) {
+      const endDate = `${name}.endDate`;
+      setValue(endDate, {});
+      toast({
+        status: "warning",
+        description: "Start Date must be before the End Date",
+        duration: 4000,
+      });
+    }
+  }, [endMonth, endYear, setValue, name, startMonth, startYear, toast]);
 
   /* If the start date is a future date, then display a warning notification. */
   if (

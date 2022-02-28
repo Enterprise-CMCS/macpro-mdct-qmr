@@ -1,5 +1,6 @@
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
@@ -9,6 +10,7 @@ const PQI01Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const dateRange = data["DateRange"];
 
   const performanceMeasureArray = data["PerformanceMeasure-AgeRates"];
   let errorArray: any[] = [];
@@ -22,6 +24,7 @@ const PQI01Validation = (data: any) => {
 
   errorArray = [
     ...errorArray,
+    ...ensureBothDatesCompletedInRange(dateRange),
     ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
       "age-groups",
     ]),

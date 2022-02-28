@@ -1,6 +1,7 @@
 import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateEqualDenominators,
@@ -14,6 +15,7 @@ const IEDValidation = (data: Measure.Form) => {
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const dateRange = data["DateRange"];
   const performanceMeasureArray = [
     data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
     data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
@@ -88,6 +90,7 @@ const IEDValidation = (data: Measure.Form) => {
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...omsValidations(data),
+    ...ensureBothDatesCompletedInRange(dateRange),
   ];
 
   return errorArray;
