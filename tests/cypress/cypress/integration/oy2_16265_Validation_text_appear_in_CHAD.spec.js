@@ -11,159 +11,379 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
   });
   it("validation child core set questions Medicaid required and CHIP are not required", () => {
     /* ==== clear the data in the form and click on validate core set questions button ==== */
-    cy.get('[data-cy=CCS]').click();
-    cy.get('[data-cy=core-set-qualifiers-link]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for Medicaid Under Age 21 column must have values"]').should('be.visible');
-    cy.get('[data-cy="Entries for Medicaid Under Age 21 column must have values"]').should('have.text', 'Entries for Medicaid Under Age 21 column must have values');
+    cy.get("[data-cy=CCS]").click();
+    cy.get("[data-cy=core-set-qualifiers-link]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for Medicaid Under Age 21 column must have values"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for Medicaid Under Age 21 column must have values"]'
+    ).should(
+      "have.text",
+      "Entries for Medicaid Under Age 21 column must have values"
+    );
     /* ==== End Cypress Studio ==== */
     /* ==== enter data for CHIP and click on validate core set questions button ==== */
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').type('50');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]').type('10');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]').type('20');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneCHIP"]').type('20');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for Medicaid Under Age 21 column must have values"]').should('be.visible');
-    cy.get('[data-cy="Entries for Medicaid Under Age 21 column must have values"]').should('have.text', 'Entries for Medicaid Under Age 21 column must have values');
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).type("50");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]'
+    ).type("10");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]'
+    ).click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]'
+    ).type("20");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneCHIP"]'
+    ).type("20");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for Medicaid Under Age 21 column must have values"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for Medicaid Under Age 21 column must have values"]'
+    ).should(
+      "have.text",
+      "Entries for Medicaid Under Age 21 column must have values"
+    );
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').type('50');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]').type('10');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneMedicaid"]').type('20');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneMedicaid"]').type('20');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    /* ==== End Cypress Studio ==== */
-  });
-
-  /* ==== Test Created with Cypress Studio ==== */
-  it('validation for child core set qualifiers percentage', function() {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy=CCS]').click();
-    cy.get('[data-cy=core-set-qualifiers-link]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').type('51');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').type('52');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for Medicaid Under Age 21 column must total 100"]').should('be.visible');
-    cy.get('[data-cy="Entries for Medicaid Under Age 21 column must total 100"]').should('have.text', 'Entries for Medicaid Under Age 21 column must total 100');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').type('49');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').type('48');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for Medicaid Under Age 21 column must total 100"]').should('be.visible');
-    cy.get('[data-cy="Entries for Medicaid Under Age 21 column must total 100"]').should('have.text', 'Entries for Medicaid Under Age 21 column must total 100');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]').type('50');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').type('51');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').type('52');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for CHIP Under Age 21 column must total 100"]').should('be.visible');
-    cy.get('[data-cy="Entries for CHIP Under Age 21 column must total 100"]').should('have.text', 'Entries for CHIP Under Age 21 column must total 100');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').type('49');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]').type('48');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for CHIP Under Age 21 column must total 100"]').should('have.text', 'Entries for CHIP Under Age 21 column must total 100');
-    cy.get('[data-cy="Entries for CHIP Under Age 21 column must total 100"]').should('be.visible');
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).type("50");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]'
+    ).type("10");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneMedicaid"]'
+    ).type("20");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneMedicaid"]'
+    ).type("20");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
     /* ==== End Cypress Studio ==== */
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('validation Adult core set qualifiers age 21 to 64 and 65 older required', function() {
+  it("validation for child core set qualifiers percentage", function () {
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy=ACS]').click();
-    cy.get('[data-cy=core-set-qualifiers-link]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for Ages 21 to 64 column must have values"]').should('be.visible');
-    cy.get('[data-cy="Entries for Ages 21 to 64 column must have values"]').should('have.text', 'Entries for Ages 21 to 64 column must have values');
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFour"]').type('50');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.GreaterThanSixtyFour"]').type('10');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]').type('20');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]').type('20');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for Ages 21 to 64 column must have values"]').should('be.visible');
-    cy.get('[data-cy="Entries for Ages 21 to 64 column must have values"]').should('have.text', 'Entries for Ages 21 to 64 column must have values');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]').type('50');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').type('10');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]').type('20');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.3.TwentyOneToSixtyFour"]').type('20');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
+    cy.get("[data-cy=CCS]").click();
+    cy.get("[data-cy=core-set-qualifiers-link]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).type("51");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).type("52");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for Medicaid Under Age 21 column must total 100"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for Medicaid Under Age 21 column must total 100"]'
+    ).should(
+      "have.text",
+      "Entries for Medicaid Under Age 21 column must total 100"
+    );
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).type("49");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).type("48");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for Medicaid Under Age 21 column must total 100"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for Medicaid Under Age 21 column must total 100"]'
+    ).should(
+      "have.text",
+      "Entries for Medicaid Under Age 21 column must total 100"
+    );
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
+    ).type("50");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).type("51");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).type("52");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for CHIP Under Age 21 column must total 100"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for CHIP Under Age 21 column must total 100"]'
+    ).should(
+      "have.text",
+      "Entries for CHIP Under Age 21 column must total 100"
+    );
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).type("49");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
+    ).type("48");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for CHIP Under Age 21 column must total 100"]'
+    ).should(
+      "have.text",
+      "Entries for CHIP Under Age 21 column must total 100"
+    );
+    cy.get(
+      '[data-cy="Entries for CHIP Under Age 21 column must total 100"]'
+    ).should("be.visible");
     /* ==== End Cypress Studio ==== */
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('validation Adult core set qualifiers percentage', function() {
+  it("validation Adult core set qualifiers age 21 to 64 and 65 older required", function () {
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy=ACS]').click();
-    cy.get('[data-cy=core-set-qualifiers-link]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]').type('51');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]').type('52');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for Ages 21 to 64 column must total 100"]').should('be.visible');
-    cy.get('[data-cy="Entries for Ages 21 to 64 column must total 100"]').should('have.text', 'Entries for Ages 21 to 64 column must total 100');
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').type('7');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]').type('6');
-    cy.get('[data-cy=validate-core-set-questions-button]').click();
-    cy.get('[data-cy="Entries for Ages 21 to 64 column must total 100"]').should('be.visible');
-    cy.get('[data-cy="Entries for Ages 21 to 64 column must total 100"]').should('have.text', 'Entries for Ages 21 to 64 column must total 100');
+    cy.get("[data-cy=ACS]").click();
+    cy.get("[data-cy=core-set-qualifiers-link]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for Ages 21 to 64 column must have values"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for Ages 21 to 64 column must have values"]'
+    ).should("have.text", "Entries for Ages 21 to 64 column must have values");
+    /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFour"]'
+    ).type("50");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.GreaterThanSixtyFour"]'
+    ).type("10");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
+    ).type("20");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]'
+    ).type("20");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for Ages 21 to 64 column must have values"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for Ages 21 to 64 column must have values"]'
+    ).should("have.text", "Entries for Ages 21 to 64 column must have values");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
+    ).type("50");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).type("10");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+    ).type("20");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.TwentyOneToSixtyFour"]'
+    ).type("20");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it("validation Adult core set qualifiers percentage", function () {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get("[data-cy=ACS]").click();
+    cy.get("[data-cy=core-set-qualifiers-link]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
+    ).type("51");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
+    ).type("52");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for Ages 21 to 64 column must total 100"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for Ages 21 to 64 column must total 100"]'
+    ).should("have.text", "Entries for Ages 21 to 64 column must total 100");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).type("7");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.TwentyOneToSixtyFour"]'
+    ).type("6");
+    cy.get("[data-cy=validate-core-set-questions-button]").click();
+    cy.get(
+      '[data-cy="Entries for Ages 21 to 64 column must total 100"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Entries for Ages 21 to 64 column must total 100"]'
+    ).should("have.text", "Entries for Ages 21 to 64 column must total 100");
     /* ==== End Cypress Studio ==== */
   });
 });
