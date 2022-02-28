@@ -5,6 +5,8 @@ import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
+import { getPerfMeasureRateArray } from "../globalValidations";
+import { PMD } from "./questions/data";
 
 export const PQI15AD = ({
   name,
@@ -22,7 +24,7 @@ export const PQI15AD = ({
 
   const data = getValues();
 
-  const performanceMeasureArray = [data["PerformanceMeasure-AgeRates"]];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch<Measure.Form>({
@@ -44,7 +46,7 @@ export const PQI15AD = ({
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
-  const ageGroups = [{ label: "Ages 18 to 64", id: 0 }];
+  const ageGroups = [{ label: "Ages 18 to 39", id: 0 }];
 
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
@@ -71,7 +73,7 @@ export const PQI15AD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isAHRQ && <Q.PerformanceMeasure />}
+          {isAHRQ && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isAHRQ && <Q.DeviationFromMeasureSpec />}
           {/* Show Other Performance Measures when isAHRQ is not true  */}
@@ -85,7 +87,7 @@ export const PQI15AD = ({
           {(isAHRQ || showOtherPerformanceMeasureRates) && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              qualifiers={["Ages 18 to 39"]}
+              qualifiers={PMD.qualifiers}
               adultMeasure
             />
           )}

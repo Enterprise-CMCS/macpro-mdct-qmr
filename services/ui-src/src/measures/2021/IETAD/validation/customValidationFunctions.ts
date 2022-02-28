@@ -2,6 +2,7 @@ import { Measure } from "./types";
 import { PMD } from "../questions/data";
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateEqualDenominators,
@@ -16,6 +17,7 @@ const IEDValidation = (data: Measure.Form) => {
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const dateRange = data["DateRange"];
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   const totalInitiation = performanceMeasureArray.filter(
@@ -31,7 +33,6 @@ const IEDValidation = (data: Measure.Form) => {
   )[0];
 
   let errorArray: any[] = [];
-
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
@@ -77,6 +78,7 @@ const IEDValidation = (data: Measure.Form) => {
     ),
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...ensureBothDatesCompletedInRange(dateRange),
   ];
 
   return errorArray;

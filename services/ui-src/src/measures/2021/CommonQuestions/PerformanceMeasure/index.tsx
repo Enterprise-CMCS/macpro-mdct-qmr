@@ -94,7 +94,7 @@ export const PerformanceMeasure = ({
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      <CUI.Text>{data.questionText}</CUI.Text>
+      <CUI.Stack>{data.questionText}</CUI.Stack>
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {

@@ -34,24 +34,10 @@ export namespace Measure {
       Types.StatusOfData,
       Types.DateRange,
       Types.CombinedRates,
+      Types.DataSource,
       Types.MeasurementSpecification,
       Types.PerformanceMeasure,
       Types.DeviationFromMeasureSpecification {
-    //DataSource
-
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-    "DataSource-Hybrid"?: string[];
-    "DataSource-Hybrid-Other"?: string;
-    "DataSource-Hybrid-Other-Explanation"?: string;
-    "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
-    "DataSource-ElectronicHealthRecords"?: string;
-    "DataSource-ElectronicHealthRecords-Explanation"?: string;
-
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
