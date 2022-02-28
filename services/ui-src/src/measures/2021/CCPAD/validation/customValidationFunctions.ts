@@ -8,6 +8,7 @@ import {
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 
+import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = ["3 days postpartem", "60 days postpartem"];
   const sixtyDaysIndex = 1;
@@ -37,6 +38,7 @@ const CCPADValidation = (data: Measure.Form) => {
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [sameDenominatorError[0]] : [];
 
+  const dateRange = data["DateRange"];
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -53,6 +55,7 @@ const CCPADValidation = (data: Measure.Form) => {
     ),
     ...sameDenominatorError,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...ensureBothDatesCompletedInRange(dateRange),
   ];
 
   return errorArray;

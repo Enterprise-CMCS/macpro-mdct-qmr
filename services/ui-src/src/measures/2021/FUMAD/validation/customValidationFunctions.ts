@@ -7,6 +7,8 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
+import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
+
 
 const FUMADValidation = (data: Measure.Form) => {
   const ageGroups = ["18 to 64", "65 and older"];
@@ -57,5 +59,9 @@ const FUMADValidation = (data: Measure.Form) => {
 
   return errorArray;
 };
+const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+  const dateRange = data["DateRange"];
+  return [...ensureBothDatesCompletedInRange(dateRange)];
+};
 
-export const validationFunctions = [FUMADValidation];
+export const validationFunctions = [FUMADValidation,validateBothDatesCompletedInRange];

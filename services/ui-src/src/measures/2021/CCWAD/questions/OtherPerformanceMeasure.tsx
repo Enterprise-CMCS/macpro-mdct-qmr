@@ -22,9 +22,7 @@ export const OtherPerformanceMeasure = () => {
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ?? true;
 
   return (
     <QMR.CoreQuestionWrapper label="Other Performance Measure">

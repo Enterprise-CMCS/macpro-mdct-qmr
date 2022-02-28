@@ -2,6 +2,7 @@ import { Measure } from "../validation/types";
 import {
   atLeastOneRateComplete,
   validateNumeratorsLessThanDenominators,
+  ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
@@ -99,8 +100,15 @@ const CCWADValidation = (data: Measure.Form) => {
   return errorArray;
 };
 
+const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+  const dateRange = data["DateRange"];
+  return [...ensureBothDatesCompletedInRange(dateRange)];
+};
+
 export const validationFunctions = [
   CCWADValidation,
+  validateBothDatesCompletedInRange,
+  validateLarcRateGreater,
   validateDenominatorsAreTheSame,
   validateLarcRateGreater,
 ];
