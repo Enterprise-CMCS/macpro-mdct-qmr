@@ -10,6 +10,7 @@ const App = () => {
     <div id="app-wrapper">
       {user && (
         <>
+          <QMR.ScrollToTop />
           <QMR.Header handleLogout={logout} />
           <AppRoutes />
           <QMR.Footer />

@@ -17,17 +17,18 @@ const verifyPictureFileIsUploaded =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[11]/div[2]/div[4]";
 
 //OY2-15504
-const saveButtn = "//button[@class='chakra-button css-hp17lz']";
+// const saveButtn = "//button[@class='chakra-button css-hp17lz']";
+const saveButtn = "[data-cy='Save']";
 const saveStatusUnderSaveButton = "//p[@id='last-saved-text']";
 const NCQARadioButton =
   "(//span[@class='chakra-radio__control css-gzpnyx'])[5]";
 const selectOption = "//div[@class='chakra-select__wrapper css-42b2qy']";
 const HEDISDropdown2020 =
   "(//div[@class='chakra-select__wrapper css-42b2qy']/select/option)[2]";
-const validateMeasureButton = "//button[@class='chakra-button css-gy0j0y']";
-const completeMeasureButton = "//button[@class='chakra-button css-qobkj']";
-const sentenceUnderCompleteMeasureOne = "//p[@class='chakra-text css-thvrsi']";
-const sentenceUnderCompleteMeasureTwo = "//p[@class='chakra-text css-1xpb69n']";
+const validateMeasureButton = "[data-cy='Validate Measure']";
+const completeMeasureButton = "[data-cy='Complete Measure']";
+const sentenceUnderCompleteMeasureOne = "[data-cy='complete measure sub-1']";
+const sentenceUnderCompleteMeasureTwo = "[data-cy='complete measure sub-2']";
 const errorMessagePerformanceMeasure =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]";
 const errorMessageContent =
@@ -171,18 +172,18 @@ export class FUAADPAGE {
     cy.xpath(browseBTN).should("be.visible");
   }
   verifySentenceUnderCompleteMeasure() {
-    cy.xpath(sentenceUnderCompleteMeasureOne).should("be.visible");
-    cy.xpath(sentenceUnderCompleteMeasureOne).contains(
+    cy.get(sentenceUnderCompleteMeasureOne).should("be.visible");
+    cy.get(sentenceUnderCompleteMeasureOne).contains(
       'Please select "Validate Measure" to check any error present on the measure prior to completion'
     );
-    cy.xpath(sentenceUnderCompleteMeasureTwo).should("be.visible");
-    cy.xpath(sentenceUnderCompleteMeasureTwo).contains(
+    cy.get(sentenceUnderCompleteMeasureTwo).should("be.visible");
+    cy.get(sentenceUnderCompleteMeasureTwo).contains(
       "Complete the measure and mark it for submission to CMS for review"
     );
   }
 
   clickSaveButtnVerifyStatus() {
-    cy.xpath(saveButtn).click();
+    cy.get(saveButtn).click();
     cy.wait(500);
   }
 
@@ -196,7 +197,7 @@ export class FUAADPAGE {
   }
 
   clickValidateMeasureButtonVerify() {
-    cy.xpath(validateMeasureButton).click();
+    cy.get(validateMeasureButton).click();
     // cy.get(saveStatusUnderSaveButton).contains("Saved");
     cy.xpath(errorMessageContent).contains(
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
@@ -204,7 +205,7 @@ export class FUAADPAGE {
   }
 
   clickCompleteMeasureButtonVerify() {
-    cy.xpath(completeMeasureButton).click();
+    cy.get(completeMeasureButton).click();
     cy.get(popupBoxMessageHeader).should("be.visible");
     cy.get(popupBoxMessageContent).contains(
       "There are still errors on this measure, would you still like to complete?"
@@ -274,18 +275,18 @@ export class FUAADPAGE {
     cy.xpath(browseBTN).should("be.visible");
   }
   verifySentenceUnderCompleteMeasure() {
-    cy.xpath(sentenceUnderCompleteMeasureOne).should("be.visible");
-    cy.xpath(sentenceUnderCompleteMeasureOne).contains(
+    cy.get(sentenceUnderCompleteMeasureOne).should("be.visible");
+    cy.get(sentenceUnderCompleteMeasureOne).contains(
       'Please select "Validate Measure" to check any error present on the measure prior to completion'
     );
-    cy.xpath(sentenceUnderCompleteMeasureTwo).should("be.visible");
-    cy.xpath(sentenceUnderCompleteMeasureTwo).contains(
+    cy.get(sentenceUnderCompleteMeasureTwo).should("be.visible");
+    cy.get(sentenceUnderCompleteMeasureTwo).contains(
       "Complete the measure and mark it for submission to CMS for review"
     );
   }
 
   clickSaveButtnVerifyStatus() {
-    cy.xpath(saveButtn).click();
+    cy.get(saveButtn).click();
     cy.wait(500);
   }
 
@@ -299,7 +300,7 @@ export class FUAADPAGE {
   }
 
   clickValidateMeasureButtonVerify() {
-    cy.xpath(validateMeasureButton).click();
+    cy.get(validateMeasureButton).click();
     // cy.get(saveStatusUnderSaveButton).contains("Saved");
     cy.xpath(errorMessageContent).contains(
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
@@ -307,7 +308,7 @@ export class FUAADPAGE {
   }
 
   clickCompleteMeasureButtonVerify() {
-    cy.xpath(completeMeasureButton).click();
+    cy.get(completeMeasureButton).click();
     cy.get(popupBoxMessageHeader).should("be.visible");
     cy.get(popupBoxMessageContent).contains(
       "There are still errors on this measure, would you still like to complete?"
@@ -691,13 +692,13 @@ export class FUAADPAGE {
     }
   }
   verifySaveBTNIsDisabled() {
-    cy.xpath(saveButtn).should("be.disabled");
+    cy.get(saveButtn).should("be.disabled");
   }
   verifyValidateMeasureBTNIsDisabled() {
-    cy.xpath(validateMeasureButton).should("be.visible");
+    cy.get(validateMeasureButton).should("be.visible");
   }
   verifyCompleteMeasureBTNIsDisabled() {
-    cy.xpath(completeMeasureButton).should("be.visible");
+    cy.get(completeMeasureButton).should("be.visible");
   }
 }
 export default FUAADPAGE;
