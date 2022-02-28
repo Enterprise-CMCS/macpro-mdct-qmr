@@ -51,7 +51,8 @@ export namespace Measure {
       Types.DefinitionOfPopulation,
       Types.StatusOfData,
       Types.DidReport,
-      Types.WhyAreYouNotReporting {
+      Types.WhyAreYouNotReporting,
+      Types.PerformanceMeasure {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -71,25 +72,6 @@ export namespace Measure {
     "reversible-method-deviation": DeviationFromMeasureSpec;
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
-
-    //Performance Measure
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-ReversibleMethodOfContraceptionRate": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

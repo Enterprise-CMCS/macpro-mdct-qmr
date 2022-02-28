@@ -28,10 +28,12 @@ const CategoryNdrSets = ({
   return (
     <>
       {categories.map((item) => {
-        const rates: QMR.IRate[] = qualifiers?.map((cat, idx) => ({
+        let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
           label: cat,
           id: idx,
-        })) ?? [{ id: 0 }];
+        }));
+
+        rates = rates?.length ? rates : [{ id: 0 }];
 
         const cleanedName = item.replace(/[^\w]/g, "");
 
@@ -94,10 +96,15 @@ export const PerformanceMeasure = ({
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <CUI.Text>{data.questionText}</CUI.Text>
       {data.questionListItems && (
-        <CUI.UnorderedList m="5" ml="10">
+        <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
             return (
               <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+                {data.questionListTitles?.[idx] && (
+                  <CUI.Text display="inline" fontWeight="600">
+                    {data.questionListTitles?.[idx]}
+                  </CUI.Text>
+                )}
                 {item}
               </CUI.ListItem>
             );

@@ -22,7 +22,8 @@ export namespace Measure {
       Types.DateRange,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
-      Types.MeasurementSpecification {
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -54,23 +55,6 @@ export namespace Measure {
       numerator: string;
       other: string;
     };
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-30Days": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-7Days": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

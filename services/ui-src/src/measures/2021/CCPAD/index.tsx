@@ -29,10 +29,10 @@ export const CCPAD = ({
     name: "MeasurementSpecification",
   });
   const watchPerformanceMeasureAgeRatesEffectiveContraception = useWatch({
-    name: "PerformanceMeasure-AgeRates-effectiveContraception",
+    name: `PerformanceMeasure.rates.${PMD.categories[0].replace(/[^\w]/g, "")}`,
   });
   const watchPerformanceMeasureAgeRatesLongActingContraception = useWatch({
-    name: "PerformanceMeasure-AgeRates-longActingContraception",
+    name: `PerformanceMeasure.rates.${PMD.categories[1].replace(/[^\w]/g, "")}`,
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",

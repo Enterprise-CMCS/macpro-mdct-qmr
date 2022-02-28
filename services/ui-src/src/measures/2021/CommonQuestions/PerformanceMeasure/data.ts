@@ -3,6 +3,7 @@ export interface PerformanceMeasureData {
   categories?: string[]; //performance measure descriptions
   questionText?: string;
   questionListItems?: string[];
+  questionListTitles?: string[];
 }
 
 /** Example data built from IETAD */
