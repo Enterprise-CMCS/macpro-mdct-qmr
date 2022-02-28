@@ -18,12 +18,6 @@ export namespace Measure {
       Types.OtherPerformanceMeasure,
       Types.DataSource,
       Types.MeasurementSpecification {
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
-
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
