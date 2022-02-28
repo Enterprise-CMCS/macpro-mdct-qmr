@@ -153,7 +153,7 @@ export const validateEqualDenominators = (
       }
     });
     if (filledInData.length > 1) {
-      const firstDenominator = filledInData[0].denominator;
+      let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;
       filledInData.forEach((_filledInDataObj, index) => {
         if (filledInData[index].denominator !== firstDenominator) {
@@ -165,12 +165,11 @@ export const validateEqualDenominators = (
           errorLocation: "Performance Measure",
           errorMessage: `Denominators must be the same for each category of performance measures for ${ageGroup}`,
         };
-
         errorArray.push(error);
       }
     }
   });
-  return error ? errorArray : [];
+  return errorArray;
 };
 
 // If a user manually over-rides a rate it must not violate two rules:
@@ -252,7 +251,7 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
     errorArray.push({
       errorLocation: "Why Are You Not Reporting On This Measure",
       errorMessage:
-        "You Must Select At Least One Reason For Not Reporting On This Measure",
+        "You must select at least one reason for not reporting on this measure",
     });
   }
   return errorArray;

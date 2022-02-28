@@ -10,65 +10,6 @@ import {
 } from "../../globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 
-// // The AOM totals Numerator needs to be equal or greater than the largest initiation/engagement
-const validateTotalsEqualOrGreaterThan = (
-  initiationArray: any[],
-  engagementArray: any[],
-  totalInitiation: any,
-  totalEngagement: any,
-  ageGroups: string[]
-) => {
-  let error = false;
-  let errorArray: any[] = [];
-  ageGroups.forEach((ageGroup, i) => {
-    let initiationError = false;
-    let engagementError = false;
-    initiationArray.forEach((_initObj, index) => {
-      if (
-        initiationArray[index] &&
-        initiationArray[index][i] &&
-        initiationArray[index][i].numerator
-      ) {
-        if (
-          !(totalInitiation[i] && totalInitiation[i].numerator) ||
-          initiationArray[index][i].numerator > totalInitiation[i].numerator
-        ) {
-          initiationError = true;
-          error = true;
-        }
-      }
-    });
-    engagementArray.forEach((_engageObj, index) => {
-      if (
-        engagementArray[index] &&
-        engagementArray[index][i] &&
-        engagementArray[index][i].numerator
-      ) {
-        if (
-          !(totalEngagement[i] && totalEngagement[i].numerator) ||
-          engagementArray[index][i].numerator > totalEngagement[i].numerator
-        ) {
-          error = true;
-          engagementError = true;
-        }
-      }
-    });
-    if (initiationError) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage: `Initiation of AOD Treatment: Total AOD Abuse or Dependence for ${ageGroup} the numerator must be equal to or greater than the numerators in the other categories`,
-      });
-    }
-    if (engagementError) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage: `Engagement of AOD Treatment: Total AOD Abuse or Dependence for ${ageGroup} the numerator must be equal to or greater than the numerators in the other categories`,
-      });
-    }
-  });
-  return error ? errorArray : [];
-};
-
 const IEDValidation = (data: Measure.Form) => {
   const ageGroups = ["Ages 18 to 64", "Age 65 and Older"];
   const age65PlusIndex = 1;
@@ -76,18 +17,6 @@ const IEDValidation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
-
-  const initiationArray = performanceMeasureArray.filter(
-    (_, idx) =>
-      PMD.data.categories?.[idx].includes("Initiation") &&
-      !PMD.data.categories?.[idx].includes("Total")
-  );
-
-  const engagementArray = performanceMeasureArray.filter(
-    (_, idx) =>
-      PMD.data.categories?.[idx].includes("Engagement") &&
-      !PMD.data.categories?.[idx].includes("Total")
-  );
 
   const totalInitiation = performanceMeasureArray.filter(
     (_, idx) =>
@@ -108,22 +37,29 @@ const IEDValidation = (data: Measure.Form) => {
     return errorArray;
   }
 
-  let sameDenominatorError: any[] = [];
+  let unfilteredSameDenominatorErrors: any[] = [];
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
-    sameDenominatorError = [
-      ...sameDenominatorError,
+    unfilteredSameDenominatorErrors = [
+      ...unfilteredSameDenominatorErrors,
       ...validateEqualDenominators(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
     ];
   }
-  sameDenominatorError = [
-    ...sameDenominatorError,
+  unfilteredSameDenominatorErrors = [
+    ...unfilteredSameDenominatorErrors,
     ...validateEqualDenominators([totalInitiation, totalEngagement], ageGroups),
   ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [sameDenominatorError[0]] : [];
+
+  let filteredSameDenominatorErrors: any = [];
+  let errorList: string[] = [];
+  unfilteredSameDenominatorErrors.forEach((error) => {
+    if (!(errorList.indexOf(error.errorMessage) > -1)) {
+      errorList.push(error.errorMessage);
+      filteredSameDenominatorErrors.push(error);
+    }
+  });
 
   errorArray = [
     ...errorArray,
@@ -139,14 +75,7 @@ const IEDValidation = (data: Measure.Form) => {
       OPM,
       ageGroups
     ),
-    ...sameDenominatorError,
-    ...validateTotalsEqualOrGreaterThan(
-      initiationArray,
-      engagementArray,
-      totalInitiation,
-      totalEngagement,
-      ageGroups
-    ),
+    ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
