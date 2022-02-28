@@ -17,55 +17,100 @@ export const getLowLvlDeviationOptions = ({
   name,
 }: OptionProps): QMR.CheckboxOption[] => {
   if (!qualifiers || qualifiers.length === 0) return [];
+
+  // if there are no labels then there is no need to the additional checkbox
+  if (!qualifiers.some((el) => el.label)) {
+    return [
+      {
+        displayValue: "Numerator",
+        value: `numerator`,
+        children: [
+          <QMR.TextArea
+            label="Explain:"
+            name={`${name}.numerator`}
+            key={`${name}.numerator`}
+          />,
+        ],
+      },
+      {
+        displayValue: "Denominator",
+        value: `denominator`,
+        children: [
+          <QMR.TextArea
+            label="Explain:"
+            name={`${name}.denominator`}
+            key={`${name}.denominator`}
+          />,
+        ],
+      },
+      {
+        displayValue: "Other",
+        value: `other`,
+        children: [
+          <QMR.TextArea
+            label="Explain:"
+            name={`${name}.other`}
+            key={`${name}.other`}
+          />,
+        ],
+      },
+    ];
+  }
+
+  // if there are are labels then we need the additional checkbox layer
   // @ts-ignore
-  return qualifiers.map((item) => {
-    const value = `${item.label?.replace(/[^\w]/g, "")}`;
-    return {
-      displayValue: item.label,
-      value,
-      children: [
-        <QMR.Checkbox
-          name={`${name}.${value}.RateDeviationsSelected`}
-          key={`${name}.${value}.RateDeviationsSelected`}
-          options={[
-            {
-              displayValue: "Numerator",
-              value: `numerator`,
-              children: [
-                <QMR.TextArea
-                  label="Explain:"
-                  name={`${name}.${value}.numerator`}
-                  key={`${name}.${value}.numerator`}
-                />,
-              ],
-            },
-            {
-              displayValue: "Denominator",
-              value: `denominator`,
-              children: [
-                <QMR.TextArea
-                  label="Explain:"
-                  name={`${name}.${value}.denominator`}
-                  key={`${name}.${value}.denominator`}
-                />,
-              ],
-            },
-            {
-              displayValue: "Other",
-              value: `other`,
-              children: [
-                <QMR.TextArea
-                  label="Explain:"
-                  name={`${name}.${value}.other`}
-                  key={`${name}.${value}.other`}
-                />,
-              ],
-            },
-          ]}
-        />,
-      ],
-    };
-  });
+  return qualifiers
+    .sort((a: Types.RateFields, b: Types.RateFields) =>
+      a.label!! < b.label!! ? 1 : 1
+    )
+    .map((item) => {
+      const value = `${item.label?.replace(/[^\w]/g, "")}`;
+      return {
+        displayValue: item.label,
+        value,
+        children: [
+          <QMR.Checkbox
+            name={`${name}.${value}.RateDeviationsSelected`}
+            key={`${name}.${value}.RateDeviationsSelected`}
+            options={[
+              {
+                displayValue: "Numerator",
+                value: `numerator`,
+                children: [
+                  <QMR.TextArea
+                    label="Explain:"
+                    name={`${name}.${value}.numerator`}
+                    key={`${name}.${value}.numerator`}
+                  />,
+                ],
+              },
+              {
+                displayValue: "Denominator",
+                value: `denominator`,
+                children: [
+                  <QMR.TextArea
+                    label="Explain:"
+                    name={`${name}.${value}.denominator`}
+                    key={`${name}.${value}.denominator`}
+                  />,
+                ],
+              },
+              {
+                displayValue: "Other",
+                value: `other`,
+                children: [
+                  <QMR.TextArea
+                    label="Explain:"
+                    name={`${name}.${value}.other`}
+                    key={`${name}.${value}.other`}
+                  />,
+                ],
+              },
+            ]}
+          />,
+        ],
+      };
+    });
 };
 
 export const DeviationFromMeasureSpec = ({ categories }: Props) => {

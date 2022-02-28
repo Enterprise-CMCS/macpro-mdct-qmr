@@ -11,7 +11,7 @@ import {
 import { getPerfMeasureRateArray } from "../../globalValidations";
 
 const IEDValidation = (data: Measure.Form) => {
-  const ageGroups = PMD.ageGroups;
+  const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];

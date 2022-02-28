@@ -1,8 +1,8 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 
-export const ageGroups = ["Ages 18 to 64", "Age 65 and older"];
+export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
 // export const ageGroups = [];
-export const performanceMeasureDescriptions = [
+export const categories = [
   "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
   "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
   "Initiation of AOD Treatment: Opioid Abuse or Dependence",
@@ -22,6 +22,6 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
     "Initiation of AOD Treatment: Percentage of beneficiaries who initiate treatment through an inpatient AOD admission, outpatient visit, intensive outpatient encounter, or partial hospitalization, telehealth, or medication assisted treatment within 14 days of the diagnosis.",
     "Engagement of AOD Treatment: Percentage of beneficiaries who initiated treatment and who were engaged in ongoing AOD treatment within 34 days of the initiation visit.",
   ],
-  categories: performanceMeasureDescriptions,
-  qualifiers: ageGroups,
+  categories,
+  qualifiers,
 };

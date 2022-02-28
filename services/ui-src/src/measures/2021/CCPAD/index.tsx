@@ -103,16 +103,7 @@ export const CCPAD = ({
           {isUSOPA && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isUSOPA && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showEffectiveContraceptionThreeDaysPostPartum,
-                showEffectiveContraceptionSixtyDaysPostPartum,
-                showLongActingContraceptionThreeDaysPostPartum,
-                showLongActingContraceptionSixtyDaysPostPartum,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isHHSOPA is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
