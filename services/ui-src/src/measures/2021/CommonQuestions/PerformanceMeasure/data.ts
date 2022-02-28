@@ -1,7 +1,7 @@
 export interface PerformanceMeasureData {
   qualifiers?: string[]; // age ranges, etc
   categories?: string[]; //performance measure descriptions
-  questionText?: string;
+  questionText?: string | string[];
   questionListItems?: string[];
   questionListTitles?: string[];
 }

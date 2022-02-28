@@ -1,17 +1,25 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 
-export const categories = [
-  "Follow-up within 30 days of ED visit",
-  "Follow-up within 7 days of ED visit",
+export const qualifiers = [
+  "Total Rate",
+  "Buprenorphine",
+  "Oral naltrexone",
+  "Long-acting, injectable naltrexone",
+  "Methadone",
 ];
-export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
+export const categories: string[] = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
-  questionText:
-    "Percentage of emergency department (ED) visits for beneficiaries age 18 and older with a principal diagnosis of alcohol or other drug (AOD) abuse or dependence who had a follow-up visit for Total AOD Abuse or Dependence. Two rates are reported:",
+  questionText: [
+    "Percentage of Medicaid beneficiaries ages 18 to 64 with an opioid use disorder (OUD) who filled a prescription for or were administered or dispensed an FDA-approved medication for the disorder during the measurement year. Five rates are reported:",
+    "A total (overall) rate capturing any medications used in medication assisted treatment of opioid dependence and addiction (Rate 1)",
+    "Four separate rates representing the following types of FDA-approved drug products:",
+  ],
   questionListItems: [
-    "Percentage of ED visits for which the beneficiary received follow-up within 30 days of the ED visit (31 total days)",
-    "Percentage of ED visits for which the beneficiary received follow-up within 7 days of the ED visit (8 total days)",
+    "Buprenorphine (Rate 2)",
+    "Oral naltrexone (Rate 3)",
+    "Long-acting, injectable naltrexone (Rate 4)",
+    "Methadone (Rate 5)",
   ],
   categories,
   qualifiers,

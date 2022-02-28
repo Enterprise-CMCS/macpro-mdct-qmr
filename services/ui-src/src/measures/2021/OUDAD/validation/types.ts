@@ -32,7 +32,8 @@ export namespace Measure {
       Types.AdditionalNotes,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
-      Types.MeasurementSpecification {
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -57,15 +58,6 @@ export namespace Measure {
       other: string;
     };
 
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-Rates": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
     //OptionalMeasureStratification
     CategoriesReported: string[];
 

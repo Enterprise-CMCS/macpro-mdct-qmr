@@ -30,7 +30,8 @@ export namespace Measure {
       Types.AdditionalNotes,
       Types.WhyAreYouNotReporting,
       Types.StatusOfData,
-      Types.MeasurementSpecification {
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -55,16 +56,6 @@ export namespace Measure {
       numerator: string;
       other: string;
     };
-
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

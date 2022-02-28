@@ -18,7 +18,8 @@ export namespace Measure {
       Types.DefinitionOfPopulation,
       Types.MeasurementSpecification,
       Types.OtherPerformanceMeasure,
-      Types.OptionalMeasureStratification {
+      Types.OptionalMeasureStratification,
+      Types.PerformanceMeasure {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -37,15 +38,5 @@ export namespace Measure {
       numerator: string;
       other: string;
     };
-
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
   }
 }

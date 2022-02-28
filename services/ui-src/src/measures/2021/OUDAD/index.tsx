@@ -1,10 +1,10 @@
 import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
-import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
 
 export const OUDAD = ({
   name,
@@ -18,7 +18,7 @@ export const OUDAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
+  const { getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({
@@ -28,7 +28,7 @@ export const OUDAD = ({
     name: "MeasurementSpecification",
   });
   const watchPerformanceMeasureRates = useWatch({
-    name: "PerformanceMeasure-Rates",
+    name: "PerformanceMeasure.rates.singleCategory",
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
@@ -96,7 +96,7 @@ export const OUDAD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when CMS is selected from DataSource */}
-          {isCMS && <Q.PerformanceMeasure />}
+          {isCMS && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isCMS && (
             <Q.DeviationFromMeasureSpec

@@ -248,3 +248,15 @@ export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsDataNode[];
   export type PerformanceMeasure = PerformanceMeasureData;
 }
+
+export type DefaulFormData = AdditionalNotes &
+  StatusOfData &
+  WhyAreYouNotReporting &
+  DidReport &
+  CombinedRates &
+  DateRange &
+  DefinitionOfPopulation &
+  MeasurementSpecification &
+  OtherPerformanceMeasure &
+  OptionalMeasureStratification &
+  PerformanceMeasure;

@@ -1,11 +1,11 @@
 import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
-import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
+import { PMD } from "./questions/data";
 
 export const PQI01AD = ({
   name,
@@ -19,7 +19,7 @@ export const PQI01AD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
+  const { getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({
@@ -29,7 +29,7 @@ export const PQI01AD = ({
     name: "MeasurementSpecification",
   });
   const watchPerformanceMeasureAgeRates = useWatch({
-    name: "PerformanceMeasure-AgeRates",
+    name: "PerformanceMeasure.rates.singleCategory",
   });
 
   const watchOtherPerformanceMeasureRates = useWatch({
@@ -80,7 +80,7 @@ export const PQI01AD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isAHRQ && <Q.PerformanceMeasure />}
+          {isAHRQ && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isAHRQ && <Q.DeviationFromMeasureSpec options={ageGroups} />}
           {/* Show Other Performance Measures when isAHRQ is not true  */}
