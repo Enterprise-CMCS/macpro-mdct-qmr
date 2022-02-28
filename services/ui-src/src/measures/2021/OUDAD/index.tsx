@@ -80,6 +80,8 @@ export const OUDAD = ({
     });
   }
 
+  console.log(getValues());
+
   return (
     <>
       <CMQ.Reporting
@@ -99,17 +101,7 @@ export const OUDAD = ({
           {isCMS && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isCMS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showTotalRate,
-                showBuprenorphine,
-                showOralNaltrexone,
-                showInjectableNaltrexone,
-                showMethadone,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isCMS is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}

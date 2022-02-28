@@ -124,8 +124,8 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
   }: {
     categories: string[];
   }) => {
-    if (categories.length > 0 && watchPerformanceMeasure?.rates) {
-      // if no categories use singleCat to create low level Deviation Options
+    if (watchPerformanceMeasure?.rates) {
+      // if rates.singleCat
       const topLvlOptions: {
         displayValue: string;
         rates: Types.RateFields[] | undefined;
@@ -133,24 +133,35 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
       }[] = [];
       const { rates } = watchPerformanceMeasure;
 
-      Object.keys(rates).forEach((key) => {
-        // if some of the rates have both num and den
-        if (
-          rates[key]?.some(
+      if (rates.singleCategory) {
+        return getLowLvlDeviationOptions({
+          qualifiers: rates.singleCategory.filter(
             (el: Types.RateFields) => el?.numerator && el?.denominator
-          )
-        ) {
-          // add the rates that have num and den to topLvlOptions along with its display value from categories
-          topLvlOptions.push({
-            rates: rates[key]?.filter(
+          ) as Types.RateFields[],
+          name: `Deviations`,
+        });
+      } else {
+        Object.keys(rates).forEach((key) => {
+          // if some of the rates have both num and den
+          if (
+            rates[key]?.some(
               (el: Types.RateFields) => el?.numerator && el?.denominator
-            ) as Types.RateFields[],
-            displayValue:
-              categories.find((cat) => cat.replace(/[^\w]/g, "") === key) || "",
-            key,
-          });
-        }
-      });
+            )
+          ) {
+            // add the rates that have num and den to topLvlOptions along with its display value from categories
+            topLvlOptions.push({
+              rates: rates[key]?.filter(
+                (el: Types.RateFields) => el?.numerator && el?.denominator
+              ) as Types.RateFields[],
+              displayValue:
+                categories.find((cat) => cat.replace(/[^\w]/g, "") === key) ||
+                "",
+              key,
+            });
+          }
+        });
+      }
+
       return (
         topLvlOptions?.map((option) => {
           return {

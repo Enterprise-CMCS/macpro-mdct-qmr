@@ -19,7 +19,8 @@ export namespace Measure {
       Types.MeasurementSpecification,
       Types.OtherPerformanceMeasure,
       Types.OptionalMeasureStratification,
-      Types.PerformanceMeasure {
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -27,16 +28,5 @@ export namespace Measure {
     "DataSource-Administrative-Other-Explanation"?: string;
     "DataSource-Other": string;
     "DataSource-Other-Explanation": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-AgeRanges": string[];
-    DeviationFields: {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
   }
 }
