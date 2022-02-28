@@ -6,8 +6,8 @@ import {
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
+import { omsValidations } from "measures/2021/globalValidations/omsValidationsLib";
 
 const IEDValidation = (data: Measure.Form) => {
   const ageGroups = ["Ages 18 to 64", "Age 65 and Older"];
@@ -71,9 +71,6 @@ const IEDValidation = (data: Measure.Form) => {
     }
   });
 
-  /* This is a place holder for the OMS validation functions. */
-  // const omsErrors = [];
-
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -90,11 +87,6 @@ const IEDValidation = (data: Measure.Form) => {
     ),
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray
-    ),
     ...omsValidations(data),
   ];
 
