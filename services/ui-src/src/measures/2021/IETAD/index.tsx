@@ -180,7 +180,12 @@ export const IETAD = ({
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
           {/* Show Deviation only when Other is not selected */}
-          {isHEDIS && <CMQ.DeviationFromMeasureSpec categories={categories} />}
+          {isHEDIS && (
+            <CMQ.DeviationFromMeasureSpec
+              categories={categories}
+              // qualifiers={["Ages 18 to 39", "Age 65 and older"]}
+            />
+          )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />

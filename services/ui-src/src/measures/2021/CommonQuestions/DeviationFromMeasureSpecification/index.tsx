@@ -17,7 +17,7 @@ interface OptionProps {
   qualifiers: { label: string }[];
 }
 
-export const deviationOptions = ({
+export const getLowLvlDeviationOptions = ({
   qualifiers,
   name,
 }: OptionProps): QMR.CheckboxOption[] => {
@@ -77,7 +77,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
     useFormContext<Types.DeviationFromMeasureSpecification>();
   const data = getValues();
 
-  const getDeviationOptions = ({
+  const getTopLvlDeviationOptions = ({
     categories,
     data,
   }: {
@@ -105,7 +105,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
                 )}.SelectedOptions`
               )}
               formLabelProps={{ fontWeight: 600 }}
-              options={deviationOptions({
+              options={getLowLvlDeviationOptions({
                 qualifiers: (
                   data[
                     category.watch as keyof Types.DeviationFromMeasureSpecification
@@ -138,7 +138,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
               <QMR.Checkbox
                 {...register("DeviationOptions")}
                 label="Select and explain the deviation(s):"
-                options={getDeviationOptions({ categories, data })}
+                options={getTopLvlDeviationOptions({ categories, data })}
               />,
             ],
           },
