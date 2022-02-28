@@ -4,6 +4,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
 
 export const CCWAD = ({
   setValidationFunctions,
@@ -30,10 +31,10 @@ export const CCWAD = ({
     name: "OtherPerformanceMeasure-Rates",
   });
   const watchReversibleRates = useWatch({
-    name: "PerformanceMeasure-ReversibleMethodOfContraceptionRate",
+    name: `PerformanceMeasure.rates.${PMD.categories[1].replace(/[^\w]/g, "")}`,
   });
   const watchModeratelyRates = useWatch({
-    name: "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate",
+    name: `PerformanceMeasure.rates.${PMD.categories[0].replace(/[^\w]/g, "")}`,
   });
 
   // Conditionals for Performance Measures
@@ -87,7 +88,7 @@ export const CCWAD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isOpa && <Q.PerformanceMeasure />}
+          {isOpa && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isOpa && (
             <Q.DeviationFromMeasureSpec

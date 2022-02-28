@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
 
 export const FUAAD = ({
   name,
@@ -28,10 +29,10 @@ export const FUAAD = ({
     name: "MeasurementSpecification",
   });
   const watchPerformanceMeasureAgeRates30Days = useWatch({
-    name: "PerformanceMeasure-AgeRates-30Days",
+    name: `PerformanceMeasure.rates.${PMD.categories[0].replace(/[^\w]/g, "")}`,
   });
   const watchPerformanceMeasureAgeRates7Days = useWatch({
-    name: "PerformanceMeasure-AgeRates-7Days",
+    name: `PerformanceMeasure.rates.${PMD.categories[1].replace(/[^\w]/g, "")}`,
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
@@ -86,7 +87,7 @@ export const FUAAD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && <Q.PerformanceMeasure />}
+          {isHEDIS && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
             <Q.DeviationFromMeasureSpec
