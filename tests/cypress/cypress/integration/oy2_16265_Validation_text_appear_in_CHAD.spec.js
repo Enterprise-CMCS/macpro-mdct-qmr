@@ -127,7 +127,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
   it("validation for child core set qualifiers percentage", function () {
     /* ==== Generated with Cypress Studio ==== */
     cy.wait(2000);
-    cy.get("[data-cy=CCS]").click();
+    cy.get("[data-cy=CCS]").click({force:true});
     cy.get("[data-cy=core-set-qualifiers-link]").click();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
