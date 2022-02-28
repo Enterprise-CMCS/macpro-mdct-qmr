@@ -8,11 +8,11 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
     cy.xpath(emailForCognito).type("stateuser1@test.com");
     cy.xpath(passwordForCognito).type("p@55W0rd!");
     cy.get('[data-cy="login-with-cognito-button"]').click();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("CCP-AD");
   });
 
   it("Checks for one sentence validation", () => {
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
     cy.get("#MeasurementSpecification-OPA").click({ force: true });
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
@@ -23,8 +23,6 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
     );
   });
   it("Checks for two sentence validation", () => {
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
     cy.get("#MeasurementSpecification-OPA").click({ force: true });
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
@@ -42,8 +40,6 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
     );
   });
   it("Checks for race sectoion for two sentence validation", () => {
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
     cy.get("#MeasurementSpecification-OPA").click({ force: true });
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
