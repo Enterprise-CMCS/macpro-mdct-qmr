@@ -9,6 +9,7 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
+import { useEffect } from "react";
 
 export interface IRate {
   label?: string;
@@ -36,6 +37,7 @@ export const Rate = ({
   const {
     control,
     formState: { errors },
+    unregister,
   } = useFormContext();
 
   const { field } = useController({
@@ -102,6 +104,13 @@ export const Rate = ({
     prevRate[index] = editRate;
     field.onChange([...prevRate]);
   };
+
+  useEffect(
+    () => () => {
+      unregister(name);
+    },
+    [unregister, name]
+  );
 
   return (
     <>

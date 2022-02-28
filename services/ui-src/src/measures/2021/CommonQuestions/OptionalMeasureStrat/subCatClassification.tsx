@@ -54,8 +54,12 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
   return (
     <CUI.Box key={`${name}.additionalSubCategoriesWrapper`}>
       {fields.map((field: any, idx: number) => (
-        <QMR.DeleteWrapper allowDeletion key={field.id}>
-          <CUI.Text size={"xl"} my="3" onClick={() => remove(idx)}>
+        <QMR.DeleteWrapper
+          allowDeletion
+          key={field.id}
+          onDelete={() => remove(idx)}
+        >
+          <CUI.Text size={"xl"} my="3">
             {"Additional/Alternative Classification/Sub-category"}
           </CUI.Text>
           <QMR.QuestionChild show key={field.id}>

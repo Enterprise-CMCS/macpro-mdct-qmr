@@ -32,19 +32,6 @@ const validateAtLeastOneNdr = (data: Measure.Form) => {
       }
     }
 
-    for (const additionalSelection of data.OptionalMeasureStratification
-      .selections?.[selection].additionalSelections ?? []) {
-      for (const key of Object.keys(
-        additionalSelection.ageRangeRates?.rates ?? {}
-      )) {
-        if (!filledInRates[selection]) {
-          filledInRates[selection] = !isEmptyNDR(
-            additionalSelection.ageRangeRates?.rates?.[key][0] ?? {}
-          );
-        }
-      }
-    }
-
     for (const nestedSelection of topLevelMap.options ?? []) {
       const selections = topLevelMap?.selections;
       filledInRates[selection] = false;
@@ -68,6 +55,19 @@ const validateAtLeastOneNdr = (data: Measure.Form) => {
               selections[nestedSelection].ageRangeRates?.rates?.[key][0] ?? {}
             );
           }
+        }
+      }
+    }
+
+    for (const additionalSelection of data.OptionalMeasureStratification
+      .selections?.[selection].additionalSelections ?? []) {
+      for (const key of Object.keys(
+        additionalSelection.ageRangeRates?.rates ?? {}
+      )) {
+        if (!filledInRates[selection]) {
+          filledInRates[selection] = !isEmptyNDR(
+            additionalSelection.ageRangeRates?.rates?.[key][0] ?? {}
+          );
         }
       }
     }
