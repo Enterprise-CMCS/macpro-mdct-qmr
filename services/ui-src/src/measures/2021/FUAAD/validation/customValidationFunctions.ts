@@ -9,7 +9,6 @@ import {
 } from "../../globalValidations/validationsLib";
 import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 
-
 const FUAADValidation = (data: Measure.Form) => {
   const ageGroups = ["18 to 64", "65 and older"];
   const sixtyDaysIndex = 1;
@@ -25,7 +24,6 @@ const FUAADValidation = (data: Measure.Form) => {
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
-
   }
 
   let sameDenominatorError = [
@@ -66,5 +64,7 @@ const validateBothDatesCompletedInRange = (data: Measure.Form) => {
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };
 
-export const validationFunctions = [FUAADValidation,validateBothDatesCompletedInRange];
-
+export const validationFunctions = [
+  FUAADValidation,
+  validateBothDatesCompletedInRange,
+];

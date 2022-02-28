@@ -9,7 +9,6 @@ import {
 } from "../../globalValidations/validationsLib";
 import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 
-
 const FUMADValidation = (data: Measure.Form) => {
   const ageGroups = ["18 to 64", "65 and older"];
   const sixtyDaysIndex = 1;
@@ -64,4 +63,7 @@ const validateBothDatesCompletedInRange = (data: Measure.Form) => {
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };
 
-export const validationFunctions = [FUMADValidation,validateBothDatesCompletedInRange];
+export const validationFunctions = [
+  FUMADValidation,
+  validateBothDatesCompletedInRange,
+];
