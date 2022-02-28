@@ -345,6 +345,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
   it("validation Adult core set qualifiers percentage", function () {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("[data-cy=ACS]").click();
+    cy.wait(2000);
     cy.get("[data-cy=core-set-qualifiers-link]").click();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
@@ -352,6 +353,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
     ).type("51");
+    cy.wait(2000);
     cy.get("[data-cy=validate-core-set-questions-button]").click();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
@@ -359,6 +361,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.TwentyOneToSixtyFour"]'
     ).type("52");
+    cy.wait(2000);
     cy.get("[data-cy=validate-core-set-questions-button]").click();
     cy.get(
       '[data-cy="Entries for Ages 21 to 64 column must total 100"]'
