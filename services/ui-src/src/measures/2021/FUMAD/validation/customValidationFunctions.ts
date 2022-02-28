@@ -1,4 +1,5 @@
 import { Measure } from "./types";
+import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 
 const validateRates = (data: Measure.Form) => {
   const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
@@ -236,6 +237,11 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   return error;
 };
 
+const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+  const dateRange = data["DateRange"];
+  return [...ensureBothDatesCompletedInRange(dateRange)];
+};
+
 export const validationFunctions = [
   validateRates,
   validate7DaysGreaterThan30Days,
@@ -243,4 +249,5 @@ export const validationFunctions = [
   validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
+  validateBothDatesCompletedInRange,
 ];
