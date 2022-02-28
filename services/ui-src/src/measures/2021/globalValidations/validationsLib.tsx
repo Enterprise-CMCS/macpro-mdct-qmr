@@ -1,4 +1,5 @@
 import { PerformanceMeasure } from "./types";
+import { DateRange } from "../CommonQuestions/types";
 
 export const atLeastOneRateComplete = (
   performanceMeasureArray: PerformanceMeasure[][],
@@ -241,7 +242,9 @@ export const validateNoNonZeroNumOrDenom = (
 };
 
 // Ensure the user populates the data range
-export const ensureBothDatesCompletedInRange = (dateRange: any) => {
+export const ensureBothDatesCompletedInRange = (
+  dateRange: DateRange["DateRange"]
+) => {
   let errorArray: any[] = [];
   let error;
 
