@@ -11,6 +11,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
   });
   it("validation child core set questions Medicaid required and CHIP are not required", () => {
     /* ==== clear the data in the form and click on validate core set questions button ==== */
+    cy.wait(2000);
     cy.get("[data-cy=CCS]").click();
     cy.get("[data-cy=core-set-qualifiers-link]").click();
     cy.get(
@@ -125,6 +126,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
   /* ==== Test Created with Cypress Studio ==== */
   it("validation for child core set qualifiers percentage", function () {
     /* ==== Generated with Cypress Studio ==== */
+    cy.wait(2000);
     cy.get("[data-cy=CCS]").click();
     cy.get("[data-cy=core-set-qualifiers-link]").click();
     cy.get(
