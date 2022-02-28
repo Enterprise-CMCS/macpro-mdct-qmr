@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
 
 export const CCPAD = ({
   name,
@@ -99,7 +100,7 @@ export const CCPAD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isUSOPA && <Q.PerformanceMeasure />}
+          {isUSOPA && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isUSOPA && (
             <Q.DeviationFromMeasureSpec

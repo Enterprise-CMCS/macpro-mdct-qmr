@@ -34,7 +34,8 @@ export namespace Measure {
       Types.StatusOfData,
       Types.DateRange,
       Types.CombinedRates,
-      Types.MeasurementSpecification {
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure {
     //DataSource
 
     DataSource: string[];
@@ -73,23 +74,6 @@ export namespace Measure {
       numerator: string;
       other: string;
     };
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-effectiveContraception": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-longActingContraception": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

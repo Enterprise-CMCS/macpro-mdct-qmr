@@ -1,4 +1,5 @@
 import { OmsDataNode } from "./OptionalMeasureStrat";
+import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 
 export interface MeasurementSpecification {
   // Selected Measurement Specification
@@ -172,6 +173,12 @@ export interface OtherRatesFields {
   description?: string;
   rate?: RateFields[];
 }
+export interface PerformanceMeasure {
+  PerformanceMeasure?: {
+    explanation?: string;
+    rates?: { [label: string]: RateFields[] | undefined };
+  };
+}
 
 interface OmsRateFields {
   options?: string[];
@@ -220,12 +227,12 @@ interface AddtnlOmsNode extends LowLevelOmsNode {
   description?: string;
 }
 
-export interface AgeGroups {
-  ageGroups: string[];
+export interface Qualifiers {
+  qualifiers?: string[];
 }
 
-export interface PerformanceMeasureDescriptions {
-  performanceMeasureDescriptions?: string[];
+export interface Categories {
+  categories?: string[];
 }
 
 export interface OptionalMeasureStratification {
@@ -239,6 +246,7 @@ export interface OptionalMeasureStratification {
 
 export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsDataNode[];
+  export type PerformanceMeasure = PerformanceMeasureData;
 }
 
 export interface DeviationFromMeasureSpecification {

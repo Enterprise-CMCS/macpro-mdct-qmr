@@ -85,7 +85,7 @@ export const PQI15AD = ({
           {(isAHRQ || showOtherPerformanceMeasureRates) && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              ageGroups={["Ages 18 to 39"]}
+              qualifiers={["Ages 18 to 39"]}
               adultMeasure
             />
           )}

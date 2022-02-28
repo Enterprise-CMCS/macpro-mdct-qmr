@@ -17,7 +17,8 @@ export namespace Measure {
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
       Types.MeasurementSpecification,
-      Types.DeviationFromMeasureSpecification {
+      Types.DeviationFromMeasureSpecification,
+      Types.PerformanceMeasure {
     //DataSource
     DataSource: string[];
     "DataSource-Administrative"?: string[];
@@ -35,16 +36,5 @@ export namespace Measure {
     "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //PerformanceMeasure
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-Initiation-Alcohol": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Engagement-Alcohol": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Initiation-Opioid": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Engagement-Opioid": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Initiation-Other": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Engagement-Other": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Initiation-Total": Types.RateFields[];
-    "PerformanceMeasure-AgeRates-Engagement-Total": Types.RateFields[];
   }
 }
