@@ -30,7 +30,9 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
     cy.get(
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.get(".chakra-container > :nth-child(8) > .chakra-heading").should(
+    cy.xpath(
+      "//h2[contains(text(),'Please review the auto-calculated rate and revise ')]"
+    ).should(
       "have.text",
       "Please review the auto-calculated rate and revise if needed."
     );
