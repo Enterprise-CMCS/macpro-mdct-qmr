@@ -45,17 +45,6 @@ describe("OY2 16297 Combined rates validation testing", () => {
       );
   });
 
-  it("displays a validation warning if 'another weighing factor' radio selected but no other factor described in text box ", () => {
-    enterNDR();
-    cy.get("[data-cy=CombinedRates0]").should("be.visible").click();
-    cy.get("[data-cy=CombinedRates-CombinedRates2]")
-      .should("be.visible")
-      .click();
-
-    cy.get(`[data-cy="Validate Measure"]`).click();
-    cy.get(".chakra-alert").should("be.visible");
-  });
-
   it("displays the Validation Error warning modal when there are errors on the measure", () => {
     enterNDR();
     cy.get("[data-cy=CombinedRates0]").click();
