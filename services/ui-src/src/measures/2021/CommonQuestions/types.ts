@@ -188,7 +188,7 @@ interface LowLevelOmsNode {
 
   // for additional subCats/add anothers
   subCatOptions?: string[];
-  subCategories?: {
+  additionalSubCategories?: {
     description?: string;
     ageRangeRates?: OmsRateFields;
   }[];
