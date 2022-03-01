@@ -1,4 +1,11 @@
 // element is xpath, please use cy.xapth() instead of cy.get();
+const FUAADLink = "//p[contains(text(),'FUA-AD')]";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const browseBTN = "//u[contains(text(),'browse')]";
+// element is xpath, please use cy.xapth() instead of cy.get();
+const FUAADAddFileBTN =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/div[11]/div[2]/div[1]/p[1]/button[1]";
+// element is xpath, please use cy.xapth() instead of cy.get();
 const verifyPDFIsUploaded =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]/div[11]/div[2]/div[2]/p[1]";
 // element is xpath, please use cy.xapth() instead of cy.get();
@@ -12,13 +19,18 @@ const verifyPictureFileIsUploaded =
 //OY2-15504
 // const saveButtn = "//button[@class='chakra-button css-hp17lz']";
 const saveButtn = "[data-cy='Save']";
+const saveStatusUnderSaveButton = "//p[@id='last-saved-text']";
 const NCQARadioButton =
   "(//span[@class='chakra-radio__control css-gzpnyx'])[5]";
 const selectOption = "//div[@class='chakra-select__wrapper css-42b2qy']";
+const HEDISDropdown2020 =
+  "(//div[@class='chakra-select__wrapper css-42b2qy']/select/option)[2]";
 const validateMeasureButton = "[data-cy='Validate Measure']";
 const completeMeasureButton = "[data-cy='Complete Measure']";
 const sentenceUnderCompleteMeasureOne = "[data-cy='complete measure sub-1']";
 const sentenceUnderCompleteMeasureTwo = "[data-cy='complete measure sub-2']";
+const errorMessagePerformanceMeasure =
+  "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]";
 const errorMessageContent =
   "//div[contains(text(),'At least one Performance Measure Numerator, Denomi')]";
 const popupBoxMessageHeader = "#yes-no-header";
@@ -52,6 +64,7 @@ const otherDataSourceRadioBTN = "//p[contains(text(),'Other Data Source')]";
 ("//p[contains(text(),'National Committee for Quality Assurance (NCQA)/He')]");
 // element is xpath, please use cy.xapth() instead of cy.get();
 
+const all_check_box = "//span[ contains(@class, 'check')]/p";
 const reporting_yes = "(//span[ contains(@class, 'radio')]/p)[1]";
 const reporting_no = "(//span[ contains(@class, 'radio')]/p)[2]";
 const sample_text = "This is a test from the QA !";
@@ -62,10 +75,23 @@ const yesOptionReportingfirst =
 const ncqaHedisRadio = "(//span[@class='chakra-radio__control css-gzpnyx'])[5]";
 const numeratorOne = "(//input[@class='chakra-input css-1c6j008'])[1]";
 const denominatorOne = "(//input[@class='chakra-input css-1c6j008'])[2]";
+const rateOne = "(//input[@class='chakra-input css-1c6j008'])[3]";
 const yesDeviations = "(//span[@class='chakra-radio__control css-gzpnyx'])[9]";
 const followUp30EDvisit =
   "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[12]";
 const age18to64 = "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[13]";
+const numeratorDeviation =
+  "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[14]";
+const numeratorExplaintext =
+  "//textarea[@name='DeviationFields-Within30.0.numerator']";
+const denominatorDeviation =
+  "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[15]";
+const denominatorDeviationExplain =
+  "//textarea[@name='DeviationFields-Within30.0.denominator']";
+const otherDeviation =
+  "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[16]";
+const otherDeviationExplain =
+  "//textarea[@name='DeviationFields-Within30.0.other']";
 const raceNonHispanic =
   "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[17]";
 const whiteUnderRace =
@@ -74,6 +100,7 @@ const age18to64Race =
   "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[19]";
 const numeratorUnderRace = "(//input[@class='chakra-input css-1c6j008'])[13]";
 const denominatorUnderRace = "(//input[@class='chakra-input css-1c6j008'])[14]";
+const rateUnderRace = "(//input[@class='chakra-input css-1c6j008'])[15]";
 const additionalRace =
   "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[24]";
 const defineAdditionalRace = "//input[@name='AddtnlNonHispanicRace.0']";
@@ -83,6 +110,7 @@ const numeratorUnderAdditionalRace =
   "(//input[@class='chakra-input css-1c6j008'])[17]";
 const denominatorUnderAdditionalRace =
   "(//input[@class='chakra-input css-1c6j008'])[18]";
+const raateUnderAdditionalRace = "//input[@id='field-149']";
 const otherOptionUnderMeasurementSpecification =
   "(//span[@class='chakra-radio__control css-gzpnyx'])[6]";
 const describeRateUnderOPM =
