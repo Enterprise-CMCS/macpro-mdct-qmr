@@ -94,7 +94,7 @@ export const CCWAD = ({
             <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isOpa is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {(showReversibleRates ||
             showModeratelyRates ||

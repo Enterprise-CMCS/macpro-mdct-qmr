@@ -13,11 +13,6 @@ export namespace Measure {
     total: Types.RateFields[];
   }
 
-  interface OtherRatesFields {
-    description: string[];
-    rate: Types.RateFields[];
-  }
-
   export type DeviationCheckBoxOptions =
     | "moderate-method-deviation-Numerator"
     | "moderate-method-deviation-Denominator"
@@ -37,13 +32,8 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.DataSource,
       Types.PerformanceMeasure,
-      Types.DeviationFromMeasureSpecification {
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
-
+      Types.DeviationFromMeasureSpecification,
+      Types.OtherPerformanceMeasure {
     //OptionalMeasureStratification
     CategoriesReported: string[];
 
