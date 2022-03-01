@@ -78,7 +78,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it("validation for child core set qualifiers percentage", function () {
+  it.skip("validation for child core set qualifiers percentage", function () {
     /* ==== Generated with Cypress Studio ==== */
     cy.wait(2000);
     cy.get("[data-cy=CCS]").click({ force: true });
