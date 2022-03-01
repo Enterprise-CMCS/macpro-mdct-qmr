@@ -1,5 +1,5 @@
 import { Measure } from "../validation/types";
-import { validateRequiredRadioButtonForCombinedRates } from "../../globalValidations/validationsLib";
+import { ensureBothDatesCompletedInRange, validateRequiredRadioButtonForCombinedRates } from "../../globalValidations/validationsLib";
 
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = ["3 days postpartem", "60 days postpartem"];
@@ -8,11 +8,12 @@ const CCPADValidation = (data: Measure.Form) => {
     data["PerformanceMeasure-AgeRates-longActingContraception"],
     data["PerformanceMeasure-AgeRates-effectiveContraception"],
   ];
+  const dateRange = data["DateRange"];
   let errorArray: any[] = [];
-  //@ts-ignore
   errorArray = [
     ...errorArray,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...ensureBothDatesCompletedInRange(dateRange),
   ];
   return errorArray;
 };

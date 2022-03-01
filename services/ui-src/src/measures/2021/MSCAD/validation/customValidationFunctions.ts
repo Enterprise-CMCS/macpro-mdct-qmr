@@ -1,6 +1,7 @@
 import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
@@ -18,6 +19,7 @@ const MSCADValidation = (data: Measure.Form) => {
     data["PerformanceMeasure-AgeRates-PercentageUsers"],
   ];
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const dateRange = data["DateRange"];
 
   let errorArray: any[] = [];
   errorArray = [
@@ -34,6 +36,7 @@ const MSCADValidation = (data: Measure.Form) => {
       OPM,
       ageGroups
     ),
+    ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
   ];

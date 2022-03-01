@@ -3,6 +3,7 @@ import * as QMR from "components";
 import { MonthPicker } from "components/MonthPicker";
 import { useFormContext } from "react-hook-form";
 import { format } from "date-fns";
+import { useEffect } from "react";
 
 interface Props {
   name: string;
@@ -26,14 +27,30 @@ export const currentYear = parseInt(format(new Date(), "yyyy"));
 export const currentMonth = parseInt(format(new Date(), "M"));
 
 export const DateRangeError = ({ name }: { name: string }) => {
-  const { watch } = useFormContext();
+  const { setValue, watch } = useFormContext();
   const range = watch(name);
-
+  const toast = CUI.useToast();
   const startYear = parseInt(range?.startDate?.selectedYear);
   const startMonth = parseInt(range?.startDate?.selectedMonth);
 
   const endYear = parseInt(range?.endDate?.selectedYear);
   const endMonth = parseInt(range?.endDate?.selectedMonth);
+
+  useEffect(() => {
+    /* If the start date is after the end date, then reset the end date and then display a temporary warning notification. */
+    if (
+      endYear.toString()?.length === 4 &&
+      (startYear > endYear || (startMonth >= endMonth && startYear === endYear))
+    ) {
+      const endDate = `${name}.endDate`;
+      setValue(endDate, {});
+      toast({
+        status: "warning",
+        description: "Start Date must be before the End Date",
+        duration: 4000,
+      });
+    }
+  }, [endMonth, endYear, setValue, name, startMonth, startYear, toast]);
 
   /* If the start date is a future date, then display a warning notification. */
   if (
@@ -49,14 +66,6 @@ export const DateRangeError = ({ name }: { name: string }) => {
     (endMonth > currentMonth && endYear === currentYear)
   ) {
     return <RangeNotification text="End date cannot be a future date" />;
-  }
-
-  /* If the start date is after the end date, then display a warning notification. */
-  if (
-    startYear > endYear ||
-    (startMonth >= endMonth && startYear === endYear)
-  ) {
-    return <RangeNotification text="Start Date must be before the end date" />;
   }
 
   return null;
