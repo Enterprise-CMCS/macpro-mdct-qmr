@@ -7,6 +7,7 @@ import {
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
 import { omsValidations } from "measures/2021/globalValidations/omsValidationsLib";
 
@@ -16,6 +17,18 @@ const IEDValidation = (data: Measure.Form) => {
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const dateRange = data["DateRange"];
+  const deviationArray =
+    [
+      ...(data["DeviationFields-EngageAlcohol"] || []),
+      ...(data["DeviationFields-EngageOpioid"] || []),
+      ...(data["DeviationFields-EngageOther"] || []),
+      ...(data["DeviationFields-EngageTotal"] || []),
+      ...(data["DeviationFields-InitOther"] || []),
+      ...(data["DeviationFields-InitTotal"] || []),
+      ...(data["DeviationFields-InitAlcohol"] || []),
+      ...(data["DeviationFields-InitOpioid"] || []),
+    ].filter((data: any) => data) || [];
+
   const performanceMeasureArray = [
     data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
     data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
@@ -91,6 +104,11 @@ const IEDValidation = (data: Measure.Form) => {
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...omsValidations(data),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray
+    ),
   ];
 
   return errorArray;
