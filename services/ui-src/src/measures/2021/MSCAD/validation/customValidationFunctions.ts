@@ -5,6 +5,7 @@ import {
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
+  validateEqualDenominators,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 
@@ -27,6 +28,20 @@ const MSCADValidation = (data: Measure.Form) => {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+
+  let sameDenominatorError = [
+    ...validateEqualDenominators(
+      [
+        data["PerformanceMeasure-AgeRates-AdvisingUsers"],
+        data["PerformanceMeasure-AgeRates-DiscussingMedications"],
+        data["PerformanceMeasure-AgeRates-DiscussingStrategies"],
+        data["PerformanceMeasure-AgeRates-PercentageUsers"],
+      ],
+      ageGroups
+    ),
+  ];
+  sameDenominatorError =
+    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -41,6 +56,7 @@ const MSCADValidation = (data: Measure.Form) => {
       OPM,
       ageGroups
     ),
+    ...sameDenominatorError,
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];

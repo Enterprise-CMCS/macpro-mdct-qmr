@@ -36,8 +36,7 @@ const CCPADValidation = (data: Measure.Form) => {
     ),
   ];
   sameDenominatorError =
-    sameDenominatorError.length > 0 ? [sameDenominatorError[0]] : [];
-
+    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   const dateRange = data["DateRange"];
   errorArray = [
     ...errorArray,
