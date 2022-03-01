@@ -108,6 +108,7 @@ jobs:
             oy2_16039_Data_source_Rate_to_auto_calculate_in_OPM.spec.js,
             oy2_16411_Restructuring_Data_Source_Text_boxes.spec.js,
             oy2_16228_Date_Range_Adjustment.spec.js,
+            oy2_16265_Validation_text_appear_in_CHAD.spec.js,
           ]
     steps:
       - name: set branch_name
