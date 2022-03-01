@@ -69,6 +69,19 @@ const validateNDRs = (
           }
         }
 
+        for (const deepNestedSelection of Object.keys(
+          selections[nestedSelection]?.selections ?? {}
+        )) {
+          // we are here
+          console.log(deepNestedSelection);
+          // for (const key of Object.keys(selections[nestedSelection] ?? {})) {
+          //   filledInRates[selection] = !cb(
+          //     deepNestedSelection.ageRangeRates?.rates?.[key][0] ?? {},
+          //     filledInRates[selection]
+          //   );
+          // }
+        }
+
         // Regular Selections
         for (const key of Object.keys(
           selections[nestedSelection].ageRangeRates?.rates ?? {}
