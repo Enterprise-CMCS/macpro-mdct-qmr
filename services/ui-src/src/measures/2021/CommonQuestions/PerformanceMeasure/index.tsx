@@ -9,6 +9,7 @@ interface Props {
   data: PerformanceMeasureData;
   rateReadOnly?: boolean;
   calcTotal?: boolean;
+  rateScale?: number;
 }
 
 interface NdrSetProps {
@@ -16,6 +17,7 @@ interface NdrSetProps {
   qualifiers?: string[];
   rateReadOnly: boolean;
   calcTotal: boolean;
+  rateScale?: number;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -23,6 +25,7 @@ const CategoryNdrSets = ({
   rateReadOnly,
   categories = [],
   qualifiers,
+  rateScale,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -46,6 +49,7 @@ const CategoryNdrSets = ({
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
+              rateMultiplicationValue={rateScale}
               {...register(`PerformanceMeasure.rates.${cleanedName}`)}
             />
           </>
@@ -90,6 +94,7 @@ export const PerformanceMeasure = ({
   data,
   calcTotal = false,
   rateReadOnly = true,
+  rateScale,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
@@ -132,6 +137,7 @@ export const PerformanceMeasure = ({
         qualifiers={data.qualifiers}
         rateReadOnly={readOnly}
         calcTotal={calcTotal}
+        rateScale={rateScale}
       />
     </QMR.CoreQuestionWrapper>
   );

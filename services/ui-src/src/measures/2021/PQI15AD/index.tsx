@@ -73,7 +73,9 @@ export const PQI15AD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isAHRQ && <CMQ.PerformanceMeasure data={PMD.data} />}
+          {isAHRQ && (
+            <CMQ.PerformanceMeasure data={PMD.data} rateScale={100000} />
+          )}
           {/* Show Deviation only when Other is not selected */}
           {isAHRQ && <Q.DeviationFromMeasureSpec />}
           {/* Show Other Performance Measures when isAHRQ is not true  */}
