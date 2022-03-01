@@ -29,7 +29,7 @@ const isNumeratorGreaterToDenominator = (
     return parseFloat(ndr.numerator!) > parseFloat(ndr.denominator!);
   }
 
-  return !currentValidationValue;
+  return true;
 };
 
 const validateNDRs = (
