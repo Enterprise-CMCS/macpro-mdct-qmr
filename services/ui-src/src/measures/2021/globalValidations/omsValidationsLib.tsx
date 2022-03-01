@@ -42,6 +42,8 @@ const validateNDRs = (
     filledInRates[selection] = null;
     const topLevelMap =
       data.OptionalMeasureStratification.selections[selection];
+
+    //Adult Eligibility ACA
     for (const parentKey of Object.keys(
       data.OptionalMeasureStratification?.selections[selection]?.ageRangeRates
         ?.rates ?? {}
@@ -53,6 +55,7 @@ const validateNDRs = (
       );
     }
 
+    // SubCategories
     for (const nestedSelection of topLevelMap.options ?? []) {
       const selections = topLevelMap?.selections;
       if (selections) {
@@ -66,6 +69,7 @@ const validateNDRs = (
           }
         }
 
+        // Regular Selections
         for (const key of Object.keys(
           selections[nestedSelection].ageRangeRates?.rates ?? {}
         )) {
@@ -77,6 +81,7 @@ const validateNDRs = (
       }
     }
 
+    // Aditional Selections
     for (const additionalSelection of data.OptionalMeasureStratification
       .selections?.[selection].additionalSelections ?? []) {
       for (const key of Object.keys(
