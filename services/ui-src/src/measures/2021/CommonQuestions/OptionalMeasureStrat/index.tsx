@@ -47,6 +47,8 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   performanceMeasureArray: Types.RateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 /** data for dynamic rendering will be provided */
@@ -84,6 +86,8 @@ export const OptionalMeasureStrat = ({
   data,
   calcTotal = false,
   adultMeasure,
+  rateMultiplicationValue,
+  customMask,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -121,6 +125,8 @@ export const OptionalMeasureStrat = ({
           calcTotal,
           qualifiers,
           categories,
+          rateMultiplicationValue,
+          customMask,
         }}
       >
         <CUI.Text py="3">

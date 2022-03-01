@@ -10,6 +10,7 @@ interface Props {
   rateReadOnly?: boolean;
   calcTotal?: boolean;
   rateScale?: number;
+  customMask?: RegExp;
 }
 
 interface NdrSetProps {
@@ -18,6 +19,7 @@ interface NdrSetProps {
   rateReadOnly: boolean;
   calcTotal: boolean;
   rateScale?: number;
+  customMask?: RegExp;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -26,6 +28,7 @@ const CategoryNdrSets = ({
   categories = [],
   qualifiers,
   rateScale,
+  customMask,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -50,6 +53,7 @@ const CategoryNdrSets = ({
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
+              customMask={customMask}
               {...register(`PerformanceMeasure.rates.${cleanedName}`)}
             />
           </>
@@ -60,7 +64,12 @@ const CategoryNdrSets = ({
 };
 
 /** If no categories, we still need a rate for the PM */
-const QualifierNdrSets = ({ rateReadOnly, qualifiers = [] }: NdrSetProps) => {
+const QualifierNdrSets = ({
+  rateReadOnly,
+  qualifiers = [],
+  rateScale,
+  customMask,
+}: NdrSetProps) => {
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
@@ -71,6 +80,8 @@ const QualifierNdrSets = ({ rateReadOnly, qualifiers = [] }: NdrSetProps) => {
     <QMR.Rate
       rates={rates}
       readOnly={rateReadOnly}
+      rateMultiplicationValue={rateScale}
+      customMask={customMask}
       {...register("PerformanceMeasure.rates.singleCategory")}
     />
   );
@@ -93,8 +104,9 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
 export const PerformanceMeasure = ({
   data,
   calcTotal = false,
-  rateReadOnly = true,
+  rateReadOnly,
   rateScale,
+  customMask,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
@@ -138,6 +150,7 @@ export const PerformanceMeasure = ({
         rateReadOnly={readOnly}
         calcTotal={calcTotal}
         rateScale={rateScale}
+        customMask={customMask}
       />
     </QMR.CoreQuestionWrapper>
   );
