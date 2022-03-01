@@ -237,10 +237,18 @@ describe("Measure: PQI01-AD", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("10");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.numerator"]').type("20");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.denominator"]').type("40");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
+    ).type("20");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
+    ).type("40");
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get(
       '[data-cy="DeviationOptions-AgeRanges0"] > .chakra-checkbox__label > .chakra-text'
@@ -262,8 +270,12 @@ describe("Measure: PQI01-AD", () => {
     cy.get(
       '[data-cy="NHRC-WhiteRates.ageData1"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.numerator"]').clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
+    ).clear();
   });
 
   // if Other measure spec is selected each age range/ custom description for which there are n/d/r

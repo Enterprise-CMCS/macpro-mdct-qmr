@@ -3,6 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import { PerformanceMeasureData } from "./data";
+import { useWatch } from "react-hook-form";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -91,6 +92,13 @@ export const PerformanceMeasure = ({
   rateReadOnly = true,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
+  const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
+    | string[]
+    | undefined;
+  const readOnly =
+    rateReadOnly ??
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ??
+    true;
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
@@ -122,7 +130,7 @@ export const PerformanceMeasure = ({
       <PerformanceMeasureNdrs
         categories={data.categories}
         qualifiers={data.qualifiers}
-        rateReadOnly={rateReadOnly}
+        rateReadOnly={readOnly}
         calcTotal={calcTotal}
       />
     </QMR.CoreQuestionWrapper>
