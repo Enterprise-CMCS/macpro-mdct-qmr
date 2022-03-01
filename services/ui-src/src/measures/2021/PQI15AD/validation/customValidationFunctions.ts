@@ -11,7 +11,6 @@ const PQI15Validation = (data: any) => {
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
 
-
   const performanceMeasureArray = data["PerformanceMeasure-AgeRates"];
   let errorArray: any[] = [];
   const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
