@@ -163,7 +163,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it("validation Adult core set qualifiers age 21 to 64 and 65 older required", function () {
+  it.skip("validation Adult core set qualifiers age 21 to 64 and 65 older required", function () {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("[data-cy=ACS]").click();
     cy.get("[data-cy=core-set-qualifiers-link]").click();
