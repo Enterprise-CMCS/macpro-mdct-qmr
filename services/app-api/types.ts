@@ -25,7 +25,7 @@ export interface Measure {
   createdAt: number;
   description: string;
   lastAltered: number;
-  lastAlteredBy: string;
+  lastAlteredBy?: string;
   measure: string;
   state: string;
   status: MeasureStatus;
