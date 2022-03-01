@@ -17,19 +17,18 @@ export const MeasureButtons = ({
   const { isStateUser } = useUser();
 
   return (
-    <CUI.Stack width="15rem">
-      <CUI.HStack pl="1">
-        <QMR.ContainedButton
-          disabledStatus={!isStateUser || isLoading}
-          buttonText={isLoading ? "Saving" : "Save"}
-          buttonProps={{
-            minWidth: "10rem",
-            colorScheme: "blue",
-            textTransform: "capitalize",
-          }}
-          onClick={handleSave}
-        />
-      </CUI.HStack>
+    <CUI.Stack>
+      <QMR.ContainedButton
+        disabledStatus={!isStateUser || isLoading}
+        buttonText={isLoading ? "Saving" : "Save"}
+        buttonProps={{
+          minWidth: "10rem",
+          colorScheme: "blue",
+          textTransform: "capitalize",
+          isFullWidth: true,
+        }}
+        onClick={handleSave}
+      />
       {lastAltered && (
         <CUI.Flex mb={{ base: "1", lg: "0" }} data-testid="last-saved-text">
           <QMR.LastSavedText

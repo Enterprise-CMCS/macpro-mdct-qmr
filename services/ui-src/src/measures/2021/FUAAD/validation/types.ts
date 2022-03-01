@@ -22,21 +22,8 @@ export namespace Measure {
       Types.DateRange,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
+      Types.DataSource,
       Types.MeasurementSpecification {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-    "DataSource-Hybrid"?: string[];
-    "DataSource-Hybrid-Other"?: string;
-    "DataSource-Hybrid-Other-Explanation"?: string;
-    "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
-    "DataSource-ElectronicHealthRecords"?: string;
-    "DataSource-ElectronicHealthRecords-Explanation"?: string;
-
     //DeviationFromMeasureSpec
     DidCalculationsDeviate: string;
     DeviationOptions: string[];
