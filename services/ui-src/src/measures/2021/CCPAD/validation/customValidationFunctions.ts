@@ -1,5 +1,8 @@
 import { Measure } from "../validation/types";
-import { ensureBothDatesCompletedInRange, validateRequiredRadioButtonForCombinedRates } from "../../globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = ["3 days postpartem", "60 days postpartem"];

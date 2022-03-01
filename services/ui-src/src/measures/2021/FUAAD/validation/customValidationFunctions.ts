@@ -1,5 +1,8 @@
 import { Measure } from "../validation/types";
-import { ensureBothDatesCompletedInRange, validateRequiredRadioButtonForCombinedRates } from "../../globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 
 const validateRates = (data: Measure.Form) => {
   const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
