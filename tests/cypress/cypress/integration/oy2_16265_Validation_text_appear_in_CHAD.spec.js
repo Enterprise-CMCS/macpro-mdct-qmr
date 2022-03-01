@@ -8,6 +8,12 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
     cy.xpath(emailForCognito).type("stateuser1@test.com");
     cy.xpath(passwordForCognito).type("p@55W0rd!");
     cy.get('[data-cy="login-with-cognito-button"]').click();
+
+    // ensure combined CCS
+    cy.deleteChildCoreSets();
+    cy.get('[data-cy="Add Child Core Set"]').click(); // clicking on adding child core set measures
+    cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
+    cy.get('[data-cy="Create"]').click(); //clicking create
   });
   it("validation child core set questions Medicaid required and CHIP are not required", () => {
     /* ==== clear the data in the form and click on validate core set questions button ==== */
