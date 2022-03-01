@@ -93,7 +93,7 @@ If you want to a visual view of your dynamodb after the application is up and ru
 
 When writing Cypress tests for an existing branch, create a new branch and write the tests there. For example, if the branch that needs tests is called `oy2-1234`, create a new branch called `oy2-1234test`.
 
-When the tests have been written, create a new PR for `oy2-1234test` and set its base to `oy2-1234`. Submit this PR for review and merge into the base branch.
+When the tests have been written, create a new PR for `oy2-1234test` and set its base to `oy2-1234`. Submit this PR for review.
 
 ## Dependencies
 
