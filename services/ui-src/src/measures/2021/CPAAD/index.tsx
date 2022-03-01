@@ -3,8 +3,19 @@ import * as CMQ from "../CommonQuestions";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
+import { useEffect } from "react";
+import { validationFunctions } from "./validation/customValidationFunctions";
 
-export const CPAAD = ({ name, year }: Measure.Props) => {
+export const CPAAD = ({
+  name,
+  year,
+  setValidationFunctions,
+}: Measure.Props) => {
+  useEffect(() => {
+    if (setValidationFunctions) {
+      setValidationFunctions(validationFunctions);
+    }
+  }, [setValidationFunctions]);
   const { coreSetId } = useParams();
   const { watch } = useFormContext<Measure.Form>();
 
