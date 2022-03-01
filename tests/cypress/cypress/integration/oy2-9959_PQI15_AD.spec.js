@@ -41,7 +41,6 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[data-cy="Validate Measure"]').should("be.visible");
     cy.get('[data-cy="Complete Measure"]').should("be.visible");
     cy.get("[data-cy=Save]").should("be.visible");
-    cy.get('[href="/MA/2021/ACS/PQI15-AD"]').should("be.visible");
   });
 
   it("Rate calculation should be correct", () => {
