@@ -17,20 +17,61 @@ export const PerformanceMeasure = () => {
       (source) => source === "I am reporting provisional data."
     ) ?? true;
 
-  const ageRates = [
+  const multiRates = [
     {
-      label: "Ages 18 to 64",
-      denominator: "",
-      numerator: "",
-      rate: "",
+      label: "Count of Index Hospital Stays",
+      value: "",
+      id: 0,
+    },
+    {
+      label: "Count of Observed 30-DayReadmisions",
+      value: "",
       id: 1,
     },
     {
-      label: "Age 65 and older",
-      denominator: "",
-      numerator: "",
-      rate: "",
+      label: "Observed Readmission Rate",
+      value: "",
+      numerator: 2, // multiRate[2]
+      denominator: 1, // multiRate[1]
       id: 2,
+    },
+    {
+      label: "Count of Expected 30-Day Readmissions",
+      value: "",
+      id: 3,
+    },
+    {
+      label: "Expected Readmission Rate",
+      value: "",
+      numerator: 3,
+      denominator: 1,
+      id: 4,
+    },
+    {
+      label:
+        "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
+      value: "",
+      numerator: 1,
+      denominator: 3,
+      id: 5,
+    },
+    {
+      label: "Count of Beneficiaries in Medicaid Population",
+      value: "",
+      id: 6,
+    },
+    {
+      label: "Number of Outliers",
+      value: "",
+      id: 7,
+    },
+    {
+      label:
+        "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000",
+      value: "",
+      numerator: 7,
+      denominator: 6,
+      id: 8,
     },
   ];
 
@@ -62,25 +103,11 @@ export const PerformanceMeasure = () => {
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
         {...register("PerformanceMeasure-Explanation")}
       />
-      <CUI.Text fontWeight="bold">
-        Enter a number for the numerator and the denominator. Rate will
-        auto-calculate:
-      </CUI.Text>
-      <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 30 days of ED visit
-      </CUI.Text>
-      <QMR.Rate
+      <CUI.Text fontWeight="bold">New component here:</CUI.Text>
+      <QMR.MultiRate
         readOnly={rateReadOnly}
-        rates={ageRates}
+        rates={multiRates}
         {...register("PerformanceMeasure-AgeRates-30Days")}
-      />
-      <CUI.Text fontWeight="bold" my="5">
-        Follow-up within 7 days of ED visit
-      </CUI.Text>
-      <QMR.Rate
-        readOnly={rateReadOnly}
-        rates={ageRates}
-        {...register("PerformanceMeasure-AgeRates-7Days")}
       />
     </QMR.CoreQuestionWrapper>
   );
