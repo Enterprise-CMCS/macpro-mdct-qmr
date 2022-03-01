@@ -3,6 +3,16 @@ import * as Types from "../types";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
+interface GetTopLvlDeviationOptions {
+  categories: string[];
+}
+
+type TopLevelOptions = {
+  displayValue: string;
+  rates: Types.RateFields[] | undefined;
+  key: string;
+}[];
+
 interface Props {
   categories: string[];
 }
@@ -12,101 +22,75 @@ interface OptionProps {
   qualifiers?: Types.RateFields[];
 }
 
+/**
+ * It removes all non-word characters from a string.
+ * @param {string} [s] - The string to be cleaned.
+ */
+const cleanString = (s?: string) => s?.replace(/[^\w]/g, "");
+
+/**
+ * Check if the rate has both a numerator and a denominator.
+ * @param el - The rate field that we're checking.
+ */
+const numDenExistInRate = (el: Types.RateFields) =>
+  el?.numerator && el?.denominator;
+
+/**
+ * It returns an array of objects that contain a display value, value, and single TextArea child
+ * @param {string} name - The name of the field.
+ */
+const getRateTextAreaOptions = (name: string) =>
+  ["Numerator", "Denominator", "Other"].map((displayValue) => {
+    const value = displayValue.toLowerCase();
+    return {
+      displayValue,
+      value,
+      children: [
+        <QMR.TextArea
+          label="Explain:"
+          name={`${name}.${value}`}
+          key={`${name}.${value}`}
+        />,
+      ],
+    };
+  });
+
+/* This is a custom checkbox component that is used to render the checkboxes for the rate deviations. */
+const DeviationsSelectedCheckbox = ({ name }: { name: string }) => (
+  <QMR.Checkbox
+    name={`${name}.RateDeviationsSelected`}
+    key={`${name}.RateDeviationsSelected`}
+    options={getRateTextAreaOptions(name)}
+  />
+);
+
+/**
+ * It takes in a list of qualifiers and returns options based on if the rates contain a label
+ * @param {OptionProps}  - qualifier: the qualifier object - name: a name to register the input with
+ * @returns A list of options
+ */
 export const getLowLvlDeviationOptions = ({
   qualifiers,
   name,
-}: OptionProps): QMR.CheckboxOption[] => {
+}: OptionProps) => {
   if (!qualifiers || qualifiers.length === 0) return [];
 
-  // if there are no labels then there is no need to the additional checkbox
+  // if there are no labels then there is no need for the additional checkbox
   if (!qualifiers.some((el) => el.label)) {
-    return [
-      {
-        displayValue: "Numerator",
-        value: `numerator`,
-        children: [
-          <QMR.TextArea
-            label="Explain:"
-            name={`${name}.numerator`}
-            key={`${name}.numerator`}
-          />,
-        ],
-      },
-      {
-        displayValue: "Denominator",
-        value: `denominator`,
-        children: [
-          <QMR.TextArea
-            label="Explain:"
-            name={`${name}.denominator`}
-            key={`${name}.denominator`}
-          />,
-        ],
-      },
-      {
-        displayValue: "Other",
-        value: `other`,
-        children: [
-          <QMR.TextArea
-            label="Explain:"
-            name={`${name}.other`}
-            key={`${name}.other`}
-          />,
-        ],
-      },
-    ];
+    return getRateTextAreaOptions(name);
   }
 
-  // if there are are labels then we need the additional checkbox layer
-  // @ts-ignore
   return qualifiers
-    .sort((a: Types.RateFields, b: Types.RateFields) =>
-      a.label!! < b.label!! ? 1 : 1
-    )
+    .sort((a, b) => (a.label!! < b.label!! ? 1 : 1))
     .map((item) => {
-      const value = `${item.label?.replace(/[^\w]/g, "")}`;
+      const value = `${cleanString(item.label)}`;
       return {
         displayValue: item.label,
         value,
         children: [
-          <QMR.Checkbox
-            name={`${name}.${value}.RateDeviationsSelected`}
-            key={`${name}.${value}.RateDeviationsSelected`}
-            options={[
-              {
-                displayValue: "Numerator",
-                value: `numerator`,
-                children: [
-                  <QMR.TextArea
-                    label="Explain:"
-                    name={`${name}.${value}.numerator`}
-                    key={`${name}.${value}.numerator`}
-                  />,
-                ],
-              },
-              {
-                displayValue: "Denominator",
-                value: `denominator`,
-                children: [
-                  <QMR.TextArea
-                    label="Explain:"
-                    name={`${name}.${value}.denominator`}
-                    key={`${name}.${value}.denominator`}
-                  />,
-                ],
-              },
-              {
-                displayValue: "Other",
-                value: `other`,
-                children: [
-                  <QMR.TextArea
-                    label="Explain:"
-                    name={`${name}.${value}.other`}
-                    key={`${name}.${value}.other`}
-                  />,
-                ],
-              },
-            ]}
+          <DeviationsSelectedCheckbox
+            name={`${name}.${value}`}
+            key={`${name}.${value}`}
           />,
         ],
       };
@@ -121,41 +105,27 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
 
   const getTopLvlDeviationOptions = ({
     categories,
-  }: {
-    categories: string[];
-  }) => {
+  }: GetTopLvlDeviationOptions) => {
     if (watchPerformanceMeasure?.rates) {
-      // if rates.singleCat
-      const topLvlOptions: {
-        displayValue: string;
-        rates: Types.RateFields[] | undefined;
-        key: string;
-      }[] = [];
+      const topLvlOptions: TopLevelOptions = [];
       const { rates } = watchPerformanceMeasure;
 
+      /* This is checking if the rates object has a singleCategory key.
+      If it does, then it will return the low level deviation options. */
       if (rates.singleCategory) {
         return getLowLvlDeviationOptions({
-          qualifiers: rates.singleCategory.filter(
-            (el: Types.RateFields) => el?.numerator && el?.denominator
-          ) as Types.RateFields[],
+          qualifiers: rates.singleCategory.filter(numDenExistInRate),
           name: `Deviations`,
         });
       } else {
         Object.keys(rates).forEach((key) => {
           // if some of the rates have both num and den
-          if (
-            rates[key]?.some(
-              (el: Types.RateFields) => el?.numerator && el?.denominator
-            )
-          ) {
+          if (rates[key]?.some(numDenExistInRate)) {
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
-              rates: rates[key]?.filter(
-                (el: Types.RateFields) => el?.numerator && el?.denominator
-              ) as Types.RateFields[],
+              rates: rates[key]?.filter(numDenExistInRate),
               displayValue:
-                categories.find((cat) => cat.replace(/[^\w]/g, "") === key) ||
-                "",
+                categories.find((cat) => cleanString(cat) === key) || "",
               key,
             });
           }
@@ -171,6 +141,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
               <QMR.Checkbox
                 {...register(`Deviations.${option.key}.SelectedOptions`)}
                 formLabelProps={{ fontWeight: 600 }}
+                key={`Deviations.${option.key}`}
                 options={getLowLvlDeviationOptions({
                   qualifiers: option.rates,
                   name: `Deviations.${option.key}`,
