@@ -3,11 +3,14 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
+  validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
-const PQI01Validation = (data: any) => {
+const PQI15Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const whyNotReporting = data["WhyAreYouNotReporting"];
+
 
   const performanceMeasureArray = data["PerformanceMeasure-AgeRates"];
   let errorArray: any[] = [];
@@ -16,6 +19,10 @@ const PQI01Validation = (data: any) => {
   );
   const validateDualPopInformationArray = [performanceMeasureArrayToCheck?.[1]];
 
+  if (data["DidReport"] === "No, I am not reporting") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
@@ -40,4 +47,4 @@ const PQI01Validation = (data: any) => {
   return errorArray;
 };
 
-export const validationFunctions = [PQI01Validation];
+export const validationFunctions = [PQI15Validation];

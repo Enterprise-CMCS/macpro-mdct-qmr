@@ -6,7 +6,7 @@ import {
   validateDualPopInformation,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
-const PQI01Validation = (data: any) => {
+const PQI08Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const dateRange = data["DateRange"];
@@ -49,4 +49,4 @@ const PQI01Validation = (data: any) => {
   return errorArray;
 };
 
-export const validationFunctions = [PQI01Validation];
+export const validationFunctions = [PQI08Validation];
