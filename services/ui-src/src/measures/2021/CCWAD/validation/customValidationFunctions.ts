@@ -110,5 +110,4 @@ export const validationFunctions = [
   validateBothDatesCompletedInRange,
   validateLarcRateGreater,
   validateDenominatorsAreTheSame,
-  validateLarcRateGreater,
 ];
