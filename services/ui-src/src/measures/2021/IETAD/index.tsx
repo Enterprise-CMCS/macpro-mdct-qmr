@@ -22,8 +22,6 @@ export const IETAD = ({
   const { getValues } = useFormContext<Measure.Form>();
   const data = getValues();
 
-  console.log({ data });
-
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   // Watch Values of Form Questions

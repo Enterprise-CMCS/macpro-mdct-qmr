@@ -20,8 +20,6 @@ export const CCWAD = ({
 
   const { getValues } = useFormContext<Measure.Form>();
 
-  console.log(getValues());
-
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({
     name: "DidReport",
