@@ -1,4 +1,3 @@
-import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
@@ -69,11 +68,13 @@ export const PQI15AD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="AHRQ" />
-          <Q.DataSource />
+          <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isAHRQ && <CMQ.PerformanceMeasure data={PMD.data} />}
+          {isAHRQ && (
+            <CMQ.PerformanceMeasure data={PMD.data} rateScale={100000} />
+          )}
           {/* Show Deviation only when Other is not selected */}
           {isAHRQ && (
             <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />

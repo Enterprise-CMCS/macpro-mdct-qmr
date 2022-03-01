@@ -20,13 +20,6 @@ export namespace Measure {
       Types.OtherPerformanceMeasure,
       Types.OptionalMeasureStratification,
       Types.PerformanceMeasure,
-      Types.DeviationFromMeasureSpecification {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-  }
+      Types.DeviationFromMeasureSpecification,
+      Types.DataSource {}
 }

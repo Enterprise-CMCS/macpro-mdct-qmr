@@ -3,11 +3,13 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import { PerformanceMeasureData } from "./data";
+import { useWatch } from "react-hook-form";
 
 interface Props {
   data: PerformanceMeasureData;
   rateReadOnly?: boolean;
   calcTotal?: boolean;
+  rateScale?: number;
 }
 
 interface NdrSetProps {
@@ -15,6 +17,7 @@ interface NdrSetProps {
   qualifiers?: string[];
   rateReadOnly: boolean;
   calcTotal: boolean;
+  rateScale?: number;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -22,6 +25,7 @@ const CategoryNdrSets = ({
   rateReadOnly,
   categories = [],
   qualifiers,
+  rateScale,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -45,6 +49,7 @@ const CategoryNdrSets = ({
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
+              rateMultiplicationValue={rateScale}
               {...register(`PerformanceMeasure.rates.${cleanedName}`)}
             />
           </>
@@ -89,8 +94,16 @@ export const PerformanceMeasure = ({
   data,
   calcTotal = false,
   rateReadOnly = true,
+  rateScale,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
+  const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
+    | string[]
+    | undefined;
+  const readOnly =
+    rateReadOnly ??
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ??
+    true;
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
@@ -122,8 +135,9 @@ export const PerformanceMeasure = ({
       <PerformanceMeasureNdrs
         categories={data.categories}
         qualifiers={data.qualifiers}
-        rateReadOnly={rateReadOnly}
+        rateReadOnly={readOnly}
         calcTotal={calcTotal}
+        rateScale={rateScale}
       />
     </QMR.CoreQuestionWrapper>
   );
