@@ -123,7 +123,7 @@ export const IETAD = ({
   const dataSourceWatch = useWatch({ name: "DataSource" });
   const rateReadOnly =
     dataSourceWatch?.every(
-      (source: string) => source === "I am reporting provisional data."
+      (source: string) => source === "AdministrativeData"
     ) ?? true;
 
   return (
