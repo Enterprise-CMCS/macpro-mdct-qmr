@@ -4,29 +4,43 @@ import * as Common from ".";
 
 interface Props {
   type: "AD" | "CH";
+  handleValidation: (data: any) => void;
 }
 
-export const CompleteCoreSets = ({ type }: Props) => {
+export const CompleteCoreSets = ({ handleValidation, type }: Props) => {
   const qualifierType = type === "AD" ? "Adult" : "Child";
 
   return (
-    <CUI.ListItem>
+    <CUI.ListItem data-cy="complete-CoreSet">
       <Common.QualifierHeader
         header={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS`}
         description={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS for review`}
       />
 
-      <QMR.ContainedButton
-        testId="complete-core-set-questions-button"
-        buttonText="Complete Core Set Questions"
-        buttonProps={{
-          bg: "blue.600",
-          colorScheme: "blue",
-          textTransform: "capitalize",
-          my: "5",
-          type: "submit",
-        }}
-      />
+      <CUI.HStack>
+        <QMR.ContainedButton
+          testId="validate-core-set-questions-button"
+          buttonText="Validate Core Set Questions"
+          onClick={handleValidation}
+          buttonProps={{
+            colorScheme: "green",
+            textTransform: "capitalize",
+            my: "5",
+            type: "submit",
+          }}
+        />
+
+        <QMR.ContainedButton
+          testId="complete-core-set-questions-button"
+          buttonText="Complete Core Set Questions"
+          buttonProps={{
+            colorScheme: "blue",
+            textTransform: "capitalize",
+            my: "5",
+            type: "submit",
+          }}
+        />
+      </CUI.HStack>
     </CUI.ListItem>
   );
 };
