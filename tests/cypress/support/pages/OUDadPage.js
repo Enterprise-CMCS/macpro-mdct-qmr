@@ -7,10 +7,11 @@ const centersForMedicareMedicaidServicesRadioBTN =
 const otherDataSourceRadioBTN = "//p[contains(text(),'Other Data Source')]";
 
 const totalRateNumeratorInputBox =
-  "[data-cy='PerformanceMeasure-Rates.0.numerator']";
+  "[data-cy='PerformanceMeasure.rates.singleCategory.0.numerator']";
 const totalRateDenominatorInputBox =
-  "[data-cy='PerformanceMeasure-Rates.0.denominator']";
-const totalRateInputBox = "[data-cy='PerformanceMeasure-Rates.0.rate']";
+  "[data-cy='PerformanceMeasure.rates.singleCategory.0.denominator']";
+const totalRateInputBox =
+  "[data-cy='PerformanceMeasure.rates.singleCategory.0.rate']";
 
 export class OUDadPage {
   verifySaveValidateCompletebuttonClickable() {
