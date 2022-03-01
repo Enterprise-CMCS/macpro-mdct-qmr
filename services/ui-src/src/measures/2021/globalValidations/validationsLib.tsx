@@ -107,8 +107,8 @@ export const validateNumeratorsLessThanDenominators = (
         performanceMeasure[i].numerator
       ) {
         if (
-          parseInt(performanceMeasure[i].denominator!) <
-          parseInt(performanceMeasure[i].numerator!)
+          parseFloat(performanceMeasure[i].denominator!) <
+          parseFloat(performanceMeasure[i].numerator!)
         ) {
           error = true;
         }
@@ -118,7 +118,7 @@ export const validateNumeratorsLessThanDenominators = (
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
       performanceMeasure.rate.forEach((rate: any) => {
-        if (parseInt(rate.numerator) > parseInt(rate.denominator)) {
+        if (parseFloat(rate.numerator) > parseFloat(rate.denominator)) {
           error = true;
         }
       });
@@ -192,15 +192,15 @@ export const validateNoNonZeroNumOrDenom = (
         performanceMeasure[i].rate
       ) {
         if (
-          parseInt(performanceMeasure[i].rate!) !== 0 &&
-          parseInt(performanceMeasure[i].numerator!) === 0
+          parseFloat(performanceMeasure[i].rate!) !== 0 &&
+          parseFloat(performanceMeasure[i].numerator!) === 0
         ) {
           nonZeroRateError = true;
         }
         if (
-          parseInt(performanceMeasure[i].rate!) === 0 &&
-          parseInt(performanceMeasure[i].numerator!) !== 0 &&
-          parseInt(performanceMeasure[i].denominator!) !== 0
+          parseFloat(performanceMeasure[i].rate!) === 0 &&
+          parseFloat(performanceMeasure[i].numerator!) !== 0 &&
+          parseFloat(performanceMeasure[i].denominator!) !== 0
         ) {
           zeroRateError = true;
         }
@@ -211,13 +211,13 @@ export const validateNoNonZeroNumOrDenom = (
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
       performanceMeasure.rate.forEach((rate: any) => {
-        if (parseInt(rate.numerator) === 0 && parseInt(rate.rate) !== 0) {
+        if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
           nonZeroRateError = true;
         }
         if (
-          parseInt(rate.numerator) !== 0 &&
-          parseInt(rate.denominator) !== 0 &&
-          parseInt(rate.rate) === 0
+          parseFloat(rate.numerator) !== 0 &&
+          parseFloat(rate.denominator) !== 0 &&
+          parseFloat(rate.rate) === 0
         ) {
           zeroRateError = true;
         }
