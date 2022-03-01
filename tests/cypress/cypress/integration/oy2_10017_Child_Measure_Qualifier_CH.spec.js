@@ -12,6 +12,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
   });
 
   it("Screen Enhancement and adding child core set seperate", () => {
+    cy.wait(3000);
     cy.get('[data-cy="Add Child Core Set"]').click(); //asserting text
     cy.get(".css-1au6mu0 > .chakra-heading").should(
       "have.text",
