@@ -11,7 +11,7 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
 
     // ensure combined CCS
     cy.deleteChildCoreSets();
-    cy.get('[data-cy="Add Child Core Set"]').click(); // clicking on adding child core set measures
+    cy.get('[data-cy="Add Child Core Set"]').click({ force: true }); // clicking on adding child core set measures
     cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
     cy.get('[data-cy="Create"]').click(); //clicking create
   });
