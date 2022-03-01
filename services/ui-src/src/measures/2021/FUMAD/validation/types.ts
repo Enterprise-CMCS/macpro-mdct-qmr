@@ -30,25 +30,8 @@ export namespace Measure {
       Types.OtherPerformanceMeasure,
       Types.DataSource,
       Types.MeasurementSpecification,
-      Types.PerformanceMeasure {
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-Within7-AgeRange": string[];
-    "DeviationOptions-Within30-AgeRange": string[];
-    "DeviationFields-Within7": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-Within30": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //OptionalMeasureStratification
     CategoriesReported: string[];
 

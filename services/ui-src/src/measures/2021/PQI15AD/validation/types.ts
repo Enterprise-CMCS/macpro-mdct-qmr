@@ -20,16 +20,6 @@ export namespace Measure {
       Types.OtherPerformanceMeasure,
       Types.OptionalMeasureStratification,
       Types.PerformanceMeasure,
-      Types.DataSource {
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-AgeRanges": string[];
-    DeviationFields: {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-  }
+      Types.DeviationFromMeasureSpecification,
+      Types.DataSource {}
 }

@@ -33,7 +33,8 @@ export namespace Measure {
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
       Types.MeasurementSpecification,
-      Types.PerformanceMeasure {
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //DataSource
     "DataSource-CAHPS-Version": string;
     "DataSource-CAHPS-Version-Other": string;
@@ -43,39 +44,6 @@ export namespace Measure {
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-DiscussingCessationMedications-AgeRange": string[];
-    "DeviationOptions-AdvisingUsersToQuit-AgeRange": string[];
-    "DeviationOptions-DiscussingCessationStrategies-AgeRange": string[];
-    "DeviationOptions-PercentageOfUsers-AgeRange": string[];
-
-    "DeviationFields-DiscussingCessationMedications": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-AdvisingUsersToQuit": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-DiscussingCessationStrategies": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-PercentageOfUsers": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

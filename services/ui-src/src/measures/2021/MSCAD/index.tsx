@@ -118,20 +118,7 @@ export const MSCAD = ({
           {isHEDIS && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showAdvisingUsersAges18To64,
-                showAdvisingUsers65AndOlder,
-                showDiscussingMedicationsAges18To64,
-                showDiscussingMedications65AndOlder,
-                showDiscussingStrategiesAges18To64,
-                showDiscussingStrategies65AndOlder,
-                showPercentageUsersAges18To64,
-                showPercentageUsers65AndOlder,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && (

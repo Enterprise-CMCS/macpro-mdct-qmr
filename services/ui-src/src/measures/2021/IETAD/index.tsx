@@ -150,27 +150,7 @@ export const IETAD = ({
           )}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showInitAlcohol18To64,
-                showEngageAlcohol18To64,
-                showInitOpioid18To64,
-                showEngageOpioid18To64,
-                showInitOther18To64,
-                showEngageOther18To64,
-                showInitTotal18To64,
-                showEngageTotal18To64,
-                showInitAlcohol65Plus,
-                showEngageAlcohol65Plus,
-                showInitOpioid65Plus,
-                showEngageOpioid65Plus,
-                showInitOther65Plus,
-                showEngageOther65Plus,
-                showInitTotal65Plus,
-                showEngageTotal65Plus,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
@@ -194,8 +174,8 @@ export const IETAD = ({
             showOtherPerformanceMeasureRates) && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              qualifiers={PMD.ageGroups}
-              categories={PMD.performanceMeasureDescriptions}
+              qualifiers={PMD.qualifiers}
+              categories={PMD.categories}
               adultMeasure
             />
           )}

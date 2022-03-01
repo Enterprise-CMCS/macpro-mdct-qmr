@@ -36,30 +36,13 @@ export namespace Measure {
       Types.CombinedRates,
       Types.DataSource,
       Types.MeasurementSpecification,
-      Types.PerformanceMeasure {
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-MostEffective": string[];
-    "DeviationOptions-LARC": string[];
-    "DeviationFields-MostEffective": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-LARC": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

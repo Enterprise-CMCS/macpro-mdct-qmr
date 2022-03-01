@@ -8,6 +8,8 @@ interface ContextProps {
   calcTotal?: boolean;
   categories: string[];
   qualifiers: string[];
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
@@ -17,6 +19,8 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   calcTotal: false,
   categories: [],
   qualifiers: [],
+  rateMultiplicationValue: undefined,
+  customMask: undefined,
 });
 
 export const usePerformanceMeasureContext = () =>

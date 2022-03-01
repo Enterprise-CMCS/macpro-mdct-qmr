@@ -91,14 +91,7 @@ export const CCWAD = ({
           {isOpa && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isOpa && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showModeratelyRates,
-                showReversibleRates,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isOpa is not true  */}
           {isOtherSpecification && <Q.OtherPerformanceMeasure />}
