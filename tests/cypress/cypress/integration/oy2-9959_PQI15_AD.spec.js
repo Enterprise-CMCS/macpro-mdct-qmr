@@ -4,7 +4,7 @@ const passwordForCognito = "//input[@name='password']";
 describe("Measure: PQI15-AD", () => {
   before(() => {
     cy.visit("/");
-    cy.login();
+    cy.login("stateuser2");
     cy.goToAdultMeasures();
     cy.goToMeasure("PQI15-AD");
   });
