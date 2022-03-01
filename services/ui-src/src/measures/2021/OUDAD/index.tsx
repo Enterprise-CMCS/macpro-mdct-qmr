@@ -80,8 +80,6 @@ export const OUDAD = ({
     });
   }
 
-  console.log(getValues());
-
   return (
     <>
       <CMQ.Reporting
