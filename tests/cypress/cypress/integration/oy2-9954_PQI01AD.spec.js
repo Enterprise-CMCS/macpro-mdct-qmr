@@ -250,12 +250,24 @@ describe("Measure: PQI01-AD", () => {
       '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
     ).type("40");
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
+    cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
+    cy.get("#DeviationOptions0-checkbox").check();
     cy.get(
-      '[data-cy="DeviationOptions-AgeRanges0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="DeviationOptions0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="DeviationOptions-AgeRanges1"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
+    cy.get(
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Ages18to64\\.RateDeviationsSelected0-checkbox"
+    ).check();
+    cy.get('[data-cy="Deviations.Ages18to64.numerator"]').click();
     cy.get(
       '[data-cy="CategoriesReported0"] > .chakra-checkbox__control'
     ).click();

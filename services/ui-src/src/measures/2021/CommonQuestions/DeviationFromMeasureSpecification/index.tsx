@@ -85,7 +85,7 @@ export const getLowLvlDeviationOptions = ({
     .map((item) => {
       const value = `${cleanString(item.label)}`;
       return {
-        displayValue: item.label,
+        displayValue: item.label!,
         value,
         children: [
           <DeviationsSelectedCheckbox
