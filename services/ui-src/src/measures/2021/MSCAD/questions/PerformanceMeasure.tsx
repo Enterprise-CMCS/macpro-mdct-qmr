@@ -62,6 +62,9 @@ export const PerformanceMeasure = () => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
+      <CUI.Heading pt="1" size={"sm"}>
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
       <CUI.Text fontWeight="bold" my="5">
         Advising Smokers and Tobacco Users to Quit
       </CUI.Text>

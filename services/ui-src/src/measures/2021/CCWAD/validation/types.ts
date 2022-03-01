@@ -19,11 +19,6 @@ export namespace Measure {
     total: RateFields[];
   }
 
-  interface OtherRatesFields {
-    description: string[];
-    rate: RateFields[];
-  }
-
   interface ExplainDeviationFields {
     numerator: string;
     denominator: string;
@@ -52,13 +47,8 @@ export namespace Measure {
       Types.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
-      Types.DataSource {
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
-
+      Types.DataSource,
+      Types.OtherPerformanceMeasure {
     //DeviationFromMeasureSpec
     "moderate-method-deviation": DeviationFromMeasureSpec;
     "reversible-method-deviation": DeviationFromMeasureSpec;
