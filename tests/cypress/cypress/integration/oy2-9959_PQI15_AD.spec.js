@@ -4,7 +4,7 @@ const passwordForCognito = "//input[@name='password']";
 describe("Measure: PQI15-AD", () => {
   before(() => {
     cy.visit("/");
-    cy.login();
+    cy.login("stateuser2");
     cy.goToAdultMeasures();
     cy.goToMeasure("PQI15-AD");
   });
@@ -41,7 +41,6 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[data-cy="Validate Measure"]').should("be.visible");
     cy.get('[data-cy="Complete Measure"]').should("be.visible");
     cy.get("[data-cy=Save]").should("be.visible");
-    cy.get('[href="/MA/2021/ACS/PQI15-AD"]').should("be.visible");
   });
 
   it("Rate calculation should be correct", () => {
