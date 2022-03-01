@@ -109,6 +109,7 @@ jobs:
             oy2_16342_Add_Validation_to_Rate_when_user_selects_multiple_Data_Sources.spec.js,
             oy2_16411_Restructuring_Data_Source_Text_boxes.spec.js,
             oy2_16228_Date_Range_Adjustment.spec.js,
+            oy2_16265_Validation_text_appear_in_CHAD.spec.js,
           ]
     steps:
       - name: set branch_name
