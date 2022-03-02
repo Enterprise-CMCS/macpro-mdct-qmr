@@ -26,10 +26,7 @@ const CCPADValidation = (data: Measure.Form) => {
   }
 
   let sameDenominatorError = [
-    ...validateEqualDenominators(
-      performanceMeasureArray,
-      ageGroups
-    ),
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
   ];
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];

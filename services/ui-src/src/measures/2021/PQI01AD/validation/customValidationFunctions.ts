@@ -22,7 +22,7 @@ const PQI01Validation = (data: Measure.Form) => {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
- 
+
   const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
 
   errorArray = [

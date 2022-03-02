@@ -23,13 +23,10 @@ const FUMADValidation = (data: Measure.Form) => {
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
-  }  
+  }
 
   let sameDenominatorError = [
-    ...validateEqualDenominators(
-      performanceMeasureArray,
-      ageGroups
-    ),
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
   ];
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
@@ -58,7 +55,6 @@ const validateBothDatesCompletedInRange = (data: Measure.Form) => {
   const dateRange = data["DateRange"];
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };
-
 
 const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
   const sevenDays =
@@ -100,5 +96,5 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
 export const validationFunctions = [
   FUMADValidation,
   validateBothDatesCompletedInRange,
-  validate7DaysGreaterThan30Days
+  validate7DaysGreaterThan30Days,
 ];
