@@ -262,6 +262,7 @@ export namespace OmsNodes {
 
 export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsNode[];
+  export type SingleOmsNode = OmsNode;
   export type PerformanceMeasure = PerformanceMeasureData;
   export type DataSource = DataSourceData;
 }

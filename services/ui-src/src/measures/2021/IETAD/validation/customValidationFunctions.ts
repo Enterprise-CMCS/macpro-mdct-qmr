@@ -92,7 +92,7 @@ const IEDValidation = (data: Measure.Form) => {
     ),
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...omsValidations(data),
+    ...omsValidations(data, PMD.qualifiers, PMD.categories),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

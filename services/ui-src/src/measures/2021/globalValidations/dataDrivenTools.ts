@@ -44,3 +44,23 @@ export const performanceMeasureErrorLocationDicitonary = (
 
   errorDict["singleCategory"] = "Performance Measure";
 };
+
+/**
+ * Takes render data for OMS and creates a cleaned dictionary of node locations for error generation.
+ */
+export const omsLocationDictionary = (renderData: DDT.OptionalMeasureStrat) => {
+  const dictionary: { [cleanedLabel: string]: string } = {};
+  const checkNode = (node: DDT.SingleOmsNode) => {
+    // dive a layer
+    for (const option of node.options ?? []) {
+      checkNode(option);
+    }
+    dictionary[node.id.replace(/[^\w]/g, "")] = node.id;
+  };
+
+  for (const node of renderData) {
+    checkNode(node);
+  }
+
+  return dictionary;
+};
