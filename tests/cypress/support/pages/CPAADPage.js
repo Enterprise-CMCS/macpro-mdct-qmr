@@ -84,7 +84,6 @@ export class CPAADPAGE {
     cy.xpath(howDidYouReportThisMeasure).click({ force: true });
   }
   clickmeasurementSpecificationAHRQ() {
-    cy.wait(1000);
     cy.xpath(measurementSpecificationAHRQ).click({ force: true });
   }
 
