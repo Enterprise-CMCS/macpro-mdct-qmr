@@ -98,8 +98,10 @@ export const Rate = ({
     } else if (editRate.rate) {
       editRate.rate = "";
     }
-
-    prevRate[index] = editRate;
+    prevRate[index] = {
+      label: rates[index].label,
+      ...editRate,
+    };
     field.onChange([...prevRate]);
   };
 
