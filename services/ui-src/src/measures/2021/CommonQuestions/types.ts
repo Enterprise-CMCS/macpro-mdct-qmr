@@ -192,53 +192,6 @@ export interface PerformanceMeasure {
   };
 }
 
-interface OmsRateFields {
-  options?: string[];
-  rates?: {
-    /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
-    [rateLabel: string]: RateFields[];
-  };
-  total?: RateFields[];
-}
-
-interface LowLevelOmsNode {
-  // if just ndr sets
-  ageRangeRates?: OmsRateFields;
-
-  // for additional subCats/add anothers
-  subCatOptions?: string[];
-  additionalSubCategories?: {
-    description?: string;
-    ageRangeRates?: OmsRateFields;
-  }[];
-}
-
-interface MidLevelOMSNode extends LowLevelOmsNode {
-  // if sub-options
-  aggregate?: string;
-  options?: string[];
-  selections?: {
-    [option: string]: LowLevelOmsNode;
-  };
-}
-
-interface TopLevelOmsNode {
-  // top level child, ex: Race, Sex, Ethnicity
-  options?: string[]; // checkbox
-  additionalCategories?: string[]; // add another section
-  selections?: {
-    [option: string]: MidLevelOMSNode;
-  };
-  additionalSelections?: AddtnlOmsNode[];
-
-  // catch case for ACA
-  ageRangeRates?: OmsRateFields;
-}
-
-interface AddtnlOmsNode extends LowLevelOmsNode {
-  description?: string;
-}
-
 export interface Qualifiers {
   qualifiers?: string[];
 }
@@ -251,9 +204,58 @@ export interface OptionalMeasureStratification {
   OptionalMeasureStratification: {
     options: string[]; //checkbox
     selections: {
-      [option: string]: TopLevelOmsNode;
+      [option: string]: OmsNodes.TopLevelOmsNode;
     };
   };
+}
+
+export namespace OmsNodes {
+  export interface OmsRateFields {
+    options?: string[];
+    rates?: {
+      /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
+      [rateLabel: string]: RateFields[];
+    };
+    total?: RateFields[];
+  }
+
+  export interface LowLevelOmsNode {
+    // if just ndr sets
+    ageRangeRates?: OmsRateFields;
+
+    // for additional subCats/add anothers
+    subCatOptions?: string[];
+    additionalSubCategories?: {
+      description?: string;
+      ageRangeRates?: OmsRateFields;
+    }[];
+  }
+
+  export interface MidLevelOMSNode extends LowLevelOmsNode {
+    // if sub-options
+    aggregate?: string;
+    options?: string[];
+    selections?: {
+      [option: string]: LowLevelOmsNode;
+    };
+  }
+
+  export interface TopLevelOmsNode {
+    // top level child, ex: Race, Sex, Ethnicity
+    options?: string[]; // checkbox
+    // additionalCategories?: string[]; // add another section
+    selections?: {
+      [option: string]: MidLevelOMSNode;
+    };
+    additionalSelections?: AddtnlOmsNode[];
+
+    // catch case for ACA
+    ageRangeRates?: OmsRateFields;
+  }
+
+  export interface AddtnlOmsNode extends LowLevelOmsNode {
+    description?: string;
+  }
 }
 
 export namespace DataDrivenTypes {
