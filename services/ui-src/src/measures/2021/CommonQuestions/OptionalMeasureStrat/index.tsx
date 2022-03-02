@@ -42,13 +42,13 @@ export const buildOmsCheckboxes = ({ name, data }: OmsCheckboxProps) => {
   });
 };
 
-interface BaseProps
-  extends Types.AgeGroups,
-    Types.PerformanceMeasureDescriptions {
+interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** string array for perfromance measure descriptions */
   performanceMeasureArray: Types.RateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 /** data for dynamic rendering will be provided */
@@ -81,11 +81,13 @@ type OMSType = Types.OptionalMeasureStratification & {
  */
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
-  ageGroups,
-  performanceMeasureDescriptions,
+  qualifiers = [],
+  categories = [],
   data,
   calcTotal = false,
   adultMeasure,
+  rateMultiplicationValue,
+  customMask,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -121,8 +123,10 @@ export const OptionalMeasureStrat = ({
           performanceMeasureArray,
           rateReadOnly,
           calcTotal,
-          ageGroups,
-          performanceMeasureDescriptions,
+          qualifiers,
+          categories,
+          rateMultiplicationValue,
+          customMask,
         }}
       >
         <CUI.Text py="3">

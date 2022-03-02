@@ -32,7 +32,9 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
-      Types.MeasurementSpecification {
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //DataSource
     "DataSource-CAHPS-Version": string;
     "DataSource-CAHPS-Version-Other": string;
@@ -42,74 +44,6 @@ export namespace Measure {
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-DiscussingCessationMedications-AgeRange": string[];
-    "DeviationOptions-AdvisingUsersToQuit-AgeRange": string[];
-    "DeviationOptions-DiscussingCessationStrategies-AgeRange": string[];
-    "DeviationOptions-PercentageOfUsers-AgeRange": string[];
-
-    "DeviationFields-DiscussingCessationMedications": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-AdvisingUsersToQuit": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-DiscussingCessationStrategies": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-PercentageOfUsers": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-AdvisingUsers": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-
-    // Performance Measure
-    "PerformanceMeasure-AgeRates-DiscussingMedications": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-DiscussingStrategies": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-PercentageUsers": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

@@ -1,4 +1,6 @@
 import { Measure } from "../validation/types";
+import { PMD } from "../questions/data";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import {
   atLeastOneRateComplete,
   validateDualPopInformation,
@@ -14,10 +16,7 @@ const CCPADValidation = (data: Measure.Form) => {
   const sixtyDaysIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-longActingContraception"],
-    data["PerformanceMeasure-AgeRates-effectiveContraception"],
-  ];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
@@ -28,10 +27,7 @@ const CCPADValidation = (data: Measure.Form) => {
 
   let sameDenominatorError = [
     ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-longActingContraception"],
-        data["PerformanceMeasure-AgeRates-effectiveContraception"],
-      ],
+      performanceMeasureArray,
       ageGroups
     ),
   ];

@@ -54,41 +54,61 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
 
     // Rate calculation should be = (N/D*100,000)
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type("5");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type("10");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("5");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("10");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "50000.0"
     );
 
     // Ensure that auto calculate rate displays 1 decimal (even if the value is zero)
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type("8");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("8");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "80000.0"
     );
 
     // Ensure that numerical value after decimal is rounded up/down for auto calculated rate (up)
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type("9");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("9");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "88888.9"
     );
 
     // Ensure that numerical value after decimal is rounded up/down for auto calculated rate (down)
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type("18");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("18");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "44444.4"
     );
 
     // Ensure that user cannot manually enter rates if admin data is selected - (already selected)
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.attr",
       "readonly"
     );
@@ -98,21 +118,33 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type("10");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type("20");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("10");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("20");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "50000.0"
     );
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "not.have.attr",
       "readonly"
     );
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').type("4869568.1");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
+    ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
+      "4869568.1"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "4869568.1"
     );
@@ -124,16 +156,28 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[id="DataSource0-checkbox"]').uncheck({ force: true });
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type("0");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type("5");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("0");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "0.0"
     );
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').type("5");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
+    ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
+      "5"
+    );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Manually entered rate should be 0 if numerator is 0"]'
@@ -154,18 +198,30 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[id="DataSource0-checkbox"]').uncheck({ force: true });
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear({
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear({
       force: true,
     });
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type("5");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type("5");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should(
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("5");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "100000.0"
     );
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').type("0");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
+    ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
+      "0"
+    );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
@@ -190,10 +246,18 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[id="DataSource0-checkbox"]').check({ force: true });
     cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type("5");
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type("10");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("5");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("10");
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
   });
 
@@ -264,7 +328,7 @@ describe("Measure: PQI15-AD", () => {
     ).should("be.visible");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.ageRangeRates.rates.example1.0.rate"]'
-    ).should("have.value", "50.0");
+    ).should("have.value", "50000.0");
     /* ==== End Cypress Studio ==== */
   });
 
@@ -352,9 +416,11 @@ describe("Measure: PQI15-AD", () => {
     cy.get("[data-cy=DataSource0] > .chakra-checkbox__control").click();
     cy.get("#DataSource0-checkbox").check();
     cy.get(
-      "[data-cy=DataSource-Administrative0] > .chakra-checkbox__control"
+      '[data-cy="DataSourceSelections.AdministrativeData.selected0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DataSource-Administrative0-checkbox").check();
+    cy.get(
+      "#DataSourceSelections\\.AdministrativeData\\.selected0-checkbox"
+    ).check();
     cy.get(
       "[data-cy=DefinitionOfDenominator0] > .chakra-checkbox__control"
     ).click();

@@ -1,3 +1,4 @@
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -6,18 +7,17 @@ import {
   validateDualPopInformation,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
+import { PMD } from "../questions/data";
+
 const PQI05Validation = (data: any) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const dateRange = data["DateRange"];
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
-  const performanceMeasureArray = data["PerformanceMeasure-AgeRates"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
-    (pma: PerformanceMeasure[]) => [pma]
-  );
-  const validateDualPopInformationArray = [performanceMeasureArrayToCheck?.[1]];
+  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
   let errorArray: any[] = [];
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
@@ -26,17 +26,11 @@ const PQI05Validation = (data: any) => {
   errorArray = [
     ...errorArray,
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),
+    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
       "age-group",
     ]),
-    ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArrayToCheck,
-      OPM,
-      ["age-group"]
-    ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
-      "age-group",
-    ]),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,

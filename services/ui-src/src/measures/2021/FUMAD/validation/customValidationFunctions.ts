@@ -7,6 +7,8 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
+import { PMD } from "../questions/data";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 
 const FUMADValidation = (data: Measure.Form) => {
@@ -14,24 +16,18 @@ const FUMADValidation = (data: Measure.Form) => {
   const sixtyDaysIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-7Days"],
-    data["PerformanceMeasure-AgeRates-30Days"],
-  ];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
-  }
+  }  
 
   let sameDenominatorError = [
     ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-7Days"],
-        data["PerformanceMeasure-AgeRates-30Days"],
-      ],
+      performanceMeasureArray,
       ageGroups
     ),
   ];
@@ -63,7 +59,46 @@ const validateBothDatesCompletedInRange = (data: Measure.Form) => {
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };
 
+
+const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
+  const sevenDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const thirtyDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  let error;
+  const errorArray: any[] = [];
+
+  if (sevenDays && thirtyDays) {
+    sevenDays.forEach((_sevenDaysObj, index) => {
+      if (
+        sevenDays[index] &&
+        thirtyDays[index] &&
+        parseFloat(sevenDays[index]?.rate ?? "") >
+          parseFloat(thirtyDays[index]?.rate ?? "")
+      ) {
+        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
+        const isSingular = index === 1;
+        error = {
+          errorLocation: "Performance Measure",
+          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for Age${
+            isSingular ? "" : "s"
+          } ${ageGroup}`,
+        };
+
+        errorArray.push(error);
+      }
+    });
+  }
+
+  return error ? errorArray : error;
+};
+
 export const validationFunctions = [
   FUMADValidation,
   validateBothDatesCompletedInRange,
+  validate7DaysGreaterThan30Days
 ];
