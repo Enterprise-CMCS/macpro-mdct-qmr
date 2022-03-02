@@ -140,7 +140,11 @@ export const PerformanceMeasure = ({
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
         {...register("PerformanceMeasure.explanation")}
       />
-      <CUI.Text fontWeight="bold" mt={5}>
+      <CUI.Text
+        fontWeight="bold"
+        mt={5}
+        data-cy="Enter a number for the numerator and the denominator"
+      >
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>

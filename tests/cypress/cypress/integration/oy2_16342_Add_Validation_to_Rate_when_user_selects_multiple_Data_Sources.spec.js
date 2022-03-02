@@ -17,7 +17,9 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.get(".css-722v25").should(
+    cy.get(
+      '[data-cy="Enter a number for the numerator and the denominator"]'
+    ).should(
       "have.text",
       "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
     );
@@ -30,13 +32,9 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
     cy.get(
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.xpath(
-      "//h2[contains(text(),'Please review the auto-calculated rate and revise ')]"
+    cy.get(
+      '[data-cy="Enter a number for the numerator and the denominator"]'
     ).should(
-      "have.text",
-      "Please review the auto-calculated rate and revise if needed."
-    );
-    cy.get(".css-722v25").should(
       "have.text",
       "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
     );
@@ -50,16 +48,10 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
     cy.get(
-      '[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
     ).type("1");
     cy.get(
-      '[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.denominator"]'
     ).type("2");
     cy.get(
       '[data-cy="CategoriesReported0"] > .chakra-checkbox__label > .chakra-text'
@@ -67,13 +59,5 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
     cy.get(
       '[data-cy="NonHispanicRacialCategories0"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.get(".css-1sdxj22").should(
-      "have.text",
-      "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
-    );
-    cy.get(".css-1s0avy2").should(
-      "have.text",
-      "Please review the auto-calculated rate and revise if needed."
-    );
   });
 });
