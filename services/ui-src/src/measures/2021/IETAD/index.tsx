@@ -19,10 +19,13 @@ export const IETAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
-  const data = getValues();
+  const { getValues, watch } = useFormContext<Measure.Form>();
+  const watchedData = watch();
 
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = getPerfMeasureRateArray(
+    watchedData,
+    PMD.data
+  );
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({ name: "DidReport" });
@@ -110,7 +113,6 @@ export const IETAD = ({
     ageGroups.push({ label: "Age 65 and older", id: 1 });
   }
   if (showOtherPerformanceMeasureRates) {
-    // @ts-ignore
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
     otherRates.forEach((rate) => {
       if (rate.description) {
@@ -155,30 +157,14 @@ export const IETAD = ({
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
-          {(showInitAlcohol18To64 ||
-            showEngageAlcohol18To64 ||
-            showInitOpioid18To64 ||
-            showEngageOpioid18To64 ||
-            showInitOther18To64 ||
-            showEngageOther18To64 ||
-            showInitTotal18To64 ||
-            showEngageTotal18To64 ||
-            showInitAlcohol65Plus ||
-            showEngageAlcohol65Plus ||
-            showInitOpioid65Plus ||
-            showEngageOpioid65Plus ||
-            showInitOther65Plus ||
-            showEngageOther65Plus ||
-            showInitTotal65Plus ||
-            showEngageTotal65Plus ||
-            showOtherPerformanceMeasureRates) && (
+          {
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
             />
-          )}
+          }
         </>
       )}
       <CMQ.AdditionalNotes />
