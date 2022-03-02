@@ -7,35 +7,25 @@ import {
   validateEqualDenominators,
   validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { PMD } from "../questions/data";
 
 const OUDValidation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data["DateRange"];
-  const performanceMeasureArray = data["PerformanceMeasure-Rates"];
   let errorArray: any[] = [];
-
-  const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
-    (item) => {
-      return [item];
-    }
-  );
 
   errorArray = [
     ...errorArray,
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
-      "age-group",
-    ]),
-    ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArrayToCheck,
-      OPM,
-      ["age-group"]
-    ),
-    ...validateEqualDenominators(performanceMeasureArrayToCheck, ["age-group"]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
+    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
       "age-group",
     ]),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...validateEqualDenominators(performanceMeasureArray, ["age-group"]),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
   ];
 
   return errorArray;

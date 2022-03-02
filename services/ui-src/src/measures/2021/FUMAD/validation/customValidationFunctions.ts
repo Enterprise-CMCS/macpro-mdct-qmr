@@ -1,3 +1,4 @@
+import { PMD } from "../questions/data";
 import { Measure } from "./types";
 import {
   ensureBothDatesCompletedInRange,
@@ -5,8 +6,14 @@ import {
 } from "../../globalValidations/validationsLib";
 
 const validateRates = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+  const sevenDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const thirtyDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
   let error;
   const errorArray: any[] = [];
 
@@ -38,8 +45,14 @@ const validateRates = (data: Measure.Form) => {
 };
 
 const validateDualPopulationInformation = (data: Measure.Form) => {
-  const sevenDays65orOlder = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays65orOlder = data["PerformanceMeasure-AgeRates-30Days"];
+  const sevenDays65orOlder =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const thirtyDays65orOlder =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
   const DualEligibleCheck = data["DefinitionOfDenominator"] ?? [];
 
   let error;
@@ -110,8 +123,14 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
 };
 
 const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+  const sevenDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const thirtyDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
   let error;
   const errorArray: any[] = [];
 
@@ -120,7 +139,8 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
       if (
         sevenDays[index] &&
         thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
+        parseFloat(sevenDays[index]?.rate ?? "") >
+          parseFloat(thirtyDays[index]?.rate ?? "")
       ) {
         const ageGroup = index === 0 ? "18 to 64" : "65 and older";
         const isSingular = index === 1;
@@ -140,7 +160,10 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
 };
 
 const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+  const thirtyDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
   let error;
   const errorArray: any[] = [];
 
@@ -171,7 +194,10 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
 };
 
 const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
+  const sevenDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
   let error;
   const errorArray: any[] = [];
 
@@ -204,8 +230,14 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
 const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   let error;
   const measureSpecification = data["MeasurementSpecification"];
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+  const sevenDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const thirtyDays =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
   const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
   const isHEDIS = measureSpecification === "NCQA/HEDIS";
 

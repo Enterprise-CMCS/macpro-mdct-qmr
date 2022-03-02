@@ -7,17 +7,14 @@ import {
   validateNoNonZeroNumOrDenom,
   validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { PMD } from "../questions/data";
 
 const MSCADValidation = (data: Measure.Form) => {
-  const ageGroups = ["Ages 18 to 64", "Age 65 and Older"];
+  const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-AdvisingUsers"],
-    data["PerformanceMeasure-AgeRates-DiscussingMedications"],
-    data["PerformanceMeasure-AgeRates-DiscussingStrategies"],
-    data["PerformanceMeasure-AgeRates-PercentageUsers"],
-  ];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const dateRange = data["DateRange"];
 

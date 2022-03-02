@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
 
 export const CCPAD = ({
   name,
@@ -28,10 +29,10 @@ export const CCPAD = ({
     name: "MeasurementSpecification",
   });
   const watchPerformanceMeasureAgeRatesEffectiveContraception = useWatch({
-    name: "PerformanceMeasure-AgeRates-effectiveContraception",
+    name: `PerformanceMeasure.rates.${PMD.categories[0].replace(/[^\w]/g, "")}`,
   });
   const watchPerformanceMeasureAgeRatesLongActingContraception = useWatch({
-    name: "PerformanceMeasure-AgeRates-longActingContraception",
+    name: `PerformanceMeasure.rates.${PMD.categories[1].replace(/[^\w]/g, "")}`,
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
@@ -99,19 +100,10 @@ export const CCPAD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isUSOPA && <Q.PerformanceMeasure />}
+          {isUSOPA && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isUSOPA && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showEffectiveContraceptionThreeDaysPostPartum,
-                showEffectiveContraceptionSixtyDaysPostPartum,
-                showLongActingContraceptionThreeDaysPostPartum,
-                showLongActingContraceptionSixtyDaysPostPartum,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isHHSOPA is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}

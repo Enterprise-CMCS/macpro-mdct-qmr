@@ -8,40 +8,18 @@ export namespace Measure {
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
-  interface RateFields {
-    numerator: string;
-    denominator: string;
-    rate: string;
-  }
-
   interface AggregateRate {
-    subRate: RateFields[];
-    total: RateFields[];
+    subRate: Types.RateFields[];
+    total: Types.RateFields[];
   }
 
-  interface OtherRatesFields {
-    description: string[];
-    rate: RateFields[];
-  }
-
-  interface ExplainDeviationFields {
-    numerator: string;
-    denominator: string;
-    other: string;
-  }
-
-  type DeviationCheckBoxOptions =
+  export type DeviationCheckBoxOptions =
     | "moderate-method-deviation-Numerator"
     | "moderate-method-deviation-Denominator"
     | "moderate-method-deviation-Other"
     | "reversible-method-deviation-Numerator"
     | "reversible-method-deviation-Denominator"
     | "reversible-method-deviation-Other";
-
-  interface DeviationFromMeasureSpec {
-    explain: ExplainDeviationFields;
-    options: DeviationCheckBoxOptions;
-  }
 
   export interface Form
     extends Types.MeasurementSpecification,
@@ -52,38 +30,10 @@ export namespace Measure {
       Types.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
-      Types.DataSource {
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //DeviationFromMeasureSpec
-    "moderate-method-deviation": DeviationFromMeasureSpec;
-    "reversible-method-deviation": DeviationFromMeasureSpec;
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-
-    //Performance Measure
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-ReversibleMethodOfContraceptionRate": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-
+      Types.DataSource,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification,
+      Types.OtherPerformanceMeasure {
     //OptionalMeasureStratification
     CategoriesReported: string[];
 

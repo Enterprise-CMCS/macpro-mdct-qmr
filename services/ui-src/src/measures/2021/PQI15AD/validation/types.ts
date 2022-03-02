@@ -18,34 +18,8 @@ export namespace Measure {
       Types.DefinitionOfPopulation,
       Types.MeasurementSpecification,
       Types.OtherPerformanceMeasure,
-      Types.OptionalMeasureStratification {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-AgeRanges": string[];
-    DeviationFields: {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-  }
+      Types.OptionalMeasureStratification,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification,
+      Types.DataSource {}
 }
