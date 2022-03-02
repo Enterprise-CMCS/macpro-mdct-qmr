@@ -1,44 +1,78 @@
 import { OmsNodes as OMS } from "../CommonQuestions/types";
-import { RateFields } from "../CommonQuestions/types";
-import { Measure } from "../IETAD/validation/types";
+import { DefaulFormData } from "../CommonQuestions/types";
 
-export const omsValidations = (data: Measure.Form) => {
+type OmsValidationCallback = (data: {
+  rateData: OMS.OmsRateFields;
+  qualifiers: string[];
+  categories: string[];
+  label: string;
+}) => FormError[];
+
+const cleanString = (s: string) => s.replace(/[^\w]/g, "");
+
+export const omsValidations = (
+  data: DefaulFormData,
+  qualifiers: string[],
+  categories: string[]
+) => {
   console.log("numerator less than");
-  validateNDRs(data, isNumeratorGreaterToDenominator);
-  console.log("validate at least one");
-  validateNDRs(data, isEmptyNDR);
-  return [];
-  //array of errors to print at bottom of screen
+  return validateNDRs(
+    data,
+    [validateDenominatorGreaterThanNumerator],
+    qualifiers,
+    categories
+  );
+  // console.log("validate at least one");
+  // validateNDRs(data, isEmptyNDR, qualifiers, categories);
 };
 
-const isEmptyNDR = (
-  ndr: RateFields,
-  currentValidationValue?: boolean | null
-): boolean => {
-  if (!currentValidationValue) {
-    return !ndr.denominator || !ndr.numerator || !ndr.rate;
+// const isEmptyNDR = (
+//   ndr: RateFields,
+//   currentValidationValue?: boolean | null
+// ): boolean => {
+//   if (!currentValidationValue) {
+//     return !ndr.denominator || !ndr.numerator || !ndr.rate;
+//   }
+
+//   return false;
+// };
+
+const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
+  categories,
+  qualifiers,
+  rateData,
+  label,
+}) => {
+  const error: FormError[] = [];
+
+  for (const qual of qualifiers.map((s) => cleanString(s))) {
+    for (const cat of categories.map((s) => cleanString(s))) {
+      if (rateData.rates?.[qual]?.[cat]) {
+        const temp = rateData.rates[qual][cat][0];
+        if (temp.denominator && temp.numerator) {
+          if (parseFloat(temp.denominator) < parseFloat(temp.numerator)) {
+            error.push({
+              location: label, //TODO: add dict lookup for location cleanup
+              errorMessage:
+                "Numerator cannot be greater than the Denominator for NDR sets.",
+            });
+          }
+        }
+      }
+    }
   }
 
-  return false;
-};
-
-const isNumeratorGreaterToDenominator = (
-  ndr: RateFields,
-  currentValidationValue?: boolean | null
-): boolean => {
-  if (currentValidationValue || currentValidationValue === null) {
-    return parseFloat(ndr.numerator!) > parseFloat(ndr.denominator!);
-  }
-
-  return true;
+  return error;
 };
 
 const validateNDRs = (
-  data: Measure.Form,
-  _cb: (ndr: RateFields, currentValidationValue?: boolean | null) => boolean
+  data: DefaulFormData,
+  callbackArr: OmsValidationCallback[],
+  qualifiers: string[],
+  categories: string[]
 ) => {
   const filledInRates: any = {};
-  // const errorArray: any = [];
+  const errorArray: any = [];
 
   // validates top levels, ex: Race, Geography, Sex
   const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string) => {
@@ -84,9 +118,15 @@ const validateNDRs = (
 
   // Rate containers to be validated
   const validateNodeRates = (rateData: OMS.OmsRateFields, label: string) => {
-    //TODO: apply callback function, push error to array
     filledInRates[label] = "stuff";
     console.log("node rates", label, rateData);
+    for (const callback of callbackArr) {
+      errorArray.push(...callback({ rateData, categories, qualifiers, label }));
+    }
+    // Object.keys(rateData.rates?.[option]);
+    // compareRate
+    // TODO: call callbacks with new structure
+    // TODO: refactor callbacks
   };
 
   // Loop through top level nodes for validation
@@ -97,77 +137,7 @@ const validateNDRs = (
     );
   }
 
-  // for (const selection of data.OptionalMeasureStratification.options) {
-  //   filledInRates[selection] = null;
-  //   const topLevelMap =
-  //     data.OptionalMeasureStratification.selections[selection];
-
-  //   //Adult Eligibility ACA
-  //   for (const parentKey of Object.keys(
-  //     data.OptionalMeasureStratification?.selections[selection]?.rateData
-  //       ?.rates ?? {}
-  //   )) {
-  //     filledInRates[selection] = !cb(
-  //       data.OptionalMeasureStratification?.selections[selection]?.rateData
-  //         ?.rates?.[parentKey][0] ?? {},
-  //       filledInRates[selection]
-  //     );
-  //   }
-
-  //   // SubCategories
-  //   for (const nestedSelection of topLevelMap.options ?? []) {
-  //     const selections = topLevelMap?.selections;
-  //     if (selections) {
-  //       for (const subCat of selections[nestedSelection]
-  //         ?.additionalSubCategories ?? []) {
-  //         for (const key of Object.keys(subCat.rateData?.rates ?? {})) {
-  //           filledInRates[selection] = !cb(
-  //             subCat.rateData?.rates?.[key][0] ?? {},
-  //             filledInRates[selection]
-  //           );
-  //         }
-  //       }
-
-  //       for (const deepNestedSelection of Object.keys(
-  //         selections[nestedSelection]?.selections ?? {}
-  //       )) {
-  //         for (const key of Object.keys(
-  //           selections[nestedSelection]?.selections![deepNestedSelection]
-  //             .rateData?.rates ?? {}
-  //         )) {
-  //           filledInRates[selection] = !cb(
-  //             selections[nestedSelection]?.selections![deepNestedSelection]
-  //               .rateData?.rates![key][0] ?? {},
-  //             filledInRates[selection]
-  //           );
-  //         }
-  //       }
-
-  //       // Regular Selections
-  //       for (const key of Object.keys(
-  //         selections[nestedSelection].rateData?.rates ?? {}
-  //       )) {
-  //         filledInRates[selection] = !cb(
-  //           selections[nestedSelection].rateData?.rates?.[key][0] ?? {},
-  //           filledInRates[selection]
-  //         );
-  //       }
-  //     }
-  //   }
-
-  //   // Aditional Selections
-  //   for (const additionalSelection of data.OptionalMeasureStratification
-  //     .selections?.[selection].additionalSelections ?? []) {
-  //     for (const key of Object.keys(
-  //       additionalSelection.rateData?.rates ?? {}
-  //     )) {
-  //       filledInRates[selection] = !cb(
-  //         additionalSelection.rateData?.rates?.[key][0] ?? {},
-  //         filledInRates[selection]
-  //       );
-  //     }
-  //   }
-  // }
-
   console.log("filledInRates", filledInRates);
+  console.log(errorArray);
+  return errorArray;
 };
