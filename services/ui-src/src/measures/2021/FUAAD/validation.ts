@@ -1,4 +1,4 @@
-import { PMD } from "./data";
+import * as PMD from "./data";
 import { FormData } from "./types";
 import { ensureBothDatesCompletedInRange } from "../globalValidations/validationsLib";
 

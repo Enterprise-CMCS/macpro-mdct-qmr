@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { FormData } from "./types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
-import { PMD } from "./data";
+import * as PMD from "./data";
 import * as Types from "../CommonQuestions/types";
 import {
   getPerfMeasureRateArray,
