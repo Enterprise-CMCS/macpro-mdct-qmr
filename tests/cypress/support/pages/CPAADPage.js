@@ -7,8 +7,7 @@ const sentenceBelowTitle =
 const didYouCollectThisMeasure = "[data-cy='DidCollect0']";
 const howDidYouReportThisMeasure =
   "//p[contains(text(),'Submitted raw data to AHRQ (CAHPS Database)')]";
-const measurementSpecificationAHRQ =
-  "#MeasurementSpecification-AHRQ";
+const measurementSpecificationAHRQ = "#MeasurementSpecification-AHRQ";
 const dataSource = "[data-cy='DataSource-CAHPS-Version0']";
 const dataSourceOtherTextbox = "//textarea[@id='field-911']";
 //const noSupplemental = "//p[contains(text(),'No Supplemental Item Sets were included')]";
