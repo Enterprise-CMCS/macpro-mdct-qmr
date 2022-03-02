@@ -18,8 +18,10 @@ interface AgeGroupProps {
   rateReadOnly: boolean;
   /** Which performance measure rates are filled in */
   performanceMeasureArray?: Types.RateFields[][];
-  ageGroups: string[];
-  performanceMeasureDescriptions?: string[];
+  qualifiers: string[];
+  categories: string[];
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 interface OPMProps {
@@ -29,6 +31,8 @@ interface OPMProps {
   rateReadOnly: boolean;
   /** name for react-hook-form registration */
   name: string;
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 // interface TotalProps {
@@ -41,17 +45,21 @@ interface OPMProps {
 interface NdrOptionBuilderProps extends AgeGroupProps {
   values: string[];
   addSecondaryRegisterTag: boolean;
-  performanceMeasureDescriptions?: string[];
+  categories: string[];
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 interface ConditionalRateBuilderProps {
   addSecondaryRegisterTag: boolean;
   rateReadOnly: boolean;
   performanceMeasureArray: Types.RateFields[][];
-  performanceMeasureDescriptions?: string[];
+  categories: string[];
   majorIndex: number;
   value: string;
   name: string;
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
@@ -70,7 +78,9 @@ const buildConditionalRateArray = ({
   majorIndex,
   value,
   name,
-  performanceMeasureDescriptions,
+  categories,
+  rateMultiplicationValue,
+  customMask,
 }: ConditionalRateBuilderProps) => {
   const ndrSets: React.ReactElement[] = [];
   const cleanedLabel = value?.replace(/[^\w]/g, "") ?? "CHECKBOX_VALUE_NOT_SET";
@@ -83,11 +93,8 @@ const buildConditionalRateArray = ({
       performanceMeasure[majorIndex].rate
     ) {
       const cleanedPMDescLabel =
-        addSecondaryRegisterTag &&
-        performanceMeasureDescriptions &&
-        performanceMeasureDescriptions[idx]
-          ? // @ts-ignore
-            `_${performanceMeasureDescriptions[idx].replace(/[^\w]/g, "")}`
+        addSecondaryRegisterTag && categories[idx]
+          ? `_${categories[idx].replace(/[^\w]/g, "")}`
           : "";
 
       const adjustedName = `${name}.rates.${cleanedLabel}${cleanedPMDescLabel}`;
@@ -97,15 +104,12 @@ const buildConditionalRateArray = ({
           readOnly={rateReadOnly}
           name={adjustedName}
           key={adjustedName}
+          rateMultiplicationValue={rateMultiplicationValue}
+          customMask={customMask}
           rates={[
             {
               id: 0,
-              label: `${
-                performanceMeasureDescriptions &&
-                performanceMeasureDescriptions[idx]
-                  ? performanceMeasureDescriptions[idx]
-                  : ""
-              }`,
+              label: `${categories[idx] ? categories[idx] : ""}`,
             },
           ]}
         />
@@ -128,7 +132,9 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
   performanceMeasureArray = [[]],
   name,
   rateReadOnly,
-  performanceMeasureDescriptions,
+  categories,
+  rateMultiplicationValue,
+  customMask,
 }: NdrOptionBuilderProps) => {
   const checkboxes: QMR.CheckboxOption[] = [];
 
@@ -141,7 +147,9 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
       rateReadOnly,
       majorIndex: i,
       name,
-      performanceMeasureDescriptions,
+      categories,
+      rateMultiplicationValue,
+      customMask,
     });
     if (ndrSets.length) {
       const cleanedLabel = val.replace(/[^\w]/g, "");
@@ -153,6 +161,17 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
+          ...(!rateReadOnly
+            ? [
+                <CUI.Heading
+                  pt="1"
+                  key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+                  size={"sm"}
+                >
+                  Please review the auto-calculated rate and revise if needed.
+                </CUI.Heading>,
+              ]
+            : []),
           ...ndrSets,
         ],
       };
@@ -167,17 +186,21 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
  * Builds Performance Measure AgeGroup Checkboxes
  */
 const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
-  if (!props.ageGroups.length) {
+  if (!props.qualifiers.length) {
     return buildPerformanceMeasureNDRCheckboxOptions({
       ...props,
       addSecondaryRegisterTag: false,
-      values: props.performanceMeasureDescriptions || [],
+      values: props.categories,
+      rateMultiplicationValue: props.rateMultiplicationValue,
+      customMask: props.customMask,
     });
   }
   return buildPerformanceMeasureNDRCheckboxOptions({
     ...props,
     addSecondaryRegisterTag: true,
-    values: props.ageGroups,
+    values: props.qualifiers,
+    rateMultiplicationValue: props.rateMultiplicationValue,
+    customMask: props.customMask,
   });
 };
 
@@ -188,15 +211,19 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
   const {
     performanceMeasureArray,
     rateReadOnly,
-    ageGroups,
-    performanceMeasureDescriptions,
+    qualifiers,
+    categories,
+    rateMultiplicationValue,
+    customMask,
   } = usePerformanceMeasureContext();
   const ageGroupsOptions = buildAgeGroupsCheckboxes({
     name: name,
     rateReadOnly: !!rateReadOnly,
     performanceMeasureArray,
-    ageGroups,
-    performanceMeasureDescriptions,
+    qualifiers,
+    categories,
+    rateMultiplicationValue,
+    customMask,
   });
 
   return (
@@ -211,7 +238,13 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
 /**
  * Builds OPM Checkboxes
  */
-const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
+const renderOPMChckboxOptions = ({
+  OPM,
+  rateReadOnly,
+  name,
+  rateMultiplicationValue,
+  customMask,
+}: OPMProps) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
 
   OPM.forEach(({ description }, idx) => {
@@ -229,6 +262,17 @@ const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
+          ...(!rateReadOnly
+            ? [
+                <CUI.Heading
+                  pt="1"
+                  size={"sm"}
+                  key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
+                >
+                  Please review the auto-calculated rate and revise if needed.
+                </CUI.Heading>,
+              ]
+            : []),
           <QMR.Rate
             rates={[
               {
@@ -238,6 +282,8 @@ const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
             name={`${name}.rates.${cleanedFieldName}`}
             key={`${name}.rates.${cleanedFieldName}`}
             readOnly={rateReadOnly}
+            rateMultiplicationValue={rateMultiplicationValue}
+            customMask={customMask}
           />,
         ],
       });
@@ -251,7 +297,12 @@ const renderOPMChckboxOptions = ({ OPM, rateReadOnly, name }: OPMProps) => {
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
-  const { OPM = [], rateReadOnly } = usePerformanceMeasureContext();
+  const {
+    OPM = [],
+    rateReadOnly,
+    rateMultiplicationValue,
+    customMask,
+  } = usePerformanceMeasureContext();
   return (
     <QMR.Checkbox
       name={`${name}.options`}
@@ -260,6 +311,8 @@ const OPMNDRSets = ({ name }: NdrProps) => {
         OPM,
         name,
         rateReadOnly: !!rateReadOnly,
+        rateMultiplicationValue,
+        customMask,
       })}
     />
   );

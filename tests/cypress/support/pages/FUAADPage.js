@@ -439,15 +439,33 @@ export class FUAADPAGE {
   }
 
   clickNumeratorDenominatorOtherExplain() {
-    cy.xpath(numeratorDeviation).click();
-    cy.wait(2000);
-    cy.xpath(numeratorExplaintext).type("test");
-    cy.xpath(denominatorDeviation).click();
-    cy.wait(2000);
-    cy.xpath(denominatorDeviationExplain).type("test");
-    cy.xpath(otherDeviation).click();
-    cy.wait(2000);
-    cy.xpath(otherDeviationExplain).type("test");
+    cy.get(
+      '[data-cy="Deviations.Followupwithin30daysofEDvisit.Ages18to64.RateDeviationsSelected0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Followupwithin30daysofEDvisit\\.Ages18to64\\.RateDeviationsSelected0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="Deviations.Followupwithin30daysofEDvisit.Ages18to64.RateDeviationsSelected1"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Followupwithin30daysofEDvisit\\.Ages18to64\\.RateDeviationsSelected1-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="Deviations.Followupwithin30daysofEDvisit.Ages18to64.RateDeviationsSelected2"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Followupwithin30daysofEDvisit\\.Ages18to64\\.RateDeviationsSelected2-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="Deviations.Followupwithin30daysofEDvisit.Ages18to64.numerator"]'
+    ).type("test");
+    cy.get(
+      '[data-cy="Deviations.Followupwithin30daysofEDvisit.Ages18to64.denominator"]'
+    ).type("test");
+    cy.get(
+      '[data-cy="Deviations.Followupwithin30daysofEDvisit.Ages18to64.other"]'
+    ).type("test");
   }
 
   clickRaceNonHispanic() {

@@ -1,3 +1,4 @@
+import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -6,34 +7,33 @@ import {
   validateDualPopInformation,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
-const PQI01Validation = (data: any) => {
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { PMD } from "../questions/data";
+const PQI01Validation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const dateRange = data["DateRange"];
 
-  const performanceMeasureArray = data["PerformanceMeasure-AgeRates"];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
-  const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
-    (pma: PerformanceMeasure[]) => [pma]
-  );
-  const validateDualPopInformationArray = [performanceMeasureArrayToCheck?.[1]];
+  // const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
+  //   (pma: PerformanceMeasure[]) => [pma]
+  // );
+  // const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
   // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray =
-    data["DeviationFields"]?.filter((data: any) => data) || [];
+  const deviationArray: any = [];
+  // data["DeviationFields"]?.filter((data: any) => data) ||
+  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
 
   errorArray = [
     ...errorArray,
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-groups"]),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
+    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
       "age-groups",
     ]),
-    ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArrayToCheck,
-      OPM,
-      ["age-groups"]
-    ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, [
       "age-groups",
     ]),
     ...validateDualPopInformation(
@@ -43,7 +43,7 @@ const PQI01Validation = (data: any) => {
       DefinitionOfDenominator
     ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArrayToCheck,
+      performanceMeasureArray,
       ["age-groups"],
       deviationArray
     ),

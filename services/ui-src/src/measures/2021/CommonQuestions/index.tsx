@@ -9,3 +9,5 @@ export * from "./StatusOfData";
 export * from "./WhyAreYouNotReporting";
 export * from "./OptionalMeasureStrat";
 export * from "./MeasurementSpecification";
+export * from "./DeviationFromMeasureSpecification";
+export * from "./PerformanceMeasure";

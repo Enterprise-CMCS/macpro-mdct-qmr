@@ -21,10 +21,6 @@ export namespace Measure {
       total: RateFields[];
     };
   }
-  interface OtherRatesFields {
-    description: string;
-    rate: RateFields[];
-  }
 
   export interface Form
     extends Types.DidReport,
@@ -35,48 +31,10 @@ export namespace Measure {
       Types.DateRange,
       Types.CombinedRates,
       Types.DataSource,
-      Types.MeasurementSpecification {
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-MostEffective": string[];
-    "DeviationOptions-LARC": string[];
-    "DeviationFields-MostEffective": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    }[];
-    "DeviationFields-LARC": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    }[];
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-effectiveContraception": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-longActingContraception": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification,
+      Types.OtherPerformanceMeasure {
     //OptionalMeasureStratification
     CategoriesReported: string[];
 
