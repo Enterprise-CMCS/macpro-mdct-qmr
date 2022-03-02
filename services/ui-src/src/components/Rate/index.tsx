@@ -132,7 +132,6 @@ export const Rate = ({
   Sum these values and set the NDR where isTotal is true to be these sumed values.
   */
   const calculateTotals = (prevRate: any[]) => {
-    // TODO: This needs a test
     let numeratorSum = 0;
     let denominatorSum = 0;
     let totalIndex = undefined;
@@ -152,12 +151,12 @@ export const Rate = ({
       prevRate[totalIndex]["numerator"] = numeratorSum;
       prevRate[totalIndex]["denominator"] = denominatorSum;
       if (numeratorSum <= denominatorSum) {
-        prevRate[totalIndex]["rate"] = (
-          (numeratorSum / denominatorSum) *
-          rateMultiplicationValue
-        )
-          .toFixed(1)
-          .toString();
+        prevRate[totalIndex]["rate"] =
+          numeratorSum != 0
+            ? ((numeratorSum / denominatorSum) * rateMultiplicationValue)
+                .toFixed(1)
+                .toString()
+            : "0";
       } else {
         prevRate[totalIndex]["rate"] = "";
       }

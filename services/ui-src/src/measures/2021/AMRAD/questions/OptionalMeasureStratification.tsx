@@ -29,7 +29,7 @@ export const DefaultOptionalMeasureStratProps: Props = {
   ],
 };
 
-const IndepententAsianOptions = [
+const IndependentAsianOptions = [
   { label: "Asian Indian", id: 0 },
   { label: "Chinese", id: 1 },
   { label: "Filipino", id: 2 },
@@ -101,7 +101,7 @@ const AgeData = ({ name }: SubComponentProps) => {
     // TODO: it would be nice to not have these ts-ignores–unsure how to elegantly create these in types.ts
     missingIds.forEach((id) => {
       /// @ts-ignore
-      if (isEmpty(getValues(`${name}.subRates.PersistentAsthma.${id}`))) {
+      if (isEmpty(getValues(`${name}.subRates.PersistentAsthma.${id}`) ?? {})) {
         /// @ts-ignore
         setValue(`${name}.subRates.PersistentAsthma.${id}`, {});
       }
@@ -312,7 +312,7 @@ export const OptionalMeasureStratification = ({
                                 <QMR.Checkbox
                                   {...register("IndependentAsianOptions")}
                                   options={[
-                                    ...IndepententAsianOptions.map((item) => {
+                                    ...IndependentAsianOptions.map((item) => {
                                       return {
                                         value: item.label.replace(/ /g, ""),
                                         displayValue: item.label,

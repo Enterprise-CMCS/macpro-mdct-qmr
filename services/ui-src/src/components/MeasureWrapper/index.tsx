@@ -80,8 +80,6 @@ export const MeasureWrapper = ({
   }, [apiData, methods]);
 
   const handleValidation = (data: any) => {
-    console.log("data", data);
-    console.log("errors", methods.formState.errors);
     handleSave(data);
     validateAndSetErrors(data);
   };
