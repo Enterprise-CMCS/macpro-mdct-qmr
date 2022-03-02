@@ -27,11 +27,11 @@ export const Reporting = ({
           options={[
             {
               displayValue: `Yes, I am reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
-              value: "Yes, I am reporting",
+              value: "yes",
             },
             {
               displayValue: `No, I am not reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
-              value: "No, I am not reporting",
+              value: "no",
             },
           ]}
         />

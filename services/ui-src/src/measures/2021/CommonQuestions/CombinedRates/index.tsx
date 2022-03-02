@@ -27,7 +27,7 @@ export const CombinedRates = () => {
           {
             displayValue:
               "Yes, we combined rates from multiple reporting units to create a State-Level rate.",
-            value: "Yes, combine",
+            value: "yes",
             children: [
               <QMR.RadioButton
                 {...register("CombinedRates-CombinedRates")}
@@ -63,7 +63,7 @@ export const CombinedRates = () => {
           {
             displayValue:
               "No, we did not combine rates from multiple reporting units to create a State-Level rate.",
-            value: "No, did not combine",
+            value: "no",
           },
         ]}
         renderHelperTextAbove

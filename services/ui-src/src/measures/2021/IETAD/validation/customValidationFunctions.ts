@@ -33,7 +33,7 @@ const IEDValidation = (data: Measure.Form) => {
   )[0];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "No, I am not reporting") {
+  if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }

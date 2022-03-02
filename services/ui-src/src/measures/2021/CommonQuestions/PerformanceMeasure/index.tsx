@@ -45,8 +45,8 @@ const CategoryNdrSets = ({
         const cleanedName = item.replace(/[^\w]/g, "");
 
         return (
-          <>
-            <CUI.Text key={item} fontWeight="bold" my="5">
+          <CUI.Box key={item}>
+            <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
             <QMR.Rate
@@ -56,7 +56,7 @@ const CategoryNdrSets = ({
               customMask={customMask}
               {...register(`PerformanceMeasure.rates.${cleanedName}`)}
             />
-          </>
+          </CUI.Box>
         );
       })}
     </>

@@ -2,9 +2,16 @@ import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 
+export interface MeasureWrapperProps {
+  name: string;
+  year: string;
+  measureId: string;
+  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+}
+
 export interface MeasurementSpecification {
   // Selected Measurement Specification
-  MeasurementSpecification: "NCQA/HEDIS" | "OPA" | "AHRQ" | "CMS";
+  MeasurementSpecification: "NCQA/HEDIS" | "OPA" | "AHRQ" | "CMS" | "Other";
 
   // if Measure Spec is NCQA/HEDIS -> which version are they using
   "MeasurementSpecification-HEDISVersion":
@@ -56,7 +63,7 @@ export interface AdditionalNotes {
 }
 export interface CombinedRates {
   // if the user combined rates from multiple reporting units
-  CombinedRates: "Yes, combine" | "No, did not combine";
+  CombinedRates: "yes" | "no";
 
   // if the user combined rates -> the reporting units they combined
   "CombinedRates-CombinedRates":
@@ -88,6 +95,7 @@ export interface DateRange {
     };
   };
 }
+
 export interface WhyAreYouNotReporting {
   // if a user is not reporting -> the reason(s) they are not reporting
   WhyAreYouNotReporting: Array<
@@ -149,7 +157,7 @@ export interface WhyAreYouNotReporting {
 }
 
 export interface DidReport {
-  DidReport: "Yes, I am reporting" | "No, I am not reporting";
+  DidReport: "yes" | "no";
 }
 
 export interface StatusOfData {
@@ -185,10 +193,15 @@ export interface OtherRatesFields {
   description?: string;
   rate?: RateFields[];
 }
+
+export type PerformanceMeasureRate = {
+  [label: string]: RateFields[] | undefined;
+};
+
 export interface PerformanceMeasure {
   PerformanceMeasure?: {
     explanation?: string;
-    rates?: { [label: string]: RateFields[] | undefined };
+    rates?: PerformanceMeasureRate;
   };
 }
 

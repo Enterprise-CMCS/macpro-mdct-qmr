@@ -45,7 +45,7 @@ const specifications = {
     displayValue:
       "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
     value: "NCQA/HEDIS",
-    children: [<HEDISChildren />],
+    children: [<HEDISChildren key="HEDIS-Child" />],
   },
   OPA: {
     displayValue: "HHS Office of Population Affairs (OPA)",
@@ -81,6 +81,7 @@ export const MeasurementSpecification = ({ type }: Props) => {
                   "MeasurementSpecification-OtherMeasurementSpecificationDescription"
                 )}
                 label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
+                key="MeasurementSpecification-OtherMeasurementSpecificationDescription"
               />,
               <QMR.Upload
                 label="If you need additional space to describe your state's methodology, please attach further documentation below."
