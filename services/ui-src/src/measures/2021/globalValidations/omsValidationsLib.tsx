@@ -55,8 +55,8 @@ const validateNDRs = (
     }
 
     // ACA validate
-    if (node.ageRangeRates) {
-      validateNodeRates(node.ageRangeRates, label);
+    if (node.rateData) {
+      validateNodeRates(node.rateData, label);
     }
   };
 
@@ -77,19 +77,16 @@ const validateNDRs = (
     }
 
     //validate rates
-    if (node.ageRangeRates) {
-      validateNodeRates(node.ageRangeRates, label);
+    if (node.rateData) {
+      validateNodeRates(node.rateData, label);
     }
   };
 
   // Rate containers to be validated
-  const validateNodeRates = (
-    ageRangeRates: OMS.OmsRateFields,
-    label: string
-  ) => {
+  const validateNodeRates = (rateData: OMS.OmsRateFields, label: string) => {
     //TODO: apply callback function, push error to array
     filledInRates[label] = "stuff";
-    console.log("node rates", label, ageRangeRates);
+    console.log("node rates", label, rateData);
   };
 
   // Loop through top level nodes for validation
@@ -107,11 +104,11 @@ const validateNDRs = (
 
   //   //Adult Eligibility ACA
   //   for (const parentKey of Object.keys(
-  //     data.OptionalMeasureStratification?.selections[selection]?.ageRangeRates
+  //     data.OptionalMeasureStratification?.selections[selection]?.rateData
   //       ?.rates ?? {}
   //   )) {
   //     filledInRates[selection] = !cb(
-  //       data.OptionalMeasureStratification?.selections[selection]?.ageRangeRates
+  //       data.OptionalMeasureStratification?.selections[selection]?.rateData
   //         ?.rates?.[parentKey][0] ?? {},
   //       filledInRates[selection]
   //     );
@@ -123,9 +120,9 @@ const validateNDRs = (
   //     if (selections) {
   //       for (const subCat of selections[nestedSelection]
   //         ?.additionalSubCategories ?? []) {
-  //         for (const key of Object.keys(subCat.ageRangeRates?.rates ?? {})) {
+  //         for (const key of Object.keys(subCat.rateData?.rates ?? {})) {
   //           filledInRates[selection] = !cb(
-  //             subCat.ageRangeRates?.rates?.[key][0] ?? {},
+  //             subCat.rateData?.rates?.[key][0] ?? {},
   //             filledInRates[selection]
   //           );
   //         }
@@ -136,11 +133,11 @@ const validateNDRs = (
   //       )) {
   //         for (const key of Object.keys(
   //           selections[nestedSelection]?.selections![deepNestedSelection]
-  //             .ageRangeRates?.rates ?? {}
+  //             .rateData?.rates ?? {}
   //         )) {
   //           filledInRates[selection] = !cb(
   //             selections[nestedSelection]?.selections![deepNestedSelection]
-  //               .ageRangeRates?.rates![key][0] ?? {},
+  //               .rateData?.rates![key][0] ?? {},
   //             filledInRates[selection]
   //           );
   //         }
@@ -148,10 +145,10 @@ const validateNDRs = (
 
   //       // Regular Selections
   //       for (const key of Object.keys(
-  //         selections[nestedSelection].ageRangeRates?.rates ?? {}
+  //         selections[nestedSelection].rateData?.rates ?? {}
   //       )) {
   //         filledInRates[selection] = !cb(
-  //           selections[nestedSelection].ageRangeRates?.rates?.[key][0] ?? {},
+  //           selections[nestedSelection].rateData?.rates?.[key][0] ?? {},
   //           filledInRates[selection]
   //         );
   //       }
@@ -162,10 +159,10 @@ const validateNDRs = (
   //   for (const additionalSelection of data.OptionalMeasureStratification
   //     .selections?.[selection].additionalSelections ?? []) {
   //     for (const key of Object.keys(
-  //       additionalSelection.ageRangeRates?.rates ?? {}
+  //       additionalSelection.rateData?.rates ?? {}
   //     )) {
   //       filledInRates[selection] = !cb(
-  //         additionalSelection.ageRangeRates?.rates?.[key][0] ?? {},
+  //         additionalSelection.rateData?.rates?.[key][0] ?? {},
   //         filledInRates[selection]
   //       );
   //     }

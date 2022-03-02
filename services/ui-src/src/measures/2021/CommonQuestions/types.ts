@@ -214,20 +214,22 @@ export namespace OmsNodes {
     options?: string[];
     rates?: {
       /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
-      [rateLabel: string]: RateFields[];
+      [qualifier: string]: {
+        [category: string]: RateFields[];
+      };
     };
     total?: RateFields[];
   }
 
   export interface LowLevelOmsNode {
     // if just ndr sets
-    ageRangeRates?: OmsRateFields;
+    rateData?: OmsRateFields;
 
     // for additional subCats/add anothers
     subCatOptions?: string[];
     additionalSubCategories?: {
       description?: string;
-      ageRangeRates?: OmsRateFields;
+      rateData?: OmsRateFields;
     }[];
   }
 
@@ -250,7 +252,7 @@ export namespace OmsNodes {
     additionalSelections?: AddtnlOmsNode[];
 
     // catch case for ACA
-    ageRangeRates?: OmsRateFields;
+    rateData?: OmsRateFields;
   }
 
   export interface AddtnlOmsNode extends LowLevelOmsNode {

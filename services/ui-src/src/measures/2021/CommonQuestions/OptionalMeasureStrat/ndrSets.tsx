@@ -94,10 +94,10 @@ const buildConditionalRateArray = ({
     ) {
       const cleanedPMDescLabel =
         addSecondaryRegisterTag && categories[idx]
-          ? `_${categories[idx].replace(/[^\w]/g, "")}`
-          : "";
+          ? `${categories[idx].replace(/[^\w]/g, "")}`
+          : "singleCategory";
 
-      const adjustedName = `${name}.rates.${cleanedLabel}${cleanedPMDescLabel}`;
+      const adjustedName = `${name}.rates.${cleanedLabel}.${cleanedPMDescLabel}`;
 
       ndrSets.push(
         <QMR.Rate
