@@ -305,13 +305,14 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
         performanceMeasureArray[index] &&
         performanceMeasureArray[index][i] &&
         performanceMeasureArray[index][i].denominator &&
-        performanceMeasureArray[index][i].numerator
+        performanceMeasureArray[index][i].numerator &&
+        performanceMeasureArray[index][i].rate
       ) {
         ndrCount++;
       }
     });
   });
-  console.log(ndrCount);
+
   if (ndrCount > 1) {
     const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
       if (

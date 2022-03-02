@@ -284,7 +284,7 @@ const validateAtLeastOneDeviationNDR = (data: Measure.Form) => {
 
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(
     performanceMeasureArray,
-    ["18 to 64", "65 and older"],
+    PMD.qualifiers,
     deviationArray
   );
 };

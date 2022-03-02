@@ -21,7 +21,6 @@ const MSCADValidation = (data: Measure.Form) => {
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const dateRange = data["DateRange"];
 
-  // Array of deviation NDRs with empty/undefined values removed
   const deviationArray = getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
