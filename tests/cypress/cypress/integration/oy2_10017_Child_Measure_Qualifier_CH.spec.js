@@ -340,7 +340,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     );
     /* ==== End Cypress Studio ==== */
   });
-  it.skip("Child Core Set Measures: Chip", () => {
+  it("Child Core Set Measures: Chip", () => {
     //Adding Child Core Set Measure, combined
     cy.get('[data-cy="Add Child Core Set"]').click();
     cy.get("#ChildCoreSet-ReportType-separate").click({ force: true });
@@ -528,7 +528,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       "Do you have questions or need support?"
     );
   });
-  it.skip("Child Core Set Measures: Combined", () => {
+  it("Child Core Set Measures: Combined", () => {
     //creating child core set combined and navigating to questions page
     cy.get('[data-cy="Add Child Core Set"]').click();
     cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
