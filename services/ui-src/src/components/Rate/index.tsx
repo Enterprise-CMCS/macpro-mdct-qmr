@@ -117,13 +117,15 @@ export const Rate = ({
       editRate.rate = "";
     }
 
-    prevRate[index] = editRate;
+    prevRate[index] = {
+      label: rates[index].label,
+      ...editRate,
+    };
 
     // Totals NDR should be independently editable
     if (!isTotal) {
       calculateTotals(prevRate);
     }
-
     field.onChange([...prevRate]);
   };
 

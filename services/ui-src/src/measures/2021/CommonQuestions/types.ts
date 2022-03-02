@@ -1,5 +1,6 @@
 import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
+import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 
 export interface MeasurementSpecification {
   // Selected Measurement Specification
@@ -167,6 +168,7 @@ export interface DataSource {
   DataSourceDescription: string;
 }
 export interface RateFields {
+  label?: string;
   numerator?: string;
   denominator?: string;
   rate?: string;
@@ -182,6 +184,12 @@ export interface DeviationFields {
 export interface OtherRatesFields {
   description?: string;
   rate?: RateFields[];
+}
+export interface PerformanceMeasure {
+  PerformanceMeasure?: {
+    explanation?: string;
+    rates?: { [label: string]: RateFields[] | undefined };
+  };
 }
 
 interface OmsRateFields {
@@ -231,12 +239,12 @@ interface AddtnlOmsNode extends LowLevelOmsNode {
   description?: string;
 }
 
-export interface AgeGroups {
-  ageGroups: string[];
+export interface Qualifiers {
+  qualifiers?: string[];
 }
 
-export interface PerformanceMeasureDescriptions {
-  performanceMeasureDescriptions?: string[];
+export interface Categories {
+  categories?: string[];
 }
 
 export interface OptionalMeasureStratification {
@@ -250,6 +258,38 @@ export interface OptionalMeasureStratification {
 
 export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsNode[];
-
+  export type PerformanceMeasure = PerformanceMeasureData;
   export type DataSource = DataSourceData;
 }
+
+export interface DeviationFromMeasureSpecification {
+  // does the calculation of the measure deviate from the measure specification
+  DidCalculationsDeviate: "YesCalcDeviated" | "NoCalcDidNotDeviate";
+  // if "YesCalcDeviated" selected from "DidCalculationsDeviate" -> which deviations options selected
+  DeviationOptions: string[];
+  // the Deviation 'options' below will match the "DeviationOptions" above
+  Deviations: {
+    [option: string]: {
+      // deviations selected for the given option
+      RateDeviationsSelected: Array<"numerator" | "denominator" | "other">;
+      // if "numerator" selected for "RateDeviationsSelected" -> an explaination
+      numerator: string;
+      // if "denominator" selected for "RateDeviationsSelected" -> an explaination
+      denominator: string;
+      // if "other" selected for "RateDeviationsSelected" -> an explaination
+      other: string;
+    };
+  };
+}
+export type DefaulFormData = AdditionalNotes &
+  StatusOfData &
+  WhyAreYouNotReporting &
+  DidReport &
+  CombinedRates &
+  DateRange &
+  DefinitionOfPopulation &
+  MeasurementSpecification &
+  OtherPerformanceMeasure &
+  OptionalMeasureStratification &
+  PerformanceMeasure &
+  DeviationFromMeasureSpecification;

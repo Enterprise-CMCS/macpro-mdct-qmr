@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
 
 export const MSCAD = ({
   name,
@@ -27,16 +28,16 @@ export const MSCAD = ({
     name: "MeasurementSpecification",
   });
   const watchPerformanceMeasureAdvisingUsers = useWatch({
-    name: "PerformanceMeasure-AgeRates-AdvisingUsers",
+    name: `PerformanceMeasure.rates.${PMD.categories[0].replace(/[^\w]/g, "")}`,
   });
   const watchPerformanceMeasureDiscussingMedications = useWatch({
-    name: "PerformanceMeasure-AgeRates-DiscussingMedications",
+    name: `PerformanceMeasure.rates.${PMD.categories[1].replace(/[^\w]/g, "")}`,
   });
   const watchPerformanceMeasureDiscussingStrategies = useWatch({
-    name: "PerformanceMeasure-AgeRates-DiscussingStrategies",
+    name: `PerformanceMeasure.rates.${PMD.categories[2].replace(/[^\w]/g, "")}`,
   });
   const watchPerformanceMeasurePercentageUsers = useWatch({
-    name: "PerformanceMeasure-AgeRates-PercentageUsers",
+    name: `PerformanceMeasure.rates.${PMD.categories[3].replace(/[^\w]/g, "")}`,
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
@@ -114,23 +115,10 @@ export const MSCAD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && <Q.PerformanceMeasure />}
+          {isHEDIS && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showAdvisingUsersAges18To64,
-                showAdvisingUsers65AndOlder,
-                showDiscussingMedicationsAges18To64,
-                showDiscussingMedications65AndOlder,
-                showDiscussingStrategiesAges18To64,
-                showDiscussingStrategies65AndOlder,
-                showPercentageUsersAges18To64,
-                showPercentageUsers65AndOlder,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && (

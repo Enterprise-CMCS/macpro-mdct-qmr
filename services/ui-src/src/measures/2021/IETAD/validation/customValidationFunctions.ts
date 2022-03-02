@@ -1,4 +1,5 @@
 import { Measure } from "./types";
+import { PMD } from "../questions/data";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -8,59 +9,48 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "../../globalValidations";
 
 const IEDValidation = (data: Measure.Form) => {
-  const ageGroups = ["Ages 18 to 64", "Age 65 and Older"];
+  const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
-    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
-    data["PerformanceMeasure-AgeRates-Initiation-Other"],
-    data["PerformanceMeasure-AgeRates-Engagement-Other"],
-    data["PerformanceMeasure-AgeRates-Initiation-Total"],
-    data["PerformanceMeasure-AgeRates-Engagement-Total"],
-  ];
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+
+  const totalInitiation = performanceMeasureArray.filter(
+    (_, idx) =>
+      PMD.data.categories?.[idx].includes("Initiation") &&
+      PMD.data.categories?.[idx].includes("Total")
+  )[0];
+
+  const totalEngagement = performanceMeasureArray.filter(
+    (_, idx) =>
+      PMD.data.categories?.[idx].includes("Engagement") &&
+      PMD.data.categories?.[idx].includes("Total")
+  )[0];
+
   let errorArray: any[] = [];
   if (data["DidReport"] === "No, I am not reporting") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
-  let unfilteredSameDenominatorErrors = [
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
-        data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
-      ],
-      ageGroups
-    ),
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
-        data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
-      ],
-      ageGroups
-    ),
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-Initiation-Other"],
-        data["PerformanceMeasure-AgeRates-Engagement-Other"],
-      ],
-      ageGroups
-    ),
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-Initiation-Total"],
-        data["PerformanceMeasure-AgeRates-Engagement-Total"],
-      ],
-      ageGroups
-    ),
+  let unfilteredSameDenominatorErrors: any[] = [];
+  for (let i = 0; i < performanceMeasureArray.length; i += 2) {
+    unfilteredSameDenominatorErrors = [
+      ...unfilteredSameDenominatorErrors,
+      ...validateEqualDenominators(
+        [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
+        ageGroups
+      ),
+    ];
+  }
+  unfilteredSameDenominatorErrors = [
+    ...unfilteredSameDenominatorErrors,
+    ...validateEqualDenominators([totalInitiation, totalEngagement], ageGroups),
   ];
 
   let filteredSameDenominatorErrors: any = [];
