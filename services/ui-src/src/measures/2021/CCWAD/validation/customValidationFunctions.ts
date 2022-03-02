@@ -6,6 +6,7 @@ import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
 import { PMD } from "../questions/data";
+import { getDeviationNDRArray } from "measures/2021/globalValidations";
 
 const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
   const reversibleRates =
@@ -157,19 +158,22 @@ const validateAtLeastOneNPR = (data: Measure.Form) => {
 };
 
 const validateAtLeastOneDeviationNDR = (data: Measure.Form) => {
-  const performanceMeasureArray: any = [
-    // data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
-    // data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
-  ];
-  console.log(data);
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray = [
-    // data["moderate-method-deviation"],
-    // data["reversible-method-deviation"],
-  ].filter((data) => data);
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
 
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(
-    performanceMeasureArray,
+    [memeRates, larcRates],
     [""],
     deviationArray
   );

@@ -281,7 +281,14 @@ export interface DeviationFromMeasureSpecification {
     };
   };
 }
-export type DefaulFormData = AdditionalNotes &
+
+export type DeviationKeys =
+  | "numerator"
+  | "denominator"
+  | "other"
+  | "RateDeviationsSelected";
+
+export type DefaultFormData = AdditionalNotes &
   StatusOfData &
   WhyAreYouNotReporting &
   DidReport &

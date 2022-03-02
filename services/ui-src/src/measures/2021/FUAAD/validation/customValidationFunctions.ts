@@ -2,6 +2,10 @@ import { PMD } from "../questions/data";
 import { Measure } from "../validation/types";
 import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "../../globalValidations/validationsLib";
 import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
+import {
+  getPerfMeasureRateArray,
+  getDeviationNDRArray,
+} from "measures/2021/globalValidations";
 
 const validateRates = (data: Measure.Form) => {
   const sevenDays =
@@ -271,17 +275,12 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
 };
 
 const validateAtLeastOneDeviationNDR = (data: Measure.Form) => {
-  console.log(data);
-  const performanceMeasureArray: any = [
-    //   // data["PerformanceMeasure-AgeRates-7Days"],
-    //   // data["PerformanceMeasure-AgeRates-30Days"],
-  ];
-
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray = [
-    // ...(data["DeviationFields-Within30"] || []),
-    // ...(data["DeviationFields-Within7"] || []),
-  ].filter((data) => data);
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
 
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(
     performanceMeasureArray,

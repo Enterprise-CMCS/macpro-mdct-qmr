@@ -1,18 +1,21 @@
 import { Measure } from "../validation/types";
 import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "../../globalValidations/validationsLib";
 import { PMD } from "../questions/data";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import {
+  getPerfMeasureRateArray,
+  getDeviationNDRArray,
+} from "measures/2021/globalValidations";
 
 import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  // Array of deviation NDRs with empty/undefined values removed
-  console.log(data["DeviationOptions"], data["Deviations"]);
-  const deviationArray = [
-    // ...(data["DeviationOptions"] || []),
-    // ...(data["DeviationFields-LARC"] || []),
-  ].filter((data) => data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
   let errorArray: any[] = [];

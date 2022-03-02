@@ -7,7 +7,10 @@ import {
   validateEqualDenominators,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import {
+  getPerfMeasureRateArray,
+  getDeviationNDRArray,
+} from "measures/2021/globalValidations";
 import { PMD } from "../questions/data";
 
 const OUDValidation = (data: Measure.Form) => {
@@ -16,16 +19,20 @@ const OUDValidation = (data: Measure.Form) => {
   const dateRange = data["DateRange"];
   let errorArray: any[] = [];
 
-  const performanceMeasureArrayToCheck = performanceMeasureArray;
-  // ?.map(
-  //   (item) => {
-  //     return [item];
-  //   }
-  // );
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    false
+  );
+  const performanceMeasureArrayToCheck: any = [];
+  performanceMeasureArray?.forEach((item) => {
+    item.forEach((ndr) => {
+      if (ndr) {
+        performanceMeasureArrayToCheck.push([ndr]);
+      }
+    });
+  });
 
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray: any = [];
-  // data["DeviationFields"]?.filter((data) => data) ||
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),

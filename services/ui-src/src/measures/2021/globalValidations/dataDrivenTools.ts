@@ -44,3 +44,25 @@ export const performanceMeasureErrorLocationDicitonary = (
 
   errorDict["singleCategory"] = "Performance Measure";
 };
+
+export const getDeviationNDRArray = (
+  deviationOptions: Types.DeviationFromMeasureSpecification["DeviationOptions"],
+  data: Types.DeviationFromMeasureSpecification["Deviations"],
+  ageGroups?: boolean
+) => {
+  let deviationArray: any[] = [];
+  deviationOptions?.forEach((option) => {
+    const objectToSearch = ageGroups ? data[option] : data;
+    if (ageGroups) {
+      for (const key of Object.keys(objectToSearch).filter(
+        (prop) => prop !== "SelectedOptions"
+      )) {
+        deviationArray.push(data[option][key as Types.DeviationKeys]);
+      }
+    } else {
+      deviationArray = Object.values(data);
+    }
+  });
+  console.log(deviationArray);
+  return deviationArray;
+};

@@ -7,7 +7,10 @@ import {
   validateNoNonZeroNumOrDenom,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import {
+  getPerfMeasureRateArray,
+  getDeviationNDRArray,
+} from "measures/2021/globalValidations";
 import { PMD } from "../questions/data";
 
 const MSCADValidation = (data: Measure.Form) => {
@@ -19,12 +22,11 @@ const MSCADValidation = (data: Measure.Form) => {
   const dateRange = data["DateRange"];
 
   // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray = [
-    // ...(data["DeviationFields-DiscussingCessationMedications"] || []),
-    // ...(data["DeviationFields-AdvisingUsersToQuit"] || []),
-    // ...(data["DeviationFields-DiscussingCessationStrategies"] || []),
-    // ...(data["DeviationFields-PercentageOfUsers"] || []),
-  ].filter((data) => data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
 
   let errorArray: any[] = [];
   errorArray = [

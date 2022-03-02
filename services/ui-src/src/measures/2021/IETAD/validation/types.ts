@@ -7,5 +7,5 @@ export namespace Measure {
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
-  export interface Form extends Types.DefaulFormData {}
+  export interface Form extends Types.DefaultFormData {}
 }
