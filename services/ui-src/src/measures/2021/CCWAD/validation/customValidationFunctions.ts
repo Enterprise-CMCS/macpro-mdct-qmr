@@ -157,15 +157,15 @@ const validateAtLeastOneNPR = (data: Measure.Form) => {
 };
 
 const validateAtLeastOneDeviationNDR = (data: Measure.Form) => {
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
+  const performanceMeasureArray: any = [
+    // data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
+    // data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
   ];
-
+  console.log(data);
   // Array of deviation NDRs with empty/undefined values removed
   const deviationArray = [
-    data["moderate-method-deviation"],
-    data["reversible-method-deviation"],
+    // data["moderate-method-deviation"],
+    // data["reversible-method-deviation"],
   ].filter((data) => data);
 
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(

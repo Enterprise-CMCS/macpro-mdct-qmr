@@ -20,10 +20,10 @@ const MSCADValidation = (data: Measure.Form) => {
 
   // Array of deviation NDRs with empty/undefined values removed
   const deviationArray = [
-    ...(data["DeviationFields-DiscussingCessationMedications"] || []),
-    ...(data["DeviationFields-AdvisingUsersToQuit"] || []),
-    ...(data["DeviationFields-DiscussingCessationStrategies"] || []),
-    ...(data["DeviationFields-PercentageOfUsers"] || []),
+    // ...(data["DeviationFields-DiscussingCessationMedications"] || []),
+    // ...(data["DeviationFields-AdvisingUsersToQuit"] || []),
+    // ...(data["DeviationFields-DiscussingCessationStrategies"] || []),
+    // ...(data["DeviationFields-PercentageOfUsers"] || []),
   ].filter((data) => data);
 
   let errorArray: any[] = [];
