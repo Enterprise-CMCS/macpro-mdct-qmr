@@ -150,7 +150,7 @@ describe("OY2 8976 CCW-AD", () => {
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
     ).type("2");
-    cy.get('[data-cy="+ Add Another"]').click();
+    cy.get('[data-cy="+ Add Another"]').click({ force: true });
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.1.description"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.1.description"]').type(
       "Test2"
@@ -172,7 +172,7 @@ describe("OY2 8976 CCW-AD", () => {
     cy.get('[data-cy="Validate Measure"]').should("be.enabled");
     cy.get('[data-cy="Complete Measure"]').should("be.enabled");
     cy.wait(500);
-    cy.get('[data-cy="+ Add Another"]').click();
+    cy.get('[data-cy="+ Add Another"]').click({ force: true });
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.description"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.2.description"]').type(
       "check"
@@ -205,7 +205,7 @@ describe("OY2 8976 CCW-AD", () => {
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.wait(500);
-    cy.get('[data-cy="+ Add Another"]').click();
+    cy.get('[data-cy="+ Add Another"]').click({ force: true });
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.description"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.description"]').type(
       "check1"
