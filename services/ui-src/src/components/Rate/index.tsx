@@ -48,6 +48,10 @@ export const Rate = ({
     defaultValue: [],
   });
 
+  if (calcTotal) {
+    rates[rates.length - 1]["isTotal"] = true;
+  }
+
   /*
   On component render, verify that all NDRs have a label and isTotal value.
   This is required for accurate data representation in DB and to calculateTotals().
