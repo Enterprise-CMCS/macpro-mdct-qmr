@@ -40,6 +40,20 @@ export const omsValidations = ({
   );
 };
 
+// @example
+// OMS is setup to be qualifier -> categories -> rate component
+// can expect them to be in the same order as the data driven type
+
+// export const exampleValidator: OmsValidationCallback = ({categories,label,locationDictionary,qualifiers,rateData}) => {
+//   const error: FormError[] = [];
+//   for (const qual of qualifiers.map((s) => cleanString(s))) {
+//     for (const cat of categories.map((s) => cleanString(s))) {
+//       console.log('qual', qual)
+//       console.log('cat', cat)
+//     }}
+//     return error
+// }
+
 export const validateOneRateLessThanOther: OmsValidationCallback = ({
   rateData,
   categories,
