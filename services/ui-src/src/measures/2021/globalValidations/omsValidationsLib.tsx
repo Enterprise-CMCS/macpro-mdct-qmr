@@ -17,27 +17,18 @@ export const omsValidations = (
   data: DefaulFormData,
   qualifiers: string[],
   categories: string[],
-  locationDictionary: locationDictionaryFunction
+  locationDictionary: locationDictionaryFunction,
+  checkIsFilled = true
 ) => {
   return validateNDRs(
     data,
     [validateDenominatorGreaterThanNumerator],
     qualifiers,
     categories,
-    locationDictionary
+    locationDictionary,
+    checkIsFilled
   );
 };
-
-// const isEmptyNDR = (
-//   ndr: RateFields,
-//   currentValidationValue?: boolean | null
-// ): boolean => {
-//   if (!currentValidationValue) {
-//     return !ndr.denominator || !ndr.numerator || !ndr.rate;
-//   }
-
-//   return false;
-// };
 
 const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
   categories,
@@ -74,9 +65,11 @@ const validateNDRs = (
   callbackArr: OmsValidationCallback[],
   qualifiers: string[],
   categories: string[],
-  locationDictionary: locationDictionaryFunction
+  locationDictionary: locationDictionaryFunction,
+  checkIsFilled: boolean
 ) => {
-  const errorArray: any = [];
+  const isFilled: { [key: string]: boolean } = {};
+  const errorArray: FormError[] = [];
 
   // validates top levels, ex: Race, Geography, Sex
   const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string[]) => {
@@ -133,18 +126,46 @@ const validateNDRs = (
         })
       );
     }
-    // Object.keys(rateData.rates?.[option]);
-    // compareRate
-    // TODO: call callbacks with new structure
-    // TODO: refactor callbacks
+
+    if (checkIsFilled)
+      isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
+  };
+
+  //checks at least one ndr filled
+  const checkNdrsFilled = (rateData: OMS.OmsRateFields) => {
+    for (const qual of qualifiers.map((s) => cleanString(s))) {
+      for (const cat of categories.map((s) => cleanString(s))) {
+        if (rateData.rates?.[qual]?.[cat]) {
+          const temp = rateData.rates[qual][cat][0];
+          if (temp && temp.denominator && temp.numerator && temp.rate) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   };
 
   // Loop through top level nodes for validation
   for (const key of data.OptionalMeasureStratification.options) {
+    isFilled[key] = false;
     validateTopLevelNode(
       data.OptionalMeasureStratification.selections?.[key] ?? {},
       [key]
     );
+  }
+
+  if (checkIsFilled) {
+    for (const topLevelKey in isFilled) {
+      if (!isFilled[topLevelKey]) {
+        errorArray.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            [topLevelKey]
+          )}`,
+          errorMessage: "Must fill out at least one NDR set.",
+        });
+      }
+    }
   }
 
   console.log(errorArray);
