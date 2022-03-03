@@ -1,8 +1,8 @@
-import { PMD } from "../questions/data";
-import { Measure } from "./types";
+import * as PMD from "./data";
+import { FormData } from "./types";
 import { ensureBothDatesCompletedInRange } from "measures/globalValidations/validationsLib";
 
-const validateRates = (data: Measure.Form) => {
+const validateRates = (data: FormData) => {
   const sevenDays =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[1].replace(/[^\w]/g, "")}`
@@ -41,7 +41,7 @@ const validateRates = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateDualPopulationInformation = (data: Measure.Form) => {
+const validateDualPopulationInformation = (data: FormData) => {
   const sevenDays65orOlder =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[1].replace(/[^\w]/g, "")}`
@@ -119,7 +119,7 @@ const validateDualPopulationInformation = (data: Measure.Form) => {
   return error;
 };
 
-const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
+const validate7DaysGreaterThan30Days = (data: FormData) => {
   const sevenDays =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[1].replace(/[^\w]/g, "")}`
@@ -156,7 +156,7 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
+const validateThirtyDayNumeratorLessThanDenominator = (data: FormData) => {
   const thirtyDays =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[0].replace(/[^\w]/g, "")}`
@@ -190,7 +190,7 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
+const validateSevenDayNumeratorLessThanDenominator = (data: FormData) => {
   const sevenDays =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[1].replace(/[^\w]/g, "")}`
@@ -224,7 +224,7 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateAtLeastOneNDRSet = (data: Measure.Form) => {
+const validateAtLeastOneNDRSet = (data: FormData) => {
   let error;
   const measureSpecification = data["MeasurementSpecification"];
   const sevenDays =
@@ -269,7 +269,7 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   return error;
 };
 
-const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+const validateBothDatesCompletedInRange = (data: FormData) => {
   const dateRange = data["DateRange"];
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };

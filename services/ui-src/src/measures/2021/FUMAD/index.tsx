@@ -1,9 +1,9 @@
-import * as CMQ from "../../CommonQuestions";
+import * as CMQ from "measures/CommonQuestions";
 import * as Types from "measures/CommonQuestions/types";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation/customValidationFunctions";
-import { PMD } from "./questions/data";
+import { validationFunctions } from "./validation";
+import * as PMD from "./data";
 
 export const FUMAD = ({
   name,
