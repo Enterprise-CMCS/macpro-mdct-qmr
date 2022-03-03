@@ -1,6 +1,6 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
-export const data: DataDrivenTypes.DataSource = {
+export const dataSourceData: DataDrivenTypes.DataSource = {
   optionsLabel:
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
   options: [

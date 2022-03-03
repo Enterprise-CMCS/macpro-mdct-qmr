@@ -1,4 +1,3 @@
-import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -7,9 +6,10 @@ import {
   validateEqualDenominators,
 } from "measures/globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import { PMD } from "../questions/data";
+import * as PMD from "./data";
+import * as Types from "./types";
 
-const OUDValidation = (data: Measure.Form) => {
+const OUDValidation = (data: Types.FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data["DateRange"];

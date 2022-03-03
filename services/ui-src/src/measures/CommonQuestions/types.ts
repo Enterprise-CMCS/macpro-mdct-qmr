@@ -315,4 +315,5 @@ export type DefaulFormData = AdditionalNotes &
   OtherPerformanceMeasure &
   OptionalMeasureStratification &
   PerformanceMeasure &
-  DeviationFromMeasureSpecification;
+  DeviationFromMeasureSpecification &
+  DataSource;

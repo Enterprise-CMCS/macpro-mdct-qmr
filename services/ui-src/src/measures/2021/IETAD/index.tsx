@@ -1,4 +1,4 @@
-import * as Q from "./questions";
+import { dataSourceData } from "./questions/data/dataSource";
 import * as CMQ from "measures/CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
@@ -140,7 +140,7 @@ export const IETAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={Q.DataSourceData} />
+          <CMQ.DataSource data={dataSourceData} />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
