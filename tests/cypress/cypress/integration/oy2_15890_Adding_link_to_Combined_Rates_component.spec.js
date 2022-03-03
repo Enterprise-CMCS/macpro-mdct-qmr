@@ -17,10 +17,14 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
     cy.xpath("//button[contains(text(),'Clear Data')]").click();
     cy.wait(2000);
     cy.get('[data-cy="CCP-AD"]').click();
-    cy.get('[data-cy="Combined Rate(s) from Multiple Reporting Units"]').should('have.text', 'Combined Rate(s) from Multiple Reporting Units');
-    cy.get('.css-bxak8j').should('have.text', 'For additional information refer to the State-Level Rate Brief.');   
-    cy.get('.css-bxak8j > .chakra-link').click();
-    
+    cy.get('[data-cy="Combined Rate(s) from Multiple Reporting Units"]').should(
+      "have.text",
+      "Combined Rate(s) from Multiple Reporting Units"
+    );
+    cy.get(".css-bxak8j").should(
+      "have.text",
+      "For additional information refer to the State-Level Rate Brief."
+    );
+    cy.get(".css-bxak8j > .chakra-link").click();
   });
-
-  });
+});
