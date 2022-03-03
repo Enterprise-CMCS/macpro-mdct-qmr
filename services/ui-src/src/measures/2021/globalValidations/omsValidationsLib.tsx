@@ -13,20 +13,26 @@ type OmsValidationCallback = (data: {
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 
-export const omsValidations = (
-  data: DefaulFormData,
-  qualifiers: string[],
-  categories: string[],
-  locationDictionary: locationDictionaryFunction,
-  checkIsFilled = true
-) => {
+interface OmsValidationProps {
+  data: DefaulFormData;
+  qualifiers: string[];
+  categories: string[];
+  locationDictionary: locationDictionaryFunction;
+  checkIsFilled?: boolean;
+  validationCallbacks: OmsValidationCallback[];
+}
+
+export const omsValidations = ({
+  categories,
+  checkIsFilled = true,
+  data,
+  locationDictionary,
+  qualifiers,
+  validationCallbacks,
+}: OmsValidationProps) => {
   return validateNDRs(
     data,
-    [
-      validateDenominatorGreaterThanNumerator,
-      validateDenominatorsAreTheSame,
-      validateOneRateLessThanOther,
-    ],
+    validationCallbacks,
     qualifiers,
     categories,
     locationDictionary,
@@ -34,7 +40,7 @@ export const omsValidations = (
   );
 };
 
-const validateOneRateLessThanOther: OmsValidationCallback = ({
+export const validateOneRateLessThanOther: OmsValidationCallback = ({
   rateData,
   categories,
   qualifiers,
@@ -72,7 +78,7 @@ const validateOneRateLessThanOther: OmsValidationCallback = ({
   return errors;
 };
 
-const validateDenominatorsAreTheSame: OmsValidationCallback = ({
+export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
   rateData,
   categories,
   qualifiers,
@@ -110,7 +116,7 @@ const validateDenominatorsAreTheSame: OmsValidationCallback = ({
   return errors;
 };
 
-const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
+export const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
   categories,
   qualifiers,
   rateData,
@@ -248,6 +254,5 @@ const validateNDRs = (
     }
   }
 
-  console.log(errorArray);
   return errorArray;
 };

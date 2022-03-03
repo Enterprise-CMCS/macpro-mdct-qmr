@@ -11,7 +11,11 @@ import {
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
-import { omsValidations } from "measures/2021/globalValidations/omsValidationsLib";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateDenominatorsAreTheSame,
+} from "measures/2021/globalValidations/omsValidationsLib";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -94,12 +98,16 @@ const IEDValidation = (data: Measure.Form) => {
     ),
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...omsValidations(
+    ...omsValidations({
       data,
-      PMD.qualifiers,
-      PMD.categories,
-      omsLocationDictionary(OMSData(true))
-    ),
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(OMSData(true)),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateDenominatorsAreTheSame,
+      ],
+    }),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
