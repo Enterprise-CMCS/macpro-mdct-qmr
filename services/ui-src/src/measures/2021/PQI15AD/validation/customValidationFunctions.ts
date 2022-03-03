@@ -1,7 +1,6 @@
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import {
   atLeastOneRateComplete,
-  validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
 } from "../../globalValidations/validationsLib";
@@ -19,9 +18,7 @@ const PQI01Validation = (data: Measure.Form) => {
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-groups"]),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
-      "age-groups",
-    ]),
+
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, [
       "age-groups",
     ]),

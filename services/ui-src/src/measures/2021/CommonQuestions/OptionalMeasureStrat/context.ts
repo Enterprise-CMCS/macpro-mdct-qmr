@@ -10,6 +10,7 @@ interface ContextProps {
   qualifiers: string[];
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
@@ -21,6 +22,7 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   qualifiers: [],
   rateMultiplicationValue: undefined,
   customMask: undefined,
+  allowNumeratorGreaterThanDenominator: false,
 });
 
 export const usePerformanceMeasureContext = () =>

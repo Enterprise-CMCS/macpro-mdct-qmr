@@ -48,6 +48,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
+  allowNumeratorGreaterThanDenominator?: boolean;
   customMask?: RegExp;
 }
 
@@ -87,6 +88,7 @@ export const OptionalMeasureStrat = ({
   calcTotal = false,
   adultMeasure,
   rateMultiplicationValue,
+  allowNumeratorGreaterThanDenominator = false,
   customMask,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
@@ -127,6 +129,7 @@ export const OptionalMeasureStrat = ({
           categories,
           rateMultiplicationValue,
           customMask,
+          allowNumeratorGreaterThanDenominator,
         }}
       >
         <CUI.Text py="3">

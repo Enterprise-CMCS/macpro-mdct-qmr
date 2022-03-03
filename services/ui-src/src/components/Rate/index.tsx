@@ -22,6 +22,7 @@ interface Props extends QMR.InputWrapperProps {
   allowMultiple?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 export const Rate = ({
@@ -31,6 +32,7 @@ export const Rate = ({
   readOnly = true,
   rateMultiplicationValue = 100,
   customMask,
+  allowNumeratorGreaterThanDenominator,
   ...rest
 }: Props) => {
   const {
@@ -173,14 +175,15 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
             </CUI.HStack>
-            {parseFloat(field.value[index]?.numerator) >
-              parseFloat(field.value[index]?.denominator) && (
-              <QMR.Notification
-                alertTitle="Rate Error"
-                alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
-                alertStatus="warning"
-              />
-            )}
+            {!allowNumeratorGreaterThanDenominator &&
+              parseFloat(field.value[index]?.numerator) >
+                parseFloat(field.value[index]?.denominator) && (
+                <QMR.Notification
+                  alertTitle="Rate Error"
+                  alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
+                  alertStatus="warning"
+                />
+              )}
           </CUI.Stack>
         );
       })}

@@ -74,6 +74,7 @@ export const PQI15AD = ({
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isAHRQ && (
             <CMQ.PerformanceMeasure
+              allowNumeratorGreaterThanDenominator
               data={PMD.data}
               rateScale={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
@@ -86,6 +87,7 @@ export const PQI15AD = ({
           {/* Show Other Performance Measures when isAHRQ is not true  */}
           {isOtherSpecification && (
             <CMQ.OtherPerformanceMeasure
+              allowNumeratorGreaterThanDenominator
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
@@ -98,6 +100,7 @@ export const PQI15AD = ({
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               adultMeasure
+              allowNumeratorGreaterThanDenominator
             />
           )}
         </>

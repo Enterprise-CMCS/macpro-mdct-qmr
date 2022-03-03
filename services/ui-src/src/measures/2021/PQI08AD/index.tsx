@@ -83,6 +83,7 @@ export const PQI08AD = ({
           {isAHRQ && (
             <CMQ.PerformanceMeasure
               data={PMD.data}
+              allowNumeratorGreaterThanDenominator
               rateScale={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
@@ -94,6 +95,7 @@ export const PQI08AD = ({
           {/* Show Other Performance Measures when isAHRQ is not true  */}
           {isOtherSpecification && (
             <CMQ.OtherPerformanceMeasure
+              allowNumeratorGreaterThanDenominator
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />

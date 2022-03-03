@@ -85,6 +85,7 @@ export const PQI01AD = ({
               data={PMD.data}
               rateScale={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+              allowNumeratorGreaterThanDenominator
             />
           )}
           {/* Show Deviation only when Other is not selected */}
@@ -96,6 +97,7 @@ export const PQI01AD = ({
             <CMQ.OtherPerformanceMeasure
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+              allowNumeratorGreaterThanDenominator
             />
           )}
           <CMQ.CombinedRates />

@@ -2,7 +2,6 @@ import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
 } from "../../globalValidations/validationsLib";
@@ -22,9 +21,6 @@ const PQI01Validation = (data: Measure.Form) => {
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-groups"]),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
-      "age-groups",
-    ]),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, [
       "age-groups",
     ]),
