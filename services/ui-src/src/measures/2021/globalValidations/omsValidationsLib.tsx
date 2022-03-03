@@ -1,4 +1,4 @@
-import { OmsNodes as OMS } from "../CommonQuestions/types";
+import { OmsNodes as OMS, RateFields } from "../CommonQuestions/types";
 import { DefaulFormData } from "../CommonQuestions/types";
 
 type locationDictionaryFunction = (labels: string[]) => string;
@@ -22,12 +22,50 @@ export const omsValidations = (
 ) => {
   return validateNDRs(
     data,
-    [validateDenominatorGreaterThanNumerator],
+    [validateDenominatorGreaterThanNumerator, validateDenominatorsAreTheSame],
     qualifiers,
     categories,
     locationDictionary,
     checkIsFilled
   );
+};
+
+const validateDenominatorsAreTheSame: OmsValidationCallback = ({
+  rateData,
+  categories,
+  qualifiers,
+  label,
+  locationDictionary,
+}) => {
+  const errors: FormError[] = [];
+  const areDenomsTheSame = (rateArr: RateFields[]) => {
+    if (rateArr.length === 0) return true;
+    const compareValue = rateArr[0].denominator;
+
+    return rateArr.every((rate) => rate.denominator === compareValue);
+  };
+
+  for (const qual of qualifiers) {
+    const cleanQual = cleanString(qual);
+    const rateArr: RateFields[] = [];
+    for (const cat of categories.map((s) => cleanString(s))) {
+      if (rateData.rates?.[cleanQual]?.[cat]) {
+        const temp = rateData.rates[cleanQual][cat][0];
+        if (temp && temp.denominator) {
+          rateArr.push(temp);
+        }
+      }
+    }
+    if (!areDenomsTheSame(rateArr)) {
+      errors.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )} - ${qual}`,
+        errorMessage: "Denominators must be the same.",
+      });
+    }
+  }
+  return errors;
 };
 
 const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
