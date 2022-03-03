@@ -1,5 +1,6 @@
 import { Measure } from "./types";
 import { PMD } from "../questions/data";
+import { omsLocationDictionary } from "../../globalValidations/dataDrivenTools";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -12,6 +13,7 @@ import {
 } from "../../globalValidations/validationsLib";
 import { omsValidations } from "measures/2021/globalValidations/omsValidationsLib";
 import { getPerfMeasureRateArray } from "../../globalValidations";
+import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 const IEDValidation = (data: Measure.Form) => {
   const ageGroups = PMD.qualifiers;
@@ -92,7 +94,12 @@ const IEDValidation = (data: Measure.Form) => {
     ),
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...omsValidations(data, PMD.qualifiers, PMD.categories),
+    ...omsValidations(
+      data,
+      PMD.qualifiers,
+      PMD.categories,
+      omsLocationDictionary(OMSData(true))
+    ),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

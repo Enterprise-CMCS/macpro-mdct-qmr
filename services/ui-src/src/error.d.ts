@@ -1,4 +1,4 @@
 interface FormError {
-  location: string;
+  errorLocation: string;
   errorMessage: string;
 }

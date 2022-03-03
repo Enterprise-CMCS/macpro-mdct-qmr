@@ -6,6 +6,7 @@ type OmsValidationCallback = (data: {
   qualifiers: string[];
   categories: string[];
   label: string;
+  locationDictionary: { [key: string]: string };
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -13,17 +14,16 @@ const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 export const omsValidations = (
   data: DefaulFormData,
   qualifiers: string[],
-  categories: string[]
+  categories: string[],
+  locationDictionary: { [key: string]: string }
 ) => {
-  console.log("numerator less than");
   return validateNDRs(
     data,
     [validateDenominatorGreaterThanNumerator],
     qualifiers,
-    categories
+    categories,
+    locationDictionary
   );
-  // console.log("validate at least one");
-  // validateNDRs(data, isEmptyNDR, qualifiers, categories);
 };
 
 // const isEmptyNDR = (
@@ -42,9 +42,9 @@ const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
   qualifiers,
   rateData,
   label,
+  locationDictionary,
 }) => {
   const error: FormError[] = [];
-
   for (const qual of qualifiers.map((s) => cleanString(s))) {
     for (const cat of categories.map((s) => cleanString(s))) {
       if (rateData.rates?.[qual]?.[cat]) {
@@ -52,7 +52,9 @@ const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
         if (temp.denominator && temp.numerator) {
           if (parseFloat(temp.denominator) < parseFloat(temp.numerator)) {
             error.push({
-              location: label, //TODO: add dict lookup for location cleanup
+              errorLocation: `Optional Measure Stratification - ${
+                locationDictionary[label] ?? label
+              }`, //TODO: add dict lookup for location cleanup
               errorMessage:
                 "Numerator cannot be greater than the Denominator for NDR sets.",
             });
@@ -69,9 +71,9 @@ const validateNDRs = (
   data: DefaulFormData,
   callbackArr: OmsValidationCallback[],
   qualifiers: string[],
-  categories: string[]
+  categories: string[],
+  locationDictionary: { [key: string]: string }
 ) => {
-  const filledInRates: any = {};
   const errorArray: any = [];
 
   // validates top levels, ex: Race, Geography, Sex
@@ -79,13 +81,13 @@ const validateNDRs = (
     // validate children if exist
     if (node.options?.length) {
       for (const option of node.options) {
-        validateChildNodes(node.selections?.[option] ?? {}, label);
+        validateChildNodes(node.selections?.[option] ?? {}, option);
       }
     }
 
     // validate for additionals category
     for (const addtnl of node.additionalSelections ?? []) {
-      validateChildNodes(addtnl, label);
+      validateChildNodes(addtnl, addtnl.description ?? "Additional Rate");
     }
 
     // ACA validate
@@ -99,14 +101,14 @@ const validateNDRs = (
     // validate sub categories
     if (node.additionalSubCategories?.length) {
       for (const subCat of node.additionalSubCategories) {
-        validateChildNodes(subCat, label);
+        validateChildNodes(subCat, subCat?.description ?? "");
       }
     }
 
     // validate sub type, ex: Asian -> Korean, Chinese, etc
     if (node.aggregate?.includes("No")) {
       for (const key of node.options ?? []) {
-        validateChildNodes(node.selections?.[key] ?? {}, label);
+        validateChildNodes(node.selections?.[key] ?? {}, key);
       }
     }
 
@@ -118,10 +120,16 @@ const validateNDRs = (
 
   // Rate containers to be validated
   const validateNodeRates = (rateData: OMS.OmsRateFields, label: string) => {
-    filledInRates[label] = "stuff";
-    console.log("node rates", label, rateData);
     for (const callback of callbackArr) {
-      errorArray.push(...callback({ rateData, categories, qualifiers, label }));
+      errorArray.push(
+        ...callback({
+          rateData,
+          categories,
+          qualifiers,
+          label,
+          locationDictionary,
+        })
+      );
     }
     // Object.keys(rateData.rates?.[option]);
     // compareRate
@@ -137,7 +145,6 @@ const validateNDRs = (
     );
   }
 
-  console.log("filledInRates", filledInRates);
   console.log(errorArray);
   return errorArray;
 };
