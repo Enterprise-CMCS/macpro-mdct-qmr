@@ -139,6 +139,7 @@ const AgeData = ({ name }: SubComponentProps) => {
         name={`${name}.subRates.PersistentAsthma`}
         key={`${name}.subRates.PersistentAsthma`}
         rates={ageGroups}
+        calcTotal={true}
       />
     </CUI.Box>
   );
