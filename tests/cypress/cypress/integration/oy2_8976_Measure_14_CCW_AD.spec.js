@@ -204,6 +204,7 @@ describe("OY2 8976 CCW-AD", () => {
     );
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
+    cy.wait(500);
     cy.get('[data-cy="+ Add Another"]').click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.description"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.description"]').type(
