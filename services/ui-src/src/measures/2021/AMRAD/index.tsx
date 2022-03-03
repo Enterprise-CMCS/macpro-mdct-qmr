@@ -37,7 +37,7 @@ export const AMRAD = ({
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   const watchPersistentAsthma = useWatch({
-    name: "PerformanceMeasure-AgeRates-Persistent-Asthma",
+    name: `PerformanceMeasure.rates.singleCategory`,
   });
 
   const showPersistentAsthma19To50 = !!watchPersistentAsthma?.[0]?.rate;
