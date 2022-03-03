@@ -1,5 +1,6 @@
 import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
+import * as PMD from "./questions/performanceMeasureData";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -90,16 +91,18 @@ export const AMRAD = ({
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isHEDIS && <Q.PerformanceMeasure />}
+          {isHEDIS && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showPersistentAsthma19To50,
-                showPersistentAsthma51To64,
-                showPersistentAsthmaTotal,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={[]} />
+            // <Q.DeviationFromMeasureSpec
+            //   options={ageGroups}
+            //   deviationConditions={{
+            //     showPersistentAsthma19To50,
+            //     showPersistentAsthma51To64,
+            //     showPersistentAsthmaTotal,
+            //   }}
+            // />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
