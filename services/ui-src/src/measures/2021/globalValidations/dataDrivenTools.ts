@@ -62,5 +62,11 @@ export const omsLocationDictionary = (renderData: DDT.OptionalMeasureStrat) => {
     checkNode(node);
   }
 
-  return dictionary;
+  return (labels: string[]) =>
+    labels.reduce((prevValue, currentValue, index) => {
+      if (index === 0) {
+        return dictionary[currentValue] ?? currentValue;
+      }
+      return `${prevValue} - ${dictionary[currentValue] ?? currentValue}`;
+    }, "");
 };

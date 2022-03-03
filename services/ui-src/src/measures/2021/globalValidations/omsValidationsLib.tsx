@@ -1,12 +1,14 @@
 import { OmsNodes as OMS } from "../CommonQuestions/types";
 import { DefaulFormData } from "../CommonQuestions/types";
 
+type locationDictionaryFunction = (labels: string[]) => string;
+
 type OmsValidationCallback = (data: {
   rateData: OMS.OmsRateFields;
   qualifiers: string[];
   categories: string[];
-  label: string;
-  locationDictionary: { [key: string]: string };
+  label: string[];
+  locationDictionary: locationDictionaryFunction;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -15,7 +17,7 @@ export const omsValidations = (
   data: DefaulFormData,
   qualifiers: string[],
   categories: string[],
-  locationDictionary: { [key: string]: string }
+  locationDictionary: locationDictionaryFunction
 ) => {
   return validateNDRs(
     data,
@@ -49,12 +51,12 @@ const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
     for (const cat of categories.map((s) => cleanString(s))) {
       if (rateData.rates?.[qual]?.[cat]) {
         const temp = rateData.rates[qual][cat][0];
-        if (temp.denominator && temp.numerator) {
+        if (temp && temp.denominator && temp.numerator) {
           if (parseFloat(temp.denominator) < parseFloat(temp.numerator)) {
             error.push({
-              errorLocation: `Optional Measure Stratification - ${
-                locationDictionary[label] ?? label
-              }`, //TODO: add dict lookup for location cleanup
+              errorLocation: `Optional Measure Stratification: ${locationDictionary(
+                label
+              )}`,
               errorMessage:
                 "Numerator cannot be greater than the Denominator for NDR sets.",
             });
@@ -72,22 +74,22 @@ const validateNDRs = (
   callbackArr: OmsValidationCallback[],
   qualifiers: string[],
   categories: string[],
-  locationDictionary: { [key: string]: string }
+  locationDictionary: locationDictionaryFunction
 ) => {
   const errorArray: any = [];
 
   // validates top levels, ex: Race, Geography, Sex
-  const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string) => {
+  const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string[]) => {
     // validate children if exist
     if (node.options?.length) {
       for (const option of node.options) {
-        validateChildNodes(node.selections?.[option] ?? {}, option);
+        validateChildNodes(node.selections?.[option] ?? {}, [...label, option]);
       }
     }
 
     // validate for additionals category
     for (const addtnl of node.additionalSelections ?? []) {
-      validateChildNodes(addtnl, addtnl.description ?? "Additional Rate");
+      validateChildNodes(addtnl, [...label, "Additional Category"]);
     }
 
     // ACA validate
@@ -97,18 +99,18 @@ const validateNDRs = (
   };
 
   // validate mid level, ex: White, African American, etc
-  const validateChildNodes = (node: OMS.MidLevelOMSNode, label: string) => {
+  const validateChildNodes = (node: OMS.MidLevelOMSNode, label: string[]) => {
     // validate sub categories
     if (node.additionalSubCategories?.length) {
       for (const subCat of node.additionalSubCategories) {
-        validateChildNodes(subCat, subCat?.description ?? "");
+        validateChildNodes(subCat, [...label, "sub-category"]);
       }
     }
 
     // validate sub type, ex: Asian -> Korean, Chinese, etc
     if (node.aggregate?.includes("No")) {
       for (const key of node.options ?? []) {
-        validateChildNodes(node.selections?.[key] ?? {}, key);
+        validateChildNodes(node.selections?.[key] ?? {}, [...label, key]);
       }
     }
 
@@ -119,7 +121,7 @@ const validateNDRs = (
   };
 
   // Rate containers to be validated
-  const validateNodeRates = (rateData: OMS.OmsRateFields, label: string) => {
+  const validateNodeRates = (rateData: OMS.OmsRateFields, label: string[]) => {
     for (const callback of callbackArr) {
       errorArray.push(
         ...callback({
@@ -141,7 +143,7 @@ const validateNDRs = (
   for (const key of data.OptionalMeasureStratification.options) {
     validateTopLevelNode(
       data.OptionalMeasureStratification.selections?.[key] ?? {},
-      key
+      [key]
     );
   }
 
