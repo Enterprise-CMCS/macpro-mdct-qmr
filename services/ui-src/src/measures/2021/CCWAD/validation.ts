@@ -1,10 +1,10 @@
-import { Measure } from "../validation/types";
+import { Measure } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
 } from "measures/globalValidations/validationsLib";
-import { PMD } from "../questions/data";
+import * as PMD from "./data";
 
 const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
   const reversibleRates =

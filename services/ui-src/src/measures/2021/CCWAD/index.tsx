@@ -1,7 +1,7 @@
 import * as CMQ from "../CommonQuestions";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation/customValidationFunctions";
-import { PMD } from "./questions/data";
+import { validationFunctions } from "./validation";
+import * as PMD from "./data";
 import * as Types from "../CommonQuestions/types";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 
