@@ -2,7 +2,7 @@ import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
 import { WhyDidYouNotCollect } from ".";
-import * as Types from "measures/CommonQuestions/types";
+import { FormData } from "../types";
 
 interface Props {
   measureName: string;
@@ -11,8 +11,8 @@ interface Props {
 }
 
 export const Reporting = ({ reportingYear }: Props) => {
-  const register = useCustomRegister<Types.DefaulFormData>();
-  const { watch } = useFormContext<Types.DefaulFormData>();
+  const register = useCustomRegister<FormData>();
+  const { watch } = useFormContext<FormData>();
   const watchRadioStatus = watch("DidCollect");
 
   return (
