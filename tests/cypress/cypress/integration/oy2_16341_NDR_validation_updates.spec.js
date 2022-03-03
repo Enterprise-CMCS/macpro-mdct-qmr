@@ -9,10 +9,219 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.xpath(passwordForCognito).type("p@55W0rd!");
     cy.get('[data-cy="login-with-cognito-button"]').click();
   });
-  it("Click on NO for the first question then click on validate and complete button", () => {
-    cy.get(
-      "body.chakra-ui-light:nth-child(2) div.css-4ma18r:nth-child(1) div.css-1gy6ge8 div.chakra-container.css-1vsk1kk div.css-1ibkps6 > a:nth-child(4)"
-    ).click();
-    cy.get(".chakra-heading").should("have.text", "FAQ");
+  it("Click on NO for the first question then click on validate and complete button for CCP-AD", () => {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="ACS"]').click();
+    cy.get('[data-cy="CCP-AD"]').click();
+    cy.wait(2000);
+    cy.xpath('//button[@data-cy="Clear Data"]').click();
+    cy.get('[data-cy="CCP-AD"]').click();
+    cy.get('[data-cy="DidReport1"]').click();
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should('be.visible');
+    cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should('have.text', 'Why Are You Not Reporting On This Measure Error');
+    cy.get('[data-cy="You must select at least one reason for not reporting on this measure"]').should('be.visible');
+    cy.get('[data-cy="You must select at least one reason for not reporting on this measure"]').should('have.text', 'You must select at least one reason for not reporting on this measure');
+    cy.get('[data-cy="Complete Measure"]').click();
+    cy.get('.css-cirab6').click();
+    cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should('have.text', 'Why Are You Not Reporting On This Measure Error');
+    cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should('be.visible');
+    cy.get('[data-cy="You must select at least one reason for not reporting on this measure"]').should('be.visible');
+    cy.get('[data-cy="You must select at least one reason for not reporting on this measure"]').should('have.text', 'You must select at least one reason for not reporting on this measure');
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('PM NDR verification for CCP-AD', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="ACS"]').click();
+    cy.get('[data-cy="CCP-AD"]').click();
+    cy.wait(2000);
+    cy.get('[data-cy="Clear Data"]').click();
+    cy.get('[data-cy="CCP-AD"]').click();
+    cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get('#DataSource1-checkbox').check();
+    cy.get('[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control').click();
+    cy.get('#DefinitionOfDenominator2-checkbox').check();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.numerator"]').type('20');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.denominator"]').type('50');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.rate"]').should('have.value', '40.0');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.1.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.1.numerator"]').type('40');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.1.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.1.denominator"]').type('80');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.1.rate"]').should('have.value', '50.0');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.1.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.1.numerator"]').type('0');
+    cy.get(':nth-child(9) > :nth-child(8)').click();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.1.rate"]').should('have.value', '0.0');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.rate"]').type('0');
+    cy.get(':nth-child(7) > [data-cy="Sixty Days Postpartum Rate"]').click();
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('be.visible');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('have.text', 'Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('be.visible');
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('OPM NDR verification for CCP-AD', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="ACS"]').click();
+    cy.get('[data-cy="CCP-AD"]').click();
+    cy.wait(2000);
+    cy.get('[data-cy="Clear Data"]').click();
+    cy.get('[data-cy="CCP-AD"]').click();
+    cy.get('[data-cy="MeasurementSpecification1"]').click();
+    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get('#DataSource1-checkbox').check();
+    cy.get('[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control').click();
+    cy.get('#DefinitionOfDenominator2-checkbox').check();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type('4');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]').type('40');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').should('have.value', '10.0');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type('0');
+    cy.get(':nth-child(9) > .css-1bpnzr3 > .css-0').click();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').should('have.value', '0.0');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type('5');
+    cy.get(':nth-child(9) > .css-1bpnzr3 > .css-0').click();
+    cy.get(':nth-child(9) > .css-1bpnzr3 > .css-0').click();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').type('0');
+    cy.get(':nth-child(9) > .css-1bpnzr3').click();
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('have.text', 'Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.');
+    cy.get('[data-cy="Complete Measure"]').click();
+    cy.get('.css-cirab6').click();
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('be.visible');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('be.visible');
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('have.text', 'Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.');
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('Click on NO for the first question then click on validate and complete button for PQI01-AD', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="ACS"]').click();
+    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.wait(2000);
+    cy.get('[data-cy="Clear Data"]').click();
+    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.get('[data-cy="DidReport1"]').click();
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should('have.text', 'Why Are You Not Reporting On This Measure Error');
+    cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should('be.visible');
+    cy.get('[data-cy="You must select at least one reason for not reporting on this measure"]').should('have.text', 'You must select at least one reason for not reporting on this measure');
+    cy.get('[data-cy="You must select at least one reason for not reporting on this measure"]').should('be.visible');
+    cy.get('[data-cy="Complete Measure"]').click();
+    cy.get('.css-cirab6').click();
+    cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should('have.text', 'Why Are You Not Reporting On This Measure Error');
+    cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should('be.visible');
+    cy.get('[data-cy="You must select at least one reason for not reporting on this measure"]').should('have.text', 'You must select at least one reason for not reporting on this measure');
+    cy.get('[data-cy="You must select at least one reason for not reporting on this measure"]').should('be.visible');
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('PM NDR verification for PQI01-AD', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="ACS"]').click();
+    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.wait(2000);
+    cy.get('[data-cy="Clear Data"]').click();
+    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get('#DataSource1-checkbox').check();
+    cy.get('[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control').click();
+    cy.get('#DefinitionOfDenominator2-checkbox').check();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type('4');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.denominator"]').type('40');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should('have.value', '10000.0');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.numerator"]').type('5');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.denominator"]').type('70');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.rate"]').should('have.value', '7142.9');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.numerator"]').type('0');
+    cy.get('.chakra-container > :nth-child(9)').click();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.0.rate"]').should('have.value', '0.0');
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure-AgeRates.1.rate"]').type('0');
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('be.visible');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('be.visible');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('have.text', 'Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.');
+    cy.get('[data-cy="Complete Measure"]').click();
+    cy.get('.chakra-modal__content-container').click();
+    cy.get('[data-cy="Complete Measure"]').click();
+    cy.get('.css-cirab6').click();
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('be.visible');
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('be.visible');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('have.text', 'Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.');
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('OPM NDR verification for PQI01-AD', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="ACS"]').click();
+    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.wait(2000);
+    cy.get('[data-cy="Clear Data"]').click();
+    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.get('[data-cy="DataSource1"]').click();
+    cy.get('#DataSource1-checkbox').check();
+    cy.get('[data-cy="MeasurementSpecification1"]').click();
+    cy.get('[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control').click();
+    cy.get('#DefinitionOfDenominator2-checkbox').check();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type('5');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]').type('8');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').should('have.value', '62500.0');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type('0');
+    cy.get(':nth-child(9) > .css-1bpnzr3 > .css-0').click();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').should('have.value', '0.0');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type('2');
+    cy.get(':nth-child(9) > .css-1bpnzr3 > .css-0').click();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').click();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').type('0');
+    cy.get(':nth-child(9) > .css-1bpnzr3 > .css-0').click();
+    cy.get(':nth-child(9) > .css-1bpnzr3 > .css-0').click();
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('be.visible');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('have.text', 'Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('be.visible');
+    cy.get('[data-cy="Complete Measure"]').click();
+    cy.get('.chakra-modal__content-container').click();
+    cy.get('[data-cy="Complete Measure"]').click();
+    cy.get('.css-cirab6').click();
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('be.visible');
+    cy.get('[data-testid="measure-wrapper-form"] > :nth-child(2)').click();
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('have.text', 'Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.');
+    cy.get('[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]').should('be.visible');
+    /* ==== End Cypress Studio ==== */
   });
 });
