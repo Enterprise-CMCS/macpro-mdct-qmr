@@ -1,4 +1,4 @@
-import { PMD } from "../questions/data";
+import * as PMD from "./data";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
