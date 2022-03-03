@@ -61,6 +61,7 @@ export const PQI15AD = ({
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
+              rateMultiplicationValue={100000}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
             />
