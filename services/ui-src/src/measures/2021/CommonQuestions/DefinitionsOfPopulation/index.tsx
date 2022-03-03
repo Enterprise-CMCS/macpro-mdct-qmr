@@ -114,7 +114,7 @@ export const DefinitionOfPopulation = () => {
               value: "FFS",
               children: [
                 <QMR.RadioButton
-                  {...register("DeliverySys-FreeForService")}
+                  {...register("DeliverySys-FeeForService")}
                   formLabelProps={{ fontWeight: "400" }}
                   label="Is all of your measure-eligible Fee-for-Service (FFS) population included in this measure?"
                   options={[
@@ -129,7 +129,7 @@ export const DefinitionOfPopulation = () => {
                       value: "NoAllFFS",
                       children: [
                         <QMR.NumberInput
-                          {...register("DeliverySys-FreeForService-No-Percent")}
+                          {...register("DeliverySys-FeeForService-No-Percent")}
                           formLabelProps={{ fontWeight: "400" }}
                           label="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"
                           displayPercent
@@ -148,7 +148,7 @@ export const DefinitionOfPopulation = () => {
                         </CUI.Text>,
                         <QMR.NumberInput
                           {...register(
-                            "DeliverySys-FreeForService-No-Population"
+                            "DeliverySys-FeeForService-No-Population"
                           )}
                           formLabelProps={{ fontWeight: "400" }}
                           mask={allPositiveIntegers}
@@ -220,26 +220,26 @@ export const DefinitionOfPopulation = () => {
                 "Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)",
               value: "MCO-PIHP",
               children: [
-                <CUI.Box pb="5" key="DeliverySys-MCO_POHP-Percent">
+                <CUI.Box pb="5" key="DeliverySys-MCO_PIHP-Percent">
                   <QMR.NumberInput
                     displayPercent
                     mask={percentageAllowOneDecimalMax}
                     formLabelProps={{ fontWeight: "400" }}
                     label="What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in the measure?"
-                    {...register("DeliverySys-MCO_POHP-Percent")}
+                    {...register("DeliverySys-MCO_PIHP-Percent")}
                   />
                 </CUI.Box>,
-                <CUI.Box py="5" key="DeliverySys-MCO_POHP-NumberOfPlans">
+                <CUI.Box py="5" key="DeliverySys-MCO_PIHP-NumberOfPlans">
                   <QMR.NumberInput
                     formLabelProps={{ fontWeight: "400" }}
                     mask={allPositiveIntegers}
                     label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data?"
-                    {...register("DeliverySys-MCO_POHP-NumberOfPlans")}
+                    {...register("DeliverySys-MCO_PIHP-NumberOfPlans")}
                   />
                 </CUI.Box>,
-                <CUI.Box pt="5" key="DeliverySys-MCO_POHP">
+                <CUI.Box pt="5" key="DeliverySys-MCO_PIHP">
                   <QMR.RadioButton
-                    {...register("DeliverySys-MCO_POHP")}
+                    {...register("DeliverySys-MCO_PIHP")}
                     formLabelProps={{ fontWeight: "400" }}
                     label="Is all of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population included in this measure?"
                     options={[
@@ -267,7 +267,7 @@ export const DefinitionOfPopulation = () => {
                             mask={percentageAllowOneDecimalMax}
                             renderHelperTextAbove
                             helperText="The percentage provided here should represent the percentage of the denominator population(s) included in the measure (i.e., Medicaid, CHIP, etc.) that receives items/services through the selected delivery system. For example, if the population included in the reported data represents all managed care enrollees and half of your state’s fee-for-service enrollees, select managed care, and select fee-for-service and enter 50."
-                            {...register("DeliverySys-MCO_POHP-No-Included")}
+                            {...register("DeliverySys-MCO_PIHP-No-Included")}
                           />,
                           <CUI.Text my="5" key="AdditionalMCOExcludedText">
                             {" "}
@@ -283,7 +283,7 @@ export const DefinitionOfPopulation = () => {
                           </CUI.Text>,
                           <QMR.NumberInput
                             mask={allPositiveIntegers}
-                            {...register("DeliverySys-MCO_POHP-No-Excluded")}
+                            {...register("DeliverySys-MCO_PIHP-No-Excluded")}
                           />,
                         ],
                       },
