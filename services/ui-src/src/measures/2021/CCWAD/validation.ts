@@ -1,4 +1,4 @@
-import { Measure } from "./types";
+import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -6,7 +6,7 @@ import {
 } from "measures/globalValidations/validationsLib";
 import * as PMD from "./data";
 
-const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
+const validateReversibleNumeratorLessThanDenominator = (data: FormData) => {
   const reversibleRates =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[1].replace(/[^\w]/g, "")}`
@@ -35,7 +35,7 @@ const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
 
   return error ? errorArray : error;
 };
-const validateModeratelyNumeratorLessThanDenominator = (data: Measure.Form) => {
+const validateModeratelyNumeratorLessThanDenominator = (data: FormData) => {
   const moderatelyRates =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[0].replace(/[^\w]/g, "")}`
@@ -65,7 +65,7 @@ const validateModeratelyNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateLarcRateGreater = (data: Measure.Form) => {
+const validateLarcRateGreater = (data: FormData) => {
   let error;
   const memeRates =
     data.PerformanceMeasure?.rates?.[
@@ -89,7 +89,7 @@ const validateLarcRateGreater = (data: Measure.Form) => {
   return error;
 };
 
-const validateDenominatorsAreTheSame = (data: Measure.Form) => {
+const validateDenominatorsAreTheSame = (data: FormData) => {
   let error;
   const memeRates =
     data.PerformanceMeasure?.rates?.[
@@ -121,7 +121,7 @@ const validateDenominatorsAreTheSame = (data: Measure.Form) => {
   return error;
 };
 
-const validateNonZeroDenom = (data: Measure.Form) => {
+const validateNonZeroDenom = (data: FormData) => {
   const memeRates =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[0].replace(/[^\w]/g, "")}`
@@ -138,7 +138,7 @@ const validateNonZeroDenom = (data: Measure.Form) => {
   );
 };
 
-const validateAtLeastOneNPR = (data: Measure.Form) => {
+const validateAtLeastOneNPR = (data: FormData) => {
   const memeRates =
     data.PerformanceMeasure?.rates?.[
       `${PMD.categories[0].replace(/[^\w]/g, "")}`
@@ -155,7 +155,7 @@ const validateAtLeastOneNPR = (data: Measure.Form) => {
   );
 };
 
-const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+const validateBothDatesCompletedInRange = (data: FormData) => {
   const dateRange = data["DateRange"];
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };

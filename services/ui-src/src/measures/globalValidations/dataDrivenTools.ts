@@ -51,9 +51,7 @@ export const performanceMeasureErrorLocationDicitonary = (
  * @param data - The data object that is being edited.
  * @returns a boolean value.
  */
-export const areSomeRatesCompleted = (
-  data: Types.PerformanceMeasure & Types.OtherPerformanceMeasure
-) => {
+export const areSomeRatesCompleted = (data: any) => {
   let ratesExist = false;
   const rateExists = (rate: Types.RateFields) =>
     rate?.rate || (rate?.denominator && rate?.numerator);
@@ -69,7 +67,7 @@ export const areSomeRatesCompleted = (
 
   const otherPerformanceMeasureRates = data["OtherPerformanceMeasure-Rates"];
   if (otherPerformanceMeasureRates) {
-    otherPerformanceMeasureRates?.forEach((rate) => {
+    otherPerformanceMeasureRates?.forEach((rate: any) => {
       if (rate.description) ratesExist = true;
       if (rate.rate?.some(rateExists)) ratesExist = true;
     });

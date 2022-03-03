@@ -1,13 +1,11 @@
-import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
 import { ReactElement, cloneElement, useState, useEffect } from "react";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import * as CUI from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useForm, FormProvider, useWatch } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
+import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
-import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
-import * as Types from "measures/CommonQuestions/types";
 import { areSomeRatesCompleted } from "measures/globalValidations";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
@@ -20,16 +18,18 @@ const LastModifiedBy = ({ user }: { user: string | undefined }) => {
 };
 
 const Measure = ({ measure, ...rest }: any) => {
-  const { watch } = useFormContext<Types.DefaultFormData>();
-  const data = watch();
+  const watchedData = useWatch();
+  const watchReportingRadio = useWatch({ name: "DidReport" });
+  const isNotReportingData = watchReportingRadio === "no";
 
-  const watchReportingRadio = watch("DidReport");
-  const watchMeasureSpecification = watch("MeasurementSpecification");
+  const watchMeasureSpecification = useWatch({
+    name: "MeasurementSpecification",
+  });
   const isOtherMeasureSpecSelected = watchMeasureSpecification === "Other";
   const isPrimaryMeasureSpecSelected =
     watchMeasureSpecification && !isOtherMeasureSpecSelected;
-  const showOptionalMeasureStrat = areSomeRatesCompleted(data);
-  const isNotReportingData = watchReportingRadio === "no";
+
+  const showOptionalMeasureStrat = areSomeRatesCompleted(watchedData);
 
   return cloneElement(measure, {
     ...rest,
@@ -37,7 +37,6 @@ const Measure = ({ measure, ...rest }: any) => {
     isPrimaryMeasureSpecSelected,
     showOptionalMeasureStrat,
     isOtherMeasureSpecSelected,
-    data,
   });
 };
 

@@ -11,7 +11,6 @@ export interface MeasureWrapperProps {
   isPrimaryMeasureSpecSelected?: boolean;
   showOptionalMeasureStrat?: boolean;
   isNotReportingData?: boolean;
-  data: DefaultFormData;
 }
 
 export interface MeasurementSpecification {

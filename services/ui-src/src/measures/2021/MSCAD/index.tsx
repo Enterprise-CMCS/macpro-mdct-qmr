@@ -1,10 +1,12 @@
-import * as Q from "./questions";
-import * as CMQ from "../../CommonQuestions";
-import * as Types from "measures/CommonQuestions/types";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
+import { useFormContext } from "react-hook-form";
+import * as Q from "./questions";
+import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
+import { MeasureWrapperProps } from "measures/CommonQuestions/types";
+import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { FormData } from "./types";
 
 export const MSCAD = ({
   name,
@@ -15,8 +17,9 @@ export const MSCAD = ({
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
-  data,
-}: Types.MeasureWrapperProps) => {
+}: MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const data = watch();
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);

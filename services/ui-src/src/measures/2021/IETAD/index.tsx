@@ -1,10 +1,11 @@
-import * as CMQ from "measures/CommonQuestions";
-import { useWatch } from "react-hook-form";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
+import { useWatch, useFormContext } from "react-hook-form";
+import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
+import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import * as Types from "measures/CommonQuestions/types";
+import { MeasureWrapperProps } from "measures/CommonQuestions/types";
+import { FormData } from "./types";
 
 export const IETAD = ({
   name,
@@ -15,8 +16,10 @@ export const IETAD = ({
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
-  data,
-}: Types.MeasureWrapperProps) => {
+}: MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);

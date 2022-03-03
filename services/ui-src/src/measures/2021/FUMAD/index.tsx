@@ -1,9 +1,11 @@
+import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as Types from "measures/CommonQuestions/types";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
-import { useEffect } from "react";
-import { validationFunctions } from "./validation";
 import * as PMD from "./data";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { validationFunctions } from "./validation";
+import { FormData } from "./types";
 
 export const FUMAD = ({
   name,
@@ -14,8 +16,10 @@ export const FUMAD = ({
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
-  data,
 }: Types.MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);

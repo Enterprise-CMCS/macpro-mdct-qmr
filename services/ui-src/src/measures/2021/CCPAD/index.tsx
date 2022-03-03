@@ -1,8 +1,10 @@
 import * as CMQ from "../../CommonQuestions";
-import * as Types from "measures/CommonQuestions/types";
+import { MeasureWrapperProps } from "measures/CommonQuestions/types";
+import { FormData } from "./types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 import * as PMD from "./data";
+import { useFormContext } from "react-hook-form";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 
 export const CCPAD = ({
@@ -14,8 +16,10 @@ export const CCPAD = ({
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
-  data,
-}: Types.MeasureWrapperProps) => {
+}: MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
