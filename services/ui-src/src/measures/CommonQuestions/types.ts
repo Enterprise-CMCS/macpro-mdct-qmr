@@ -11,7 +11,7 @@ export interface MeasureWrapperProps {
   isPrimaryMeasureSpecSelected?: boolean;
   showOptionalMeasureStrat?: boolean;
   isNotReportingData?: boolean;
-  data: DefaulFormData;
+  data: DefaultFormData;
 }
 
 export interface MeasurementSpecification {
@@ -303,7 +303,7 @@ export interface DeviationFromMeasureSpecification {
     };
   };
 }
-export type DefaulFormData = AdditionalNotes &
+export type DefaultFormData = AdditionalNotes &
   DidCollect &
   StatusOfData &
   WhyAreYouNotReporting &

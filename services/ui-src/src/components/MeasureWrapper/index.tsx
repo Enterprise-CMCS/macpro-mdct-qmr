@@ -20,7 +20,7 @@ const LastModifiedBy = ({ user }: { user: string | undefined }) => {
 };
 
 const Measure = ({ measure, ...rest }: any) => {
-  const { watch } = useFormContext<Types.DefaulFormData>();
+  const { watch } = useFormContext<Types.DefaultFormData>();
   const data = watch();
 
   const watchReportingRadio = watch("DidReport");

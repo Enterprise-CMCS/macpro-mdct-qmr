@@ -20,7 +20,7 @@ export const CPAAD = ({ name, year }: Types.MeasureWrapperProps) => {
         measureAbbreviation={coreSetId as string}
       />
 
-      {!watchReportingRadio?.includes("no") && (
+      {!watchReportingRadio === "no" && (
         <>
           <Q.HowDidYouReport />
           <CMQ.MeasurementSpecification type="AHRQ" />

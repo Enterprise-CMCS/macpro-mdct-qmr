@@ -11,7 +11,7 @@ import {
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as Types from "measures/CommonQuestions/types";
 
-const IEDValidation = (data: Types.DefaulFormData) => {
+const IEDValidation = (data: Types.DefaultFormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];

@@ -9,7 +9,7 @@ import {
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
 
-const MSCADValidation = (data: Types.DefaulFormData) => {
+const MSCADValidation = (data: Types.DefaultFormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const OPM = data["OtherPerformanceMeasure-Rates"];
