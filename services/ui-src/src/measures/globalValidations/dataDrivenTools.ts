@@ -70,6 +70,7 @@ export const areSomeRatesCompleted = (
   const otherPerformanceMeasureRates = data["OtherPerformanceMeasure-Rates"];
   if (otherPerformanceMeasureRates) {
     otherPerformanceMeasureRates?.forEach((rate) => {
+      if (rate.description) ratesExist = true;
       if (rate.rate?.some(rateExists)) ratesExist = true;
     });
   }
