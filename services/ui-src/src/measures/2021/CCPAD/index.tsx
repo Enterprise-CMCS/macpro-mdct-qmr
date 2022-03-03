@@ -8,7 +8,7 @@ import * as PMD from "./data";
 import {
   getPerfMeasureRateArray,
   areSomeRatesCompleted,
-} from "../globalValidations";
+} from "measures/globalValidations";
 
 export const CCPAD = ({
   name,

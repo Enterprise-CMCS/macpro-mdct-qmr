@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 import * as PMD from "./data";
 import * as Types from "../CommonQuestions/types";
-import { getPerfMeasureRateArray } from "../globalValidations";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 
 export const FUAAD = ({
   name,

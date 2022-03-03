@@ -1,11 +1,11 @@
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
-} from "../../globalValidations/validationsLib";
+} from "measures/globalValidations/validationsLib";
 import { PMD } from "../questions/data";
 import { Measure } from "./types";
 

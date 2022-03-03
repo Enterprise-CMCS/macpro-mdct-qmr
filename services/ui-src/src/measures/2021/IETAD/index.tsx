@@ -5,7 +5,7 @@ import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { PMD } from "./questions/data";
-import { getPerfMeasureRateArray } from "../globalValidations";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as Types from "../CommonQuestions/types";
 
 export const IETAD = ({

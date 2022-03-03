@@ -1,8 +1,8 @@
 import { FormData } from "./types";
 import * as PMD from "./data";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 
-import { ensureBothDatesCompletedInRange } from "../globalValidations/validationsLib";
+import { ensureBothDatesCompletedInRange } from "measures/globalValidations/validationsLib";
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];

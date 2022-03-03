@@ -3,7 +3,7 @@ import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
-} from "../../globalValidations/validationsLib";
+} from "measures/globalValidations/validationsLib";
 import { PMD } from "../questions/data";
 
 const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {

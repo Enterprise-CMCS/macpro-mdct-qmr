@@ -8,8 +8,8 @@ import {
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
-} from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "../../globalValidations";
+} from "measures/globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 
 const IEDValidation = (data: Measure.Form) => {
   const ageGroups = PMD.qualifiers;

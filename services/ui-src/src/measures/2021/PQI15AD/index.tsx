@@ -4,7 +4,7 @@ import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
-import { getPerfMeasureRateArray } from "../globalValidations";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { PMD } from "./questions/data";
 import * as Types from "../CommonQuestions/types";
 

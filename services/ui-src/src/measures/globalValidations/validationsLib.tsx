@@ -1,5 +1,5 @@
 import { PerformanceMeasure } from "./types";
-import { DateRange } from "../CommonQuestions/types";
+import { DateRange } from "../2021/CommonQuestions/types";
 
 export const atLeastOneRateComplete = (
   performanceMeasureArray: PerformanceMeasure[][],

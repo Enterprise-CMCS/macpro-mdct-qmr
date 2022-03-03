@@ -1,6 +1,6 @@
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { ensureBothDatesCompletedInRange } from "../globalValidations/validationsLib";
+import { ensureBothDatesCompletedInRange } from "measures/globalValidations/validationsLib";
 
 const validateRates = (data: FormData) => {
   const sevenDays =

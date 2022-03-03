@@ -5,8 +5,8 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
-} from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+} from "measures/globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { PMD } from "../questions/data";
 const PQI01Validation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];

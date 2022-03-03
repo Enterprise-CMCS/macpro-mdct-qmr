@@ -1,5 +1,5 @@
-import * as Types from "../CommonQuestions/types";
-import { DataDrivenTypes as DDT } from "../CommonQuestions/types";
+import * as Types from "../2021/CommonQuestions/types";
+import { DataDrivenTypes as DDT } from "../2021/CommonQuestions/types";
 import { PerformanceMeasure as PM } from "./types";
 
 /**

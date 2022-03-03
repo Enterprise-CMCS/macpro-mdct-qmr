@@ -5,8 +5,8 @@ import {
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-} from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+} from "measures/globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { PMD } from "../questions/data";
 
 const MSCADValidation = (data: Measure.Form) => {
