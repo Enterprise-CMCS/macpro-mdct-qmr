@@ -14,7 +14,6 @@ import { getPerfMeasureRateArray } from "../../globalValidations";
 const IEDValidation = (data: Measure.Form) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
@@ -34,7 +33,7 @@ const IEDValidation = (data: Measure.Form) => {
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "No, I am not reporting") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    errorArray = [...validateReasonForNotReporting(data["WhyAreYouNotReporting"])];
     return errorArray;
   }
 

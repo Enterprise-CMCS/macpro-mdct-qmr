@@ -5,6 +5,7 @@ import {
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
+  validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { PMD } from "../questions/data";
@@ -18,6 +19,13 @@ const MSCADValidation = (data: Measure.Form) => {
   const dateRange = data["DateRange"];
 
   let errorArray: any[] = [];
+
+  if (data["DidReport"] === "No, I am not reporting") {
+    errorArray = [
+      ...validateReasonForNotReporting(data["WhyAreYouNotReporting"]),
+    ];
+    return errorArray;
+  }
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
