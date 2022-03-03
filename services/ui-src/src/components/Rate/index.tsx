@@ -44,6 +44,20 @@ export const Rate = ({
     defaultValue: [],
   });
 
+  const rateCalculation = (
+    numerator: string,
+    denominator: string,
+    rateMultiplicationValue: number
+  ) => {
+    const floatNumerator = parseFloat(numerator);
+    const floatDenominator = parseFloat(denominator);
+    const floatRate = floatNumerator / floatDenominator;
+    const roundedRate: number =
+      Math.round(floatRate * rateMultiplicationValue * 10) / 10;
+    const stringRate = roundedRate.toFixed(1).toString();
+    return stringRate;
+  };
+
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate",
@@ -89,12 +103,11 @@ export const Rate = ({
       editRate.numerator &&
       parseFloat(editRate.numerator) <= parseFloat(editRate.denominator)
     ) {
-      editRate.rate = (
-        (editRate.numerator / editRate.denominator) *
+      editRate.rate = rateCalculation(
+        editRate.numerator,
+        editRate.denominator,
         rateMultiplicationValue
-      )
-        .toFixed(1)
-        .toString();
+      );
     } else if (editRate.rate) {
       editRate.rate = "";
     }
