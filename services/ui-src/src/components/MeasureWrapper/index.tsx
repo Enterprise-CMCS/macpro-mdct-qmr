@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
-import { areSomeRatesCompleted } from "measures/globalValidations";
+import { areSomeRatesCompleted } from "utils/form";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
