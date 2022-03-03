@@ -52,8 +52,7 @@ const specifications = {
     value: "OPA",
   },
   AHRQ: {
-    displayValue:
-      "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
+    displayValue: "Agency for Healthcare Research and Quality (AHRQ)",
     value: "AHRQ",
   },
   CMS: {
