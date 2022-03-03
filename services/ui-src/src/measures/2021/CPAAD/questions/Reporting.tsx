@@ -32,7 +32,7 @@ export const Reporting = ({ reportingYear }: Props) => {
           ]}
         />
       </QMR.CoreQuestionWrapper>
-      {watchRadioStatus?.includes("No,") && <WhyDidYouNotCollect />}
+      {watchRadioStatus?.includes("no") && <WhyDidYouNotCollect />}
     </>
   );
 };
