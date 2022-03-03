@@ -24,6 +24,7 @@ interface Props extends QMR.InputWrapperProps {
   allowMultiple?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  calcTotal?: boolean;
 }
 
 export const Rate = ({
@@ -33,6 +34,7 @@ export const Rate = ({
   readOnly = true,
   rateMultiplicationValue = 100,
   customMask,
+  calcTotal,
   ...rest
 }: Props) => {
   const {
@@ -57,8 +59,12 @@ export const Rate = ({
         prevRate[index] = {};
       }
       prevRate[index]["label"] = rate.label ?? undefined;
-      prevRate[index]["isTotal"] = rate.isTotal ?? undefined;
     });
+
+    if (calcTotal) {
+      prevRate[prevRate.length - 1]["isTotal"] = true;
+    }
+
     field.onChange([...prevRate]);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -90,8 +90,9 @@ export const AMRAD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && <Q.PerformanceMeasure />}
-          {isHEDIS && <CMQ.PerformanceMeasure data={PMD.data} />}
+          {isHEDIS && (
+            <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
+          )}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
             <CMQ.DeviationFromMeasureSpec categories={[]} />
