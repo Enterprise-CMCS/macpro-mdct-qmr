@@ -1,3 +1,4 @@
+import { PMD } from "../questions/data";
 import { Measure } from "../validation/types";
 import {
   atLeastOneRateComplete,
@@ -8,16 +9,15 @@ import {
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 
 const FUAADValidation = (data: Measure.Form) => {
   const ageGroups = ["18 to 64", "65 and older"];
   const sixtyDaysIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-7Days"],
-    data["PerformanceMeasure-AgeRates-30Days"],
-  ];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
@@ -27,13 +27,7 @@ const FUAADValidation = (data: Measure.Form) => {
   }
 
   let sameDenominatorError = [
-    ...validateEqualDenominators(
-      [
-        data["PerformanceMeasure-AgeRates-7Days"],
-        data["PerformanceMeasure-AgeRates-30Days"],
-      ],
-      ageGroups
-    ),
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
   ];
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];

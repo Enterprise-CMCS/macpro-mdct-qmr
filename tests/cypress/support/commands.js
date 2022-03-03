@@ -91,8 +91,9 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
       ).click({ force: true });
       cy.wait(1000);
       cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
+      cy.wait(2000);
     } else {
-      console.log("do something else");
+      cy.wait(2000);
     }
   });
 });

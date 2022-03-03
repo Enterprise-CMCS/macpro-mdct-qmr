@@ -31,33 +31,14 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.StatusOfData,
       Types.DataSource,
-      Types.MeasurementSpecification {
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-AgeRanges": string[];
-    DeviationFields: {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

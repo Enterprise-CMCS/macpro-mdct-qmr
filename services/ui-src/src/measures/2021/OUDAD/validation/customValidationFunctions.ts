@@ -7,11 +7,13 @@ import {
   validateEqualDenominators,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { PMD } from "../questions/data";
 
 const OUDValidation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data["DateRange"];
-  const performanceMeasureArray = data["PerformanceMeasure-Rates"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   let errorArray: any[] = [];
   if (data["DidReport"] === "No, I am not reporting") {
@@ -19,27 +21,15 @@ const OUDValidation = (data: Measure.Form) => {
     return errorArray;
   }
 
-  const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
-    (item) => {
-      return [item];
-    }
-  );
-
   errorArray = [
     ...errorArray,
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
+    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
       "age-group",
     ]),
-    ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArrayToCheck,
-      OPM,
-      ["age-group"]
-    ),
-    ...validateEqualDenominators(performanceMeasureArrayToCheck, ["age-group"]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
-      "age-group",
-    ]),
+    ...validateEqualDenominators(performanceMeasureArray, ["age-group"]),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
   ];
 
   return errorArray;

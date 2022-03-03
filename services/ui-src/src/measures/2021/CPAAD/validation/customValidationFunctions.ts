@@ -4,7 +4,6 @@ import { validateReasonForNotReporting } from "../../globalValidations/validatio
 const CPAADValidation = (data: Measure.Form) => {
   const whyNotReporting = data["WhyDidYouNotCollect"];
 
-  console.log("heelo");
   let errorArray: any[] = [];
   if (data["DidCollect"] === "No, we did not collect") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
