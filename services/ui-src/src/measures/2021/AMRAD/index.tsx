@@ -85,8 +85,7 @@ export const AMRAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <Q.DataSource />
-
+          <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
@@ -94,17 +93,7 @@ export const AMRAD = ({
             <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
           )}
           {/* Show Deviation only when Other is not selected */}
-          {isHEDIS && (
-            <CMQ.DeviationFromMeasureSpec categories={[]} />
-            // <Q.DeviationFromMeasureSpec
-            //   options={ageGroups}
-            //   deviationConditions={{
-            //     showPersistentAsthma19To50,
-            //     showPersistentAsthma51To64,
-            //     showPersistentAsthmaTotal,
-            //   }}
-            // />
-          )}
+          {isHEDIS && <CMQ.DeviationFromMeasureSpec categories={[]} />}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
