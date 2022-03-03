@@ -4,6 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Measure } from "../validation/types";
 import { createContext, useState, useContext } from "react";
 import { useFormContext } from "react-hook-form";
+import * as Types from "measures/CommonQuestions/types";
 
 interface Props {
   ageGroups: {
@@ -75,7 +76,7 @@ const AddAnotherButton = ({
 
 const AgeData = ({ name }: SubComponentProps) => {
   const { ageGroups } = useContext(AgeDataContext);
-  const { watch } = useFormContext<Measure.Form>();
+  const { watch } = useFormContext<Types.DefaulFormData>();
 
   // Watch for dataSource data
   const dataSourceWatch = watch("DataSource");

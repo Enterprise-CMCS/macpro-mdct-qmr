@@ -1,4 +1,4 @@
-import * as CMQ from "../CommonQuestions";
+import * as CMQ from "../../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
@@ -6,7 +6,7 @@ import { validationFunctions } from "./validation/customValidationFunctions";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { PMD } from "./questions/data";
-import * as Types from "../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 
 export const PQI15AD = ({
   name,

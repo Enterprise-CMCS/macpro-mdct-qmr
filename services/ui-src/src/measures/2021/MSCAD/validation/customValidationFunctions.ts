@@ -1,4 +1,4 @@
-import { Measure } from "./types";
+import * as Types from "measures/CommonQuestions/types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -9,7 +9,7 @@ import {
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { PMD } from "../questions/data";
 
-const MSCADValidation = (data: Measure.Form) => {
+const MSCADValidation = (data: Types.DefaulFormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const OPM = data["OtherPerformanceMeasure-Rates"];

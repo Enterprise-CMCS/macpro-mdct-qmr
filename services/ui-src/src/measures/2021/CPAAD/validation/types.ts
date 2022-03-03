@@ -1,4 +1,4 @@
-import * as Types from "../../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 
 export namespace Measure {
   export interface Props {

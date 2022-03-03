@@ -7,7 +7,7 @@ import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-import * as Types from "../../measures/2021/CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 import { areSomeRatesCompleted } from "measures/globalValidations";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {

@@ -304,6 +304,7 @@ export interface DeviationFromMeasureSpecification {
   };
 }
 export type DefaulFormData = AdditionalNotes &
+  DidCollect &
   StatusOfData &
   WhyAreYouNotReporting &
   DidReport &

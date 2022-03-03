@@ -1,13 +1,12 @@
 import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
+import * as CMQ from "../../CommonQuestions";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { Measure } from "./validation/types";
-import * as Types from "../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 
 export const CPAAD = ({ name, year }: Types.MeasureWrapperProps) => {
   const { coreSetId } = useParams();
-  const { watch } = useFormContext<Measure.Form>();
+  const { watch } = useFormContext<Types.DefaulFormData>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = watch("DidCollect");

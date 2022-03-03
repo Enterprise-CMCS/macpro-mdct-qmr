@@ -1,11 +1,10 @@
 import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
+import * as CMQ from "../../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
-import { Measure } from "./validation/types";
+import * as Types from "measures/CommonQuestions/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { PMD } from "./questions/data";
-import * as Types from "../CommonQuestions/types";
 
 export const OUDAD = ({
   name,
@@ -19,7 +18,7 @@ export const OUDAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Types.DefaulFormData>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({

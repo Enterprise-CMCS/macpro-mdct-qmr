@@ -1,3 +1,3 @@
-import * as Types from "../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 
 export type FormData = Types.DefaulFormData;

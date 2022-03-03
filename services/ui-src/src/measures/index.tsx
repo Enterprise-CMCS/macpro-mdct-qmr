@@ -1,6 +1,6 @@
 import { ResolverResult } from "react-hook-form";
 import twentyTwentyOneMeasures from "./2021";
-import * as Types from "./2021/CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 
 export type CustomValidator = (res: ResolverResult) => ResolverResult;
 

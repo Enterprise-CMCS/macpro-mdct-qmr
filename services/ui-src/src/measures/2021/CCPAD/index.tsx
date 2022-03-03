@@ -1,5 +1,5 @@
-import * as CMQ from "../CommonQuestions";
-import * as Types from "../CommonQuestions/types";
+import * as CMQ from "../../CommonQuestions";
+import * as Types from "measures/CommonQuestions/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 import * as PMD from "./data";

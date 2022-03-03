@@ -1,12 +1,12 @@
 import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
+import * as CMQ from "measures/CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { PMD } from "./questions/data";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import * as Types from "../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 
 export const IETAD = ({
   name,
@@ -113,6 +113,7 @@ export const IETAD = ({
   if (showOtherPerformanceMeasureRates) {
     // @ts-ignore
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
+    // @ts-ignore
     otherRates.forEach((rate) => {
       if (rate.description) {
         ageGroups.push({ label: rate.description, id: ageGroups.length });
