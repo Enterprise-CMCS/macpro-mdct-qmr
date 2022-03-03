@@ -7,7 +7,7 @@ import {
   validateNoNonZeroNumOrDenom,
 } from "measures/globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import { PMD } from "../questions/data";
+import * as PMD from "./data";
 
 const MSCADValidation = (data: Types.DefaulFormData) => {
   const ageGroups = PMD.qualifiers;
