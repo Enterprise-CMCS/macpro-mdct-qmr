@@ -22,12 +22,54 @@ export const omsValidations = (
 ) => {
   return validateNDRs(
     data,
-    [validateDenominatorGreaterThanNumerator, validateDenominatorsAreTheSame],
+    [
+      validateDenominatorGreaterThanNumerator,
+      validateDenominatorsAreTheSame,
+      validateOneRateLessThanOther,
+    ],
     qualifiers,
     categories,
     locationDictionary,
     checkIsFilled
   );
+};
+
+const validateOneRateLessThanOther: OmsValidationCallback = ({
+  rateData,
+  categories,
+  qualifiers,
+  label,
+  locationDictionary,
+}) => {
+  const errors: FormError[] = [];
+  const isRateLessThanOther = (rateArr: RateFields[]) => {
+    if (rateArr.length !== 2) return true;
+    const compareValue = rateArr[0].rate ?? "";
+
+    return parseFloat(rateArr[1].rate ?? "") <= parseFloat(compareValue);
+  };
+
+  for (const qual of qualifiers) {
+    const cleanQual = cleanString(qual);
+    const rateArr: RateFields[] = [];
+    for (const cat of categories.map((s) => cleanString(s))) {
+      if (rateData.rates?.[cleanQual]?.[cat]) {
+        const temp = rateData.rates[cleanQual][cat][0];
+        if (temp && temp.rate) {
+          rateArr.push(temp);
+        }
+      }
+    }
+    if (!isRateLessThanOther(rateArr)) {
+      errors.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )} - ${qual}`,
+        errorMessage: `${categories[0]} rate must be less than or equal to ${categories[1]} rate.`,
+      });
+    }
+  }
+  return errors;
 };
 
 const validateDenominatorsAreTheSame: OmsValidationCallback = ({
