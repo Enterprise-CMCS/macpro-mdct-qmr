@@ -1,9 +1,9 @@
-import { Measure } from "../validation/types";
-import { PMD } from "../questions/data";
+import { FormData } from "./types";
+import * as PMD from "./data";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 
-import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
-const CCPADValidation = (data: Measure.Form) => {
+import { ensureBothDatesCompletedInRange } from "../globalValidations/validationsLib";
+const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
@@ -80,7 +80,7 @@ export const validateNoNonZeroNumOrDenom = (
   return zeroRateError || nonZeroRateError ? errorArray : [];
 };
 
-const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
+const validateThirtyDayNumeratorLessThanDenominator = (data: FormData) => {
   const thirtyDays = getPerfMeasureRateArray(data, PMD.data)[0];
   let error;
   const errorArray: any[] = [];
@@ -109,7 +109,7 @@ const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
+const validateSevenDayNumeratorLessThanDenominator = (data: FormData) => {
   const sevenDays = getPerfMeasureRateArray(data, PMD.data)[1];
   let error;
   const errorArray: any[] = [];
@@ -138,7 +138,7 @@ const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
+const validate7DaysGreaterThan30Days = (data: FormData) => {
   const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
   const sevenDays = perfMeasure[1];
   const thirtyDays = perfMeasure[0];
@@ -168,7 +168,7 @@ const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateAtLeastOneNDRSet = (data: Measure.Form) => {
+const validateAtLeastOneNDRSet = (data: FormData) => {
   let error;
   const measureSpecification = data["MeasurementSpecification"];
   const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
@@ -208,7 +208,7 @@ const validateAtLeastOneNDRSet = (data: Measure.Form) => {
   return error;
 };
 
-const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
+const validate3daysLessOrEqualTo30days = (data: FormData) => {
   const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
   const sevenDays = perfMeasure[1];
   const thirtyDays = perfMeasure[0];
@@ -242,7 +242,7 @@ const validate3daysLessOrEqualTo30days = (data: Measure.Form) => {
   return errorArray;
 };
 
-const validateDenominatorsAreEqual = (data: Measure.Form) => {
+const validateDenominatorsAreEqual = (data: FormData) => {
   const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
   const larcCont = perfMeasure[1];
   const memeCont = perfMeasure[0];

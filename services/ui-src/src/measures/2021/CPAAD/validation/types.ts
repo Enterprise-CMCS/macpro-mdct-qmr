@@ -8,10 +8,8 @@ export namespace Measure {
   }
   export interface Form
     extends Types.AdditionalNotes,
-      Types.MeasurementSpecification {
-    //Report
-    DidCollect: string;
-
+      Types.MeasurementSpecification,
+      Types.DidCollect {
     //HowDidYouReport
     HowDidYouReport: string[];
     "HowDidYouReport-Explanation": string;

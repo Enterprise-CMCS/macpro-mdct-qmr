@@ -6,13 +6,14 @@ import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { PMD } from "./questions/data";
 import { getPerfMeasureRateArray } from "../globalValidations";
+import * as Types from "../CommonQuestions/types";
 
 export const IETAD = ({
   name,
   year,
   measureId,
   setValidationFunctions,
-}: Measure.Props) => {
+}: Types.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);

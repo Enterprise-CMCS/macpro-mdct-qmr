@@ -23,11 +23,11 @@ export const Reporting = ({ reportingYear }: Props) => {
           options={[
             {
               displayValue: `Yes, we did collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid) (CPA-AD) for FFY ${reportingYear} quality measure reporting.`,
-              value: "Yes, we did collect",
+              value: "yes",
             },
             {
               displayValue: `No, we did not collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid) (CPA-AD) for FFY ${reportingYear} quality measure reporting.`,
-              value: "No, we did not collect",
+              value: "no",
             },
           ]}
         />

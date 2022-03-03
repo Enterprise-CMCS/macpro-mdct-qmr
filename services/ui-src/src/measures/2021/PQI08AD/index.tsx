@@ -6,13 +6,14 @@ import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 import { PMD } from "./questions/data";
+import * as Types from "../CommonQuestions/types";
 
 export const PQI08AD = ({
   name,
   year,
   measureId,
   setValidationFunctions,
-}: Measure.Props) => {
+}: Types.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);

@@ -2,7 +2,6 @@ import * as Q from "./questions";
 import * as CMQ from "../CommonQuestions";
 import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
-import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { PMD } from "./questions/data";
@@ -12,7 +11,7 @@ export const FUMAD = ({
   year,
   measureId,
   setValidationFunctions,
-}: Measure.Props) => {
+}: Types.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);

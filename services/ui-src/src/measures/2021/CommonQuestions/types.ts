@@ -7,6 +7,11 @@ export interface MeasureWrapperProps {
   year: string;
   measureId: string;
   setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+  isOtherMeasureSpecSelected?: boolean;
+  isPrimaryMeasureSpecSelected?: boolean;
+  showOptionalMeasureStrat?: boolean;
+  isNotReportingData?: boolean;
+  data: DefaulFormData;
 }
 
 export interface MeasurementSpecification {
@@ -158,6 +163,10 @@ export interface WhyAreYouNotReporting {
 
 export interface DidReport {
   DidReport: "yes" | "no";
+}
+
+export interface DidCollect {
+  DidCollect: "yes" | "no";
 }
 
 export interface StatusOfData {

@@ -19,6 +19,7 @@ interface MeasuresByYear {
 }
 
 const measuresByYear: MeasuresByYear = {
+  // @ts-ignore
   2021: twentyTwentyOneMeasures,
 };
 

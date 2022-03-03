@@ -36,7 +36,7 @@ export const Reporting = ({
           ]}
         />
       </QMR.CoreQuestionWrapper>
-      {watchRadioStatus?.includes("No,") && <WhyAreYouNotReporting />}
+      {watchRadioStatus === "no" && <WhyAreYouNotReporting />}
     </>
   );
 };

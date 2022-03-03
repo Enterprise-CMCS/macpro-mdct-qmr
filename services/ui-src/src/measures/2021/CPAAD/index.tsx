@@ -3,8 +3,9 @@ import * as CMQ from "../CommonQuestions";
 import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Measure } from "./validation/types";
+import * as Types from "../CommonQuestions/types";
 
-export const CPAAD = ({ name, year }: Measure.Props) => {
+export const CPAAD = ({ name, year }: Types.MeasureWrapperProps) => {
   const { coreSetId } = useParams();
   const { watch } = useFormContext<Measure.Form>();
 

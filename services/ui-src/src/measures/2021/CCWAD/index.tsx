@@ -5,13 +5,14 @@ import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
 import { PMD } from "./questions/data";
+import * as Types from "../CommonQuestions/types";
 
 export const CCWAD = ({
   setValidationFunctions,
   measureId,
   name,
   year,
-}: Measure.Props) => {
+}: Types.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
