@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-// import { useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
 
