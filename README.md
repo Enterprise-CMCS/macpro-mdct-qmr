@@ -38,23 +38,6 @@ Most IDEs have a Prettier plugin that can be configured to run on file save. You
 npx prettier --write "**/*.tsx"
 ```
 
-### Testing
-
-#### ui-src
-
-**Unit Tests**
-From application root
-```
-yarn run test
-yarn run watchTest  # Live reload
-```
-
-**Cypress**
-```
-cd tests/cypress
-yarn test:ci
-```
-
 ## Usage
 
 See master build [here](https://github.com/CMSgov/cms-mdct-qmr/actions?query=branch%3Amaster)
@@ -112,7 +95,22 @@ If you want to a visual view of your dynamodb after the application is up and ru
 
 - to run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window
 
-## Cypress Testing
+## Testing
+
+#### ui-src Unit Tests
+
+```
+cd services/ui-src/
+yarn test
+
+# live reload all tests
+yarn test --watch
+
+# specify test to run
+npx jest src/components --watch  # run all component tests and watch for changes
+```
+
+### Cypress Testing
 
 [See here](./tests/cypress/README.md)
 
