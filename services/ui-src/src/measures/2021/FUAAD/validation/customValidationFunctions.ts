@@ -17,6 +17,8 @@ const FUAADValidation = (data: Measure.Form) => {
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
+
 
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
@@ -35,7 +37,7 @@ const FUAADValidation = (data: Measure.Form) => {
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateDualPopInformation(
-      performanceMeasureArray,
+      validateDualPopInformationArray,
       OPM,
       sixtyDaysIndex,
       DefinitionOfDenominator
