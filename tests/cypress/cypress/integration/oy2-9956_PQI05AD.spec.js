@@ -257,9 +257,9 @@ describe("Measure: PQI05-AD", () => {
       '[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CategoriesReported0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#CategoriesReported0-checkbox").check();
+    cy.get("#OptionalMeasureStratification.options0-checkbox").check();
     cy.get(
       '[data-cy="NonHispanicRacialCategories0"] > .chakra-checkbox__control'
     ).click();
@@ -308,9 +308,11 @@ describe("Measure: PQI05-AD", () => {
       "50000.0"
     );
     cy.get(
-      '[data-cy="CategoriesReported1"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#CategoriesReported1-checkbox").check({ force: true });
+    cy.get("#OptionalMeasureStratification.options1-checkbox").check({
+      force: true,
+    });
     cy.get(
       '[data-cy="EthnicityCategories0"] > .chakra-checkbox__control'
     ).click();
