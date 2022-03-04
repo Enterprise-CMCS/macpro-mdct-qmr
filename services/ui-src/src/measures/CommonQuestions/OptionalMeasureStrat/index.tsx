@@ -57,6 +57,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   rateMultiplicationValue?: number;
   customMask?: RegExp;
   isSingleSex?: boolean;
+  rateAlwaysEditable?: boolean;
 }
 
 /** data for dynamic rendering will be provided */
@@ -97,6 +98,7 @@ export const OptionalMeasureStrat = ({
   rateMultiplicationValue,
   customMask,
   isSingleSex = false,
+  rateAlwaysEditable = false,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -114,7 +116,8 @@ export const OptionalMeasureStrat = ({
   });
 
   const rateReadOnly =
-    dataSourceWatch?.every((source) => source === "AdministrativeData") ?? true;
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ??
+    !rateAlwaysEditable;
 
   /**
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa

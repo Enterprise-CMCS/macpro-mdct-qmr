@@ -45,7 +45,7 @@ export const MSCAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure data={PMD.data} rateReadOnly={false} />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
@@ -60,6 +60,7 @@ export const MSCAD = ({
               qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
+              rateAlwaysEditable
             />
           )}
         </>
