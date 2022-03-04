@@ -3,6 +3,7 @@ import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import { PMD } from "../questions/data";
 
@@ -168,4 +169,5 @@ export const validationFunctions = [
   validateDenominatorsAreTheSame,
   validateNonZeroDenom,
   validateAtLeastOneNPR,
+  validateRequiredRadioButtonForCombinedRates,
 ];

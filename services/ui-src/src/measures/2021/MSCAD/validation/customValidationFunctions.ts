@@ -5,6 +5,7 @@ import {
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { PMD } from "../questions/data";
@@ -34,6 +35,7 @@ const MSCADValidation = (data: Measure.Form) => {
     ),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

@@ -5,6 +5,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import { PMD } from "../questions/data";
 import { Measure } from "./types";
@@ -33,6 +34,7 @@ const PQI01Validation = (data: Measure.Form) => {
       age65PlusIndex,
       DefinitionOfDenominator
     ),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;
