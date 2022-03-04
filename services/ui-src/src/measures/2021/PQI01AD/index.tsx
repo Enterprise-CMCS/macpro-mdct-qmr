@@ -1,68 +1,33 @@
-import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
-import * as Types from "../CommonQuestions/types";
-import { useFormContext, useWatch } from "react-hook-form";
-import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation/customValidationFunctions";
+import { useFormContext } from "react-hook-form";
+import * as CMQ from "measures/CommonQuestions";
+import * as PMD from "./data";
+import { MeasureWrapperProps } from "measures/CommonQuestions/types";
+import { validationFunctions } from "./validation";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { FormData } from "./types";
 
 export const PQI01AD = ({
   name,
   year,
   measureId,
   setValidationFunctions,
-}: Measure.Props) => {
+  isNotReportingData,
+  isPrimaryMeasureSpecSelected,
+  showOptionalMeasureStrat,
+  isOtherMeasureSpecSelected,
+}: MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
-
-  // Watch Values of Form Questions
-  const watchReportingRadio = useWatch({
-    name: "DidReport",
-  });
-  const watchMeasureSpecification = useWatch({
-    name: "MeasurementSpecification",
-  });
-  const watchPerformanceMeasureAgeRates = useWatch({
-    name: "PerformanceMeasure-AgeRates",
-  });
-
-  const watchOtherPerformanceMeasureRates = useWatch({
-    name: "OtherPerformanceMeasure-Rates",
-  });
-
-  // Conditionals for Performance Measures
-  const isAHRQ = watchMeasureSpecification === "AHRQ";
-
-  const isOtherSpecification = watchMeasureSpecification === "Other";
-  // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
-  const showAges18To64 = !!watchPerformanceMeasureAgeRates?.[0]?.rate;
-  const showAges65AndOlder = !!watchPerformanceMeasureAgeRates?.[1]?.rate;
-  const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
-
-  // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
-  const ageGroups = [];
-
-  if (showAges18To64) {
-    ageGroups.push({ label: "Ages 18 to 64", id: 0 });
-  }
-
-  if (showAges65AndOlder) {
-    ageGroups.push({ label: "Ages 65 and older", id: 1 });
-  }
-  if (showOtherPerformanceMeasureRates) {
-    let otherRates = getValues("OtherPerformanceMeasure-Rates");
-    otherRates.forEach((rate) => {
-      if (rate.description) {
-        ageGroups.push({ label: rate.description, id: ageGroups.length });
-      }
-    });
-  }
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   return (
     <>
@@ -72,35 +37,38 @@ export const PQI01AD = ({
         measureAbbreviation={measureId}
       />
 
-      {!watchReportingRadio?.includes("No") && (
+      {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="AHRQ" />
           <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
-          {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isAHRQ && <Q.PerformanceMeasure />}
-          {/* Show Deviation only when Other is not selected */}
-          {isAHRQ && <Q.DeviationFromMeasureSpec options={ageGroups} />}
-          {/* Show Other Performance Measures when isAHRQ is not true  */}
-          {isOtherSpecification && (
+          {isPrimaryMeasureSpecSelected && (
+            <>
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                rateScale={100000}
+                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+              />
+              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+            </>
+          )}
+          {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
           )}
           <CMQ.CombinedRates />
-          {(showAges18To64 ||
-            showAges65AndOlder ||
-            showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                showAges18To64,
-                showAges65AndOlder,
-                showOtherPerformanceMeasureRates,
-              }}
+          {showOptionalMeasureStrat && (
+            <CMQ.OptionalMeasureStrat
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
+              rateMultiplicationValue={100000}
+              customMask={positiveNumbersWithMaxDecimalPlaces(1)}
+              performanceMeasureArray={performanceMeasureArray}
+              adultMeasure
             />
           )}
         </>
