@@ -13,6 +13,8 @@ export interface MeasureWrapperProps {
   isNotReportingData?: boolean;
 }
 
+type YesNo = "yes" | "no";
+
 export interface MeasurementSpecification {
   // Selected Measurement Specification
   MeasurementSpecification: "NCQA/HEDIS" | "OPA" | "AHRQ" | "CMS" | "Other";
@@ -31,30 +33,67 @@ export interface MeasurementSpecification {
 }
 
 export interface DefinitionOfPopulation {
-  DefinitionOfDenominator: string[];
+  DefinitionOfDenominator: Array<
+    | "DenominatorIncMedicaidPop"
+    | "DenominatorIncCHIP"
+    | "DenominatorIncMedicareMedicaidDualEligible"
+    | "DenominatorIncOther"
+  >;
+
+  // if "DenominatorIncOther" selected in "DefinitionOfDenominator" -> an explaination
   "DefinitionOfDenominator-Other": string;
+  // text explaination of change in polulation
   ChangeInPopulationExplanation: string;
-  DenominatorDefineTotalTechSpec: string;
+  // Does this denominator represent your total measure-eligible population
+  DenominatorDefineTotalTechSpec: YesNo;
+  // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination which populations are excluded
   "DenominatorDefineTotalTechSpec-No-Explanation": string;
+  // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination of the size of population excluded
   "DenominatorDefineTotalTechSpec-No-Size": string;
-  DeliverySysRepresentationDenominator: string[];
-  "DeliverySys-FeeForService": string;
+  // which delivery systems are represented in the denominator
+
+  DeliverySysRepresentationDenominator: Array<
+    "FFS" | "PCCM" | "MCO-PIHP" | "ICM" | "Other"
+  >;
+  // If "FFS" selected in "DeliverySysRepresentationDenominator" -> Is all of your FFS population included in this measure?"
+  "DeliverySys-FeeForService": YesNo;
+  // If "no" in "DeliverySys-FeeForService" -> what percent included in measure
   "DeliverySys-FeeForService-No-Percent": string;
+  // If "no" in "DeliverySys-FeeForService" -> what number of your FFS population are included in the measure?
   "DeliverySys-FeeForService-No-Population": string;
-  "DeliverySys-PrimaryCareManagement": string;
+  // If "PCCM" selected in "DeliverySysRepresentationDenominator" -> Is all of your PCCM population included in this measure?"
+
+  "DeliverySys-PrimaryCareManagement": YesNo;
+  // If "no" in "DeliverySys-PrimaryCareManagement" -> what percent included in measure
   "DeliverySys-PrimaryCareManagement-No-Percent": string;
+  // if "no" in "DeliverySys-PrimaryCareManagement" -> what number of your PCCM population are included in the measure?
   "DeliverySys-PrimaryCareManagement-No-Population": string;
-  "DeliverySys-MCO_PIHP": string;
+
+  // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" -> what percent
   "DeliverySys-MCO_PIHP-Percent": string;
+  // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" -> what number
   "DeliverySys-MCO_PIHP-NumberOfPlans": string;
+  // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" and Is all of your MCO-PIHP population included in this measure?
+  "DeliverySys-MCO_PIHP": YesNo;
+  // If "no" in "DeliverySys-MCO_PIHP" -> percentage included
   "DeliverySys-MCO_PIHP-No-Included": string;
+  // If "no" in "DeliverySys-MCO_PIHP" -> number excluded
   "DeliverySys-MCO_PIHP-No-Excluded": string;
-  "DeliverySys-IntegratedCareModel": string;
+  // If "ICM" selected in "DeliverySysRepresentationDenominator" -> Is all of your ICM population included in this measure?"
+
+  "DeliverySys-IntegratedCareModel": YesNo;
+  // If "no" in "DeliverySys-IntegratedCareModel" -> what percent included in measure
   "DeliverySys-IntegratedCareModel-No-Percent": string;
+  // If "no" in "DeliverySys-IntegratedCareModel" -> what number of your ICM population are included in the measure?
   "DeliverySys-IntegratedCareModel-No-Population": string;
+
+  // If "Other" selected in "DeliverySysRepresentationDenominator" -> describe the denominator
   "DeliverySys-Other": string;
+  // If "Other" selected in "DeliverySysRepresentationDenominator" -> percentage represented
   "DeliverySys-Other-Percent": string;
+  // If "Other" selected in "DeliverySysRepresentationDenominator" -> number of health plans represented
   "DeliverySys-Other-NumberOfHealthPlans": string;
+  // If "Other" selected in "DeliverySysRepresentationDenominator" -> number of population represented
   "DeliverySys-Other-Population": string;
 }
 
@@ -67,7 +106,7 @@ export interface AdditionalNotes {
 }
 export interface CombinedRates {
   // if the user combined rates from multiple reporting units
-  CombinedRates?: "yes" | "no";
+  CombinedRates?: YesNo;
 
   // if the user combined rates -> the reporting units they combined
   "CombinedRates-CombinedRates"?:
@@ -161,11 +200,11 @@ export interface WhyAreYouNotReporting {
 }
 
 export interface DidReport {
-  DidReport: "yes" | "no";
+  DidReport: YesNo;
 }
 
 export interface DidCollect {
-  DidCollect: "yes" | "no";
+  DidCollect: YesNo;
 }
 
 export interface StatusOfData {
@@ -285,7 +324,7 @@ export namespace DataDrivenTypes {
 
 export interface DeviationFromMeasureSpecification {
   // does the calculation of the measure deviate from the measure specification
-  DidCalculationsDeviate: "YesCalcDeviated" | "NoCalcDidNotDeviate";
+  DidCalculationsDeviate: YesNo;
   // if "YesCalcDeviated" selected from "DidCalculationsDeviate" -> which deviations options selected
   DeviationOptions: string[];
   // the Deviation 'options' below will match the "DeviationOptions" above

@@ -77,12 +77,12 @@ export const DefinitionOfPopulation = () => {
             {
               displayValue:
                 "Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.",
-              value: "YesRepresentsTotalEligiblePop",
+              value: "yes",
             },
             {
               displayValue:
                 "No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.",
-              value: "NoRepresentsTotalEligiblePop",
+              value: "no",
               children: [
                 <QMR.TextArea
                   {...register("DenominatorDefineTotalTechSpec-No-Explanation")}
@@ -121,12 +121,12 @@ export const DefinitionOfPopulation = () => {
                     {
                       displayValue:
                         "Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.",
-                      value: "YesAllFFS",
+                      value: "yes",
                     },
                     {
                       displayValue:
                         "No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.",
-                      value: "NoAllFFS",
+                      value: "no",
                       children: [
                         <QMR.NumberInput
                           {...register("DeliverySys-FeeForService-No-Percent")}
@@ -246,12 +246,12 @@ export const DefinitionOfPopulation = () => {
                       {
                         displayValue:
                           "Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.",
-                        value: "YesAllMCO-PIHP",
+                        value: "yes",
                       },
                       {
                         displayValue:
                           "No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.",
-                        value: "NoAllMCO-PIHP",
+                        value: "no",
                         children: [
                           <CUI.Text mb="5" key="AdditionalMCOIncludedText">
                             {

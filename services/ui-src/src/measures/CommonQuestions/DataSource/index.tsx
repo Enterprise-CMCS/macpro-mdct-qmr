@@ -68,8 +68,8 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
       children.push(
         <QMR.TextArea
           label="Describe the data source:"
-          name={`DataSourceSelections.${adjustedParentName}.descriptions`}
-          key={`DataSourceSelections.${adjustedParentName}.descriptions`}
+          name={`DataSourceSelections.${adjustedParentName}.description`}
+          key={`DataSourceSelections.${adjustedParentName}.description`}
         />
       );
     }
