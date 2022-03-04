@@ -2,7 +2,10 @@ import { Measure } from "../validation/types";
 import { PMD } from "../questions/data";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 
-import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 const CCPADValidation = (data: Measure.Form) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -279,4 +282,5 @@ export const validationFunctions = [
   validate7DaysGreaterThan30Days,
   validate3daysLessOrEqualTo30days,
   validateDenominatorsAreEqual,
+  validateRequiredRadioButtonForCombinedRates,
 ];
