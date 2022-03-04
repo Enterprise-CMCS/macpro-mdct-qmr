@@ -50,7 +50,7 @@ export const MeasureWrapper = ({
         description: `You will inactive at ${new Date(
           Date.now() + 300000
         ).toLocaleTimeString()} in 5 minutes`,
-        duration: 300000,
+        duration: null,
         isClosable: true,
         id: "timeoutToast",
       });
