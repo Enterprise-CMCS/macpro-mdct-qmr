@@ -1,3 +1,4 @@
+import * as Types from "../CommonQuestions/types";
 import { PerformanceMeasure } from "./types";
 import { DateRange } from "../CommonQuestions/types";
 
@@ -273,7 +274,7 @@ export const ensureBothDatesCompletedInRange = (
 
 export const validateReasonForNotReporting = (whyNotReporting: any) => {
   let error = false;
-  let errorArray: any[] = [];
+  const errorArray: any[] = [];
 
   if (!(whyNotReporting && whyNotReporting.length > 0)) {
     error = true;
@@ -285,5 +286,23 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
         "You must select at least one reason for not reporting on this measure",
     });
   }
+  return errorArray;
+};
+
+export const validateRequiredRadioButtonForCombinedRates = (
+  data: Types.CombinedRates
+) => {
+  const errorArray: any[] = [];
+
+  if (data.CombinedRates && data.CombinedRates.includes("Yes")) {
+    if (!data["CombinedRates-CombinedRates"]) {
+      errorArray.push({
+        errorLocation: "Combined Rate(s)",
+        errorMessage:
+          "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
+      });
+    }
+  }
+
   return errorArray;
 };

@@ -27,6 +27,7 @@ export namespace Measure {
     extends Types.DefinitionOfPopulation,
       Types.DateRange,
       Types.DidReport,
+      Types.CombinedRates,
       Types.AdditionalNotes,
       Types.WhyAreYouNotReporting,
       Types.StatusOfData,

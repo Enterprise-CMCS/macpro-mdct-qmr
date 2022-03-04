@@ -1,6 +1,9 @@
 import { PMD } from "../questions/data";
 import { Measure } from "../validation/types";
-import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 
 const validateRates = (data: Measure.Form) => {
   const sevenDays =
@@ -281,5 +284,6 @@ export const validationFunctions = [
   validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
+  validateRequiredRadioButtonForCombinedRates,
   validateBothDatesCompletedInRange,
 ];
