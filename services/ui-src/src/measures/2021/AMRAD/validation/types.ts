@@ -21,34 +21,18 @@ export namespace Measure {
   }
 
   export interface Form
-    extends Types.DefinitionOfPopulation,
+    extends Types.MeasurementSpecification,
+      Types.AdditionalNotes,
+      Types.CombinedRates,
       Types.DateRange,
+      Types.DefinitionOfPopulation,
+      Types.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
-      Types.StatusOfData,
-      Types.AdditionalNotes,
-      Types.OtherPerformanceMeasure,
-      Types.CombinedRates,
-      Types.MeasurementSpecification {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-PersistentAsthma-AgeRange": string[];
-    "DeviationFields-PersistentAsthma": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-
+      Types.DataSource,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification,
+      Types.OtherPerformanceMeasure {
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeasure-AgeRates-Persistent-Asthma": {
       denominator: string;

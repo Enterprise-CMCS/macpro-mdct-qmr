@@ -37,7 +37,7 @@ export const AMRAD = ({
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
   const watchPersistentAsthma = useWatch({
-    name: "PerformanceMeasure-AgeRates-Persistent-Asthma",
+    name: `PerformanceMeasure.rates.singleCategory`,
   });
 
   const showPersistentAsthma19To50 = !!watchPersistentAsthma?.[0]?.rate;
@@ -85,25 +85,15 @@ export const AMRAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <Q.DataSource />
-
+          <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && <Q.PerformanceMeasure />}
-          {isHEDIS && <CMQ.PerformanceMeasure data={PMD.data} />}
-          {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
-            <CMQ.DeviationFromMeasureSpec categories={[]} />
-            // <Q.DeviationFromMeasureSpec
-            //   options={ageGroups}
-            //   deviationConditions={{
-            //     showPersistentAsthma19To50,
-            //     showPersistentAsthma51To64,
-            //     showPersistentAsthmaTotal,
-            //   }}
-            // />
+            <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
           )}
+          {/* Show Deviation only when Other is not selected */}
+          {isHEDIS && <CMQ.DeviationFromMeasureSpec categories={[]} />}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />

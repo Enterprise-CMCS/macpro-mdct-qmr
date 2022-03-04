@@ -9,8 +9,9 @@ export const categories = [
 export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
-  questionText:
+  questionText: [
     "The following components of this measure assess different facets of providing medical assistance with smoking and tobacco use cessation:",
+  ],
   questionListItems: [
     "– A rolling average represents the percentage of beneficiaries age 18 and older who were current smokers or tobacco users and who received advice to quit during the measurement year",
     "– A rolling average represents the percentage of beneficiaries age 18 and older who were current smokers or tobacco users and who discussed or were recommended cessation medications during the measurement year",
