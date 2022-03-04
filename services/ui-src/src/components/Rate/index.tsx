@@ -164,7 +164,7 @@ export const Rate = ({
       prevRate[totalIndex]["denominator"] = denominatorSum;
       if (numeratorSum <= denominatorSum) {
         prevRate[totalIndex]["rate"] =
-          numeratorSum != 0
+          numeratorSum !== 0
             ? ((numeratorSum / denominatorSum) * rateMultiplicationValue)
                 .toFixed(1)
                 .toString()
