@@ -39,7 +39,7 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
       "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
     );
   });
-  it("Checks for race sectoion for two sentence validation", () => {
+  it("Checks for race section for two sentence validation", () => {
     cy.get("#MeasurementSpecification-OPA").click({ force: true });
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
@@ -54,10 +54,10 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.denominator"]'
     ).type("2");
     cy.get(
-      '[data-cy="CategoriesReported0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
     cy.get(
-      '[data-cy="NonHispanicRacialCategories0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
   });
 });
