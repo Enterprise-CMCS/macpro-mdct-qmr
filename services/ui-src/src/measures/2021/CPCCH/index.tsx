@@ -19,7 +19,7 @@ export const CPCCH = ({ name, year }: Types.MeasureWrapperProps) => {
       {data["DidCollect"] !== "no" && (
         <>
           <Q.HowDidYouReport />
-          <CMQ.MeasurementSpecification type="AHRQ" />
+          <CMQ.MeasurementSpecification type="HEDIS-PROTOCOL" />
           <Q.DataSource />
           <Q.DefinitionOfPopulation />
           <Q.PerformanceMeasure />

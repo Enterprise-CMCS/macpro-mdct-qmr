@@ -1,13 +1,19 @@
 import * as QMR from "components";
+import * as CUI from "@chakra-ui/react";
 
 export const PerformanceMeasure = () => {
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      This measure provides information on the experiences of beneficiaries with
-      their health care and gives a general indication of how well the health
-      care meets the beneficiaries’ expectations. Results summarize
-      beneficiaries’ experiences through ratings, composites, and question
-      summary rates.
+      <CUI.Text>
+        This measure provides information on parents’ experiences with their
+        child’s health care. Results summarize children’s experiences through
+        ratings, composites, and individual question summary rates.
+      </CUI.Text>
+      <CUI.Text py="4">
+        The Children with Chronic Conditions Supplemental Items provides
+        information on parents’ experience with their child’s health care for
+        the population of children with chronic conditions.
+      </CUI.Text>
     </QMR.CoreQuestionWrapper>
   );
 };

@@ -40,8 +40,8 @@ export const DataSource = () => {
             value: "No Supplemental Item Sets were included",
           },
           {
-            displayValue: "Supplemental Items for Adult Survey 5.1H",
-            value: "Supplemental Items for Adult Survey 5.1H",
+            displayValue: "CAHPS Item Set for Children with Chronic Conditions",
+            value: "CAHPS Item Set for Children with Chronic Conditions",
           },
           {
             displayValue: "Other CAHPS Item Set",
