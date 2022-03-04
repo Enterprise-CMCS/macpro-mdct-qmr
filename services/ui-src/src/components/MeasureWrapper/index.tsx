@@ -40,19 +40,22 @@ export const MeasureWrapper = ({
   );
 
   const toast = CUI.useToast();
-  useEffect(() => {
-    if (1) {
+  window.setTimeout(function () {
+    if (
+      !toast.isActive("timeoutToast") &&
+      measureId === window.location.pathname.split("/").slice(-1)[0]
+    ) {
       toast({
         status: "warning",
-        description: `You will be logged out at ${new Date(
+        description: `You will inactive at ${new Date(
           Date.now() + 300000
-        ).toLocaleTimeString()} in 5 minutes for inactivity`,
+        ).toLocaleTimeString()} in 5 minutes`,
         duration: 300000,
         isClosable: true,
         id: "timeoutToast",
       });
     }
-  }, [toast]);
+  }, 3300000); ///3300000 is 55 minutes
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const autoCompletedMeasure =
