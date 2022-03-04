@@ -31,50 +31,6 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
       "have.text",
       "Entries for Medicaid Under Age 21 column must have values"
     );
-    /* ==== End Cypress Studio ==== */
-    /* ==== enter data for CHIP and click on validate core set questions button ==== */
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneCHIP"]'
-    ).type("50");
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneCHIP"]'
-    ).type("10");
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneCHIP"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneCHIP"]'
-    ).type("20");
-    cy.get("[data-cy=validate-core-set-questions-button]").click();
-    cy.get(
-      '[data-cy="Entries for Medicaid Under Age 21 column must have values"]'
-    ).should("be.visible");
-    cy.get(
-      '[data-cy="Entries for Medicaid Under Age 21 column must have values"]'
-    ).should(
-      "have.text",
-      "Entries for Medicaid Under Age 21 column must have values"
-    );
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.UnderTwentyOneMedicaid"]'
-    ).type("50");
-
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.UnderTwentyOneMedicaid"]'
-    ).type("10");
-
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.UnderTwentyOneMedicaid"]'
-    ).type("20");
-
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.UnderTwentyOneMedicaid"]'
-    ).type("20");
-    cy.get("[data-cy=validate-core-set-questions-button]").click();
-    /* ==== End Cypress Studio ==== */
   });
 
   /* ==== Test Created with Cypress Studio ==== */
