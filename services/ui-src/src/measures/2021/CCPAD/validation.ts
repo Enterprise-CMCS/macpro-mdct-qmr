@@ -3,13 +3,11 @@ import * as PMD from "./data";
 import {
   getPerfMeasureRateArray,
   getDeviationNDRArray,
-} from "measures/globalValidations";
-
-import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   ensureBothDatesCompletedInRange,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
+} from "measures/globalValidations";
+
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];

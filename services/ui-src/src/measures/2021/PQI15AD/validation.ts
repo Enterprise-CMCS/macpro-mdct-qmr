@@ -1,9 +1,9 @@
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
+  getPerfMeasureRateArray,
   atLeastOneRateComplete,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-} from "../../globalValidations/validationsLib";
+} from "measures/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
 

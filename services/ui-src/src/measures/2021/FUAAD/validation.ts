@@ -4,8 +4,6 @@ import {
   ensureBothDatesCompletedInRange,
   validateRequiredRadioButtonForCombinedRates,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
-} from "../../globalValidations/validationsLib";
-import {
   getPerfMeasureRateArray,
   getDeviationNDRArray,
 } from "measures/globalValidations";

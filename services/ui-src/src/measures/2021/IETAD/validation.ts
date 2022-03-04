@@ -9,8 +9,6 @@ import {
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
-import {
   getPerfMeasureRateArray,
   getDeviationNDRArray,
 } from "measures/globalValidations";

@@ -1,3 +1,5 @@
+import * as PMD from "./data";
+import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -6,10 +8,6 @@ import {
   validateDualPopInformation,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
-import * as PMD from "./data";
-import { FormData } from "./types";
-import {
   getDeviationNDRArray,
   getPerfMeasureRateArray,
 } from "measures/globalValidations";

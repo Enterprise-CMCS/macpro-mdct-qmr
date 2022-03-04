@@ -6,8 +6,6 @@ import {
   validateEqualDenominators,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
-import {
   getDeviationNDRArray,
   getPerfMeasureRateArray,
 } from "measures/globalValidations";

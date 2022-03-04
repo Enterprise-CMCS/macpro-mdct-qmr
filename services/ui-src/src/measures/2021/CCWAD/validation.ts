@@ -5,8 +5,8 @@ import {
   validateNoNonZeroNumOrDenom,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
-import { getDeviationNDRArray } from "measures/globalValidations";
+  getDeviationNDRArray,
+} from "measures/globalValidations";
 import * as PMD from "./data";
 
 const validateReversibleNumeratorLessThanDenominator = (data: FormData) => {
