@@ -57,7 +57,7 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator0] > .chakra-checkbox__control"
     ).click();
-    cy.get("[data-cy=DeliverySys-FreeForService0]").click();
+    cy.get("[data-cy=DeliverySys-FeeForService0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
@@ -65,11 +65,11 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
-    cy.get("[data-cy=DeliverySys-MCO_POHP-Percent]").clear();
-    cy.get("[data-cy=DeliverySys-MCO_POHP-Percent]").type("10");
-    cy.get("[data-cy=DeliverySys-MCO_POHP-NumberOfPlans]").clear();
-    cy.get("[data-cy=DeliverySys-MCO_POHP-NumberOfPlans]").type("20");
-    cy.get("[data-cy=DeliverySys-MCO_POHP0]").click();
+    cy.get("[data-cy=DeliverySys-MCO_PIHP-Percent]").clear();
+    cy.get("[data-cy=DeliverySys-MCO_PIHP-Percent]").type("10");
+    cy.get("[data-cy=DeliverySys-MCO_PIHP-NumberOfPlans]").clear();
+    cy.get("[data-cy=DeliverySys-MCO_PIHP-NumberOfPlans]").type("20");
+    cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
