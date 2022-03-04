@@ -131,7 +131,14 @@ const TestComponentWithTotal = () => {
     },
   ];
 
-  return <Rate rates={rates} name="test-total-component" readOnly={false} />;
+  return (
+    <Rate
+      rates={rates}
+      name="test-total-component"
+      readOnly={false}
+      calcTotal={true}
+    />
+  );
 };
 
 describe("Test the Rate component when it includes a total NDR", () => {
