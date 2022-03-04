@@ -281,20 +281,6 @@ export const MeasureWrapper = ({
                     handleValidation={methods.handleSubmit(handleValidation)}
                   />
                 )}
-                {errors?.map((error, index) => (
-                  <QMR.Notification
-                    key={uuidv4()}
-                    alertProps={{ my: "3" }}
-                    alertStatus="error"
-                    alertTitle={`${error.errorLocation} Error`}
-                    alertDescription={error.errorMessage}
-                    close={() => {
-                      const newErrors = [...errors];
-                      newErrors.splice(index, 1);
-                      setErrors(newErrors);
-                    }}
-                  />
-                ))}
               </CUI.Container>
               {errors?.length === 0 && (
                 <QMR.Notification
