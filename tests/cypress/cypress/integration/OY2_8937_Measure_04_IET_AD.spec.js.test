@@ -844,7 +844,7 @@ describe("OY2 8937 Measure 04 IET AD", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("a > .chakra-text").click();
     cy.get(":nth-child(20) > :nth-child(1) > a > .chakra-text").click();
-    cy.xpath("//p[@id='DidReport-No, I am not reporting']").click({
+    cy.xpath("//p[@id='DidReport-no']").click({
       force: true,
     });
     cy.get(":nth-child(3) > .chakra-form__label").should(
