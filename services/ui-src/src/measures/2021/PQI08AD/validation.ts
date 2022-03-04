@@ -9,7 +9,7 @@ import {
 import * as PMD from "./data";
 import { FormData } from "./types";
 
-const PQI01Validation = (data: FormData) => {
+const PQI08Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const dateRange = data["DateRange"];
@@ -36,4 +36,4 @@ const PQI01Validation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PQI01Validation];
+export const validationFunctions = [PQI08Validation];

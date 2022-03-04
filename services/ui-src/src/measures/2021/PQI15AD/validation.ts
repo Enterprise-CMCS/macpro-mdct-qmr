@@ -6,7 +6,8 @@ import {
 } from "measures/globalValidations/validationsLib";
 import * as PMD from "./data";
 import { FormData } from "./types";
-const PQI01Validation = (data: FormData) => {
+
+const PQI15Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
@@ -33,4 +34,4 @@ const PQI01Validation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PQI01Validation];
+export const validationFunctions = [PQI15Validation];
