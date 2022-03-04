@@ -16,7 +16,7 @@ import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
-} from "measures/2021/globalValidations/omsValidationsLib";
+} from "measures/globalValidations/omsValidationsLib";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
