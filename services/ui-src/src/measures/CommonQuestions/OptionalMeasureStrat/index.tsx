@@ -15,31 +15,38 @@ interface OmsCheckboxProps {
   name: string;
   /** data object for dynamic rendering */
   data: OmsNode[];
+  isSingleSex: boolean;
 }
 
 /**
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
-export const buildOmsCheckboxes = ({ name, data }: OmsCheckboxProps) => {
-  return data.map((lvlOneOption) => {
-    const displayValue = lvlOneOption.id;
-    const value = lvlOneOption.id.replace(/[^\w]/g, "");
+export const buildOmsCheckboxes = ({
+  name,
+  data,
+  isSingleSex,
+}: OmsCheckboxProps) => {
+  return data
+    .filter((d) => !isSingleSex || d.id !== "Sex") // remove sex as a top level option if isSingleSex
+    .map((lvlOneOption) => {
+      const displayValue = lvlOneOption.id;
+      const value = lvlOneOption.id.replace(/[^\w]/g, "");
 
-    const children = [
-      <TopLevelOmsChildren
-        options={lvlOneOption.options}
-        addMore={!!lvlOneOption.addMore}
-        parentDisplayName={lvlOneOption.id}
-        addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
-        name={`${name}.selections.${value}`}
-        key={`${name}.selections.${value}`}
-        id={displayValue}
-      />,
-    ];
+      const children = [
+        <TopLevelOmsChildren
+          options={lvlOneOption.options}
+          addMore={!!lvlOneOption.addMore}
+          parentDisplayName={lvlOneOption.id}
+          addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
+          name={`${name}.selections.${value}`}
+          key={`${name}.selections.${value}`}
+          id={displayValue}
+        />,
+      ];
 
-    return { value, displayValue, children };
-  });
+      return { value, displayValue, children };
+    });
 };
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
@@ -49,6 +56,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  isSingleSex?: boolean;
 }
 
 /** data for dynamic rendering will be provided */
@@ -88,6 +96,7 @@ export const OptionalMeasureStrat = ({
   adultMeasure,
   rateMultiplicationValue,
   customMask,
+  isSingleSex = false,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -101,6 +110,7 @@ export const OptionalMeasureStrat = ({
   const checkBoxOptions = buildOmsCheckboxes({
     ...register("OptionalMeasureStratification"),
     data: omsData,
+    isSingleSex,
   });
 
   const rateReadOnly =

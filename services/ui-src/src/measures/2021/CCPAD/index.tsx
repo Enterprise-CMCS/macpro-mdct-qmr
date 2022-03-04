@@ -57,6 +57,7 @@ export const CCPAD = ({
               qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
+              isSingleSex
             />
           )}
         </>

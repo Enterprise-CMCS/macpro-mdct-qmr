@@ -57,6 +57,7 @@ export const CCWAD = ({
               qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
+              isSingleSex
             />
           )}
         </>
