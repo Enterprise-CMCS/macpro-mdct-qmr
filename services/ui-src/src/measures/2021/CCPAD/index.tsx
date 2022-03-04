@@ -1,4 +1,4 @@
-import * as CMQ from "../../CommonQuestions";
+import * as CMQ from "measures/CommonQuestions";
 import { MeasureWrapperProps } from "measures/CommonQuestions/types";
 import { FormData } from "./types";
 import { useEffect } from "react";

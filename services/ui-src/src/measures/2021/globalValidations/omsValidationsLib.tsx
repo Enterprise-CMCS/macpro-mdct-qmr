@@ -1,5 +1,8 @@
-import { OmsNodes as OMS, RateFields } from "../CommonQuestions/types";
-import { DefaulFormData } from "../CommonQuestions/types";
+import {
+  OmsNodes as OMS,
+  RateFields,
+  DefaultFormData,
+} from "measures/CommonQuestions/types";
 
 type locationDictionaryFunction = (labels: string[]) => string;
 
@@ -14,7 +17,7 @@ type OmsValidationCallback = (data: {
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 
 interface OmsValidationProps {
-  data: DefaulFormData;
+  data: DefaultFormData;
   qualifiers: string[];
   categories: string[];
   locationDictionary: locationDictionaryFunction;
@@ -161,7 +164,7 @@ export const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
 };
 
 const validateNDRs = (
-  data: DefaulFormData,
+  data: DefaultFormData,
   callbackArr: OmsValidationCallback[],
   qualifiers: string[],
   categories: string[],
