@@ -28,6 +28,16 @@ Local dev is built around the Serverless plugin [`serverless-offline`](https://g
 
 When run locally, auth bypasses Cognito. The frontend mimics login in local storage with a mock user and sends an id in the `cognito-identity-id` header on every request. `serverless-offline` expects that and sets it as the cognitoId in the requestContext for your lambdas, just like Cognito would in AWS.
 
+### Prettier Linter
+
+We use Prettier to format all code. This runs as part of a Git Hook and changes to files will cause the deploy to fail.
+
+Most IDEs have a Prettier plugin that can be configured to run on file save. You can also run the format check manually from the IDE or invoking Prettier on the command line.
+
+```
+npx prettier --write "**/*.tsx"
+```
+
 ## Usage
 
 See master build [here](https://github.com/CMSgov/cms-mdct-qmr/actions?query=branch%3Amaster)
@@ -85,7 +95,22 @@ If you want to a visual view of your dynamodb after the application is up and ru
 
 - to run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window
 
-## Cypress Testing
+## Testing
+
+### ui-src Unit Tests
+
+```
+cd services/ui-src/
+yarn test
+
+# live reload all tests
+yarn test --watch
+
+# specify test to run
+npx jest src/components --watch  # run all component tests and watch for changes
+```
+
+### Cypress Testing
 
 [See here](./tests/cypress/README.md)
 
