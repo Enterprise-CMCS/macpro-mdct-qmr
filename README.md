@@ -32,7 +32,7 @@ When run locally, auth bypasses Cognito. The frontend mimics login in local stor
 
 We use Prettier to format all code. This runs as part of a Git Hook and changes to files will cause the deploy to fail.
 
-Most IDEs have a Prettier plugin that can be configured to run on file save. You can also run the format manually:
+Most IDEs have a Prettier plugin that can be configured to run on file save. You can also run the format check manually from the IDE or invoking Prettier on the command line.
 
 ```
 npx prettier --write "**/*.tsx"
@@ -97,7 +97,7 @@ If you want to a visual view of your dynamodb after the application is up and ru
 
 ## Testing
 
-#### ui-src Unit Tests
+### ui-src Unit Tests
 
 ```
 cd services/ui-src/
