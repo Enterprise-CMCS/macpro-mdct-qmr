@@ -21,6 +21,7 @@ export const CombinedRates = () => {
         >
           State-Level Rate Brief
         </CUI.Link>
+        .
       </CUI.Text>
       <QMR.RadioButton
         options={[
