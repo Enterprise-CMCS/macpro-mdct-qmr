@@ -24,7 +24,11 @@ const PQI05Validation = (data: any) => {
     ...errorArray,
     ...ensureBothDatesCompletedInRange(dateRange),
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, ageGroups),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
