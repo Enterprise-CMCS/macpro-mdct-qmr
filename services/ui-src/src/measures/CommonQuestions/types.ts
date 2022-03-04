@@ -67,16 +67,16 @@ export interface AdditionalNotes {
 }
 export interface CombinedRates {
   // if the user combined rates from multiple reporting units
-  CombinedRates: "yes" | "no";
+  CombinedRates?: "yes" | "no";
 
   // if the user combined rates -> the reporting units they combined
-  "CombinedRates-CombinedRates":
+  "CombinedRates-CombinedRates"?:
     | "Combined Not Weighted Rates"
     | "Combined Weighted Rates"
     | "Combined Weighted Rates Other";
 
   // if the user selected "Combined Weighted Rates Other" -> the explaination of the other weighing factor
-  "CombinedRates-CombinedRates-Other-Explanation": string;
+  "CombinedRates-CombinedRates-Other-Explanation"?: string;
 }
 
 export interface OtherPerformanceMeasure {

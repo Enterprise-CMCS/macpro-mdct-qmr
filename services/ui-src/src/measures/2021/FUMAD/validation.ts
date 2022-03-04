@@ -1,6 +1,9 @@
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { ensureBothDatesCompletedInRange } from "measures/globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "measures/globalValidations/validationsLib";
 
 const validateRates = (data: FormData) => {
   const sevenDays =
@@ -281,5 +284,6 @@ export const validationFunctions = [
   validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
+  validateRequiredRadioButtonForCombinedRates,
   validateBothDatesCompletedInRange,
 ];

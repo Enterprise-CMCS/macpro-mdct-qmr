@@ -2,7 +2,10 @@ import { FormData } from "./types";
 import * as PMD from "./data";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 
-import { ensureBothDatesCompletedInRange } from "measures/globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -279,4 +282,5 @@ export const validationFunctions = [
   validate7DaysGreaterThan30Days,
   validate3daysLessOrEqualTo30days,
   validateDenominatorsAreEqual,
+  validateRequiredRadioButtonForCombinedRates,
 ];

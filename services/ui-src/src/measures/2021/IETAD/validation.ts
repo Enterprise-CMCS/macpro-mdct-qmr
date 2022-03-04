@@ -7,11 +7,12 @@ import {
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
-} from "measures/globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
-import * as Types from "measures/CommonQuestions/types";
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "../../globalValidations";
+import { FormData } from "./types";
 
-const IEDValidation = (data: Types.DefaultFormData) => {
+const IEDValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -78,6 +79,7 @@ const IEDValidation = (data: Types.DefaultFormData) => {
     ),
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
   ];
 

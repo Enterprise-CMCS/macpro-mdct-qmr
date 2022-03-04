@@ -4,12 +4,13 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateEqualDenominators,
+  validateRequiredRadioButtonForCombinedRates,
 } from "measures/globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
-import * as Types from "./types";
+import { FormData } from "./types";
 
-const OUDValidation = (data: Types.FormData) => {
+const OUDValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data["DateRange"];
@@ -22,6 +23,7 @@ const OUDValidation = (data: Types.FormData) => {
     ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
       "age-group",
     ]),
+    ...validateRequiredRadioButtonForCombinedRates(data),
     ...validateEqualDenominators(performanceMeasureArray, ["age-group"]),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
   ];

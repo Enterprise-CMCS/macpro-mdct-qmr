@@ -3,7 +3,8 @@ import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
-} from "measures/globalValidations/validationsLib";
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
 
 const validateReversibleNumeratorLessThanDenominator = (data: FormData) => {
@@ -168,4 +169,5 @@ export const validationFunctions = [
   validateDenominatorsAreTheSame,
   validateNonZeroDenom,
   validateAtLeastOneNPR,
+  validateRequiredRadioButtonForCombinedRates,
 ];
