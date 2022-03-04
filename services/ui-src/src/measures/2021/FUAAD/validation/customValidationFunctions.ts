@@ -1,7 +1,10 @@
 import { PMD } from "../questions/data";
 import { Measure } from "../validation/types";
-import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "../../globalValidations/validationsLib";
-import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
+} from "../../globalValidations/validationsLib";
 import {
   getPerfMeasureRateArray,
   getDeviationNDRArray,
@@ -301,5 +304,6 @@ export const validationFunctions = [
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
   validateAtLeastOneDeviationNDR,
+  validateRequiredRadioButtonForCombinedRates,
   validateBothDatesCompletedInRange,
 ];

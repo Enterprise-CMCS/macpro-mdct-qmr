@@ -9,6 +9,7 @@ import {
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import { PMD } from "../questions/data";
 import { Measure } from "./types";
@@ -57,6 +58,7 @@ const PQI01Validation = (data: Measure.Form) => {
       PMD.qualifiers,
       deviationArray
     ),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

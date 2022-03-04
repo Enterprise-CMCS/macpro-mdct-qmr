@@ -4,6 +4,7 @@ import {
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import { PMD } from "../questions/data";
 import { getDeviationNDRArray } from "measures/2021/globalValidations";
@@ -193,4 +194,5 @@ export const validationFunctions = [
   validateNonZeroDenom,
   validateAtLeastOneNPR,
   validateAtLeastOneDeviationNDR,
+  validateRequiredRadioButtonForCombinedRates,
 ];

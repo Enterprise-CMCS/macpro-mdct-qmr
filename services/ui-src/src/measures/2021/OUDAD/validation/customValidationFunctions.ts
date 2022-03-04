@@ -6,6 +6,7 @@ import {
   validateNoNonZeroNumOrDenom,
   validateEqualDenominators,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import {
   getPerfMeasureRateArray,
@@ -44,6 +45,7 @@ const OUDValidation = (data: Measure.Form) => {
       OPM,
       PMD.qualifiers
     ),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

@@ -9,8 +9,8 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
-import { omsValidations } from "measures/2021/globalValidations/omsValidationsLib";
 import {
   getPerfMeasureRateArray,
   getDeviationNDRArray,
@@ -89,7 +89,7 @@ const IEDValidation = (data: Measure.Form) => {
     ),
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...omsValidations(data),
+    ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

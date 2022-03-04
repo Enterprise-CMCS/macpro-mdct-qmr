@@ -27,17 +27,17 @@ export interface DefinitionOfPopulation {
   "DenominatorDefineTotalTechSpec-No-Explanation": string;
   "DenominatorDefineTotalTechSpec-No-Size": string;
   DeliverySysRepresentationDenominator: string[];
-  "DeliverySys-FreeForService": string;
-  "DeliverySys-FreeForService-No-Percent": string;
-  "DeliverySys-FreeForService-No-Population": string;
+  "DeliverySys-FeeForService": string;
+  "DeliverySys-FeeForService-No-Percent": string;
+  "DeliverySys-FeeForService-No-Population": string;
   "DeliverySys-PrimaryCareManagement": string;
   "DeliverySys-PrimaryCareManagement-No-Percent": string;
   "DeliverySys-PrimaryCareManagement-No-Population": string;
-  "DeliverySys-MCO_POHP": string;
-  "DeliverySys-MCO_POHP-Percent": string;
-  "DeliverySys-MCO_POHP-NumberOfPlans": string;
-  "DeliverySys-MCO_POHP-No-Included": string;
-  "DeliverySys-MCO_POHP-No-Excluded": string;
+  "DeliverySys-MCO_PIHP": string;
+  "DeliverySys-MCO_PIHP-Percent": string;
+  "DeliverySys-MCO_PIHP-NumberOfPlans": string;
+  "DeliverySys-MCO_PIHP-No-Included": string;
+  "DeliverySys-MCO_PIHP-No-Excluded": string;
   "DeliverySys-IntegratedCareModel": string;
   "DeliverySys-IntegratedCareModel-No-Percent": string;
   "DeliverySys-IntegratedCareModel-No-Population": string;
@@ -56,16 +56,16 @@ export interface AdditionalNotes {
 }
 export interface CombinedRates {
   // if the user combined rates from multiple reporting units
-  CombinedRates: "Yes, combine" | "No, did not combine";
+  CombinedRates?: "Yes, combine" | "No, did not combine";
 
   // if the user combined rates -> the reporting units they combined
-  "CombinedRates-CombinedRates":
+  "CombinedRates-CombinedRates"?:
     | "Combined Not Weighted Rates"
     | "Combined Weighted Rates"
     | "Combined Weighted Rates Other";
 
   // if the user selected "Combined Weighted Rates Other" -> the explaination of the other weighing factor
-  "CombinedRates-CombinedRates-Other-Explanation": string;
+  "CombinedRates-CombinedRates-Other-Explanation"?: string;
 }
 
 export interface OtherPerformanceMeasure {

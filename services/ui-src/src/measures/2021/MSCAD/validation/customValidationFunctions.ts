@@ -6,6 +6,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import {
   getPerfMeasureRateArray,
@@ -49,6 +50,7 @@ const MSCADValidation = (data: Measure.Form) => {
       ageGroups,
       deviationArray
     ),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

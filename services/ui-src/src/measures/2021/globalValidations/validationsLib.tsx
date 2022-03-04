@@ -274,7 +274,7 @@ export const ensureBothDatesCompletedInRange = (
 
 export const validateReasonForNotReporting = (whyNotReporting: any) => {
   let error = false;
-  let errorArray: any[] = [];
+  const errorArray: any[] = [];
 
   if (!(whyNotReporting && whyNotReporting.length > 0)) {
     error = true;
@@ -291,7 +291,6 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
 
 // When a user inputs data in multiple NDR sets in a performance measure
 // Then the user must complete at least one NDR set in the Deviation of measure specification.
-
 export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: PerformanceMeasure[][],
   ageGroups: string[],
@@ -329,6 +328,23 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       errorArray.push({
         errorLocation: "Deviations from Measure Specifications",
         errorMessage: "You must complete one NDR set",
+      });
+    }
+  }
+  return errorArray;
+};
+
+export const validateRequiredRadioButtonForCombinedRates = (
+  data: Types.CombinedRates
+) => {
+  const errorArray: any[] = [];
+
+  if (data.CombinedRates && data.CombinedRates.includes("Yes")) {
+    if (!data["CombinedRates-CombinedRates"]) {
+      errorArray.push({
+        errorLocation: "Combined Rate(s)",
+        errorMessage:
+          "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
       });
     }
   }

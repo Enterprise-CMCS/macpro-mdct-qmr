@@ -6,6 +6,7 @@ import {
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import {
   getPerfMeasureRateArray,
@@ -57,6 +58,7 @@ const PQI01Validation = (data: Measure.Form) => {
       PMD.qualifiers,
       deviationArray
     ),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

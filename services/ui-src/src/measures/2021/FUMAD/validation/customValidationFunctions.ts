@@ -1,11 +1,14 @@
 import { PMD } from "../questions/data";
 import { Measure } from "./types";
-import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "../../globalValidations/validationsLib";
-import { ensureBothDatesCompletedInRange } from "../../globalValidations/validationsLib";
 import {
   getPerfMeasureRateArray,
   getDeviationNDRArray,
 } from "measures/2021/globalValidations";
+import {
+  validateRequiredRadioButtonForCombinedRates,
+  ensureBothDatesCompletedInRange,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
+} from "../../globalValidations/validationsLib";
 
 const validateRates = (data: Measure.Form) => {
   const sevenDays =
@@ -301,5 +304,6 @@ export const validationFunctions = [
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
   validateAtLeastOneDeviationNDR,
+  validateRequiredRadioButtonForCombinedRates,
   validateBothDatesCompletedInRange,
 ];
