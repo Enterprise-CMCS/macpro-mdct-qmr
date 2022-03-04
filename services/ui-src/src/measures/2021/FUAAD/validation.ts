@@ -5,6 +5,14 @@ import {
   validateRequiredRadioButtonForCombinedRates,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "measures/globalValidations/validationsLib";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateDenominatorsAreTheSame,
+  validateOneRateLessThanOther,
+} from "measures/globalValidations/omsValidationsLib";
+import { omsLocationDictionary } from "measures/globalValidations";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const validateRates = (data: FormData) => {
   const sevenDays =
@@ -297,6 +305,22 @@ const validateBothDatesCompletedInRange = (data: FormData) => {
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };
 
+const validateOMS = (data: FormData) => {
+  return [
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(OMSData(true)),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateDenominatorsAreTheSame,
+        validateOneRateLessThanOther,
+      ],
+    }),
+  ];
+};
+
 export const validationFunctions = [
   validateRates,
   validate7DaysGreaterThan30Days,
@@ -307,4 +331,5 @@ export const validationFunctions = [
   validateAtLeastOneDeviationNDR,
   validateRequiredRadioButtonForCombinedRates,
   validateBothDatesCompletedInRange,
+  validateOMS,
 ];
