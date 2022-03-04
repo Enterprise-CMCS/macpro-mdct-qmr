@@ -1,8 +1,11 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
+import { getPerfMeasureRateArray } from "../globalValidations";
 
 export const IETAD = ({
   name,
@@ -17,6 +20,9 @@ export const IETAD = ({
   }, [setValidationFunctions]);
 
   const { getValues } = useFormContext<Measure.Form>();
+  const data = getValues();
+
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({ name: "DidReport" });
@@ -104,6 +110,7 @@ export const IETAD = ({
     ageGroups.push({ label: "Age 65 and older", id: 1 });
   }
   if (showOtherPerformanceMeasureRates) {
+    // @ts-ignore
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
     otherRates.forEach((rate) => {
       if (rate.description) {
@@ -112,9 +119,16 @@ export const IETAD = ({
     });
   }
 
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const dataSourceWatch = useWatch({ name: "DataSource" });
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source: string) => source === "AdministrativeData"
+    ) ?? true;
+
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
@@ -122,40 +136,25 @@ export const IETAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
-          <Q.MeasurementSpecification />
-          <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.StatusOfData />
+          <CMQ.MeasurementSpecification type="HEDIS" />
+          <CMQ.DataSource data={Q.DataSourceData} />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && <Q.PerformanceMeasure />}
-          {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showInitAlcohol18To64,
-                showEngageAlcohol18To64,
-                showInitOpioid18To64,
-                showEngageOpioid18To64,
-                showInitOther18To64,
-                showEngageOther18To64,
-                showInitTotal18To64,
-                showEngageTotal18To64,
-                showInitAlcohol65Plus,
-                showEngageAlcohol65Plus,
-                showInitOpioid65Plus,
-                showEngageOpioid65Plus,
-                showInitOther65Plus,
-                showEngageOther65Plus,
-                showInitTotal65Plus,
-                showEngageTotal65Plus,
-              }}
+            <CMQ.PerformanceMeasure
+              data={PMD.data}
+              rateReadOnly={rateReadOnly}
             />
           )}
+          {/* Show Deviation only when Other is not selected */}
+          {isHEDIS && (
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+          )}
           {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          <CMQ.CombinedRates />
           {(showInitAlcohol18To64 ||
             showEngageAlcohol18To64 ||
             showInitOpioid18To64 ||
@@ -173,32 +172,16 @@ export const IETAD = ({
             showInitTotal65Plus ||
             showEngageTotal65Plus ||
             showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                showInitAlcohol18To64,
-                showEngageAlcohol18To64,
-                showInitOpioid18To64,
-                showEngageOpioid18To64,
-                showInitOther18To64,
-                showEngageOther18To64,
-                showInitTotal18To64,
-                showEngageTotal18To64,
-                showInitAlcohol65Plus,
-                showEngageAlcohol65Plus,
-                showInitOpioid65Plus,
-                showEngageOpioid65Plus,
-                showInitOther65Plus,
-                showEngageOther65Plus,
-                showInitTotal65Plus,
-                showEngageTotal65Plus,
-                showOtherPerformanceMeasureRates,
-              }}
+            <CMQ.OptionalMeasureStrat
+              performanceMeasureArray={performanceMeasureArray}
+              qualifiers={PMD.qualifiers}
+              categories={PMD.categories}
+              adultMeasure
             />
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };

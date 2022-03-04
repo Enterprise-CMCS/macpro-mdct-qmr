@@ -1,13 +1,13 @@
 //OY2-8945
-const saveButtn = "//button[@class='chakra-button css-hp17lz']";
-const validateMeasureButton = "//button[@class='chakra-button css-gy0j0y']";
-const completeMeasureButton = "//button[@class='chakra-button css-qobkj']";
+const saveButtn = "[data-cy='Save']";
+const validateMeasureButton = "[data-cy='Validate Measure']";
+const completeMeasureButton = "[data-cy='Complete Measure']";
 
 export class CCPadPage {
   verifySaveValidateCompletebuttonClickable() {
-    cy.xpath(saveButtn).should("be.visible");
-    cy.xpath(validateMeasureButton).should("be.visible");
-    cy.xpath(completeMeasureButton).should("be.visible");
+    cy.get(saveButtn).should("be.visible");
+    cy.get(validateMeasureButton).should("be.visible");
+    cy.get(completeMeasureButton).should("be.visible");
   }
 }
 export default CCPadPage;

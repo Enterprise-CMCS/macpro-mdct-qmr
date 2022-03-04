@@ -1,8 +1,11 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
+import * as Types from "../CommonQuestions/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
 
 export const CCPAD = ({
   name,
@@ -16,7 +19,7 @@ export const CCPAD = ({
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
+  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({
@@ -26,17 +29,17 @@ export const CCPAD = ({
     name: "MeasurementSpecification",
   });
   const watchPerformanceMeasureAgeRatesEffectiveContraception = useWatch({
-    name: "PerformanceMeasure-AgeRates-effectiveContraception",
+    name: `PerformanceMeasure.rates.${PMD.categories[0].replace(/[^\w]/g, "")}`,
   });
   const watchPerformanceMeasureAgeRatesLongActingContraception = useWatch({
-    name: "PerformanceMeasure-AgeRates-longActingContraception",
+    name: `PerformanceMeasure.rates.${PMD.categories[1].replace(/[^\w]/g, "")}`,
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
   });
 
   // Conditionals for Performance Measures
-  const isUSOPA = watchMeasureSpecification === "US-OPA";
+  const isUSOPA = watchMeasureSpecification === "OPA";
 
   const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
@@ -83,7 +86,7 @@ export const CCPAD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
@@ -91,29 +94,20 @@ export const CCPAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
-          <Q.MeasurementSpecification />
-          <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.StatusOfData />
+          <CMQ.MeasurementSpecification type="OPA" />
+          <CMQ.DataSource />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isUSOPA && <Q.PerformanceMeasure />}
+          {isUSOPA && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isUSOPA && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showEffectiveContraceptionThreeDaysPostPartum,
-                showEffectiveContraceptionSixtyDaysPostPartum,
-                showLongActingContraceptionThreeDaysPostPartum,
-                showLongActingContraceptionSixtyDaysPostPartum,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isHHSOPA is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          <CMQ.CombinedRates />
           {(showEffectiveContraceptionThreeDaysPostPartum ||
             showEffectiveContraceptionSixtyDaysPostPartum ||
             showLongActingContraceptionThreeDaysPostPartum ||
@@ -132,7 +126,7 @@ export const CCPAD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };

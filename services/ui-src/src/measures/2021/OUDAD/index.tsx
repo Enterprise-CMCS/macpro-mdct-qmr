@@ -1,8 +1,10 @@
 import * as Q from "./questions";
+import * as CMQ from "../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { PMD } from "./questions/data";
 
 export const OUDAD = ({
   name,
@@ -26,7 +28,7 @@ export const OUDAD = ({
     name: "MeasurementSpecification",
   });
   const watchPerformanceMeasureRates = useWatch({
-    name: "PerformanceMeasure-Rates",
+    name: "PerformanceMeasure.rates.singleCategory",
   });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
@@ -80,7 +82,7 @@ export const OUDAD = ({
 
   return (
     <>
-      <Q.Reporting
+      <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
@@ -88,30 +90,20 @@ export const OUDAD = ({
 
       {!watchReportingRadio?.includes("No") && (
         <>
-          <Q.Status />
-          <Q.MeasurementSpecification />
-          <Q.DataSource />
-          <Q.DateRange type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.StatusOfData />
+          <CMQ.MeasurementSpecification type="CMS" />
+          <CMQ.DataSource />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when CMS is selected from DataSource */}
-          {isCMS && <Q.PerformanceMeasure />}
+          {isCMS && <CMQ.PerformanceMeasure data={PMD.data} />}
           {/* Show Deviation only when Other is not selected */}
           {isCMS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showTotalRate,
-                showBuprenorphine,
-                showOralNaltrexone,
-                showInjectableNaltrexone,
-                showMethadone,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isCMS is not true  */}
-          {isOtherSpecification && <Q.OtherPerformanceMeasure />}
-          <Q.CombinedRates />
+          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          <CMQ.CombinedRates />
           {(showTotalRate ||
             showBuprenorphine ||
             showOralNaltrexone ||
@@ -122,7 +114,7 @@ export const OUDAD = ({
           )}
         </>
       )}
-      <Q.AdditionalNotes />
+      <CMQ.AdditionalNotes />
     </>
   );
 };

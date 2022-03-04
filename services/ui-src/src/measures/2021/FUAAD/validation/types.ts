@@ -1,3 +1,5 @@
+import * as Types from "../../CommonQuestions/types";
+
 export namespace Measure {
   export interface Props {
     name: string;
@@ -6,153 +8,24 @@ export namespace Measure {
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
-  interface RateFields {
-    numerator: string;
-    denominator: string;
-    rate: string;
-  }
-
   interface AggregateRate {
-    subRate: RateFields[];
-    total: RateFields[];
+    subRate: Types.RateFields[];
+    total: Types.RateFields[];
   }
 
-  interface OtherRatesFields {
-    description: string[];
-    rate: RateFields[];
-  }
-
-  export interface Form {
-    //Report
-    DidReport: string;
-
-    //Status
-    DataStatus: string[];
-    "DataStatus-ProvisionalExplanation": string;
-
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-    "DataSource-Hybrid"?: string[];
-    "DataSource-Hybrid-Other"?: string;
-    "DataSource-Hybrid-Other-Explanation"?: string;
-    "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
-    "DataSource-ElectronicHealthRecords"?: string;
-    "DataSource-ElectronicHealthRecords-Explanation"?: string;
-
-    //CombinedRates
-    CombinedRates: string;
-    "CombinedRates-CombinedRates": string;
-    "CombinedRates-CombinedRates-Other-Explanation": string;
-
-    //MeasurementSpecification
-    MeasurementSpecification: string;
-    "MeasurementSpecification-HEDISVersion": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription": string;
-    "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File;
-
-    //WhyAreYouNotReporting
-    WhyAreYouNotReporting: string[];
-    AmountOfPopulationNotCovered: string;
-    PopulationNotCovered: string;
-    PartialPopulationNotCoveredExplanation: string;
-    WhyIsDataNotAvailable: string;
-    "WhyIsDataNotAvailable-Other": string;
-    DataIconAccuracyIssues: string;
-    DataSourceNotEasilyAccessible: string;
-    "DataSourceNotEasilyAccessible-Other": string;
-    InformationNotCollected: string;
-    "InformationNotCollected-Other": string;
-    LimitationWithDatCollecitonReportAccuracyCovid: string;
-    SmallSampleSizeLessThan30: string;
-    "WhyAreYouNotReporting-Other": string;
-
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //AdditionalNotes
-    "AdditionalNotes-AdditionalNotes"?: string;
-    "AdditionalNotes-Upload"?: File[];
-
-    //DefinitionOfPopulation
-    DefinitionOfDenominator: string[];
-    "DefinitionOfDenominator-Other": string;
-    ChangeInPopulationExplanation: string;
-    DenominatorDefineTotalTechSpec: string;
-    "DenominatorDefineTotalTechSpec-No-Explanation": string;
-    "DenominatorDefineTotalTechSpec-No-Size": string;
-    DeliverySysRepresentationDenominator: string[];
-    "DeliverySys-FreeForService": string;
-    "DeliverySys-FreeForService-No-Percent": string;
-    "DeliverySys-FreeForService-No-Population": string;
-    "DeliverySys-PrimaryCareManagement": string;
-    "DeliverySys-PrimaryCareManagement-No-Percent": string;
-    "DeliverySys-PrimaryCareManagement-No-Population": string;
-    "DeliverySys-MCO_POHP": string;
-    "DeliverySys-MCO_POHP-Percent": string;
-    "DeliverySys-MCO_POHP-NumberOfPlans": string;
-    "DeliverySys-MCO_POHP-No-Included": string;
-    "DeliverySys-MCO_POHP-No-Excluded": string;
-    "DeliverySys-IntegratedCareModel": string;
-    "DeliverySys-IntegratedCareModel-No-Percent": string;
-    "DeliverySys-IntegratedCareModel-No-Population": string;
-    "DeliverySys-Other": string;
-    "DeliverySys-Other-Percent": string;
-    "DeliverySys-Other-NumberOfHealthPlans": string;
-    "DeliverySys-Other-Population": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-Within7-AgeRange": string[];
-    "DeviationOptions-Within30-AgeRange": string[];
-    "DeviationFields-Within7": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-Within30": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-30Days": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-7Days": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    DateRange: {
-      endDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-      startDate: {
-        selectedMonth: number;
-        selectedYear: number;
-      };
-    };
-
+  export interface Form
+    extends Types.DefinitionOfPopulation,
+      Types.StatusOfData,
+      Types.DidReport,
+      Types.AdditionalNotes,
+      Types.WhyAreYouNotReporting,
+      Types.DateRange,
+      Types.CombinedRates,
+      Types.OtherPerformanceMeasure,
+      Types.DataSource,
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //OptionalMeasureStratification
     CategoriesReported: string[];
 

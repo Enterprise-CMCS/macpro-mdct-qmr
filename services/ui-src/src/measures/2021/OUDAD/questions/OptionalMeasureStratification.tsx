@@ -82,9 +82,7 @@ const AgeData = ({ name }: SubComponentProps) => {
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ?? true;
 
   return (
     <CUI.Box key={`${name}.ageData`}>
@@ -100,6 +98,14 @@ const AgeData = ({ name }: SubComponentProps) => {
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Heading>,
+              ...(!rateReadOnly
+                ? [
+                    <CUI.Heading pt="1" size={"sm"} key={`${item.id}-helper`}>
+                      Please review the auto-calculated rate and revise if
+                      needed.
+                    </CUI.Heading>,
+                  ]
+                : []),
               <QMR.Rate
                 readOnly={rateReadOnly}
                 name={`${name}.subRates.${item.label.replace(/[ ,]/g, "")}`}
@@ -218,9 +224,7 @@ export const OptionalMeasureStratification = ({ ageGroups }: Props) => {
         </CUI.Text>
         <CUI.Text py="3">
           Do not select categories and sub-classifications for which you will
-          not be reporting any data. If a sub-classification is selected, the
-          system will enter zeros by default and report this as the data for
-          your state/territory.
+          not be reporting any data.
         </CUI.Text>
         <QMR.Checkbox
           label="Check all that apply"

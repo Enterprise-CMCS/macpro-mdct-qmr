@@ -2,7 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { ReactElement, cloneElement, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { Measure } from "measures/types";
 import { useParams } from "react-router-dom";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
@@ -35,7 +34,7 @@ export const MeasureWrapper = ({
 }: Props) => {
   const navigate = useNavigate();
   const params = useParams();
-  const [errors, setErrors] = useState<any[]>();
+  const [errors, setErrors] = useState<any[] | undefined>(undefined);
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
@@ -68,7 +67,7 @@ export const MeasureWrapper = ({
   });
   const measureData = apiData?.Item;
 
-  const methods = useForm<Measure.Form>({
+  const methods = useForm({
     shouldUnregister: true,
     mode: "all",
     defaultValues: measureData?.data ?? undefined,
@@ -81,11 +80,13 @@ export const MeasureWrapper = ({
   }, [apiData, methods]);
 
   const handleValidation = (data: any) => {
+    console.log("data", data);
+    console.log("errors", methods.formState.errors);
     handleSave(data);
     validateAndSetErrors(data);
   };
 
-  const handleSave = (data: Measure.Form) => {
+  const handleSave = (data: any) => {
     if (!mutationRunning && !loadingData) {
       updateMeasure(
         {
@@ -133,7 +134,7 @@ export const MeasureWrapper = ({
     }
   };
 
-  const handleReportingResponse = (data: Measure.Form) => {
+  const handleReportingResponse = (data: any) => {
     if (
       data["DidReport"]?.toLocaleLowerCase()?.includes("yes") ||
       data["DidCollect"]?.toLocaleLowerCase()?.includes("yes")
@@ -197,7 +198,7 @@ export const MeasureWrapper = ({
       []
     );
 
-    setErrors(validationErrors.length > 0 ? validationErrors : undefined);
+    setErrors(validationErrors.length > 0 ? validationErrors : []);
     return validationErrors.length > 0;
   };
 
@@ -209,6 +210,9 @@ export const MeasureWrapper = ({
       submitDataToServer({
         data,
         reporting: handleReportingResponse(data),
+        callback: () => {
+          navigate(-1);
+        },
       });
       setErrors(undefined);
     }
@@ -255,7 +259,7 @@ export const MeasureWrapper = ({
           <>
             <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
-              <CUI.Container maxW="5xl" as="section">
+              <CUI.Container maxW="7xl" as="section" px="0">
                 <LastModifiedBy user={measureData?.lastAlteredBy} />
                 <CUI.Text fontSize="sm">
                   For technical questions regarding use of this application,
@@ -280,6 +284,18 @@ export const MeasureWrapper = ({
                   />
                 )}
               </CUI.Container>
+              {errors?.length === 0 && (
+                <QMR.Notification
+                  key={uuidv4()}
+                  alertProps={{ my: "3" }}
+                  alertStatus="success"
+                  alertTitle={`Success`}
+                  alertDescription="The measure has been validated successfully"
+                  close={() => {
+                    setErrors(undefined);
+                  }}
+                />
+              )}
               {errors?.map((error, index) => (
                 <QMR.Notification
                   key={uuidv4()}
@@ -290,7 +306,7 @@ export const MeasureWrapper = ({
                   close={() => {
                     const newErrors = [...errors];
                     newErrors.splice(index, 1);
-                    setErrors(newErrors);
+                    setErrors(newErrors.length !== 0 ? newErrors : undefined);
                   }}
                 />
               ))}

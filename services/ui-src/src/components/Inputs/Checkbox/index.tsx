@@ -4,11 +4,12 @@ import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 export interface CheckboxOption {
-  displayValue: string;
+  displayValue?: string;
   value: string | number;
   children?: JSX.Element[];
   removable?: boolean;
   onDelete?: () => void;
+  childKey?: string;
 }
 
 interface CheckboxProps extends QMR.InputWrapperProps {
@@ -55,7 +56,7 @@ export const Checkbox = ({
 
             return (
               <QMR.DeleteWrapper
-                key={option.value}
+                key={option.childKey ?? option.value}
                 allowDeletion={option.removable}
                 onDelete={option.onDelete}
               >
