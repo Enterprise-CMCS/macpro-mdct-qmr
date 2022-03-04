@@ -1,73 +1,32 @@
-import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
-import * as Types from "../CommonQuestions/types";
-import { useFormContext, useWatch } from "react-hook-form";
-import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation/customValidationFunctions";
+import { useFormContext } from "react-hook-form";
+import * as CMQ from "measures/CommonQuestions";
+import * as PMD from "./data";
+import { validationFunctions } from "./validation";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { MeasureWrapperProps } from "measures/CommonQuestions/types";
+import { FormData } from "./types";
 
 export const FUAAD = ({
   name,
   year,
   measureId,
   setValidationFunctions,
-}: Measure.Props) => {
+  isNotReportingData,
+  isPrimaryMeasureSpecSelected,
+  showOptionalMeasureStrat,
+  isOtherMeasureSpecSelected,
+}: MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
-
-  // Watch Values of Form Questions
-  const watchReportingRadio = useWatch({
-    name: "DidReport",
-  });
-  const watchMeasureSpecification = useWatch({
-    name: "MeasurementSpecification",
-  });
-  const watchPerformanceMeasureAgeRates30Days = useWatch({
-    name: "PerformanceMeasure-AgeRates-30Days",
-  });
-  const watchPerformanceMeasureAgeRates7Days = useWatch({
-    name: "PerformanceMeasure-AgeRates-7Days",
-  });
-  const watchOtherPerformanceMeasureRates = useWatch({
-    name: "OtherPerformanceMeasure-Rates",
-  });
-
-  // Conditionals for Performance Measures
-  const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
-  const isOtherSpecification = watchMeasureSpecification === "Other";
-  // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
-  const show30DaysAges18To64 =
-    !!watchPerformanceMeasureAgeRates30Days?.[0]?.rate;
-  const show30DaysAges65AndOlder =
-    !!watchPerformanceMeasureAgeRates30Days?.[1]?.rate;
-  const show7DaysAges18To64 = !!watchPerformanceMeasureAgeRates7Days?.[0]?.rate;
-  const show7DaysAges65AndOlder =
-    !!watchPerformanceMeasureAgeRates7Days?.[1]?.rate;
-  const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
-
-  // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
-  const ageGroups = [];
-
-  if (show30DaysAges18To64 || show7DaysAges18To64) {
-    ageGroups.push({ label: "Ages 18 to 64", id: 0 });
-  }
-
-  if (show30DaysAges65AndOlder || show7DaysAges65AndOlder) {
-    ageGroups.push({ label: "Ages 65 and older", id: 1 });
-  }
-  if (showOtherPerformanceMeasureRates) {
-    let otherRates = getValues("OtherPerformanceMeasure-Rates");
-    otherRates.forEach((rate) => {
-      if (rate.description) {
-        ageGroups.push({ label: rate.description, id: ageGroups.length });
-      }
-    });
-  }
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   return (
     <>
@@ -77,45 +36,27 @@ export const FUAAD = ({
         measureAbbreviation={measureId}
       />
 
-      {!watchReportingRadio?.includes("No") && (
+      {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
-          {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && <Q.PerformanceMeasure />}
-          {/* Show Deviation only when Other is not selected */}
-          {isHEDIS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
-                showOtherPerformanceMeasureRates,
-              }}
-            />
+          {isPrimaryMeasureSpecSelected && (
+            <>
+              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+            </>
           )}
-          {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
-          {(show30DaysAges18To64 ||
-            show30DaysAges65AndOlder ||
-            show7DaysAges18To64 ||
-            show7DaysAges65AndOlder ||
-            showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                show30DaysAges18To64,
-                show30DaysAges65AndOlder,
-                show7DaysAges18To64,
-                show7DaysAges65AndOlder,
-                showOtherPerformanceMeasureRates,
-              }}
+          {showOptionalMeasureStrat && (
+            <CMQ.OptionalMeasureStrat
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
+              performanceMeasureArray={performanceMeasureArray}
+              adultMeasure
             />
           )}
         </>

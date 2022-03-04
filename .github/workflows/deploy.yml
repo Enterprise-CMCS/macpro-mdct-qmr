@@ -102,13 +102,14 @@ jobs:
             oy2_15211_Reporting_in_FY21_Tag_for_Alt_Data_Sources.spec.js,
             oy2_15212_qmr_mdct_logo.spec.feature,
             oy2_15504_Measure_validation_Error_Creation_Updates.spec.feature,
-            oy2-9954_PQI01AD.spec.js,
             pdentCH.spec.feature,
             oy2_8976_Measure_14_CCW_AD.spec.js,
             oy2_16039_Data_source_Rate_to_auto_calculate_in_OPM.spec.js,
+            oy2_16342_Add_Validation_to_Rate_when_user_selects_multiple_Data_Sources.spec.js,
             oy2_16411_Restructuring_Data_Source_Text_boxes.spec.js,
             oy2_16228_Date_Range_Adjustment.spec.js,
             oy2_16265_Validation_text_appear_in_CHAD.spec.js,
+            oy2_15890_Adding_link_to_Combined_Rates_component.spec.js,
           ]
     steps:
       - name: set branch_name

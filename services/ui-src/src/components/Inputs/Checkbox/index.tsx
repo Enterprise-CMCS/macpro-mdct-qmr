@@ -4,7 +4,7 @@ import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 
 export interface CheckboxOption {
-  displayValue: string;
+  displayValue?: string;
   value: string | number;
   children?: JSX.Element[];
   removable?: boolean;
