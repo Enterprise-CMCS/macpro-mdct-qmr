@@ -12,7 +12,6 @@ import {
 } from "../../globalValidations/validationsLib";
 import { PMD } from "../questions/data";
 import { Measure } from "./types";
-import { PerformanceMeasure as PM } from "../../globalValidations/types";
 
 const PQI01Validation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -20,39 +19,33 @@ const PQI01Validation = (data: Measure.Form) => {
   const dateRange = data["DateRange"];
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const performanceMeasureArrayToCheck: PM[][] = [];
-  performanceMeasureArray?.forEach((item) => {
-    item.forEach((ndr) => {
-      if (ndr) {
-        performanceMeasureArrayToCheck.push([ndr]);
-      }
-    });
-  });
+
   const deviationArray = getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations
   );
 
   const validateDualPopInformationArray = [
-    performanceMeasureArrayToCheck?.filter(
-      (pmArray) => pmArray[0]?.label === "Age 65 and older"
-    )[0],
+    performanceMeasureArray?.[0].filter((pm) => {
+      return pm?.label === "Age 65 and older";
+    }),
   ];
+
   let errorArray: any[] = [];
   errorArray = [
     ...errorArray,
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
-      "age-group",
-    ]),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArrayToCheck,
+      performanceMeasureArray,
       OPM,
-      ["age-group"]
+      PMD.qualifiers
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
-      "age-group",
-    ]),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
@@ -60,8 +53,8 @@ const PQI01Validation = (data: Measure.Form) => {
       DefinitionOfDenominator
     ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArrayToCheck,
-      ["age-groups"],
+      performanceMeasureArray,
+      PMD.qualifiers,
       deviationArray
     ),
   ];

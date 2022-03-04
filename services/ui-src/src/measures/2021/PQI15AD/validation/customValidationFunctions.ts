@@ -13,13 +13,17 @@ const PQI01Validation = (data: Measure.Form) => {
   let errorArray: any[] = [];
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-groups"]),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
-      "age-groups",
-    ]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, [
-      "age-groups",
-    ]),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
   ];
 
   return errorArray;

@@ -12,7 +12,6 @@ import {
   getDeviationNDRArray,
 } from "measures/2021/globalValidations";
 import { PMD } from "../questions/data";
-import { PerformanceMeasure as PM } from "../../globalValidations/types";
 
 const OUDValidation = (data: Measure.Form) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -24,35 +23,27 @@ const OUDValidation = (data: Measure.Form) => {
     data.DeviationOptions,
     data.Deviations
   );
-  const performanceMeasureArrayToCheck: PM[][] = [];
-  performanceMeasureArray?.forEach((item) => {
-    item.forEach((ndr) => {
-      if (ndr) {
-        performanceMeasureArrayToCheck.push([ndr]);
-      }
-    });
-  });
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArrayToCheck, OPM, [
-      "age-group",
-    ]),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArrayToCheck,
+      performanceMeasureArray,
       OPM,
-      ["age-group"]
+      PMD.qualifiers
     ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArrayToCheck,
-      ["age-group"],
+      performanceMeasureArray,
+      PMD.qualifiers,
       deviationArray
     ),
-    ...validateEqualDenominators(performanceMeasureArrayToCheck, ["age-group"]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArrayToCheck, OPM, [
-      "age-group",
-    ]),
+    ...validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
   ];
 
   return errorArray;
