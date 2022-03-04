@@ -27,6 +27,7 @@ export * from "./ProgressCircle";
 export * from "./QuestionChild";
 export * from "./Rate";
 export * from "./SupportInfo";
+export * from "./ScrollToTop";
 export * from "./Table";
 export * from "./Upload";
 export * from "./YesNoModalDialog";

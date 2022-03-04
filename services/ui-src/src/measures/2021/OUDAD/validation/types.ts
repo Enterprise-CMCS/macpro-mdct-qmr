@@ -7,20 +7,9 @@ export namespace Measure {
     setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   }
 
-  interface RateFields {
-    numerator: string;
-    denominator: string;
-    rate: string;
-  }
-
   interface AggregateRate {
-    subRate: RateFields[];
-    total: RateFields[];
-  }
-
-  interface OtherRatesFields {
-    description: string;
-    rate: RateFields[];
+    subRate: Types.RateFields[];
+    total: Types.RateFields[];
   }
 
   export interface Form
@@ -32,40 +21,10 @@ export namespace Measure {
       Types.AdditionalNotes,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
-      Types.MeasurementSpecification {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-
-    //Other Performance Measure
-    "OtherPerformanceMeasure-Explanation": string;
-    "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-    "OtherPerformanceMeasure-Notes": string;
-    "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    DeviationFields: {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-Rates": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
+      Types.DataSource,
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //OptionalMeasureStratification
     CategoriesReported: string[];
 

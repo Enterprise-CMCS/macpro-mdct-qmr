@@ -42,13 +42,13 @@ export const buildOmsCheckboxes = ({ name, data }: OmsCheckboxProps) => {
   });
 };
 
-interface BaseProps
-  extends Types.AgeGroups,
-    Types.PerformanceMeasureDescriptions {
+interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** string array for perfromance measure descriptions */
   performanceMeasureArray: Types.RateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 /** data for dynamic rendering will be provided */
@@ -81,11 +81,13 @@ type OMSType = Types.OptionalMeasureStratification & {
  */
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
-  ageGroups,
-  performanceMeasureDescriptions,
+  qualifiers = [],
+  categories = [],
   data,
   calcTotal = false,
   adultMeasure,
+  rateMultiplicationValue,
+  customMask,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -102,9 +104,7 @@ export const OptionalMeasureStrat = ({
   });
 
   const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ?? true;
 
   /**
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
@@ -123,8 +123,10 @@ export const OptionalMeasureStrat = ({
           performanceMeasureArray,
           rateReadOnly,
           calcTotal,
-          ageGroups,
-          performanceMeasureDescriptions,
+          qualifiers,
+          categories,
+          rateMultiplicationValue,
+          customMask,
         }}
       >
         <CUI.Text py="3">
@@ -148,5 +150,3 @@ export const OptionalMeasureStrat = ({
     </QMR.CoreQuestionWrapper>
   );
 };
-
-export type OmsDataNode = OmsNode;

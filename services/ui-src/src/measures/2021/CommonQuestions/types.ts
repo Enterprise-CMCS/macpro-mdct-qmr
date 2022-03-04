@@ -1,4 +1,6 @@
-import { OmsDataNode } from "./OptionalMeasureStrat";
+import { DataSourceData } from "./DataSource/data";
+import { OmsNode } from "./OptionalMeasureStrat/data";
+import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 
 export interface MeasurementSpecification {
   // Selected Measurement Specification
@@ -25,17 +27,17 @@ export interface DefinitionOfPopulation {
   "DenominatorDefineTotalTechSpec-No-Explanation": string;
   "DenominatorDefineTotalTechSpec-No-Size": string;
   DeliverySysRepresentationDenominator: string[];
-  "DeliverySys-FreeForService": string;
-  "DeliverySys-FreeForService-No-Percent": string;
-  "DeliverySys-FreeForService-No-Population": string;
+  "DeliverySys-FeeForService": string;
+  "DeliverySys-FeeForService-No-Percent": string;
+  "DeliverySys-FeeForService-No-Population": string;
   "DeliverySys-PrimaryCareManagement": string;
   "DeliverySys-PrimaryCareManagement-No-Percent": string;
   "DeliverySys-PrimaryCareManagement-No-Population": string;
-  "DeliverySys-MCO_POHP": string;
-  "DeliverySys-MCO_POHP-Percent": string;
-  "DeliverySys-MCO_POHP-NumberOfPlans": string;
-  "DeliverySys-MCO_POHP-No-Included": string;
-  "DeliverySys-MCO_POHP-No-Excluded": string;
+  "DeliverySys-MCO_PIHP": string;
+  "DeliverySys-MCO_PIHP-Percent": string;
+  "DeliverySys-MCO_PIHP-NumberOfPlans": string;
+  "DeliverySys-MCO_PIHP-No-Included": string;
+  "DeliverySys-MCO_PIHP-No-Excluded": string;
   "DeliverySys-IntegratedCareModel": string;
   "DeliverySys-IntegratedCareModel-No-Percent": string;
   "DeliverySys-IntegratedCareModel-No-Population": string;
@@ -54,16 +56,16 @@ export interface AdditionalNotes {
 }
 export interface CombinedRates {
   // if the user combined rates from multiple reporting units
-  CombinedRates: "Yes, combine" | "No, did not combine";
+  CombinedRates?: "Yes, combine" | "No, did not combine";
 
   // if the user combined rates -> the reporting units they combined
-  "CombinedRates-CombinedRates":
+  "CombinedRates-CombinedRates"?:
     | "Combined Not Weighted Rates"
     | "Combined Weighted Rates"
     | "Combined Weighted Rates Other";
 
   // if the user selected "Combined Weighted Rates Other" -> the explaination of the other weighing factor
-  "CombinedRates-CombinedRates-Other-Explanation": string;
+  "CombinedRates-CombinedRates-Other-Explanation"?: string;
 }
 
 export interface OtherPerformanceMeasure {
@@ -147,7 +149,7 @@ export interface WhyAreYouNotReporting {
 }
 
 export interface DidReport {
-  DidReport: string;
+  DidReport: "Yes, I am reporting" | "No, I am not reporting";
 }
 
 export interface StatusOfData {
@@ -155,7 +157,18 @@ export interface StatusOfData {
   "DataStatus-ProvisionalExplanation": string;
 }
 
+export interface DataSource {
+  DataSource: string[];
+  DataSourceSelections: {
+    [label: string]: {
+      description: string;
+      selected: string[];
+    };
+  };
+  DataSourceDescription: string;
+}
 export interface RateFields {
+  label?: string;
   numerator?: string;
   denominator?: string;
   rate?: string;
@@ -171,6 +184,12 @@ export interface DeviationFields {
 export interface OtherRatesFields {
   description?: string;
   rate?: RateFields[];
+}
+export interface PerformanceMeasure {
+  PerformanceMeasure?: {
+    explanation?: string;
+    rates?: { [label: string]: RateFields[] | undefined };
+  };
 }
 
 interface OmsRateFields {
@@ -220,12 +239,12 @@ interface AddtnlOmsNode extends LowLevelOmsNode {
   description?: string;
 }
 
-export interface AgeGroups {
-  ageGroups: string[];
+export interface Qualifiers {
+  qualifiers?: string[];
 }
 
-export interface PerformanceMeasureDescriptions {
-  performanceMeasureDescriptions: string[];
+export interface Categories {
+  categories?: string[];
 }
 
 export interface OptionalMeasureStratification {
@@ -238,5 +257,39 @@ export interface OptionalMeasureStratification {
 }
 
 export namespace DataDrivenTypes {
-  export type OptionalMeasureStrat = OmsDataNode[];
+  export type OptionalMeasureStrat = OmsNode[];
+  export type PerformanceMeasure = PerformanceMeasureData;
+  export type DataSource = DataSourceData;
 }
+
+export interface DeviationFromMeasureSpecification {
+  // does the calculation of the measure deviate from the measure specification
+  DidCalculationsDeviate: "YesCalcDeviated" | "NoCalcDidNotDeviate";
+  // if "YesCalcDeviated" selected from "DidCalculationsDeviate" -> which deviations options selected
+  DeviationOptions: string[];
+  // the Deviation 'options' below will match the "DeviationOptions" above
+  Deviations: {
+    [option: string]: {
+      // deviations selected for the given option
+      RateDeviationsSelected: Array<"numerator" | "denominator" | "other">;
+      // if "numerator" selected for "RateDeviationsSelected" -> an explaination
+      numerator: string;
+      // if "denominator" selected for "RateDeviationsSelected" -> an explaination
+      denominator: string;
+      // if "other" selected for "RateDeviationsSelected" -> an explaination
+      other: string;
+    };
+  };
+}
+export type DefaulFormData = AdditionalNotes &
+  StatusOfData &
+  WhyAreYouNotReporting &
+  DidReport &
+  CombinedRates &
+  DateRange &
+  DefinitionOfPopulation &
+  MeasurementSpecification &
+  OtherPerformanceMeasure &
+  OptionalMeasureStratification &
+  PerformanceMeasure &
+  DeviationFromMeasureSpecification;

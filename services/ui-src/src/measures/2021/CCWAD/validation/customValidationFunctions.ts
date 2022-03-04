@@ -1,12 +1,17 @@
 import { Measure } from "../validation/types";
 import {
   atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
+import { PMD } from "../questions/data";
 
 const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
   const reversibleRates =
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"];
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ];
   let error;
   const errorArray: any[] = [];
 
@@ -33,7 +38,9 @@ const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
 };
 const validateModeratelyNumeratorLessThanDenominator = (data: Measure.Form) => {
   const moderatelyRates =
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"];
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ];
   let error;
   const errorArray: any[] = [];
 
@@ -61,24 +68,17 @@ const validateModeratelyNumeratorLessThanDenominator = (data: Measure.Form) => {
 
 const validateLarcRateGreater = (data: Measure.Form) => {
   let error;
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
 
-  if (
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"] &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"] &&
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"][0]
-      ?.rate &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]?.rate
-  ) {
-    if (
-      parseFloat(
-        data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]?.rate
-      ) >
-      parseFloat(
-        data[
-          "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"
-        ][0].rate
-      )
-    ) {
+  if (memeRates && larcRates && memeRates[0]?.rate && larcRates[0]?.rate) {
+    if (parseFloat(larcRates[0].rate) > parseFloat(memeRates[0].rate)) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
@@ -92,25 +92,24 @@ const validateLarcRateGreater = (data: Measure.Form) => {
 
 const validateDenominatorsAreTheSame = (data: Measure.Form) => {
   let error;
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
 
   if (
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"] &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"] &&
-    data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"][0]
-      ?.denominator &&
-    data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]
-      ?.denominator
+    memeRates &&
+    larcRates &&
+    memeRates[0]?.denominator &&
+    larcRates[0]?.denominator
   ) {
     if (
-      parseFloat(
-        data[
-          "PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"
-        ][0].denominator
-      ) !==
-      parseFloat(
-        data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"][0]
-          .denominator
-      )
+      parseFloat(memeRates[0].denominator) !==
+      parseFloat(larcRates[0].denominator)
     ) {
       error = {
         errorLocation: "Performance Measure",
@@ -124,32 +123,51 @@ const validateDenominatorsAreTheSame = (data: Measure.Form) => {
 };
 
 const validateNonZeroDenom = (data: Measure.Form) => {
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+
   return validateNoNonZeroNumOrDenom(
-    [
-      data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
-      data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
-    ],
+    [memeRates, larcRates],
     data["OtherPerformanceMeasure-Rates"],
     [""]
   );
 };
 
 const validateAtLeastOneNPR = (data: Measure.Form) => {
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+
   return atLeastOneRateComplete(
-    [
-      data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
-      data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
-    ],
+    [memeRates, larcRates],
     data["OtherPerformanceMeasure-Rates"],
     [""]
   );
 };
 
+const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+  const dateRange = data["DateRange"];
+  return [...ensureBothDatesCompletedInRange(dateRange)];
+};
+
 export const validationFunctions = [
+  validateBothDatesCompletedInRange,
   validateReversibleNumeratorLessThanDenominator,
   validateModeratelyNumeratorLessThanDenominator,
   validateLarcRateGreater,
   validateDenominatorsAreTheSame,
   validateNonZeroDenom,
   validateAtLeastOneNPR,
+  validateRequiredRadioButtonForCombinedRates,
 ];

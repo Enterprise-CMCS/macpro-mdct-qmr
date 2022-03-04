@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
+import { ControllerRules } from "global";
 
 export interface RadioButtonOption {
   displayValue: string;
@@ -12,7 +13,7 @@ export interface RadioButtonOption {
   onClick?: () => void;
 }
 
-interface RadioButtonProps extends QMR.InputWrapperProps {
+interface RadioButtonProps extends QMR.InputWrapperProps, ControllerRules {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
@@ -22,6 +23,7 @@ export const RadioButton = ({
   options,
   radioGroupProps,
   name,
+  rules,
   ...rest
 }: RadioButtonProps) => {
   const {
@@ -32,12 +34,18 @@ export const RadioButton = ({
   const { field } = useController({
     name,
     control,
+    rules,
   });
+
+  const path = objectPath.get(errors, name);
 
   return (
     <QMR.InputWrapper
-      isInvalid={!!objectPath.get(errors, name)?.message}
-      errorMessage={objectPath.get(errors, name)?.message}
+      isInvalid={!!path?.message || path?.type === "required"}
+      errorMessage={
+        path?.message ||
+        (path?.type === "required" && "This is a required field.")
+      }
       {...rest}
     >
       <CUI.RadioGroup

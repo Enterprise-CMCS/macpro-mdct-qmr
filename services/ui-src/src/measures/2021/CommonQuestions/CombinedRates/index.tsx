@@ -1,3 +1,4 @@
+import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
@@ -7,6 +8,21 @@ export const CombinedRates = () => {
 
   return (
     <QMR.CoreQuestionWrapper label="Combined Rate(s) from Multiple Reporting Units">
+      <CUI.Text fontWeight={600}>
+        Did you combine rates from multiple reporting units (e.g. health plans,
+        delivery systems, programs) to create a State-Level rate?
+      </CUI.Text>
+      <CUI.Text mb={2}>
+        For additional information refer to the{" "}
+        <CUI.Link
+          href="https://www.medicaid.gov/medicaid/quality-of-care/downloads/state-level-rates-brief.pdf"
+          color="blue"
+          isExternal
+        >
+          State-Level Rate Brief
+        </CUI.Link>
+        .
+      </CUI.Text>
       <QMR.RadioButton
         options={[
           {
@@ -51,8 +67,6 @@ export const CombinedRates = () => {
             value: "No, did not combine",
           },
         ]}
-        label="Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate?"
-        formLabelProps={{ fontWeight: 600 }}
         renderHelperTextAbove
         {...register("CombinedRates")}
       />

@@ -18,6 +18,7 @@ import { PCRAD } from "./PCRAD";
 import { PDENTCH } from "./PDENTCH";
 import { PQI08AD } from "./PQI08AD";
 import { PQI01AD } from "./PQI01AD";
+import { PQI15AD } from "./PQI15AD";
 import { PQI05AD } from "./PQI05AD";
 
 const twentyTwentyOneMeasures = {
@@ -36,6 +37,7 @@ const twentyTwentyOneMeasures = {
   "CCW-AD": CCWAD,
   "PQI08-AD": PQI08AD,
   "PQI01-AD": PQI01AD,
+  "PQI15-AD": PQI15AD,
   "PQI05-AD": PQI05AD,
 };
 

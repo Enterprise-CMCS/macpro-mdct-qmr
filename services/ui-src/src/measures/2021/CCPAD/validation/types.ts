@@ -34,62 +34,15 @@ export namespace Measure {
       Types.StatusOfData,
       Types.DateRange,
       Types.CombinedRates,
-      Types.MeasurementSpecification {
-    //DataSource
-
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-    "DataSource-Hybrid"?: string[];
-    "DataSource-Hybrid-Other"?: string;
-    "DataSource-Hybrid-Other-Explanation"?: string;
-    "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
-    "DataSource-ElectronicHealthRecords"?: string;
-    "DataSource-ElectronicHealthRecords-Explanation"?: string;
-
+      Types.DataSource,
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //Other Performance Measure
     "OtherPerformanceMeasure-Explanation": string;
     "OtherPerformanceMeasure-Rates": OtherRatesFields[];
     "OtherPerformanceMeasure-Notes": string;
     "OtherPerformanceMeasure-Rates-TextInput": string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-MostEffective": string[];
-    "DeviationOptions-LARC": string[];
-    "DeviationFields-MostEffective": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-LARC": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-effectiveContraception": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-longActingContraception": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
 
     //OptionalMeasureStratification
     CategoriesReported: string[];

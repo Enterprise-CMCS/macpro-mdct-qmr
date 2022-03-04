@@ -22,56 +22,10 @@ export namespace Measure {
       Types.DateRange,
       Types.CombinedRates,
       Types.OtherPerformanceMeasure,
-      Types.MeasurementSpecification {
-    //DataSource
-    DataSource: string[];
-    "DataSource-Administrative"?: string[];
-    "DataSource-Administrative-Other"?: string;
-    "DataSource-Administrative-Other-Explanation"?: string;
-    "DataSource-Other": string;
-    "DataSource-Other-Explanation": string;
-    "DataSource-Hybrid"?: string[];
-    "DataSource-Hybrid-Other"?: string;
-    "DataSource-Hybrid-Other-Explanation"?: string;
-    "DataSource-Hybrid-MedicalRecord-DataSoruce"?: string;
-    "DataSource-ElectronicHealthRecords"?: string;
-    "DataSource-ElectronicHealthRecords-Explanation"?: string;
-
-    //DeviationFromMeasureSpec
-    DidCalculationsDeviate: string;
-    DeviationOptions: string[];
-    "DeviationOptions-Within7-AgeRange": string[];
-    "DeviationOptions-Within30-AgeRange": string[];
-    "DeviationFields-Within7": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "DeviationFields-Within30": {
-      options: string[];
-      denominator: string;
-      numerator: string;
-      other: string;
-    };
-    "PerformanceMeasure-Explanation": string;
-    "PerformanceMeasure-AgeRates-30Days": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-    "PerformanceMeasure-AgeRates-7Days": {
-      denominator: string;
-      numerator: string;
-      other: string;
-      id: string;
-      label: string;
-      rate: string;
-    }[];
-
+      Types.DataSource,
+      Types.MeasurementSpecification,
+      Types.PerformanceMeasure,
+      Types.DeviationFromMeasureSpecification {
     //OptionalMeasureStratification
     CategoriesReported: string[];
 

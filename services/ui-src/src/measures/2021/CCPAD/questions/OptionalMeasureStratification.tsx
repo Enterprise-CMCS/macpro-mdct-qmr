@@ -155,9 +155,7 @@ const AgeData = ({ name }: SubComponentProps) => {
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ?? true;
 
   const showEffective =
     !!deviationConditions?.showEffectiveContraceptionThreeDaysPostPartum ||
@@ -172,6 +170,11 @@ const AgeData = ({ name }: SubComponentProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Heading>
+      {!rateReadOnly && (
+        <CUI.Heading pb="5" size={"sm"} key={`${name}.helper`}>
+          Please review the auto-calculated rate and revise if needed.
+        </CUI.Heading>
+      )}
       {deviationConditions?.showOtherPerformanceMeasureRates &&
         buildOtherPerformanceRates(name, rateReadOnly, ageGroups)}
       {showEffective &&

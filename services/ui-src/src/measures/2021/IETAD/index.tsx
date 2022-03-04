@@ -4,7 +4,8 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation/customValidationFunctions";
-import * as PerformanceMeasureData from "./questions/data/performanceMeasureData";
+import { PMD } from "./questions/data";
+import { getPerfMeasureRateArray } from "../globalValidations";
 
 export const IETAD = ({
   name,
@@ -21,16 +22,7 @@ export const IETAD = ({
   const { getValues } = useFormContext<Measure.Form>();
   const data = getValues();
 
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-Initiation-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Engagement-Alcohol"],
-    data["PerformanceMeasure-AgeRates-Initiation-Opioid"],
-    data["PerformanceMeasure-AgeRates-Engagement-Opioid"],
-    data["PerformanceMeasure-AgeRates-Initiation-Other"],
-    data["PerformanceMeasure-AgeRates-Engagement-Other"],
-    data["PerformanceMeasure-AgeRates-Initiation-Total"],
-    data["PerformanceMeasure-AgeRates-Engagement-Total"],
-  ];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   // Watch Values of Form Questions
   const watchReportingRadio = useWatch({ name: "DidReport" });
@@ -127,6 +119,13 @@ export const IETAD = ({
     });
   }
 
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const dataSourceWatch = useWatch({ name: "DataSource" });
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source: string) => source === "AdministrativeData"
+    ) ?? true;
+
   return (
     <>
       <CMQ.Reporting
@@ -139,34 +138,19 @@ export const IETAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <Q.DataSource />
+          <CMQ.DataSource data={Q.DataSourceData} />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && <Q.PerformanceMeasure />}
+          {isHEDIS && (
+            <CMQ.PerformanceMeasure
+              data={PMD.data}
+              rateReadOnly={rateReadOnly}
+            />
+          )}
           {/* Show Deviation only when Other is not selected */}
           {isHEDIS && (
-            <Q.DeviationFromMeasureSpec
-              options={ageGroups}
-              deviationConditions={{
-                showInitAlcohol18To64,
-                showEngageAlcohol18To64,
-                showInitOpioid18To64,
-                showEngageOpioid18To64,
-                showInitOther18To64,
-                showEngageOther18To64,
-                showInitTotal18To64,
-                showEngageTotal18To64,
-                showInitAlcohol65Plus,
-                showEngageAlcohol65Plus,
-                showInitOpioid65Plus,
-                showEngageOpioid65Plus,
-                showInitOther65Plus,
-                showEngageOther65Plus,
-                showInitTotal65Plus,
-                showEngageTotal65Plus,
-              }}
-            />
+            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
           {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
@@ -190,10 +174,8 @@ export const IETAD = ({
             showOtherPerformanceMeasureRates) && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              ageGroups={PerformanceMeasureData.ageGroups}
-              performanceMeasureDescriptions={
-                PerformanceMeasureData.performanceMeasureDescriptions
-              }
+              qualifiers={PMD.qualifiers}
+              categories={PMD.categories}
               adultMeasure
             />
           )}

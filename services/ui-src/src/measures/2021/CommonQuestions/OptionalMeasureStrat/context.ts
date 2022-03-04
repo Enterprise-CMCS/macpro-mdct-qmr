@@ -6,8 +6,10 @@ interface ContextProps {
   performanceMeasureArray?: Types.RateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
-  performanceMeasureDescriptions: string[];
-  ageGroups: string[];
+  categories: string[];
+  qualifiers: string[];
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
@@ -15,8 +17,10 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   performanceMeasureArray: [[]],
   rateReadOnly: true,
   calcTotal: false,
-  performanceMeasureDescriptions: [],
-  ageGroups: [],
+  categories: [],
+  qualifiers: [],
+  rateMultiplicationValue: undefined,
+  customMask: undefined,
 });
 
 export const usePerformanceMeasureContext = () =>
