@@ -31,7 +31,7 @@ export const DATA_STATUS = "DataStatus";
 export const DATA_STATUS_PROVISIONAL_EXPLAINATION =
   "DataStatus-ProvisionalExplanation";
 export const DATE_RANGE = "DateRange";
-export const DEFINITION_DENOMICATOR_OTHER = "DefinitionOfDenominator-Other";
+export const DEFINITION_DENOMINATOR_OTHER = "DefinitionOfDenominator-Other";
 export const DEFINITION_OF_DENOMINATOR = "DefinitionOfDenominator";
 export const DELIVERY_SYS_FFS = "DeliverySys-FeeForService";
 export const DELIVERY_SYS_FFS_NO_PERCENT =

@@ -25,7 +25,7 @@ export interface DefinitionOfPopulation {
     | typeof DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE
     | typeof DC.DENOMINATOR_INC_OTHER
   >;
-  [DC.DEFINITION_DENOMICATOR_OTHER]: string; // if DENOMINATOR_INC_OTHER selected in DEFINITION_OF_DENOMINATOR -> an explaination
+  [DC.DEFINITION_DENOMINATOR_OTHER]: string; // if DENOMINATOR_INC_OTHER selected in DEFINITION_OF_DENOMINATOR -> an explaination
   [DC.CHANGE_IN_POP_EXPLANATION]: string; // text explaination of change in polulation
   [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC]: YesNo; // Does this denominator represent your total measure-eligible population
   [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]: string; // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination which populations are excluded
