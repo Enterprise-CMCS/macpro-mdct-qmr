@@ -24,6 +24,17 @@ const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   );
 };
 
+export interface MeasureWrapperProps {
+  name: string;
+  year: string;
+  measureId: string;
+  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+  isOtherMeasureSpecSelected?: boolean;
+  isPrimaryMeasureSpecSelected?: boolean;
+  showOptionalMeasureStrat?: boolean;
+  isNotReportingData?: boolean;
+}
+
 interface MeasureProps {
   measure: ReactElement;
   name: string;

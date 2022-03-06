@@ -1,177 +1,177 @@
 import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
+import * as DC from "dataConstants";
 
-export interface MeasureWrapperProps {
-  name: string;
-  year: string;
-  measureId: string;
-  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
-  isOtherMeasureSpecSelected?: boolean;
-  isPrimaryMeasureSpecSelected?: boolean;
-  showOptionalMeasureStrat?: boolean;
-  isNotReportingData?: boolean;
-}
-
-type YesNo = "yes" | "no";
+type YesNo = typeof DC.YES | typeof DC.NO;
 
 export interface MeasurementSpecification {
-  MeasurementSpecification: "NCQA/HEDIS" | "OPA" | "AHRQ" | "CMS" | "Other"; // Selected Measurement Specification
-  "MeasurementSpecification-HEDISVersion": // if Measure Spec is NCQA/HEDIS -> which version are they using
-  "HEDIS MY 2020" | "HEDIS 2020" | "HEDIS 2019";
-  "MeasurementSpecification-OtherMeasurementSpecificationDescription": string; // If user selects "Other measurement specification" -> this is the description
-  "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": File; // If user selects "Other measurement specification" -> this is optional file upload
+  [DC.MEASUREMENT_SPECIFICATION]: // Selected Measurement Specification
+  | typeof DC.NCQA
+    | typeof DC.OPA
+    | typeof DC.AHRQ
+    | typeof DC.CMS
+    | typeof DC.OTHER;
+  [DC.MEASUREMENT_SPECIFICATION_HEDIS]: // if Measure Spec is NCQA/HEDIS -> which version are they using
+  typeof DC.HEDIS_MY_2020 | typeof DC.HEDIS_2020 | typeof DC.HEDIS_2019;
+  [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION]: string; // If user selects "Other measurement specification" -> this is the description
+  [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD]: File; // If user selects "Other measurement specification" -> this is optional file upload
 }
 
 export interface DefinitionOfPopulation {
-  DefinitionOfDenominator: Array<
-    | "DenominatorIncMedicaidPop"
-    | "DenominatorIncCHIP"
-    | "DenominatorIncMedicareMedicaidDualEligible"
-    | "DenominatorIncOther"
+  [DC.DEFINITION_OF_DENOMINATOR]: Array<
+    | typeof DC.DENOMINATOR_INC_MEDICAID_POP
+    | typeof DC.DENOMINATOR_INC_CHIP
+    | typeof DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE
+    | typeof DC.DENOMINATOR_INC_OTHER
   >;
-  "DefinitionOfDenominator-Other": string; // if "DenominatorIncOther" selected in "DefinitionOfDenominator" -> an explaination
-  ChangeInPopulationExplanation: string; // text explaination of change in polulation
-  DenominatorDefineTotalTechSpec: YesNo; // Does this denominator represent your total measure-eligible population
-  "DenominatorDefineTotalTechSpec-No-Explanation": string; // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination which populations are excluded
-  "DenominatorDefineTotalTechSpec-No-Size": string; // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination of the size of population excluded
-  DeliverySysRepresentationDenominator: Array<
-    "FFS" | "PCCM" | "MCO-PIHP" | "ICM" | "Other" // which delivery systems are represented in the denominator
+  [DC.DEFINITION_DENOMICATOR_OTHER]: string; // if DENOMINATOR_INC_OTHER selected in DEFINITION_OF_DENOMINATOR -> an explaination
+  [DC.CHANGE_IN_POP_EXPLANATION]: string; // text explaination of change in polulation
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC]: YesNo; // Does this denominator represent your total measure-eligible population
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]: string; // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination which populations are excluded
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE]: string; // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination of the size of population excluded
+  [DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR]: Array<
+    | typeof DC.FFS
+    | typeof DC.PCCM
+    | typeof DC.MCO_PIHP
+    | typeof DC.ICM
+    | typeof DC.OTHER // which delivery systems are represented in the denominator
   >;
-  "DeliverySys-FeeForService": YesNo; // If "FFS" selected in "DeliverySysRepresentationDenominator" -> Is all of your FFS population included in this measure?"
-  "DeliverySys-FeeForService-No-Percent": string; // If "no" in "DeliverySys-FeeForService" -> what percent included in measure
-  "DeliverySys-FeeForService-No-Population": string; // If "no" in "DeliverySys-FeeForService" -> what number of your FFS population are included in the measure?
-  "DeliverySys-PrimaryCareManagement": YesNo; // If "PCCM" selected in "DeliverySysRepresentationDenominator" -> Is all of your PCCM population included in this measure?"
-  "DeliverySys-PrimaryCareManagement-No-Percent": string; // If "no" in "DeliverySys-PrimaryCareManagement" -> what percent included in measure
-  "DeliverySys-PrimaryCareManagement-No-Population": string; // if "no" in "DeliverySys-PrimaryCareManagement" -> what number of your PCCM population are included in the measure?
-  "DeliverySys-MCO_PIHP-Percent": string; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" -> what percent
-  "DeliverySys-MCO_PIHP-NumberOfPlans": string; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" -> what number
-  "DeliverySys-MCO_PIHP": YesNo; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" and Is all of your MCO-PIHP population included in this measure?
-  "DeliverySys-MCO_PIHP-No-Included": string; // If "no" in "DeliverySys-MCO_PIHP" -> percentage included
-  "DeliverySys-MCO_PIHP-No-Excluded": string; // If "no" in "DeliverySys-MCO_PIHP" -> number excluded
-  "DeliverySys-IntegratedCareModel": YesNo; // If "ICM" selected in "DeliverySysRepresentationDenominator" -> Is all of your ICM population included in this measure?"
-  "DeliverySys-IntegratedCareModel-No-Percent": string; // If "no" in "DeliverySys-IntegratedCareModel" -> what percent included in measure
-  "DeliverySys-IntegratedCareModel-No-Population": string; // If "no" in "DeliverySys-IntegratedCareModel" -> what number of your ICM population are included in the measure?
-  "DeliverySys-Other": string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> describe the denominator
-  "DeliverySys-Other-Percent": string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> percentage represented
-  "DeliverySys-Other-NumberOfHealthPlans": string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> number of health plans represented
-  "DeliverySys-Other-Population": string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> number of population represented
+  [DC.DELIVERY_SYS_FFS]: YesNo; // If "FFS" selected in "DeliverySysRepresentationDenominator" -> Is all of your FFS population included in this measure?"
+  [DC.DELIVERY_SYS_FFS_NO_PERCENT]: string; // If "no" in "DeliverySys-FeeForService" -> what percent included in measure
+  [DC.DELIVERY_SYS_FFS_NO_POP]: string; // If "no" in "DeliverySys-FeeForService" -> what number of your FFS population are included in the measure?
+  [DC.DELIVERY_SYS_PCCM]: YesNo; // If "PCCM" selected in "DeliverySysRepresentationDenominator" -> Is all of your PCCM population included in this measure?"
+  [DC.DELIVERY_SYS_PCCM_NO_PERCENT]: string; // If "no" in "DeliverySys-PrimaryCareManagement" -> what percent included in measure
+  [DC.DELIVERY_SYS_PCCM_NO_POP]: string; // if "no" in "DeliverySys-PrimaryCareManagement" -> what number of your PCCM population are included in the measure?
+  [DC.DELIVERY_SYS_MCO_PIHP]: YesNo; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" and Is all of your MCO-PIHP population included in this measure?
+  [DC.DELIVERY_SYS_MCO_PIHP_PERCENT]: string; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" -> what percent
+  [DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS]: string; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" -> what number
+  [DC.DELIVERY_SYS_MCO_PIHP_NO_INC]: string; // If "no" in "DeliverySys-MCO_PIHP" -> percentage included
+  [DC.DELIVERY_SYS_MCO_PIHP_NO_EXCL]: string; // If "no" in "DeliverySys-MCO_PIHP" -> number excluded
+  [DC.DELIVERY_SYS_ICM]: YesNo; // If "ICM" selected in "DeliverySysRepresentationDenominator" -> Is all of your ICM population included in this measure?"
+  [DC.DELIVERY_SYS_ICM_NO_PERCENT]: string; // If "no" in "DeliverySys-IntegratedCareModel" -> what percent included in measure
+  [DC.DELIVERY_SYS_ICM_NO_POP]: string; // If "no" in "DeliverySys-IntegratedCareModel" -> what number of your ICM population are included in the measure?
+  [DC.DELIVERY_SYS_OTHER]: string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> describe the denominator
+  [DC.DELIVERY_SYS_OTHER_PERCENT]: string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> percentage represented
+  [DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS]: string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> number of health plans represented
+  [DC.DELIVERY_SYS_OTHER_POP]: string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> number of population represented
 }
 
 export interface AdditionalNotes {
-  "AdditionalNotes-AdditionalNotes": string; // Additional notes or comments on the measure
-  "AdditionalNotes-Upload": File[]; // Additional attachments upload
+  [DC.ADDITIONAL_NOTES]: string; // Additional notes or comments on the measure
+  [DC.ADDITIONAL_NOTES_UPLOAD]: File[]; // Additional attachments upload
 }
 
 export interface CombinedRates {
-  CombinedRates?: YesNo; // if the user combined rates from multiple reporting units
-  "CombinedRates-CombinedRates"?: // if the user combined rates -> the reporting units they combined
-  | "Combined Not Weighted Rates"
-    | "Combined Weighted Rates"
-    | "Combined Weighted Rates Other";
-  "CombinedRates-CombinedRates-Other-Explanation"?: string; // if the user selected "Combined Weighted Rates Other" -> the explaination of the other weighing factor
+  [DC.COMBINED_RATES]?: YesNo; // if the user combined rates from multiple reporting units
+  [DC.COMBINED_RATES_COMBINED_RATES]?: // if the user combined rates -> the reporting units they combined
+  | typeof DC.COMBINED_NOT_WEIGHTED_RATES
+    | typeof DC.COMBINED_WEIGHTED_RATES
+    | typeof DC.COMBINED_WEIGHTED_RATES_OTHER;
+  [DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION]?: string; // if the user selected "Combined Weighted Rates Other" -> the explaination of the other weighing factor
 }
 
 export interface OtherPerformanceMeasure {
-  "OtherPerformanceMeasure-Explanation": string;
-  "OtherPerformanceMeasure-Rates": OtherRatesFields[];
-  "OtherPerformanceMeasure-Notes": string;
-  "OtherPerformanceMeasure-Rates-TextInput": string;
+  [DC.OPM_EXPLAINATION]: string;
+  [DC.OPM_RATES]: OtherRatesFields[];
+  [DC.OPM_NOTES]: string;
+  [DC.OPM_NOTES_TEXT_INPUT]: string;
 }
 
+type MonthYear = {
+  [DC.SELECTED_MONTH]: number;
+  [DC.SELECTED_YEAR]: number;
+};
+
 export interface DateRange {
-  DateRange: {
-    endDate: {
-      selectedMonth: number;
-      selectedYear: number;
-    };
-    startDate: {
-      selectedMonth: number;
-      selectedYear: number;
-    };
+  [DC.DATE_RANGE]: {
+    [DC.END_DATE]: MonthYear;
+    [DC.START_DATE]: MonthYear;
   };
 }
 
 export interface WhyAreYouNotReporting {
   // if a user is not reporting -> the reason(s) they are not reporting
-  WhyAreYouNotReporting: Array<
-    | "ServiceNotCovered"
-    | "PopulationNotCovered"
-    | "DataNotAvailable"
-    | "LimitationWithDatCollecitonReportAccuracyCovid"
-    | "SmallSampleSizeLessThan30"
-    | "Other"
+  [DC.WHY_ARE_YOU_NOT_REPORTING]: Array<
+    | typeof DC.SERVICE_NOT_COVERED
+    | typeof DC.POP_NOT_COVERED
+    | typeof DC.DATA_NOT_AVAILABLE
+    | typeof DC.LIMITATION_WITH_DATA_COLLECTION
+    | typeof DC.SMALL_SAMPLE_SIZE
+    | typeof DC.OTHER
   >;
 
-  AmountOfPopulationNotCovered: // if "PopulationNotCovered" selected in "WhyAreYouNotReporting"
-  "EntirePopulationNotCovered" | "PartialPopulationNotCovered";
+  [DC.AMOUNT_OF_POP_NOT_COVERED]: // if "PopulationNotCovered" selected in "WhyAreYouNotReporting"
+  typeof DC.ENTIRE_POP_NOT_COVERED | typeof DC.PARTIAL_POP_NOT_COVERED;
 
-  PartialPopulationNotCoveredExplanation: string; // if "PartialPopulationNotCovered" in "WhyAreYouNotReporting" selected -> explaination of the population not covered
+  [DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION]: string; // if "PartialPopulationNotCovered" in "WhyAreYouNotReporting" selected -> explaination of the population not covered
 
   // if "DataNotAvailable" selected in "WhyAreYouNotReporting"
-  WhyIsDataNotAvailable: Array<
-    | "BudgetConstraints"
-    | "StaffConstraints"
-    | "DataSourceNotEasilyAccessible"
-    | "DataInconsistenciesAccuracyIssues"
-    | "InformationNotCollected"
-    | "Other"
+  [DC.WHY_IS_DATA_NOT_AVAILABLE]: Array<
+    | typeof DC.BUDGET_CONSTRAINTS
+    | typeof DC.STAFF_CONSTRAINTS
+    | typeof DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE
+    | typeof DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES
+    | typeof DC.INFO_NOT_COLLECTED
+    | typeof DC.OTHER
   >;
-  "WhyIsDataNotAvailable-Other": string; // if "Other" selected in "WhyIsDataNotAvailable" -> an explaination
-  DataInconsistenciesAccuracyIssues: string; // if "DataInconsistenciesAccuracyIssues" selected in "WhyIsDataNotAvailable" -> an explaination
-  DataSourceNotEasilyAccessible: Array<
-    "RequiresMedicalRecordReview" | "RequireDataLinkage" | "Other" // if "DataSourceNotEasilyAccessible" selected in "WhyIsDataNotAvailable"
+  [DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER]: string; // if "Other" selected in "WhyIsDataNotAvailable" -> an explaination
+  [DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES]: string; // if "DataInconsistenciesAccuracyIssues" selected in "WhyIsDataNotAvailable" -> an explaination
+  [DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE]: Array<
+    | typeof DC.REQUIRES_MEDICAL_RECORD_REVIEW
+    | typeof DC.REQUIRES_DATA_LINKAGE
+    | typeof DC.OTHER // if "DataSourceNotEasilyAccessible" selected in "WhyIsDataNotAvailable"
   >;
-  "DataSourceNotEasilyAccessible-Other": string; // if "Other" selected in "DataSourceNotEasilyAccessible" -> an explaination
-  InformationNotCollected: Array<
-    "NotCollectedByProviderHospitalHealthPlan" | "Other"
+  [DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER]: string; // if "Other" selected in "DataSourceNotEasilyAccessible" -> an explaination
+  [DC.INFO_NOT_COLLECTED]: Array<
+    typeof DC.NOT_COLLECTED_BY_PROVIDER | typeof DC.OTHER
   >;
-  "InformationNotCollected-Other": string; // if "Other" selected in "InformationNotCollected" -> an explaination
-  LimitationWithDatCollecitonReportAccuracyCovid: string; // if "LimitationWithDatCollecitonReportAccuracyCovid" selected in "WhyAreYouNotReporting" -> an explaination
-  SmallSampleSizeLessThan30: string; // if "SmallSampleSizeLessThan30" in "WhyAreYouNotReporting" -> an explaination of sample size
-  "WhyAreYouNotReporting-Other": string; // if "Other" selected in "WhyAreYouNotReporting" -> an explaination
+  [DC.INFO_NOT_COLLECTED_OTHER]: string; // if "Other" selected in "InformationNotCollected" -> an explaination
+  [DC.LIMITATION_WITH_DATA_COLLECTION]: string; // if "LimitationWithDatCollecitonReportAccuracyCovid" selected in "WhyAreYouNotReporting" -> an explaination
+  [DC.SMALL_SAMPLE_SIZE]: string; // if "SmallSampleSizeLessThan30" in "WhyAreYouNotReporting" -> an explaination of sample size
+  [DC.WHY_ARE_YOU_NOT_REPORTING_OTHER]: string; // if "Other" selected in "WhyAreYouNotReporting" -> an explaination
 }
 
 export interface DidReport {
-  DidReport: YesNo;
+  [DC.DID_REPORT]: YesNo;
 }
 
 export interface DidCollect {
-  DidCollect: YesNo;
+  [DC.DID_COLLECT]: YesNo;
 }
 
 export interface StatusOfData {
-  DataStatus: string[];
-  "DataStatus-ProvisionalExplanation": string;
+  [DC.DATA_STATUS]: string[];
+  [DC.DATA_STATUS_PROVISIONAL_EXPLAINATION]: string;
 }
 
 export interface DataSource {
-  DataSource: string[];
-  DataSourceSelections: {
+  [DC.DATA_SOURCE]: string[];
+  [DC.DATA_SOURCE_SELECTIONS]: {
     [label: string]: {
-      description: string;
-      selected: string[];
+      [DC.DESCRIPTION]: string;
+      [DC.SELECTED]: string[];
     };
   };
-  DataSourceDescription: string;
+  [DC.DATA_SOURCE_DESCRIPTION]: string;
 }
 export interface RateFields {
-  label?: string;
-  numerator?: string;
-  denominator?: string;
-  rate?: string;
+  [DC.LABEL]?: string;
+  [DC.NUMERATOR]?: string;
+  [DC.DENOMINATOR]?: string;
+  [DC.RATE]?: string;
 }
 
 export interface DeviationFields {
-  options: string[];
-  denominator: string;
-  numerator: string;
-  other: string;
+  [DC.OPTIONS]: string[];
+  [DC.DENOMINATOR]: string;
+  [DC.NUMERATOR]: string;
+  [DC.OTHER]: string;
 }
 
 export interface OtherRatesFields {
-  description?: string;
-  rate?: RateFields[];
+  [DC.DESCRIPTION]?: string;
+  [DC.RATE]?: RateFields[];
 }
 
 export type PerformanceMeasureRate = {
@@ -179,70 +179,86 @@ export type PerformanceMeasureRate = {
 };
 
 export interface PerformanceMeasure {
-  PerformanceMeasure?: {
-    explanation?: string;
-    rates?: PerformanceMeasureRate;
+  [DC.PERFORMANCE_MEASURE]?: {
+    [DC.EXPLAINATION]?: string;
+    [DC.RATES]?: PerformanceMeasureRate;
   };
 }
 
 interface OmsRateFields {
-  options?: string[];
-  rates?: {
+  [DC.OPTIONS]?: string[];
+  [DC.RATES]?: {
     [
       rateLabel: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
     ]: RateFields[];
   };
-  total?: RateFields[];
+  [DC.TOTAL]?: RateFields[];
 }
 
 interface LowLevelOmsNode {
-  ageRangeRates?: OmsRateFields; // if just ndr sets
-  subCatOptions?: string[]; // for additional subCats/add anothers
-  subCategories?: {
-    description?: string;
-    ageRangeRates?: OmsRateFields;
+  [DC.AGE_RANGE_RATES]?: OmsRateFields; // if just ndr sets
+  [DC.SUB_CAT_OPTIONS]?: string[]; // for additional subCats/add anothers
+  [DC.SUB_CATS]?: {
+    [DC.DESCRIPTION]?: string;
+    [DC.AGE_RANGE_RATES]?: OmsRateFields;
   }[];
 }
 
 interface MidLevelOMSNode extends LowLevelOmsNode {
   // if sub-options
-  aggregate?: string;
-  options?: string[];
-  selections?: {
+  [DC.AGGREGATE]?: string;
+  [DC.OPTIONS]?: string[];
+  [DC.SELECTIONS]?: {
     [option: string]: LowLevelOmsNode;
   };
 }
 
 interface TopLevelOmsNode {
   // top level child, ex: Race, Sex, Ethnicity
-  options?: string[]; // checkbox
-  additionalCategories?: string[]; // add another section
-  selections?: {
+  [DC.OPTIONS]?: string[]; // checkbox
+  [DC.ADDITIONAL_CATS]?: string[]; // add another section
+  [DC.SELECTIONS]?: {
     [option: string]: MidLevelOMSNode;
   };
-  additionalSelections?: AddtnlOmsNode[];
+  [DC.ADDITIONAL_SELECTIONS]?: AddtnlOmsNode[];
 
   // catch case for ACA
-  ageRangeRates?: OmsRateFields;
+  [DC.AGE_RANGE_RATES]?: OmsRateFields;
 }
 
 interface AddtnlOmsNode extends LowLevelOmsNode {
-  description?: string;
+  [DC.DESCRIPTION]?: string;
 }
 
 export interface Qualifiers {
-  qualifiers?: string[];
+  [DC.QUALIFIERS]?: string[];
 }
 
 export interface Categories {
-  categories?: string[];
+  [DC.CATEGORIES]?: string[];
 }
 
 export interface OptionalMeasureStratification {
-  OptionalMeasureStratification: {
-    options: string[]; //checkbox
-    selections: {
+  [DC.OMS]: {
+    [DC.OPTIONS]: string[]; //checkbox
+    [DC.SELECTIONS]: {
       [option: string]: TopLevelOmsNode;
+    };
+  };
+}
+
+export interface DeviationFromMeasureSpecification {
+  [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
+  [DC.DEVIATION_OPTIONS]: string[]; // if "YesCalcDeviated" selected from "DidCalculationsDeviate" -> which deviations options selected
+  [DC.DEVIATIONS]: {
+    // the Deviation 'options' below will match the "DeviationOptions" above
+    [option: string]: {
+      [DC.RATE_DEVIATIONS_SELECTED]: Array<
+        typeof DC.NUMERATOR | typeof DC.DENOMINATOR | typeof DC.OTHER
+      >; // deviations selected for the given option
+      [DC.NUMERATOR]: string; // if "numerator" selected for "RateDeviationsSelected" -> an explaination
+      [DC.DENOMINATOR]: string; // if "denominator" selected for "RateDeviationsSelected" -> an explaination
+      [DC.OTHER]: string; // if "other" selected for "RateDeviationsSelected" -> an explaination
     };
   };
 }
@@ -253,19 +269,6 @@ export namespace DataDrivenTypes {
   export type DataSource = DataSourceData;
 }
 
-export interface DeviationFromMeasureSpecification {
-  DidCalculationsDeviate: YesNo; // does the calculation of the measure deviate from the measure specification
-  DeviationOptions: string[]; // if "YesCalcDeviated" selected from "DidCalculationsDeviate" -> which deviations options selected
-  Deviations: {
-    // the Deviation 'options' below will match the "DeviationOptions" above
-    [option: string]: {
-      RateDeviationsSelected: Array<"numerator" | "denominator" | "other">; // deviations selected for the given option
-      numerator: string; // if "numerator" selected for "RateDeviationsSelected" -> an explaination
-      denominator: string; // if "denominator" selected for "RateDeviationsSelected" -> an explaination
-      other: string; // if "other" selected for "RateDeviationsSelected" -> an explaination
-    };
-  };
-}
 export type DefaultFormData = AdditionalNotes &
   DidCollect &
   StatusOfData &

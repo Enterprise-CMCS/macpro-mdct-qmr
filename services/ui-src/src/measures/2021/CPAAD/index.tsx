@@ -1,11 +1,12 @@
 import * as Q from "./questions";
 import * as CMQ from "measures/CommonQuestions";
 import { useParams } from "react-router-dom";
-import * as Types from "measures/CommonQuestions/types";
+import * as QMR from "components";
 import { useFormContext } from "react-hook-form";
+import { FormData } from "./types";
 
-export const CPAAD = ({ name, year }: Types.MeasureWrapperProps) => {
-  const { watch } = useFormContext<Types.DefaultFormData>();
+export const CPAAD = ({ name, year }: QMR.MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
   const { coreSetId } = useParams();
   const data = watch();
 
