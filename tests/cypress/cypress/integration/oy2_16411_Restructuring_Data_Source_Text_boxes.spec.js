@@ -28,11 +28,11 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get("#DataSource1-checkbox").check();
     cy.get(
-      '[data-cy="DataSourceSelections.OtherDataSource.descriptions"]'
+      '[data-cy="DataSourceSelections.OtherDataSource.description"]'
     ).click({ force: true });
-    cy.get(
-      '[data-cy="DataSourceSelections.OtherDataSource.descriptions"]'
-    ).type("Test2");
+    cy.get('[data-cy="DataSourceSelections.OtherDataSource.description"]').type(
+      "Test2"
+    );
     cy.wait(500);
     cy.get(
       '[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__label > .chakra-text'
@@ -44,10 +44,10 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
       "#DataSourceSelections\\.AdministrativeData\\.selected1-checkbox"
     ).check();
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.descriptions"]'
+      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.description"]'
     ).click({ force: true });
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.descriptions"]'
+      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.description"]'
     ).type("Test1");
     cy.get('[data-cy="DataSourceDescription"]').click({ force: true });
     cy.get('[data-cy="DataSourceDescription"]').type("Test3");
@@ -83,10 +83,10 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
       "#DataSourceSelections\\.AdministrativeData\\.selected1-checkbox"
     ).check();
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.descriptions"]'
+      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.description"]'
     ).click({ force: true });
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.descriptions"]'
+      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.description"]'
     ).type("Test1");
     cy.xpath(
       "//p[contains(text(),'For each data source selected above, describe whic')]"

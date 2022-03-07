@@ -162,7 +162,7 @@ export const PerformanceMeasure = ({
           </CUI.Text>
           <QMR.TextArea
             formLabelProps={{ mt: 5 }}
-            {...register("PerformanceMeasure.hybridExplantation")}
+            {...register("PerformanceMeasure.hybridExplanation")}
             label="Describe any COVID-related difficulties encountered while collecting this data:"
           />
         </CUI.Box>

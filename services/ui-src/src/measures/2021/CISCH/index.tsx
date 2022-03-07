@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useWatch, useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
+import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import { MeasureWrapperProps } from "measures/CommonQuestions/types";
 import { FormData } from "./types";
 
 export const CISCH = ({
@@ -16,7 +16,7 @@ export const CISCH = ({
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
-}: MeasureWrapperProps) => {
+}: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const data = watch();
 
