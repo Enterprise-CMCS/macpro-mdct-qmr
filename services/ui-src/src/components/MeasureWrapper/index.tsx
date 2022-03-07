@@ -82,7 +82,7 @@ export const MeasureWrapper = ({
         id: "timeoutToast",
       });
     }
-  }, 30000); ///3300000 is 55 minutes
+  }, 3300000); ///3300000 is 55 minutes
 
   timeouts.push(warningToast);
 
