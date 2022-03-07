@@ -1,33 +1,15 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
-export const qualifiers = [
-  "DTaP",
-  "IPV",
-  "MMR",
-  "HiB",
-  "Hep B",
-  "VZV",
-  "PCV",
-  "Hep A",
-  "RV",
-  "Flu",
-  "Combo 2",
-  "Combo 3",
-  "Combo 4",
-  "Combo 5",
-  "Combo 6",
-  "Combo 7",
-  "Combo 8",
-  "Combo 9",
-  "Combo 10",
-];
+export const qualifiers = ["Ages 18 to 64", "Age 65 to 85"];
 export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of children age 2 who had four diphtheria, tetanus and acellular pertussis (DTaP); three polio (IPV); one measles, mumps and rubella (MMR); three haemophilus influenza type B (HiB); three hepatitis B (Hep B), one chicken pox (VZV); four pneumococcal conjugate (PCV); one hepatitis A (HepA); two or three rotavirus (RV); and two influenza (flu) vaccines by their second birthday. The measure calculates a rate for each vaccine and nine separate combination rates.",
+    "Percentage of beneficiaries ages 18 to 85 who had a diagnosis of hypertension and whose blood pressure (BP) was adequately controlled (< 140/90 mm Hg) during the measurement year.",
   ],
-  questionListItems: [],
+  questionListItems: [
+    "Percentage of beneficiaries ages 18 to 85 who had a diagnosis of hypertension and whose blood pressure (BP) was adequately controlled (< 140/90 mm Hg) during the measurement year.",
+  ],
   categories,
   qualifiers,
 };
