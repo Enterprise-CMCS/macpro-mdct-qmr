@@ -56,13 +56,29 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
     const adjustedParentName = parentName
       ? `${parentName}-${cleanedNodeValue}`
       : cleanedNodeValue;
-    const children = [
-      ...buildDataSourceCheckboxOptionChildren({
-        data: node.subOptions?.options,
-        label: node.subOptions?.label,
-        parentName: adjustedParentName,
-      }),
-    ];
+    // @ts-ignore
+    let children = [];
+    if (!Array.isArray(node.subOptions)) {
+      children = [
+        ...buildDataSourceCheckboxOptionChildren({
+          data: node.subOptions?.options,
+          label: node.subOptions?.label,
+          parentName: `${adjustedParentName}`,
+        }),
+      ];
+    } else {
+      node.subOptions.map((subOption, i) => {
+        children = [
+          //@ts-ignore
+          ...children,
+          ...buildDataSourceCheckboxOptionChildren({
+            data: subOption.options,
+            label: subOption.label,
+            parentName: `${adjustedParentName}${i}`,
+          }),
+        ];
+      });
+    }
 
     if (node.description) {
       children.push(
@@ -77,6 +93,7 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
     checkBoxOptions.push({
       value: cleanedNodeValue,
       displayValue: node.value,
+      //@ts-ignore
       children,
     });
   }
