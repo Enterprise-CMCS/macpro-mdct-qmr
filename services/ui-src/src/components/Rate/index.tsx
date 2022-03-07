@@ -57,7 +57,7 @@ export const Rate = ({
       Math.round(
         floatRate * rateMultiplicationValue * Math.pow(10, numbersAfterDecimal)
       ) / Math.pow(10, numbersAfterDecimal);
-    const stringRate = roundedRate.toFixed(1);
+    const stringRate = roundedRate.toFixed(numbersAfterDecimal);
     return stringRate;
   };
 
