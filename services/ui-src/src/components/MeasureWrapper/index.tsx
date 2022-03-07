@@ -7,6 +7,7 @@ import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { areSomeRatesCompleted } from "utils/form";
+import { timeouts } from "App";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -63,7 +64,10 @@ export const MeasureWrapper = ({
   );
 
   const toast = CUI.useToast();
-  window.setTimeout(function () {
+  timeouts.forEach((element: any) => {
+    clearTimeout(element);
+  });
+  const warningToast = window.setTimeout(function () {
     if (
       !toast.isActive("timeoutToast") &&
       measureId === window.location.pathname.split("/").slice(-1)[0]
@@ -78,7 +82,9 @@ export const MeasureWrapper = ({
         id: "timeoutToast",
       });
     }
-  }, 10000); ///3300000 is 55 minutes
+  }, 30000); ///3300000 is 55 minutes
+
+  timeouts.push(warningToast);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const autoCompletedMeasure =

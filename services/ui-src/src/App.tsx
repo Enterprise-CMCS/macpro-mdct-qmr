@@ -4,6 +4,8 @@ import { LocalLogins } from "components";
 import { useUser } from "hooks/authHooks";
 import * as CUI from "@chakra-ui/react";
 
+export let timeouts: any = [];
+
 const App = () => {
   const { logout, user, showLocalLogins, loginWithIDM } = useUser();
 
