@@ -3,7 +3,6 @@ When importing a measure it should be a named import and added to the measures o
 the key should be the measure id as a string (with '-XX' included) 
 */
 
-import { BCSAD } from "./BCSAD";
 import { CCWAD } from "./CCWAD";
 import { CCPAD } from "./CCPAD";
 import { CPAAD } from "./CPAAD";
@@ -22,7 +21,6 @@ import { PQI15AD } from "./PQI15AD";
 import { PQI05AD } from "./PQI05AD";
 
 const twentyTwentyOneMeasures = {
-  "BCS-AD": BCSAD,
   "CCP-AD": CCPAD,
   "CPA-AD": CPAAD,
   "FUA-AD": FUAAD,
