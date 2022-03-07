@@ -3,13 +3,11 @@ import * as PMD from "./data";
 import {
   getPerfMeasureRateArray,
   omsLocationDictionary,
-} from "measures/globalValidations";
-
-import {
+  getDeviationNDRArray,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
   ensureBothDatesCompletedInRange,
   validateRequiredRadioButtonForCombinedRates,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-} from "../../globalValidations/validationsLib";
+} from "measures/globalValidations";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
@@ -17,15 +15,16 @@ import {
   validateOneRateLessThanOther,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  // Array of deviation NDRs with empty/undefined values removed
-  console.log(data["DeviationOptions"], data["Deviations"]);
-  const deviationArray = [
-    // ...(data["DeviationOptions"] || []),
-    // ...(data["DeviationFields-LARC"] || []),
-  ].filter((data) => data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
   let errorArray: any[] = [];

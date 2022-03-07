@@ -1,48 +1,56 @@
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import {
-  getPerfMeasureRateArray,
-  omsLocationDictionary,
-} from "measures/globalValidations";
-import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
 } from "measures/globalValidations/omsValidationsLib";
+import * as PMD from "./data";
+import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
-  validateRequiredRadioButtonForCombinedRates,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
-} from "measures/globalValidations/validationsLib";
-import * as PMD from "./data";
-import { FormData } from "./types";
+  validateRequiredRadioButtonForCombinedRates,
+  getDeviationNDRArray,
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "measures/globalValidations";
 
-const PQI01Validation = (data: FormData) => {
+const PQI05Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const age65PlusIndex = 0;
   const dateRange = data["DateRange"];
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  // const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
-  //   (pma: PerformanceMeasure[]) => [pma]
-  // );
-  // const validateDualPopInformationArray = [performanceMeasureArrayToCheck?.[1]];
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray: any = [];
-  //  data["DeviationFields"]?.filter((data: any) => data) ||
-  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
+
+  const validateDualPopInformationArray = [
+    performanceMeasureArray?.[0].filter((pm) => {
+      return pm?.label === "Age 65 and older";
+    }),
+  ];
+
   let errorArray: any[] = [];
   errorArray = [
     ...errorArray,
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
-      "age-group",
-    ]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
@@ -51,7 +59,7 @@ const PQI01Validation = (data: FormData) => {
     ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      ["age-groups"],
+      PMD.qualifiers,
       deviationArray
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
@@ -67,4 +75,4 @@ const PQI01Validation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PQI01Validation];
+export const validationFunctions = [PQI05Validation];

@@ -1,11 +1,6 @@
 import * as PMD from "./data";
 import { FormData } from "./types";
 import {
-  ensureBothDatesCompletedInRange,
-  validateRequiredRadioButtonForCombinedRates,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-} from "measures/globalValidations/validationsLib";
-import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
@@ -13,6 +8,13 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { omsLocationDictionary } from "measures/globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import {
+  getPerfMeasureRateArray,
+  getDeviationNDRArray,
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
+} from "measures/globalValidations";
 
 const validateRates = (data: FormData) => {
   const sevenDays =
@@ -282,21 +284,16 @@ const validateAtLeastOneNDRSet = (data: FormData) => {
 };
 
 const validateAtLeastOneDeviationNDR = (data: FormData) => {
-  console.log(data);
-  const performanceMeasureArray: any = [
-    //   // data["PerformanceMeasure-AgeRates-7Days"],
-    //   // data["PerformanceMeasure-AgeRates-30Days"],
-  ];
-
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray = [
-    // ...(data["DeviationFields-Within30"] || []),
-    // ...(data["DeviationFields-Within7"] || []),
-  ].filter((data) => data);
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
 
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(
     performanceMeasureArray,
-    ["18 to 64", "65 and older"],
+    PMD.qualifiers,
     deviationArray
   );
 };

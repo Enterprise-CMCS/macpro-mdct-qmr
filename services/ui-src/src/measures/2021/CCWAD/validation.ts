@@ -5,7 +5,8 @@ import {
   validateNoNonZeroNumOrDenom,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
+  getDeviationNDRArray,
+} from "measures/globalValidations";
 import * as PMD from "./data";
 import {
   omsValidations,
@@ -166,19 +167,22 @@ const validateAtLeastOneNPR = (data: FormData) => {
 };
 
 const validateAtLeastOneDeviationNDR = (data: FormData) => {
-  const performanceMeasureArray: any = [
-    // data["PerformanceMeasure-ModeratelyEffectiveMethodOfContraceptionRate"],
-    // data["PerformanceMeasure-ReversibleMethodOfContraceptionRate"],
-  ];
-  console.log(data);
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray = [
-    // data["moderate-method-deviation"],
-    // data["reversible-method-deviation"],
-  ].filter((data) => data);
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
 
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(
-    performanceMeasureArray,
+    [memeRates, larcRates],
     [""],
     deviationArray
   );

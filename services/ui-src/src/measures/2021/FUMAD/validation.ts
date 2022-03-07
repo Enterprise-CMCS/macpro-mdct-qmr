@@ -1,10 +1,12 @@
 import * as PMD from "./data";
 import { FormData } from "./types";
 import {
-  ensureBothDatesCompletedInRange,
+  getPerfMeasureRateArray,
+  getDeviationNDRArray,
   validateRequiredRadioButtonForCombinedRates,
+  ensureBothDatesCompletedInRange,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
-} from "measures/globalValidations/validationsLib";
+} from "measures/globalValidations";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
@@ -282,22 +284,16 @@ const validateAtLeastOneNDRSet = (data: FormData) => {
 };
 
 const validateAtLeastOneDeviationNDR = (data: FormData) => {
-  const performanceMeasureArray: any = [
-    // data["PerformanceMeasure-AgeRates-7Days"],
-    // data["PerformanceMeasure-AgeRates-30Days"],
-  ];
-
-  console.log(data);
-
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray = [
-    // ...(data["DeviationFields-Within30"] || []),
-    // ...(data["DeviationFields-Within7"] || []),
-  ].filter((data) => data);
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
 
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(
     performanceMeasureArray,
-    ["18 to 64", "65 and older"],
+    PMD.qualifiers,
     deviationArray
   );
 };

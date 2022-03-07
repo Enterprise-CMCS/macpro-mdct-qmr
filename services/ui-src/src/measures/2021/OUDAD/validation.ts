@@ -6,19 +6,18 @@ import {
   validateEqualDenominators,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "measures/globalValidations/validationsLib";
-import {
+  getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
 } from "measures/globalValidations";
-import * as PMD from "./data";
-import { FormData } from "./types";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import * as PMD from "./data";
+import { FormData } from "./types";
 
 const OUDValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -26,31 +25,26 @@ const OUDValidation = (data: FormData) => {
   const dateRange = data["DateRange"];
   let errorArray: any[] = [];
 
-  const performanceMeasureArrayToCheck = performanceMeasureArray;
-  // ?.map(
-  //   (item) => {
-  //     return [item];
-  //   }
-  // );
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
 
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray: any = [];
-  // data["DeviationFields"]?.filter((data) => data) ||
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
-      "age-group",
-    ]),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArrayToCheck,
-      ["age-group"],
+      performanceMeasureArray,
+      PMD.qualifiers,
       deviationArray
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
-    ...validateEqualDenominators(performanceMeasureArray, ["age-group"]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -61,6 +55,13 @@ const OUDValidation = (data: FormData) => {
         validateDenominatorsAreTheSame,
       ],
     }),
+    ...validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;

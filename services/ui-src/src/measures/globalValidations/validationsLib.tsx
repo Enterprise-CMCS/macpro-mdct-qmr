@@ -291,7 +291,6 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
 
 // When a user inputs data in multiple NDR sets in a performance measure
 // Then the user must complete at least one NDR set in the Deviation of measure specification.
-
 export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: PerformanceMeasure[][],
   ageGroups: string[],
@@ -305,7 +304,8 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
         performanceMeasureArray[index] &&
         performanceMeasureArray[index][i] &&
         performanceMeasureArray[index][i].denominator &&
-        performanceMeasureArray[index][i].numerator
+        performanceMeasureArray[index][i].numerator &&
+        performanceMeasureArray[index][i].rate
       ) {
         ndrCount++;
       }
@@ -331,7 +331,6 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       });
     }
   }
-
   return errorArray;
 };
 

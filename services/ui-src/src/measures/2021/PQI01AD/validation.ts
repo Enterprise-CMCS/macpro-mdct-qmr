@@ -5,10 +5,9 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
-  validateRequiredRadioButtonForCombinedRates,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
-} from "measures/globalValidations/validationsLib";
-import {
+  validateRequiredRadioButtonForCombinedRates,
+  getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
 } from "measures/globalValidations";
@@ -26,26 +25,32 @@ const PQI01Validation = (data: FormData) => {
   const dateRange = data["DateRange"];
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  let errorArray: any[] = [];
-  // const performanceMeasureArrayToCheck = performanceMeasureArray?.map(
-  //   (pma: PerformanceMeasure[]) => [pma]
-  // );
-  // const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray: any = [];
-  // data["DeviationFields"]?.filter((data: any) => data) ||
-  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
 
+  const validateDualPopInformationArray = [
+    performanceMeasureArray?.[0].filter((pm) => {
+      return pm?.label === "Age 65 and older";
+    }),
+  ];
+
+  let errorArray: any[] = [];
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-groups"]),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
-      "age-groups",
-    ]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, [
-      "age-groups",
-    ]),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
@@ -54,7 +59,7 @@ const PQI01Validation = (data: FormData) => {
     ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      ["age-groups"],
+      PMD.qualifiers,
       deviationArray
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),

@@ -7,17 +7,16 @@ import {
   validateNoNonZeroNumOrDenom,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "measures/globalValidations/validationsLib";
-import {
+  getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
 } from "measures/globalValidations";
-import * as PMD from "./data";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import * as PMD from "./data";
 
 const MSCADValidation = (data: Types.DefaultFormData) => {
   const ageGroups = PMD.qualifiers;
@@ -27,13 +26,11 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const dateRange = data["DateRange"];
 
-  // Array of deviation NDRs with empty/undefined values removed
-  const deviationArray = [
-    // ...(data["DeviationFields-DiscussingCessationMedications"] || []),
-    // ...(data["DeviationFields-AdvisingUsersToQuit"] || []),
-    // ...(data["DeviationFields-DiscussingCessationStrategies"] || []),
-    // ...(data["DeviationFields-PercentageOfUsers"] || []),
-  ].filter((data) => data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
 
   let errorArray: any[] = [];
   errorArray = [

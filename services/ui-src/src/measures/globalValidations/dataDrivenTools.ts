@@ -70,3 +70,26 @@ export const omsLocationDictionary = (renderData: DDT.OptionalMeasureStrat) => {
       return `${prevValue} - ${dictionary[currentValue] ?? currentValue}`;
     }, "");
 };
+
+export const getDeviationNDRArray = (
+  deviationOptions: Types.DeviationFromMeasureSpecification["DeviationOptions"],
+  data: Types.DeviationFromMeasureSpecification["Deviations"],
+  ageGroups?: boolean
+) => {
+  let deviationArray: any[] = [];
+  deviationOptions?.forEach((option) => {
+    const objectToSearch = ageGroups ? data[option] : data;
+    if (ageGroups) {
+      for (const key of Object.keys(objectToSearch).filter(
+        (prop) => prop !== "SelectedOptions"
+      )) {
+        deviationArray.push(data[option][key as Types.DeviationKeys]);
+      }
+    } else {
+      if (data) {
+        deviationArray = Object.values(data);
+      }
+    }
+  });
+  return deviationArray;
+};

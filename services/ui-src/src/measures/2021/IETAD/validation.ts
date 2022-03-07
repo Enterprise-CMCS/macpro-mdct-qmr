@@ -11,13 +11,14 @@ import {
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
+  getPerfMeasureRateArray,
+  getDeviationNDRArray,
+} from "../../globalValidations";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
 } from "measures/globalValidations/omsValidationsLib";
-import { getPerfMeasureRateArray } from "../../globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const IEDValidation = (data: FormData) => {
@@ -27,17 +28,11 @@ const IEDValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
-  const deviationArray =
-    [
-      // ...(data["DeviationFields-EngageAlcohol"] || []),
-      // ...(data["DeviationFields-EngageOpioid"] || []),
-      // ...(data["DeviationFields-EngageOther"] || []),
-      // ...(data["DeviationFields-EngageTotal"] || []),
-      // ...(data["DeviationFields-InitOther"] || []),
-      // ...(data["DeviationFields-InitTotal"] || []),
-      // ...(data["DeviationFields-InitAlcohol"] || []),
-      // ...(data["DeviationFields-InitOpioid"] || []),
-    ].filter((data: any) => data) || [];
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
 
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 

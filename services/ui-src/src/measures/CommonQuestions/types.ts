@@ -270,6 +270,11 @@ export namespace DataDrivenTypes {
   export type PerformanceMeasure = PerformanceMeasureData;
   export type DataSource = DataSourceData;
 }
+export type DeviationKeys =
+  | "numerator"
+  | "denominator"
+  | "other"
+  | "RateDeviationsSelected";
 
 export type DefaultFormData = AdditionalNotes &
   DidCollect &

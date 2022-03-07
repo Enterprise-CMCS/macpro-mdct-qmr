@@ -1,43 +1,35 @@
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import {
-  getPerfMeasureRateArray,
-  omsLocationDictionary,
-} from "measures/globalValidations";
-import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
 } from "measures/globalValidations/omsValidationsLib";
 import {
+  getPerfMeasureRateArray,
   atLeastOneRateComplete,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-  validateDualPopInformation,
-} from "measures/globalValidations/validationsLib";
+  omsLocationDictionary,
+} from "measures/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-const PQI01Validation = (data: FormData) => {
+
+const PQI15Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const age65PlusIndex = 0;
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
-  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
-
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-groups"]),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
-      "age-groups",
-    ]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, [
-      "age-groups",
-    ]),
-    ...validateDualPopInformation(
-      validateDualPopInformationArray,
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
       OPM,
-      age65PlusIndex,
-      DefinitionOfDenominator
+      PMD.qualifiers
+    ),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
     ),
     ...omsValidations({
       data,
@@ -51,4 +43,4 @@ const PQI01Validation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PQI01Validation];
+export const validationFunctions = [PQI15Validation];
