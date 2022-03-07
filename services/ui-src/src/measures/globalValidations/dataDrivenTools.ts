@@ -1,3 +1,4 @@
+import * as DC from "dataConstants";
 import * as Types from "measures/CommonQuestions/types";
 import { DataDrivenTypes as DDT } from "measures/CommonQuestions/types";
 import { PerformanceMeasure as PM } from "./types";
@@ -21,7 +22,7 @@ export const getPerfMeasureRateArray = (
     }
   } else if (renderData.qualifiers?.length) {
     performanceMeasureData.push(
-      formData.PerformanceMeasure?.rates?.["singleCategory"] ?? []
+      formData.PerformanceMeasure?.rates?.[DC.SINGLE_CATEGORY] ?? []
     );
   }
 
@@ -42,7 +43,7 @@ export const performanceMeasureErrorLocationDicitonary = (
     errorDict[cat.replace(/[^\w]/g, "")] = cat;
   }
 
-  errorDict["singleCategory"] = "Performance Measure";
+  errorDict[DC.SINGLE_CATEGORY] = DC.PERFORMANCE_MEASURE;
 };
 
 /**
@@ -70,10 +71,9 @@ export const omsLocationDictionary = (renderData: DDT.OptionalMeasureStrat) => {
       return `${prevValue} - ${dictionary[currentValue] ?? currentValue}`;
     }, "");
 };
-
 export const getDeviationNDRArray = (
-  deviationOptions: Types.DeviationFromMeasureSpecification["DeviationOptions"],
-  data: Types.DeviationFromMeasureSpecification["Deviations"],
+  deviationOptions: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_OPTIONS],
+  data: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATIONS],
   ageGroups?: boolean
 ) => {
   let deviationArray: any[] = [];
@@ -81,7 +81,7 @@ export const getDeviationNDRArray = (
     const objectToSearch = ageGroups ? data[option] : data;
     if (ageGroups) {
       for (const key of Object.keys(objectToSearch).filter(
-        (prop) => prop !== "SelectedOptions"
+        (prop) => prop !== DC.SELECTED_OPTIONS
       )) {
         deviationArray.push(data[option][key as Types.DeviationKeys]);
       }
