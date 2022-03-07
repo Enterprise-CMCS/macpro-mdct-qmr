@@ -252,7 +252,7 @@ const validateNDRs = (
   };
 
   // Loop through top level nodes for validation
-  for (const key of data.OptionalMeasureStratification.options) {
+  for (const key of data.OptionalMeasureStratification?.options ?? []) {
     isFilled[key] = false;
     validateTopLevelNode(
       data.OptionalMeasureStratification.selections?.[key] ?? {},
