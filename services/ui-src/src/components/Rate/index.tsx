@@ -164,18 +164,17 @@ export const Rate = ({
   const calculateTotals = (prevRate: any[]) => {
     let numeratorSum: any = null;
     let denominatorSum: any = null;
-    let n;
-    let d;
+    let x;
 
     // sum all Ns and Ds
     // we assume last NDR is total if calcTotal is true
     prevRate.slice(0, -1).forEach((item) => {
       if (item !== undefined && item !== null && !item["isTotal"]) {
-        if (!isNaN((n = parseFloat(item["numerator"])))) {
-          numeratorSum = numeratorSum + n; // += syntax does not work if default value is null
+        if (!isNaN((x = parseFloat(item["numerator"])))) {
+          numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
         }
-        if (!isNaN((d = parseFloat(item["denominator"])))) {
-          denominatorSum = denominatorSum + d; // += syntax does not work if default value is null
+        if (!isNaN((x = parseFloat(item["denominator"])))) {
+          denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
         }
       }
     });
@@ -195,9 +194,12 @@ export const Rate = ({
     ) {
       prevRate[totalIndex]["rate"] =
         numeratorSum !== 0
-          ? ((numeratorSum / denominatorSum) * rateMultiplicationValue)
-              .toFixed(1)
-              .toString()
+          ? rateCalculation(
+              numeratorSum.toString(),
+              denominatorSum.toString(),
+              rateMultiplicationValue,
+              1
+            )
           : "0";
     } else {
       prevRate[totalIndex]["rate"] = "";
