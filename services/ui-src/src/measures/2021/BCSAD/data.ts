@@ -7,9 +7,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
     "Percentage of women ages 50 to 74 who had a mammogram to screen for breast cancer.",
   ],
-  questionListItems: [
-    "Percentage of women ages 50 to 74 who had a mammogram to screen for breast cancer.",
-  ],
+  questionListItems: [],
   categories,
   qualifiers,
 };
