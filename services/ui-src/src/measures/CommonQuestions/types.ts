@@ -198,11 +198,11 @@ export namespace OmsNodes {
   }
 
   export interface LowLevelOmsNode {
-    [DC.AGE_RANGE_RATES]?: OmsRateFields; // if just ndr sets
+    [DC.RATE_DATA]?: OmsRateFields; // if just ndr sets
     [DC.SUB_CAT_OPTIONS]?: string[]; // for additional subCats/add anothers
     [DC.SUB_CATS]?: {
       [DC.DESCRIPTION]?: string;
-      [DC.AGE_RANGE_RATES]?: OmsRateFields;
+      [DC.RATE_DATA]?: OmsRateFields;
     }[];
   }
   export interface MidLevelOMSNode extends LowLevelOmsNode {
@@ -224,7 +224,7 @@ export namespace OmsNodes {
     [DC.ADDITIONAL_SELECTIONS]?: AddtnlOmsNode[];
 
     // catch case for ACA
-    [DC.AGE_RANGE_RATES]?: OmsRateFields;
+    [DC.RATE_DATA]?: OmsRateFields;
   }
 
   export interface AddtnlOmsNode extends LowLevelOmsNode {
