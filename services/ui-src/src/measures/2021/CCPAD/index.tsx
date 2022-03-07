@@ -1,5 +1,5 @@
-import * as CMQ from "measures/CommonQuestions";
-import { MeasureWrapperProps } from "measures/CommonQuestions/types";
+import * as CMQ from "../../CommonQuestions";
+import * as QMR from "components";
 import { FormData } from "./types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
@@ -16,7 +16,7 @@ export const CCPAD = ({
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
-}: MeasureWrapperProps) => {
+}: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const data = watch();
 

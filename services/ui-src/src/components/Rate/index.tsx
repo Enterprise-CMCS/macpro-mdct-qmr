@@ -46,11 +46,29 @@ export const Rate = ({
     defaultValue: [],
   });
 
+  const rateCalculation = (
+    numerator: string,
+    denominator: string,
+    rateMultiplicationValue: number,
+    numbersAfterDecimal: number
+  ) => {
+    const floatNumerator = parseFloat(numerator);
+    const floatDenominator = parseFloat(denominator);
+    const floatRate = floatNumerator / floatDenominator;
+    const roundedRate: number =
+      Math.round(
+        floatRate * rateMultiplicationValue * Math.pow(10, numbersAfterDecimal)
+      ) / Math.pow(10, numbersAfterDecimal);
+    const stringRate = roundedRate.toFixed(numbersAfterDecimal);
+    return stringRate;
+  };
+
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate",
     newValue: string
   ) => {
+    const digitsAfterDecimal = 1;
     if (!allNumbers.test(newValue)) return;
     if (type === "rate" && readOnly) return;
 
@@ -91,12 +109,12 @@ export const Rate = ({
       editRate.numerator &&
       parseFloat(editRate.numerator) <= parseFloat(editRate.denominator)
     ) {
-      editRate.rate = (
-        (editRate.numerator / editRate.denominator) *
-        rateMultiplicationValue
-      )
-        .toFixed(1)
-        .toString();
+      editRate.rate = rateCalculation(
+        editRate.numerator,
+        editRate.denominator,
+        rateMultiplicationValue,
+        digitsAfterDecimal
+      );
     } else if (editRate.rate) {
       editRate.rate = "";
     }

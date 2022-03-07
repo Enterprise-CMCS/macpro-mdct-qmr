@@ -69,7 +69,8 @@ const QualifierNdrSets = ({
   qualifiers = [],
   rateScale,
   customMask,
-}: NdrSetProps) => {
+}: // calcTotal,
+NdrSetProps) => {
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
@@ -82,6 +83,7 @@ const QualifierNdrSets = ({
       readOnly={rateReadOnly}
       rateMultiplicationValue={rateScale}
       customMask={customMask}
+      // calcTotal={calcTotal}
       {...register("PerformanceMeasure.rates.singleCategory")}
     />
   );
@@ -117,9 +119,15 @@ export const PerformanceMeasure = ({
     dataSourceWatch?.every((source) => source === "AdministrativeData") ??
     true;
 
+  data.questionText = data.questionText ?? [];
+
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      <CUI.Stack>{data.questionText}</CUI.Stack>
+      <CUI.Stack>
+        {data.questionText.map((item, idx) => {
+          return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
+        })}
+      </CUI.Stack>
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
