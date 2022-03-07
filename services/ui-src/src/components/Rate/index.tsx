@@ -136,7 +136,7 @@ export const Rate = ({
     <>
       {rates.map((rate, index) => {
         return (
-          <CUI.Stack key={rate.id} my={8}>
+          <CUI.Stack key={rate.id} mt={4} mb={8}>
             {rate.label && (
               <CUI.FormLabel fontWeight={700} data-cy={rate.label}>
                 {rate.label}
