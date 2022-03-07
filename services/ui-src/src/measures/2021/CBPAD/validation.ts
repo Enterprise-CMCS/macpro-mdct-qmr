@@ -4,7 +4,6 @@ import {
   ensureBothDatesCompletedInRange,
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
-  validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
@@ -27,31 +26,7 @@ const IEDValidation = (data: FormData) => {
     return errorArray;
   }
 
-  let unfilteredSameDenominatorErrors: any[] = [];
-  for (let i = 0; i < performanceMeasureArray.length; i += 2) {
-    unfilteredSameDenominatorErrors = [
-      ...unfilteredSameDenominatorErrors,
-      ...validateEqualDenominators(
-        [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
-        ageGroups
-      ),
-    ];
-  }
-  unfilteredSameDenominatorErrors = [
-    ...unfilteredSameDenominatorErrors,
-  ];
-
-  let filteredSameDenominatorErrors: any = [];
-  let errorList: string[] = [];
-  unfilteredSameDenominatorErrors.forEach((error) => {
-    if (!(errorList.indexOf(error.errorMessage) > -1)) {
-      errorList.push(error.errorMessage);
-      filteredSameDenominatorErrors.push(error);
-    }
-  });
-
   errorArray = [
-    ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateDualPopInformation(
       performanceMeasureArray,
@@ -64,7 +39,6 @@ const IEDValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
