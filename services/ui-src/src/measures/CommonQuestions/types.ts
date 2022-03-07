@@ -212,6 +212,7 @@ export type PerformanceMeasureRate = {
 export interface PerformanceMeasure {
   PerformanceMeasure?: {
     explanation?: string;
+    hybridExplantation?: string;
     rates?: PerformanceMeasureRate;
   };
 }

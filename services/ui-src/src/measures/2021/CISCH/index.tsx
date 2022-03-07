@@ -55,6 +55,7 @@ export const CISCH = ({
               <CMQ.PerformanceMeasure
                 data={PMD.data}
                 rateReadOnly={rateReadOnly}
+                hybridMeasure
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
