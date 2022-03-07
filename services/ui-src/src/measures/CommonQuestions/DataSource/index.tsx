@@ -56,26 +56,16 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
       ? `${parentName}-${cleanedNodeValue}`
       : cleanedNodeValue;
     let children: any = [];
-    if (!Array.isArray(node.subOptions)) {
+    node.subOptions?.forEach((subOption: any, i) => {
       children = [
+        ...children,
         ...buildDataSourceCheckboxOptionChildren({
-          data: node.subOptions?.options,
-          label: node.subOptions?.label,
-          parentName: `${adjustedParentName}`,
+          data: subOption.options,
+          label: subOption.label,
+          parentName: `${adjustedParentName}${i}`,
         }),
       ];
-    } else {
-      node.subOptions.map((subOption, i) => {
-        children = [
-          ...children,
-          ...buildDataSourceCheckboxOptionChildren({
-            data: subOption.options,
-            label: subOption.label,
-            parentName: `${adjustedParentName}${i}`,
-          }),
-        ];
-      });
-    }
+    });
 
     if (node.description) {
       children.push(
