@@ -233,7 +233,7 @@ describe("Measure: FUM-AD", () => {
     cy.get("[data-cy='DeviationOptions0']").click();
     cy.get('[data-cy="DeviationOptions-Within30-AgeRange0"]').click();
 
-    cy.get("[data-cy='CategoriesReported0']").click();
+    cy.get("[data-cy='OptionalMeasureStratification.options0']").click();
     cy.get(
       '[data-cy="NonHispanicRacialCategories0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
@@ -295,9 +295,9 @@ describe("Measure: FUM-AD", () => {
       '[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.denominator"]'
     ).type("20");
     cy.get(
-      '[data-cy="CategoriesReported1"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#CategoriesReported1-checkbox").check();
+    cy.get("#OptionalMeasureStratification.options1-checkbox").check();
     cy.get(
       '[data-cy="EthnicityCategories0"] > .chakra-checkbox__control'
     ).click();
