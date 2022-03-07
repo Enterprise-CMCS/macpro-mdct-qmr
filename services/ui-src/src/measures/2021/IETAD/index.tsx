@@ -4,7 +4,7 @@ import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import { MeasureWrapperProps } from "measures/CommonQuestions/types";
+import * as QMR from "components";
 import { FormData } from "./types";
 
 export const IETAD = ({
@@ -16,7 +16,7 @@ export const IETAD = ({
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
-}: MeasureWrapperProps) => {
+}: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const data = watch();
 

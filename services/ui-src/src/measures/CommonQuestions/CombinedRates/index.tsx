@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
+import * as DC from "dataConstants";
 
 export const CombinedRates = () => {
   const register = useCustomRegister<Types.CombinedRates>();
@@ -28,29 +29,29 @@ export const CombinedRates = () => {
           {
             displayValue:
               "Yes, we combined rates from multiple reporting units to create a State-Level rate.",
-            value: "yes",
+            value: DC.YES,
             children: [
               <QMR.RadioButton
-                {...register("CombinedRates-CombinedRates")}
+                {...register(DC.COMBINED_RATES_COMBINED_RATES)}
                 options={[
                   {
                     displayValue:
                       "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a State-Level rate.",
-                    value: "Combined Not Weighted Rates",
+                    value: DC.COMBINED_NOT_WEIGHTED_RATES,
                   },
                   {
                     displayValue:
                       "The rates are weighted based on the size of the measure-eligible population for each reporting unit.",
-                    value: "Combined Weighted Rates",
+                    value: DC.COMBINED_WEIGHTED_RATES,
                   },
                   {
                     displayValue:
                       "The rates are weighted based on another weighting factor.",
-                    value: "Combined Weighted Rates Other",
+                    value: DC.COMBINED_WEIGHTED_RATES_OTHER,
                     children: [
                       <QMR.TextArea
                         {...register(
-                          "CombinedRates-CombinedRates-Other-Explanation"
+                          DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION
                         )}
                         label="Describe the other weighting factor:"
                         formLabelProps={{ fontWeight: 400 }}
@@ -64,11 +65,11 @@ export const CombinedRates = () => {
           {
             displayValue:
               "No, we did not combine rates from multiple reporting units to create a State-Level rate.",
-            value: "no",
+            value: DC.NO,
           },
         ]}
         renderHelperTextAbove
-        {...register("CombinedRates")}
+        {...register(DC.COMBINED_RATES)}
       />
     </QMR.CoreQuestionWrapper>
   );
