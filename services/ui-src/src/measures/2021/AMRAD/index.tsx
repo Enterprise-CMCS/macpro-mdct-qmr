@@ -1,6 +1,6 @@
 import * as Q from "./questions";
 import * as CMQ from "measures/CommonQuestions";
-import * as PMD from "./questions/performanceMeasureData";
+import * as PMD from "./data";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./validation/types";
 import { useEffect } from "react";
