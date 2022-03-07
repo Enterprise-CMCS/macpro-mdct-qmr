@@ -8,7 +8,15 @@ import {
   percentageAllowOneDecimalMax,
 } from "utils/numberInputMasks";
 
-export const DefinitionOfPopulation = () => {
+interface Props {
+  childMeasure?: boolean;
+  hybridMeasure?: boolean;
+}
+
+export const DefinitionOfPopulation = ({
+  childMeasure,
+  hybridMeasure,
+}: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
   const showDeliverySystemOtherPopulation =
     useWatch({
@@ -31,36 +39,67 @@ export const DefinitionOfPopulation = () => {
           Denominator includes Medicare and Medicaid Dually-Eligible population
         </CUI.ListItem>
       </CUI.UnorderedList>
-      <QMR.Checkbox
-        {...register("DefinitionOfDenominator")}
-        options={[
-          {
-            displayValue: "Denominator includes Medicaid population",
-            value: "DenominatorIncMedicaidPop",
-          },
-          {
-            displayValue:
-              "Denominator includes CHIP population (e.g. pregnant women)",
-            value: "DenominatorIncCHIP",
-          },
-          {
-            displayValue:
-              "Denominator includes Medicare and Medicaid Dually-Eligible population",
-            value: "DenominatorIncMedicareMedicaidDualEligible",
-          },
-          {
-            displayValue: "Other",
-            value: "DenominatorIncOther",
-            children: [
-              <QMR.TextArea
-                formLabelProps={{ fontWeight: "400" }}
-                label="Define the other denominator population:"
-                {...register("DefinitionOfDenominator-Other")}
-              />,
-            ],
-          },
-        ]}
-      />
+      {!childMeasure && (
+        <QMR.Checkbox
+          {...register("DefinitionOfDenominator")}
+          options={[
+            {
+              displayValue: "Denominator includes Medicaid population",
+              value: "DenominatorIncMedicaidPop",
+            },
+            {
+              displayValue:
+                "Denominator includes CHIP population (e.g. pregnant women)",
+              value: "DenominatorIncCHIP",
+            },
+            {
+              displayValue:
+                "Denominator includes Medicare and Medicaid Dually-Eligible population",
+              value: "DenominatorIncMedicareMedicaidDualEligible",
+            },
+            {
+              displayValue: "Other",
+              value: "DenominatorIncOther",
+              children: [
+                <QMR.TextArea
+                  formLabelProps={{ fontWeight: "400" }}
+                  label="Define the other denominator population:"
+                  {...register("DefinitionOfDenominator-Other")}
+                />,
+              ],
+            },
+          ]}
+        />
+      )}
+      {childMeasure && (
+        <CUI.Box my="6">
+          <QMR.RadioButton
+            {...register("DefinitionOfDenominator")}
+            options={[
+              {
+                displayValue:
+                  "Denominator includes CHIP (Title XXI) population only",
+                value: "DenominatorIncCHIPPop",
+              },
+              {
+                displayValue:
+                  "Denominator includes Medicaid (Title XIX) population only",
+                value: "DenominatorIncMedicaidPop",
+              },
+              {
+                displayValue:
+                  "Denominator includes CHIP and Medicaid (Title XIX)",
+                value: "DenominatorIncMedicaidAndCHIPPop",
+              },
+            ]}
+          />
+          <QMR.TextInput
+            formControlProps={{ my: "4" }}
+            {...register("DefinitionOfDenominator-Subset-Explain")}
+            label="If the denominator is a subset of the definition selected above, please further define the denominator, and indicate the number of children excluded"
+          />
+        </CUI.Box>
+      )}
       <CUI.Box my="5">
         <QMR.TextArea
           formLabelProps={{ fontWeight: "400" }}
@@ -100,6 +139,23 @@ export const DefinitionOfPopulation = () => {
           ]}
         />
       </CUI.Box>
+      {hybridMeasure && (
+        <CUI.Box mt="5">
+          <CUI.Heading size="sm" as="h3" my="2">
+            If you are reporting as a hybrid measure, provide the measure
+            eligible population and sample size.
+          </CUI.Heading>
+          <QMR.TextInput
+            formControlProps={{ my: "4" }}
+            label="What number of your measure-eligible population are included in the measure?"
+            {...register("HybridMeasurePopulationIncluded")}
+          ></QMR.TextInput>
+          <QMR.TextInput
+            label="Specify the sample size:"
+            {...register("HybridMeasureSampleSize")}
+          ></QMR.TextInput>
+        </CUI.Box>
+      )}
       <CUI.Box mt="5">
         <CUI.Heading size="sm" as="h3" my="2">
           {"Which delivery systems are represented in the denominator?"}

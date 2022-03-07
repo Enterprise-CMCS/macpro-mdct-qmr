@@ -56,6 +56,9 @@ export interface DefinitionOfPopulation {
   "DeliverySys-Other-Percent": string;
   "DeliverySys-Other-NumberOfHealthPlans": string;
   "DeliverySys-Other-Population": string;
+  HybridMeasurePopulationIncluded: string;
+  HybridMeasureSampleSize: string;
+  "DefinitionOfDenominator-Subset-Explain": string;
 }
 
 export interface AdditionalNotes {
