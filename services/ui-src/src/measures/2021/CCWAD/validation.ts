@@ -191,7 +191,6 @@ const validateBothDatesCompletedInRange = (data: FormData) => {
 
 const validateOMS = (data: FormData) => {
   const errorArray: FormError[] = [];
-  console.log("hello world");
 
   errorArray.push(
     ...omsValidations({
