@@ -109,6 +109,7 @@ jobs:
             oy2_16411_Restructuring_Data_Source_Text_boxes.spec.js,
             oy2_16228_Date_Range_Adjustment.spec.js,
             oy2_16265_Validation_text_appear_in_CHAD.spec.js,
+            oy2_16341_NDR_validation_updates.spec.js,
           ]
     steps:
       - name: set branch_name

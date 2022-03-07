@@ -19,7 +19,6 @@ const FUAADValidation = (data: Measure.Form) => {
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
 
-
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
