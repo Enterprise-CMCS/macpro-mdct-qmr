@@ -1,9 +1,9 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "../validation/types";
+import { FormData } from "../types";
 
 export const HowDidYouReport = () => {
-  const register = useCustomRegister<Measure.Form>();
+  const register = useCustomRegister<FormData>();
   return (
     <QMR.CoreQuestionWrapper label="How did you report this measure?">
       <QMR.RadioButton
