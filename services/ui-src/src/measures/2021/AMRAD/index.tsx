@@ -1,10 +1,10 @@
-import * as Q from "./questions";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import { useFormContext, useWatch } from "react-hook-form";
-import { Measure } from "./validation/types";
+import { Measure } from "./types";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation/customValidationFunctions";
+import { validationFunctions } from "./validation";
+import { OptionalMeasureStratification } from "./OptionalMeasureStratification";
 
 export const AMRAD = ({
   name,
@@ -101,7 +101,7 @@ export const AMRAD = ({
             showPersistentAsthma51To64 ||
             showPersistentAsthmaTotal ||
             showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
+            <OptionalMeasureStratification
               ageGroups={ageGroups}
               deviationConditions={{
                 showPersistentAsthma19To50,

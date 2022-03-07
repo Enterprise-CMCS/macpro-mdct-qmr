@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "../validation/types";
+import { Measure } from "./types";
 import { createContext, useState, useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 

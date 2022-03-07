@@ -1,4 +1,6 @@
 import { Measure } from "./types";
+import * as PMD from "./data";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
   atLeastOneRateComplete,
   validateNumeratorsLessThanDenominators,
@@ -10,9 +12,7 @@ const AMRADValidation = (data: Measure.Form) => {
   const ageGroups = ["Ages 19 to 50", "Ages 51 to 64", "Total (Ages 19 to 64)"];
 
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = [
-    data["PerformanceMeasure-AgeRates-Persistent-Asthma"],
-  ];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   let errorArray: any[] = [];
   errorArray = [
