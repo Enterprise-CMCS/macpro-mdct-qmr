@@ -128,9 +128,15 @@ export const PerformanceMeasure = ({
     dataSourceWatch?.every((source) => source === "AdministrativeData") ??
     true;
 
+  data.questionText = data.questionText ?? [];
+
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      <CUI.Stack>{data.questionText}</CUI.Stack>
+      <CUI.Stack>
+        {data.questionText.map((item, idx) => {
+          return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
+        })}
+      </CUI.Stack>
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
