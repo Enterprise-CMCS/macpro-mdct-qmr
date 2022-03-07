@@ -4,6 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import { DataSourceData, defaultData, OptionNode } from "./data";
 import { useWatch } from "react-hook-form";
+import * as DC from "dataConstants";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -36,9 +37,9 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
     elements.push(
       <QMR.Checkbox
         label={label}
-        name={`DataSourceSelections.${parentName}.selected`}
-        key={`DataSourceSelections.${parentName}.selected`}
-        options={buildDataSourceOptions({ data: data, parentName })}
+        name={`${DC.DATA_SOURCE_SELECTIONS}.${parentName}.${DC.SELECTED}`}
+        key={`${DC.DATA_SOURCE_SELECTIONS}.${parentName}.${DC.SELECTED}`}
+        options={buildDataSourceOptions({ data, parentName })}
       />
     );
   }
@@ -68,8 +69,8 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
       children.push(
         <QMR.TextArea
           label="Describe the data source:"
-          name={`DataSourceSelections.${adjustedParentName}.descriptions`}
-          key={`DataSourceSelections.${adjustedParentName}.descriptions`}
+          name={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
+          key={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
         />
       );
     }
@@ -89,16 +90,16 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
  */
 export const DataSource = ({ data = defaultData }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
-  const watchDataSource = useWatch<Types.DataSource>({ name: "DataSource" }) as
-    | string[]
-    | undefined;
+  const watchDataSource = useWatch<Types.DataSource>({
+    name: DC.DATA_SOURCE,
+  }) as string[] | undefined;
 
   const showExplanation = watchDataSource && watchDataSource.length >= 2;
 
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
       <QMR.Checkbox
-        {...register("DataSource")}
+        {...register(DC.DATA_SOURCE)}
         label={data.optionsLabel}
         options={buildDataSourceOptions({ data: data.options })}
       />
@@ -115,7 +116,7 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             data source differed across health plans or delivery systems,
             identify the number of plans that used each data source:
           </CUI.Text>
-          <QMR.TextArea {...register("DataSourceDescription")} />
+          <QMR.TextArea {...register(DC.DATA_SOURCE_DESCRIPTION)} />
         </CUI.VStack>
       )}
     </QMR.CoreQuestionWrapper>

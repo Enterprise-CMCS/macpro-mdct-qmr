@@ -167,7 +167,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
           {
             displayValue:
               "Yes, the calculation of the measure deviates from the measure specification.",
-            value: "YesCalcDeviated",
+            value: "yes",
             children: [
               <QMR.Checkbox
                 {...register("DeviationOptions")}
@@ -181,7 +181,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
           {
             displayValue:
               "No, the calculation of the measure does not deviate from the measure specification in any way.",
-            value: "NoCalcDidNotDeviate",
+            value: "no",
           },
         ]}
       />
