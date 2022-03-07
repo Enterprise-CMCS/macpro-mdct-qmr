@@ -54,7 +54,7 @@ export const CCWAD = ({
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
-              qualifiers={PMD.qualifiers}
+              qualifiers={["All Women Ages 21 to 44"]}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
               isSingleSex

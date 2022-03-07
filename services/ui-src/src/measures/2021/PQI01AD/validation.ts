@@ -8,8 +8,16 @@ import {
   validateRequiredRadioButtonForCombinedRates,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "measures/globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import {
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "measures/globalValidations";
 import * as PMD from "./data";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const PQI01Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -50,6 +58,13 @@ const PQI01Validation = (data: FormData) => {
       deviationArray
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(OMSData(true)),
+      validationCallbacks: [validateDenominatorGreaterThanNumerator],
+    }),
   ];
 
   return errorArray;

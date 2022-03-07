@@ -1,4 +1,12 @@
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import {
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "measures/globalValidations";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+} from "measures/globalValidations/omsValidationsLib";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -47,6 +55,13 @@ const PQI01Validation = (data: FormData) => {
       deviationArray
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(OMSData(true)),
+      validationCallbacks: [validateDenominatorGreaterThanNumerator],
+    }),
   ];
 
   return errorArray;

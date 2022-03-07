@@ -33,11 +33,13 @@ export const omsValidations = ({
   qualifiers,
   validationCallbacks,
 }: OmsValidationProps) => {
+  const cats = categories.length === 0 ? ["singleCategory"] : categories;
+
   return validateNDRs(
     data,
     validationCallbacks,
     qualifiers,
-    categories,
+    cats,
     locationDictionary,
     checkIsFilled
   );

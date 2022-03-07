@@ -7,9 +7,18 @@ import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
 } from "measures/globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import {
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "measures/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateDenominatorsAreTheSame,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const OUDValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -42,6 +51,16 @@ const OUDValidation = (data: FormData) => {
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...validateEqualDenominators(performanceMeasureArray, ["age-group"]),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(OMSData(true)),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateDenominatorsAreTheSame,
+      ],
+    }),
   ];
 
   return errorArray;

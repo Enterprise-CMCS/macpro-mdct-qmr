@@ -196,7 +196,7 @@ const validateOMS = (data: FormData) => {
   errorArray.push(
     ...omsValidations({
       data,
-      qualifiers: PMD.qualifiers,
+      qualifiers: ["All Women Ages 21 to 44"],
       categories: PMD.categories,
       locationDictionary: omsLocationDictionary(OMSData(true)),
       validationCallbacks: [
