@@ -70,7 +70,7 @@ export const MeasureWrapper = ({
     ) {
       toast({
         status: "warning",
-        description: `You will inactive at ${new Date(
+        description: `You will be inactive at ${new Date(
           Date.now() + 300000
         ).toLocaleTimeString()} in 5 minutes`,
         duration: null,
@@ -78,7 +78,7 @@ export const MeasureWrapper = ({
         id: "timeoutToast",
       });
     }
-  }, 3300000); ///3300000 is 55 minutes
+  }, 10000); ///3300000 is 55 minutes
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const autoCompletedMeasure =
