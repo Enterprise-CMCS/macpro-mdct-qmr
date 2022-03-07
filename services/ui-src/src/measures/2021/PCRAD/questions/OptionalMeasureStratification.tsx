@@ -11,11 +11,9 @@ interface Props {
     label: string;
   }[];
   deviationConditions?: {
-    show30DaysAges18To64: boolean;
-    show30DaysAges65AndOlder: boolean;
-    show7DaysAges18To64: boolean;
-    show7DaysAges65AndOlder: boolean;
+    showModeratelyRates: boolean;
     showOtherPerformanceMeasureRates: boolean;
+    showReversibleRates: boolean;
   };
 }
 
@@ -81,7 +79,7 @@ const AddAnotherButton = ({
 };
 
 const AgeData = ({ name }: SubComponentProps) => {
-  const { ageGroups, deviationConditions } = useContext(AgeDataContext);
+  const { ageGroups } = useContext(AgeDataContext);
   const { watch } = useFormContext<Measure.Form>();
 
   // Watch for dataSource data
@@ -89,16 +87,15 @@ const AgeData = ({ name }: SubComponentProps) => {
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
-    dataSourceWatch?.every(
-      (source) => source === "I am reporting provisional data."
-    ) ?? true;
+    dataSourceWatch?.every((source) => source === "AdministrativeData") ?? true;
 
   return (
-    <CUI.Box key={`${name}.ageData`}>
+    <CUI.Box key={`${name}.contraceptionData`}>
       <QMR.Checkbox
-        name={`${name}.ageData`}
-        key={`${name}.ageData`}
-        options={ageGroups.map((item) => {
+        name={`${name}.contraceptionData`}
+        key={`${name}.contraceptionData`}
+        options={ageGroups.map((item, index) => {
+          const label = index === 0 ? "moderate-method" : "reversible-method";
           return {
             value: item.label.replace(/ /g, ""),
             displayValue: item.label,
@@ -107,57 +104,24 @@ const AgeData = ({ name }: SubComponentProps) => {
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Heading>,
-              // Dynamically hide or show children based on if other performance measuresections were completed
-              ...(deviationConditions?.showOtherPerformanceMeasureRates
+              ...(!rateReadOnly
                 ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "",
-                        },
-                      ]}
-                    />,
+                    <CUI.Heading pt="1" size={"sm"} key={`${item.id}-helper`}>
+                      Please review the auto-calculated rate and revise if
+                      needed.
+                    </CUI.Heading>,
                   ]
                 : []),
-              // Dynamically hide or show children based on if performance measure 30days/age sections were completed
-              ...((deviationConditions?.show30DaysAges18To64 &&
-                item.id === 0) ||
-              (deviationConditions?.show30DaysAges65AndOlder && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin30Days`}
-                      rates={[
-                        {
-                          id: 0,
-                          label: "Follow-up within 30 days of ED visit",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
-              // Dynamically hide or show children based on if performance measure 7days/age sections were completed
-              ...((deviationConditions?.show7DaysAges18To64 && item.id === 0) ||
-              (deviationConditions?.show7DaysAges65AndOlder && item.id === 1)
-                ? [
-                    <QMR.Rate
-                      readOnly={rateReadOnly}
-                      name={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      key={`${name}.subRates.${item.id}.followUpWithin7Days`}
-                      rates={[
-                        {
-                          id: 1,
-                          label: "Follow-up within 7 days of ED visit",
-                        },
-                      ]}
-                    />,
-                  ]
-                : []),
+              <QMR.Rate
+                readOnly={rateReadOnly}
+                name={`${name}.subRates.${item.id}.${label}`}
+                key={`${name}.subRates.${item.id}.${label}`}
+                rates={[
+                  {
+                    id: 1,
+                  },
+                ]}
+              />,
             ],
           };
         })}
@@ -268,7 +232,9 @@ export const OptionalMeasureStratification = ({
         </CUI.Text>
         <CUI.Text py="3">
           Do not select categories and sub-classifications for which you will
-          not be reporting any data.
+          not be reporting any data. If a sub-classification is selected, the
+          system will enter zeros by default and report this as the data for
+          your state/territory.
         </CUI.Text>
         <QMR.Checkbox
           label="Check all that apply"
@@ -574,27 +540,6 @@ export const OptionalMeasureStratification = ({
                 <AddAnotherButton
                   key="EthnicityAddition"
                   onClick={addEthnicity}
-                />,
-              ],
-            },
-            {
-              value: "Sex",
-              displayValue: "Sex",
-              children: [
-                <QMR.Checkbox
-                  {...register("SexOptions")}
-                  options={[
-                    {
-                      value: "Male",
-                      displayValue: "Male",
-                      children: [<AgeData {...register("MaleSexRates")} />],
-                    },
-                    {
-                      value: "Female",
-                      displayValue: "Female",
-                      children: [<AgeData {...register("FemaleSexRates")} />],
-                    },
-                  ]}
                 />,
               ],
             },

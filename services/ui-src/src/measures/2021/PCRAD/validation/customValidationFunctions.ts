@@ -1,28 +1,61 @@
-import { Measure } from "./types";
+import { Measure } from "../validation/types";
+import {
+  atLeastOneRateComplete,
+  ensureBothDatesCompletedInRange,
+  validateNoNonZeroNumOrDenom,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
+import { PMD } from "../questions/data";
 
-const validateRates = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
+const validateReversibleNumeratorLessThanDenominator = (data: Measure.Form) => {
+  const reversibleRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[0].replace(/[^\w]/g, "")}`
+    ];
   let error;
   const errorArray: any[] = [];
 
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj, index) => {
+  if (reversibleRates) {
+    reversibleRates.forEach((reversibleRate, _index) => {
       if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        sevenDays[index].denominator &&
-        thirtyDays[index].denominator &&
-        sevenDays[index].denominator !== thirtyDays[index].denominator
+        reversibleRate &&
+        reversibleRate?.numerator &&
+        reversibleRate?.denominator &&
+        parseFloat(reversibleRate?.numerator) >
+          parseFloat(reversibleRate?.denominator)
       ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both 30 days rate and 7 days rate for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}.`,
+          errorMessage: `Reversible Method of Contraception Rate: Numerator must be less than or equal to Denominator for Age`,
+        };
+
+        errorArray.push(error);
+      }
+    });
+  }
+
+  return error ? errorArray : error;
+};
+const validateModeratelyNumeratorLessThanDenominator = (data: Measure.Form) => {
+  const moderatelyRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[0].replace(/[^\w]/g, "")}`
+    ];
+  let error;
+  const errorArray: any[] = [];
+
+  if (moderatelyRates) {
+    moderatelyRates.forEach((moderatelyRate, _index) => {
+      if (
+        moderatelyRate &&
+        moderatelyRate.numerator &&
+        moderatelyRate.denominator &&
+        parseFloat(moderatelyRate?.numerator) >
+          parseFloat(moderatelyRate?.denominator)
+      ) {
+        error = {
+          errorLocation: "Performance Measure",
+          errorMessage: `Moderately Effective Method of Contraception Rate: Numerator must be less than or equal to Denominator for Age`,
         };
 
         errorArray.push(error);
@@ -33,214 +66,108 @@ const validateRates = (data: Measure.Form) => {
   return error ? errorArray : error;
 };
 
-const validateDualPopulationInformation = (data: Measure.Form) => {
-  const sevenDays65orOlder = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays65orOlder = data["PerformanceMeasure-AgeRates-30Days"];
-  const DualEligibleCheck = data["DefinitionOfDenominator"] ?? [];
-
+const validateLarcRateGreater = (data: Measure.Form) => {
   let error;
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
 
-  if (sevenDays65orOlder || thirtyDays65orOlder) {
-    if (sevenDays65orOlder[1] || thirtyDays65orOlder[1]) {
-      if (
-        sevenDays65orOlder[1]?.numerator ||
-        thirtyDays65orOlder[1]?.numerator ||
-        sevenDays65orOlder[1]?.denominator ||
-        thirtyDays65orOlder[1]?.denominator
-      ) {
-        if (
-          DualEligibleCheck.indexOf(
-            "DenominatorIncMedicareMedicaidDualEligible"
-          ) === -1
-        ) {
-          error = {
-            errorLocation: "Performance Measure",
-            errorMessage:
-              "Information has been included in the Age 65 and older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
-          };
-        }
-      }
-    }
-  }
-  if (
-    DualEligibleCheck.indexOf("DenominatorIncMedicareMedicaidDualEligible") !==
-    -1
-  ) {
-    if (!sevenDays65orOlder && !thirtyDays65orOlder) {
+  if (memeRates && larcRates && memeRates[0]?.rate && larcRates[0]?.rate) {
+    if (parseFloat(larcRates[0].rate) > parseFloat(memeRates[0].rate)) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
+          "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate",
       };
-    } else if (!sevenDays65orOlder[1] && !thirtyDays65orOlder[1]) {
+    }
+  }
+
+  return error;
+};
+
+const validateDenominatorsAreTheSame = (data: Measure.Form) => {
+  let error;
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+
+  if (
+    memeRates &&
+    larcRates &&
+    memeRates[0]?.denominator &&
+    larcRates[0]?.denominator
+  ) {
+    if (
+      parseFloat(memeRates[0].denominator) !==
+      parseFloat(larcRates[0].denominator)
+    ) {
       error = {
         errorLocation: "Performance Measure",
         errorMessage:
-          "Missing data on Performance Measure for Age 65 and older",
-      };
-    } else if (
-      (!sevenDays65orOlder[1]?.numerator || // either not filled in
-        !sevenDays65orOlder[1]?.denominator) && // either not filled in
-      !thirtyDays65orOlder[1]?.numerator && //both filled in
-      !thirtyDays65orOlder[1]?.denominator //both filled in
-    ) {
-      return {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 7 days of ED visit)",
-      };
-    } else if (
-      (!thirtyDays65orOlder[1]?.numerator ||
-        !thirtyDays65orOlder[1]?.denominator) &&
-      !sevenDays65orOlder[1]?.numerator &&
-      !sevenDays65orOlder[1]?.denominator
-    ) {
-      return {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Missing data on Performance Measure for Age 65 and older (Follow-up within 30 days of ED visit)",
+          "Long-acting reversible method of contraception (LARC) rate must have the same denominator as Most effective or moderately effective method of contraception rate",
       };
     }
   }
-  return error;
-};
-
-const validate7DaysGreaterThan30Days = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj, index) => {
-      if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-
-const validateThirtyDayNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (thirtyDays) {
-    thirtyDays.forEach((thirtyDay, index) => {
-      if (
-        thirtyDay &&
-        thirtyDay.numerator &&
-        thirtyDay.denominator &&
-        parseFloat(thirtyDay?.numerator) > parseFloat(thirtyDay?.denominator)
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `30 Days Rate: Numerator must be less than or equal to Denominator for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-
-const validateSevenDayNumeratorLessThanDenominator = (data: Measure.Form) => {
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays) {
-    sevenDays.forEach((sevenDay, index) => {
-      if (
-        sevenDay &&
-        sevenDay.numerator &&
-        sevenDay.denominator &&
-        parseFloat(sevenDay?.numerator) > parseFloat(sevenDay?.denominator)
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate: Numerator must be less than or equal to Denominator for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-
-const validateAtLeastOneNDRSet = (data: Measure.Form) => {
-  let error;
-  const measureSpecification = data["MeasurementSpecification"];
-  const sevenDays = data["PerformanceMeasure-AgeRates-7Days"];
-  const thirtyDays = data["PerformanceMeasure-AgeRates-30Days"];
-  const otherPerformanceRates = data["OtherPerformanceMeasure-Rates"] ?? [];
-  const isHEDIS = measureSpecification === "NCQA/HEDIS";
-
-  let doesOtherNDRExist = false;
-  otherPerformanceRates.forEach((ndr) => {
-    const ndrRate = ndr?.rate?.[0]?.rate;
-    if (ndrRate) {
-      doesOtherNDRExist = true;
-    }
-  });
-
-  if (
-    isHEDIS &&
-    !sevenDays?.[0]?.rate &&
-    !sevenDays?.[1]?.rate &&
-    !thirtyDays?.[0]?.rate &&
-    !thirtyDays?.[1]?.rate
-  ) {
-    error = {
-      errorLocation: "Performance Measure",
-      errorMessage:
-        "At least one Performance Measure Numerator, Denominator, and Rate must be completed",
-    };
-  } else if (measureSpecification && !isHEDIS && !doesOtherNDRExist) {
-    error = {
-      errorLocation: "Other Performance Measure",
-      errorMessage:
-        "At least one Other Performance Measure Numerator, Denominator, and Rate must be completed",
-    };
-  }
 
   return error;
+};
+
+const validateNonZeroDenom = (data: Measure.Form) => {
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+
+  return validateNoNonZeroNumOrDenom(
+    [memeRates, larcRates],
+    data["OtherPerformanceMeasure-Rates"],
+    [""]
+  );
+};
+
+const validateAtLeastOneNPR = (data: Measure.Form) => {
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.qualifiers[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+
+  return atLeastOneRateComplete(
+    [memeRates, larcRates],
+    data["OtherPerformanceMeasure-Rates"],
+    [""]
+  );
+};
+
+const validateBothDatesCompletedInRange = (data: Measure.Form) => {
+  const dateRange = data["DateRange"];
+  return [...ensureBothDatesCompletedInRange(dateRange)];
 };
 
 export const validationFunctions = [
-  validateRates,
-  validate7DaysGreaterThan30Days,
-  validateSevenDayNumeratorLessThanDenominator,
-  validateThirtyDayNumeratorLessThanDenominator,
-  validateAtLeastOneNDRSet,
-  validateDualPopulationInformation,
+  validateBothDatesCompletedInRange,
+  validateReversibleNumeratorLessThanDenominator,
+  validateModeratelyNumeratorLessThanDenominator,
+  validateLarcRateGreater,
+  validateDenominatorsAreTheSame,
+  validateNonZeroDenom,
+  validateAtLeastOneNPR,
+  validateRequiredRadioButtonForCombinedRates,
 ];
