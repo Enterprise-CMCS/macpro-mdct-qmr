@@ -273,7 +273,7 @@ export namespace DataDrivenTypes {
 export type DeviationKeys =
   | "numerator"
   | "denominator"
-  | "other"
+  | "Other"
   | "RateDeviationsSelected";
 
 export type DefaultFormData = AdditionalNotes &

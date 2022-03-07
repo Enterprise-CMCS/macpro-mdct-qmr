@@ -112,7 +112,7 @@ export const OPM_NOTES = "OtherPerformanceMeasure-Notes";
 export const OPM_NOTES_TEXT_INPUT = "OtherPerformanceMeasure-Rates-TextInput";
 export const OPM_RATES = "OtherPerformanceMeasure-Rates";
 export const OPTIONS = "options";
-export const OTHER = "other";
+export const OTHER = "Other";
 export const PARTIAL_POP_NOT_COVERED = "PartialPopulationNotCovered";
 export const PARTIAL_POP_NOT_COVERED_EXPLAINATION =
   "PartialPopulationNotCoveredExplanation";
