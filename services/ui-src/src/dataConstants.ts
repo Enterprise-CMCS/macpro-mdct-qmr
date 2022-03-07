@@ -124,6 +124,8 @@ export const PARTIAL_POP_NOT_COVERED_EXPLAINATION =
   "PartialPopulationNotCoveredExplanation";
 export const PCCM = "PCCM";
 export const PERFORMANCE_MEASURE = "PerformanceMeasure";
+export const PERFORMANCE_MEASURE_EXPLAINATION =
+  "PerformanceMeasure.explanation";
 export const POP_NOT_COVERED = "PopulationNotCovered";
 export const QUALIFIERS = "qualifiers";
 export const RATE = "rate";

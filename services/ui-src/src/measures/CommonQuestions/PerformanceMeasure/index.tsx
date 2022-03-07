@@ -116,9 +116,9 @@ export const PerformanceMeasure = ({
   customMask,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
-  const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
-    | string[]
-    | undefined;
+  const dataSourceWatch = useWatch<Types.DataSource>({
+    name: DC.DATA_SOURCE,
+  }) as string[] | undefined;
   const readOnly =
     rateReadOnly ??
     dataSourceWatch?.every((source) => source === "AdministrativeData") ??
@@ -151,7 +151,7 @@ export const PerformanceMeasure = ({
       )}
       <QMR.TextArea
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
-        {...register("PerformanceMeasure.explanation")}
+        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
       />
       <CUI.Text
         fontWeight="bold"
