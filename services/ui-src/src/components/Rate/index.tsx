@@ -133,7 +133,7 @@ export const Rate = ({
     };
 
     // Totals NDR should be independently editable
-    if (!isTotal) {
+    if (calcTotal && !isTotal) {
       calculateTotals(prevRate);
     }
     field.onChange([...prevRate]);
@@ -144,34 +144,45 @@ export const Rate = ({
   Sum these values and set the NDR where isTotal is true to be these sumed values.
   */
   const calculateTotals = (prevRate: any[]) => {
-    let numeratorSum = 0;
-    let denominatorSum = 0;
-    let totalIndex = undefined;
+    let numeratorSum: any = null;
+    let denominatorSum: any = null;
+    let n;
+    let d;
 
-    // Sum all Ns and Ds - get index of NDR where isTotal is true
-    prevRate.forEach((f, index) => {
-      if (f !== undefined && f !== null && !f["isTotal"]) {
-        numeratorSum += parseInt(f["numerator"]) || 0;
-        denominatorSum += parseInt(f["denominator"]) || 0;
-      } else {
-        totalIndex = index;
+    // sum all Ns and Ds
+    // we assume last NDR is total if calcTotal is true
+    prevRate.slice(0, -1).forEach((item) => {
+      if (item !== undefined && item !== null && !item["isTotal"]) {
+        if (!isNaN((n = parseFloat(item["numerator"])))) {
+          numeratorSum = numeratorSum + n; // += syntax does not work if default value is null
+        }
+        if (!isNaN((d = parseFloat(item["denominator"])))) {
+          denominatorSum = denominatorSum + d; // += syntax does not work if default value is null
+        }
       }
     });
 
     // Set total values and calculate total rate
-    if (totalIndex) {
-      prevRate[totalIndex]["numerator"] = numeratorSum;
-      prevRate[totalIndex]["denominator"] = denominatorSum;
-      if (numeratorSum <= denominatorSum) {
-        prevRate[totalIndex]["rate"] =
-          numeratorSum !== 0
-            ? ((numeratorSum / denominatorSum) * rateMultiplicationValue)
-                .toFixed(1)
-                .toString()
-            : "0";
-      } else {
-        prevRate[totalIndex]["rate"] = "";
-      }
+    let totalIndex = prevRate.length - 1;
+    let newValue = numeratorSum !== null ? numeratorSum.toString() : "";
+    prevRate[totalIndex]["numerator"] = newValue;
+
+    newValue = denominatorSum !== null ? denominatorSum.toString() : "";
+    prevRate[totalIndex]["denominator"] = denominatorSum;
+
+    if (
+      numeratorSum !== null &&
+      denominatorSum !== null &&
+      numeratorSum <= denominatorSum
+    ) {
+      prevRate[totalIndex]["rate"] =
+        numeratorSum !== 0
+          ? ((numeratorSum / denominatorSum) * rateMultiplicationValue)
+              .toFixed(1)
+              .toString()
+          : "0";
+    } else {
+      prevRate[totalIndex]["rate"] = "";
     }
   };
 
