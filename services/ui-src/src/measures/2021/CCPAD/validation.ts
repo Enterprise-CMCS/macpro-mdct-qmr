@@ -1,12 +1,22 @@
 import { FormData } from "./types";
 import * as PMD from "./data";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import {
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "measures/globalValidations";
 
 import {
   ensureBothDatesCompletedInRange,
   validateRequiredRadioButtonForCombinedRates,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateDenominatorsAreTheSame,
+  validateOneRateLessThanOther,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -286,6 +296,27 @@ const validateDenominatorsAreEqual = (data: FormData) => {
   return errorArray;
 };
 
+const validateOMS = (data: FormData) => {
+  const errorArray: FormError[] = [];
+  console.log("hello world");
+
+  errorArray.push(
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(OMSData(true)),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateDenominatorsAreTheSame,
+        validateOneRateLessThanOther,
+      ],
+    })
+  );
+
+  return errorArray;
+};
+
 export const validationFunctions = [
   CCPADValidation,
   validateSevenDayNumeratorLessThanDenominator,
@@ -295,4 +326,5 @@ export const validationFunctions = [
   validate3daysLessOrEqualTo30days,
   validateDenominatorsAreEqual,
   validateRequiredRadioButtonForCombinedRates,
+  validateOMS,
 ];

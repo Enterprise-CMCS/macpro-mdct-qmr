@@ -7,6 +7,14 @@ import {
   validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
+import {
+  omsValidations,
+  validateDenominatorsAreTheSame as validateDenomsAreTheSame,
+  validateDenominatorGreaterThanNumerator,
+  validateOneRateLessThanOther,
+} from "measures/globalValidations/omsValidationsLib";
+import { omsLocationDictionary } from "measures/globalValidations";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const validateReversibleNumeratorLessThanDenominator = (data: FormData) => {
   const reversibleRates =
@@ -181,6 +189,27 @@ const validateBothDatesCompletedInRange = (data: FormData) => {
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };
 
+const validateOMS = (data: FormData) => {
+  const errorArray: FormError[] = [];
+  console.log("hello world");
+
+  errorArray.push(
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(OMSData(true)),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateDenomsAreTheSame,
+        validateOneRateLessThanOther,
+      ],
+    })
+  );
+
+  return errorArray;
+};
+
 export const validationFunctions = [
   validateBothDatesCompletedInRange,
   validateReversibleNumeratorLessThanDenominator,
@@ -191,4 +220,5 @@ export const validationFunctions = [
   validateAtLeastOneNPR,
   validateAtLeastOneDeviationNDR,
   validateRequiredRadioButtonForCombinedRates,
+  validateOMS,
 ];
