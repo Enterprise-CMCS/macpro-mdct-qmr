@@ -2,6 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
+import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
 
@@ -54,7 +55,9 @@ const CategoryNdrSets = ({
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
-              {...register(`PerformanceMeasure.rates.${cleanedName}`)}
+              {...register(
+                `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
+              )}
             />
           </CUI.Box>
         );
@@ -84,7 +87,9 @@ NdrSetProps) => {
       rateMultiplicationValue={rateScale}
       customMask={customMask}
       // calcTotal={calcTotal}
-      {...register("PerformanceMeasure.rates.singleCategory")}
+      {...register(
+        `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${DC.SINGLE_CATEGORY}`
+      )}
     />
   );
 };
