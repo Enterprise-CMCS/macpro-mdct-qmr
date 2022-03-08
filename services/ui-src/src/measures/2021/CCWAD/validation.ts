@@ -66,23 +66,6 @@ const validateDenominatorsAreTheSame = (data: FormData) => {
   return error;
 };
 
-const validateNonZeroDenom = (data: FormData) => {
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-
-  return validateNoNonZeroNumOrDenom(
-    [memeRates, larcRates],
-    data["OtherPerformanceMeasure-Rates"],
-    [""]
-  );
-};
-
 const CCWADValidation = (data: FormData) => {
   const ageGroups = ["21 to 44"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -119,6 +102,5 @@ export const validationFunctions = [
   validateBothDatesCompletedInRange,
   validateLarcRateGreater,
   validateDenominatorsAreTheSame,
-  validateNonZeroDenom,
   validateRequiredRadioButtonForCombinedRates,
 ];
