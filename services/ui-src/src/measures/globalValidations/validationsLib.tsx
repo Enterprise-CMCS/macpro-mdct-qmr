@@ -269,20 +269,29 @@ export const validateTotalNDR = (
     });
 
     let totalNDR: any = ndrSet[ndrSet.length - 1];
-
-    // If we wanted to get fancy we could offer expected values in here quite easily.
-    if (parseFloat(totalNDR["numerator"]) !== numeratorSum) {
-      console.log("Total: ", totalNDR["numerator"], "Sum: ", numeratorSum);
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
-      });
-    }
-    if (parseFloat(totalNDR["denominator"]) !== denominatorSum) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
-      });
+    if (totalNDR) {
+      // If we wanted to get fancy we could offer expected values in here quite easily.
+      let x;
+      if (
+        (x = parseFloat(totalNDR["numerator"])) !== numeratorSum &&
+        numeratorSum !== null &&
+        !isNaN(x)
+      ) {
+        errorArray.push({
+          errorLocation: errorLocation,
+          errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
+        });
+      }
+      if (
+        (x = parseFloat(totalNDR["denominator"])) !== denominatorSum &&
+        denominatorSum !== null &&
+        !isNaN(x)
+      ) {
+        errorArray.push({
+          errorLocation: errorLocation,
+          errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
+        });
+      }
     }
   });
 
