@@ -17,7 +17,11 @@ const PQI05Validation = (data: FormData) => {
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const age65PlusIndex = 0;
-  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
+  const validateDualPopInformationArray = [
+    performanceMeasureArray?.[0].filter((pm) => {
+      return pm?.label === "Age 65 and older";
+    }),
+  ];
   const definitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
