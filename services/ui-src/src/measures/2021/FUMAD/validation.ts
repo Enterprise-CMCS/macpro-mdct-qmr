@@ -1,58 +1,68 @@
+import {
+  atLeastOneRateComplete,
+  validateDualPopInformation,
+  validateNumeratorsLessThanDenominators,
+  validateEqualDenominators,
+  validateNoNonZeroNumOrDenom,
+  validateReasonForNotReporting,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  ensureBothDatesCompletedInRange,
+} from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
 import { FormData } from "./types";
 import {
   getPerfMeasureRateArray,
   getDeviationNDRArray,
   validateRequiredRadioButtonForCombinedRates,
-  ensureBothDatesCompletedInRange,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-} from "measures/globalValidations";
+  omsLocationDictionary,
+} from "../../globalValidations";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
   validateOneRateLessThanOther,
 } from "measures/globalValidations/omsValidationsLib";
-import { omsLocationDictionary } from "measures/globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validateRates = (data: FormData) => {
-  const sevenDays =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const thirtyDays =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  let error;
-  const errorArray: any[] = [];
+const FUMADValidation = (data: FormData) => {
+  const ageGroups = PMD.qualifiers;
+  const sixtyDaysIndex = 1;
+  const whyNotReporting = data["WhyAreYouNotReporting"];
+  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj, index) => {
-      if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        sevenDays[index].denominator &&
-        thirtyDays[index].denominator &&
-        sevenDays[index].denominator !== thirtyDays[index].denominator
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for both 30 days rate and 7 days rate for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}.`,
-        };
-
-        errorArray.push(error);
-      }
-    });
+  let errorArray: any[] = [];
+  if (data["DidReport"] === "no") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
   }
 
-  return error ? errorArray : error;
+  let sameDenominatorError = [
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
+  ];
+  sameDenominatorError =
+    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
+
+  errorArray = [
+    ...errorArray,
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateDualPopInformation(
+      performanceMeasureArray,
+      OPM,
+      sixtyDaysIndex,
+      DefinitionOfDenominator
+    ),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...sameDenominatorError,
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+  ];
+
+  return errorArray;
 };
 
 const validateDualPopulationInformation = (data: FormData) => {
@@ -170,74 +180,6 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
   return error ? errorArray : error;
 };
 
-const validateThirtyDayNumeratorLessThanDenominator = (data: FormData) => {
-  const thirtyDays =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  let error;
-  const errorArray: any[] = [];
-
-  if (thirtyDays) {
-    thirtyDays.forEach((thirtyDay, index) => {
-      if (
-        thirtyDay &&
-        thirtyDay.numerator &&
-        thirtyDay.denominator &&
-        parseFloat(thirtyDay?.numerator) > parseFloat(thirtyDay?.denominator)
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `30 Days Rate: Numerator must be less than or equal to Denominator for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-
-const validateSevenDayNumeratorLessThanDenominator = (data: FormData) => {
-  const sevenDays =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays) {
-    sevenDays.forEach((sevenDay, index) => {
-      if (
-        sevenDay &&
-        sevenDay.numerator &&
-        sevenDay.denominator &&
-        parseFloat(sevenDay?.numerator) > parseFloat(sevenDay?.denominator)
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate: Numerator must be less than or equal to Denominator for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-
 const validateAtLeastOneNDRSet = (data: FormData) => {
   let error;
   const measureSpecification = data["MeasurementSpecification"];
@@ -323,10 +265,8 @@ const validateOMS = (data: FormData) => {
 };
 
 export const validationFunctions = [
-  validateRates,
+  FUMADValidation,
   validate7DaysGreaterThan30Days,
-  validateSevenDayNumeratorLessThanDenominator,
-  validateThirtyDayNumeratorLessThanDenominator,
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
   validateAtLeastOneDeviationNDR,

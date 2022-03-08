@@ -10,6 +10,7 @@ import {
   getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
+  validateReasonForNotReporting,
 } from "measures/globalValidations";
 import * as PMD from "./data";
 import {
@@ -19,9 +20,9 @@ import {
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const PQI01Validation = (data: FormData) => {
+  const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const age65PlusIndex = 0;
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const whyNotReporting = data["WhyAreYouNotReporting"];
   const dateRange = data["DateRange"];
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
@@ -29,6 +30,11 @@ const PQI01Validation = (data: FormData) => {
     data.DeviationOptions,
     data.Deviations
   );
+  let errorArray: any[] = [];
+  if (data["DidReport"] === "no") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
 
   const validateDualPopInformationArray = [
     performanceMeasureArray?.[0].filter((pm) => {
@@ -36,7 +42,6 @@ const PQI01Validation = (data: FormData) => {
     }),
   ];
 
-  let errorArray: any[] = [];
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
@@ -54,8 +59,8 @@ const PQI01Validation = (data: FormData) => {
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
-      age65PlusIndex,
-      DefinitionOfDenominator
+      1,
+      ageGroups
     ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

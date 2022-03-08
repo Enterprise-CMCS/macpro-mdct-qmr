@@ -9,6 +9,7 @@ import {
   getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
+  validateReasonForNotReporting,
 } from "measures/globalValidations";
 import {
   omsValidations,
@@ -21,9 +22,15 @@ import { FormData } from "./types";
 
 const OUDValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const ageGroups = PMD.qualifiers;
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data["DateRange"];
+  const whyNotReporting = data["WhyAreYouNotReporting"];
   let errorArray: any[] = [];
+  if (data["DidReport"] === "no") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
 
   const deviationArray = getDeviationNDRArray(
     data.DeviationOptions,
@@ -62,6 +69,8 @@ const OUDValidation = (data: FormData) => {
       PMD.qualifiers
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
   return errorArray;
