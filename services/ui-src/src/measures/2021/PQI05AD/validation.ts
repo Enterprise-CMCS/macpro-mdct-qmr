@@ -4,38 +4,38 @@ import {
   ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-  validateDualPopInformation,
+  validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
-} from "measures/globalValidations/validationsLib";
+} from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
 import { FormData } from "./types";
-const PQI01Validation = (data: FormData) => {
+
+const PQI05Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const age65PlusIndex = 0;
+  const ageGroups = PMD.qualifiers;
   const dateRange = data["DateRange"];
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const whyNotReporting = data["WhyAreYouNotReporting"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
   let errorArray: any[] = [];
+  if (data["DidReport"] === "no") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
   errorArray = [
     ...errorArray,
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),
-    ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
-      "age-group",
-    ]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
-    ...validateDualPopInformation(
-      validateDualPopInformationArray,
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
       OPM,
-      age65PlusIndex,
-      DefinitionOfDenominator
+      ageGroups
     ),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [PQI01Validation];
+export const validationFunctions = [PQI05Validation];
