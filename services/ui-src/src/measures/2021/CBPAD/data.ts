@@ -7,9 +7,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
     "Percentage of beneficiaries ages 18 to 85 who had a diagnosis of hypertension and whose blood pressure (BP) was adequately controlled (< 140/90 mm Hg) during the measurement year.",
   ],
-  questionListItems: [
-    "Percentage of beneficiaries ages 18 to 85 who had a diagnosis of hypertension and whose blood pressure (BP) was adequately controlled (< 140/90 mm Hg) during the measurement year.",
-  ],
+  questionListItems: [],
   categories,
   qualifiers,
 };
