@@ -3,7 +3,7 @@ export interface OptionNode {
   subOptions?: {
     label?: string;
     options: OptionNode[];
-  };
+  }[];
   description?: boolean;
 }
 
@@ -18,18 +18,20 @@ export const defaultData: DataSourceData = {
   options: [
     {
       value: "Administrative Data",
-      subOptions: {
-        label: "What is the Administrative Data Source?",
-        options: [
-          {
-            value: "Medicaid Management Information System (MMIS)",
-          },
-          {
-            value: "Administrative Data Other",
-            description: true,
-          },
-        ],
-      },
+      subOptions: [
+        {
+          label: "What is the Administrative Data Source?",
+          options: [
+            {
+              value: "Medicaid Management Information System (MMIS)",
+            },
+            {
+              value: "Administrative Data Other",
+              description: true,
+            },
+          ],
+        },
+      ],
     },
     {
       value: "Other Data Source",

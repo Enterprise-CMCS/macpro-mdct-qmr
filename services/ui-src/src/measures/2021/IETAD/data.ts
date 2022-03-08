@@ -30,18 +30,20 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
   options: [
     {
       value: "Administrative Data",
-      subOptions: {
-        label: "What is the Administrative Data Source?",
-        options: [
-          {
-            value: "Medicaid Management Information System (MMIS)",
-          },
-          {
-            value: "Administrative Data Other",
-            description: true,
-          },
-        ],
-      },
+      subOptions: [
+        {
+          label: "What is the Administrative Data Source?",
+          options: [
+            {
+              value: "Medicaid Management Information System (MMIS)",
+            },
+            {
+              value: "Administrative Data Other",
+              description: true,
+            },
+          ],
+        },
+      ],
     },
     {
       value: "Electronic Health Records",
