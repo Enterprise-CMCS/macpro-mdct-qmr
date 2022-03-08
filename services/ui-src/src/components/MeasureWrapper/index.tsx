@@ -1,12 +1,19 @@
+import {
+  ReactElement,
+  cloneElement,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import * as CUI from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useForm, FormProvider, useWatch } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
-import { ReactElement, cloneElement, useState, useEffect } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import { useParams } from "react-router-dom";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
-import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import { areSomeRatesCompleted } from "utils/form";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -15,6 +22,48 @@ const LastModifiedBy = ({ user }: { user: string | undefined }) => {
       <CUI.Text fontWeight="hairline">{`Last modified by: ${user}`}</CUI.Text>
     </CUI.Box>
   );
+};
+
+export interface MeasureWrapperProps {
+  name: string;
+  year: string;
+  measureId: string;
+  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+  isOtherMeasureSpecSelected?: boolean;
+  isPrimaryMeasureSpecSelected?: boolean;
+  showOptionalMeasureStrat?: boolean;
+  isNotReportingData?: boolean;
+}
+
+interface MeasureProps {
+  measure: ReactElement;
+  name: string;
+  year: string;
+  measureId: string;
+  setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
+}
+
+const Measure = ({ measure, ...rest }: MeasureProps) => {
+  const watchedData = useWatch();
+  const watchReportingRadio = useWatch({ name: "DidReport" });
+  const isNotReportingData = watchReportingRadio === "no";
+
+  const watchMeasureSpecification = useWatch({
+    name: "MeasurementSpecification",
+  });
+  const isOtherMeasureSpecSelected = watchMeasureSpecification === "Other";
+  const isPrimaryMeasureSpecSelected =
+    watchMeasureSpecification && !isOtherMeasureSpecSelected;
+
+  const showOptionalMeasureStrat = areSomeRatesCompleted(watchedData);
+
+  return cloneElement(measure, {
+    ...rest,
+    isNotReportingData,
+    isPrimaryMeasureSpecSelected,
+    showOptionalMeasureStrat,
+    isOtherMeasureSpecSelected,
+  });
 };
 
 interface Props {
@@ -135,15 +184,9 @@ export const MeasureWrapper = ({
   };
 
   const handleReportingResponse = (data: any) => {
-    if (
-      data["DidReport"]?.toLocaleLowerCase()?.includes("yes") ||
-      data["DidCollect"]?.toLocaleLowerCase()?.includes("yes")
-    ) {
+    if (data["DidReport"] === "yes" || data["DidCollect"] === "yes") {
       return "yes";
-    } else if (
-      data["DidReport"]?.toLocaleLowerCase()?.includes("no") ||
-      data["DidCollect"]?.toLocaleLowerCase()?.includes("no")
-    ) {
+    } else if (data["DidReport"] === "no" || data["DidCollect"] === "no") {
       return "no";
     }
 
@@ -268,14 +311,13 @@ export const MeasureWrapper = ({
                   enter in each field, please reach out to
                   MACQualityTA@cms.hhs.gov.
                 </CUI.Text>
-                {cloneElement(measure, {
-                  name,
-                  year,
-                  measureId,
-                  setValidationFunctions,
-                  //TODO: the current submission loading state should be passed down here for the additional submit button found at the bottom of forms
-                  // whenever the buttons have a loading prop
-                })}
+                <Measure
+                  measure={measure}
+                  name={name}
+                  year={year}
+                  measureId={measureId}
+                  setValidationFunctions={setValidationFunctions}
+                />
                 {!autocompleteOnCreation && (
                   <QMR.CompleteMeasureFooter
                     handleClear={methods.handleSubmit(handleClear)}

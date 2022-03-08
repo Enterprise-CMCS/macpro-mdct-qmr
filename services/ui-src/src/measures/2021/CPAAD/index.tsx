@@ -1,26 +1,25 @@
 import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
-import { useFormContext } from "react-hook-form";
+import * as CMQ from "measures/CommonQuestions";
 import { useParams } from "react-router-dom";
-import { Measure } from "./validation/types";
-import { useEffect } from "react";
+import * as QMR from "components";
+import { useFormContext } from "react-hook-form";
+import { FormData } from "./types";
 import { validationFunctions } from "./validation/customValidationFunctions";
+import { useEffect } from "react";
 
 export const CPAAD = ({
   name,
   year,
   setValidationFunctions,
-}: Measure.Props) => {
+}: QMR.MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const { coreSetId } = useParams();
+  const data = watch();
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
-  const { coreSetId } = useParams();
-  const { watch } = useFormContext<Measure.Form>();
-
-  // Watch Values of Form Questions
-  const watchReportingRadio = watch("DidCollect");
 
   return (
     <>
@@ -29,8 +28,7 @@ export const CPAAD = ({
         measureName={name}
         measureAbbreviation={coreSetId as string}
       />
-
-      {!watchReportingRadio?.includes("No") && (
+      {data["DidCollect"] !== "no" && (
         <>
           <Q.HowDidYouReport />
           <CMQ.MeasurementSpecification type="AHRQ" />
