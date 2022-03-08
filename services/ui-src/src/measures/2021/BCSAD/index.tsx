@@ -67,6 +67,7 @@ export const BCSAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
+              isSingleSex
             />
           )}
         </>
