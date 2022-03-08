@@ -18,7 +18,6 @@ const validate7DaysGreaterThan30Days = (data: any) => {
   const errorArray: any[] = [];
 
   if (sevenDays && thirtyDays) {
-    console.log(sevenDays, thirtyDays);
     sevenDays.forEach((_sevenDaysObj: any, index: any) => {
       if (
         sevenDays[index] &&
