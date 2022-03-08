@@ -46,6 +46,9 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
               value: "Medicaid Management Information System (MMIS)",
             },
             {
+              value: "Immunization Registry",
+            },
+            {
               value: "Administrative Data Other",
               description: true,
             },
@@ -61,6 +64,9 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
           options: [
             {
               value: "Medicaid Management Information System (MMIS)",
+            },
+            {
+              value: "Immunization Registry",
             },
             {
               value: "Other",
