@@ -32,7 +32,7 @@ const CISCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups, true),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),

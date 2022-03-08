@@ -139,21 +139,40 @@ export const validateNumeratorsLessThanDenominators = (
 // Initiation AND Engagement
 export const validateEqualDenominators = (
   performanceMeasureArray: PerformanceMeasure[][],
-  ageGroups: string[]
+  ageGroups: string[],
+  noAgeGroups?: boolean
 ) => {
   let error;
   let errorArray: any[] = [];
+  if (!noAgeGroups) {
+  }
   ageGroups.forEach((ageGroup, i) => {
     let filledInData: any[] = [];
-    performanceMeasureArray?.forEach((_performanceObj, index) => {
-      if (
-        performanceMeasureArray[index] &&
-        performanceMeasureArray[index][i] &&
-        performanceMeasureArray[index][i].denominator
-      ) {
-        filledInData.push(performanceMeasureArray[index][i]);
-      }
-    });
+    if (!noAgeGroups) {
+      performanceMeasureArray?.forEach((_performanceObj, index) => {
+        if (
+          performanceMeasureArray[index] &&
+          performanceMeasureArray[index][i] &&
+          performanceMeasureArray[index][i].denominator
+        ) {
+          filledInData.push(performanceMeasureArray[index][i]);
+        }
+      });
+    }
+
+    if (noAgeGroups && i === 0) {
+      // case to run when there are no age groups
+      performanceMeasureArray?.[0]?.forEach((_performanceObj, index) => {
+        if (
+          performanceMeasureArray[0][index] &&
+          performanceMeasureArray[0][index] &&
+          performanceMeasureArray[0][index].denominator
+        ) {
+          filledInData.push(performanceMeasureArray[0][index]);
+        }
+      });
+    }
+
     if (filledInData.length > 1) {
       let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;
@@ -165,7 +184,9 @@ export const validateEqualDenominators = (
       if (denominatorsNotEqual) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for each category of performance measures for ${ageGroup}`,
+          errorMessage: `Denominators must be the same for each category of performance measures${
+            noAgeGroups ? "" : `for ${ageGroup}`
+          }`,
         };
         errorArray.push(error);
       }
