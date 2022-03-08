@@ -67,7 +67,7 @@ const validateDenominatorsAreTheSame = (data: FormData) => {
 };
 
 const CCWADValidation = (data: FormData) => {
-  const ageGroups = ["21 to 44"];
+  const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);

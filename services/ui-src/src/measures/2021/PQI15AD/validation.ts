@@ -9,7 +9,7 @@ import { FormData } from "./types";
 import * as PMD from "./data";
 const PQI15Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const ageGroups = ["18 to 39"];
+  const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);

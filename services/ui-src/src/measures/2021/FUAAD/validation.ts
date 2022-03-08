@@ -15,7 +15,7 @@ import {
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 
 const FUAADValidation = (data: FormData) => {
-  const ageGroups = ["18 to 64", "65 and older"];
+  const ageGroups = PMD.qualifiers;
   const sixtyDaysIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];

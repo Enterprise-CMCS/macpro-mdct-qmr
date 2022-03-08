@@ -13,6 +13,7 @@ import { FormData } from "./types";
 
 const OUDValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const ageGroups = PMD.qualifiers;
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -24,14 +25,14 @@ const OUDValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ["age-group"]),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNumeratorsLessThanDenominators(performanceMeasureArray, OPM, [
       "age-group",
     ]),
     ...validateRequiredRadioButtonForCombinedRates(data),
-    ...validateEqualDenominators(performanceMeasureArray, ["age-group"]),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ["age-group"]),
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
   return errorArray;
