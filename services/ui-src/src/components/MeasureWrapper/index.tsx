@@ -1,4 +1,11 @@
-import { ReactElement, cloneElement, useState, useEffect } from "react";
+import {
+  ReactElement,
+  cloneElement,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import * as CUI from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm, FormProvider, useWatch } from "react-hook-form";
@@ -18,7 +25,26 @@ const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   );
 };
 
-const Measure = ({ measure, ...rest }: any) => {
+export interface MeasureWrapperProps {
+  name: string;
+  year: string;
+  measureId: string;
+  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+  isOtherMeasureSpecSelected?: boolean;
+  isPrimaryMeasureSpecSelected?: boolean;
+  showOptionalMeasureStrat?: boolean;
+  isNotReportingData?: boolean;
+}
+
+interface MeasureProps {
+  measure: ReactElement;
+  name: string;
+  year: string;
+  measureId: string;
+  setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
+}
+
+const Measure = ({ measure, ...rest }: MeasureProps) => {
   const watchedData = useWatch();
   const watchReportingRadio = useWatch({ name: "DidReport" });
   const isNotReportingData = watchReportingRadio === "no";
