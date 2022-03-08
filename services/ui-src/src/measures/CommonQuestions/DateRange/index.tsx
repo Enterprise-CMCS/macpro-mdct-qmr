@@ -2,6 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
+import * as DC from "dataConstants";
 
 const measurementPeriodTableLinks = {
   adult:
@@ -40,7 +41,7 @@ export const DateRange = ({ type }: Props) => {
           resource.
         </CUI.Text>
       </CUI.Stack>
-      <QMR.DateRange {...register("DateRange")} />
+      <QMR.DateRange {...register(DC.DATE_RANGE)} />
     </QMR.CoreQuestionWrapper>
   );
 };

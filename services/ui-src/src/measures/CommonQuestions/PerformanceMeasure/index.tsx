@@ -11,6 +11,7 @@ interface Props {
   calcTotal?: boolean;
   rateScale?: number;
   customMask?: RegExp;
+  hybridMeasure?: boolean;
 }
 
 interface NdrSetProps {
@@ -69,7 +70,8 @@ const QualifierNdrSets = ({
   qualifiers = [],
   rateScale,
   customMask,
-}: NdrSetProps) => {
+}: // calcTotal,
+NdrSetProps) => {
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
@@ -82,6 +84,7 @@ const QualifierNdrSets = ({
       readOnly={rateReadOnly}
       rateMultiplicationValue={rateScale}
       customMask={customMask}
+      // calcTotal={calcTotal}
       {...register("PerformanceMeasure.rates.singleCategory")}
     />
   );
@@ -107,6 +110,7 @@ export const PerformanceMeasure = ({
   rateReadOnly,
   rateScale,
   customMask,
+  hybridMeasure,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
@@ -117,9 +121,15 @@ export const PerformanceMeasure = ({
     dataSourceWatch?.every((source) => source === "AdministrativeData") ??
     true;
 
+  data.questionText = data.questionText ?? [];
+
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      <CUI.Stack>{data.questionText}</CUI.Stack>
+      <CUI.Stack>
+        {data.questionText.map((item, idx) => {
+          return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
+        })}
+      </CUI.Stack>
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
@@ -140,6 +150,23 @@ export const PerformanceMeasure = ({
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
         {...register("PerformanceMeasure.explanation")}
       />
+      {hybridMeasure && (
+        <CUI.Box my="5">
+          <CUI.Text>
+            CMS recognizes that social distancing will make onsite medical chart
+            reviews inadvisable during the COVID-19 pandemic. As such, hybrid
+            measures that rely on such techniques will be particularly
+            challenging during this time. While reporting of the Core Sets is
+            voluntary, CMS encourages states that can collect information safely
+            to continue reporting the measures they have reported in the past.
+          </CUI.Text>
+          <QMR.TextArea
+            formLabelProps={{ mt: 5 }}
+            {...register("PerformanceMeasure.hybridExplanation")}
+            label="Describe any COVID-related difficulties encountered while collecting this data:"
+          />
+        </CUI.Box>
+      )}
       <CUI.Text
         fontWeight="bold"
         mt={5}

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { useWatch, useFormContext } from "react-hook-form";
-import * as QMR from "components";
+import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
+import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { FormData } from "./types";
 
-export const CBPAD = ({
+export const CISCH = ({
   name,
   year,
   measureId,
@@ -28,13 +28,6 @@ export const CBPAD = ({
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const dataSourceWatch = useWatch({ name: "DataSource" });
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source: string) => source === "AdministrativeData"
-    ) ?? true;
-
   return (
     <>
       <CMQ.Reporting
@@ -49,13 +42,10 @@ export const CBPAD = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure
-                data={PMD.data}
-                rateReadOnly={rateReadOnly}
-              />
+              <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}

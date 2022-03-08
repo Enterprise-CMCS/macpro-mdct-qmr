@@ -5,7 +5,7 @@ import * as Types from "../types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-export interface Props {
+interface Props {
   rateAlwaysEditable?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;

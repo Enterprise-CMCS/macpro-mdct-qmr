@@ -1,41 +1,44 @@
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import * as PMD from "./data";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
+  validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
-import * as PMD from "./data";
+import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 
-const PQI08Validation = (data: FormData) => {
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+const CISCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
+  const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const dateRange = data["DateRange"];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups, true),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...ensureBothDatesCompletedInRange(dateRange),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [PQI08Validation];
+export const validationFunctions = [CISCHValidation];
