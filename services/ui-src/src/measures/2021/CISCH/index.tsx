@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useWatch, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
@@ -28,13 +28,6 @@ export const CISCH = ({
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const dataSourceWatch = useWatch({ name: "DataSource" });
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source: string) => source === "AdministrativeData"
-    ) ?? true;
-
   return (
     <>
       <CMQ.Reporting
@@ -52,11 +45,7 @@ export const CISCH = ({
           <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure
-                data={PMD.data}
-                rateReadOnly={rateReadOnly}
-                hybridMeasure
-              />
+              <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
