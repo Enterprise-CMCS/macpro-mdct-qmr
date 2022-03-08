@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import * as QMR from "components";
 import { useFormContext } from "react-hook-form";
 import { FormData } from "./types";
-import { validationFunctions } from "./validation/customValidationFunctions";
+import { validationFunctions } from "./validation";
 import { useEffect } from "react";
 
 export const CPAAD = ({
