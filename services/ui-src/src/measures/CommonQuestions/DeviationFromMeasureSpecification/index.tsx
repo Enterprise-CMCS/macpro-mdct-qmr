@@ -59,8 +59,8 @@ const getRateTextAreaOptions = (name: string) =>
 /* This is a custom checkbox component that is used to render the checkboxes for the rate deviations. */
 const DeviationsSelectedCheckbox = ({ name }: { name: string }) => (
   <QMR.Checkbox
-    name={`${name}.[${DC.RATE_DEVIATIONS_SELECTED}]`}
-    key={`${name}.[${DC.RATE_DEVIATIONS_SELECTED}]`}
+    name={`${name}.${DC.RATE_DEVIATIONS_SELECTED}`}
+    key={`${name}.${DC.RATE_DEVIATIONS_SELECTED}`}
     options={getRateTextAreaOptions(name)}
   />
 );
