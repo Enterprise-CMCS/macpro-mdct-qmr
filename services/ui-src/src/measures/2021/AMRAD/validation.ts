@@ -6,6 +6,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
+  validateTotalNDR,
 } from "measures/globalValidations/validationsLib";
 
 const AMRADValidation = (data: Measure.Form) => {
@@ -24,6 +25,7 @@ const AMRADValidation = (data: Measure.Form) => {
     ),
     ...validateEqualDenominators(performanceMeasureArray, ageGroups),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateTotalNDR(performanceMeasureArray),
   ];
 
   return errorArray;

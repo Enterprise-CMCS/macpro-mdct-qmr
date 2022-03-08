@@ -242,6 +242,56 @@ export const validateNoNonZeroNumOrDenom = (
   return zeroRateError || nonZeroRateError ? errorArray : [];
 };
 
+/*
+Validate that the values represented in the Total NDR fields are the sum of the respective non-total fields.
+e.g. numerator === sumOfAllOtherNumerators
+
+This validation can be applied for both Performance Measure and OMS sections.
+Default assumption is that this is run for Performance Measure unless specified.
+*/
+export const validateTotalNDR = (
+  performanceMeasureArray: PerformanceMeasure[][],
+  errorLocation: string = "Performance Measure"
+) => {
+  let errorArray: any[] = [];
+  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
+  let denominatorSum: any = null;
+
+  performanceMeasureArray.forEach((ndrSet) => {
+    // If this measure has a totalling NDR, the last NDR set is the total.
+    ndrSet.slice(0, -1).forEach((item: any) => {
+      if (item !== undefined && item !== null && !item["isTotal"]) {
+        let x;
+        if (!isNaN((x = parseFloat(item["numerator"])))) {
+          numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item["denominator"])))) {
+          denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
+        }
+      }
+    });
+
+    let totalNDR: any = ndrSet[ndrSet.length - 1];
+
+    // If we wanted to get fancy we could offer expected values in here quite easily.
+    if (parseFloat(totalNDR["numerator"]) !== numeratorSum) {
+      console.log("Total: ", totalNDR["numerator"], "Sum: ", numeratorSum);
+      errorArray.push({
+        errorLocation: errorLocation,
+        errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
+      });
+    }
+    if (parseFloat(totalNDR["denominator"]) !== denominatorSum) {
+      errorArray.push({
+        errorLocation: errorLocation,
+        errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
+      });
+    }
+  });
+
+  return errorArray;
+};
+
 // Ensure the user populates the data range
 export const ensureBothDatesCompletedInRange = (
   dateRange: DateRange["DateRange"]
