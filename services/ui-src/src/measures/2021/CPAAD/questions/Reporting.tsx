@@ -1,8 +1,8 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "../validation/types";
 import { useFormContext } from "react-hook-form";
 import { WhyDidYouNotCollect } from ".";
+import { FormData } from "../types";
 
 interface Props {
   measureName: string;
@@ -11,8 +11,8 @@ interface Props {
 }
 
 export const Reporting = ({ reportingYear }: Props) => {
-  const register = useCustomRegister<Measure.Form>();
-  const { watch } = useFormContext<Measure.Form>();
+  const register = useCustomRegister<FormData>();
+  const { watch } = useFormContext<FormData>();
   const watchRadioStatus = watch("DidCollect");
 
   return (
@@ -23,16 +23,16 @@ export const Reporting = ({ reportingYear }: Props) => {
           options={[
             {
               displayValue: `Yes, we did collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid) (CPA-AD) for FFY ${reportingYear} quality measure reporting.`,
-              value: "Yes, we did collect",
+              value: "yes",
             },
             {
               displayValue: `No, we did not collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid) (CPA-AD) for FFY ${reportingYear} quality measure reporting.`,
-              value: "No, we did not collect",
+              value: "no",
             },
           ]}
         />
       </QMR.CoreQuestionWrapper>
-      {watchRadioStatus?.includes("No,") && <WhyDidYouNotCollect />}
+      {watchRadioStatus?.includes("no") && <WhyDidYouNotCollect />}
     </>
   );
 };

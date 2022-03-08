@@ -45,7 +45,7 @@ export class OUDadPage {
   }
 
   clearTotalRateNumeratorInputBox(s) {
-    cy.get(totalRateNumeratorInputBox).clear();
+    cy.get(totalRateNumeratorInputBox).clear({ force: true });
   }
 
   clearTotalRateDenominatorInputBox(s) {

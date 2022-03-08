@@ -1,10 +1,9 @@
 import * as QMR from "components";
-// import { useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { Measure } from "../validation/types";
+import { FormData } from "../types";
 
 export const DataSource = () => {
-  const register = useCustomRegister<Measure.Form>();
+  const register = useCustomRegister<FormData>();
 
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
