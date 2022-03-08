@@ -31,7 +31,7 @@ const OUDValidation = (data: FormData) => {
       "age-group",
     ]),
     ...validateRequiredRadioButtonForCombinedRates(data),
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
+    ...validateEqualDenominators(performanceMeasureArray, ageGroups, true),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
