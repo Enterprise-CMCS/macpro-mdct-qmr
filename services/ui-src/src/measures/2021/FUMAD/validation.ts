@@ -9,8 +9,10 @@ import {
 import * as PMD from "./data";
 import { FormData } from "./types";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import {  ensureBothDatesCompletedInRange,
-  validateRequiredRadioButtonForCombinedRates, } from "../../globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 
 const FUMADValidation = (data: FormData) => {
   const ageGroups = ["18 to 64", "65 and older"];
@@ -167,8 +169,6 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
 
   return error ? errorArray : error;
 };
-
-
 
 const validateAtLeastOneNDRSet = (data: FormData) => {
   let error;

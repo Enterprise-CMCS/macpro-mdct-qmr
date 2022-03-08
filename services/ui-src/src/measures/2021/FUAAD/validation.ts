@@ -8,10 +8,13 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
-import { ensureBothDatesCompletedInRange,validateRequiredRadioButtonForCombinedRates } from "../../globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 
-const FUAADValidation = (data:FormData) => {
+const FUAADValidation = (data: FormData) => {
   const ageGroups = ["18 to 64", "65 and older"];
   const sixtyDaysIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];

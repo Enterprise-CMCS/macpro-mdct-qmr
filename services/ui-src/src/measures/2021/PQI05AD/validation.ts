@@ -5,7 +5,7 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
 import { FormData } from "./types";

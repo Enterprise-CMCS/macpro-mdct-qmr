@@ -9,7 +9,10 @@ import {
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 
-import { ensureBothDatesCompletedInRange,validateRequiredRadioButtonForCombinedRates} from "../../globalValidations/validationsLib";
+import {
+  ensureBothDatesCompletedInRange,
+  validateRequiredRadioButtonForCombinedRates,
+} from "../../globalValidations/validationsLib";
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];

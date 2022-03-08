@@ -5,7 +5,7 @@ import {
   validateNoNonZeroNumOrDenom,
   validateEqualDenominators,
   validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";

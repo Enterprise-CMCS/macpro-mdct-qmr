@@ -5,7 +5,7 @@ import {
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates
+  validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
@@ -82,7 +82,6 @@ const validateNonZeroDenom = (data: FormData) => {
     [""]
   );
 };
-
 
 const CCWADValidation = (data: FormData) => {
   const ageGroups = ["21 to 44"];
