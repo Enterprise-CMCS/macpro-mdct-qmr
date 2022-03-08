@@ -4,11 +4,22 @@ import { useParams } from "react-router-dom";
 import * as QMR from "components";
 import { useFormContext } from "react-hook-form";
 import { FormData } from "./types";
+import { validationFunctions } from "./validation";
+import { useEffect } from "react";
 
-export const CPAAD = ({ name, year }: QMR.MeasureWrapperProps) => {
+export const CPAAD = ({
+  name,
+  year,
+  setValidationFunctions,
+}: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const { coreSetId } = useParams();
   const data = watch();
+  useEffect(() => {
+    if (setValidationFunctions) {
+      setValidationFunctions(validationFunctions);
+    }
+  }, [setValidationFunctions]);
 
   return (
     <>
