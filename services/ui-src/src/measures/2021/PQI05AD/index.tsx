@@ -71,6 +71,7 @@ export const PQI05AD = ({
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
+              allowNumeratorGreaterThanDenominator
             />
           )}
         </>

@@ -107,7 +107,8 @@ export const Rate = ({
     if (
       parseInt(editRate.denominator) &&
       editRate.numerator &&
-      parseFloat(editRate.numerator) <= parseFloat(editRate.denominator)
+      (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
+        allowNumeratorGreaterThanDenominator)
     ) {
       editRate.rate = rateCalculation(
         editRate.numerator,
@@ -118,6 +119,7 @@ export const Rate = ({
     } else if (editRate.rate) {
       editRate.rate = "";
     }
+
     prevRate[index] = {
       label: rates[index].label,
       ...editRate,
