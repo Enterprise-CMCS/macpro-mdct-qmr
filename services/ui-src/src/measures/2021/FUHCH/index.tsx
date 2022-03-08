@@ -28,13 +28,6 @@ export const FUHCH = ({
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const dataSourceWatch = useWatch({ name: "DataSource" });
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source: string) => source === "AdministrativeData"
-    ) ?? true;
-
   return (
     <>
       <CMQ.Reporting
@@ -52,11 +45,7 @@ export const FUHCH = ({
           <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure
-                data={PMD.data}
-                rateReadOnly={rateReadOnly}
-                hybridMeasure
-              />
+              <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
