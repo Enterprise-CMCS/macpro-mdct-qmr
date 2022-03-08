@@ -3,7 +3,7 @@ import { DataDrivenTypes } from "measures/CommonQuestions/types";
 export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
 export const categories = [
   "Effective Acute Phase Treatment",
-  "Effective Continuation Phase Treatment"
+  "Effective Continuation Phase Treatment",
 ];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
