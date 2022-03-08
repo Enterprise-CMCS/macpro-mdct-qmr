@@ -1,6 +1,8 @@
 import * as CMQ from "measures/CommonQuestions";
+import * as QMR from "components";
 import * as PMD from "./data";
 import { useFormContext, useWatch } from "react-hook-form";
+// import { FormData } from "./types";
 import { Measure } from "./types";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
@@ -11,7 +13,11 @@ export const AMRAD = ({
   year,
   measureId,
   setValidationFunctions,
-}: Measure.Props) => {
+  isNotReportingData,
+  isPrimaryMeasureSpecSelected,
+  showOptionalMeasureStrat,
+  isOtherMeasureSpecSelected,
+}: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
@@ -21,18 +27,10 @@ export const AMRAD = ({
   const { getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
-  const watchReportingRadio = useWatch({ name: "DidReport" });
-  const watchMeasureSpecification = useWatch({
-    name: "MeasurementSpecification",
-  });
   const watchOtherPerformanceMeasureRates = useWatch({
     name: "OtherPerformanceMeasure-Rates",
   });
 
-  // Conditionals for Performance Measures
-  const isHEDIS = watchMeasureSpecification === "NCQA/HEDIS";
-
-  const isOtherSpecification = watchMeasureSpecification === "Other";
   // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
   const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
 
@@ -81,7 +79,7 @@ export const AMRAD = ({
         measureAbbreviation={measureId}
       />
 
-      {!watchReportingRadio?.includes("No") && (
+      {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
@@ -89,18 +87,15 @@ export const AMRAD = ({
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isHEDIS && (
-            <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
+          {isPrimaryMeasureSpecSelected && (
+            <>
+              <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
+              <CMQ.DeviationFromMeasureSpec categories={[]} />
+            </>
           )}
-          {/* Show Deviation only when Other is not selected */}
-          {isHEDIS && <CMQ.DeviationFromMeasureSpec categories={[]} />}
-          {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
-          {(showPersistentAsthma19To50 ||
-            showPersistentAsthma51To64 ||
-            showPersistentAsthmaTotal ||
-            showOtherPerformanceMeasureRates) && (
+          {showOptionalMeasureStrat && (
             <OptionalMeasureStratification
               ageGroups={ageGroups}
               deviationConditions={{

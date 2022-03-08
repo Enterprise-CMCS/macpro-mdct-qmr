@@ -69,8 +69,8 @@ const QualifierNdrSets = ({
   qualifiers = [],
   rateScale,
   customMask,
-}: // calcTotal,
-NdrSetProps) => {
+  calcTotal,
+}: NdrSetProps) => {
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
@@ -83,7 +83,7 @@ NdrSetProps) => {
       readOnly={rateReadOnly}
       rateMultiplicationValue={rateScale}
       customMask={customMask}
-      // calcTotal={calcTotal}
+      calcTotal={calcTotal}
       {...register("PerformanceMeasure.rates.singleCategory")}
     />
   );
