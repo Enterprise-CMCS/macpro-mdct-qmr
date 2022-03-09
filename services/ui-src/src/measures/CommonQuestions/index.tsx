@@ -2,7 +2,7 @@ export * from "./CombinedRates";
 export * from "./DateRange";
 export * from "./DefinitionsOfPopulation";
 export * from "./DataSource";
-export * from "./DataSourceRadio";
+export * from "./DataSourceCahps";
 export * from "./AdditionalNotes";
 export * from "./OtherPerformanceMeasure";
 export * from "./Reporting";
