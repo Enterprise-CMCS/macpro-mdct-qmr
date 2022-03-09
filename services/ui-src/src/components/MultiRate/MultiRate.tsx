@@ -64,8 +64,10 @@ export const MultiRate = ({
     },
   ];
 
+  // Quick reference list of all rate indices
   const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
 
+  // Conditionally perform rate calculation
   const calculateRates = (prevRate: any, digitsAfterDecimal: number) => {
     ndrForumlas.forEach((ndr) => {
       if (
@@ -84,6 +86,7 @@ export const MultiRate = ({
     });
   };
 
+  // Handle inputs and update conditionally perform rate calculation
   const changeRate = (index: number, newValue: string) => {
     const isRate = rateLocations.includes(index);
     if (isRate && readOnly) return;
@@ -115,6 +118,7 @@ export const MultiRate = ({
     field.onChange([...prevRate]);
   };
 
+  // Given rate information, generate either an input field or a plain text value
   const generateInputs = (rate: IRate, index: number) => {
     const colorString = index % 2 === 0 ? "#FFF" : "#f5f5f5";
     return (
@@ -148,14 +152,36 @@ export const MultiRate = ({
     );
   };
 
+  // Using a provided NDR Formula, compare N&D, if N > D show warning
+  const generateInputWarnings = (ndr: any, index: number) => {
+    return (
+      parseInt(field.value[ndr.numerator]?.value) >
+        parseInt(field.value[ndr.denominator]?.value) && (
+        <QMR.Notification
+          key={index}
+          alertTitle="Rate Error"
+          // Identify the problematic fields using labels
+          alertDescription={`"${field.value[ndr.numerator]?.label}": ${
+            field.value[ndr.numerator]?.value
+          } cannot be greater than "${field.value[ndr.denominator]?.label}": ${
+            field.value[ndr.denominator]?.value
+          }`}
+          alertStatus="warning"
+        />
+      )
+    );
+  };
+
   return (
-    // TODO: Are we throwing an error for num > denom? This is not in ticket.
     <>
       <CUI.Stack my={8} direction="row">
         {rates.slice(0, 6).map((rate, index) => {
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
+      {ndrForumlas.slice(0, 3).map((ndr, index) => {
+        return generateInputWarnings(ndr, index);
+      })}
       <CUI.Divider />
       <CUI.Stack my={8} direction="row">
         {rates.slice(6).map((rate, index) => {
@@ -163,6 +189,9 @@ export const MultiRate = ({
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
+      {ndrForumlas.slice(3).map((ndr, index) => {
+        return generateInputWarnings(ndr, index);
+      })}
     </>
   );
 };
