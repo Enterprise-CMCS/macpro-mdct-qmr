@@ -1,10 +1,11 @@
 import * as Q from "./questions";
+import * as QMR from "components";
 import * as CMQ from "measures/CommonQuestions";
 import { useParams } from "react-router-dom";
 import * as Types from "measures/CommonQuestions/types";
 import { useFormContext } from "react-hook-form";
 
-export const CPCCH = ({ name, year }: Types.MeasureWrapperProps) => {
+export const CPCCH = ({ name, year }: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<Types.DefaultFormData>();
   const { coreSetId } = useParams();
   const data = watch();
@@ -19,7 +20,7 @@ export const CPCCH = ({ name, year }: Types.MeasureWrapperProps) => {
       {data["DidCollect"] !== "no" && (
         <>
           <Q.HowDidYouReport />
-          <CMQ.MeasurementSpecification type="HEDIS-PROTOCOL" />
+          <CMQ.MeasurementSpecification type="AHRQ" />
           <Q.DataSource />
           <Q.DefinitionOfPopulation />
           <Q.PerformanceMeasure />
