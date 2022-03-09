@@ -12,6 +12,7 @@ interface Props {
   calcTotal?: boolean;
   rateScale?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 interface NdrSetProps {
@@ -21,6 +22,7 @@ interface NdrSetProps {
   calcTotal: boolean;
   rateScale?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -30,6 +32,7 @@ const CategoryNdrSets = ({
   qualifiers,
   rateScale,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -55,6 +58,9 @@ const CategoryNdrSets = ({
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
+              allowNumeratorGreaterThanDenominator={
+                allowNumeratorGreaterThanDenominator
+              }
               {...register(`PerformanceMeasure.rates.${cleanedName}`)}
             />
           </CUI.Box>
@@ -70,8 +76,8 @@ const QualifierNdrSets = ({
   qualifiers = [],
   rateScale,
   customMask,
-}: // calcTotal,
-NdrSetProps) => {
+  allowNumeratorGreaterThanDenominator,
+}: NdrSetProps) => {
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
@@ -84,7 +90,9 @@ NdrSetProps) => {
       readOnly={rateReadOnly}
       rateMultiplicationValue={rateScale}
       customMask={customMask}
-      // calcTotal={calcTotal}
+      allowNumeratorGreaterThanDenominator={
+        allowNumeratorGreaterThanDenominator
+      }
       {...register("PerformanceMeasure.rates.singleCategory")}
     />
   );
@@ -117,6 +125,7 @@ export const PerformanceMeasure = ({
   rateReadOnly,
   rateScale,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
@@ -178,6 +187,9 @@ export const PerformanceMeasure = ({
         calcTotal={calcTotal}
         rateScale={rateScale}
         customMask={customMask}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
       />
     </QMR.CoreQuestionWrapper>
   );
