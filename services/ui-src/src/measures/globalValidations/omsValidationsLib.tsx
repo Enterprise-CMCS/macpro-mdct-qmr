@@ -187,7 +187,10 @@ const validateNDRs = (
 
     // validate for additionals category
     for (const addtnl of node.additionalSelections ?? []) {
-      validateChildNodes(addtnl, [...label, "Additional Category"]);
+      validateChildNodes(addtnl, [
+        ...label,
+        addtnl.description ?? "Additional Category",
+      ]);
     }
 
     // ACA validate
@@ -201,7 +204,10 @@ const validateNDRs = (
     // validate sub categories
     if (node.additionalSubCategories?.length) {
       for (const subCat of node.additionalSubCategories) {
-        validateChildNodes(subCat, [...label, "sub-category"]);
+        validateChildNodes(subCat, [
+          ...label,
+          subCat.description ?? "sub-category",
+        ]);
       }
     }
 
