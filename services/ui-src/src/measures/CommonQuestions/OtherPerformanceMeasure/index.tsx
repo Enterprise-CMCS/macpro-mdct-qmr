@@ -11,6 +11,15 @@ export interface Props {
   customMask?: RegExp;
 }
 
+const stringIsReadOnly = (dataSource: String) => {
+  return dataSource === "Other";
+};
+
+const arrayIsReadOnly = (dataSource: string[]) => {
+  console.log(dataSource);
+  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+};
+
 export const OtherPerformanceMeasure = ({
   rateAlwaysEditable,
   rateMultiplicationValue,
@@ -32,12 +41,16 @@ export const OtherPerformanceMeasure = ({
   const dataSourceWatch = watch("DataSource");
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const rateReadOnly =
-    rateAlwaysEditable !== undefined && rateAlwaysEditable
-      ? false
-      : dataSourceWatch?.every(
-          (source: any) => source === "AdministrativeData"
-        ) ?? true;
+  let rateReadOnly = true;
+  if (rateAlwaysEditable) {
+    rateReadOnly = false;
+  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
+    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
+  } else if (dataSourceWatch) {
+    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+  } else {
+    rateReadOnly = !!dataSourceWatch;
+  }
 
   return (
     <QMR.CoreQuestionWrapper label="Other Performance Measure">

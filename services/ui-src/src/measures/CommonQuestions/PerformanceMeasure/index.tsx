@@ -104,7 +104,7 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
 };
 
 const stringIsReadOnly = (dataSource: String) => {
-  return dataSource === "False";
+  return dataSource === "Other";
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
