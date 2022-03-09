@@ -12,8 +12,8 @@ import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 
 const validate7DaysGreaterThan30Days = (data: any) => {
-  const sevenDays = data["PerformanceMeasure"]["rates"]["7DayFollowUp"];
-  const thirtyDays = data["PerformanceMeasure"]["rates"]["30DayFollowUp"];
+  const sevenDays = data["PerformanceMeasure"]?.["rates"]?.["7DayFollowUp"];
+  const thirtyDays = data["PerformanceMeasure"]?.["rates"]?.["30DayFollowUp"];
   let error;
   const errorArray: any[] = [];
 

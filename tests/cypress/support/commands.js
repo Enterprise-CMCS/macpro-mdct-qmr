@@ -19,6 +19,22 @@ Cypress.Commands.add("goToAdultMeasures", () => {
   cy.get('[data-cy="ACS"]').click();
 });
 
+// Visit Child Core Set Measures
+Cypress.Commands.add("goToChildMeasures", () => {
+  cy.get('[data-cy="Add Child Core Set"]').click();
+  cy.get('[data-cy="ChildCoreSet-ReportType1"]').click();
+  cy.get('[data-cy="Create"]').click();
+  cy.get('[data-cy="CCS"]').click();
+});
+
+// // Visit Delete Child Core Set Measures
+// Cypress.Commands.add("goToChildMeasures", () => {
+//   cy.get('[data-cy="child-kebab-menu"]').click();
+//   cy.get('[data-cy="Delete"]').click();
+//   cy.get('[data-cy="delete-table-item-input"]').type("DELETE");
+//   cy.get('[data-cy="delete-table-item-button"]').click();
+// });
+
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
   cy.get(`[data-cy="${measure}"]`).click();
