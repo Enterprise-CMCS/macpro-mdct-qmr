@@ -1,6 +1,6 @@
 import { Measure } from "./types";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
-  atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
   validateRequiredRadioButtonForCombinedRates,
@@ -139,21 +139,53 @@ const validateNonZeroDenom = (data: Measure.Form) => {
   );
 };
 
-const validateAtLeastOneNPR = (data: Measure.Form) => {
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.qualifiers[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.qualifiers[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
+const validateAtLeastOneNDR = (data: Measure.Form) => {
+  const ageGroups = PMD.qualifiers;
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const OPM = data["OtherPerformanceMeasure-Rates"];
+  return atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups);
+};
 
-  return atLeastOneRateComplete(
-    [memeRates, larcRates],
-    data["OtherPerformanceMeasure-Rates"],
-    [""]
-  );
+const atLeastOneRateComplete = (
+  performanceMeasureArray: any,
+  OPM: any,
+  ageGroups: string[]
+) => {
+  let error = true;
+  let errorArray: any[] = [];
+  // Check OPM first
+  OPM &&
+    OPM.forEach((measure: any) => {
+      if (measure.rate && measure.rate[0] && measure.rate[0].rate) {
+        error = false;
+      }
+    });
+
+  // Then check regular Performance Measures if cannot validate OPM
+  // For each Performance Measure
+  //    Check that the performance measure has a field representation for each age groups
+  //    Check that each field has a "value" and it is not an empty string
+  //    For a complete measure the sum of the booleans will equal the length of the age groups
+  if (error) {
+    performanceMeasureArray?.forEach((_performanceObj: any) => {
+      if (_performanceObj.length === ageGroups.length) {
+        const values = _performanceObj.map((obj: any) => {
+          if (obj?.value && obj.value) return true;
+          return false;
+        });
+        const sum = values.reduce((x: any, y: any) => x + y);
+        if (sum === ageGroups.length) error = false;
+      }
+    });
+  }
+
+  if (error) {
+    errorArray.push({
+      errorLocation: `Performance Measure/Other Performance Measure`,
+      errorMessage: `Performance Measure must be completed`,
+    });
+  }
+  return error ? errorArray : [];
 };
 
 const validateBothDatesCompletedInRange = (data: Measure.Form) => {
@@ -168,6 +200,6 @@ export const validationFunctions = [
   validateLarcRateGreater,
   validateDenominatorsAreTheSame,
   validateNonZeroDenom,
-  validateAtLeastOneNPR,
+  validateAtLeastOneNDR,
   validateRequiredRadioButtonForCombinedRates,
 ];
