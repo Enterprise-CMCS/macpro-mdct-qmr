@@ -33,6 +33,7 @@ interface OPMProps {
   name: string;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 // interface TotalProps {
@@ -106,6 +107,7 @@ const buildConditionalRateArray = ({
           name={adjustedName}
           key={adjustedName}
           rateMultiplicationValue={rateMultiplicationValue}
+          allowNumeratorGreaterThanDenominator
           customMask={customMask}
           rates={[
             {
@@ -245,6 +247,7 @@ const renderOPMChckboxOptions = ({
   name,
   rateMultiplicationValue,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: OPMProps) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
 
@@ -285,6 +288,9 @@ const renderOPMChckboxOptions = ({
             readOnly={rateReadOnly}
             rateMultiplicationValue={rateMultiplicationValue}
             customMask={customMask}
+            allowNumeratorGreaterThanDenominator={
+              allowNumeratorGreaterThanDenominator
+            }
           />,
         ],
       });
@@ -303,6 +309,7 @@ const OPMNDRSets = ({ name }: NdrProps) => {
     rateReadOnly,
     rateMultiplicationValue,
     customMask,
+    allowNumeratorGreaterThanDenominator,
   } = usePerformanceMeasureContext();
   return (
     <QMR.Checkbox
@@ -314,6 +321,7 @@ const OPMNDRSets = ({ name }: NdrProps) => {
         rateReadOnly: !!rateReadOnly,
         rateMultiplicationValue,
         customMask,
+        allowNumeratorGreaterThanDenominator,
       })}
     />
   );
