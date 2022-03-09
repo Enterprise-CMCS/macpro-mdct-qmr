@@ -132,32 +132,16 @@ describe("Measure: AMM-AD", () => {
       "Denominators must be the same for each category of performance measures for Ages 18 to 64"
     );
   });
-  it("if yes for combined rates → and no additional selection → show warning", () => {});
-});
-
-/*
-describe("Measure: AMM-AD", () => {
-  before(() => {
-    cy.visit("/");
-    cy.login();
-    cy.goToAdultMeasures();
-    cy.goToMeasure("AMM-AD");
+  it("if yes for combined rates → and no additional selection → show warning", () => {
+    cy.get('[data-cy="DidReport0"]').click();
+    cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get('[data-cy="CombinedRates0"]').click();
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get(
+      '[data-cy="You must select at least one option for Combined Rate(s) Details if Yes is selected."]'
+    ).should(
+      "have.text",
+      "You must select at least one option for Combined Rate(s) Details if Yes is selected."
+    );
   });
-
-  it("Ensure correct sections display if user is/not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
-  });
-
-  it("If not reporting and not why not -> show error", () => {});
-  it("should show correct data source options", () => {});
-  it("if primary measurement spec is selected -> show performance measures", () => {});
-  it("if other measurement spec is selected -> show other performance measures", () => {});
-  it("if yes for combined rates → and no additional selection → show warning", () => {});
-  it("if only admin data cannot override, if anything else, rate is editable", () => {});
-  it("should have adult eligibility group in OMS", () => {});
-  it("at least one dnr set if reporting and measurement spec or error.", () => {});
-  it("denominator need to be the same for both stratifications", () => {});
 });
-
-*/
