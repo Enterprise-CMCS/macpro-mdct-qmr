@@ -14,6 +14,41 @@ import {
   ensureBothDatesCompletedInRange,
   validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
+
+const validate3daysLessOrEqualTo30days = (data: FormData) => {
+  const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
+  const sevenDays = perfMeasure[1];
+  const thirtyDays = perfMeasure[0];
+
+  const errorArray: any[] = [];
+
+  if (sevenDays?.length === 2) {
+    if (
+      parseFloat(sevenDays[0].rate ?? "") > parseFloat(sevenDays[1].rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Long-acting Reversible Method of Contraception (LARC)",
+      });
+    }
+  }
+  if (thirtyDays?.length === 2) {
+    if (
+      parseFloat(thirtyDays[0].rate ?? "") >
+      parseFloat(thirtyDays[1].rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Most Effective or Moderately Effective Method of Contraception",
+      });
+    }
+  }
+
+  return errorArray;
+};
+
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -52,4 +87,5 @@ const CCPADValidation = (data: FormData) => {
 export const validationFunctions = [
   CCPADValidation,
   validateRequiredRadioButtonForCombinedRates,
+  validate3daysLessOrEqualTo30days,
 ];
