@@ -100,37 +100,12 @@ describe("Measure: AMM-AD", () => {
   });
 
   it("at least one dnr set if reporting and measurement spec or error.", () => {
+    /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="At least one NDR Set must be completed"]').should(
-      "be.visible"
-    );
-    cy.get('[data-cy="MeasurementSpecification1"]').click();
-    cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="Performance Measure Error"]').should("be.visible");
-  });
-  it("denominator need to be the same for both stratifications", () => {
-    cy.get('[data-cy="DidReport0"]').click();
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.numerator"]'
-    ).type("7");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.denominator"]'
-    ).type("7");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveContinuationPhaseTreatment.0.numerator"]'
-    ).type("7");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveContinuationPhaseTreatment.0.denominator"]'
-    ).type("8");
-    cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(
-      '[data-cy="Denominators must be the same for each category of performance measures for Ages 18 to 64"]'
-    ).should(
-      "have.text",
-      "Denominators must be the same for each category of performance measures for Ages 18 to 64"
-    );
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should("be.visible");
   });
   it("if yes for combined rates → and no additional selection → show warning", () => {
     cy.get('[data-cy="DidReport0"]').click();
