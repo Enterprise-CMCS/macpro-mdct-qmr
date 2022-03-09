@@ -98,12 +98,13 @@ export const MultiRate = ({
 
     let validValue;
 
-    if (isRate && (validValue = sixteenNumbersFourDecimal.test(newValue))) {
+    // TODO: Need clarification on input validations - Figma says both 10 and 16 digits for inputs
+    // Rates need 4 decimal places, but is that included in 16 digits?
+    if (isRate || index === 3) {
+      validValue = sixteenNumbersFourDecimal.test(newValue);
       editRate["value"] = validValue ? newValue : editRate["value"];
-    } else if (
-      !isRate &&
-      (validValue = allPositiveIntegersWith10Digits.test(newValue))
-    ) {
+    } else {
+      validValue = allPositiveIntegersWith10Digits.test(newValue);
       editRate["value"] = validValue ? newValue : editRate["value"];
     }
 
@@ -155,6 +156,8 @@ export const MultiRate = ({
   // Programatically generate input warnings based on a provided NDR Formula
   // - if N > D show warning
   // - if R has less than 4 points of precision show warning
+  // TODO: consider only calling this on unfocus
+  // TODO: does "Count of Expected 30-Day Readmissions" require 4 decimals?
   const generateInputWarnings = (ndr: any, index: number) => {
     return (
       <>
@@ -172,19 +175,21 @@ export const MultiRate = ({
             alertStatus="warning"
           />
         )}
-        {field.value[ndr.rateIndex]?.value.split(".")[1].length < 4 && (
-          <QMR.Notification
-            key={index}
-            alertTitle="Rate Error"
-            // Identify the problematic fields using labels
-            alertDescription={`"${
-              field.value[ndr.rateIndex].label
-            }" value must be a number with 4 decimal places: ${
-              field.value[ndr.rateIndex].value
-            }`}
-            alertStatus="warning"
-          />
-        )}
+        {field.value[ndr.rateIndex]?.value &&
+          (!field.value[ndr.rateIndex].value.includes(".") ||
+            field.value[ndr.rateIndex].value.split(".")[1]?.length < 4) && (
+            <QMR.Notification
+              key={index}
+              alertTitle="Rate Error"
+              // Identify the problematic fields using labels
+              alertDescription={`"${
+                field.value[ndr.rateIndex].label
+              }" value must be a number with 4 decimal places: ${
+                field.value[ndr.rateIndex].value
+              }`}
+              alertStatus="warning"
+            />
+          )}
       </>
     );
   };
