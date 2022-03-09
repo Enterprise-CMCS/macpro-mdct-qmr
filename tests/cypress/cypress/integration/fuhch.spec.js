@@ -1,5 +1,4 @@
 describe("Measure: FUH-CH", () => {
-
   beforeEach(() => {
     cy.visit("/");
     cy.login();
