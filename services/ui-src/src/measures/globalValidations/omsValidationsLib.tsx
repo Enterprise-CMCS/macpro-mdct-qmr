@@ -12,6 +12,7 @@ type OmsValidationCallback = (data: {
   categories: string[];
   label: string[];
   locationDictionary: locationDictionaryFunction;
+  isOPM: boolean;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -35,11 +36,13 @@ export const omsValidations = ({
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
+  let isOPM = false;
 
   if (
     data.MeasurementSpecification === "Other" &&
     data["OtherPerformanceMeasure-Rates"]
   ) {
+    isOPM = true;
     opmQuals.push(
       ...data["OtherPerformanceMeasure-Rates"].map(
         (rate) => rate.description ?? "Fill out description"
@@ -54,7 +57,8 @@ export const omsValidations = ({
     opmQuals.length ? opmQuals : qualifiers,
     opmQuals.length ? opmCats : cats,
     locationDictionary,
-    checkIsFilled
+    checkIsFilled,
+    isOPM
   );
 };
 
@@ -78,8 +82,10 @@ export const validateOneRateLessThanOther: OmsValidationCallback = ({
   qualifiers,
   label,
   locationDictionary,
+  isOPM,
 }) => {
-  if (categories[0] === "OPM") return [];
+  console.log(isOPM);
+  if (isOPM) return [];
 
   const errors: FormError[] = [];
   const isRateLessThanOther = (rateArr: RateFields[]) => {
@@ -186,7 +192,8 @@ const validateNDRs = (
   qualifiers: string[],
   categories: string[],
   locationDictionary: locationDictionaryFunction,
-  checkIsFilled: boolean
+  checkIsFilled: boolean,
+  isOPM: boolean
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const errorArray: FormError[] = [];
@@ -249,6 +256,7 @@ const validateNDRs = (
           qualifiers,
           label,
           locationDictionary,
+          isOPM,
         })
       );
     }
