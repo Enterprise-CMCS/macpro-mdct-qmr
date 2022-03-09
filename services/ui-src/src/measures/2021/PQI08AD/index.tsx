@@ -49,6 +49,7 @@ export const PQI08AD = ({
               <CMQ.PerformanceMeasure
                 data={PMD.data}
                 rateScale={100000}
+                allowNumeratorGreaterThanDenominator
                 customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
@@ -56,6 +57,7 @@ export const PQI08AD = ({
           )}
           {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure
+              allowNumeratorGreaterThanDenominator
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
@@ -69,6 +71,7 @@ export const PQI08AD = ({
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
+              allowNumeratorGreaterThanDenominator
             />
           )}
         </>
