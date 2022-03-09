@@ -128,7 +128,7 @@ export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
         )} - ${qual}`,
-        errorMessage: "Denominators must be the same.",
+        errorMessage: "Denominators must be the same for each category.",
       });
     }
   }
