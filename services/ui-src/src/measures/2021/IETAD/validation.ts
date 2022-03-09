@@ -1,5 +1,6 @@
 import { FormData } from "./types";
 import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
+import * as DC from "dataConstants";
 import * as PMD from "./data";
 import {
   atLeastOneRateComplete,
@@ -33,6 +34,7 @@ const IEDValidation = (data: FormData) => {
     data.Deviations,
     true
   );
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
@@ -109,7 +111,8 @@ const IEDValidation = (data: FormData) => {
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
-      deviationArray
+      deviationArray,
+      didCalculationsDeviate
     ),
   ];
 

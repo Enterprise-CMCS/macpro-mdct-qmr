@@ -11,6 +11,8 @@ import {
 } from "measures/globalValidations";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
+
 import {
   omsValidations,
   validateDenominatorsAreTheSame as validateDenomsAreTheSame,
@@ -117,10 +119,13 @@ const validateAtLeastOneDeviationNDR = (data: FormData) => {
     data.Deviations
   );
 
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(
     [memeRates, larcRates],
     [""],
-    deviationArray
+    deviationArray,
+    didCalculationsDeviate
   );
 };
 

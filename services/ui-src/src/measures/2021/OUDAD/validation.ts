@@ -18,6 +18,7 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { FormData } from "./types";
 
 const OUDValidation = (data: FormData) => {
@@ -26,6 +27,7 @@ const OUDValidation = (data: FormData) => {
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
@@ -49,7 +51,8 @@ const OUDValidation = (data: FormData) => {
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       PMD.qualifiers,
-      deviationArray
+      deviationArray,
+      didCalculationsDeviate
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...omsValidations({

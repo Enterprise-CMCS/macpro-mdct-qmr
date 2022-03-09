@@ -13,6 +13,7 @@ import {
   validateReasonForNotReporting,
 } from "measures/globalValidations";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
@@ -24,6 +25,7 @@ const PQI01Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const dateRange = data["DateRange"];
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const deviationArray = getDeviationNDRArray(
@@ -65,7 +67,8 @@ const PQI01Validation = (data: FormData) => {
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       PMD.qualifiers,
-      deviationArray
+      deviationArray,
+      didCalculationsDeviate
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...omsValidations({

@@ -1,4 +1,5 @@
 import * as Types from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -28,6 +29,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const dateRange = data["DateRange"];
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   const deviationArray = getDeviationNDRArray(
     data.DeviationOptions,
@@ -66,7 +68,8 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
-      deviationArray
+      deviationArray,
+      didCalculationsDeviate
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...omsValidations({

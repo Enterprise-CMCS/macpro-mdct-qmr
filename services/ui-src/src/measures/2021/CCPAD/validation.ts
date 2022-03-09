@@ -1,5 +1,6 @@
 import { FormData } from "./types";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import {
   getPerfMeasureRateArray,
   omsLocationDictionary,
@@ -66,6 +67,7 @@ const CCPADValidation = (data: FormData) => {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   const dateRange = data["DateRange"];
   errorArray = [
@@ -73,7 +75,8 @@ const CCPADValidation = (data: FormData) => {
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
-      deviationArray
+      deviationArray,
+      didCalculationsDeviate
     ),
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateNumeratorsLessThanDenominators(

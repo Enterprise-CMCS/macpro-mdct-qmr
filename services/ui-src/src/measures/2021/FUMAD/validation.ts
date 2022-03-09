@@ -9,6 +9,7 @@ import {
   ensureBothDatesCompletedInRange,
 } from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { FormData } from "./types";
 import {
   getPerfMeasureRateArray,
@@ -232,11 +233,13 @@ const validateAtLeastOneDeviationNDR = (data: FormData) => {
     data.Deviations,
     true
   );
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   return validateAtLeastOneNDRInDeviationOfMeasureSpec(
     performanceMeasureArray,
     PMD.qualifiers,
-    deviationArray
+    deviationArray,
+    didCalculationsDeviate
   );
 };
 const validateBothDatesCompletedInRange = (data: FormData) => {

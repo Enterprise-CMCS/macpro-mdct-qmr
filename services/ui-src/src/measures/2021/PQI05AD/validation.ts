@@ -4,6 +4,7 @@ import {
   validateDenominatorGreaterThanNumerator,
 } from "measures/globalValidations/omsValidationsLib";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
@@ -25,6 +26,7 @@ const PQI05Validation = (data: FormData) => {
   const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   const deviationArray = getDeviationNDRArray(
     data.DeviationOptions,
@@ -65,7 +67,8 @@ const PQI05Validation = (data: FormData) => {
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       PMD.qualifiers,
-      deviationArray
+      deviationArray,
+      didCalculationsDeviate
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),

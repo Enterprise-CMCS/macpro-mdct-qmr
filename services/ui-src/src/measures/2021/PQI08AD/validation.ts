@@ -16,6 +16,7 @@ import {
   validateReasonForNotReporting,
 } from "measures/globalValidations";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { FormData } from "./types";
 
 const PQI08Validation = (data: FormData) => {
@@ -23,6 +24,7 @@ const PQI08Validation = (data: FormData) => {
   const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   const deviationArray = getDeviationNDRArray(
     data.DeviationOptions,
@@ -51,7 +53,8 @@ const PQI08Validation = (data: FormData) => {
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       PMD.qualifiers,
-      deviationArray
+      deviationArray,
+      didCalculationsDeviate
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...omsValidations({

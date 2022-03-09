@@ -291,43 +291,47 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
 export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: PerformanceMeasure[][],
   ageGroups: string[],
-  deviationArray: Types.DeviationFields[] | any
+  deviationArray: Types.DeviationFields[] | any,
+  didCalculationsDeviate: boolean
 ) => {
   let errorArray: any[] = [];
   let ndrCount = 0;
-  ageGroups.forEach((_ageGroup, i) => {
-    performanceMeasureArray?.forEach((_performanceObj, index) => {
-      if (
-        performanceMeasureArray[index] &&
-        performanceMeasureArray[index][i] &&
-        performanceMeasureArray[index][i].denominator &&
-        performanceMeasureArray[index][i].numerator &&
-        performanceMeasureArray[index][i].rate
-      ) {
-        ndrCount++;
-      }
-    });
-  });
-
-  if (ndrCount > 1) {
-    const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
-      if (
-        deviationNDR.denominator &&
-        deviationNDR.numerator &&
-        deviationNDR.other
-      ) {
-        return true;
-      }
-      return false;
-    });
-
-    if (!atLeastOneDevNDR) {
-      errorArray.push({
-        errorLocation: "Deviations from Measure Specifications",
-        errorMessage: "You must complete one NDR set",
+  if (didCalculationsDeviate) {
+    ageGroups.forEach((_ageGroup, i) => {
+      performanceMeasureArray?.forEach((_performanceObj, index) => {
+        if (
+          performanceMeasureArray[index] &&
+          performanceMeasureArray[index][i] &&
+          performanceMeasureArray[index][i].denominator &&
+          performanceMeasureArray[index][i].numerator &&
+          performanceMeasureArray[index][i].rate
+        ) {
+          ndrCount++;
+        }
       });
+    });
+
+    if (ndrCount > 1) {
+      const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
+        if (
+          deviationNDR.denominator &&
+          deviationNDR.numerator &&
+          deviationNDR.other
+        ) {
+          return true;
+        }
+        return false;
+      });
+
+      if (!atLeastOneDevNDR) {
+        errorArray.push({
+          errorLocation: "Deviations from Measure Specifications",
+          errorMessage: "You must complete one NDR set",
+        });
+      }
     }
   }
+
   return errorArray;
 };
 
