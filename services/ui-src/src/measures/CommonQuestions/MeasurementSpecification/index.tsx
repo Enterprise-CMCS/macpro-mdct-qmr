@@ -37,7 +37,7 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS";
+  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "AHRQ-NCQA";
 }
 
 const specifications = {
@@ -52,6 +52,10 @@ const specifications = {
     value: "OPA",
   },
   AHRQ: {
+    displayValue: "Agency for Healthcare Research and Quality (AHRQ)",
+    value: "AHRQ",
+  },
+  "AHRQ-NCQA": {
     displayValue:
       "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
     value: "AHRQ",

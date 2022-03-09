@@ -11,6 +11,7 @@ interface Props {
   calcTotal?: boolean;
   rateScale?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 interface NdrSetProps {
@@ -20,6 +21,7 @@ interface NdrSetProps {
   calcTotal: boolean;
   rateScale?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -29,6 +31,7 @@ const CategoryNdrSets = ({
   qualifiers,
   rateScale,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -54,6 +57,9 @@ const CategoryNdrSets = ({
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
+              allowNumeratorGreaterThanDenominator={
+                allowNumeratorGreaterThanDenominator
+              }
               {...register(`PerformanceMeasure.rates.${cleanedName}`)}
             />
           </CUI.Box>
@@ -69,6 +75,7 @@ const QualifierNdrSets = ({
   qualifiers = [],
   rateScale,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -82,6 +89,9 @@ const QualifierNdrSets = ({
       readOnly={rateReadOnly}
       rateMultiplicationValue={rateScale}
       customMask={customMask}
+      allowNumeratorGreaterThanDenominator={
+        allowNumeratorGreaterThanDenominator
+      }
       {...register("PerformanceMeasure.rates.singleCategory")}
     />
   );
@@ -107,6 +117,7 @@ export const PerformanceMeasure = ({
   rateReadOnly,
   rateScale,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
@@ -117,9 +128,15 @@ export const PerformanceMeasure = ({
     dataSourceWatch?.every((source) => source === "AdministrativeData") ??
     true;
 
+  data.questionText = data.questionText ?? [];
+
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      <CUI.Stack>{data.questionText}</CUI.Stack>
+      <CUI.Stack>
+        {data.questionText.map((item, idx) => {
+          return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
+        })}
+      </CUI.Stack>
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
@@ -155,6 +172,9 @@ export const PerformanceMeasure = ({
         calcTotal={calcTotal}
         rateScale={rateScale}
         customMask={customMask}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
       />
     </QMR.CoreQuestionWrapper>
   );

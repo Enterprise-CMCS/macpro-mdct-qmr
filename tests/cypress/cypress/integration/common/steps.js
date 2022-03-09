@@ -930,3 +930,12 @@ And("input text in total rate box", () => {
 And("verify user can manually override enter total rate exists", () => {
   oudADpage.typeTotalRateInputBox("88.1");
 });
+And("user clears page", () => {
+  cy.wait(1000);
+  cy.xpath("//button[contains(text(),'Clear Data')]").click({ force: true });
+});
+
+And("user click on link CPA-AD second", () => {
+  cy.wait(1000);
+  cy.xpath("//p[contains(text(),'CPA-AD')]").click({ force: true });
+});

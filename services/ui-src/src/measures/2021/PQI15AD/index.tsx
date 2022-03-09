@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
-import { MeasureWrapperProps } from "measures/CommonQuestions/types";
+import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
@@ -17,7 +17,7 @@ export const PQI15AD = ({
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
-}: MeasureWrapperProps) => {
+}: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const data = watch();
   useEffect(() => {
@@ -48,6 +48,7 @@ export const PQI15AD = ({
               <CMQ.PerformanceMeasure
                 data={PMD.data}
                 rateScale={100000}
+                allowNumeratorGreaterThanDenominator
                 customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
@@ -55,6 +56,7 @@ export const PQI15AD = ({
           )}
           {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure
+              allowNumeratorGreaterThanDenominator
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
@@ -68,6 +70,7 @@ export const PQI15AD = ({
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
+              allowNumeratorGreaterThanDenominator
             />
           )}
         </>
