@@ -311,7 +311,7 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       });
     });
 
-    if (ndrCount > 1) {
+    if (ndrCount > 0) {
       const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
         if (
           deviationNDR.denominator &&
