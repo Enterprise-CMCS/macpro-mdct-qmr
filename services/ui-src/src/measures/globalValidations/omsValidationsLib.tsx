@@ -33,13 +33,26 @@ export const omsValidations = ({
   qualifiers,
   validationCallbacks,
 }: OmsValidationProps) => {
+  const opmCats: string[] = ["OPM"];
+  const opmQuals: string[] = [];
+
+  if (
+    data.MeasurementSpecification === "Other" &&
+    data["OtherPerformanceMeasure-Rates"]
+  ) {
+    opmQuals.push(
+      ...data["OtherPerformanceMeasure-Rates"].map(
+        (rate) => rate.description ?? "Fill out description"
+      )
+    );
+  }
   const cats = categories.length === 0 ? ["singleCategory"] : categories;
 
   return validateNDRs(
     data,
     validationCallbacks,
-    qualifiers,
-    cats,
+    opmQuals.length ? opmQuals : qualifiers,
+    opmQuals.length ? opmCats : cats,
     locationDictionary,
     checkIsFilled
   );
@@ -66,6 +79,8 @@ export const validateOneRateLessThanOther: OmsValidationCallback = ({
   label,
   locationDictionary,
 }) => {
+  if (categories[0] === "OPM") return [];
+
   const errors: FormError[] = [];
   const isRateLessThanOther = (rateArr: RateFields[]) => {
     if (rateArr.length !== 2) return true;
@@ -246,6 +261,7 @@ const validateNDRs = (
   const checkNdrsFilled = (rateData: OMS.OmsRateFields) => {
     for (const qual of qualifiers.map((s) => cleanString(s))) {
       for (const cat of categories.map((s) => cleanString(s))) {
+        console.log({ rateData });
         if (rateData.rates?.[qual]?.[cat]) {
           const temp = rateData.rates[qual][cat][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
