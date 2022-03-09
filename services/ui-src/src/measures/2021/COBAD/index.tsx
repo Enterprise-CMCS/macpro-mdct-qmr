@@ -45,10 +45,7 @@ export const COBAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure
-                data={PMD.data}
-                rateReadOnly={rateReadOnly}
-              />
+              <CMQ.PerformanceMeasure data={PMD.data} />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
