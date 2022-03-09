@@ -4,6 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
+import { String } from "aws-sdk/clients/apigateway";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -102,6 +103,13 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   return <CUI.Box key="PerformanceMeasureNdrSets">{ndrSets}</CUI.Box>;
 };
 
+const stringIsReadOnly = (dataSource: String) => {
+  return dataSource === "False";
+};
+
+const arrayIsReadOnly = (dataSource: string[]) => {
+  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+};
 /** Data Driven Performance Measure Comp */
 export const PerformanceMeasure = ({
   data,
@@ -113,11 +121,18 @@ export const PerformanceMeasure = ({
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
     | string[]
+    | string
     | undefined;
-  const readOnly =
-    rateReadOnly ??
-    dataSourceWatch?.every((source) => source === "AdministrativeData") ??
-    true;
+  let readOnly = true;
+  if (rateReadOnly) {
+    readOnly = rateReadOnly;
+  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
+    readOnly = arrayIsReadOnly(dataSourceWatch);
+  } else if (dataSourceWatch) {
+    readOnly = stringIsReadOnly(dataSourceWatch);
+  } else {
+    readOnly = !!dataSourceWatch;
+  }
 
   data.questionText = data.questionText ?? [];
 

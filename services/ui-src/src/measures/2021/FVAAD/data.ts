@@ -11,16 +11,3 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   categories,
   qualifiers,
 };
-
-export const dataSourceData: DataDrivenTypes.DataSource = {
-  optionsLabel: "Which version of the CAHPS survey was used for reporting?",
-  options: [
-    {
-      value: "CAHPS 5.1H",
-    },
-    {
-      value: "Other Data Source",
-      description: true,
-    },
-  ],
-};
