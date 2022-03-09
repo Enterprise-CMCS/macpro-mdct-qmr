@@ -1,10 +1,10 @@
 import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
+import * as CMQ from "../../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
-import { Measure } from "./validation/types";
+import { Measure } from "./types";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation/customValidationFunctions";
-import { PMD } from "./questions/data";
+import { validationFunctions } from "./customValidationFunctions";
+import * as PMD from "./data";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
 
 export const PCRAD = ({

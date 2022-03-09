@@ -10,6 +10,7 @@ import {
 import * as QMR from "components";
 import objectPath from "object-path";
 import { IRate } from "components";
+import { rateCalculation } from "components/Rate";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -37,14 +38,56 @@ export const MultiRate = ({
   const { field } = useController({
     name,
     control,
-    defaultValue: [],
+    defaultValue: rates,
   });
+
+  const calculateRates = (prevRate: any, digitsAfterDecimal: number) => {
+    const ndrForumlas = [
+      {
+        numerator: prevRate[1],
+        denominator: prevRate[0],
+        rateIndex: 2,
+      },
+      {
+        numerator: prevRate[3],
+        denominator: prevRate[0],
+        rateIndex: 4,
+      },
+      {
+        numerator: prevRate[1],
+        denominator: prevRate[3],
+        rateIndex: 5,
+      },
+      {
+        numerator: prevRate[7],
+        denominator: prevRate[6],
+        rateIndex: 8,
+      },
+    ];
+
+    ndrForumlas.forEach((ndr) => {
+      if (
+        ndr.numerator?.value &&
+        ndr.denominator?.value &&
+        !isNaN(parseInt(ndr.numerator.value)) &&
+        !isNaN(parseInt(ndr.denominator.value))
+      ) {
+        prevRate[ndr.rateIndex]["value"] = rateCalculation(
+          ndr.numerator.value,
+          ndr.denominator.value,
+          rateMultiplicationValue,
+          digitsAfterDecimal
+        );
+      }
+    });
+  };
 
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate" | "value",
     newValue: string
   ) => {
+    const digitsAfterDecimal = 4;
     if (!allNumbers.test(newValue)) return;
     if (type === "rate" && readOnly) return;
 
@@ -61,13 +104,14 @@ export const MultiRate = ({
       label: rates[index].label,
       ...editRate,
     };
+    calculateRates(prevRate, digitsAfterDecimal);
     field.onChange([...prevRate]);
   };
 
   return (
     <>
       <CUI.Stack my={8} direction="row">
-        {rates.slice(0, 5).map((rate, index) => {
+        {rates.slice(0, 6).map((rate, index) => {
           return (
             <QMR.InputWrapper
               label={rate.label}
@@ -94,17 +138,17 @@ export const MultiRate = ({
             <QMR.InputWrapper
               label={rate.label}
               isInvalid={
-                !!objectPath.get(errors, `${name}.${index + 5}.value`)?.message
+                !!objectPath.get(errors, `${name}.${index + 6}.value`)?.message
               }
               errorMessage={
-                objectPath.get(errors, `${name}.${index + 5}.value`)?.message
+                objectPath.get(errors, `${name}.${index + 6}.value`)?.message
               }
               {...rest}
             >
               <CUI.Input
-                value={field.value[index + 5]?.value ?? ""}
-                data-cy={`${name}.${index + 5}.value`}
-                onChange={(e) => changeRate(index + 5, "value", e.target.value)}
+                value={field.value[index + 6]?.value ?? ""}
+                data-cy={`${name}.${index + 6}.value`}
+                onChange={(e) => changeRate(index + 6, "value", e.target.value)}
               />
             </QMR.InputWrapper>
           );

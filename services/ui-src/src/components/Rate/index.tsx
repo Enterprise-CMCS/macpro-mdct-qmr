@@ -15,6 +15,23 @@ export interface IRate {
   id: number;
 }
 
+export const rateCalculation = (
+  numerator: string,
+  denominator: string,
+  rateMultiplicationValue: number,
+  numbersAfterDecimal: number
+) => {
+  const floatNumerator = parseFloat(numerator);
+  const floatDenominator = parseFloat(denominator);
+  const floatRate = floatNumerator / floatDenominator;
+  const roundedRate: number =
+    Math.round(
+      floatRate * rateMultiplicationValue * Math.pow(10, numbersAfterDecimal)
+    ) / Math.pow(10, numbersAfterDecimal);
+  const stringRate = roundedRate.toFixed(numbersAfterDecimal);
+  return stringRate;
+};
+
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
   name: string;
@@ -43,23 +60,6 @@ export const Rate = ({
     control,
     defaultValue: [],
   });
-
-  const rateCalculation = (
-    numerator: string,
-    denominator: string,
-    rateMultiplicationValue: number,
-    numbersAfterDecimal: number
-  ) => {
-    const floatNumerator = parseFloat(numerator);
-    const floatDenominator = parseFloat(denominator);
-    const floatRate = floatNumerator / floatDenominator;
-    const roundedRate: number =
-      Math.round(
-        floatRate * rateMultiplicationValue * Math.pow(10, numbersAfterDecimal)
-      ) / Math.pow(10, numbersAfterDecimal);
-    const stringRate = roundedRate.toFixed(numbersAfterDecimal);
-    return stringRate;
-  };
 
   const changeRate = (
     index: number,

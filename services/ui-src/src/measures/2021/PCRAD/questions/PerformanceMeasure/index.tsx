@@ -1,10 +1,10 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../../../CommonQuestions/types";
+import * as Types from "../../../../CommonQuestions/types";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { MultiRate } from "components/MultiRate";
+import { MultiRate } from "components/MultiRate/MultiRate";
 
 interface Props {
   data: PerformanceMeasureData;
