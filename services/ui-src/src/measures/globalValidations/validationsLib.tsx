@@ -1,6 +1,7 @@
 import * as Types from "../CommonQuestions/types";
 import { PerformanceMeasure } from "./types";
 import { DateRange } from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
 
 export const atLeastOneRateComplete = (
   performanceMeasureArray: PerformanceMeasure[][],
@@ -350,7 +351,7 @@ export const validateRequiredRadioButtonForCombinedRates = (
 ) => {
   const errorArray: any[] = [];
 
-  if (data.CombinedRates && data.CombinedRates.includes("Yes")) {
+  if (data.CombinedRates && data.CombinedRates === DC.YES) {
     if (!data["CombinedRates-CombinedRates"]) {
       errorArray.push({
         errorLocation: "Combined Rate(s)",
