@@ -127,6 +127,12 @@ const AgeData = ({ name }: SubComponentProps) => {
       (source) => source === "I am reporting provisional data."
     ) ?? true;
 
+  // Only calculate total for ageGroups that include an item with isTotal set to true.
+  const calcTotal =
+    ageGroups.filter((ag) => {
+      return ag.isTotal === true;
+    }).length > 0;
+
   return (
     <CUI.Box key={`${name}.ageData`}>
       <CUI.Heading size="sm">
@@ -139,7 +145,7 @@ const AgeData = ({ name }: SubComponentProps) => {
         name={`${name}.subRates.PersistentAsthma`}
         key={`${name}.subRates.PersistentAsthma`}
         rates={ageGroups}
-        calcTotal={true}
+        calcTotal={calcTotal}
       />
     </CUI.Box>
   );
