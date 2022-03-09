@@ -12,7 +12,7 @@ import {
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 
-const IEDValidation = (data: FormData) => {
+const IETValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -86,4 +86,4 @@ const IEDValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [IEDValidation];
+export const validationFunctions = [IETValidation];
