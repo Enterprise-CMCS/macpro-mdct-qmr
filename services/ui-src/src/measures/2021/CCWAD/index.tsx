@@ -1,76 +1,32 @@
-import * as Q from "./questions";
-import * as CMQ from "../CommonQuestions";
-import { useFormContext, useWatch } from "react-hook-form";
-import { Measure } from "./validation/types";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation/customValidationFunctions";
-import { PMD } from "./questions/data";
+import { useFormContext } from "react-hook-form";
+import * as CMQ from "measures/CommonQuestions";
+import * as PMD from "./data";
+import * as QMR from "components";
+import { validationFunctions } from "./validation";
+import { FormData } from "./types";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 
 export const CCWAD = ({
-  setValidationFunctions,
-  measureId,
   name,
   year,
-}: Measure.Props) => {
+  measureId,
+  setValidationFunctions,
+  isNotReportingData,
+  isPrimaryMeasureSpecSelected,
+  showOptionalMeasureStrat,
+  isOtherMeasureSpecSelected,
+}: QMR.MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
 
-  const { getValues } = useFormContext<Measure.Form>();
-
-  // Watch Values of Form Questions
-  const watchReportingRadio = useWatch({
-    name: "DidReport",
-  });
-  const watchMeasureSpecification = useWatch({
-    name: "MeasurementSpecification",
-  });
-  const watchOtherPerformanceMeasureRates = useWatch({
-    name: "OtherPerformanceMeasure-Rates",
-  });
-  const watchReversibleRates = useWatch({
-    name: `PerformanceMeasure.rates.${PMD.categories[1].replace(/[^\w]/g, "")}`,
-  });
-  const watchModeratelyRates = useWatch({
-    name: `PerformanceMeasure.rates.${PMD.categories[0].replace(/[^\w]/g, "")}`,
-  });
-
-  // Conditionals for Performance Measures
-  const isOpa = watchMeasureSpecification === "OPA";
-
-  const isOtherSpecification = watchMeasureSpecification === "Other";
-  // Age Conditionals for Deviations from Measure Specifications/Optional Measure Stratification
-  const showOtherPerformanceMeasureRates = !!watchOtherPerformanceMeasureRates;
-  const showModeratelyRates = !!watchModeratelyRates?.[0]?.rate;
-  const showReversibleRates = !!watchReversibleRates?.[0]?.rate;
-
-  // Logic to conditionally show age groups in Deviations from Measure Specifications/Optional Measure Stratification
-  const ageGroups = [];
-
-  if (showModeratelyRates) {
-    ageGroups.push({
-      label: "Most effective or moderately effective method of contraception",
-      id: 0,
-    });
-  }
-
-  if (showReversibleRates) {
-    ageGroups.push({
-      label: "Long-acting reversible method of contraception (LARC)",
-      id: 0,
-    });
-  }
-
-  if (showOtherPerformanceMeasureRates) {
-    let otherRates = getValues("OtherPerformanceMeasure-Rates");
-    otherRates.forEach((rate) => {
-      if (rate.description) {
-        ageGroups.push({ label: rate.description, id: ageGroups.length });
-      }
-    });
-  }
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   return (
     <>
@@ -80,32 +36,28 @@ export const CCWAD = ({
         reportingYear={year}
       />
 
-      {!watchReportingRadio?.includes("No") && (
+      {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="OPA" />
           <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
-          {/* Show Performance Measure when HEDIS is selected from DataSource */}
-          {isOpa && <CMQ.PerformanceMeasure data={PMD.data} />}
-          {/* Show Deviation only when Other is not selected */}
-          {isOpa && (
-            <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+          {isPrimaryMeasureSpecSelected && (
+            <>
+              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+            </>
           )}
-          {/* Show Other Performance Measures when isOpa is not true  */}
-          {isOtherSpecification && <CMQ.OtherPerformanceMeasure />}
+          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
-          {(showReversibleRates ||
-            showModeratelyRates ||
-            showOtherPerformanceMeasureRates) && (
-            <Q.OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                showModeratelyRates,
-                showReversibleRates,
-                showOtherPerformanceMeasureRates,
-              }}
+          {showOptionalMeasureStrat && (
+            <CMQ.OptionalMeasureStrat
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
+              performanceMeasureArray={performanceMeasureArray}
+              adultMeasure
+              isSingleSex
             />
           )}
         </>

@@ -22,6 +22,7 @@ interface Props extends QMR.InputWrapperProps {
   allowMultiple?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 export const Rate = ({
@@ -31,6 +32,7 @@ export const Rate = ({
   readOnly = true,
   rateMultiplicationValue = 100,
   customMask,
+  allowNumeratorGreaterThanDenominator,
   ...rest
 }: Props) => {
   const {
@@ -44,11 +46,29 @@ export const Rate = ({
     defaultValue: [],
   });
 
+  const rateCalculation = (
+    numerator: string,
+    denominator: string,
+    rateMultiplicationValue: number,
+    numbersAfterDecimal: number
+  ) => {
+    const floatNumerator = parseFloat(numerator);
+    const floatDenominator = parseFloat(denominator);
+    const floatRate = floatNumerator / floatDenominator;
+    const roundedRate: number =
+      Math.round(
+        floatRate * rateMultiplicationValue * Math.pow(10, numbersAfterDecimal)
+      ) / Math.pow(10, numbersAfterDecimal);
+    const stringRate = roundedRate.toFixed(numbersAfterDecimal);
+    return stringRate;
+  };
+
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate",
     newValue: string
   ) => {
+    const digitsAfterDecimal = 1;
     if (!allNumbers.test(newValue)) return;
     if (type === "rate" && readOnly) return;
 
@@ -87,17 +107,19 @@ export const Rate = ({
     if (
       parseInt(editRate.denominator) &&
       editRate.numerator &&
-      parseFloat(editRate.numerator) <= parseFloat(editRate.denominator)
+      (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
+        allowNumeratorGreaterThanDenominator)
     ) {
-      editRate.rate = (
-        (editRate.numerator / editRate.denominator) *
-        rateMultiplicationValue
-      )
-        .toFixed(1)
-        .toString();
+      editRate.rate = rateCalculation(
+        editRate.numerator,
+        editRate.denominator,
+        rateMultiplicationValue,
+        digitsAfterDecimal
+      );
     } else if (editRate.rate) {
       editRate.rate = "";
     }
+
     prevRate[index] = {
       label: rates[index].label,
       ...editRate,
@@ -173,14 +195,15 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
             </CUI.HStack>
-            {parseFloat(field.value[index]?.numerator) >
-              parseFloat(field.value[index]?.denominator) && (
-              <QMR.Notification
-                alertTitle="Rate Error"
-                alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
-                alertStatus="warning"
-              />
-            )}
+            {!allowNumeratorGreaterThanDenominator &&
+              parseFloat(field.value[index]?.numerator) >
+                parseFloat(field.value[index]?.denominator) && (
+                <QMR.Notification
+                  alertTitle="Rate Error"
+                  alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
+                  alertStatus="warning"
+                />
+              )}
           </CUI.Stack>
         );
       })}

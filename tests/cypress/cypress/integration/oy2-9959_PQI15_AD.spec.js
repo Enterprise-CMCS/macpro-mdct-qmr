@@ -185,9 +185,11 @@ describe("Measure: PQI15-AD", () => {
       "have.text",
       "Manually entered rate should be 0 if numerator is 0"
     );
-    cy.get('[data-cy="Performance Measure Error"]').should(
+    cy.get(
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should(
       "have.text",
-      "Performance Measure Error"
+      "Performance Measure/Other Performance Measure Error"
     );
   });
 
@@ -222,14 +224,16 @@ describe("Measure: PQI15-AD", () => {
     );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0"]'
+      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0"
+      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
-    cy.get('[data-cy="Performance Measure Error"]').should(
+    cy.get(
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should(
       "have.text",
-      "Performance Measure Error"
+      "Performance Measure/Other Performance Measure Error"
     );
   });
 
@@ -344,8 +348,8 @@ describe("Measure: PQI15-AD", () => {
       "[data-cy=DeliverySysRepresentationDenominator0] > .chakra-checkbox__control"
     ).click();
     cy.get("#DeliverySysRepresentationDenominator0-checkbox").check();
-    cy.get("[data-cy=DeliverySys-FreeForService0]").click();
-    cy.get("[data-cy=DeliverySys-FreeForService1]").click();
+    cy.get("[data-cy=DeliverySys-FeeForService0]").click();
+    cy.get("[data-cy=DeliverySys-FeeForService1]").click();
     cy.get(
       '[data-cy="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"]'
     ).should("be.visible");
@@ -369,8 +373,8 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       '[data-cy="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data?"]'
     ).should("be.visible");
-    cy.get("[data-cy=DeliverySys-MCO_POHP0]").click();
-    cy.get("[data-cy=DeliverySys-MCO_POHP1]").click();
+    cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();
+    cy.get("[data-cy=DeliverySys-MCO_PIHP1]").click();
     cy.get(".css-98urqk > .chakra-text").should("be.visible");
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
@@ -429,7 +433,7 @@ describe("Measure: PQI15-AD", () => {
     ).click();
     cy.get("#DeliverySysRepresentationDenominator0-checkbox").check();
     cy.get(
-      "#DeliverySys-FreeForService_radiogroup > .chakra-stack > :nth-child(1) > .chakra-radio"
+      "#DeliverySys-FeeForService_radiogroup > .chakra-stack > :nth-child(1) > .chakra-radio"
     ).click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
@@ -440,7 +444,7 @@ describe("Measure: PQI15-AD", () => {
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
     cy.get("#DeliverySysRepresentationDenominator2-checkbox").check();
-    cy.get("[data-cy=DeliverySys-MCO_POHP0]").click();
+    cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
