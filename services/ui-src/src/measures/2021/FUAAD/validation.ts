@@ -9,6 +9,7 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateOneRateHigherThanOther,
 } from "../../globalValidations/validationsLib";
 import {
   ensureBothDatesCompletedInRange,
@@ -64,6 +65,7 @@ const FUAADValidation = (data: FormData) => {
     ),
     ...sameDenominatorError,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateOneRateHigherThanOther(data, PMD.data),
   ];
 
   return errorArray;

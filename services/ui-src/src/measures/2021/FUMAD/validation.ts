@@ -7,6 +7,7 @@ import {
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   ensureBothDatesCompletedInRange,
+  validateOneRateHigherThanOther,
 } from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
@@ -61,6 +62,7 @@ const FUMADValidation = (data: FormData) => {
     ),
     ...sameDenominatorError,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateOneRateHigherThanOther(data, PMD.data),
   ];
 
   return errorArray;
@@ -142,43 +144,6 @@ const validateDualPopulationInformation = (data: FormData) => {
     }
   }
   return error;
-};
-
-const validate7DaysGreaterThan30Days = (data: FormData) => {
-  const sevenDays =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const thirtyDays =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj, index) => {
-      if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate ?? "") >
-          parseFloat(thirtyDays[index]?.rate ?? "")
-      ) {
-        const ageGroup = index === 0 ? "18 to 64" : "65 and older";
-        const isSingular = index === 1;
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `7 Days Rate should not be higher than 30 Days Rate for Age${
-            isSingular ? "" : "s"
-          } ${ageGroup}`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
 };
 
 const validateAtLeastOneNDRSet = (data: FormData) => {
@@ -269,7 +234,6 @@ const validateOMS = (data: FormData) => {
 
 export const validationFunctions = [
   FUMADValidation,
-  validate7DaysGreaterThan30Days,
   validateAtLeastOneNDRSet,
   validateDualPopulationInformation,
   validateAtLeastOneDeviationNDR,

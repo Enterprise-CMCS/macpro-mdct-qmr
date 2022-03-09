@@ -23,6 +23,7 @@ interface Props extends QMR.InputWrapperProps {
   allowMultiple?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 export const Rate = ({
@@ -32,6 +33,7 @@ export const Rate = ({
   readOnly = true,
   rateMultiplicationValue = 100,
   customMask,
+  allowNumeratorGreaterThanDenominator,
   ...rest
 }: Props) => {
   const {
@@ -107,7 +109,8 @@ export const Rate = ({
     if (
       parseInt(editRate.denominator) &&
       editRate.numerator &&
-      parseFloat(editRate.numerator) <= parseFloat(editRate.denominator)
+      (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
+        allowNumeratorGreaterThanDenominator)
     ) {
       editRate.rate = rateCalculation(
         editRate.numerator,
@@ -118,6 +121,7 @@ export const Rate = ({
     } else if (editRate.rate) {
       editRate.rate = "";
     }
+
     prevRate[index] = {
       label: rates[index].label,
       ...editRate,
@@ -200,14 +204,15 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
             </CUI.HStack>
-            {parseFloat(field.value[index]?.numerator) >
-              parseFloat(field.value[index]?.denominator) && (
-              <QMR.Notification
-                alertTitle="Rate Error"
-                alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
-                alertStatus="warning"
-              />
-            )}
+            {!allowNumeratorGreaterThanDenominator &&
+              parseFloat(field.value[index]?.numerator) >
+                parseFloat(field.value[index]?.denominator) && (
+                <QMR.Notification
+                  alertTitle="Rate Error"
+                  alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
+                  alertStatus="warning"
+                />
+              )}
           </CUI.Stack>
         );
       })}

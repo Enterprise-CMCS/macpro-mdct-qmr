@@ -9,15 +9,15 @@ import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-  validateDualPopInformation,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateDualPopInformation,
   validateRequiredRadioButtonForCombinedRates,
   getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
   validateReasonForNotReporting,
+  validateNumeratorsLessThanDenominators,
 } from "measures/globalValidations";
 
 const PQI05Validation = (data: FormData) => {
@@ -33,11 +33,13 @@ const PQI05Validation = (data: FormData) => {
     data.Deviations
   );
 
+  const age65PlusIndex = 0;
   const validateDualPopInformationArray = [
     performanceMeasureArray?.[0].filter((pm) => {
       return pm?.label === "Age 65 and older";
     }),
   ];
+  const definitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
@@ -70,6 +72,13 @@ const PQI05Validation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
+    ...validateDualPopInformation(
+      validateDualPopInformationArray,
+      OPM,
+      age65PlusIndex,
+      definitionOfDenominator
+    ),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...omsValidations({

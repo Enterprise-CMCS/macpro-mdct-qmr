@@ -6,14 +6,14 @@ import {
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateReasonForNotReporting,
+  validateDualPopInformation,
   validateRequiredRadioButtonForCombinedRates,
   getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
-  validateReasonForNotReporting,
 } from "measures/globalValidations";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
@@ -21,7 +21,9 @@ import { FormData } from "./types";
 
 const PQI08Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const age65PlusIndex = 0;
   const dateRange = data["DateRange"];
+  const definitionOfDenominator = data["DefinitionOfDenominator"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
@@ -31,6 +33,11 @@ const PQI08Validation = (data: FormData) => {
     data.Deviations
   );
 
+  const validateDualPopInformationArray = [
+    performanceMeasureArray?.[0].filter((pm) => {
+      return pm?.label === "Age 65 and older";
+    }),
+  ];
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
@@ -40,10 +47,11 @@ const PQI08Validation = (data: FormData) => {
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
+    ...validateDualPopInformation(
+      validateDualPopInformationArray,
       OPM,
-      PMD.qualifiers
+      age65PlusIndex,
+      definitionOfDenominator
     ),
     ...validateNoNonZeroNumOrDenom(
       performanceMeasureArray,

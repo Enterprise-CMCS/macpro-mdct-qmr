@@ -2,7 +2,6 @@ import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateDualPopInformation,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
@@ -21,7 +20,6 @@ import {
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const PQI01Validation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const dateRange = data["DateRange"];
@@ -32,6 +30,9 @@ const PQI01Validation = (data: FormData) => {
     data.DeviationOptions,
     data.Deviations
   );
+  const age65PlusIndex = 0;
+  const definitionOfDenominator = data["DefinitionOfDenominator"];
+
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
@@ -48,11 +49,6 @@ const PQI01Validation = (data: FormData) => {
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      PMD.qualifiers
-    ),
     ...validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
@@ -61,8 +57,8 @@ const PQI01Validation = (data: FormData) => {
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
-      1,
-      ageGroups
+      age65PlusIndex,
+      definitionOfDenominator
     ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

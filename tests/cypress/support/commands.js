@@ -137,3 +137,33 @@ Cypress.Commands.add("checkA11yOfPage", () => {
     true // does not fail tests for ally violations
   );
 });
+
+Cypress.Commands.add("showErrorIfNotReportingAndNotWhy", () => {
+  cy.get('[data-cy="DidReport1"]').click();
+  cy.get('[data-cy="Validate Measure"]').click();
+  cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should(
+    "have.text",
+    "Why Are You Not Reporting On This Measure Error"
+  );
+});
+
+Cypress.Commands.add("showErrorIfReportingAndNoNdrSet", () => {
+  cy.get('[data-cy="DidReport0"]').click();
+  cy.get('[data-cy="Validate Measure"]').click();
+  cy.get(
+    '[data-cy="Performance Measure/Other Performance Measure Error"]'
+  ).should("be.visible");
+});
+
+Cypress.Commands.add("showErrorIfCombinedRatesAndNoAdditionalSelection", () => {
+  cy.get('[data-cy="DidReport0"]').click();
+  cy.get('[data-cy="MeasurementSpecification0"]').click();
+  cy.get('[data-cy="CombinedRates0"]').click();
+  cy.get('[data-cy="Validate Measure"]').click();
+  cy.get(
+    '[data-cy="You must select at least one option for Combined Rate(s) Details if Yes is selected."]'
+  ).should(
+    "have.text",
+    "You must select at least one option for Combined Rate(s) Details if Yes is selected."
+  );
+});

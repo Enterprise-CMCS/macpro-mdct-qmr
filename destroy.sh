@@ -83,16 +83,24 @@ do
   # Suspend bucket versioning.
   aws s3api put-bucket-versioning --bucket $i --versioning-configuration Status=Suspended
 
-  # Remove all bucket versions.
+    # Remove all bucket versions.
   versions=`aws s3api list-object-versions \
+    --max-items 1000 \
     --bucket "$i" \
     --output=json \
     --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}'`
-  if ! echo $versions | grep -q '"Objects": null'; then
+
+  while ! echo $versions | grep -q '"Objects": null' ;
+  do
     aws s3api delete-objects \
       --bucket $i \
       --delete "$versions" > /dev/null 2>&1
-  fi
+    versions=`aws s3api list-object-versions \
+    --max-items 1000 \
+    --bucket "$i" \
+    --output=json \
+    --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}'`
+  done
 
   # Remove all bucket delete markers.
   markers=`aws s3api list-object-versions \

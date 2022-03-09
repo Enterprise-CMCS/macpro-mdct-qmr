@@ -12,7 +12,9 @@ import {
   atLeastOneRateComplete,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-} from "measures/globalValidations";
+  validateOneRateHigherThanOther,
+  validateEqualDenominators,
+} from "../../globalValidations";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
@@ -21,29 +23,34 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validateDenominatorsAreEqual = (data: FormData) => {
+const validate3daysLessOrEqualTo30days = (data: FormData) => {
   const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
-  const larcCont = perfMeasure[1];
-  const memeCont = perfMeasure[0];
+  const sevenDays = perfMeasure[1];
+  const thirtyDays = perfMeasure[0];
+
   const errorArray: any[] = [];
 
-  if (larcCont?.length && memeCont?.length) {
-    for (const larcRate of larcCont) {
-      for (const memeRate of memeCont) {
-        if (larcRate?.denominator && memeRate?.denominator) {
-          const larcParsedInt = parseFloat(larcRate.denominator);
-          const memeParsedInt = parseFloat(memeRate.denominator);
-          if (larcParsedInt !== memeParsedInt) {
-            errorArray.push({
-              errorLocation: "Performance Measure",
-              errorMessage:
-                "All denominators of Long-acting Reversible Method of Contraception (LARC) Rates and Most Effective and Moderately Effective Method of Contraception must be the same.",
-            });
-            break;
-          }
-        }
-      }
-      if (errorArray.length) break;
+  if (sevenDays?.length === 2) {
+    if (
+      parseFloat(sevenDays[0].rate ?? "") > parseFloat(sevenDays[1].rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Long-acting Reversible Method of Contraception (LARC)",
+      });
+    }
+  }
+  if (thirtyDays?.length === 2) {
+    if (
+      parseFloat(thirtyDays[0].rate ?? "") >
+      parseFloat(thirtyDays[1].rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage:
+          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Most Effective or Moderately Effective Method of Contraception",
+      });
     }
   }
 
@@ -86,7 +93,8 @@ const CCPADValidation = (data: FormData) => {
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateDenominatorsAreEqual(data),
+    ...validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
+    ...validateOneRateHigherThanOther(data, PMD.data),
   ];
 
   return errorArray;
@@ -116,4 +124,5 @@ export const validationFunctions = [
   CCPADValidation,
   validateRequiredRadioButtonForCombinedRates,
   validateOMS,
+  validate3daysLessOrEqualTo30days,
 ];
