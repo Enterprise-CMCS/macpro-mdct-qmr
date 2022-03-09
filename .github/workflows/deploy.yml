@@ -95,7 +95,7 @@ jobs:
             nciddsAD.spec.feature,
             oy2_7763_FAQ_Page_State_View.spec.js,
             oy2_8977_MSC_AD.spec.js,
-            oy2_9907_OUD_AD.spec.feature,
+            OUDAD.spec.js,
             oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
             oy2_14767_Allow_files_to_be_uploaded_to_s3.spec.feature,
             oy2_15013_Update_user_auth_handling_in_ui.spec.feature,
