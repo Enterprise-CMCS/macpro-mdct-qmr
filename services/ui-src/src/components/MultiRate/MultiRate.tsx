@@ -2,10 +2,8 @@ import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
 import {
   allNumbers,
-  eightNumbersOneDecimal,
-  // rateThatAllowsFourDecimals,
-  // rateThatAllowsOneDecimal,
-  // allPositiveIntegersWith8Digits,
+  sixteenNumbersFourDecimal,
+  allPositiveIntegersWith10Digits,
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
@@ -66,6 +64,8 @@ export const MultiRate = ({
     },
   ];
 
+  const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
+
   const calculateRates = (prevRate: any, digitsAfterDecimal: number) => {
     ndrForumlas.forEach((ndr) => {
       if (
@@ -84,33 +84,36 @@ export const MultiRate = ({
     });
   };
 
-  const changeRate = (
-    index: number,
-    type: "numerator" | "denominator" | "rate" | "value",
-    newValue: string
-  ) => {
-    const digitsAfterDecimal = 4;
+  const changeRate = (index: number, newValue: string) => {
+    const isRate = rateLocations.includes(index);
+    if (isRate && readOnly) return;
     if (!allNumbers.test(newValue)) return;
-    if (type === "rate" && readOnly) return;
 
+    const digitsAfterDecimal = 4;
     const prevRate = [...field.value];
     const editRate = { ...prevRate[index] };
-    // TODO: Change input validator to match measure spec
-    const validEditRate = eightNumbersOneDecimal.test(newValue); // 16 digits? 4 decimals?
 
-    if (type !== "rate") {
-      editRate[type] = validEditRate ? newValue : editRate[type];
+    let validValue;
+
+    if (isRate && (validValue = sixteenNumbersFourDecimal.test(newValue))) {
+      editRate["value"] = validValue ? newValue : editRate["value"];
+    } else if (
+      !isRate &&
+      (validValue = allPositiveIntegersWith10Digits.test(newValue))
+    ) {
+      editRate["value"] = validValue ? newValue : editRate["value"];
     }
 
     prevRate[index] = {
       label: rates[index].label,
       ...editRate,
     };
-    calculateRates(prevRate, digitsAfterDecimal);
+
+    if (!isRate) {
+      calculateRates(prevRate, digitsAfterDecimal);
+    }
     field.onChange([...prevRate]);
   };
-
-  const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
 
   const generateInputs = (rate: IRate, index: number) => {
     const colorString = index % 2 === 0 ? "#FFF" : "#f5f5f5";
@@ -130,14 +133,14 @@ export const MultiRate = ({
           }}
           {...rest}
         >
-          {rateLocations.includes(index) ? (
+          {rateLocations.includes(index) && readOnly ? (
             <CUI.Text>{field.value[index].value}</CUI.Text>
           ) : (
             <CUI.Input
               value={field.value[index]?.value ?? ""}
               data-cy={`${name}.${index}.value`}
               bgColor={"#FFF"}
-              onChange={(e) => changeRate(index, "value", e.target.value)}
+              onChange={(e) => changeRate(index, e.target.value)}
             />
           )}
         </QMR.InputWrapper>
