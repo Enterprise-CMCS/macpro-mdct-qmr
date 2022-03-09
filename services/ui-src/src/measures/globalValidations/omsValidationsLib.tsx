@@ -90,7 +90,7 @@ export const validateOneRateLessThanOther: OmsValidationCallback = ({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
         )} - ${qual}`,
-        errorMessage: `${categories[0]} rate must be less than or equal to ${categories[1]} rate.`,
+        errorMessage: `${categories[1]} Rate should not be higher than ${categories[0]} Rates.`,
       });
     }
   }
