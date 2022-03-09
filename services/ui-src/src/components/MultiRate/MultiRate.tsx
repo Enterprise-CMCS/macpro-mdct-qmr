@@ -41,40 +41,42 @@ export const MultiRate = ({
     defaultValue: rates,
   });
 
-  const calculateRates = (prevRate: any, digitsAfterDecimal: number) => {
-    const ndrForumlas = [
-      {
-        numerator: prevRate[1],
-        denominator: prevRate[0],
-        rateIndex: 2,
-      },
-      {
-        numerator: prevRate[3],
-        denominator: prevRate[0],
-        rateIndex: 4,
-      },
-      {
-        numerator: prevRate[1],
-        denominator: prevRate[3],
-        rateIndex: 5,
-      },
-      {
-        numerator: prevRate[7],
-        denominator: prevRate[6],
-        rateIndex: 8,
-      },
-    ];
+  // This is the basic structure of the NDR sets.
+  // There are 4 rates, each is calculated by a combination of the other fields.
+  const ndrForumlas = [
+    {
+      numerator: 1,
+      denominator: 0,
+      rateIndex: 2,
+    },
+    {
+      numerator: 3,
+      denominator: 0,
+      rateIndex: 4,
+    },
+    {
+      numerator: 1,
+      denominator: 3,
+      rateIndex: 5,
+    },
+    {
+      numerator: 7,
+      denominator: 6,
+      rateIndex: 8,
+    },
+  ];
 
+  const calculateRates = (prevRate: any, digitsAfterDecimal: number) => {
     ndrForumlas.forEach((ndr) => {
       if (
-        ndr.numerator?.value &&
-        ndr.denominator?.value &&
-        !isNaN(parseInt(ndr.numerator.value)) &&
-        !isNaN(parseInt(ndr.denominator.value))
+        prevRate[ndr.numerator]?.value &&
+        prevRate[ndr.denominator]?.value &&
+        !isNaN(parseInt(prevRate[ndr.numerator].value)) &&
+        !isNaN(parseInt(prevRate[ndr.denominator].value))
       ) {
         prevRate[ndr.rateIndex]["value"] = rateCalculation(
-          ndr.numerator.value,
-          ndr.denominator.value,
+          prevRate[ndr.numerator].value,
+          prevRate[ndr.denominator].value,
           rateMultiplicationValue,
           digitsAfterDecimal
         );
@@ -108,69 +110,56 @@ export const MultiRate = ({
     field.onChange([...prevRate]);
   };
 
+  const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
+
+  const generateInputs = (rate: IRate, index: number) => {
+    const colorString = index % 2 === 0 ? "#FFF" : "#f5f5f5";
+    return (
+      <>
+        <QMR.InputWrapper
+          label={rate.label}
+          isInvalid={
+            !!objectPath.get(errors, `${name}.${index}.value`)?.message
+          }
+          errorMessage={
+            objectPath.get(errors, `${name}.${index}.value`)?.message
+          }
+          formControlProps={{
+            backgroundColor: colorString,
+            padding: "14px",
+          }}
+          {...rest}
+        >
+          {rateLocations.includes(index) ? (
+            <CUI.Text>{field.value[index].value}</CUI.Text>
+          ) : (
+            <CUI.Input
+              value={field.value[index]?.value ?? ""}
+              data-cy={`${name}.${index}.value`}
+              bgColor={"#FFF"}
+              onChange={(e) => changeRate(index, "value", e.target.value)}
+            />
+          )}
+        </QMR.InputWrapper>
+      </>
+    );
+  };
+
   return (
+    // TODO: Are we throwing an error for num > denom? This is not in ticket.
     <>
       <CUI.Stack my={8} direction="row">
         {rates.slice(0, 6).map((rate, index) => {
-          return (
-            <QMR.InputWrapper
-              label={rate.label}
-              isInvalid={
-                !!objectPath.get(errors, `${name}.${index}.value`)?.message
-              }
-              errorMessage={
-                objectPath.get(errors, `${name}.${index}.value`)?.message
-              }
-              {...rest}
-            >
-              <CUI.Input
-                value={field.value[index]?.value ?? ""}
-                data-cy={`${name}.${index}.value`}
-                onChange={(e) => changeRate(index, "value", e.target.value)}
-              />
-            </QMR.InputWrapper>
-          );
+          return generateInputs(rate, index);
         })}
       </CUI.Stack>
+      <CUI.Divider />
       <CUI.Stack my={8} direction="row">
         {rates.slice(6).map((rate, index) => {
-          return (
-            <QMR.InputWrapper
-              label={rate.label}
-              isInvalid={
-                !!objectPath.get(errors, `${name}.${index + 6}.value`)?.message
-              }
-              errorMessage={
-                objectPath.get(errors, `${name}.${index + 6}.value`)?.message
-              }
-              {...rest}
-            >
-              <CUI.Input
-                value={field.value[index + 6]?.value ?? ""}
-                data-cy={`${name}.${index + 6}.value`}
-                onChange={(e) => changeRate(index + 6, "value", e.target.value)}
-              />
-            </QMR.InputWrapper>
-          );
+          index += 6;
+          return generateInputs(rate, index);
         })}
       </CUI.Stack>
     </>
-    // <CUI.Stack my={8} direction="row">
-    //   {rates.map((rate, index) => {
-    //     return (
-    //       <>
-
-    //         {parseFloat(field.value[index]?.numerator) >
-    //           parseFloat(field.value[index]?.denominator) && (
-    //           <QMR.Notification
-    //             alertTitle="Rate Error"
-    //             alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
-    //             alertStatus="warning"
-    //           />
-    //         )}
-    //       </>
-    //     );
-    //   })}
-    // </CUI.Stack>
   );
 };
