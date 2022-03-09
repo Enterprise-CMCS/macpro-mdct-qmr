@@ -152,23 +152,40 @@ export const MultiRate = ({
     );
   };
 
-  // Using a provided NDR Formula, compare N&D, if N > D show warning
+  // Programatically generate input warnings based on a provided NDR Formula
+  // - if N > D show warning
+  // - if R has less than 4 points of precision show warning
   const generateInputWarnings = (ndr: any, index: number) => {
     return (
-      parseInt(field.value[ndr.numerator]?.value) >
-        parseInt(field.value[ndr.denominator]?.value) && (
-        <QMR.Notification
-          key={index}
-          alertTitle="Rate Error"
-          // Identify the problematic fields using labels
-          alertDescription={`"${field.value[ndr.numerator]?.label}": ${
-            field.value[ndr.numerator]?.value
-          } cannot be greater than "${field.value[ndr.denominator]?.label}": ${
-            field.value[ndr.denominator]?.value
-          }`}
-          alertStatus="warning"
-        />
-      )
+      <>
+        {parseInt(field.value[ndr.numerator]?.value) >
+          parseInt(field.value[ndr.denominator]?.value) && (
+          <QMR.Notification
+            key={index}
+            alertTitle="Rate Error"
+            // Identify the problematic fields using labels
+            alertDescription={`"${field.value[ndr.numerator]?.label}": ${
+              field.value[ndr.numerator]?.value
+            } cannot be greater than "${
+              field.value[ndr.denominator]?.label
+            }": ${field.value[ndr.denominator]?.value}`}
+            alertStatus="warning"
+          />
+        )}
+        {field.value[ndr.rateIndex]?.value.split(".")[1].length < 4 && (
+          <QMR.Notification
+            key={index}
+            alertTitle="Rate Error"
+            // Identify the problematic fields using labels
+            alertDescription={`"${
+              field.value[ndr.rateIndex].label
+            }" value must be a number with 4 decimal places: ${
+              field.value[ndr.rateIndex].value
+            }`}
+            alertStatus="warning"
+          />
+        )}
+      </>
     );
   };
 
