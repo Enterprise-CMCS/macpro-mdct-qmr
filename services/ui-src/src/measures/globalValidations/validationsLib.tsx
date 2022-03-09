@@ -183,8 +183,10 @@ export const validateEqualDenominators = (
       if (denominatorsNotEqual) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for each category of performance measures${
-            noAgeGroups ? "" : `for ${ageGroup}`
+          errorMessage: `${
+            noAgeGroups
+              ? `Denominators for all reported rates for this measure should be the same`
+              : `Denominators must be the same for each category of performance measures for ${ageGroup}`
           }`,
         };
         errorArray.push(error);

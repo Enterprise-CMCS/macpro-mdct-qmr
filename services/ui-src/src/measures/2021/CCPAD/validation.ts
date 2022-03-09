@@ -24,12 +24,8 @@ const CCPADValidation = (data: FormData) => {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+  const flattenArrayToCheckEqualDenominators = [performanceMeasureArray.flat()];
 
-  let sameDenominatorError = [
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   const dateRange = data["DateRange"];
   errorArray = [
     ...errorArray,
@@ -39,7 +35,11 @@ const CCPADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...sameDenominatorError,
+    ...validateEqualDenominators(
+      flattenArrayToCheckEqualDenominators,
+      ageGroups,
+      true
+    ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...ensureBothDatesCompletedInRange(dateRange),
   ];
