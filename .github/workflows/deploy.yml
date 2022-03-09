@@ -110,6 +110,7 @@ jobs:
             oy2_16228_Date_Range_Adjustment.spec.js,
             oy2_16265_Validation_text_appear_in_CHAD.spec.js,
             oy2_15890_Adding_link_to_Combined_Rates_component.spec.js,
+            oy2_9963_CPC_CH.spec.js,
           ]
     steps:
       - name: set branch_name
