@@ -1,7 +1,7 @@
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-describe("OY2 7763 FAQ Page State View ", () => {
+describe("OY2 9963 CPC CH", () => {
   beforeEach(() => {
     // Seed database with test data
     cy.visit("/");
@@ -34,24 +34,14 @@ describe("OY2 7763 FAQ Page State View ", () => {
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="DidCollect0"]').click();
-    //cy.get('#radio-397').check();
     cy.get('[data-cy="HowDidYouReport1"]').click();
-    //cy.get('#radio-402').check();
     cy.get('[data-cy="HowDidYouReport-Explanation"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    //.get('#radio-405').check();
-    cy.get("#MeasurementSpecification-NCQAHEDIS").should(
-      "have.text",
-      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS) (survey administrative protocol)"
-    );
-    cy.get(".css-zhlq69 > .chakra-text").should("be.visible");
     cy.get('[data-cy="MeasurementSpecification1"]').click();
-    //cy.get('#radio-406').check();
     cy.get(
       '[data-cy="MeasurementSpecification-OtherMeasurementSpecificationDescription"]'
     ).click();
     cy.get('[data-cy="DataSource-CAHPS-Version1"]').click();
-    //cy.get('#radio-410').check();
     cy.get('[data-cy="DataSource-CAHPS-Version-Other"]').click();
     cy.get(
       '[data-cy="DataSource-Included-ItemSets0"] > .chakra-checkbox__control'
@@ -76,7 +66,6 @@ describe("OY2 7763 FAQ Page State View ", () => {
       "#DataSource-Admin-Protocol-AHRQ\\ CAHPS\\ administrative\\ protocol"
     ).should("have.text", "AHRQ CAHPS administrative protocol");
     cy.get('[data-cy="DataSource-Admin-Protocol2"]').click();
-    //cy.get('#radio-416').check();
     cy.get('[data-cy="DataSource-Admin-Protocol-Other"]').click();
     cy.get("#DefinitionOfSurveySample-SurveySampleIncludesMedicaidOnly").should(
       "have.text",
@@ -95,7 +84,6 @@ describe("OY2 7763 FAQ Page State View ", () => {
       "Two sets of survey results submitted; survey samples include CHIP and Medicaid (Title XIX) populations, separately"
     );
     cy.get('[data-cy="DefinitionOfSurveySample3"]').click();
-    //cy.get('#radio-422').check();
     cy.get('[data-cy="DefinitionOfSurveySample-Changes"]').click();
     cy.get(":nth-child(8) > .css-0").should(
       "have.text",
