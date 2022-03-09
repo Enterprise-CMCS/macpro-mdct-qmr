@@ -7,6 +7,7 @@ import {
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
+  validateOneRateHigherThanOther,
 } from "../../globalValidations/validationsLib";
 
 import {
@@ -42,6 +43,7 @@ const CCPADValidation = (data: FormData) => {
     ...sameDenominatorError,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateOneRateHigherThanOther(data, PMD.data),
   ];
 
   return errorArray;
