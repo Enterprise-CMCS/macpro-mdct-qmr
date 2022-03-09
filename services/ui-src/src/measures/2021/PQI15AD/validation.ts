@@ -1,14 +1,15 @@
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
   atLeastOneRateComplete,
-  validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
 } from "../../globalValidations/validationsLib";
 import { FormData } from "./types";
+
 import * as PMD from "./data";
 const PQI15Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
+
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
 
@@ -22,11 +23,6 @@ const PQI15Validation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 

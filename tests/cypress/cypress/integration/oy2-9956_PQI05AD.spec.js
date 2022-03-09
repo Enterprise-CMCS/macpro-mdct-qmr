@@ -251,10 +251,10 @@ describe("Measure: PQI05-AD", () => {
     ).type("40");
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get(
-      '[data-cy="DeviationOptions-AgeRanges0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="DataSourceSelections.AdministrativeData.selected0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="DeviationOptions-AgeRanges1"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'

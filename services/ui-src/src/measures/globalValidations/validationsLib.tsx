@@ -1,6 +1,8 @@
 import * as Types from "../CommonQuestions/types";
 import { PerformanceMeasure } from "./types";
 import { DateRange } from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
+import { getPerfMeasureRateArray } from "./dataDrivenTools";
 
 export const atLeastOneRateComplete = (
   performanceMeasureArray: PerformanceMeasure[][],
@@ -291,7 +293,7 @@ export const validateRequiredRadioButtonForCombinedRates = (
 ) => {
   const errorArray: any[] = [];
 
-  if (data.CombinedRates && data.CombinedRates.includes("Yes")) {
+  if (data.CombinedRates && data.CombinedRates === DC.YES) {
     if (!data["CombinedRates-CombinedRates"]) {
       errorArray.push({
         errorLocation: "Combined Rate(s)",
@@ -299,6 +301,37 @@ export const validateRequiredRadioButtonForCombinedRates = (
           "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
       });
     }
+  }
+
+  return errorArray;
+};
+
+export const validateOneRateHigherThanOther = (
+  data: Types.DefaultFormData,
+  performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure
+) => {
+  const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
+  const lowerRate = perfMeasure[1];
+  const higherRate = perfMeasure[0];
+  let error;
+  const errorArray: any[] = [];
+
+  if (lowerRate && higherRate) {
+    lowerRate.forEach((_lowerRateObj, index) => {
+      if (
+        lowerRate[index] &&
+        higherRate[index] &&
+        parseFloat(lowerRate[index]?.rate ?? "") >
+          parseFloat(higherRate[index]?.rate ?? "")
+      ) {
+        error = {
+          errorLocation: "Performance Measure",
+          errorMessage: `${performanceMeasureData.categories?.[1]} Rate should not be higher than ${performanceMeasureData.categories?.[0]} Rate for ${performanceMeasureData.qualifiers?.[index]} Rates`,
+        };
+
+        errorArray.push(error);
+      }
+    });
   }
 
   return errorArray;
