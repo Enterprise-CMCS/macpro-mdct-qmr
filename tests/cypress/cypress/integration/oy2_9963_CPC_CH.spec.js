@@ -11,6 +11,7 @@ describe("OY2 7763 FAQ Page State View ", () => {
   });
   it("Fill out CPC-CH and verify the page", () => {
     /* ==== Generated with Cypress Studio ==== */
+    cy.wait(2000);
     cy.get('[data-cy="CCS"]').click();
     cy.get('[data-cy="CPC-CH"]').click();
     /* ==== End Cypress Studio ==== */
