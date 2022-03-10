@@ -43,7 +43,7 @@ jobs:
           GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         run: echo "env.GPG_KEY" >> ./private_key.gpg
       - name: reveal secrets 2
-        run: gpg --import private_key.gpg
+        run: gpg --list-secret-keys
       - name: reveal secrets 3
         run: git secret reveal
       - name: read .nvmrc
