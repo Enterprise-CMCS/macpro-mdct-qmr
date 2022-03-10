@@ -38,6 +38,13 @@ jobs:
         run: ./.github/github-lock.sh $branch_name
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: reveal secrets
+        env: 
+          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run:  | 
+          echo "env.GPG_KEY" >> ./private_key.gpg
+          gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
+          git secret reveal
       - name: read .nvmrc
         id: node_version
         run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
@@ -113,13 +120,6 @@ jobs:
             oy2_15890_Adding_link_to_Combined_Rates_component.spec.js,
           ]
     steps:
-      - name: reveal secrets
-        env: 
-          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-        run:  | 
-          echo "env.GPG_KEY" >> ./private_key.gpg
-          gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
-          git secret reveal
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
       - uses: actions/checkout@v1
