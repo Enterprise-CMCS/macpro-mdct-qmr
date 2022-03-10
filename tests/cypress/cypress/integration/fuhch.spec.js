@@ -56,6 +56,21 @@ describe("Measure: FUH-CH", () => {
     cy.get('[data-cy="Other Performance Measure"]').should("be.visible");
   });
 
+  it("should show correct child radio buttons in Definition of Population Included in the Measure", () => {
+    cy.get("#DefinitionOfDenominator-DenominatorIncCHIPPop").should(
+      "have.text",
+      "Denominator includes CHIP (Title XXI) population only"
+    );
+    cy.get("#DefinitionOfDenominator-DenominatorIncMedicaidPop").should(
+      "have.text",
+      "Denominator includes Medicaid (Title XIX) population only"
+    );
+    cy.get("#DefinitionOfDenominator-DenominatorIncMedicaidAndCHIPPop").should(
+      "have.text",
+      "Denominator includes CHIP and Medicaid (Title XIX)"
+    );
+  });
+
   it("if only admin data cannot override, if anything else, rate is editable", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
