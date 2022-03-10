@@ -12,7 +12,36 @@ import {
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 
+const validateContinuationGreaterThanAccute = (data: any) => {
+  const accute =
+    data["PerformanceMeasure"]["rates"]["EffectiveAcutePhaseTreatment"];
+  const continuation =
+    data["PerformanceMeasure"]["rates"]["EffectiveContinuationPhaseTreatment"];
+  let error;
+  const errorArray: any[] = [];
+
+  if (accute && continuation) {
+    accute.forEach((_accuteObj: any, index: number) => {
+      if (
+        accute[index] &&
+        continuation[index] &&
+        parseFloat(accute[index]?.rate) > parseFloat(continuation[index]?.rate)
+      ) {
+        error = {
+          errorLocation: "Performance Measure",
+          errorMessage:
+            "Effective Accute Rate should not be higher than Effective Continuation Rate",
+        };
+
+        errorArray.push(error);
+      }
+    });
+  }
+  return error ? [errorArray[0]] : [];
+};
+
 const AMMADValidation = (data: FormData) => {
+  console.log(data);
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -65,6 +94,7 @@ const AMMADValidation = (data: FormData) => {
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateContinuationGreaterThanAccute(data),
   ];
 
   return errorArray;
