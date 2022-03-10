@@ -81,6 +81,14 @@ export const ACSQualifiers = () => {
     }
   };
 
+  const handleSave = (data: ACSQualifierForm) => {
+    saveDataToServer({
+      status: MeasureStatus.INCOMPLETE,
+      data,
+      callback: () => {},
+    });
+  };
+
   const saveDataToServer = ({
     status,
     data,
@@ -146,7 +154,10 @@ export const ACSQualifiers = () => {
       ]}
       buttons={
         data?.Item?.data && (
-          <QMR.LastSavedText lastAltered={data?.Item.lastAltered} />
+          <QMR.MeasureButtons
+            handleSave={methods.handleSubmit(handleSave)}
+            lastAltered={data?.Item.lastAltered}
+          />
         )
       }
     >
@@ -173,13 +184,6 @@ export const ACSQualifiers = () => {
               <Common.CompleteCoreSets
                 handleValidation={methods.handleSubmit(handleValidation)}
                 type="AD"
-              />
-              <QMR.MeasureButtons
-                handleSave={saveDataToServer({
-                  status: MeasureStatus.INCOMPLETE,
-                  data,
-                  callback: () => {},
-                })}
               />
             </CUI.OrderedList>
           </CUI.Box>

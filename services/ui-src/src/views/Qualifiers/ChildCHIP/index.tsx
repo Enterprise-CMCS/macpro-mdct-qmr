@@ -68,6 +68,7 @@ export const CCSCQualifiers = () => {
       setShowModal(true);
     } else {
       saveDataToServer({
+        status: MeasureStatus.COMPLETE,
         data,
         callback: () => {
           navigate(-1);
@@ -76,18 +77,28 @@ export const CCSCQualifiers = () => {
     }
   };
 
+  const handleSave = (data: CCSCQualifierForm) => {
+    saveDataToServer({
+      status: MeasureStatus.INCOMPLETE,
+      data,
+      callback: () => {},
+    });
+  };
+
   const saveDataToServer = ({
+    status,
     data,
     callback,
   }: {
+    status: MeasureStatus;
     data: CCSCQualifierForm;
     callback?: () => void;
   }) => {
     const requestData = {
       data,
       measure: "CSQ",
-      status: MeasureStatus.COMPLETE,
-      coreSet: CoreSetAbbr.CCSC,
+      status,
+      coreSet: CoreSetAbbr.CCS,
     };
 
     mutation.mutate(requestData, {
@@ -114,6 +125,7 @@ export const CCSCQualifiers = () => {
     if (continueWithErrors) {
       const data = methods.getValues();
       saveDataToServer({
+        status: MeasureStatus.COMPLETE,
         data,
         callback: () => {
           navigate(-1);
@@ -138,7 +150,10 @@ export const CCSCQualifiers = () => {
       ]}
       buttons={
         data?.Item?.data && (
-          <QMR.LastSavedText lastAltered={data?.Item.lastAltered} />
+          <QMR.MeasureButtons
+            handleSave={methods.handleSubmit(handleSave)}
+            lastAltered={data?.Item.lastAltered}
+          />
         )
       }
     >
