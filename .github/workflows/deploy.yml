@@ -42,7 +42,7 @@ jobs:
       - name: reveal secrets 1
         run: echo "env.GPG_KEY" >> ./private_key.gpg
       - name: reveal secrets 2
-        run: gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
+        run: gpg --import private_key.gpg
       - name: reveal secrets 3
         run: git secret reveal
       - name: read .nvmrc
