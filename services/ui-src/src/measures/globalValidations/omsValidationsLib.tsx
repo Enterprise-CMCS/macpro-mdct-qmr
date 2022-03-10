@@ -129,9 +129,10 @@ export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
     }
     if (!areDenomsTheSame(rateArr)) {
       errors.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary(
-          label
-        )} - ${qual}`,
+        errorLocation: `Optional Measure Stratification: ${locationDictionary([
+          ...label,
+          qual,
+        ])}`,
         errorMessage: "Denominators must be the same for each category.",
       });
     }
@@ -154,7 +155,7 @@ export const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
           if (parseFloat(temp.denominator) < parseFloat(temp.numerator)) {
             error.push({
               errorLocation: `Optional Measure Stratification: ${locationDictionary(
-                label
+                [...label, qual]
               )}`,
               errorMessage:
                 "Numerator cannot be greater than the Denominator for NDR sets.",
@@ -269,8 +270,7 @@ const validateNDRs = (
           if (temp && temp.denominator && temp.numerator && temp.rate) {
             isDeepFilled[`${location}-${qual}`] = true;
           } else {
-            isDeepFilled[`${location}-${qual}`] =
-              isDeepFilled[`${location}-${qual}`] || false;
+            isDeepFilled[`${location}-${qual}`] = false;
           }
         }
       }
