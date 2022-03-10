@@ -26,7 +26,7 @@ export const DeliverySystems = () => {
     <CUI.ListItem mr="4">
       <Common.QualifierHeader
         header="Delivery System"
-        description="As of September 30, 2021 what percentage of your CHIP
+        description="As of September 30, 2020 what percentage of your CHIP
           enrollees (under age 21) were enrolled in each delivery system?"
       />
       <CUI.Table variant="simple" mt="4" size="md" verticalAlign="top">

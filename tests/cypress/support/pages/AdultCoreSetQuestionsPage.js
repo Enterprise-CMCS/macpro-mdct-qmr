@@ -8,7 +8,7 @@ const adultCoreSetQuestionContent =
 const deliverySystem = "//p[contains(text(),'Delivery System')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const deliverySystemContent =
-  "//h3[contains(text(),'As of September 30, 2021 what percentage of your M')]";
+  "//h3[contains(text(),'As of September 30, 2020 what percentage of your M')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const ages21To64 = "//p[contains(text(),'Ages 21 to 64')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
