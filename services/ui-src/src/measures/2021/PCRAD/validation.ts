@@ -44,8 +44,6 @@ const PCRADValidation = (data: Measure.Form) => {
 
   // Quick reference list of all rate indices
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
-
-  // console.log(performanceMeasureArray);
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...ensureBothDatesCompletedInRange(dateRange),

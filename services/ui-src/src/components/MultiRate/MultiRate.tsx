@@ -123,37 +123,31 @@ export const MultiRate = ({
   const generateInputs = (rate: IRate, index: number) => {
     const colorString = index % 2 === 0 ? "#FFF" : "#f5f5f5";
     return (
-      <>
-        <QMR.InputWrapper
-          key={`input-wrapper-${index}`}
-          label={rate.label}
-          isInvalid={
-            !!objectPath.get(errors, `${name}.${index}.value`)?.message
-          }
-          errorMessage={
-            objectPath.get(errors, `${name}.${index}.value`)?.message
-          }
-          formControlProps={{
-            backgroundColor: colorString,
-            padding: "14px",
-          }}
-          {...rest}
-        >
-          {rateLocations.includes(index) && readOnly ? (
-            <CUI.Text key={`rate-text-${index}`}>
-              {field.value[index].value}
-            </CUI.Text>
-          ) : (
-            <CUI.Input
-              key={`input-field-${index}`}
-              value={field.value[index]?.value ?? ""}
-              data-cy={`${name}.${index}.value`}
-              bgColor={"#FFF"}
-              onChange={(e) => changeRate(index, e.target.value)}
-            />
-          )}
-        </QMR.InputWrapper>
-      </>
+      <QMR.InputWrapper
+        key={`input-wrapper-${index}`}
+        label={rate.label}
+        isInvalid={!!objectPath.get(errors, `${name}.${index}.value`)?.message}
+        errorMessage={objectPath.get(errors, `${name}.${index}.value`)?.message}
+        formControlProps={{
+          backgroundColor: colorString,
+          padding: "14px",
+        }}
+        {...rest}
+      >
+        {rateLocations.includes(index) && readOnly ? (
+          <CUI.Text key={`rate-text-${index}`}>
+            {field.value[index].value}
+          </CUI.Text>
+        ) : (
+          <CUI.Input
+            key={`input-field-${index}`}
+            value={field.value[index]?.value ?? ""}
+            data-cy={`${name}.${index}.value`}
+            bgColor={"#FFF"}
+            onChange={(e) => changeRate(index, e.target.value)}
+          />
+        )}
+      </QMR.InputWrapper>
     );
   };
 
@@ -164,7 +158,7 @@ export const MultiRate = ({
   // TODO: does "Count of Expected 30-Day Readmissions" require 4 decimals?
   const generateInputWarnings = (ndr: any, index: number) => {
     return (
-      <>
+      <CUI.Stack key={`warning-stack-${index}`} direction="column">
         {parseInt(field.value[ndr.numerator]?.value) >
           parseInt(field.value[ndr.denominator]?.value) && (
           <QMR.Notification
@@ -194,7 +188,7 @@ export const MultiRate = ({
               alertStatus="warning"
             />
           )}
-      </>
+      </CUI.Stack>
     );
   };
 
