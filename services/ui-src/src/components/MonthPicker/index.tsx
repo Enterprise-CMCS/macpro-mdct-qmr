@@ -36,8 +36,8 @@ export const MonthPicker = ({
   return (
     <CUI.HStack>
       <CUI.Stack>
-        <CUI.FormControl label="Month:" isInvalid={isInvalid}>
-          <CUI.FormLabel my={0}>{"Month:"}</CUI.FormLabel>
+        <CUI.FormControl label="Month (mm):" isInvalid={isInvalid}>
+          <CUI.FormLabel my={0}>{"Month (mm):"}</CUI.FormLabel>
           <CUI.HStack>
             <CUI.Input
               data-cy={`${name}-month`}
@@ -60,8 +60,8 @@ export const MonthPicker = ({
         </CUI.FormControl>
       </CUI.Stack>
       <CUI.Stack>
-        <CUI.FormControl label="Year:" isInvalid={isInvalid}>
-          <CUI.FormLabel my={0}>{"Year:"}</CUI.FormLabel>
+        <CUI.FormControl label="Year (yyyy):" isInvalid={isInvalid}>
+          <CUI.FormLabel my={0}>{"Year (yyyy):"}</CUI.FormLabel>
           <CUI.HStack>
             <CUI.Input
               width="6rem"
