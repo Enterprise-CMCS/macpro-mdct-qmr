@@ -42,10 +42,10 @@ export const FUHCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
+          <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
+              <CMQ.PerformanceMeasure data={PMD.data} />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
