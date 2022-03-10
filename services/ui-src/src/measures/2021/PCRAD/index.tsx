@@ -3,7 +3,7 @@ import * as CMQ from "../../CommonQuestions";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./types";
 import { useEffect } from "react";
-import { validationFunctions } from "./customValidationFunctions";
+import { validationFunctions } from "./validation";
 import * as PMD from "./data";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
 
