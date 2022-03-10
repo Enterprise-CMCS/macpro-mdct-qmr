@@ -12,7 +12,7 @@ describe("OY2 9963 CPC CH", () => {
   it("Fill out CPC-CH and verify the page", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.wait(2000);
-    cy.get('[data-cy="CCS"]').click();
+    cy.xpath('//p[@data-cy="CCS"]').click();
     cy.get('[data-cy="CPC-CH"]').click();
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
