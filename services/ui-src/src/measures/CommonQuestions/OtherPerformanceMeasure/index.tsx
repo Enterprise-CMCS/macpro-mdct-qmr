@@ -9,12 +9,14 @@ interface Props {
   rateAlwaysEditable?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 export const OtherPerformanceMeasure = ({
   rateAlwaysEditable,
   rateMultiplicationValue,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: Props) => {
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
   const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
@@ -76,6 +78,9 @@ export const OtherPerformanceMeasure = ({
                 rateMultiplicationValue={rateMultiplicationValue}
                 customMask={customMask}
                 readOnly={rateReadOnly}
+                allowNumeratorGreaterThanDenominator={
+                  allowNumeratorGreaterThanDenominator
+                }
               />
             </CUI.Stack>
           );
