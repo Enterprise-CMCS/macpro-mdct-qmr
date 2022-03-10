@@ -15,3 +15,6 @@ tests/cypress/videos
 tests/cypress/screenshots
 tests/cypress/package-lock.json
 package-lock.json
+.gitsecret/keys/random_seed
+!*.secret
+secretConfig.js
