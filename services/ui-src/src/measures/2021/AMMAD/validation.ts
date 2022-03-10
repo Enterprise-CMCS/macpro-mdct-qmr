@@ -13,6 +13,14 @@ import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 
 const validateContinuationGreaterThanAccute = (data: any) => {
+  if (
+    !(
+      data?.performanceMeasure?.rates["EffectiveAcutePhaseTreatment"] &&
+      data?.performanceMeasure?.rates["EffectiveContinuationPhaseTreatment"]
+    )
+  ) {
+    return [];
+  }
   const accute =
     data["PerformanceMeasure"]["rates"]["EffectiveAcutePhaseTreatment"];
   const continuation =
