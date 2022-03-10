@@ -1,3 +1,5 @@
+import {secretConfig} from "../../../../secretConfig";
+
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
@@ -5,8 +7,8 @@ describe("OY2 7763 FAQ Page State View ", () => {
   beforeEach(() => {
     // Seed database with test data
     cy.visit("/");
-    cy.xpath(emailForCognito).type("stateuser1@test.com");
-    cy.xpath(passwordForCognito).type("p@55W0rd!");
+    cy.xpath(emailForCognito).type(secretConfig.testUser1);
+    cy.xpath(passwordForCognito).type(secretConfig.testPassword);
     cy.get('[data-cy="login-with-cognito-button"]').click();
   });
   it("Verify FAQ Page Exists", () => {

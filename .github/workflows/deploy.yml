@@ -113,6 +113,11 @@ jobs:
             oy2_15890_Adding_link_to_Combined_Rates_component.spec.js,
           ]
     steps:
+      - name: reveal secrets
+        run:  | 
+        echo ${{ secrets.GPG_PRIVATE_KEY }} > ./private_key.gpg
+        gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
+        git secret reveal
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
       - uses: actions/checkout@v1
