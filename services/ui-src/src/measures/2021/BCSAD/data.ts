@@ -33,6 +33,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
     },
     {
       value: "Electronic Health Records",
+      description: true,
     },
     {
       value: "Other Data Source",
