@@ -72,6 +72,7 @@ export const ACSQualifiers = () => {
       setShowModal(true);
     } else {
       saveDataToServer({
+        status: MeasureStatus.COMPLETE,
         data,
         callback: () => {
           navigate(-1);
@@ -81,16 +82,18 @@ export const ACSQualifiers = () => {
   };
 
   const saveDataToServer = ({
+    status,
     data,
     callback,
   }: {
+    status: MeasureStatus;
     data: ACSQualifierForm;
     callback?: () => void;
   }) => {
     const requestData = {
       data,
       measure: "CSQ",
-      status: MeasureStatus.COMPLETE,
+      status,
       coreSet: CoreSetAbbr.ACS,
     };
 
@@ -118,6 +121,7 @@ export const ACSQualifiers = () => {
     if (continueWithErrors) {
       const data = methods.getValues();
       saveDataToServer({
+        status: MeasureStatus.COMPLETE,
         data,
         callback: () => {
           navigate(-1);
@@ -169,6 +173,13 @@ export const ACSQualifiers = () => {
               <Common.CompleteCoreSets
                 handleValidation={methods.handleSubmit(handleValidation)}
                 type="AD"
+              />
+              <QMR.MeasureButtons
+                handleSave={saveDataToServer({
+                  status: MeasureStatus.INCOMPLETE,
+                  data,
+                  callback: () => {},
+                })}
               />
             </CUI.OrderedList>
           </CUI.Box>
