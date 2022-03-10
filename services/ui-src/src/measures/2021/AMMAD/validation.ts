@@ -25,12 +25,12 @@ const validateContinuationGreaterThanAccute = (data: any) => {
       if (
         accute[index] &&
         continuation[index] &&
-        parseFloat(accute[index]?.rate) > parseFloat(continuation[index]?.rate)
+        parseFloat(continuation[index]?.rate) > parseFloat(accute[index]?.rate)
       ) {
         error = {
           errorLocation: "Performance Measure",
           errorMessage:
-            "Effective Accute Rate should not be higher than Effective Continuation Rate",
+            "Rate value for Effective Continuation Phase Treatment must be less than or equal to the Rate value for Effective Acute Phase Treatment",
         };
 
         errorArray.push(error);
@@ -41,7 +41,6 @@ const validateContinuationGreaterThanAccute = (data: any) => {
 };
 
 const AMMADValidation = (data: FormData) => {
-  console.log(data);
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
