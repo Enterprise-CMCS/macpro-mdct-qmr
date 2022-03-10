@@ -39,7 +39,7 @@ const auditOrValidationMeasures =
   "//p[contains(text(),'Audit or Validation of Measures')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const auditOrValidationMeasuresValue =
-  "//h3[contains(text(),'Were any of the Core Set meaures audited or valida')]";
+  "//h3[contains(text(),'Were any of the Core Set measures audited or valida')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const yesSomeOfTheCoreSetMeasuresHaveBeenAuditedOrValidated =
   "//p[contains(text(),'Yes, some of the Core Set measures have been audit')]";

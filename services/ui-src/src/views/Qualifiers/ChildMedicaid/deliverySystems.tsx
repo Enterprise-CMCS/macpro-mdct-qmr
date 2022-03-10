@@ -37,6 +37,7 @@ export const DeliverySystems = () => {
           <CUI.Tr>
             <CUI.Th></CUI.Th>
             <CUI.Th textAlign="center" fontSize="md">
+              <CUI.Text>Medicaid</CUI.Text>
               <CUI.Text fontSize="sm">Under Age 21</CUI.Text>
             </CUI.Th>
           </CUI.Tr>

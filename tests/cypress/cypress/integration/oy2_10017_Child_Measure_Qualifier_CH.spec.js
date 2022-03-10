@@ -239,7 +239,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15-20"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15 to 20"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"]'
@@ -272,7 +272,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-W30-CH - Well-Child Visits in the First 30 Months of Life"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and Physical Activity for Children/Adolescents"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCV-CH - Child and Adolescent Well-Care Visits"]'
@@ -384,7 +384,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     );
     cy.get(":nth-child(2) > .css-1vvfi3 > .css-0").should(
       "have.text",
-      "Were any of the Core Set meaures audited or validated?"
+      "Were any of the Core Set measures audited or validated?"
     );
     cy.get(
       "#CoreSetMeasuresAuditedOrValidated-Yes\\,\\ some\\ of\\ the\\ Core\\ Set\\ measures\\ have\\ been\\ audited\\ or\\ validated"
@@ -433,7 +433,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15-20"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15 to 20"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"]'
@@ -466,7 +466,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-W30-CH - Well-Child Visits in the First 30 Months of Life"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and Physical Activity for Children/Adolescents"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCV-CH - Child and Adolescent Well-Care Visits"]'
@@ -578,7 +578,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     );
     cy.get(":nth-child(2) > .css-1vvfi3 > .css-0").should(
       "have.text",
-      "Were any of the Core Set meaures audited or validated?"
+      "Were any of the Core Set measures audited or validated?"
     );
     cy.get(
       "#CoreSetMeasuresAuditedOrValidated-Yes\\,\\ some\\ of\\ the\\ Core\\ Set\\ measures\\ have\\ been\\ audited\\ or\\ validated"
@@ -624,7 +624,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15-20"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15 to 20"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"]'
@@ -657,7 +657,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-W30-CH - Well-Child Visits in the First 30 Months of Life"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCC-CH - Weight Assessment and Counseling for Nutrition and Physical Activity for Children/Adolescents"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-WCV-CH - Child and Adolescent Well-Care Visits"]'

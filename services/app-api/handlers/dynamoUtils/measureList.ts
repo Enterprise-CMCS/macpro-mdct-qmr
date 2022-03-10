@@ -59,12 +59,12 @@ export const measures: Measure = {
     {
       type: "A",
       description:
-        "Screening for Depression and Follow-Up Plan: Age 18 and older",
+        "Screening for Depression and Follow-Up Plan: Age 18 and Older",
       measure: "CDF-AD",
     },
     {
       type: "A",
-      description: "Chlamydia Screening in Women Ages 21-24",
+      description: "Chlamydia Screening in Women Ages 21 to 24",
       measure: "CHL-AD",
     },
     {
@@ -87,7 +87,7 @@ export const measures: Measure = {
     {
       type: "A",
       description:
-        "Follow-up after Hospitalization for Mental Illness: Age 18 and older",
+        "Follow-up after Hospitalization for Mental Illness: Age 18 and Older",
       measure: "FUH-AD",
     },
     {
@@ -137,7 +137,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "User of Opioids at High Dosage in Persons Without Cancer",
+      description: "Use of Opioids at High Dosage in Persons Without Cancer",
       measure: "OHD-AD",
     },
     {
@@ -233,7 +233,7 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      description: "Contraceptive Care - All Women Ages 15-20",
+      description: "Contraceptive Care - All Women Ages 15 to 20",
       measure: "CCW-CH",
     },
     {
@@ -310,7 +310,7 @@ export const measures: Measure = {
     {
       type: "C",
       description:
-        "Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents",
+        "Weight Assessment and Counseling for Nutrition and Physical Activity for Children/Adolescents",
       measure: "WCC-CH",
     },
     {
