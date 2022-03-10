@@ -15,6 +15,8 @@ import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
+  validateRateNotZero,
+  validateRateZero,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import * as PMD from "./data";
@@ -63,6 +65,8 @@ const OUDValidation = (data: FormData) => {
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
         validateDenominatorsAreTheSame,
+        validateRateZero,
+        validateRateNotZero,
       ],
     }),
     ...validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),

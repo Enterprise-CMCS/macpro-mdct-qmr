@@ -19,6 +19,8 @@ import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
+  validateRateNotZero,
+  validateRateZero,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -104,6 +106,8 @@ const IEDValidation = (data: FormData) => {
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
         validateDenominatorsAreTheSame,
+        validateRateZero,
+        validateRateNotZero,
       ],
     }),
     ...validateRequiredRadioButtonForCombinedRates(data),

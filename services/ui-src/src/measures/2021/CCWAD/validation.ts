@@ -18,6 +18,8 @@ import {
   validateDenominatorsAreTheSame as validateDenomsAreTheSame,
   validateDenominatorGreaterThanNumerator,
   validateOneRateLessThanOther,
+  validateRateZero,
+  validateRateNotZero,
 } from "measures/globalValidations/omsValidationsLib";
 import { omsLocationDictionary } from "measures/globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
@@ -147,6 +149,8 @@ const validateOMS = (data: FormData) => {
         validateDenominatorGreaterThanNumerator,
         validateDenomsAreTheSame,
         validateOneRateLessThanOther,
+        validateRateZero,
+        validateRateNotZero,
       ],
     })
   );

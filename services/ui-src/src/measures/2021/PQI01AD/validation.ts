@@ -16,6 +16,8 @@ import * as DC from "dataConstants";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
+  validateRateNotZero,
+  validateRateZero,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -72,7 +74,11 @@ const PQI01Validation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: omsLocationDictionary(OMSData(true)),
-      validationCallbacks: [validateDenominatorGreaterThanNumerator],
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateRateZero,
+        validateRateNotZero,
+      ],
     }),
   ];
 

@@ -345,3 +345,70 @@ export const validateCrossQualifierRateCorrect: OmsValidationCallback = ({
   }
   return errors;
 };
+
+export const validateRateZero: OmsValidationCallback = ({
+  categories,
+  qualifiers,
+  rateData,
+  label,
+  locationDictionary,
+}) => {
+  const error: FormError[] = [];
+  for (const qual of qualifiers.map((s) => cleanString(s))) {
+    for (const cat of categories.map((s) => cleanString(s))) {
+      if (rateData.rates?.[qual]?.[cat]) {
+        const temp = rateData.rates[qual][cat][0];
+        if (temp && temp.denominator && temp.numerator && temp.rate) {
+          if (
+            parseFloat(temp.numerator) === 0 &&
+            parseFloat(temp.denominator) > 0 &&
+            parseFloat(temp.rate) !== 0
+          ) {
+            error.push({
+              errorLocation: `Optional Measure Stratification: ${locationDictionary(
+                label
+              )}`,
+              errorMessage:
+                "Manually entered rate should be 0 if numerator is 0",
+            });
+          }
+        }
+      }
+    }
+  }
+
+  return error;
+};
+export const validateRateNotZero: OmsValidationCallback = ({
+  categories,
+  qualifiers,
+  rateData,
+  label,
+  locationDictionary,
+}) => {
+  const error: FormError[] = [];
+  for (const qual of qualifiers.map((s) => cleanString(s))) {
+    for (const cat of categories.map((s) => cleanString(s))) {
+      if (rateData.rates?.[qual]?.[cat]) {
+        const temp = rateData.rates[qual][cat][0];
+        if (temp && temp.denominator && temp.numerator && temp.rate) {
+          if (
+            parseFloat(temp.numerator) > 0 &&
+            parseFloat(temp.denominator) > 0 &&
+            parseFloat(temp.rate) === 0
+          ) {
+            error.push({
+              errorLocation: `Optional Measure Stratification: ${locationDictionary(
+                label
+              )}`,
+              errorMessage:
+                "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
+            });
+          }
+        }
+      }
+    }
+  }
+
+  return error;
+};

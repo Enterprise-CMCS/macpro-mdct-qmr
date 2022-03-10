@@ -21,6 +21,8 @@ import {
   validateDenominatorsAreTheSame,
   validateOneRateLessThanOther,
   validateCrossQualifierRateCorrect,
+  validateRateZero,
+  validateRateNotZero,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -113,6 +115,8 @@ const validateOMS = (data: FormData) => {
         validateDenominatorsAreTheSame,
         validateOneRateLessThanOther,
         validateCrossQualifierRateCorrect,
+        validateRateZero,
+        validateRateNotZero,
       ],
     })
   );

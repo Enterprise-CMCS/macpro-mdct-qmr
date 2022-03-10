@@ -17,6 +17,8 @@ import {
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
+  validateRateNotZero,
+  validateRateZero,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import * as PMD from "./data";
@@ -77,7 +79,11 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: omsLocationDictionary(OMSData(true)),
-      validationCallbacks: [validateDenominatorGreaterThanNumerator],
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateRateZero,
+        validateRateNotZero,
+      ],
     }),
   ];
 
