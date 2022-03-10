@@ -236,8 +236,9 @@ const validateNDRs = (
     }
     if (checkIsFilled)
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
+
     const locationReduced = label.reduce(
-      (prev, curr, i) => `${prev}${i ? "." : ""}${curr}`,
+      (prev, curr, i) => `${prev}${i ? "-" : ""}${curr}`,
       ""
     );
     checkIsDeepFilled(locationReduced, rateData);
@@ -257,9 +258,23 @@ const validateNDRs = (
     return false;
   };
 
+  // checks that if a qualifier was selected that it was filled
   const checkIsDeepFilled = (location: string, rateData: OMS.OmsRateFields) => {
-    console.log({ location, rateData });
-    if (!rateData) return;
+    if (!rateData || !rateData.options?.length) return;
+
+    for (const qual of qualifiers.map((s) => cleanString(s))) {
+      for (const cat of categories.map((s) => cleanString(s))) {
+        if (rateData.rates?.[qual]?.[cat]) {
+          const temp = rateData.rates[qual][cat][0];
+          if (temp && temp.denominator && temp.numerator && temp.rate) {
+            isDeepFilled[`${location}-${qual}`] = true;
+          } else {
+            isDeepFilled[`${location}-${qual}`] =
+              isDeepFilled[`${location}-${qual}`] || false;
+          }
+        }
+      }
+    }
   };
 
   // Loop through top level nodes for validation
@@ -271,6 +286,7 @@ const validateNDRs = (
     );
   }
   if (checkIsFilled) {
+    // check at least one ndr filled for a category
     for (const topLevelKey in isFilled) {
       if (!isFilled[topLevelKey]) {
         errorArray.push({
@@ -281,13 +297,15 @@ const validateNDRs = (
         });
       }
     }
+
+    // check selected qualifiers were filled
     for (const topLevelKey in isDeepFilled) {
-      if (!isFilled[topLevelKey]) {
+      if (!isDeepFilled[topLevelKey]) {
         errorArray.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            topLevelKey.split(".")
+            topLevelKey.split("-")
           )}`,
-          errorMessage: "Selected Node must be filled.",
+          errorMessage: "Selected section NDR sets must be filled.",
         });
       }
     }
