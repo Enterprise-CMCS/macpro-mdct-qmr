@@ -29,7 +29,6 @@ describe("Measure: FUH-CH", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="Performance Measure"]').should("be.visible");
-    cy.get('[data-cy="Ages 6 to 17"]').should("be.visible");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.7DayFollowUp.0.numerator"]'
     ).type("6");
@@ -90,19 +89,6 @@ describe("Measure: FUH-CH", () => {
       "not.have.attr",
       "aria-readonly",
       "true"
-    );
-  });
-
-  it("should have adult eligibility group in OMS", () => {
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.7DayFollowUp.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.7DayFollowUp.0.denominator"]'
-    ).type("6");
-    cy.get('[data-cy="OptionalMeasureStratification.options6"]').should(
-      "be.visible"
     );
   });
 
