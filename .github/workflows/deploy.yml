@@ -39,11 +39,12 @@ jobs:
         run: ./.github/github-lock.sh $branch_name
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: reveal secrets 
-        run:  | 
-          echo "env.GPG_KEY" >> ./private_key.gpg
-          gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
-          git secret reveal
+      - name: reveal secrets 1
+        run: echo "env.GPG_KEY" >> ./private_key.gpg
+      - name: reveal secrets 2
+        run: gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
+      - name: reveal secrets 3
+        run: git secret reveal
       - name: read .nvmrc
         id: node_version
         run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
