@@ -22,7 +22,7 @@ export const DefinitionOfPopulation = ({
   const showDeliverySystemOtherPopulation =
     useWatch({
       name: DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC,
-    }) !== "NoRepresentsTotalEligiblePop"; // where is this coming from?
+    }) !== "no"; // where is this coming from?
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
