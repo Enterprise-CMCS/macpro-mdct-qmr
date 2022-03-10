@@ -1,70 +1,14 @@
 import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
+  validateNumeratorsLessThanDenominators,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
+  validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
-
-const validateReversibleNumeratorLessThanDenominator = (data: FormData) => {
-  const reversibleRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ];
-  let error;
-  const errorArray: any[] = [];
-
-  if (reversibleRates) {
-    reversibleRates.forEach((reversibleRate, _index) => {
-      if (
-        reversibleRate &&
-        reversibleRate?.numerator &&
-        reversibleRate?.denominator &&
-        parseFloat(reversibleRate?.numerator) >
-          parseFloat(reversibleRate?.denominator)
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `Reversible Method of Contraception Rate: Numerator must be less than or equal to Denominator for Age`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
-const validateModeratelyNumeratorLessThanDenominator = (data: FormData) => {
-  const moderatelyRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ];
-  let error;
-  const errorArray: any[] = [];
-
-  if (moderatelyRates) {
-    moderatelyRates.forEach((moderatelyRate, _index) => {
-      if (
-        moderatelyRate &&
-        moderatelyRate.numerator &&
-        moderatelyRate.denominator &&
-        parseFloat(moderatelyRate?.numerator) >
-          parseFloat(moderatelyRate?.denominator)
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `Moderately Effective Method of Contraception Rate: Numerator must be less than or equal to Denominator for Age`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return error ? errorArray : error;
-};
 
 const validateLarcRateGreater = (data: FormData) => {
   let error;
@@ -122,38 +66,30 @@ const validateDenominatorsAreTheSame = (data: FormData) => {
   return error;
 };
 
-const validateNonZeroDenom = (data: FormData) => {
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
+const CCWADValidation = (data: FormData) => {
+  const ageGroups = PMD.qualifiers;
+  const whyNotReporting = data["WhyAreYouNotReporting"];
+  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  return validateNoNonZeroNumOrDenom(
-    [memeRates, larcRates],
-    data["OtherPerformanceMeasure-Rates"],
-    [""]
-  );
-};
+  let errorArray: any[] = [];
+  if (data["DidReport"] === "no") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
 
-const validateAtLeastOneNPR = (data: FormData) => {
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
+  errorArray = [
+    ...errorArray,
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+  ];
 
-  return atLeastOneRateComplete(
-    [memeRates, larcRates],
-    data["OtherPerformanceMeasure-Rates"],
-    [""]
-  );
+  return errorArray;
 };
 
 const validateBothDatesCompletedInRange = (data: FormData) => {
@@ -162,12 +98,9 @@ const validateBothDatesCompletedInRange = (data: FormData) => {
 };
 
 export const validationFunctions = [
+  CCWADValidation,
   validateBothDatesCompletedInRange,
-  validateReversibleNumeratorLessThanDenominator,
-  validateModeratelyNumeratorLessThanDenominator,
   validateLarcRateGreater,
   validateDenominatorsAreTheSame,
-  validateNonZeroDenom,
-  validateAtLeastOneNPR,
   validateRequiredRadioButtonForCombinedRates,
 ];

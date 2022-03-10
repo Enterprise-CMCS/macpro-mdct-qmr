@@ -168,9 +168,11 @@ describe("Measure: PQI01-AD", () => {
       "have.text",
       "Manually entered rate should be 0 if numerator is 0"
     );
-    cy.get('[data-cy="Performance Measure Error"]').should(
+    cy.get(
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should(
       "have.text",
-      "Performance Measure Error"
+      "Performance Measure/Other Performance Measure Error"
     );
   });
 
@@ -205,14 +207,16 @@ describe("Measure: PQI01-AD", () => {
     );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0"]'
+      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0"
+      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
-    cy.get('[data-cy="Performance Measure Error"]').should(
+    cy.get(
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should(
       "have.text",
-      "Performance Measure Error"
+      "Performance Measure/Other Performance Measure Error"
     );
   });
 
