@@ -195,6 +195,8 @@ const validateNDRs = (
   isOPM: boolean
 ) => {
   const isFilled: { [key: string]: boolean } = {};
+  const isDeepFilled: { [key: string]: boolean } = {};
+
   const errorArray: FormError[] = [];
 
   // validates top levels, ex: Race, Geography, Sex
@@ -262,6 +264,12 @@ const validateNDRs = (
 
     if (checkIsFilled)
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
+    const locationReduced = label.reduce(
+      (prev, curr, i) => `${prev}${i ? "." : ""}${curr}`,
+      ""
+    );
+    isDeepFilled[locationReduced] =
+      isDeepFilled[locationReduced] || checkNdrsFilled(rateData);
   };
 
   //checks at least one ndr filled
@@ -296,6 +304,17 @@ const validateNDRs = (
             [topLevelKey]
           )}`,
           errorMessage: "Must fill out at least one NDR set.",
+        });
+      }
+    }
+
+    for (const topLevelKey in isDeepFilled) {
+      if (!isFilled[topLevelKey]) {
+        errorArray.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            topLevelKey.split(".")
+          )}`,
+          errorMessage: "Selected Node must be filled.",
         });
       }
     }
