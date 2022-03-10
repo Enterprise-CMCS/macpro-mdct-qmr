@@ -240,8 +240,7 @@ const validateNDRs = (
       (prev, curr, i) => `${prev}${i ? "." : ""}${curr}`,
       ""
     );
-    isDeepFilled[locationReduced] =
-      isDeepFilled[locationReduced] || checkNdrsFilled(rateData);
+    checkIsDeepFilled(locationReduced, rateData);
   };
   //checks at least one ndr filled
   const checkNdrsFilled = (rateData: OMS.OmsRateFields) => {
@@ -257,6 +256,12 @@ const validateNDRs = (
     }
     return false;
   };
+
+  const checkIsDeepFilled = (location: string, rateData: OMS.OmsRateFields) => {
+    console.log({ location, rateData });
+    if (!rateData) return;
+  };
+
   // Loop through top level nodes for validation
   for (const key of data.OptionalMeasureStratification?.options ?? []) {
     isFilled[key] = false;
