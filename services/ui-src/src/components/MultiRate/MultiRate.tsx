@@ -125,7 +125,7 @@ export const MultiRate = ({
     return (
       <>
         <QMR.InputWrapper
-          key={index}
+          key={`input-wrapper-${index}`}
           label={rate.label}
           isInvalid={
             !!objectPath.get(errors, `${name}.${index}.value`)?.message
@@ -140,10 +140,12 @@ export const MultiRate = ({
           {...rest}
         >
           {rateLocations.includes(index) && readOnly ? (
-            <CUI.Text key={index}>{field.value[index].value}</CUI.Text>
+            <CUI.Text key={`rate-text-${index}`}>
+              {field.value[index].value}
+            </CUI.Text>
           ) : (
             <CUI.Input
-              key={index}
+              key={`input-field-${index}`}
               value={field.value[index]?.value ?? ""}
               data-cy={`${name}.${index}.value`}
               bgColor={"#FFF"}
@@ -166,7 +168,7 @@ export const MultiRate = ({
         {parseInt(field.value[ndr.numerator]?.value) >
           parseInt(field.value[ndr.denominator]?.value) && (
           <QMR.Notification
-            key={index}
+            key={`num-denom-warning-${index}`}
             alertTitle="Rate Error"
             // Identify the problematic fields using labels
             alertDescription={`"${field.value[ndr.numerator]?.label}": ${
@@ -181,7 +183,7 @@ export const MultiRate = ({
           (!field.value[ndr.rateIndex].value.includes(".") ||
             field.value[ndr.rateIndex].value.split(".")[1]?.length < 4) && (
             <QMR.Notification
-              key={index + 10}
+              key={`rate-decimal-warning-${index}`}
               alertTitle="Rate Error"
               // Identify the problematic fields using labels
               alertDescription={`"${
