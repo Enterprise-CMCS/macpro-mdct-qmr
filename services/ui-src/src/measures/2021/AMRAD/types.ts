@@ -43,9 +43,6 @@ export namespace Measure {
       rate: string;
     }[];
 
-    //OptionalMeasureStratification
-    CategoriesReported: string[];
-
     AddtnlEthnicity: string[];
     AddtnlEthnicityRates: AggregateRate[];
 
