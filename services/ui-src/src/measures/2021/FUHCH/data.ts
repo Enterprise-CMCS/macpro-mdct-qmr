@@ -1,6 +1,6 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
-export const qualifiers = ["Ages 6 to 17"];
+export const qualifiers = [];
 export const categories = ["30 Day Follow-Up", "7 Day Follow-Up"];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
