@@ -157,7 +157,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "Prenatal and PostPartum Care: Postpartum Care",
+      description: "Prenatal and Postpartum Care: Postpartum Care",
       measure: "PPC-AD",
     },
     {
