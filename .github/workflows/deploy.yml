@@ -114,8 +114,10 @@ jobs:
           ]
     steps:
       - name: reveal secrets
+        env: 
+          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         run:  | 
-          echo ${{ secrets.GPG_PRIVATE_KEY }} >> ./private_key.gpg
+          echo "env.GPG_KEY" >> ./private_key.gpg
           gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
           git secret reveal
       - name: set branch_name
