@@ -114,10 +114,9 @@ jobs:
           ]
     steps:
       - name: reveal secrets
-        env:
-          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-        run:  |
-          gpg --batch --yes --pinentry-mode loopback --import ${{ secrets.GPG_PRIVATE_KEY }}
+        run:  | 
+          echo ${{ secrets.GPG_PRIVATE_KEY }} >> ./private_key.gpg
+          gpg --batch --yes --pinentry-mode loopback --import private_key.gpg
           git secret reveal
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
