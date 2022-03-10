@@ -420,7 +420,7 @@ export const DefinitionOfPopulation = ({
                     displayPercent
                     mask={percentageAllowOneDecimalMax}
                     formLabelProps={{ fontWeight: "400" }}
-                    label="Percentage of measure-eligible state population represented in data reported:"
+                    label="Percentage of total other population represented in data reported:"
                     {...register(DC.DELIVERY_SYS_OTHER_PERCENT)}
                   />
                 </CUI.Box>,
