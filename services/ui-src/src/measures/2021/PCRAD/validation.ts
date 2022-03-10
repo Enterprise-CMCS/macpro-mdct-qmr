@@ -1,4 +1,4 @@
-import { Measure } from "./types";
+import { FormData } from "./types";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
   ensureBothDatesCompletedInRange,
@@ -12,7 +12,7 @@ interface NDRforumla {
   rateIndex: number;
 }
 
-const PCRADValidation = (data: Measure.Form) => {
+const PCRADValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const ageGroups = PMD.qualifiers;
   const dateRange = data["DateRange"];
