@@ -23,6 +23,7 @@ import {
   validateCrossQualifierRateCorrect,
   validateRateZero,
   validateRateNotZero,
+  validateAllDenomsAreTheSame,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -59,6 +60,30 @@ const validate3daysLessOrEqualTo30days = (data: FormData) => {
   return errorArray;
 };
 
+const allDenomsTheSame = (data: FormData) => {
+  const cleanString = (s: string) => s.replace(/[^\w]/g, "");
+  const denomArray: string[] = [];
+
+  for (const cat of PMD.categories.map((category) => cleanString(category))) {
+    for (const ndr of data.PerformanceMeasure?.rates?.[cat] ?? []) {
+      if (ndr.denominator) {
+        denomArray.push(ndr.denominator);
+      }
+    }
+  }
+
+  const areTheSame = denomArray.every((denom) => denom === denomArray[0]);
+
+  return !areTheSame
+    ? [
+        {
+          errorLocation: "Performance Measure",
+          errorMessage: `The denominators must be the same.`,
+        },
+      ]
+    : [];
+};
+
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -81,6 +106,7 @@ const CCPADValidation = (data: FormData) => {
   const dateRange = data["DateRange"];
   errorArray = [
     ...errorArray,
+    ...allDenomsTheSame(data),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
@@ -122,6 +148,7 @@ const validateOMS = (data: FormData) => {
         validateCrossQualifierRateCorrect,
         validateRateZero,
         validateRateNotZero,
+        validateAllDenomsAreTheSame,
       ],
     })
   );

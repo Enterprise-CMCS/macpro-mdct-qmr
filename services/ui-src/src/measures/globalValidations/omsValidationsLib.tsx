@@ -109,7 +109,10 @@ export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
   qualifiers,
   label,
   locationDictionary,
+  isOPM,
 }) => {
+  if (isOPM) return [];
+
   const errors: FormError[] = [];
   const areDenomsTheSame = (rateArr: RateFields[]) => {
     if (rateArr.length === 0) return true;
@@ -312,6 +315,39 @@ const validateNDRs = (
   }
   return errorArray;
 };
+
+export const validateAllDenomsAreTheSame: OmsValidationCallback = ({
+  rateData,
+  categories,
+  qualifiers,
+  label,
+  locationDictionary,
+}) => {
+  const denomArray: string[] = [];
+
+  for (const qual of qualifiers.map((qual) => cleanString(qual))) {
+    for (const cat of categories.map((cat) => cleanString(cat))) {
+      const temp = rateData.rates?.[qual]?.[cat]?.[0].denominator;
+
+      if (temp) {
+        denomArray.push(temp);
+      }
+    }
+  }
+
+  const areTheSame = denomArray.every((denom) => denom === denomArray[0]);
+
+  return !areTheSame
+    ? [
+        {
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            label
+          )}`,
+          errorMessage: `The denominators must be the same.`,
+        },
+      ]
+    : [];
+};
 /*
 ex. rate of 3 day should be less than or equal to 6 day
 */
@@ -321,7 +357,10 @@ export const validateCrossQualifierRateCorrect: OmsValidationCallback = ({
   qualifiers,
   label,
   locationDictionary,
+  isOPM,
 }) => {
+  if (isOPM) return [];
+
   const errors: FormError[] = [];
   const areDenomsTheSame = (rateArr: RateFields[]) => {
     if (rateArr.length !== 2) return true;
