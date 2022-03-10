@@ -20,6 +20,7 @@ import {
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
   validateOneRateLessThanOther,
+  validateCrossQualifierRateCorrect,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -36,8 +37,7 @@ const validate3daysLessOrEqualTo30days = (data: FormData) => {
     ) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage:
-          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Long-acting Reversible Method of Contraception (LARC)",
+        errorMessage: `The rate value of the ${PMD.qualifiers[0]} must be less than or equal to the ${PMD.qualifiers[1]} within ${PMD.categories[1]}.`,
       });
     }
   }
@@ -48,8 +48,7 @@ const validate3daysLessOrEqualTo30days = (data: FormData) => {
     ) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage:
-          "The rate value of the 3 Day Postpartum rate must be less than or equal to the Sixty Day Postpartum rate within Most Effective or Moderately Effective Method of Contraception",
+        errorMessage: `The rate value of the ${PMD.qualifiers[0]} must be less than or equal to the ${PMD.qualifiers[1]} within ${PMD.categories[0]}.`,
       });
     }
   }
@@ -113,6 +112,7 @@ const validateOMS = (data: FormData) => {
         validateDenominatorGreaterThanNumerator,
         validateDenominatorsAreTheSame,
         validateOneRateLessThanOther,
+        validateCrossQualifierRateCorrect,
       ],
     })
   );

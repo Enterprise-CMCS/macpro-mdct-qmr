@@ -84,7 +84,6 @@ export const validateOneRateLessThanOther: OmsValidationCallback = ({
   locationDictionary,
   isOPM,
 }) => {
-  console.log(isOPM);
   if (isOPM) return [];
 
   const errors: FormError[] = [];
@@ -269,7 +268,6 @@ const validateNDRs = (
   const checkNdrsFilled = (rateData: OMS.OmsRateFields) => {
     for (const qual of qualifiers.map((s) => cleanString(s))) {
       for (const cat of categories.map((s) => cleanString(s))) {
-        console.log({ rateData });
         if (rateData.rates?.[qual]?.[cat]) {
           const temp = rateData.rates[qual][cat][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
@@ -304,4 +302,46 @@ const validateNDRs = (
   }
 
   return errorArray;
+};
+
+/*
+ex. rate of 3 day should be less than or equal to 6 day
+*/
+export const validateCrossQualifierRateCorrect: OmsValidationCallback = ({
+  rateData,
+  categories,
+  qualifiers,
+  label,
+  locationDictionary,
+}) => {
+  const errors: FormError[] = [];
+  const areDenomsTheSame = (rateArr: RateFields[]) => {
+    if (rateArr.length !== 2) return true;
+    return (
+      parseFloat(rateArr[0].rate ?? "") <= parseFloat(rateArr[1].rate ?? "")
+    );
+  };
+
+  for (const cat of categories) {
+    const cleanCat = cleanString(cat);
+    const rateArr: RateFields[] = [];
+    for (const qual of qualifiers) {
+      const cleanQual = cleanString(qual);
+      if (rateData.rates?.[cleanQual]?.[cleanCat]) {
+        const temp = rateData.rates[cleanQual][cleanCat][0];
+        if (temp && temp.denominator) {
+          rateArr.push(temp);
+        }
+      }
+    }
+    if (!areDenomsTheSame(rateArr)) {
+      errors.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+        errorMessage: `The rate value of the ${qualifiers[0]} must be less than or equal to the ${qualifiers[1]} within ${cat}.`,
+      });
+    }
+  }
+  return errors;
 };
