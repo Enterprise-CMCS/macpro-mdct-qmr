@@ -34,12 +34,13 @@ jobs:
           STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: lock this branch to prevent concurrent builds
         run: ./.github/github-lock.sh $branch_name
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: reveal secrets 1
+        env:
+          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         run: echo "env.GPG_KEY" >> ./private_key.gpg
       - name: reveal secrets 2
         run: gpg --import private_key.gpg
