@@ -127,27 +127,27 @@ export const PerformanceMeasure = ({
         {data.questionText.map((item, idx) => {
           return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
         })}
+        {data.questionListItems && (
+          <CUI.UnorderedList m="5" ml="10" spacing={5}>
+            {data.questionListItems.map((item, idx) => {
+              return (
+                <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+                  {data.questionListTitles?.[idx] && (
+                    <CUI.Text display="inline" fontWeight="600">
+                      {data.questionListTitles?.[idx]}
+                    </CUI.Text>
+                  )}
+                  {item}
+                </CUI.ListItem>
+              );
+            })}
+          </CUI.UnorderedList>
+        )}
+        <QMR.TextArea
+          label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+          {...register("PerformanceMeasure.explanation")}
+        />
       </CUI.Stack>
-      {data.questionListItems && (
-        <CUI.UnorderedList m="5" ml="10" spacing={5}>
-          {data.questionListItems.map((item, idx) => {
-            return (
-              <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
-                {data.questionListTitles?.[idx] && (
-                  <CUI.Text display="inline" fontWeight="600">
-                    {data.questionListTitles?.[idx]}
-                  </CUI.Text>
-                )}
-                {item}
-              </CUI.ListItem>
-            );
-          })}
-        </CUI.UnorderedList>
-      )}
-      <QMR.TextArea
-        label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
-        {...register("PerformanceMeasure.explanation")}
-      />
       <CUI.Text
         fontWeight="bold"
         mt={5}

@@ -37,6 +37,9 @@ export interface DefinitionOfPopulation {
     | typeof DC.ICM
     | typeof DC.OTHER // which delivery systems are represented in the denominator
   >;
+  [DC.HYBRID_MEASURE_POPULATION_INCLUDED]: string; // Section rendered in hybird data source measures
+  [DC.HYBRID_MEASURE_SAMPLE_SIZE]: string; // Section rendered in hybird data source measures
+  [DC.DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN]: string; //Section rendered in child data source measures
   [DC.DELIVERY_SYS_FFS]: YesNo; // If "FFS" selected in "DeliverySysRepresentationDenominator" -> Is all of your FFS population included in this measure?"
   [DC.DELIVERY_SYS_FFS_NO_PERCENT]: string; // If "no" in "DeliverySys-FeeForService" -> what percent included in measure
   [DC.DELIVERY_SYS_FFS_NO_POP]: string; // If "no" in "DeliverySys-FeeForService" -> what number of your FFS population are included in the measure?
@@ -182,6 +185,7 @@ export interface PerformanceMeasure {
   [DC.PERFORMANCE_MEASURE]?: {
     [DC.EXPLAINATION]?: string;
     [DC.RATES]?: PerformanceMeasureRate;
+    [DC.PMHYBRIDEXPLANATION]?: string;
   };
 }
 
