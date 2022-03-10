@@ -1,6 +1,8 @@
 import * as Types from "../CommonQuestions/types";
 import { PerformanceMeasure } from "./types";
 import { DateRange } from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
+import { getPerfMeasureRateArray } from "./dataDrivenTools";
 
 export const atLeastOneRateComplete = (
   performanceMeasureArray: PerformanceMeasure[][],
@@ -9,7 +11,6 @@ export const atLeastOneRateComplete = (
 ) => {
   let error = true;
   let errorArray: any[] = [];
-  const OPMError = OPM ? "Other " : "";
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
@@ -33,8 +34,8 @@ export const atLeastOneRateComplete = (
   });
   if (error) {
     errorArray.push({
-      errorLocation: `${OPMError}Performance Measure`,
-      errorMessage: `At least one NDR Set must be completed`,
+      errorLocation: `Performance Measure/Other Performance Measure`,
+      errorMessage: `At least one Performance Measure Numerator, Denominator, and Rate must be completed`,
     });
   }
   return error ? errorArray : [];
@@ -100,7 +101,6 @@ export const validateNumeratorsLessThanDenominators = (
 ) => {
   let error = false;
   let errorArray: any[] = [];
-  const OPMError = OPM ? "Other " : "";
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
@@ -110,8 +110,8 @@ export const validateNumeratorsLessThanDenominators = (
         performanceMeasure[i].numerator
       ) {
         if (
-          parseInt(performanceMeasure[i].denominator!) <
-          parseInt(performanceMeasure[i].numerator!)
+          parseFloat(performanceMeasure[i].denominator!) <
+          parseFloat(performanceMeasure[i].numerator!)
         ) {
           error = true;
         }
@@ -121,14 +121,14 @@ export const validateNumeratorsLessThanDenominators = (
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
       performanceMeasure.rate.forEach((rate: any) => {
-        if (parseInt(rate.numerator) > parseInt(rate.denominator)) {
+        if (parseFloat(rate.numerator) > parseFloat(rate.denominator)) {
           error = true;
         }
       });
     });
   if (error) {
     errorArray.push({
-      errorLocation: `${OPMError}Performance Measure`,
+      errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Numerators must be less than Denominators for all applicable performance measures`,
     });
   }
@@ -185,7 +185,6 @@ export const validateNoNonZeroNumOrDenom = (
   let nonZeroRateError = false;
   let zeroRateError = false;
   let errorArray: any[] = [];
-  const OPMError = OPM ? "Other " : "";
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
@@ -196,15 +195,15 @@ export const validateNoNonZeroNumOrDenom = (
         performanceMeasure[i].rate
       ) {
         if (
-          parseInt(performanceMeasure[i].rate!) !== 0 &&
-          parseInt(performanceMeasure[i].numerator!) === 0
+          parseFloat(performanceMeasure[i].rate!) !== 0 &&
+          parseFloat(performanceMeasure[i].numerator!) === 0
         ) {
           nonZeroRateError = true;
         }
         if (
-          parseInt(performanceMeasure[i].rate!) === 0 &&
-          parseInt(performanceMeasure[i].numerator!) !== 0 &&
-          parseInt(performanceMeasure[i].denominator!) !== 0
+          parseFloat(performanceMeasure[i].rate!) === 0 &&
+          parseFloat(performanceMeasure[i].numerator!) !== 0 &&
+          parseFloat(performanceMeasure[i].denominator!) !== 0
         ) {
           zeroRateError = true;
         }
@@ -215,13 +214,13 @@ export const validateNoNonZeroNumOrDenom = (
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
       performanceMeasure.rate.forEach((rate: any) => {
-        if (parseInt(rate.numerator) === 0 && parseInt(rate.rate) !== 0) {
+        if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
           nonZeroRateError = true;
         }
         if (
-          parseInt(rate.numerator) !== 0 &&
-          parseInt(rate.denominator) !== 0 &&
-          parseInt(rate.rate) === 0
+          parseFloat(rate.numerator) !== 0 &&
+          parseFloat(rate.denominator) !== 0 &&
+          parseFloat(rate.rate) === 0
         ) {
           zeroRateError = true;
         }
@@ -229,14 +228,14 @@ export const validateNoNonZeroNumOrDenom = (
     });
   if (nonZeroRateError) {
     errorArray.push({
-      errorLocation: `${OPMError}Performance Measure`,
+      errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Manually entered rate should be 0 if numerator is 0`,
     });
   }
   if (zeroRateError) {
     errorArray.push({
-      errorLocation: `${OPMError}Performance Measure`,
-      errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0`,
+      errorLocation: `Performance Measure/Other Performance Measure`,
+      errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
     });
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];
@@ -294,7 +293,7 @@ export const validateRequiredRadioButtonForCombinedRates = (
 ) => {
   const errorArray: any[] = [];
 
-  if (data.CombinedRates && data.CombinedRates.includes("Yes")) {
+  if (data.CombinedRates && data.CombinedRates === DC.YES) {
     if (!data["CombinedRates-CombinedRates"]) {
       errorArray.push({
         errorLocation: "Combined Rate(s)",
@@ -302,6 +301,37 @@ export const validateRequiredRadioButtonForCombinedRates = (
           "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
       });
     }
+  }
+
+  return errorArray;
+};
+
+export const validateOneRateHigherThanOther = (
+  data: Types.DefaultFormData,
+  performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure
+) => {
+  const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
+  const lowerRate = perfMeasure[1];
+  const higherRate = perfMeasure[0];
+  let error;
+  const errorArray: any[] = [];
+
+  if (lowerRate && higherRate) {
+    lowerRate.forEach((_lowerRateObj, index) => {
+      if (
+        lowerRate[index] &&
+        higherRate[index] &&
+        parseFloat(lowerRate[index]?.rate ?? "") >
+          parseFloat(higherRate[index]?.rate ?? "")
+      ) {
+        error = {
+          errorLocation: "Performance Measure",
+          errorMessage: `${performanceMeasureData.categories?.[1]} Rate should not be higher than ${performanceMeasureData.categories?.[0]} Rate for ${performanceMeasureData.qualifiers?.[index]} Rates`,
+        };
+
+        errorArray.push(error);
+      }
+    });
   }
 
   return errorArray;
