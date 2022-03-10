@@ -105,3 +105,5 @@ export namespace Measure {
     ACAGroupRate: AggregateRate;
   }
 }
+
+export type FormData = Types.DefaultFormData;

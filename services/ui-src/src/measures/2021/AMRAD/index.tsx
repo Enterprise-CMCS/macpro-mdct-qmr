@@ -2,11 +2,10 @@ import * as CMQ from "measures/CommonQuestions";
 import * as QMR from "components";
 import * as PMD from "./data";
 import { useFormContext, useWatch } from "react-hook-form";
-// import { FormData } from "./types";
-import { Measure } from "./types";
+import { FormData, Measure } from "./types";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
-import { OptionalMeasureStratification } from "./OptionalMeasureStratification";
 
 export const AMRAD = ({
   name,
@@ -18,12 +17,16 @@ export const AMRAD = ({
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
 }: QMR.MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
 
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const { getValues } = useFormContext<Measure.Form>();
 
   // Watch Values of Form Questions
@@ -96,13 +99,12 @@ export const AMRAD = ({
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
-            <OptionalMeasureStratification
-              ageGroups={ageGroups}
-              deviationConditions={{
-                showPersistentAsthma19To50,
-                showPersistentAsthma51To64,
-                showPersistentAsthmaTotal,
-              }}
+            <CMQ.OptionalMeasureStrat
+              performanceMeasureArray={performanceMeasureArray}
+              qualifiers={PMD.qualifiers}
+              categories={PMD.categories}
+              calcTotal={true}
+              adultMeasure
             />
           )}
         </>
