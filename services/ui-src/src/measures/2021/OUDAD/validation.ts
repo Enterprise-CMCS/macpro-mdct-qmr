@@ -75,7 +75,6 @@ const OUDValidation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
-    ...validateRequiredRadioButtonForCombinedRates(data),
     ...validateEqualDenominators(performanceMeasureArray, ageGroups),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];

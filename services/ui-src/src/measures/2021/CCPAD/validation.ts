@@ -35,7 +35,8 @@ const validate3daysLessOrEqualTo30days = (data: FormData) => {
 
   if (sevenDays?.length === 2) {
     if (
-      parseFloat(sevenDays[0].rate ?? "") > parseFloat(sevenDays[1].rate ?? "")
+      parseFloat(sevenDays[0]?.rate ?? "") >
+      parseFloat(sevenDays[1]?.rate ?? "")
     ) {
       errorArray.push({
         errorLocation: "Performance Measure",
@@ -45,8 +46,8 @@ const validate3daysLessOrEqualTo30days = (data: FormData) => {
   }
   if (thirtyDays?.length === 2) {
     if (
-      parseFloat(thirtyDays[0].rate ?? "") >
-      parseFloat(thirtyDays[1].rate ?? "")
+      parseFloat(thirtyDays[0]?.rate ?? "") >
+      parseFloat(thirtyDays[1]?.rate ?? "")
     ) {
       errorArray.push({
         errorLocation: "Performance Measure",

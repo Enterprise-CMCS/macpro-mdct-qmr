@@ -10,9 +10,11 @@ import {
   atLeastOneRateComplete,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  getDeviationNDRArray,
 } from "../../globalValidations";
 import { FormData } from "./types";
-
+import * as DC from "dataConstants";
 import * as PMD from "./data";
 import { omsLocationDictionary } from "measures/globalValidations";
 const PQI15Validation = (data: FormData) => {
@@ -20,7 +22,11 @@ const PQI15Validation = (data: FormData) => {
 
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
-
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
 
@@ -32,6 +38,12 @@ const PQI15Validation = (data: FormData) => {
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      PMD.qualifiers,
+      deviationArray,
+      didCalculationsDeviate
+    ),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,

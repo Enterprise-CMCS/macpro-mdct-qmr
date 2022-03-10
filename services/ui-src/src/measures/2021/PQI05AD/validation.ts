@@ -51,7 +51,6 @@ const PQI05Validation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
