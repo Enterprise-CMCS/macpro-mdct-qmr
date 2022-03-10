@@ -3,8 +3,8 @@ import * as CUI from "@chakra-ui/react";
 
 import * as Types from "../types";
 import { usePerformanceMeasureContext } from "./context";
-import { useFormContext } from "react-hook-form";
-import { useState } from "react";
+import { useController, useFormContext } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 interface NdrProps {
   /** name for react-hook-form registration */
@@ -64,45 +64,75 @@ interface ConditionalRateBuilderProps {
 
 type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
 
-/** Hook to track and update oms totals */
+/**
+ * Hook to track and update oms totals. Use state to track to view previous calculated rate.
+ * If total is adjusted manually, this will not change the state object which stops a forced recalculation/render
+ */
 const useOmsTotalRate = (omsName: string, totalName: string) => {
   const { qualifiers, rateMultiplicationValue } =
     usePerformanceMeasureContext();
-  const { watch, setValue } = useFormContext();
-  const watchOMS = watch(omsName);
-  const watchTotal = watch(totalName);
-  const [rate, setRate] = useState({
-    numerator: watchTotal?.[0].numerator ?? 0,
-    denominator: watchTotal?.[0].denominator ?? 0,
-    rate: watchTotal?.[0].rate ?? "",
-  });
+  const { watch, control } = useFormContext();
 
-  const tempRate = {
+  const watchOMS = watch(omsName);
+  const { field } = useController({ name: totalName, control });
+  const [prevCalcRate, setPrevCalcRate] = useState({
     numerator: 0,
     denominator: 0,
     rate: "",
-  };
-  for (const qual of qualifiers
-    .slice(0, -1)
-    .map((s) => s.replace(/[^\w]/g, ""))) {
-    tempRate.numerator += parseFloat(
-      watchOMS?.[qual]?.["singleCategory"][0].numerator ?? "0"
-    );
-    tempRate.denominator += parseFloat(
-      watchOMS?.[qual]?.["singleCategory"][0].denominator ?? "0"
-    );
-  }
+  });
 
-  tempRate.rate = Math.round(
-    (tempRate.numerator / tempRate.denominator) * (rateMultiplicationValue ?? 1)
-  ).toFixed(1);
-  if (
-    tempRate.numerator !== rate.numerator ||
-    tempRate.denominator !== rate.denominator
-  ) {
-    setRate(tempRate);
-    setValue(totalName, [tempRate]);
-  }
+  useEffect(() => {
+    // calc new rate, adjust if new values
+    const tempRate = {
+      numerator: 0,
+      denominator: 0,
+      rate: "",
+    };
+
+    for (const qual of qualifiers
+      .slice(0, -1)
+      .map((s) => s.replace(/[^\w]/g, ""))) {
+      if (
+        watchOMS?.[qual]?.["singleCategory"]?.[0]?.numerator &&
+        watchOMS?.[qual]?.["singleCategory"]?.[0]?.denominator
+      ) {
+        tempRate.numerator += parseFloat(
+          watchOMS[qual]["singleCategory"][0].numerator
+        );
+        tempRate.denominator += parseFloat(
+          watchOMS[qual]["singleCategory"][0].denominator
+        );
+      }
+    }
+
+    tempRate.rate = Math.round(
+      (tempRate.numerator / tempRate.denominator) *
+        (rateMultiplicationValue ?? 100)
+    ).toFixed(1);
+
+    if (
+      tempRate.numerator &&
+      tempRate.denominator &&
+      (tempRate.numerator !== prevCalcRate.numerator ||
+        tempRate.denominator !== prevCalcRate.denominator)
+    ) {
+      setPrevCalcRate(tempRate);
+      field.onChange([
+        {
+          numerator: tempRate.numerator.toFixed(1),
+          denominator: tempRate.denominator.toFixed(1),
+          rate: tempRate.rate,
+        },
+      ]);
+    }
+  }, [
+    watchOMS,
+    qualifiers,
+    rateMultiplicationValue,
+    field,
+    prevCalcRate,
+    setPrevCalcRate,
+  ]);
 };
 
 /**
@@ -158,11 +188,10 @@ const buildConditionalRateArray = ({
     ) {
       const cleanedPMDescLabel =
         addSecondaryRegisterTag && categories[idx]
-          ? `_${categories[idx].replace(/[^\w]/g, "")}`
-          : "";
+          ? `${categories[idx].replace(/[^\w]/g, "")}`
+          : "singleCategory";
 
-      const adjustedName =
-        `${name}.rates.${cleanedLabel}.${idx}` + cleanedPMDescLabel;
+      const adjustedName = `${name}.rates.${cleanedLabel}.${cleanedPMDescLabel}`;
 
       ndrSets.push(
         <QMR.Rate
