@@ -3,9 +3,7 @@ import {
   RateFields,
   DefaultFormData,
 } from "measures/CommonQuestions/types";
-
 type locationDictionaryFunction = (labels: string[]) => string;
-
 type OmsValidationCallback = (data: {
   rateData: OMS.OmsRateFields;
   qualifiers: string[];
@@ -14,9 +12,7 @@ type OmsValidationCallback = (data: {
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
 }) => FormError[];
-
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-
 interface OmsValidationProps {
   data: DefaultFormData;
   qualifiers: string[];
@@ -25,7 +21,6 @@ interface OmsValidationProps {
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
 }
-
 export const omsValidations = ({
   categories,
   checkIsFilled = true,
@@ -37,7 +32,6 @@ export const omsValidations = ({
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
   let isOPM = false;
-
   if (
     data.MeasurementSpecification === "Other" &&
     data["OtherPerformanceMeasure-Rates"]
@@ -50,7 +44,6 @@ export const omsValidations = ({
     );
   }
   const cats = categories.length === 0 ? ["singleCategory"] : categories;
-
   return validateNDRs(
     data,
     validationCallbacks,
@@ -61,11 +54,9 @@ export const omsValidations = ({
     isOPM
   );
 };
-
 // @example
 // OMS is setup to be qualifier -> categories -> rate component
 // can expect them to be in the same order as the data driven type
-
 // export const exampleValidator: OmsValidationCallback = ({categories,label,locationDictionary,qualifiers,rateData}) => {
 //   const error: FormError[] = [];
 //   for (const qual of qualifiers.map((s) => cleanString(s))) {
@@ -75,7 +66,6 @@ export const omsValidations = ({
 //     }}
 //     return error
 // }
-
 export const validateOneRateLessThanOther: OmsValidationCallback = ({
   rateData,
   categories,
@@ -85,15 +75,12 @@ export const validateOneRateLessThanOther: OmsValidationCallback = ({
   isOPM,
 }) => {
   if (isOPM) return [];
-
   const errors: FormError[] = [];
   const isRateLessThanOther = (rateArr: RateFields[]) => {
     if (rateArr.length !== 2) return true;
     const compareValue = rateArr[0].rate ?? "";
-
     return parseFloat(rateArr[1].rate ?? "") <= parseFloat(compareValue);
   };
-
   for (const qual of qualifiers) {
     const cleanQual = cleanString(qual);
     const rateArr: RateFields[] = [];
@@ -116,7 +103,6 @@ export const validateOneRateLessThanOther: OmsValidationCallback = ({
   }
   return errors;
 };
-
 export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
   rateData,
   categories,
@@ -128,10 +114,8 @@ export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
   const areDenomsTheSame = (rateArr: RateFields[]) => {
     if (rateArr.length === 0) return true;
     const compareValue = rateArr[0].denominator;
-
     return rateArr.every((rate) => rate.denominator === compareValue);
   };
-
   for (const qual of qualifiers) {
     const cleanQual = cleanString(qual);
     const rateArr: RateFields[] = [];
@@ -154,7 +138,6 @@ export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
   }
   return errors;
 };
-
 export const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
   categories,
   qualifiers,
@@ -181,10 +164,8 @@ export const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
       }
     }
   }
-
   return error;
 };
-
 const validateNDRs = (
   data: DefaultFormData,
   callbackArr: OmsValidationCallback[],
@@ -195,8 +176,8 @@ const validateNDRs = (
   isOPM: boolean
 ) => {
   const isFilled: { [key: string]: boolean } = {};
+  const isDeepFilled: { [key: string]: boolean } = {};
   const errorArray: FormError[] = [];
-
   // validates top levels, ex: Race, Geography, Sex
   const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string[]) => {
     // validate children if exist
@@ -205,7 +186,6 @@ const validateNDRs = (
         validateChildNodes(node.selections?.[option] ?? {}, [...label, option]);
       }
     }
-
     // validate for additionals category
     for (const addtnl of node.additionalSelections ?? []) {
       validateChildNodes(addtnl, [
@@ -213,13 +193,11 @@ const validateNDRs = (
         addtnl.description ?? "Additional Category",
       ]);
     }
-
     // ACA validate
     if (node.rateData) {
       validateNodeRates(node.rateData, label);
     }
   };
-
   // validate mid level, ex: White, African American, etc
   const validateChildNodes = (node: OMS.MidLevelOMSNode, label: string[]) => {
     // validate sub categories
@@ -231,20 +209,17 @@ const validateNDRs = (
         ]);
       }
     }
-
     // validate sub type, ex: Asian -> Korean, Chinese, etc
     if (node.aggregate?.includes("No")) {
       for (const key of node.options ?? []) {
         validateChildNodes(node.selections?.[key] ?? {}, [...label, key]);
       }
     }
-
     //validate rates
     if (node.rateData) {
       validateNodeRates(node.rateData, label);
     }
   };
-
   // Rate containers to be validated
   const validateNodeRates = (rateData: OMS.OmsRateFields, label: string[]) => {
     for (const callback of callbackArr) {
@@ -259,11 +234,15 @@ const validateNDRs = (
         })
       );
     }
-
     if (checkIsFilled)
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
+    const locationReduced = label.reduce(
+      (prev, curr, i) => `${prev}${i ? "." : ""}${curr}`,
+      ""
+    );
+    isDeepFilled[locationReduced] =
+      isDeepFilled[locationReduced] || checkNdrsFilled(rateData);
   };
-
   //checks at least one ndr filled
   const checkNdrsFilled = (rateData: OMS.OmsRateFields) => {
     for (const qual of qualifiers.map((s) => cleanString(s))) {
@@ -278,7 +257,6 @@ const validateNDRs = (
     }
     return false;
   };
-
   // Loop through top level nodes for validation
   for (const key of data.OptionalMeasureStratification?.options ?? []) {
     isFilled[key] = false;
@@ -287,7 +265,6 @@ const validateNDRs = (
       [key]
     );
   }
-
   if (checkIsFilled) {
     for (const topLevelKey in isFilled) {
       if (!isFilled[topLevelKey]) {
@@ -299,11 +276,19 @@ const validateNDRs = (
         });
       }
     }
+    for (const topLevelKey in isDeepFilled) {
+      if (!isFilled[topLevelKey]) {
+        errorArray.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            topLevelKey.split(".")
+          )}`,
+          errorMessage: "Selected Node must be filled.",
+        });
+      }
+    }
   }
-
   return errorArray;
 };
-
 /*
 ex. rate of 3 day should be less than or equal to 6 day
 */
@@ -321,7 +306,6 @@ export const validateCrossQualifierRateCorrect: OmsValidationCallback = ({
       parseFloat(rateArr[0].rate ?? "") <= parseFloat(rateArr[1].rate ?? "")
     );
   };
-
   for (const cat of categories) {
     const cleanCat = cleanString(cat);
     const rateArr: RateFields[] = [];
@@ -345,7 +329,6 @@ export const validateCrossQualifierRateCorrect: OmsValidationCallback = ({
   }
   return errors;
 };
-
 export const validateRateZero: OmsValidationCallback = ({
   categories,
   qualifiers,
@@ -376,7 +359,6 @@ export const validateRateZero: OmsValidationCallback = ({
       }
     }
   }
-
   return error;
 };
 export const validateRateNotZero: OmsValidationCallback = ({
@@ -409,6 +391,5 @@ export const validateRateNotZero: OmsValidationCallback = ({
       }
     }
   }
-
   return error;
 };
