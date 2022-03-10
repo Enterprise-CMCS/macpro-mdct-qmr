@@ -60,7 +60,6 @@ export const CCSMQualifiers = () => {
 
   const handleValidation = (data: CCSMQualifierForm) => {
     validateAndSetErrors(data);
-    saveDataToServer({ data });
   };
 
   const handleSubmit = (data: CCSMQualifierForm) => {

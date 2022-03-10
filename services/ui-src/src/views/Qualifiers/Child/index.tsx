@@ -64,7 +64,6 @@ export const CCSQualifiers = () => {
 
   const handleValidation = (data: CCSQualifierForm) => {
     validateAndSetErrors(data);
-    saveDataToServer({ data });
   };
 
   const handleSubmit = (data: CCSQualifierForm) => {
