@@ -3,7 +3,6 @@ import { DeliverySystem } from "./types";
 
 const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
-  console.log(values);
   const errorArray: any[] = [];
   const total21To64Percent = values?.reduce(
     (acc: number, curr: DeliverySystem) => {
