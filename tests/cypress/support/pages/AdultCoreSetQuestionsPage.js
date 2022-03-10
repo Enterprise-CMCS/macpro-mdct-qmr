@@ -27,7 +27,7 @@ const integratedCareModelICM =
 // element is xpath, please use cy.xapth() instead of cy.get();
 const addAnotherBTN = "//tbody/div[1]/button[1]";
 // element is xpath, please use cy.xapth() instead of cy.get();
-const totalAllAges = "//p[contains(text(),'Total (all ages)')]";
+const totalAllAges = "//p[contains(text(),'Total')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const ages21To64TotalValue =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/ol[1]/li[1]/table[1]/tfoot[1]/tr[1]/td[1]/div[1]/input[1]";

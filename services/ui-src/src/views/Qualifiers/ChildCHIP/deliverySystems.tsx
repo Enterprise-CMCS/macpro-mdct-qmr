@@ -92,7 +92,7 @@ export const DeliverySystems = () => {
           <CUI.Tr>
             <CUI.Th px="none" textTransform="none">
               <CUI.Text fontSize="medium" color="gray.900">
-                Total (all ages)
+                Total
               </CUI.Text>
             </CUI.Th>
             <CUI.Td>
