@@ -78,7 +78,11 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(OMSData(true)),
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
         validateRateZero,

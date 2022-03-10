@@ -102,7 +102,11 @@ const IEDValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(OMSData(true)),
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
         validateDenominatorsAreTheSame,
