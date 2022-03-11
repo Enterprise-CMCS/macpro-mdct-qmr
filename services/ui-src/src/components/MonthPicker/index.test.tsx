@@ -160,8 +160,8 @@ describe("Testing MonthPicker", () => {
     );
 
     // change month
-    userEvent.type(getByLabelText("Month (mm):"), "12");
-    expect(getByLabelText("Month (mm):")).toHaveValue("12");
+    userEvent.type(getByLabelText("Month:"), "12");
+    expect(getByLabelText("Month:")).toHaveValue("12");
 
     // change year
     userEvent.type(getByLabelText("Year (yyyy):"), "1912");
@@ -179,8 +179,8 @@ describe("Testing MonthPicker", () => {
     );
 
     // change month
-    userEvent.type(getByLabelText("Month (mm):"), "73");
-    expect(getByLabelText("Month (mm):")).toHaveValue("7");
+    userEvent.type(getByLabelText("Month:"), "73");
+    expect(getByLabelText("Month:")).toHaveValue("7");
 
     // change year
     userEvent.type(getByLabelText("Year (yyyy):"), "1712");
