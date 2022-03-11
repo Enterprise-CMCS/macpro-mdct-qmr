@@ -287,7 +287,7 @@ export const validateReasonForNotReporting = (
         collecting ? "Collecting" : "Reporting"
       } On This Measure`,
       errorMessage: `You must select at least one reason for not ${
-        collecting ? "Collecting" : "Reporting"
+        collecting ? "collecting" : "reporting"
       } on this measure`,
     });
   }
