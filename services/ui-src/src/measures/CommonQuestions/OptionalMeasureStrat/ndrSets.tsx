@@ -123,8 +123,8 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       setPrevCalcRate(tempRate);
       field.onChange([
         {
-          numerator: tempRate.numerator.toFixed(1),
-          denominator: tempRate.denominator.toFixed(1),
+          numerator: tempRate.numerator,
+          denominator: tempRate.denominator,
           rate: tempRate.rate,
         },
       ]);
