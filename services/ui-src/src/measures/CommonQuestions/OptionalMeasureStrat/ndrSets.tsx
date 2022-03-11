@@ -136,6 +136,7 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
     field,
     prevCalcRate,
     setPrevCalcRate,
+    numberOfDecimals,
   ]);
 };
 
