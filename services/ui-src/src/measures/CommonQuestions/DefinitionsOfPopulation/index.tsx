@@ -14,7 +14,7 @@ export const DefinitionOfPopulation = () => {
   const showDeliverySystemOtherPopulation =
     useWatch({
       name: DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC,
-    }) !== "NoRepresentsTotalEligiblePop"; // where is this coming from?
+    }) === DC.YES;
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
@@ -379,7 +379,7 @@ export const DefinitionOfPopulation = () => {
                     {...register(DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS)}
                   />
                 </CUI.Box>,
-                ...(showDeliverySystemOtherPopulation // TODO: is this ever shown now?
+                ...(showDeliverySystemOtherPopulation
                   ? [
                       <CUI.Box pt="5" key="DeliverySys-Other-Population">
                         <QMR.NumberInput
