@@ -50,8 +50,6 @@ const CategoryNdrSets = ({
             <CUI.Text key={item} fontWeight="bold" my="5">
               {item}
             </CUI.Text>
-            <h2>here</h2>
-            {/* <MultiRate rates={rates} name={""}></MultiRate> */}
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
@@ -81,22 +79,13 @@ const QualifierNdrSets = ({
   }));
 
   return (
-    <>
-      <MultiRate
-        rates={rates}
-        readOnly={rateReadOnly}
-        rateMultiplicationValue={rateScale}
-        customMask={customMask}
-        {...register("PerformanceMeasure.rates.singleCategory")}
-      ></MultiRate>
-      {/* <QMR.Rate
-        rates={rates}
-        readOnly={rateReadOnly}
-        rateMultiplicationValue={rateScale}
-        customMask={customMask}
-        {...register("PerformanceMeasure.rates.singleCategory")}
-      /> */}
-    </>
+    <MultiRate
+      rates={rates}
+      readOnly={rateReadOnly}
+      rateMultiplicationValue={rateScale}
+      customMask={customMask}
+      {...register("PerformanceMeasure.rates.singleCategory")}
+    ></MultiRate>
   );
 };
 

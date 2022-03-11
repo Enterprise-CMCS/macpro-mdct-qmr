@@ -8,9 +8,6 @@ const TestComponent = () => {
   const rates = [
     {
       label: "test",
-      denominator: "",
-      numerator: "",
-      rate: "",
       id: 1,
     },
   ];
@@ -20,17 +17,7 @@ const TestComponent = () => {
 
 describe("Test the Rate component", () => {
   beforeEach(() => {
-    renderWithHookForm(<TestComponent />, {
-      defaultValues: {
-        "test-component": [
-          {
-            numerator: "1",
-            denominator: "1",
-            rate: "1",
-          },
-        ],
-      },
-    });
+    renderWithHookForm(<TestComponent />);
   });
 
   test("Check that component renders and includes a label when passed optionally", () => {
