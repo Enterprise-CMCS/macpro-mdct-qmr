@@ -308,7 +308,8 @@ const validateNDRs = (
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             topLevelKey.split("-")
           )}`,
-          errorMessage: "Selected section NDR sets must be filled.",
+          errorMessage:
+            "For any category selected, at least one NDR set must be filled.",
         });
       }
     }
