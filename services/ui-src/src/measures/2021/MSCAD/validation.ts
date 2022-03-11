@@ -12,7 +12,6 @@ import {
   getPerfMeasureRateArray,
   omsLocationDictionary,
   validateReasonForNotReporting,
-  validateEqualDenominators,
 } from "measures/globalValidations";
 import {
   omsValidations,
@@ -45,11 +44,6 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
     return errorArray;
   }
 
-  let sameDenominatorError = [
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -64,7 +58,6 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       OPM,
       ageGroups
     ),
-    ...sameDenominatorError,
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
