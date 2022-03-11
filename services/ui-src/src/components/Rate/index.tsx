@@ -9,10 +9,12 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
+import { useEffect } from "react";
 
 export interface IRate {
   label?: string;
   id: number;
+  isTotal?: boolean;
 }
 
 interface Props extends QMR.InputWrapperProps {
@@ -22,6 +24,7 @@ interface Props extends QMR.InputWrapperProps {
   allowMultiple?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
 }
 
@@ -32,6 +35,7 @@ export const Rate = ({
   readOnly = true,
   rateMultiplicationValue = 100,
   customMask,
+  calcTotal,
   allowNumeratorGreaterThanDenominator,
   ...rest
 }: Props) => {
@@ -45,6 +49,30 @@ export const Rate = ({
     control,
     defaultValue: [],
   });
+
+  if (calcTotal) {
+    rates[rates.length - 1]["isTotal"] = true;
+  }
+
+  /*
+  On component render, verify that all NDRs have a label and isTotal value.
+  This is required for accurate data representation in DB and to calculateTotals().
+  */
+  useEffect(() => {
+    const prevRate = [...field.value];
+    rates.forEach((rate, index) => {
+      if (prevRate[index] === undefined) {
+        prevRate[index] = {};
+      }
+      prevRate[index]["label"] = rate.label ?? undefined;
+    });
+
+    if (calcTotal) {
+      prevRate[prevRate.length - 1]["isTotal"] = true;
+    }
+
+    field.onChange([...prevRate]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const rateCalculation = (
     numerator: string,
@@ -66,14 +94,14 @@ export const Rate = ({
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate",
-    newValue: string
+    newValue: string,
+    isTotal?: boolean
   ) => {
     const digitsAfterDecimal = 1;
     if (!allNumbers.test(newValue)) return;
     if (type === "rate" && readOnly) return;
 
     const prevRate = [...field.value];
-
     const editRate = { ...prevRate[index] };
     const validEditRate = eightNumbersOneDecimal.test(newValue);
 
@@ -124,12 +152,67 @@ export const Rate = ({
       label: rates[index].label,
       ...editRate,
     };
+
+    // Totals NDR should be independently editable
+    if (calcTotal && !isTotal) {
+      calculateTotals(prevRate);
+    }
     field.onChange([...prevRate]);
+  };
+
+  /*
+  Iterate over all numerators and denominators of NDRs where isTotal is false.
+  Sum these values and set the NDR where isTotal is true to be these sumed values.
+  */
+  const calculateTotals = (prevRate: any[]) => {
+    let numeratorSum: any = null;
+    let denominatorSum: any = null;
+    let x;
+
+    // sum all Ns and Ds
+    // we assume last NDR is total if calcTotal is true
+    prevRate.slice(0, -1).forEach((item) => {
+      if (item !== undefined && item !== null && !item["isTotal"]) {
+        if (!isNaN((x = parseFloat(item["numerator"])))) {
+          numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item["denominator"])))) {
+          denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
+        }
+      }
+    });
+
+    // Set total values and calculate total rate
+    let totalIndex = prevRate.length - 1;
+    let newValue = numeratorSum !== null ? numeratorSum.toString() : "";
+    prevRate[totalIndex]["numerator"] = newValue;
+
+    newValue = denominatorSum !== null ? denominatorSum.toString() : "";
+    prevRate[totalIndex]["denominator"] = denominatorSum;
+
+    if (
+      numeratorSum !== null &&
+      denominatorSum !== null &&
+      numeratorSum <= denominatorSum
+    ) {
+      prevRate[totalIndex]["rate"] =
+        numeratorSum !== 0
+          ? rateCalculation(
+              numeratorSum.toString(),
+              denominatorSum.toString(),
+              rateMultiplicationValue,
+              1
+            )
+          : "0";
+    } else {
+      prevRate[totalIndex]["rate"] = "";
+    }
   };
 
   return (
     <>
       {rates.map((rate, index) => {
+        const isTotal = rate.isTotal ?? undefined;
         return (
           <CUI.Stack key={rate.id} my={8}>
             {rate.label && (
@@ -153,7 +236,7 @@ export const Rate = ({
                   value={field.value[index]?.numerator ?? ""}
                   data-cy={`${name}.${index}.numerator`}
                   onChange={(e) =>
-                    changeRate(index, "numerator", e.target.value)
+                    changeRate(index, "numerator", e.target.value, isTotal)
                   }
                 />
               </QMR.InputWrapper>
@@ -173,7 +256,7 @@ export const Rate = ({
                   value={field.value[index]?.denominator ?? ""}
                   data-cy={`${name}.${index}.denominator`}
                   onChange={(e) =>
-                    changeRate(index, "denominator", e.target.value)
+                    changeRate(index, "denominator", e.target.value, isTotal)
                   }
                 />
               </QMR.InputWrapper>
@@ -190,7 +273,9 @@ export const Rate = ({
                 <CUI.Input
                   value={field.value[index]?.rate ?? ""}
                   data-cy={`${name}.${index}.rate`}
-                  onChange={(e) => changeRate(index, "rate", e.target.value)}
+                  onChange={(e) =>
+                    changeRate(index, "rate", e.target.value, isTotal)
+                  }
                   readOnly={readOnly}
                 />
               </QMR.InputWrapper>
