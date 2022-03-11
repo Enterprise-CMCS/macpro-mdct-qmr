@@ -76,7 +76,7 @@ const allDenomsTheSame = (data: FormData) => {
     ? [
         {
           errorLocation: "Performance Measure",
-          errorMessage: `The denominators must be the same.`,
+          errorMessage: `${PMD.categories[1]} rate must have the same denominator as ${PMD.categories[0]} rate`,
         },
       ]
     : [];

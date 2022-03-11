@@ -15,7 +15,7 @@ import * as DC from "dataConstants";
 
 import {
   omsValidations,
-  validateDenominatorsAreTheSame as validateDenomsAreTheSame,
+  validateAllDenomsAreTheSame,
   validateDenominatorGreaterThanNumerator,
   validateOneRateLessThanOther,
   validateRateZero,
@@ -71,8 +71,7 @@ const validateDenominatorsAreTheSame = (data: FormData) => {
     ) {
       error = {
         errorLocation: "Performance Measure",
-        errorMessage:
-          "Long-acting reversible method of contraception (LARC) rate must have the same denominator as Most effective or moderately effective method of contraception rate",
+        errorMessage: `${PMD.categories[1]} rate must have the same denominator as ${PMD.categories[0]} rate`,
       };
     }
   }
@@ -151,7 +150,7 @@ const validateOMS = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        validateDenomsAreTheSame,
+        validateAllDenomsAreTheSame,
         validateOneRateLessThanOther,
         validateRateZero,
         validateRateNotZero,

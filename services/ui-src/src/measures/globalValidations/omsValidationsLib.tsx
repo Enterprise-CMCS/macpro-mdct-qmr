@@ -346,7 +346,7 @@ export const validateAllDenomsAreTheSame: OmsValidationCallback = ({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             label
           )}`,
-          errorMessage: `The denominators must be the same.`,
+          errorMessage: `${categories[1]} rate must have the same denominator as ${categories[0]} rate`,
         },
       ]
     : [];
