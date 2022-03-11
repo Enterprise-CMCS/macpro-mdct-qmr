@@ -338,13 +338,14 @@ export const MeasureWrapper = ({
                   }}
                 />
               )}
-              {errors?.map((error, index) => (
+              {errors?.map((error: FormError, index) => (
                 <QMR.Notification
                   key={uuidv4()}
                   alertProps={{ my: "3" }}
                   alertStatus="error"
                   alertTitle={`${error.errorLocation} Error`}
                   alertDescription={error.errorMessage}
+                  extendedAlertList={error.errorList}
                   close={() => {
                     const newErrors = [...errors];
                     newErrors.splice(index, 1);

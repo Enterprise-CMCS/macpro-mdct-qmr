@@ -8,6 +8,7 @@ import {
   validateRequiredRadioButtonForCombinedRates,
   getDeviationNDRArray,
   validateReasonForNotReporting,
+  validateAllDenomsTheSameCrossQualifier,
 } from "measures/globalValidations";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
@@ -15,7 +16,7 @@ import * as DC from "dataConstants";
 
 import {
   omsValidations,
-  validateAllDenomsAreTheSame,
+  validateAllDenomsAreTheSameCrossQualifier,
   validateDenominatorGreaterThanNumerator,
   validateOneRateLessThanOther,
   validateRateZero,
@@ -100,6 +101,7 @@ const CCWADValidation = (data: FormData) => {
       ageGroups
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
   ];
 
   return errorArray;
@@ -150,7 +152,7 @@ const validateOMS = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        validateAllDenomsAreTheSame,
+        validateAllDenomsAreTheSameCrossQualifier,
         validateOneRateLessThanOther,
         validateRateZero,
         validateRateNotZero,

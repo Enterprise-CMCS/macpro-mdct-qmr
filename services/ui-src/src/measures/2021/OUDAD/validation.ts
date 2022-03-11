@@ -10,14 +10,9 @@ import {
   getPerfMeasureRateArray,
   omsLocationDictionary,
   validateReasonForNotReporting,
+  validateAllDenomsTheSameCrossQualifier,
 } from "measures/globalValidations";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateDenominatorsAreTheSame,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
+import * as OMSVal from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
@@ -57,7 +52,12 @@ const OUDValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
-    ...omsValidations({
+    ...validateAllDenomsTheSameCrossQualifier(
+      data,
+      PMD.categories,
+      PMD.qualifiers
+    ),
+    ...OMSVal.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
@@ -67,10 +67,11 @@ const OUDValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateDenominatorsAreTheSame,
-        validateRateZero,
-        validateRateNotZero,
+        OMSVal.validateDenominatorGreaterThanNumerator,
+        OMSVal.validateDenominatorsAreTheSame,
+        OMSVal.validateRateZero,
+        OMSVal.validateRateNotZero,
+        OMSVal.validateAllDenomsAreTheSameCrossQualifier,
       ],
     }),
     ...validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),

@@ -319,40 +319,41 @@ const validateNDRs = (
   return errorArray;
 };
 
-export const validateAllDenomsAreTheSame: OmsValidationCallback = ({
-  rateData,
-  categories,
-  qualifiers,
-  label,
-  locationDictionary,
-  isOPM,
-}) => {
-  const denomArray: string[] = [];
-  if (isOPM) return [];
+export const validateAllDenomsAreTheSameCrossQualifier: OmsValidationCallback =
+  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
+    const denomArray: string[] = [];
+    const locationArray: string[] = [];
+    if (isOPM) return [];
 
-  for (const qual of qualifiers.map((qual) => cleanString(qual))) {
-    for (const cat of categories.map((cat) => cleanString(cat))) {
-      const temp = rateData.rates?.[qual]?.[cat]?.[0].denominator;
+    for (const qual of qualifiers.map((qual) => cleanString(qual))) {
+      for (const cat of categories.map((cat) => cleanString(cat))) {
+        const temp = rateData.rates?.[qual]?.[cat]?.[0].denominator;
 
-      if (temp) {
-        denomArray.push(temp);
+        if (temp) {
+          denomArray.push(temp);
+          locationArray.push(
+            locationDictionary([
+              categories[0] === "singleCategory" ? qual : cat,
+            ])
+          );
+        }
       }
     }
-  }
 
-  const areTheSame = denomArray.every((denom) => denom === denomArray[0]);
+    const areTheSame = denomArray.every((denom) => denom === denomArray[0]);
 
-  return !areTheSame
-    ? [
-        {
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            label
-          )}`,
-          errorMessage: `${categories[1]} rate must have the same denominator as ${categories[0]} rate`,
-        },
-      ]
-    : [];
-};
+    return !areTheSame
+      ? [
+          {
+            errorLocation: `Optional Measure Stratification: ${locationDictionary(
+              label
+            )}`,
+            errorMessage: `The following categories must have the same denominator:`,
+            errorList: locationArray,
+          },
+        ]
+      : [];
+  };
 /*
 ex. rate of 3 day should be less than or equal to 6 day
 */
