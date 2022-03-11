@@ -24,6 +24,7 @@ interface AgeGroupProps {
   categories: string[];
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator: boolean;
 }
 
 interface OPMProps {
@@ -49,6 +50,7 @@ interface NdrOptionBuilderProps extends AgeGroupProps {
   categories: string[];
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator: boolean;
 }
 
 interface ConditionalRateBuilderProps {
@@ -61,6 +63,7 @@ interface ConditionalRateBuilderProps {
   name: string;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator: boolean;
 }
 
 type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
@@ -177,6 +180,7 @@ const buildConditionalRateArray = ({
   categories,
   rateMultiplicationValue,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: ConditionalRateBuilderProps) => {
   const ndrSets: React.ReactElement[] = [];
   const cleanedLabel = value?.replace(/[^\w]/g, "") ?? "CHECKBOX_VALUE_NOT_SET";
@@ -200,7 +204,9 @@ const buildConditionalRateArray = ({
           name={adjustedName}
           key={adjustedName}
           rateMultiplicationValue={rateMultiplicationValue}
-          allowNumeratorGreaterThanDenominator
+          allowNumeratorGreaterThanDenominator={
+            allowNumeratorGreaterThanDenominator
+          }
           customMask={customMask}
           rates={[
             {
@@ -231,6 +237,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
   categories,
   rateMultiplicationValue,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: NdrOptionBuilderProps) => {
   const checkboxes: QMR.CheckboxOption[] = [];
 
@@ -246,6 +253,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
       categories,
       rateMultiplicationValue,
       customMask,
+      allowNumeratorGreaterThanDenominator,
     });
     if (ndrSets.length) {
       const cleanedLabel = val.replace(/[^\w]/g, "");
@@ -289,6 +297,8 @@ const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
       values: props.categories,
       rateMultiplicationValue: props.rateMultiplicationValue,
       customMask: props.customMask,
+      allowNumeratorGreaterThanDenominator:
+        props.allowNumeratorGreaterThanDenominator,
     });
   }
   return buildPerformanceMeasureNDRCheckboxOptions({
@@ -297,6 +307,8 @@ const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
     values: props.qualifiers,
     rateMultiplicationValue: props.rateMultiplicationValue,
     customMask: props.customMask,
+    allowNumeratorGreaterThanDenominator:
+      props.allowNumeratorGreaterThanDenominator,
   });
 };
 
@@ -312,6 +324,7 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
     rateMultiplicationValue,
     customMask,
     calcTotal,
+    allowNumeratorGreaterThanDenominator,
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
 
@@ -323,6 +336,8 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
     categories,
     rateMultiplicationValue,
     customMask,
+    allowNumeratorGreaterThanDenominator:
+      !!allowNumeratorGreaterThanDenominator,
   });
 
   return (
