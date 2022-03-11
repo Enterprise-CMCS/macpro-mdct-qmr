@@ -1,6 +1,6 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
-export const qualifiers = [];
+export const qualifiers = ["Ages 6 to 17"];
 export const categories = [
   "Follow up within 30 days after discharge",
   "Follow up within 7 days after discharge",
