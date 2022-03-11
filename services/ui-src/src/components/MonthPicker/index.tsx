@@ -36,8 +36,8 @@ export const MonthPicker = ({
   return (
     <CUI.HStack>
       <CUI.Stack>
-        <CUI.FormControl label="Month (mm):" isInvalid={isInvalid}>
-          <CUI.FormLabel my={0}>{"Month (mm):"}</CUI.FormLabel>
+        <CUI.FormControl label="Month:" isInvalid={isInvalid}>
+          <CUI.FormLabel my={0}>{"Month:"}</CUI.FormLabel>
           <CUI.HStack>
             <CUI.Input
               data-cy={`${name}-month`}
