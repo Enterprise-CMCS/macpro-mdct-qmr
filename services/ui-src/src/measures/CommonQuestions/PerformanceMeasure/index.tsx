@@ -52,6 +52,11 @@ const CategoryNdrSets = ({
             <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
+            {!rateReadOnly && (
+              <CUI.Heading pt="5" size={"sm"}>
+                Please review the auto-calculated rate and revise if needed.
+              </CUI.Heading>
+            )}
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
@@ -75,6 +80,7 @@ const QualifierNdrSets = ({
   qualifiers = [],
   rateScale,
   customMask,
+  calcTotal,
   allowNumeratorGreaterThanDenominator,
 }: NdrSetProps) => {
   const register = useCustomRegister();
@@ -84,16 +90,24 @@ const QualifierNdrSets = ({
     id: idx,
   }));
   return (
-    <QMR.Rate
-      rates={rates}
-      readOnly={rateReadOnly}
-      rateMultiplicationValue={rateScale}
-      customMask={customMask}
-      allowNumeratorGreaterThanDenominator={
-        allowNumeratorGreaterThanDenominator
-      }
-      {...register("PerformanceMeasure.rates.singleCategory")}
-    />
+    <>
+      {!rateReadOnly && (
+        <CUI.Heading pt="5" size={"sm"}>
+          Please review the auto-calculated rate and revise if needed.
+        </CUI.Heading>
+      )}
+      <QMR.Rate
+        rates={rates}
+        readOnly={rateReadOnly}
+        rateMultiplicationValue={rateScale}
+        customMask={customMask}
+        calcTotal={calcTotal}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
+        {...register("PerformanceMeasure.rates.singleCategory")}
+      />
+    </>
   );
 };
 
@@ -136,27 +150,27 @@ export const PerformanceMeasure = ({
         {data.questionText.map((item, idx) => {
           return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
         })}
-        {data.questionListItems && (
-          <CUI.UnorderedList m="5" ml="10" spacing={5}>
-            {data.questionListItems.map((item, idx) => {
-              return (
-                <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
-                  {data.questionListTitles?.[idx] && (
-                    <CUI.Text display="inline" fontWeight="600">
-                      {data.questionListTitles?.[idx]}
-                    </CUI.Text>
-                  )}
-                  {item}
-                </CUI.ListItem>
-              );
-            })}
-          </CUI.UnorderedList>
-        )}
-        <QMR.TextArea
-          label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
-          {...register("PerformanceMeasure.explanation")}
-        />
       </CUI.Stack>
+      {data.questionListItems && (
+        <CUI.UnorderedList m="5" ml="10" spacing={5}>
+          {data.questionListItems.map((item, idx) => {
+            return (
+              <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+                {data.questionListTitles?.[idx] && (
+                  <CUI.Text display="inline" fontWeight="600">
+                    {data.questionListTitles?.[idx]}
+                  </CUI.Text>
+                )}
+                {item}
+              </CUI.ListItem>
+            );
+          })}
+        </CUI.UnorderedList>
+      )}
+      <QMR.TextArea
+        label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+        {...register("PerformanceMeasure.explanation")}
+      />
       <CUI.Text
         fontWeight="bold"
         mt={5}
