@@ -322,8 +322,10 @@ export const validateAllDenomsAreTheSame: OmsValidationCallback = ({
   qualifiers,
   label,
   locationDictionary,
+  isOPM,
 }) => {
   const denomArray: string[] = [];
+  if (isOPM) return [];
 
   for (const qual of qualifiers.map((qual) => cleanString(qual))) {
     for (const cat of categories.map((cat) => cleanString(cat))) {
