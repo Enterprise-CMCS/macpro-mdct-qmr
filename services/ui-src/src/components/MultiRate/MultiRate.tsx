@@ -158,7 +158,11 @@ export const MultiRate = ({
   // TODO: does "Count of Expected 30-Day Readmissions" require 4 decimals?
   const generateInputWarnings = (ndr: any, index: number) => {
     return (
-      <CUI.Stack key={`warning-stack-${index}`} direction="column">
+      <CUI.Stack
+        key={`warning-stack-${index}`}
+        direction="column"
+        width={"100%"}
+      >
         {parseInt(field.value[ndr.numerator]?.value) >
           parseInt(field.value[ndr.denominator]?.value) && (
           <QMR.Notification

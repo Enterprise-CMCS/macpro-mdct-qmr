@@ -5,6 +5,7 @@ import * as Types from "../../../../CommonQuestions/types";
 import { usePerformanceMeasureContext } from "./context";
 import { useController, useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { MultiRate } from "components/MultiRate/MultiRate";
 
 interface NdrProps {
   /** name for react-hook-form registration */
@@ -335,6 +336,38 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
 };
 
 /**
+ * Builds NDRs for Performance Measure AgeGroups
+ */
+const PCRADNDRSets = ({ name }: NdrProps) => {
+  const { rateReadOnly, qualifiers, rateMultiplicationValue, customMask } =
+    usePerformanceMeasureContext();
+  const rates = qualifiers.map((qual, i) => {
+    return { label: qual, id: i };
+  });
+
+  return (
+    <>
+      <CUI.Heading key={`${name}.rates.Header`} size={"sm"}>
+        Enter a number for the numerator and the denominator. Rate will
+        auto-calculate
+      </CUI.Heading>
+      {!rateReadOnly && (
+        <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
+          Please review the auto-calculated rate and revise if needed.
+        </CUI.Heading>
+      )}
+      <MultiRate
+        rates={rates}
+        name={`${name}.options`}
+        readOnly={rateReadOnly}
+        rateMultiplicationValue={rateMultiplicationValue}
+        customMask={customMask}
+      />
+    </>
+  );
+};
+
+/**
  * Builds OPM Checkboxes
  */
 const renderOPMChckboxOptions = ({
@@ -431,7 +464,8 @@ export const NDRSets = ({ name }: NdrProps) => {
   return (
     <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
       {OPM && <OPMNDRSets name={name} key={name} />}
-      {!OPM && <AgeGroupNDRSets name={name} key={name} />}
+      {!OPM && <PCRADNDRSets name={name} key={name} />}
+      {!OPM && false && <AgeGroupNDRSets name={name} key={name} />}
       {!OPM && calcTotal && (
         <TotalNDR name={name} key={`${name}.TotalWrapper`} />
       )}
