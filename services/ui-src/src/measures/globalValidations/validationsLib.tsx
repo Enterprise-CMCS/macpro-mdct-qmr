@@ -139,7 +139,8 @@ export const validateNumeratorsLessThanDenominators = (
 // Initiation AND Engagement
 export const validateEqualDenominators = (
   performanceMeasureArray: PerformanceMeasure[][],
-  ageGroups: string[]
+  ageGroups: string[],
+  explicitErrorMessage?: string
 ) => {
   let error;
   let errorArray: any[] = [];
@@ -165,7 +166,9 @@ export const validateEqualDenominators = (
       if (denominatorsNotEqual) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for each category of performance measures for ${ageGroup}`,
+          errorMessage:
+            explicitErrorMessage ||
+            `Denominators must be the same for each category of performance measures for ${ageGroup}`,
         };
         errorArray.push(error);
       }

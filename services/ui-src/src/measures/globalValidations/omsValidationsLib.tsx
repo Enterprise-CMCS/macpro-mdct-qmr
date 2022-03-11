@@ -4,7 +4,8 @@ import {
   DefaultFormData,
 } from "measures/CommonQuestions/types";
 type locationDictionaryFunction = (labels: string[]) => string;
-type OmsValidationCallback = (data: {
+
+export type OmsValidationCallback = (data: {
   rateData: OMS.OmsRateFields;
   qualifiers: string[];
   categories: string[];
@@ -12,6 +13,7 @@ type OmsValidationCallback = (data: {
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
 }) => FormError[];
+
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 interface OmsValidationProps {
   data: DefaultFormData;

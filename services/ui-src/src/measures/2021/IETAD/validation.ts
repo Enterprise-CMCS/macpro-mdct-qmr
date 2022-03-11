@@ -16,13 +16,55 @@ import {
   getDeviationNDRArray,
 } from "../../globalValidations";
 import {
+  OmsValidationCallback,
   omsValidations,
   validateDenominatorGreaterThanNumerator,
-  validateDenominatorsAreTheSame,
   validateRateNotZero,
   validateRateZero,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+
+const cleanString = (s: string) => s.replace(/[^\w]/g, "");
+
+/** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
+const sameDenominatorSets: OmsValidationCallback = ({
+  rateData,
+  locationDictionary,
+  categories,
+  qualifiers,
+  isOPM,
+  label,
+}) => {
+  if (isOPM) return [];
+  const errorArray: FormError[] = [];
+
+  for (const qual of qualifiers.map((s) => cleanString(s))) {
+    for (let initiation = 0; initiation < categories.length; initiation += 2) {
+      const engagement = initiation + 1;
+      const initRate =
+        rateData.rates?.[qual]?.[cleanString(categories[initiation])]?.[0];
+      const engageRate =
+        rateData.rates?.[qual]?.[cleanString(categories[engagement])]?.[0];
+
+      if (
+        initRate &&
+        engageRate &&
+        initRate.denominator !== engageRate.denominator
+      ) {
+        errorArray.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            [...label, qual]
+          )}`,
+          errorMessage: `Denominators must be the same for ${locationDictionary(
+            [categories[initiation]]
+          )} and ${locationDictionary([categories[engagement]])}.`,
+        });
+      }
+    }
+  }
+
+  return errorArray;
+};
 
 const IEDValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -40,18 +82,6 @@ const IEDValidation = (data: FormData) => {
 
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
-  const totalInitiation = performanceMeasureArray.filter(
-    (_, idx) =>
-      PMD.data.categories?.[idx].includes("Initiation") &&
-      PMD.data.categories?.[idx].includes("Total")
-  )[0];
-
-  const totalEngagement = performanceMeasureArray.filter(
-    (_, idx) =>
-      PMD.data.categories?.[idx].includes("Engagement") &&
-      PMD.data.categories?.[idx].includes("Total")
-  )[0];
-
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
@@ -64,14 +94,13 @@ const IEDValidation = (data: FormData) => {
       ...unfilteredSameDenominatorErrors,
       ...validateEqualDenominators(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
-        ageGroups
+        ageGroups,
+        `Denominators must be the same for ${PMD.categories[i]} and ${
+          PMD.categories[i + 1]
+        }.`
       ),
     ];
   }
-  unfilteredSameDenominatorErrors = [
-    ...unfilteredSameDenominatorErrors,
-    ...validateEqualDenominators([totalInitiation, totalEngagement], ageGroups),
-  ];
 
   let filteredSameDenominatorErrors: any = [];
   let errorList: string[] = [];
@@ -109,9 +138,9 @@ const IEDValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        validateDenominatorsAreTheSame,
         validateRateZero,
         validateRateNotZero,
+        sameDenominatorSets,
       ],
     }),
     ...validateRequiredRadioButtonForCombinedRates(data),
