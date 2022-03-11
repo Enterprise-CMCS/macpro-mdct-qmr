@@ -539,6 +539,7 @@ describe("Measure: CIS-CH", () => {
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
     );
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
+    cy.wait(1500);
     cy.get(
       '[data-cy="DataSourceSelections.AdministrativeData0.selected2"] > .chakra-checkbox__control'
     ).click();
