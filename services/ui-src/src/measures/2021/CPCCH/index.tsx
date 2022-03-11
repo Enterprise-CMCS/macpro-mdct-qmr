@@ -32,7 +32,7 @@ export const CPCCH = ({
       {data["DidCollect"] !== "no" && (
         <>
           <Q.HowDidYouReport />
-          <CMQ.MeasurementSpecification type="AHRQ" />
+          <CMQ.MeasurementSpecification type="AHRQ-NCQA" />
           <Q.DataSource />
           <Q.DefinitionOfPopulation />
           <Q.PerformanceMeasure />
