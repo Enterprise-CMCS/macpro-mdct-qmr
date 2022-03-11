@@ -45,7 +45,7 @@ export const AMRCH = ({
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
