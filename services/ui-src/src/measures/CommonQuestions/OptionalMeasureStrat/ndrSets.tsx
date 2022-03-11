@@ -70,7 +70,7 @@ type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
  * If total is adjusted manually, this will not change the state object which stops a forced recalculation/render
  */
 const useOmsTotalRate = (omsName: string, totalName: string) => {
-  const { qualifiers, rateMultiplicationValue } =
+  const { qualifiers, rateMultiplicationValue, numberOfDecimals } =
     usePerformanceMeasureContext();
   const { watch, control } = useFormContext();
 
@@ -106,9 +106,12 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       }
     }
 
-    tempRate.rate = Math.round(
-      (tempRate.numerator / tempRate.denominator) *
-        (rateMultiplicationValue ?? 100)
+    tempRate.rate = (
+      Math.round(
+        (tempRate.numerator / tempRate.denominator) *
+          (rateMultiplicationValue ?? 100) *
+          Math.pow(10, numberOfDecimals)
+      ) / Math.pow(10, numberOfDecimals)
     ).toFixed(1);
 
     if (
