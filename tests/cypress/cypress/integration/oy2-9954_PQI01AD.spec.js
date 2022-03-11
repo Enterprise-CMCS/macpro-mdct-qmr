@@ -2,7 +2,7 @@ const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
 describe("Measure: PQI01-AD", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
@@ -281,7 +281,7 @@ describe("Measure: PQI01-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.ageRangeRates.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.ageRangeRates.rates.Ages18to64.0.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.ageRangeRates.rates.Ages18to64.singleCategory.0.numerator"]'
     ).type("3");
   });
 
