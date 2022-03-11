@@ -13,12 +13,10 @@ import {
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
   validateOneRateHigherThanOther,
-  validateEqualDenominators,
 } from "../../globalValidations";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
-  validateDenominatorsAreTheSame,
   validateOneRateLessThanOther,
   validateCrossQualifierRateCorrect,
   validateRateZero,
@@ -121,7 +119,6 @@ const CCPADValidation = (data: FormData) => {
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
     ...validateOneRateHigherThanOther(data, PMD.data),
   ];
 
@@ -143,7 +140,7 @@ const validateOMS = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        validateDenominatorsAreTheSame,
+        // validateDenominatorsAreTheSame,
         validateOneRateLessThanOther,
         validateCrossQualifierRateCorrect,
         validateRateZero,
