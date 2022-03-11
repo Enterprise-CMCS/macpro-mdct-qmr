@@ -1,7 +1,6 @@
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import {
   omsValidations,
-  validateDenominatorGreaterThanNumerator,
   validateRateNotZero,
   validateRateZero,
 } from "measures/globalValidations/omsValidationsLib";
@@ -76,11 +75,7 @@ const PQI08Validation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
-      ],
+      validationCallbacks: [validateRateZero, validateRateNotZero],
     }),
   ];
 

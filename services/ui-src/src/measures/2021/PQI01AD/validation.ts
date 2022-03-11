@@ -15,7 +15,6 @@ import * as PMD from "./data";
 import * as DC from "dataConstants";
 import {
   omsValidations,
-  validateDenominatorGreaterThanNumerator,
   validateRateNotZero,
   validateRateZero,
 } from "measures/globalValidations/omsValidationsLib";
@@ -78,11 +77,7 @@ const PQI01Validation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
-      ],
+      validationCallbacks: [validateRateZero, validateRateNotZero],
     }),
   ];
 
