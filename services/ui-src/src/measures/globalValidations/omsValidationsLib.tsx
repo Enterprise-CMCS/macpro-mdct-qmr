@@ -327,7 +327,7 @@ export const validateAllDenomsAreTheSameCrossQualifier: OmsValidationCallback =
 
     for (const qual of qualifiers.map((qual) => cleanString(qual))) {
       for (const cat of categories.map((cat) => cleanString(cat))) {
-        const temp = rateData.rates?.[qual]?.[cat]?.[0].denominator;
+        const temp = rateData.rates?.[qual]?.[cat]?.[0]?.denominator;
 
         if (temp) {
           denomArray.push(temp);

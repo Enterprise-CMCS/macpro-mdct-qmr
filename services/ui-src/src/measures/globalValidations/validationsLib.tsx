@@ -211,7 +211,7 @@ export const validateAllDenomsTheSameCrossQualifier = (
         {
           errorLocation: "Performance Measure",
           errorMessage: `The following categories must have the same denominator:`,
-          errorList: categories.length <= 1 ? qualifiers : categories,
+          errorList: locationArray,
         },
       ]
     : [];
