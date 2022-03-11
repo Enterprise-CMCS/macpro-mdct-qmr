@@ -22,7 +22,7 @@ export const DefinitionOfPopulation = ({
   const showDeliverySystemOtherPopulation =
     useWatch({
       name: DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC,
-    }) !== "NoRepresentsTotalEligiblePop"; // where is this coming from?
+    }) === DC.YES;
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
@@ -175,7 +175,7 @@ export const DefinitionOfPopulation = ({
         <QMR.Checkbox
           formLabelProps={{ fontWeight: "400" }}
           {...register(DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR)}
-          label="Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system."
+          label="Select all delivery systems that apply in your state. You must select at least one delivery system. For each selected delivery system, enter the percentage and number of enrollees covered by that delivery system that are included in the data reported for this measure. For example, if the measure-eligible population represents all managed care enrollees, enter 100 percent for MCO, and the number covered."
           options={[
             {
               displayValue: "Fee-for-Service (FFS)",
@@ -420,7 +420,7 @@ export const DefinitionOfPopulation = ({
                     displayPercent
                     mask={percentageAllowOneDecimalMax}
                     formLabelProps={{ fontWeight: "400" }}
-                    label="Percentage of measure-eligible state population represented in data reported:"
+                    label="Percentage of total other population represented in data reported:"
                     {...register(DC.DELIVERY_SYS_OTHER_PERCENT)}
                   />
                 </CUI.Box>,
@@ -444,7 +444,7 @@ export const DefinitionOfPopulation = ({
                     {...register(DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS)}
                   />
                 </CUI.Box>,
-                ...(showDeliverySystemOtherPopulation // TODO: is this ever shown now?
+                ...(showDeliverySystemOtherPopulation
                   ? [
                       <CUI.Box pt="5" key="DeliverySys-Other-Population">
                         <QMR.NumberInput

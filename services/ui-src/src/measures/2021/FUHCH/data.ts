@@ -1,7 +1,10 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
 export const qualifiers = [];
-export const categories = ["30 Day Follow-Up", "7 Day Follow-Up"];
+export const categories = [
+  "Follow up within 30 days after discharge",
+  "Follow up within 7 days after discharge",
+];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
