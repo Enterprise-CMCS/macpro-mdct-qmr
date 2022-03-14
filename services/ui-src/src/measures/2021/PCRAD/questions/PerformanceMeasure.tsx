@@ -138,6 +138,29 @@ export const PCRADPerformanceMeasure = ({
           })}
         </CUI.UnorderedList>
       )}
+      <CUI.Text>
+        For beneficiaries ages 18 to 64, states should also report the rate of
+        beneficiaries who are identified as outliers based on high rates of
+        inpatient and observation stays during the measurement year. Data are
+        reported in the following categories:
+      </CUI.Text>
+      <CUI.UnorderedList m="5" ml="10" spacing={5}>
+        {[
+          "Count of Beneficiaries in Medicaid Population",
+          "Number of Outliers",
+        ].map((item, idx) => {
+          return (
+            <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+              {data.questionListTitles?.[idx] && (
+                <CUI.Text display="inline" fontWeight="600">
+                  {data.questionListTitles?.[idx]}
+                </CUI.Text>
+              )}
+              {item}
+            </CUI.ListItem>
+          );
+        })}
+      </CUI.UnorderedList>
       <QMR.TextArea
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
         {...register("PerformanceMeasure.explanation")}
