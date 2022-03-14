@@ -10,7 +10,7 @@ export const atLeastOneRateComplete = (
   ageGroups: string[]
 ) => {
   let error = true;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
@@ -60,7 +60,7 @@ export const validateDualPopInformation = (
     dualEligible = false;
   }
   let error;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   let filledInData: any[] = [];
   const i = age65PlusIndex;
   performanceMeasureArray?.forEach((performanceMeasure) => {
@@ -90,7 +90,7 @@ export const validateDualPopInformation = (
         "The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for Age 65 and Older",
     });
   }
-  return error ? errorArray : [];
+  return error ? [errorArray[0]] : [];
 };
 
 // For every performance measure the Numerators must always be less than the denominators
@@ -100,7 +100,7 @@ export const validateNumeratorsLessThanDenominators = (
   ageGroups: string[]
 ) => {
   let error = false;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
@@ -143,7 +143,7 @@ export const validateEqualDenominators = (
   explicitErrorMessage?: string
 ) => {
   let error;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   ageGroups.forEach((ageGroup, i) => {
     let filledInData: any[] = [];
     performanceMeasureArray?.forEach((_performanceObj, index) => {
@@ -316,7 +316,7 @@ export const ensureBothDatesCompletedInRange = (
 
 export const validateReasonForNotReporting = (whyNotReporting: any) => {
   let error = false;
-  const errorArray: any[] = [];
+  const errorArray: FormError[] = [];
 
   if (!(whyNotReporting && whyNotReporting.length > 0)) {
     error = true;
@@ -339,7 +339,7 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
   deviationArray: Types.DeviationFields[] | any,
   didCalculationsDeviate: boolean
 ) => {
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   let ndrCount = 0;
   if (didCalculationsDeviate) {
     ageGroups.forEach((_ageGroup, i) => {
@@ -383,7 +383,7 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
 export const validateRequiredRadioButtonForCombinedRates = (
   data: Types.CombinedRates
 ) => {
-  const errorArray: any[] = [];
+  const errorArray: FormError[] = [];
 
   if (data.CombinedRates && data.CombinedRates === DC.YES) {
     if (!data["CombinedRates-CombinedRates"]) {
@@ -406,7 +406,7 @@ export const validateOneRateHigherThanOther = (
   const lowerRate = perfMeasure[1];
   const higherRate = perfMeasure[0];
   let error;
-  const errorArray: any[] = [];
+  const errorArray: FormError[] = [];
 
   if (lowerRate && higherRate) {
     lowerRate.forEach((_lowerRateObj, index) => {
