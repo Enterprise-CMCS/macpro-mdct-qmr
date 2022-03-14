@@ -15,8 +15,8 @@ import { FormData } from "./types";
 const validateContinuationGreaterThanAccute = (data: any) => {
   if (
     !(
-      data["PerformanceMeasure"]["rates"]["EffectiveAcutePhaseTreatment"] ||
-      data["PerformanceMeasure"]["rates"]["EffectiveContinuationPhaseTreatment"]
+      data?.PerformanceMeasure?.rates?.EffectiveAcutePhaseTreatment ||
+      data?.PerformanceMeasure?.rates?.EffectiveContinuationPhaseTreatment
     )
   ) {
     return [];
