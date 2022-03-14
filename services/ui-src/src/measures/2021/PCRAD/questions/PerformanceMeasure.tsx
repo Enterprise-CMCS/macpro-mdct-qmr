@@ -4,7 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../../../CommonQuestions/types";
 import { PerformanceMeasureData } from "../../../CommonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
-import { MultiRate } from "components/MultiRate/MultiRate";
+import { MultiRate } from "components/MultiRate";
 
 interface Props {
   data: PerformanceMeasureData;

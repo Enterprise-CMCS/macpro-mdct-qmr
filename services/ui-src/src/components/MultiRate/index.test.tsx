@@ -3,7 +3,7 @@ import fireEvent from "@testing-library/user-event";
 
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
-import { MultiRate } from "./MultiRate";
+import { MultiRate } from ".";
 
 // Example input fields
 const qualifiers = [

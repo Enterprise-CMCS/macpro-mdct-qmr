@@ -5,7 +5,7 @@ import * as Types from "../../../../CommonQuestions/types";
 import { usePerformanceMeasureContext } from "./context";
 import { useController, useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { MultiRate } from "components/MultiRate/MultiRate";
+import { MultiRate } from "components/MultiRate";
 
 interface NdrProps {
   /** name for react-hook-form registration */
