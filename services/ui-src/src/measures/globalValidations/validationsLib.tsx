@@ -210,7 +210,7 @@ export const validateAllDenomsTheSameCrossQualifier = (
   return !areTheSame
     ? [
         {
-          errorLocation: "Performance Measweure",
+          errorLocation: "Performance Measure",
           errorMessage: `Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:`,
           errorList: locationArray.filter((v, i, a) => a.indexOf(v) === i),
         },
