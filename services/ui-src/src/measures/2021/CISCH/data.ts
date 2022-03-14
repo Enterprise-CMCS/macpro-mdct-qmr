@@ -56,7 +56,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
       },
     },
     {
-      value: "Hybrid (Administrative and Medical Records Data)",
+      value: DC.HYBRID_DATA,
       subOptions: {
         label: "What is the Administrative Data Source?",
         options: [
@@ -72,18 +72,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
           },
         ],
       },
-      // {
-      //   label:
-      //     "What is the Medical Records Data Source? (Both can be selected)",
-      //   options: [
-      //     {
-      //       value: "Electronic Health Record (EHR) Data",
-      //     },
-      //     {
-      //       value: "Paper",
-      //     },
-      //   ],
-      // },
     },
     {
       value: DC.ELECTRONIC_HEALTH_RECORDS,
