@@ -32,7 +32,7 @@ const sentenceUnderCompleteMeasureTwo = "[data-cy='complete measure sub-2']";
 const errorMessagePerformanceMeasure =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/div[1]/form[1]/section[1]";
 const errorMessageContent =
-  "//div[contains(text(),'At least one Performance Measure Numerator, Denomi')]";
+  "//p[contains(text(),'At least one Performance Measure Numerator, Denomi')]";
 const popupBoxMessageHeader = "#yes-no-header";
 const popupBoxMessageContent = "#yes-no-body";
 const popupBoxYes = "//button[@class='chakra-button css-mn8nh9']";
