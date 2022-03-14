@@ -538,68 +538,145 @@ describe("Measure: CIS-CH", () => {
       "have.text",
       "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
     );
-    cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click({force:true});
-
-
-
+    cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click({
+      force: true,
+    });
 
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get('#DataSource0-checkbox').check();
-    cy.get('[data-cy="DataSourceSelections.AdministrativeData0.selected0"] > .chakra-checkbox__control').click();
-    cy.get('#DataSourceSelections\\.AdministrativeData0\\.selected0-checkbox').check();
-    cy.get('[data-cy="DataSourceSelections.AdministrativeData0.selected1"]').click();
-    cy.get('#DataSourceSelections\\.AdministrativeData0\\.selected1-checkbox').check();
-    cy.get('[data-cy="DataSourceSelections.AdministrativeData0.selected2"] > .chakra-checkbox__control').click();
-    cy.get('#DataSourceSelections\\.AdministrativeData0\\.selected2-checkbox').check();
+    cy.get("#DataSource0-checkbox").check();
+    cy.get(
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#DataSourceSelections\\.AdministrativeData0\\.selected0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected1"]'
+    ).click();
+    cy.get(
+      "#DataSourceSelections\\.AdministrativeData0\\.selected1-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected2"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#DataSourceSelections\\.AdministrativeData0\\.selected2-checkbox"
+    ).check();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get('#DataSource1-checkbox').check();
-    cy.get('[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData0.selected0"] > .chakra-checkbox__control').click();
-    cy.get('#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData0\\.selected0-checkbox').check();
-    cy.get('[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData1.selected0"] > .chakra-checkbox__control').click();
-    cy.get('#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData1\\.selected0-checkbox').check();
+    cy.get("#DataSource1-checkbox").check();
+    cy.get(
+      '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData0.selected0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData0\\.selected0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData1.selected0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData1\\.selected0-checkbox"
+    ).check();
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
-    cy.get('#DataSource2-checkbox').check();
+    cy.get("#DataSource2-checkbox").check();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
     //cy.get('#radio-517').check();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]').type('2');
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]').type('20');
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("2");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("20");
     cy.get('[data-cy="IPV"]').click();
-    cy.get('[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.options0-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.ageRangeRates.options0"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.ageRangeRates\\.options0-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Black or African American');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options2"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'American Indian or Alaska Native');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options3"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Asian');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options4"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Native Hawaiian or Other Pacific Islander');
-    cy.get('[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.options1-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Not of Hispanic, Latino/a, or Spanish origin');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.options1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Hispanic or Latino');
-    cy.get('[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.options2-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Sex.options0"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Male');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Sex.options1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Female');
-    cy.get('[data-cy="OptionalMeasureStratification.options3"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.options3-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Language.options0"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'English');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Language.options1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Spanish');
-    cy.get('[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.options4-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.DisabilityStatus.options0"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'SSI');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.DisabilityStatus.options1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Non-SSI');
-    cy.get('[data-cy="OptionalMeasureStratification.options5"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.options5-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Geography.options0"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Urban');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.Geography.options1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Rural');
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.ageRangeRates.options0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.ageRangeRates\\.options0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Black or African American");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options2"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "American Indian or Alaska Native");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options3"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Asian");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options4"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Native Hawaiian or Other Pacific Islander");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control'
+    ).click();
+    cy.get("#OptionalMeasureStratification\\.options1-checkbox").check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Not of Hispanic, Latino/a, or Spanish origin");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Hispanic or Latino");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__control'
+    ).click();
+    cy.get("#OptionalMeasureStratification\\.options2-checkbox").check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Sex.options0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Male");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Sex.options1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Female");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options3"] > .chakra-checkbox__control'
+    ).click();
+    cy.get("#OptionalMeasureStratification\\.options3-checkbox").check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Language.options0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "English");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Language.options1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Spanish");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__control'
+    ).click();
+    cy.get("#OptionalMeasureStratification\\.options4-checkbox").check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.DisabilityStatus.options0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "SSI");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.DisabilityStatus.options1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Non-SSI");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options5"] > .chakra-checkbox__control'
+    ).click();
+    cy.get("#OptionalMeasureStratification\\.options5-checkbox").check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Geography.options0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Urban");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Geography.options1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Rural");
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="The measure has been validated successfully"]').should('be.visible');
+    cy.get('[data-cy="The measure has been validated successfully"]').should(
+      "be.visible"
+    );
     /* ==== End Cypress Studio ==== */
   });
 
