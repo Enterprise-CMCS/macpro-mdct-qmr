@@ -3,18 +3,34 @@ import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates,
   validateDualPopInformation,
-} from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  validateRequiredRadioButtonForCombinedRates,
+  getDeviationNDRArray,
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+  validateReasonForNotReporting,
+} from "measures/globalValidations";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
+import {
+  omsValidations,
+  validateRateNotZero,
+  validateRateZero,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+
 const PQI01Validation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const dateRange = data["DateRange"];
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
   const age65PlusIndex = 0;
   const definitionOfDenominator = data["DefinitionOfDenominator"];
 
@@ -32,16 +48,37 @@ const PQI01Validation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      PMD.qualifiers,
+      deviationArray,
+      didCalculationsDeviate
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [validateRateZero, validateRateNotZero],
+    }),
   ];
 
   return errorArray;
