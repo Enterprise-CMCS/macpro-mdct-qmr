@@ -20,7 +20,6 @@ const qualifiers = [
 
 // This is the basic structure of the NDR sets in MultiRate.
 // There are 4 rates, each is calculated by a combination of the other fields.
-
 const ndrForumlas = [
   {
     numerator: 1,
@@ -90,10 +89,17 @@ describe("Test the Rate component when readOnly is false", () => {
     const testInput = [
       { num: "2", denom: "1" },
       { num: "2", denom: "1" },
-      { num: "3", denom: "2" },
+      { num: "21", denom: "" },
       { num: "2", denom: "1" },
     ];
     const expectedNumOfErrors = [1, 2, 3, 4];
+
+    const expectedErrorMessageText = [
+      '"Count of Observed 30-Day Readmissions": 2 cannot be greater than "Count of Index Hospital Stays": 1',
+      '"Count of Expected 30-Day Readmissinos": 2 cannot be greater than "Count of Index Hospital Stays": 1',
+      '"Count of Observed 30-Day Readmissions": 21 cannot be greater than "Count of Expected 30-Day Readmissinos": 2',
+      '"Number of Outliers": 2 cannot be greater than "Count of Beneficiaries in Medicaid Population": 1',
+    ];
 
     ndrForumlas.forEach((ndr, i) => {
       const numerator = screen.getByLabelText(qualifiers[ndr.numerator]);
@@ -102,10 +108,40 @@ describe("Test the Rate component when readOnly is false", () => {
       fireEvent.type(denominator, testInput[i].denom);
       fireEvent.type(numerator, testInput[i].num);
 
-      // Per ndrForumlas, the field at index 1 is used in 2
       expect(screen.getAllByText("Rate Error").length).toBe(
         expectedNumOfErrors[i]
       );
+      expect(screen.getAllByText(expectedErrorMessageText[i]).length).toBe(1);
+    });
+  });
+
+  test("Check that 'Rate Error' is thrown when rate has less than 4 decimal places", () => {
+    const testInput = [
+      { num: "1", denom: "2", rate: "0" },
+      { num: "1", denom: "2", rate: "0" },
+      { num: "1", denom: "2", rate: "0" },
+      { num: "1", denom: "2", rate: "0" },
+    ];
+
+    const expectedErrorMessageText = [
+      '"Observed Readmission Rate" value must be a number with 4 decimal places: 0',
+      '"Expected Readmission Rate" value must be a number with 4 decimal places: 0',
+      '"O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)" value must be a number with 4 decimal places: 0',
+      '"Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000" value must be a number with 4 decimal places: 0',
+    ];
+
+    ndrForumlas.forEach((ndr, i) => {
+      const numerator = screen.getByLabelText(qualifiers[ndr.numerator]);
+      const denominator = screen.getByLabelText(qualifiers[ndr.denominator]);
+      const rate = screen.getByLabelText(qualifiers[ndr.rate]);
+
+      fireEvent.type(denominator, testInput[i].denom);
+      fireEvent.type(numerator, testInput[i].num);
+      fireEvent.type(rate, testInput[i].rate);
+
+      // Because rate is calculated on input in numerator or denominator fields, with this test setup this will always be 1
+      expect(screen.getAllByText("Rate Error").length).toBe(1);
+      expect(screen.getAllByText(expectedErrorMessageText[i]).length).toBe(1);
     });
   });
 });
