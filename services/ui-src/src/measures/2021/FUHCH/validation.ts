@@ -14,10 +14,8 @@ import { FormData } from "./types";
 const validate7DaysGreaterThan30Days = (data: any) => {
   if (
     !(
-      data["PerformanceMeasure"]["rates"][
-        "Followupwithin7daysafterdischarge"
-      ] ||
-      data["PerformanceMeasure"]["rates"]["Followupwithin30daysafterdischarge"]
+      data?.PerformanceMeasure?.rates?.Followupwithin7daysafterdischarge ||
+      data?.PerformanceMeasure?.rates?.Followupwithin30daysafterdischarge
     )
   ) {
     return [];
