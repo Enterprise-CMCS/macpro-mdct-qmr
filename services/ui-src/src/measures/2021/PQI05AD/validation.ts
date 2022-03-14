@@ -18,7 +18,6 @@ import {
   getPerfMeasureRateArray,
   omsLocationDictionary,
   validateReasonForNotReporting,
-  validateNumeratorsLessThanDenominators,
 } from "measures/globalValidations";
 
 const PQI05Validation = (data: FormData) => {
@@ -50,11 +49,6 @@ const PQI05Validation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      PMD.qualifiers
-    ),
     ...validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
