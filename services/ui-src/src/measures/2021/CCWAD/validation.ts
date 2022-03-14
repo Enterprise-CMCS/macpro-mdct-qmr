@@ -49,37 +49,6 @@ const validateLarcRateGreater = (data: FormData) => {
   return error;
 };
 
-const validateDenominatorsAreTheSame = (data: FormData) => {
-  let error;
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-
-  if (
-    memeRates &&
-    larcRates &&
-    memeRates[0]?.denominator &&
-    larcRates[0]?.denominator
-  ) {
-    if (
-      parseFloat(memeRates[0].denominator) !==
-      parseFloat(larcRates[0].denominator)
-    ) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage: `${PMD.categories[1]} rate must have the same denominator as ${PMD.categories[0]} rate`,
-      };
-    }
-  }
-
-  return error;
-};
-
 const CCWADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -167,7 +136,6 @@ export const validationFunctions = [
   CCWADValidation,
   validateBothDatesCompletedInRange,
   validateLarcRateGreater,
-  validateDenominatorsAreTheSame,
   validateAtLeastOneDeviationNDR,
   validateRequiredRadioButtonForCombinedRates,
   validateOMS,
