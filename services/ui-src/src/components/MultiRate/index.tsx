@@ -98,8 +98,6 @@ export const MultiRate = ({
 
     let validValue;
 
-    // TODO: Need clarification on input validations - Figma says both 10 and 16 digits for inputs
-    // Rates need 4 decimal places, but is that included in 16 digits?
     if (isRate || index === 3) {
       validValue = sixteenNumbersFourDecimal.test(newValue);
       editRate["value"] = validValue ? newValue : editRate["value"];
