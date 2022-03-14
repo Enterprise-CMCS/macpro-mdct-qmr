@@ -57,34 +57,33 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
     },
     {
       value: "Hybrid (Administrative and Medical Records Data)",
-      subOptions:
-        // {
-        //   label: "What is the Administrative Data Source?",
-        //   subOptions: [
-        //     {
-        //       value: "Medicaid Management Information System (MMIS)",
-        //     },
-        //     {
-        //       value: "Immunization Registry",
-        //     },
-        //     {
-        //       value: "Other",
-        //       description: true,
-        //     },
-        //   ],
-        // },
-        {
-          label:
-            "What is the Medical Records Data Source? (Both can be selected)",
-          options: [
-            {
-              value: "Electronic Health Record (EHR) Data",
-            },
-            {
-              value: "Paper",
-            },
-          ],
-        },
+      subOptions: {
+        label: "What is the Administrative Data Source?",
+        options: [
+          {
+            value: "Medicaid Management Information System (MMIS)",
+          },
+          {
+            value: "Immunization Registry",
+          },
+          {
+            value: "Other",
+            description: true,
+          },
+        ],
+      },
+      // {
+      //   label:
+      //     "What is the Medical Records Data Source? (Both can be selected)",
+      //   options: [
+      //     {
+      //       value: "Electronic Health Record (EHR) Data",
+      //     },
+      //     {
+      //       value: "Paper",
+      //     },
+      //   ],
+      // },
     },
     {
       value: DC.ELECTRONIC_HEALTH_RECORDS,
