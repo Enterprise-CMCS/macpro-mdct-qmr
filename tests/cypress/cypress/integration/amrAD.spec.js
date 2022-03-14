@@ -29,10 +29,10 @@ describe("Measure: ARM-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="Performance Measure"]').should("be.visible");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.Followupwithin7daysafterdischarge..0.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("6");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.Followupwithin7daysafterdischarge..0.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("6");
     cy.get(
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
@@ -54,37 +54,53 @@ describe("Measure: ARM-AD", () => {
     cy.get('[data-cy="Other Performance Measure"]').should("be.visible");
   });
 
-  it("should show correct child radio buttons in Definition of Population Included in the Measure", () => {
-    cy.get("#DefinitionOfDenominator-DenominatorIncCHIPPop").should(
-      "have.text",
-      "Denominator includes CHIP (Title XXI) population only"
+  it("should show the correct calculated rate amount in total", () => {
+    cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
+    ).type("5");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
+    ).type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
+      "have.attr",
+      "aria-readonly",
+      "true"
     );
-    cy.get("#DefinitionOfDenominator-DenominatorIncMedicaidPop").should(
-      "have.text",
-      "Denominator includes Medicaid (Title XIX) population only"
-    );
-    cy.get("#DefinitionOfDenominator-DenominatorIncMedicaidAndCHIPPop").should(
-      "have.text",
-      "Denominator includes CHIP and Medicaid (Title XIX)"
+    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
+      "not.have.attr",
+      "aria-readonly",
+      "true"
     );
   });
 
   it("if only admin data cannot override, if anything else, rate is editable", () => {
+    cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.Followupwithin7daysafterdischarge..0.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
     ).type("5");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.Followupwithin7daysafterdischarge..0.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
     ).type("5");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.Followupwithin7daysafterdischarge..0.rate"]'
-    ).should("have.attr", "aria-readonly", "true");
-    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("5");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.Followupwithin7daysafterdischarge..0.rate"]'
-    ).should("not.have.attr", "aria-readonly", "true");
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("5");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.2.numerator"]'
+    ).should("have.value", "10");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.2.denominator"]'
+    ).should("have.value", "10");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.rate"]').should(
+      "have.value",
+      "100.0"
+    );
   });
 
   it(

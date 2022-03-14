@@ -9,6 +9,7 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateTotalNDR,
+  validateRequiredRadioButtonForCombinedRates,
 } from "measures/globalValidations/validationsLib";
 
 const AMRADValidation = (data: Measure.Form) => {
@@ -35,6 +36,7 @@ const AMRADValidation = (data: Measure.Form) => {
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateTotalNDR(performanceMeasureArray),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateRequiredRadioButtonForCombinedRates(data),
   ];
 
   return errorArray;
