@@ -184,50 +184,52 @@ export interface PerformanceMeasure {
     [DC.RATES]?: PerformanceMeasureRate;
   };
 }
+export namespace OmsNodes {
+  export interface OmsRateFields {
+    [DC.OPTIONS]?: string[];
+    [DC.RATES]?: {
+      [
+        category: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
+      ]: {
+        [qualifier: string]: RateFields[];
+      };
+    };
+    [DC.TOTAL]?: RateFields[];
+  }
 
-interface OmsRateFields {
-  [DC.OPTIONS]?: string[];
-  [DC.RATES]?: {
-    [
-      rateLabel: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
-    ]: RateFields[];
-  };
-  [DC.TOTAL]?: RateFields[];
-}
+  export interface LowLevelOmsNode {
+    [DC.RATE_DATA]?: OmsRateFields; // if just ndr sets
+    [DC.SUB_CAT_OPTIONS]?: string[]; // for additional subCats/add anothers
+    [DC.SUB_CATS]?: {
+      [DC.DESCRIPTION]?: string;
+      [DC.RATE_DATA]?: OmsRateFields;
+    }[];
+  }
+  export interface MidLevelOMSNode extends LowLevelOmsNode {
+    // if sub-options
+    [DC.AGGREGATE]?: string;
+    [DC.OPTIONS]?: string[];
+    [DC.SELECTIONS]?: {
+      [option: string]: LowLevelOmsNode;
+    };
+  }
 
-interface LowLevelOmsNode {
-  [DC.AGE_RANGE_RATES]?: OmsRateFields; // if just ndr sets
-  [DC.SUB_CAT_OPTIONS]?: string[]; // for additional subCats/add anothers
-  [DC.SUB_CATS]?: {
+  export interface TopLevelOmsNode {
+    // top level child, ex: Race, Sex, Ethnicity
+    [DC.OPTIONS]?: string[]; // checkbox
+    [DC.ADDITIONAL_CATS]?: string[]; // add another section
+    [DC.SELECTIONS]?: {
+      [option: string]: MidLevelOMSNode;
+    };
+    [DC.ADDITIONAL_SELECTIONS]?: AddtnlOmsNode[];
+
+    // catch case for ACA
+    [DC.RATE_DATA]?: OmsRateFields;
+  }
+
+  export interface AddtnlOmsNode extends LowLevelOmsNode {
     [DC.DESCRIPTION]?: string;
-    [DC.AGE_RANGE_RATES]?: OmsRateFields;
-  }[];
-}
-
-interface MidLevelOMSNode extends LowLevelOmsNode {
-  // if sub-options
-  [DC.AGGREGATE]?: string;
-  [DC.OPTIONS]?: string[];
-  [DC.SELECTIONS]?: {
-    [option: string]: LowLevelOmsNode;
-  };
-}
-
-interface TopLevelOmsNode {
-  // top level child, ex: Race, Sex, Ethnicity
-  [DC.OPTIONS]?: string[]; // checkbox
-  [DC.ADDITIONAL_CATS]?: string[]; // add another section
-  [DC.SELECTIONS]?: {
-    [option: string]: MidLevelOMSNode;
-  };
-  [DC.ADDITIONAL_SELECTIONS]?: AddtnlOmsNode[];
-
-  // catch case for ACA
-  [DC.AGE_RANGE_RATES]?: OmsRateFields;
-}
-
-interface AddtnlOmsNode extends LowLevelOmsNode {
-  [DC.DESCRIPTION]?: string;
+  }
 }
 
 export interface Qualifiers {
@@ -242,11 +244,10 @@ export interface OptionalMeasureStratification {
   [DC.OMS]: {
     [DC.OPTIONS]: string[]; //checkbox
     [DC.SELECTIONS]: {
-      [option: string]: TopLevelOmsNode;
+      [option: string]: OmsNodes.TopLevelOmsNode;
     };
   };
 }
-
 export interface DeviationFromMeasureSpecification {
   [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
   [DC.DEVIATION_OPTIONS]: string[]; // if "YesCalcDeviated" selected from "DidCalculationsDeviate" -> which deviations options selected
@@ -265,9 +266,15 @@ export interface DeviationFromMeasureSpecification {
 
 export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsNode[];
+  export type SingleOmsNode = OmsNode;
   export type PerformanceMeasure = PerformanceMeasureData;
   export type DataSource = DataSourceData;
 }
+export type DeviationKeys =
+  | "numerator"
+  | "denominator"
+  | "Other"
+  | "RateDeviationsSelected";
 
 export type DefaultFormData = AdditionalNotes &
   DidCollect &
