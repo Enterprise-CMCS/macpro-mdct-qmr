@@ -153,12 +153,10 @@ export const CCSQualifiers = () => {
         },
       ]}
       buttons={
-        data?.Item?.data && (
-          <QMR.MeasureButtons
-            handleSave={methods.handleSubmit(handleSave)}
-            lastAltered={data?.Item.lastAltered}
-          />
-        )
+        <QMR.MeasureButtons
+          handleSave={methods.handleSubmit(handleSave)}
+          lastAltered={data?.Item.lastAltered}
+        />
       }
     >
       <FormProvider {...methods}>
