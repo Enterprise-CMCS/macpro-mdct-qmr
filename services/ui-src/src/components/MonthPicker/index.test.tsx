@@ -88,7 +88,7 @@ describe("Testing MonthPicker", () => {
     );
     expect(getByDisplayValue("11"));
     expect(getByDisplayValue("2011"));
-    expect(getByText(/Month \(mm\):/i));
+    expect(getByText(/Month):/i));
     expect(getByText(/Year \(yyyy\):/i));
     expect(getByRole("button", { name: /Month Picker/i }));
   });
