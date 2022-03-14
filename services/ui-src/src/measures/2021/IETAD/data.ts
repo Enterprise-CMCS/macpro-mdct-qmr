@@ -46,6 +46,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
     },
     {
       value: DC.ELECTRONIC_HEALTH_RECORDS,
+      description: true,
     },
     {
       value: DC.OTHER_DATA_SOURCE,

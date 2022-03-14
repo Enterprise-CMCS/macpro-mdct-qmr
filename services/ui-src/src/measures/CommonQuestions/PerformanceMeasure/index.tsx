@@ -53,6 +53,11 @@ const CategoryNdrSets = ({
             <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
+            {!rateReadOnly && (
+              <CUI.Heading pt="5" size={"sm"}>
+                Please review the auto-calculated rate and revise if needed.
+              </CUI.Heading>
+            )}
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
@@ -87,19 +92,23 @@ const QualifierNdrSets = ({
     id: idx,
   }));
   return (
-    <QMR.Rate
-      rates={rates}
-      readOnly={rateReadOnly}
-      rateMultiplicationValue={rateScale}
-      customMask={customMask}
-      // calcTotal={calcTotal}
-      {...register(
-        `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${DC.SINGLE_CATEGORY}`
+    <>
+      {!rateReadOnly && (
+        <CUI.Heading pt="5" size={"sm"}>
+          Please review the auto-calculated rate and revise if needed.
+        </CUI.Heading>
       )}
-      allowNumeratorGreaterThanDenominator={
-        allowNumeratorGreaterThanDenominator
-      }
-    />
+      <QMR.Rate
+        rates={rates}
+        readOnly={rateReadOnly}
+        rateMultiplicationValue={rateScale}
+        customMask={customMask}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
+        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${DC.SINGLE_CATEGORY}`)}
+      />
+    </>
   );
 };
 
