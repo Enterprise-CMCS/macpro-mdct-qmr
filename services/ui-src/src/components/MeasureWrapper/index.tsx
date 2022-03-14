@@ -86,7 +86,7 @@ export const MeasureWrapper = ({
 }: Props) => {
   const navigate = useNavigate();
   const params = useParams();
-  const [errors, setErrors] = useState<any[] | undefined>(undefined);
+  const [errors, setErrors] = useState<FormError[] | undefined>(undefined);
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
@@ -137,6 +137,7 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
+    console.log({ data });
     if (!mutationRunning && !loadingData) {
       updateMeasure(
         {
@@ -339,20 +340,23 @@ export const MeasureWrapper = ({
                   }}
                 />
               )}
-              {errors?.map((error, index) => (
-                <QMR.Notification
-                  key={uuidv4()}
-                  alertProps={{ my: "3" }}
-                  alertStatus="error"
-                  alertTitle={`${error.errorLocation} Error`}
-                  alertDescription={error.errorMessage}
-                  close={() => {
-                    const newErrors = [...errors];
-                    newErrors.splice(index, 1);
-                    setErrors(newErrors.length !== 0 ? newErrors : undefined);
-                  }}
-                />
-              ))}
+              {errors
+                ?.sort((a, b) => a.errorLocation.localeCompare(b.errorLocation))
+                ?.map((error, index) => (
+                  <QMR.Notification
+                    key={uuidv4()}
+                    alertProps={{ my: "3" }}
+                    alertStatus="error"
+                    alertTitle={`${error.errorLocation} Error`}
+                    alertDescription={error.errorMessage}
+                    extendedAlertList={error.errorList}
+                    close={() => {
+                      const newErrors = [...errors];
+                      newErrors.splice(index, 1);
+                      setErrors(newErrors.length !== 0 ? newErrors : undefined);
+                    }}
+                  />
+                ))}
             </form>
           </>
         </CUI.Skeleton>

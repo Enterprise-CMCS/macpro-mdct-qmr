@@ -1,23 +1,39 @@
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import {
+  omsValidations,
+  validateRateNotZero,
+  validateRateZero,
+} from "measures/globalValidations/omsValidationsLib";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateReasonForNotReporting,
   validateDualPopInformation,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
+  getDeviationNDRArray,
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "measures/globalValidations";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { FormData } from "./types";
 
 const PQI08Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 0;
   const dateRange = data["DateRange"];
   const definitionOfDenominator = data["DefinitionOfDenominator"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
+
   const validateDualPopInformationArray = [
     performanceMeasureArray?.[0].filter((pm) => {
       return pm?.label === "Age 65 and older";
@@ -30,7 +46,7 @@ const PQI08Validation = (data: FormData) => {
   }
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
@@ -38,8 +54,29 @@ const PQI08Validation = (data: FormData) => {
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      PMD.qualifiers,
+      deviationArray,
+      didCalculationsDeviate
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [validateRateZero, validateRateNotZero],
+    }),
   ];
 
   return errorArray;

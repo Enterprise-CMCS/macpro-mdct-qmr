@@ -1,5 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
+import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import React from "react";
@@ -20,18 +21,21 @@ export const OtherPerformanceMeasure = ({
 }: Props) => {
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
   const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
-  const savedRates = getValues("OtherPerformanceMeasure-Rates");
-  const [showRates, setRates] = React.useState(
+  const savedRates = getValues(DC.OPM_RATES);
+  const [showRates, setRates] = React.useState<Types.OtherRatesFields[]>(
     savedRates ?? [
-      { rate: [{ denominator: "", numerator: "", rate: "" }], description: "" },
+      {
+        rate: [{ denominator: "", numerator: "", rate: "" }],
+        description: "",
+      },
     ]
   );
 
   // ! Waiting for data source refactor to type data source here
-  const { watch } = useFormContext<any>();
+  const { watch } = useFormContext<Types.DataSource>();
 
   // Watch for dataSource data
-  const dataSourceWatch = watch("DataSource");
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   const rateReadOnly =
@@ -46,7 +50,7 @@ export const OtherPerformanceMeasure = ({
       <QMR.TextArea
         label="Describe the other methodology used:"
         formLabelProps={{ fontWeight: 700 }}
-        {...register("OtherPerformanceMeasure-Explanation")}
+        {...register(DC.OPM_EXPLAINATION)}
       />
       <CUI.Box marginTop={10}>
         {showRates.map((_item, index) => {
@@ -57,7 +61,7 @@ export const OtherPerformanceMeasure = ({
               </CUI.Heading>
               <QMR.TextInput
                 label="For example, specify the age groups and whether you are reporting on a certain indicator:"
-                name={`OtherPerformanceMeasure-Rates.${index}.description`}
+                name={`${DC.OPM_RATES}.${index}.${DC.DESCRIPTION}`}
               />
               <CUI.Text fontWeight="bold">
                 Enter a number for the numerator and the denominator. Rate will
@@ -74,7 +78,7 @@ export const OtherPerformanceMeasure = ({
                     id: index,
                   },
                 ]}
-                name={`OtherPerformanceMeasure-Rates.${index}.rate`}
+                name={`${DC.OPM_RATES}.${index}.${DC.RATE}`}
                 rateMultiplicationValue={rateMultiplicationValue}
                 customMask={customMask}
                 readOnly={rateReadOnly}
