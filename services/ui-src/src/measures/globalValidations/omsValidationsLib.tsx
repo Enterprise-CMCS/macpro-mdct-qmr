@@ -349,7 +349,7 @@ export const validateAllDenomsAreTheSameCrossQualifier: OmsValidationCallback =
               label
             )}`,
             errorMessage: `The following categories must have the same denominator:`,
-            errorList: locationArray,
+            errorList: locationArray.filter((v, i, a) => a.indexOf(v) === i),
           },
         ]
       : [];
