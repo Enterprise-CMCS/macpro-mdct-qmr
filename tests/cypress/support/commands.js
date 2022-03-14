@@ -20,7 +20,7 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 });
 
 // Visit Child Core Measure: Medicaid & CHIP
-Cypress.Commands.add("goToChildCoreSetMeasures", () => {
+Cypress.Commands.add("goToChildCoreSetMeasures", ()=>{
   cy.get('[data-cy="CCS"]').click();
 });
 
