@@ -3,7 +3,7 @@ import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
-  validateEqualDenominators,
+  validateAllDenomsTheSameCrossQualifier,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
@@ -15,7 +15,7 @@ const CISCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data["DateRange"];
 
   let errorArray: any[] = [];
@@ -32,7 +32,11 @@ const CISCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups, true),
+    ...validateAllDenomsTheSameCrossQualifier(
+      data,
+      PMD.categories,
+      PMD.qualifiers
+    ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),

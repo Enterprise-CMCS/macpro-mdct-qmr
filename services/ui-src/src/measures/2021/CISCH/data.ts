@@ -1,4 +1,5 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
 
 export const qualifiers = [
   "DTaP",
@@ -37,43 +38,41 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
   options: [
     {
-      value: "Administrative Data",
-      subOptions: [
-        {
-          label: "What is the Administrative Data Source?",
-          options: [
-            {
-              value: "Medicaid Management Information System (MMIS)",
-            },
-            {
-              value: "Immunization Registry",
-            },
-            {
-              value: "Administrative Data Other",
-              description: true,
-            },
-          ],
-        },
-      ],
+      value: DC.ADMINISTRATIVE_DATA,
+      subOptions: {
+        label: "What is the Administrative Data Source?",
+        options: [
+          {
+            value: "Medicaid Management Information System (MMIS)",
+          },
+          {
+            value: "Immunization Registry",
+          },
+          {
+            value: "Administrative Data Other",
+            description: true,
+          },
+        ],
+      },
     },
     {
       value: "Hybrid (Administrative and Medical Records Data)",
-      subOptions: [
-        {
-          label: "What is the Administrative Data Source?",
-          options: [
-            {
-              value: "Medicaid Management Information System (MMIS)",
-            },
-            {
-              value: "Immunization Registry",
-            },
-            {
-              value: "Other",
-              description: true,
-            },
-          ],
-        },
+      subOptions:
+        // {
+        //   label: "What is the Administrative Data Source?",
+        //   subOptions: [
+        //     {
+        //       value: "Medicaid Management Information System (MMIS)",
+        //     },
+        //     {
+        //       value: "Immunization Registry",
+        //     },
+        //     {
+        //       value: "Other",
+        //       description: true,
+        //     },
+        //   ],
+        // },
         {
           label:
             "What is the Medical Records Data Source? (Both can be selected)",
@@ -86,13 +85,13 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
             },
           ],
         },
-      ],
     },
     {
-      value: "Electronic Health Records",
+      value: DC.ELECTRONIC_HEALTH_RECORDS,
+      description: true,
     },
     {
-      value: "Other Data Source",
+      value: DC.OTHER_DATA_SOURCE,
       description: true,
     },
   ],

@@ -155,6 +155,7 @@ export const validateEqualDenominators = (
         filledInData.push(performanceMeasureArray[index][i]);
       }
     });
+    console.log(filledInData);
     if (filledInData.length > 1) {
       let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;
@@ -209,8 +210,8 @@ export const validateAllDenomsTheSameCrossQualifier = (
   return !areTheSame
     ? [
         {
-          errorLocation: "Performance Measure",
-          errorMessage: `The following categories must have the same denominator:`,
+          errorLocation: "Performance Measweure",
+          errorMessage: `Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:`,
           errorList: locationArray.filter((v, i, a) => a.indexOf(v) === i),
         },
       ]

@@ -5,7 +5,7 @@ export interface OptionNode {
   subOptions?: {
     label?: string;
     options: OptionNode[];
-  }[];
+  };
   description?: boolean;
 }
 
