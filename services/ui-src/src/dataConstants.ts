@@ -8,6 +8,7 @@ export const AGE_RANGE_RATES = "ageRangeRates";
 export const RATE_DATA = "rateData";
 export const AGGREGATE = "aggregate";
 export const AHRQ = "AHRQ";
+export const AHRQ_NCQA = "AHRQ-NCQA";
 export const AMOUNT_OF_POP_NOT_COVERED = "AmountOfPopulationNotCovered";
 export const BUDGET_CONSTRAINTS = "BudgetConstraints";
 export const CATEGORIES = "categories";
