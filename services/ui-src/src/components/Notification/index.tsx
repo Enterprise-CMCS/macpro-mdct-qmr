@@ -5,6 +5,7 @@ interface NotificationProps {
   alertProps?: CUI.AlertProps;
   alertTitle: string;
   alertDescription?: string;
+  extendedAlertList?: string[];
   close?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -20,6 +21,7 @@ export const Notification = ({
   alertTitle,
   alertDescription,
   alertStatus,
+  extendedAlertList,
   close,
 }: NotificationProps) => {
   return (
@@ -35,7 +37,14 @@ export const Notification = ({
         <CUI.AlertTitle data-cy={alertTitle}>{alertTitle}</CUI.AlertTitle>
         {alertDescription && (
           <CUI.AlertDescription data-cy={alertDescription}>
-            {alertDescription}
+            <CUI.Text>{alertDescription}</CUI.Text>
+            {extendedAlertList?.length && (
+              <CUI.UnorderedList ml={10}>
+                {extendedAlertList.map((s, i) => (
+                  <CUI.ListItem key={`errorListItem.${i}`}>{s}</CUI.ListItem>
+                ))}
+              </CUI.UnorderedList>
+            )}
           </CUI.AlertDescription>
         )}
       </CUI.Box>
