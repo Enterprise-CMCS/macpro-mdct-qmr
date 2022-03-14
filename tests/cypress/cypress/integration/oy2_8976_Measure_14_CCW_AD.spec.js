@@ -21,7 +21,7 @@ describe("OY2 8976 CCW-AD", () => {
       "have.text",
       "For technical questions regarding use of this application, please reach out to MDCT_Help@cms.hhs.gov. For content-related questions about measure specifications, or what information to enter in each field, please reach out to MACQualityTA@cms.hhs.gov."
     );
-    cy.xpath("//p[@id='DataStatus-I am reporting final data.']").click({
+    cy.xpath("//p[@id='DataStatus-ReportingFinalData']").click({
       force: true,
     });
     cy.xpath("//p[@id='MeasurementSpecification-OPA']").click({ force: true });
@@ -93,10 +93,22 @@ describe("OY2 8976 CCW-AD", () => {
       "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"
     );
     cy.get(
-      '[data-cy="Long-acting reversible method of contraception (LARC) rate must have the same denominator as Most effective or moderately effective method of contraception rate"]'
+      '[data-cy="The following categories must have the same denominator:"]'
     ).should(
-      "have.text",
-      "Long-acting reversible method of contraception (LARC) rate must have the same denominator as Most effective or moderately effective method of contraception rate"
+      "include.text",
+      "The following categories must have the same denominator:"
+    );
+    cy.get(
+      '[data-cy="The following categories must have the same denominator:"]'
+    ).should(
+      "include.text",
+      "Long-acting reversible method of contraception (LARC)"
+    );
+    cy.get(
+      '[data-cy="The following categories must have the same denominator:"]'
+    ).should(
+      "include.text",
+      "Most effective or moderately effective method of contraception"
     );
   });
 
