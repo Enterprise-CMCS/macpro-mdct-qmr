@@ -42,6 +42,7 @@ export const Rate = ({
   const {
     control,
     formState: { errors },
+    unregister,
   } = useFormContext();
 
   const { field } = useController({
@@ -59,6 +60,8 @@ export const Rate = ({
   This is required for accurate data representation in DB and to calculateTotals().
   */
   useEffect(() => {
+    unregister(name);
+
     const prevRate = [...field.value];
     rates.forEach((rate, index) => {
       if (prevRate[index] === undefined) {
@@ -72,7 +75,7 @@ export const Rate = ({
     }
 
     field.onChange([...prevRate]);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [unregister, name]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const rateCalculation = (
     numerator: string,
@@ -214,7 +217,7 @@ export const Rate = ({
       {rates.map((rate, index) => {
         const isTotal = rate.isTotal ?? undefined;
         return (
-          <CUI.Stack key={rate.id} my={8}>
+          <CUI.Stack key={rate.id} mt={4} mb={8}>
             {rate.label && (
               <CUI.FormLabel fontWeight={700} data-cy={rate.label}>
                 {rate.label}

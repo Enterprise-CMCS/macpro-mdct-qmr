@@ -4,11 +4,26 @@ import {
   validateNumeratorsLessThanDenominators,
   ensureBothDatesCompletedInRange,
   validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
+  getDeviationNDRArray,
+  validateReasonForNotReporting,
+  validateAllDenomsTheSameCrossQualifier,
+} from "measures/globalValidations";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
+
+import {
+  omsValidations,
+  validateAllDenomsAreTheSameCrossQualifier,
+  validateDenominatorGreaterThanNumerator,
+  validateOneRateLessThanOther,
+  validateRateZero,
+  validateRateNotZero,
+} from "measures/globalValidations/omsValidationsLib";
+import { omsLocationDictionary } from "measures/globalValidations";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const validateLarcRateGreater = (data: FormData) => {
   let error;
@@ -27,38 +42,6 @@ const validateLarcRateGreater = (data: FormData) => {
         errorLocation: "Performance Measure",
         errorMessage:
           "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate",
-      };
-    }
-  }
-
-  return error;
-};
-
-const validateDenominatorsAreTheSame = (data: FormData) => {
-  let error;
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-
-  if (
-    memeRates &&
-    larcRates &&
-    memeRates[0]?.denominator &&
-    larcRates[0]?.denominator
-  ) {
-    if (
-      parseFloat(memeRates[0].denominator) !==
-      parseFloat(larcRates[0].denominator)
-    ) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Long-acting reversible method of contraception (LARC) rate must have the same denominator as Most effective or moderately effective method of contraception rate",
       };
     }
   }
@@ -87,9 +70,35 @@ const CCWADValidation = (data: FormData) => {
       ageGroups
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
   ];
 
   return errorArray;
+};
+
+const validateAtLeastOneDeviationNDR = (data: FormData) => {
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[0].replace(/[^\w]/g, "")}`
+    ] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[
+      `${PMD.categories[1].replace(/[^\w]/g, "")}`
+    ] ?? [];
+
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
+
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+
+  return validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    [memeRates, larcRates],
+    [""],
+    deviationArray,
+    didCalculationsDeviate
+  );
 };
 
 const validateBothDatesCompletedInRange = (data: FormData) => {
@@ -97,10 +106,37 @@ const validateBothDatesCompletedInRange = (data: FormData) => {
   return [...ensureBothDatesCompletedInRange(dateRange)];
 };
 
+const validateOMS = (data: FormData) => {
+  const errorArray: FormError[] = [];
+
+  errorArray.push(
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateAllDenomsAreTheSameCrossQualifier,
+        validateOneRateLessThanOther,
+        validateRateZero,
+        validateRateNotZero,
+      ],
+    })
+  );
+
+  return errorArray;
+};
+
 export const validationFunctions = [
   CCWADValidation,
   validateBothDatesCompletedInRange,
   validateLarcRateGreater,
-  validateDenominatorsAreTheSame,
+  validateAtLeastOneDeviationNDR,
   validateRequiredRadioButtonForCombinedRates,
+  validateOMS,
 ];
