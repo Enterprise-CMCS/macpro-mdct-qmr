@@ -1,4 +1,5 @@
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
@@ -7,13 +8,27 @@ import {
   validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateOneRateHigherThanOther,
 } from "../../globalValidations/validationsLib";
 import {
   ensureBothDatesCompletedInRange,
   validateRequiredRadioButtonForCombinedRates,
 } from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import {
+  getDeviationNDRArray,
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "measures/globalValidations";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateDenominatorsAreTheSame,
+  validateOneRateLessThanOther,
+  validateRateNotZero,
+  validateRateZero,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const FUAADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -58,13 +73,53 @@ const FUAADValidation = (data: FormData) => {
   return errorArray;
 };
 
+const validateAtLeastOneDeviationNDR = (data: FormData) => {
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+
+  return validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    performanceMeasureArray,
+    PMD.qualifiers,
+    deviationArray,
+    didCalculationsDeviate
+  );
+};
 const validateBothDatesCompletedInRange = (data: FormData) => {
   const dateRange = data["DateRange"];
   return [...ensureBothDatesCompletedInRange(dateRange)];
+};
+
+const validateOMS = (data: FormData) => {
+  return [
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateDenominatorsAreTheSame,
+        validateOneRateLessThanOther,
+        validateRateZero,
+        validateRateNotZero,
+      ],
+    }),
+  ];
 };
 
 export const validationFunctions = [
   FUAADValidation,
   validateRequiredRadioButtonForCombinedRates,
   validateBothDatesCompletedInRange,
+  validateOMS,
+  validateAtLeastOneDeviationNDR,
 ];
