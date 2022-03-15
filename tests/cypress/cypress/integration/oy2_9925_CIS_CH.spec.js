@@ -646,10 +646,10 @@ describe("Measure: CIS-CH", () => {
     ).click();
     cy.get("#OptionalMeasureStratification\\.options3-checkbox").check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.PrimaryLanguage.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.PrimaryLanguageincludingsignlanguage.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "English");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.PrimaryLanguage.options1"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.PrimaryLanguageincludingsignlanguage.options1"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Spanish");
     cy.get(
       '[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__control'
