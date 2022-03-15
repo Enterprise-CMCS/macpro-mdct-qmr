@@ -34,7 +34,7 @@ custom:
   ui_s3_bucket_name: ${cf:ui-${self:custom.stage}.S3BucketName}
   ui_cloudfront_distribution_id: ${cf:ui-${self:custom.stage}.CloudFrontDistributionId}
   application_endpoint_url: ${cf:ui-${self:custom.stage}.ApplicationEndpointUrl}
-  test_password_1: ${ssm:/testPassword1~true, ""}
+  test_password_1: ${ssm:testPassword1~true, ""}
   s3Sync:
     - bucketName: ${self:custom.ui_s3_bucket_name}
       localDir: ./build
