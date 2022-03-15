@@ -6,6 +6,7 @@ the key should be the measure id as a string (with '-XX' included)
 import { CCWAD } from "./CCWAD";
 import { CCPAD } from "./CCPAD";
 import { CPAAD } from "./CPAAD";
+import { CPCCH } from "./CPCCH";
 import { FUAAD } from "./FUAAD";
 import { FUMAD } from "./FUMAD";
 import { IETAD } from "./IETAD";
@@ -24,6 +25,7 @@ import { PQI05AD } from "./PQI05AD";
 const twentyTwentyOneMeasures = {
   "CCP-AD": CCPAD,
   "CPA-AD": CPAAD,
+  "CPC-CH": CPCCH,
   "FUA-AD": FUAAD,
   "FUM-AD": FUMAD,
   "IET-AD": IETAD,

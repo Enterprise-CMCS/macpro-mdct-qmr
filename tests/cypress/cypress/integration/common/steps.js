@@ -707,7 +707,7 @@ And(
   }
 );
 And("user can click on AHRQ option for Measurement Specification", () => {
-  cPAADPage.clickmeasurementSpecificationAHRQ();
+  cPAADPage.clickmeasurementSpecificationAHRQNCQA();
 });
 And("user can click CAHPS for Data Source", () => {
   cPAADPage.clickdataSource();
