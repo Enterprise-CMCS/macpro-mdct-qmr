@@ -99,6 +99,9 @@ const buildChildCheckboxOption = ({
         name={`${name}.aggregate`}
         key={`${name}.aggregate`}
         options={renderRadioButtonOptions({ omsNode, name })}
+        label={`Are you only reporting aggregated data for all ${
+          omsNode.aggregateTitle || omsNode.id
+        } categories?`}
       />,
     ];
   }
