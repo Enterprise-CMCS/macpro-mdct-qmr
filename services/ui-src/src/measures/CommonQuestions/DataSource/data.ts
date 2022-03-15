@@ -20,18 +20,20 @@ export const defaultData: DataSourceData = {
   options: [
     {
       value: DC.ADMINISTRATIVE_DATA,
-      subOptions: {
-        label: "What is the Administrative Data Source?",
-        options: [
-          {
-            value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
-          },
-          {
-            value: DC.ADMINISTRATIVE_DATA_OTHER,
-            description: true,
-          },
-        ],
-      },
+      subOptions: [
+        {
+          label: "What is the Administrative Data Source?",
+          options: [
+            {
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
+            },
+            {
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              description: true,
+            },
+          ],
+        },
+      ],
     },
     {
       value: DC.OTHER_DATA_SOURCE,
