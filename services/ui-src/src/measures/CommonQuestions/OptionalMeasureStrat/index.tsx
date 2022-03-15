@@ -1,10 +1,8 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
-
 import * as Types from "../types";
 import { OMSData, OmsNode } from "./data";
-
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import * as CUI from "@chakra-ui/react";
@@ -55,6 +53,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
+  allowNumeratorGreaterThanDenominator?: boolean;
   customMask?: RegExp;
   isSingleSex?: boolean;
   rateAlwaysEditable?: boolean;
@@ -96,6 +95,7 @@ export const OptionalMeasureStrat = ({
   calcTotal = false,
   adultMeasure,
   rateMultiplicationValue,
+  allowNumeratorGreaterThanDenominator = false,
   customMask,
   isSingleSex = false,
   rateAlwaysEditable = false,
@@ -108,7 +108,7 @@ export const OptionalMeasureStrat = ({
   const OPM = values["OtherPerformanceMeasure-Rates"];
   const watchDataSourceSwitch = watch("MeasurementSpecification");
 
-  const register = useCustomRegister();
+  const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
     ...register("OptionalMeasureStratification"),
     data: omsData,
@@ -140,6 +140,7 @@ export const OptionalMeasureStrat = ({
           categories,
           rateMultiplicationValue,
           customMask,
+          allowNumeratorGreaterThanDenominator,
         }}
       >
         <CUI.Text py="3">
