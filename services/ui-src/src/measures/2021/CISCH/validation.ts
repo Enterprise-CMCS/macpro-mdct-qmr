@@ -41,6 +41,10 @@ const CISCHValidation = (data: FormData) => {
     return errorArray;
   }
 
+  const includesHybridDataSource = data["DataSource"].includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
+
   errorArray = [
     ...errorArray,
     ...omsValidations({
@@ -54,8 +58,9 @@ const CISCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
+        ...(includesHybridDataSource
+          ? []
+          : [validateRateNotZero, validateRateZero]),
       ],
     }),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -75,7 +80,9 @@ const CISCHValidation = (data: FormData) => {
       PMD.categories,
       PMD.qualifiers
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...(includesHybridDataSource
+      ? []
+      : validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups)),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
   ];

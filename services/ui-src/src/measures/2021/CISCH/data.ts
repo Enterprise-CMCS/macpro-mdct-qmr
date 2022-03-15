@@ -43,13 +43,13 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
         label: "What is the Administrative Data Source?",
         options: [
           {
-            value: "Medicaid Management Information System (MMIS)",
+            value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
           },
           {
-            value: "Immunization Registry",
+            value: DC.IMMUNIZATION_REGISTRY,
           },
           {
-            value: "Administrative Data Other",
+            value: DC.ADMINISTRATIVE_DATA_OTHER,
             description: true,
           },
         ],
@@ -61,13 +61,13 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
         label: "What is the Administrative Data Source?",
         options: [
           {
-            value: "Medicaid Management Information System (MMIS)",
+            value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
           },
           {
-            value: "Immunization Registry",
+            value: DC.IMMUNIZATION_REGISTRY,
           },
           {
-            value: "Other",
+            value: DC.ADMINISTRATIVE_DATA_OTHER,
             description: true,
           },
         ],
