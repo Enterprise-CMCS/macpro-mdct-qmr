@@ -57,7 +57,7 @@ const Measure = ({ measure, ...rest }: MeasureProps) => {
 
   const showOptionalMeasureStrat = areSomeRatesCompleted(
     watchedData,
-    measure.type
+    rest.measureId
   );
 
   return cloneElement(measure, {
@@ -90,6 +90,8 @@ export const MeasureWrapper = ({
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
+
+  console.log("id: ", measureId);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const autoCompletedMeasure =

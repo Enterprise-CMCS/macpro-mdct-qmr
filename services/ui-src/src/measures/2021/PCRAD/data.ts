@@ -4,7 +4,7 @@ export const qualifiers = [
   "Count of Index Hospital Stays",
   "Count of Observed 30-Day Readmissions",
   "Observed Readmission Rate",
-  "Count of Expected 30-Day Readmissinos",
+  "Count of Expected 30-Day Readmissions",
   "Expected Readmission Rate",
   "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
   "Count of Beneficiaries in Medicaid Population",
