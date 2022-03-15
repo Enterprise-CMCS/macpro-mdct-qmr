@@ -1,15 +1,25 @@
 import * as Types from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-  validateEqualDenominators,
-  validateReasonForNotReporting,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+  getDeviationNDRArray,
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+  validateReasonForNotReporting,
+} from "measures/globalValidations";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateRateNotZero,
+  validateRateZero,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import * as PMD from "./data";
 
 const MSCADValidation = (data: Types.DefaultFormData) => {
@@ -20,6 +30,13 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
   const dateRange = data["DateRange"];
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
@@ -27,11 +44,6 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
     return errorArray;
   }
 
-  let sameDenominatorError = [
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -46,10 +58,30 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       OPM,
       ageGroups
     ),
-    ...sameDenominatorError,
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateRateZero,
+        validateRateNotZero,
+      ],
+    }),
   ];
 
   return errorArray;

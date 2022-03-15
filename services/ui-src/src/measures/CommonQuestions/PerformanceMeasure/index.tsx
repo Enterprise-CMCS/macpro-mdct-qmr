@@ -2,6 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
+import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
 
@@ -52,15 +53,22 @@ const CategoryNdrSets = ({
             <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
+            {!rateReadOnly && (
+              <CUI.Heading pt="5" size={"sm"}>
+                Please review the auto-calculated rate and revise if needed.
+              </CUI.Heading>
+            )}
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
+              {...register(
+                `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
+              )}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }
-              {...register(`PerformanceMeasure.rates.${cleanedName}`)}
             />
           </CUI.Box>
         );
@@ -84,16 +92,25 @@ const QualifierNdrSets = ({
     id: idx,
   }));
   return (
-    <QMR.Rate
-      rates={rates}
-      readOnly={rateReadOnly}
-      rateMultiplicationValue={rateScale}
-      customMask={customMask}
-      allowNumeratorGreaterThanDenominator={
-        allowNumeratorGreaterThanDenominator
-      }
-      {...register("PerformanceMeasure.rates.singleCategory")}
-    />
+    <>
+      {!rateReadOnly && (
+        <CUI.Heading pt="5" size={"sm"}>
+          Please review the auto-calculated rate and revise if needed.
+        </CUI.Heading>
+      )}
+      <QMR.Rate
+        rates={rates}
+        readOnly={rateReadOnly}
+        rateMultiplicationValue={rateScale}
+        customMask={customMask}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
+        {...register(
+          `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${DC.SINGLE_CATEGORY}`
+        )}
+      />
+    </>
   );
 };
 
@@ -120,9 +137,9 @@ export const PerformanceMeasure = ({
   allowNumeratorGreaterThanDenominator,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
-  const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
-    | string[]
-    | undefined;
+  const dataSourceWatch = useWatch<Types.DataSource>({
+    name: DC.DATA_SOURCE,
+  }) as string[] | undefined;
   const readOnly =
     rateReadOnly ??
     dataSourceWatch?.every((source) => source === "AdministrativeData") ??
@@ -155,7 +172,7 @@ export const PerformanceMeasure = ({
       )}
       <QMR.TextArea
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
-        {...register("PerformanceMeasure.explanation")}
+        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
       />
       <CUI.Text
         fontWeight="bold"
