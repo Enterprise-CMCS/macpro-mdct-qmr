@@ -7,7 +7,7 @@ const sentenceBelowTitle =
 const didYouCollectThisMeasure = "[data-cy='DidCollect0']";
 const howDidYouReportThisMeasure =
   "//p[contains(text(),'Submitted raw data to AHRQ (CAHPS Database)')]";
-const measurementSpecificationAHRQ = "#MeasurementSpecification-AHRQ";
+const measurementSpecificationAHRQNCQA = "#MeasurementSpecification-AHRQ-NCQA";
 const dataSource = "//p[@id='DataSource-CAHPS-Version-CAHPS 5.1H']";
 const dataSourceOtherTextbox = "//textarea[@id='field-911']";
 //const noSupplemental = "//p[contains(text(),'No Supplemental Item Sets were included')]";
@@ -82,8 +82,8 @@ export class CPAADPAGE {
   clickhowDidYouReportThisMeasure() {
     cy.xpath(howDidYouReportThisMeasure).click({ force: true });
   }
-  clickmeasurementSpecificationAHRQ() {
-    cy.get(measurementSpecificationAHRQ).click({ force: true });
+  clickmeasurementSpecificationAHRQNCQA() {
+    cy.get(measurementSpecificationAHRQNCQA).click({ force: true });
   }
 
   clickdataSource() {

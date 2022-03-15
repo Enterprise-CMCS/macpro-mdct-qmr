@@ -71,7 +71,7 @@ export const OMSData = (adultMeasure?: boolean): OmsNode[] => {
       addMore: false,
     },
     {
-      id: "Language",
+      id: "Primary Language",
       options: [{ id: "English" }, { id: "Spanish" }],
       addMore: true,
     },
