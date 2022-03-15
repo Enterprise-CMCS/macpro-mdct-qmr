@@ -1,6 +1,8 @@
 import * as Types from "../CommonQuestions/types";
 import { PerformanceMeasure } from "./types";
 import { DateRange } from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
+import { getPerfMeasureRateArray } from "./dataDrivenTools";
 
 export const atLeastOneRateComplete = (
   performanceMeasureArray: PerformanceMeasure[][],
@@ -8,7 +10,7 @@ export const atLeastOneRateComplete = (
   ageGroups: string[]
 ) => {
   let error = true;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
@@ -58,7 +60,7 @@ export const validateDualPopInformation = (
     dualEligible = false;
   }
   let error;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   let filledInData: any[] = [];
   const i = age65PlusIndex;
   performanceMeasureArray?.forEach((performanceMeasure) => {
@@ -88,7 +90,7 @@ export const validateDualPopInformation = (
         "The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for Age 65 and Older",
     });
   }
-  return error ? errorArray : [];
+  return error ? [errorArray[0]] : [];
 };
 
 // For every performance measure the Numerators must always be less than the denominators
@@ -98,7 +100,7 @@ export const validateNumeratorsLessThanDenominators = (
   ageGroups: string[]
 ) => {
   let error = false;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
@@ -137,10 +139,11 @@ export const validateNumeratorsLessThanDenominators = (
 // Initiation AND Engagement
 export const validateEqualDenominators = (
   performanceMeasureArray: PerformanceMeasure[][],
-  ageGroups: string[]
+  ageGroups: string[],
+  explicitErrorMessage?: string
 ) => {
   let error;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
   ageGroups.forEach((ageGroup, i) => {
     let filledInData: any[] = [];
     performanceMeasureArray?.forEach((_performanceObj, index) => {
@@ -163,13 +166,55 @@ export const validateEqualDenominators = (
       if (denominatorsNotEqual) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `Denominators must be the same for each category of performance measures for ${ageGroup}`,
+          errorMessage:
+            explicitErrorMessage ||
+            `Denominators must be the same for each category of performance measures for ${ageGroup}`,
         };
         errorArray.push(error);
       }
     }
   });
   return errorArray;
+};
+
+/** Checks all rates have the same denominator for both categories and qualifiers. NOTE: only pass qualifiers if category is empty */
+export const validateAllDenomsTheSameCrossQualifier = (
+  data: Types.DefaultFormData,
+  categories: string[],
+  qualifiers?: string[]
+) => {
+  const cleanString = (s: string) => s.replace(/[^\w]/g, "");
+  const denomArray: string[] = [];
+  const locationArray: string[] = [];
+  const checkedCats = categories.length ? categories : ["singleCategory"];
+
+  for (const category of checkedCats) {
+    const cat = cleanString(category);
+    // for (const ndr of data.PerformanceMeasure?.rates?.[cat] ?? []) {
+    for (
+      let i = 0;
+      i < (data?.PerformanceMeasure?.rates?.[cat]?.length ?? 0);
+      i++
+    ) {
+      const ndr = data?.PerformanceMeasure?.rates?.[cat]?.[i];
+      if (ndr?.denominator) {
+        denomArray.push(ndr.denominator);
+        locationArray.push(qualifiers ? qualifiers[i] : category);
+      }
+    }
+  }
+
+  const areTheSame = denomArray.every((denom) => denom === denomArray[0]);
+
+  return !areTheSame
+    ? [
+        {
+          errorLocation: "Performance Measure",
+          errorMessage: `The following categories must have the same denominator:`,
+          errorList: locationArray.filter((v, i, a) => a.indexOf(v) === i),
+        },
+      ]
+    : [];
 };
 
 // If a user manually over-rides a rate it must not violate two rules:
@@ -271,7 +316,7 @@ export const ensureBothDatesCompletedInRange = (
 
 export const validateReasonForNotReporting = (whyNotReporting: any) => {
   let error = false;
-  const errorArray: any[] = [];
+  const errorArray: FormError[] = [];
 
   if (!(whyNotReporting && whyNotReporting.length > 0)) {
     error = true;
@@ -286,12 +331,61 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
   return errorArray;
 };
 
+// When a user inputs data in multiple NDR sets in a performance measure
+// Then the user must complete at least one NDR set in the Deviation of measure specification.
+export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
+  performanceMeasureArray: PerformanceMeasure[][],
+  ageGroups: string[],
+  deviationArray: Types.DeviationFields[] | any,
+  didCalculationsDeviate: boolean
+) => {
+  let errorArray: FormError[] = [];
+  let ndrCount = 0;
+  if (didCalculationsDeviate) {
+    ageGroups.forEach((_ageGroup, i) => {
+      performanceMeasureArray?.forEach((_performanceObj, index) => {
+        if (
+          performanceMeasureArray[index] &&
+          performanceMeasureArray[index][i] &&
+          performanceMeasureArray[index][i].denominator &&
+          performanceMeasureArray[index][i].numerator &&
+          performanceMeasureArray[index][i].rate
+        ) {
+          ndrCount++;
+        }
+      });
+    });
+
+    if (ndrCount > 0) {
+      const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
+        if (
+          deviationNDR.denominator &&
+          deviationNDR.numerator &&
+          deviationNDR.other
+        ) {
+          return true;
+        }
+        return false;
+      });
+
+      if (!atLeastOneDevNDR) {
+        errorArray.push({
+          errorLocation: "Deviations from Measure Specifications",
+          errorMessage: "You must complete one NDR set",
+        });
+      }
+    }
+  }
+
+  return errorArray;
+};
+
 export const validateRequiredRadioButtonForCombinedRates = (
   data: Types.CombinedRates
 ) => {
-  const errorArray: any[] = [];
+  const errorArray: FormError[] = [];
 
-  if (data.CombinedRates && data.CombinedRates.includes("Yes")) {
+  if (data.CombinedRates && data.CombinedRates === DC.YES) {
     if (!data["CombinedRates-CombinedRates"]) {
       errorArray.push({
         errorLocation: "Combined Rate(s)",
@@ -299,6 +393,37 @@ export const validateRequiredRadioButtonForCombinedRates = (
           "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
       });
     }
+  }
+
+  return errorArray;
+};
+
+export const validateOneRateHigherThanOther = (
+  data: Types.DefaultFormData,
+  performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure
+) => {
+  const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
+  const lowerRate = perfMeasure[1];
+  const higherRate = perfMeasure[0];
+  let error;
+  const errorArray: FormError[] = [];
+
+  if (lowerRate && higherRate) {
+    lowerRate.forEach((_lowerRateObj, index) => {
+      if (
+        lowerRate[index] &&
+        higherRate[index] &&
+        parseFloat(lowerRate[index]?.rate ?? "") >
+          parseFloat(higherRate[index]?.rate ?? "")
+      ) {
+        error = {
+          errorLocation: "Performance Measure",
+          errorMessage: `${performanceMeasureData.categories?.[1]} Rate should not be higher than ${performanceMeasureData.categories?.[0]} Rate for ${performanceMeasureData.qualifiers?.[index]} Rates`,
+        };
+
+        errorArray.push(error);
+      }
+    });
   }
 
   return errorArray;
