@@ -1,5 +1,6 @@
 import * as QMR from "components";
 import * as Types from "../types";
+import * as DC from "dataConstants";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
@@ -58,8 +59,8 @@ const getRateTextAreaOptions = (name: string) =>
 /* This is a custom checkbox component that is used to render the checkboxes for the rate deviations. */
 const DeviationsSelectedCheckbox = ({ name }: { name: string }) => (
   <QMR.Checkbox
-    name={`${name}.RateDeviationsSelected`}
-    key={`${name}.RateDeviationsSelected`}
+    name={`${name}.${DC.RATE_DEVIATIONS_SELECTED}`}
+    key={`${name}.${DC.RATE_DEVIATIONS_SELECTED}`}
     options={getRateTextAreaOptions(name)}
   />
 );
@@ -100,7 +101,7 @@ export const getLowLvlDeviationOptions = ({
 export const DeviationFromMeasureSpec = ({ categories }: Props) => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
   const watchPerformanceMeasure = useWatch({
-    name: "PerformanceMeasure",
+    name: DC.PERFORMANCE_MEASURE,
   });
 
   const getTopLvlDeviationOptions = ({
@@ -115,7 +116,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
       if (rates.singleCategory) {
         return getLowLvlDeviationOptions({
           qualifiers: rates.singleCategory.filter(numDenExistInRate),
-          name: `Deviations`,
+          name: DC.DEVIATIONS,
         });
       } else {
         Object.keys(rates).forEach((key) => {
@@ -139,12 +140,14 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
             displayValue: option.displayValue,
             children: [
               <QMR.Checkbox
-                {...register(`Deviations.${option.key}.SelectedOptions`)}
+                {...register(
+                  `${DC.DEVIATIONS}.${option.key}.${DC.SELECTED_OPTIONS}`
+                )}
                 formLabelProps={{ fontWeight: 600 }}
-                key={`Deviations.${option.key}`}
+                key={`${DC.DEVIATIONS}.${option.key}`}
                 options={getLowLvlDeviationOptions({
                   qualifiers: option.rates,
-                  name: `Deviations.${option.key}`,
+                  name: `${DC.DEVIATIONS}.${option.key}`,
                 })}
               />,
             ],
@@ -159,7 +162,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
     <QMR.CoreQuestionWrapper label="Deviations from Measure Specifications">
       <QMR.RadioButton
         renderHelperTextAbove
-        {...register("DidCalculationsDeviate")}
+        {...register(DC.DID_CALCS_DEVIATE)}
         formLabelProps={{ fontWeight: 600 }}
         label="Did your calculation of the measure deviate from the measure specification in any way?"
         helperText="For example: deviation from measure specification might include different methodology, timeframe, or reported age groups."
@@ -167,10 +170,10 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
           {
             displayValue:
               "Yes, the calculation of the measure deviates from the measure specification.",
-            value: "yes",
+            value: DC.YES,
             children: [
               <QMR.Checkbox
-                {...register("DeviationOptions")}
+                {...register(DC.DEVIATION_OPTIONS)}
                 label="Select and explain the deviation(s):"
                 options={getTopLvlDeviationOptions({
                   categories,
@@ -181,7 +184,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
           {
             displayValue:
               "No, the calculation of the measure does not deviate from the measure specification in any way.",
-            value: "no",
+            value: DC.NO,
           },
         ]}
       />
