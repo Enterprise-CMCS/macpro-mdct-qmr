@@ -35,6 +35,7 @@ custom:
   ui_cloudfront_distribution_id: ${cf:ui-${self:custom.stage}.CloudFrontDistributionId}
   application_endpoint_url: ${cf:ui-${self:custom.stage}.ApplicationEndpointUrl}
   test_password_1: ${ssm:/configuration/testPassword1~true, ""}
+  prod_url: ${ssm:/configuration/prodUrl~true, ""}
   s3Sync:
     - bucketName: ${self:custom.ui_s3_bucket_name}
       localDir: ./build
@@ -62,6 +63,7 @@ custom:
         export S3_ATTACHMENTS_BUCKET_NAME=${self:custom.s3_attachments_bucket_name}
         export LOCAL_LOGIN=false
         export TEST_PASSWORD_1=${self:custom.test_password_1}
+        export PROD_URL=${self:custom.prod_url}
         export BRANCH_NAME=${self:custom.stage}
         ./env.sh
         cp public/env-config.js build/env-config.js
@@ -69,3 +71,5 @@ resources:
   Outputs:
     TestPasswordOne:
       Value: !Sub ${ssm:/configuration/testPassword1~true, ""}
+    ProdUrl:
+      Value: !Sub ${ssm:/configuration/prodUrl~true, ""}

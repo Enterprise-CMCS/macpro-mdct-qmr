@@ -24,6 +24,8 @@ cognito_user_pool_client_domain=`sh ../output.sh ../ui-auth UserPoolClientDomain
 s3_attachments_bucket_region=`sh ../output.sh ../uploads Region $stage`
 s3_attachements_bucket_name=`sh ../output.sh ../uploads AttachmentsBucketName $stage`
 test_password_1=`sh ../output.sh ../ui-src TestPasswordOne $stage`
+prod_url=`sh ../output.sh ../ui-src ProdUrl $stage`
+
 
 
 echo $stage
@@ -35,6 +37,7 @@ echo $cognito_user_pool_id
 echo $cognito_user_pool_client_id
 echo $cognito_user_pool_client_domain
 echo $test_password_1
+echo $prod_url
 
 export API_REGION=$api_region
 export API_URL=$api_url
@@ -48,6 +51,7 @@ export COGNITO_REDIRECT_SIGNOUT=http://localhost:3000/
 export S3_ATTACHMENTS_BUCKET_REGION=$s3_attachments_bucket_region
 export S3_ATTACHMENTS_BUCKET_NAME=$s3_attachements_bucket_name
 export TEST_PASSWORD_1=$test_password_1
+export PROD_URL=$prod_url
 # This is set to false, as using this script points your local react server to Amazon
 export LOCAL_LOGIN=false
 ./env.sh
