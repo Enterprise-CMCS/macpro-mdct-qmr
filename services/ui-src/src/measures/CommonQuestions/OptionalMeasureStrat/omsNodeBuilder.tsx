@@ -27,7 +27,7 @@ interface NdrNodeProps {
 const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
-      <NDRSets name={`${name}.ageRangeRates`} key={`${name}.ageRangeRates`} />
+      <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
       {flagSubCat && <SubCatSection name={name} />}
     </CUI.Box>
   );
@@ -115,7 +115,7 @@ const buildChildCheckboxOption = ({
  */
 export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   if (!props.options) {
-    return <NDRSets name={`${props.name}.ageRangeRates`} />;
+    return <NDRSets name={`${props.name}.rateData`} />;
   }
 
   return (
