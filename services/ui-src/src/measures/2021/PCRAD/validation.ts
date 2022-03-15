@@ -3,14 +3,41 @@ import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
   ensureBothDatesCompletedInRange,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
+  OmsValidationCallback,
+  omsLocationDictionary,
+  omsValidations,
+} from "../../globalValidations";
 import * as PMD from "./data";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 interface NDRforumla {
   numerator: number;
   denominator: number;
   rateIndex: number;
 }
+
+const ndrForumlas = [
+  {
+    numerator: 1,
+    denominator: 0,
+    rateIndex: 2,
+  },
+  {
+    numerator: 3,
+    denominator: 0,
+    rateIndex: 4,
+  },
+  {
+    numerator: 1,
+    denominator: 3,
+    rateIndex: 5,
+  },
+  {
+    numerator: 7,
+    denominator: 6,
+    rateIndex: 8,
+  },
+];
 
 const PCRADValidation = (data: FormData) => {
   let errorArray: any[] = [];
@@ -19,44 +46,55 @@ const PCRADValidation = (data: FormData) => {
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const OPM = data["OtherPerformanceMeasure-Rates"];
 
-  const ndrForumlas = [
-    {
-      numerator: 1,
-      denominator: 0,
-      rateIndex: 2,
-    },
-    {
-      numerator: 3,
-      denominator: 0,
-      rateIndex: 4,
-    },
-    {
-      numerator: 1,
-      denominator: 3,
-      rateIndex: 5,
-    },
-    {
-      numerator: 7,
-      denominator: 6,
-      rateIndex: 8,
-    },
-  ];
-
   // Quick reference list of all rate indices
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [OMSValidations],
+      checkIsFilled: false,
+    }),
   ];
   return errorArray;
+};
+
+const OMSValidations: OmsValidationCallback = ({
+  rateData,
+  locationDictionary,
+  label,
+}) => {
+  return [
+    ...PCRADnoNonZeroNumOrDenom(
+      [rateData?.["pcrad-rate"] ?? []],
+      [],
+      ndrForumlas,
+      `Optional Measure Stratification: ${locationDictionary(label)}`
+    ),
+    ...PCRADatLeastOneRateComplete(
+      [rateData?.["pcrad-rate"] ?? []],
+      [],
+      PMD.qualifiers,
+      `Optional Measure Stratification: ${locationDictionary(label)}`
+    ),
+  ];
 };
 
 /* Validation for manually entered rates */
 const PCRADnoNonZeroNumOrDenom = (
   performanceMeasureArray: any,
   OPM: any,
-  ndrFormulas: NDRforumla[]
+  ndrFormulas: NDRforumla[],
+  errorLocation: string = "Performance Measure/Other Performance Measure"
 ) => {
   let nonZeroRateError = false;
   let zeroRateError = false;
@@ -104,13 +142,13 @@ const PCRADnoNonZeroNumOrDenom = (
     });
   if (nonZeroRateError) {
     errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure`,
+      errorLocation: errorLocation,
       errorMessage: `Manually entered rate should be 0 if numerator is 0`,
     });
   }
   if (zeroRateError) {
     errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure`,
+      errorLocation: errorLocation,
       errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
     });
   }
@@ -121,7 +159,8 @@ const PCRADnoNonZeroNumOrDenom = (
 const PCRADatLeastOneRateComplete = (
   performanceMeasureArray: any,
   OPM: any,
-  ageGroups: string[]
+  ageGroups: string[],
+  errorLocation: string = "Performance Measure/Other Performance Measure"
 ) => {
   let error = true;
   let errorArray: any[] = [];
@@ -154,8 +193,8 @@ const PCRADatLeastOneRateComplete = (
 
   if (error) {
     errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure`,
-      errorMessage: `A Performance Measure section must be completed.`,
+      errorLocation: errorLocation,
+      errorMessage: `At least one data section must be completed.`,
     });
   }
   return error ? errorArray : [];

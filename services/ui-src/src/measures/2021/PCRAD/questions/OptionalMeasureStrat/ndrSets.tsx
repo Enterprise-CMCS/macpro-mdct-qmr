@@ -358,7 +358,7 @@ const PCRADNDRSets = ({ name }: NdrProps) => {
       )}
       <MultiRate
         rates={rates}
-        name={`${name}.options`}
+        name={`${name}.pcrad-rate`}
         readOnly={rateReadOnly}
         rateMultiplicationValue={rateMultiplicationValue}
         customMask={customMask}

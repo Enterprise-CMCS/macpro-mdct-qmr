@@ -67,8 +67,8 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
                 rules={{ required: true }}
               />
               <NDRSets
-                name={`${name}.additionalSubCategories.${idx}.ageRangeRates`}
-                key={`${name}.additionalSubCategories.${idx}.ageRangeRates`}
+                name={`${name}.additionalSubCategories.${idx}.rateData`}
+                key={`${name}.additionalSubCategories.${idx}.rateData`}
               />
             </CUI.Stack>
           </QMR.QuestionChild>

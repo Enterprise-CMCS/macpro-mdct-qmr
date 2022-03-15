@@ -5,8 +5,12 @@ import {
 } from "measures/CommonQuestions/types";
 type locationDictionaryFunction = (labels: string[]) => string;
 
+interface RateData extends OMS.OmsRateFields {
+  "pcrad-rate"?: { id?: number; value?: string; label?: string };
+}
+
 export type OmsValidationCallback = (data: {
-  rateData: OMS.OmsRateFields;
+  rateData: RateData;
   qualifiers: string[];
   categories: string[];
   label: string[];
