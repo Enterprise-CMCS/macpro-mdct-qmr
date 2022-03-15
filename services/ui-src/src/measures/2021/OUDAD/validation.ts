@@ -3,7 +3,6 @@ import {
   ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-  validateEqualDenominators,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
   getDeviationNDRArray,
@@ -74,13 +73,11 @@ const OUDValidation = (data: FormData) => {
         OMSVal.validateAllDenomsAreTheSameCrossQualifier,
       ],
     }),
-    ...validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
     ...validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers
     ),
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
