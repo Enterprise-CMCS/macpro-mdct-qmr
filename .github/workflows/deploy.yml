@@ -111,6 +111,7 @@ jobs:
             oy2_16265_Validation_text_appear_in_CHAD.spec.js,
             oy2_16341_NDR_validation_updates.spec.js,
             oy2_15890_Adding_link_to_Combined_Rates_component.spec.js,
+            oy2_9944_Measure_50_FVA_AD.spec,
           ]
     steps:
       - name: set branch_name
