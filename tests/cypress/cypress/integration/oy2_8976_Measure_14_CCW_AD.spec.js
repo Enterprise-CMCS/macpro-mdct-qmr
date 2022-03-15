@@ -93,19 +93,19 @@ describe("OY2 8976 CCW-AD", () => {
       "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"
     );
     cy.get(
-      '[data-cy="Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"]'
+      '[data-cy="The following categories must have the same denominator:"]'
     ).should(
       "include.text",
-      "Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"
+      "The following categories must have the same denominator:"
     );
     cy.get(
-      '[data-cy="Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"]'
+      '[data-cy="The following categories must have the same denominator:"]'
     ).should(
       "include.text",
       "Long-acting reversible method of contraception (LARC)"
     );
     cy.get(
-      '[data-cy="Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"]'
+      '[data-cy="The following categories must have the same denominator:"]'
     ).should(
       "include.text",
       "Most effective or moderately effective method of contraception"
