@@ -20,6 +20,11 @@ const FVAADValidation = (data: FormData) => {
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  let errorArray: any[] = [];
+  if (data["DidReport"] === "no") {
+    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
 
   const totalInitiation = performanceMeasureArray.filter(
     (_, idx) =>
@@ -32,12 +37,6 @@ const FVAADValidation = (data: FormData) => {
       PMD.data.categories?.[idx].includes("Engagement") &&
       PMD.data.categories?.[idx].includes("Total")
   )[0];
-
-  let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
-    return errorArray;
-  }
 
   let unfilteredSameDenominatorErrors: any[] = [];
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
