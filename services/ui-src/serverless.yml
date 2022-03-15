@@ -65,3 +65,7 @@ custom:
         export BRANCH_NAME=${self:custom.stage}
         ./env.sh
         cp public/env-config.js build/env-config.js
+resources:
+  Outputs:
+    TestPasswordOne:
+      Value: !Sub ${ssm:/configuration/testPassword1~true, ""}
