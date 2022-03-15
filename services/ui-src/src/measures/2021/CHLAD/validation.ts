@@ -5,9 +5,7 @@ import * as PMD from "./data";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
-  validateDualPopInformation,
   validateNumeratorsLessThanDenominators,
-  validateEqualDenominators,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
@@ -16,7 +14,6 @@ import {
   getDeviationNDRArray,
 } from "../../globalValidations";
 import {
-  OmsValidationCallback,
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateRateNotZero,
