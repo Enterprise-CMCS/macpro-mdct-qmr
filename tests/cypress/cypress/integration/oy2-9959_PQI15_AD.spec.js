@@ -416,11 +416,8 @@ describe("Measure: PQI15-AD", () => {
     cy.get("[data-cy=DataSource0] > .chakra-checkbox__control").click();
     cy.get("#DataSource0-checkbox").check();
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData.selected0"] > .chakra-checkbox__control'
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected0"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#DataSourceSelections\\.AdministrativeData\\.selected0-checkbox"
-    ).check();
     cy.get(
       "[data-cy=DefinitionOfDenominator0] > .chakra-checkbox__control"
     ).click();

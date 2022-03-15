@@ -37,6 +37,8 @@ export const DATA_STATUS_PROVISIONAL_EXPLAINATION =
 export const DATE_RANGE = "DateRange";
 export const DEFINITION_DENOMINATOR_OTHER = "DefinitionOfDenominator-Other";
 export const DEFINITION_OF_DENOMINATOR = "DefinitionOfDenominator";
+export const DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN =
+  "DefinitionOfDenominator-Subset-Explain";
 export const DELIVERY_SYS_FFS = "DeliverySys-FeeForService";
 export const DELIVERY_SYS_FFS_NO_PERCENT =
   "DeliverySys-FeeForService-No-Percent";
@@ -91,6 +93,11 @@ export const FFS = "FFS";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
+export const HYBRID_MEASURE_POPULATION_INCLUDED =
+  "HybridMeasurePopulationIncluded";
+export const HYBRID_MEASURE_SAMPLE_SIZE = "HybridMeasureSampleSize";
+export const HYBRID_DATA = "Hybrid (Administrative and Medical Records Data)";
+export const PMHYBRIDEXPLANATION = "hybridExplanation";
 export const ICM = "ICM";
 export const INFO_NOT_COLLECTED = "InformationNotCollected";
 export const INFO_NOT_COLLECTED_OTHER = "InformationNotCollected-Other";

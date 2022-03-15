@@ -12,6 +12,7 @@ interface Props {
   calcTotal?: boolean;
   rateScale?: number;
   customMask?: RegExp;
+  hybridMeasure?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
 }
 
@@ -134,6 +135,7 @@ export const PerformanceMeasure = ({
   rateReadOnly,
   rateScale,
   customMask,
+  hybridMeasure,
   allowNumeratorGreaterThanDenominator,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
@@ -174,6 +176,23 @@ export const PerformanceMeasure = ({
         label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
         {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
       />
+      {hybridMeasure && (
+        <CUI.Box my="5">
+          <CUI.Text>
+            CMS recognizes that social distancing will make onsite medical chart
+            reviews inadvisable during the COVID-19 pandemic. As such, hybrid
+            measures that rely on such techniques will be particularly
+            challenging during this time. While reporting of the Core Sets is
+            voluntary, CMS encourages states that can collect information safely
+            to continue reporting the measures they have reported in the past.
+          </CUI.Text>
+          <QMR.TextArea
+            formLabelProps={{ mt: 5 }}
+            {...register("PerformanceMeasure.hybridExplanation")}
+            label="Describe any COVID-related difficulties encountered while collecting this data:"
+          />
+        </CUI.Box>
+      )}
       <CUI.Text
         fontWeight="bold"
         mt={5}
