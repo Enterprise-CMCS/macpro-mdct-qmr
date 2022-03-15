@@ -400,10 +400,10 @@ describe("Measure: CIS-CH", () => {
     ).type("20");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Denominators for all reported rates for this measure should be the same"]'
+      '[data-cy="DenDenominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"]'
     ).should(
       "have.text",
-      "Denominators for all reported rates for this measure should be the same"
+      "Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"
     );
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.2.denominator"]'
