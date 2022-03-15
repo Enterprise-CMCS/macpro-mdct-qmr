@@ -400,11 +400,8 @@ describe("Measure: CIS-CH", () => {
     ).type("20");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="DenDenominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"]'
-    ).should(
-      "have.text",
-      "Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"
-    );
+      '[data-cy="Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:"]'
+    ).should("be.visible");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.2.denominator"]'
     ).clear();
@@ -549,41 +546,40 @@ describe("Measure: CIS-CH", () => {
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
     cy.get("#DataSource0-checkbox").check();
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData0.selected0"] > .chakra-checkbox__control'
-    ).click();
+      '[data-cy="DataSourceSelections.AdministrativeData.selected0"] > .chakra-checkbox__control'
+    ).click({ force: true });
     cy.get(
-      "#DataSourceSelections\\.AdministrativeData0\\.selected0-checkbox"
-    ).check();
+      "#DataSourceSelections\\.AdministrativeData\\.selected0-checkbox"
+    ).check({ force: true });
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData0.selected1"]'
-    ).click();
+      '[data-cy="DataSourceSelections.AdministrativeData.selected1"]'
+    ).click({ force: true });
     cy.get(
-      "#DataSourceSelections\\.AdministrativeData0\\.selected1-checkbox"
-    ).check();
+      "#DataSourceSelections\\.AdministrativeData\\.selected1-checkbox"
+    ).check({ force: true });
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData0.selected2"] > .chakra-checkbox__control'
-    ).click();
+      '[data-cy="DataSourceSelections.AdministrativeData.selected2"] > .chakra-checkbox__control'
+    ).click({ force: true });
     cy.get(
-      "#DataSourceSelections\\.AdministrativeData0\\.selected2-checkbox"
-    ).check();
+      "#DataSourceSelections\\.AdministrativeData\\.selected2-checkbox"
+    ).check({ force: true });
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get("#DataSource1-checkbox").check();
     cy.get(
-      '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData0.selected0"] > .chakra-checkbox__control'
-    ).click();
+      '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData.selected0"] > .chakra-checkbox__control'
+    ).click({ force: true });
     cy.get(
-      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData0\\.selected0-checkbox"
-    ).check();
+      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData\\.selected0-checkbox"
+    ).check({ force: true });
     cy.get(
-      '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData1.selected0"] > .chakra-checkbox__control'
-    ).click();
+      '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData.selected0"] > .chakra-checkbox__control'
+    ).click({ force: true });
     cy.get(
-      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData1\\.selected0-checkbox"
-    ).check();
+      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData\\.selected0-checkbox"
+    ).check({ force: true });
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
     cy.get("#DataSource2-checkbox").check();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
-    //cy.get('#radio-517').check();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).clear();
@@ -608,10 +604,10 @@ describe("Measure: CIS-CH", () => {
       "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
     ).check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.ageRangeRates.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.ageRangeRates\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
     ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options1"] > .chakra-checkbox__label > .chakra-text'
@@ -675,10 +671,6 @@ describe("Measure: CIS-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.Geography.options1"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Rural");
-    cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="The measure has been validated successfully"]').should(
-      "be.visible"
-    );
     /* ==== End Cypress Studio ==== */
   });
 

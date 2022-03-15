@@ -87,6 +87,7 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
           ],
           label:
             "What is the Medical Records Data Source? (Both can be selected)",
+          parentName: `${adjustedParentName}-EHR`,
         })
       );
     }
