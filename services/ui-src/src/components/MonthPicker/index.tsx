@@ -60,8 +60,8 @@ export const MonthPicker = ({
         </CUI.FormControl>
       </CUI.Stack>
       <CUI.Stack>
-        <CUI.FormControl label="Year:" isInvalid={isInvalid}>
-          <CUI.FormLabel my={0}>{"Year:"}</CUI.FormLabel>
+        <CUI.FormControl label="Year (yyyy):" isInvalid={isInvalid}>
+          <CUI.FormLabel my={0}>{"Year (yyyy):"}</CUI.FormLabel>
           <CUI.HStack>
             <CUI.Input
               width="6rem"

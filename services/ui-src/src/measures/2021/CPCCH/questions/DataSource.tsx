@@ -20,7 +20,7 @@ export const DataSource = () => {
             value: "Other",
             children: [
               <QMR.TextArea
-                label="Describe the Data Source:"
+                label="Describe the Data Soure:"
                 {...register("DataSource-CAHPS-Version-Other")}
               />,
             ],
@@ -39,8 +39,8 @@ export const DataSource = () => {
             value: "No Supplemental Item Sets were included",
           },
           {
-            displayValue: "Supplemental Items for Adult Survey 5.1H",
-            value: "Supplemental Items for Adult Survey 5.1H",
+            displayValue: "CAHPS Item Set for Children with Chronic Conditions",
+            value: "CAHPS Item Set for Children with Chronic Conditions",
           },
           {
             displayValue: "Other CAHPS Item Set",

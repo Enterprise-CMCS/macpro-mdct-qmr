@@ -2,7 +2,7 @@ import { FormData } from "./types";
 import { validateReasonForNotReporting } from "../../globalValidations/validationsLib";
 import * as DC from "dataConstants";
 
-const CPAADValidation = (data: FormData) => {
+const CPCCHValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const whyDidYouNotCollect = data["WhyDidYouNotCollect"];
 
@@ -22,4 +22,4 @@ const CPAADValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [CPAADValidation];
+export const validationFunctions = [CPCCHValidation];
