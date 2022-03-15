@@ -57,15 +57,17 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
     const adjustedParentName = parentName
       ? `${parentName}-${cleanedNodeValue}`
       : cleanedNodeValue;
-    const children = [
-      ...buildDataSourceCheckboxOptionChildren({
-        data: node.subOptions?.options,
-        label: node.subOptions?.label,
-        parentName: adjustedParentName,
-      }),
-    ];
+    const children = node.subOptions
+      ?.map((subOption, i) => {
+        return buildDataSourceCheckboxOptionChildren({
+          data: subOption.options,
+          label: subOption.label,
+          parentName: `${adjustedParentName}${i}`,
+        });
+      })
+      .flat();
 
-    if (node.description) {
+    if (node.description && children) {
       children.push(
         <QMR.TextArea
           label="Describe the data source:"
