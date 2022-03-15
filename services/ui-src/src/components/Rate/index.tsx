@@ -60,8 +60,6 @@ export const Rate = ({
   This is required for accurate data representation in DB and to calculateTotals().
   */
   useEffect(() => {
-    unregister(name);
-
     const prevRate = [...field.value];
     rates.forEach((rate, index) => {
       if (prevRate[index] === undefined) {
@@ -75,7 +73,7 @@ export const Rate = ({
     }
 
     field.onChange([...prevRate]);
-  }, [unregister, name]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const rateCalculation = (
     numerator: string,
@@ -211,6 +209,13 @@ export const Rate = ({
       prevRate[totalIndex]["rate"] = "";
     }
   };
+
+  useEffect(
+    () => () => {
+      unregister(name);
+    },
+    [unregister, name]
+  );
 
   return (
     <>
