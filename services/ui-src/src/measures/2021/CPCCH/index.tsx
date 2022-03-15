@@ -1,20 +1,21 @@
 import * as Q from "./questions";
+import * as QMR from "components";
 import * as CMQ from "measures/CommonQuestions";
 import { useParams } from "react-router-dom";
-import * as QMR from "components";
+import * as Types from "measures/CommonQuestions/types";
 import { useFormContext } from "react-hook-form";
-import { FormData } from "./types";
 import { validationFunctions } from "./validation";
 import { useEffect } from "react";
 
-export const CPAAD = ({
+export const CPCCH = ({
   name,
   year,
   setValidationFunctions,
 }: QMR.MeasureWrapperProps) => {
-  const { watch } = useFormContext<FormData>();
+  const { watch } = useFormContext<Types.DefaultFormData>();
   const { coreSetId } = useParams();
   const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);

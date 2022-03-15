@@ -1,39 +1,38 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
-import * as DC from "dataConstants";
+import { FormData } from "../types";
 
-export const WhyAreYouNotReporting = () => {
-  const register = useCustomRegister<Types.WhyAreYouNotReporting>();
+export const WhyDidYouNotCollect = () => {
+  const register = useCustomRegister<FormData>();
   return (
-    <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
+    <QMR.CoreQuestionWrapper label="Why did you not collect this measure">
       <QMR.Checkbox
-        {...register(DC.WHY_ARE_YOU_NOT_REPORTING)}
+        {...register("WhyDidYouNotCollect")}
         helperText="Select all that apply:"
         renderHelperTextAbove
         options={[
           {
             displayValue: `Service not covered`,
-            value: DC.SERVICE_NOT_COVERED,
+            value: "ServiceNotCovered",
           },
           {
             displayValue: `Population not covered`,
-            value: DC.POP_NOT_COVERED,
+            value: "PopulationNotCovered",
             children: [
               <QMR.RadioButton
-                {...register(DC.AMOUNT_OF_POP_NOT_COVERED)}
+                {...register("AmountOfPopulationNotCovered")}
                 options={[
                   {
                     displayValue: "Entire population not covered",
-                    value: DC.ENTIRE_POP_NOT_COVERED,
+                    value: "EntirePopulationNotCovered",
                   },
                   {
                     displayValue: "Partial population not covered",
-                    value: DC.PARTIAL_POP_NOT_COVERED,
+                    value: "PartialPopulationNotCovered",
                     children: [
                       <QMR.TextArea
                         label="Explain the partial population not covered:"
-                        {...register(DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION)}
+                        {...register("PartialPopulationNotCoveredExplanation")}
                       />,
                     ],
                   },
@@ -43,57 +42,57 @@ export const WhyAreYouNotReporting = () => {
           },
           {
             displayValue: `Data not available`,
-            value: DC.DATA_NOT_AVAILABLE,
+            value: "DataNotAvailable",
             children: [
               <QMR.Checkbox
-                {...register(DC.WHY_IS_DATA_NOT_AVAILABLE)}
+                {...register("WhyIsDataNotAvailable")}
                 label="Why is data not available?"
                 renderHelperTextAbove
                 helperText="Select all that apply:"
                 options={[
                   {
                     displayValue: "Budget constraints",
-                    value: DC.BUDGET_CONSTRAINTS,
+                    value: "BudgetConstraints",
                   },
                   {
                     displayValue: "Staff Constraints",
-                    value: DC.STAFF_CONSTRAINTS,
+                    value: "StaffConstraints",
                   },
                   {
                     displayValue: "Data inconsistencies/Accuracy",
-                    value: DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES,
+                    value: "DataInconsistenciesAccuracyIssues",
                     children: [
                       <QMR.TextArea
                         label="Explain the Data inconsistencies/Accuracy issues:"
-                        {...register(DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES)}
+                        {...register("DataInconsistenciesAccuracyIssues")}
                       />,
                     ],
                   },
                   {
                     displayValue: "Data source not easily accessible",
-                    value: DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE,
+                    value: "DataSourceNotEasilyAccessible",
                     children: [
                       <QMR.Checkbox
                         label="Select all that apply:"
-                        {...register(DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE)}
+                        {...register("DataSourceNotEasilyAccessible")}
                         options={[
                           {
                             displayValue: "Requires medical record review",
-                            value: DC.REQUIRES_MEDICAL_RECORD_REVIEW,
+                            value: "RequiresMedicalRecordReview",
                           },
                           {
                             displayValue:
                               "Requires data linkage which does not currently exist",
-                            value: DC.REQUIRES_DATA_LINKAGE,
+                            value: "RequireDataLinkage",
                           },
                           {
                             displayValue: "Other",
-                            value: DC.OTHER,
+                            value: "Other",
                             children: [
                               <QMR.TextArea
                                 label="Explain:"
                                 {...register(
-                                  DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER
+                                  "DataSourceNotEasilyAccessible-Other"
                                 )}
                               />,
                             ],
@@ -104,24 +103,24 @@ export const WhyAreYouNotReporting = () => {
                   },
                   {
                     displayValue: "Information not collected",
-                    value: DC.INFO_NOT_COLLECTED,
+                    value: "InformationNotCollected",
                     children: [
                       <QMR.Checkbox
                         label="Select all that apply:"
-                        {...register(DC.INFO_NOT_COLLECTED)}
+                        {...register("InformationNotCollected")}
                         options={[
                           {
                             displayValue:
                               "Not Collected by Provider (Hospital/Health Plan)",
-                            value: DC.NOT_COLLECTED_BY_PROVIDER,
+                            value: "NotCollectedByProviderHospitalHealthPlan",
                           },
                           {
                             displayValue: "Other",
-                            value: DC.OTHER,
+                            value: "Other",
                             children: [
                               <QMR.TextArea
                                 label="Explain:"
-                                {...register(DC.INFO_NOT_COLLECTED_OTHER)}
+                                {...register("InformationNotCollected-Other")}
                               />,
                             ],
                           },
@@ -131,11 +130,11 @@ export const WhyAreYouNotReporting = () => {
                   },
                   {
                     displayValue: "Other",
-                    value: DC.OTHER,
+                    value: "Other",
                     children: [
                       <QMR.TextArea
                         label="Explain:"
-                        {...register(DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER)}
+                        {...register("WhyIsDataNotAvailable-Other")}
                       />,
                     ],
                   },
@@ -146,20 +145,20 @@ export const WhyAreYouNotReporting = () => {
           {
             displayValue:
               "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
-            value: DC.LIMITATION_WITH_DATA_COLLECTION,
+            value: "LimitationWithDatCollecitonReportAccuracyCovid",
             children: [
               <QMR.TextArea
                 label="Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
-                {...register(DC.LIMITATION_WITH_DATA_COLLECTION)}
+                {...register("LimitationWithDatCollecitonReportAccuracyCovid")}
               />,
             ],
           },
           {
             displayValue: "Small sample size (less than 30)",
-            value: DC.SMALL_SAMPLE_SIZE,
+            value: "SmallSampleSizeLessThan30",
             children: [
               <QMR.NumberInput
-                {...register(DC.SMALL_SAMPLE_SIZE)}
+                {...register("SmallSampleSizeLessThan30")}
                 label="Enter specific sample size:"
                 mask={/^([1-2]?\d)?$/i}
               />,
@@ -167,11 +166,11 @@ export const WhyAreYouNotReporting = () => {
           },
           {
             displayValue: "Other",
-            value: DC.OTHER,
+            value: "Other",
             children: [
               <QMR.TextArea
                 label="Explain:"
-                {...register(DC.WHY_ARE_YOU_NOT_REPORTING_OTHER)}
+                {...register("WhyDidYouNotCollect-Other")}
               />,
             ],
           },

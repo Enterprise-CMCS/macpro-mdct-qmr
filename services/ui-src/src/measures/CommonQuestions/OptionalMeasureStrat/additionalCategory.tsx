@@ -45,9 +45,7 @@ export const AddAnotherSection = ({
                 label={`Define the additional ${parentName}`}
                 rules={{ required: true }}
               />
-              <NDRSets
-                name={`${name}.additionalSelections.${idx}.ageRangeRates`}
-              />
+              <NDRSets name={`${name}.additionalSelections.${idx}.rateData`} />
             </CUI.Stack>
             {flagSubCat && (
               <SubCatSection

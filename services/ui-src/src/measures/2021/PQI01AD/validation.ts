@@ -2,37 +2,83 @@ import { FormData } from "./types";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
   validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
+  validateDualPopInformation,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+  getDeviationNDRArray,
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+  validateReasonForNotReporting,
+} from "measures/globalValidations";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
+import {
+  omsValidations,
+  validateRateNotZero,
+  validateRateZero,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+
 const PQI01Validation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const dateRange = data["DateRange"];
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
+  const age65PlusIndex = 0;
+  const definitionOfDenominator = data["DefinitionOfDenominator"];
+
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
+  const validateDualPopInformationArray = [
+    performanceMeasureArray?.[0].filter((pm) => {
+      return pm?.label === "Age 65 and older";
+    }),
+  ];
+
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNumeratorsLessThanDenominators(
+    ...validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateDualPopInformation(
+      validateDualPopInformationArray,
+      OPM,
+      age65PlusIndex,
+      definitionOfDenominator
+    ),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      PMD.qualifiers,
+      deviationArray,
+      didCalculationsDeviate
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [validateRateZero, validateRateNotZero],
+    }),
   ];
 
   return errorArray;
