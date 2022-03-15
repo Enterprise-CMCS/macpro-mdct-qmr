@@ -6,6 +6,7 @@ import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
 import { FormData } from "./types";
+import { rateThatAllowsFourDecimals } from "utils/numberInputMasks";
 
 export const CHLAD = ({
   name,
@@ -45,7 +46,10 @@ export const CHLAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                customMask={rateThatAllowsFourDecimals}
+              />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
