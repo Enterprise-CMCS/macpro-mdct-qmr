@@ -9,29 +9,12 @@ import { formatTableItems } from "./helpers";
 import { CoreSetAbbr, UserRoles } from "types";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
-import AWS from "aws-sdk";
 
 interface Data {
   state: string;
   year: string;
   coreSet: CoreSetAbbr;
 }
-console.log(window._env_);
-var ssm = new AWS.SSM({
-  region: "us-east-1",
-  accessKeyId: "XXXX...",
-  secretAccessKey: "XXXX...",
-});
-var params = {
-  Name: "testPassword1",
-  WithDecryption: true,
-};
-
-ssm.getParameter(params, function (err, data) {
-  if (err) console.log(err, err.stack);
-  // an error occurred
-  else console.log(data); // successful response
-});
 
 const ReportingYear = () => {
   const navigate = useNavigate();
