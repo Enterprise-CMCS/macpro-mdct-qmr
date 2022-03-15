@@ -93,6 +93,8 @@ export const FFS = "FFS";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
+export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
+  "HybridAdministrativeandMedicalRecordsData";
 export const HYBRID_DATA = "Hybrid (Administrative and Medical Records Data)";
 export const HYBRID_MEASURE_POPULATION_INCLUDED =
   "HybridMeasurePopulationIncluded";

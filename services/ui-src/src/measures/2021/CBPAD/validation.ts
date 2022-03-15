@@ -44,6 +44,9 @@ const CBPValidation = (data: FormData) => {
     true
   );
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const includesHybridDataSource = data["DataSource"].includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
 
   errorArray = [
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -58,7 +61,9 @@ const CBPValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...(includesHybridDataSource
+      ? []
+      : validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups)),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...omsValidations({
@@ -73,7 +78,9 @@ const CBPValidation = (data: FormData) => {
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
         validateRateZero,
-        validateRateNotZero,
+        ...(includesHybridDataSource
+          ? []
+          : [validateRateNotZero, validateRateZero]),
       ],
     }),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
