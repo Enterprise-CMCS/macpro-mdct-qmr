@@ -348,7 +348,7 @@ export const validateAllDenomsAreTheSameCrossQualifier: OmsValidationCallback =
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
               label
             )}`,
-            errorMessage: `The following categories must have the same denominator:`,
+            errorMessage: `Denominators for all reported rates for this measure should be the same. The following categories must have the same denominator:`,
             errorList: locationArray.filter((v, i, a) => a.indexOf(v) === i),
           },
         ]
