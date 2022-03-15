@@ -461,3 +461,70 @@ export const validateRateNotZero: OmsValidationCallback = ({
   }
   return error;
 };
+
+export const validateOMSTotalNDR: OmsValidationCallback = ({
+  categories,
+  qualifiers,
+  rateData,
+  label,
+  locationDictionary,
+}) => {
+  const error: FormError[] = [];
+  const ndrSets = [];
+
+  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
+  let denominatorSum: any = null;
+
+  for (const qual of qualifiers.map((s) => cleanString(s))) {
+    for (const cat of categories.map((s) => cleanString(s))) {
+      ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
+    }
+  }
+
+  // The last NDR set is the total
+  const totalNDR = ndrSets.pop();
+
+  // Calculate numerator and denominator totals
+  ndrSets.forEach((set) => {
+    if (set && set.denominator && set.numerator && set.rate) {
+      numeratorSum += parseFloat(set.numerator);
+      denominatorSum += parseFloat(set.denominator);
+    }
+  });
+
+  /*
+  Display validation errors if the actual total of numerators or denominators
+  doesn't match what's in the total numerator/denominator fields
+  */
+  if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
+    let x;
+    if (
+      (x = parseFloat(totalNDR.numerator)) !== parseFloat(numeratorSum) &&
+      numeratorSum !== null &&
+      !isNaN(x)
+    ) {
+      error.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+        errorMessage:
+          "Total numerator field is not equal to the sum of other numerators.",
+      });
+    }
+    if (
+      (x = parseFloat(totalNDR.denominator)) !== parseFloat(denominatorSum) &&
+      denominatorSum !== null &&
+      !isNaN(x)
+    ) {
+      error.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+        errorMessage:
+          "Total denominator field is not equal to the sum of other denominators.",
+      });
+    }
+  }
+
+  return error;
+};
