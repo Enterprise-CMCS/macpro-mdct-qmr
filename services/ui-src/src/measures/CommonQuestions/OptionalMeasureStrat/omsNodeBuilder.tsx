@@ -27,7 +27,7 @@ interface NdrNodeProps {
 const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
-      <NDRSets name={`${name}.ageRangeRates`} key={`${name}.ageRangeRates`} />
+      <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
       {flagSubCat && <SubCatSection name={name} />}
     </CUI.Box>
   );
@@ -99,6 +99,9 @@ const buildChildCheckboxOption = ({
         name={`${name}.aggregate`}
         key={`${name}.aggregate`}
         options={renderRadioButtonOptions({ omsNode, name })}
+        label={`Are you only reporting aggregated data for all ${
+          omsNode.aggregateTitle || omsNode.id
+        } categories?`}
       />,
     ];
   }
@@ -115,7 +118,7 @@ const buildChildCheckboxOption = ({
  */
 export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   if (!props.options) {
-    return <NDRSets name={`${props.name}.ageRangeRates`} />;
+    return <NDRSets name={`${props.name}.rateData`} />;
   }
 
   return (

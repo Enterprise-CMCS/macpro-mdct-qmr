@@ -1,6 +1,6 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
-export const qualifiers = [];
+export const qualifiers = ["All Women Ages 21 to 44"];
 export const categories = [
   "Most effective or moderately effective method of contraception",
   "Long-acting reversible method of contraception (LARC)",
