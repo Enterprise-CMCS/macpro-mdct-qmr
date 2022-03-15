@@ -16,6 +16,7 @@ type TopLevelOptions = {
 
 interface Props {
   categories: string[];
+  measureName?: string;
 }
 
 interface OptionProps {
@@ -98,7 +99,34 @@ export const getLowLvlDeviationOptions = ({
     });
 };
 
-export const DeviationFromMeasureSpec = ({ categories }: Props) => {
+export const PCRADgetLowLvlDeviationOptions = ({
+  qualifiers,
+  name,
+}: OptionProps) => {
+  if (!qualifiers || qualifiers.length === 0) return [];
+
+  return qualifiers
+    .sort((a, b) => (a.label!! < b.label!! ? 1 : 1))
+    .map((item) => {
+      const value = `${cleanString(item.label)}`;
+      return {
+        displayValue: item.label!,
+        value,
+        children: [
+          <QMR.TextArea
+            label="Explain:"
+            name={`${name}.value`}
+            key={`${name}.value`}
+          />,
+        ],
+      };
+    });
+};
+
+export const DeviationFromMeasureSpec = ({
+  categories,
+  measureName,
+}: Props) => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
   const watchPerformanceMeasure = useWatch({
     name: DC.PERFORMANCE_MEASURE,
@@ -114,6 +142,13 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
       /* This is checking if the rates object has a singleCategory key.
       If it does, then it will return the low level deviation options. */
       if (rates.singleCategory) {
+        // handle for PCR-AD
+        if (measureName && measureName === "PCR-AD") {
+          return PCRADgetLowLvlDeviationOptions({
+            qualifiers: rates.singleCategory.filter((r: any) => r.value !== ""),
+            name: DC.DEVIATIONS,
+          });
+        }
         return getLowLvlDeviationOptions({
           qualifiers: rates.singleCategory.filter(numDenExistInRate),
           name: DC.DEVIATIONS,
