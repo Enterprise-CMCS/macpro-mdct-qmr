@@ -1,4 +1,5 @@
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -7,9 +8,21 @@ import {
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
 } from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "../../globalValidations";
+import {
+  getDeviationNDRArray,
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "../../globalValidations";
 import { FormData } from "./types";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateRateNotZero,
+  validateRateZero,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const CBPValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -25,6 +38,12 @@ const CBPValidation = (data: FormData) => {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   errorArray = [
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -42,6 +61,27 @@ const CBPValidation = (data: FormData) => {
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateRateZero,
+        validateRateNotZero,
+      ],
+    }),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
   ];
 
   return errorArray;

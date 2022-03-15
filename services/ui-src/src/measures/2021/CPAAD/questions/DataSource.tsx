@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-// import { useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
 
@@ -21,7 +20,7 @@ export const DataSource = () => {
             value: "Other",
             children: [
               <QMR.TextArea
-                label="Describe the Data Soure:"
+                label="Describe the Data Source:"
                 {...register("DataSource-CAHPS-Version-Other")}
               />,
             ],

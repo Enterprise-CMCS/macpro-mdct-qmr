@@ -63,6 +63,7 @@ const KebabMenuItem = ({ itemText, handleSelect, type }: IKebabMenuItem) => {
           isDeleteButton ? () => setDeleteDialogIsOpen(true) : handleSelect
         }
         aria-label={itemText}
+        data-cy={itemText}
       >
         <CUI.Text fontSize="sm">{itemText}</CUI.Text>
       </CUI.MenuItem>

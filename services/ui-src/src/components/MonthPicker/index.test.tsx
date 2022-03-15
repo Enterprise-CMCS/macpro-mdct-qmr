@@ -89,7 +89,7 @@ describe("Testing MonthPicker", () => {
     expect(getByDisplayValue("11"));
     expect(getByDisplayValue("2011"));
     expect(getByText(/Month:/i));
-    expect(getByText(/Year:/i));
+    expect(getByText(/Year \(yyyy\):/i));
     expect(getByRole("button", { name: /Month Picker/i }));
   });
 
@@ -164,8 +164,8 @@ describe("Testing MonthPicker", () => {
     expect(getByLabelText("Month:")).toHaveValue("12");
 
     // change year
-    userEvent.type(getByLabelText("Year:"), "1912");
-    expect(getByLabelText("Year:")).toHaveValue("1912");
+    userEvent.type(getByLabelText("Year (yyyy):"), "1912");
+    expect(getByLabelText("Year (yyyy):")).toHaveValue("1912");
   });
 
   test("Check that input values fails to show invalid values", async () => {
@@ -183,7 +183,7 @@ describe("Testing MonthPicker", () => {
     expect(getByLabelText("Month:")).toHaveValue("7");
 
     // change year
-    userEvent.type(getByLabelText("Year:"), "1712");
-    expect(getByLabelText("Year:")).toHaveValue("17");
+    userEvent.type(getByLabelText("Year (yyyy):"), "1712");
+    expect(getByLabelText("Year (yyyy):")).toHaveValue("17");
   });
 });

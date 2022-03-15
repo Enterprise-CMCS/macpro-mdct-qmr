@@ -1,3 +1,5 @@
+import * as DC from "dataConstants";
+
 export interface OptionNode {
   value: string;
   subOptions?: {
@@ -17,16 +19,16 @@ export const defaultData: DataSourceData = {
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
   options: [
     {
-      value: "Administrative Data",
+      value: DC.ADMINISTRATIVE_DATA,
       subOptions: [
         {
           label: "What is the Administrative Data Source?",
           options: [
             {
-              value: "Medicaid Management Information System (MMIS)",
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
             {
-              value: "Administrative Data Other",
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
               description: true,
             },
           ],
@@ -34,7 +36,7 @@ export const defaultData: DataSourceData = {
       ],
     },
     {
-      value: "Other Data Source",
+      value: DC.OTHER_DATA_SOURCE,
       description: true,
     },
   ],

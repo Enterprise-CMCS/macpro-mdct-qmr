@@ -6,7 +6,9 @@ import { CBPAD } from "./CBPAD";
 import { CCWAD } from "./CCWAD";
 import { CCPAD } from "./CCPAD";
 import { CPAAD } from "./CPAAD";
+import { CPCCH } from "./CPCCH";
 import { FUAAD } from "./FUAAD";
+import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
 import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
@@ -25,7 +27,9 @@ const twentyTwentyOneMeasures = {
   "CCP-AD": CCPAD,
   "CCW-AD": CCWAD,
   "CPA-AD": CPAAD,
+  "CPC-CH": CPCCH,
   "FUA-AD": FUAAD,
+  "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
   "IET-AD": IETAD,
   "LBW-CH": LBWCH,
