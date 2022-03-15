@@ -134,6 +134,7 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
+    console.log({ data });
     if (!mutationRunning && !loadingData) {
       updateMeasure(
         {

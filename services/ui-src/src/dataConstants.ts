@@ -2,6 +2,9 @@ export const ADDITIONAL_CATS = "additionalCategories";
 export const ADDITIONAL_NOTES = "AdditionalNotes-AdditionalNotes";
 export const ADDITIONAL_NOTES_UPLOAD = "AdditionalNotes-Upload";
 export const ADDITIONAL_SELECTIONS = "additionalSelections";
+export const ADMINISTRATIVE_DATA = "Administrative Data";
+export const ADMINISTRATIVE_DATA_OTHER = "Administrative Data Other";
+export const AGE_RANGE_RATES = "ageRangeRates";
 export const RATE_DATA = "rateData";
 export const AGGREGATE = "aggregate";
 export const AHRQ = "AHRQ";
@@ -81,6 +84,7 @@ export const DID_COLLECT = "DidCollect";
 export const DID_REPORT = "DidReport";
 export const END_DATE = "endDate";
 export const ENTIRE_POP_NOT_COVERED = "EntirePopulationNotCovered";
+export const ELECTRONIC_HEALTH_RECORDS = "Electronic Health Records";
 export const EXPLAINATION = "explanation";
 export const FFS = "FFS";
 export const HEDIS_2019 = "HEDIS 2019";
@@ -100,6 +104,8 @@ export const MEASUREMENT_SPEC_OMS_DESCRIPTION =
   "MeasurementSpecification-OtherMeasurementSpecificationDescription";
 export const MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD =
   "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload";
+export const MEDICAID_MANAGEMENT_INFO_SYSTEM =
+  "Medicaid Management Information System (MMIS)";
 export const NCQA = "NCQA/HEDIS";
 export const NO = "no";
 export const NOT_COLLECTED_BY_PROVIDER =
@@ -113,16 +119,21 @@ export const OPM_NOTES_TEXT_INPUT = "OtherPerformanceMeasure-Rates-TextInput";
 export const OPM_RATES = "OtherPerformanceMeasure-Rates";
 export const OPTIONS = "options";
 export const OTHER = "Other";
+export const OTHER_DATA_SOURCE = "Other Data Source";
 export const PARTIAL_POP_NOT_COVERED = "PartialPopulationNotCovered";
 export const PARTIAL_POP_NOT_COVERED_EXPLAINATION =
   "PartialPopulationNotCoveredExplanation";
 export const PCCM = "PCCM";
 export const PERFORMANCE_MEASURE = "PerformanceMeasure";
+export const PERFORMANCE_MEASURE_EXPLAINATION =
+  "PerformanceMeasure.explanation";
 export const POP_NOT_COVERED = "PopulationNotCovered";
 export const QUALIFIERS = "qualifiers";
 export const RATE = "rate";
 export const RATES = "rates";
 export const RATE_DEVIATIONS_SELECTED = "RateDeviationsSelected";
+export const REPORTING_FINAL_DATA = "ReportingFinalData";
+export const REPORTING_PROVISIONAL_DATA = "ReportingProvisionalData";
 export const REQUIRES_DATA_LINKAGE = "RequireDataLinkage";
 export const REQUIRES_MEDICAL_RECORD_REVIEW = "RequiresMedicalRecordReview";
 export const SELECTED = "selected";
