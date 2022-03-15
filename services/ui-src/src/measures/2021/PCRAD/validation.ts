@@ -62,7 +62,6 @@ const PCRADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [OMSValidations],
-      checkIsFilled: false,
     }),
   ];
   return errorArray;
