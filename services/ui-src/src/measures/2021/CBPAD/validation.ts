@@ -44,7 +44,7 @@ const CBPValidation = (data: FormData) => {
     true
   );
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-  const includesHybridDataSource = data["DataSource"].includes(
+  const includesHybridDataSource = data["DataSource"]?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
   );
 
