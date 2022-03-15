@@ -51,7 +51,7 @@ const validateContinuationGreaterThanAccute = (data: any) => {
         error = {
           errorLocation: "Performance Measure",
           errorMessage:
-            "Rate value for Effective Continuation Phase Treatment must be less than or equal to the Rate value for Effective Acute Phase Treatment",
+            "Effective Continuation Phase Treatment Rate should not be higher than Effective Acute Phase Treatment Rates.",
         };
 
         errorArray.push(error);
