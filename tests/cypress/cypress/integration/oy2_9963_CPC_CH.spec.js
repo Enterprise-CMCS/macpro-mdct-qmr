@@ -1,32 +1,13 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("OY2 9963 CPC CH", () => {
   beforeEach(() => {
-    // Seed database with test data
     cy.visit("/");
-    cy.xpath(emailForCognito).type("stateuser1@test.com");
-    cy.xpath(passwordForCognito).type("p@55W0rd!");
-    cy.get('[data-cy="login-with-cognito-button"]').click();
+    cy.login();
+    cy.deleteChildCoreSets();
+    cy.addCombinedChildCoreset();
+    cy.goToChildCoreSetMeasures();
+    cy.goToMeasure("CPC-CH");
   });
   it("Fill out CPC-CH and verify the page", () => {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.wait(2000);
-    cy.xpath('//p[@data-cy="CCS"]').click();
-    cy.get('[data-cy="CPC-CH"]').click();
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
-    cy.wait(2000);
-    cy.get('[data-cy="Clear Data"]').click();
-    cy.get('[data-cy="CPC-CH"]').click();
-    cy.get('[href="/MA/2021/CCS/CPC-CH"]').should(
-      "have.text",
-      "CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"
-    );
-    cy.get(".css-itvw0n").should(
-      "have.text",
-      "For technical questions regarding use of this application, please reach out to MDCT_Help@cms.hhs.gov. For content-related questions about measure specifications, or what information to enter in each field, please reach out to MACQualityTA@cms.hhs.gov."
-    );
     cy.get('[data-cy="Did you collect this measure?"]').should(
       "have.text",
       "Did you collect this measure?"
