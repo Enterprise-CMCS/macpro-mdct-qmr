@@ -27,19 +27,10 @@ describe("Measure: AMM-AD", () => {
   });
 
   it("if primary measurement spec is selected -> show performance measures", () => {
-    cy.get('[data-cy="DidReport0"]').click();
-    cy.get("#MeasurementSpecification-NCQAHEDIS").should(
-      "have.text",
-      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)"
-    );
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="MeasurementSpecification-HEDISVersion"]').select(
-      "HEDIS MY 2020"
-    );
-    cy.get('[data-cy="Performance Measure"]').should("be.visible");
-    cy.get(":nth-child(6) > :nth-child(1) > .chakra-text").should(
+    cy.get('[data-cy="Performance Measure"]').should(
       "have.text",
-      "Effective Acute Phase Treatment"
+      "Performance Measure"
     );
     cy.get(':nth-child(1) > :nth-child(2) > [data-cy="Ages 18 to 64"]').should(
       "have.text",
@@ -48,10 +39,6 @@ describe("Measure: AMM-AD", () => {
     cy.get(
       ':nth-child(1) > :nth-child(3) > [data-cy="Age 65 and older"]'
     ).should("have.text", "Age 65 and older");
-    cy.get(":nth-child(6) > :nth-child(2) > .chakra-text").should(
-      "have.text",
-      "Effective Continuation Phase Treatment"
-    );
   });
 
   it("if other measurement spec is selected -> show other performance measures", () => {
@@ -64,28 +51,18 @@ describe("Measure: AMM-AD", () => {
   });
 
   it("if only admin data cannot override, if anything else, rate is editable", () => {
-    cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.numerator"]'
-    ).type("56");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.denominator"]'
-    ).type("56");
-    cy.get(
       '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
     ).should("have.attr", "aria-readonly", "true");
-    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get(
-      ':nth-child(1) > :nth-child(3) > [data-cy="Age 65 and older"]'
-    ).click();
+    cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
-    ).click();
+    ).should("not.have.attr", "aria-readonly", "true");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
-    ).type("10.5");
+    ).type("56");
   });
 
   it("should have adult eligibility group in OMS", () => {
