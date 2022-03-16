@@ -4,7 +4,7 @@ describe("Measure: CIS-CH", () => {
     cy.login();
     cy.deleteChildCoreSets();
     cy.addCombinedChildCoreset();
-    cy.goToChildCoreSetMeasures();
+    cy.goToChildMeasures();
     cy.goToMeasure("CIS-CH");
   });
 
