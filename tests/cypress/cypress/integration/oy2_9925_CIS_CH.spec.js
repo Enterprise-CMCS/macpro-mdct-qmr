@@ -8,7 +8,7 @@ describe("Measure: CIS-CH", () => {
     cy.goToMeasure("CIS-CH");
   });
 
-  it("Ensure correct sections display if user is/not reporting", () => {
+  it.skip("Ensure correct sections display if user is/not reporting", () => {
     cy.displaysSectionsWhenUserNotReporting();
     cy.displaysSectionsWhenUserIsReporting();
   });
