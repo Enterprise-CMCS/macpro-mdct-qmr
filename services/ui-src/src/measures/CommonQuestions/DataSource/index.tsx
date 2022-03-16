@@ -51,19 +51,22 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
  */
 const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
-
   for (const node of data) {
     const cleanedNodeValue = node.value.replace(/[^\w]/g, "");
     const adjustedParentName = parentName
       ? `${parentName}-${cleanedNodeValue}`
       : cleanedNodeValue;
-    const children = [
-      ...buildDataSourceCheckboxOptionChildren({
-        data: node.subOptions?.options,
-        label: node.subOptions?.label,
-        parentName: adjustedParentName,
-      }),
-    ];
+    let children: any = [];
+    node.subOptions?.forEach((subOption: any, i) => {
+      children = [
+        ...children,
+        ...buildDataSourceCheckboxOptionChildren({
+          data: subOption.options,
+          label: subOption.label,
+          parentName: `${adjustedParentName}${i}`,
+        }),
+      ];
+    });
 
     if (node.description) {
       children.push(

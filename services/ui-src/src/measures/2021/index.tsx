@@ -9,6 +9,7 @@ import { CISCH } from "./CISCH";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { FUAAD } from "./FUAAD";
+import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
 import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
@@ -30,6 +31,7 @@ const twentyTwentyOneMeasures = {
   "CHL-AD": CHLAD,
   "CPC-CH": CPCCH,
   "FUA-AD": FUAAD,
+  "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
   "IET-AD": IETAD,
   "LBW-CH": LBWCH,
