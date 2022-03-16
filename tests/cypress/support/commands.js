@@ -20,10 +20,7 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 });
 
 // Visit Child Core Set Measures
-Cypress.Commands.add("goToChildMeasures", () => {
-  cy.get('[data-cy="Add Child Core Set"]').click();
-  cy.get('[data-cy="ChildCoreSet-ReportType1"]').click();
-  cy.get('[data-cy="Create"]').click();
+Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get('[data-cy="CCS"]').click();
 });
 

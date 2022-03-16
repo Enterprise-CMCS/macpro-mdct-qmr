@@ -3,7 +3,10 @@ describe("Measure: FUH-CH", () => {
     cy.visit("/");
     cy.login();
     cy.deleteChildCoreSets();
-    cy.goToChildMeasures();
+    cy.get('[data-cy="Add Child Core Set"]').click({ force: true }); // clicking on adding child core set measures
+    cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
+    cy.get('[data-cy="Create"]').click(); //clicking create
+    cy.goToChildCoreSetMeasures();
     cy.goToMeasure("FUH-CH");
   });
 
@@ -41,12 +44,6 @@ describe("Measure: FUH-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
     ).click({ force: true });
-    // cy.xpath(
-    //   "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/div[1]/form[1]/section[1]/div[10]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/label[1]/span[2]/p[1]"
-    // ).click({ force: true });
-    // cy.get(
-    //   '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.ageRangeRates.options0"] > .chakra-checkbox__label > .chakra-text'
-    // ).should("be.visible");
   });
 
   it("if other measurement spec is selected -> show other performance measures", () => {
