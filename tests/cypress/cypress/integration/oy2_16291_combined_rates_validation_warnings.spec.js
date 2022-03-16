@@ -1,3 +1,4 @@
+import { testConfig } from "../../test-config.js";
 const exp = require("constants");
 
 const emailForCognito = `//input[@name='email']`;
@@ -7,8 +8,8 @@ describe("OY2 16297 Combined rates validation testing", () => {
   beforeEach(() => {
     // Seed database with test data
     cy.visit("/");
-    cy.xpath(emailForCognito).type("stateuser2@test.com");
-    cy.xpath(passwordForCognito).type("p@55W0rd!");
+    cy.xpath(emailForCognito).type(testConfig.TEST_USER_2);
+    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.get("[data-cy=login-with-cognito-button]").click();
 
     // Navagate to OUD-AD measure
