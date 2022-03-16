@@ -39,39 +39,43 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
   options: [
     {
       value: DC.ADMINISTRATIVE_DATA,
-      subOptions: {
-        label: "What is the Administrative Data Source?",
-        options: [
-          {
-            value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
-          },
-          {
-            value: DC.IMMUNIZATION_REGISTRY,
-          },
-          {
-            value: DC.ADMINISTRATIVE_DATA_OTHER,
-            description: true,
-          },
-        ],
-      },
+      subOptions: [
+        {
+          label: "What is the Administrative Data Source?",
+          options: [
+            {
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
+            },
+            {
+              value: DC.IMMUNIZATION_REGISTRY,
+            },
+            {
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              description: true,
+            },
+          ],
+        },
+      ],
     },
     {
       value: DC.HYBRID_DATA,
-      subOptions: {
-        label: "What is the Administrative Data Source?",
-        options: [
-          {
-            value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
-          },
-          {
-            value: DC.IMMUNIZATION_REGISTRY,
-          },
-          {
-            value: DC.ADMINISTRATIVE_DATA_OTHER,
-            description: true,
-          },
-        ],
-      },
+      subOptions: [
+        {
+          label: "What is the Administrative Data Source?",
+          options: [
+            {
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
+            },
+            {
+              value: DC.IMMUNIZATION_REGISTRY,
+            },
+            {
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              description: true,
+            },
+          ],
+        },
+      ],
     },
     {
       value: DC.ELECTRONIC_HEALTH_RECORDS,
