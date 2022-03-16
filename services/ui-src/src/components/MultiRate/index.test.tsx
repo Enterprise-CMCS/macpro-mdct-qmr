@@ -96,8 +96,8 @@ describe("Test the Rate component when readOnly is false", () => {
 
     const expectedErrorMessageText = [
       '"Count of Observed 30-Day Readmissions": 2 cannot be greater than "Count of Index Hospital Stays": 1',
-      '"Count of Expected 30-Day Readmissinos": 2 cannot be greater than "Count of Index Hospital Stays": 1',
-      '"Count of Observed 30-Day Readmissions": 21 cannot be greater than "Count of Expected 30-Day Readmissinos": 2',
+      '"Count of Expected 30-Day Readmissions": 2 cannot be greater than "Count of Index Hospital Stays": 1',
+      '"Count of Observed 30-Day Readmissions": 21 cannot be greater than "Count of Expected 30-Day Readmissions": 2',
       '"Number of Outliers": 2 cannot be greater than "Count of Beneficiaries in Medicaid Population": 1',
     ];
 
