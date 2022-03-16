@@ -18,21 +18,25 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
     0
   );
 
-  if (total21To64Percent === 0 || total64PlusPercent === 0) {
+  if (total21To64Percent === 0) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for each age group's column must have values",
+      errorMessage: "Entries for Ages 21 to 64 must have values",
+    });
+  }
+  if (total21To64Percent < 99 || total21To64Percent > 101) {
+    errorArray.push({
+      errorLocation: "Delivery System",
+      errorMessage: "Entries for Ages 21 to 64 must total 100",
     });
   }
   if (
-    total21To64Percent < 99 ||
-    total21To64Percent > 101 ||
-    total64PlusPercent < 99 ||
-    total64PlusPercent > 101
+    (total64PlusPercent < 99 || total64PlusPercent > 101) &&
+    total64PlusPercent !== 0
   ) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for each age group's column must total 100",
+      errorMessage: "Entries for Age 65 and Older must total 100",
     });
   }
   return errorArray.length ? errorArray : [];
