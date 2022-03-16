@@ -155,6 +155,7 @@ export const validateEqualDenominators = (
         filledInData.push(performanceMeasureArray[index][i]);
       }
     });
+
     if (filledInData.length > 1) {
       let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;

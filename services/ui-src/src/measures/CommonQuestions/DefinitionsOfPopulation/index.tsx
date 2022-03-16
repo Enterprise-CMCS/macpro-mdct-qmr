@@ -9,7 +9,15 @@ import {
 } from "utils/numberInputMasks";
 import * as DC from "dataConstants";
 
-export const DefinitionOfPopulation = () => {
+interface Props {
+  childMeasure?: boolean;
+  hybridMeasure?: boolean;
+}
+
+export const DefinitionOfPopulation = ({
+  childMeasure,
+  hybridMeasure,
+}: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
   const showDeliverySystemOtherPopulation =
     useWatch({
@@ -21,47 +29,87 @@ export const DefinitionOfPopulation = () => {
       <CUI.Heading size="sm" as="h3">
         Definition of denominator
       </CUI.Heading>
-      <CUI.Text mt="3">
-        Please select all populations that are included. For example, if your
-        data include both non-dual Medicaid beneficiaries and Medicare and
-        Medicaid Dual Eligibles, select both:
-      </CUI.Text>
-      <CUI.UnorderedList m="5" ml="10">
-        <CUI.ListItem>Denominator includes Medicaid population</CUI.ListItem>
-        <CUI.ListItem>
-          Denominator includes Medicare and Medicaid Dually-Eligible population
-        </CUI.ListItem>
-      </CUI.UnorderedList>
-      <QMR.Checkbox
-        {...register(DC.DEFINITION_OF_DENOMINATOR)}
-        options={[
-          {
-            displayValue: "Denominator includes Medicaid population",
-            value: DC.DENOMINATOR_INC_MEDICAID_POP,
-          },
-          {
-            displayValue:
-              "Denominator includes CHIP population (e.g. pregnant women)",
-            value: DC.DENOMINATOR_INC_CHIP,
-          },
-          {
-            displayValue:
-              "Denominator includes Medicare and Medicaid Dually-Eligible population",
-            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
-          },
-          {
-            displayValue: "Other",
-            value: DC.DENOMINATOR_INC_OTHER,
-            children: [
-              <QMR.TextArea
-                formLabelProps={{ fontWeight: "400" }}
-                label="Define the other denominator population:"
-                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
-              />,
-            ],
-          },
-        ]}
-      />
+      {!childMeasure && (
+        <CUI.Box>
+          <CUI.Text mt="3">
+            Please select all populations that are included. For example, if
+            your data include both non-dual Medicaid beneficiaries and Medicare
+            and Medicaid Dual Eligibles, select both:
+          </CUI.Text>
+          <CUI.UnorderedList m="5" ml="10">
+            <CUI.ListItem>
+              Denominator includes Medicaid population
+            </CUI.ListItem>
+            <CUI.ListItem>
+              Denominator includes Medicare and Medicaid Dually-Eligible
+              population
+            </CUI.ListItem>
+          </CUI.UnorderedList>
+
+          <QMR.Checkbox
+            {...register(DC.DEFINITION_OF_DENOMINATOR)}
+            options={[
+              {
+                displayValue: "Denominator includes Medicaid population",
+                value: DC.DENOMINATOR_INC_MEDICAID_POP,
+              },
+              {
+                displayValue:
+                  "Denominator includes CHIP population (e.g. pregnant women)",
+                value: DC.DENOMINATOR_INC_CHIP,
+              },
+              {
+                displayValue:
+                  "Denominator includes Medicare and Medicaid Dually-Eligible population",
+                value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+              },
+              {
+                displayValue: "Other",
+                value: DC.DENOMINATOR_INC_OTHER,
+                children: [
+                  <QMR.TextArea
+                    formLabelProps={{ fontWeight: "400" }}
+                    label="Define the other denominator population:"
+                    {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+                  />,
+                ],
+              },
+            ]}
+          />
+        </CUI.Box>
+      )}
+      {childMeasure && (
+        <CUI.Box>
+          <CUI.Text mb="2">
+            Please select all populations that are included.
+          </CUI.Text>
+          <QMR.RadioButton
+            {...register(DC.DEFINITION_OF_DENOMINATOR)}
+            options={[
+              {
+                displayValue:
+                  "Denominator includes CHIP (Title XXI) population only",
+                value: "DenominatorIncCHIPPop",
+              },
+              {
+                displayValue:
+                  "Denominator includes Medicaid (Title XIX) population only",
+                value: "DenominatorIncMedicaidPop",
+              },
+              {
+                displayValue:
+                  "Denominator includes CHIP and Medicaid (Title XIX)",
+                value: "DenominatorIncMedicaidAndCHIPPop",
+              },
+            ]}
+          />
+          <QMR.TextInput
+            formControlProps={{ my: "4" }}
+            {...register(DC.DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN)}
+            label="If the denominator is a subset of the definition selected above, please further define the denominator, and indicate the number of children excluded"
+          />
+        </CUI.Box>
+      )}
       <CUI.Box my="5">
         <QMR.TextArea
           formLabelProps={{ fontWeight: "400" }}
@@ -103,6 +151,23 @@ export const DefinitionOfPopulation = () => {
           ]}
         />
       </CUI.Box>
+      {hybridMeasure && (
+        <CUI.Box mt="5">
+          <CUI.Heading size="sm" as="h3" my="2">
+            If you are reporting as a hybrid measure, provide the measure
+            eligible population and sample size.
+          </CUI.Heading>
+          <QMR.TextInput
+            formControlProps={{ my: "4" }}
+            label="What number of your measure-eligible population are included in the measure?"
+            {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
+          ></QMR.TextInput>
+          <QMR.TextInput
+            label="Specify the sample size:"
+            {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
+          ></QMR.TextInput>
+        </CUI.Box>
+      )}
       <CUI.Box mt="5">
         <CUI.Heading size="sm" as="h3" my="2">
           {"Which delivery systems are represented in the denominator?"}
