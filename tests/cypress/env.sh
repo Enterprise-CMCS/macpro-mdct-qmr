@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Recreate config file
-rm -rf ./env-config.js
-touch ./env-config.js
+rm -rf ./test-config.js
+touch ./test-config.js
 
 # if .env doesn't exist, copy .env_example there
 if [ ! -f .env ]; then 
@@ -10,7 +10,7 @@ if [ ! -f .env ]; then
 fi
 
 # Add assignment
-echo "window._env_ = {" >> ./env-config.js
+echo "const testConfig = {" >> ./test-config.js
 
 # Read each line in .env file
 # Each line represents key=value pairs
@@ -28,7 +28,8 @@ do
   [[ -z $value ]] && value=${varvalue}
 
   # Append configuration property to JS file
-  echo "  $varname: \"$value\"," >> ./env-config.js
+  echo "  $varname: \"$value\"," >> ./test-config.js
 done < .env
 
-echo "}" >> ./env-config.js
+echo "}" >> ./test-config.js
+echo "export default testConfig;" >> ./test-config.js
