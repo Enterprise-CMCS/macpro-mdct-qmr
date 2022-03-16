@@ -52,6 +52,11 @@ const PCRADValidation = (data: FormData) => {
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
+    ...PCRADvalidateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      ndrForumlas
+    ),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -85,6 +90,12 @@ const OMSValidations: OmsValidationCallback = ({
       PMD.qualifiers,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
+    ...PCRADvalidateNumeratorsLessThanDenominators(
+      [rateData?.["pcrad-rate"] ?? []],
+      [],
+      ndrForumlas,
+      `Optional Measure Stratification: ${locationDictionary(label)}`
+    ),
   ];
 };
 
@@ -99,7 +110,7 @@ const PCRADnoNonZeroNumOrDenom = (
   let zeroRateError = false;
   let errorArray: any[] = [];
   performanceMeasureArray?.forEach((performanceMeasure: any) => {
-    if (performanceMeasure) {
+    if (performanceMeasure && performanceMeasure.length > 0) {
       ndrFormulas.forEach((ndr: NDRforumla) => {
         if (
           performanceMeasure[ndr.numerator].value &&
@@ -194,6 +205,53 @@ const PCRADatLeastOneRateComplete = (
     errorArray.push({
       errorLocation: errorLocation,
       errorMessage: `At least one data section must be completed.`,
+    });
+  }
+  return error ? errorArray : [];
+};
+
+export const PCRADvalidateNumeratorsLessThanDenominators = (
+  performanceMeasureArray: any,
+  OPM: any,
+  ndrFormulas: NDRforumla[],
+  errorLocation: string = "Performance Measure/Other Performance Measure"
+) => {
+  let error = false;
+  let errorArray: FormError[] = [];
+
+  // Check OPM first
+  OPM &&
+    OPM.forEach((performanceMeasure: any) => {
+      performanceMeasure.rate.forEach((rate: any) => {
+        if (parseFloat(rate.numerator) > parseFloat(rate.denominator)) {
+          error = true;
+        }
+      });
+    });
+
+  performanceMeasureArray?.forEach((performanceMeasure: any) => {
+    if (performanceMeasure && performanceMeasure.length > 0) {
+      ndrFormulas.forEach((ndr: NDRforumla) => {
+        if (
+          performanceMeasure[ndr.numerator].value &&
+          performanceMeasure[ndr.denominator].value &&
+          performanceMeasure[ndr.rateIndex].value
+        ) {
+          if (
+            parseFloat(performanceMeasure[ndr.denominator].value!) <
+            parseFloat(performanceMeasure[ndr.numerator].value!)
+          ) {
+            error = true;
+          }
+        }
+      });
+    }
+  });
+
+  if (error) {
+    errorArray.push({
+      errorLocation: errorLocation,
+      errorMessage: `Numerators must be less than Denominators`,
     });
   }
   return error ? errorArray : [];

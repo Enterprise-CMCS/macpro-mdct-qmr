@@ -70,12 +70,23 @@ export const MultiRate = ({
   // Conditionally perform rate calculation
   const calculateRates = (prevRate: any, digitsAfterDecimal: number) => {
     ndrForumlas.forEach((ndr) => {
+      const parsedNum = parseInt(prevRate[ndr.numerator]?.value);
+      const parsedDenom = parseInt(prevRate[ndr.denominator]?.value);
+
+      // Values empty or divide by 0
       if (
-        prevRate[ndr.numerator]?.value &&
-        prevRate[ndr.denominator]?.value &&
-        !isNaN(parseInt(prevRate[ndr.numerator].value)) &&
-        !isNaN(parseInt(prevRate[ndr.denominator].value))
+        isNaN(parsedNum) ||
+        isNaN(parsedDenom) ||
+        (parsedNum !== 0 && parsedDenom === 0)
       ) {
+        prevRate[ndr.rateIndex]["value"] = "";
+
+        // All 0
+      } else if (parsedNum === 0 && parsedDenom === 0) {
+        prevRate[ndr.rateIndex]["value"] = "0.0000";
+
+        // Normal division
+      } else {
         prevRate[ndr.rateIndex]["value"] = rateCalculation(
           prevRate[ndr.numerator].value,
           prevRate[ndr.denominator].value,
@@ -160,6 +171,7 @@ export const MultiRate = ({
         key={`warning-stack-${index}`}
         direction="column"
         width={"100%"}
+        marginBottom={2}
       >
         {parseInt(field.value[ndr.numerator]?.value) >
           parseInt(field.value[ndr.denominator]?.value) && (

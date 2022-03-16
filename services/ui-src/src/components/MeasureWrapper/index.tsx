@@ -91,8 +91,6 @@ export const MeasureWrapper = ({
     []
   );
 
-  console.log("id: ", measureId);
-
   const [showModal, setShowModal] = useState<boolean>(false);
   const autoCompletedMeasure =
     !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
