@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
+import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import * as QMR from "components";
 import { FormData } from "./types";
 
-export const IETAD = ({
+export const CISCH = ({
   name,
   year,
   measureId,
@@ -41,11 +41,11 @@ export const IETAD = ({
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
-          <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <CMQ.DateRange type="child" />
+          <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
@@ -56,7 +56,7 @@ export const IETAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
+              adultMeasure={false}
             />
           )}
         </>
