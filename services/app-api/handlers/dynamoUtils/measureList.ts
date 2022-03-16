@@ -137,7 +137,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "User of Opioids at High Dosage in Persons Without Cancer",
+      description: "Use of Opioids at High Dosage in Persons Without Cancer",
       measure: "OHD-AD",
     },
     {

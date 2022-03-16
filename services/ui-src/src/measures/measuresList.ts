@@ -121,7 +121,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "User of Opioids at High Dosage in Persons Without Cancer",
+      name: "Use of Opioids at High Dosage in Persons Without Cancer",
       measureId: "OHD-AD",
     },
     {
