@@ -175,3 +175,10 @@ Cypress.Commands.add("showErrorIfCombinedRatesAndNoAdditionalSelection", () => {
     "You must select at least one option for Combined Rate(s) Details if Yes is selected."
   );
 });
+
+Cypress.Commands.add("addCombinedChildCoreset", () => {
+  cy.wait(3000);
+  cy.get('[data-cy="Add Child Core Set"]').click();
+  cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
+  cy.get('[data-cy="Create"]').click(); //add combined child core set
+});

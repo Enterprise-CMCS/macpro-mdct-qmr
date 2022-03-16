@@ -93,12 +93,15 @@ export const FFS = "FFS";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
+export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
+  "HybridAdministrativeandMedicalRecordsData";
+export const HYBRID_DATA = "Hybrid (Administrative and Medical Records Data)";
 export const HYBRID_MEASURE_POPULATION_INCLUDED =
   "HybridMeasurePopulationIncluded";
 export const HYBRID_MEASURE_SAMPLE_SIZE = "HybridMeasureSampleSize";
-export const HYBRID_DATA = "Hybrid (Administrative and Medical Records Data)";
 export const PMHYBRIDEXPLANATION = "hybridExplanation";
 export const ICM = "ICM";
+export const IMMUNIZATION_REGISTRY = "Immunization Registry";
 export const INFO_NOT_COLLECTED = "InformationNotCollected";
 export const INFO_NOT_COLLECTED_OTHER = "InformationNotCollected-Other";
 export const LABEL = "label";
