@@ -1,13 +1,9 @@
 type MeasureList = "OHD-AD";
-
 declare namespace Cypress {
   interface Chainable {
     // the default stateuser1 is used to login but can also be changed
     // by passing in a user (not including the @test.com) ex. cy.login('bouser')
-    login(
-      user: string | undefined,
-      password: string | undefined
-    ): Chainable<Element>;
+    login(user?: string, password?: string): Chainable<Element>;
 
     // Visit Adult Core Set Measures
     goToAdultMeasures(): Chainable<Element>;
