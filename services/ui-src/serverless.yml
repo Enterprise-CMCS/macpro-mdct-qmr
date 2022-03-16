@@ -35,6 +35,8 @@ custom:
   ui_cloudfront_distribution_id: ${cf:ui-${self:custom.stage}.CloudFrontDistributionId}
   application_endpoint_url: ${cf:ui-${self:custom.stage}.ApplicationEndpointUrl}
   test_user_1: ${ssm:/configuration/testUser1~true, ""}
+  test_user_2: ${ssm:/configuration/testUser2~true, ""}
+  test_user_3: ${ssm:/configuration/testUser3~true, ""}
   test_password_1: ${ssm:/configuration/testPassword1~true, ""}
   prod_url: ${ssm:/configuration/prodUrl~true, ""}
   s3Sync:
@@ -64,6 +66,8 @@ custom:
         export S3_ATTACHMENTS_BUCKET_NAME=${self:custom.s3_attachments_bucket_name}
         export LOCAL_LOGIN=false
         export TEST_USER_1=${self:custom.test_user_1}
+        export TEST_USER_2=${self:custom.test_user_2}
+        export TEST_USER_3=${self:custom.test_user_3}
         export TEST_PASSWORD_1=${self:custom.test_password_1}
         export PROD_URL=${self:custom.prod_url}
         export BRANCH_NAME=${self:custom.stage}
