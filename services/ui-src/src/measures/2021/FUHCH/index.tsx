@@ -7,7 +7,7 @@ import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
 import { FormData } from "./types";
 
-export const IETAD = ({
+export const FUHCH = ({
   name,
   year,
   measureId,
@@ -40,9 +40,9 @@ export const IETAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
-          <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <CMQ.DataSource />
+          <CMQ.DateRange type="child" />
+          <CMQ.DefinitionOfPopulation childMeasure={true} />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
@@ -56,7 +56,7 @@ export const IETAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
+              adultMeasure={false}
             />
           )}
         </>
