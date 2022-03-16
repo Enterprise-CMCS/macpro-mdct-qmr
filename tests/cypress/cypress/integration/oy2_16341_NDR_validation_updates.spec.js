@@ -1,3 +1,4 @@
+import { testConfig } from "../../test-config.js";
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
@@ -5,8 +6,8 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
   beforeEach(() => {
     // Seed database with test data
     cy.visit("/");
-    cy.xpath(emailForCognito).type("stateuser1@test.com");
-    cy.xpath(passwordForCognito).type("p@55W0rd!");
+    cy.xpath(emailForCognito).type(testConfig.TEST_USER_1);
+    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.get('[data-cy="login-with-cognito-button"]').click();
   });
   it("Click on NO for the first question then click on validate and complete button for CCP-AD", () => {
