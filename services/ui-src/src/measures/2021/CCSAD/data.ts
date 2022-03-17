@@ -6,9 +6,13 @@ export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year that had a postpartum visit on or between 7 and 84 days after delivery.",
+    "Percentage of women ages 21 to 64 who were screened for cervical cancer using either of the following criteria:",
   ],
-  questionListItems: [],
+  questionListItems: [
+    "Women ages 21 to 64 who had cervical cytology performed within the last 3 years",
+    "Women ages 30 to 64 who had cervical high-risk human papillomavirus (hrHPV)  testing performed within the last 5 years",
+    "Women ages 30 to 64 who had cervical cytology/high-risk human papillomavirus (hrHPV) cotesting within the last 5 years",
+  ],
   categories,
   qualifiers,
 };

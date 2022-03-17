@@ -7,7 +7,7 @@ import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { FormData } from "./types";
 
-export const PPCAD = ({
+export const CCSAD = ({
   name,
   year,
   measureId,
@@ -57,6 +57,7 @@ export const PPCAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
+              isSingleSex
             />
           )}
         </>

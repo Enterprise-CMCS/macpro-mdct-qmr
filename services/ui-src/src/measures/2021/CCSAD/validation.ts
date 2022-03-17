@@ -22,7 +22,7 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const PPCADValidation = (data: FormData) => {
+const CCSADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -90,4 +90,4 @@ const PPCADValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PPCADValidation];
+export const validationFunctions = [CCSADValidation];
