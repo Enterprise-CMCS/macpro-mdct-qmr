@@ -471,6 +471,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
 }) => {
   const error: FormError[] = [];
   const ndrSets = [];
+  const isOPM = categories.includes("OPM");
 
   let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
   let denominatorSum: any = null;
@@ -493,10 +494,14 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   });
 
   /*
-  Display validation errors if the actual total of numerators or denominators
-  doesn't match what's in the total numerator/denominator fields
+  Display validation errors if the user is not using Other Performance Measures
+  and if the actual totals of numerators or denominators don't match what's in
+  the total numerator/denominator fields.
+
+  (In the case of Other Performance Measures, we don't display a total
+  numerator/denominator/rate set, so validating it is unnecessary.)
   */
-  if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
+  if (!isOPM && totalNDR && totalNDR.numerator && totalNDR.denominator) {
     let x;
     if (
       (x = parseFloat(totalNDR.numerator)) !== parseFloat(numeratorSum) &&
