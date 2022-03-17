@@ -147,10 +147,9 @@ export const PerformanceMeasure = ({
   allowNumeratorGreaterThanDenominator,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
-  const dataSourceWatch = useWatch<Types.DataSource>({ name: DC.DATA_SOURCE}) as
-    | string[]
-    | string
-    | undefined;
+  const dataSourceWatch = useWatch<Types.DataSource>({
+    name: DC.DATA_SOURCE,
+  }) as string[] | string | undefined;
   let readOnly = true;
   if (rateReadOnly) {
     readOnly = rateReadOnly;
