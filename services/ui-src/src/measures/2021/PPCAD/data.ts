@@ -1,7 +1,7 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 
-export const qualifiers = [""];
+export const qualifiers = ["Postpartum visit between 7 and 84 days"];
 export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
@@ -51,10 +51,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
           ],
         },
       ],
-    },
-    {
-      value: DC.ELECTRONIC_HEALTH_RECORDS,
-      description: true,
     },
     {
       value: DC.OTHER_DATA_SOURCE,

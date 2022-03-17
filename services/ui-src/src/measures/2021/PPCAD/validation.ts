@@ -4,7 +4,6 @@ import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
-  validateAllDenomsTheSameCrossQualifier,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
@@ -40,7 +39,6 @@ const PPCADValidation = (data: FormData) => {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-
   const includesHybridDataSource = data["DataSource"]?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
   );
@@ -74,11 +72,6 @@ const PPCADValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       ageGroups
-    ),
-    ...validateAllDenomsTheSameCrossQualifier(
-      data,
-      PMD.categories,
-      PMD.qualifiers
     ),
     ...(includesHybridDataSource
       ? []

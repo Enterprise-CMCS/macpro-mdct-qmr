@@ -57,6 +57,7 @@ export const PPCAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
+              isSingleSex
             />
           )}
         </>
