@@ -366,9 +366,9 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
     if (ndrCount > 0) {
       const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
         if (
-          deviationNDR.denominator &&
-          deviationNDR.numerator &&
-          deviationNDR.other
+          deviationNDR?.denominator &&
+          deviationNDR?.numerator &&
+          deviationNDR?.other
         ) {
           return true;
         }
