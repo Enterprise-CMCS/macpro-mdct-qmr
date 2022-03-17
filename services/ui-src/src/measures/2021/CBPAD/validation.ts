@@ -44,9 +44,10 @@ const CBPValidation = (data: FormData) => {
     true
   );
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-  const includesHybridDataSource = data["DataSource"]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
+  const includesHybridDataSource =
+    data["DataSource"]?.includes(
+      DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+    ) && data["DataSource"].length === 1;
 
   errorArray = [
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
