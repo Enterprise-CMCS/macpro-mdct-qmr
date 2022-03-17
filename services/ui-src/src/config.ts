@@ -1,7 +1,7 @@
 //  @ts-nocheck
 
 const configToExport = {
-  BRANCH_NAME: window._env_.BRANCH_NAME,
+  BRANCH_NAME: "temp",
   MAX_ATTACHMENT_SIZE: 5000000,
   LOCAL_LOGIN: window._env_.LOCAL_LOGIN,
   IS_FEATURE_BRANCH: window._env_.IS_FEATURE_BRANCH,
