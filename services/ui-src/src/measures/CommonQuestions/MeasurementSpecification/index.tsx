@@ -38,7 +38,7 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "AHRQ-NCQA";
+  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA";
 }
 
 const specifications = {
@@ -64,6 +64,10 @@ const specifications = {
   CMS: {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",
     value: DC.CMS,
+  },
+  PQA: {
+    displayValue: "Pharmacy Quality Alliance (PQA)",
+    value: "PQA",
   },
 };
 
