@@ -7,6 +7,8 @@ export const monthValues = /^((1[0-2])|[1-9])?$/i;
 export const yearValues = /^((19|20)?\d{0,2})$/i;
 export const rateThatAllowsFourDecimals =
   /^((?:99|\d{1,2})(?:\.\d{0,4})?|(100\.?))$/i;
+export const rateThatAllowsTwoDecimals =
+  /^((?:99|\d{1,2})(?:\.\d{0,2})?|(100\.?))$/i;
 export const rateThatAllowsOneDecimal =
   /^((?:99|\d{1,2})(?:\.\d{0,1})?|(100\.?))$/i;
 export const percentageAllowOneDecimalMax =
