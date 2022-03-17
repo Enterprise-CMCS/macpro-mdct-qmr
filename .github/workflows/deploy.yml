@@ -117,6 +117,7 @@ jobs:
             AMMAD.spec.js,
             oy2_9925_CIS_CH.spec.js,
             oy2_9963_CPC_CH.spec.js,
+            oy2_9940_Measure_48_COB_AD.spec.js,
           ]
     steps:
       - name: set branch_name

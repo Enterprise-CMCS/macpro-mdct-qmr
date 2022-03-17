@@ -6,6 +6,7 @@ import { BCSAD } from "./BCSAD";
 import { AMMAD } from "./AMMAD";
 import { CCWAD } from "./CCWAD";
 import { CCPAD } from "./CCPAD";
+import { COBAD } from "./COBAD";
 import { CHLAD } from "./CHLAD";
 import { CISCH } from "./CISCH";
 import { CPAAD } from "./CPAAD";
@@ -32,6 +33,7 @@ const twentyTwentyOneMeasures = {
   "CIS-CH": CISCH,
   "CCW-AD": CCWAD,
   "CPA-AD": CPAAD,
+  "COB-AD": COBAD,
   "CHL-AD": CHLAD,
   "CPC-CH": CPCCH,
   "FUA-AD": FUAAD,
