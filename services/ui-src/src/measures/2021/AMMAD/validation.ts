@@ -11,6 +11,7 @@ import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   getDeviationNDRArray,
   omsLocationDictionary,
+  validateDualPopInformation,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
@@ -24,40 +25,40 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validate7DaysGreaterThan30Days = (data: any) => {
+const validateContinuationGreaterThanAccute = (data: any) => {
   if (
     !(
-      data?.PerformanceMeasure?.rates?.Followupwithin7daysafterdischarge ||
-      data?.PerformanceMeasure?.rates?.Followupwithin30daysafterdischarge
+      data?.PerformanceMeasure?.rates?.EffectiveAcutePhaseTreatment ||
+      data?.PerformanceMeasure?.rates?.EffectiveContinuationPhaseTreatment
     )
   ) {
     return [];
   }
-  const sevenDays =
-    data["PerformanceMeasure"]["rates"]["Followupwithin7daysafterdischarge"];
-  const thirtyDays =
-    data["PerformanceMeasure"]["rates"]["Followupwithin30daysafterdischarge"];
+  const accute =
+    data["PerformanceMeasure"]["rates"]["EffectiveAcutePhaseTreatment"];
+  const continuation =
+    data["PerformanceMeasure"]["rates"]["EffectiveContinuationPhaseTreatment"];
   let error;
   const errorArray: any[] = [];
 
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj: any, index: number) => {
+  if (accute && continuation) {
+    accute.forEach((_accuteObj: any, index: number) => {
       if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
+        accute[index] &&
+        continuation[index] &&
+        parseFloat(continuation[index]?.rate) > parseFloat(accute[index]?.rate)
       ) {
         error = {
           errorLocation: "Performance Measure",
           errorMessage:
-            "Follow up within 7 days after discharge Rate should not be higher than Follow up within 30 days after discharge Rates.",
+            "Effective Continuation Phase Treatment Rate should not be higher than Effective Acute Phase Treatment Rates.",
         };
 
         errorArray.push(error);
       }
     });
   }
-  return error ? errorArray : [];
+  return error ? [errorArray[0]] : [];
 };
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -100,24 +101,21 @@ const sameDenominatorSets: OmsValidationCallback = ({
   return errorArray;
 };
 
-const FUHValidation = (data: FormData) => {
+const AMMADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
+  const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
-  const deviationArray = getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+
   let unfilteredSameDenominatorErrors: any[] = [];
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
@@ -138,9 +136,22 @@ const FUHValidation = (data: FormData) => {
     }
   });
 
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateDualPopInformation(
+      performanceMeasureArray,
+      OPM,
+      age65PlusIndex,
+      DefinitionOfDenominator
+    ),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -150,7 +161,7 @@ const FUHValidation = (data: FormData) => {
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
-    ...validate7DaysGreaterThan30Days(data),
+    ...validateContinuationGreaterThanAccute(data),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
@@ -179,4 +190,4 @@ const FUHValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [FUHValidation];
+export const validationFunctions = [AMMADValidation];
