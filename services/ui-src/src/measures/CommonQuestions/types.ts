@@ -14,8 +14,8 @@ export interface MeasurementSpecification {
     | typeof DC.OTHER;
   [DC.MEASUREMENT_SPECIFICATION_HEDIS]: // if Measure Spec is NCQA/HEDIS -> which version are they using
   typeof DC.HEDIS_MY_2020 | typeof DC.HEDIS_2020 | typeof DC.HEDIS_2019;
-  [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION]: string; // If user selects "Other measurement specification" -> this is the description
-  [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD]: File; // If user selects "Other measurement specification" -> this is optional file upload
+  [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION]: string; // If user selects OTHER in MEASUREMENT_SPECIFICATION -> this is the description
+  [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD]: File; // If user selects OTHER in MEASUREMENT_SPECIFICATION -> this is optional file upload
 }
 
 export interface DefinitionOfPopulation {
@@ -27,34 +27,38 @@ export interface DefinitionOfPopulation {
   >;
   [DC.DEFINITION_DENOMINATOR_OTHER]: string; // if DENOMINATOR_INC_OTHER selected in DEFINITION_OF_DENOMINATOR -> an explaination
   [DC.CHANGE_IN_POP_EXPLANATION]: string; // text explaination of change in polulation
-  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC]: YesNo; // Does this denominator represent your total measure-eligible population
-  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]: string; // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination which populations are excluded
-  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE]: string; // if "no" selected in "DenominatorDefineTotalTechSpec" - > explaination of the size of population excluded
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC]: YesNo; // Does this denominator represent your total measure-eligible population?
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]: string; // if NO selected in DENOMINATOR_DEFINE_TOTAL_TECH_SPEC - > explaination which populations are excluded
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE]: string; // if NO selected in DENOMINATOR_DEFINE_TOTAL_TECH_SPEC - > explaination of the size of population excluded
   [DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR]: Array<
     | typeof DC.FFS
     | typeof DC.PCCM
     | typeof DC.MCO_PIHP
     | typeof DC.ICM
-    | typeof DC.OTHER // which delivery systems are represented in the denominator
+    | typeof DC.OTHER // which delivery systems are represented in the denominator?
   >;
-  [DC.DELIVERY_SYS_FFS]: YesNo; // If "FFS" selected in "DeliverySysRepresentationDenominator" -> Is all of your FFS population included in this measure?"
-  [DC.DELIVERY_SYS_FFS_NO_PERCENT]: string; // If "no" in "DeliverySys-FeeForService" -> what percent included in measure
-  [DC.DELIVERY_SYS_FFS_NO_POP]: string; // If "no" in "DeliverySys-FeeForService" -> what number of your FFS population are included in the measure?
-  [DC.DELIVERY_SYS_PCCM]: YesNo; // If "PCCM" selected in "DeliverySysRepresentationDenominator" -> Is all of your PCCM population included in this measure?"
-  [DC.DELIVERY_SYS_PCCM_NO_PERCENT]: string; // If "no" in "DeliverySys-PrimaryCareManagement" -> what percent included in measure
-  [DC.DELIVERY_SYS_PCCM_NO_POP]: string; // if "no" in "DeliverySys-PrimaryCareManagement" -> what number of your PCCM population are included in the measure?
-  [DC.DELIVERY_SYS_MCO_PIHP]: YesNo; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" and Is all of your MCO-PIHP population included in this measure?
-  [DC.DELIVERY_SYS_MCO_PIHP_PERCENT]: string; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" -> what percent
-  [DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS]: string; // If "MCO-PIHP" selected in "DeliverySysRepresentationDenominator" -> what number
-  [DC.DELIVERY_SYS_MCO_PIHP_NO_INC]: string; // If "no" in "DeliverySys-MCO_PIHP" -> percentage included
-  [DC.DELIVERY_SYS_MCO_PIHP_NO_EXCL]: string; // If "no" in "DeliverySys-MCO_PIHP" -> number excluded
-  [DC.DELIVERY_SYS_ICM]: YesNo; // If "ICM" selected in "DeliverySysRepresentationDenominator" -> Is all of your ICM population included in this measure?"
-  [DC.DELIVERY_SYS_ICM_NO_PERCENT]: string; // If "no" in "DeliverySys-IntegratedCareModel" -> what percent included in measure
-  [DC.DELIVERY_SYS_ICM_NO_POP]: string; // If "no" in "DeliverySys-IntegratedCareModel" -> what number of your ICM population are included in the measure?
-  [DC.DELIVERY_SYS_OTHER]: string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> describe the denominator
-  [DC.DELIVERY_SYS_OTHER_PERCENT]: string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> percentage represented
-  [DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS]: string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> number of health plans represented
-  [DC.DELIVERY_SYS_OTHER_POP]: string; // If "Other" selected in "DeliverySysRepresentationDenominator" -> number of population represented
+
+  [DC.HYBRID_MEASURE_POPULATION_INCLUDED]: string; // Section rendered in hybird data source measures
+  [DC.HYBRID_MEASURE_SAMPLE_SIZE]: string; // Section rendered in hybird data source measures
+  [DC.DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN]: string; //Section rendered in child data source measures
+  [DC.DELIVERY_SYS_FFS]: YesNo; // If FFS selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> Is all of your FFS population included in this measure?"
+  [DC.DELIVERY_SYS_FFS_NO_PERCENT]: string; // If NO in DELIVERY_SYS_FFS -> what percent included in measure
+  [DC.DELIVERY_SYS_FFS_NO_POP]: string; // If NO in DELIVERY_SYS_FFS -> what number of your FFS population are included in the measure?
+  [DC.DELIVERY_SYS_PCCM]: YesNo; // If PCCM selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> Is all of your PCCM population included in this measure?"
+  [DC.DELIVERY_SYS_PCCM_NO_PERCENT]: string; // If NO in DELIVERY_SYS_PCCM -> what percent included in measure
+  [DC.DELIVERY_SYS_PCCM_NO_POP]: string; // if NO in DELIVERY_SYS_PCCM -> what number of your PCCM population are included in the measure?
+  [DC.DELIVERY_SYS_MCO_PIHP]: YesNo; // If MCO-PIHP selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR and Is all of your MCO-PIHP population included in this measure?
+  [DC.DELIVERY_SYS_MCO_PIHP_PERCENT]: string; // If MCO-PIHP selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> what percent
+  [DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS]: string; // If MCO-PIHP selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> what number
+  [DC.DELIVERY_SYS_MCO_PIHP_NO_INC]: string; // If NO in DELIVERY_SYS_MCO_PIHP -> percentage included
+  [DC.DELIVERY_SYS_MCO_PIHP_NO_EXCL]: string; // If NO in DELIVERY_SYS_MCO_PIHP -> number excluded
+  [DC.DELIVERY_SYS_ICM]: YesNo; // If ICM selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> Is all of your ICM population included in this measure?"
+  [DC.DELIVERY_SYS_ICM_NO_PERCENT]: string; // If NO in DELIVERY_SYS_ICM -> what percent included in measure
+  [DC.DELIVERY_SYS_ICM_NO_POP]: string; // If NO in DELIVERY_SYS_ICM -> what number of your ICM population are included in the measure?
+  [DC.DELIVERY_SYS_OTHER]: string; // If OTHER selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> describe the denominator
+  [DC.DELIVERY_SYS_OTHER_PERCENT]: string; // If OTHER selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> percentage represented
+  [DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS]: string; // If OTHER selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> number of health plans represented
+  [DC.DELIVERY_SYS_OTHER_POP]: string; // If OTHER selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> number of population represented
 }
 
 export interface AdditionalNotes {
@@ -64,11 +68,11 @@ export interface AdditionalNotes {
 
 export interface CombinedRates {
   [DC.COMBINED_RATES]?: YesNo; // if the user combined rates from multiple reporting units
-  [DC.COMBINED_RATES_COMBINED_RATES]?: // if the user combined rates -> the reporting units they combined
+  [DC.COMBINED_RATES_COMBINED_RATES]?: // if YES in COMBINED_RATES-> the reporting units they combined
   | typeof DC.COMBINED_NOT_WEIGHTED_RATES
     | typeof DC.COMBINED_WEIGHTED_RATES
     | typeof DC.COMBINED_WEIGHTED_RATES_OTHER;
-  [DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION]?: string; // if the user selected "Combined Weighted Rates Other" -> the explaination of the other weighing factor
+  [DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION]?: string; // if the user selected COMBINED_WEIGHTED_RATES_OTHER -> the explaination of the other weighing factor
 }
 
 export interface OtherPerformanceMeasure {
@@ -101,12 +105,12 @@ export interface WhyAreYouNotReporting {
     | typeof DC.OTHER
   >;
 
-  [DC.AMOUNT_OF_POP_NOT_COVERED]: // if "PopulationNotCovered" selected in "WhyAreYouNotReporting"
+  [DC.AMOUNT_OF_POP_NOT_COVERED]: // if POP_NOT_COVERED selected in WHY_ARE_YOU_NOT_REPORTING
   typeof DC.ENTIRE_POP_NOT_COVERED | typeof DC.PARTIAL_POP_NOT_COVERED;
 
-  [DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION]: string; // if "PartialPopulationNotCovered" in "WhyAreYouNotReporting" selected -> explaination of the population not covered
+  [DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION]: string; // if PARTIAL_POP_NOT_COVERED in AMOUNT_OF_POP_NOT_COVERED selected -> explaination of the population not covered
 
-  // if "DataNotAvailable" selected in "WhyAreYouNotReporting"
+  // if DATA_NOT_AVAILABLE selected in WHY_ARE_YOU_NOT_REPORTING
   [DC.WHY_IS_DATA_NOT_AVAILABLE]: Array<
     | typeof DC.BUDGET_CONSTRAINTS
     | typeof DC.STAFF_CONSTRAINTS
@@ -115,21 +119,21 @@ export interface WhyAreYouNotReporting {
     | typeof DC.INFO_NOT_COLLECTED
     | typeof DC.OTHER
   >;
-  [DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER]: string; // if "Other" selected in "WhyIsDataNotAvailable" -> an explaination
-  [DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES]: string; // if "DataInconsistenciesAccuracyIssues" selected in "WhyIsDataNotAvailable" -> an explaination
+  [DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER]: string; // if OTHER selected in WHY_IS_DATA_NOT_AVAILABLE -> an explaination
+  [DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES]: string; // if DATA_INCONSISTENCIES_ACCURACY_ISSUES selected in WHY_IS_DATA_NOT_AVAILABLE -> an explaination
   [DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE]: Array<
     | typeof DC.REQUIRES_MEDICAL_RECORD_REVIEW
     | typeof DC.REQUIRES_DATA_LINKAGE
-    | typeof DC.OTHER // if "DataSourceNotEasilyAccessible" selected in "WhyIsDataNotAvailable"
+    | typeof DC.OTHER // if DATA_SOURCE_NOT_EASILY_ACCESSIBLE selected in WHY_IS_DATA_NOT_AVAILABLE
   >;
-  [DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER]: string; // if "Other" selected in "DataSourceNotEasilyAccessible" -> an explaination
+  [DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER]: string; // if OTHER selected in DATA_SOURCE_NOT_EASILY_ACCESSIBLE -> an explaination
   [DC.INFO_NOT_COLLECTED]: Array<
     typeof DC.NOT_COLLECTED_BY_PROVIDER | typeof DC.OTHER
   >;
-  [DC.INFO_NOT_COLLECTED_OTHER]: string; // if "Other" selected in "InformationNotCollected" -> an explaination
-  [DC.LIMITATION_WITH_DATA_COLLECTION]: string; // if "LimitationWithDatCollecitonReportAccuracyCovid" selected in "WhyAreYouNotReporting" -> an explaination
-  [DC.SMALL_SAMPLE_SIZE]: string; // if "SmallSampleSizeLessThan30" in "WhyAreYouNotReporting" -> an explaination of sample size
-  [DC.WHY_ARE_YOU_NOT_REPORTING_OTHER]: string; // if "Other" selected in "WhyAreYouNotReporting" -> an explaination
+  [DC.INFO_NOT_COLLECTED_OTHER]: string; // if OTHER selected in INFO_NOT_COLLECTED -> an explaination
+  [DC.LIMITATION_WITH_DATA_COLLECTION]: string; // if LIMITATION_WITH_DATA_COLLECTION selected in WHY_ARE_YOU_NOT_REPORTING -> an explaination
+  [DC.SMALL_SAMPLE_SIZE]: string; // if SMALL_SAMPLE_SIZE in WHY_ARE_YOU_NOT_REPORTING -> an explaination of sample size
+  [DC.WHY_ARE_YOU_NOT_REPORTING_OTHER]: string; // if OTHER selected in WHY_ARE_YOU_NOT_REPORTING -> an explaination
 }
 
 export interface DidReport {
@@ -141,7 +145,9 @@ export interface DidCollect {
 }
 
 export interface StatusOfData {
-  [DC.DATA_STATUS]: string[];
+  [DC.DATA_STATUS]:
+    | typeof DC.REPORTING_FINAL_DATA
+    | typeof DC.REPORTING_PROVISIONAL_DATA;
   [DC.DATA_STATUS_PROVISIONAL_EXPLAINATION]: string;
 }
 
@@ -182,6 +188,7 @@ export interface PerformanceMeasure {
   [DC.PERFORMANCE_MEASURE]?: {
     [DC.EXPLAINATION]?: string;
     [DC.RATES]?: PerformanceMeasureRate;
+    [DC.PMHYBRIDEXPLANATION]?: string;
   };
 }
 export namespace OmsNodes {
@@ -250,16 +257,16 @@ export interface OptionalMeasureStratification {
 }
 export interface DeviationFromMeasureSpecification {
   [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
-  [DC.DEVIATION_OPTIONS]: string[]; // if "YesCalcDeviated" selected from "DidCalculationsDeviate" -> which deviations options selected
+  [DC.DEVIATION_OPTIONS]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected
   [DC.DEVIATIONS]: {
-    // the Deviation 'options' below will match the "DeviationOptions" above
+    // the DEVIATION_OPTIONS will map the DEVIATIONS
     [option: string]: {
       [DC.RATE_DEVIATIONS_SELECTED]: Array<
         typeof DC.NUMERATOR | typeof DC.DENOMINATOR | typeof DC.OTHER
       >; // deviations selected for the given option
-      [DC.NUMERATOR]: string; // if "numerator" selected for "RateDeviationsSelected" -> an explaination
-      [DC.DENOMINATOR]: string; // if "denominator" selected for "RateDeviationsSelected" -> an explaination
-      [DC.OTHER]: string; // if "other" selected for "RateDeviationsSelected" -> an explaination
+      [DC.NUMERATOR]: string; // if NUMERATOR selected for RATE_DEVIATIONS_SELECTED -> an explaination
+      [DC.DENOMINATOR]: string; // if DENOMINATOR selected for RATE_DEVIATIONS_SELECTED -> an explaination
+      [DC.OTHER]: string; // if OTHER selected for RATE_DEVIATIONS_SELECTED -> an explaination
     };
   };
 }

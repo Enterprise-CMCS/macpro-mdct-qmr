@@ -155,6 +155,7 @@ export const validateEqualDenominators = (
         filledInData.push(performanceMeasureArray[index][i]);
       }
     });
+
     if (filledInData.length > 1) {
       let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;
@@ -314,7 +315,10 @@ export const ensureBothDatesCompletedInRange = (
   return error ? errorArray : [];
 };
 
-export const validateReasonForNotReporting = (whyNotReporting: any) => {
+export const validateReasonForNotReporting = (
+  whyNotReporting: any,
+  collecting?: boolean
+) => {
   let error = false;
   const errorArray: FormError[] = [];
 
@@ -323,9 +327,12 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
   }
   if (error) {
     errorArray.push({
-      errorLocation: "Why Are You Not Reporting On This Measure",
-      errorMessage:
-        "You must select at least one reason for not reporting on this measure",
+      errorLocation: `Why Are You Not ${
+        collecting ? "Collecting" : "Reporting"
+      } On This Measure`,
+      errorMessage: `You must select at least one reason for not ${
+        collecting ? "collecting" : "reporting"
+      } on this measure`,
     });
   }
   return errorArray;
