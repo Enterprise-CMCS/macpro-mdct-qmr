@@ -36,8 +36,7 @@ describe("OY2 16039 Data source/ Rate to auto calculate in OPM", () => {
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').should(
       "have.attr",
-      "aria-readonly",
-      "true"
+      "readonly"
     );
   });
   it("Check Auto Calculation with Other", () => {

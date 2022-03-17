@@ -81,11 +81,11 @@ describe("Measure: FUH-CH", () => {
     ).type("5");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Followupwithin7daysafterdischarge.0.rate"]'
-    ).should("have.attr", "aria-readonly", "true");
+    ).should("have.attr", "readonly");
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Followupwithin7daysafterdischarge.0.rate"]'
-    ).should("not.have.attr", "aria-readonly", "true");
+    ).should("not.have.attr", "readonly");
   });
 
   it(

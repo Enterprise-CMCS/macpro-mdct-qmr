@@ -59,14 +59,12 @@ describe("Measure: CHL-AD", () => {
     ).type("5");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.attr",
-      "aria-readonly",
-      "true"
+      "readonly"
     );
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "not.have.attr",
-      "aria-readonly",
-      "true"
+      "readonly"
     );
   });
 
@@ -108,8 +106,7 @@ describe("Measure: CHL-AD", () => {
     );
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.attr",
-      "aria-readonly",
-      "true"
+      "readonly"
     );
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
     cy.get(
@@ -120,8 +117,7 @@ describe("Measure: CHL-AD", () => {
     );
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "not.have.attr",
-      "aria-readonly",
-      "true"
+      "readonly"
     );
   });
 

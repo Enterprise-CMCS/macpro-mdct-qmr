@@ -55,11 +55,11 @@ describe("Measure: AMM-AD", () => {
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
-    ).should("have.attr", "aria-readonly", "true");
+    ).should("have.attr", "readonly");
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
-    ).should("not.have.attr", "aria-readonly", "true");
+    ).should("not.have.attr", "readonly");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
     ).type("56");
