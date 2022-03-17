@@ -54,7 +54,8 @@ const CBPValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
-      DefinitionOfDenominator
+      DefinitionOfDenominator,
+      "Ages 65 to 85"
     ),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
@@ -77,7 +78,6 @@ const CBPValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        validateRateZero,
         ...(includesHybridDataSource
           ? []
           : [validateRateNotZero, validateRateZero]),
