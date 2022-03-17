@@ -4,7 +4,6 @@ import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
-  validateAllDenomsTheSameCrossQualifier,
   validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
@@ -74,11 +73,6 @@ const CCSADValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       ageGroups
-    ),
-    ...validateAllDenomsTheSameCrossQualifier(
-      data,
-      PMD.categories,
-      PMD.qualifiers
     ),
     ...(includesHybridDataSource
       ? []
