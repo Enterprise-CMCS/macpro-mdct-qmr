@@ -6,8 +6,9 @@ import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
 import { FormData } from "./types";
+import { rateThatAllowsTwoDecimals } from "utils/numberInputMasks";
 
-export const IETAD = ({
+export const CHLAD = ({
   name,
   year,
   measureId,
@@ -45,11 +46,18 @@ export const IETAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                customMask={rateThatAllowsTwoDecimals}
+              />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
-          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
+          {isOtherMeasureSpecSelected && (
+            <CMQ.OtherPerformanceMeasure
+              customMask={rateThatAllowsTwoDecimals}
+            />
+          )}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
@@ -57,6 +65,8 @@ export const IETAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
+              isSingleSex
+              customMask={rateThatAllowsTwoDecimals}
             />
           )}
         </>
