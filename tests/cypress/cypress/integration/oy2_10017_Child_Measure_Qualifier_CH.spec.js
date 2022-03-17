@@ -362,7 +362,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     );
     cy.get(".css-2lzsxm > .chakra-stack > .css-0").should(
       "have.text",
-      "As of September 30, 2020 what percentage of your CHIP enrollees (under age 21) were enrolled in each delivery system?"
+      "As of September 30, 2020 what percentage of your Medicaid/CHIP\n          enrollees (above age 21) were enrolled in each delivery system?"
     );
     cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.label"]').should(
       "be.visible"
