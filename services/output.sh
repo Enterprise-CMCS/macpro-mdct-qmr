@@ -1,4 +1,3 @@
-#!/bin/bash
 set -e
 
 help='This script is run with the format  ./output.sh <target service name> <serverless output variable name> <stage name (optional, default dev)>'
@@ -15,7 +14,7 @@ service=${1}
 output=${2}
 stage=${3:-dev}
 
-if [ $output == "url" ]; then
+if [ $output = "url" ]; then
   output="CloudFrontEndpointUrl"
 fi
 
