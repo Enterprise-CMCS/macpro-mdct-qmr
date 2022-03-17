@@ -98,7 +98,7 @@ export const CCSCQualifiers = () => {
       data,
       measure: "CSQ",
       status,
-      coreSet: CoreSetAbbr.CCS,
+      coreSet: CoreSetAbbr.CCSC,
     };
 
     mutation.mutate(requestData, {
