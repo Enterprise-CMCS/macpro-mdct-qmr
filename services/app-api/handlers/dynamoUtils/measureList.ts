@@ -254,7 +254,7 @@ export const measures: Measure = {
     {
       type: "C",
       description:
-        "Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items",
+        "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items",
       measure: "CPC-CH",
     },
     {
