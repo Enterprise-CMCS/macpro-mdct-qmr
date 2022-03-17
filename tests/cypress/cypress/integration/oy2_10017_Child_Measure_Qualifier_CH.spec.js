@@ -315,9 +315,10 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get(
       '[data-cy="ExternalContractorsUsed3"] > .chakra-checkbox__label > .chakra-text'
     ).click({ force: true });
-    cy.xpath(
-      "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/form[1]/section[1]/ol[1]/li[3]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/label[1]"
-    ).should("have.text", "Please explain:");
+    cy.get('[data-cy="Please explain:"]').should(
+      "have.text",
+      "Please explain:"
+    );
     cy.get('[data-cy="OtherContractorDetails"]').click();
     //THIS is section 4. Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS
 
