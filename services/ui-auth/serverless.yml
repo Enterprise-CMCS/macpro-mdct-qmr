@@ -106,6 +106,8 @@ resources:
             StringAttributeConstraints:
               MinLength: 0
               MaxLength: 256
+        AdminCreateUserConfig:
+          AllowAdminCreateUserOnly: True # This setting disables self sign-up for users
     CognitoUserPoolClient:
       Type: AWS::Cognito::UserPoolClient
       Properties:
