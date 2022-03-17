@@ -141,7 +141,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Prenatal and PostPartum Care: Postpartum Care",
+      name: "Prenatal and Postpartum Care: Postpartum Care",
       measureId: "PPC-AD",
     },
     {
