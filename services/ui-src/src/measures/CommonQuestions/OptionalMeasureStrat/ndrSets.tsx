@@ -98,7 +98,8 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       .map((s) => s.replace(/[^\w]/g, ""))) {
       if (
         watchOMS?.[qual]?.["singleCategory"]?.[0]?.numerator &&
-        watchOMS?.[qual]?.["singleCategory"]?.[0]?.denominator
+        watchOMS?.[qual]?.["singleCategory"]?.[0]?.denominator &&
+        watchOMS?.[qual]?.["singleCategory"]?.[0]?.rate
       ) {
         tempRate.numerator += parseFloat(
           watchOMS[qual]["singleCategory"][0].numerator
