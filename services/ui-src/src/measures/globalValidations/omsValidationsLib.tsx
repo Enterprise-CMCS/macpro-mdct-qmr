@@ -468,10 +468,12 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   rateData,
   label,
   locationDictionary,
+  isOPM,
 }) => {
+  if (isOPM) return [];
+
   const error: FormError[] = [];
   const ndrSets = [];
-  const isOPM = categories.includes("OPM");
 
   let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
   let denominatorSum: any = null;
@@ -501,7 +503,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   (In the case of Other Performance Measures, we don't display a total
   numerator/denominator/rate set, so validating it is unnecessary.)
   */
-  if (!isOPM && totalNDR && totalNDR.numerator && totalNDR.denominator) {
+  if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
     let x;
     if (
       (x = parseFloat(totalNDR.numerator)) !== parseFloat(numeratorSum) &&
