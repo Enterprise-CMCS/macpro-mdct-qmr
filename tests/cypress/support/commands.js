@@ -19,7 +19,6 @@ Cypress.Commands.add("goToAdultMeasures", () => {
   cy.get('[data-cy="ACS"]').click();
 });
 
-// Visit Child Core Set Measures
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get('[data-cy="CCS"]').click();
 });
