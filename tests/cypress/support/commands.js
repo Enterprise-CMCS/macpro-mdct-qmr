@@ -87,10 +87,12 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-      cy.get('[data-cy="child-kebab-menu"]').click({ force: true });
-      cy.get("[data-cy='child-kebab-menu'] + div [data-cy='Delete']").click({
-        force: true,
-      });
+      cy.get('[data-cy="child-kebab-menu"]').first().click({ force: true });
+      cy.get("[data-cy='child-kebab-menu'] + div [data-cy='Delete']")
+        .first()
+        .click({
+          force: true,
+        });
       cy.wait(1000);
       cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
       cy.wait(2000);
