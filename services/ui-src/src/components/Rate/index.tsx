@@ -55,12 +55,11 @@ export const Rate = ({
     const floatNumerator = parseFloat(numerator);
     const floatDenominator = parseFloat(denominator);
     const floatRate = floatNumerator / floatDenominator;
-    const roundedRate: number =
+    return (
       Math.round(
         floatRate * rateMultiplicationValue * Math.pow(10, numbersAfterDecimal)
-      ) / Math.pow(10, numbersAfterDecimal);
-    const stringRate = roundedRate.toFixed(numbersAfterDecimal);
-    return stringRate;
+      ) / Math.pow(10, numbersAfterDecimal)
+    );
   };
 
   const changeRate = (
