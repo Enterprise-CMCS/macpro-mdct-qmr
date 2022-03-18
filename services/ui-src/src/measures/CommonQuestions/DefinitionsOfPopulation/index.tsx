@@ -1,7 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useWatch } from "react-hook-form";
 import * as Types from "../types";
 import {
   allPositiveIntegers,
@@ -19,10 +18,6 @@ export const DefinitionOfPopulation = ({
   hybridMeasure,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
-  const showDeliverySystemOtherPopulation =
-    useWatch({
-      name: DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC,
-    }) === DC.YES;
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
@@ -200,11 +195,8 @@ export const DefinitionOfPopulation = ({
                           {...register(DC.DELIVERY_SYS_FFS_NO_PERCENT)}
                           formLabelProps={{ fontWeight: "400" }}
                           label="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"
-                          displayPercent
-                          mask={percentageAllowOneDecimalMax}
-                        />,
-                        <CUI.Text my="5" key="AdditionalFFSText">
-                          The percentage provided here should represent the
+                          renderHelperTextAbove
+                          helperText="The percentage provided here should represent the
                           percentage of the denominator population(s) included
                           in the measure (i.e., Medicaid, CHIP, etc.) that
                           receives items/services through the selected delivery
@@ -212,13 +204,9 @@ export const DefinitionOfPopulation = ({
                           reported data represents all managed care enrollees
                           and half of your state’s fee-for-service enrollees,
                           select managed care, and select fee-for-service and
-                          enter 50.
-                        </CUI.Text>,
-                        <QMR.NumberInput
-                          {...register(DC.DELIVERY_SYS_FFS_NO_POP)}
-                          formLabelProps={{ fontWeight: "400" }}
-                          mask={allPositiveIntegers}
-                          label="What number of your measure-eligible Fee-for-Service (FFS) population are included in the measure? (optional)"
+                          enter 50."
+                          displayPercent
+                          mask={percentageAllowOneDecimalMax}
                         />,
                       ],
                     },
@@ -248,28 +236,19 @@ export const DefinitionOfPopulation = ({
                         <QMR.NumberInput
                           {...register(DC.DELIVERY_SYS_PCCM_NO_PERCENT)}
                           displayPercent
+                          renderHelperTextAbove
+                          helperText="The percentage provided here should represent the
+                          percentage of the denominator population(s) included
+                          in the measure (i.e., Medicaid, CHIP, etc.) that
+                          receives items/services through the selected
+                          delivery system. For example, if the population
+                          included in the reported data represents all managed
+                          care enrollees and half of your state’s
+                          fee-for-service enrollees, select managed care, and
+                          select fee-for-service and enter 50."
                           mask={percentageAllowOneDecimalMax}
                           formLabelProps={{ fontWeight: "400" }}
                           label="What percent of your measure-eligible Primary Care Case Management (PCCM) population are included in the measure?"
-                        />,
-                        <CUI.Box py="5" key="AdditionalPCCMText">
-                          <CUI.Text my="3">
-                            The percentage provided here should represent the
-                            percentage of the denominator population(s) included
-                            in the measure (i.e., Medicaid, CHIP, etc.) that
-                            receives items/services through the selected
-                            delivery system. For example, if the population
-                            included in the reported data represents all managed
-                            care enrollees and half of your state’s
-                            fee-for-service enrollees, select managed care, and
-                            select fee-for-service and enter 50.
-                          </CUI.Text>
-                        </CUI.Box>,
-                        <QMR.NumberInput
-                          {...register(DC.DELIVERY_SYS_PCCM_NO_POP)}
-                          formLabelProps={{ fontWeight: "400" }}
-                          mask={allPositiveIntegers}
-                          label="What number of your measure-eligible Primary Care Case Management (PCCM) population are included in the measure? (optional)"
                         />,
                       ],
                     },
@@ -282,15 +261,6 @@ export const DefinitionOfPopulation = ({
                 "Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)",
               value: DC.MCO_PIHP,
               children: [
-                <CUI.Box pb="5" key="DeliverySys-MCO_PIHP-Percent">
-                  <QMR.NumberInput
-                    displayPercent
-                    mask={percentageAllowOneDecimalMax}
-                    formLabelProps={{ fontWeight: "400" }}
-                    label="What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in the measure?"
-                    {...register(DC.DELIVERY_SYS_MCO_PIHP_PERCENT)}
-                  />
-                </CUI.Box>,
                 <CUI.Box py="5" key="DeliverySys-MCO_PIHP-NumberOfPlans">
                   <QMR.NumberInput
                     formLabelProps={{ fontWeight: "400" }}
@@ -418,23 +388,20 @@ export const DefinitionOfPopulation = ({
                 <CUI.Box py="5" key="DeliverySys-Other-Percent">
                   <QMR.NumberInput
                     displayPercent
-                    mask={percentageAllowOneDecimalMax}
-                    formLabelProps={{ fontWeight: "400" }}
-                    label="Percentage of total other population represented in data reported:"
-                    {...register(DC.DELIVERY_SYS_OTHER_PERCENT)}
-                  />
-                </CUI.Box>,
-                <CUI.Box py="5" key="AdditionalOtherText">
-                  <CUI.Text>
-                    The percentage provided here should represent the percentage
+                    renderHelperTextAbove
+                    helperText="The percentage provided here should represent the percentage
                     of the denominator population(s) included in the measure
                     (i.e., Medicaid, CHIP, etc.) that receives items/services
                     through the selected delivery system. For example, if the
                     population included in the reported data represents all
                     managed care enrollees and half of your state’s
                     fee-for-service enrollees, select managed care, and select
-                    fee-for-service and enter 50.
-                  </CUI.Text>
+                    fee-for-service and enter 50."
+                    mask={percentageAllowOneDecimalMax}
+                    formLabelProps={{ fontWeight: "400" }}
+                    label="Percentage of total other population represented in data reported:"
+                    {...register(DC.DELIVERY_SYS_OTHER_PERCENT)}
+                  />
                 </CUI.Box>,
                 <CUI.Box py="5" key="DeliverySys-Other-NumberOfHealthPlans">
                   <QMR.NumberInput
@@ -444,18 +411,6 @@ export const DefinitionOfPopulation = ({
                     {...register(DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS)}
                   />
                 </CUI.Box>,
-                ...(showDeliverySystemOtherPopulation
-                  ? [
-                      <CUI.Box pt="5" key="DeliverySys-Other-Population">
-                        <QMR.NumberInput
-                          mask={allPositiveIntegers}
-                          formLabelProps={{ fontWeight: "400" }}
-                          label="Number of measure-eligible state population represented in data reported:"
-                          {...register(DC.DELIVERY_SYS_OTHER_POP)}
-                        />
-                      </CUI.Box>,
-                    ]
-                  : []),
               ],
             },
           ]}

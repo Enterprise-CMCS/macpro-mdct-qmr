@@ -48,7 +48,6 @@ export interface DefinitionOfPopulation {
   [DC.DELIVERY_SYS_PCCM_NO_PERCENT]: string; // If NO in DELIVERY_SYS_PCCM -> what percent included in measure
   [DC.DELIVERY_SYS_PCCM_NO_POP]: string; // if NO in DELIVERY_SYS_PCCM -> what number of your PCCM population are included in the measure?
   [DC.DELIVERY_SYS_MCO_PIHP]: YesNo; // If MCO-PIHP selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR and Is all of your MCO-PIHP population included in this measure?
-  [DC.DELIVERY_SYS_MCO_PIHP_PERCENT]: string; // If MCO-PIHP selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> what percent
   [DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS]: string; // If MCO-PIHP selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> what number
   [DC.DELIVERY_SYS_MCO_PIHP_NO_INC]: string; // If NO in DELIVERY_SYS_MCO_PIHP -> percentage included
   [DC.DELIVERY_SYS_MCO_PIHP_NO_EXCL]: string; // If NO in DELIVERY_SYS_MCO_PIHP -> number excluded
