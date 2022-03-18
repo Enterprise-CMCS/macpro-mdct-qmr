@@ -21,7 +21,8 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSQualifierForm) => {
   if (totalUnder21MedicaidPercent === 0 && totalUnder21CHIPPercent === 0) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "At least one column must have values",
+      errorMessage:
+        "Entries are required in at least one column.  Entries are permitted in the second column but are not required",
     });
   }
 
