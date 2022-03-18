@@ -63,9 +63,12 @@ const CBPValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...(includesHybridDataSource
-      ? []
-      : validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups)),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      includesHybridDataSource
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...omsValidations({
@@ -79,9 +82,8 @@ const CBPValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        ...(includesHybridDataSource
-          ? []
-          : [validateRateNotZero, validateRateZero]),
+        validateRateNotZero,
+        ...(includesHybridDataSource ? [] : [validateRateZero]),
       ],
     }),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
