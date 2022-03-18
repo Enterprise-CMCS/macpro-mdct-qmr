@@ -364,13 +364,11 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
     });
 
     if (ndrCount > 0) {
-      console.log(deviationArray);
       const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
-        console.log(deviationNDR);
         if (
-          deviationNDR.denominator &&
-          deviationNDR.numerator &&
-          deviationNDR.other
+          deviationNDR?.denominator &&
+          deviationNDR?.numerator &&
+          deviationNDR?.other
         ) {
           return true;
         }
@@ -385,7 +383,6 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       }
     }
   }
-
   return errorArray;
 };
 
