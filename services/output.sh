@@ -18,5 +18,4 @@ if [ $output = "url" ]; then
   output="CloudFrontEndpointUrl"
 fi
 
-serverless info --stage $stage --verbose
 cd $service && serverless info --stage $stage --verbose | sed -e '1,/^Stack Outputs/d' -e '$d' | sed -n -e "s/^.*$output: //p" && cd ..
