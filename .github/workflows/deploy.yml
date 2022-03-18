@@ -160,7 +160,7 @@ jobs:
       - name: Make Test Config 
         run: |
           pushd tests/cypress
-          sh configureLocal.sh $branch_name
+          sh configureLocal.sh hide-vars-2
           popd
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_ACCESS_KEY_ID] || secrets.AWS_ACCESS_KEY_ID }}
