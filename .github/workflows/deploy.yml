@@ -157,7 +157,7 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config File
+      - name: Make Test Config 
         run: |
           pushd tests/cypress
           sh configureLocal.sh ${GITHUB_REF#refs/heads/}
