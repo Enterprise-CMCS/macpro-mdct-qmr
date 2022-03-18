@@ -92,7 +92,7 @@ export const getDeviationNDRArray = (
   deviationOptions?.forEach((option) => {
     const objectToSearch = ageGroups ? data[option] : data;
     if (ageGroups) {
-      if (objectToSearch?.RateDeviationsSelected) {
+      if ("RateDeviationsSelected" in objectToSearch) {
         deviationArray.push(objectToSearch);
       } else {
         for (const key of Object.keys(objectToSearch).filter(
