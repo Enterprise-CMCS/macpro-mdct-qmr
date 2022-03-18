@@ -18,7 +18,6 @@ const stringIsReadOnly = (dataSource: String) => {
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
-  console.log(dataSource);
   return dataSource?.every((source) => source === "AdministrativeData") ?? true;
 };
 
