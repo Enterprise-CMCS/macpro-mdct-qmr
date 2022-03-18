@@ -72,7 +72,7 @@ describe("Test the Rate component when readOnly is false", () => {
 
       expect(numerator).toHaveDisplayValue("42");
       expect(denominator).toHaveDisplayValue("84");
-      expect(rate).toHaveDisplayValue("50.0000");
+      expect(rate).toHaveDisplayValue("500.0000");
     });
   });
 
@@ -170,7 +170,7 @@ describe("Test the Rate component when readOnly is true", () => {
 
       expect(numerator).toHaveDisplayValue("42");
       expect(denominator).toHaveDisplayValue("84");
-      expect(rate?.textContent).toEqual("50.0000");
+      expect(rate?.textContent).toEqual("500.0000");
     });
   });
 
