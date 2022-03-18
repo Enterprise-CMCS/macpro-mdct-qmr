@@ -102,10 +102,8 @@ export const getDeviationNDRArray = (
             deviationArray.push(data[option][key as Types.DeviationKeys]);
           }
         }
-      } else {
-        if (data) {
-          deviationArray = Object.values(data);
-        }
+      } else if (data) {
+        deviationArray = Object.values(data);
       }
     }
   });
