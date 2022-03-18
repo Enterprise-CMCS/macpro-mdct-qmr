@@ -270,13 +270,13 @@ export const validateNoNonZeroNumOrDenom = (
         }
       });
     });
-  if (nonZeroRateError) {
+  if (nonZeroRateError && !hybridData) {
     errorArray.push({
       errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Manually entered rate should be 0 if numerator is 0`,
     });
   }
-  if (zeroRateError && !hybridData) {
+  if (zeroRateError) {
     errorArray.push({
       errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
