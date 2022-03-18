@@ -90,7 +90,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Comprehensive Diabetes Care: Hemoglobin A1c Poor Control (>9.0%)",
+      name: "Comprehensive Diabetes Care: Hemoglobin A1c (HbA1c) Poor Control (> 9.0%)",
       measureId: "HPC-AD",
     },
     {
