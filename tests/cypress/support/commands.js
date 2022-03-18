@@ -87,12 +87,10 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-      cy.get(
-        ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
-      ).click({ force: true });
-      cy.xpath(
-        "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
-      ).click({ force: true });
+      cy.get('[data-cy="child-kebab-menu"]').click({ force: true });
+      cy.get("[data-cy='child-kebab-menu'] + div [data-cy='Delete']").click({
+        force: true,
+      });
       cy.wait(1000);
       cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
       cy.wait(2000);
@@ -174,7 +172,13 @@ Cypress.Commands.add("showErrorIfCombinedRatesAndNoAdditionalSelection", () => {
 
 Cypress.Commands.add("addCombinedChildCoreset", () => {
   cy.wait(3000);
-  cy.get('[data-cy="Add Child Core Set"]').click();
-  cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
-  cy.get('[data-cy="Create"]').click(); //add combined child core set
+  cy.get("tbody").then(($tbody) => {
+    if ($tbody.find('[data-cy="Add Child Core Set"]').length > 0) {
+      cy.get('[data-cy="Add Child Core Set"]').click();
+      cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
+      cy.get('[data-cy="Create"]').click(); //add combined child core set
+    } else {
+      cy.wait(2000);
+    }
+  });
 });

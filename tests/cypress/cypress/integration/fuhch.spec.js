@@ -10,15 +10,15 @@ describe("Measure: FUH-CH", () => {
     cy.goToMeasure("FUH-CH");
   });
 
-  it("Ensure correct sections display if user is/not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
-  });
-
   it(
     "If not reporting and not why not -> show error",
     cy.showErrorIfNotReportingAndNotWhy
   );
+
+  it("Ensure correct sections display if user is/not reporting", () => {
+    cy.displaysSectionsWhenUserNotReporting();
+    cy.displaysSectionsWhenUserIsReporting();
+  });
 
   it("should show correct data source options", () => {
     cy.get("#MeasurementSpecification-NCQAHEDIS").should(

@@ -7,6 +7,7 @@ describe("OY2 9963 CPC CH", () => {
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CPC-CH");
   });
+
   it("Fill out CPC-CH and verify the page", () => {
     cy.get('[data-cy="Did you collect this measure?"]').should(
       "have.text",
