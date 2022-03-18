@@ -170,8 +170,7 @@ export const PCRADPerformanceMeasure = ({
         mt={5}
         data-cy="Enter a number for the numerator and the denominator"
       >
-        Enter a number for the numerator and the denominator. Rate will
-        auto-calculate:
+        Enter values below:
       </CUI.Text>
       <PerformanceMeasureNdrs
         categories={data.categories}

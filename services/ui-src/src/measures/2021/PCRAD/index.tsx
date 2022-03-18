@@ -57,6 +57,7 @@ export const PCRAD = ({
               <PCRADPerformanceMeasure
                 data={PMD.data}
                 rateReadOnly={rateReadOnly}
+                rateScale={1000}
               />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.qualifiers}

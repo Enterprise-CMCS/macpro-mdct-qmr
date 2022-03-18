@@ -105,22 +105,7 @@ export const PCRADgetLowLvlDeviationOptions = ({
 }: OptionProps) => {
   if (!qualifiers || qualifiers.length === 0) return [];
 
-  return qualifiers
-    .sort((a, b) => (a.label!! < b.label!! ? 1 : 1))
-    .map((item) => {
-      const value = `${cleanString(item.label)}`;
-      return {
-        displayValue: item.label!,
-        value,
-        children: [
-          <QMR.TextArea
-            label="Explain:"
-            name={`${name}.value`}
-            key={`${name}.value`}
-          />,
-        ],
-      };
-    });
+  return getRateTextAreaOptions(name);
 };
 
 export const DeviationFromMeasureSpec = ({
@@ -144,10 +129,10 @@ export const DeviationFromMeasureSpec = ({
       if (rates.singleCategory) {
         // handle for PCR-AD
         if (measureName && measureName === "PCR-AD") {
-          return PCRADgetLowLvlDeviationOptions({
-            qualifiers: rates.singleCategory.filter((r: any) => r.value !== ""),
-            name: DC.DEVIATIONS,
-          });
+          const quals = rates.singleCategory.filter((r: any) => r.value !== "");
+          if (quals.length > 0) {
+            return getRateTextAreaOptions(DC.DEVIATIONS);
+          }
         }
         return getLowLvlDeviationOptions({
           qualifiers: rates.singleCategory.filter(numDenExistInRate),

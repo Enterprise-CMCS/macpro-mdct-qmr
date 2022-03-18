@@ -24,7 +24,7 @@ export const MultiRate = ({
   name,
   allowMultiple = false,
   readOnly = true,
-  rateMultiplicationValue = 100,
+  rateMultiplicationValue = 1000,
   customMask,
   ...rest
 }: Props) => {

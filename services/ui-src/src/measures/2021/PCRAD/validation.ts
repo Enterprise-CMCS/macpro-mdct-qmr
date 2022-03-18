@@ -1,12 +1,8 @@
 import { FormData } from "./types";
+import * as Types from "measures/CommonQuestions/types";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import {
-  ensureBothDatesCompletedInRange,
-  validateRequiredRadioButtonForCombinedRates,
-  OmsValidationCallback,
-  omsLocationDictionary,
-  omsValidations,
-} from "../../globalValidations";
+import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -43,6 +39,12 @@ const PCRADValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const ageGroups = PMD.qualifiers;
   const dateRange = data["DateRange"];
+  const deviationArray = GV.getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    false
+  );
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const OPM = data["OtherPerformanceMeasure-Rates"];
 
@@ -50,29 +52,35 @@ const PCRADValidation = (data: FormData) => {
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...ensureBothDatesCompletedInRange(dateRange),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
     ...PCRADvalidateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ndrForumlas
     ),
-    ...omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [OMSValidations],
     }),
+    ...PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ndrForumlas,
+      deviationArray,
+      didCalculationsDeviate
+    ),
   ];
   return errorArray;
 };
 
-const OMSValidations: OmsValidationCallback = ({
+const OMSValidations: GV.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,
@@ -257,7 +265,50 @@ export const PCRADvalidateNumeratorsLessThanDenominators = (
   return error ? errorArray : [];
 };
 
+/*
+ * If the user indicates that there is a deviation from the measure spec, they must
+ * indicate where the deviation is.
+ */
+export const PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
+  performanceMeasureArray: any,
+  ndrFormulas: NDRforumla[],
+  deviationArray: Types.DeviationFields[] | any,
+  didCalculationsDeviate: boolean
+) => {
+  let errorArray: FormError[] = [];
+  let ndrCount = 0;
+
+  if (didCalculationsDeviate) {
+    performanceMeasureArray?.forEach((performanceMeasure: any) => {
+      if (performanceMeasure && performanceMeasure.length > 0) {
+        ndrFormulas.forEach((ndr: NDRforumla) => {
+          if (
+            performanceMeasure[ndr.numerator].value &&
+            performanceMeasure[ndr.denominator].value &&
+            performanceMeasure[ndr.rateIndex].value
+          ) {
+            ndrCount++;
+          }
+        });
+      }
+    });
+
+    if (ndrCount > 0) {
+      const atLeastOneDevNDR = deviationArray?.length === 3 ? true : false;
+
+      if (!atLeastOneDevNDR) {
+        errorArray.push({
+          errorLocation: "Deviations from Measure Specifications",
+          errorMessage: "You must complete one NDR set",
+        });
+      }
+    }
+  }
+
+  return errorArray;
+};
+
 export const validationFunctions = [
   PCRADValidation,
-  validateRequiredRadioButtonForCombinedRates,
+  GV.validateRequiredRadioButtonForCombinedRates,
 ];
