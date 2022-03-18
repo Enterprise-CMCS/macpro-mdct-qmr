@@ -83,6 +83,7 @@ export const omsLocationDictionary = (
       return `${prevValue} - ${dictionary[currentValue] ?? currentValue}`;
     }, "");
 };
+
 export const getDeviationNDRArray = (
   deviationOptions: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_OPTIONS],
   data: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATIONS],
