@@ -68,7 +68,7 @@ export const Rate = ({
       floatRate * rateMultiplicationValue,
       numbersAfterDecimal
     );
-    return roundedRate;
+    return roundedRate.toFixed(numbersAfterDecimal);
   };
 
   const changeRate = (
