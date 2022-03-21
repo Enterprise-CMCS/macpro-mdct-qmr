@@ -33,9 +33,9 @@ export TEST_PASSWORD_1=$test_password_1
 rm -rf ./test-config.js
 touch ./test-config.js
 echo "const testConfig = {" >> ./test-config.js
-echo "TEST_USER_1: $test_user_1," >> ./test-config.js
-echo "TEST_USER_2: $test_user_2," >> ./test-config.js
-echo "TEST_USER_3: $test_user_3," >> ./test-config.js
-echo "TEST_PASSWORD_1: $test_password_1," >> ./test-config.js
+echo "TEST_USER_1: \"$test_user_1\"," >> ./test-config.js
+echo "TEST_USER_2: \"$test_user_2\"," >> ./test-config.js
+echo "TEST_USER_3: \"$test_user_3\"," >> ./test-config.js
+echo "TEST_PASSWORD_1: \"$test_password_1\"," >> ./test-config.js
 echo "}" >> ./test-config.js
 echo "export default testConfig;" >> ./test-config.js
