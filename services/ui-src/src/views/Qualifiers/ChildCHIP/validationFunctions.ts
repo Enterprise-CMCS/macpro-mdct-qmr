@@ -11,6 +11,12 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
     },
     0
   );
+  if (totalUnder21CHIPPercent === 0) {
+    errorArray.push({
+      errorLocation: "Delivery System",
+      errorMessage: "Entries for Under Age 21 CHIP are required.",
+    });
+  }
 
   if (
     totalUnder21CHIPPercent > 0 &&

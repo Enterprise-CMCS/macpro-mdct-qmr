@@ -19,6 +19,10 @@ Cypress.Commands.add("goToAdultMeasures", () => {
   cy.get('[data-cy="ACS"]').click();
 });
 
+Cypress.Commands.add("goToChildCoreSetMeasures", () => {
+  cy.get('[data-cy="CCS"]').click();
+});
+
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
   cy.get(`[data-cy="${measure}"]`).click();
@@ -166,4 +170,11 @@ Cypress.Commands.add("showErrorIfCombinedRatesAndNoAdditionalSelection", () => {
     "have.text",
     "You must select at least one option for Combined Rate(s) Details if Yes is selected."
   );
+});
+
+Cypress.Commands.add("addCombinedChildCoreset", () => {
+  cy.wait(3000);
+  cy.get('[data-cy="Add Child Core Set"]').click();
+  cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
+  cy.get('[data-cy="Create"]').click(); //add combined child core set
 });

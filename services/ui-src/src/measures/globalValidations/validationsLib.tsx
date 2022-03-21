@@ -45,7 +45,8 @@ export const validateDualPopInformation = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
   age65PlusIndex: number,
-  DefinitionOfDenominator: any
+  DefinitionOfDenominator: any,
+  errorReplacementText: string = "Age 65 and Older"
 ) => {
   if (OPM) {
     return [];
@@ -78,16 +79,14 @@ export const validateDualPopInformation = (
     error = true;
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage:
-        "Information has been included in the Age 65 and older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
+      errorMessage: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
     });
   }
   if (dualEligible && filledInData.length === 0) {
     error = true;
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage:
-        "The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for Age 65 and Older",
+      errorMessage: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
     });
   }
   return error ? [errorArray[0]] : [];
@@ -155,6 +154,7 @@ export const validateEqualDenominators = (
         filledInData.push(performanceMeasureArray[index][i]);
       }
     });
+
     if (filledInData.length > 1) {
       let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;
@@ -223,7 +223,8 @@ export const validateAllDenomsTheSameCrossQualifier = (
 export const validateNoNonZeroNumOrDenom = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
-  ageGroups: string[]
+  ageGroups: string[],
+  hybridData: boolean = false
 ) => {
   let nonZeroRateError = false;
   let zeroRateError = false;
@@ -269,7 +270,7 @@ export const validateNoNonZeroNumOrDenom = (
         }
       });
     });
-  if (nonZeroRateError) {
+  if (nonZeroRateError && !hybridData) {
     errorArray.push({
       errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Manually entered rate should be 0 if numerator is 0`,
@@ -314,7 +315,10 @@ export const ensureBothDatesCompletedInRange = (
   return error ? errorArray : [];
 };
 
-export const validateReasonForNotReporting = (whyNotReporting: any) => {
+export const validateReasonForNotReporting = (
+  whyNotReporting: any,
+  collecting?: boolean
+) => {
   let error = false;
   const errorArray: FormError[] = [];
 
@@ -323,9 +327,12 @@ export const validateReasonForNotReporting = (whyNotReporting: any) => {
   }
   if (error) {
     errorArray.push({
-      errorLocation: "Why Are You Not Reporting On This Measure",
-      errorMessage:
-        "You must select at least one reason for not reporting on this measure",
+      errorLocation: `Why Are You Not ${
+        collecting ? "Collecting" : "Reporting"
+      } On This Measure`,
+      errorMessage: `You must select at least one reason for not ${
+        collecting ? "collecting" : "reporting"
+      } on this measure`,
     });
   }
   return errorArray;
@@ -359,9 +366,9 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
     if (ndrCount > 0) {
       const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
         if (
-          deviationNDR.denominator &&
-          deviationNDR.numerator &&
-          deviationNDR.other
+          deviationNDR?.denominator &&
+          deviationNDR?.numerator &&
+          deviationNDR?.other
         ) {
           return true;
         }
@@ -376,7 +383,6 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       }
     }
   }
-
   return errorArray;
 };
 
