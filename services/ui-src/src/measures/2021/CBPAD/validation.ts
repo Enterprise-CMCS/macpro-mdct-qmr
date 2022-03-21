@@ -1,4 +1,5 @@
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
@@ -18,15 +19,12 @@ import { FormData } from "./types";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
-  validateDenominatorsAreTheSame,
-  validateOneRateLessThanOther,
   validateRateNotZero,
   validateRateZero,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import * as DC from "dataConstants";
 
-const IEDValidation = (data: FormData) => {
+const CBPValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data["WhyAreYouNotReporting"];
@@ -40,19 +38,17 @@ const IEDValidation = (data: FormData) => {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-  const includesHybridDataSource = data["DataSource"]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
-
   const deviationArray = getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const includesHybridDataSource = data["DataSource"]?.includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
 
   errorArray = [
-    ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateDualPopInformation(
       performanceMeasureArray,
@@ -66,9 +62,12 @@ const IEDValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...(includesHybridDataSource
-      ? []
-      : validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups)),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      includesHybridDataSource
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...omsValidations({
@@ -82,11 +81,8 @@ const IEDValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        ...(includesHybridDataSource
-          ? []
-          : [validateRateNotZero, validateRateZero]),
-        validateDenominatorsAreTheSame,
-        validateOneRateLessThanOther,
+        validateRateNotZero,
+        ...(includesHybridDataSource ? [] : [validateRateZero]),
       ],
     }),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -100,4 +96,4 @@ const IEDValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [IEDValidation];
+export const validationFunctions = [CBPValidation];
