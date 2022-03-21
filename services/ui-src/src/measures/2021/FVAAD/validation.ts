@@ -7,12 +7,13 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const FVAADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const dateRange = data["DateRange"];
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
+  const dateRange = data[DC.DATE_RANGE];
+
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
