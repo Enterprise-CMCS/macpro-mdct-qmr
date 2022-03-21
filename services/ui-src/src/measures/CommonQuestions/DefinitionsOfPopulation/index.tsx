@@ -101,7 +101,7 @@ export const DefinitionOfPopulation = ({
           <QMR.TextInput
             formControlProps={{ my: "4" }}
             {...register(DC.DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN)}
-            label="If the denominator is a subset of the definition selected above, please further define the denominator, and indicate the number of children excluded."
+            label="If the denominator is a subset of the definition selected above, please further define the denominator, and indicate the number of children excluded"
           />
         </CUI.Box>
       )}
@@ -170,7 +170,7 @@ export const DefinitionOfPopulation = ({
         <QMR.Checkbox
           formLabelProps={{ fontWeight: "400" }}
           {...register(DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR)}
-          label="Select all delivery systems that apply in your state. You must select at least one delivery system. For each selected delivery system, enter the percentage and number of enrollees covered by that delivery system that are included in the data reported for this measure. For example, if the measure-eligible population represents all managed care enrollees, enter 100 percent for MCO, and the number covered."
+          label="Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system."
           options={[
             {
               displayValue: "Fee-for-Service (FFS)",
@@ -361,10 +361,21 @@ export const DefinitionOfPopulation = ({
                           {...register(DC.DELIVERY_SYS_ICM_NO_PERCENT)}
                         />,
                         <CUI.Box py="5" key="AdditionalICMText">
+                          <CUI.Text my="5" key="AdditionalMCOExcludedText">
+                            {" "}
+                            {
+                              "How many of your measure-eligible Integrated Care Models (ICM) plans are"
+                            }
+                            <CUI.Text as="i" fontWeight="600">
+                              {" excluded "}
+                            </CUI.Text>
+                            {
+                              "from the measure? If none are excluded, please enter zero."
+                            }
+                          </CUI.Text>
                           <QMR.NumberInput
                             mask={allPositiveIntegers}
                             formLabelProps={{ fontWeight: "400" }}
-                            label="How many of your measure-eligible Integrated Care Models (ICM) plans are excluded from the measure? If none are excluded, please enter zero."
                             {...register(DC.DELIVERY_SYS_ICM_NO_POP)}
                           />
                         </CUI.Box>,
