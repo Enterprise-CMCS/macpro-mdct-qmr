@@ -20,8 +20,14 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 });
 
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
-  cy.get('[data-cy="CCS"]').click();
-  cy.wait(5000);
+  cy.get("tbody").then(($tbody) => {
+    if ($tbody.find('[data-cy="CCS"]').length > 0) {
+      cy.get('[data-cy="CCS"]').click();
+    } else {
+      cy.addCombinedChildCoreset();
+    }
+    cy.wait(5000);
+  });
 });
 
 // Visit Measures based on abbr
