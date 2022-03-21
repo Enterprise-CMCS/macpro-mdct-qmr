@@ -49,7 +49,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
             },
 
             {
-              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              value: DC.OTHER,
               description: true,
             },
           ],
