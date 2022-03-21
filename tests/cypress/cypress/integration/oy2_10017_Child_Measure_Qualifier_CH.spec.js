@@ -42,10 +42,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get('[data-cy="Add Child Core Set"]').click(); // clicking on adding child core set measures
     cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
     cy.get('[data-cy="Create"]').click(); //clicking create
-    cy.get(":nth-child(2) > :nth-child(1) > a > .chakra-text").should(
-      "have.text",
-      "Child Core Set Measures: Medicaid & CHIP"
-    ); //asserting text
     /* ==== End Cypress Studio ==== */
   });
 
@@ -536,10 +532,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get(":nth-child(2) > :nth-child(1) > a > .chakra-text").click();
     cy.get('[data-cy="core-set-qualifiers-link"]').click();
     //testing section 1 with the fields inside it
-    cy.get(".css-1j31nc9").should(
-      "have.text",
-      "Child Core Set Questions: Medicaid & CHIP"
-    );
     cy.get(".css-1wb0lb9 > .css-0").should(
       "have.text",
       "For technical questions regarding use of this application, please reach out to MDCT_help@cms.hhs.gov. For content related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."

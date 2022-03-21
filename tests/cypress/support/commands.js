@@ -21,7 +21,7 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get('[data-cy="CCS"]').click();
-  cy.wait(2000);
+  cy.wait(4000);
 });
 
 // Visit Measures based on abbr
