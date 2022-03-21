@@ -64,11 +64,6 @@ const HPCADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateAllDenomsTheSameCrossQualifier(
-      data,
-      PMD.categories,
-      PMD.qualifiers
-    ),
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
