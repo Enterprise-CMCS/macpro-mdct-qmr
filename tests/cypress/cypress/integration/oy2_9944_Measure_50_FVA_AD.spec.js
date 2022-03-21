@@ -73,7 +73,6 @@ describe("OY2 9898 FVA-AD", () => {
 
   it("rounds the numerical value after the decimal up/down for auto-calculated rates", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get("#radio-539").check();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).clear();
