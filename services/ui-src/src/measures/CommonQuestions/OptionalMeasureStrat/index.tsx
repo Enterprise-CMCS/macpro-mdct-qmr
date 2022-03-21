@@ -85,6 +85,14 @@ type OMSType = Types.OptionalMeasureStratification & {
   "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
 };
 
+const stringIsReadOnly = (dataSource: string) => {
+  return dataSource === "AdministrativeData";
+};
+
+const arrayIsReadOnly = (dataSource: string[]) => {
+  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+};
+
 /**
  * Final OMS built
  */
@@ -117,9 +125,14 @@ export const OptionalMeasureStrat = ({
     isSingleSex,
   });
 
-  const rateReadOnly =
-    dataSourceWatch?.every((source) => source === "AdministrativeData") ??
-    !rateAlwaysEditable;
+  let rateReadOnly = true;
+  if (rateAlwaysEditable) {
+    rateReadOnly = false;
+  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
+    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
+  } else if (dataSourceWatch) {
+    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+  }
 
   /**
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
