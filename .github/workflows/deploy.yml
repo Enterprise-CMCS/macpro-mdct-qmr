@@ -161,6 +161,7 @@ jobs:
         run: |
           pushd services
           export TEST_USER_1=`./output.sh ui-src TestUserOne $STAGE_PREFIX$branch_name`
+          echo "TEST_USER_1=$TEST_USER_1" >> $GITHUB_ENV
           echo "TEST_USER_1: $TEST_USER_1"
           popd
           pushd tests/cypress
