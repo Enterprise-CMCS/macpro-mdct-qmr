@@ -115,7 +115,6 @@ describe("Measure: ARM-AD", () => {
 
   it("does not calculate total rate if any numerator is greater than its denominator", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get("#radio-533").check();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("2");
@@ -139,7 +138,6 @@ describe("Measure: ARM-AD", () => {
 
   it("should not display validation errors when OMS numerator/denominator totals don't match actual sum", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get("#radio-533").check();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("1");
