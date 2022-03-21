@@ -1,4 +1,4 @@
-import { testConfig } from "../../test-config.js";
+import testConfig from "../../test-config.js";
 const usernameInput = "input#okta-signin-username";
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
