@@ -164,9 +164,6 @@ jobs:
           echo "TEST_USER_1=$TEST_USER_1" >> $GITHUB_ENV
           echo "TEST_USER_1: $TEST_USER_1"
           popd
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
