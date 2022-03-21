@@ -14,10 +14,10 @@ stage=${1:-dev}
 
 echo "Fetching information for stage $stage..."
 
-test_user_1=`sh ../../services/output.sh ../../services/ui-src TestUserOne $stage`
-test_user_2=`sh ../../services/output.sh ../../services/ui-src TestUserTwo $stage`
-test_user_3=`sh ../../services/output.sh ../../services/ui-src TestUserThree $stage`
-test_password_1=`sh ../../services/output.sh ../../services/ui-src TestPasswordOne $stage`
+test_user_1=`sh ../../services/output.sh ../../services/ui TestUserOne $stage`
+test_user_2=`sh ../../services/output.sh ../../services/ui TestUserTwo $stage`
+test_user_3=`sh ../../services/output.sh ../../services/ui TestUserThree $stage`
+test_password_1=`sh ../../services/output.sh ../../services/ui TestPasswordOne $stage`
 
 echo $test_user_1
 echo $test_user_2

@@ -159,10 +159,8 @@ jobs:
           popd
       - name: Make Test Config 
         run: |
-          pushd services
-          export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
-          echo "TEST_USER_1=$TEST_USER_1" >> $GITHUB_ENV
-          echo "TEST_USER_1: $TEST_USER_1"
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
           popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
