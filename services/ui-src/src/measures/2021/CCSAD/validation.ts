@@ -6,25 +6,25 @@ import * as GV from "measures/globalValidations";
 
 const CCSADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray =
     GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
-  const dateRange = data["DateRange"];
+  const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
-  const includesHybridDataSource = data["DataSource"]?.includes(
+  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
   );
 
