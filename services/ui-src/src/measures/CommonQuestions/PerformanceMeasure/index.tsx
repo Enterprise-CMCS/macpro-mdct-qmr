@@ -5,7 +5,6 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { String } from "aws-sdk/clients/apigateway";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -129,7 +128,7 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   return <CUI.Box key="PerformanceMeasureNdrSets">{ndrSets}</CUI.Box>;
 };
 
-const stringIsReadOnly = (dataSource: String) => {
+const stringIsReadOnly = (dataSource: string) => {
   return dataSource === "AdministrativeData";
 };
 

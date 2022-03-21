@@ -13,7 +13,7 @@ interface Props {
   allowNumeratorGreaterThanDenominator?: boolean;
 }
 
-const stringIsReadOnly = (dataSource: String) => {
+const stringIsReadOnly = (dataSource: string) => {
   return dataSource === "AdministrativeData";
 };
 

@@ -84,7 +84,7 @@ type OMSType = Types.OptionalMeasureStratification & {
   "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
 };
 
-const stringIsReadOnly = (dataSource: String) => {
+const stringIsReadOnly = (dataSource: string) => {
   return dataSource === "AdministrativeData";
 };
 
