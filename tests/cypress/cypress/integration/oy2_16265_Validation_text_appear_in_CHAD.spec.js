@@ -23,10 +23,10 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
 
     cy.get("[data-cy=validate-core-set-questions-button]").click();
     cy.get(
-      '[data-cy=""Entries are required in at least one column.  Entries are permitted in the second column but are not required"]'
+      '[data-cy="Entries are required in at least one column.  Entries are permitted in the second column but are not required"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy=""Entries are required in at least one column.  Entries are permitted in the second column but are not required"]'
+      '[data-cy="Entries are required in at least one column.  Entries are permitted in the second column but are not required"]'
     ).should(
       "have.text",
       "Entries are required in at least one column.  Entries are permitted in the second column but are not required"
