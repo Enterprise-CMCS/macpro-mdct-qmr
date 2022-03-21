@@ -40,8 +40,7 @@ export const DeliverySystems = () => {
       <Common.QualifierHeader
         header="Delivery System"
         description={`As of September 30, ${
-          /* @ts-ignore */
-          parseInt(year) - 1
+          year ? parseInt(year) - 1 : "2020"
         } what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?`}
       />
       <CUI.Table variant="simple" mt="4" size="md" verticalAlign="top">
