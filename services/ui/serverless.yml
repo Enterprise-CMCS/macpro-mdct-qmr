@@ -264,3 +264,13 @@ resources:
       Value: !Sub https://${CloudFrontDistribution.DomainName}
     ApplicationEndpointUrl:
       Value: !GetAtt ApplicationEndpointUrl.Value
+    TestUserOne:
+      Value: !Sub ${ssm:/configuration/testUser1~true, ""}
+    TestUserTwo:
+      Value: !Sub ${ssm:/configuration/testUser2~true, ""}
+    TestUserThree:
+      Value: !Sub ${ssm:/configuration/testUser3~true, ""}
+    TestPasswordOne:
+      Value: !Sub ${ssm:/configuration/testPassword1~true, ""}
+    ProdUrl:
+      Value: !Sub ${ssm:/configuration/prodUrl~true, ""}
