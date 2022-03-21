@@ -11,6 +11,13 @@ import * as QMR from "components";
 import objectPath from "object-path";
 import { useEffect } from "react";
 
+const fixRounding = (value: number, numbersAfterDecimal: number) => {
+  return (
+    Math.round((value + Number.EPSILON) * (numbersAfterDecimal * 10)) /
+    (numbersAfterDecimal * 10)
+  );
+};
+
 export interface IRate {
   label?: string;
   id: number;
@@ -84,12 +91,11 @@ export const Rate = ({
     const floatNumerator = parseFloat(numerator);
     const floatDenominator = parseFloat(denominator);
     const floatRate = floatNumerator / floatDenominator;
-    const roundedRate: number =
-      Math.round(
-        floatRate * rateMultiplicationValue * Math.pow(10, numbersAfterDecimal)
-      ) / Math.pow(10, numbersAfterDecimal);
-    const stringRate = roundedRate.toFixed(numbersAfterDecimal);
-    return stringRate;
+    const roundedRate = fixRounding(
+      floatRate * rateMultiplicationValue,
+      numbersAfterDecimal
+    );
+    return roundedRate.toFixed(numbersAfterDecimal);
   };
 
   const changeRate = (
