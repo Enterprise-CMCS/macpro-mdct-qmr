@@ -4,6 +4,7 @@ the key should be the measure id as a string (with '-XX' included)
 */
 import { BCSAD } from "./BCSAD";
 import { AMMAD } from "./AMMAD";
+import { CBPAD } from "./CBPAD";
 import { CCWAD } from "./CCWAD";
 import { CCPAD } from "./CCPAD";
 import { COBAD } from "./COBAD";
@@ -14,6 +15,7 @@ import { CPCCH } from "./CPCCH";
 import { FUAAD } from "./FUAAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
+import { FVAAD } from "./FVAAD";
 import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
@@ -28,8 +30,9 @@ import { PQI15AD } from "./PQI15AD";
 import { PQI05AD } from "./PQI05AD";
 
 const twentyTwentyOneMeasures = {
-  "BCS-AD": BCSAD,
   "AMM-AD": AMMAD,
+  "BCS-AD": BCSAD,
+  "CBP-AD": CBPAD,
   "CCP-AD": CCPAD,
   "CIS-CH": CISCH,
   "CCW-AD": CCWAD,
@@ -40,6 +43,7 @@ const twentyTwentyOneMeasures = {
   "FUA-AD": FUAAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
+  "FVA-AD": FVAAD,
   "IET-AD": IETAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
