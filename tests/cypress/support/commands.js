@@ -22,7 +22,7 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
-      cy.get('[data-cy="CCS"]').click();
+      cy.get('[data-cy="CCS"]').click({ force: true });
     } else {
       cy.addCombinedChildCoreset();
     }
@@ -186,7 +186,7 @@ Cypress.Commands.add("addCombinedChildCoreset", () => {
     if ($tbody.find('[data-cy="Add Child Core Set"]').length > 0) {
       cy.get('[data-cy="Add Child Core Set"]').click();
       cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
-      cy.get('[data-cy="Create"]').click(); //add combined child core set
+      cy.get('[data-cy="Create"]').click({ force: true }); //add combined child core set
     }
   });
 });
