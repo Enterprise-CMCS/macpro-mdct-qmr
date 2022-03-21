@@ -7,7 +7,7 @@ import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
 import { FormData } from "./types";
 
-export const CHLAD = ({
+export const FVAAD = ({
   name,
   year,
   measureId,
@@ -40,7 +40,7 @@ export const CHLAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSourceRadio />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
@@ -57,7 +57,6 @@ export const CHLAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
-              isSingleSex
             />
           )}
         </>
