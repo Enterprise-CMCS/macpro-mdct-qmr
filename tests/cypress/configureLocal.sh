@@ -17,7 +17,7 @@ echo "Fetching information for stage $stage..."
 test_user_1=`sh ../../services/output.sh ../../services/ui TestUserOne $stage`
 test_user_2=`sh ../../services/output.sh ../../services/ui TestUserTwo $stage`
 test_user_3=`sh ../../services/output.sh ../../services/ui TestUserThree $stage`
-test_password_1=`sh ../../services/output.sh ../../services/ui TestPasswordOne $stage`
+test_password_1=`sh ../../services/output.sh ../../services/ui TestPasswordOne $stage` # pragma: allowlist secret
 
 export TEST_USER_1=$test_user_1
 export TEST_USER_2=$test_user_2
