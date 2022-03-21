@@ -58,13 +58,12 @@ const CCSADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...(includesHybridDataSource
-      ? []
-      : GV.validateNoNonZeroNumOrDenom(
-          performanceMeasureArray,
-          OPM,
-          ageGroups
-        )),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      includesHybridDataSource
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
   ];
