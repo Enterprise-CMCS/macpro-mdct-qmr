@@ -12,7 +12,6 @@ import {
 } from "measures/globalValidations/validationsLib";
 import {
   omsValidations,
-  validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
   validateOneRateLessThanOther,
   validateRateNotZero,
@@ -61,7 +60,6 @@ const validateOMS = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
         validateDenominatorsAreTheSame,
         validateOneRateLessThanOther,
         validateRateZero,
