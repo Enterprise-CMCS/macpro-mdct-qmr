@@ -85,7 +85,7 @@ type OMSType = Types.OptionalMeasureStratification & {
 };
 
 const stringIsReadOnly = (dataSource: String) => {
-  return dataSource !== "Other";
+  return dataSource === "AdministrativeData";
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
