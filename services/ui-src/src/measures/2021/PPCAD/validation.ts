@@ -40,9 +40,8 @@ const PPCADValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
-        ...(includesHybridDataSource
-          ? []
-          : [GV.validateRateNotZero, GV.validateRateZero]),
+        GV.validateRateNotZero,
+        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
       ],
     }),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -57,13 +56,12 @@ const PPCADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...(includesHybridDataSource
-      ? []
-      : GV.validateNoNonZeroNumOrDenom(
-          performanceMeasureArray,
-          OPM,
-          ageGroups
-        )),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      includesHybridDataSource
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
   ];
