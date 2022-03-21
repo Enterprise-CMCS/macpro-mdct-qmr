@@ -5,6 +5,7 @@ import { useFieldArray, useWatch } from "react-hook-form";
 import { DeliverySystem } from "./types";
 import { BsPercent } from "react-icons/bs";
 import { percentageAllowOneDecimalMax } from "utils/numberInputMasks";
+import { useParams } from "react-router-dom";
 
 const initialDeliverySystemValue = {
   label: "",
@@ -13,6 +14,7 @@ const initialDeliverySystemValue = {
 };
 
 export const DeliverySystems = () => {
+  const { year } = useParams();
   const { fields, append, remove } = useFieldArray({
     name: "PercentageEnrolledInEachDeliverySystem",
   });
@@ -37,8 +39,9 @@ export const DeliverySystems = () => {
     <CUI.ListItem mr="4">
       <Common.QualifierHeader
         header="Delivery System"
-        description="As of September 30, 2021 what percentage of your Medicaid/CHIP
-          enrollees (under age 21) were enrolled in each delivery system?"
+        description={`As of September 30, ${
+          year ? parseInt(year) - 1 : "2020"
+        } what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?`}
       />
       <CUI.Table variant="simple" mt="4" size="md" verticalAlign="top">
         <CUI.Thead>
@@ -115,7 +118,7 @@ export const DeliverySystems = () => {
           <CUI.Tr>
             <CUI.Th px="none" textTransform="none">
               <CUI.Text fontSize="medium" color="gray.900">
-                Total (all ages)
+                Total
               </CUI.Text>
             </CUI.Th>
             <CUI.Td>
