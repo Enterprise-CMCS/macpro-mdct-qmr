@@ -1,15 +1,19 @@
 import { FormData } from "./types";
 import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
+  getDeviationNDRArray,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateNoNonZeroNumOrDenom,
+  validateNumeratorsLessThanDenominators,
   validateReasonForNotReporting,
+  validateRequiredRadioButtonForCombinedRates,
   validateTotalNDR,
-} from "measures/globalValidations/validationsLib";
+} from "../../globalValidations";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
@@ -26,6 +30,12 @@ const AMRADValidation = (data: FormData) => {
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
@@ -35,14 +45,21 @@ const AMRADValidation = (data: FormData) => {
 
   errorArray = [
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateRequiredRadioButtonForCombinedRates(data),
     ...validateTotalNDR(performanceMeasureArray),
-    ...ensureBothDatesCompletedInRange(dateRange),
   ];
 
   return errorArray;
