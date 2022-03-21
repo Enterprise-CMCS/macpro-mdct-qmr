@@ -164,8 +164,8 @@ jobs:
           echo $TEST_USER_3
           echo $TEST_PASSWORD_1
         env:
-          TEST_USER_2: !Sub '{{resolve:ssm:/configuration/testUser2~true}}'
-          TEST_USER_3: ${ssm:/configuration/testUser3~true}
+          TEST_USER_2: !Sub {{resolve:ssm:/configuration/testUser2~true}}
+          TEST_USER_3: !Sub ${ssm:/configuration/testUser3~true, ""}
           TEST_PASSWORD_1: ${ssm:/configuration/testPassword1~true}
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
