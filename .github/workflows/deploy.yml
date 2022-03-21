@@ -159,14 +159,13 @@ jobs:
           popd
       - name: Make Test Config 
         run: |
-          echo ${ssm:/configuration/testUser1~true}
-          echo $TEST_USER_1
-          echo $TEST_USER_2
-          echo $TEST_USER_3
-          echo $TEST_PASSWORD_1
-        env:
-          TEST_USER_3: ${{ssm:/configuration/testUser3~true}}
-          TEST_PASSWORD_1: ${ssm:/configuration/testPassword1~true}
+          pushd services
+          export TEST_USER_1=`./output.sh ui-src TestUserOne $STAGE_PREFIX$branch_name`
+          echo "TEST_USER_1: $TEST_USER_1"
+          popd
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
