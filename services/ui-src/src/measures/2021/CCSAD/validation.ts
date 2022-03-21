@@ -41,9 +41,8 @@ const CCSADValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
-        ...(includesHybridDataSource
-          ? []
-          : [GV.validateRateNotZero, GV.validateRateZero]),
+        GV.validateRateNotZero,
+        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
       ],
     }),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
