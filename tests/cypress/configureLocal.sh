@@ -39,3 +39,5 @@ echo "TEST_USER_3: \"$test_user_3\"," >> ./test-config.js
 echo "TEST_PASSWORD_1: \"$test_password_1\"," >> ./test-config.js
 echo "}" >> ./test-config.js
 echo "export default testConfig;" >> ./test-config.js
+
+cat ./test-config.js
