@@ -130,6 +130,13 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   return <CUI.Box key="PerformanceMeasureNdrSets">{ndrSets}</CUI.Box>;
 };
 
+const stringIsReadOnly = (dataSource: string) => {
+  return dataSource === "AdministrativeData";
+};
+
+const arrayIsReadOnly = (dataSource: string[]) => {
+  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+};
 /** Data Driven Performance Measure Comp */
 export const PerformanceMeasure = ({
   data,
@@ -143,11 +150,15 @@ export const PerformanceMeasure = ({
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
-  }) as string[] | undefined;
-  const readOnly =
-    rateReadOnly ??
-    dataSourceWatch?.every((source) => source === "AdministrativeData") ??
-    true;
+  }) as string[] | string | undefined;
+  let readOnly = true;
+  if (rateReadOnly) {
+    readOnly = rateReadOnly;
+  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
+    readOnly = arrayIsReadOnly(dataSourceWatch);
+  } else if (dataSourceWatch) {
+    readOnly = stringIsReadOnly(dataSourceWatch);
+  }
 
   data.questionText = data.questionText ?? [];
 
