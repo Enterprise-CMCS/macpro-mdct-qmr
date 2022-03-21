@@ -7,7 +7,7 @@ describe("OY2 16039 Data source/ Rate to auto calculate in OPM", () => {
     // Seed database with test data
     cy.visit("/");
     cy.xpath(emailForCognito).type(testConfig.TEST_USER_2);
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_2);
+    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.get('[data-cy="login-with-cognito-button"]').click();
   });
 

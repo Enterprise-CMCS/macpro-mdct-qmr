@@ -19,16 +19,10 @@ test_user_2=`sh ../../services/output.sh ../../services/ui TestUserTwo $stage`
 test_user_3=`sh ../../services/output.sh ../../services/ui TestUserThree $stage`
 test_password_1=`sh ../../services/output.sh ../../services/ui TestPasswordOne $stage`
 
-echo $test_user_1
-echo $test_user_2
-echo $test_user_3
-echo $test_password_1
-
 export TEST_USER_1=$test_user_1
 export TEST_USER_2=$test_user_2
 export TEST_USER_3=$test_user_3
 export TEST_PASSWORD_1=$test_password_1
-
 
 rm -rf ./test-config.js
 touch ./test-config.js
@@ -39,5 +33,3 @@ echo "TEST_USER_3: \"$test_user_3\"," >> ./test-config.js
 echo "TEST_PASSWORD_1: \"$test_password_1\"," >> ./test-config.js
 echo "}" >> ./test-config.js
 echo "export default testConfig;" >> ./test-config.js
-
-cat ./test-config.js
