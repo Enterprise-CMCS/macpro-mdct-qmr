@@ -1,10 +1,8 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
-
 import * as Types from "../types";
 import { OMSData, OmsNode } from "./data";
-
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import * as CUI from "@chakra-ui/react";
@@ -37,7 +35,7 @@ export const buildOmsCheckboxes = ({
         <TopLevelOmsChildren
           options={lvlOneOption.options}
           addMore={!!lvlOneOption.addMore}
-          parentDisplayName={lvlOneOption.id}
+          parentDisplayName={lvlOneOption.aggregateTitle || lvlOneOption.id}
           addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
           name={`${name}.selections.${value}`}
           key={`${name}.selections.${value}`}
@@ -112,7 +110,7 @@ export const OptionalMeasureStrat = ({
   const OPM = values["OtherPerformanceMeasure-Rates"];
   const watchDataSourceSwitch = watch("MeasurementSpecification");
 
-  const register = useCustomRegister();
+  const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
     ...register("OptionalMeasureStratification"),
     data: omsData,

@@ -35,19 +35,19 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
     );
     cy.wait(500);
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected1"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Administrative Data Other");
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__control'
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#DataSourceSelections\\.AdministrativeData\\.selected1-checkbox"
+      "#DataSourceSelections\\.AdministrativeData0\\.selected1-checkbox"
     ).check();
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.description"]'
+      '[data-cy="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"]'
     ).click({ force: true });
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.description"]'
+      '[data-cy="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"]'
     ).type("Test1");
     cy.get('[data-cy="DataSourceDescription"]').click({ force: true });
     cy.get('[data-cy="DataSourceDescription"]').type("Test3");
@@ -74,19 +74,19 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
     cy.get("#DataSource0-checkbox").check();
     cy.wait(500);
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected1"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Administrative Data Other");
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__control'
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#DataSourceSelections\\.AdministrativeData\\.selected1-checkbox"
+      "#DataSourceSelections\\.AdministrativeData0\\.selected1-checkbox"
     ).check();
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.description"]'
+      '[data-cy="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"]'
     ).click({ force: true });
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData-AdministrativeDataOther.description"]'
+      '[data-cy="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"]'
     ).type("Test1");
     cy.xpath(
       "//p[contains(text(),'For each data source selected above, describe whic')]"

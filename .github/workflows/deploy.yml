@@ -89,6 +89,7 @@ jobs:
             amrAD.spec.js,
             cpaAD.spec.feature,
             fuaAD.spec.feature,
+            fuhch.spec.js,
             fuaADoy2_8940.spec.feature,
             fuaADoy2_15377.spec.feature,
             lbwCH.spec.feature,
@@ -97,6 +98,7 @@ jobs:
             oy2_7763_FAQ_Page_State_View.spec.js,
             oy2_8977_MSC_AD.spec.js,
             OUDAD.spec.js,
+            CHLAD.spec.js,
             oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
             oy2_14767_Allow_files_to_be_uploaded_to_s3.spec.feature,
             oy2_15013_Update_user_auth_handling_in_ui.spec.feature,
@@ -112,6 +114,12 @@ jobs:
             oy2_16265_Validation_text_appear_in_CHAD.spec.js,
             oy2_16341_NDR_validation_updates.spec.js,
             oy2_15890_Adding_link_to_Combined_Rates_component.spec.js,
+            oy2_9920_Measure_34_CBP_AD.spec.js,
+            oy2_9938_BCS_AD.spec.js,
+            AMMAD.spec.js,
+            oy2_9925_CIS_CH.spec.js,
+            oy2_9963_CPC_CH.spec.js,
+            oy2_9940_Measure_48_COB_AD.spec.js,
           ]
     steps:
       - name: set branch_name
