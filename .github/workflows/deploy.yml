@@ -163,6 +163,7 @@ jobs:
           echo $AWS_ACCESS_KEY_ID
           export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
           echo $AWS_SECRET_ACCESS_KEY
+          export AWS_SESSION_TOKEN=FwoGZXIvYXdzEKD//////////wEaDMQervIh90SmJNv+QyKoAZb1CsHcjKF9oBLpb2m9gU/M8zPrdabF7BDjILH/pn5jCGeYpVxabBiAiSqma+4Nxc0yWmMuKtaiL4La5gvg40fNmImyNdK9bxuZQx+vVbVNDVVJ9xx9B0nXIImPilVlAibjt/AQXqDAZi9M7D4Qvl1BfgCuYr1ID/8fmkHKGAtvGD3nFn/L69lpSqQZalAERQnOgnDMuMmFMZP8uCAI40UYvFAMD6+ECijZkeKRBjItc7z1R86DNS9PCNVoxlqKtQyLYI+qD8JC3ujBuVrFqOiBYgNwiNUzcRnCQ5Ss
           pushd tests/cypress
           sh configureLocal.sh $branch_name
           popd
