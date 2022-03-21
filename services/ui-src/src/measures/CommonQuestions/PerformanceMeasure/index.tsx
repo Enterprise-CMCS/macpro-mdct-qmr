@@ -130,7 +130,7 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
 };
 
 const stringIsReadOnly = (dataSource: String) => {
-  return dataSource === "Other";
+  return dataSource === "AdministrativeData";
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
@@ -157,8 +157,6 @@ export const PerformanceMeasure = ({
     readOnly = arrayIsReadOnly(dataSourceWatch);
   } else if (dataSourceWatch) {
     readOnly = stringIsReadOnly(dataSourceWatch);
-  } else {
-    readOnly = !!dataSourceWatch;
   }
 
   data.questionText = data.questionText ?? [];
