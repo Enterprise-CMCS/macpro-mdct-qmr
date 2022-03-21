@@ -20,7 +20,7 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 });
 
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
-  cy.get('[data-cy="CCS"]').click({ force: true });
+  cy.get('[data-cy="CCS"]').click();
 });
 
 // Visit Measures based on abbr
@@ -174,8 +174,7 @@ Cypress.Commands.add("showErrorIfCombinedRatesAndNoAdditionalSelection", () => {
 
 Cypress.Commands.add("addCombinedChildCoreset", () => {
   cy.wait(3000);
-  cy.get('[data-cy="Add Child Core Set"]').click({ force: true });
+  cy.get('[data-cy="Add Child Core Set"]').click();
   cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
-  cy.get('[data-cy="Create"]').click({ force: true }); //add combined child core set
-  cy.wait(3000);
+  cy.get('[data-cy="Create"]').click(); //add combined child core set
 });
