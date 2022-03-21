@@ -11,7 +11,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.deleteChildCoreSets();
   });
 
-  it.skip("Screen Enhancement and adding child core set seperate", () => {
+  it("Screen Enhancement and adding child core set seperate", () => {
     cy.wait(3000);
     cy.get('[data-cy="Add Child Core Set"]').click(); //asserting text
     cy.get("#ChildCoreSet-ReportType-separate").should(
@@ -32,9 +32,9 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       "have.text",
       "Need to report on Health Home data?"
     ); //asserting text
-    cy.get(":nth-child(3) > :nth-child(1) > a > .chakra-text").should(
+    cy.get(":nth-child(2) > :nth-child(1) > a > .chakra-text").should(
       "have.text",
-      "Child Core Set Questions: CHIP"
+      "Child Core Set Measures: CHIP"
     ); //asserting text
     /* ==== End Cypress Studio ==== */
   });
@@ -48,7 +48,8 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     ); //asserting text
     /* ==== End Cypress Studio ==== */
   });
-  it.skip("Child Core Set Measures: Medicaid", () => {
+
+  it("Child Core Set Measures: Medicaid", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="Add Child Core Set"]').click(); //clicking on add child core set measures
     cy.get("#ChildCoreSet-ReportType-separate").click({ force: true }); //clicking on combined
@@ -250,9 +251,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CIS-CH - Childhood Immunization Status"]'
     ).should("be.visible");
-    //cy.get(
-    //'[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"]'
-    //).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-DEV-CH - Developmental Screening in the First Three Years of Life"]'
     ).should("be.visible");
