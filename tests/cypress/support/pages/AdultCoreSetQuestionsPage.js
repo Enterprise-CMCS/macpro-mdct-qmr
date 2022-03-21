@@ -8,7 +8,7 @@ const adultCoreSetQuestionContent =
 const deliverySystem = "//p[contains(text(),'Delivery System')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const deliverySystemContent =
-  "//h3[contains(text(),'As of September 30, 2021 what percentage of your M')]";
+  "//h3[contains(text(),'As of September 30, 2020 what percentage of your M')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const ages21To64 = "//p[contains(text(),'Ages 21 to 64')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
@@ -27,7 +27,7 @@ const integratedCareModelICM =
 // element is xpath, please use cy.xapth() instead of cy.get();
 const addAnotherBTN = "//tbody/div[1]/button[1]";
 // element is xpath, please use cy.xapth() instead of cy.get();
-const totalAllAges = "//p[contains(text(),'Total (all ages)')]";
+const totalAllAges = "//p[contains(text(),'Total')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const ages21To64TotalValue =
   "//body/div[@id='root']/div[@id='app-wrapper']/main[@id='main-wrapper']/div[2]/form[1]/section[1]/ol[1]/li[1]/table[1]/tfoot[1]/tr[1]/td[1]/div[1]/input[1]";
@@ -39,7 +39,7 @@ const auditOrValidationMeasures =
   "//p[contains(text(),'Audit or Validation of Measures')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const auditOrValidationMeasuresValue =
-  "//h3[contains(text(),'Were any of the Core Set meaures audited or valida')]";
+  "//h3[contains(text(),'Were any of the Core Set measures audited or valida')]";
 // element is xpath, please use cy.xapth() instead of cy.get();
 const yesSomeOfTheCoreSetMeasuresHaveBeenAuditedOrValidated =
   "//p[contains(text(),'Yes, some of the Core Set measures have been audit')]";
