@@ -1,4 +1,4 @@
-import testConfig from "../../test-config"
+import testConfig from "../../test-config";
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
