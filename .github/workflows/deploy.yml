@@ -168,6 +168,7 @@ jobs:
           test_user_2: ${ssm:/configuration/testUser2~true, ""}
           test_user_3: ${ssm:/configuration/testUser3~true, ""}
           test_password_1: ${ssm:/configuration/testPassword1~true, ""}
+      - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
