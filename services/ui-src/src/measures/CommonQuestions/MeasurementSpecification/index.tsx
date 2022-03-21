@@ -38,7 +38,7 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "AHRQ-NCQA";
+  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA";
 }
 
 const specifications = {
@@ -54,16 +54,20 @@ const specifications = {
   },
   AHRQ: {
     displayValue: "Agency for Healthcare Research and Quality (AHRQ)",
-    value: "AHRQ",
+    value: DC.AHRQ,
   },
   "AHRQ-NCQA": {
     displayValue:
       "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
-    value: DC.AHRQ,
+    value: DC.AHRQ_NCQA,
   },
   CMS: {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",
     value: DC.CMS,
+  },
+  PQA: {
+    displayValue: "Pharmacy Quality Alliance (PQA)",
+    value: "PQA",
   },
 };
 
