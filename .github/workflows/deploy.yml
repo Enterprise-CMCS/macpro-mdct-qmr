@@ -159,11 +159,9 @@ jobs:
           popd
       - name: Make Test Config 
         run: |
-          export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-          echo $AWS_ACCESS_KEY_ID
-          export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-          echo $AWS_SECRET_ACCESS_KEY
-          export AWS_SESSION_TOKEN=FwoGZXIvYXdzEKD//////////wEaDMQervIh90SmJNv+QyKoAZb1CsHcjKF9oBLpb2m9gU/M8zPrdabF7BDjILH/pn5jCGeYpVxabBiAiSqma+4Nxc0yWmMuKtaiL4La5gvg40fNmImyNdK9bxuZQx+vVbVNDVVJ9xx9B0nXIImPilVlAibjt/AQXqDAZi9M7D4Qvl1BfgCuYr1ID/8fmkHKGAtvGD3nFn/L69lpSqQZalAERQnOgnDMuMmFMZP8uCAI40UYvFAMD6+ECijZkeKRBjItc7z1R86DNS9PCNVoxlqKtQyLYI+qD8JC3ujBuVrFqOiBYgNwiNUzcRnCQ5Ss
+          export AWS_ACCESS_KEY_ID=ASIAQLJP6MHR6INMJZVK
+          export AWS_SECRET_ACCESS_KEY=v/zN+mjbQ/huz7mUMILKWlUg6CuxZUFELRxDA0aj
+          export AWS_SESSION_TOKEN=FwoGZXIvYXdzEKD//////////wEaDBQ7OHeX72NGLbw47SKoAXmOWxL+Bsbl0ianegQPKhAJJfnhIMqEpsKPyz4TxU/HvFhXdsvdU9SblYo/jpL1e8T/3PqwusP0IiEZSroTAr/QVXT0LyA20njUmEq96+ly9/fi5AFFDtUxCvVtDkPt70NvBdeH+i/m9+orvh6tlXsDLyWVtDocURn92yF0pi+AWYTKx74k0QH6nD+DLRe19Vm6z/jIGMrTG8y4/niLTOpjSTtdFqR4PijQoOKRBjItUqyjHyFc5I1PEPSBGxieMHpQTV2TF3eH1TyPTfCecEDLLaA1aXZ2djd+WrA+
           pushd tests/cypress
           sh configureLocal.sh $branch_name
           popd
