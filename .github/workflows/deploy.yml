@@ -159,15 +159,15 @@ jobs:
           popd
       - name: Make Test Config 
         run: |
-          echo $test_user_1
-          echo $test_user_2
-          echo $test_user_2
-          echo $test_password_1
+          echo $TEST_USER_1
+          echo $TEST_USER_2
+          echo $TEST_USER_3
+          echo $TEST_PASSWORD_1
         env:
-          test_user_1: ${ssm:/configuration/testUser1~true, ""}
-          test_user_2: ${ssm:/configuration/testUser2~true, ""}
-          test_user_3: ${ssm:/configuration/testUser3~true, ""}
-          test_password_1: ${ssm:/configuration/testPassword1~true, ""}
+          TEST_USER_1: ${ssm:/configuration/testUser1~true, ""}
+          TEST_USER_2: ${ssm:/configuration/testUser2~true, ""}
+          TEST_USER_3: ${ssm:/configuration/testUser3~true, ""}
+          TEST_PASSWORD_1: ${ssm:/configuration/testPassword1~true, ""}
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
