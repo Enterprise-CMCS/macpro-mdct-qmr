@@ -1,12 +1,12 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 
-export const qualifiers = ["Ages 21 to 24"];
+export const qualifiers = ["Postpartum visit between 7 and 84 days"];
 export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of women ages 21 to 24 who were identified as sexually active and who had at least one test for chlamydia during the measurement year.",
+    "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year that had a postpartum visit on or between 7 and 84 days after delivery.",
   ],
   questionListItems: [],
   categories,
@@ -41,19 +41,16 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
           label: "What is the Administrative Data Source?",
           options: [
             {
-              value: "Medicaid Management Information System (MMIS)",
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
+
             {
-              value: "Other",
+              value: DC.OTHER,
               description: true,
             },
           ],
         },
       ],
-    },
-    {
-      value: DC.ELECTRONIC_HEALTH_RECORDS,
-      description: true,
     },
     {
       value: DC.OTHER_DATA_SOURCE,

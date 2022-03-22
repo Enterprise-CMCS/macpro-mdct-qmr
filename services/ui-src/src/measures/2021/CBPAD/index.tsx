@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import * as QMR from "components";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import * as QMR from "components";
 import { FormData } from "./types";
 
-export const CHLAD = ({
+export const CBPAD = ({
   name,
   year,
   measureId,
@@ -42,10 +42,10 @@ export const CHLAD = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <CMQ.DefinitionOfPopulation hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
@@ -57,7 +57,6 @@ export const CHLAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
-              isSingleSex
             />
           )}
         </>

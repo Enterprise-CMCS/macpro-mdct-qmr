@@ -83,6 +83,7 @@ export const omsLocationDictionary = (
       return `${prevValue} - ${dictionary[currentValue] ?? currentValue}`;
     }, "");
 };
+
 export const getDeviationNDRArray = (
   deviationOptions: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_OPTIONS],
   data: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATIONS],
@@ -90,15 +91,19 @@ export const getDeviationNDRArray = (
 ) => {
   let deviationArray: any[] = [];
   deviationOptions?.forEach((option) => {
-    const objectToSearch = ageGroups ? data[option] : data;
-    if (ageGroups) {
-      for (const key of Object.keys(objectToSearch).filter(
-        (prop) => prop !== DC.SELECTED_OPTIONS
-      )) {
-        deviationArray.push(data[option][key as Types.DeviationKeys]);
-      }
-    } else {
-      if (data) {
+    const objectToSearch = ageGroups && data ? data[option] : data;
+    if (objectToSearch) {
+      if (ageGroups) {
+        if (objectToSearch.RateDeviationsSelected) {
+          deviationArray.push(objectToSearch);
+        } else {
+          for (const key of Object.keys(objectToSearch).filter(
+            (prop) => prop !== DC.SELECTED_OPTIONS
+          )) {
+            deviationArray.push(data[option][key as Types.DeviationKeys]);
+          }
+        }
+      } else if (data) {
         deviationArray = Object.values(data);
       }
     }
