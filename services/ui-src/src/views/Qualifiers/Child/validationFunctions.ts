@@ -18,13 +18,16 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSQualifierForm) => {
     0
   );
 
-  if (totalUnder21MedicaidPercent === 0) {
+  if (totalUnder21MedicaidPercent === 0 && totalUnder21CHIPPercent === 0) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Medicaid Under Age 21 column must have values",
+      errorMessage:
+        "Entries are required in at least one column.  Entries are permitted in the second column but are not required",
     });
-  } else if (
-    totalUnder21MedicaidPercent < 99 ||
+  }
+
+  if (
+    (totalUnder21MedicaidPercent > 0 && totalUnder21MedicaidPercent < 99) ||
     totalUnder21MedicaidPercent > 101
   ) {
     errorArray.push({
