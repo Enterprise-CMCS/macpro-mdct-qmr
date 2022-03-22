@@ -8,10 +8,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
     "Percentage of beneficiaries ages 18 to 75 with serious mental illness and diabetes (type 1 and type 2) who had hemoglobin A1c (HbA1c) in poor control (> 9.0%).",
   ],
-  questionListItems: [
-    "Effective Acute Phase Treatment: Percentage of beneficiaries who remained on an antidepressant medication for at least 84 days (12 weeks).",
-    "Effective Continuation Phase Treatment: Percentage of beneficiaries who remained on an antidepressant medication for at least 180 days (6 months).",
-  ],
+  questionListItems: [],
   categories,
   qualifiers,
 };
