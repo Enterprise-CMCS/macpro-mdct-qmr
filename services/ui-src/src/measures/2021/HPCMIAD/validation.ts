@@ -19,32 +19,15 @@ const HPCMIADValidation = (data: FormData) => {
     return errorArray;
   }
 
-  let unfilteredSameDenominatorErrors: any[] = [];
-  for (let i = 0; i < performanceMeasureArray.length; i += 2) {
-    unfilteredSameDenominatorErrors = [
-      ...unfilteredSameDenominatorErrors,
-      ...GV.validateEqualDenominators(
-        [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
-        ageGroups
-      ),
-    ];
-  }
-
-  let filteredSameDenominatorErrors: any = [];
-  let errorList: string[] = [];
-  unfilteredSameDenominatorErrors.forEach((error) => {
-    if (!(errorList.indexOf(error.errorMessage) > -1)) {
-      errorList.push(error.errorMessage);
-      filteredSameDenominatorErrors.push(error);
-    }
-  });
-
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
 
   errorArray = [
     ...errorArray,
@@ -60,8 +43,12 @@ const HPCMIADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...filteredSameDenominatorErrors,
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      includesHybridDataSource
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -82,7 +69,7 @@ const HPCMIADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateOneRateLessThanOther,
         GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
+        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
         GV.validateRateNotZero,
       ],
     }),
