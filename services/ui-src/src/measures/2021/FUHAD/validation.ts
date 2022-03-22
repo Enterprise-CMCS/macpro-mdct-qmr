@@ -11,6 +11,7 @@ import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   getDeviationNDRArray,
   omsLocationDictionary,
+  validateDualPopInformation,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
@@ -24,19 +25,20 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validate7DaysGreaterThan30Days = (data: any) => {
+const validate7DaysGreaterThan30Days = (data: FormData) => {
   if (
     !(
-      data?.PerformanceMeasure?.rates?.Followupwithin7daysafterdischarge ||
-      data?.PerformanceMeasure?.rates?.Followupwithin30daysafterdischarge
+      data?.PerformanceMeasure?.rates?.FollowUpwithin7daysafterdischarge ||
+      data?.PerformanceMeasure?.rates?.FollowUpwithin30daysafterdischarge
     )
   ) {
     return [];
   }
   const sevenDays =
-    data["PerformanceMeasure"]["rates"]["Followupwithin7daysafterdischarge"];
+    data["PerformanceMeasure"]["rates"]["FollowUpwithin7daysafterdischarge"];
   const thirtyDays =
-    data["PerformanceMeasure"]["rates"]["Followupwithin30daysafterdischarge"];
+    data["PerformanceMeasure"]["rates"]["FollowUpwithin30daysafterdischarge"];
+
   let error;
   const errorArray: any[] = [];
 
@@ -45,12 +47,12 @@ const validate7DaysGreaterThan30Days = (data: any) => {
       if (
         sevenDays[index] &&
         thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
+        parseFloat(sevenDays[index]?.rate ?? "") >
+          parseFloat(thirtyDays[index]?.rate ?? "")
       ) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage:
-            "Follow up within 7 days after discharge Rate should not be higher than Follow up within 30 days after discharge Rates.",
+          errorMessage: `Follow up within 7 days after discharge Rate should not be higher than Follow up within 30 days after discharge Rates for ${PMD.qualifiers[index]}.`,
         };
 
         errorArray.push(error);
@@ -112,6 +114,7 @@ const FUHValidation = (data: FormData) => {
     true
   );
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
@@ -145,6 +148,12 @@ const FUHValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       ageGroups
+    ),
+    ...validateDualPopInformation(
+      performanceMeasureArray,
+      OPM,
+      1,
+      DefinitionOfDenominator
     ),
     ...filteredSameDenominatorErrors,
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
