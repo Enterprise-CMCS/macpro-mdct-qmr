@@ -136,7 +136,7 @@ describe("Measure: ARM-AD", () => {
     );
   });
 
-  it("should not display validation errors when OMS numerator/denominator totals don't match actual sum", () => {
+  it("should display validation errors when PR (non-OPM) OMS numerator/denominator totals don't match actual sum", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -186,7 +186,7 @@ describe("Measure: ARM-AD", () => {
     ).type("8");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(".chakra-alert").should(
-      "not.include.text",
+      "include.text",
       "field is not equal to the sum"
     );
   });
