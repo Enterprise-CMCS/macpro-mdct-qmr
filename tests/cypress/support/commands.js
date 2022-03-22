@@ -29,6 +29,7 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
       cy.get('[data-cy="CCS"]').click({ force: true });
     }
     cy.wait(3000);
+    cy.reload();
   });
 });
 
