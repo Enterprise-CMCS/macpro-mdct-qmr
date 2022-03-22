@@ -64,7 +64,6 @@ export const ACSQualifiers = () => {
 
   const handleValidation = (data: ACSQualifierForm) => {
     validateAndSetErrors(data);
-    saveDataToServer({ data });
   };
 
   const handleSubmit = (data: ACSQualifierForm) => {
@@ -73,6 +72,7 @@ export const ACSQualifiers = () => {
       setShowModal(true);
     } else {
       saveDataToServer({
+        status: MeasureStatus.COMPLETE,
         data,
         callback: () => {
           navigate(-1);
@@ -81,17 +81,27 @@ export const ACSQualifiers = () => {
     }
   };
 
+  const handleSave = (data: ACSQualifierForm) => {
+    saveDataToServer({
+      status: MeasureStatus.INCOMPLETE,
+      data,
+      callback: () => {},
+    });
+  };
+
   const saveDataToServer = ({
+    status,
     data,
     callback,
   }: {
+    status: MeasureStatus;
     data: ACSQualifierForm;
     callback?: () => void;
   }) => {
     const requestData = {
       data,
       measure: "CSQ",
-      status: MeasureStatus.COMPLETE,
+      status,
       coreSet: CoreSetAbbr.ACS,
     };
 
@@ -119,6 +129,7 @@ export const ACSQualifiers = () => {
     if (continueWithErrors) {
       const data = methods.getValues();
       saveDataToServer({
+        status: MeasureStatus.COMPLETE,
         data,
         callback: () => {
           navigate(-1);
@@ -142,9 +153,10 @@ export const ACSQualifiers = () => {
         },
       ]}
       buttons={
-        data?.Item?.data && (
-          <QMR.LastSavedText lastAltered={data?.Item.lastAltered} />
-        )
+        <QMR.MeasureButtons
+          handleSave={methods.handleSubmit(handleSave)}
+          lastAltered={data?.Item.lastAltered}
+        />
       }
     >
       <FormProvider {...methods}>
