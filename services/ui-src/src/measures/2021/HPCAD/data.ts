@@ -49,6 +49,18 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
             },
           ],
         },
+        {
+          label:
+            "What is the Medical Records Data Source? (Both can be selected)",
+          options: [
+            {
+              value: DC.EHR_DATA,
+            },
+            {
+              value: DC.PAPER,
+            },
+          ],
+        },
       ],
     },
     {
