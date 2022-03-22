@@ -85,6 +85,7 @@ export const DEVIATION_OPTIONS = "DeviationOptions";
 export const DID_CALCS_DEVIATE = "DidCalculationsDeviate";
 export const DID_COLLECT = "DidCollect";
 export const DID_REPORT = "DidReport";
+export const EHR_DATA = "Electronic Health Record (EHR) Data";
 export const END_DATE = "endDate";
 export const ENTIRE_POP_NOT_COVERED = "EntirePopulationNotCovered";
 export const ELECTRONIC_HEALTH_RECORDS = "Electronic Health Records";
@@ -131,6 +132,7 @@ export const OPM_RATES = "OtherPerformanceMeasure-Rates";
 export const OPTIONS = "options";
 export const OTHER = "Other";
 export const OTHER_DATA_SOURCE = "Other Data Source";
+export const PAPER = "Paper";
 export const PARTIAL_POP_NOT_COVERED = "PartialPopulationNotCovered";
 export const PARTIAL_POP_NOT_COVERED_EXPLAINATION =
   "PartialPopulationNotCoveredExplanation";

@@ -38,7 +38,7 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA";
+  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA" | "OHSU";
 }
 
 const specifications = {
@@ -68,6 +68,10 @@ const specifications = {
   PQA: {
     displayValue: "Pharmacy Quality Alliance (PQA)",
     value: "PQA",
+  },
+  OHSU: {
+    displayValue: "Oregon Health and Science University (OHSU)",
+    value: "OHSU",
   },
 };
 
