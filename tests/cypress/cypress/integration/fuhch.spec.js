@@ -2,10 +2,7 @@ describe("Measure: FUH-CH", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.login();
-    cy.deleteChildCoreSets();
-    cy.get('[data-cy="Add Child Core Set"]').click({ force: true }); // clicking on adding child core set measures
-    cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
-    cy.get('[data-cy="Create"]').click({ force: true }); //clicking create
+    cy.addCombinedChildCoreset();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("FUH-CH");
   });
