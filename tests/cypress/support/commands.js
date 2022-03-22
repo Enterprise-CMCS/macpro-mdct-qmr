@@ -25,6 +25,8 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
       cy.get('[data-cy="CCS"]').click({ force: true });
     } else {
       cy.addCombinedChildCoreset();
+      cy.wait(3000);
+      cy.get('[data-cy="CCS"]').click({ force: true });
     }
     cy.wait(3000);
   });
@@ -184,6 +186,11 @@ Cypress.Commands.add("addCombinedChildCoreset", () => {
   cy.wait(2000);
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="Add Child Core Set"]').length > 0) {
+      cy.get('[data-cy="Add Child Core Set"]').click();
+      cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
+      cy.get('[data-cy="Create"]').click({ force: true }); //add combined child core set
+    } else if ($tbody.find('[data-cy="CCSM"]').length > 0) {
+      cy.deleteChildCoreSets();
       cy.get('[data-cy="Add Child Core Set"]').click();
       cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
       cy.get('[data-cy="Create"]').click({ force: true }); //add combined child core set
