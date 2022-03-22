@@ -187,12 +187,6 @@ Cypress.Commands.add("addCombinedChildCoreset", () => {
       cy.get('[data-cy="Add Child Core Set"]').click();
       cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
       cy.get('[data-cy="Create"]').click({ force: true }); //add combined child core set
-    } else {
-      cy.deleteChildCoreSets();
-      cy.wait(3000);
-      cy.get('[data-cy="Add Child Core Set"]').click();
-      cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
-      cy.get('[data-cy="Create"]').click({ force: true }); //add combined child core set
     }
   });
 });
