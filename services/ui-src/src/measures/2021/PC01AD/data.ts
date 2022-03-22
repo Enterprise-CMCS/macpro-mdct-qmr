@@ -1,36 +1,31 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 
-export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
-export const categories = [
-  "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-  "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-  "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-  "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-  "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-  "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-  "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-  "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
+export const qualifiers = [
+  "Women with elective deliveries or C-sections at  ≥ 37 and <39 weeks",
 ];
+export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "The percentage of beneficiaries age 18 and older with a new episode of alcohol or other drug (AOD) abuse or dependence who received the following",
+    "The percentage of women with elective vaginal deliveries or elective cesarean sections at ≥ 37 and < 39 weeks of gestation completed.",
   ],
-  questionListItems: [
-    "Initiation of AOD Treatment: Percentage of beneficiaries who initiate treatment through an inpatient AOD admission, outpatient visit, intensive outpatient encounter, or partial hospitalization, telehealth, or medication assisted treatment within 14 days of the diagnosis.",
-    "Engagement of AOD Treatment: Percentage of beneficiaries who initiated treatment and who were engaged in ongoing AOD treatment within 34 days of the initiation visit.",
-  ],
+  questionListItems: [],
   categories,
   qualifiers,
 };
 
 export const dataSourceData: DataDrivenTypes.DataSource = {
+  describeMultipleSources: [
+    "Hybrid Data Source:",
+    "Electronic Health Records Data Source:",
+    "Other Data Source:",
+  ],
   optionsLabel:
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
   options: [
     {
-      value: DC.ADMINISTRATIVE_DATA,
+      value: DC.HYBRID_DATA,
       subOptions: [
         {
           label: "What is the Administrative Data Source?",
@@ -39,8 +34,26 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
               value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
             {
-              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              value: DC.VITAL_DATA_SOURCE,
+            },
+            {
+              value: DC.OTHER_DATA_SOURCE,
               description: true,
+            },
+          ],
+        },
+        {
+          label:
+            "What is the Medical Records Data Source? (Both can be selected)",
+          options: [
+            {
+              value: DC.EHR_DATA,
+            },
+            {
+              value: DC.PAPER,
+            },
+            {
+              value: "Both (EHR and Paper)",
             },
           ],
         },

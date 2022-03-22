@@ -10,11 +10,13 @@ export interface OptionNode {
 }
 
 export interface DataSourceData {
+  describeMultipleSources?: string[];
   options: OptionNode[];
   optionsLabel: string;
 }
 
 export const defaultData: DataSourceData = {
+  describeMultipleSources: ["Source 1", "Source 2"],
   optionsLabel:
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
   options: [

@@ -77,23 +77,6 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         />
       );
     }
-    if (node.value === DC.HYBRID_DATA) {
-      children.push(
-        ...buildDataSourceCheckboxOptionChildren({
-          data: [
-            {
-              value: "Electronic Health Record (EHR) Data",
-            },
-            {
-              value: "Paper",
-            },
-          ],
-          label:
-            "What is the Medical Records Data Source? (Both can be selected)",
-          parentName: `${adjustedParentName}-EHR`,
-        })
-      );
-    }
 
     checkBoxOptions.push({
       value: cleanedNodeValue,
@@ -124,7 +107,10 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
         options={buildDataSourceOptions({ data: data.options })}
       />
       {showExplanation && (
-        <CUI.VStack key={"DataSourceExplanationWrapper"}>
+        <CUI.VStack
+          key={"DataSourceExplanationWrapper"}
+          alignItems={"baseline"}
+        >
           <CUI.Text
             fontSize="sm"
             py="2"
@@ -136,7 +122,21 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             data source differed across health plans or delivery systems,
             identify the number of plans that used each data source:
           </CUI.Text>
-          <QMR.TextArea {...register(DC.DATA_SOURCE_DESCRIPTION)} />
+          {/* TODO: I'd like us to get in the habit of building unit tests around this kind of change */}
+          {data.describeMultipleSources &&
+            data.describeMultipleSources.map((source, i) => {
+              return (
+                <CUI.Stack key={`${source}-stack-${i}`} width={"100%"}>
+                  <CUI.Text key={`${source}-label`}>{source}</CUI.Text>
+                  <QMR.TextArea
+                    {...register(`${DC.DATA_SOURCE_SELECTIONS}-${source}`)}
+                  />
+                </CUI.Stack>
+              );
+            })}
+          {!data.describeMultipleSources && (
+            <QMR.TextArea {...register(DC.DATA_SOURCE_DESCRIPTION)} />
+          )}
         </CUI.VStack>
       )}
     </QMR.CoreQuestionWrapper>
