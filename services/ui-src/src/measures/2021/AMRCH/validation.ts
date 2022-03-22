@@ -21,7 +21,6 @@ import {
   validateOneRateLessThanOther,
   validateRateNotZero,
   validateRateZero,
-  validateOMSTotalNDR,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -83,7 +82,6 @@ const validateOMS = (data: FormData) => {
         validateOneRateLessThanOther,
         validateRateZero,
         validateRateNotZero,
-        validateOMSTotalNDR,
       ],
     }),
   ];
