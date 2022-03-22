@@ -23,13 +23,15 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click({ force: true });
+      cy.wait(2000);
+      cy.reload();
     } else {
       cy.addCombinedChildCoreset();
       cy.wait(2000);
       cy.get('[data-cy="CCS"]').click({ force: true });
+      cy.wait(2000);
+      cy.reload();
     }
-    cy.wait(2000);
-    cy.reload();
   });
 });
 
