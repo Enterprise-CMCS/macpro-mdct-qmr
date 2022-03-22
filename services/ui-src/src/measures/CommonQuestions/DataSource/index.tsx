@@ -122,7 +122,6 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             data source differed across health plans or delivery systems,
             identify the number of plans that used each data source:
           </CUI.Text>
-          {/* TODO: I'd like us to get in the habit of building unit tests around this kind of change */}
           {data.describeMultipleSources &&
             data.describeMultipleSources.map((source, i) => {
               return (
