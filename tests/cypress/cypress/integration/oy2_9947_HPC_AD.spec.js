@@ -354,6 +354,7 @@ describe("Measure: HPC-AD", () => {
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "5"
     );
+    //nothing
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
     ).clear();
