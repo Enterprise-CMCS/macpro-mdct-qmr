@@ -122,10 +122,15 @@ jobs:
             oy2_9963_CPC_CH.spec.js,
             oy2_9940_Measure_48_COB_AD.spec.js,
 <<<<<<< HEAD
+<<<<<<< HEAD
             oy2_9939_CCS_AD.spec.js,
 =======
             oy2_9929_PPC_AD.spec.js,
 >>>>>>> oy2-9939
+=======
+            oy2_9939_CCS_AD.spec.js,
+            oy2_9929_PPC_AD.spec.js,
+>>>>>>> bb1cf2ea4367a9676fc576bd325a600130a47e85
           ]
     steps:
       - name: set branch_name
