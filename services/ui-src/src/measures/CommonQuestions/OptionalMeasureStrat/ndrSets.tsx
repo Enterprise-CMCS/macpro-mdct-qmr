@@ -73,7 +73,7 @@ type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
  * If total is adjusted manually, this will not change the state object which stops a forced recalculation/render
  */
 const useOmsTotalRate = (omsName: string, totalName: string) => {
-  const { qualifiers, rateMultiplicationValue } =
+  const { qualifiers, rateMultiplicationValue, numberOfDecimals } =
     usePerformanceMeasureContext();
   const { watch, control } = useFormContext();
 
@@ -98,7 +98,8 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       .map((s) => s.replace(/[^\w]/g, ""))) {
       if (
         watchOMS?.[qual]?.["singleCategory"]?.[0]?.numerator &&
-        watchOMS?.[qual]?.["singleCategory"]?.[0]?.denominator
+        watchOMS?.[qual]?.["singleCategory"]?.[0]?.denominator &&
+        watchOMS?.[qual]?.["singleCategory"]?.[0]?.rate
       ) {
         tempRate.numerator += parseFloat(
           watchOMS[qual]["singleCategory"][0].numerator
@@ -109,9 +110,12 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       }
     }
 
-    tempRate.rate = Math.round(
-      (tempRate.numerator / tempRate.denominator) *
-        (rateMultiplicationValue ?? 100)
+    tempRate.rate = (
+      Math.round(
+        (tempRate.numerator / tempRate.denominator) *
+          (rateMultiplicationValue ?? 100) *
+          Math.pow(10, numberOfDecimals)
+      ) / Math.pow(10, numberOfDecimals)
     ).toFixed(1);
 
     if (
@@ -123,8 +127,8 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       setPrevCalcRate(tempRate);
       field.onChange([
         {
-          numerator: tempRate.numerator.toFixed(1),
-          denominator: tempRate.denominator.toFixed(1),
+          numerator: `${tempRate.numerator}`,
+          denominator: `${tempRate.denominator}`,
           rate: tempRate.rate,
         },
       ]);
@@ -136,6 +140,7 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
     field,
     prevCalcRate,
     setPrevCalcRate,
+    numberOfDecimals,
   ]);
 };
 
