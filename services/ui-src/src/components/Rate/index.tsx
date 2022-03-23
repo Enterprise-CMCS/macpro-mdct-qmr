@@ -215,6 +215,7 @@ export const Rate = ({
       prevRate[totalIndex]["rate"] = "";
     }
   };
+
   useEffect(
     () => () => {
       unregister(name);
