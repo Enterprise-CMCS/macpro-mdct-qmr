@@ -7,6 +7,7 @@ import { AMMAD } from "./AMMAD";
 import { CBPAD } from "./CBPAD";
 import { CCWAD } from "./CCWAD";
 import { CCPAD } from "./CCPAD";
+import { CCSAD } from "./CCSAD";
 import { COBAD } from "./COBAD";
 import { CHLAD } from "./CHLAD";
 import { CISCH } from "./CISCH";
@@ -24,6 +25,7 @@ import { OHDAD } from "./OHDAD";
 import { OUDAD } from "./OUDAD";
 import { NCIDDSAD } from "./NCIDDSAD";
 import { PDENTCH } from "./PDENTCH";
+import { PPCAD } from "./PPCAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI01AD } from "./PQI01AD";
 import { PQI15AD } from "./PQI15AD";
@@ -34,8 +36,9 @@ const twentyTwentyOneMeasures = {
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
   "CCP-AD": CCPAD,
-  "CIS-CH": CISCH,
+  "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
+  "CIS-CH": CISCH,
   "CPA-AD": CPAAD,
   "COB-AD": COBAD,
   "CHL-AD": CHLAD,
@@ -52,6 +55,7 @@ const twentyTwentyOneMeasures = {
   "OUD-AD": OUDAD,
   "NCIDDS-AD": NCIDDSAD,
   "PDENT-CH": PDENTCH,
+  "PPC-AD": PPCAD,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
