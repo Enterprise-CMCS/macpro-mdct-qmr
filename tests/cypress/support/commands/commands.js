@@ -8,11 +8,17 @@ const passwordForCognito = "//input[@name='password']";
 
 // the default stateuser1 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
-Cypress.Commands.add("login", (user = "stateuser1", password = "p@55W0rd!") => {
-  cy.xpath(emailForCognito).type(`${user}@test.com`);
-  cy.xpath(passwordForCognito).type(password);
-  cy.get('[data-cy="login-with-cognito-button"]').click();
-});
+Cypress.Commands.add(
+  "login",
+  (
+    user = "stateuser1", // pragma: allowlist secret
+    password = "p@55W0rd!" // pragma: allowlist secret
+  ) => {
+    cy.xpath(emailForCognito).type(`${user}@test.com`);
+    cy.xpath(passwordForCognito).type(password);
+    cy.get('[data-cy="login-with-cognito-button"]').click();
+  }
+);
 
 // Visit Adult Core Set Measures
 Cypress.Commands.add("goToAdultMeasures", () => {
