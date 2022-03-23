@@ -86,6 +86,7 @@ jobs:
             oy2_10017_Child_Measure_Qualifier_CH.spec.js,
             oy2-9954_PQI01AD.spec.js,
             oy2-9959_PQI15_AD.spec.js,
+            amrAD.spec.js,
             cpaAD.spec.feature,
             fuaAD.spec.feature,
             fuhch.spec.js,
