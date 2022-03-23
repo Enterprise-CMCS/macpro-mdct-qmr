@@ -23,9 +23,9 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
     return [];
   }
   const sevenDays =
-    data["PerformanceMeasure"]["rates"]["FollowUpwithin7daysafterdischarge"];
+    data.PerformanceMeasure.rates.FollowUpwithin7daysafterdischarge;
   const thirtyDays =
-    data["PerformanceMeasure"]["rates"]["FollowUpwithin30daysafterdischarge"];
+    data.PerformanceMeasure.rates.FollowUpwithin30daysafterdischarge;
 
   let error;
   const errorArray: any[] = [];
@@ -92,16 +92,16 @@ const sameDenominatorSets: OmsValidationCallback = ({
 
 const FUHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const dateRange = data["DateRange"];
+  const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
