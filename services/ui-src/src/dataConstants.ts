@@ -87,7 +87,6 @@ export const DID_COLLECT = "DidCollect";
 export const DID_REPORT = "DidReport";
 export const EHR_DATA = "Electronic Health Record (EHR) Data";
 export const END_DATE = "endDate";
-export const EHR_DATA = "Electronic Health Record (EHR) Data";
 export const ENTIRE_POP_NOT_COVERED = "EntirePopulationNotCovered";
 export const ELECTRONIC_HEALTH_RECORDS = "Electronic Health Records";
 export const EXPLAINATION = "explanation";
