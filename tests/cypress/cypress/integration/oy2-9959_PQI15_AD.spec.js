@@ -356,7 +356,9 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check({
+      force: true,
+    });
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement0]").click();
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement1]").click();
     cy.get(".css-1f2vcwt > .chakra-text").should("be.visible");
@@ -434,7 +436,9 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check({
+      force: true,
+    });
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
