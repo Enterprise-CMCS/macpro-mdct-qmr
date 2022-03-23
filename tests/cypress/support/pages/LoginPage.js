@@ -11,11 +11,11 @@ const goToStateHomeBTN = "//button[contains(text(),'Go To State Home')]";
 export class LoginPage {
   enterUserName() {
     //cy.get(usernameInput).type("State_QMR2");
-    cy.get(usernameInput).type(testConfig.TEST_USER_1);
+    cy.get(usernameInput).type(testConfig.TEST_USER_3);
   }
 
   enterEmailwithCognitoLogin() {
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_1);
+    cy.xpath(emailForCognito).type(testConfig.TEST_USER_3);
   }
 
   enterPasswordwithCognitoLogin() {
@@ -62,7 +62,7 @@ export class LoginPage {
   }
 
   loginasAStateUserWithCognito() {
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_1);
+    cy.xpath(emailForCognito).type(testConfig.TEST_USER_3);
     cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.xpath(loginWithCognitoButtn).click();
   }

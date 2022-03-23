@@ -6,7 +6,7 @@ describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sourc
   beforeEach(() => {
     // Seed database with test data
     cy.visit("/");
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_1);
+    cy.xpath(emailForCognito).type(testConfig.TEST_USER_3);
     cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.get('[data-cy="login-with-cognito-button"]').click();
     cy.goToAdultMeasures();
