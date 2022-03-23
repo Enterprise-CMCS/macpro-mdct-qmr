@@ -41,6 +41,7 @@ const DEVCHValidation = (data: FormData) => {
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,
+        GV.validateOMSTotalNDR,
         ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
         GV.validateRateNotZero,
       ],
