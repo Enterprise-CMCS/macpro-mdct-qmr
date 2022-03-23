@@ -16,6 +16,7 @@ import { CPCCH } from "./CPCCH";
 import { FUAAD } from "./FUAAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
+import { FVAAD } from "./FVAAD";
 import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
@@ -23,6 +24,7 @@ import { MSCAD } from "./MSCAD";
 import { OUDAD } from "./OUDAD";
 import { NCIDDSAD } from "./NCIDDSAD";
 import { PDENTCH } from "./PDENTCH";
+import { PPCAD } from "./PPCAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI01AD } from "./PQI01AD";
 import { PQI15AD } from "./PQI15AD";
@@ -43,6 +45,7 @@ const twentyTwentyOneMeasures = {
   "FUA-AD": FUAAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
+  "FVA-AD": FVAAD,
   "IET-AD": IETAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
@@ -50,6 +53,7 @@ const twentyTwentyOneMeasures = {
   "NCIDDS-AD": NCIDDSAD,
   "OUD-AD": OUDAD,
   "PDENT-CH": PDENTCH,
+  "PPC-AD": PPCAD,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
