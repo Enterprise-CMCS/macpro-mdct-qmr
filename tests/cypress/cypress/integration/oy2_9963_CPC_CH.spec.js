@@ -14,7 +14,7 @@ describe("OY2 9963 CPC CH", () => {
     );
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="DidCollect0"]').click();
+    cy.get('[data-cy="DidCollect0"]').click({ force: true });
     cy.get('[data-cy="HowDidYouReport1"]').click();
     cy.get('[data-cy="HowDidYouReport-Explanation"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
