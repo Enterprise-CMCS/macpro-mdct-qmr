@@ -368,9 +368,6 @@ describe("Measure: PQI15-AD", () => {
       force: true,
     });
     cy.get(
-      '[data-cy="What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in the measure?"]'
-    ).should("be.visible");
-    cy.get(
       '[data-cy="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data?"]'
     ).should("be.visible");
     cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();
@@ -384,9 +381,6 @@ describe("Measure: PQI15-AD", () => {
     cy.get("[data-cy=DeliverySys-IntegratedCareModel0]").click();
     cy.get("[data-cy=DeliverySys-IntegratedCareModel1]").click();
     cy.get("[data-cy=DeliverySysRepresentationDenominator4]").click();
-    cy.get(
-      ":nth-child(5) > .chakra-collapse > .css-zhlq69 > :nth-child(3) > .chakra-text"
-    ).should("be.visible");
     cy.get(
       "[data-cy=DefinitionOfDenominator0] > .chakra-checkbox__control"
     ).click();
