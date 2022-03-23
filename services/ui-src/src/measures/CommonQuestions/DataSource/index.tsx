@@ -77,23 +77,6 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         />
       );
     }
-    if (node.value === DC.HYBRID_DATA) {
-      children.push(
-        ...buildDataSourceCheckboxOptionChildren({
-          data: [
-            {
-              value: "Electronic Health Record (EHR) Data",
-            },
-            {
-              value: "Paper",
-            },
-          ],
-          label:
-            "What is the Medical Records Data Source? (Both can be selected)",
-          parentName: `${adjustedParentName}-EHR`,
-        })
-      );
-    }
 
     checkBoxOptions.push({
       value: cleanedNodeValue,
