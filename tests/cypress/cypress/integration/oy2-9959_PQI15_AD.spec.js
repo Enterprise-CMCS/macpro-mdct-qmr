@@ -364,7 +364,9 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check({
+      force: true,
+    });
     cy.get(
       '[data-cy="What percent of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in the measure?"]'
     ).should("be.visible");
@@ -376,7 +378,9 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check({
+      force: true,
+    });
     cy.get("[data-cy=DeliverySys-IntegratedCareModel0]").click();
     cy.get("[data-cy=DeliverySys-IntegratedCareModel1]").click();
     cy.get("[data-cy=DeliverySysRepresentationDenominator4]").click();
@@ -441,25 +445,35 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check({
+      force: true,
+    });
     cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check({
+      force: true,
+    });
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").uncheck();
+    cy.get("#DeliverySysRepresentationDenominator3-checkbox").uncheck({
+      force: true,
+    });
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check({
+      force: true,
+    });
     cy.get("[data-cy=DeliverySys-IntegratedCareModel0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator4] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator4-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator4-checkbox").check({
+      force: true,
+    });
     cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
     cy.get(".css-bxak8j").should("be.visible");
     /* ==== End Cypress Studio ==== */
