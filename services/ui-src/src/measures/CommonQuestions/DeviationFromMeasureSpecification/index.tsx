@@ -111,9 +111,17 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
       const topLvlOptions: TopLevelOptions = [];
       const { rates } = watchPerformanceMeasure;
 
-      /* This is checking if the rates object has a singleCategory key.
-      If it does, then it will return the low level deviation options. */
       if (rates.singleCategory) {
+        // A total category should have the label "Total", per the Figma design.
+        const totalIndex = rates.singleCategory.findIndex(
+          (cat: any) => cat.isTotal === true
+        );
+        if (totalIndex >= 0) {
+          rates.singleCategory[totalIndex].label = "Total";
+        }
+
+        /* This is checking if the rates object has a singleCategory key.
+        If it does, then it will return the low level deviation options. */
         return getLowLvlDeviationOptions({
           qualifiers: rates.singleCategory.filter(numDenExistInRate),
           name: DC.DEVIATIONS,
