@@ -282,7 +282,6 @@ describe("Measure: PQI01-AD", () => {
   it("Age ranges are represented in DMS and OMS", () => {
     cy.wait(1000);
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get("#radio-543").check();
     cy.get('[data-cy="DataSource0"]').click();
     cy.get("#DataSource0-checkbox").check();
     cy.get(
