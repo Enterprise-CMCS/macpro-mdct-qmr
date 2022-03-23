@@ -130,6 +130,7 @@ In order to hide the crendentials of test users a shell script has been added to
 sh configureLocal.sh your-branch-name
 
 Once it is done runnning you should see a test-config.js file in your tests/cypress directory and now the tests will be able to properly access the right credentials.
+
 ## Examples
 
 None.
