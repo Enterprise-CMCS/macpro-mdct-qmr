@@ -42,7 +42,7 @@ describe("Measure: AMR-CH", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.ageRangeRates.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
   });
 
