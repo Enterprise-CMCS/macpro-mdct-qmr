@@ -32,6 +32,8 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
       cy.wait(2000);
       cy.reload();
     }
+    cy.reload();
+    cy.wait(10000);
   });
 });
 
