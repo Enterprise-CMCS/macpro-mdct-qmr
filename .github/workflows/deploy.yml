@@ -81,7 +81,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [
+        containers:
+          [
             oy2_10017_Child_Measure_Qualifier_CH.spec.js,
             oy2-9954_PQI01AD.spec.js,
             oy2-9959_PQI15_AD.spec.js,
@@ -96,7 +97,7 @@ jobs:
             oy2_7763_FAQ_Page_State_View.spec.js,
             oy2_8977_MSC_AD.spec.js,
             OUDAD.spec.js,
-            ohd-ad.spec.js
+            ohd-ad.spec.js,
             CHLAD.spec.js,
             oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
             oy2_14767_Allow_files_to_be_uploaded_to_s3.spec.feature,
