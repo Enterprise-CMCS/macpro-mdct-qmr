@@ -29,5 +29,8 @@ declare namespace Cypress {
     showErrorIfReportingAndNoNdrSet(): Chainable<Element>;
 
     showErrorIfCombinedRatesAndNoAdditionalSelection(): Chainable<Element>;
+
+    /** Validate measure needs to wait for the page reload before components are interactable */
+    clickValidateMeasure(timeout?: number): Chainable<Element>;
   }
 }

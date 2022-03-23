@@ -34,8 +34,7 @@ Cypress.Commands.add("goToMeasure", (measure) => {
 
 // Correct sections visible when user is reporting data on measure
 Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
-  cy.wait(1000);
-  cy.get('[data-cy="DidReport0"]').click({ force: true });
+  cy.get('[data-cy="DidReport0"]').click();
 
   // these sections should not exist when a user selects they are reporting
   cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
@@ -179,4 +178,10 @@ Cypress.Commands.add("addCombinedChildCoreset", () => {
   cy.get('[data-cy="Add Child Core Set"]').click();
   cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
   cy.get('[data-cy="Create"]').click(); //add combined child core set
+});
+
+/** Validate measure needs a wait for the page reload before components are interactable */
+Cypress.Commands.add("clickValidateMeasure", (timeout = 500) => {
+  cy.get('[data-cy="Validate Measure"]').click();
+  cy.wait(timeout);
 });
