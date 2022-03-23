@@ -11,33 +11,33 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     cy.deleteChildCoreSets();
   });
 
-  // it("Screen Enhancement and adding child core set seperate", () => {
-  //   cy.wait(3000);
-  //   cy.get('[data-cy="Add Child Core Set"]').click(); //asserting text
-  //   cy.get("#ChildCoreSet-ReportType-separate").should(
-  //     "have.text",
-  //     "Reporting Medicaid and CHIP measures in separate Core sets"
-  //   ); //asserting text
-  //   cy.get("#ChildCoreSet-ReportType-combined").should(
-  //     "have.text",
-  //     "Reporting Medicaid and CHIP measures in combined Core sets"
-  //   ); //asserting text
-  //   cy.get("#ChildCoreSet-ReportType-separate").click({ force: true }); //clicking on create
-  //   cy.get('[data-cy="Create"]').click(); //adding seperate child core set
-  //   cy.get(":nth-child(1) > .chakra-stack > .chakra-text").should(
-  //     "have.text",
-  //     "Need to report on Child data?"
-  //   ); //asserting text
-  //   cy.get(":nth-child(2) > .chakra-stack > .chakra-text").should(
-  //     "have.text",
-  //     "Need to report on Health Home data?"
-  //   ); //asserting text
-  //   cy.get(":nth-child(2) > :nth-child(1) > a > .chakra-text").should(
-  //     "have.text",
-  //     "Child Core Set Measures: CHIP"
-  //   ); //asserting text
-  //   /* ==== End Cypress Studio ==== */
-  // });
+  it("Screen Enhancement and adding child core set seperate", () => {
+    cy.wait(3000);
+    cy.get('[data-cy="Add Child Core Set"]').click(); //asserting text
+    cy.get("#ChildCoreSet-ReportType-separate").should(
+      "have.text",
+      "Reporting Medicaid and CHIP measures in separate Core sets"
+    ); //asserting text
+    cy.get("#ChildCoreSet-ReportType-combined").should(
+      "have.text",
+      "Reporting Medicaid and CHIP measures in combined Core sets"
+    ); //asserting text
+    cy.get("#ChildCoreSet-ReportType-separate").click({ force: true }); //clicking on create
+    cy.get('[data-cy="Create"]').click(); //adding seperate child core set
+    cy.get(":nth-child(1) > .chakra-stack > .chakra-text").should(
+      "have.text",
+      "Need to report on Child data?"
+    ); //asserting text
+    cy.get(":nth-child(2) > .chakra-stack > .chakra-text").should(
+      "have.text",
+      "Need to report on Health Home data?"
+    ); //asserting text
+    cy.get(":nth-child(2) > :nth-child(1) > a > .chakra-text").should(
+      "have.text",
+      "Child Core Set Measures: CHIP"
+    ); //asserting text
+    /* ==== End Cypress Studio ==== */
+  });
   it("Adding child core set combined", () => {
     cy.get('[data-cy="Add Child Core Set"]').click(); // clicking on adding child core set measures
     cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
