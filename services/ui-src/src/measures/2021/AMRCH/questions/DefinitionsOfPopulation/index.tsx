@@ -168,7 +168,7 @@ export const DefinitionOfPopulation = ({
           ></QMR.TextInput>
         </CUI.Box>
       )}
-      <CUI.Box mt="5">
+      <CUI.Stack mt="5">
         <CUI.Heading size="sm" as="h3" my="2">
           Which delivery systems are represented in the denominator?
         </CUI.Heading>
@@ -186,7 +186,6 @@ export const DefinitionOfPopulation = ({
         <QMR.Checkbox
           formLabelProps={{ fontWeight: "400" }}
           {...register(DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR)}
-          label="Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system."
           options={[
             {
               displayValue: "Fee-for-Service (FFS)",
@@ -425,7 +424,7 @@ export const DefinitionOfPopulation = ({
             },
           ]}
         />
-      </CUI.Box>
+      </CUI.Stack>
     </QMR.CoreQuestionWrapper>
   );
 };
