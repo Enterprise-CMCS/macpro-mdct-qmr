@@ -298,8 +298,8 @@ describe("Measure: HPC-AD", () => {
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("3");
     cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-      ).clear();
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
+    ).clear();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
     ).type("3");
@@ -311,17 +311,28 @@ describe("Measure: HPC-AD", () => {
     ).type("4");
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
-    cy.get('#DeviationOptions0-checkbox').check();
-    cy.get('[data-cy="Deviations.Ages18to64.RateDeviationsSelected0"] > .chakra-checkbox__control').click();
-    cy.get('#Deviations\\.Ages18to64\\.RateDeviationsSelected0-checkbox').check();
+    cy.get("#DeviationOptions0-checkbox").check();
+    cy.get(
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Ages18to64\\.RateDeviationsSelected0-checkbox"
+    ).check();
     cy.get('[data-cy="Deviations.Ages18to64.numerator"]').click();
-    cy.get('[data-cy="Deviations.Ages18to64.RateDeviationsSelected1"] > .chakra-checkbox__control').click();
-    cy.get('#Deviations\\.Ages18to64\\.RateDeviationsSelected1-checkbox').check();
+    cy.get(
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected1"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Ages18to64\\.RateDeviationsSelected1-checkbox"
+    ).check();
     cy.get('[data-cy="Deviations.Ages18to64.denominator"]').click();
-    cy.get('[data-cy="Deviations.Ages18to64.RateDeviationsSelected2"] > .chakra-checkbox__control').click();
-    cy.get('#Deviations\\.Ages18to64\\.RateDeviationsSelected2-checkbox').check();
+    cy.get(
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected2"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Ages18to64\\.RateDeviationsSelected2-checkbox"
+    ).check();
     cy.get('[data-cy="Deviations.Ages18to64.other"]').click();
-    
   });
 
   // if Other measure spec is selected each age range/ custom description for which there are n/d/r
