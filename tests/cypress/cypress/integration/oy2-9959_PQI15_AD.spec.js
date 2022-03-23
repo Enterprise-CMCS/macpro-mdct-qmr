@@ -361,7 +361,6 @@ describe("Measure: PQI15-AD", () => {
     });
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement0]").click();
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement1]").click();
-    cy.get(".css-1f2vcwt > .chakra-text").should("be.visible");
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
@@ -374,7 +373,6 @@ describe("Measure: PQI15-AD", () => {
     ).should("be.visible");
     cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();
     cy.get("[data-cy=DeliverySys-MCO_PIHP1]").click();
-    cy.get(".css-98urqk > .chakra-text").should("be.visible");
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
