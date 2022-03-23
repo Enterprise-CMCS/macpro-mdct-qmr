@@ -2,18 +2,7 @@ import { FormData } from "./types";
 import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
 import * as DC from "dataConstants";
 import * as PMD from "./data";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateDualPopInformation,
-  validateNumeratorsLessThanDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  validateRequiredRadioButtonForCombinedRates,
-  getPerfMeasureRateArray,
-  getDeviationNDRArray,
-} from "../../globalValidations";
+import * as GV from "../../globalValidations";
 import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
@@ -25,41 +14,41 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 const OHDValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const dateRange = data["DateRange"];
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const dateRange = data[DC.DATE_RANGE];
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateDualPopInformation(
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateDualPopInformation(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator
     ),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -75,7 +64,7 @@ const OHDValidation = (data: FormData) => {
         validateRateNotZero,
       ],
     }),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
