@@ -168,7 +168,7 @@ export const DefinitionOfPopulation = ({
           ></QMR.TextInput>
         </CUI.Box>
       )}
-      <CUI.Stack mt="5">
+      <CUI.Stack mt="5" spacing={5}>
         <CUI.Heading size="sm" as="h3" my="2">
           Which delivery systems are represented in the denominator?
         </CUI.Heading>
