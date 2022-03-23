@@ -93,6 +93,7 @@ export const FFS = "FFS";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
+export const HRSA = "HRSA";
 export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
   "HybridAdministrativeandMedicalRecordsData";
 export const HYBRID_DATA = "Hybrid (Administrative and Medical Records Data)";
@@ -135,6 +136,7 @@ export const PARTIAL_POP_NOT_COVERED = "PartialPopulationNotCovered";
 export const PARTIAL_POP_NOT_COVERED_EXPLAINATION =
   "PartialPopulationNotCoveredExplanation";
 export const PCCM = "PCCM";
+export const PQA = "PQA";
 export const PERFORMANCE_MEASURE = "PerformanceMeasure";
 export const PERFORMANCE_MEASURE_EXPLAINATION =
   "PerformanceMeasure.explanation";
