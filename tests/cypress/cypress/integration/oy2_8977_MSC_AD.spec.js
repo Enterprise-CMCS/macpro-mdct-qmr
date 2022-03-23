@@ -65,8 +65,6 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
-    cy.get("[data-cy=DeliverySys-MCO_PIHP-Percent]").clear();
-    cy.get("[data-cy=DeliverySys-MCO_PIHP-Percent]").type("10");
     cy.get("[data-cy=DeliverySys-MCO_PIHP-NumberOfPlans]").clear();
     cy.get("[data-cy=DeliverySys-MCO_PIHP-NumberOfPlans]").type("20");
     cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();
@@ -82,8 +80,6 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get("[data-cy=DeliverySys-Other-Percent]").type("10");
     cy.get("[data-cy=DeliverySys-Other-NumberOfHealthPlans]").clear();
     cy.get("[data-cy=DeliverySys-Other-NumberOfHealthPlans]").type("20");
-    cy.get("[data-cy=DeliverySys-Other-Population]").clear();
-    cy.get("[data-cy=DeliverySys-Other-Population]").type("30");
 
     cy.get("[data-cy=PerformanceMeasure-Explanation]").click();
     /* ==== Performance Measure and Deviations from Measure Specifications ==== */
