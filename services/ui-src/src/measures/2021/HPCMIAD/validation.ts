@@ -36,7 +36,8 @@ const HPCMIADValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
-      DefinitionOfDenominator
+      DefinitionOfDenominator,
+      PMD.qualifiers[1]
     ),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
@@ -67,10 +68,9 @@ const HPCMIADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateOneRateLessThanOther,
         GV.validateDenominatorGreaterThanNumerator,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
         GV.validateRateNotZero,
+        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
       ],
     }),
   ];
