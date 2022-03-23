@@ -65,8 +65,6 @@ describe("OY2 9920 Measure 34: CBP-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
-    cy.get("[data-cy=DeliverySys-MCO_PIHP-Percent]").clear();
-    cy.get("[data-cy=DeliverySys-MCO_PIHP-Percent]").type("10");
     cy.get("[data-cy=DeliverySys-MCO_PIHP-NumberOfPlans]").clear();
     cy.get("[data-cy=DeliverySys-MCO_PIHP-NumberOfPlans]").type("20");
     cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();

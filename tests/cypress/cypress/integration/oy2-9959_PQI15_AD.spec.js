@@ -354,9 +354,6 @@ describe("Measure: PQI15-AD", () => {
       '[data-cy="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="What number of your measure-eligible Fee-for-Service (FFS) population are included in the measure? (optional)"]'
-    ).should("be.visible");
-    cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
     cy.get("#DeliverySysRepresentationDenominator1-checkbox").check();

@@ -54,7 +54,6 @@ export const DELIVERY_SYS_MCO_PIHP_NO_EXCL = "DeliverySys-MCO_PIHP-No-Excluded";
 export const DELIVERY_SYS_MCO_PIHP_NO_INC = "DeliverySys-MCO_PIHP-No-Included";
 export const DELIVERY_SYS_MCO_PIHP_NUM_PLANS =
   "DeliverySys-MCO_PIHP-NumberOfPlans";
-export const DELIVERY_SYS_MCO_PIHP_PERCENT = "DeliverySys-MCO_PIHP-Percent";
 export const DELIVERY_SYS_OTHER = "DeliverySys-Other";
 export const DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS =
   "DeliverySys-Other-NumberOfHealthPlans";
