@@ -12,6 +12,13 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSMQualifierForm) => {
     0
   );
 
+  if (totalUnder21MedicaidPercent === 0) {
+    errorArray.push({
+      errorLocation: "Delivery System",
+      errorMessage: "Entries for Under Age 21 Medicaid are required.",
+    });
+  }
+
   if (
     totalUnder21MedicaidPercent > 0 &&
     (totalUnder21MedicaidPercent < 99 || totalUnder21MedicaidPercent > 101)
