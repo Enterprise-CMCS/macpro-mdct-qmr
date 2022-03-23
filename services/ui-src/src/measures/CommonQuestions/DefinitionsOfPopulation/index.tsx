@@ -157,15 +157,17 @@ export const DefinitionOfPopulation = ({
             If you are reporting as a hybrid measure, provide the measure
             eligible population and sample size.
           </CUI.Heading>
-          <QMR.TextInput
-            formControlProps={{ my: "4" }}
-            label="What number of your measure-eligible population are included in the measure?"
+          <QMR.NumberInput
             {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
-          ></QMR.TextInput>
-          <QMR.TextInput
-            label="Specify the sample size:"
+            formControlProps={{ my: "4" }}
+            mask={allPositiveIntegers}
+            label="What number of your measure-eligible population are included in the measure?"
+          />
+          <QMR.NumberInput
             {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
-          ></QMR.TextInput>
+            mask={allPositiveIntegers}
+            label="Specify the sample size:"
+          />
         </CUI.Box>
       )}
       <CUI.Box mt="5">

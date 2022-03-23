@@ -3,7 +3,7 @@ describe("Measure: AMR-CH", () => {
     cy.visit("/");
     cy.login();
     cy.deleteChildCoreSets();
-    cy.goToChildMeasures();
+    cy.goToChildCoreSetMeasures();
     cy.goToMeasure("AMR-CH");
   });
 

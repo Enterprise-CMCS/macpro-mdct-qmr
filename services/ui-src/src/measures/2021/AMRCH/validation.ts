@@ -1,37 +1,41 @@
+import { FormData } from "./types";
+import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 import {
   atLeastOneRateComplete,
   ensureBothDatesCompletedInRange,
-  validateDualPopInformation,
-  validateNumeratorsLessThanDenominators,
-  validateEqualDenominators,
+  getDeviationNDRArray,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateNoNonZeroNumOrDenom,
+  validateNumeratorsLessThanDenominators,
   validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
-} from "../../globalValidations/validationsLib";
-import { getPerfMeasureRateArray } from "../../globalValidations";
-import { FormData } from "./types";
+  validateTotalNDR,
+} from "../../globalValidations";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateDenominatorsAreTheSame,
+  validateOneRateLessThanOther,
+  validateRateNotZero,
+  validateRateZero,
+} from "measures/globalValidations/omsValidationsLib";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const IEDValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
-  const age65PlusIndex = 1;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
+const AMRADValidation = (data: FormData) => {
+  const ageGroups = ["Ages 19 to 50", "Ages 51 to 64", "Total (Ages 19 to 64)"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
-
-  const totalInitiation = performanceMeasureArray.filter(
-    (_, idx) =>
-      PMD.data.categories?.[idx].includes("Initiation") &&
-      PMD.data.categories?.[idx].includes("Total")
-  )[0];
-
-  const totalEngagement = performanceMeasureArray.filter(
-    (_, idx) =>
-      PMD.data.categories?.[idx].includes("Engagement") &&
-      PMD.data.categories?.[idx].includes("Total")
-  )[0];
+  const whyNotReporting = data["WhyAreYouNotReporting"];
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
@@ -39,51 +43,48 @@ const IEDValidation = (data: FormData) => {
     return errorArray;
   }
 
-  let unfilteredSameDenominatorErrors: any[] = [];
-  for (let i = 0; i < performanceMeasureArray.length; i += 2) {
-    unfilteredSameDenominatorErrors = [
-      ...unfilteredSameDenominatorErrors,
-      ...validateEqualDenominators(
-        [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
-        ageGroups
-      ),
-    ];
-  }
-  unfilteredSameDenominatorErrors = [
-    ...unfilteredSameDenominatorErrors,
-    ...validateEqualDenominators([totalInitiation, totalEngagement], ageGroups),
-  ];
-
-  let filteredSameDenominatorErrors: any = [];
-  let errorList: string[] = [];
-  unfilteredSameDenominatorErrors.forEach((error) => {
-    if (!(errorList.indexOf(error.errorMessage) > -1)) {
-      errorList.push(error.errorMessage);
-      filteredSameDenominatorErrors.push(error);
-    }
-  });
-
   errorArray = [
-    ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateDualPopInformation(
+    ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      OPM,
-      age65PlusIndex,
-      DefinitionOfDenominator
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
     ),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...filteredSameDenominatorErrors,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
-    ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateTotalNDR(performanceMeasureArray),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [IEDValidation];
+const validateOMS = (data: FormData) => {
+  return [
+    ...omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        validateDenominatorGreaterThanNumerator,
+        validateDenominatorsAreTheSame,
+        validateOneRateLessThanOther,
+        validateRateZero,
+        validateRateNotZero,
+      ],
+    }),
+  ];
+};
+
+export const validationFunctions = [AMRADValidation, validateOMS];

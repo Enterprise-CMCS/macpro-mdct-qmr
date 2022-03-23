@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
+import * as Q from "./questions";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
@@ -42,7 +43,7 @@ export const AMRCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <Q.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
