@@ -8,9 +8,9 @@ const passwordForCognito = "//input[@name='password']";
 
 // the default stateuser1 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
-Cypress.Commands.add("login", (user = "stateuser1") => {
+Cypress.Commands.add("login", (user = "stateuser1", password = "p@55W0rd!") => {
   cy.xpath(emailForCognito).type(`${user}@test.com`);
-  cy.xpath(passwordForCognito).type("p@55W0rd!");
+  cy.xpath(passwordForCognito).type(password);
   cy.get('[data-cy="login-with-cognito-button"]').click();
 });
 
@@ -34,8 +34,7 @@ Cypress.Commands.add("goToMeasure", (measure) => {
 
 // Correct sections visible when user is reporting data on measure
 Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
-  cy.wait(1000);
-  cy.get('[data-cy="DidReport0"]').click({ force: true });
+  cy.get('[data-cy="DidReport0"]').click();
 
   // these sections should not exist when a user selects they are reporting
   cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
@@ -84,6 +83,7 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
   ).should("be.visible");
 });
 
+// removes child core set from main page
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
@@ -142,6 +142,7 @@ Cypress.Commands.add("checkA11yOfPage", () => {
   );
 });
 
+// if user doesn't fill description box, show error
 Cypress.Commands.add("showErrorIfNotReportingAndNotWhy", () => {
   cy.get('[data-cy="DidReport1"]').click();
   cy.get('[data-cy="Validate Measure"]').click();
@@ -177,4 +178,10 @@ Cypress.Commands.add("addCombinedChildCoreset", () => {
   cy.get('[data-cy="Add Child Core Set"]').click();
   cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
   cy.get('[data-cy="Create"]').click(); //add combined child core set
+});
+
+/** Validate measure needs a wait for the page reload before components are interactable */
+Cypress.Commands.add("clickValidateMeasure", (timeout = 500) => {
+  cy.get('[data-cy="Validate Measure"]').click();
+  cy.wait(timeout);
 });
