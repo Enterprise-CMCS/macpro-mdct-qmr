@@ -58,7 +58,6 @@ export const DELIVERY_SYS_OTHER = "DeliverySys-Other";
 export const DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS =
   "DeliverySys-Other-NumberOfHealthPlans";
 export const DELIVERY_SYS_OTHER_PERCENT = "DeliverySys-Other-Percent";
-export const DELIVERY_SYS_OTHER_POP = "DeliverySys-Other-Population";
 export const DELIVERY_SYS_PCCM = "DeliverySys-PrimaryCareManagement";
 export const DELIVERY_SYS_PCCM_NO_PERCENT =
   "DeliverySys-PrimaryCareManagement-No-Percent";

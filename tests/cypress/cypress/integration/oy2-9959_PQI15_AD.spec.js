@@ -425,7 +425,9 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator0] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator0-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator0-checkbox").check({
+      force: true,
+    });
     cy.get(
       "#DeliverySys-FeeForService_radiogroup > .chakra-stack > :nth-child(1) > .chakra-radio"
     ).click();
