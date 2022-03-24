@@ -76,7 +76,7 @@ jobs:
   cypress-test:
     name: Cypress Tests
     needs: deploy
-    if: ${{ github.ref != 'refs/heads/prod' }}
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -197,7 +197,7 @@ jobs:
   a11y-tests:
     name: A11y Tests
     needs: deploy
-    if: ${{ github.ref != 'refs/heads/prod' }}
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
