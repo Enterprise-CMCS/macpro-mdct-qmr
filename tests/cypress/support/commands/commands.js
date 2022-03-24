@@ -202,7 +202,7 @@ Cypress.Commands.add("addCombinedChildCoreset", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="CCSM"]').length > 0) {
       cy.deleteChildCoreSets();
-      wait(2000);
+      cy.wait(2000);
     }
 
     if ($tbody.find('[data-cy="Add Child Core Set"]').length > 0) {

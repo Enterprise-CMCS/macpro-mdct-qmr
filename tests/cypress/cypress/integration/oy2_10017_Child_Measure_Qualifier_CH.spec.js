@@ -339,7 +339,6 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
     /* ==== End Cypress Studio ==== */
   });
   it("Child Core Set Measures: Chip", () => {
-    cy.deleteChildCoreSets();
     //Adding Child Core Set Measure, seperate
     cy.get('[data-cy="Add Child Core Set"]').click();
     cy.get("#ChildCoreSet-ReportType-separate").click({ force: true });
