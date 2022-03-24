@@ -86,12 +86,12 @@ const OMSValidations: GV.OmsValidationCallback = ({
   label,
 }) => {
   return [
-    ...PCRADnoNonZeroNumOrDenom(
-      [rateData?.["pcrad-rate"] ?? []],
-      rateData?.rates ?? [],
-      ndrForumlas,
-      `Optional Measure Stratification: ${locationDictionary(label)}`
-    ),
+    // ...PCRADnoNonZeroNumOrDenom(
+    //   [rateData?.["pcrad-rate"] ?? []],
+    //   rateData?.rates ?? [],
+    //   ndrForumlas,
+    //   `Optional Measure Stratification: ${locationDictionary(label)}`
+    // ),
     ...PCRADatLeastOneRateComplete(
       [rateData?.["pcrad-rate"] ?? []],
       rateData?.rates ?? [],
@@ -186,7 +186,7 @@ const PCRADatLeastOneRateComplete = (
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
-      if (measure.rate && measure.rate[0] && measure.rate[0].rate) {
+      if (measure?.OPM?.[0]?.rate || measure?.rate?.[0]?.rate) {
         error = false;
       }
     });
