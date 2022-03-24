@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
@@ -28,12 +28,7 @@ export const PC01AD = ({
   }, [setValidationFunctions]);
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const dataSourceWatch = useWatch({ name: "DataSource" });
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source: string) => source === "HybridAdministrativeandMedicalRecordsData"
-    ) ?? true;
+  const rateReadOnly = false;
 
   return (
     <>

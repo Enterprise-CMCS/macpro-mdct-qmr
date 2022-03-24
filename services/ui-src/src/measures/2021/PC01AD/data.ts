@@ -52,9 +52,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
             {
               value: DC.PAPER,
             },
-            {
-              value: "Both (EHR and Paper)",
-            },
           ],
         },
       ],
