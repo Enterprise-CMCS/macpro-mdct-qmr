@@ -23,6 +23,11 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click({ force: true });
+    } else if ($tbody.find('[data-cy="CCSM"]').length > 0) {
+      cy.deleteChildCoreSets();
+      cy.get('[data-cy="Add Child Core Set"]').click();
+      cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
+      cy.get('[data-cy="Create"]').click({ force: true }); //add combined child core set
     } else {
       cy.addCombinedChildCoreset();
       cy.wait(2000);
