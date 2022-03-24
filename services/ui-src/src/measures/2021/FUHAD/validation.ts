@@ -4,12 +4,12 @@ import * as GV from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 import {
-  OmsValidationCallback,
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateOneRateLessThanOther,
   validateRateNotZero,
   validateRateZero,
+  validateDenominatorsAreTheSame,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -50,45 +50,45 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
   return error ? errorArray : [];
 };
 
-const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-const sameDenominatorSets: OmsValidationCallback = ({
-  rateData,
-  locationDictionary,
-  categories,
-  qualifiers,
-  isOPM,
-  label,
-}) => {
-  if (isOPM) return [];
-  const errorArray: FormError[] = [];
+// const cleanString = (s: string) => s.replace(/[^\w]/g, "");
+// const sameDenominatorSets: OmsValidationCallback = ({
+//   rateData,
+//   locationDictionary,
+//   categories,
+//   qualifiers,
+//   isOPM,
+//   label,
+// }) => {
+//   if (isOPM) return [];
+//   const errorArray: FormError[] = [];
 
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (let initiation = 0; initiation < categories.length; initiation += 2) {
-      const engagement = initiation + 1;
-      const initRate =
-        rateData.rates?.[qual]?.[cleanString(categories[initiation])]?.[0];
-      const engageRate =
-        rateData.rates?.[qual]?.[cleanString(categories[engagement])]?.[0];
+//   for (const qual of qualifiers.map((s) => cleanString(s))) {
+//     for (let initiation = 0; initiation < categories.length; initiation += 2) {
+//       const engagement = initiation + 1;
+//       const initRate =
+//         rateData.rates?.[qual]?.[cleanString(categories[initiation])]?.[0];
+//       const engageRate =
+//         rateData.rates?.[qual]?.[cleanString(categories[engagement])]?.[0];
 
-      if (
-        initRate &&
-        engageRate &&
-        initRate.denominator !== engageRate.denominator
-      ) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qual]
-          )}`,
-          errorMessage: `Denominators must be the same for ${locationDictionary(
-            [categories[initiation]]
-          )} and ${locationDictionary([categories[engagement]])}.`,
-        });
-      }
-    }
-  }
+//       if (
+//         initRate &&
+//         engageRate &&
+//         initRate.denominator !== engageRate.denominator
+//       ) {
+//         errorArray.push({
+//           errorLocation: `Optional Measure Stratification: ${locationDictionary(
+//             [...label, qual]
+//           )}`,
+//           errorMessage: `Denominators must be the same for ${locationDictionary(
+//             [categories[initiation]]
+//           )} and ${locationDictionary([categories[engagement]])}.`,
+//         });
+//       }
+//     }
+//   }
 
-  return errorArray;
-};
+//   return errorArray;
+// };
 
 const FUHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -168,7 +168,7 @@ const FUHValidation = (data: FormData) => {
         validateDenominatorGreaterThanNumerator,
         validateRateZero,
         validateRateNotZero,
-        sameDenominatorSets,
+        validateDenominatorsAreTheSame,
       ],
     }),
   ];
