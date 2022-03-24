@@ -12,11 +12,11 @@ describe("Measure: HPCMI-AD", () => {
   });
 
   it(
-    'shows a validation warning if "not reporting" selected with no reason provided',
+    'displays a warning if "not reporting" selected with no reason provided',
     cy.showErrorIfNotReportingAndNotWhy
   );
 
-  it("shows the correct measurement specification options", () => {
+  it("displays the correct measurement specification options", () => {
     cy.get("#MeasurementSpecification-NCQAHEDIS").should(
       "have.text",
       "National Committee for Quality Assurance (NCQA)"
@@ -24,7 +24,7 @@ describe("Measure: HPCMI-AD", () => {
     cy.get("#MeasurementSpecification-Other").should("have.text", "Other");
   });
 
-  it("shows the correct data source options", () => {
+  it("displays the correct data source options", () => {
     cy.get('[data-cy="DataSource0"]').should(
       "include.text",
       "Administrative Data"
@@ -39,7 +39,7 @@ describe("Measure: HPCMI-AD", () => {
     );
   });
 
-  it("shows performance measures if primary measurement spec is selected", () => {
+  it("displays performance measures if primary measurement spec is selected", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="Performance Measure"]').should("be.visible");
@@ -60,7 +60,7 @@ describe("Measure: HPCMI-AD", () => {
     ).should("be.visible");
   });
 
-  it("shows other performance measures if other measurement spec is selected", () => {
+  it("displays other performance measures if other measurement spec is selected", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification1"]').click();
     cy.get(
@@ -69,7 +69,7 @@ describe("Measure: HPCMI-AD", () => {
     cy.get('[data-cy="Other Performance Measure"]').should("be.visible");
   });
 
-  it('shows no validation error when user enters 0 for numerator and rate while "hybrid" is selected', () => {
+  it('displays no warning when user enters 0 for numerator and rate while "hybrid" is selected', () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.enterValidDateRange();
@@ -185,12 +185,12 @@ describe("Measure: HPCMI-AD", () => {
   });
 
   it(
-    "at least one dnr set if reporting and measurement spec or error.",
+    "displays a warning if reporting and measurement spec are selected without an NDR set",
     cy.showErrorIfReportingAndNoNdrSet
   );
 
   it(
-    "if yes for combined rates → and no additional selection → show warning",
+    'displays a warning if "Yes" is chosen for Combined Rates without an additional selection',
     cy.showErrorIfCombinedRatesAndNoAdditionalSelection
   );
 });
