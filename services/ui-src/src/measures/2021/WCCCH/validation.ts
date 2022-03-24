@@ -94,7 +94,7 @@ const WCCHValidation = (data: FormData) => {
       ],
     }),
     ...validateRequiredRadioButtonForCombinedRates(data),
-    ...validateTotalNDR(performanceMeasureArray),
+    ...validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
   ];
 
   return errorArray;

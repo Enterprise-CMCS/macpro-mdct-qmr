@@ -294,14 +294,15 @@ Default assumption is that this is run for Performance Measure unless specified.
 */
 export const validateTotalNDR = (
   performanceMeasureArray: PerformanceMeasure[][],
-  errorLocation: string = "Performance Measure"
+  errorLocation = "Performance Measure",
+  categories?: string[]
 ) => {
   let errorArray: any[] = [];
-  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
-  let denominatorSum: any = null;
 
-  performanceMeasureArray.forEach((ndrSet) => {
+  performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
+    let numeratorSum = 0;
+    let denominatorSum = 0;
     ndrSet.slice(0, -1).forEach((item: any) => {
       if (item !== undefined && item !== null && !item["isTotal"]) {
         let x;
@@ -325,7 +326,9 @@ export const validateTotalNDR = (
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
+          errorMessage: `${
+            (categories && categories[idx]) || totalNDR.label
+          } numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
@@ -335,7 +338,9 @@ export const validateTotalNDR = (
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
+          errorMessage: `${
+            (categories && categories[idx]) || totalNDR.label
+          } denominator field is not equal to the sum of other denominators.`,
         });
       }
     }
