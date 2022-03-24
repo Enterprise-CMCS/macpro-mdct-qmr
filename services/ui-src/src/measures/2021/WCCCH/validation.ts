@@ -20,6 +20,8 @@ import {
   validateOneRateLessThanOther,
   validateRateNotZero,
   validateRateZero,
+  validateTotalNDR,
+  validateOMSTotalNDR,
 } from "measures/globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -87,10 +89,12 @@ const WCCHValidation = (data: FormData) => {
         validateDenominatorsAreTheSame,
         validateOneRateLessThanOther,
         validateRateNotZero,
+        validateOMSTotalNDR,
         ...(includesHybridDataSource ? [] : [validateRateZero]),
       ],
-      ...validateRequiredRadioButtonForCombinedRates(data),
     }),
+    ...validateRequiredRadioButtonForCombinedRates(data),
+    ...validateTotalNDR(performanceMeasureArray),
   ];
 
   return errorArray;

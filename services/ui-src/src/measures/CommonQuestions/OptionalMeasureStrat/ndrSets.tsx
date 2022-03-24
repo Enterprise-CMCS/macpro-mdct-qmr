@@ -101,6 +101,7 @@ const useOmsTotalRate = (
     prevCalcRate,
     setPrevCalcRate,
     numberOfDecimals,
+    cleanedCategory,
   ]);
 };
 
@@ -166,7 +167,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     const ndrSets: React.ReactElement[] = [];
 
     performanceMeasureArray?.forEach((measure, idx) => {
-      if (measure?.[qualIndex].rate) {
+      if (measure?.[qualIndex]?.rate) {
         const adjustedName = `${name}.rates.${cleanString(
           singleQual
         )}.${cleanString(categories[idx])}`;
