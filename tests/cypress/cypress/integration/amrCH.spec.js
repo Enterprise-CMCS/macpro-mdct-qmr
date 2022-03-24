@@ -249,7 +249,7 @@ describe("Measure: AMR-CH", () => {
     );
   });
 
-  it.only("automatically applies Total NDR set for OMS sections nested in checkbox", () => {
+  it("automatically applies Total NDR set for OMS sections nested in checkbox", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DateRange.startDate-month"]').type("1");
     cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
