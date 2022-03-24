@@ -79,10 +79,6 @@ describe("Measure: OHD-AD", () => {
       "have.text",
       "If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
     );
-    cy.get("#field-565-helptext").should(
-      "have.text",
-      "For example: deviation from measure specification might include different methodology, timeframe, or reported age groups."
-    );
     cy.get(".css-35ezg3").should(
       "have.text",
       "Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate?"
@@ -168,7 +164,7 @@ describe("Measure: OHD-AD", () => {
       cy.get(
         '[data-cy="You must select at least one option for Combined Rate(s) Details if Yes is selected."] > .chakra-text'
       ).should("be.visible");
-      cy.get("[data-cy=CombinedRates-CombinedRates0]").click({ force: true });
+      cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
       cy.clickValidateMeasure();
       /* ==== End Cypress Studio ==== */
       cy.get(
@@ -203,7 +199,7 @@ describe("Measure: OHD-AD", () => {
   describe("Performance Measure Validations", () => {
     it("Must have one PM filled", () => {
       /* ==== Generated with Cypress Studio ==== */
-      cy.get('[data-cy="MeasurementSpecification0"]').click({ force: true });
+      cy.get('[data-cy="MeasurementSpecification0"]').click();
       cy.clickValidateMeasure();
       cy.get(
         '[data-cy="Performance Measure/Other Performance Measure Error"]'
@@ -247,7 +243,7 @@ describe("Measure: OHD-AD", () => {
 
     it("must have lower numerator than denominator", () => {
       /* ==== Generated with Cypress Studio ==== */
-      cy.get('[data-cy="MeasurementSpecification0"]').click({ force: true });
+      cy.get('[data-cy="MeasurementSpecification0"]').click();
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
       ).clear();
@@ -284,7 +280,7 @@ describe("Measure: OHD-AD", () => {
     });
 
     it("Must have a correct manually entered rate", () => {
-      cy.get('[data-cy="MeasurementSpecification0"]').click({ force: true });
+      cy.get('[data-cy="MeasurementSpecification0"]').click();
       /* ==== Generated with Cypress Studio ==== */
       cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
       cy.get("#DataSource1-checkbox").check();
@@ -345,7 +341,7 @@ describe("Measure: OHD-AD", () => {
 
   describe("OMS Validations", () => {
     it("Must have denominator greater than or equal to numerator", () => {
-      cy.get('[data-cy="MeasurementSpecification0"]').click({ force: true });
+      cy.get('[data-cy="MeasurementSpecification0"]').click();
       /* ==== Generated with Cypress Studio ==== */
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -417,7 +413,7 @@ describe("Measure: OHD-AD", () => {
     });
 
     it("Must have a proper rate if manually entered", () => {
-      cy.get('[data-cy="MeasurementSpecification0"]').click({ force: true });
+      cy.get('[data-cy="MeasurementSpecification0"]').click();
       /* ==== Generated with Cypress Studio ==== */
       cy.get(
         '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
@@ -528,7 +524,7 @@ describe("Measure: OHD-AD", () => {
     });
 
     it("Must have NDRs filled in OMS if a selection is made", () => {
-      cy.get('[data-cy="MeasurementSpecification0"]').click({ force: true });
+      cy.get('[data-cy="MeasurementSpecification0"]').click();
       /* ==== Generated with Cypress Studio ==== */
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -614,7 +610,7 @@ describe("Measure: OHD-AD", () => {
 
   describe("Deviation of Measure Spec Validations", () => {
     it("Must have at least one NDR filled", () => {
-      cy.get('[data-cy="MeasurementSpecification0"]').click({ force: true });
+      cy.get('[data-cy="MeasurementSpecification0"]').click();
       /* ==== Generated with Cypress Studio ==== */
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
