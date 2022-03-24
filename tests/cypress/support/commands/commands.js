@@ -33,9 +33,13 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
       cy.deleteChildCoreSets();
       cy.wait(5000);
       cy.addCombinedChildCoreset();
+      cy.reload();
+      cy.wait(5000);
       cy.get('[data-cy="CCS"]').click({ force: true });
     } else {
       cy.addCombinedChildCoreset();
+      cy.wait(5000);
+      cy.reload();
       cy.wait(5000);
       cy.get('[data-cy="CCS"]').click({ force: true });
     }
