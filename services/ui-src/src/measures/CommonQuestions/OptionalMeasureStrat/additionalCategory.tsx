@@ -60,6 +60,7 @@ export const AddAnotherSection = ({
         onClick={() => append({})}
         additionalText={parentName}
         key={`${name}.additionalCategoriesButton`}
+        testid={`${name}.additionalCategoriesButton`}
       />
     </CUI.Box>
   );
