@@ -18,6 +18,7 @@ import { CPCCH } from "./CPCCH";
 import { FUAAD } from "./FUAAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
+import { HPCAD } from "./HPCAD";
 import { FVAAD } from "./FVAAD";
 import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
@@ -50,6 +51,7 @@ const twentyTwentyOneMeasures = {
   "FUA-AD": FUAAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
+  "HPC-AD": HPCAD,
   "FVA-AD": FVAAD,
   "IET-AD": IETAD,
   "LBW-CH": LBWCH,
