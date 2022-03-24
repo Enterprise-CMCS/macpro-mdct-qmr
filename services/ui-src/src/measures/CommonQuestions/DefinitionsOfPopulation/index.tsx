@@ -101,7 +101,7 @@ export const DefinitionOfPopulation = ({
           <QMR.TextInput
             formControlProps={{ my: "4" }}
             {...register(DC.DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN)}
-            label="If the denominator is a subset of the definition selected above, please further define the denominator, and indicate the number of children excluded"
+            label="If the denominator is a subset of the definition selected above, please further define the denominator, and indicate the number of children excluded."
           />
         </CUI.Box>
       )}

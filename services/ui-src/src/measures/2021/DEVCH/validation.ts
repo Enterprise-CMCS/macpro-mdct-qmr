@@ -37,6 +37,7 @@ const DEVCHValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
+      customTotalLabel: "Children",
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
