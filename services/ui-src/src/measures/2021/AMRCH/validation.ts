@@ -24,7 +24,7 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const AMRADValidation = (data: FormData) => {
+const AMRCHValidation = (data: FormData) => {
   const ageGroups = ["Ages 19 to 50", "Ages 51 to 64", "Total (Ages 19 to 64)"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
@@ -87,4 +87,4 @@ const validateOMS = (data: FormData) => {
   ];
 };
 
-export const validationFunctions = [AMRADValidation, validateOMS];
+export const validationFunctions = [AMRCHValidation, validateOMS];
