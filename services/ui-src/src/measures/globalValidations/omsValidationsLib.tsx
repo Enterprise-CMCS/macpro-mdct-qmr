@@ -255,6 +255,10 @@ const validateNDRs = (
   };
   //checks at least one ndr filled
   const checkNdrsFilled = (rateData: RateData) => {
+    // pcr-ad check
+    if (rateData?.["pcrad-rate"]) {
+      return rateData["pcrad-rate"].every((o) => !!o?.value);
+    }
     for (const qual of qualifiers.map((s) => cleanString(s))) {
       for (const cat of categories.map((s) => cleanString(s))) {
         if (rateData.rates?.[qual]?.[cat]) {
@@ -264,10 +268,6 @@ const validateNDRs = (
           }
         }
       }
-    }
-    // pcr-ad check
-    if (rateData?.["pcrad-rate"]) {
-      return rateData["pcrad-rate"].every((o) => !!o?.value);
     }
     return false;
   };

@@ -18,7 +18,7 @@ const fixRounding = (value: number, numbersAfterDecimal: number) => {
   );
 };
 
-const rateCalculation = (
+export const rateCalculation = (
   numerator: string,
   denominator: string,
   rateMultiplicationValue: number,

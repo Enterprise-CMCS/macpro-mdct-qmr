@@ -88,19 +88,19 @@ const OMSValidations: GV.OmsValidationCallback = ({
   return [
     ...PCRADnoNonZeroNumOrDenom(
       [rateData?.["pcrad-rate"] ?? []],
-      [],
+      rateData?.rates ?? [],
       ndrForumlas,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
     ...PCRADatLeastOneRateComplete(
       [rateData?.["pcrad-rate"] ?? []],
-      [],
+      rateData?.rates ?? [],
       PMD.qualifiers,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
     ...PCRADvalidateNumeratorsLessThanDenominators(
       [rateData?.["pcrad-rate"] ?? []],
-      [],
+      rateData?.rates ?? [],
       ndrForumlas,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
@@ -145,7 +145,7 @@ const PCRADnoNonZeroNumOrDenom = (
 
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
-      performanceMeasure.rate.forEach((rate: any) => {
+      performanceMeasure.rate?.forEach((rate: any) => {
         if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
           nonZeroRateError = true;
         }
@@ -230,7 +230,7 @@ export const PCRADvalidateNumeratorsLessThanDenominators = (
   // Check OPM first
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
-      performanceMeasure.rate.forEach((rate: any) => {
+      performanceMeasure.rate?.forEach((rate: any) => {
         if (parseFloat(rate.numerator) > parseFloat(rate.denominator)) {
           error = true;
         }

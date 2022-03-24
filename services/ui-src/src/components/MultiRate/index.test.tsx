@@ -115,7 +115,7 @@ describe("Test the Rate component when readOnly is false", () => {
     });
   });
 
-  test("Check that 'Rate Error' is thrown when rate has less than 4 decimal places", () => {
+  test("Check that 'Rate Error' is thrown when rate has incorrect number of decimal places", () => {
     const testInput = [
       { num: "1", denom: "2", rate: "0" },
       { num: "1", denom: "2", rate: "0" },
@@ -124,10 +124,10 @@ describe("Test the Rate component when readOnly is false", () => {
     ];
 
     const expectedErrorMessageText = [
-      '"Observed Readmission Rate" value must be a number with 4 decimal places: 0',
-      '"Expected Readmission Rate" value must be a number with 4 decimal places: 0',
-      '"O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)" value must be a number with 4 decimal places: 0',
-      '"Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000" value must be a number with 4 decimal places: 0',
+      '"Observed Readmission Rate" value must be a number with 1 decimal place.',
+      '"Expected Readmission Rate" value must be a number with 1 decimal place.',
+      '"O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)" value must be a number with 1 decimal place.',
+      '"Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000" value must be a number with 4 decimal places.',
     ];
 
     ndrForumlas.forEach((ndr, i) => {
