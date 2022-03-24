@@ -2,14 +2,16 @@
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
 the key should be the measure id as a string (with '-XX' included) 
 */
-import { BCSAD } from "./BCSAD";
 import { AMMAD } from "./AMMAD";
+import { AMRAD } from "./AMRAD";
+import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
-import { CCWAD } from "./CCWAD";
 import { CCPAD } from "./CCPAD";
-import { COBAD } from "./COBAD";
+import { CCSAD } from "./CCSAD";
+import { CCWAD } from "./CCWAD";
 import { CHLAD } from "./CHLAD";
 import { CISCH } from "./CISCH";
+import { COBAD } from "./COBAD";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { FUAAD } from "./FUAAD";
@@ -20,23 +22,25 @@ import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
-import { OUDAD } from "./OUDAD";
 import { NCIDDSAD } from "./NCIDDSAD";
+import { OUDAD } from "./OUDAD";
 import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
-import { PQI08AD } from "./PQI08AD";
 import { PQI01AD } from "./PQI01AD";
-import { PQI15AD } from "./PQI15AD";
 import { PQI05AD } from "./PQI05AD";
 import { FUHAD } from "./FUHAD";
+import { PQI08AD } from "./PQI08AD";
+import { PQI15AD } from "./PQI15AD";
 
 const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
+  "AMR-AD": AMRAD,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
   "CCP-AD": CCPAD,
-  "CIS-CH": CISCH,
+  "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
+  "CIS-CH": CISCH,
   "CPA-AD": CPAAD,
   "COB-AD": COBAD,
   "CHL-AD": CHLAD,

@@ -5,4 +5,5 @@ export interface PerformanceMeasure {
   id?: string;
   label?: string;
   rate?: string;
+  isTotal?: string;
 }
