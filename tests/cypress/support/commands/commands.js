@@ -200,12 +200,12 @@ Cypress.Commands.add("showErrorIfCombinedRatesAndNoAdditionalSelection", () => {
 
 Cypress.Commands.add("addCombinedChildCoreset", () => {
   cy.get("tbody").then(($tbody) => {
-    if ($tbody.find('[data-cy="Add Child Core Set"]').length > 0) {
-      cy.get('[data-cy="Add Child Core Set"]').click();
-      cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
-      cy.get('[data-cy="Create"]').click({ force: true });
-    } else if ($tbody.find('[data-cy="CCSM"]').length > 0) {
+    if ($tbody.find('[data-cy="CCSM"]').length > 0) {
       cy.deleteChildCoreSets();
+      wait(2000);
+    }
+
+    if ($tbody.find('[data-cy="Add Child Core Set"]').length > 0) {
       cy.get('[data-cy="Add Child Core Set"]').click();
       cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
       cy.get('[data-cy="Create"]').click({ force: true });
