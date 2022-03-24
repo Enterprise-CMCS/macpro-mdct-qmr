@@ -76,7 +76,7 @@ jobs:
   cypress-test:
     name: Cypress Tests
     needs: deploy
-    if: ${{ github.ref != 'refs/heads/prod' }}
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -86,6 +86,7 @@ jobs:
             oy2_10017_Child_Measure_Qualifier_CH.spec.js,
             oy2-9954_PQI01AD.spec.js,
             oy2-9959_PQI15_AD.spec.js,
+            amrAD.spec.js,
             cpaAD.spec.feature,
             fuaAD.spec.feature,
             fuhch.spec.js,
@@ -97,6 +98,7 @@ jobs:
             oy2_7763_FAQ_Page_State_View.spec.js,
             oy2_8977_MSC_AD.spec.js,
             OUDAD.spec.js,
+            ohd-ad.spec.js,
             CHLAD.spec.js,
             oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
             oy2_14767_Allow_files_to_be_uploaded_to_s3.spec.feature,
@@ -121,6 +123,9 @@ jobs:
             oy2_9925_CIS_CH.spec.js,
             oy2_9963_CPC_CH.spec.js,
             oy2_9940_Measure_48_COB_AD.spec.js,
+            oy2_9939_CCS_AD.spec.js,
+            oy2_9929_PPC_AD.spec.js,
+            oy2_9947_HPC_AD.spec.js,
           ]
     steps:
       - name: set branch_name
@@ -194,7 +199,7 @@ jobs:
   a11y-tests:
     name: A11y Tests
     needs: deploy
-    if: ${{ github.ref != 'refs/heads/prod' }}
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
