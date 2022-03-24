@@ -2,6 +2,10 @@ before(() => {
   cy.visit("/", { timeout: 60000 * 5 });
 });
 import "cypress-file-upload";
+// allow for Cypress Snapshot command
+import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command";
+
+addMatchImageSnapshotCommand();
 
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
