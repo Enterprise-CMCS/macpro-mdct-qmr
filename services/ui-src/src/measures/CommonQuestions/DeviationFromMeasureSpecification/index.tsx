@@ -6,6 +6,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 
 interface GetTopLvlDeviationOptions {
   categories: string[];
+  customTotalLabel?: string;
 }
 
 type TopLevelOptions = {
@@ -16,6 +17,7 @@ type TopLevelOptions = {
 
 interface Props {
   categories: string[];
+  customTotalLabel?: string;
 }
 
 interface OptionProps {
@@ -98,7 +100,10 @@ export const getLowLvlDeviationOptions = ({
     });
 };
 
-export const DeviationFromMeasureSpec = ({ categories }: Props) => {
+export const DeviationFromMeasureSpec = ({
+  categories,
+  customTotalLabel,
+}: Props) => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
   const watchPerformanceMeasure = useWatch({
     name: DC.PERFORMANCE_MEASURE,
@@ -106,6 +111,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
 
   const getTopLvlDeviationOptions = ({
     categories,
+    customTotalLabel,
   }: GetTopLvlDeviationOptions) => {
     if (watchPerformanceMeasure?.rates) {
       const topLvlOptions: TopLevelOptions = [];
@@ -117,7 +123,9 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
           (cat: any) => cat.isTotal === true
         );
         if (totalIndex >= 0) {
-          rates.singleCategory[totalIndex].label = "Total";
+          rates.singleCategory[totalIndex].label = `${
+            customTotalLabel ? `${customTotalLabel} ` : ""
+          }Total`;
         }
 
         /* This is checking if the rates object has a singleCategory key.
@@ -185,6 +193,7 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
                 label="Select and explain the deviation(s):"
                 options={getTopLvlDeviationOptions({
                   categories,
+                  customTotalLabel,
                 })}
               />,
             ],
