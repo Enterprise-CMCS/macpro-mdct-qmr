@@ -45,6 +45,7 @@ describe("OY2 9949 HVL_AD", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="ACS"]').click();
     cy.get('[data-cy="HVL-AD"]').click();
+    cy.wait(1000);
     cy.get('[data-cy="DidReport0"]').click({ force: true });
     cy.get('[data-cy="DataStatus0"]').click();
     cy.get('[data-cy="DataStatus-ProvisionalExplanation"]').click();
