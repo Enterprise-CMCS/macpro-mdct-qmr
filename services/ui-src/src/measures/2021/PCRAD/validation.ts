@@ -54,11 +54,6 @@ const PCRADValidation = (data: FormData) => {
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
-    ...PCRADvalidateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ndrForumlas
-    ),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -85,23 +80,20 @@ const OMSValidations: GV.OmsValidationCallback = ({
   locationDictionary,
   label,
 }) => {
+  const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
+    return { rate: [rateData?.rates?.[x].OPM[0]] };
+  });
   return [
-    // ...PCRADnoNonZeroNumOrDenom(
-    //   [rateData?.["pcrad-rate"] ?? []],
-    //   rateData?.rates ?? [],
-    //   ndrForumlas,
-    //   `Optional Measure Stratification: ${locationDictionary(label)}`
-    // ),
-    ...PCRADatLeastOneRateComplete(
+    ...PCRADnoNonZeroNumOrDenom(
       [rateData?.["pcrad-rate"] ?? []],
-      rateData?.rates ?? [],
-      PMD.qualifiers,
+      rates ?? [],
+      ndrForumlas,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
-    ...PCRADvalidateNumeratorsLessThanDenominators(
+    ...PCRADatLeastOneRateComplete(
       [rateData?.["pcrad-rate"] ?? []],
-      rateData?.rates ?? [],
-      ndrForumlas,
+      rates ?? [],
+      PMD.qualifiers,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
   ];
@@ -186,7 +178,7 @@ const PCRADatLeastOneRateComplete = (
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
-      if (measure?.OPM?.[0]?.rate || measure?.rate?.[0]?.rate) {
+      if (measure?.rate || measure?.rate?.[0]?.rate) {
         error = false;
       }
     });
@@ -213,53 +205,6 @@ const PCRADatLeastOneRateComplete = (
     errorArray.push({
       errorLocation: errorLocation,
       errorMessage: `At least one data section must be completed.`,
-    });
-  }
-  return error ? errorArray : [];
-};
-
-export const PCRADvalidateNumeratorsLessThanDenominators = (
-  performanceMeasureArray: any,
-  OPM: any,
-  ndrFormulas: NDRforumla[],
-  errorLocation: string = "Performance Measure/Other Performance Measure"
-) => {
-  let error = false;
-  let errorArray: FormError[] = [];
-
-  // Check OPM first
-  OPM &&
-    OPM.forEach((performanceMeasure: any) => {
-      performanceMeasure.rate?.forEach((rate: any) => {
-        if (parseFloat(rate.numerator) > parseFloat(rate.denominator)) {
-          error = true;
-        }
-      });
-    });
-
-  performanceMeasureArray?.forEach((performanceMeasure: any) => {
-    if (performanceMeasure && performanceMeasure.length > 0) {
-      ndrFormulas.forEach((ndr: NDRforumla) => {
-        if (
-          performanceMeasure[ndr.numerator].value &&
-          performanceMeasure[ndr.denominator].value &&
-          performanceMeasure[ndr.rateIndex].value
-        ) {
-          if (
-            parseFloat(performanceMeasure[ndr.denominator].value!) <
-            parseFloat(performanceMeasure[ndr.numerator].value!)
-          ) {
-            error = true;
-          }
-        }
-      });
-    }
-  });
-
-  if (error) {
-    errorArray.push({
-      errorLocation: errorLocation,
-      errorMessage: `Numerators must be less than Denominators`,
     });
   }
   return error ? errorArray : [];
