@@ -81,8 +81,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers:
-          [
+        containers: [
             AMMAD.spec.js,
             amrAD.spec.js,
             amrCH.spec.js,
@@ -96,7 +95,7 @@ jobs:
             lbwCH.spec.feature,
             lrcdCH.spec.feature,
             nciddsAD.spec.feature,
-            ohd-ad.spec.js,
+            # ohd-ad.spec.js,
             OUDAD.spec.js,
             oy2_10017_Child_Measure_Qualifier_CH.spec.js,
             oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
