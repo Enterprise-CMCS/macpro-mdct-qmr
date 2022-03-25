@@ -105,22 +105,7 @@ export const PCRADgetLowLvlDeviationOptions = ({
 }: OptionProps) => {
   if (!qualifiers || qualifiers.length === 0) return [];
 
-  return qualifiers
-    .sort((a, b) => (a.label!! < b.label!! ? 1 : 1))
-    .map((item) => {
-      const value = `${cleanString(item.label)}`;
-      return {
-        displayValue: item.label!,
-        value,
-        children: [
-          <QMR.TextArea
-            label="Explain:"
-            name={`${name}.value`}
-            key={`${name}.value`}
-          />,
-        ],
-      };
-    });
+  return getRateTextAreaOptions(name);
 };
 
 export const DeviationFromMeasureSpec = ({
@@ -139,16 +124,24 @@ export const DeviationFromMeasureSpec = ({
       const topLvlOptions: TopLevelOptions = [];
       const { rates } = watchPerformanceMeasure;
 
-      /* This is checking if the rates object has a singleCategory key.
-      If it does, then it will return the low level deviation options. */
       if (rates.singleCategory) {
         // handle for PCR-AD
         if (measureName && measureName === "PCR-AD") {
-          return PCRADgetLowLvlDeviationOptions({
-            qualifiers: rates.singleCategory.filter((r: any) => r.value !== ""),
-            name: DC.DEVIATIONS,
-          });
+          const quals = rates.singleCategory.filter((r: any) => r.value !== "");
+          if (quals.length > 0) {
+            return getRateTextAreaOptions(DC.DEVIATIONS);
+          }
         }
+        // A total category should have the label "Total", per the Figma design.
+        const totalIndex = rates.singleCategory.findIndex(
+          (cat: any) => cat.isTotal === true
+        );
+        if (totalIndex >= 0) {
+          rates.singleCategory[totalIndex].label = "Total";
+        }
+
+        /* This is checking if the rates object has a singleCategory key.
+        If it does, then it will return the low level deviation options. */
         return getLowLvlDeviationOptions({
           qualifiers: rates.singleCategory.filter(numDenExistInRate),
           name: DC.DEVIATIONS,

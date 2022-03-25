@@ -51,19 +51,22 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
  */
 const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
-
   for (const node of data) {
     const cleanedNodeValue = node.value.replace(/[^\w]/g, "");
     const adjustedParentName = parentName
       ? `${parentName}-${cleanedNodeValue}`
       : cleanedNodeValue;
-    const children = [
-      ...buildDataSourceCheckboxOptionChildren({
-        data: node.subOptions?.options,
-        label: node.subOptions?.label,
-        parentName: adjustedParentName,
-      }),
-    ];
+    let children: any = [];
+    node.subOptions?.forEach((subOption: any, i) => {
+      children = [
+        ...children,
+        ...buildDataSourceCheckboxOptionChildren({
+          data: subOption.options,
+          label: subOption.label,
+          parentName: `${adjustedParentName}${i}`,
+        }),
+      ];
+    });
 
     if (node.description) {
       children.push(
@@ -72,23 +75,6 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
           name={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
           key={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
         />
-      );
-    }
-    if (node.value === DC.HYBRID_DATA) {
-      children.push(
-        ...buildDataSourceCheckboxOptionChildren({
-          data: [
-            {
-              value: "Electronic Health Record (EHR) Data",
-            },
-            {
-              value: "Paper",
-            },
-          ],
-          label:
-            "What is the Medical Records Data Source? (Both can be selected)",
-          parentName: `${adjustedParentName}-EHR`,
-        })
       );
     }
 

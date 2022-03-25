@@ -38,10 +38,22 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "AHRQ-NCQA";
+  type:
+    | "HEDIS"
+    | "OPA"
+    | "AHRQ"
+    | "CMS"
+    | "PQA"
+    | "AHRQ-NCQA"
+    | "NCQA"
+    | "HRSA";
 }
 
 const specifications = {
+  NCQA: {
+    displayValue: "National Committee for Quality Assurance (NCQA)",
+    value: DC.NCQA,
+  },
   HEDIS: {
     displayValue:
       "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
@@ -64,6 +76,14 @@ const specifications = {
   CMS: {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",
     value: DC.CMS,
+  },
+  PQA: {
+    displayValue: "Pharmacy Quality Alliance (PQA)",
+    value: DC.PQA,
+  },
+  HRSA: {
+    displayValue: "Health Resources and Services Administration (HRSA)",
+    value: DC.HRSA,
   },
 };
 

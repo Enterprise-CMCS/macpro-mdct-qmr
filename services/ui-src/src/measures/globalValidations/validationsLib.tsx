@@ -45,7 +45,8 @@ export const validateDualPopInformation = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
   age65PlusIndex: number,
-  DefinitionOfDenominator: any
+  DefinitionOfDenominator: any,
+  errorReplacementText: string = "Age 65 and Older"
 ) => {
   if (OPM) {
     return [];
@@ -78,16 +79,14 @@ export const validateDualPopInformation = (
     error = true;
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage:
-        "Information has been included in the Age 65 and older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing",
+      errorMessage: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
     });
   }
   if (dualEligible && filledInData.length === 0) {
     error = true;
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage:
-        "The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for Age 65 and Older",
+      errorMessage: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
     });
   }
   return error ? [errorArray[0]] : [];
@@ -224,7 +223,8 @@ export const validateAllDenomsTheSameCrossQualifier = (
 export const validateNoNonZeroNumOrDenom = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
-  ageGroups: string[]
+  ageGroups: string[],
+  hybridData: boolean = false
 ) => {
   let nonZeroRateError = false;
   let zeroRateError = false;
@@ -270,7 +270,7 @@ export const validateNoNonZeroNumOrDenom = (
         }
       });
     });
-  if (nonZeroRateError) {
+  if (nonZeroRateError && !hybridData) {
     errorArray.push({
       errorLocation: `Performance Measure/Other Performance Measure`,
       errorMessage: `Manually entered rate should be 0 if numerator is 0`,
@@ -283,6 +283,65 @@ export const validateNoNonZeroNumOrDenom = (
     });
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];
+};
+
+/*
+Validate that the values represented in the Total NDR fields are the sum of the respective non-total fields.
+e.g. numerator === sumOfAllOtherNumerators
+
+This validation can be applied for both Performance Measure and OMS sections.
+Default assumption is that this is run for Performance Measure unless specified.
+*/
+export const validateTotalNDR = (
+  performanceMeasureArray: PerformanceMeasure[][],
+  errorLocation: string = "Performance Measure"
+) => {
+  let errorArray: any[] = [];
+  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
+  let denominatorSum: any = null;
+
+  performanceMeasureArray.forEach((ndrSet) => {
+    // If this measure has a totalling NDR, the last NDR set is the total.
+    ndrSet.slice(0, -1).forEach((item: any) => {
+      if (item !== undefined && item !== null && !item["isTotal"]) {
+        let x;
+        if (!isNaN((x = parseFloat(item["numerator"])))) {
+          numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item["denominator"])))) {
+          denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
+        }
+      }
+    });
+
+    let totalNDR: any = ndrSet[ndrSet.length - 1];
+    if (totalNDR) {
+      // If we wanted to get fancy we could offer expected values in here quite easily.
+      let x;
+      if (
+        (x = parseFloat(totalNDR["numerator"])) !== numeratorSum &&
+        numeratorSum !== null &&
+        !isNaN(x)
+      ) {
+        errorArray.push({
+          errorLocation: errorLocation,
+          errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
+        });
+      }
+      if (
+        (x = parseFloat(totalNDR["denominator"])) !== denominatorSum &&
+        denominatorSum !== null &&
+        !isNaN(x)
+      ) {
+        errorArray.push({
+          errorLocation: errorLocation,
+          errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
+        });
+      }
+    }
+  });
+
+  return errorArray;
 };
 
 // Ensure the user populates the data range
@@ -366,9 +425,9 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
     if (ndrCount > 0) {
       const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
         if (
-          deviationNDR.denominator &&
-          deviationNDR.numerator &&
-          deviationNDR.other
+          deviationNDR?.denominator &&
+          deviationNDR?.numerator &&
+          deviationNDR?.other
         ) {
           return true;
         }
@@ -383,7 +442,6 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       }
     }
   }
-
   return errorArray;
 };
 

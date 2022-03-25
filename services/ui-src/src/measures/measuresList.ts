@@ -50,12 +50,12 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Screening for Depression and Follow-Up Plan: Age 18 and older",
+      name: "Screening for Depression and Follow-Up Plan: Age 18 and Older",
       measureId: "CDF-AD",
     },
     {
       type: "AD",
-      name: "Chlamydia Screening in Women Ages 21-24",
+      name: "Chlamydia Screening in Women Ages 21 to 24",
       measureId: "CHL-AD",
     },
     {
@@ -75,7 +75,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Follow-up after Hospitalization for Mental Illness: Age 18 and older",
+      name: "Follow-up after Hospitalization for Mental Illness: Age 18 and Older",
       measureId: "FUH-AD",
     },
     {
@@ -90,7 +90,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Comprehensive Diabetes Care: Hemoglobin A1c Poor Control (>9.0%)",
+      name: "Comprehensive Diabetes Care: Hemoglobin A1c (HbA1c) Poor Control (> 9.0%)",
       measureId: "HPC-AD",
     },
     {
@@ -121,7 +121,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "User of Opioids at High Dosage in Persons Without Cancer",
+      name: "Use of Opioids at High Dosage in Persons Without Cancer",
       measureId: "OHD-AD",
     },
     {
@@ -141,7 +141,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Prenatal and PostPartum Care: Postpartum Care",
+      name: "Prenatal and Postpartum Care: Postpartum Care",
       measureId: "PPC-AD",
     },
     {
@@ -211,7 +211,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "CH",
-      name: "Contraceptive Care - All Women Ages 15-20",
+      name: "Contraceptive Care - All Women Ages 15 to 20",
       measureId: "CCW-CH",
     },
     {
@@ -284,7 +284,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "CH",
-      name: "Weight Assessment and Counseling for Nutrition and. Physical Activity for Children/Adolescents",
+      name: "Weight Assessment and Counseling for Nutrition and Physical Activity for Children/Adolescents",
       measureId: "WCC-CH",
     },
     {

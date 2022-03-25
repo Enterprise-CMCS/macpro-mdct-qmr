@@ -32,46 +32,62 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   categories,
   qualifiers,
 };
-
+// change to array
 export const dataSourceData: DataDrivenTypes.DataSource = {
   optionsLabel:
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
   options: [
     {
       value: DC.ADMINISTRATIVE_DATA,
-      subOptions: {
-        label: "What is the Administrative Data Source?",
-        options: [
-          {
-            value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
-          },
-          {
-            value: DC.IMMUNIZATION_REGISTRY,
-          },
-          {
-            value: DC.ADMINISTRATIVE_DATA_OTHER,
-            description: true,
-          },
-        ],
-      },
+      subOptions: [
+        {
+          label: "What is the Administrative Data Source?",
+          options: [
+            {
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
+            },
+            {
+              value: DC.IMMUNIZATION_REGISTRY,
+            },
+            {
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              description: true,
+            },
+          ],
+        },
+      ],
     },
     {
       value: DC.HYBRID_DATA,
-      subOptions: {
-        label: "What is the Administrative Data Source?",
-        options: [
-          {
-            value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
-          },
-          {
-            value: DC.IMMUNIZATION_REGISTRY,
-          },
-          {
-            value: DC.ADMINISTRATIVE_DATA_OTHER,
-            description: true,
-          },
-        ],
-      },
+      subOptions: [
+        {
+          label: "What is the Administrative Data Source?",
+          options: [
+            {
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
+            },
+            {
+              value: DC.IMMUNIZATION_REGISTRY,
+            },
+            {
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              description: true,
+            },
+          ],
+        },
+        {
+          label:
+            "What is the Medical Records Data Source? (Both can be selected)",
+          options: [
+            {
+              value: DC.EHR_DATA,
+            },
+            {
+              value: DC.PAPER,
+            },
+          ],
+        },
+      ],
     },
     {
       value: DC.ELECTRONIC_HEALTH_RECORDS,

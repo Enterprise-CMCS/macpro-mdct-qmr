@@ -1,12 +1,8 @@
 import { FormData } from "./types";
+import * as Types from "measures/CommonQuestions/types";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import {
-  ensureBothDatesCompletedInRange,
-  validateRequiredRadioButtonForCombinedRates,
-  OmsValidationCallback,
-  omsLocationDictionary,
-  omsValidations,
-} from "../../globalValidations";
+import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -43,57 +39,67 @@ const PCRADValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const ageGroups = PMD.qualifiers;
   const dateRange = data["DateRange"];
+  const deviationArray = GV.getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    false
+  );
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
 
   // Quick reference list of all rate indices
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...ensureBothDatesCompletedInRange(dateRange),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
-    ...PCRADvalidateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ndrForumlas
-    ),
-    ...omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [OMSValidations],
     }),
+    ...PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ndrForumlas,
+      deviationArray,
+      didCalculationsDeviate
+    ),
   ];
   return errorArray;
 };
 
-const OMSValidations: OmsValidationCallback = ({
+const OMSValidations: GV.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,
 }) => {
+  const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
+    return { rate: [rateData?.rates?.[x].OPM[0]] };
+  });
   return [
     ...PCRADnoNonZeroNumOrDenom(
       [rateData?.["pcrad-rate"] ?? []],
-      [],
+      rates ?? [],
       ndrForumlas,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
     ...PCRADatLeastOneRateComplete(
       [rateData?.["pcrad-rate"] ?? []],
-      [],
+      rates ?? [],
       PMD.qualifiers,
-      `Optional Measure Stratification: ${locationDictionary(label)}`
-    ),
-    ...PCRADvalidateNumeratorsLessThanDenominators(
-      [rateData?.["pcrad-rate"] ?? []],
-      [],
-      ndrForumlas,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
   ];
@@ -137,7 +143,7 @@ const PCRADnoNonZeroNumOrDenom = (
 
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
-      performanceMeasure.rate.forEach((rate: any) => {
+      performanceMeasure.rate?.forEach((rate: any) => {
         if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
           nonZeroRateError = true;
         }
@@ -178,7 +184,7 @@ const PCRADatLeastOneRateComplete = (
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
-      if (measure.rate && measure.rate[0] && measure.rate[0].rate) {
+      if (measure?.rate || measure?.rate?.[0]?.rate) {
         error = false;
       }
     });
@@ -210,54 +216,55 @@ const PCRADatLeastOneRateComplete = (
   return error ? errorArray : [];
 };
 
-export const PCRADvalidateNumeratorsLessThanDenominators = (
+/*
+ * If the user indicates that there is a deviation from the measure spec, they must
+ * indicate where the deviation is.
+ */
+export const PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: any,
-  OPM: any,
   ndrFormulas: NDRforumla[],
-  errorLocation: string = "Performance Measure/Other Performance Measure"
+  deviationArray: Types.DeviationFields[] | any,
+  didCalculationsDeviate: boolean
 ) => {
-  let error = false;
   let errorArray: FormError[] = [];
+  let ndrCount = 0;
 
-  // Check OPM first
-  OPM &&
-    OPM.forEach((performanceMeasure: any) => {
-      performanceMeasure.rate.forEach((rate: any) => {
-        if (parseFloat(rate.numerator) > parseFloat(rate.denominator)) {
-          error = true;
-        }
-      });
-    });
-
-  performanceMeasureArray?.forEach((performanceMeasure: any) => {
-    if (performanceMeasure && performanceMeasure.length > 0) {
-      ndrFormulas.forEach((ndr: NDRforumla) => {
-        if (
-          performanceMeasure[ndr.numerator].value &&
-          performanceMeasure[ndr.denominator].value &&
-          performanceMeasure[ndr.rateIndex].value
-        ) {
+  if (didCalculationsDeviate) {
+    performanceMeasureArray?.forEach((performanceMeasure: any) => {
+      if (performanceMeasure && performanceMeasure.length > 0) {
+        ndrFormulas.forEach((ndr: NDRforumla) => {
           if (
-            parseFloat(performanceMeasure[ndr.denominator].value!) <
-            parseFloat(performanceMeasure[ndr.numerator].value!)
+            performanceMeasure[ndr.numerator].value &&
+            performanceMeasure[ndr.denominator].value &&
+            performanceMeasure[ndr.rateIndex].value
           ) {
-            error = true;
+            ndrCount++;
           }
-        }
-      });
-    }
-  });
-
-  if (error) {
-    errorArray.push({
-      errorLocation: errorLocation,
-      errorMessage: `Numerators must be less than Denominators`,
+        });
+      }
     });
+
+    let deviationArrayLength = 0;
+    deviationArray.forEach((itm: string) => {
+      if (itm) deviationArrayLength++;
+    });
+
+    if (ndrCount > 0) {
+      const atLeastOneDevNDR = deviationArrayLength === 3 ? true : false;
+
+      if (!atLeastOneDevNDR) {
+        errorArray.push({
+          errorLocation: "Deviations from Measure Specifications",
+          errorMessage: "You must complete one NDR set",
+        });
+      }
+    }
   }
-  return error ? errorArray : [];
+
+  return errorArray;
 };
 
 export const validationFunctions = [
   PCRADValidation,
-  validateRequiredRadioButtonForCombinedRates,
+  GV.validateRequiredRadioButtonForCombinedRates,
 ];

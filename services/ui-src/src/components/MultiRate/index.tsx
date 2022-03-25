@@ -7,8 +7,7 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
-import { IRate } from "components";
-import { rateCalculation } from "components/Rate";
+import { IRate, rateCalculation } from "components";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -24,7 +23,7 @@ export const MultiRate = ({
   name,
   allowMultiple = false,
   readOnly = true,
-  rateMultiplicationValue = 100,
+  rateMultiplicationValue = 1000,
   customMask,
   ...rest
 }: Props) => {
@@ -46,21 +45,29 @@ export const MultiRate = ({
       numerator: 1,
       denominator: 0,
       rateIndex: 2,
+      multiplier: 1,
+      rateDecimals: 4,
     },
     {
       numerator: 3,
       denominator: 0,
       rateIndex: 4,
+      multiplier: 1,
+      rateDecimals: 4,
     },
     {
       numerator: 1,
       denominator: 3,
       rateIndex: 5,
+      multiplier: 1,
+      rateDecimals: 4,
     },
     {
       numerator: 7,
       denominator: 6,
       rateIndex: 8,
+      multiplier: 1000,
+      rateDecimals: 1,
     },
   ];
 
@@ -68,7 +75,7 @@ export const MultiRate = ({
   const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
 
   // Conditionally perform rate calculation
-  const calculateRates = (prevRate: any, digitsAfterDecimal: number) => {
+  const calculateRates = (prevRate: any) => {
     ndrForumlas.forEach((ndr) => {
       const parsedNum = parseInt(prevRate[ndr.numerator]?.value);
       const parsedDenom = parseInt(prevRate[ndr.denominator]?.value);
@@ -83,15 +90,15 @@ export const MultiRate = ({
 
         // All 0
       } else if (parsedNum === 0 && parsedDenom === 0) {
-        prevRate[ndr.rateIndex]["value"] = "0.0000";
+        prevRate[ndr.rateIndex]["value"] = `0.${"0".repeat(ndr.rateDecimals)}`;
 
         // Normal division
       } else {
         prevRate[ndr.rateIndex]["value"] = rateCalculation(
           prevRate[ndr.numerator].value,
           prevRate[ndr.denominator].value,
-          rateMultiplicationValue,
-          digitsAfterDecimal
+          ndr.multiplier,
+          ndr.rateDecimals
         );
       }
     });
@@ -103,7 +110,6 @@ export const MultiRate = ({
     if (isRate && readOnly) return;
     if (!allNumbers.test(newValue)) return;
 
-    const digitsAfterDecimal = 4;
     const prevRate = [...field.value];
     const editRate = { ...prevRate[index] };
 
@@ -123,7 +129,7 @@ export const MultiRate = ({
     };
 
     if (!isRate) {
-      calculateRates(prevRate, digitsAfterDecimal);
+      calculateRates(prevRate);
     }
     field.onChange([...prevRate]);
   };
@@ -160,50 +166,29 @@ export const MultiRate = ({
     );
   };
 
-  // Programatically generate input warnings based on a provided NDR Formula
-  // - if N > D show warning
-  // - if R has less than 4 points of precision show warning
-  // TODO: consider only calling this on unfocus
-  // TODO: does "Count of Expected 30-Day Readmissions" require 4 decimals?
-  const generateInputWarnings = (ndr: any, index: number) => {
-    return (
-      <CUI.Stack
-        key={`warning-stack-${index}`}
-        direction="column"
-        width={"100%"}
-        marginBottom={2}
-      >
-        {parseInt(field.value[ndr.numerator]?.value) >
-          parseInt(field.value[ndr.denominator]?.value) && (
+  // Show warning if provided field has less than specified points of precision
+  const generateInputWarning = (ndrField: any, decimals: number) => {
+    if (
+      ndrField?.value &&
+      (!ndrField.value.includes(".") ||
+        ndrField.value.split(".")[1]?.length < decimals)
+    )
+      return (
+        <CUI.Stack mb={2} key={`${ndrField.label}-warning-stack`}>
           <QMR.Notification
-            key={`num-denom-warning-${index}`}
-            alertTitle="Rate Error"
-            // Identify the problematic fields using labels
-            alertDescription={`"${field.value[ndr.numerator]?.label}": ${
-              field.value[ndr.numerator]?.value
-            } cannot be greater than "${
-              field.value[ndr.denominator]?.label
-            }": ${field.value[ndr.denominator]?.value}`}
+            key={`${ndrField.label}-decimal-warning`}
+            alertTitle="Value Error"
+            // Identify the problematic field using labels
+            alertDescription={`"${
+              ndrField.label
+            }" value must be a number with ${decimals} decimal ${
+              decimals > 1 ? "places" : "place"
+            }.`}
             alertStatus="warning"
           />
-        )}
-        {field.value[ndr.rateIndex]?.value &&
-          (!field.value[ndr.rateIndex].value.includes(".") ||
-            field.value[ndr.rateIndex].value.split(".")[1]?.length < 4) && (
-            <QMR.Notification
-              key={`rate-decimal-warning-${index}`}
-              alertTitle="Rate Error"
-              // Identify the problematic fields using labels
-              alertDescription={`"${
-                field.value[ndr.rateIndex].label
-              }" value must be a number with 4 decimal places: ${
-                field.value[ndr.rateIndex].value
-              }`}
-              alertStatus="warning"
-            />
-          )}
-      </CUI.Stack>
-    );
+        </CUI.Stack>
+      );
+    return;
   };
 
   return (
@@ -213,9 +198,10 @@ export const MultiRate = ({
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
-      {ndrForumlas.slice(0, 3).map((ndr, index) => {
-        return generateInputWarnings(ndr, index);
-      })}
+      {
+        // only display for specific fields
+        [2, 3, 4, 5].map((i) => generateInputWarning(field?.value[i], 4))
+      }
       <CUI.Divider />
       <CUI.Stack my={8} direction="row">
         {rates.slice(6).map((rate, index) => {
@@ -223,9 +209,7 @@ export const MultiRate = ({
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
-      {ndrForumlas.slice(3).map((ndr, index) => {
-        return generateInputWarnings(ndr, index);
-      })}
+      {generateInputWarning(field?.value[8], 1)}
     </>
   );
 };

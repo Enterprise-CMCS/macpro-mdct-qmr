@@ -412,8 +412,8 @@ const renderOPMChckboxOptions = ({
                 id: 0,
               },
             ]}
-            name={`${name}.rates.${cleanedFieldName}`}
-            key={`${name}.rates.${cleanedFieldName}`}
+            name={`${name}.rates.${cleanedFieldName}.OPM`}
+            key={`${name}.rates.${cleanedFieldName}.OPM`}
             readOnly={rateReadOnly}
             rateMultiplicationValue={rateMultiplicationValue}
             customMask={customMask}
