@@ -38,7 +38,15 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "AHRQ-NCQA" | "AHRQ" | "CMS" | "HEDIS" | "JOINT" | "OPA" | "PQA";
+  type:
+    | "AHRQ-NCQA"
+    | "AHRQ"
+    | "CMS"
+    | "HEDIS"
+    | "JOINT"
+    | "NCQA"
+    | "OPA"
+    | "PQA";
 }
 
 const specifications = {
@@ -64,6 +72,10 @@ const specifications = {
   JOINT: {
     displayValue: "The Joint Commission",
     value: DC.JOINT_COMMISSION,
+  },
+  NCQA: {
+    displayValue: "National Committee for Quality Assurance (NCQA)",
+    value: DC.NCQA,
   },
   OPA: {
     displayValue: "HHS Office of Population Affairs (OPA)",

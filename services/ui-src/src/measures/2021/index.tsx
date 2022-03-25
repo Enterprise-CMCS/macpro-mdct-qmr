@@ -17,15 +17,16 @@ import { CPCCH } from "./CPCCH";
 import { FUAAD } from "./FUAAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
-import { HPCAD } from "./HPCAD";
 import { FVAAD } from "./FVAAD";
+import { HPCAD } from "./HPCAD";
+import { HPCMIAD } from "./HPCMIAD";
 import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
+import { NCIDDSAD } from "./NCIDDSAD";
 import { OHDAD } from "./OHDAD";
 import { OUDAD } from "./OUDAD";
-import { NCIDDSAD } from "./NCIDDSAD";
 import { PC01AD } from "./PC01AD";
 import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
@@ -42,16 +43,17 @@ const twentyTwentyOneMeasures = {
   "CCP-AD": CCPAD,
   "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
-  "CIS-CH": CISCH,
-  "CPA-AD": CPAAD,
-  "COB-AD": COBAD,
   "CHL-AD": CHLAD,
+  "CIS-CH": CISCH,
+  "COB-AD": COBAD,
+  "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "FUA-AD": FUAAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
-  "HPC-AD": HPCAD,
   "FVA-AD": FVAAD,
+  "HPC-AD": HPCAD,
+  "HPCMI-AD": HPCMIAD,
   "IET-AD": IETAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
