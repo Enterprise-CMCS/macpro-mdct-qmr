@@ -57,6 +57,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   customMask?: RegExp;
   isSingleSex?: boolean;
   rateAlwaysEditable?: boolean;
+  numberOfDecimals?: number;
 }
 
 /** data for dynamic rendering will be provided */
@@ -107,6 +108,7 @@ export const OptionalMeasureStrat = ({
   customMask,
   isSingleSex = false,
   rateAlwaysEditable = false,
+  numberOfDecimals = 1,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -154,6 +156,7 @@ export const OptionalMeasureStrat = ({
           rateMultiplicationValue,
           customMask,
           allowNumeratorGreaterThanDenominator,
+          numberOfDecimals,
         }}
       >
         <CUI.Text py="3">

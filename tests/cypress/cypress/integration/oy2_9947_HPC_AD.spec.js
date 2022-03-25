@@ -1,12 +1,12 @@
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-describe("Measure: PQI01-AD", () => {
+describe("Measure: HPC-AD", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
-    cy.goToMeasure("PPC-AD");
+    cy.goToMeasure("HPC-AD");
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
@@ -296,28 +296,42 @@ describe("Measure: PQI01-AD", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("3");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
+    ).type("3");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
+    ).type("4");
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
-    cy.get("#radio-577").check();
     cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
     cy.get("#DeviationOptions0-checkbox").check();
     cy.get(
-      '[data-cy="Deviations.Postpartumvisitbetween7and84days.RateDeviationsSelected0"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.Postpartumvisitbetween7and84days\\.RateDeviationsSelected0-checkbox"
+      "#Deviations\\.Ages18to64\\.RateDeviationsSelected0-checkbox"
     ).check();
+    cy.get('[data-cy="Deviations.Ages18to64.numerator"]').click();
     cy.get(
-      '[data-cy="Deviations.Postpartumvisitbetween7and84days.RateDeviationsSelected1"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.Postpartumvisitbetween7and84days\\.RateDeviationsSelected1-checkbox"
+      "#Deviations\\.Ages18to64\\.RateDeviationsSelected1-checkbox"
     ).check();
+    cy.get('[data-cy="Deviations.Ages18to64.denominator"]').click();
     cy.get(
-      '[data-cy="Deviations.Postpartumvisitbetween7and84days.RateDeviationsSelected2"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected2"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.Postpartumvisitbetween7and84days\\.RateDeviationsSelected2-checkbox"
+      "#Deviations\\.Ages18to64\\.RateDeviationsSelected2-checkbox"
     ).check();
+    cy.get('[data-cy="Deviations.Ages18to64.other"]').click();
   });
 
   // if Other measure spec is selected each age range/ custom description for which there are n/d/r
@@ -339,6 +353,7 @@ describe("Measure: PQI01-AD", () => {
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "5"
     );
+    //nothing//
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
     ).clear();

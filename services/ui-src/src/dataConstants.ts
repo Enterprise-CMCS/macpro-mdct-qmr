@@ -54,12 +54,10 @@ export const DELIVERY_SYS_MCO_PIHP_NO_EXCL = "DeliverySys-MCO_PIHP-No-Excluded";
 export const DELIVERY_SYS_MCO_PIHP_NO_INC = "DeliverySys-MCO_PIHP-No-Included";
 export const DELIVERY_SYS_MCO_PIHP_NUM_PLANS =
   "DeliverySys-MCO_PIHP-NumberOfPlans";
-export const DELIVERY_SYS_MCO_PIHP_PERCENT = "DeliverySys-MCO_PIHP-Percent";
 export const DELIVERY_SYS_OTHER = "DeliverySys-Other";
 export const DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS =
   "DeliverySys-Other-NumberOfHealthPlans";
 export const DELIVERY_SYS_OTHER_PERCENT = "DeliverySys-Other-Percent";
-export const DELIVERY_SYS_OTHER_POP = "DeliverySys-Other-Population";
 export const DELIVERY_SYS_PCCM = "DeliverySys-PrimaryCareManagement";
 export const DELIVERY_SYS_PCCM_NO_PERCENT =
   "DeliverySys-PrimaryCareManagement-No-Percent";
@@ -86,6 +84,7 @@ export const DID_CALCS_DEVIATE = "DidCalculationsDeviate";
 export const DID_COLLECT = "DidCollect";
 export const DID_REPORT = "DidReport";
 export const END_DATE = "endDate";
+export const EHR_DATA = "Electronic Health Record (EHR) Data";
 export const ENTIRE_POP_NOT_COVERED = "EntirePopulationNotCovered";
 export const ELECTRONIC_HEALTH_RECORDS = "Electronic Health Records";
 export const EXPLAINATION = "explanation";
@@ -132,6 +131,7 @@ export const OPM_RATES = "OtherPerformanceMeasure-Rates";
 export const OPTIONS = "options";
 export const OTHER = "Other";
 export const OTHER_DATA_SOURCE = "Other Data Source";
+export const PAPER = "Paper";
 export const PARTIAL_POP_NOT_COVERED = "PartialPopulationNotCovered";
 export const PARTIAL_POP_NOT_COVERED_EXPLAINATION =
   "PartialPopulationNotCoveredExplanation";
