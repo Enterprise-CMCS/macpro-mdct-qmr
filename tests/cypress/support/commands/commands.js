@@ -29,26 +29,26 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click({ force: true });
-    } else if ($tbody.find('[data-cy="CCSM"]').length > 0) {
-      cy.deleteChildCoreSets();
-      cy.wait(5000);
-      cy.addCombinedChildCoreset();
-      cy.reload();
-      cy.wait(15000);
-      cy.get('[data-cy="CCS"]').click({ force: true });
-    } else {
-      cy.addCombinedChildCoreset();
-      cy.wait(15000);
-      cy.reload();
-      cy.wait(2000);
-      cy.get('[data-cy="CCS"]').click({ force: true });
     }
+    // else if ($tbody.find('[data-cy="CCSM"]').length > 0) {
+    //   cy.deleteChildCoreSets();
+    //   cy.wait(5000);
+    //   cy.addCombinedChildCoreset();
+    //   cy.reload();
+    //   cy.wait(15000);
+    //   cy.get('[data-cy="CCS"]').click({ force: true });
+    // } else {
+    //   cy.addCombinedChildCoreset();
+    //   cy.wait(15000);
+    //   cy.reload();
+    //   cy.wait(2000);
+    //   cy.get('[data-cy="CCS"]').click({ force: true });
+    // }
   });
 });
 
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
-  cy.wait(2000);
   cy.get(`[data-cy="${measure}"]`).click();
   cy.wait(2000);
   cy.get(`[data-cy="Clear Data"]`).click();
