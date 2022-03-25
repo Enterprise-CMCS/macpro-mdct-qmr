@@ -1,12 +1,12 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 
-export const qualifiers = ["Postpartum visit between 7 and 84 days"];
-export const categories = [];
+export const qualifiers = ["Ages 18 to 64", "Ages 65 to 75"];
+export const categories = []; // none
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year that had a postpartum visit on or between 7 and 84 days after delivery.",
+    "Percentage of beneficiaries ages 18 to 75 with serious mental illness and diabetes (type 1 and type 2) who had hemoglobin A1c (HbA1c) in poor control (> 9.0%).",
   ],
   questionListItems: [],
   categories,
@@ -43,7 +43,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
             {
               value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
-
             {
               value: DC.OTHER,
               description: true,
@@ -64,6 +63,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
         },
       ],
     },
+
     {
       value: DC.OTHER_DATA_SOURCE,
       description: true,

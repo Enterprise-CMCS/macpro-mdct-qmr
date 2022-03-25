@@ -1,55 +1,36 @@
 import * as PMD from "./data";
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
-import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import { FormData } from "./types";
 
-const CBPValidation = (data: FormData) => {
+const HPCADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray =
+    GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data[DC.DATE_RANGE];
-  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-
-  let errorArray: any[] = [];
-  if (data[DC.DID_REPORT] === DC.NO) {
-    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
-    return errorArray;
-  }
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+
+  let errorArray: any[] = [];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
   );
 
   errorArray = [
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateDualPopInformation(
-      performanceMeasureArray,
-      OPM,
-      age65PlusIndex,
-      DefinitionOfDenominator,
-      PMD.qualifiers[1]
-    ),
-    ...GV.validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      includesHybridDataSource
-    ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...errorArray,
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -65,15 +46,36 @@ const CBPValidation = (data: FormData) => {
         ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
       ],
     }),
+    ...GV.validateDualPopInformation(
+      performanceMeasureArray,
+      OPM,
+      age65PlusIndex,
+      DefinitionOfDenominator,
+      "Ages 65 to 75"
+    ),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNumeratorsLessThanDenominators(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      includesHybridDataSource
+    ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [CBPValidation];
+export const validationFunctions = [HPCADValidation];

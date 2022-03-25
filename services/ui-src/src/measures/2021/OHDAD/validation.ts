@@ -1,10 +1,17 @@
-import * as PMD from "./data";
-import * as DC from "dataConstants";
-import * as GV from "measures/globalValidations";
 import { FormData } from "./types";
+import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
+import * as DC from "dataConstants";
+import * as PMD from "./data";
+import * as GV from "../../globalValidations";
+import {
+  omsValidations,
+  validateDenominatorGreaterThanNumerator,
+  validateRateNotZero,
+  validateRateZero,
+} from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const CBPValidation = (data: FormData) => {
+const OHDValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -18,15 +25,13 @@ const CBPValidation = (data: FormData) => {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   errorArray = [
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -34,35 +39,29 @@ const CBPValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
-      DefinitionOfDenominator,
-      PMD.qualifiers[1]
+      DefinitionOfDenominator
     ),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      includesHybridDataSource
-    ),
+    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.omsValidations({
+    ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: GV.omsLocationDictionary(
+      locationDictionary: omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateNotZero,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
+        validateDenominatorGreaterThanNumerator,
+        validateRateZero,
+        validateRateNotZero,
       ],
     }),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -76,4 +75,4 @@ const CBPValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [CBPValidation];
+export const validationFunctions = [OHDValidation];

@@ -1,12 +1,12 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 
-export const qualifiers = ["Postpartum visit between 7 and 84 days"];
+export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
 export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year that had a postpartum visit on or between 7 and 84 days after delivery.",
+    "Percentage of beneficiaries age 18 and older with a diagnosis of Human Immunodeficiency Virus (HIV) who had a HIV viral load less than 200 copies/mL at last HIV viral load test during the measurement year.",
   ],
   questionListItems: [],
   categories,
@@ -35,34 +35,8 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
       ],
     },
     {
-      value: DC.HYBRID_DATA,
-      subOptions: [
-        {
-          label: "What is the Administrative Data Source?",
-          options: [
-            {
-              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
-            },
-
-            {
-              value: DC.OTHER,
-              description: true,
-            },
-          ],
-        },
-        {
-          label:
-            "What is the Medical Records Data Source? (Both can be selected)",
-          options: [
-            {
-              value: DC.EHR_DATA,
-            },
-            {
-              value: DC.PAPER,
-            },
-          ],
-        },
-      ],
+      value: DC.ELECTRONIC_HEALTH_RECORDS,
+      description: true,
     },
     {
       value: DC.OTHER_DATA_SOURCE,
