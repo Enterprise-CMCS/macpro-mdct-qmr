@@ -43,6 +43,7 @@ interface Props {
     | "AHRQ"
     | "CMS"
     | "HEDIS"
+    | "HRSA"
     | "JOINT"
     | "NCQA"
     | "OPA"
@@ -69,6 +70,10 @@ const specifications = {
     value: DC.NCQA,
     children: [<HEDISChildren key="HEDIS-Child" />],
   },
+  HRSA: {
+    displayValue: "Health Resources and Services Administration (HRSA)",
+    value: DC.HRSA,
+  },
   JOINT: {
     displayValue: "The Joint Commission",
     value: DC.JOINT_COMMISSION,
@@ -83,7 +88,7 @@ const specifications = {
   },
   PQA: {
     displayValue: "Pharmacy Quality Alliance (PQA)",
-    value: "PQA",
+    value: DC.PQA,
   },
 };
 
