@@ -38,7 +38,15 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA" | "NCQA" | "HRSA";
+  type:
+    | "HEDIS"
+    | "OPA"
+    | "AHRQ"
+    | "CMS"
+    | "PQA"
+    | "AHRQ-NCQA"
+    | "NCQA"
+    | "HRSA";
 }
 
 const specifications = {
