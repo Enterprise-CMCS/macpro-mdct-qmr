@@ -15,3 +15,5 @@ tests/cypress/videos
 tests/cypress/screenshots
 tests/cypress/package-lock.json
 package-lock.json
+tests/cypress/.env
+tests/cypress/test-config.js
