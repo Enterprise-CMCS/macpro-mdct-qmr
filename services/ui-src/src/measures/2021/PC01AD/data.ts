@@ -16,11 +16,6 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
 };
 
 export const dataSourceData: DataDrivenTypes.DataSource = {
-  describeMultipleSources: [
-    "Hybrid Data Source:",
-    "Electronic Health Records Data Source:",
-    "Other Data Source:",
-  ],
   optionsLabel:
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
   options: [

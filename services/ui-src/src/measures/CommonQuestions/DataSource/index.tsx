@@ -107,10 +107,7 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
         options={buildDataSourceOptions({ data: data.options })}
       />
       {showExplanation && (
-        <CUI.VStack
-          key={"DataSourceExplanationWrapper"}
-          alignItems={"baseline"}
-        >
+        <CUI.VStack key={"DataSourceExplanationWrapper"}>
           <CUI.Text
             fontSize="sm"
             py="2"
@@ -122,20 +119,7 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             data source differed across health plans or delivery systems,
             identify the number of plans that used each data source:
           </CUI.Text>
-          {data.describeMultipleSources &&
-            data.describeMultipleSources.map((source, i) => {
-              return (
-                <CUI.Stack key={`${source}-stack-${i}`} width={"100%"}>
-                  <CUI.Text key={`${source}-label`}>{source}</CUI.Text>
-                  <QMR.TextArea
-                    {...register(`${DC.DATA_SOURCE_SELECTIONS}-${source}`)}
-                  />
-                </CUI.Stack>
-              );
-            })}
-          {!data.describeMultipleSources && (
-            <QMR.TextArea {...register(DC.DATA_SOURCE_DESCRIPTION)} />
-          )}
+          <QMR.TextArea {...register(DC.DATA_SOURCE_DESCRIPTION)} />
         </CUI.VStack>
       )}
     </QMR.CoreQuestionWrapper>
