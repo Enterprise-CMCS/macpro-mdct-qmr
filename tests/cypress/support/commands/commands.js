@@ -218,3 +218,10 @@ Cypress.Commands.add("clickValidateMeasure", (timeout = 500) => {
   cy.get('[data-cy="Validate Measure"]').click();
   cy.wait(timeout);
 });
+
+Cypress.Commands.add("enterValidDateRange", () => {
+  cy.get('[data-cy="DateRange.startDate-month"]').type("1");
+  cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
+  cy.get('[data-cy="DateRange.endDate-month"]').type("12");
+  cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
+});
