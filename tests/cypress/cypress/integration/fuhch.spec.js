@@ -3,6 +3,10 @@ describe("Measure: FUH-CH", () => {
     cy.visit("/");
     cy.login();
     cy.deleteChildCoreSets();
+<<<<<<< HEAD
+=======
+    cy.addCombinedChildCoreset();
+>>>>>>> oy2-9912
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("FUH-CH");
   });
