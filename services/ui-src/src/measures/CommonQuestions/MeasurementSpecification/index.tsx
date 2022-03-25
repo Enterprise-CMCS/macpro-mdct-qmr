@@ -38,10 +38,14 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA" | "HRSA";
+  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA" | "NCQA" | "HRSA";
 }
 
 const specifications = {
+  NCQA: {
+    displayValue: "National Committee for Quality Assurance (NCQA)",
+    value: DC.NCQA,
+  },
   HEDIS: {
     displayValue:
       "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
