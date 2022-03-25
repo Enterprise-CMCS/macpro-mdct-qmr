@@ -31,7 +31,7 @@ const authenticateWithIDM = () => {
 export const UserProvider = ({ children }: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isProduction = window.location.origin.includes("mdctqmr.cms.gov");
+  const isProduction = window.location.origin.includes(config.PROD_URL);
 
   const [user, setUser] = useState<any>(null);
   const [showLocalLogins, setShowLocalLogins] = useState(false);
