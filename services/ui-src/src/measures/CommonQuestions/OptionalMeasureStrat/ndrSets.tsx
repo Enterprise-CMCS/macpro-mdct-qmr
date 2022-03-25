@@ -301,7 +301,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
  * Builds NDRs for Performance Measure AgeGroups
  */
 const AgeGroupNDRSets = ({ name }: NdrProps) => {
-  const { categories } = usePerformanceMeasureContext();
+  const { categories, calcTotal } = usePerformanceMeasureContext();
 
   const ageGroupsOptions = useAgeGroupsCheckboxes(name);
 
@@ -312,7 +312,7 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
         key={`${name}.options`}
         options={ageGroupsOptions}
       />
-      {!categories.length && (
+      {!categories.length && calcTotal && (
         <TotalNDR name={name} key={`${name}.TotalWrapper`} divider />
       )}
     </>
