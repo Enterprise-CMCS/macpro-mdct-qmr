@@ -35,11 +35,9 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
-  cy.get(`[data-cy="${measure}"]`).click();
-  cy.wait(2000);
-  cy.get(`[data-cy="Clear Data"]`).click();
-  cy.wait(2000);
-  cy.get(`[data-cy="${measure}"]`).click();
+  cy.get(`[data-cy="${measure}"]`).should("be.visible").click();
+  cy.get(`[data-cy="Clear Data"]`).should("be.visible").click();
+  cy.get(`[data-cy="${measure}"]`).should("be.visible").click();
 });
 
 // Correct sections visible when user is reporting data on measure
