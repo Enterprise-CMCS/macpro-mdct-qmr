@@ -7,8 +7,7 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
-import { IRate } from "components";
-import { rateCalculation } from "components/Rate";
+import { IRate, rateCalculation } from "components";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -47,28 +46,28 @@ export const MultiRate = ({
       denominator: 0,
       rateIndex: 2,
       multiplier: 1,
-      rateDecimals: 1,
+      rateDecimals: 4,
     },
     {
       numerator: 3,
       denominator: 0,
       rateIndex: 4,
       multiplier: 1,
-      rateDecimals: 1,
+      rateDecimals: 4,
     },
     {
       numerator: 1,
       denominator: 3,
       rateIndex: 5,
       multiplier: 1,
-      rateDecimals: 1,
+      rateDecimals: 4,
     },
     {
       numerator: 7,
       denominator: 6,
       rateIndex: 8,
       multiplier: 1000,
-      rateDecimals: 4,
+      rateDecimals: 1,
     },
   ];
 
@@ -167,22 +166,27 @@ export const MultiRate = ({
     );
   };
 
-  // Show warning if provided field has less than 4 points of precision
-  // TODO: consider only calling this on unfocus
-  const generateInputWarning = (ndrField: any) => {
+  // Show warning if provided field has less than specified points of precision
+  const generateInputWarning = (ndrField: any, decimals: number) => {
     if (
       ndrField?.value &&
       (!ndrField.value.includes(".") ||
-        ndrField.value.split(".")[1]?.length < 4)
+        ndrField.value.split(".")[1]?.length < decimals)
     )
       return (
-        <QMR.Notification
-          key={`${ndrField.label}-decimal-warning`}
-          alertTitle="Value Error"
-          // Identify the problematic field using labels
-          alertDescription={`"${ndrField.label}" value must be a number with 4 decimal places.`}
-          alertStatus="warning"
-        />
+        <CUI.Stack mb={2} key={`${ndrField.label}-warning-stack`}>
+          <QMR.Notification
+            key={`${ndrField.label}-decimal-warning`}
+            alertTitle="Value Error"
+            // Identify the problematic field using labels
+            alertDescription={`"${
+              ndrField.label
+            }" value must be a number with ${decimals} decimal ${
+              decimals > 1 ? "places" : "place"
+            }.`}
+            alertStatus="warning"
+          />
+        </CUI.Stack>
       );
     return;
   };
@@ -194,7 +198,10 @@ export const MultiRate = ({
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
-      {generateInputWarning(field?.value[3])}
+      {
+        // only display for specific fields
+        [2, 3, 4, 5].map((i) => generateInputWarning(field?.value[i], 4))
+      }
       <CUI.Divider />
       <CUI.Stack my={8} direction="row">
         {rates.slice(6).map((rate, index) => {
@@ -202,7 +209,7 @@ export const MultiRate = ({
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
-      {generateInputWarning(field?.value[8])}
+      {generateInputWarning(field?.value[8], 1)}
     </>
   );
 };

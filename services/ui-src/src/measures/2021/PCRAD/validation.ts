@@ -47,6 +47,12 @@ const PCRADValidation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const OPM = data["OtherPerformanceMeasure-Rates"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
 
   // Quick reference list of all rate indices
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
@@ -238,8 +244,13 @@ export const PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
       }
     });
 
+    let deviationArrayLength = 0;
+    deviationArray.forEach((itm: string) => {
+      if (itm) deviationArrayLength++;
+    });
+
     if (ndrCount > 0) {
-      const atLeastOneDevNDR = deviationArray?.length === 3 ? true : false;
+      const atLeastOneDevNDR = deviationArrayLength === 3 ? true : false;
 
       if (!atLeastOneDevNDR) {
         errorArray.push({

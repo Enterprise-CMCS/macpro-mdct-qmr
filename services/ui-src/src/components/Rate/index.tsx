@@ -13,8 +13,8 @@ import { useEffect } from "react";
 
 const fixRounding = (value: number, numbersAfterDecimal: number) => {
   return (
-    Math.round((value + Number.EPSILON) * (numbersAfterDecimal * 10)) /
-    (numbersAfterDecimal * 10)
+    Math.round((value + Number.EPSILON) * Math.pow(10, numbersAfterDecimal)) /
+    Math.pow(10, numbersAfterDecimal)
   );
 };
 
