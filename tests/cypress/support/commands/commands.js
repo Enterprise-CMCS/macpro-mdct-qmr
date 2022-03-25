@@ -57,9 +57,8 @@ Cypress.Commands.add("goToMeasure", (measure) => {
   cy.get(`[data-cy="Clear Data"]`).click();
   cy.wait(2000);
   cy.reload();
-  cy.wait(5000);
+  cy.wait(15000);
   cy.get(`[data-cy="${measure}"]`).click();
-  cy.wait(5000);
 });
 
 // Correct sections visible when user is reporting data on measure
