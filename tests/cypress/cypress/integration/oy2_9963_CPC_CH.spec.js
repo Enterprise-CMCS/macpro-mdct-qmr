@@ -66,6 +66,7 @@ describe("OY2 9963 CPC CH", () => {
     );
     cy.get('[data-cy="DefinitionOfSurveySample3"]').click();
     cy.get('[data-cy="DefinitionOfSurveySample-Changes"]').click();
+    cy.wait(2000);
     cy.get(":nth-child(8) > .css-0").should(
       "have.text",
       "This measure provides information on parents’ experiences with their child’s health care. Results summarize children’s experiences through ratings, composites, and individual question summary rates."

@@ -96,7 +96,6 @@ describe("OY2 9949 HVL_AD", () => {
     cy.get(
       "#DenominatorDefineTotalTechSpec_radiogroup > .chakra-stack > :nth-child(1) > .chakra-radio"
     ).click();
-    cy.get("#radio-194").check();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control'
     ).click();
@@ -211,7 +210,6 @@ describe("OY2 9949 HVL_AD", () => {
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
-    cy.get("#radio-212").check();
     cy.get('[data-cy="DeviationOptions0"]').click();
     cy.get("#DeviationOptions0-checkbox").check();
     cy.get(
@@ -259,7 +257,6 @@ describe("OY2 9949 HVL_AD", () => {
     ).check();
     cy.get('[data-cy="Deviations.Age65andolder.other"]').click();
     cy.get('[data-cy="CombinedRates0"]').click();
-    cy.get("#radio-199").check();
     cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates1"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates2"]').click();
