@@ -184,7 +184,7 @@ const PCRADatLeastOneRateComplete = (
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
-      if (measure?.rate || measure?.rate?.[0]?.rate) {
+      if (measure?.rate && measure?.rate?.[0]?.rate) {
         error = false;
       }
     });

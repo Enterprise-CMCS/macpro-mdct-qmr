@@ -1,6 +1,7 @@
 //  @ts-nocheck
 
 const configToExport = {
+  PROD_URL: window._env_.PROD_URL,
   BRANCH_NAME: window._env_.BRANCH_NAME,
   MAX_ATTACHMENT_SIZE: 5000000,
   LOCAL_LOGIN: window._env_.LOCAL_LOGIN,
