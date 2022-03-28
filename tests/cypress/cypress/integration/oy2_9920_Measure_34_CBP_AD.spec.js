@@ -4,7 +4,7 @@ const passwordForCognito = "//input[@name='password']";
 describe("OY2 9920 Measure 34: CBP-AD", () => {
   beforeEach(() => {
     cy.visit("/");
-    cy.login("stateuser3");
+    cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("CBP-AD");
   });

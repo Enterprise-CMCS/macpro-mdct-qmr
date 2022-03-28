@@ -1,7 +1,8 @@
 import "cypress-file-upload";
+import testConfig from "../../test-config";
 
 before(() => {
-  cy.visit("/", { timeout: 60000 * 5 });
+  cy.visit("/", { timeout: 300000 });
 });
 
 const emailForCognito = "//input[@name='email']";
@@ -12,10 +13,10 @@ const passwordForCognito = "//input[@name='password']";
 Cypress.Commands.add(
   "login",
   (
-    user = "stateuser3", // pragma: allowlist secret
-    password = "p@55W0rd!" // pragma: allowlist secret
+    user = testConfig.TEST_USER_3, // pragma: allowlist secret
+    password = testConfig.TEST_PASSWORD_1 // pragma: allowlist secret
   ) => {
-    cy.xpath(emailForCognito).type(`${user}@test.com`);
+    cy.xpath(emailForCognito).type(`${user}`);
     cy.xpath(passwordForCognito).type(password);
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
