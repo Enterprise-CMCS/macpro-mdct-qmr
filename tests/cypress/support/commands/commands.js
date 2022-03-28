@@ -1,7 +1,8 @@
+import "cypress-file-upload";
+
 before(() => {
   cy.visit("/", { timeout: 60000 * 5 });
 });
-import "cypress-file-upload";
 
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
@@ -11,7 +12,7 @@ const passwordForCognito = "//input[@name='password']";
 Cypress.Commands.add(
   "login",
   (
-    user = "stateuser1", // pragma: allowlist secret
+    user = "stateuser3", // pragma: allowlist secret
     password = "p@55W0rd!" // pragma: allowlist secret
   ) => {
     cy.xpath(emailForCognito).type(`${user}@test.com`);
