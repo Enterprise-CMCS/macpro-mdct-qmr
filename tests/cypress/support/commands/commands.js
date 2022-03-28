@@ -28,7 +28,7 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
-      cy.get('[data-cy="CCS"]').click({ force: true });
+      cy.get('[data-cy="CCS"]').click();
     }
     // else if ($tbody.find('[data-cy="CCSM"]').length > 0) {
     //   cy.deleteChildCoreSets();
@@ -53,8 +53,6 @@ Cypress.Commands.add("goToMeasure", (measure) => {
   cy.wait(2000);
   cy.get(`[data-cy="Clear Data"]`).click();
   cy.wait(2000);
-  cy.reload();
-  cy.wait(20000);
   cy.get(`[data-cy="${measure}"]`).click();
 });
 
@@ -196,18 +194,10 @@ Cypress.Commands.add("showErrorIfCombinedRatesAndNoAdditionalSelection", () => {
 });
 
 Cypress.Commands.add("addCombinedChildCoreset", () => {
-  cy.get("tbody").then(($tbody) => {
-    if ($tbody.find('[data-cy="CCSM"]').length > 0) {
-      cy.deleteChildCoreSets();
-      cy.wait(2000);
-    }
-
-    if ($tbody.find('[data-cy="Add Child Core Set"]').length > 0) {
-      cy.get('[data-cy="Add Child Core Set"]').click();
-      cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
-      cy.get('[data-cy="Create"]').click({ force: true });
-    }
-  });
+  cy.wait(3000);
+  cy.get('[data-cy="Add Child Core Set"]').click();
+  cy.get("#ChildCoreSet-ReportType-combined").click({ force: true });
+  cy.get('[data-cy="Create"]').click(); //add combined child core set
 });
 
 /** Validate measure needs a wait for the page reload before components are interactable */
