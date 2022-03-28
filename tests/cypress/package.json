@@ -22,6 +22,7 @@
     "nonGlobalStepDefinitions": true
   },
   "dependencies": {
-    "cypress-tags": "^0.3.0"
+    "cypress-tags": "^0.3.0",
+    "cypress-wait-until": "^1.7.2"
   }
 }

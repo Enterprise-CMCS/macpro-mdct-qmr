@@ -1876,6 +1876,11 @@ cypress-tags@^0.3.0:
     "@cypress/browserify-preprocessor" "^3.0.1"
     through "^2.3.8"
 
+cypress-wait-until@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/cypress-wait-until/-/cypress-wait-until-1.7.2.tgz#7f534dd5a11c89b65359e7a0210f20d3dfc22107"
+  integrity sha512-uZ+M8/MqRcpf+FII/UZrU7g1qYZ4aVlHcgyVopnladyoBrpoaMJ4PKZDrdOJ05H5RHbr7s9Tid635X3E+ZLU/Q==
+
 cypress-xpath@^1.6.2:
   version "1.6.2"
   resolved "https://registry.npmjs.org/cypress-xpath/-/cypress-xpath-1.6.2.tgz"

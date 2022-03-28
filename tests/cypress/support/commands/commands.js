@@ -1,5 +1,6 @@
 import "cypress-file-upload";
 import testConfig from "../../test-config";
+import "cypress-wait-until";
 
 before(() => {
   cy.visit("/", { timeout: 300000 });
