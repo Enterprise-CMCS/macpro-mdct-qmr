@@ -38,10 +38,23 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA" | "OHSU";
+  type:
+    | "HEDIS"
+    | "OPA"
+    | "AHRQ"
+    | "CMS"
+    | "PQA"
+    | "AHRQ-NCQA"
+    | "NCQA"
+    | "OHSU"
+    | "HRSA";
 }
 
 const specifications = {
+  NCQA: {
+    displayValue: "National Committee for Quality Assurance (NCQA)",
+    value: DC.NCQA,
+  },
   HEDIS: {
     displayValue:
       "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
@@ -67,7 +80,11 @@ const specifications = {
   },
   PQA: {
     displayValue: "Pharmacy Quality Alliance (PQA)",
-    value: "PQA",
+    value: DC.PQA,
+  },
+  HRSA: {
+    displayValue: "Health Resources and Services Administration (HRSA)",
+    value: DC.HRSA,
   },
   OHSU: {
     displayValue: "Oregon Health and Science University (OHSU)",
