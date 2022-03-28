@@ -5,7 +5,12 @@ import "cypress-file-upload";
 // allow for Cypress Snapshot command
 import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command";
 
-addMatchImageSnapshotCommand();
+addMatchImageSnapshotCommand({
+  failureThreshold: 0.01, // threshold for entire image -> 0.01 = 1%
+  failureThresholdType: "percent", // percent of image or number of pixels
+  // customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
+  // capture: "viewport", // capture viewport in screenshot
+});
 
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";

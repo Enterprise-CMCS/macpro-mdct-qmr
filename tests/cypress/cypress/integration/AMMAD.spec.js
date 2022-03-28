@@ -6,7 +6,8 @@ describe("Measure: AMM-AD", () => {
     cy.goToMeasure("AMM-AD");
   });
 
-  it("should render correctly", () => {
+  it.skip("should match snapshot", () => {
+    // skipping this as it will serve as an example only for now
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
