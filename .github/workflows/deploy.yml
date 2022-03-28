@@ -81,8 +81,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers:
-          [
+        containers: [
             AMMAD.spec.js,
             amrAD.spec.js,
             CHLAD.spec.js,
@@ -95,7 +94,7 @@ jobs:
             lbwCH.spec.feature,
             lrcdCH.spec.feature,
             nciddsAD.spec.feature,
-            ohd-ad.spec.js,
+            # ohd-ad.spec.js,
             OUDAD.spec.js,
             oy2_10017_Child_Measure_Qualifier_CH.spec.js,
             oy2_10018_Adult_Measure_Qualifer_AD.spec.feature,
@@ -173,6 +172,11 @@ jobs:
           export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
+          popd
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
           popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
