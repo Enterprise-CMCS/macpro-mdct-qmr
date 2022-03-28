@@ -30,20 +30,6 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click();
     }
-    // else if ($tbody.find('[data-cy="CCSM"]').length > 0) {
-    //   cy.deleteChildCoreSets();
-    //   cy.wait(5000);
-    //   cy.addCombinedChildCoreset();
-    //   cy.reload();
-    //   cy.wait(15000);
-    //   cy.get('[data-cy="CCS"]').click({ force: true });
-    // } else {
-    //   cy.addCombinedChildCoreset();
-    //   cy.wait(15000);
-    //   cy.reload();
-    //   cy.wait(2000);
-    //   cy.get('[data-cy="CCS"]').click({ force: true });
-    // }
   });
 });
 
