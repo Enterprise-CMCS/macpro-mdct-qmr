@@ -32,11 +32,6 @@ describe("OY2 9910 PCR-AD", () => {
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Administrative Data");
-    //cy.get('[data-cy="DataSourceSelections.AdministrativeData.selected0"] > .chakra-checkbox__control').click();
-    //cy.get('#DataSourceSelections\\.AdministrativeData\\.selected0-checkbox').check();
-    //cy.get('[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__control').click();
-    //cy.get('#DataSourceSelections\\.AdministrativeData\\.selected1-checkbox').check();
-    //cy.get('[data-cy="DataSourceSelections.AdministrativeData-Other.description"]').click();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get("#DataSource1-checkbox").check();
     cy.get(
@@ -277,7 +272,6 @@ describe("OY2 9910 PCR-AD", () => {
       "123456789.1234"
     );
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
-    //cy.get('#radio-443').check();
     cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
     cy.get("#DeviationOptions0-checkbox").check();
     cy.get('[data-cy="DeviationOptions1"] > .chakra-checkbox__control').click();
@@ -285,13 +279,9 @@ describe("OY2 9910 PCR-AD", () => {
     cy.get('[data-cy="DeviationOptions2"] > .chakra-checkbox__control').click();
     cy.get("#DeviationOptions2-checkbox").check();
     cy.get('[data-cy="CombinedRates0"]').click();
-    //cy.get('#radio-426').check();
     cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
-    //cy.get('#radio-481').check();
     cy.get('[data-cy="CombinedRates-CombinedRates1"]').click();
-    //cy.get('#radio-482').check();
     cy.get('[data-cy="CombinedRates-CombinedRates2"]').click();
-    //cy.get('#radio-483').check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
@@ -376,8 +366,6 @@ describe("OY2 9910 PCR-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.pcrad-rate.3.value"]'
     ).type("123");
-    //cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control > div > .css-1r69mki > polyline').click();
-    //cy.get('#OptionalMeasureStratification\\.selections\\.Ethnicity\\.options0-checkbox').uncheck();
     cy.get(
       '[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__control'
     ).click();
@@ -426,11 +414,8 @@ describe("OY2 9910 PCR-AD", () => {
     cy.get('[data-cy="Clear Data"]').click();
     cy.get('[data-cy="PCR-AD"]').click();
     cy.get('[data-cy="DidReport0"]').click();
-    //cy.get('#radio-605').check();
     cy.get('[data-cy="DataStatus0"]').click();
-    //cy.get('#radio-609').check();
     cy.get('[data-cy="MeasurementSpecification1"]').click();
-    //cy.get('#radio-614').check();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
     cy.get("#DataSource0-checkbox").check();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
@@ -456,7 +441,6 @@ describe("OY2 9910 PCR-AD", () => {
     ).click();
     cy.get("#DefinitionOfDenominator2-checkbox").check();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
-    //cy.get('#radio-629').check();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control'
     ).click();
@@ -464,25 +448,21 @@ describe("OY2 9910 PCR-AD", () => {
     cy.get(
       "#DeliverySys-FeeForService_radiogroup > .chakra-stack > :nth-child(2) > .chakra-radio"
     ).click();
-    //cy.get('#radio-650').check();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__control'
     ).click();
     cy.get("#DeliverySysRepresentationDenominator1-checkbox").check();
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement1"]').click();
-    //cy.get('#radio-655').check();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__control'
     ).click();
     cy.get("#DeliverySysRepresentationDenominator2-checkbox").check();
     cy.get('[data-cy="DeliverySys-MCO_PIHP1"]').click();
-    //cy.get('#radio-661').check();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__control'
     ).click();
     cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
     cy.get('[data-cy="DeliverySys-IntegratedCareModel1"]').click();
-    //cy.get('#radio-667').check();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control'
     ).click();
