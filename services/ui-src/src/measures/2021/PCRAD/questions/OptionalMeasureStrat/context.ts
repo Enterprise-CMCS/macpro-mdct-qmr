@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import * as Types from "../../../../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 
 interface ContextProps {
   OPM?: Types.OtherRatesFields[];
@@ -11,6 +11,7 @@ interface ContextProps {
   rateMultiplicationValue?: number;
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
+  numberOfDecimals: number;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
@@ -23,6 +24,7 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   rateMultiplicationValue: undefined,
   customMask: undefined,
   allowNumeratorGreaterThanDenominator: false,
+  numberOfDecimals: 1,
 });
 
 export const usePerformanceMeasureContext = () =>

@@ -3,12 +3,14 @@ import * as CUI from "@chakra-ui/react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { NDRSets } from "./ndrSets";
 
-interface SubCatSectionProps {
+interface AddAnotherButtonProps {
   /** onClick state updating function for dynamic rendering */
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   /** additional text to display after "+ Add Another" on the button */
   additionalText?: string;
   isDisabled?: boolean;
+  /** name for location for dynamic testing */
+  testid: string;
 }
 
 /**
@@ -18,7 +20,8 @@ export const AddAnotherButton = ({
   onClick,
   additionalText,
   isDisabled,
-}: SubCatSectionProps) => {
+  testid,
+}: AddAnotherButtonProps) => {
   return (
     <QMR.ContainedButton
       buttonText={"+ Add Another " + additionalText}
@@ -31,6 +34,7 @@ export const AddAnotherButton = ({
       key={"AddAnotherButton"}
       onClick={onClick}
       disabledStatus={isDisabled}
+      testId={testid}
     />
   );
 };
@@ -54,8 +58,12 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
   return (
     <CUI.Box key={`${name}.additionalSubCategoriesWrapper`}>
       {fields.map((field: any, idx: number) => (
-        <QMR.DeleteWrapper allowDeletion key={field.id}>
-          <CUI.Text size={"xl"} my="3" onClick={() => remove(idx)}>
+        <QMR.DeleteWrapper
+          allowDeletion
+          key={field.id}
+          onDelete={() => remove(idx)}
+        >
+          <CUI.Text size={"xl"} my="3">
             {"Additional/Alternative Classification/Sub-category"}
           </CUI.Text>
           <QMR.QuestionChild show key={field.id}>
@@ -78,6 +86,7 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
         onClick={() => append({})}
         additionalText={"Sub-Category"}
         key={`${name}.additionalSubCategoriesButton`}
+        testid={`${name}.additionalSubCategoriesButton`}
       />
     </CUI.Box>
   );

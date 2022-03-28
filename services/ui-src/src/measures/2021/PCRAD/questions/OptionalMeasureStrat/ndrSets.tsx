@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 
-import * as Types from "../../../../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 import { usePerformanceMeasureContext } from "./context";
 import { useController, useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -25,6 +25,7 @@ interface AgeGroupProps {
   categories: string[];
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator: boolean;
 }
 
 interface OPMProps {
@@ -50,6 +51,7 @@ interface NdrOptionBuilderProps extends AgeGroupProps {
   categories: string[];
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator: boolean;
 }
 
 interface ConditionalRateBuilderProps {
@@ -62,6 +64,7 @@ interface ConditionalRateBuilderProps {
   name: string;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
+  allowNumeratorGreaterThanDenominator: boolean;
 }
 
 type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
@@ -71,7 +74,7 @@ type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
  * If total is adjusted manually, this will not change the state object which stops a forced recalculation/render
  */
 const useOmsTotalRate = (omsName: string, totalName: string) => {
-  const { qualifiers, rateMultiplicationValue } =
+  const { qualifiers, rateMultiplicationValue, numberOfDecimals } =
     usePerformanceMeasureContext();
   const { watch, control } = useFormContext();
 
@@ -96,7 +99,8 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       .map((s) => s.replace(/[^\w]/g, ""))) {
       if (
         watchOMS?.[qual]?.["singleCategory"]?.[0]?.numerator &&
-        watchOMS?.[qual]?.["singleCategory"]?.[0]?.denominator
+        watchOMS?.[qual]?.["singleCategory"]?.[0]?.denominator &&
+        watchOMS?.[qual]?.["singleCategory"]?.[0]?.rate
       ) {
         tempRate.numerator += parseFloat(
           watchOMS[qual]["singleCategory"][0].numerator
@@ -107,9 +111,12 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       }
     }
 
-    tempRate.rate = Math.round(
-      (tempRate.numerator / tempRate.denominator) *
-        (rateMultiplicationValue ?? 100)
+    tempRate.rate = (
+      Math.round(
+        (tempRate.numerator / tempRate.denominator) *
+          (rateMultiplicationValue ?? 100) *
+          Math.pow(10, numberOfDecimals)
+      ) / Math.pow(10, numberOfDecimals)
     ).toFixed(1);
 
     if (
@@ -121,8 +128,8 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
       setPrevCalcRate(tempRate);
       field.onChange([
         {
-          numerator: tempRate.numerator.toFixed(1),
-          denominator: tempRate.denominator.toFixed(1),
+          numerator: `${tempRate.numerator}`,
+          denominator: `${tempRate.denominator}`,
           rate: tempRate.rate,
         },
       ]);
@@ -134,6 +141,7 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
     field,
     prevCalcRate,
     setPrevCalcRate,
+    numberOfDecimals,
   ]);
 };
 
@@ -178,6 +186,7 @@ const buildConditionalRateArray = ({
   categories,
   rateMultiplicationValue,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: ConditionalRateBuilderProps) => {
   const ndrSets: React.ReactElement[] = [];
   const cleanedLabel = value?.replace(/[^\w]/g, "") ?? "CHECKBOX_VALUE_NOT_SET";
@@ -201,7 +210,9 @@ const buildConditionalRateArray = ({
           name={adjustedName}
           key={adjustedName}
           rateMultiplicationValue={rateMultiplicationValue}
-          allowNumeratorGreaterThanDenominator
+          allowNumeratorGreaterThanDenominator={
+            allowNumeratorGreaterThanDenominator
+          }
           customMask={customMask}
           rates={[
             {
@@ -232,6 +243,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
   categories,
   rateMultiplicationValue,
   customMask,
+  allowNumeratorGreaterThanDenominator,
 }: NdrOptionBuilderProps) => {
   const checkboxes: QMR.CheckboxOption[] = [];
 
@@ -247,6 +259,7 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
       categories,
       rateMultiplicationValue,
       customMask,
+      allowNumeratorGreaterThanDenominator,
     });
     if (ndrSets.length) {
       const cleanedLabel = val.replace(/[^\w]/g, "");
@@ -290,6 +303,8 @@ const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
       values: props.categories,
       rateMultiplicationValue: props.rateMultiplicationValue,
       customMask: props.customMask,
+      allowNumeratorGreaterThanDenominator:
+        props.allowNumeratorGreaterThanDenominator,
     });
   }
   return buildPerformanceMeasureNDRCheckboxOptions({
@@ -298,6 +313,8 @@ const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
     values: props.qualifiers,
     rateMultiplicationValue: props.rateMultiplicationValue,
     customMask: props.customMask,
+    allowNumeratorGreaterThanDenominator:
+      props.allowNumeratorGreaterThanDenominator,
   });
 };
 
@@ -313,6 +330,7 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
     rateMultiplicationValue,
     customMask,
     calcTotal,
+    allowNumeratorGreaterThanDenominator,
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
 
@@ -324,6 +342,8 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
     categories,
     rateMultiplicationValue,
     customMask,
+    allowNumeratorGreaterThanDenominator:
+      !!allowNumeratorGreaterThanDenominator,
   });
 
   return (

@@ -42,7 +42,7 @@ export const AddAnotherSection = ({
             <CUI.Stack spacing={"5"}>
               <QMR.TextInput
                 name={`${name}.additionalSelections.${idx}.description`}
-                label={`Define the additional ${parentName}`}
+                label={`Define the Additional ${parentName}`}
                 rules={{ required: true }}
               />
               <NDRSets name={`${name}.additionalSelections.${idx}.rateData`} />
@@ -60,6 +60,7 @@ export const AddAnotherSection = ({
         onClick={() => append({})}
         additionalText={parentName}
         key={`${name}.additionalCategoriesButton`}
+        testid={`${name}.additionalCategoriesButton`}
       />
     </CUI.Box>
   );

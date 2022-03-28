@@ -1,10 +1,8 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
-
-import * as Types from "../../../../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
 import { OMSData, OmsNode } from "./data";
-
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import * as CUI from "@chakra-ui/react";
@@ -37,7 +35,7 @@ export const buildOmsCheckboxes = ({
         <TopLevelOmsChildren
           options={lvlOneOption.options}
           addMore={!!lvlOneOption.addMore}
-          parentDisplayName={lvlOneOption.id}
+          parentDisplayName={lvlOneOption.aggregateTitle || lvlOneOption.id}
           addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
           name={`${name}.selections.${value}`}
           key={`${name}.selections.${value}`}
@@ -59,6 +57,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   customMask?: RegExp;
   isSingleSex?: boolean;
   rateAlwaysEditable?: boolean;
+  numberOfDecimals?: number;
 }
 
 /** data for dynamic rendering will be provided */
@@ -86,6 +85,14 @@ type OMSType = Types.OptionalMeasureStratification & {
   "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
 };
 
+const stringIsReadOnly = (dataSource: string) => {
+  return dataSource === "AdministrativeData";
+};
+
+const arrayIsReadOnly = (dataSource: string[]) => {
+  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+};
+
 /**
  * Final OMS built
  */
@@ -101,6 +108,7 @@ export const PCRADOptionalMeasureStrat = ({
   customMask,
   isSingleSex = false,
   rateAlwaysEditable = false,
+  numberOfDecimals = 1,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -110,16 +118,21 @@ export const PCRADOptionalMeasureStrat = ({
   const OPM = values["OtherPerformanceMeasure-Rates"];
   const watchDataSourceSwitch = watch("MeasurementSpecification");
 
-  const register = useCustomRegister();
+  const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
     ...register("OptionalMeasureStratification"),
     data: omsData,
     isSingleSex,
   });
 
-  const rateReadOnly =
-    dataSourceWatch?.every((source) => source === "AdministrativeData") ??
-    !rateAlwaysEditable;
+  let rateReadOnly = true;
+  if (rateAlwaysEditable) {
+    rateReadOnly = false;
+  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
+    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
+  } else if (dataSourceWatch) {
+    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+  }
 
   /**
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
@@ -143,6 +156,7 @@ export const PCRADOptionalMeasureStrat = ({
           rateMultiplicationValue,
           customMask,
           allowNumeratorGreaterThanDenominator,
+          numberOfDecimals,
         }}
       >
         <CUI.Text py="3">
