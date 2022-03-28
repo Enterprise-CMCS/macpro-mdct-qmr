@@ -122,7 +122,14 @@ When the tests have been written, create a new PR for `oy2-1234test` and set its
 
 ## Dependencies
 
-None.
+In order to hide the crendentials of test users a shell script has been added to the tests/cypress directory which is used to generate a test-config.js file used to login with the test users. It is run in the following manner:
+
+(Add your AWS Access tokens)
+(Run this in the tests/cypress directory)
+
+sh configureLocal.sh your-branch-name
+
+Once it is done runnning you should see a test-config.js file in your tests/cypress directory and now the tests will be able to properly access the right credentials.
 
 ## Examples
 
