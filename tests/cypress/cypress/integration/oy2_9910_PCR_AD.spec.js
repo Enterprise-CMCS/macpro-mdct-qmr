@@ -25,11 +25,11 @@ describe("OY2 9910 PCR-AD", () => {
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
     cy.get('#DataSource0-checkbox').check();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Administrative Data');
-    cy.get('[data-cy="DataSourceSelections.AdministrativeData.selected0"] > .chakra-checkbox__control').click();
-    cy.get('#DataSourceSelections\\.AdministrativeData\\.selected0-checkbox').check();
-    cy.get('[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__control').click();
-    cy.get('#DataSourceSelections\\.AdministrativeData\\.selected1-checkbox').check();
-    cy.get('[data-cy="DataSourceSelections.AdministrativeData-Other.description"]').click();
+    //cy.get('[data-cy="DataSourceSelections.AdministrativeData.selected0"] > .chakra-checkbox__control').click();
+    //cy.get('#DataSourceSelections\\.AdministrativeData\\.selected0-checkbox').check();
+    //cy.get('[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__control').click();
+    //cy.get('#DataSourceSelections\\.AdministrativeData\\.selected1-checkbox').check();
+    //cy.get('[data-cy="DataSourceSelections.AdministrativeData-Other.description"]').click();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get('#DataSource1-checkbox').check();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Other Data Source');
@@ -87,6 +87,189 @@ describe("OY2 9910 PCR-AD", () => {
     cy.get('[data-cy="Count of Beneficiaries in Medicaid Population"]').should('have.text', 'Count of Beneficiaries in Medicaid Population');
     cy.get('[data-cy="Number of Outliers"]').should('have.text', 'Number of Outliers');
     cy.get('[data-cy="Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000"]').should('have.text', 'Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000');
+    /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.value"]').type('1234567890');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.value"]').type('1234567890');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.value"]').should('have.value', '1234567890');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.value"]').should('have.value', '1234567890');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]').should('have.value', '1.0000');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').type('1234567890123456.1234');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.4.value"]').should('have.value', '1000000.0001');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').should('have.value', '1234567890123456.1234');
+    /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.6.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.6.value"]').type('1234567890');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.7.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.7.value"]').type('1234567890');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.6.value"]').should('have.value', '1234567890');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.7.value"]').should('have.value', '1234567890');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.8.value"]').should('have.value', '1000.0');
+    /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').type('0123456.1234');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').type('1234');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').type('123');
+    cy.get(':nth-child(9) > :nth-child(8)').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]').should('have.value', '1.0000');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.4.value"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.4.value"]').should('have.value', '0.0000');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.5.value"]').should('have.value', '10037137.3171');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.7.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.7.value"]').type('50000000');
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.8.value"]').should('have.value', '40.5');
+    /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').type('123456789.1234');
+    cy.get('[data-cy="DidCalculationsDeviate0"]').click();
+    //cy.get('#radio-443').check();
+    cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
+    cy.get('#DeviationOptions0-checkbox').check();
+    cy.get('[data-cy="DeviationOptions1"] > .chakra-checkbox__control').click();
+    cy.get('#DeviationOptions1-checkbox').check();
+    cy.get('[data-cy="DeviationOptions2"] > .chakra-checkbox__control').click();
+    cy.get('#DeviationOptions2-checkbox').check();
+    cy.get('[data-cy="CombinedRates0"]').click();
+    //cy.get('#radio-426').check();
+    cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
+    //cy.get('#radio-481').check();
+    cy.get('[data-cy="CombinedRates-CombinedRates1"]').click();
+    //cy.get('#radio-482').check();
+    cy.get('[data-cy="CombinedRates-CombinedRates2"]').click();
+    //cy.get('#radio-483').check();
+    cy.get('[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.options0-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.0.value"]').clear();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.0.value"]').type('1234567890');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.1.value"]').clear();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.1.value"]').type('1234567890');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.2.value"]').should('have.value', '1.0000');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.1.value"]').should('have.value', '1234567890');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.0.value"]').should('have.value', '1234567890');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.3.value"]').clear();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.3.value"]').type('1234567890123456.1234');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.4.value"]').should('have.value', '1000000.0001');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.3.value"]').should('have.value', '1234567890123456.1234');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.5.value"]').should('have.value', '0.0000');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.6.value"]').clear();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.6.value"]').type('1234567890');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.7.value"]').clear();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.7.value"]').type('1234567890');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.6.value"]').should('have.value', '1234567890');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.7.value"]').should('have.value', '1234567890');
+    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.8.value"]').should('have.value', '1000.0');
+    cy.get(':nth-child(1) > :nth-child(1) > .css-1kxonj9 > .css-n21gh5 > :nth-child(2)').click();
+    cy.get('[data-cy="OptionalMeasureStratification.options1"]').click();
+    cy.get('#OptionalMeasureStratification\\.options1-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.selections\\.Ethnicity\\.options0-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.pcrad-rate.3.value"]').clear();
+    cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.pcrad-rate.3.value"]').type('123');
+    //cy.get('[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control > div > .css-1r69mki > polyline').click();
+    //cy.get('#OptionalMeasureStratification\\.selections\\.Ethnicity\\.options0-checkbox').uncheck();
+    cy.get('[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.options2-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.options3"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.options3-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.options4-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.options5"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.options5-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.options6"] > .chakra-checkbox__control').click();
+    cy.get('#OptionalMeasureStratification\\.options6-checkbox').check();
+    cy.get('[data-cy="OptionalMeasureStratification.options6"]').click();
+    cy.get('#OptionalMeasureStratification\\.options6-checkbox').uncheck();
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get('[data-cy="You must complete one NDR set"] > .chakra-text').should('have.text', 'You must complete one NDR set');
+    cy.get('[data-cy="Optional Measure Stratification: Disability Status Error"]').should('have.text', 'Optional Measure Stratification: Disability Status Error');
+    cy.get('[data-cy="Optional Measure Stratification: Ethnicity Error"]').should('have.text', 'Optional Measure Stratification: Ethnicity Error');
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('Verify the OPM section', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="ACS"]').click();
+    cy.get('[data-cy="PCR-AD"]').click();
+    cy.wait(2000);
+    cy.get('[data-cy="Clear Data"]').click();
+    cy.get('[data-cy="PCR-AD"]').click();
+    cy.get('[data-cy="DidReport0"]').click();
+    //cy.get('#radio-605').check();
+    cy.get('[data-cy="DataStatus0"]').click();
+    //cy.get('#radio-609').check();
+    cy.get('[data-cy="MeasurementSpecification1"]').click();
+    //cy.get('#radio-614').check();
+    cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
+    cy.get('#DataSource0-checkbox').check();
+    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get('#DataSource1-checkbox').check();
+    cy.get('[data-cy="DateRange.startDate-month"]').clear();
+    cy.get('[data-cy="DateRange.startDate-month"]').type('10');
+    cy.get('[data-cy="DateRange.startDate-year"]').clear();
+    cy.get('[data-cy="DateRange.startDate-year"]').type('2020');
+    cy.get('[data-cy="DateRange.endDate-month"]').clear();
+    cy.get('[data-cy="DateRange.endDate-month"]').type('10');
+    cy.get('[data-cy="DateRange.endDate-year"]').clear();
+    cy.get('[data-cy="DateRange.endDate-year"]').type('2021');
+    cy.get('[data-cy="DefinitionOfDenominator0"] > .chakra-checkbox__control').click();
+    cy.get('#DefinitionOfDenominator0-checkbox').check();
+    cy.get('[data-cy="DefinitionOfDenominator1"] > .chakra-checkbox__control').click();
+    cy.get('#DefinitionOfDenominator1-checkbox').check();
+    cy.get('[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control').click();
+    cy.get('#DefinitionOfDenominator2-checkbox').check();
+    cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
+    //cy.get('#radio-629').check();
+    cy.get('[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control').click();
+    cy.get('#DeliverySysRepresentationDenominator0-checkbox').check();
+    cy.get('#DeliverySys-FeeForService_radiogroup > .chakra-stack > :nth-child(2) > .chakra-radio').click();
+    //cy.get('#radio-650').check();
+    cy.get('[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__control').click();
+    cy.get('#DeliverySysRepresentationDenominator1-checkbox').check();
+    cy.get('[data-cy="DeliverySys-PrimaryCareManagement1"]').click();
+    //cy.get('#radio-655').check();
+    cy.get('[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__control').click();
+    cy.get('#DeliverySysRepresentationDenominator2-checkbox').check();
+    cy.get('[data-cy="DeliverySys-MCO_PIHP1"]').click();
+    //cy.get('#radio-661').check();
+    cy.get('[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__control').click();
+    cy.get('#DeliverySysRepresentationDenominator3-checkbox').check();
+    cy.get('[data-cy="DeliverySys-IntegratedCareModel1"]').click();
+    //cy.get('#radio-667').check();
+    cy.get('[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control').click();
+    cy.get('#DeliverySysRepresentationDenominator4-checkbox').check();
+    cy.get('[data-cy="Other Performance Measure"]').should('have.text', 'Other Performance Measure');
+    cy.get('[data-cy="OtherPerformanceMeasure-Explanation"]').click();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.description"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.description"]').type('test');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type('3');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]').clear();
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]').type('30');
+    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').should('have.value', '10.0');
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('Verify error message for empty form', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[data-cy="ACS"]').click();
+    cy.get('[data-cy="PCR-AD"]').click();
+    cy.wait(2000);
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should('have.text', 'Date Range must be completed');
+    cy.get('[data-cy="At least one data section must be completed."] > .chakra-text').should('have.text', 'At least one data section must be completed.');
+    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
     /* ==== End Cypress Studio ==== */
   });
 });
