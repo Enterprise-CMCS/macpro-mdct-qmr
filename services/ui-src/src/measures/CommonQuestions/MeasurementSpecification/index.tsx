@@ -38,7 +38,15 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type: "HEDIS" | "OPA" | "AHRQ" | "CMS" | "PQA" | "AHRQ-NCQA" | "NCQA";
+  type:
+    | "HEDIS"
+    | "OPA"
+    | "AHRQ"
+    | "CMS"
+    | "PQA"
+    | "AHRQ-NCQA"
+    | "NCQA"
+    | "HRSA";
 }
 
 const specifications = {
@@ -71,7 +79,11 @@ const specifications = {
   },
   PQA: {
     displayValue: "Pharmacy Quality Alliance (PQA)",
-    value: "PQA",
+    value: DC.PQA,
+  },
+  HRSA: {
+    displayValue: "Health Resources and Services Administration (HRSA)",
+    value: DC.HRSA,
   },
 };
 
