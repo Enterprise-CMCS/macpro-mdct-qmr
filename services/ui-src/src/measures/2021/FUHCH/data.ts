@@ -2,8 +2,8 @@ import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
 export const qualifiers = ["Ages 6 to 17"];
 export const categories = [
-  "Follow up within 30 days after discharge",
-  "Follow up within 7 days after discharge",
+  "Follow-Up within 30 days after discharge",
+  "Follow-Up within 7 days after discharge",
 ];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
