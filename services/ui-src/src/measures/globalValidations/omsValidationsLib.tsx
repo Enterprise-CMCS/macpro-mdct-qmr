@@ -273,7 +273,7 @@ const validateNDRs = (
         if (rateData.rates?.[qual]?.[cat]) {
           const temp = rateData.rates[qual][cat][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
-            isDeepFilled[`${location}-${qual}`] = true;
+            isDeepFilled[`${location}-${qual}`] ??= true;
           } else {
             isDeepFilled[`${location}-${qual}`] = false;
           }
@@ -311,7 +311,7 @@ const validateNDRs = (
             topLevelKey.split("-")
           )}`,
           errorMessage:
-            "For any category selected, at least one NDR set must be filled.",
+            "For any category selected, all NDR sets must be filled.",
         });
       }
     }
