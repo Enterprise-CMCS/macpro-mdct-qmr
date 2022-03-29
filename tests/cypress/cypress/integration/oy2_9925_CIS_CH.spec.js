@@ -3,7 +3,6 @@ describe("Measure: CIS-CH", () => {
     cy.visit("/");
     cy.login();
     cy.deleteChildCoreSets();
-    cy.addCombinedChildCoreset();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CIS-CH");
   });
