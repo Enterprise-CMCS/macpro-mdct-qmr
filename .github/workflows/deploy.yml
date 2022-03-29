@@ -127,6 +127,7 @@ jobs:
             oy2-9954_PQI01AD.spec.js,
             oy2-9959_PQI15_AD.spec.js,
             pdentCH.spec.feature,
+            ssd-ad.spec.js,
           ]
     steps:
       - name: set branch_name
