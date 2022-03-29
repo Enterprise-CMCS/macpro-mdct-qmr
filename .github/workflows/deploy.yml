@@ -84,6 +84,7 @@ jobs:
         containers: [
             AMMAD.spec.js,
             amrAD.spec.js,
+            cdf-ad.spec.js,
             CHLAD.spec.js,
             cpaAD.spec.feature,
             fuaAD.spec.feature,
