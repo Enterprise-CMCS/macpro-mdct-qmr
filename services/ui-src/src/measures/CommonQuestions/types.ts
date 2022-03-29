@@ -11,7 +11,9 @@ export interface MeasurementSpecification {
     | typeof DC.OPA
     | typeof DC.AHRQ
     | typeof DC.CMS
-    | typeof DC.OTHER;
+    | typeof DC.OTHER
+    | typeof DC.HRSA
+    | typeof DC.PQA;
   [DC.MEASUREMENT_SPECIFICATION_HEDIS]: // if Measure Spec is NCQA/HEDIS -> which version are they using
   typeof DC.HEDIS_MY_2020 | typeof DC.HEDIS_2020 | typeof DC.HEDIS_2019;
   [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION]: string; // If user selects OTHER in MEASUREMENT_SPECIFICATION -> this is the description
