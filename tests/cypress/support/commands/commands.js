@@ -1,6 +1,6 @@
 import "cypress-file-upload";
-import testConfig from "../../test-config";
 import "cypress-wait-until";
+import testConfig from "../../test-config.js";
 
 before(() => {
   cy.visit("/", { timeout: 60000 * 5 });
@@ -21,13 +21,9 @@ const passwordForCognito = "//input[@name='password']";
 Cypress.Commands.add(
   "login",
   (
-    // user = testConfig.TEST_USER_3, // pragma: allowlist secret
-    // password = testConfig.TEST_PASSWORD_1 // pragma: allowlist secret
-    user = "stateuser3@test.com", // pragma: allowlist secret
-    password = "p@55W0rd!" // pragma: allowlist secret
+    user = testConfig.TEST_USER_3, // pragma: allowlist secret
+    password = testConfig.TEST_PASSWORD_1 // pragma: allowlist secret
   ) => {
-    cy.log("test config!!!!!!!!!!!!!!!!!");
-    cy.log({ testConfig });
     cy.visit("/");
     cy.xpath(emailForCognito).type(`${user}`);
     cy.xpath(passwordForCognito).type(password);
