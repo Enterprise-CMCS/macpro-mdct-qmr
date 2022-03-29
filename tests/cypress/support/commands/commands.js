@@ -6,6 +6,13 @@ before(() => {
   cy.visit("/", { timeout: 300000 });
 });
 
+// if you want to fail after the first test uncomment this (good for testing locally)
+// afterEach(() => {
+//   if (this.currentTest.state === "failed") {
+//     Cypress.runner.stop();
+//   }
+// });
+
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
@@ -17,6 +24,7 @@ Cypress.Commands.add(
     user = testConfig.TEST_USER_3, // pragma: allowlist secret
     password = testConfig.TEST_PASSWORD_1 // pragma: allowlist secret
   ) => {
+    cy.visit("/");
     cy.xpath(emailForCognito).type(`${user}`);
     cy.xpath(passwordForCognito).type(password);
     cy.get('[data-cy="login-with-cognito-button"]').click();

@@ -1,5 +1,5 @@
-describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => {
-  before(() => {
+describe("Child Core Sets Should be able to be deleted and created", () => {
+  beforeEach(() => {
     cy.login();
   });
 
@@ -12,10 +12,16 @@ describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => 
         cy.get('[data-cy="Create"]').click({ force: true }); //clicking create
       })
     );
-    cy.wait(2000);
+  });
+
+  it("Creates combined child core-set", () => {
     cy.deleteChildCoreSets();
-    cy.get('[data-cy="Add Child Core Set"]').click({ force: true }); // clicking on adding child core set measures
-    cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
-    cy.get('[data-cy="Create"]').click({ force: true }); //clicking create
+    cy.waitUntil(() =>
+      cy.get('[data-cy="Add Child Core Set"]').then(() => {
+        cy.get('[data-cy="Add Child Core Set"]').click({ force: true }); // clicking on adding child core set measures
+        cy.get("#ChildCoreSet-ReportType-combined").click({ force: true }); //selecting combined core set
+        cy.get('[data-cy="Create"]').click({ force: true }); //clicking create
+      })
+    );
   });
 });
