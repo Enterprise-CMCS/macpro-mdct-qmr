@@ -1,9 +1,5 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("Measure: PQI08-AD", () => {
   before(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("PQI08-AD");

@@ -1,23 +1,11 @@
-import testConfig from "../../test-config.js";
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
-describe("OY2 8976 CCW-AD", () => {
+describe("CCW-AD", () => {
   beforeEach(() => {
-    // Seed database with test data
-    cy.visit("/");
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_3);
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
-    cy.get('[data-cy="login-with-cognito-button"]').click();
+    cy.login();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("CCW-AD");
   });
 
   it("Yes for Reporting", () => {
-    cy.get(":nth-child(1) > :nth-child(1) > a > .chakra-text").click();
-    cy.get(":nth-child(7) > :nth-child(1) > a > .chakra-text").click();
-    cy.wait(2000);
-    cy.xpath("//button[contains(text(),'Clear Data')]").click();
-    cy.wait(2000);
-    cy.get('[data-cy="CCW-AD"]').click();
     cy.get(".css-itvw0n").should(
       "have.text",
       "For technical questions regarding use of this application, please reach out to MDCT_Help@cms.hhs.gov. For content-related questions about measure specifications, or what information to enter in each field, please reach out to MACQualityTA@cms.hhs.gov."
@@ -114,12 +102,6 @@ describe("OY2 8976 CCW-AD", () => {
   });
 
   it("Other Performance Measure", () => {
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCW-AD"]').click();
-    cy.wait(2000);
-    cy.xpath("//button[contains(text(),'Clear Data')]").click();
-    cy.wait(2000);
-    cy.get('[data-cy="CCW-AD"]').click();
     cy.get('[data-cy="MeasurementSpecification1"]').click({ force: true });
     cy.xpath("//p[@id='MeasurementSpecification-Other']").click({
       force: true,
@@ -180,8 +162,6 @@ describe("OY2 8976 CCW-AD", () => {
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.1.rate.0.denominator"]'
     ).type("4");
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="Validate Measure"]').should("be.enabled");
     cy.get('[data-cy="Complete Measure"]').should("be.enabled");
     cy.wait(500);
@@ -215,8 +195,6 @@ describe("OY2 8976 CCW-AD", () => {
       "have.text",
       "Manually entered rate should be 0 if numerator is 0"
     );
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
     cy.wait(500);
     cy.get('[data-cy="+ Add Another"]').click({ force: true });
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.description"]').clear();
@@ -249,6 +227,5 @@ describe("OY2 8976 CCW-AD", () => {
       "have.text",
       "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
-    /* ==== End Cypress Studio ==== */
   });
 });

@@ -1,8 +1,6 @@
 describe("OY2 9963 CPC CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
-    cy.addCombinedChildCoreset();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CPC-CH");
   });

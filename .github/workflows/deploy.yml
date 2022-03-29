@@ -192,7 +192,7 @@ jobs:
             OHDAD.spec.js,
             OUDAD.spec.js,
             PPCAD.spec.js,
-            PQIO1AD.spec.js,
+            PQI01AD.spec.js,
             PQI05AD.spec.js,
             PQI08AD.spec.js,
             PQI15AD.spec.js,

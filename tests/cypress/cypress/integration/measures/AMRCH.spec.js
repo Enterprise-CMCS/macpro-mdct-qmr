@@ -1,8 +1,6 @@
 describe("Measure: AMR-CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
-    cy.deleteChildCoreSets();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("AMR-CH");
   });
