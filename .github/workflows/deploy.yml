@@ -84,6 +84,7 @@ jobs:
         containers: [
             AMMAD.spec.js,
             amrAD.spec.js,
+            amrCH.spec.js,
             CHLAD.spec.js,
             cpaAD.spec.feature,
             fuaAD.spec.feature,
@@ -118,16 +119,19 @@ jobs:
             oy2_9920_Measure_34_CBP_AD.spec.js,
             oy2_9925_CIS_CH.spec.js,
             oy2_9929_PPC_AD.spec.js,
-            oy2_9949_HVL_AD.spec.js,
             oy2_9938_BCS_AD.spec.js,
             oy2_9939_CCS_AD.spec.js,
             oy2_9940_Measure_48_COB_AD.spec.js,
             oy2_9944_Measure_50_FVA_AD.spec.js,
             oy2_9947_HPC_AD.spec.js,
+            oy2_9949_HVL_AD.spec.js,
             oy2_9963_CPC_CH.spec.js,
             oy2-9954_PQI01AD.spec.js,
+            oy2-9954_PQI01AD.spec.js,
+            oy2-9959_PQI15_AD.spec.js,
             oy2-9959_PQI15_AD.spec.js,
             pdentCH.spec.feature,
+            ssd-ad.spec.js,
           ]
     steps:
       - name: set branch_name
