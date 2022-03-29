@@ -79,17 +79,16 @@ const useOmsTotalRate = (
     ).toFixed(1);
 
     if (
-      tempRate.numerator &&
-      tempRate.denominator &&
-      (tempRate.numerator !== prevCalcRate.numerator ||
-        tempRate.denominator !== prevCalcRate.denominator)
+      tempRate.numerator !== prevCalcRate.numerator ||
+      tempRate.denominator !== prevCalcRate.denominator
     ) {
       setPrevCalcRate(tempRate);
+      const rate = parseFloat(tempRate.rate);
       field.onChange([
         {
           numerator: `${tempRate.numerator}`,
           denominator: `${tempRate.denominator}`,
-          rate: tempRate.rate,
+          rate: (!isNaN(rate) && rate) || "0.0",
         },
       ]);
     }
