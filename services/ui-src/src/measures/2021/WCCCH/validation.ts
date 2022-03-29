@@ -46,7 +46,6 @@ const WCCHValidation = (data: FormData) => {
       PMD.qualifiers,
       includesHybridDataSource
     ),
-    ...GV.validateOneRateHigherThanOther(data, PMD.data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
@@ -68,7 +67,7 @@ const WCCHValidation = (data: FormData) => {
         GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,
         GV.validateRateNotZero,
-        GV.validateOMSTotalNDR,
+        // GV.validateOMSTotalNDR,
         ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
       ],
     }),

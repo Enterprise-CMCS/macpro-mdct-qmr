@@ -58,7 +58,6 @@ export const WCCCH = ({
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure={false}
               calcTotal
-              isSingleSex
             />
           )}
         </>
