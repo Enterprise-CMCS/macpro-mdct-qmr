@@ -1,9 +1,9 @@
 import "cypress-file-upload";
-// import testConfig from "../../test-config";
+import testConfig from "../../test-config";
 import "cypress-wait-until";
 
 before(() => {
-  cy.visit("/", { timeout: 300000 });
+  cy.visit("/", { timeout: 60000 * 5 });
 });
 
 // if you want to fail after the first test uncomment this (good for testing locally)
@@ -23,9 +23,11 @@ Cypress.Commands.add(
   (
     // user = testConfig.TEST_USER_3, // pragma: allowlist secret
     // password = testConfig.TEST_PASSWORD_1 // pragma: allowlist secret
-    user = "stateuser3", // pragma: allowlist secret
+    user = "stateuser3@test.com", // pragma: allowlist secret
     password = "p@55W0rd!" // pragma: allowlist secret
   ) => {
+    cy.log("test config!!!!!!!!!!!!!!!!!");
+    cy.log({ testConfig });
     cy.visit("/");
     cy.xpath(emailForCognito).type(`${user}`);
     cy.xpath(passwordForCognito).type(password);
