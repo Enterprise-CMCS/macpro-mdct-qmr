@@ -85,7 +85,7 @@ do
 
     # Remove all bucket versions.
   versions=`aws s3api list-object-versions \
-    --max-items 1000 \
+    --max-items 200 \
     --bucket "$i" \
     --output=json \
     --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}'`
@@ -96,7 +96,7 @@ do
       --bucket $i \
       --delete "$versions" > /dev/null 2>&1
     versions=`aws s3api list-object-versions \
-    --max-items 1000 \
+    --max-items 200 \
     --bucket "$i" \
     --output=json \
     --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}'`
