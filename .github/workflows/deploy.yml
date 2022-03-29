@@ -128,6 +128,7 @@ jobs:
             oy2-9954_PQI01AD.spec.js,
             oy2-9959_PQI15_AD.spec.js,
             pdentCH.spec.feature,
+            oy2_9953_PC01_AD.spec.js,
           ]
     steps:
       - name: set branch_name
