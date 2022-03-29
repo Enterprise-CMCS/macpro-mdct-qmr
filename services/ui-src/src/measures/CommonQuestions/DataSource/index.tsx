@@ -101,11 +101,13 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
 
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
-      <QMR.Checkbox
-        {...register(DC.DATA_SOURCE)}
-        label={data.optionsLabel}
-        options={buildDataSourceOptions({ data: data.options })}
-      />
+      <div data-cy="data-source-options">
+        <QMR.Checkbox
+          {...register(DC.DATA_SOURCE)}
+          label={data.optionsLabel}
+          options={buildDataSourceOptions({ data: data.options })}
+        />
+      </div>
       {showExplanation && (
         <CUI.VStack key={"DataSourceExplanationWrapper"}>
           <CUI.Text
