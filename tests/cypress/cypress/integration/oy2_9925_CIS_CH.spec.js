@@ -3,7 +3,6 @@ describe("Measure: CIS-CH", () => {
     cy.visit("/");
     cy.login();
     cy.deleteChildCoreSets();
-    cy.addCombinedChildCoreset();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CIS-CH");
   });
@@ -99,7 +98,9 @@ describe("Measure: CIS-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator0-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator0-checkbox").check({
+      force: true,
+    });
     cy.get("#DeliverySys-FeeForService-yes").should(
       "have.text",
       "Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure."
@@ -108,17 +109,23 @@ describe("Measure: CIS-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check({
+      force: true,
+    });
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement1"]').click();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check({
+      force: true,
+    });
     cy.get('[data-cy="DeliverySys-MCO_PIHP1"]').click();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
+    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check({
+      force: true,
+    });
     cy.get('[data-cy="DeliverySys-IntegratedCareModel1"]').click();
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control'

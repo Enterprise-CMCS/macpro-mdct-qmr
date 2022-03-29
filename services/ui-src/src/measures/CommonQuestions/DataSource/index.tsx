@@ -77,23 +77,6 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         />
       );
     }
-    if (node.value === DC.HYBRID_DATA) {
-      children.push(
-        ...buildDataSourceCheckboxOptionChildren({
-          data: [
-            {
-              value: "Electronic Health Record (EHR) Data",
-            },
-            {
-              value: "Paper",
-            },
-          ],
-          label:
-            "What is the Medical Records Data Source? (Both can be selected)",
-          parentName: `${adjustedParentName}-EHR`,
-        })
-      );
-    }
 
     checkBoxOptions.push({
       value: cleanedNodeValue,
@@ -118,11 +101,13 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
 
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
-      <QMR.Checkbox
-        {...register(DC.DATA_SOURCE)}
-        label={data.optionsLabel}
-        options={buildDataSourceOptions({ data: data.options })}
-      />
+      <div data-cy="data-source-options">
+        <QMR.Checkbox
+          {...register(DC.DATA_SOURCE)}
+          label={data.optionsLabel}
+          options={buildDataSourceOptions({ data: data.options })}
+        />
+      </div>
       {showExplanation && (
         <CUI.VStack key={"DataSourceExplanationWrapper"}>
           <CUI.Text

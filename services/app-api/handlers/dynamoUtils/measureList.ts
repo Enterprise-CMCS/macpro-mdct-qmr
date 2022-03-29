@@ -104,7 +104,7 @@ export const measures: Measure = {
     {
       type: "A",
       description:
-        "Comprehensive Diabetes Care: Hemoglobin A1c Poor Control (>9.0%)",
+        "Comprehensive Diabetes Care: Hemoglobin A1c (HbA1c) Poor Control (> 9.0%)",
       measure: "HPC-AD",
     },
     {
