@@ -21,12 +21,15 @@ const passwordForCognito = "//input[@name='password']";
 Cypress.Commands.add(
   "login",
   (
-    user = testConfig.TEST_USER_3, // pragma: allowlist secret
-    password = testConfig.TEST_PASSWORD_1 // pragma: allowlist secret
+    user = "stateuser3" // pragma: allowlist secret
   ) => {
+    const users = {
+      stateuser3: testConfig.TEST_USER_3,
+      stateuser2: testConfig.TEST_USER_2,
+    };
     cy.visit("/");
-    cy.xpath(emailForCognito).type(`${user}`);
-    cy.xpath(passwordForCognito).type(password);
+    cy.xpath(emailForCognito).type(`${users[user]}`);
+    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );

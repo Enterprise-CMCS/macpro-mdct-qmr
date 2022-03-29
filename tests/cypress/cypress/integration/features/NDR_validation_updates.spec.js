@@ -1,6 +1,6 @@
 describe("OY2 16341 NDR set validation updates for all measures ", () => {
   beforeEach(() => {
-    cy.login();
+    cy.login("stateuser2");
   });
 
   it("Click on NO for the first question then click on validate and complete button for CCP-AD", () => {

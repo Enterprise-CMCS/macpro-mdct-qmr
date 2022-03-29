@@ -1,6 +1,6 @@
 describe("OY2-16228 Date Range Adjustment for Start/End date", () => {
   beforeEach(() => {
-    cy.login();
+    cy.login("stateuser2");
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });

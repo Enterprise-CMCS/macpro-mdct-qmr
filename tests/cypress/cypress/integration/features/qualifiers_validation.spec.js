@@ -1,7 +1,7 @@
 describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => {
   beforeEach(() => {
     // Seed database with test data
-    cy.visit("/");
+    cy.visit("stateuser2");
     cy.login();
   });
 

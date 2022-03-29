@@ -1,6 +1,6 @@
 describe("OY2 16411 Restructuring Data Source Text boxes", () => {
   beforeEach(() => {
-    cy.login();
+    cy.login("stateuser2");
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });

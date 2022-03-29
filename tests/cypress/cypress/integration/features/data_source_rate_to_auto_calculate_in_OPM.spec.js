@@ -4,7 +4,7 @@ const passwordForCognito = "//input[@name='password']";
 
 describe("OY2 16039 Data source/ Rate to auto calculate in OPM", () => {
   beforeEach(() => {
-    cy.login();
+    cy.login("stateuser2");
     cy.goToAdultMeasures();
     cy.goToMeasure("FUA-AD");
   });

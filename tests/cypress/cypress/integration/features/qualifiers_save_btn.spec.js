@@ -1,7 +1,6 @@
 describe("Save Button exists in AD/CD Qualifiers", () => {
   beforeEach(() => {
-    cy.visit("/");
-    cy.login();
+    cy.login("stateuser2");
   });
 
   it("Check Adult core set question", () => {

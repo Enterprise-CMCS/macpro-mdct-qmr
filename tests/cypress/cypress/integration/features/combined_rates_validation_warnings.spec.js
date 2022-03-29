@@ -1,6 +1,6 @@
 describe("OY2 16297 Combined rates validation testing", () => {
   beforeEach(() => {
-    cy.login();
+    cy.login("stateuser2");
     cy.goToAdultMeasures();
     cy.goToMeasure("OUD-AD");
   });

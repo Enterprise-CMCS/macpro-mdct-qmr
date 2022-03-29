@@ -1,15 +1,11 @@
 describe("OY2 16411 Restructuring Data Source Text boxes", () => {
   beforeEach(() => {
-    cy.login();
+    cy.login("stateuser2");
+    cy.goToAdultMeasures();
+    cy.goToMeasure("CCP-AD");
   });
 
   it("Verify that only one description text box displayed under Data Source section if multiple alternative data sources selected", () => {
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
-    cy.wait(2000);
-    cy.xpath("//button[contains(text(),'Clear Data')]").click();
-    cy.wait(2000);
-    cy.get('[data-cy="CCP-AD"]').click();
     cy.xpath("//label[contains(text(),'Data Source')]").should("be.visible");
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
@@ -51,12 +47,6 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
   });
 
   it("Verify that no description text box displayed under Data Source section if only one alternative data source is selected", () => {
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
-    cy.wait(2000);
-    cy.xpath("//button[contains(text(),'Clear Data')]").click();
-    cy.wait(2000);
-    cy.get('[data-cy="CCP-AD"]').click();
     cy.xpath("//label[contains(text(),'Data Source')]").should("be.visible");
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'

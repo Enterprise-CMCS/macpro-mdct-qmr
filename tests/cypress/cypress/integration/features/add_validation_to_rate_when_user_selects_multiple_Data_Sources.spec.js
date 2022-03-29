@@ -1,6 +1,6 @@
 describe("OY2 16342 Add Validation to Rate when user selects multiple Data Sources.", () => {
   beforeEach(() => {
-    cy.login();
+    cy.login("stateuser2");
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });
