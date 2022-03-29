@@ -281,7 +281,7 @@ export const MeasureWrapper = ({
           },
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
-            name: `${measureId} - ${name}`,
+            name: `${measureId} - ${apiData?.Item?.description}`,
           },
         ]}
         buttons={
