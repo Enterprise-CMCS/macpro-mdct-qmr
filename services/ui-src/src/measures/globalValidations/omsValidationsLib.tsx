@@ -5,8 +5,12 @@ import {
 } from "measures/CommonQuestions/types";
 type locationDictionaryFunction = (labels: string[]) => string;
 
+interface RateData extends OMS.OmsRateFields {
+  "pcrad-rate"?: { id?: number; value?: string; label?: string }[];
+}
+
 export type OmsValidationCallback = (data: {
-  rateData: OMS.OmsRateFields;
+  rateData: RateData;
   qualifiers: string[];
   categories: string[];
   label: string[];
@@ -227,7 +231,7 @@ const validateNDRs = (
     }
   };
   // Rate containers to be validated
-  const validateNodeRates = (rateData: OMS.OmsRateFields, label: string[]) => {
+  const validateNodeRates = (rateData: RateData, label: string[]) => {
     for (const callback of callbackArr) {
       errorArray.push(
         ...callback({
@@ -250,7 +254,11 @@ const validateNDRs = (
     checkIsDeepFilled(locationReduced, rateData);
   };
   //checks at least one ndr filled
-  const checkNdrsFilled = (rateData: OMS.OmsRateFields) => {
+  const checkNdrsFilled = (rateData: RateData) => {
+    // pcr-ad check
+    if (rateData?.["pcrad-rate"]) {
+      return rateData["pcrad-rate"].every((o) => !!o?.value);
+    }
     for (const qual of qualifiers.map((s) => cleanString(s))) {
       for (const cat of categories.map((s) => cleanString(s))) {
         if (rateData.rates?.[qual]?.[cat]) {
@@ -265,9 +273,17 @@ const validateNDRs = (
   };
 
   // checks that if a qualifier was selected that it was filled
-  const checkIsDeepFilled = (location: string, rateData: OMS.OmsRateFields) => {
+  const checkIsDeepFilled = (location: string, rateData: RateData) => {
     if (!rateData || !rateData.options?.length) return;
 
+    // pcr-ad check
+    if (rateData?.["pcrad-rate"]) {
+      isDeepFilled[`${location}`] = rateData["pcrad-rate"].every(
+        (o) => !!o?.value
+      );
+    }
+
+    // default check
     for (const qual of qualifiers.map((s) => cleanString(s))) {
       for (const cat of categories.map((s) => cleanString(s))) {
         if (rateData.rates?.[qual]?.[cat]) {
