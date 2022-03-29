@@ -210,7 +210,7 @@ const PCRADatLeastOneRateComplete = (
   if (error) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: `At least one data section must be completed.`,
+      errorMessage: "All data fields must be completed.",
     });
   }
   return error ? errorArray : [];

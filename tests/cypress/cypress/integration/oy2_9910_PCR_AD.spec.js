@@ -507,8 +507,8 @@ describe("OY2 9910 PCR-AD", () => {
       "Date Range must be completed"
     );
     cy.get(
-      '[data-cy="At least one data section must be completed."] > .chakra-text'
-    ).should("have.text", "At least one data section must be completed.");
+      '[data-cy="All data fields must be completed."] > .chakra-text'
+    ).should("have.text", "All data fields must be completed.");
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should(
