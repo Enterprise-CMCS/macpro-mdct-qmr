@@ -184,7 +184,7 @@ export const measures: Measure = {
     {
       type: "A",
       description:
-        "Adherence to Antipsychotic Medications for Individuals with Schizophrenia",
+        "Adherence to Antipsychotic Medications for Individuals With Schizophrenia",
       measure: "SAA-AD",
     },
     {
