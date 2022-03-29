@@ -75,7 +75,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Follow-up after Hospitalization for Mental Illness: Age 18 and Older",
+      name: "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
       measureId: "FUH-AD",
     },
     {
