@@ -89,6 +89,7 @@ jobs:
             fuaAD.spec.feature,
             fuaADoy2_15377.spec.feature,
             fuaADoy2_8940.spec.feature,
+            fuhad.spec.js,
             fuhch.spec.js,
             hpcmi-ad.spec.js,
             lbwCH.spec.feature,
