@@ -1,22 +1,11 @@
-import testConfig from "../../test-config.js";
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("OY2 16341 NDR set validation updates for all measures ", () => {
   beforeEach(() => {
-    // Seed database with test data
-    cy.visit("/");
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_3);
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
-    cy.get('[data-cy="login-with-cognito-button"]').click();
+    cy.login();
   });
+
   it("Click on NO for the first question then click on validate and complete button for CCP-AD", () => {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
-    cy.wait(2000);
-    cy.xpath('//button[@data-cy="Clear Data"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("CCP-AD");
     cy.get('[data-cy="DidReport1"]').click();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
@@ -51,17 +40,11 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       "have.text",
       "You must select at least one reason for not reporting on this measure"
     );
-    /* ==== End Cypress Studio ==== */
   });
 
-  /* ==== Test Created with Cypress Studio ==== */
   it("PM NDR verification for CCP-AD", function () {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
-    cy.wait(2000);
-    cy.get('[data-cy="Clear Data"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("CCP-AD");
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get("#DataSource1-checkbox").check();
@@ -70,9 +53,6 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     ).click();
     cy.get("#DefinitionOfDenominator2-checkbox").check();
     cy.wait(1000);
-    //cy.get(
-    //'[data-cy="PerformanceMeasure-AgeRates-effectiveContraception.0.numerator"]'
-    //).clear();
     cy.xpath(
       "//input[@data-cy='PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator']"
     ).clear();
@@ -139,17 +119,11 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(
       '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
-    /* ==== End Cypress Studio ==== */
   });
 
-  /* ==== Test Created with Cypress Studio ==== */
   it("OPM NDR verification for CCP-AD", function () {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
-    cy.wait(2000);
-    cy.get('[data-cy="Clear Data"]').click();
-    cy.get('[data-cy="CCP-AD"]').click();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("CCP-AD");
     cy.get('[data-cy="MeasurementSpecification1"]').click();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get("#DataSource1-checkbox").check();
@@ -228,17 +202,11 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       "have.text",
       "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
-    /* ==== End Cypress Studio ==== */
   });
 
-  /* ==== Test Created with Cypress Studio ==== */
   it("Click on NO for the first question then click on validate and complete button for PQI01-AD", function () {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="PQI01-AD"]').click();
-    cy.wait(2000);
-    cy.get('[data-cy="Clear Data"]').click();
-    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("PQI01-AD");
     cy.get('[data-cy="DidReport1"]').click();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
@@ -278,12 +246,8 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
 
   /* ==== Test Created with Cypress Studio ==== */
   it("PM NDR verification for PQI01-AD", function () {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="PQI01-AD"]').click();
-    cy.wait(2000);
-    cy.get('[data-cy="Clear Data"]').click();
-    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("PQI01-AD");
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get("#DataSource1-checkbox").check();
@@ -328,7 +292,6 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.xpath(
       '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("0");
-    //cy.get(".chakra-container > :nth-child(9)").click();
     cy.xpath(
       '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
     ).should("have.value", "0.0");
@@ -377,17 +340,11 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(
       '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
-    /* ==== End Cypress Studio ==== */
   });
 
-  /* ==== Test Created with Cypress Studio ==== */
   it("OPM NDR verification for PQI01-AD", function () {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="PQI01-AD"]').click();
-    cy.wait(2000);
-    cy.get('[data-cy="Clear Data"]').click();
-    cy.get('[data-cy="PQI01-AD"]').click();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("PQI01-AD");
     cy.get('[data-cy="DataSource1"]').click();
     cy.get("#DataSource1-checkbox").check();
     cy.get('[data-cy="MeasurementSpecification1"]').click();

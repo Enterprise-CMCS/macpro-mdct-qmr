@@ -326,8 +326,8 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   a11y-tests:
-    name: A11y Tests
-    needs: setup-tests
+    name: Test Ally
+    needs: deploy
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
