@@ -3,7 +3,7 @@ describe("Measure: SAA-AD", () => {
     cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
-    cy.goToMeasure("AMR-AD");
+    cy.goToMeasure("SAA-AD");
   });
 
   it("displays correct sections when user is or is not reporting", () => {
