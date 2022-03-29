@@ -1,27 +1,8 @@
-import testConfig from "../../test-config.js";
-const exp = require("constants");
-
-const emailForCognito = `//input[@name='email']`;
-const passwordForCognito = `//input[@name='password']`;
-
 describe("OY2 16297 Combined rates validation testing", () => {
   beforeEach(() => {
-    // Seed database with test data
-    cy.visit("/");
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_2);
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
-    cy.get("[data-cy=login-with-cognito-button]").click();
-
-    // Navagate to OUD-AD measure
-    cy.get("[data-cy=ACS]").click();
-    cy.get("[data-cy=OUD-AD]").should("be.visible").click();
-
-    // Clear potential stale data and re-open measure
-    cy.get(`[data-cy="Clear Data"]`).should("be.visible").click();
-    cy.get("[data-cy=OUD-AD]").should("be.visible").click();
-
-    // Ensure the form has reloaded
-    cy.get(`[data-cy="Validate Measure"]`).should("be.visible");
+    cy.login();
+    cy.goToAdultMeasures();
+    cy.goToMeasure("OUD-AD");
   });
 
   it("displays the correct warning if no NDR sets has been entered", () => {

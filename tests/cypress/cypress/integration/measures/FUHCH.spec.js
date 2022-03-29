@@ -1,6 +1,5 @@
 describe("Measure: FUH-CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("FUH-CH");

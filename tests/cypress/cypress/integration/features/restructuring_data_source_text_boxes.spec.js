@@ -1,14 +1,6 @@
-import testConfig from "../../test-config.js";
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("OY2 16411 Restructuring Data Source Text boxes", () => {
   beforeEach(() => {
-    // Seed database with test data
-    cy.visit("/");
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_3);
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
-    cy.get('[data-cy="login-with-cognito-button"]').click();
+    cy.login();
   });
 
   it("Verify that only one description text box displayed under Data Source section if multiple alternative data sources selected", () => {

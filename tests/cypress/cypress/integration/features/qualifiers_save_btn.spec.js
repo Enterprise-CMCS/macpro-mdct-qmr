@@ -1,7 +1,4 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
-describe("OY2 16982 Add Save Button to AD/CD Qualifiers", () => {
+describe("Save Button exists in AD/CD Qualifiers", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.login();
