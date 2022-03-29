@@ -4,6 +4,7 @@ the key should be the measure id as a string (with '-XX' included)
 */
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
+import { AMRCH } from "./AMRCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
 import { CCPAD } from "./CCPAD";
@@ -28,17 +29,22 @@ import { MSCAD } from "./MSCAD";
 import { NCIDDSAD } from "./NCIDDSAD";
 import { OHDAD } from "./OHDAD";
 import { OUDAD } from "./OUDAD";
+import { PCRAD } from "./PCRAD";
 import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
 import { PQI01AD } from "./PQI01AD";
 import { PQI05AD } from "./PQI05AD";
+import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
+import { SAAAD } from "./SAAAD";
+import { SSDAD } from "./SSDAD";
 import { WCCCH } from "./WCCCH";
 
 const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
+  "AMR-CH": AMRCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
   "CCP-AD": CCPAD,
@@ -50,6 +56,7 @@ const twentyTwentyOneMeasures = {
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "FUA-AD": FUAAD,
+  "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
   "FVA-AD": FVAAD,
@@ -63,12 +70,15 @@ const twentyTwentyOneMeasures = {
   "NCIDDS-AD": NCIDDSAD,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
+  "PCR-AD": PCRAD,
   "PDENT-CH": PDENTCH,
   "PPC-AD": PPCAD,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
+  "SAA-AD": SAAAD,
+  "SSD-AD": SSDAD,
   "WCC-CH": WCCCH,
 };
 

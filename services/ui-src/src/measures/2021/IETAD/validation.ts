@@ -47,7 +47,7 @@ const sameDenominatorSets: GV.OmsValidationCallback = ({
   return errorArray;
 };
 
-const IEDValidation = (data: FormData) => {
+const IETValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -137,4 +137,4 @@ const IEDValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [IEDValidation];
+export const validationFunctions = [IETValidation];

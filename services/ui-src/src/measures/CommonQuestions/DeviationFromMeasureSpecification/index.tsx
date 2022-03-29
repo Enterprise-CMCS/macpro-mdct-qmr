@@ -16,6 +16,7 @@ type TopLevelOptions = {
 
 interface Props {
   categories: string[];
+  measureName?: string;
 }
 
 interface OptionProps {
@@ -98,7 +99,19 @@ export const getLowLvlDeviationOptions = ({
     });
 };
 
-export const DeviationFromMeasureSpec = ({ categories }: Props) => {
+export const PCRADgetLowLvlDeviationOptions = ({
+  qualifiers,
+  name,
+}: OptionProps) => {
+  if (!qualifiers || qualifiers.length === 0) return [];
+
+  return getRateTextAreaOptions(name);
+};
+
+export const DeviationFromMeasureSpec = ({
+  categories,
+  measureName,
+}: Props) => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
   const watchPerformanceMeasure = useWatch({
     name: DC.PERFORMANCE_MEASURE,
@@ -112,6 +125,13 @@ export const DeviationFromMeasureSpec = ({ categories }: Props) => {
       const { rates } = watchPerformanceMeasure;
 
       if (rates.singleCategory) {
+        // handle for PCR-AD
+        if (measureName && measureName === "PCR-AD") {
+          const quals = rates.singleCategory.filter((r: any) => r.value !== "");
+          if (quals.length > 0) {
+            return getRateTextAreaOptions(DC.DEVIATIONS);
+          }
+        }
         // A total category should have the label "Total", per the Figma design.
         const totalIndex = rates.singleCategory.findIndex(
           (cat: any) => cat.isTotal === true

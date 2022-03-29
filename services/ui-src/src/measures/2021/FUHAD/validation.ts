@@ -1,26 +1,15 @@
 import * as PMD from "./data";
 import * as DC from "dataConstants";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
-  validateEqualDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  getDeviationNDRArray,
-  omsLocationDictionary,
-} from "../../globalValidations";
+import * as GV from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 import {
-  OmsValidationCallback,
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateOneRateLessThanOther,
   validateRateNotZero,
   validateRateZero,
+  validateDenominatorsAreTheSame,
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -34,9 +23,10 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
     return [];
   }
   const sevenDays =
-    data["PerformanceMeasure"]["rates"]["FollowUpwithin7daysafterdischarge"];
+    data.PerformanceMeasure.rates.FollowUpwithin7daysafterdischarge;
   const thirtyDays =
-    data["PerformanceMeasure"]["rates"]["FollowUpwithin30daysafterdischarge"];
+    data.PerformanceMeasure.rates.FollowUpwithin30daysafterdischarge;
+
   let error;
   const errorArray: any[] = [];
 
@@ -50,8 +40,7 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
       ) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage:
-            "Follow up within 7 days after discharge Rate should not be higher than Follow up within 30 days after discharge Rates.",
+          errorMessage: `Follow up within 7 days after discharge Rate should not be higher than Follow up within 30 days after discharge Rates for ${PMD.qualifiers[index]}.`,
         };
 
         errorArray.push(error);
@@ -61,69 +50,70 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
   return error ? errorArray : [];
 };
 
-const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-const sameDenominatorSets: OmsValidationCallback = ({
-  rateData,
-  locationDictionary,
-  categories,
-  qualifiers,
-  isOPM,
-  label,
-}) => {
-  if (isOPM) return [];
-  const errorArray: FormError[] = [];
+// const cleanString = (s: string) => s.replace(/[^\w]/g, "");
+// const sameDenominatorSets: OmsValidationCallback = ({
+//   rateData,
+//   locationDictionary,
+//   categories,
+//   qualifiers,
+//   isOPM,
+//   label,
+// }) => {
+//   if (isOPM) return [];
+//   const errorArray: FormError[] = [];
 
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (let initiation = 0; initiation < categories.length; initiation += 2) {
-      const engagement = initiation + 1;
-      const initRate =
-        rateData.rates?.[qual]?.[cleanString(categories[initiation])]?.[0];
-      const engageRate =
-        rateData.rates?.[qual]?.[cleanString(categories[engagement])]?.[0];
+//   for (const qual of qualifiers.map((s) => cleanString(s))) {
+//     for (let initiation = 0; initiation < categories.length; initiation += 2) {
+//       const engagement = initiation + 1;
+//       const initRate =
+//         rateData.rates?.[qual]?.[cleanString(categories[initiation])]?.[0];
+//       const engageRate =
+//         rateData.rates?.[qual]?.[cleanString(categories[engagement])]?.[0];
 
-      if (
-        initRate &&
-        engageRate &&
-        initRate.denominator !== engageRate.denominator
-      ) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qual]
-          )}`,
-          errorMessage: `Denominators must be the same for ${locationDictionary(
-            [categories[initiation]]
-          )} and ${locationDictionary([categories[engagement]])}.`,
-        });
-      }
-    }
-  }
+//       if (
+//         initRate &&
+//         engageRate &&
+//         initRate.denominator !== engageRate.denominator
+//       ) {
+//         errorArray.push({
+//           errorLocation: `Optional Measure Stratification: ${locationDictionary(
+//             [...label, qual]
+//           )}`,
+//           errorMessage: `Denominators must be the same for ${locationDictionary(
+//             [categories[initiation]]
+//           )} and ${locationDictionary([categories[engagement]])}.`,
+//         });
+//       }
+//     }
+//   }
 
-  return errorArray;
-};
+//   return errorArray;
+// };
 
 const FUHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const dateRange = data["DateRange"];
-  const deviationArray = getDeviationNDRArray(
+  const dateRange = data[DC.DATE_RANGE];
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
   let unfilteredSameDenominatorErrors: any[] = [];
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
       ...unfilteredSameDenominatorErrors,
-      ...validateEqualDenominators(
+      ...GV.validateEqualDenominators(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
@@ -141,18 +131,24 @@ const FUHValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
+    ...GV.validateDualPopInformation(
+      performanceMeasureArray,
+      OPM,
+      1,
+      DefinitionOfDenominator
+    ),
     ...filteredSameDenominatorErrors,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...validate7DaysGreaterThan30Days(data),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
@@ -162,7 +158,7 @@ const FUHValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
@@ -172,7 +168,7 @@ const FUHValidation = (data: FormData) => {
         validateDenominatorGreaterThanNumerator,
         validateRateZero,
         validateRateNotZero,
-        sameDenominatorSets,
+        validateDenominatorsAreTheSame,
       ],
     }),
   ];

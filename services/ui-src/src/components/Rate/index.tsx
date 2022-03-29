@@ -13,9 +13,25 @@ import { useEffect } from "react";
 
 const fixRounding = (value: number, numbersAfterDecimal: number) => {
   return (
-    Math.round((value + Number.EPSILON) * (numbersAfterDecimal * 10)) /
-    (numbersAfterDecimal * 10)
+    Math.round((value + Number.EPSILON) * Math.pow(10, numbersAfterDecimal)) /
+    Math.pow(10, numbersAfterDecimal)
   );
+};
+
+export const rateCalculation = (
+  numerator: string,
+  denominator: string,
+  rateMultiplicationValue: number,
+  numbersAfterDecimal: number
+) => {
+  const floatNumerator = parseFloat(numerator);
+  const floatDenominator = parseFloat(denominator);
+  const floatRate = floatNumerator / floatDenominator;
+  const roundedRate = fixRounding(
+    floatRate * rateMultiplicationValue,
+    numbersAfterDecimal
+  );
+  return roundedRate.toFixed(numbersAfterDecimal);
 };
 
 export interface IRate {
@@ -81,22 +97,6 @@ export const Rate = ({
 
     field.onChange([...prevRate]);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const rateCalculation = (
-    numerator: string,
-    denominator: string,
-    rateMultiplicationValue: number,
-    numbersAfterDecimal: number
-  ) => {
-    const floatNumerator = parseFloat(numerator);
-    const floatDenominator = parseFloat(denominator);
-    const floatRate = floatNumerator / floatDenominator;
-    const roundedRate = fixRounding(
-      floatRate * rateMultiplicationValue,
-      numbersAfterDecimal
-    );
-    return roundedRate.toFixed(numbersAfterDecimal);
-  };
 
   const changeRate = (
     index: number,

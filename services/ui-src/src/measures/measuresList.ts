@@ -75,7 +75,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Follow-up after Hospitalization for Mental Illness: Age 18 and Older",
+      name: "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
       measureId: "FUH-AD",
     },
     {
@@ -166,7 +166,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Adherence to Antipsychotic Medications for Individuals with Schizophrenia",
+      name: "Adherence to Antipsychotic Medications for Individuals With Schizophrenia",
       measureId: "SAA-AD",
     },
     {
