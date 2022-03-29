@@ -131,13 +131,10 @@ jobs:
             oy2-9959_PQI15_AD.spec.js,
             oy2-9959_PQI15_AD.spec.js,
             pdentCH.spec.feature,
-<<<<<<< HEAD
             oy2_9953_PC01_AD.spec.js,
-=======
             oy2_9910_PCR_AD.spec.js,
             saa-ad.spec.js,
             ssd-ad.spec.js,
->>>>>>> oy2-9953
           ]
     steps:
       - name: set branch_name
