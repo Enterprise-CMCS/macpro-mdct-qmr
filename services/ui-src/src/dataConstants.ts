@@ -54,10 +54,12 @@ export const DELIVERY_SYS_MCO_PIHP_NO_EXCL = "DeliverySys-MCO_PIHP-No-Excluded";
 export const DELIVERY_SYS_MCO_PIHP_NO_INC = "DeliverySys-MCO_PIHP-No-Included";
 export const DELIVERY_SYS_MCO_PIHP_NUM_PLANS =
   "DeliverySys-MCO_PIHP-NumberOfPlans";
+export const DELIVERY_SYS_MCO_PIHP_PERCENT = "DeliverySys-MCO_PIHP-Percent";
 export const DELIVERY_SYS_OTHER = "DeliverySys-Other";
 export const DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS =
   "DeliverySys-Other-NumberOfHealthPlans";
 export const DELIVERY_SYS_OTHER_PERCENT = "DeliverySys-Other-Percent";
+export const DELIVERY_SYS_OTHER_POP = "DeliverySys-Other-Population";
 export const DELIVERY_SYS_PCCM = "DeliverySys-PrimaryCareManagement";
 export const DELIVERY_SYS_PCCM_NO_PERCENT =
   "DeliverySys-PrimaryCareManagement-No-Percent";
@@ -92,6 +94,7 @@ export const FFS = "FFS";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
+export const HRSA = "HRSA";
 export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
   "HybridAdministrativeandMedicalRecordsData";
 export const HYBRID_DATA = "Hybrid (Administrative and Medical Records Data)";
@@ -135,6 +138,7 @@ export const PARTIAL_POP_NOT_COVERED = "PartialPopulationNotCovered";
 export const PARTIAL_POP_NOT_COVERED_EXPLAINATION =
   "PartialPopulationNotCoveredExplanation";
 export const PCCM = "PCCM";
+export const PQA = "PQA";
 export const PERFORMANCE_MEASURE = "PerformanceMeasure";
 export const PERFORMANCE_MEASURE_EXPLAINATION =
   "PerformanceMeasure.explanation";

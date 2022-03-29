@@ -93,7 +93,7 @@ export const StateHome = () => {
       case CoreSetAbbr.HHCS:
         deleteCoreSet.mutate(data, {
           onSuccess: () => {
-            queryClient.refetchQueries(["coreSets", state, year]);
+            queryClient.refetchQueries();
           },
         });
         break;
@@ -108,7 +108,7 @@ export const StateHome = () => {
                 { ...data, coreSet: CoreSetAbbr.CCSM },
                 {
                   onSuccess: () => {
-                    queryClient.refetchQueries(["coreSets", state, year]);
+                    queryClient.refetchQueries();
                   },
                 }
               );

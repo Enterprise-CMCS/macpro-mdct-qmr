@@ -25,17 +25,19 @@ Cypress.Commands.add("goToAdultMeasures", () => {
   cy.get('[data-cy="ACS"]').click();
 });
 
+// Visit Child Core Set Measures
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
+  cy.get('[data-cy="Add Child Core Set"]').click();
+  cy.get('[data-cy="ChildCoreSet-ReportType1"]').click();
+  cy.get('[data-cy="Create"]').click();
   cy.get('[data-cy="CCS"]').click();
 });
 
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
-  cy.get(`[data-cy="${measure}"]`).click();
-  cy.wait(2000);
-  cy.get(`[data-cy="Clear Data"]`).click();
-  cy.wait(2000);
-  cy.get(`[data-cy="${measure}"]`).click();
+  cy.get(`[data-cy="${measure}"]`).should("be.visible").click();
+  cy.get(`[data-cy="Clear Data"]`).should("be.visible").click();
+  cy.get(`[data-cy="${measure}"]`).should("be.visible").click();
 });
 
 // Correct sections visible when user is reporting data on measure
@@ -190,4 +192,11 @@ Cypress.Commands.add("addCombinedChildCoreset", () => {
 Cypress.Commands.add("clickValidateMeasure", (timeout = 500) => {
   cy.get('[data-cy="Validate Measure"]').click();
   cy.wait(timeout);
+});
+
+Cypress.Commands.add("enterValidDateRange", () => {
+  cy.get('[data-cy="DateRange.startDate-month"]').type("1");
+  cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
+  cy.get('[data-cy="DateRange.endDate-month"]').type("12");
+  cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
 });

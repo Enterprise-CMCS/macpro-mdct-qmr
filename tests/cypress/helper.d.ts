@@ -32,5 +32,8 @@ declare namespace Cypress {
 
     /** Validate measure needs to wait for the page reload before components are interactable */
     clickValidateMeasure(timeout?: number): Chainable<Element>;
+
+    // Helper function to enter a valid date range
+    enterValidDateRange(): Chainable<Element>;
   }
 }
