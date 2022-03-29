@@ -27,7 +27,11 @@ const WCCHValidation = (data: FormData) => {
   }
 
   let sameDenominatorError = [
-    ...GV.validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
+    // sliciing qualifiers to exclude totals
+    ...GV.validateEqualDenominators(
+      performanceMeasureArray,
+      PMD.qualifiers.slice(0, -1)
+    ),
   ];
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];

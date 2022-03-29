@@ -21,6 +21,12 @@ interface TotalProps {
   divider?: boolean;
 }
 
+interface TempRate {
+  numerator?: number;
+  denominator?: number;
+  rate: string;
+}
+
 type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
 
@@ -41,19 +47,20 @@ const useOmsTotalRate = (
 
   const watchOMS = watch(omsName);
   const { field } = useController({ name: totalName, control });
-  const [prevCalcRate, setPrevCalcRate] = useState({
-    numerator: 0,
-    denominator: 0,
+  const [prevCalcRate, setPrevCalcRate] = useState<TempRate>({
+    numerator: undefined,
+    denominator: undefined,
     rate: "",
   });
 
   useEffect(() => {
     // calc new rate, adjust if new values
-    const tempRate = {
-      numerator: 0,
-      denominator: 0,
-      rate: "",
-    };
+    const tempRate: { numerator?: number; denominator?: number; rate: string } =
+      {
+        numerator: undefined,
+        denominator: undefined,
+        rate: "",
+      };
 
     for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
       if (
@@ -61,6 +68,8 @@ const useOmsTotalRate = (
         watchOMS?.[qual]?.[cleanedCategory]?.[0]?.denominator &&
         watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate
       ) {
+        tempRate.numerator ??= 0;
+        tempRate.denominator ??= 0;
         tempRate.numerator += parseFloat(
           watchOMS[qual][cleanedCategory][0].numerator
         );
@@ -70,13 +79,18 @@ const useOmsTotalRate = (
       }
     }
 
-    tempRate.rate = (
-      Math.round(
-        (tempRate.numerator / tempRate.denominator) *
-          (rateMultiplicationValue ?? 100) *
-          Math.pow(10, numberOfDecimals)
-      ) / Math.pow(10, numberOfDecimals)
-    ).toFixed(1);
+    if (
+      tempRate.numerator !== undefined &&
+      tempRate.denominator !== undefined
+    ) {
+      tempRate.rate = (
+        Math.round(
+          (tempRate.numerator / tempRate.denominator) *
+            (rateMultiplicationValue ?? 100) *
+            Math.pow(10, numberOfDecimals)
+        ) / Math.pow(10, numberOfDecimals)
+      ).toFixed(1);
+    }
 
     if (
       tempRate.numerator !== prevCalcRate.numerator ||
@@ -86,9 +100,9 @@ const useOmsTotalRate = (
       const rate = parseFloat(tempRate.rate);
       field.onChange([
         {
-          numerator: `${tempRate.numerator}`,
-          denominator: `${tempRate.denominator}`,
-          rate: (!isNaN(rate) && rate) || "0.0",
+          numerator: `${tempRate.numerator ?? ""}`,
+          denominator: `${tempRate.denominator ?? ""}`,
+          rate: (!isNaN(rate) && rate) || "",
         },
       ]);
     }
