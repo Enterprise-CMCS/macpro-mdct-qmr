@@ -327,7 +327,7 @@ jobs:
 
   a11y-tests:
     name: Test Ally
-    needs: deploy
+    needs: setup-tests
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
@@ -415,6 +415,11 @@ jobs:
           export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
+          popd
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
           popd
       - name: Check Project A11y
         uses: cypress-io/github-action@v2.11.7
