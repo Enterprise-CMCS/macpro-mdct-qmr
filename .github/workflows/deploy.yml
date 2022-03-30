@@ -288,6 +288,20 @@ jobs:
         containers:
           [
             add_validation_to_rate_when_user_selects_multiple_Data_Sources.spec.js,
+            adding_link_to_combined_rates_component.spec.js,
+            data_source_rate_to_auto_calculate_in_OPM.spec.js,
+            combined_rates_validation_warnings.spec.js,
+            data_source_rate_to_auto_calculate_in_OPM.spec.js,
+            date_range_adjustment.spec.js,
+            FAQ.spec.js,
+            logo.spec.feature,
+            measure_validation_error_creation_updates.spec.feature,
+            NDR_validation_updates.spec.js,
+            qualifiers_save_btn.spec.js,
+            qualifiers_validation.spec.js,
+            reporting_in_FY21_tag_for_alt_data_sources.spec.js,
+            restructuring_data_source_text_boxes.spec.js,
+            update_user_auth_handling_in_ui.spec.feature,
           ]
     steps:
       - name: set branch_name
