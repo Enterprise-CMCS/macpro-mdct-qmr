@@ -68,7 +68,7 @@ const useOmsTotalRate = (
       prevFields.push(watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate);
     }
     const currentRunIsLoadState = prevFields.every((x) => x === undefined);
-
+    const wasEmptyInitialState = prevFields.some((x) => x === undefined);
     for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
       if (
         watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
@@ -85,7 +85,7 @@ const useOmsTotalRate = (
         );
       }
     }
-
+    console.log(tempRate.numerator, tempRate.denominator);
     if (
       tempRate.numerator !== undefined &&
       tempRate.denominator !== undefined
@@ -103,14 +103,16 @@ const useOmsTotalRate = (
       tempRate.numerator !== prevCalcRate.numerator ||
       tempRate.denominator !== prevCalcRate.denominator
     ) {
-      const rate = parseFloat(tempRate.rate);
       setPrevCalcRate(tempRate);
-      if (!prevRunWasLoad && !currentRunIsLoadState) {
+      if (
+        (!prevRunWasLoad || wasEmptyInitialState) &&
+        (!currentRunIsLoadState || !wasEmptyInitialState)
+      ) {
         field.onChange([
           {
             numerator: `${tempRate.numerator ?? ""}`,
             denominator: `${tempRate.denominator ?? ""}`,
-            rate: (!isNaN(rate) && rate) || "",
+            rate: (!isNaN(parseFloat(tempRate.rate)) && tempRate.rate) || "",
           },
         ]);
       }
@@ -272,6 +274,8 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rates={[{ id: 0 }]}
         />,
       ]);
+    } else {
+      rateArrays.push([]);
     }
   });
 
