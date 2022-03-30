@@ -47,6 +47,7 @@ const useOmsTotalRate = (
 
   const watchOMS = watch(omsName);
   const { field } = useController({ name: totalName, control });
+  const [prevRunWasLoad, setPrevRunWasLoad] = useState(true);
   const [prevCalcRate, setPrevCalcRate] = useState<TempRate>({
     numerator: undefined,
     denominator: undefined,
@@ -61,6 +62,12 @@ const useOmsTotalRate = (
         denominator: undefined,
         rate: "",
       };
+
+    const prevFields: any[] = [];
+    for (const qual of qualifiers.map((s) => cleanString(s))) {
+      prevFields.push(watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate);
+    }
+    const currentRunIsLoadState = prevFields.every((x) => x === undefined);
 
     for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
       if (
@@ -96,15 +103,18 @@ const useOmsTotalRate = (
       tempRate.numerator !== prevCalcRate.numerator ||
       tempRate.denominator !== prevCalcRate.denominator
     ) {
-      setPrevCalcRate(tempRate);
       const rate = parseFloat(tempRate.rate);
-      field.onChange([
-        {
-          numerator: `${tempRate.numerator ?? ""}`,
-          denominator: `${tempRate.denominator ?? ""}`,
-          rate: (!isNaN(rate) && rate) || "",
-        },
-      ]);
+      setPrevCalcRate(tempRate);
+      if (!prevRunWasLoad && !currentRunIsLoadState) {
+        field.onChange([
+          {
+            numerator: `${tempRate.numerator ?? ""}`,
+            denominator: `${tempRate.denominator ?? ""}`,
+            rate: (!isNaN(rate) && rate) || "",
+          },
+        ]);
+      }
+      setPrevRunWasLoad(currentRunIsLoadState);
     }
   }, [
     watchOMS,
@@ -115,6 +125,8 @@ const useOmsTotalRate = (
     setPrevCalcRate,
     numberOfDecimals,
     cleanedCategory,
+    prevRunWasLoad,
+    setPrevRunWasLoad,
   ]);
 };
 
