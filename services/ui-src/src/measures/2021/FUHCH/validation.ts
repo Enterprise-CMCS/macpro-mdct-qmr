@@ -24,19 +24,19 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validate7DaysGreaterThan30Days = (data: any) => {
+const validate7DaysGreaterThan30Days = (data: FormData) => {
   if (
     !(
-      data?.PerformanceMeasure?.rates?.Followupwithin7daysafterdischarge ||
-      data?.PerformanceMeasure?.rates?.Followupwithin30daysafterdischarge
+      data?.PerformanceMeasure?.rates?.FollowUpwithin7daysafterdischarge ||
+      data?.PerformanceMeasure?.rates?.FollowUpwithin30daysafterdischarge
     )
   ) {
     return [];
   }
   const sevenDays =
-    data["PerformanceMeasure"]["rates"]["Followupwithin7daysafterdischarge"];
+    data["PerformanceMeasure"]["rates"]["FollowUpwithin7daysafterdischarge"];
   const thirtyDays =
-    data["PerformanceMeasure"]["rates"]["Followupwithin30daysafterdischarge"];
+    data["PerformanceMeasure"]["rates"]["FollowUpwithin30daysafterdischarge"];
   let error;
   const errorArray: any[] = [];
 
@@ -45,7 +45,8 @@ const validate7DaysGreaterThan30Days = (data: any) => {
       if (
         sevenDays[index] &&
         thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate) > parseFloat(thirtyDays[index]?.rate)
+        parseFloat(sevenDays[index]?.rate ?? "") >
+          parseFloat(thirtyDays[index]?.rate ?? "")
       ) {
         error = {
           errorLocation: "Performance Measure",
