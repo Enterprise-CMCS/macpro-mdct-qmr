@@ -174,6 +174,7 @@ jobs:
             CCPAD.spec.js,
             CCSAD.spec.js,
             CCWAD.spec.js,
+            CDFAD.spec.js,
             CHLAD.spec.js,
             CISCH.spec.js,
             COBAD.spec.js,
@@ -191,6 +192,7 @@ jobs:
             NCIDDSAD.spec.js,
             OHDAD.spec.js,
             OUDAD.spec.js,
+            PCRAD.spec.js,
             PPCAD.spec.js,
             PQI01AD.spec.js,
             PQI05AD.spec.js,
@@ -198,6 +200,7 @@ jobs:
             PQI15AD.spec.js,
             QUALIFIERS_adult.spec.feature,
             QUALIFIERS_child.spec.js,
+            SAAAD.spec.js,
             SSDAD.spec.js,
           ]
     steps:
