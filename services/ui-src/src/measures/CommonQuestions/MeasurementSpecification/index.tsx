@@ -97,28 +97,30 @@ export const MeasurementSpecification = ({ type }: Props) => {
 
   return (
     <QMR.CoreQuestionWrapper label="Measurement Specification">
-      <QMR.RadioButton
-        {...register(DC.MEASUREMENT_SPECIFICATION)}
-        options={[
-          specifications[type],
-          {
-            displayValue: "Other",
-            value: DC.OTHER,
-            children: [
-              <QMR.TextArea
-                textAreaProps={{ marginBottom: "10" }}
-                {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
-                label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
-                key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
-              />,
-              <QMR.Upload
-                label="If you need additional space to describe your state's methodology, please attach further documentation below."
-                {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
-              />,
-            ],
-          },
-        ]}
-      />
+      <div data-cy="measurement-specification-options">
+        <QMR.RadioButton
+          {...register(DC.MEASUREMENT_SPECIFICATION)}
+          options={[
+            specifications[type],
+            {
+              displayValue: "Other",
+              value: DC.OTHER,
+              children: [
+                <QMR.TextArea
+                  textAreaProps={{ marginBottom: "10" }}
+                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
+                  label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
+                  key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
+                />,
+                <QMR.Upload
+                  label="If you need additional space to describe your state's methodology, please attach further documentation below."
+                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
+                />,
+              ],
+            },
+          ]}
+        />
+      </div>
     </QMR.CoreQuestionWrapper>
   );
 };
