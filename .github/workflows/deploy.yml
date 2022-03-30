@@ -171,7 +171,7 @@ jobs:
             AMRCH.spec.js,
             BCSAD.spec.js,
             CBPAD.spec.js,
-            CCPAD.spec.feature,
+            CCPAD.spec.js,
             CCSAD.spec.js,
             CCWAD.spec.js,
             CHLAD.spec.js,
