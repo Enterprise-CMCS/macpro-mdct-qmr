@@ -1,7 +1,6 @@
 {
   "baseUrl": "http://localhost:3000/",
   "experimentalStudio": true,
-  "experimentalSessionSupport": true,
   "redirectionLimit": 20,
   "retries": 2,
   "watchForFileChanges": true,
