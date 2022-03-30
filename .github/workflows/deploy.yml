@@ -126,7 +126,7 @@ jobs:
             oy2_9944_Measure_50_FVA_AD.spec.js,
             oy2_9947_HPC_AD.spec.js,
             oy2_9949_HVL_AD.spec.js,
-            oy2_9963_CPC_CH.spec.js,
+            # oy2_9963_CPC_CH.spec.js,
             oy2-9954_PQI01AD.spec.js,
             oy2-9954_PQI01AD.spec.js,
             oy2-9959_PQI15_AD.spec.js,
