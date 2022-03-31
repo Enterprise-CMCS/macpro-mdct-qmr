@@ -16,7 +16,7 @@ before(() => {
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-// the default stateuser1 is used to login but can also be changed
+// the default stateuser3 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
 Cypress.Commands.add(
   "login",
@@ -28,7 +28,10 @@ Cypress.Commands.add(
       stateuser2: testConfig.TEST_USER_2,
     };
     cy.visit("/");
-    cy.xpath(emailForCognito).type(`${users[user]}`);
+    cy.wait(3000);
+    cy.xpath(emailForCognito).type(
+      `${users[user]}` || `${testConfig.TEST_USER_3}`
+    );
     cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
