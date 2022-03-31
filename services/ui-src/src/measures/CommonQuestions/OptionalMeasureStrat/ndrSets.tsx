@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 interface NdrProps {
   /** name for react-hook-form registration */
   name: string;
-  // ageGroups: Types.AgeGroups;
-  // performanceMeasureDescriptions: Types.PerformanceMeasureDescriptions;
 }
 
 interface TotalProps {
@@ -68,7 +66,6 @@ const useOmsTotalRate = (
       prevFields.push(watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate);
     }
     const currentRunIsLoadState = prevFields.every((x) => x === undefined);
-
     for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
       if (
         watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
@@ -103,14 +100,16 @@ const useOmsTotalRate = (
       tempRate.numerator !== prevCalcRate.numerator ||
       tempRate.denominator !== prevCalcRate.denominator
     ) {
-      const rate = parseFloat(tempRate.rate);
       setPrevCalcRate(tempRate);
-      if (!prevRunWasLoad && !currentRunIsLoadState) {
+      if (
+        (!prevRunWasLoad || !field.value?.[0]?.rate) &&
+        !currentRunIsLoadState
+      ) {
         field.onChange([
           {
             numerator: `${tempRate.numerator ?? ""}`,
             denominator: `${tempRate.denominator ?? ""}`,
-            rate: (!isNaN(rate) && rate) || "",
+            rate: (!isNaN(parseFloat(tempRate.rate)) && tempRate.rate) || "",
           },
         ]);
       }
@@ -272,6 +271,8 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rates={[{ id: 0 }]}
         />,
       ]);
+    } else {
+      rateArrays.push([]);
     }
   });
 
