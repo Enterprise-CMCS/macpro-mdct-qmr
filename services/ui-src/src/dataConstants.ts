@@ -106,6 +106,7 @@ export const ICM = "ICM";
 export const IMMUNIZATION_REGISTRY = "Immunization Registry";
 export const INFO_NOT_COLLECTED = "InformationNotCollected";
 export const INFO_NOT_COLLECTED_OTHER = "InformationNotCollected-Other";
+export const JOINT_COMMISSION = "TheJointCommission";
 export const LABEL = "label";
 export const LIMITATION_WITH_DATA_COLLECTION =
   "LimitationWithDatCollecitonReportAccuracyCovid";
@@ -164,6 +165,7 @@ export const START_DATE = "startDate";
 export const SUB_CATS = "additionalSubCategories";
 export const SUB_CAT_OPTIONS = "subCatOptions";
 export const TOTAL = "total";
+export const VITAL_DATA_SOURCE = "Vital Records";
 export const WHY_ARE_YOU_NOT_REPORTING = "WhyAreYouNotReporting";
 export const WHY_ARE_YOU_NOT_REPORTING_OTHER = "WhyAreYouNotReporting-Other";
 export const WHY_IS_DATA_NOT_AVAILABLE = "WhyIsDataNotAvailable";

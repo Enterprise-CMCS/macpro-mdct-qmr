@@ -152,7 +152,7 @@ export const PerformanceMeasure = ({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
   let readOnly = true;
-  if (rateReadOnly) {
+  if (rateReadOnly !== undefined) {
     readOnly = rateReadOnly;
   } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
     readOnly = arrayIsReadOnly(dataSourceWatch);
