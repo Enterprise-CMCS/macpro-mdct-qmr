@@ -500,6 +500,9 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
     const totalNDR = ndrs.pop();
     let numeratorSum = 0;
     let denominatorSum = 0;
+    const extraCatDetail = isSingleCat
+      ? ""
+      : ` - ${locationDictionary([category])}`;
 
     ndrs.forEach((set) => {
       if (set?.denominator && set?.numerator && set?.rate) {
@@ -511,9 +514,6 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
     if (totalNDR?.numerator && totalNDR?.denominator) {
       const parsedNum = parseFloat(totalNDR.numerator);
       const parsedDen = parseFloat(totalNDR.denominator);
-      const extraCatDetail = isSingleCat
-        ? ""
-        : ` - ${locationDictionary([category])}`;
 
       // Numerators don't match
       if (!isNaN(parsedNum) && parsedNum !== numeratorSum) {
@@ -536,6 +536,15 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
             "Total denominator field is not equal to the sum of other denominators.",
         });
       }
+    } else if (numeratorSum && denominatorSum) {
+      // total values have been emptied
+      error.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}${extraCatDetail}`,
+        errorMessage:
+          "Total field must contain values if other fields are filled.",
+      });
     }
   };
 

@@ -71,7 +71,7 @@ const WCCHValidation = (data: FormData) => {
         GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,
         GV.validateRateNotZero,
-        // GV.validateOMSTotalNDR,
+        GV.validateOMSTotalNDR,
         ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
       ],
     }),
