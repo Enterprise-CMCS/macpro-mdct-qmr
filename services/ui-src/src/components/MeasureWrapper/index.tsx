@@ -55,7 +55,10 @@ const Measure = ({ measure, ...rest }: MeasureProps) => {
   const isPrimaryMeasureSpecSelected =
     watchMeasureSpecification && !isOtherMeasureSpecSelected;
 
-  const showOptionalMeasureStrat = areSomeRatesCompleted(watchedData);
+  const showOptionalMeasureStrat = areSomeRatesCompleted(
+    watchedData,
+    rest.measureId
+  );
 
   return cloneElement(measure, {
     ...rest,

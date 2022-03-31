@@ -10,6 +10,7 @@ import { CBPAD } from "./CBPAD";
 import { CCPAD } from "./CCPAD";
 import { CCSAD } from "./CCSAD";
 import { CCWAD } from "./CCWAD";
+import { CDFAD } from "./CDFAD";
 import { CHLAD } from "./CHLAD";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
@@ -29,6 +30,8 @@ import { MSCAD } from "./MSCAD";
 import { NCIDDSAD } from "./NCIDDSAD";
 import { OHDAD } from "./OHDAD";
 import { OUDAD } from "./OUDAD";
+import { PC01AD } from "./PC01AD";
+import { PCRAD } from "./PCRAD";
 import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
 import { PQI01AD } from "./PQI01AD";
@@ -36,6 +39,7 @@ import { PQI05AD } from "./PQI05AD";
 import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
+import { SAAAD } from "./SAAAD";
 import { SSDAD } from "./SSDAD";
 
 const twentyTwentyOneMeasures = {
@@ -47,6 +51,7 @@ const twentyTwentyOneMeasures = {
   "CCP-AD": CCPAD,
   "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
+  "CDF-AD": CDFAD,
   "CHL-AD": CHLAD,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
@@ -67,12 +72,15 @@ const twentyTwentyOneMeasures = {
   "NCIDDS-AD": NCIDDSAD,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
+  "PC01-AD": PC01AD,
+  "PCR-AD": PCRAD,
   "PDENT-CH": PDENTCH,
   "PPC-AD": PPCAD,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
+  "SAA-AD": SAAAD,
   "SSD-AD": SSDAD,
 };
 

@@ -7,7 +7,7 @@ import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
 import { FormData } from "./types";
 
-export const AMRCH = ({
+export const SAAAD = ({
   name,
   year,
   measureId,
@@ -41,11 +41,11 @@ export const AMRCH = ({
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
-          <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
+              <CMQ.PerformanceMeasure data={PMD.data} />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
@@ -56,8 +56,7 @@ export const AMRCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
-              calcTotal
+              adultMeasure
             />
           )}
         </>

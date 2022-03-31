@@ -166,7 +166,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "AD",
-      name: "Adherence to Antipsychotic Medications for Individuals with Schizophrenia",
+      name: "Adherence to Antipsychotic Medications for Individuals With Schizophrenia",
       measureId: "SAA-AD",
     },
     {

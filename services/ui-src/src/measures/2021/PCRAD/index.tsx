@@ -1,13 +1,15 @@
+import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect } from "react";
-import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
-import { validationFunctions } from "./validation";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { validationFunctions } from "./validation";
+import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
+import { PCRADOptionalMeasureStrat } from "./questions/OptionalMeasureStrat";
 import { FormData } from "./types";
 
-export const AMRCH = ({
+export const PCRAD = ({
   name,
   year,
   measureId,
@@ -28,6 +30,13 @@ export const AMRCH = ({
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
+  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
+  const dataSourceWatch = useWatch({ name: "DataSource" });
+  const rateReadOnly =
+    dataSourceWatch?.every(
+      (source: string) => source === "AdministrativeData"
+    ) ?? true;
+
   return (
     <>
       <CMQ.Reporting
@@ -40,24 +49,30 @@ export const AMRCH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource />
-          <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <PCRADPerformanceMeasure
+                data={PMD.data}
+                rateReadOnly={rateReadOnly}
+                rateScale={1000}
+              />
+              <CMQ.DeviationFromMeasureSpec
+                categories={PMD.qualifiers}
+                measureName={measureId}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
-            <CMQ.OptionalMeasureStrat
+            <PCRADOptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
-              calcTotal
+              adultMeasure
             />
           )}
         </>
