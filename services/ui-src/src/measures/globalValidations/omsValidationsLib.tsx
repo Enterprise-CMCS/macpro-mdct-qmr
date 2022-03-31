@@ -17,6 +17,7 @@ export type OmsValidationCallback = (data: {
   label: string[];
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
+  rateMultiplicationValue?: number;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -27,6 +28,7 @@ interface OmsValidationProps {
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
+  rateMultiplicationValue?: number;
 }
 export const omsValidations = ({
   categories,
@@ -35,6 +37,7 @@ export const omsValidations = ({
   locationDictionary,
   qualifiers,
   validationCallbacks,
+  rateMultiplicationValue,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -58,7 +61,8 @@ export const omsValidations = ({
     opmQuals.length ? opmCats : cats,
     locationDictionary,
     checkIsFilled,
-    isOPM
+    isOPM,
+    rateMultiplicationValue
   );
 };
 // @example
@@ -184,7 +188,8 @@ const validateNDRs = (
   categories: string[],
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
-  isOPM: boolean
+  isOPM: boolean,
+  rateMultiplicationValue?: number
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -242,6 +247,7 @@ const validateNDRs = (
           label,
           locationDictionary,
           isOPM,
+          rateMultiplicationValue,
         })
       );
     }
@@ -486,6 +492,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   label,
   locationDictionary,
   isOPM,
+  rateMultiplicationValue,
 }) => {
   if (isOPM) return [];
 
@@ -514,6 +521,16 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
     if (totalNDR?.numerator && totalNDR?.denominator) {
       const parsedNum = parseFloat(totalNDR.numerator);
       const parsedDen = parseFloat(totalNDR.denominator);
+      const currentRate = parseFloat(
+        (
+          Math.round(
+            (parsedNum / parsedDen) *
+              (rateMultiplicationValue ?? 100) *
+              Math.pow(10, 1)
+          ) / Math.pow(10, 1)
+        ).toFixed(1)
+      );
+      const expectedRate = parseFloat(totalNDR.rate ?? "");
 
       // Numerators don't match
       if (!isNaN(parsedNum) && parsedNum !== numeratorSum) {
@@ -534,6 +551,17 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           )}${extraCatDetail}`,
           errorMessage:
             "Total denominator field is not equal to the sum of other denominators.",
+        });
+      }
+
+      // rate doesn't match
+      if (currentRate !== expectedRate) {
+        error.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            label
+          )}${extraCatDetail}`,
+          errorMessage:
+            "Total rate field is not equal to expected calculated rate.",
         });
       }
     } else if (numeratorSum && denominatorSum) {
