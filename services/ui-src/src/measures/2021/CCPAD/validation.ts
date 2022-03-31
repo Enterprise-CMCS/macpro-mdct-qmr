@@ -1,33 +1,11 @@
-import { FormData } from "./types";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-import {
-  getPerfMeasureRateArray,
-  omsLocationDictionary,
-  getDeviationNDRArray,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  ensureBothDatesCompletedInRange,
-  validateRequiredRadioButtonForCombinedRates,
-  validateReasonForNotReporting,
-  atLeastOneRateComplete,
-  validateNumeratorsLessThanDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateOneRateHigherThanOther,
-  validateAllDenomsTheSameCrossQualifier,
-} from "../../globalValidations";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateOneRateLessThanOther,
-  validateCrossQualifierRateCorrect,
-  validateRateZero,
-  validateRateNotZero,
-  validateAllDenomsAreTheSameCrossQualifier,
-} from "measures/globalValidations/omsValidationsLib";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const validate3daysLessOrEqualTo30days = (data: FormData) => {
-  const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
+  const perfMeasure = GV.getPerfMeasureRateArray(data, PMD.data);
   const sevenDays = perfMeasure[1];
   const thirtyDays = perfMeasure[0];
 
@@ -63,17 +41,17 @@ const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
 
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
@@ -81,22 +59,22 @@ const CCPADValidation = (data: FormData) => {
   const dateRange = data["DateRange"];
   errorArray = [
     ...errorArray,
-    ...validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateOneRateHigherThanOther(data, PMD.data),
+    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneRateHigherThanOther(data, PMD.data),
   ];
 
   return errorArray;
@@ -106,23 +84,23 @@ const validateOMS = (data: FormData) => {
   const errorArray: FormError[] = [];
 
   errorArray.push(
-    ...omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
+        GV.validateDenominatorGreaterThanNumerator,
         // validateDenominatorsAreTheSame,
-        validateOneRateLessThanOther,
-        validateCrossQualifierRateCorrect,
-        validateRateZero,
-        validateRateNotZero,
-        validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateOneRateLessThanOther,
+        GV.validateCrossQualifierRateCorrect,
+        GV.validateRateZero,
+        GV.validateRateNotZero,
+        GV.validateAllDenomsAreTheSameCrossQualifier,
       ],
     })
   );
@@ -132,7 +110,7 @@ const validateOMS = (data: FormData) => {
 
 export const validationFunctions = [
   CCPADValidation,
-  validateRequiredRadioButtonForCombinedRates,
+  GV.validateRequiredRadioButtonForCombinedRates,
   validateOMS,
   validate3daysLessOrEqualTo30days,
 ];

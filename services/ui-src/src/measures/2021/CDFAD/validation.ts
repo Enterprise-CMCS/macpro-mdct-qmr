@@ -1,13 +1,7 @@
-import { FormData } from "./types";
 import * as DC from "dataConstants";
-import * as PMD from "./data";
 import * as GV from "measures/globalValidations";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
+import * as PMD from "./data";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const CDFADValidation = (data: FormData) => {
@@ -48,7 +42,7 @@ const CDFADValidation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
@@ -58,9 +52,9 @@ const CDFADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateRateZero,
+        GV.validateRateNotZero,
       ],
     }),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(

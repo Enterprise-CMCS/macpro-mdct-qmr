@@ -1,16 +1,7 @@
 import * as PMD from "./data";
 import * as DC from "dataConstants";
-import * as GV from "../../globalValidations";
-import { getPerfMeasureRateArray } from "../../globalValidations";
+import * as GV from "measures/globalValidations";
 import { FormData } from "./types";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateOneRateLessThanOther,
-  validateRateNotZero,
-  validateRateZero,
-  validateDenominatorsAreTheSame,
-} from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const validate7DaysGreaterThan30Days = (data: FormData) => {
@@ -94,7 +85,7 @@ const FUHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -154,7 +145,7 @@ const FUHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
@@ -164,11 +155,11 @@ const FUHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        validateOneRateLessThanOther,
-        validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
-        validateDenominatorsAreTheSame,
+        GV.validateOneRateLessThanOther,
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateRateZero,
+        GV.validateRateNotZero,
+        GV.validateDenominatorsAreTheSame,
       ],
     }),
   ];

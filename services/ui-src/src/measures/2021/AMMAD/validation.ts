@@ -1,28 +1,8 @@
 import * as PMD from "./data";
 import * as DC from "dataConstants";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
-  validateEqualDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  getDeviationNDRArray,
-  omsLocationDictionary,
-  validateDualPopInformation,
-} from "../../globalValidations";
+import * as GV from "measures/globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
-import {
-  OmsValidationCallback,
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateOneRateLessThanOther,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const validateContinuationGreaterThanAccute = (data: any) => {
@@ -62,7 +42,7 @@ const validateContinuationGreaterThanAccute = (data: any) => {
 };
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-const sameDenominatorSets: OmsValidationCallback = ({
+const sameDenominatorSets: GV.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   categories,
@@ -112,7 +92,7 @@ const AMMADValidation = (data: FormData) => {
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
@@ -120,7 +100,7 @@ const AMMADValidation = (data: FormData) => {
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
       ...unfilteredSameDenominatorErrors,
-      ...validateEqualDenominators(
+      ...GV.validateEqualDenominators(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
@@ -136,7 +116,7 @@ const AMMADValidation = (data: FormData) => {
     }
   });
 
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
@@ -145,43 +125,43 @@ const AMMADValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateDualPopInformation(
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateDualPopInformation(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator
     ),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...validateContinuationGreaterThanAccute(data),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        validateOneRateLessThanOther,
-        validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
+        GV.validateOneRateLessThanOther,
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateRateZero,
+        GV.validateRateNotZero,
         sameDenominatorSets,
       ],
     }),
