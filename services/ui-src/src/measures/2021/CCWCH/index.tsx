@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { useWatch, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
-import * as DC from "dataConstants";
 import { FormData } from "./types";
 
 export const CCWCH = ({
