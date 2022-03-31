@@ -59,9 +59,10 @@ const validateOMS = (data: FormData) => {
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
+        GV.validateOMSTotalNDR,
         GV.validateOneRateLessThanOther,
-        GV.validateRateZero,
         GV.validateRateNotZero,
+        GV.validateRateZero,
       ],
     }),
   ];
