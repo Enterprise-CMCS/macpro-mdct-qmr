@@ -4,7 +4,7 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const AMRCHValidation = (data: FormData) => {
+const AMBCHValidation = (data: FormData) => {
   const ageGroups = ["Ages 19 to 50", "Ages 51 to 64", "Total (Ages 19 to 64)"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
@@ -40,13 +40,6 @@ const AMRCHValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
-  ];
-
-  return errorArray;
-};
-
-const validateOMS = (data: FormData) => {
-  return [
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -62,9 +55,12 @@ const validateOMS = (data: FormData) => {
         GV.validateOneRateLessThanOther,
         GV.validateRateZero,
         GV.validateRateNotZero,
+        GV.validateOMSTotalNDR,
       ],
     }),
   ];
+
+  return errorArray;
 };
 
-export const validationFunctions = [AMRCHValidation, validateOMS];
+export const validationFunctions = [AMBCHValidation];
