@@ -1,5 +1,4 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
-import * as DC from "dataConstants";
 
 export const qualifiers = [
   "Ages 3 to 11",

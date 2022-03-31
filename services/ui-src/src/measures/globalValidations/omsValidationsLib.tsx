@@ -1,3 +1,4 @@
+import * as DC from "dataConstants";
 import {
   OmsNodes as OMS,
   RateFields,
@@ -49,7 +50,7 @@ export const omsValidations = ({
       )
     );
   }
-  const cats = categories.length === 0 ? ["singleCategory"] : categories;
+  const cats = categories.length === 0 ? [DC.SINGLE_CATEGORY] : categories;
   return validateNDRs(
     data,
     validationCallbacks,
@@ -349,7 +350,7 @@ export const validateAllDenomsAreTheSameCrossQualifier: OmsValidationCallback =
           denomArray.push(temp);
           locationArray.push(
             locationDictionary([
-              categories[0] === "singleCategory" ? qual : cat,
+              categories[0] === DC.SINGLE_CATEGORY ? qual : cat,
             ])
           );
         }
@@ -489,64 +490,72 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   if (isOPM) return [];
 
   const error: FormError[] = [];
-  const ndrSets = [];
+  const isSingleCat = categories[0] === DC.SINGLE_CATEGORY;
 
-  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
-  let denominatorSum: any = null;
+  // scoped helper function for total calculation/comparison
+  const validateTotal = (ndrs: RateFields[], category: string) => {
+    // make sure at least one regular field and total field
+    if (ndrs.length < 2) return;
 
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (const cat of categories.map((s) => cleanString(s))) {
-      ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
-    }
-  }
+    const totalNDR = ndrs.pop();
+    let numeratorSum = 0;
+    let denominatorSum = 0;
+    const extraCatDetail = isSingleCat
+      ? ""
+      : ` - ${locationDictionary([category])}`;
 
-  // The last NDR set is the total
-  const totalNDR = ndrSets.pop();
+    ndrs.forEach((set) => {
+      if (set?.denominator && set?.numerator && set?.rate) {
+        numeratorSum += parseFloat(set.numerator);
+        denominatorSum += parseFloat(set.denominator);
+      }
+    });
 
-  // Calculate numerator and denominator totals
-  ndrSets.forEach((set) => {
-    if (set && set.denominator && set.numerator && set.rate) {
-      numeratorSum += parseFloat(set.numerator);
-      denominatorSum += parseFloat(set.denominator);
-    }
-  });
+    if (totalNDR?.numerator && totalNDR?.denominator) {
+      const parsedNum = parseFloat(totalNDR.numerator);
+      const parsedDen = parseFloat(totalNDR.denominator);
 
-  /*
-  Display validation errors if the user is not using Other Performance Measures
-  and if the actual totals of numerators or denominators don't match what's in
-  the total numerator/denominator fields.
+      // Numerators don't match
+      if (!isNaN(parsedNum) && parsedNum !== numeratorSum) {
+        error.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            label
+          )}${extraCatDetail}`,
+          errorMessage:
+            "Total numerator field is not equal to the sum of other numerators.",
+        });
+      }
 
-  (In the case of Other Performance Measures, we don't display a total
-  numerator/denominator/rate set, so validating it is unnecessary.)
-  */
-  if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
-    let x;
-    if (
-      (x = parseFloat(totalNDR.numerator)) !== parseFloat(numeratorSum) &&
-      numeratorSum !== null &&
-      !isNaN(x)
-    ) {
+      // Denominators don't match
+      if (!isNaN(parsedDen) && parsedDen !== denominatorSum) {
+        error.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            label
+          )}${extraCatDetail}`,
+          errorMessage:
+            "Total denominator field is not equal to the sum of other denominators.",
+        });
+      }
+    } else if (numeratorSum && denominatorSum) {
+      // total values have been emptied
       error.push({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
-        )}`,
+        )}${extraCatDetail}`,
         errorMessage:
-          "Total numerator field is not equal to the sum of other numerators.",
+          "Total field must contain values if other fields are filled.",
       });
     }
-    if (
-      (x = parseFloat(totalNDR.denominator)) !== parseFloat(denominatorSum) &&
-      denominatorSum !== null &&
-      !isNaN(x)
-    ) {
-      error.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary(
-          label
-        )}`,
-        errorMessage:
-          "Total denominator field is not equal to the sum of other denominators.",
-      });
+  };
+
+  // check all total sets
+  for (const cat of categories.map((s) => cleanString(s))) {
+    const ndrSets: RateFields[] = [];
+    for (const qual of qualifiers.map((s) => cleanString(s))) {
+      if (rateData?.rates?.[qual]?.[cat]?.[0])
+        ndrSets.push(rateData.rates[qual][cat][0]);
     }
+    validateTotal(ndrSets, cat);
   }
 
   return error;
