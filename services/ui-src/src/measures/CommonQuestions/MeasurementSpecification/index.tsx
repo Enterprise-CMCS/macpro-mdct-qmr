@@ -39,31 +39,18 @@ const HEDISChildren = () => {
 
 interface Props {
   type:
-    | "HEDIS"
-    | "OPA"
+    | "AHRQ-NCQA"
     | "AHRQ"
     | "CMS"
-    | "PQA"
-    | "AHRQ-NCQA"
+    | "HEDIS"
+    | "HRSA"
+    | "JOINT"
     | "NCQA"
-    | "HRSA";
+    | "OPA"
+    | "PQA";
 }
 
 const specifications = {
-  NCQA: {
-    displayValue: "National Committee for Quality Assurance (NCQA)",
-    value: DC.NCQA,
-  },
-  HEDIS: {
-    displayValue:
-      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
-    value: DC.NCQA,
-    children: [<HEDISChildren key="HEDIS-Child" />],
-  },
-  OPA: {
-    displayValue: "HHS Office of Population Affairs (OPA)",
-    value: DC.OPA,
-  },
   AHRQ: {
     displayValue: "Agency for Healthcare Research and Quality (AHRQ)",
     value: DC.AHRQ,
@@ -77,13 +64,31 @@ const specifications = {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",
     value: DC.CMS,
   },
-  PQA: {
-    displayValue: "Pharmacy Quality Alliance (PQA)",
-    value: DC.PQA,
+  HEDIS: {
+    displayValue:
+      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
+    value: DC.NCQA,
+    children: [<HEDISChildren key="HEDIS-Child" />],
   },
   HRSA: {
     displayValue: "Health Resources and Services Administration (HRSA)",
     value: DC.HRSA,
+  },
+  JOINT: {
+    displayValue: "The Joint Commission",
+    value: DC.JOINT_COMMISSION,
+  },
+  NCQA: {
+    displayValue: "National Committee for Quality Assurance (NCQA)",
+    value: DC.NCQA,
+  },
+  OPA: {
+    displayValue: "HHS Office of Population Affairs (OPA)",
+    value: DC.OPA,
+  },
+  PQA: {
+    displayValue: "Pharmacy Quality Alliance (PQA)",
+    value: DC.PQA,
   },
 };
 
@@ -92,28 +97,30 @@ export const MeasurementSpecification = ({ type }: Props) => {
 
   return (
     <QMR.CoreQuestionWrapper label="Measurement Specification">
-      <QMR.RadioButton
-        {...register(DC.MEASUREMENT_SPECIFICATION)}
-        options={[
-          specifications[type],
-          {
-            displayValue: "Other",
-            value: DC.OTHER,
-            children: [
-              <QMR.TextArea
-                textAreaProps={{ marginBottom: "10" }}
-                {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
-                label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
-                key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
-              />,
-              <QMR.Upload
-                label="If you need additional space to describe your state's methodology, please attach further documentation below."
-                {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
-              />,
-            ],
-          },
-        ]}
-      />
+      <div data-cy="measurement-specification-options">
+        <QMR.RadioButton
+          {...register(DC.MEASUREMENT_SPECIFICATION)}
+          options={[
+            specifications[type],
+            {
+              displayValue: "Other",
+              value: DC.OTHER,
+              children: [
+                <QMR.TextArea
+                  textAreaProps={{ marginBottom: "10" }}
+                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
+                  label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
+                  key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
+                />,
+                <QMR.Upload
+                  label="If you need additional space to describe your state's methodology, please attach further documentation below."
+                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
+                />,
+              ],
+            },
+          ]}
+        />
+      </div>
     </QMR.CoreQuestionWrapper>
   );
 };

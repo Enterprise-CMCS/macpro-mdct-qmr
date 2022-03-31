@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
-import { validationFunctions } from "./validation";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
 import { FormData } from "./types";
+import { validationFunctions } from "./validation";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
 
-export const AMRCH = ({
+export const PC01AD = ({
   name,
   year,
   measureId,
@@ -27,6 +28,7 @@ export const AMRCH = ({
   }, [setValidationFunctions]);
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const rateReadOnly = false;
 
   return (
     <>
@@ -39,13 +41,17 @@ export const AMRCH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource />
-          <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.MeasurementSpecification type="JOINT" />
+          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                rateReadOnly={rateReadOnly}
+                hybridMeasure
+              />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
@@ -56,8 +62,8 @@ export const AMRCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
-              calcTotal
+              adultMeasure
+              isSingleSex={true}
             />
           )}
         </>
