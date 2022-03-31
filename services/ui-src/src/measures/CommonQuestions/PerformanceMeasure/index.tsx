@@ -169,6 +169,22 @@ export const PerformanceMeasure = ({
           return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
         })}
       </CUI.Stack>
+      {data.questionSubtext && (
+        <CUI.Stack my="5" spacing={5}>
+          {data.questionSubtext.map((item, idx) => {
+            return (
+              <CUI.Text key={`performanceMeasureListItem.${idx}`}>
+                {data.questionSubtextTitles?.[idx] && (
+                  <CUI.Text display="inline" fontWeight="600">
+                    {data.questionSubtextTitles?.[idx]}
+                  </CUI.Text>
+                )}
+                <CUI.Text>{item}</CUI.Text>
+              </CUI.Text>
+            );
+          })}
+        </CUI.Stack>
+      )}
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {

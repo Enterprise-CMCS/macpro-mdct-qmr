@@ -4,6 +4,8 @@ export interface PerformanceMeasureData {
   questionText?: string[];
   questionListItems?: string[];
   questionListTitles?: string[];
+  questionSubtext?: string[];
+  questionSubtextTitles?: string[];
 }
 
 /** Example data built from IETAD */
