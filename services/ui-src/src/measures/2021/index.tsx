@@ -11,6 +11,7 @@ import { CCPAD } from "./CCPAD";
 import { CCSAD } from "./CCSAD";
 import { CCWAD } from "./CCWAD";
 import { CDFAD } from "./CDFAD";
+import { CDFCH } from "./CDFCH";
 import { CHLAD } from "./CHLAD";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
@@ -52,6 +53,7 @@ const twentyTwentyOneMeasures = {
   "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
   "CDF-AD": CDFAD,
+  "CDF-CH": CDFCH,
   "CHL-AD": CHLAD,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
