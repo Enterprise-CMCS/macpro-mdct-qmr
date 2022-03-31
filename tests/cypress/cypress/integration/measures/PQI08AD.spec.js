@@ -164,9 +164,11 @@ describe("Measure: PQI08-AD", () => {
       "have.text",
       "Manually entered rate should be 0 if numerator is 0"
     );
-    cy.get('[data-cy="Performance Measure Error"]').should(
+    cy.get(
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should(
       "have.text",
-      "Performance Measure Error"
+      "Performance Measure/Other Performance Measure Error"
     );
   });
 
@@ -201,14 +203,16 @@ describe("Measure: PQI08-AD", () => {
     );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0"]'
+      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0"
+      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
-    cy.get('[data-cy="Performance Measure Error"]').should(
+    cy.get(
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should(
       "have.text",
-      "Performance Measure Error"
+      "Performance Measure/Other Performance Measure Error"
     );
   });
 
@@ -247,31 +251,15 @@ describe("Measure: PQI08-AD", () => {
     ).type("40");
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData.selected0"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
+      '[data-cy="DeviationOptions0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Ages 18 to 64");
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData.selected1"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
+      '[data-cy="DeviationOptions1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Age 65 and older");
+    cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get("#OptionalMeasureStratification.options0-checkbox").check();
-    cy.get(
-      '[data-cy="NonHispanicRacialCategories0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get("#NonHispanicRacialCategories0-checkbox").check();
-    cy.get(
-      '[data-cy="NHRC-WhiteRates.ageData0"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
-    cy.get(
-      '[data-cy="NHRC-WhiteRates.ageData1"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).clear();
+      '[data-cy="Deviations.Ages18to64.RateDeviationsSelected0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Numerator");
   });
 
   // if Other measure spec is selected each age range/ custom description for which there are n/d/r
@@ -306,21 +294,20 @@ describe("Measure: PQI08-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#OptionalMeasureStratification.options1-checkbox").check({
-      force: true,
-    });
     cy.get(
-      '[data-cy="EthnicityCategories0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Not of Hispanic, Latino/a, or Spanish origin");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#EthnicityCategories0-checkbox").check({ force: true });
     cy.get(
-      '[data-cy="NonHispanicEthnicityRates.ageData0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "example 1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.example1.OPM.0.numerator"]'
     ).should("be.visible");
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
-    ).clear();
   });
 });
