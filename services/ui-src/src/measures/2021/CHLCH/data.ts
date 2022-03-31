@@ -6,7 +6,7 @@ export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of women ages 21 to 24 who were identified as sexually active and who had at least one test for chlamydia during the measurement year.",
+    "Percentage of women ages 16 to 20 who were identified as sexually active and who had at least one test for chlamydia during the measurement year.",
   ],
   questionListItems: [],
   categories,
