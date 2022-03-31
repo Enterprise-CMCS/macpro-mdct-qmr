@@ -1,8 +1,4 @@
-import testConfig from "../../test-config.js";
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
-describe("OY2 16039 Data source/ Rate to auto calculate in OPM", () => {
+describe("Data source/ Rate to auto calculate in OPM", () => {
   beforeEach(() => {
     cy.login("stateuser2");
     cy.goToAdultMeasures();

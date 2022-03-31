@@ -291,7 +291,6 @@ jobs:
             adding_link_to_combined_rates_component.spec.js,
             data_source_rate_to_auto_calculate_in_OPM.spec.js,
             combined_rates_validation_warnings.spec.js,
-            data_source_rate_to_auto_calculate_in_OPM.spec.js,
             date_range_adjustment.spec.js,
             FAQ.spec.js,
             logo.spec.feature,
