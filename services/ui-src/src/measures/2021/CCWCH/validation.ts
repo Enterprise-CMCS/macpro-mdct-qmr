@@ -67,7 +67,11 @@ const CCWCHValidation = (data: FormData) => {
         GV.validateAllDenomsAreTheSameCrossQualifier,
       ],
     }),
-    ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
+    ...GV.validateAllDenomsTheSameCrossQualifier(
+      data,
+      PMD.categories,
+      PMD.qualifiers
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
