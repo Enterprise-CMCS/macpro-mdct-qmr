@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 interface NdrProps {
   /** name for react-hook-form registration */
   name: string;
-  // ageGroups: Types.AgeGroups;
-  // performanceMeasureDescriptions: Types.PerformanceMeasureDescriptions;
 }
 
 interface TotalProps {
@@ -68,7 +66,6 @@ const useOmsTotalRate = (
       prevFields.push(watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate);
     }
     const currentRunIsLoadState = prevFields.every((x) => x === undefined);
-    const wasEmptyInitialState = prevFields.some((x) => x === undefined);
     for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
       if (
         watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
@@ -85,7 +82,7 @@ const useOmsTotalRate = (
         );
       }
     }
-    console.log(tempRate.numerator, tempRate.denominator);
+
     if (
       tempRate.numerator !== undefined &&
       tempRate.denominator !== undefined
@@ -105,8 +102,8 @@ const useOmsTotalRate = (
     ) {
       setPrevCalcRate(tempRate);
       if (
-        (!prevRunWasLoad || wasEmptyInitialState) &&
-        (!currentRunIsLoadState || !wasEmptyInitialState)
+        (!prevRunWasLoad || !field.value?.[0]?.rate) &&
+        !currentRunIsLoadState
       ) {
         field.onChange([
           {
