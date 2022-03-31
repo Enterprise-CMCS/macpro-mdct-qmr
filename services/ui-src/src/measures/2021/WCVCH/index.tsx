@@ -40,7 +40,7 @@ export const WCVCH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
