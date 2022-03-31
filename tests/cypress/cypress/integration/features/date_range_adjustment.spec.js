@@ -1,4 +1,4 @@
-describe("OY2-16228 Date Range Adjustment for Start/End date", () => {
+describe("Date Range Adjustment for Start/End date", () => {
   beforeEach(() => {
     cy.login("stateuser2");
     cy.goToAdultMeasures();

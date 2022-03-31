@@ -1,7 +1,3 @@
-// data from ohdad 3/22/22
-const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
-const categories = [];
-
 describe("Measure: OHD-AD", () => {
   beforeEach(() => {
     cy.login();
@@ -39,7 +35,6 @@ describe("Measure: OHD-AD", () => {
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
-    cy.get("#DataSource0-checkbox").check();
     cy.get(
       '[data-cy="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."]'
     ).should(
@@ -99,17 +94,12 @@ describe("Measure: OHD-AD", () => {
       "have.text",
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, language, disability status, or geography, complete the following as applicable. If your state reported for classifications/sub-categories other than those listed below, or reported for different rate sets, please click on “Add Another” to add Additional/Alternative Classification/Sub-categories as needed."
     );
-
     cy.get(
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
-    cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
-    cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-    ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.additionalSubCategoriesButton"]'
     ).click();
@@ -127,8 +117,6 @@ describe("Measure: OHD-AD", () => {
       "have.text",
       "PRA Disclosure Statement: Centers for Medicare & Medicaid Services (CMS) collects this mandatory information in accordance with (42 U.S.C. 1396a) and (42 CFR 430.12); which sets forth the authority for the submittal and collection of state plans and plan amendment information in a format defined by CMS for the purpose of improving the state application and federal review processes, improve federal program management of Medicaid programs and Children’s Health Insurance Program, and to standardize Medicaid program data which covers basic requirements, and individual content that reflects the characteristics of the particular state’s program. The information will be used to monitor and analyze performance metrics related to the Medicaid and Children’s Health Insurance Program in efforts to boost program integrity efforts, improve performance and accountability across the programs. Under the Privacy Act of 1974 any personally identifying information obtained will be kept private to the extent of the law. According to the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information unless it displays a valid OMB control number. The valid OMB control number for this information collection is 0938-1188. The time required to complete and review the information collection is estimated to range from 1 hour to 80 hours per response (see below), including the time to review instructions, search existing data resources, gather the data needed, and completeand review the information collection. If you have comments concerning the accuracy of the time estimate(s) or suggestions for imprving this form, please write to: CMS, 7500 Security Boulevard, Attn: PRA Reports Clerance Office, Mail Stop C4-26-05, Baltimore, Maryland 21244-1850."
     );
-
-    /* ==== End Cypress Studio ==== */
   });
 
   describe("Is Reporting Validation", () => {
@@ -143,12 +131,10 @@ describe("Measure: OHD-AD", () => {
 
   describe("Data Source Validation", () => {
     it("Ensure Data Source question includes Administrative Data, and Other Data Source selections.", () => {
-      // admin data
       cy.get(
         '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
       ).should("be.visible");
 
-      // other data source
       cy.get(
         '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
       ).should("be.visible");
@@ -157,7 +143,6 @@ describe("Measure: OHD-AD", () => {
 
   describe("Combined Rate Validation", () => {
     it('Must have a subselection for Combined Rate if "yes" selected', () => {
-      /* ==== Generated with Cypress Studio ==== */
       cy.get("#CombinedRates-yes").click();
       cy.clickValidateMeasure();
       cy.get(
@@ -165,7 +150,6 @@ describe("Measure: OHD-AD", () => {
       ).should("be.visible");
       cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get(
         '[data-cy="You must select at least one option for Combined Rate(s) Details if Yes is selected."] > .chakra-text'
       ).should("not.exist");
@@ -174,7 +158,6 @@ describe("Measure: OHD-AD", () => {
 
   describe("Date Range Validation", () => {
     it("Must have a filled date with appropriate range", () => {
-      /* ==== Generated with Cypress Studio ==== */
       cy.clickValidateMeasure();
       cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
         "be.visible"
@@ -188,7 +171,6 @@ describe("Measure: OHD-AD", () => {
       cy.get('[data-cy="DateRange.endDate-year"]').clear();
       cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
         "not.exist"
       );
@@ -197,7 +179,6 @@ describe("Measure: OHD-AD", () => {
 
   describe("Performance Measure Validations", () => {
     it("Must have one PM filled", () => {
-      /* ==== Generated with Cypress Studio ==== */
       cy.get('[data-cy="MeasurementSpecification0"]').click();
       cy.clickValidateMeasure();
       cy.get(
@@ -231,7 +212,6 @@ describe("Measure: OHD-AD", () => {
         '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
       ).type("1");
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get(
         '[data-cy="Performance Measure/Other Performance Measure Error"]'
       ).should("not.exist");
@@ -241,7 +221,6 @@ describe("Measure: OHD-AD", () => {
     });
 
     it("must have lower numerator than denominator", () => {
-      /* ==== Generated with Cypress Studio ==== */
       cy.get('[data-cy="MeasurementSpecification0"]').click();
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -269,7 +248,6 @@ describe("Measure: OHD-AD", () => {
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
       ).type("1");
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get(
         '[data-cy="Performance Measure/Other Performance Measure Error"]'
       ).should("not.exist");
@@ -280,9 +258,7 @@ describe("Measure: OHD-AD", () => {
 
     it("Must have a correct manually entered rate", () => {
       cy.get('[data-cy="MeasurementSpecification0"]').click();
-      /* ==== Generated with Cypress Studio ==== */
       cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-      cy.get("#DataSource1-checkbox").check();
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
       ).clear();
@@ -331,7 +307,6 @@ describe("Measure: OHD-AD", () => {
         "100"
       );
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get(
         '[data-cy="Manually entered rate should be 0 if numerator is 0"] > .chakra-text'
       ).should("not.exist");
@@ -341,7 +316,6 @@ describe("Measure: OHD-AD", () => {
   describe("OMS Validations", () => {
     it("Must have denominator greater than or equal to numerator", () => {
       cy.get('[data-cy="MeasurementSpecification0"]').click();
-      /* ==== Generated with Cypress Studio ==== */
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
       ).clear();
@@ -369,19 +343,12 @@ describe("Measure: OHD-AD", () => {
       cy.get(
         '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
       cy.get(
-        "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-      ).check();
-      cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get(
-        "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
-      ).check();
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.numerator"]'
       ).clear();
@@ -405,7 +372,6 @@ describe("Measure: OHD-AD", () => {
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.denominator"]'
       ).type("2");
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get(
         '[data-cy="Numerator cannot be greater than the Denominator for NDR sets."] > .chakra-text'
       ).should("not.exist");
@@ -413,11 +379,9 @@ describe("Measure: OHD-AD", () => {
 
     it("Must have a proper rate if manually entered", () => {
       cy.get('[data-cy="MeasurementSpecification0"]').click();
-      /* ==== Generated with Cypress Studio ==== */
       cy.get(
         '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get("#DataSource1-checkbox").check();
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
       ).clear();
@@ -445,22 +409,17 @@ describe("Measure: OHD-AD", () => {
       cy.get(
         '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
       cy.get(
         ".css-zhlq69 > :nth-child(1) > .chakra-form-control > .chakra-stack > :nth-child(1)"
       ).click();
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get(
-        "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-      ).check();
+
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get(
-        "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
-      ).check();
+      cy.wait(1000);
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.numerator"]'
       ).clear();
@@ -483,6 +442,7 @@ describe("Measure: OHD-AD", () => {
       cy.get(
         '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'
       ).should("be.visible");
+      cy.wait(1000);
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.rate"]'
       ).clear();
@@ -506,6 +466,7 @@ describe("Measure: OHD-AD", () => {
       cy.get(
         '[data-cy="Manually entered rate should be 0 if numerator is 0"] > .chakra-text'
       ).should("be.visible");
+      cy.wait(1000);
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.numerator"]'
       ).clear();
@@ -524,7 +485,6 @@ describe("Measure: OHD-AD", () => {
 
     it("Must have NDRs filled in OMS if a selection is made", () => {
       cy.get('[data-cy="MeasurementSpecification0"]').click();
-      /* ==== Generated with Cypress Studio ==== */
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
       ).clear();
@@ -552,25 +512,15 @@ describe("Measure: OHD-AD", () => {
       cy.get(
         '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
       cy.get(
-        "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-      ).check();
-      cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
       cy.get(
-        "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
-      ).check();
-      cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get(
-        "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options1-checkbox"
-      ).check();
       cy.clickValidateMeasure();
       cy.get(
         '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) Error"]'
@@ -581,6 +531,7 @@ describe("Measure: OHD-AD", () => {
       cy.get(
         '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White - Age 65 and older Error"]'
       ).should("be.visible");
+      cy.wait(1000);
       cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.numerator"]'
       ).type("1");
@@ -594,7 +545,6 @@ describe("Measure: OHD-AD", () => {
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age65andolder.singleCategory.0.denominator"]'
       ).type("1");
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get(
         '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) Error"]'
       ).should("not.exist");
@@ -610,7 +560,6 @@ describe("Measure: OHD-AD", () => {
   describe("Deviation of Measure Spec Validations", () => {
     it("Must have at least one NDR filled", () => {
       cy.get('[data-cy="MeasurementSpecification0"]').click();
-      /* ==== Generated with Cypress Studio ==== */
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
       ).clear();
@@ -652,26 +601,16 @@ describe("Measure: OHD-AD", () => {
       cy.get(
         '[data-cy="Deviations.Ages18to64.RateDeviationsSelected0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get(
-        "#Deviations\\.Ages18to64\\.RateDeviationsSelected0-checkbox"
-      ).check();
       cy.get('[data-cy="Deviations.Ages18to64.numerator"]').type("test");
       cy.get(
         '[data-cy="Deviations.Ages18to64.RateDeviationsSelected1"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get(
-        "#Deviations\\.Ages18to64\\.RateDeviationsSelected1-checkbox"
-      ).check();
       cy.get('[data-cy="Deviations.Ages18to64.denominator"]').type("test");
       cy.get(
         '[data-cy="Deviations.Ages18to64.RateDeviationsSelected2"] > .chakra-checkbox__label > .chakra-text'
       ).click();
-      cy.get(
-        "#Deviations\\.Ages18to64\\.RateDeviationsSelected2-checkbox"
-      ).check();
       cy.get('[data-cy="Deviations.Ages18to64.other"]').type("test");
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get('[data-cy="You must complete one NDR set"] > .chakra-text').should(
         "not.exist"
       );
