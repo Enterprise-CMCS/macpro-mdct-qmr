@@ -100,7 +100,6 @@ const useOmsTotalRate = (
       tempRate.numerator !== prevCalcRate.numerator ||
       tempRate.denominator !== prevCalcRate.denominator
     ) {
-      const rate = parseFloat(tempRate.rate);
       setPrevCalcRate(tempRate);
       if (
         (!prevRunWasLoad || !field.value?.[0]?.rate) &&
@@ -110,7 +109,7 @@ const useOmsTotalRate = (
           {
             numerator: `${tempRate.numerator ?? ""}`,
             denominator: `${tempRate.denominator ?? ""}`,
-            rate: (!isNaN(rate) && rate) || "",
+            rate: (!isNaN(parseFloat(tempRate.rate)) && tempRate.rate) || "",
           },
         ]);
       }
