@@ -1,4 +1,4 @@
-describe("OY2 16297 Combined rates validation testing", () => {
+describe("Combined rates validation testing", () => {
   beforeEach(() => {
     cy.login("stateuser2");
     cy.goToAdultMeasures();
@@ -9,15 +9,20 @@ describe("OY2 16297 Combined rates validation testing", () => {
     cy.get(`[data-cy="Validate Measure"]`).should("be.visible").click();
     cy.get(".chakra-alert")
       .should("be.visible", { timeout: 5000 })
-      .should("include.text", "Performance Measure Error")
-      .should("include.text", "At least one NDR Set must be completed");
+      .should(
+        "include.text",
+        "Performance Measure/Other Performance Measure Error"
+      )
+      .should(
+        "include.text",
+        "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
+      );
   });
 
   it("displays the correct warning if no combined rate detail option selected", () => {
     enterNDR();
     cy.get("[data-cy=CombinedRates0]").should("be.visible").click();
     cy.get('[data-cy="Validate Measure"]').should("be.visible").click();
-
     cy.get(".chakra-alert")
       .should("be.visible")
       .should("include.text", "Combined Rate(s) Error")
@@ -46,7 +51,11 @@ describe("OY2 16297 Combined rates validation testing", () => {
 });
 
 const enterNDR = () => {
-  cy.get("[data-cy=MeasurementSpecification0]").click();
-  cy.get(`[data-cy="PerformanceMeasure-Rates.0.numerator"]`).type("1");
-  cy.get(`[data-cy="PerformanceMeasure-Rates.0.denominator"]`).type("2");
+  cy.get('[data-cy="MeasurementSpecification0"]').click();
+  cy.get(
+    '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+  ).type("1");
+  cy.get(
+    '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+  ).type("2");
 };

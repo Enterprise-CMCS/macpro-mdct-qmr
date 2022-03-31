@@ -1,8 +1,6 @@
-describe("OY2 16265 Validation text needs to appear in CH/AD qualifiers", () => {
+describe("Validation text needs to appear in CH/AD qualifiers", () => {
   beforeEach(() => {
-    // Seed database with test data
-    cy.visit("stateuser2");
-    cy.login();
+    cy.login("stateuser2");
   });
 
   it("validation child core set questions Medicaid required and CHIP are not required", () => {
