@@ -57,6 +57,7 @@ export const CCWCH = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure={false}
+              isSingleSex
             />
           )}
         </>
