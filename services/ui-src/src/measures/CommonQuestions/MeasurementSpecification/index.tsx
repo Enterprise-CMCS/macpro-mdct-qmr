@@ -39,31 +39,18 @@ const HEDISChildren = () => {
 
 interface Props {
   type:
-    | "HEDIS"
-    | "OPA"
+    | "AHRQ-NCQA"
     | "AHRQ"
     | "CMS"
-    | "PQA"
-    | "AHRQ-NCQA"
+    | "HEDIS"
+    | "HRSA"
+    | "JOINT"
     | "NCQA"
-    | "HRSA";
+    | "OPA"
+    | "PQA";
 }
 
 const specifications = {
-  NCQA: {
-    displayValue: "National Committee for Quality Assurance (NCQA)",
-    value: DC.NCQA,
-  },
-  HEDIS: {
-    displayValue:
-      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
-    value: DC.NCQA,
-    children: [<HEDISChildren key="HEDIS-Child" />],
-  },
-  OPA: {
-    displayValue: "HHS Office of Population Affairs (OPA)",
-    value: DC.OPA,
-  },
   AHRQ: {
     displayValue: "Agency for Healthcare Research and Quality (AHRQ)",
     value: DC.AHRQ,
@@ -77,13 +64,31 @@ const specifications = {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",
     value: DC.CMS,
   },
-  PQA: {
-    displayValue: "Pharmacy Quality Alliance (PQA)",
-    value: DC.PQA,
+  HEDIS: {
+    displayValue:
+      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
+    value: DC.NCQA,
+    children: [<HEDISChildren key="HEDIS-Child" />],
   },
   HRSA: {
     displayValue: "Health Resources and Services Administration (HRSA)",
     value: DC.HRSA,
+  },
+  JOINT: {
+    displayValue: "The Joint Commission",
+    value: DC.JOINT_COMMISSION,
+  },
+  NCQA: {
+    displayValue: "National Committee for Quality Assurance (NCQA)",
+    value: DC.NCQA,
+  },
+  OPA: {
+    displayValue: "HHS Office of Population Affairs (OPA)",
+    value: DC.OPA,
+  },
+  PQA: {
+    displayValue: "Pharmacy Quality Alliance (PQA)",
+    value: DC.PQA,
   },
 };
 
