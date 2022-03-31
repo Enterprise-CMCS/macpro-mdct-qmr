@@ -61,6 +61,7 @@ export const CDFCH = ({
           )}
         </>
       )}
+      <CMQ.AdditionalNotes />
     </>
   );
 };
