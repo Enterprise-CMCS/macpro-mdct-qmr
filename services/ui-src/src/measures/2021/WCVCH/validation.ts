@@ -39,7 +39,7 @@ const WCVCHValidation = (data: FormData) => {
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateRateNotZero,
         GV.validateOMSTotalNDR,
-      GV.validateRateZero,
+        GV.validateRateZero,
       ],
     }),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
