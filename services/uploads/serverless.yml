@@ -226,6 +226,91 @@ resources:
                 - !Sub ${AttachmentsBucket.Arn}/*.xls
                 - !Sub ${AttachmentsBucket.Arn}/*.xlsx
                 - !Sub ${AttachmentsBucket.Arn}/*.json
+    DynamoSnapshotBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub ${self:service.name}-${self:custom.stage}-dynamo-snapshots-${AWS::AccountId}
+        CorsConfiguration: # Set the CORS policy
+          CorsRules:
+            - AllowedOrigins:
+                - "*"
+              AllowedHeaders:
+                - "*"
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
+              ExposedHeaders:
+                - ETag
+        NotificationConfiguration:
+          LambdaConfigurations:
+            - Event: s3:ObjectCreated:Put
+              Function: !GetAtt AvScanLambdaFunction.Arn
+      DependsOn: LambdaInvokePermission
+    DynamoSnapshotBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref DynamoSnapshotBucket
+        PolicyDocument:
+          Statement:
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}
+              Principal:
+                AWS: ${ssm:/configuration/mpriamrole~true}
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mpriamrole~true}
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}
+              Principal:
+                AWS: ${ssm:/configuration/mprdeviam~true}
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mprdeviam~true}
+            - Action:
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetObject"
+              Effect: "Deny"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/protected/*
+              Principal: "*"
+              Condition:
+                StringNotEquals:
+                  s3:ExistingObjectTag/virusScanStatus:
+                    - "CLEAN"
+                  aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
+            - Action: "s3:PutObject"
+              Effect: Deny
+              Principal: "*"
+              NotResource:
+                - !Sub ${DynamoSnapshotBucket.Arn}/*.checksum
+                - !Sub ${DynamoSnapshotBucket.Arn}/*.json
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
@@ -345,5 +430,9 @@ resources:
       Value: !Ref AttachmentsBucket
     AttachmentsBucketArn:
       Value: !GetAtt AttachmentsBucket.Arn
+    DynamoSnapshotBucketName: # Print out the name of the bucket that is created
+      Value: !Ref DynamoSnapshotBucket
+    DynamoSnapshotBucketArn:
+      Value: !GetAtt DynamoSnapshotBucket.Arn
     Region:
       Value: !Sub ${AWS::Region}
