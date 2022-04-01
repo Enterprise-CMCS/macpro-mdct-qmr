@@ -200,6 +200,14 @@ resources:
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
+                - "s3:*"
+              Effect: "Deny"
+              Principal: "*"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Condition:
+                Bool:
+                  "aws:SecureTransport": false
+            - Action:
                 - "s3:GetObject"
               Effect: "Deny"
               Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
