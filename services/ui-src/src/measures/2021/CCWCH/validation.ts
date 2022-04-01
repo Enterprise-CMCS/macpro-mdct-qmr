@@ -65,6 +65,7 @@ const CCWCHValidation = (data: FormData) => {
         GV.validateRateZero,
         GV.validateRateNotZero,
         GV.validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateOneQualifierRateLessThanTheOther,
       ],
     }),
     ...GV.validateAllDenomsTheSameCrossQualifier(
