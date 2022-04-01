@@ -164,8 +164,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers:
-          [
+        containers: [
             AMMAD.spec.js,
             AMRAD.spec.js,
             AMRCH.spec.js,
@@ -189,12 +188,12 @@ jobs:
             HPCMIAD.spec.js,
             HVLAD.spec.js,
             MSCAD.spec.js,
-            NCIDDSAD.spec.js,
+            # NCIDDSAD.spec.js,/
             OHDAD.spec.js,
             OUDAD.spec.js,
             PCRAD.spec.js,
             PPCAD.spec.js,
-            PQI01AD.spec.js,
+            # PQI01AD.spec.js,
             PQI05AD.spec.js,
             PQI08AD.spec.js,
             PQI15AD.spec.js,
@@ -414,7 +413,7 @@ jobs:
             ppcadPage,
             pqi01adPage,
             pqi05adPage,
-            pqi08Page,
+            pqi08adPage,
             pqi15adPage,
             ssaadPage,
             ssdadPage,
