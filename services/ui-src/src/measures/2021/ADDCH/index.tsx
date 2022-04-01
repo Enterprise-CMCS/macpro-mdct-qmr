@@ -57,7 +57,6 @@ export const ADDCH = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure={false}
-              isSingleSex
             />
           )}
         </>
