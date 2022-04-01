@@ -146,6 +146,14 @@ resources:
               Resource: !Sub ${ClamDefsBucket.Arn}/*
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:*"
+              Effect: Deny
+              Principal: "*"
+              Resource: !Sub ${ClamDefsBucket.Arn}/*
+              Condition:
+                Bool:
+                  "aws:SecureTransport": false
     AttachmentsBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
