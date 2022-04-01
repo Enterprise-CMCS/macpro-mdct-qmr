@@ -28,15 +28,12 @@ Cypress.Commands.add(
       stateuser2: testConfig.TEST_USER_2,
     };
     cy.visit("/");
-    cy.waitUntil(() => {
-      cy.xpath(emailForCognito).then(() => {
-        cy.xpath(emailForCognito).type(
-          `${users[user]}` || `${testConfig.TEST_USER_3}`
-        );
-        cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
-        cy.get('[data-cy="login-with-cognito-button"]').click();
-      });
-    });
+    cy.wait(3000);
+    cy.xpath(emailForCognito).type(
+      `${users[user]}` || `${testConfig.TEST_USER_3}`
+    );
+    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
+    cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
 
