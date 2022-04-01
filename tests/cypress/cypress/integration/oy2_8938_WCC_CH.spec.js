@@ -180,12 +180,6 @@ describe("Measure: PQI01-AD", () => {
       "Counseling for Physical Activity"
     );
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
-
-    cy.get(":nth-child(9) > .css-1u9gfme > .chakra-text").should(
-      "have.text",
-      "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. While reporting of the Core Sets is voluntary, CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past."
-    );
-
     cy.get('[data-cy="PerformanceMeasure.hybridExplanation"]').click();
     cy.get(
       '[data-cy="Enter a number for the numerator and the denominator"]'
