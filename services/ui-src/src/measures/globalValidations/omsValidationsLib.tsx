@@ -17,6 +17,7 @@ export type OmsValidationCallback = (data: {
   label: string[];
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
+  checkTotal?: boolean;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -27,6 +28,7 @@ interface OmsValidationProps {
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
+  checkTotal?: boolean;
 }
 export const omsValidations = ({
   categories,
@@ -35,6 +37,7 @@ export const omsValidations = ({
   locationDictionary,
   qualifiers,
   validationCallbacks,
+  checkTotal = true,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -58,7 +61,8 @@ export const omsValidations = ({
     opmQuals.length ? opmCats : cats,
     locationDictionary,
     checkIsFilled,
-    isOPM
+    isOPM,
+    checkTotal
   );
 };
 // @example
@@ -184,7 +188,8 @@ const validateNDRs = (
   categories: string[],
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
-  isOPM: boolean
+  isOPM: boolean,
+  checkTotal: boolean
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -242,6 +247,7 @@ const validateNDRs = (
           label,
           locationDictionary,
           isOPM,
+          checkTotal,
         })
       );
     }
@@ -500,6 +506,9 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
     const totalNDR = ndrs.pop();
     let numeratorSum = 0;
     let denominatorSum = 0;
+    const extraCatDetail = isSingleCat
+      ? ""
+      : ` - ${locationDictionary([category])}`;
 
     ndrs.forEach((set) => {
       if (set?.denominator && set?.numerator && set?.rate) {
@@ -511,9 +520,6 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
     if (totalNDR?.numerator && totalNDR?.denominator) {
       const parsedNum = parseFloat(totalNDR.numerator);
       const parsedDen = parseFloat(totalNDR.denominator);
-      const extraCatDetail = isSingleCat
-        ? ""
-        : ` - ${locationDictionary([category])}`;
 
       // Numerators don't match
       if (!isNaN(parsedNum) && parsedNum !== numeratorSum) {
@@ -536,6 +542,15 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
             "Total denominator field is not equal to the sum of other denominators.",
         });
       }
+    } else if (numeratorSum && denominatorSum) {
+      // total values have been emptied
+      error.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}${extraCatDetail}`,
+        errorMessage:
+          "Total field must contain values if other fields are filled.",
+      });
     }
   };
 

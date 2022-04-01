@@ -316,7 +316,7 @@ export const validateTotalNDR = (
     });
 
     let totalNDR: any = ndrSet[ndrSet.length - 1];
-    if (totalNDR) {
+    if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
       let x;
       if (
@@ -343,6 +343,16 @@ export const validateTotalNDR = (
           } denominator field is not equal to the sum of other denominators.`,
         });
       }
+    } else if (numeratorSum && denominatorSum) {
+      errorArray.push({
+        errorLocation: errorLocation,
+        errorMessage: `${
+          (categories &&
+            categories[idx] &&
+            `${categories[idx]} - ${totalNDR.label}`) ||
+          totalNDR.label
+        } must contain values if other fields are filled.`,
+      });
     }
   });
 

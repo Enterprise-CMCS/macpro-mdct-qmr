@@ -1,4 +1,4 @@
-describe("Measure: ARM-AD", () => {
+describe("Measure: AMR-AD", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.login();
@@ -128,7 +128,7 @@ describe("Measure: ARM-AD", () => {
       '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
     ).type("7");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.singleCategory.2.numerator"]'
     ).type("55");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.rate"]').should(
       "have.value",
