@@ -56,7 +56,7 @@ export const CHLCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
+              adultMeasure={false}
               isSingleSex
             />
           )}
