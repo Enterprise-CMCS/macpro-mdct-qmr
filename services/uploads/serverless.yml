@@ -234,6 +234,20 @@ resources:
         EnableKeyRotation: true
         PendingWindowInDays: 10
         MultiRegion: true
+        KeyPolicy:
+          Version: 2012-10-17
+          Id: key-default-1
+          Statement:
+            - Sid: Enable IAM User Permissions
+              Effect: Allow
+              Principal:
+                AWS: !Join
+                  - ""
+                  - - "arn:aws:iam::"
+                    - !Ref "AWS::AccountId"
+                    - ":root"
+              Action: "kms:*"
+              Resource: "*"
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
