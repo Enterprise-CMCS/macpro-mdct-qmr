@@ -187,6 +187,7 @@ jobs:
             # NCIDDSAD.spec.js,
             OHDAD.spec.js,
             OUDAD.spec.js,
+            PC01AD.spec.js,
             PCRAD.spec.js,
             PPCAD.spec.js,
             # PQI01AD.spec.js,
