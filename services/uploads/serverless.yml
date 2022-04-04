@@ -379,20 +379,17 @@ resources:
                   Resource: !Sub ${AttachmentsBucket.Arn}
                 - Effect: "Allow"
                   Action:
+                    - s3:GetObject
+                    - s3:GetObjectTagging
+                    - s3:PutObject
+                    - s3:PutObjectAcl
+                    - s3:PutObjectTagging
+                    - s3:PutObjectVersionTagging
+                  Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
+                - Effect: "Allow"
+                  Action:
                     - s3:ListBucket
-                # - Effect: "Allow"
-                #   Action:
-                #     - s3:GetObject
-                #     - s3:GetObjectTagging
-                #     - s3:PutObject
-                #     - s3:PutObjectAcl
-                #     - s3:PutObjectTagging
-                #     - s3:PutObjectVersionTagging
-                #   Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
-                # - Effect: "Allow"
-                #   Action:
-                #     - s3:ListBucket
-                #   Resource: !Sub ${DynamoSnapshotBucket.Arn}
+                  Resource: !Sub ${DynamoSnapshotBucket.Arn}
                 - Effect: "Allow"
                   Action:
                     - s3:ListBucket
