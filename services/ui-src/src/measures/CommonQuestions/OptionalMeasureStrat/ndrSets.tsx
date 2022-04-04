@@ -125,6 +125,7 @@ const TotalNDR = ({
           colorScheme: "blue",
           textTransform: "capitalize",
         }}
+        testId={`TotalCalculation.${cleanedCategory}`}
         onClick={() => {
           const tempRate: TempRate = calculateOMSTotal({
             watchOMS,
