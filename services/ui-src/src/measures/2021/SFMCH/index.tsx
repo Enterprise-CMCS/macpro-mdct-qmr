@@ -45,7 +45,7 @@ export const SFMCH = ({
           <CMQ.DefinitionOfPopulation childMeasure={true} />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure data={PMD.data} hideTextBox={false} />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
