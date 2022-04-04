@@ -240,12 +240,7 @@ resources:
           Statement:
             - Sid: Enable IAM User Permissions
               Effect: Allow
-              Principal:
-                AWS: !Join
-                  - ""
-                  - - "arn:aws:iam::"
-                    - !Ref "AWS::AccountId"
-                    - ":root"
+              Principal: "*"
               Action: "kms:*"
               Resource: "*"
     DynamoSnapshotBucket:
