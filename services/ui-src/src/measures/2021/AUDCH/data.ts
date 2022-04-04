@@ -11,3 +11,18 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   categories,
   qualifiers,
 };
+
+export const dataSourceData: DataDrivenTypes.DataSource = {
+  optionsLabel:
+    "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
+  options: [
+    {
+      value: "Electronic Health Records",
+      description: true,
+    },
+    {
+      value: "Other",
+      description: true,
+    },
+  ],
+};
