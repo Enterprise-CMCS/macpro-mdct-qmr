@@ -227,6 +227,14 @@ resources:
                 - !Sub ${AttachmentsBucket.Arn}/*.xls
                 - !Sub ${AttachmentsBucket.Arn}/*.xlsx
                 - !Sub ${AttachmentsBucket.Arn}/*.json
+    BucketEncryptionKMSKey:
+      Type: AWS::KMS::Key
+      Properties:
+        Description: "Key for encrypting dynamo snapshots and upload buckets"
+        Enable: true
+        EnableKeyRoation: true
+        KeySpec: !Ref KeySpec
+        KeyUsage: !Ref KeyUsage
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
@@ -312,13 +320,6 @@ resources:
               NotResource:
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.checksum
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.json
-    KMSKey:
-      Type: AWS::KMS::Key
-      Description: "Key for encrypting dynamo snapshots and upload buckets"
-      Enable: true
-      EnableKeyRoation: true
-      KeySpec: !Ref KeySpec
-      KeyUsage: !Ref KeyUsage
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
@@ -459,6 +460,8 @@ resources:
       Value: !Ref AttachmentsBucket
     AttachmentsBucketArn:
       Value: !GetAtt AttachmentsBucket.Arn
+    BucketEncryptionKMSKey:
+      Value: !GetAtt BucketEncryptionKMSKey.Arn
     DynamoSnapshotBucketName: # Print out the name of the bucket that is created
       Value: !Ref DynamoSnapshotBucket
     DynamoSnapshotBucketArn:
