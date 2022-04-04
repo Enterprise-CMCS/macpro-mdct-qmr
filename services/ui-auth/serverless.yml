@@ -217,6 +217,9 @@ resources:
                     - Fn::Join:
                         - ""
                         - - ${self:custom.attachments_bucket_arn}
+                          - "/protected/"
+                          - "$"
+                          - "{cognito-identity.amazonaws.com:sub}/*"
                         - - ${self:custom.dynamoSnapshot_bucket_arn}
                           - "/protected/"
                           - "$"
