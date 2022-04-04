@@ -251,67 +251,67 @@ resources:
             - Event: s3:ObjectCreated:Put
               Function: !GetAtt AvScanLambdaFunction.Arn
       DependsOn: LambdaInvokePermission
-    # DynamoSnapshotBucketPolicy:
-    #   Type: AWS::S3::BucketPolicy
-    #   Properties:
-    #     Bucket: !Ref DynamoSnapshotBucket
-    #     PolicyDocument:
-    #       Statement:
-    #         - Action:
-    #             - "s3:GetBucketLocation"
-    #             - "s3:ListBucket"
-    #           Effect: "Allow"
-    #           Resource: !Sub ${DynamoSnapshotBucket.Arn}
-    #           Principal:
-    #             AWS: ${ssm:/configuration/mpriamrole~true}
-    #         - Action:
-    #             - "s3:GetObject"
-    #           Effect: "Allow"
-    #           Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
-    #           Principal:
-    #             AWS: ${ssm:/configuration/mpriamrole~true}
-    #         - Action:
-    #             - "s3:GetBucketLocation"
-    #             - "s3:ListBucket"
-    #           Effect: "Allow"
-    #           Resource: !Sub ${DynamoSnapshotBucket.Arn}
-    #           Principal:
-    #             AWS: ${ssm:/configuration/mprdeviam~true}
-    #         - Action:
-    #             - "s3:GetObject"
-    #           Effect: "Allow"
-    #           Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
-    #           Principal:
-    #             AWS: ${ssm:/configuration/mprdeviam~true}
-    #         - Action:
-    #             - "s3:PutObject"
-    #           Effect: "Allow"
-    #           Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
-    #           Principal:
-    #             AWS: !GetAtt IamRoleLambdaExecution.Arn
-    #         - Action:
-    #             - "s3:GetBucketLocation"
-    #             - "s3:ListBucket"
-    #           Effect: "Allow"
-    #           Resource: !Sub ${DynamoSnapshotBucket.Arn}
-    #           Principal:
-    #             AWS: !GetAtt IamRoleLambdaExecution.Arn
-    #         - Action:
-    #             - "s3:GetObject"
-    #           Effect: "Deny"
-    #           Resource: !Sub ${DynamoSnapshotBucket.Arn}/protected/*
-    #           Principal: "*"
-    #           Condition:
-    #             StringNotEquals:
-    #               s3:ExistingObjectTag/virusScanStatus:
-    #                 - "CLEAN"
-    #               aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
-    #         - Action: "s3:PutObject"
-    #           Effect: Deny
-    #           Principal: "*"
-    #           NotResource:
-    #             - !Sub ${DynamoSnapshotBucket.Arn}/*.checksum
-    #             - !Sub ${DynamoSnapshotBucket.Arn}/*.json
+    DynamoSnapshotBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref DynamoSnapshotBucket
+        PolicyDocument:
+          Statement:
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}
+              Principal:
+                AWS: ${ssm:/configuration/mpriamrole~true}
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mpriamrole~true}
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}
+              Principal:
+                AWS: ${ssm:/configuration/mprdeviam~true}
+            - Action:
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
+              Principal:
+                AWS: ${ssm:/configuration/mprdeviam~true}
+            - Action:
+                - "s3:PutObject"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Effect: "Allow"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetObject"
+              Effect: "Deny"
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/protected/*
+              Principal: "*"
+              Condition:
+                StringNotEquals:
+                  s3:ExistingObjectTag/virusScanStatus:
+                    - "CLEAN"
+                  aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
+            - Action: "s3:PutObject"
+              Effect: Deny
+              Principal: "*"
+              NotResource:
+                - !Sub ${DynamoSnapshotBucket.Arn}/*.checksum
+                - !Sub ${DynamoSnapshotBucket.Arn}/*.json
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
@@ -320,6 +320,14 @@ resources:
         Principal: s3.amazonaws.com
         SourceAccount: !Sub ${AWS::AccountId}
         SourceArn: !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
+    LambdaInvokeSnapshotPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        FunctionName: !GetAtt AvScanLambdaFunction.Arn
+        Action: lambda:InvokeFunction
+        Principal: s3.amazonaws.com
+        SourceAccount: !Sub ${AWS::AccountId}
+        SourceArn: !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
     ClamDefsBucket:
       Type: AWS::S3::Bucket
       Properties:
