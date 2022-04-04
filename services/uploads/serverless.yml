@@ -233,8 +233,8 @@ resources:
         Description: "Key for encrypting dynamo snapshots and upload buckets"
         Enable: true
         EnableKeyRoation: true
-        KeySpec: !Ref KeySpec
-        KeyUsage: !Ref KeyUsage
+        PendingWindowInDays: 10
+        MultiRegion: true
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
