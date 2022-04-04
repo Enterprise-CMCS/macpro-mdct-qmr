@@ -497,6 +497,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
 
   const error: FormError[] = [];
   const isSingleCat = categories[0] === DC.SINGLE_CATEGORY;
+  const totalQual = qualifiers.slice(-1)[0];
 
   // scoped helper function for total calculation/comparison
   const validateTotal = (ndrs: RateFields[], category: string) => {
@@ -509,6 +510,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
     const extraCatDetail = isSingleCat
       ? ""
       : ` - ${locationDictionary([category])}`;
+    const extraLocationInfo = ` - ${totalQual}` + extraCatDetail;
 
     ndrs.forEach((set) => {
       if (set?.denominator && set?.numerator && set?.rate) {
@@ -526,7 +528,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             label
-          )}${extraCatDetail}`,
+          )}${extraLocationInfo}`,
           errorMessage:
             "Total numerator field is not equal to the sum of other numerators.",
         });
@@ -537,7 +539,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             label
-          )}${extraCatDetail}`,
+          )}${extraLocationInfo}`,
           errorMessage:
             "Total denominator field is not equal to the sum of other denominators.",
         });
@@ -547,7 +549,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
       error.push({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
-        )}${extraCatDetail}`,
+        )}${extraLocationInfo}`,
         errorMessage:
           "Total field must contain values if other fields are filled.",
       });
