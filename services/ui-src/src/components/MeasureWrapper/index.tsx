@@ -8,7 +8,12 @@ import {
 } from "react";
 import * as CUI from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useForm, FormProvider, useWatch } from "react-hook-form";
+import {
+  useForm,
+  FormProvider,
+  useWatch,
+  useFormContext,
+} from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
@@ -41,10 +46,14 @@ interface MeasureProps {
   year: string;
   measureId: string;
   setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
+  handleSave: (data: any) => void;
 }
 
-const Measure = ({ measure, ...rest }: MeasureProps) => {
+const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
+  const { watch } = useFormContext();
+
   const watchedData = useWatch();
+
   const watchReportingRadio = useWatch({ name: "DidReport" });
   const isNotReportingData = watchReportingRadio === "no";
 
@@ -59,6 +68,20 @@ const Measure = ({ measure, ...rest }: MeasureProps) => {
     watchedData,
     rest.measureId
   );
+
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      if (
+        (name === "AdditionalNotes-Upload" ||
+          name ===
+            "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload") &&
+        type === "change"
+      ) {
+        handleSave(value);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, handleSave]);
 
   return cloneElement(measure, {
     ...rest,
@@ -318,6 +341,7 @@ export const MeasureWrapper = ({
                   year={year}
                   measureId={measureId}
                   setValidationFunctions={setValidationFunctions}
+                  handleSave={handleSave}
                 />
                 {!autocompleteOnCreation && (
                   <QMR.CompleteMeasureFooter
