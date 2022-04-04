@@ -229,7 +229,7 @@ resources:
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: !Sub ${self:service.name}-${self:custom.stage}-dynamo-snapshots-${AWS::AccountId}
+        BucketName: !Sub ${self:service.name}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
         CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
