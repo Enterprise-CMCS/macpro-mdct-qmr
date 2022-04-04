@@ -1,7 +1,6 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
-import * as OV from "measures/globalValidations/omsValidationsLib";
+import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -51,7 +50,7 @@ const PC01ADValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...OV.omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
@@ -61,9 +60,9 @@ const PC01ADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        OV.validateDenominatorGreaterThanNumerator,
-        OV.validateRateNotZero,
-        ...(includesHybridDataSource ? [] : [OV.validateRateZero]),
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateRateNotZero,
+        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
       ],
     }),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
