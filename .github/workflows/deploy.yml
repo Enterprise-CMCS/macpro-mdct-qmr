@@ -279,8 +279,8 @@ jobs:
 
   test-features:
     name: Test Features
-    needs: setup-tests
-    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/readonly-test-2' }}
+    needs: test-measures
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val'}}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -378,48 +378,47 @@ jobs:
 
   a11y-tests:
     name: Test Ally
-    needs: test-measures
-    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/readonly-test-2' }}
+    needs: test-features
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        containers:
-          [
-            commonPages,
-            fuadPage,
-            ietadPage,
+        containers: [
             ammadPage,
-            amradPage,
-            bcsadPage,
-            cbpadPage,
-            ccpadPage,
-            ccsadPage,
-            ccwadPage,
-            cdfadPage,
-            chladPage,
-            cobadPage,
-            cpaadPage,
-            fuhadPage,
-            fumadPage,
-            fvaadPage,
-            hpcadPage,
-            hpcmiadPage,
-            hvladPage,
-            mscadPage,
-            nciddsPage,
-            ohdadPage,
-            oudadPage,
-            pc01adPage,
-            pcradPage,
-            ppcadPage,
-            pqi01adPage,
-            pqi05adPage,
-            pqi08adPage,
-            pqi15adPage,
-            ssaadPage,
-            ssdadPage,
-            faqPage,
+            # amradPage,
+            # bcsadPage,
+            # cbpadPage,
+            # ccpadPage,
+            # ccsadPage,
+            # ccwadPage,
+            # cdfadPage,
+            # chladPage,
+            # cobadPage,
+            # commonPages,
+            # cpaadPage,
+            # faqPage,
+            # fuadPage,
+            # fuhadPage,
+            # fumadPage,
+            # fvaadPage,
+            # hpcadPage,
+            # hpcmiadPage,
+            # hvladPage,
+            # ietadPage,
+            # mscadPage,
+            # nciddsPage,
+            # ohdadPage,
+            # oudadPage,
+            # pc01adPage,
+            # pcradPage,
+            # ppcadPage,
+            # pqi01adPage,
+            # pqi05adPage,
+            # pqi08adPage,
+            # pqi15adPage,
+            # ssaadPage,
+            # ssdadPage,
           ]
     steps:
       - name: set branch_name
