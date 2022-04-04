@@ -232,7 +232,7 @@ resources:
       Properties:
         Description: "Key for encrypting dynamo snapshots and upload buckets"
         Enable: true
-        EnableKeyRoation: true
+        EnableKeyRotation: true
         PendingWindowInDays: 10
         MultiRegion: true
     DynamoSnapshotBucket:
