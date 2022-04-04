@@ -231,7 +231,6 @@ resources:
       Type: AWS::KMS::Key
       Properties:
         Description: "Key for encrypting dynamo snapshots and upload buckets"
-        Enable: true
         EnableKeyRotation: true
         PendingWindowInDays: 10
         MultiRegion: true
