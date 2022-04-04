@@ -19,6 +19,7 @@ import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { areSomeRatesCompleted } from "utils/form";
+import * as DC from "dataConstants";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -72,9 +73,8 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
       if (
-        (name === "AdditionalNotes-Upload" ||
-          name ===
-            "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload") &&
+        (name === DC.ADDITIONAL_NOTES_UPLOAD ||
+          name === DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD) &&
         type === "change"
       ) {
         handleSave(value);
