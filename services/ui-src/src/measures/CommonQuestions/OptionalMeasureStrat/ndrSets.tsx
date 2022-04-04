@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
+import * as DC from "dataConstants";
 
-import * as Types from "../types";
 import { usePerformanceMeasureContext } from "./context";
 import { useController, useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -9,129 +9,111 @@ import { useEffect, useState } from "react";
 interface NdrProps {
   /** name for react-hook-form registration */
   name: string;
-  // ageGroups: Types.AgeGroups;
-  // performanceMeasureDescriptions: Types.PerformanceMeasureDescriptions;
-}
-
-interface AgeGroupProps {
-  /** name for react-hook-form registration */
-  name: string;
-  /** should rate be user editable? */
-  rateReadOnly: boolean;
-  /** Which performance measure rates are filled in */
-  performanceMeasureArray?: Types.RateFields[][];
-  qualifiers: string[];
-  categories: string[];
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-  allowNumeratorGreaterThanDenominator: boolean;
-}
-
-interface OPMProps {
-  /** Rate fields and descs from OPM */
-  OPM: Types.OtherRatesFields[];
-  /** should rate be user editable? */
-  rateReadOnly: boolean;
-  /** name for react-hook-form registration */
-  name: string;
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 interface TotalProps {
   /** name for react-hook-form registration */
   name: string;
+  qualifier?: string;
+  category?: string;
+  divider?: boolean;
 }
 
-interface NdrOptionBuilderProps extends AgeGroupProps {
-  values: string[];
-  addSecondaryRegisterTag: boolean;
-  categories: string[];
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-  allowNumeratorGreaterThanDenominator: boolean;
+interface TempRate {
+  numerator?: number;
+  denominator?: number;
+  rate: string;
 }
 
-interface ConditionalRateBuilderProps {
-  addSecondaryRegisterTag: boolean;
-  rateReadOnly: boolean;
-  performanceMeasureArray: Types.RateFields[][];
-  categories: string[];
-  majorIndex: number;
-  value: string;
-  name: string;
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-  allowNumeratorGreaterThanDenominator: boolean;
-}
+type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
+type RateArrayBuilder = (name: string) => React.ReactElement[][];
 
-type CheckBoxBuilder = (props: AgeGroupProps) => QMR.CheckboxOption[];
-
+const cleanString = (s: string) => s && s.replace(/[^\w]/g, "");
 /**
  * Hook to track and update oms totals. Use state to track to view previous calculated rate.
  * If total is adjusted manually, this will not change the state object which stops a forced recalculation/render
  */
-const useOmsTotalRate = (omsName: string, totalName: string) => {
+const useOmsTotalRate = (
+  omsName: string,
+  totalName: string,
+  category = DC.SINGLE_CATEGORY
+) => {
   const { qualifiers, rateMultiplicationValue, numberOfDecimals } =
     usePerformanceMeasureContext();
   const { watch, control } = useFormContext();
+  const cleanedCategory = cleanString(category);
 
   const watchOMS = watch(omsName);
   const { field } = useController({ name: totalName, control });
-  const [prevCalcRate, setPrevCalcRate] = useState({
-    numerator: 0,
-    denominator: 0,
+  const [prevRunWasLoad, setPrevRunWasLoad] = useState(true);
+  const [prevCalcRate, setPrevCalcRate] = useState<TempRate>({
+    numerator: undefined,
+    denominator: undefined,
     rate: "",
   });
 
   useEffect(() => {
     // calc new rate, adjust if new values
-    const tempRate = {
-      numerator: 0,
-      denominator: 0,
-      rate: "",
-    };
+    const tempRate: { numerator?: number; denominator?: number; rate: string } =
+      {
+        numerator: undefined,
+        denominator: undefined,
+        rate: "",
+      };
 
-    for (const qual of qualifiers
-      .slice(0, -1)
-      .map((s) => s.replace(/[^\w]/g, ""))) {
+    const prevFields: any[] = [];
+    for (const qual of qualifiers.map((s) => cleanString(s))) {
+      prevFields.push(watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate);
+    }
+    const currentRunIsLoadState = prevFields.every((x) => x === undefined);
+    for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
       if (
-        watchOMS?.[qual]?.["singleCategory"]?.[0]?.numerator &&
-        watchOMS?.[qual]?.["singleCategory"]?.[0]?.denominator &&
-        watchOMS?.[qual]?.["singleCategory"]?.[0]?.rate
+        watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
+        watchOMS?.[qual]?.[cleanedCategory]?.[0]?.denominator &&
+        watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate
       ) {
+        tempRate.numerator ??= 0;
+        tempRate.denominator ??= 0;
         tempRate.numerator += parseFloat(
-          watchOMS[qual]["singleCategory"][0].numerator
+          watchOMS[qual][cleanedCategory][0].numerator
         );
         tempRate.denominator += parseFloat(
-          watchOMS[qual]["singleCategory"][0].denominator
+          watchOMS[qual][cleanedCategory][0].denominator
         );
       }
     }
 
-    tempRate.rate = (
-      Math.round(
-        (tempRate.numerator / tempRate.denominator) *
-          (rateMultiplicationValue ?? 100) *
-          Math.pow(10, numberOfDecimals)
-      ) / Math.pow(10, numberOfDecimals)
-    ).toFixed(1);
+    if (
+      tempRate.numerator !== undefined &&
+      tempRate.denominator !== undefined
+    ) {
+      tempRate.rate = (
+        Math.round(
+          (tempRate.numerator / tempRate.denominator) *
+            (rateMultiplicationValue ?? 100) *
+            Math.pow(10, numberOfDecimals)
+        ) / Math.pow(10, numberOfDecimals)
+      ).toFixed(1);
+    }
 
     if (
-      tempRate.numerator &&
-      tempRate.denominator &&
-      (tempRate.numerator !== prevCalcRate.numerator ||
-        tempRate.denominator !== prevCalcRate.denominator)
+      tempRate.numerator !== prevCalcRate.numerator ||
+      tempRate.denominator !== prevCalcRate.denominator
     ) {
       setPrevCalcRate(tempRate);
-      field.onChange([
-        {
-          numerator: `${tempRate.numerator}`,
-          denominator: `${tempRate.denominator}`,
-          rate: tempRate.rate,
-        },
-      ]);
+      if (
+        (!prevRunWasLoad || !field.value?.[0]?.rate) &&
+        !currentRunIsLoadState
+      ) {
+        field.onChange([
+          {
+            numerator: `${tempRate.numerator ?? ""}`,
+            denominator: `${tempRate.denominator ?? ""}`,
+            rate: (!isNaN(parseFloat(tempRate.rate)) && tempRate.rate) || "",
+          },
+        ]);
+      }
+      setPrevRunWasLoad(currentRunIsLoadState);
     }
   }, [
     watchOMS,
@@ -141,130 +123,180 @@ const useOmsTotalRate = (omsName: string, totalName: string) => {
     prevCalcRate,
     setPrevCalcRate,
     numberOfDecimals,
+    cleanedCategory,
+    prevRunWasLoad,
+    setPrevRunWasLoad,
   ]);
 };
 
 /**
  * Total Rate NDR that calculates from filled OMS NDR sets
  */
-export const TotalNDR = ({ name }: TotalProps) => {
-  const { qualifiers, customMask, rateMultiplicationValue, rateReadOnly } =
-    usePerformanceMeasureContext();
+export const TotalNDR = ({
+  name,
+  category = DC.SINGLE_CATEGORY,
+  qualifier,
+  divider = false,
+}: TotalProps) => {
+  const {
+    qualifiers,
+    customMask,
+    rateMultiplicationValue,
+    rateReadOnly,
+    allowNumeratorGreaterThanDenominator,
+  } = usePerformanceMeasureContext();
 
-  const [lastQualifier] = qualifiers.slice(-1);
-  const cleanedQualifier = lastQualifier.replace(/[^\w]/g, "");
-  const cleanedName = `${name}.rates.${cleanedQualifier}.singleCategory`;
+  const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
+  const cleanedQualifier = cleanString(lastQualifier);
+  const cleanedCategory = cleanString(category);
+  const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
+  const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
 
-  useOmsTotalRate(`${name}.rates`, cleanedName);
+  useOmsTotalRate(`${name}.rates`, cleanedName, category);
 
   return (
     <>
-      <CUI.Divider />
+      {divider && <CUI.Divider />}
       <QMR.Rate
         key={cleanedName}
         name={cleanedName}
         readOnly={rateReadOnly}
         customMask={customMask}
-        rates={[{ label: lastQualifier, id: 0 }]}
+        rates={[{ label: label, id: 0 }]}
         rateMultiplicationValue={rateMultiplicationValue}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
       />
     </>
   );
 };
 
-/**
- * Create NDR sets for applicable PMs
- */
-const buildConditionalRateArray = ({
-  addSecondaryRegisterTag,
-  rateReadOnly,
-  performanceMeasureArray = [[]],
-  majorIndex,
-  value,
-  name,
-  categories,
-  rateMultiplicationValue,
-  customMask,
-  allowNumeratorGreaterThanDenominator,
-}: ConditionalRateBuilderProps) => {
-  const ndrSets: React.ReactElement[] = [];
-  const cleanedLabel = value?.replace(/[^\w]/g, "") ?? "CHECKBOX_VALUE_NOT_SET";
+/** Creates Rate Component Arrays for every category with a filled qualifier */
+const useStandardRateArray: RateArrayBuilder = (name) => {
+  const {
+    categories,
+    qualifiers,
+    calcTotal,
+    allowNumeratorGreaterThanDenominator,
+    customMask,
+    performanceMeasureArray,
+    rateMultiplicationValue,
+    rateReadOnly,
+  } = usePerformanceMeasureContext();
+  const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
+  const rateArrays: React.ReactElement[][] = [];
 
-  performanceMeasureArray.forEach((performanceMeasure, idx) => {
-    if (
-      performanceMeasure &&
-      performanceMeasure[majorIndex] &&
-      performanceMeasure[majorIndex].rate
-    ) {
-      const cleanedPMDescLabel =
-        addSecondaryRegisterTag && categories[idx]
-          ? `${categories[idx].replace(/[^\w]/g, "")}`
-          : "singleCategory";
+  quals?.forEach((singleQual, qualIndex) => {
+    const ndrSets: React.ReactElement[] = [];
 
-      const adjustedName = `${name}.rates.${cleanedLabel}.${cleanedPMDescLabel}`;
+    performanceMeasureArray?.forEach((measure, idx) => {
+      if (measure?.[qualIndex]?.rate) {
+        const adjustedName = `${name}.rates.${cleanString(
+          singleQual
+        )}.${cleanString(categories[idx])}`;
 
+        ndrSets.push(
+          <QMR.Rate
+            readOnly={rateReadOnly}
+            name={adjustedName}
+            key={adjustedName}
+            rateMultiplicationValue={rateMultiplicationValue}
+            allowNumeratorGreaterThanDenominator={
+              allowNumeratorGreaterThanDenominator
+            }
+            customMask={customMask}
+            rates={[
+              {
+                id: 0,
+                label: categories[idx],
+              },
+            ]}
+          />
+        );
+      }
+    });
+    rateArrays.push(ndrSets);
+  });
+
+  if (calcTotal) {
+    const totalQual = qualifiers.slice(-1)[0];
+    const ndrSets: React.ReactElement[] = [];
+    categories.forEach((cat, idx) => {
       ndrSets.push(
+        <TotalNDR
+          name={name}
+          category={cat}
+          qualifier={totalQual}
+          key={`${name}.${idx}.totalWrapper`}
+        />
+      );
+    });
+    rateArrays.push(ndrSets);
+  }
+
+  return rateArrays;
+};
+
+/** Creates Rate Components for each Qualifier if filled in PM */
+const useQualRateArray: RateArrayBuilder = (name) => {
+  const {
+    qualifiers,
+    calcTotal,
+    allowNumeratorGreaterThanDenominator,
+    customMask,
+    performanceMeasureArray,
+    rateMultiplicationValue,
+    rateReadOnly,
+  } = usePerformanceMeasureContext();
+  const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
+  const rateArrays: React.ReactElement[][] = [];
+
+  quals?.forEach((singleQual, qualIndex) => {
+    if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
+      const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
+        DC.SINGLE_CATEGORY
+      }`;
+
+      rateArrays.push([
         <QMR.Rate
           readOnly={rateReadOnly}
-          name={adjustedName}
-          key={adjustedName}
+          name={cleanedName}
+          key={cleanedName}
           rateMultiplicationValue={rateMultiplicationValue}
           allowNumeratorGreaterThanDenominator={
             allowNumeratorGreaterThanDenominator
           }
           customMask={customMask}
-          rates={[
-            {
-              id: 0,
-              label: `${categories[idx] ? categories[idx] : ""}`,
-            },
-          ]}
-        />
-      );
+          rates={[{ id: 0 }]}
+        />,
+      ]);
+    } else {
+      rateArrays.push([]);
     }
   });
 
-  return ndrSets;
+  return rateArrays;
 };
 
 /**
- * Generic builder function for any variation of AgeGroupNDRSets
- * - no ageGroups but performanceDescription
- * - no performanceDescription but ageGroups
- * - both ageGroups and performanceDescription
+ * Builds Performance Measure AgeGroup Checkboxes
  */
-const buildPerformanceMeasureNDRCheckboxOptions = ({
-  values,
-  addSecondaryRegisterTag,
-  performanceMeasureArray = [[]],
-  name,
-  rateReadOnly,
-  categories,
-  rateMultiplicationValue,
-  customMask,
-  allowNumeratorGreaterThanDenominator,
-}: NdrOptionBuilderProps) => {
-  const checkboxes: QMR.CheckboxOption[] = [];
+const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
+  const options: QMR.CheckboxOption[] = [];
+  const { categories, rateReadOnly, qualifiers } =
+    usePerformanceMeasureContext();
 
-  values.forEach((val, i) => {
-    // add tp checkbox options
-    const ndrSets = buildConditionalRateArray({
-      value: val,
-      addSecondaryRegisterTag,
-      performanceMeasureArray,
-      rateReadOnly,
-      majorIndex: i,
-      name,
-      categories,
-      rateMultiplicationValue,
-      customMask,
-      allowNumeratorGreaterThanDenominator,
-    });
-    if (ndrSets.length) {
-      const cleanedLabel = val.replace(/[^\w]/g, "");
+  const qualRates = useQualRateArray(name);
+  const standardRates = useStandardRateArray(name);
+  const rateArrays = !categories.length ? qualRates : standardRates;
+
+  qualifiers?.forEach((value, idx) => {
+    if (rateArrays?.[idx]?.length) {
+      const cleanedLabel = cleanString(value);
       const ageGroupCheckBox = {
         value: cleanedLabel,
-        displayValue: val,
+        displayValue: value,
         children: [
           <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
             Enter a number for the numerator and the denominator. Rate will
@@ -281,95 +313,55 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
                 </CUI.Heading>,
               ]
             : []),
-          ...ndrSets,
+          ...rateArrays[idx],
         ],
       };
-      checkboxes.push(ageGroupCheckBox);
+      options.push(ageGroupCheckBox);
     }
   });
 
-  return checkboxes;
-};
-
-/**
- * Builds Performance Measure AgeGroup Checkboxes
- */
-const buildAgeGroupsCheckboxes: CheckBoxBuilder = (props) => {
-  if (!props.qualifiers.length) {
-    return buildPerformanceMeasureNDRCheckboxOptions({
-      ...props,
-      addSecondaryRegisterTag: false,
-      values: props.categories,
-      rateMultiplicationValue: props.rateMultiplicationValue,
-      customMask: props.customMask,
-      allowNumeratorGreaterThanDenominator:
-        props.allowNumeratorGreaterThanDenominator,
-    });
-  }
-  return buildPerformanceMeasureNDRCheckboxOptions({
-    ...props,
-    addSecondaryRegisterTag: true,
-    values: props.qualifiers,
-    rateMultiplicationValue: props.rateMultiplicationValue,
-    customMask: props.customMask,
-    allowNumeratorGreaterThanDenominator:
-      props.allowNumeratorGreaterThanDenominator,
-  });
+  return options;
 };
 
 /**
  * Builds NDRs for Performance Measure AgeGroups
  */
 const AgeGroupNDRSets = ({ name }: NdrProps) => {
-  const {
-    performanceMeasureArray,
-    rateReadOnly,
-    qualifiers,
-    categories,
-    rateMultiplicationValue,
-    customMask,
-    calcTotal,
-    allowNumeratorGreaterThanDenominator,
-  } = usePerformanceMeasureContext();
-  const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
+  const { categories, calcTotal } = usePerformanceMeasureContext();
 
-  const ageGroupsOptions = buildAgeGroupsCheckboxes({
-    name: name,
-    rateReadOnly: !!rateReadOnly,
-    performanceMeasureArray,
-    qualifiers: quals,
-    categories,
-    rateMultiplicationValue,
-    customMask,
-    allowNumeratorGreaterThanDenominator:
-      !!allowNumeratorGreaterThanDenominator,
-  });
+  const ageGroupsOptions = useAgeGroupsCheckboxes(name);
 
   return (
-    <QMR.Checkbox
-      name={`${name}.options`}
-      key={`${name}.options`}
-      options={ageGroupsOptions}
-    />
+    <>
+      <QMR.Checkbox
+        name={`${name}.options`}
+        key={`${name}.options`}
+        options={ageGroupsOptions}
+      />
+      {!categories.length && calcTotal && (
+        <TotalNDR name={name} key={`${name}.TotalWrapper`} divider />
+      )}
+    </>
   );
 };
 
 /**
  * Builds OPM Checkboxes
  */
-const renderOPMChckboxOptions = ({
-  OPM,
-  rateReadOnly,
-  name,
-  rateMultiplicationValue,
-  customMask,
-  allowNumeratorGreaterThanDenominator,
-}: OPMProps) => {
+const useRenderOPMChckboxOptions = (name: string) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
 
-  OPM.forEach(({ description }, idx) => {
+  const {
+    OPM,
+    rateReadOnly,
+    rateMultiplicationValue,
+    customMask,
+    allowNumeratorGreaterThanDenominator,
+  } = usePerformanceMeasureContext();
+
+  OPM?.forEach(({ description }, idx) => {
     if (description) {
-      const cleanedFieldName = description?.replace(/[^\w]/g, "");
+      const cleanedFieldName = cleanString(description);
 
       checkBoxOptions.push({
         value: cleanedFieldName,
@@ -420,25 +412,12 @@ const renderOPMChckboxOptions = ({
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
-  const {
-    OPM = [],
-    rateReadOnly,
-    rateMultiplicationValue,
-    customMask,
-    allowNumeratorGreaterThanDenominator,
-  } = usePerformanceMeasureContext();
+  const options = useRenderOPMChckboxOptions(name);
   return (
     <QMR.Checkbox
       name={`${name}.options`}
       key={`${name}.options`}
-      options={renderOPMChckboxOptions({
-        OPM,
-        name,
-        rateReadOnly: !!rateReadOnly,
-        rateMultiplicationValue,
-        customMask,
-        allowNumeratorGreaterThanDenominator,
-      })}
+      options={options}
     />
   );
 };
@@ -447,14 +426,11 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM, calcTotal } = usePerformanceMeasureContext();
+  const { OPM } = usePerformanceMeasureContext();
   return (
     <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
       {OPM && <OPMNDRSets name={name} key={name} />}
       {!OPM && <AgeGroupNDRSets name={name} key={name} />}
-      {!OPM && calcTotal && (
-        <TotalNDR name={name} key={`${name}.TotalWrapper`} />
-      )}
     </CUI.VStack>
   );
 };
