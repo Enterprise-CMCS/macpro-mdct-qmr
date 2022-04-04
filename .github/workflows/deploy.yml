@@ -73,8 +73,8 @@ jobs:
           # This can optionally be set as an GitHub Actions Secret
           ./deploy.sh $STAGE_PREFIX$branch_name
 
-  setup-tests:
-    name: Test Init
+  setup-ch-tests:
+    name: Init Child
     needs: deploy
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
@@ -156,9 +156,9 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-  test-measures:
-    name: Test Measures
-    needs: setup-tests
+  test-adult-measures:
+    name: Test Adult Measures
+    needs: deploy
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
@@ -167,7 +167,6 @@ jobs:
         containers: [
             AMMAD.spec.js,
             AMRAD.spec.js,
-            AMRCH.spec.js,
             BCSAD.spec.js,
             CBPAD.spec.js,
             CCPAD.spec.js,
@@ -175,13 +174,10 @@ jobs:
             CCWAD.spec.js,
             CDFAD.spec.js,
             CHLAD.spec.js,
-            CISCH.spec.js,
             COBAD.spec.js,
             CPAAD.spec.js,
-            CPCCH.spec.js,
             FUAAD.spec.js,
             FUHAD.spec.js,
-            FUHCH.spec.js,
             FUMAD.spec.js,
             FVAAD.spec.js,
             HPCAD.spec.js,
@@ -198,7 +194,6 @@ jobs:
             PQI08AD.spec.js,
             PQI15AD.spec.js,
             QUALIFIERS_adult.spec.feature,
-            QUALIFIERS_child.spec.js,
             SAAAD.spec.js,
             SSDAD.spec.js,
           ]
@@ -277,9 +272,100 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
+  test-child-measures:
+    name: Test Child Measures
+    needs: setup-ch-tests
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers:
+          [
+            AMRCH.spec.js,
+            CISCH.spec.js,
+            CPCCH.spec.js,
+            FUHCH.spec.js,
+            QUALIFIERS_child.spec.js,
+          ]
+    steps:
+      - name: set branch_name
+        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v1
+      - name: set branch specific variable names
+        run: ./.github/build_vars.sh set_names
+      - name: set variable values
+        run: ./.github/build_vars.sh set_values
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_ACCESS_KEY_ID] || secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_SECRET_ACCESS_KEY] || secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+          INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
+          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+          COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Combine yarn.lock files to single file
+        run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
+      - name: cache service dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            services/app-api/node_modules
+            services/uploads/node_modules
+            services/stream-functions/node_modules
+            services/ui/node_modules
+            services/ui-auth/node_modules
+            services/ui-src/node_modules
+            node_modules
+          key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: set path
+        run: |
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Endpoint
+        run: |
+          pushd services
+          export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
+          echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
+          echo "Application endpoint: $APPLICATION_ENDPOINT"
+          popd
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v2.11.7
+        with:
+          record: false
+          working-directory: tests/cypress
+          spec: cypress/integration/measures/${{ matrix.containers }}
+          browser: chrome
+          headless: true
+          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: tests/cypress/screenshots/
+
+      - name: Slack Notification
+        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,ref # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
   test-features:
     name: Test Features
-    needs: test-measures
+    needs: test-adult-measures
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val'}}
     runs-on: ubuntu-latest
     strategy:
