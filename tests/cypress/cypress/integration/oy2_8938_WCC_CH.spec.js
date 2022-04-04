@@ -595,7 +595,9 @@ describe("Measure: PQI01-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
     ).type("3");
-    cy.get(':nth-child(1) > .css-0 > [data-cy="Calculate Total"]').click();
+    cy.get(
+      '[data-cy="TotalCalculation.BodymassindexBMIpercentiledocumentation"]'
+    ).click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
     ).should("have.value", "24");
@@ -611,7 +613,7 @@ describe("Measure: PQI01-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.CounselingforPhysicalActivity.0.rate"]'
     ).click();
-    cy.get(':nth-child(2) > .css-0 > [data-cy="Calculate Total"]').click();
+    cy.get('[data-cy="TotalCalculation.CounselingforNutrition"]').click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforNutrition.0.numerator"]'
     ).should("have.value", "24");
@@ -624,7 +626,9 @@ describe("Measure: PQI01-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.numerator"]'
     ).click();
-    cy.get(':nth-child(3) > .css-0 > [data-cy="Calculate Total"]').click();
+    cy.get(
+      '[data-cy="TotalCalculation.CounselingforPhysicalActivity"]'
+    ).click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.numerator"]'
     ).should("have.value", "24");
