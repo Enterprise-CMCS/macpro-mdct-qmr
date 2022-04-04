@@ -128,6 +128,7 @@ jobs:
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Make Test Config
+        if: hashFiles('tests/cypress/test-config.js') != ''
         run: |
           pushd tests/cypress
           sh configureLocal.sh $branch_name
@@ -243,6 +244,7 @@ jobs:
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Make Test Config
+        if: hashFiles('tests/cypress/test-config.js') != ''
         run: |
           pushd tests/cypress
           sh configureLocal.sh $branch_name
@@ -334,6 +336,7 @@ jobs:
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Make Test Config
+        if: hashFiles('tests/cypress/test-config.js') != ''
         run: |
           pushd tests/cypress
           sh configureLocal.sh $branch_name
@@ -432,6 +435,7 @@ jobs:
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Make Test Config
+        if: hashFiles('tests/cypress/test-config.js') != ''
         run: |
           pushd tests/cypress
           sh configureLocal.sh $branch_name
@@ -551,6 +555,7 @@ jobs:
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Make Test Config
+        if: hashFiles('tests/cypress/test-config.js') != ''
         run: |
           pushd tests/cypress
           sh configureLocal.sh $branch_name
