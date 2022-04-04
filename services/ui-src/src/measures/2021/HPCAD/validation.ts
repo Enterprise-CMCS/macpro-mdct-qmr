@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import { FormData } from "./types";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const HPCADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;

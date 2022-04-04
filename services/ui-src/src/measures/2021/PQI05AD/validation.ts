@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
-import * as PMD from "./data";
 import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
