@@ -382,7 +382,6 @@ jobs:
             logo.spec.feature,
             measure_validation_error_creation_updates.spec.feature,
             NDR_validation_updates.spec.js,
-            qualifiers_save_btn.spec.js,
             reporting_in_FY21_tag_for_alt_data_sources.spec.js,
             restructuring_data_source_text_boxes.spec.js,
             update_user_auth_handling_in_ui.spec.feature,
@@ -464,7 +463,7 @@ jobs:
 
   a11y-tests:
     name: Test Ally
-    needs: test-features
+    needs: [test-adult-measures, test-child-measures]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
