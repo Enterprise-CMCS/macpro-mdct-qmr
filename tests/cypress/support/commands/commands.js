@@ -3,7 +3,7 @@ import "cypress-wait-until";
 import testConfig from "../../test-config.js";
 
 before(() => {
-  cy.visit("/", { timeout: 60000 * 5 });
+  cy.visit("/", { timeout: 60000 * 7 });
 });
 
 // if you want to fail after the first test uncomment this (good for testing locally)
@@ -27,6 +27,7 @@ Cypress.Commands.add(
       stateuser3: testConfig.TEST_USER_3,
       stateuser2: testConfig.TEST_USER_2,
     };
+    cy.wait(3000);
     cy.visit("/");
     cy.wait(3000);
     cy.xpath(emailForCognito).type(
