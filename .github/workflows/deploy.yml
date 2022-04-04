@@ -161,47 +161,47 @@ jobs:
     needs: setup-tests
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     containers: [
-    #         AMMAD.spec.js,
-    #         AMRAD.spec.js,
-    #         AMRCH.spec.js,
-    #         BCSAD.spec.js,
-    #         CBPAD.spec.js,
-    #         CCPAD.spec.js,
-    #         CCSAD.spec.js,
-    #         CCWAD.spec.js,
-    #         CDFAD.spec.js,
-    #         CHLAD.spec.js,
-    #         CISCH.spec.js,
-    #         COBAD.spec.js,
-    #         CPAAD.spec.js,
-    #         CPCCH.spec.js,
-    #         FUAAD.spec.js,
-    #         FUHAD.spec.js,
-    #         FUHCH.spec.js,
-    #         FUMAD.spec.js,
-    #         FVAAD.spec.js,
-    #         HPCAD.spec.js,
-    #         HPCMIAD.spec.js,
-    #         HVLAD.spec.js,
-    #         MSCAD.spec.js,
-    #         # NCIDDSAD.spec.js,/
-    #         OHDAD.spec.js,
-    #         OUDAD.spec.js,
-    #         PCRAD.spec.js,
-    #         PPCAD.spec.js,
-    #         # PQI01AD.spec.js,
-    #         PQI05AD.spec.js,
-    #         PQI08AD.spec.js,
-    #         PQI15AD.spec.js,
-    #         QUALIFIERS_adult.spec.feature,
-    #         QUALIFIERS_child.spec.js,
-    #         SAAAD.spec.js,
-    #         SSDAD.spec.js,
-    #       ]
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [
+            AMMAD.spec.js,
+            AMRAD.spec.js,
+            AMRCH.spec.js,
+            BCSAD.spec.js,
+            CBPAD.spec.js,
+            CCPAD.spec.js,
+            CCSAD.spec.js,
+            CCWAD.spec.js,
+            CDFAD.spec.js,
+            CHLAD.spec.js,
+            CISCH.spec.js,
+            COBAD.spec.js,
+            CPAAD.spec.js,
+            CPCCH.spec.js,
+            FUAAD.spec.js,
+            FUHAD.spec.js,
+            FUHCH.spec.js,
+            FUMAD.spec.js,
+            FVAAD.spec.js,
+            HPCAD.spec.js,
+            HPCMIAD.spec.js,
+            HVLAD.spec.js,
+            MSCAD.spec.js,
+            # NCIDDSAD.spec.js,
+            OHDAD.spec.js,
+            OUDAD.spec.js,
+            PCRAD.spec.js,
+            PPCAD.spec.js,
+            # PQI01AD.spec.js,
+            PQI05AD.spec.js,
+            PQI08AD.spec.js,
+            PQI15AD.spec.js,
+            QUALIFIERS_adult.spec.feature,
+            QUALIFIERS_child.spec.js,
+            SAAAD.spec.js,
+            SSDAD.spec.js,
+          ]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
@@ -255,8 +255,9 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
+          record: false
           working-directory: tests/cypress
-          # spec: cypress/integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
@@ -353,6 +354,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
+          record: false
           working-directory: tests/cypress
           spec: cypress/integration/features/${{ matrix.containers }}
           browser: chrome
@@ -377,7 +379,7 @@ jobs:
   a11y-tests:
     name: Test Ally
     needs: test-measures
-    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/readonly-test-2' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -418,8 +420,6 @@ jobs:
             ssaadPage,
             ssdadPage,
             faqPage,
-            childCoreSetMeasuresPage,
-            adultCoreSetMeasuresQuestionsPage,
           ]
     steps:
       - name: set branch_name
