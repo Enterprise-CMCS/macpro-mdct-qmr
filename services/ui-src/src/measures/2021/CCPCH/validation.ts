@@ -40,7 +40,9 @@ const CCPCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
+    ...GV.validateOneRateHigherThanOther(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
 
     // OMS Specific Validations
     ...GV.omsValidations({
@@ -53,6 +55,8 @@ const CCPCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
+        GV.validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateCrossQualifierRateCorrect,
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,

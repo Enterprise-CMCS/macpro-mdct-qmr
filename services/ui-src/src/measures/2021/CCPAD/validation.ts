@@ -1,138 +1,71 @@
-import { FormData } from "./types";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-import {
-  getPerfMeasureRateArray,
-  omsLocationDictionary,
-  getDeviationNDRArray,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  ensureBothDatesCompletedInRange,
-  validateRequiredRadioButtonForCombinedRates,
-  validateReasonForNotReporting,
-  atLeastOneRateComplete,
-  validateNumeratorsLessThanDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateOneRateHigherThanOther,
-  validateAllDenomsTheSameCrossQualifier,
-} from "../../globalValidations";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateOneRateLessThanOther,
-  validateCrossQualifierRateCorrect,
-  validateRateZero,
-  validateRateNotZero,
-  validateAllDenomsAreTheSameCrossQualifier,
-} from "measures/globalValidations/omsValidationsLib";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-
-const validate3daysLessOrEqualTo30days = (data: FormData) => {
-  const perfMeasure = getPerfMeasureRateArray(data, PMD.data);
-  const sevenDays = perfMeasure[1];
-  const thirtyDays = perfMeasure[0];
-
-  const errorArray: any[] = [];
-
-  if (sevenDays?.length === 2) {
-    if (
-      parseFloat(sevenDays[0]?.rate ?? "") >
-      parseFloat(sevenDays[1]?.rate ?? "")
-    ) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage: `The rate value of the ${PMD.qualifiers[0]} must be less than or equal to the ${PMD.qualifiers[1]} within ${PMD.categories[1]}.`,
-      });
-    }
-  }
-  if (thirtyDays?.length === 2) {
-    if (
-      parseFloat(thirtyDays[0]?.rate ?? "") >
-      parseFloat(thirtyDays[1]?.rate ?? "")
-    ) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage: `The rate value of the ${PMD.qualifiers[0]} must be less than or equal to the ${PMD.qualifiers[1]} within ${PMD.categories[0]}.`,
-      });
-    }
-  }
-
-  return errorArray;
-};
 
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const deviationArray = getDeviationNDRArray(
+  const dateRange = data["DateRange"];
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const whyNotReporting = data["WhyAreYouNotReporting"];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
-  const dateRange = data["DateRange"];
   errorArray = [
-    ...errorArray,
-    ...validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    // Performance Measure and OPM Validations
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
+    ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateOneRateHigherThanOther(data, PMD.data),
-  ];
+    ...GV.validateOneRateHigherThanOther(data, PMD.data),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
 
-  return errorArray;
-};
-
-const validateOMS = (data: FormData) => {
-  const errorArray: FormError[] = [];
-
-  errorArray.push(
-    ...omsValidations({
+    // OMS Specific Validations
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        // validateDenominatorsAreTheSame,
-        validateOneRateLessThanOther,
-        validateCrossQualifierRateCorrect,
-        validateRateZero,
-        validateRateNotZero,
-        validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateCrossQualifierRateCorrect,
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateOneRateLessThanOther,
+        GV.validateRateNotZero,
+        GV.validateRateZero,
       ],
-    })
-  );
+    }),
+  ];
 
   return errorArray;
 };
 
-export const validationFunctions = [
-  CCPADValidation,
-  validateRequiredRadioButtonForCombinedRates,
-  validateOMS,
-  validate3daysLessOrEqualTo30days,
-];
+export const validationFunctions = [CCPADValidation];
