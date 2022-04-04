@@ -312,6 +312,13 @@ resources:
               NotResource:
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.checksum
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.json
+    KMSKey:
+      Type: AWS::KMS::Key
+      Description: "Key for encrypting dynamo snapshots and upload buckets"
+      Enable: true
+      EnableKeyRoation: true
+      KeySpec: !Ref KeySpec
+      KeyUsage: !Ref KeyUsage
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
