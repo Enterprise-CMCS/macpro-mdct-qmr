@@ -216,7 +216,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "CH",
-      name: "Screening for Depression and Follow-up Plan: Ages 12 to 17",
+      name: "Screening for Depression and Follow-Up Plan: Ages 12 to 17",
       measureId: "CDF-CH",
     },
     {
