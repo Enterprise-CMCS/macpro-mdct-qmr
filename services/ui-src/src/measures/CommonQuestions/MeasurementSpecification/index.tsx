@@ -41,6 +41,7 @@ interface Props {
   type:
     | "AHRQ-NCQA"
     | "AHRQ"
+    | "CDC"
     | "CMS"
     | "HEDIS"
     | "HRSA"
@@ -59,6 +60,10 @@ const specifications = {
     displayValue:
       "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
     value: DC.AHRQ_NCQA,
+  },
+  CDC: {
+    displayValue: "Centers for Disease Contol and Prevention (CDC)",
+    value: DC.CDC,
   },
   CMS: {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",
