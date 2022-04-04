@@ -17,7 +17,7 @@ export type OmsValidationCallback = (data: {
   label: string[];
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
-  rateMultiplicationValue?: number;
+  checkTotal?: boolean;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -28,7 +28,7 @@ interface OmsValidationProps {
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
-  rateMultiplicationValue?: number;
+  checkTotal?: boolean;
 }
 export const omsValidations = ({
   categories,
@@ -37,7 +37,7 @@ export const omsValidations = ({
   locationDictionary,
   qualifiers,
   validationCallbacks,
-  rateMultiplicationValue,
+  checkTotal = true,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -62,7 +62,7 @@ export const omsValidations = ({
     locationDictionary,
     checkIsFilled,
     isOPM,
-    rateMultiplicationValue
+    checkTotal
   );
 };
 // @example
@@ -189,7 +189,7 @@ const validateNDRs = (
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,
-  rateMultiplicationValue?: number
+  checkTotal: boolean
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -247,7 +247,7 @@ const validateNDRs = (
           label,
           locationDictionary,
           isOPM,
-          rateMultiplicationValue,
+          checkTotal,
         })
       );
     }
@@ -492,12 +492,12 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   label,
   locationDictionary,
   isOPM,
-  rateMultiplicationValue,
 }) => {
   if (isOPM) return [];
 
   const error: FormError[] = [];
   const isSingleCat = categories[0] === DC.SINGLE_CATEGORY;
+  const totalQual = qualifiers.slice(-1)[0];
 
   // scoped helper function for total calculation/comparison
   const validateTotal = (ndrs: RateFields[], category: string) => {
@@ -510,6 +510,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
     const extraCatDetail = isSingleCat
       ? ""
       : ` - ${locationDictionary([category])}`;
+    const extraLocationInfo = ` - ${totalQual}` + extraCatDetail;
 
     ndrs.forEach((set) => {
       if (set?.denominator && set?.numerator && set?.rate) {
@@ -521,21 +522,13 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
     if (totalNDR?.numerator && totalNDR?.denominator) {
       const parsedNum = parseFloat(totalNDR.numerator);
       const parsedDen = parseFloat(totalNDR.denominator);
-      const currentRate = parseFloat(
-        (
-          Math.round(
-            (parsedNum / parsedDen) * (rateMultiplicationValue ?? 100) * 10
-          ) / 10
-        ).toFixed(1)
-      );
-      const expectedRate = parseFloat(totalNDR.rate ?? "");
 
       // Numerators don't match
       if (!isNaN(parsedNum) && parsedNum !== numeratorSum) {
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             label
-          )}${extraCatDetail}`,
+          )}${extraLocationInfo}`,
           errorMessage:
             "Total numerator field is not equal to the sum of other numerators.",
         });
@@ -546,20 +539,9 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             label
-          )}${extraCatDetail}`,
+          )}${extraLocationInfo}`,
           errorMessage:
             "Total denominator field is not equal to the sum of other denominators.",
-        });
-      }
-
-      // rate doesn't match
-      if (currentRate !== expectedRate) {
-        error.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            label
-          )}${extraCatDetail}`,
-          errorMessage:
-            "Total rate field is not equal to expected calculated rate.",
         });
       }
     } else if (numeratorSum && denominatorSum) {
@@ -567,7 +549,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
       error.push({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
-        )}${extraCatDetail}`,
+        )}${extraLocationInfo}`,
         errorMessage:
           "Total field must contain values if other fields are filled.",
       });

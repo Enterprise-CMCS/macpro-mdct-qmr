@@ -4,7 +4,6 @@ import * as DC from "dataConstants";
 
 import { usePerformanceMeasureContext } from "./context";
 import { useController, useFormContext } from "react-hook-form";
-import { useEffect, useState } from "react";
 
 interface NdrProps {
   /** name for react-hook-form registration */
@@ -16,7 +15,6 @@ interface TotalProps {
   name: string;
   qualifier?: string;
   category?: string;
-  divider?: boolean;
 }
 
 interface TempRate {
@@ -25,118 +23,69 @@ interface TempRate {
   rate: string;
 }
 
+interface CalcOmsTotalProp {
+  watchOMS: any;
+  cleanedCategory: string;
+  qualifiers: string[];
+  rateMultiplicationValue?: number;
+  numberOfDecimals: number;
+}
 type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
 
 const cleanString = (s: string) => s && s.replace(/[^\w]/g, "");
-/**
- * Hook to track and update oms totals. Use state to track to view previous calculated rate.
- * If total is adjusted manually, this will not change the state object which stops a forced recalculation/render
- */
-const useOmsTotalRate = (
-  omsName: string,
-  totalName: string,
-  category = DC.SINGLE_CATEGORY
-) => {
-  const { qualifiers, rateMultiplicationValue, numberOfDecimals } =
-    usePerformanceMeasureContext();
-  const { watch, control } = useFormContext();
-  const cleanedCategory = cleanString(category);
 
-  const watchOMS = watch(omsName);
-  const { field } = useController({ name: totalName, control });
-  const [prevRunWasLoad, setPrevRunWasLoad] = useState(true);
-  const [prevCalcRate, setPrevCalcRate] = useState<TempRate>({
+/** Process all OMS rate values pertaining to set category and calculate new rate object */
+const calculateOMSTotal = ({
+  cleanedCategory,
+  numberOfDecimals,
+  qualifiers,
+  rateMultiplicationValue = 100,
+  watchOMS,
+}: CalcOmsTotalProp) => {
+  const tempRate: TempRate = {
     numerator: undefined,
     denominator: undefined,
     rate: "",
-  });
+  };
 
-  useEffect(() => {
-    // calc new rate, adjust if new values
-    const tempRate: { numerator?: number; denominator?: number; rate: string } =
-      {
-        numerator: undefined,
-        denominator: undefined,
-        rate: "",
-      };
-
-    const prevFields: any[] = [];
-    for (const qual of qualifiers.map((s) => cleanString(s))) {
-      prevFields.push(watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate);
-    }
-    const currentRunIsLoadState = prevFields.every((x) => x === undefined);
-    for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
-      if (
-        watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
-        watchOMS?.[qual]?.[cleanedCategory]?.[0]?.denominator &&
-        watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate
-      ) {
-        tempRate.numerator ??= 0;
-        tempRate.denominator ??= 0;
-        tempRate.numerator += parseFloat(
-          watchOMS[qual][cleanedCategory][0].numerator
-        );
-        tempRate.denominator += parseFloat(
-          watchOMS[qual][cleanedCategory][0].denominator
-        );
-      }
-    }
-
+  for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
     if (
-      tempRate.numerator !== undefined &&
-      tempRate.denominator !== undefined
+      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
+      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.denominator &&
+      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate
     ) {
-      tempRate.rate = (
-        Math.round(
-          (tempRate.numerator / tempRate.denominator) *
-            (rateMultiplicationValue ?? 100) *
-            Math.pow(10, numberOfDecimals)
-        ) / Math.pow(10, numberOfDecimals)
-      ).toFixed(1);
+      tempRate.numerator ??= 0;
+      tempRate.denominator ??= 0;
+      tempRate.numerator += parseFloat(
+        watchOMS[qual][cleanedCategory][0].numerator
+      );
+      tempRate.denominator += parseFloat(
+        watchOMS[qual][cleanedCategory][0].denominator
+      );
     }
+  }
 
-    if (
-      tempRate.numerator !== prevCalcRate.numerator ||
-      tempRate.denominator !== prevCalcRate.denominator
-    ) {
-      setPrevCalcRate(tempRate);
-      if (
-        (!prevRunWasLoad || !field.value?.[0]?.rate) &&
-        !currentRunIsLoadState
-      ) {
-        field.onChange([
-          {
-            numerator: `${tempRate.numerator ?? ""}`,
-            denominator: `${tempRate.denominator ?? ""}`,
-            rate: (!isNaN(parseFloat(tempRate.rate)) && tempRate.rate) || "",
-          },
-        ]);
-      }
-      setPrevRunWasLoad(currentRunIsLoadState);
-    }
-  }, [
-    watchOMS,
-    qualifiers,
-    rateMultiplicationValue,
-    field,
-    prevCalcRate,
-    setPrevCalcRate,
-    numberOfDecimals,
-    cleanedCategory,
-    prevRunWasLoad,
-    setPrevRunWasLoad,
-  ]);
+  if (tempRate.numerator !== undefined && tempRate.denominator !== undefined) {
+    tempRate.rate = (
+      Math.round(
+        (tempRate.numerator / tempRate.denominator) *
+          rateMultiplicationValue *
+          Math.pow(10, numberOfDecimals)
+      ) / Math.pow(10, numberOfDecimals)
+    ).toFixed(1);
+  }
+
+  return tempRate;
 };
 
 /**
  * Total Rate NDR that calculates from filled OMS NDR sets
  */
-export const TotalNDR = ({
+const TotalNDR = ({
   name,
   category = DC.SINGLE_CATEGORY,
   qualifier,
-  divider = false,
 }: TotalProps) => {
   const {
     qualifiers,
@@ -144,6 +93,7 @@ export const TotalNDR = ({
     rateMultiplicationValue,
     rateReadOnly,
     allowNumeratorGreaterThanDenominator,
+    numberOfDecimals,
   } = usePerformanceMeasureContext();
 
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
@@ -151,12 +101,12 @@ export const TotalNDR = ({
   const cleanedCategory = cleanString(category);
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
   const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
-
-  useOmsTotalRate(`${name}.rates`, cleanedName, category);
+  const { control, watch } = useFormContext();
+  const { field } = useController({ name: cleanedName, control });
+  const watchOMS = watch(`${name}.rates`);
 
   return (
-    <>
-      {divider && <CUI.Divider />}
+    <CUI.Stack spacing={0}>
       <QMR.Rate
         key={cleanedName}
         name={cleanedName}
@@ -168,6 +118,66 @@ export const TotalNDR = ({
           allowNumeratorGreaterThanDenominator
         }
       />
+      <QMR.ContainedButton
+        buttonText={"Calculate Total"}
+        buttonProps={{
+          minWidth: "10rem",
+          colorScheme: "blue",
+          textTransform: "capitalize",
+        }}
+        testId={`TotalCalculation.${cleanedCategory}`}
+        onClick={() => {
+          const tempRate: TempRate = calculateOMSTotal({
+            watchOMS,
+            cleanedCategory,
+            numberOfDecimals,
+            qualifiers,
+            rateMultiplicationValue,
+          });
+          field.onChange([
+            {
+              numerator: `${tempRate.numerator ?? ""}`,
+              denominator: `${tempRate.denominator ?? ""}`,
+              rate: (!isNaN(parseFloat(tempRate.rate)) && tempRate.rate) || "",
+            },
+          ]);
+        }}
+      />
+    </CUI.Stack>
+  );
+};
+
+/** OMS Total wrapper for any variation of qulaifier and category combination*/
+const TotalNDRSets = ({ name }: { name: string }) => {
+  const rateArray: React.ReactElement[] = [];
+
+  const { qualifiers, categories } = usePerformanceMeasureContext();
+  const totalQual = qualifiers.slice(-1)[0];
+
+  if (categories.length) {
+    categories.forEach((cat, idx) => {
+      rateArray.push(
+        <TotalNDR
+          name={name}
+          category={cat}
+          qualifier={totalQual}
+          key={`${name}.${idx}.totalWrapper`}
+        />
+      );
+    });
+  } else {
+    rateArray.push(<TotalNDR name={name} key={`${name}.TotalWrapper`} />);
+  }
+
+  return (
+    <>
+      <CUI.Divider key={`totalNDRDivider`} />
+      {categories.length > 0 && (
+        <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
+          {totalQual}
+        </CUI.Heading>
+      )}
+      <CUI.Stack spacing={5}>{rateArray}</CUI.Stack>
     </>
   );
 };
@@ -219,22 +229,6 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     rateArrays.push(ndrSets);
   });
 
-  if (calcTotal) {
-    const totalQual = qualifiers.slice(-1)[0];
-    const ndrSets: React.ReactElement[] = [];
-    categories.forEach((cat, idx) => {
-      ndrSets.push(
-        <TotalNDR
-          name={name}
-          category={cat}
-          qualifier={totalQual}
-          key={`${name}.${idx}.totalWrapper`}
-        />
-      );
-    });
-    rateArrays.push(ndrSets);
-  }
-
   return rateArrays;
 };
 
@@ -284,14 +278,15 @@ const useQualRateArray: RateArrayBuilder = (name) => {
  */
 const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
-  const { categories, rateReadOnly, qualifiers } =
+  const { categories, rateReadOnly, qualifiers, calcTotal } =
     usePerformanceMeasureContext();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
   const rateArrays = !categories.length ? qualRates : standardRates;
+  const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
 
-  qualifiers?.forEach((value, idx) => {
+  quals?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
       const cleanedLabel = cleanString(value);
       const ageGroupCheckBox = {
@@ -327,7 +322,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
  * Builds NDRs for Performance Measure AgeGroups
  */
 const AgeGroupNDRSets = ({ name }: NdrProps) => {
-  const { categories, calcTotal } = usePerformanceMeasureContext();
+  const { calcTotal } = usePerformanceMeasureContext();
 
   const ageGroupsOptions = useAgeGroupsCheckboxes(name);
 
@@ -338,9 +333,7 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
         key={`${name}.options`}
         options={ageGroupsOptions}
       />
-      {!categories.length && calcTotal && (
-        <TotalNDR name={name} key={`${name}.TotalWrapper`} divider />
-      )}
+      {calcTotal && <TotalNDRSets name={name} key={`${name}.totalWrapper`} />}
     </>
   );
 };
@@ -426,9 +419,14 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM } = usePerformanceMeasureContext();
+  const { OPM, calcTotal } = usePerformanceMeasureContext();
+  const extraBottomMargin = calcTotal ? 5 : undefined;
   return (
-    <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
+    <CUI.VStack
+      key={`${name}.NDRwrapper`}
+      alignItems={"flex-start"}
+      mb={extraBottomMargin}
+    >
       {OPM && <OPMNDRSets name={name} key={name} />}
       {!OPM && <AgeGroupNDRSets name={name} key={name} />}
     </CUI.VStack>
