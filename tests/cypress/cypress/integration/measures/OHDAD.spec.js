@@ -314,69 +314,6 @@ describe("Measure: OHD-AD", () => {
   });
 
   describe("OMS Validations", () => {
-    it("Must have denominator greater than or equal to numerator", () => {
-      cy.get('[data-cy="MeasurementSpecification0"]').click();
-      cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-      ).clear();
-      cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-      ).type("1");
-      cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-      ).clear();
-      cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-      ).type("1");
-      cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-      ).clear();
-      cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-      ).type("1");
-      cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-      ).clear();
-      cy.get(
-        '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-      ).type("1");
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__label > .chakra-text'
-      ).click();
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__label > .chakra-text'
-      ).click();
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
-      ).click();
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.numerator"]'
-      ).clear();
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.numerator"]'
-      ).type("2");
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.denominator"]'
-      ).clear();
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.denominator"]'
-      ).type("1");
-      cy.clickValidateMeasure();
-      cy.get(
-        '[data-cy="Numerator cannot be greater than the Denominator for NDR sets."] > .chakra-text'
-      ).should("be.visible");
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.denominator"]'
-      ).clear();
-      cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.denominator"]'
-      ).type("2");
-      cy.clickValidateMeasure();
-      cy.get(
-        '[data-cy="Numerator cannot be greater than the Denominator for NDR sets."] > .chakra-text'
-      ).should("not.exist");
-    });
-
     it("Must have a proper rate if manually entered", () => {
       cy.get('[data-cy="MeasurementSpecification0"]').click();
       cy.get(
