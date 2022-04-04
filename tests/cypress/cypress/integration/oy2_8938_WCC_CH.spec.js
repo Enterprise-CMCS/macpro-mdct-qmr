@@ -553,48 +553,123 @@ describe("Measure: PQI01-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.CounselingforPhysicalActivity.0.rate"]'
     ).should("have.value", "9.0");
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]').type('4');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.denominator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.denominator"]').type('44');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]').should('have.value', '9.1');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]').click();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]').type('0');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]').should('have.value', '0.0');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]').click();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]').type('12.5');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]').type('3');
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).type("4");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.denominator"]'
+    ).type("44");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]'
+    ).should("have.value", "9.1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).type("0");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]'
+    ).should("have.value", "0.0");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]'
+    ).type("12.5");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).type("3");
     cy.get(':nth-child(1) > .css-0 > [data-cy="Calculate Total"]').click();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]').should('have.value', '24');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.denominator"]').should('have.value', '155');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]').should('have.value', '15.5');
-    cy.get(':nth-child(2) > .chakra-collapse > .css-zhlq69 > :nth-child(5) > .chakra-stack > :nth-child(3) > [data-cy="Rate"]').click();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.CounselingforPhysicalActivity.0.rate"]').click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).should("have.value", "24");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.denominator"]'
+    ).should("have.value", "155");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.BodymassindexBMIpercentiledocumentation.0.rate"]'
+    ).should("have.value", "15.5");
+    cy.get(
+      ':nth-child(2) > .chakra-collapse > .css-zhlq69 > :nth-child(5) > .chakra-stack > :nth-child(3) > [data-cy="Rate"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.CounselingforPhysicalActivity.0.rate"]'
+    ).click();
     cy.get(':nth-child(2) > .css-0 > [data-cy="Calculate Total"]').click();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforNutrition.0.numerator"]').should('have.value', '24');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforNutrition.0.denominator"]').should('have.value', '55');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforNutrition.0.rate"]').should('have.value', '43.6');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.numerator"]').click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforNutrition.0.numerator"]'
+    ).should("have.value", "24");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforNutrition.0.denominator"]'
+    ).should("have.value", "55");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforNutrition.0.rate"]'
+    ).should("have.value", "43.6");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.numerator"]'
+    ).click();
     cy.get(':nth-child(3) > .css-0 > [data-cy="Calculate Total"]').click();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.numerator"]').should('have.value', '24');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.denominator"]').should('have.value', '166');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.rate"]').should('have.value', '14.5');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options3"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options3-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.Asian.aggregate1"]').click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.numerator"]'
+    ).should("have.value", "24");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.denominator"]'
+    ).should("have.value", "166");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges3to17.CounselingforPhysicalActivity.0.rate"]'
+    ).should("have.value", "14.5");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options3"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options3-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.Asian.aggregate1"]'
+    ).click();
     //cy.get('#radio-639').check();
-    cy.get('[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Ethnicity');
-    cy.get('[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Sex');
-    cy.get('[data-cy="OptionalMeasureStratification.options3"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Primary Language (including sign language)');
-    cy.get('[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Disability Status');
-    cy.get('[data-cy="OptionalMeasureStratification.options5"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Geography');
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Ethnicity");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Sex");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options3"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Primary Language (including sign language)");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Disability Status");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options5"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Geography");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(':nth-child(3) > div.css-0 > [data-cy="Denominators must be the same for each category."] > .chakra-text').should('have.text', 'Denominators must be the same for each category.');
-    cy.get('[data-cy="Denominators must be the same for each category of performance measures for Ages 3 to 11"] > .chakra-text').should('have.text', 'Denominators must be the same for each category of performance measures for Ages 3 to 11');
+    cy.get(
+      ':nth-child(3) > div.css-0 > [data-cy="Denominators must be the same for each category."] > .chakra-text'
+    ).should("have.text", "Denominators must be the same for each category.");
+    cy.get(
+      '[data-cy="Denominators must be the same for each category of performance measures for Ages 3 to 11"] > .chakra-text'
+    ).should(
+      "have.text",
+      "Denominators must be the same for each category of performance measures for Ages 3 to 11"
+    );
     /* ==== End Cypress Studio ==== */
   });
 });
