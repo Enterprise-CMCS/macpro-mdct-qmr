@@ -8,6 +8,7 @@
   "fixturesFolder": "fixtures",
   "pluginsFile": "plugins/index.js",
   "screenshotsFolder": "screenshots",
+  "video": false,
   "videosFolder": "videos",
   "downloadsFolder": "downloads",
   "supportFile": "support/index.js",
