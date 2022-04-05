@@ -1,17 +1,21 @@
 import "cypress-file-upload";
 import "cypress-wait-until";
-import testConfig from "../../test-config.js";
+// import testConfig from "../../test-config.js";
+import "cypress-file-upload";
+// allow for Cypress Snapshot command
+import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command";
 
 before(() => {
+  cy.wait(15000);
   cy.visit("/", { timeout: 60000 * 7 });
 });
 
-// if you want to fail after the first test uncomment this (good for testing locally)
-// afterEach(() => {
-//   if (this.currentTest.state === "failed") {
-//     Cypress.runner.stop();
-//   }
-// });
+addMatchImageSnapshotCommand({
+  failureThreshold: 0.01, // threshold for entire image -> 0.01 = 1%
+  failureThresholdType: "percent", // percent of image or number of pixels
+  // customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
+  // capture: "viewport", // capture viewport in screenshot
+});
 
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
@@ -24,16 +28,16 @@ Cypress.Commands.add(
     user = "stateuser3" // pragma: allowlist secret
   ) => {
     const users = {
-      stateuser3: testConfig.TEST_USER_3,
-      stateuser2: testConfig.TEST_USER_2,
+      stateuser3: require("../../test-config.js")["TEST_USER_3"],
+      stateuser2: require("../../test-config.js")["TEST_USER_2"],
     };
     cy.wait(3000);
     cy.visit("/");
     cy.wait(3000);
-    cy.xpath(emailForCognito).type(
-      `${users[user]}` || `${testConfig.TEST_USER_3}`
+    cy.xpath(emailForCognito).type(`${users[user]}`);
+    cy.xpath(passwordForCognito).type(
+      require("../../test-config.js")["TEST_PASSWORD_1"]
     );
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
@@ -67,8 +71,8 @@ Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
   cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
     "not.exist"
   );
-  // these sections should be visible when a user selects they are reporting
 
+  // these sections should be visible when a user selects they are reporting
   cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
   cy.get('[data-cy="Measurement Specification"]').should("be.visible");
   cy.get('[data-cy="Data Source"]').should("be.visible");
