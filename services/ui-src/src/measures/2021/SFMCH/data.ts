@@ -1,10 +1,10 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
-export const qualifiers = [""];
-export const categories = [
+export const qualifiers = [
   "Rate 1 - At Least One Sealant",
   "Rate 2 - All Four Molars Sealed",
 ];
+export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
