@@ -244,7 +244,7 @@ resources:
           Statement:
             - Effect: Allow
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole~true},
+                AWS: ${ssm:/configuration/mpriamrole~true}
                   !GetAtt IamRoleLambdaExecution.Arn
               Action: "kms:*"
               Resource: "*"
