@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
-import * as Q from "./questions";
-import { validationFunctions } from "./validation";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as QMR from "components";
 import { FormData } from "./types";
+import { fourNumbersOneDecimal } from "utils/numberInputMasks";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+import { validationFunctions } from "./validation";
 
 export const AMBCH = ({
   name,
@@ -43,12 +43,13 @@ export const AMBCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <Q.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure
                 data={PMD.data}
                 calcTotal
+                customMask={fourNumbersOneDecimal}
                 rateScale={rateScale}
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
@@ -61,6 +62,7 @@ export const AMBCH = ({
               adultMeasure={false}
               calcTotal
               categories={PMD.categories}
+              customMask={fourNumbersOneDecimal}
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               rateMultiplicationValue={rateScale}
