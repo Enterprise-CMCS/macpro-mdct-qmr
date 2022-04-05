@@ -1,9 +1,6 @@
 describe("Measure: DEV-CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
-    cy.deleteChildCoreSets();
-    cy.addCombinedChildCoreset();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("DEV-CH");
   });
