@@ -1,15 +1,9 @@
 import * as PMD from "./data";
-import * as DC from "dataConstants";
 import {
   atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
   validateNumeratorsLessThanDenominators,
   validateEqualDenominators,
-  validateNoNonZeroNumOrDenom,
   validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  getDeviationNDRArray,
   omsLocationDictionary,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
@@ -24,34 +18,37 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validate7DaysGreaterThan30Days = (data: FormData) => {
+
+const cleanString = (s: string) => s.replace(/[^\w]/g, "");
+const validateOneSealantGreaterThanFourMolarsSealed = (data: FormData) => {
   if (
     !(
-      data?.PerformanceMeasure?.rates?.FollowUpwithin7daysafterdischarge ||
-      data?.PerformanceMeasure?.rates?.FollowUpwithin30daysafterdischarge
+      data?.PerformanceMeasure?.rates?.Rate1AtLeastOneSealant ||
+      data?.PerformanceMeasure?.rates?.Rate2AllFourMolarsSealed
     )
   ) {
+    console.log(data["PerformanceMeasure"]);
     return [];
   }
-  const sevenDays =
-    data["PerformanceMeasure"]["rates"]["FollowUpwithin7daysafterdischarge"];
-  const thirtyDays =
-    data["PerformanceMeasure"]["rates"]["FollowUpwithin30daysafterdischarge"];
+  const oneSealant =
+    data["PerformanceMeasure"]["rates"]["Rate1AtLeastOneSealant"];
+  const fourMolarsSealed =
+    data["PerformanceMeasure"]["rates"]["Rate2AllFourMolarsSealed"];
   let error;
   const errorArray: any[] = [];
 
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj: any, index: number) => {
+  if (oneSealant && fourMolarsSealed) {
+    oneSealant.forEach((_oneSealantObj: any, index: number) => {
       if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate ?? "") >
-          parseFloat(thirtyDays[index]?.rate ?? "")
+        oneSealant[index] &&
+        fourMolarsSealed[index] &&
+        parseFloat(oneSealant[index]?.rate ?? "") <
+          parseFloat(fourMolarsSealed[index]?.rate ?? "")
       ) {
         error = {
           errorLocation: "Performance Measure",
           errorMessage:
-            "Follow up within 7 days after discharge Rate should not be higher than Follow up within 30 days after discharge Rates.",
+            "Rate 2 (All Four Molars Sealed) should not be higher than Rate 1 (At Least One Sealant).",
         };
 
         errorArray.push(error);
@@ -61,7 +58,6 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
   return error ? errorArray : [];
 };
 
-const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 const sameDenominatorSets: OmsValidationCallback = ({
   rateData,
   locationDictionary,
@@ -106,14 +102,6 @@ const SFMCHValidation = (data: FormData) => {
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const dateRange = data["DateRange"];
-  const deviationArray = getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
@@ -142,22 +130,13 @@ const SFMCHValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateOneSealantGreaterThanFourMolarsSealed(data),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validate7DaysGreaterThan30Days(data),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,
