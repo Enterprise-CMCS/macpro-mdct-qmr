@@ -297,7 +297,7 @@ describe("Measure: PQI01-AD", () => {
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("3");
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
-    cy.get("#radio-577").check();
+    //cy.get("#radio-577").check();
     cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
     cy.get("#DeviationOptions0-checkbox").check();
     cy.get(
