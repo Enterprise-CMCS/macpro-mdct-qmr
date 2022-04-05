@@ -236,12 +236,12 @@ resources:
         MultiRegion: true
         KeyPolicy:
           Version: 1
-          Id: key-default-1
+          Id: "key-default-1"
           Statement:
             - Sid: Enable IAM User Permissions
               Effect: Allow
               Principal:
-                AWS: "arn:aws:iam::111122223333:root"
+                AWS: "arn:aws:iam::024259748323:root"
               Action: "kms:*"
               Resource: "*"
     DynamoSnapshotBucket:
