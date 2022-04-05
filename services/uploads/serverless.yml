@@ -235,13 +235,12 @@ resources:
         PendingWindowInDays: 10
         MultiRegion: true
         KeyPolicy:
-          Version: "1"
+          Version: "2012-10-17"
           Statement:
             - Effect: Allow
               Principal:
                 AWS: "arn:aws:iam::024259748323:root"
-              Action:
-                - "kms:*"
+              Action: "kms:*"
               Resource: "*"
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
