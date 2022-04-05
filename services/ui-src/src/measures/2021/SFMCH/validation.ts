@@ -18,7 +18,6 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 const validateOneSealantGreaterThanFourMolarsSealed = (data: FormData) => {
   if (
