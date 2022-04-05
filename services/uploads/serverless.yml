@@ -243,10 +243,7 @@ resources:
           Version: "2012-10-17"
           Statement:
             - Effect: Allow
-              Principal:
-                AWS: ${ssm:/configuration/mpriamrole~true}
-                  !GetAtt IamRoleLambdaExecution.Arn
-              Action: "kms:*"
+              Principal: "*"
               Resource: "*"
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
