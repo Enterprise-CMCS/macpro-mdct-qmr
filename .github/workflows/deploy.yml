@@ -85,6 +85,7 @@ jobs:
             AMMAD.spec.js,
             amrAD.spec.js,
             amrCH.spec.js,
+            CCWCH.spec.js,
             cdf-ad.spec.js,
             CHLAD.spec.js,
             cpaAD.spec.feature,
