@@ -1,11 +1,12 @@
 import "cypress-file-upload";
 import "cypress-wait-until";
-import testConfig from "../../test-config.js";
+// import testConfig from "../../test-config.js";
 import "cypress-file-upload";
 // allow for Cypress Snapshot command
 import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command";
 
 before(() => {
+  cy.wait(15000);
   cy.visit("/", { timeout: 60000 * 7 });
 });
 
@@ -27,20 +28,16 @@ Cypress.Commands.add(
     user = "stateuser3" // pragma: allowlist secret
   ) => {
     const users = {
-      stateuser3: testConfig.TEST_USER_3,
-      stateuser2: testConfig.TEST_USER_2,
+      stateuser3: require("../../test-config.js")[TEST_USER_3],
+      stateuser2: require("../../test-config.js")[TEST_USER_2],
     };
     cy.wait(3000);
     cy.visit("/");
     cy.wait(3000);
-    cy.log("user name");
-    cy.log(`${users[user]}`);
-    cy.log("pw!");
-    cy.log(testConfig.TEST_PASSWORD_1);
-    cy.xpath(emailForCognito).type(
-      `${users[user]}` || `${testConfig.TEST_USER_3}`
+    cy.xpath(emailForCognito).type(`${users[user]}`);
+    cy.xpath(passwordForCognito).type(
+      require("../../test-config.js")[TEST_PASSWORD_1]
     );
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
