@@ -58,7 +58,6 @@ const CCPCHValidation = (data: FormData) => {
         GV.validateAllDenomsAreTheSameCrossQualifier,
         GV.validateCrossQualifierRateCorrect,
         GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,
         GV.validateRateNotZero,
         GV.validateRateZero,
