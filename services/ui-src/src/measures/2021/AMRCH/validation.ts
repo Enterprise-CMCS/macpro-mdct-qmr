@@ -18,6 +18,7 @@ import {
   omsValidations,
   validateDenominatorGreaterThanNumerator,
   validateDenominatorsAreTheSame,
+  validateOMSTotalNDR,
   validateOneRateLessThanOther,
   validateRateNotZero,
   validateRateZero,
@@ -79,9 +80,10 @@ const validateOMS = (data: FormData) => {
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
         validateDenominatorsAreTheSame,
+        validateOMSTotalNDR,
         validateOneRateLessThanOther,
-        validateRateZero,
         validateRateNotZero,
+        validateRateZero,
       ],
     }),
   ];
