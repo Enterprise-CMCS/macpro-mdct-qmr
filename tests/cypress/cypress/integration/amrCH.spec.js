@@ -249,7 +249,7 @@ describe("Measure: AMR-CH", () => {
     );
   });
 
-  it.only("automatically applies Total NDR set for OMS sections nested in checkbox", () => {
+  it("automatically applies Total NDR set for OMS sections nested in checkbox", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DateRange.startDate-month"]').type("1");
     cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
@@ -292,7 +292,6 @@ describe("Measure: AMR-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.Ages12to18.singleCategory.0.denominator"]'
     ).type("8");
-    cy.get('[data-cy="TotalCalculation.singleCategory"]').click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.TotalAges5to18.singleCategory.0.numerator"]'
     ).should("have.value", "12");

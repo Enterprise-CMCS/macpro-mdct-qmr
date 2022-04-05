@@ -76,8 +76,6 @@ const checkNewOmsValuesChanged = (
   next: RateFields[],
   prev?: RateFields[]
 ): boolean => {
-  console.log("prev", prev);
-  console.log("next", next);
   if (!prev) return false;
   return !next.every(
     (v, i) =>
@@ -129,7 +127,6 @@ export const useTotalAutoCalculation = ({
           includedNames.includes(fieldName) &&
           checkNewOmsValuesChanged(omsFields, previousOMS)
         ) {
-          console.log("triggered");
           setValue(totalFieldName, [
             calculateOMSTotal({
               cleanedCategory,
