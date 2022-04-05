@@ -117,7 +117,6 @@ const validateOMS = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        // validateDenominatorsAreTheSame,
         validateOneRateLessThanOther,
         validateCrossQualifierRateCorrect,
         validateRateZero,
