@@ -9,7 +9,7 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 const fixRounding = (value: number, numbersAfterDecimal: number) => {
   return (
@@ -224,6 +224,16 @@ export const Rate = ({
     },
     [unregister, name]
   );
+
+  useLayoutEffect(() => {
+    field.onChange(field.value);
+
+    return () => {
+      field.onChange([]);
+    };
+    // purposefully ignoring field to stop infinite rerender
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name]);
 
   return (
     <>
