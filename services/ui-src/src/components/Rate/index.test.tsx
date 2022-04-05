@@ -273,9 +273,9 @@ describe("Test the Rate component when it includes a total NDR", () => {
       },
       {
         label: "total",
-        numerator: "2",
-        denominator: "2",
-        rate: "100.0",
+        numerator: "7",
+        denominator: "3",
+        rate: "",
       },
     ];
 
