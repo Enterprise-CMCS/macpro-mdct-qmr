@@ -28,15 +28,15 @@ Cypress.Commands.add(
     user = "stateuser3" // pragma: allowlist secret
   ) => {
     const users = {
-      stateuser3: require("../../test-config.js")[TEST_USER_3],
-      stateuser2: require("../../test-config.js")[TEST_USER_2],
+      stateuser3: require("../../test-config.js")["TEST_USER_3"],
+      stateuser2: require("../../test-config.js")["TEST_USER_2"],
     };
     cy.wait(3000);
     cy.visit("/");
     cy.wait(3000);
     cy.xpath(emailForCognito).type(`${users[user]}`);
     cy.xpath(passwordForCognito).type(
-      require("../../test-config.js")[TEST_PASSWORD_1]
+      require("../../test-config.js")["TEST_PASSWORD_1"]
     );
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
