@@ -551,3 +551,36 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
 
   return error;
 };
+
+export const validateOneQualifierRateLessThanTheOther: OmsValidationCallback =
+  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
+    if (isOPM) return [];
+    const rateArr: RateFields[] = [];
+    const errors: FormError[] = [];
+    const isRateLessThanOther = (rateArr: RateFields[]) => {
+      if (rateArr.length !== 2) return true;
+      const compareValue = rateArr[0].rate ?? "";
+      return parseFloat(rateArr[1].rate ?? "") <= parseFloat(compareValue);
+    };
+    for (const qual of qualifiers) {
+      const cleanQual = cleanString(qual);
+      for (const cat of categories.map((s) => cleanString(s))) {
+        if (rateData.rates?.[cleanQual]?.[cat]) {
+          const temp = rateData.rates[cleanQual][cat][0];
+          if (temp && temp.rate) {
+            rateArr.push(temp);
+          }
+        }
+      }
+    }
+
+    if (!isRateLessThanOther(rateArr)) {
+      errors.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+        errorMessage: `${qualifiers[1]} rate should not be higher than ${qualifiers[0]} Rates.`,
+      });
+    }
+    return errors;
+  };
