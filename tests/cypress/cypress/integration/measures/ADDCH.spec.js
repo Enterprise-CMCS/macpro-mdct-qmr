@@ -3,9 +3,7 @@ const passwordForCognito = "//input[@name='password']";
 
 describe("Measure: oy2-9921 ADD-CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
-    cy.deleteChildCoreSets();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("ADD-CH");
   });
