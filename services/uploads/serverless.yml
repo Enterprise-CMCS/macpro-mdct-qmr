@@ -235,7 +235,7 @@ resources:
         PendingWindowInDays: 10
         MultiRegion: true
         KeyPolicy:
-          Version: "1"
+          Version: "2012-10-17"
           Statement:
             - Effect: Allow
               Principal:
