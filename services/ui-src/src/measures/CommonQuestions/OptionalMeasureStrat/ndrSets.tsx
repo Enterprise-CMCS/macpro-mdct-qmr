@@ -3,81 +3,20 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 
 import { usePerformanceMeasureContext } from "./context";
-import { useController, useFormContext } from "react-hook-form";
+import { cleanString, useTotalAutoCalculation } from "./omsUtil";
 
 interface NdrProps {
-  /** name for react-hook-form registration */
   name: string;
 }
 
 interface TotalProps {
-  /** name for react-hook-form registration */
   name: string;
   qualifier?: string;
   category?: string;
 }
 
-interface TempRate {
-  numerator?: number;
-  denominator?: number;
-  rate: string;
-}
-
-interface CalcOmsTotalProp {
-  watchOMS: any;
-  cleanedCategory: string;
-  qualifiers: string[];
-  rateMultiplicationValue?: number;
-  numberOfDecimals: number;
-}
 type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
-
-const cleanString = (s: string) => s && s.replace(/[^\w]/g, "");
-
-/** Process all OMS rate values pertaining to set category and calculate new rate object */
-const calculateOMSTotal = ({
-  cleanedCategory,
-  numberOfDecimals,
-  qualifiers,
-  rateMultiplicationValue = 100,
-  watchOMS,
-}: CalcOmsTotalProp) => {
-  const tempRate: TempRate = {
-    numerator: undefined,
-    denominator: undefined,
-    rate: "",
-  };
-
-  for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
-    if (
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.denominator &&
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate
-    ) {
-      tempRate.numerator ??= 0;
-      tempRate.denominator ??= 0;
-      tempRate.numerator += parseFloat(
-        watchOMS[qual][cleanedCategory][0].numerator
-      );
-      tempRate.denominator += parseFloat(
-        watchOMS[qual][cleanedCategory][0].denominator
-      );
-    }
-  }
-
-  if (tempRate.numerator !== undefined && tempRate.denominator !== undefined) {
-    tempRate.rate = (
-      Math.round(
-        (tempRate.numerator / tempRate.denominator) *
-          rateMultiplicationValue *
-          Math.pow(10, numberOfDecimals)
-      ) / Math.pow(10, numberOfDecimals)
-    ).toFixed(1);
-  }
-
-  return tempRate;
-};
 
 /**
  * Total Rate NDR that calculates from filled OMS NDR sets
@@ -93,7 +32,6 @@ const TotalNDR = ({
     rateMultiplicationValue,
     rateReadOnly,
     allowNumeratorGreaterThanDenominator,
-    numberOfDecimals,
   } = usePerformanceMeasureContext();
 
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
@@ -101,49 +39,21 @@ const TotalNDR = ({
   const cleanedCategory = cleanString(category);
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
   const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
-  const { control, watch } = useFormContext();
-  const { field } = useController({ name: cleanedName, control });
-  const watchOMS = watch(`${name}.rates`);
+
+  useTotalAutoCalculation({ name, cleanedCategory });
 
   return (
-    <CUI.Stack spacing={0}>
-      <QMR.Rate
-        key={cleanedName}
-        name={cleanedName}
-        readOnly={rateReadOnly}
-        customMask={customMask}
-        rates={[{ label: label, id: 0 }]}
-        rateMultiplicationValue={rateMultiplicationValue}
-        allowNumeratorGreaterThanDenominator={
-          allowNumeratorGreaterThanDenominator
-        }
-      />
-      <QMR.ContainedButton
-        buttonText={"Calculate Total"}
-        buttonProps={{
-          minWidth: "10rem",
-          colorScheme: "blue",
-          textTransform: "capitalize",
-        }}
-        testId={`TotalCalculation.${cleanedCategory}`}
-        onClick={() => {
-          const tempRate: TempRate = calculateOMSTotal({
-            watchOMS,
-            cleanedCategory,
-            numberOfDecimals,
-            qualifiers,
-            rateMultiplicationValue,
-          });
-          field.onChange([
-            {
-              numerator: `${tempRate.numerator ?? ""}`,
-              denominator: `${tempRate.denominator ?? ""}`,
-              rate: (!isNaN(parseFloat(tempRate.rate)) && tempRate.rate) || "",
-            },
-          ]);
-        }}
-      />
-    </CUI.Stack>
+    <QMR.Rate
+      key={cleanedName}
+      name={cleanedName}
+      readOnly={rateReadOnly}
+      customMask={customMask}
+      rates={[{ label: label, id: 0 }]}
+      rateMultiplicationValue={rateMultiplicationValue}
+      allowNumeratorGreaterThanDenominator={
+        allowNumeratorGreaterThanDenominator
+      }
+    />
   );
 };
 
@@ -157,28 +67,29 @@ const TotalNDRSets = ({ name }: { name: string }) => {
   if (categories.length) {
     categories.forEach((cat, idx) => {
       rateArray.push(
-        <TotalNDR
-          name={name}
-          category={cat}
-          qualifier={totalQual}
-          key={`${name}.${idx}.totalWrapper`}
-        />
+        <CUI.Box key={`${name}.${idx}.totalWrapper`}>
+          <TotalNDR name={name} category={cat} qualifier={totalQual} />
+        </CUI.Box>
       );
     });
   } else {
-    rateArray.push(<TotalNDR name={name} key={`${name}.TotalWrapper`} />);
+    rateArray.push(
+      <CUI.Box key={`${name}.totalWrapper`}>
+        <TotalNDR name={name} key={`${name}.TotalWrapper`} />{" "}
+      </CUI.Box>
+    );
   }
 
   return (
-    <>
-      <CUI.Divider key={`totalNDRDivider`} />
+    <CUI.Box>
+      <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />
       {categories.length > 0 && (
         <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
           {totalQual}
         </CUI.Heading>
       )}
-      <CUI.Stack spacing={5}>{rateArray}</CUI.Stack>
-    </>
+      <CUI.Box>{rateArray}</CUI.Box>
+    </CUI.Box>
   );
 };
 
@@ -419,14 +330,9 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM, calcTotal } = usePerformanceMeasureContext();
-  const extraBottomMargin = calcTotal ? 5 : undefined;
+  const { OPM } = usePerformanceMeasureContext();
   return (
-    <CUI.VStack
-      key={`${name}.NDRwrapper`}
-      alignItems={"flex-start"}
-      mb={extraBottomMargin}
-    >
+    <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
       {OPM && <OPMNDRSets name={name} key={name} />}
       {!OPM && <AgeGroupNDRSets name={name} key={name} />}
     </CUI.VStack>
