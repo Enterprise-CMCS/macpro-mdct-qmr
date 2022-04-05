@@ -33,6 +33,10 @@ Cypress.Commands.add(
     cy.wait(3000);
     cy.visit("/");
     cy.wait(3000);
+    cy.log("user name");
+    cy.log(`${users[user]}`);
+    cy.log("pw!");
+    cy.log(testConfig.TEST_PASSWORD_1);
     cy.xpath(emailForCognito).type(
       `${users[user]}` || `${testConfig.TEST_USER_3}`
     );
@@ -70,8 +74,8 @@ Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
   cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
     "not.exist"
   );
-  // these sections should be visible when a user selects they are reporting
 
+  // these sections should be visible when a user selects they are reporting
   cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
   cy.get('[data-cy="Measurement Specification"]').should("be.visible");
   cy.get('[data-cy="Data Source"]').should("be.visible");
