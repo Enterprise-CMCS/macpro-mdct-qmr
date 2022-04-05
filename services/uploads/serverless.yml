@@ -235,7 +235,7 @@ resources:
         PendingWindowInDays: 10
         MultiRegion: true
         KeyPolicy:
-          Version: 1
+          Version: "1"
           Id: "key-default-1"
           Statement:
             - Sid: "Enable IAM User Permissions"
