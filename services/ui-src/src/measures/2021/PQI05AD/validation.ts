@@ -73,7 +73,6 @@ const PQI05Validation = (data: FormData) => {
       definitionOfDenominator
     ),
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...omsValidations({
       data,
