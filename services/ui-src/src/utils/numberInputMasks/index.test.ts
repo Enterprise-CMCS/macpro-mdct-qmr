@@ -6,9 +6,39 @@ import {
   allPositiveIntegers,
   integersWithMaxDecimalPlaces,
   positiveNumbersWithMaxDecimalPlaces,
+  xNumbersYDecimals,
 } from ".";
 
 describe("Testing new regex defaults", () => {
+  test("Testing custom generated RegEx: xNumbersYDecimals", () => {
+    const testCases = [
+      // [firstParam, secondParam, testString, expectedResult]
+      // Base case 3 numbers, 1 decimal place
+      [undefined, undefined, "", true],
+      [undefined, undefined, "123.1", true],
+      [undefined, undefined, "123", true],
+      [undefined, undefined, ".1", true],
+      [undefined, undefined, ".12", false],
+      [undefined, undefined, "1.12", false],
+      [undefined, undefined, "1234.1", false],
+      [undefined, undefined, "1234", false],
+      // 5 numbers, 5 decimals
+      [5, 5, "", true],
+      [5, 5, "12345.12345", true],
+      [5, 5, "1234.1234", true],
+      [5, 5, ".12345", true],
+      [5, 5, "12345", true],
+      [5, 5, ".123456", false],
+      [5, 5, "1.123456", false],
+      [5, 5, "123456", false],
+      [5, 5, "123456.1", false],
+      [5, 5, "123456.123456", false],
+    ];
+    testCases.forEach((t: any) => {
+      expect(xNumbersYDecimals(t[0], t[1]).test(t[2])).toBe(t[3]);
+    });
+  });
+
   test("Testing allIntegers regex", () => {
     expect(allIntegers.test("0")).toBeTruthy();
     expect(allIntegers.test("1999")).toBeTruthy();

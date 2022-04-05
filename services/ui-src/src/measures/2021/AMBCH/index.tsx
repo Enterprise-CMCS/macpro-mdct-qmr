@@ -2,7 +2,7 @@ import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { FormData } from "./types";
-import { fourNumbersOneDecimal } from "utils/numberInputMasks";
+import { xNumbersYDecimals } from "utils/numberInputMasks";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
@@ -20,6 +20,7 @@ export const AMBCH = ({
 }: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const data = watch();
+  const mask = xNumbersYDecimals(4, 1);
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const rateScale = 1000;
 
@@ -49,7 +50,7 @@ export const AMBCH = ({
               <CMQ.PerformanceMeasure
                 data={PMD.data}
                 calcTotal
-                customMask={fourNumbersOneDecimal}
+                customMask={mask}
                 rateScale={rateScale}
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
@@ -62,7 +63,7 @@ export const AMBCH = ({
               adultMeasure={false}
               calcTotal
               categories={PMD.categories}
-              customMask={fourNumbersOneDecimal}
+              customMask={mask}
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               rateMultiplicationValue={rateScale}

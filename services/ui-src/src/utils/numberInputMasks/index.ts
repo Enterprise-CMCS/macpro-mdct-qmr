@@ -1,9 +1,5 @@
 export const allIntegers = /^-?\d*$/i;
 export const allNumbers = /^-?\d*\.?\d*$/i;
-// Created fourNumbersOneDecimal as a custom mask for AMB-CH
-// If we find ourselves creating more specific rates it might be worth
-// constructing a RegEx and passing in the # of digits and decimals.
-export const fourNumbersOneDecimal = /^\d{0,4}((\.\d)?|(\.)?)$/i;
 export const eightNumbersOneDecimal = /^\d{0,8}((\.\d)?|(\.)?)$/i;
 export const sixteenNumbersFourDecimal = /^\d{0,16}((\.\d{0,4})?|(\.)?)$/i;
 export const allPositiveIntegers = /^\d*$/i;
@@ -23,3 +19,13 @@ export const integersWithMaxDecimalPlaces = (maxDecimal: number) =>
   new RegExp(`^-?\\d*\\.?\\d{0,${maxDecimal}}$`);
 export const positiveNumbersWithMaxDecimalPlaces = (maxDecimal: number) =>
   new RegExp(`^\\d*\\.?\\d{0,${maxDecimal}}$`);
+
+// Generates a RegEx mask of custom params
+export const xNumbersYDecimals = (
+  numberPlaces: number = 3,
+  decimalPlaces: number = 1
+) =>
+  new RegExp(
+    `^\\d{0,${numberPlaces}}((\\.\\d{0,${decimalPlaces}})?|(\\.)?)$`,
+    "i"
+  );
