@@ -152,27 +152,63 @@ describe("Measure: oy2-9923 CHL-CH", () => {
     /* ==== End Cypress Studio ==== */
     /* ==== Performance Measure & Deviations from Measure Specifications & Combined Rates from Multiple Reporting Units ==== */
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]').type('2');
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]').type('20');
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should('have.value', '10.0');
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("2");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).click();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+    ).type("20");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+      "have.value",
+      "10.0"
+    );
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]').type('0');
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should('have.value', '0.0');
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type('12.3');
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+    ).type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+      "have.value",
+      "0.0"
+    );
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
+    ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
+      "12.3"
+    );
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
-    cy.get('#DeviationOptions0-checkbox').check();
-    cy.get('[data-cy="Deviations.Ages16to20.RateDeviationsSelected0"] > .chakra-checkbox__control').click();
-    cy.get('#Deviations\\.Ages16to20\\.RateDeviationsSelected0-checkbox').check();
-    cy.get('[data-cy="Deviations.Ages16to20.RateDeviationsSelected1"] > .chakra-checkbox__control').click();
-    cy.get('#Deviations\\.Ages16to20\\.RateDeviationsSelected1-checkbox').check();
-    cy.get('[data-cy="Deviations.Ages16to20.RateDeviationsSelected2"] > .chakra-checkbox__control').click();
-    cy.get('#Deviations\\.Ages16to20\\.RateDeviationsSelected2-checkbox').check();
+    cy.get("#DeviationOptions0-checkbox").check();
+    cy.get(
+      '[data-cy="Deviations.Ages16to20.RateDeviationsSelected0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Ages16to20\\.RateDeviationsSelected0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="Deviations.Ages16to20.RateDeviationsSelected1"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Ages16to20\\.RateDeviationsSelected1-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="Deviations.Ages16to20.RateDeviationsSelected2"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#Deviations\\.Ages16to20\\.RateDeviationsSelected2-checkbox"
+    ).check();
     cy.get('[data-cy="CombinedRates1"]').click();
     cy.get('[data-cy="CombinedRates0"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
@@ -180,33 +216,97 @@ describe("Measure: oy2-9923 CHL-CH", () => {
     cy.get('[data-cy="CombinedRates-CombinedRates2"]').click();
     /* ==== End Cypress Studio ==== */
     /* ==== Verify OMS section and NDR ==== */
-    cy.get('[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.options0-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]').click();
-    cy.get('#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control').click();
-    cy.get('#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox').check();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]').type('2');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.denominator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.denominator"]').type('20');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.rate"]').should('have.value', '10.0');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]').type('0');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.rate"]').should('have.value', '0.0');
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.rate"]').clear();
-    cy.get('[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.rate"]').type('12.3');
-    cy.get('[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Ethnicity');
-    cy.get('[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Primary Language (including sign language)');
-    cy.get('[data-cy="OptionalMeasureStratification.options3"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Disability Status');
-    cy.get('[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__label > .chakra-text').should('have.text', 'Geography');
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+    ).click();
+    cy.get(
+      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control'
+    ).click();
+    cy.get(
+      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
+    ).check();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]'
+    ).type("2");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.denominator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.denominator"]'
+    ).type("20");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.rate"]'
+    ).should("have.value", "10.0");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]'
+    ).type("0");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.rate"]'
+    ).should("have.value", "0.0");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.rate"]'
+    ).clear();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.rate"]'
+    ).type("12.3");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Ethnicity");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Primary Language (including sign language)");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options3"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Disability Status");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Geography");
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="Deviations from Measure Specifications Error"]').should('have.text', 'Deviations from Measure Specifications Error');
-    cy.get('[data-cy="You must complete one NDR set"] > .chakra-text').should('have.text', 'You must complete one NDR set');
-    cy.get('[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White Error"]').should('have.text', 'Optional Measure Stratification: Race (Non-Hispanic) - White Error');
-    cy.get(':nth-child(3) > div.css-0 > [data-cy="Manually entered rate should be 0 if numerator is 0"] > .chakra-text').should('have.text', 'Manually entered rate should be 0 if numerator is 0');
-    cy.get('[data-cy="Performance Measure/Other Performance Measure Error"]').should('have.text', 'Performance Measure/Other Performance Measure Error');
-    cy.get(':nth-child(4) > div.css-0 > [data-cy="Manually entered rate should be 0 if numerator is 0"] > .chakra-text').should('have.text', 'Manually entered rate should be 0 if numerator is 0');
+    cy.get('[data-cy="Deviations from Measure Specifications Error"]').should(
+      "have.text",
+      "Deviations from Measure Specifications Error"
+    );
+    cy.get('[data-cy="You must complete one NDR set"] > .chakra-text').should(
+      "have.text",
+      "You must complete one NDR set"
+    );
+    cy.get(
+      '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White Error"]'
+    ).should(
+      "have.text",
+      "Optional Measure Stratification: Race (Non-Hispanic) - White Error"
+    );
+    cy.get(
+      ':nth-child(3) > div.css-0 > [data-cy="Manually entered rate should be 0 if numerator is 0"] > .chakra-text'
+    ).should(
+      "have.text",
+      "Manually entered rate should be 0 if numerator is 0"
+    );
+    cy.get(
+      '[data-cy="Performance Measure/Other Performance Measure Error"]'
+    ).should(
+      "have.text",
+      "Performance Measure/Other Performance Measure Error"
+    );
+    cy.get(
+      ':nth-child(4) > div.css-0 > [data-cy="Manually entered rate should be 0 if numerator is 0"] > .chakra-text'
+    ).should(
+      "have.text",
+      "Manually entered rate should be 0 if numerator is 0"
+    );
     /* ==== End Cypress Studio ==== */
   });
 });
