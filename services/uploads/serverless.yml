@@ -234,14 +234,15 @@ resources:
         EnableKeyRotation: true
         PendingWindowInDays: 10
         MultiRegion: true
-        # KeyPolicy:
-        #   Version: "1"
-        #   Statement:
-        #     - Effect: Allow
-        #       Principal:
-        #         AWS: !Sub "arn:aws:iam::024259748323:root"
-        #       Action: "kms:*"
-        #       Resource: "*"
+        KeyPolicy:
+          Version: "1"
+          Statement:
+            - Effect: Allow
+              Principal:
+                AWS: "arn:aws:iam::024259748323:root"
+              Action:
+                - "kms:*"
+              Resource: "*"
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
