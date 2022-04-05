@@ -228,7 +228,7 @@ resources:
                 - !Sub ${AttachmentsBucket.Arn}/*.xlsx
                 - !Sub ${AttachmentsBucket.Arn}/*.json
     BucketEncryptionKMSKey:
-      Type: AWS::KMS::Key
+      Type: "AWS::KMS::Key"
       Properties:
         Description: "Key for encrypting dynamo snapshots and upload buckets"
         EnableKeyRotation: true
