@@ -239,7 +239,7 @@ resources:
           Statement:
             - Effect: Allow
               Principal:
-                AWS: "arn:aws:iam::024259748323:root"
+                AWS: !Sub "arn:aws:iam::024259748323:root"
               Action: "kms:*"
               Resource: "*"
     DynamoSnapshotBucket:
