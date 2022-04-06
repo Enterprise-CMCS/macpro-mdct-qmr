@@ -16,6 +16,7 @@ export type OmsValidationCallback = (data: {
   label: string[];
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
+  customTotalLabel?: string;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -26,6 +27,7 @@ interface OmsValidationProps {
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
+  customTotalLabel?: string;
 }
 export const omsValidations = ({
   categories,
@@ -34,6 +36,7 @@ export const omsValidations = ({
   locationDictionary,
   qualifiers,
   validationCallbacks,
+  customTotalLabel,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -57,7 +60,8 @@ export const omsValidations = ({
     opmQuals.length ? opmCats : cats,
     locationDictionary,
     checkIsFilled,
-    isOPM
+    isOPM,
+    customTotalLabel
   );
 };
 // @example
@@ -183,7 +187,8 @@ const validateNDRs = (
   categories: string[],
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
-  isOPM: boolean
+  isOPM: boolean,
+  customTotalLabel?: string
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -241,6 +246,7 @@ const validateNDRs = (
           label,
           locationDictionary,
           isOPM,
+          customTotalLabel,
         })
       );
     }
@@ -485,6 +491,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   label,
   locationDictionary,
   isOPM,
+  customTotalLabel,
 }) => {
   if (isOPM) return [];
 
@@ -530,8 +537,8 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
         )}`,
-        errorMessage:
-          "Total numerator field is not equal to the sum of other numerators.",
+        errorMessage: ` ${customTotalLabel ? `${customTotalLabel} ` : ""}
+       Total numerator field is not equal to the sum of other numerators.`,
       });
     }
     if (
@@ -543,8 +550,9 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
         )}`,
-        errorMessage:
-          "Total denominator field is not equal to the sum of other denominators.",
+        errorMessage: `${
+          customTotalLabel ? `${customTotalLabel} ` : ""
+        }Total denominator field is not equal to the sum of other denominators.`,
       });
     }
   }
