@@ -8,39 +8,8 @@ on:
       - "!skipci*"
 
 jobs:
-  set-env:
-    runs-on: ubuntu-latest
-    steps:
-      - name: set branch_name
-        run: |
-          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
-            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
-          else
-            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-          fi
-      - uses: actions/checkout@v2
-      - name: Validate branch name
-        run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
-      - name: set branch specific variable names
-        run: ./.github/build_vars.sh set_names
-      - name: set variable values
-        run: ./.github/build_vars.sh set_values
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_ACCESS_KEY_ID] || secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_SECRET_ACCESS_KEY] || secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
-          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
-
   deploy:
     runs-on: ubuntu-latest
-    needs: set-env
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
@@ -103,6 +72,36 @@ jobs:
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
           # This can optionally be set as an GitHub Actions Secret
           ./deploy.sh $STAGE_PREFIX$branch_name
+  set-env:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: set branch_name
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
+      - uses: actions/checkout@v2
+      - name: Validate branch name
+        run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
+      - name: set branch specific variable names
+        run: ./.github/build_vars.sh set_names
+      - name: set variable values
+        run: ./.github/build_vars.sh set_values
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_ACCESS_KEY_ID] || secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_SECRET_ACCESS_KEY] || secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
 
   setup-ch-tests:
     name: Init Child
