@@ -8,8 +8,27 @@ on:
       - "!skipci*"
 
 jobs:
+  set-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: set branch_name
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
+      - name: Validate branch name
+        run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
+
   deploy:
     runs-on: ubuntu-latest
+    needs: set-env
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
@@ -127,11 +146,11 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      # - name: Make Test Config
-      #   run: |
-      #     pushd tests/cypress
-      #     sh configureLocal.sh $branch_name
-      #     popd
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -249,11 +268,11 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      # - name: Make Test Config
-      #   run: |
-      #     pushd tests/cypress
-      #     sh configureLocal.sh $branch_name
-      #     popd
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -346,11 +365,11 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      # - name: Make Test Config
-      #   run: |
-      #     pushd tests/cypress
-      #     sh configureLocal.sh $branch_name
-      #     popd
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -450,11 +469,11 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      # - name: Make Test Config
-      #   run: |
-      #     pushd tests/cypress
-      #     sh configureLocal.sh $branch_name
-      #     popd
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -575,11 +594,11 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      # - name: Make Test Config
-      #   run: |
-      #     pushd tests/cypress
-      #     sh configureLocal.sh $branch_name
-      #     popd
+      - name: Make Test Config
+        run: |
+          pushd tests/cypress
+          sh configureLocal.sh $branch_name
+          popd
       - name: Check Project A11y
         uses: cypress-io/github-action@v2.11.7
         with:

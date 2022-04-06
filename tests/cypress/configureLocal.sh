@@ -24,6 +24,11 @@ export TEST_USER_2=$test_user_2
 export TEST_USER_3=$test_user_3
 export TEST_PASSWORD_1=$test_password_1
 
+echo $test_user_1
+echo $test_user_2
+echo $test_user_3
+echo $test_password_1
+
 rm -rf ./test-config.js
 touch ./test-config.js
 echo "const testConfig = {" >> ./test-config.js
