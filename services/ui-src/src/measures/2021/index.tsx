@@ -41,6 +41,7 @@ import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
 import { SSDAD } from "./SSDAD";
+import { IMACH } from "./IMACH";
 
 const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
@@ -66,6 +67,7 @@ const twentyTwentyOneMeasures = {
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
   "IET-AD": IETAD,
+  "IMA-CH": IMACH,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
