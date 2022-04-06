@@ -132,6 +132,7 @@ jobs:
           pushd services
           export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
           echo "TEST_USER_1=$TEST_USER_1" >> $GITHUB_ENV
+          echo "TEst User 1: $TEST_USER_1"
           export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
           echo "TEST_USER_=2$TEST_USER_2" >> $GITHUB_ENV
           export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
@@ -261,6 +262,7 @@ jobs:
           pushd services
           export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
           echo "TEST_USER_1=$TEST_USER_1" >> $GITHUB_ENV
+          echo "TEst User 1: $TEST_USER_1"
           export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
           echo "TEST_USER_=2$TEST_USER_2" >> $GITHUB_ENV
           export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
@@ -365,6 +367,7 @@ jobs:
           pushd services
           export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
           echo "TEST_USER_1=$TEST_USER_1" >> $GITHUB_ENV
+          echo "TEst User 1: $TEST_USER_1"
           export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
           echo "TEST_USER_=2$TEST_USER_2" >> $GITHUB_ENV
           export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
@@ -476,6 +479,7 @@ jobs:
           pushd services
           export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
           echo "TEST_USER_1=$TEST_USER_1" >> $GITHUB_ENV
+          echo "TEst User 1: $TEST_USER_1"
           export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
           echo "TEST_USER_=2$TEST_USER_2" >> $GITHUB_ENV
           export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
@@ -608,6 +612,7 @@ jobs:
           pushd services
           export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
           echo "TEST_USER_1=$TEST_USER_1" >> $GITHUB_ENV
+          echo "TEst User 1: $TEST_USER_1"
           export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
           echo "TEST_USER_=2$TEST_USER_2" >> $GITHUB_ENV
           export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
