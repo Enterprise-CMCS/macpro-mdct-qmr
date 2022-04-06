@@ -141,7 +141,6 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
-          env: true
         env:
           CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
           CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
@@ -265,7 +264,6 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
-          env: true
         env:
           CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
           CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
@@ -363,7 +361,6 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
-          env: true
         env:
           CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
           CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
@@ -468,7 +465,6 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
-          env: true
         env:
           CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
           CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
@@ -593,7 +589,6 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
-          env: true
         env:
           CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
           CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
