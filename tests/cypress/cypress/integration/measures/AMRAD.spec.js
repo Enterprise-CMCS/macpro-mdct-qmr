@@ -132,7 +132,7 @@ describe("Measure: ARM-AD", () => {
     ).type("55");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.rate"]').should(
       "have.value",
-      ""
+      "50.0"
     );
   });
 

@@ -38,7 +38,6 @@ export const CompleteMeasureFooter = ({
           />
           <QMR.ContainedButton
             buttonProps={{
-              type: "submit",
               colorScheme: "blue",
               textTransform: "capitalize",
             }}
