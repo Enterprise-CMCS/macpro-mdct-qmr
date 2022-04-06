@@ -594,5 +594,3 @@ jobs:
           CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
           CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
           CYPRESS_USER_PW: ${{ secrets.CYPRESS_USER_PW }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
