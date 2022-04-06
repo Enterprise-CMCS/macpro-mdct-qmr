@@ -31,12 +31,10 @@ Cypress.Commands.add(
       stateuser3: require("../../test-config.js")["TEST_USER_3"],
       stateuser2: require("../../test-config.js")["TEST_USER_2"],
     };
-    cy.wait(3000);
     cy.visit("/");
-    cy.wait(3000);
-    cy.xpath(emailForCognito).type(`${users[user]}`);
+    cy.xpath(emailForCognito).type(`${users[user]}` || "stateuser3@test.com");
     cy.xpath(passwordForCognito).type(
-      require("../../test-config.js")["TEST_PASSWORD_1"]
+      require("../../test-config.js")["TEST_PASSWORD_1"] || "p@55W0rd!"
     );
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
