@@ -138,7 +138,7 @@ resources:
       Properties:
         DistributionConfig:
           Logging:
-            Bucket: !GetAtt CloudFrontLoggingBucket.Arn
+            Bucket: !Ref CloudFrontLoggingBucket
             IncludeCookies: false
             Prefix: ${self:custom.stage}
           Comment: CloudFront Distro for the static website hosted in S3
