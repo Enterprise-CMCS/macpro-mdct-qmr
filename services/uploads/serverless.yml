@@ -259,6 +259,11 @@ resources:
           Statement:
             - Effect: Allow
               Principal:
+                AWS: !Sub arn:aws:iam::${AWS::AccountId}:policy${self:custom.iamPermissionsBoundaryPolicy}
+              Action: "kms:*"
+              Resource: "*"
+            - Effect: Allow
+              Principal:
                 AWS: ${ssm:/configuration/mpriamrole~true}
               Action: "kms:*"
               Resource: "*"
