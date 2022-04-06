@@ -177,6 +177,7 @@ jobs:
             CHLAD.spec.js,
             COBAD.spec.js,
             CPAAD.spec.js,
+            DEVCH.spec.js,
             FUAAD.spec.js,
             FUHAD.spec.js,
             FUMAD.spec.js,
