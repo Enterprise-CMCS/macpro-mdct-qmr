@@ -42,10 +42,10 @@ export const SFMCH = ({
           <CMQ.MeasurementSpecification type="ADA-DQA" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure={true} />
+          <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} hideTextBox={false} />
+              <CMQ.PerformanceMeasure data={PMD.data} showtextbox={false} />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
