@@ -1,6 +1,10 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/globalValidations";
-import * as TD from "./test_data";
+import { testFormData } from "./_testFormData";
+import {
+  atLeastOneRateComplete,
+  getPerfMeasureRateArray,
+} from "measures/globalValidations";
+import { exampleData } from "measures/CommonQuestions/PerformanceMeasure/data";
 
 /* Ensure that at least 1 NDR set is complete for either the Performance Measure or Other Performance Measure
 
@@ -44,8 +48,8 @@ describe("atLeastOneRateComplete", () => {
 
   const _test_setup = (data: any) => {
     return {
-      ageGroups: TD.qualifiers,
-      performanceMeasureArray: GV.getPerfMeasureRateArray(data, TD.data),
+      ageGroups: exampleData.qualifiers!,
+      performanceMeasureArray: getPerfMeasureRateArray(data, exampleData),
       OPM: data[DC.OPM_RATES],
     };
   };
@@ -53,13 +57,13 @@ describe("atLeastOneRateComplete", () => {
   const _check_errors = (data: any, numErrors: number) => {
     const { ageGroups, performanceMeasureArray, OPM } = _test_setup(data);
     errorArray = [
-      ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+      ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ];
     expect(errorArray.length).toBe(numErrors);
   };
 
   beforeEach(() => {
-    formData = { ...TD.IET_AD_data };
+    formData = { ...testFormData };
     errorArray = [];
   });
 
@@ -110,25 +114,3 @@ describe("atLeastOneRateComplete", () => {
     _check_errors(formData, 1);
   });
 });
-
-describe("validateDualPopInformation", () => {});
-
-describe("validateNumeratorsLessThanDenominators", () => {});
-
-describe("validateEqualDenominators", () => {});
-
-describe("validateAllDenomsTheSameCrossQualifier", () => {});
-
-describe("validateNoNonZeroNumOrDenom", () => {});
-
-describe("validateTotalNDR", () => {});
-
-describe("ensureBothDatesCompletedInRange", () => {});
-
-describe("validateReasonForNotReporting", () => {});
-
-describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {});
-
-describe("validateRequiredRadioButtonForCombinedRates", () => {});
-
-describe("validateOneRateHigherThanOther", () => {});
