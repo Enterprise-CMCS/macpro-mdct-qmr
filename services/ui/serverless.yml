@@ -136,11 +136,11 @@ resources:
     CloudFrontDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
-        Logging:
-          Bucket: !GetAtt CloudFrontLoggingBucket.Arn
-          IncludeCookies: false
-          Prefix: ${self:custom.stage}
         DistributionConfig:
+          Logging:
+            Bucket: !GetAtt CloudFrontLoggingBucket.Arn
+            IncludeCookies: false
+            Prefix: ${self:custom.stage}
           Comment: CloudFront Distro for the static website hosted in S3
           Aliases:
             Fn::If:
