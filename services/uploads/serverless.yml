@@ -259,11 +259,6 @@ resources:
           Statement:
             - Effect: Allow
               Principal:
-                AWS: "arn:aws:iam::024259748323:root"
-              Action: "kms:*"
-              Resource: "*"
-            - Effect: Allow
-              Principal:
                 AWS: ${ssm:/configuration/mpriamrole~true}
               Action: "kms:*"
               Resource: "*"
