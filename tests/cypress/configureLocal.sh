@@ -24,16 +24,11 @@ export TEST_USER_2=$test_user_2
 export TEST_USER_3=$test_user_3
 export TEST_PASSWORD_1=$test_password_1
 
-echo $test_user_1
-echo $test_user_2
-echo $test_user_3
-echo $test_password_1
-
 rm -rf ./cypress.env.json
 touch ./cypress.env.json
 echo "{" >> ./cypress.env.json
-echo "\"TEST_USER_1\": \"$test_user_1\"," >> ./cypress.env.json
-echo "\"TEST_USER_2\": \"$test_user_2\"," >> ./cypress.env.json
-echo "\"TEST_USER_3\": \"$test_user_3\"," >> ./cypress.env.json
-echo "\"TEST_PASSWORD_1\": \"$test_password_1\"" >> ./cypress.env.json
+echo "\"CYPRESS_USER_1\": \"$test_user_1\"," >> ./cypress.env.json
+echo "\"CYPRESS_USER_2\": \"$test_user_2\"," >> ./cypress.env.json
+echo "\"CYPRESS_USER_3\": \"$test_user_3\"," >> ./cypress.env.json
+echo "\"CYPRESS_PASSWORD_1\": \"$test_password_1\"" >> ./cypress.env.json
 echo "}" >> ./cypress.env.json

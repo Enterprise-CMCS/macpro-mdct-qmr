@@ -137,10 +137,10 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          TEST_USER_1: ${{ secrets.TEST_USER_1 }}
-          TEST_USER_2: ${{ secrets.TEST_USER_2 }}
-          TEST_USER_3: ${{ secrets.TEST_USER_3 }}
-          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
+          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
+          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
+          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
+          CYPRESS_PASSWORD_1: ${{ secrets.CYPRESS_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -255,10 +255,10 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          TEST_USER_1: ${{ secrets.TEST_USER_1 }}
-          TEST_USER_2: ${{ secrets.TEST_USER_2 }}
-          TEST_USER_3: ${{ secrets.TEST_USER_3 }}
-          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
+          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
+          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
+          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
+          CYPRESS_PASSWORD_1: ${{ secrets.CYPRESS_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -347,10 +347,10 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          TEST_USER_1: ${{ secrets.TEST_USER_1 }}
-          TEST_USER_2: ${{ secrets.TEST_USER_2 }}
-          TEST_USER_3: ${{ secrets.TEST_USER_3 }}
-          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
+          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
+          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
+          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
+          CYPRESS_PASSWORD_1: ${{ secrets.CYPRESS_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -446,10 +446,10 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          TEST_USER_1: ${{ secrets.TEST_USER_1 }}
-          TEST_USER_2: ${{ secrets.TEST_USER_2 }}
-          TEST_USER_3: ${{ secrets.TEST_USER_3 }}
-          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
+          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
+          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
+          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
+          CYPRESS_PASSWORD_1: ${{ secrets.CYPRESS_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -565,7 +565,7 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          TEST_USER_1: ${{ secrets.TEST_USER_1 }}
-          TEST_USER_2: ${{ secrets.TEST_USER_2 }}
-          TEST_USER_3: ${{ secrets.TEST_USER_3 }}
-          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
+          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
+          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
+          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
+          CYPRESS_PASSWORD_1: ${{ secrets.CYPRESS_PASSWORD_1 }}
