@@ -72,36 +72,6 @@ jobs:
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
           # This can optionally be set as an GitHub Actions Secret
           ./deploy.sh $STAGE_PREFIX$branch_name
-  set-env:
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - name: set branch_name
-        run: |
-          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
-            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
-          else
-            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-          fi
-      - uses: actions/checkout@v2
-      - name: Validate branch name
-        run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
-      - name: set branch specific variable names
-        run: ./.github/build_vars.sh set_names
-      - name: set variable values
-        run: ./.github/build_vars.sh set_values
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_ACCESS_KEY_ID] || secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_SECRET_ACCESS_KEY] || secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
-          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
 
   setup-ch-tests:
     name: Init Child
@@ -157,10 +127,13 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
+      - name: Get Test Users
         run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
+          pushd services
+          export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
+          export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
+          export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
+          export TEST_PASSWORD_1=`./output.sh ui TestPasswordOne $STAGE_PREFIX$branch_name`
           popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
@@ -172,10 +145,10 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
-          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
-          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
-          CYPRESS_USER_PW: ${{ secrets.CYPRESS_USER_PW }}
+          TEST_USER_1: ${{ env.TEST_USER_1 }}
+          TEST_USER_2: ${{ env.TEST_USER_2 }}
+          TEST_USER_3: ${{ env.TEST_USER_3 }}
+          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -279,11 +252,13 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
+      - name: Get Test Users
         run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
+          pushd services
+          export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
+          export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
+          export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
+          export TEST_PASSWORD_1=`./output.sh ui TestPasswordOne $STAGE_PREFIX$branch_name`
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -295,10 +270,10 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
-          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
-          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
-          CYPRESS_USER_PW: ${{ secrets.CYPRESS_USER_PW }}
+          TEST_USER_1: ${{ env.TEST_USER_1 }}
+          TEST_USER_2: ${{ env.TEST_USER_2 }}
+          TEST_USER_3: ${{ env.TEST_USER_3 }}
+          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -376,10 +351,13 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
+      - name: Get Test Users
         run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
+          pushd services
+          export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
+          export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
+          export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
+          export TEST_PASSWORD_1=`./output.sh ui TestPasswordOne $STAGE_PREFIX$branch_name`
           popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
@@ -392,10 +370,10 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
-          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
-          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
-          CYPRESS_USER_PW: ${{ secrets.CYPRESS_USER_PW }}
+          TEST_USER_1: ${{ env.TEST_USER_1 }}
+          TEST_USER_2: ${{ env.TEST_USER_2 }}
+          TEST_USER_3: ${{ env.TEST_USER_3 }}
+          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -480,10 +458,13 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
+      - name: Get Test Users
         run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
+          pushd services
+          export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
+          export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
+          export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
+          export TEST_PASSWORD_1=`./output.sh ui TestPasswordOne $STAGE_PREFIX$branch_name`
           popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
@@ -496,10 +477,10 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
-          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
-          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
-          CYPRESS_USER_PW: ${{ secrets.CYPRESS_USER_PW }}
+          TEST_USER_1: ${{ env.TEST_USER_1 }}
+          TEST_USER_2: ${{ env.TEST_USER_2 }}
+          TEST_USER_3: ${{ env.TEST_USER_3 }}
+          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -605,10 +586,13 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
+      - name: Get Test Users
         run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
+          pushd services
+          export TEST_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
+          export TEST_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
+          export TEST_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
+          export TEST_PASSWORD_1=`./output.sh ui TestPasswordOne $STAGE_PREFIX$branch_name`
           popd
       - name: Check Project A11y
         uses: cypress-io/github-action@v2.11.7
@@ -620,7 +604,7 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
-          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
-          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
-          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
-          CYPRESS_USER_PW: ${{ secrets.CYPRESS_USER_PW }}
+          TEST_USER_1: ${{ env.TEST_USER_1 }}
+          TEST_USER_2: ${{ env.TEST_USER_2 }}
+          TEST_USER_3: ${{ env.TEST_USER_3 }}
+          TEST_PASSWORD_1: ${{ env.TEST_PASSWORD_1 }}

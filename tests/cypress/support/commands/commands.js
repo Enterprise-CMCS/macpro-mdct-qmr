@@ -1,6 +1,5 @@
 import "cypress-file-upload";
 import "cypress-wait-until";
-import testConfig from "../../test-config.js";
 import "cypress-file-upload";
 // allow for Cypress Snapshot command
 import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command";
@@ -27,14 +26,12 @@ Cypress.Commands.add(
     user = "stateuser3" // pragma: allowlist secret
   ) => {
     const users = {
-      stateuser3: Cypress.env("CYPRESS_USER_3") || testConfig.TEST_USER_3,
-      stateuser2: Cypress.env("CYPRESS_USER_2") || testConfig.TEST_USER_2,
+      stateuser3: Cypress.env("TEST_USER_3"),
+      stateuser2: Cypress.env("TEST_USER_2"),
     };
     cy.visit("/");
     cy.xpath(emailForCognito).type(`${users[user]}`);
-    cy.xpath(passwordForCognito).type(
-      Cypress.env("CYPRESS_USER_PW") || testConfig.TEST_PASSWORD_1
-    );
+    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
