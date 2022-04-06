@@ -1,21 +1,43 @@
-before(() => {
-  cy.visit("/", { timeout: 60000 * 5 });
-});
 import "cypress-file-upload";
+import "cypress-wait-until";
+// import testConfig from "../../test-config.js";
+import "cypress-file-upload";
+// allow for Cypress Snapshot command
+import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command";
+
+before(() => {
+  cy.wait(15000);
+  cy.visit("/", { timeout: 60000 * 7 });
+});
+
+addMatchImageSnapshotCommand({
+  failureThreshold: 0.01, // threshold for entire image -> 0.01 = 1%
+  failureThresholdType: "percent", // percent of image or number of pixels
+  // customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
+  // capture: "viewport", // capture viewport in screenshot
+});
 
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-// the default stateuser1 is used to login but can also be changed
+// the default stateuser3 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
 Cypress.Commands.add(
   "login",
   (
-    user = "stateuser1", // pragma: allowlist secret
-    password = "p@55W0rd!" // pragma: allowlist secret
+    user = "stateuser3" // pragma: allowlist secret
   ) => {
-    cy.xpath(emailForCognito).type(`${user}@test.com`);
-    cy.xpath(passwordForCognito).type(password);
+    const users = {
+      stateuser3: require("../../test-config.js")["TEST_USER_3"],
+      stateuser2: require("../../test-config.js")["TEST_USER_2"],
+    };
+    cy.wait(3000);
+    cy.visit("/");
+    cy.wait(3000);
+    cy.xpath(emailForCognito).type(`${users[user]}`);
+    cy.xpath(passwordForCognito).type(
+      require("../../test-config.js")["TEST_PASSWORD_1"]
+    );
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
@@ -27,10 +49,11 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 
 // Visit Child Core Set Measures
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
-  cy.get('[data-cy="Add Child Core Set"]').click();
-  cy.get('[data-cy="ChildCoreSet-ReportType1"]').click();
-  cy.get('[data-cy="Create"]').click();
-  cy.get('[data-cy="CCS"]').click();
+  cy.get("tbody").then(($tbody) => {
+    if ($tbody.find('[data-cy="CCS"]').length > 0) {
+      cy.get('[data-cy="CCS"]').click();
+    }
+  });
 });
 
 // Visit Measures based on abbr
@@ -48,8 +71,8 @@ Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
   cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
     "not.exist"
   );
-  // these sections should be visible when a user selects they are reporting
 
+  // these sections should be visible when a user selects they are reporting
   cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
   cy.get('[data-cy="Measurement Specification"]').should("be.visible");
   cy.get('[data-cy="Data Source"]').should("be.visible");
@@ -95,17 +118,13 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get("tbody").then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-      cy.get(
-        ':nth-child(2) > :nth-child(5) > .css-xi606m > [data-cy="child-kebab-menu"]'
-      ).click({ force: true });
-      cy.xpath(
-        "/html[1]/body[1]/div[1]/div[1]/main[1]/div[2]/table[1]/tbody[1]/tr[2]/td[5]/div[1]/div[1]/div[1]/button[2]"
-      ).click({ force: true });
-      cy.wait(1000);
+      cy.get('[data-cy="child-kebab-menu"]').first().click({ force: true });
+      cy.get("[data-cy='child-kebab-menu'] + div [data-cy='Delete']")
+        .first()
+        .click({
+          force: true,
+        });
       cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
-      cy.wait(2000);
-    } else {
-      cy.wait(2000);
     }
   });
 });
