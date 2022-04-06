@@ -135,6 +135,7 @@ resources:
                 SSEAlgorithm: AES256
     CloudFrontDistribution:
       Type: AWS::CloudFront::Distribution
+      DependsOn: CloudFrontLoggingBucket
       Properties:
         DistributionConfig:
           Logging:
