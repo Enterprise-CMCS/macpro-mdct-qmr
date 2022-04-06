@@ -1,11 +1,6 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("Measure: oy2-8979 CDF-CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
-    cy.deleteChildCoreSets();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CDF-CH");
   });
