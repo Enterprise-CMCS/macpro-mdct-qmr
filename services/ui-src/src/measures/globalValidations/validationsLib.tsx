@@ -294,20 +294,18 @@ Default assumption is that this is run for Performance Measure unless specified.
 */
 export const validateTotalNDR = (
   performanceMeasureArray: PerformanceMeasure[][],
-  errorLocation: string = "Performance Measure"
+  errorLocation = "Performance Measure",
+  categories?: string[],
+  rateMultiplicationValue?: number
 ) => {
   let errorArray: any[] = [];
-  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
-  let denominatorSum: any = null;
-  performanceMeasureArray.forEach((ndrSet) => {
+
+  performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
+    let numeratorSum = 0;
+    let denominatorSum = 0;
     ndrSet.slice(0, -1).forEach((item: any) => {
-      if (
-        item !== undefined &&
-        item !== null &&
-        !item["isTotal"] &&
-        item.rate
-      ) {
+      if (item !== undefined && item !== null && !item["isTotal"]) {
         let x;
         if (!isNaN((x = parseFloat(item["numerator"])))) {
           numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
@@ -319,29 +317,67 @@ export const validateTotalNDR = (
     });
 
     let totalNDR: any = ndrSet[ndrSet.length - 1];
-    if (totalNDR) {
+    if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
-      let x;
+
+      const parsedNum = parseFloat(totalNDR.numerator ?? "");
+      const parsedDen = parseFloat(totalNDR.denominator ?? "");
+      const currentRate = parseFloat(
+        (
+          Math.round(
+            (parsedNum / parsedDen) *
+              (rateMultiplicationValue ?? 100) *
+              Math.pow(10, 1)
+          ) / Math.pow(10, 1)
+        ).toFixed(1)
+      );
+      const expectedRate = parseFloat(totalNDR.rate ?? "");
       if (
-        (x = parseFloat(totalNDR["numerator"])) !== numeratorSum &&
+        parsedNum !== numeratorSum &&
         numeratorSum !== null &&
-        !isNaN(x)
+        !isNaN(parsedNum)
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
+          errorMessage: `${
+            (categories && categories[idx]) || totalNDR.label
+          } numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
-        (x = parseFloat(totalNDR["denominator"])) !== denominatorSum &&
+        parsedDen !== denominatorSum &&
         denominatorSum !== null &&
-        !isNaN(x)
+        !isNaN(parsedDen)
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
+          errorMessage: `${
+            (categories && categories[idx]) || totalNDR.label
+          } denominator field is not equal to the sum of other denominators.`,
         });
       }
+      // rate doesn't match
+      if (!isNaN(expectedRate) && currentRate !== expectedRate) {
+        errorArray.push({
+          errorLocation: errorLocation,
+          errorMessage: `${
+            (categories &&
+              categories[idx] &&
+              `${categories[idx]} - ${totalNDR.label}`) ||
+            totalNDR.label
+          } rate field is not equal to expected calculated rate.`,
+        });
+      }
+    } else if (numeratorSum && denominatorSum) {
+      errorArray.push({
+        errorLocation: errorLocation,
+        errorMessage: `${
+          (categories &&
+            categories[idx] &&
+            `${categories[idx]} - ${totalNDR.label}`) ||
+          totalNDR.label
+        } must contain values if other fields are filled.`,
+      });
     }
   });
 

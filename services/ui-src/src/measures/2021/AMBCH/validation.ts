@@ -6,16 +6,17 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const AMBCHValidation = (data: FormData) => {
   const ageGroups = ["Ages 19 to 50", "Ages 51 to 64", "Total (Ages 19 to 64)"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
-  const whyNotReporting = data["WhyAreYouNotReporting"];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const rateMultiplicationValue = 1000;
+  const whyNotReporting = data["WhyAreYouNotReporting"];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
@@ -39,7 +40,12 @@ const AMBCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateTotalNDR(performanceMeasureArray),
+    ...GV.validateTotalNDR(
+      performanceMeasureArray,
+      undefined,
+      undefined,
+      rateMultiplicationValue
+    ),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -49,6 +55,7 @@ const AMBCHValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
+      rateMultiplicationValue: rateMultiplicationValue,
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
