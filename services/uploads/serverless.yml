@@ -275,9 +275,10 @@ resources:
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
-        ServerSideEncryptionConfiguration:
-          - ServerSideEncryptionByDefault:
-              SSEAlgorithm: aws:kms
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: aws:kms
         BucketName: !Sub ${self:service.name}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
         CorsConfiguration: # Set the CORS policy
           CorsRules:
