@@ -166,6 +166,7 @@ jobs:
       fail-fast: false
       matrix:
         containers: [
+            ADDCH.spec.js,
             AMMAD.spec.js,
             AMRAD.spec.js,
             BCSAD.spec.js,

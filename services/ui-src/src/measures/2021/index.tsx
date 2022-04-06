@@ -2,7 +2,7 @@
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
 the key should be the measure id as a string (with '-XX' included) 
 */
-
+import { ADDCH } from "./ADDCH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
@@ -46,6 +46,7 @@ import { SAAAD } from "./SAAAD";
 import { SSDAD } from "./SSDAD";
 
 const twentyTwentyOneMeasures = {
+  "ADD-CH": ADDCH,
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
