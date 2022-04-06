@@ -1,8 +1,6 @@
 describe("Measure: CCW-CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
-    cy.deleteChildCoreSets();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CCW-CH");
   });
