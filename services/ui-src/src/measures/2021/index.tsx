@@ -11,12 +11,14 @@ import { CBPAD } from "./CBPAD";
 import { CCPAD } from "./CCPAD";
 import { CCSAD } from "./CCSAD";
 import { CCWAD } from "./CCWAD";
+import { CCWCH } from "./CCWCH";
 import { CDFAD } from "./CDFAD";
 import { CHLAD } from "./CHLAD";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
+import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
@@ -53,12 +55,14 @@ const twentyTwentyOneMeasures = {
   "CCP-AD": CCPAD,
   "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
+  "CCW-CH": CCWCH,
   "CDF-AD": CDFAD,
   "CHL-AD": CHLAD,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
+  "DEV-CH": DEVCH,
   "FUA-AD": FUAAD,
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,

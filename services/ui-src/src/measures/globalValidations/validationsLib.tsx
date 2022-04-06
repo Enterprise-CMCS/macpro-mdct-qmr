@@ -294,17 +294,20 @@ Default assumption is that this is run for Performance Measure unless specified.
 */
 export const validateTotalNDR = (
   performanceMeasureArray: PerformanceMeasure[][],
-  errorLocation = "Performance Measure",
-  categories?: string[]
+  errorLocation: string = "Performance Measure"
 ) => {
   let errorArray: any[] = [];
-
-  performanceMeasureArray.forEach((ndrSet, idx) => {
+  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
+  let denominatorSum: any = null;
+  performanceMeasureArray.forEach((ndrSet) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
-    let numeratorSum = 0;
-    let denominatorSum = 0;
     ndrSet.slice(0, -1).forEach((item: any) => {
-      if (item !== undefined && item !== null && !item["isTotal"]) {
+      if (
+        item !== undefined &&
+        item !== null &&
+        !item["isTotal"] &&
+        item.rate
+      ) {
         let x;
         if (!isNaN((x = parseFloat(item["numerator"])))) {
           numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
@@ -316,7 +319,7 @@ export const validateTotalNDR = (
     });
 
     let totalNDR: any = ndrSet[ndrSet.length - 1];
-    if (totalNDR?.denominator && totalNDR?.numerator) {
+    if (totalNDR) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
       let x;
       if (
@@ -326,9 +329,7 @@ export const validateTotalNDR = (
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${
-            (categories && categories[idx]) || totalNDR.label
-          } numerator field is not equal to the sum of other numerators.`,
+          errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
@@ -338,21 +339,9 @@ export const validateTotalNDR = (
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${
-            (categories && categories[idx]) || totalNDR.label
-          } denominator field is not equal to the sum of other denominators.`,
+          errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
         });
       }
-    } else if (numeratorSum && denominatorSum) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${
-          (categories &&
-            categories[idx] &&
-            `${categories[idx]} - ${totalNDR.label}`) ||
-          totalNDR.label
-        } must contain values if other fields are filled.`,
-      });
     }
   });
 

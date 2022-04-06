@@ -140,6 +140,7 @@ jobs:
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -176,6 +177,7 @@ jobs:
             CHLAD.spec.js,
             COBAD.spec.js,
             CPAAD.spec.js,
+            DEVCH.spec.js,
             FUAAD.spec.js,
             FUHAD.spec.js,
             FUMAD.spec.js,
@@ -257,6 +259,7 @@ jobs:
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -348,6 +351,7 @@ jobs:
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -446,6 +450,7 @@ jobs:
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -564,5 +569,6 @@ jobs:
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

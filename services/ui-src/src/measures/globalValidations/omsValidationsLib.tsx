@@ -1,4 +1,3 @@
-import * as DC from "dataConstants";
 import {
   OmsNodes as OMS,
   RateFields,
@@ -17,7 +16,7 @@ export type OmsValidationCallback = (data: {
   label: string[];
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
-  checkTotal?: boolean;
+  customTotalLabel?: string;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -28,7 +27,7 @@ interface OmsValidationProps {
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
-  checkTotal?: boolean;
+  customTotalLabel?: string;
 }
 export const omsValidations = ({
   categories,
@@ -37,7 +36,7 @@ export const omsValidations = ({
   locationDictionary,
   qualifiers,
   validationCallbacks,
-  checkTotal = true,
+  customTotalLabel,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -53,7 +52,7 @@ export const omsValidations = ({
       )
     );
   }
-  const cats = categories.length === 0 ? [DC.SINGLE_CATEGORY] : categories;
+  const cats = categories.length === 0 ? ["singleCategory"] : categories;
   return validateNDRs(
     data,
     validationCallbacks,
@@ -62,7 +61,7 @@ export const omsValidations = ({
     locationDictionary,
     checkIsFilled,
     isOPM,
-    checkTotal
+    customTotalLabel
   );
 };
 // @example
@@ -189,7 +188,7 @@ const validateNDRs = (
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,
-  checkTotal: boolean
+  customTotalLabel?: string
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -247,7 +246,7 @@ const validateNDRs = (
           label,
           locationDictionary,
           isOPM,
-          checkTotal,
+          customTotalLabel,
         })
       );
     }
@@ -356,7 +355,7 @@ export const validateAllDenomsAreTheSameCrossQualifier: OmsValidationCallback =
           denomArray.push(temp);
           locationArray.push(
             locationDictionary([
-              categories[0] === DC.SINGLE_CATEGORY ? qual : cat,
+              categories[0] === "singleCategory" ? qual : cat,
             ])
           );
         }
@@ -492,79 +491,104 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   label,
   locationDictionary,
   isOPM,
+  customTotalLabel,
 }) => {
   if (isOPM) return [];
 
   const error: FormError[] = [];
-  const isSingleCat = categories[0] === DC.SINGLE_CATEGORY;
-  const totalQual = qualifiers.slice(-1)[0];
+  const ndrSets = [];
 
-  // scoped helper function for total calculation/comparison
-  const validateTotal = (ndrs: RateFields[], category: string) => {
-    // make sure at least one regular field and total field
-    if (ndrs.length < 2) return;
+  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
+  let denominatorSum: any = null;
 
-    const totalNDR = ndrs.pop();
-    let numeratorSum = 0;
-    let denominatorSum = 0;
-    const extraCatDetail = isSingleCat
-      ? ""
-      : ` - ${locationDictionary([category])}`;
-    const extraLocationInfo = ` - ${totalQual}` + extraCatDetail;
+  for (const qual of qualifiers.map((s) => cleanString(s))) {
+    for (const cat of categories.map((s) => cleanString(s))) {
+      ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
+    }
+  }
 
-    ndrs.forEach((set) => {
-      if (set?.denominator && set?.numerator && set?.rate) {
-        numeratorSum += parseFloat(set.numerator);
-        denominatorSum += parseFloat(set.denominator);
-      }
-    });
+  // The last NDR set is the total
+  const totalNDR = ndrSets.pop();
 
-    if (totalNDR?.numerator && totalNDR?.denominator) {
-      const parsedNum = parseFloat(totalNDR.numerator);
-      const parsedDen = parseFloat(totalNDR.denominator);
+  // Calculate numerator and denominator totals
+  ndrSets.forEach((set) => {
+    if (set && set.denominator && set.numerator && set.rate) {
+      numeratorSum += parseFloat(set.numerator);
+      denominatorSum += parseFloat(set.denominator);
+    }
+  });
 
-      // Numerators don't match
-      if (!isNaN(parsedNum) && parsedNum !== numeratorSum) {
-        error.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            label
-          )}${extraLocationInfo}`,
-          errorMessage:
-            "Total numerator field is not equal to the sum of other numerators.",
-        });
-      }
+  /*
+  Display validation errors if the user is not using Other Performance Measures
+  and if the actual totals of numerators or denominators don't match what's in
+  the total numerator/denominator fields.
 
-      // Denominators don't match
-      if (!isNaN(parsedDen) && parsedDen !== denominatorSum) {
-        error.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            label
-          )}${extraLocationInfo}`,
-          errorMessage:
-            "Total denominator field is not equal to the sum of other denominators.",
-        });
-      }
-    } else if (numeratorSum && denominatorSum) {
-      // total values have been emptied
+  (In the case of Other Performance Measures, we don't display a total
+  numerator/denominator/rate set, so validating it is unnecessary.)
+  */
+  if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
+    let x;
+    if (
+      (x = parseFloat(totalNDR.numerator)) !== parseFloat(numeratorSum) &&
+      numeratorSum !== null &&
+      !isNaN(x)
+    ) {
       error.push({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
-        )}${extraLocationInfo}`,
-        errorMessage:
-          "Total field must contain values if other fields are filled.",
+        )}`,
+        errorMessage: ` ${customTotalLabel ? `${customTotalLabel} ` : ""}
+       Total numerator field is not equal to the sum of other numerators.`,
       });
     }
-  };
-
-  // check all total sets
-  for (const cat of categories.map((s) => cleanString(s))) {
-    const ndrSets: RateFields[] = [];
-    for (const qual of qualifiers.map((s) => cleanString(s))) {
-      if (rateData?.rates?.[qual]?.[cat]?.[0])
-        ndrSets.push(rateData.rates[qual][cat][0]);
+    if (
+      (x = parseFloat(totalNDR.denominator)) !== parseFloat(denominatorSum) &&
+      denominatorSum !== null &&
+      !isNaN(x)
+    ) {
+      error.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+        errorMessage: `${
+          customTotalLabel ? `${customTotalLabel} ` : ""
+        }Total denominator field is not equal to the sum of other denominators.`,
+      });
     }
-    validateTotal(ndrSets, cat);
   }
 
   return error;
 };
+
+export const validateOneQualifierRateLessThanTheOther: OmsValidationCallback =
+  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
+    if (isOPM) return [];
+    const rateArr: RateFields[] = [];
+    const errors: FormError[] = [];
+    const isRateLessThanOther = (rateArr: RateFields[]) => {
+      if (rateArr.length !== 2) return true;
+      const compareValue = rateArr[0].rate ?? "";
+      return parseFloat(rateArr[1].rate ?? "") <= parseFloat(compareValue);
+    };
+    for (const qual of qualifiers) {
+      const cleanQual = cleanString(qual);
+      for (const cat of categories.map((s) => cleanString(s))) {
+        if (rateData.rates?.[cleanQual]?.[cat]) {
+          const temp = rateData.rates[cleanQual][cat][0];
+          if (temp && temp.rate) {
+            rateArr.push(temp);
+          }
+        }
+      }
+    }
+
+    if (!isRateLessThanOther(rateArr)) {
+      errors.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+        errorMessage: `${qualifiers[1]} rate should not be higher than ${qualifiers[0]} Rates.`,
+      });
+    }
+    return errors;
+  };
