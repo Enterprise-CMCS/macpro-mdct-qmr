@@ -68,6 +68,10 @@ resources:
     S3Bucket:
       Type: AWS::S3::Bucket
       Properties:
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
@@ -83,6 +87,9 @@ resources:
               Resource: !Sub arn:aws:s3:::${S3Bucket}/*
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+              Condition:
+                Bool:
+                  "aws:SecureTransport": true
         Bucket: !Ref S3Bucket
     CloudFrontWebAcl:
       Type: AWS::WAFv2::WebACL
@@ -193,6 +200,10 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: !Sub ${AWS::AccountId}-${self:service}-${self:custom.stage}-waflogs
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
     Firehose:
       Type: AWS::KinesisFirehose::DeliveryStream
       Properties:
