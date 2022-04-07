@@ -162,11 +162,18 @@ resources:
       Type: "AWS::ApiGateway::ClientCertificate"
       Properties:
         Description: "Client certificate"
+    DeploymentGateway:
+      Type: AWS::ApiGateway::Deployment
+      Properties:
+        Description: "Testing"
+        RestApiId: !Ref ApiGatewayRestApi
+        StageDescription: "Testing"
+        StageName: ${self:custom.stage}
     GatewayStage:
       Type: AWS::ApiGateway::Stage
       Properties:
         ClientCertificateId: !GetAtt GatewayClientCertificate.ClientCertificateId
-        DeploymentId: "TestDeployment"
+        DeploymentId: !GetAtt DeploymentGateway.DeploymentId
         RestApiId: !Ref ApiGatewayRestApi
         StageName: ${self:custom.stage}-testing
     GatewayResponseDefault4XX:
