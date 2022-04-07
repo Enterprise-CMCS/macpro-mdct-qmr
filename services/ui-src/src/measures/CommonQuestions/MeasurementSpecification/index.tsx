@@ -47,6 +47,8 @@ interface Props {
     | "HRSA"
     | "JOINT"
     | "NCQA"
+    | "OHSU"
+    | "HRSA"
     | "OPA"
     | "PQA";
 }
@@ -79,6 +81,10 @@ const specifications = {
   HRSA: {
     displayValue: "Health Resources and Services Administration (HRSA)",
     value: DC.HRSA,
+  },
+  OHSU: {
+    displayValue: "Oregon Health and Science University (OHSU)",
+    value: "OHSU",
   },
   JOINT: {
     displayValue: "The Joint Commission",
