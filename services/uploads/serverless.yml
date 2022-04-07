@@ -72,7 +72,6 @@ functions:
     environment:
       coreSetTableName: ${self:custom.coreSetTableName}
       measureTableName: ${self:custom.measureTableName}
-      uploadS3BucketName: !Ref AttachmentsBucket
       dynamoSnapshotS3BucketName: !Ref DynamoSnapshotBucket
   avScan:
     handler: src/antivirus.lambdaHandleEvent
