@@ -1,4 +1,5 @@
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import {
   atLeastOneRateComplete,
   validateNumeratorsLessThanDenominators,
