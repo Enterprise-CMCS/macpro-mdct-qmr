@@ -158,10 +158,14 @@ functions:
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
 resources:
   Resources:
-    TestClientCertificate:
+    GatewayClientCertificate:
       Type: "AWS::ApiGateway::ClientCertificate"
       Properties:
         Description: "Client certificate"
+    CertificateDomainName:
+      Type: AWS::ApiGateway::DomainName
+      Properties:
+        CertificateArn: !GetAtt GatewayClientCertificate.Arn
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
       Properties:
