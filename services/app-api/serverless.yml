@@ -166,7 +166,6 @@ resources:
       Type: "AWS::ApiGateway::DomainName"
       DependsOn: GatewayClientCertificate
       Properties:
-        DomainName: "bfa1u5f7q8.execute-api.us-east-1.amazonaws.com"
         CertificateArn: !Ref GatewayClientCertificate
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
