@@ -16,9 +16,12 @@ export type OmsValidationCallback = (data: {
   label: string[];
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
+  customTotalLabel?: string;
+  rateMultiplicationValue?: number;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
+
 interface OmsValidationProps {
   data: DefaultFormData;
   qualifiers: string[];
@@ -26,6 +29,8 @@ interface OmsValidationProps {
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
+  customTotalLabel?: string;
+  rateMultiplicationValue?: number;
 }
 export const omsValidations = ({
   categories,
@@ -34,6 +39,8 @@ export const omsValidations = ({
   locationDictionary,
   qualifiers,
   validationCallbacks,
+  customTotalLabel,
+  rateMultiplicationValue,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -57,7 +64,9 @@ export const omsValidations = ({
     opmQuals.length ? opmCats : cats,
     locationDictionary,
     checkIsFilled,
-    isOPM
+    isOPM,
+    customTotalLabel,
+    rateMultiplicationValue
   );
 };
 // @example
@@ -183,7 +192,9 @@ const validateNDRs = (
   categories: string[],
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
-  isOPM: boolean
+  isOPM: boolean,
+  customTotalLabel?: string,
+  rateMultiplicationValue?: number
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -241,6 +252,8 @@ const validateNDRs = (
           label,
           locationDictionary,
           isOPM,
+          customTotalLabel,
+          rateMultiplicationValue,
         })
       );
     }
@@ -485,6 +498,8 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   label,
   locationDictionary,
   isOPM,
+  customTotalLabel,
+  rateMultiplicationValue,
 }) => {
   if (isOPM) return [];
 
@@ -530,8 +545,8 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
         )}`,
-        errorMessage:
-          "Total numerator field is not equal to the sum of other numerators.",
+        errorMessage: ` ${customTotalLabel ? `${customTotalLabel} ` : ""}
+       Total numerator field is not equal to the sum of other numerators.`,
       });
     }
     if (
@@ -543,9 +558,33 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
         )}`,
-        errorMessage:
-          "Total denominator field is not equal to the sum of other denominators.",
+        errorMessage: `${
+          customTotalLabel ? `${customTotalLabel} ` : ""
+        }Total denominator field is not equal to the sum of other denominators.`,
       });
+    }
+    if (totalNDR.rate) {
+      const expectedRate = parseFloat(totalNDR.rate ?? "");
+      const currentRate = parseFloat(
+        (
+          Math.round(
+            (parseFloat(totalNDR.numerator) /
+              parseFloat(totalNDR.denominator)) *
+              (rateMultiplicationValue ?? 100) *
+              Math.pow(10, 1)
+          ) / Math.pow(10, 1)
+        ).toFixed(1)
+      );
+      if (!isNaN(expectedRate) && currentRate !== expectedRate) {
+        error.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            label
+          )}`,
+          errorMessage: `${
+            customTotalLabel ? `${customTotalLabel} ` : ""
+          }Total rate field is not equal is not equal to expected calculated rate.`,
+        });
+      }
     }
   }
 
