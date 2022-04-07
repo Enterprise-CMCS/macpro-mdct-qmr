@@ -18,6 +18,7 @@ export type OmsValidationCallback = (data: {
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
   rateMultiplicationValue?: number;
+  customTotalLabel?: string;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -29,6 +30,7 @@ interface OmsValidationProps {
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
   rateMultiplicationValue?: number;
+  customTotalLabel?: string;
 }
 export const omsValidations = ({
   categories,
@@ -38,6 +40,7 @@ export const omsValidations = ({
   qualifiers,
   validationCallbacks,
   rateMultiplicationValue,
+  customTotalLabel,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -62,7 +65,8 @@ export const omsValidations = ({
     locationDictionary,
     checkIsFilled,
     isOPM,
-    rateMultiplicationValue
+    rateMultiplicationValue,
+    customTotalLabel
   );
 };
 // @example
@@ -189,7 +193,8 @@ const validateNDRs = (
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,
-  rateMultiplicationValue?: number
+  rateMultiplicationValue?: number,
+  customTotalLabel?: string
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -248,6 +253,7 @@ const validateNDRs = (
           locationDictionary,
           isOPM,
           rateMultiplicationValue,
+          customTotalLabel,
         })
       );
     }
@@ -493,6 +499,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   locationDictionary,
   isOPM,
   rateMultiplicationValue,
+  customTotalLabel,
 }) => {
   if (isOPM) return [];
 
@@ -538,8 +545,8 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             label
           )}${extraCatDetail}`,
-          errorMessage:
-            "Total numerator field is not equal to the sum of other numerators.",
+          errorMessage: ` ${customTotalLabel ? `${customTotalLabel} ` : ""}
+       Total numerator field is not equal to the sum of other numerators.`,
         });
       }
 
@@ -549,8 +556,9 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             label
           )}${extraCatDetail}`,
-          errorMessage:
-            "Total denominator field is not equal to the sum of other denominators.",
+          errorMessage: `${
+            customTotalLabel ? `${customTotalLabel} ` : ""
+          }Total denominator field is not equal to the sum of other denominators.`,
         });
       }
 
@@ -619,5 +627,50 @@ export const validateOneQualifierRateLessThanTheOther: OmsValidationCallback =
         errorMessage: `${qualifiers[1]} rate should not be higher than ${qualifiers[0]} Rates.`,
       });
     }
+    return errors;
+  };
+
+export const validateOneQualifierDenomLessThanTheOther: OmsValidationCallback =
+  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
+    if (isOPM) return [];
+
+    const rateArr: RateFields[] = [];
+
+    const errors: FormError[] = [];
+
+    const isRateLessThanOther = (rateArr: RateFields[]) => {
+      if (rateArr.length !== 2) return true;
+
+      const compareValue = rateArr[0].denominator ?? "";
+
+      return (
+        parseFloat(rateArr[1].denominator ?? "") <= parseFloat(compareValue)
+      );
+    };
+
+    for (const qual of qualifiers) {
+      const cleanQual = cleanString(qual);
+
+      for (const cat of categories.map((s) => cleanString(s))) {
+        if (rateData.rates?.[cleanQual]?.[cat]) {
+          const temp = rateData.rates[cleanQual][cat][0];
+
+          if (temp && temp.rate) {
+            rateArr.push(temp);
+          }
+        }
+      }
+    }
+
+    if (!isRateLessThanOther(rateArr)) {
+      errors.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+
+        errorMessage: `${qualifiers[1]} denominator must be less than or equal to ${qualifiers[0]} denominator.`,
+      });
+    }
+
     return errors;
   };

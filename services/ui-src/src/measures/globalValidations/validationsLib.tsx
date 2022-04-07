@@ -305,7 +305,12 @@ export const validateTotalNDR = (
     let numeratorSum = 0;
     let denominatorSum = 0;
     ndrSet.slice(0, -1).forEach((item: any) => {
-      if (item !== undefined && item !== null && !item["isTotal"]) {
+      if (
+        item !== undefined &&
+        item !== null &&
+        !item["isTotal"] &&
+        item.rate
+      ) {
         let x;
         if (!isNaN((x = parseFloat(item["numerator"])))) {
           numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
