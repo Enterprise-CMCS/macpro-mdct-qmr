@@ -127,14 +127,14 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Get Test Users
-        run: |
-          pushd services
-          export CYPRESS_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
-          export CYPRESS_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
-          export CYPRESS_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
-          export CYPRESS_PASSWORD_1=`./output.sh ui TestPasswordOne $STAGE_PREFIX$branch_name`
-          popd
+      # - name: Get Test Users
+      #   run: |
+      #     pushd services
+      #     export CYPRESS_USER_1=`./output.sh ui TestUserOne $STAGE_PREFIX$branch_name`
+      #     export CYPRESS_USER_2=`./output.sh ui TestUserTwo $STAGE_PREFIX$branch_name`
+      #     export CYPRESS_USER_3=`./output.sh ui TestUserThree $STAGE_PREFIX$branch_name`
+      #     export CYPRESS_PASSWORD_1=`./output.sh ui TestPasswordOne $STAGE_PREFIX$branch_name`
+      #     popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -145,11 +145,11 @@ jobs:
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
           env: true
-        # env:
-        #   CYPRESS_USER_1: ${{ env.CYPRESS_USER_1 }}
-        #   CYPRESS_USER_2: ${{ env.CYPRESS_USER_2 }}
-        #   CYPRESS_USER_3: ${{ env.CYPRESS_USER_3 }}
-        #   CYPRESS_PASSWORD_1: ${{ env.CYPRESS_PASSWORD_1 }}
+        env:
+          CYPRESS_USER_1: ${{ secrets.CYPRESS_USER_1 }}
+          CYPRESS_USER_2: ${{ secrets.CYPRESS_USER_2 }}
+          CYPRESS_USER_3: ${{ secrets.CYPRESS_USER_3 }}
+          CYPRESS_PASSWORD_1: ${{ secrets.CYPRESS_PASSWORD_1 }}
         # env:
         #   CYPRESS_USER_1: stateuser1@test.com
         #   CYPRESS_USER_2: stateuser2@test.com
