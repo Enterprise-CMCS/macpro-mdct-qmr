@@ -19,9 +19,6 @@
     "cypress-image-snapshot": "^4.0.1",
     "cypress-xpath": "^1.6.2"
   },
-  "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": true
-  },
   "dependencies": {
     "cypress-tags": "^0.3.0",
     "cypress-wait-until": "^1.7.2"
