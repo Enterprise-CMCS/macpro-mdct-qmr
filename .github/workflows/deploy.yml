@@ -198,7 +198,7 @@ jobs:
             PQI05AD.spec.js,
             PQI08AD.spec.js,
             PQI15AD.spec.js,
-            QUALIFIERS_adult.spec.feature,
+            QUALIFIERS_adult.spec.js,
             SAAAD.spec.js,
             SSDAD.spec.js,
           ]
