@@ -162,11 +162,11 @@ resources:
       Type: "AWS::ApiGateway::ClientCertificate"
       Properties:
         Description: "Client certificate"
-        DomainName: !Sub ${ApiGatewayRestApi}.execute-api.${self:provider.region}.amazonaws.com/${self:custom.stage}
     CertificateDomainName:
       Type: "AWS::ApiGateway::DomainName"
       DependsOn: GatewayClientCertificate
       Properties:
+        DomainName: !Sub ${ApiGatewayRestApi}.execute-api.${self:provider.region}.amazonaws.com/${self:custom.stage}
         CertificateArn: !Ref GatewayClientCertificate
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
