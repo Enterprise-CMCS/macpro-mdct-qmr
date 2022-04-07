@@ -4,7 +4,12 @@ import {
   validateNumeratorsLessThanDenominators,
   validateEqualDenominators,
   validateReasonForNotReporting,
+  validateNoNonZeroNumOrDenom,
+  validateRequiredRadioButtonForCombinedRates,
+  ensureBothDatesCompletedInRange,
   omsLocationDictionary,
+  validateAtLeastOneNDRInDeviationOfMeasureSpec,
+  getDeviationNDRArray
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
@@ -56,6 +61,13 @@ const SFMCHValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
+  const dateRange = data["DateRange"];
+  const deviationArray = getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
   if (data["DidReport"] === "no") {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
@@ -84,6 +96,15 @@ const SFMCHValidation = (data: FormData) => {
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateOneSealantGreaterThanFourMolarsSealed(data),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateRequiredRadioButtonForCombinedRates(data),
+    ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
