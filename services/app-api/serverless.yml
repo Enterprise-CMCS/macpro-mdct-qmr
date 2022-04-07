@@ -166,7 +166,7 @@ resources:
       Type: "AWS::ApiGateway::DomainName"
       DependsOn: GatewayClientCertificate
       Properties:
-        CertificateArn: !GetAtt GatewayClientCertificate.Arn
+        CertificateArn: !Ref GatewayClientCertificate
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
       Properties:
