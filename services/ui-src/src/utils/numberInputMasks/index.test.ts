@@ -13,21 +13,24 @@ describe("Testing new regex defaults", () => {
   test("Testing custom generated RegEx: xNumbersYDecimals", () => {
     const testCases = [
       // [firstParam, secondParam, testString, expectedResult]
-      // Base case 3 numbers, 1 decimal place
+      // Base case: 10^2, 1 decimal place
       [undefined, undefined, "", true],
-      [undefined, undefined, "123.1", true],
-      [undefined, undefined, "123", true],
+      [undefined, undefined, "100", true], // max number
+      [undefined, undefined, "99.9", true], // max decimal
       [undefined, undefined, ".1", true],
+      [undefined, undefined, "123", false],
+      [undefined, undefined, "1234", false],
+      [undefined, undefined, "123.1", false],
+      [undefined, undefined, "99.99", false],
       [undefined, undefined, ".12", false],
       [undefined, undefined, "1.12", false],
       [undefined, undefined, "1234.1", false],
-      [undefined, undefined, "1234", false],
-      // 5 numbers, 5 decimals
+
+      // 10^5, 5 decimals
       [5, 5, "", true],
+      [5, 5, "100000", true],
       [5, 5, "12345.12345", true],
-      [5, 5, "1234.1234", true],
-      [5, 5, ".12345", true],
-      [5, 5, "12345", true],
+      [5, 5, ".99999", true],
       [5, 5, ".123456", false],
       [5, 5, "1.123456", false],
       [5, 5, "123456", false],

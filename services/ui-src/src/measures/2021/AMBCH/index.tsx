@@ -20,7 +20,7 @@ export const AMBCH = ({
 }: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const data = watch();
-  const mask = xNumbersYDecimals(4, 1);
+  let mask: RegExp = xNumbersYDecimals(3, 1);
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const rateScale = 1000;
 
