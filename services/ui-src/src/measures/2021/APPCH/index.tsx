@@ -41,7 +41,7 @@ export const APPCH = ({
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
-          <CMQ.DateRange type="adult" />
+          <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
