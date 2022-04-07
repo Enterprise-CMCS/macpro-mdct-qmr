@@ -168,7 +168,7 @@ resources:
         ClientCertificateId: !GetAtt GatewayClientCertificate.ClientCertificateId
         DeploymentId: "TestDeployment"
         RestApiId: !Ref ApiGatewayRestApi
-        StageName: ${self:custom.stage}
+        StageName: ${self:custom.stage}-testing
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
       Properties:
