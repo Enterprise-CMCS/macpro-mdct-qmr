@@ -1,5 +1,11 @@
 type MeasureList = "OHD-AD";
 declare namespace Cypress {
+  interface Cypress {
+    env(key: "TEST_USER_1"): string;
+    env(key: "TEST_USER_2"): string;
+    env(key: "TEST_USER_3"): string;
+    env(key: "TEST_PASSWORD_1"): string;
+  }
   interface Chainable {
     // the default stateuser1 is used to login but can also be changed
     // by passing in a user (not including the @test.com) ex. cy.login('bouser')
