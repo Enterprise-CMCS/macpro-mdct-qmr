@@ -9,7 +9,7 @@ import {
   ensureBothDatesCompletedInRange,
   omsLocationDictionary,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  getDeviationNDRArray
+  getDeviationNDRArray,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
