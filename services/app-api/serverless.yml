@@ -16,8 +16,12 @@ plugins:
   - serverless-idempotency-helper
   - serverless-iam-helper
   - serverless-s3-bucket-helper
+  - serverless-api-client-certificate
 
 custom:
+  serverlessApiClientCertificate:
+    rotateCerts: true
+    daysLeft: 30
   serverlessPluginTypescript:
     tsConfigFileLocation: "./tsconfig.json"
   stage: ${opt:stage, self:provider.stage}
@@ -158,17 +162,6 @@ functions:
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
 resources:
   Resources:
-    GatewayClientCertificate:
-      Type: "AWS::ApiGateway::ClientCertificate"
-      Properties:
-        Description: "Client certificate"
-    GatewayStage:
-      Type: AWS::ApiGateway::Stage
-      Properties:
-        ClientCertificateId: !GetAtt GatewayClientCertificate.ClientCertificateId
-        DeploymentId: "TestDeployment"
-        RestApiId: !Ref ApiGatewayRestApi
-        StageName: ${self:custom.stage}-testing
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
       Properties:
