@@ -113,7 +113,7 @@ describe("Measure: ARM-AD", () => {
     cy.showErrorIfCombinedRatesAndNoAdditionalSelection
   );
 
-  it("does not calculate total rate if any numerator is greater than its denominator", () => {
+  it("does calculate total rate if any numerator is greater than its denominator", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -132,7 +132,7 @@ describe("Measure: ARM-AD", () => {
     ).type("55");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.rate"]').should(
       "have.value",
-      ""
+      "50.0"
     );
   });
 

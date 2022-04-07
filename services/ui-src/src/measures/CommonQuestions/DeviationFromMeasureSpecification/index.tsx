@@ -6,6 +6,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 
 interface GetTopLvlDeviationOptions {
   categories: string[];
+  customTotalLabel?: string;
 }
 
 type TopLevelOptions = {
@@ -16,6 +17,7 @@ type TopLevelOptions = {
 
 interface Props {
   categories: string[];
+  customTotalLabel?: string;
   measureName?: string;
 }
 
@@ -111,6 +113,7 @@ export const PCRADgetLowLvlDeviationOptions = ({
 export const DeviationFromMeasureSpec = ({
   categories,
   measureName,
+  customTotalLabel,
 }: Props) => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
   const watchPerformanceMeasure = useWatch({
@@ -119,6 +122,7 @@ export const DeviationFromMeasureSpec = ({
 
   const getTopLvlDeviationOptions = ({
     categories,
+    customTotalLabel,
   }: GetTopLvlDeviationOptions) => {
     if (watchPerformanceMeasure?.rates) {
       const topLvlOptions: TopLevelOptions = [];
@@ -137,7 +141,9 @@ export const DeviationFromMeasureSpec = ({
           (cat: any) => cat.isTotal === true
         );
         if (totalIndex >= 0) {
-          rates.singleCategory[totalIndex].label = "Total";
+          rates.singleCategory[totalIndex].label = `${
+            customTotalLabel ? `${customTotalLabel} ` : ""
+          }Total`;
         }
 
         /* This is checking if the rates object has a singleCategory key.
@@ -147,14 +153,14 @@ export const DeviationFromMeasureSpec = ({
           name: DC.DEVIATIONS,
         });
       } else {
-        Object.keys(rates).forEach((key) => {
+        categories.forEach((cat) => {
+          const key = cat.replace(/[^\w]/g, "");
           // if some of the rates have both num and den
           if (rates[key]?.some(numDenExistInRate)) {
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
               rates: rates[key]?.filter(numDenExistInRate),
-              displayValue:
-                categories.find((cat) => cleanString(cat) === key) || "",
+              displayValue: cat,
               key,
             });
           }
@@ -205,6 +211,7 @@ export const DeviationFromMeasureSpec = ({
                 label="Select and explain the deviation(s):"
                 options={getTopLvlDeviationOptions({
                   categories,
+                  customTotalLabel,
                 })}
               />,
             ],
