@@ -299,11 +299,15 @@ export const validateTotalNDR = (
   let errorArray: any[] = [];
   let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
   let denominatorSum: any = null;
-
   performanceMeasureArray.forEach((ndrSet) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
     ndrSet.slice(0, -1).forEach((item: any) => {
-      if (item !== undefined && item !== null && !item["isTotal"]) {
+      if (
+        item !== undefined &&
+        item !== null &&
+        !item["isTotal"] &&
+        item.rate
+      ) {
         let x;
         if (!isNaN((x = parseFloat(item["numerator"])))) {
           numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
