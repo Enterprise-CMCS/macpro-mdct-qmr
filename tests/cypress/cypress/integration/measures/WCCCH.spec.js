@@ -1,11 +1,9 @@
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-describe("Measure: PQI01-AD", () => {
+describe("Measure: WCC-CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
-    cy.deleteChildCoreSets();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("WCC-CH");
   });
