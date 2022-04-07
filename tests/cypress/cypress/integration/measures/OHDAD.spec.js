@@ -57,12 +57,6 @@ describe("Measure: OHD-AD", () => {
       "have.text",
       "Denominator includes Medicare and Medicaid Dually-Eligible population"
     );
-    cy.get(
-      '[data-cy="Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system."]'
-    ).should(
-      "have.text",
-      "Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system."
-    );
     cy.get(".css-n21gh5 > .chakra-text").should(
       "have.text",
       "The percentage of beneficiaries age 18 and older who received prescriptions for opioids with an average daily dosage greater than or equal to 90 morphine milligram equivalents (MME) over a period of 90 days or more. Beneficiaries with a cancer diagnosis, sickle cell disease diagnosis, or in hospice are excluded."
