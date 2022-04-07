@@ -26,12 +26,12 @@ Cypress.Commands.add(
     user = "stateuser3" // pragma: allowlist secret
   ) => {
     const users = {
-      stateuser3: Cypress.env("CYPRESS_USER_3"),
-      stateuser2: Cypress.env("CYPRESS_USER_2"),
+      stateuser3: Cypress.env("USER_3"),
+      stateuser2: Cypress.env("USER_2"),
     };
     cy.visit("/");
     cy.xpath(emailForCognito).type(`${users[user]}`);
-    cy.xpath(passwordForCognito).type(Cypress.env("CYPRESS_PASSWORD_1"));
+    cy.xpath(passwordForCognito).type(Cypress.env("PASSWORD_1"));
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
