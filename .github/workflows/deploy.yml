@@ -136,6 +136,7 @@ jobs:
             oy2_9910_PCR_AD.spec.js,
             saa-ad.spec.js,
             ssd-ad.spec.js,
+            oy2_9922_AUD_CH.spec.js,
           ]
     steps:
       - name: set branch_name
