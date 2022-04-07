@@ -293,7 +293,7 @@ jobs:
             CPCCH.spec.js,
             FUHCH.spec.js,
             QUALIFIERS_child.spec.js,
-            oy2_9923_CHL_CH.spec.js,
+            CHLCH.spec.js,
           ]
     steps:
       - name: set branch_name
