@@ -162,11 +162,13 @@ resources:
       Type: "AWS::ApiGateway::ClientCertificate"
       Properties:
         Description: "Client certificate"
-    CertificateDomainName:
-      Type: "AWS::ApiGateway::DomainName"
-      DependsOn: GatewayClientCertificate
+    GatewayStage:
+      Type: AWS::ApiGateway::Stage
       Properties:
-        CertificateArn: !Ref GatewayClientCertificate
+        ClientCertificateId: !GetAtt GatewayClientCertificate.ClientCertificateId
+        DeploymentId: "TestDeployment"
+        RestApiId: !Ref ApiGatewayRestApi
+        StageName: ${self:custom.stage}
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
       Properties:
