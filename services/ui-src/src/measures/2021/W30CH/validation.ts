@@ -23,7 +23,7 @@ import {
 } from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const SFMCHValidation = (data: FormData) => {
+const W30CHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
@@ -99,4 +99,4 @@ const SFMCHValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [SFMCHValidation];
+export const validationFunctions = [W30CHValidation];
