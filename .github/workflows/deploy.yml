@@ -389,12 +389,12 @@ jobs:
             combined_rates_validation_warnings.spec.js,
             date_range_adjustment.spec.js,
             FAQ.spec.js,
-            logo.spec.feature,
-            measure_validation_error_creation_updates.spec.feature,
+            logo.spec.js,
+            measure_validation_error_creation_updates.spec.js,
             NDR_validation_updates.spec.js,
             reporting_in_FY21_tag_for_alt_data_sources.spec.js,
             restructuring_data_source_text_boxes.spec.js,
-            update_user_auth_handling_in_ui.spec.feature,
+            update_user_auth_handling_in_ui.spec.js,
           ]
     steps:
       - name: set branch_name
