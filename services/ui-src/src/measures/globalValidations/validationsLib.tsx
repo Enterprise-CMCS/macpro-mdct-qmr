@@ -302,8 +302,8 @@ export const validateTotalNDR = (
 
   performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
-    let numeratorSum = 0;
-    let denominatorSum = 0;
+    let numeratorSum: any = null;
+    let denominatorSum: any = null;
     ndrSet.slice(0, -1).forEach((item: any) => {
       if (
         item !== undefined &&
