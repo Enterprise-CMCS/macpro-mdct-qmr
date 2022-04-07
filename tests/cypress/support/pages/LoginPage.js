@@ -1,4 +1,3 @@
-import testConfig from "../../test-config.js";
 const usernameInput = "input#okta-signin-username";
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
@@ -11,15 +10,15 @@ const goToStateHomeBTN = "//button[contains(text(),'Go To State Home')]";
 export class LoginPage {
   enterUserName() {
     //cy.get(usernameInput).type("State_QMR2");
-    cy.get(usernameInput).type(testConfig.TEST_USER_3);
+    cy.get(usernameInput).type(Cypress.env("TEST_USER_3"));
   }
 
   enterEmailwithCognitoLogin() {
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_3);
+    cy.xpath(emailForCognito).type(Cypress.env("TEST_USER_3"));
   }
 
   enterPasswordwithCognitoLogin() {
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
+    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
   }
 
   clickLoginWithCognitoButtn() {
@@ -27,11 +26,11 @@ export class LoginPage {
   }
 
   enterEmailwithCognitoLogin() {
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_2);
+    cy.xpath(emailForCognito).type(Cypress.env("TEST_USER_2"));
   }
 
   enterPasswordwithCognitoLogin() {
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
+    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
   }
 
   clickLoginWithCognitoButtn() {
@@ -39,7 +38,7 @@ export class LoginPage {
   }
 
   enterPassword() {
-    cy.get(passwordInput).type(testConfig.TEST_PASSWORD_1);
+    cy.get(passwordInput).type(Cypress.env("TEST_PASSWORD_1"));
   }
 
   //old credentials
@@ -55,27 +54,27 @@ export class LoginPage {
   }
 
   loginasAStateUser() {
-    cy.get(usernameInput).type(testConfig.TEST_USER_2);
-    cy.get(passwordInput).type(testConfig.TEST_PASSWORD_1);
+    cy.get(usernameInput).type(Cypress.env("TEST_USER_2"));
+    cy.get(passwordInput).type(Cypress.env("TEST_PASSWORD_1"));
     cy.get(agreeTermCondition).click();
     cy.get(signInBttn).click();
   }
 
   loginasAStateUserWithCognito() {
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_3);
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
+    cy.xpath(emailForCognito).type(Cypress.env("TEST_USER_3"));
+    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.xpath(loginWithCognitoButtn).click();
   }
 
   loginasAStateUserTwoWithCognito() {
-    cy.xpath(emailForCognito).type(testConfig.TEST_USER_2);
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
+    cy.xpath(emailForCognito).type(Cypress.env("TEST_USER_2"));
+    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.xpath(loginWithCognitoButtn).click();
   }
 
   loginasApproverCognito() {
     cy.xpath(emailForCognito).type("adminuser@test.com");
-    cy.xpath(passwordForCognito).type(testConfig.TEST_PASSWORD_1);
+    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.xpath(loginWithCognitoButtn).click();
   }
   clickGoToStateHome() {
