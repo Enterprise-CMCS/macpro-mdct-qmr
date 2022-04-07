@@ -14,6 +14,29 @@ declare namespace Cypress {
     // Visit Adult Core Set Measures
     goToAdultMeasures(): Chainable<Element>;
 
+    // inject Axe
+    injectAxe(): Chainable<Element>;
+
+    // Check A11y
+    checkA11y(
+      name: any,
+      options: any,
+      violations: any,
+      preventFailOnViolation: boolean
+    ): Chainable<Element>;
+
+    // Visit Child Core Set Measures
+    goToChildCoreSetMeasures(): Chainable<Element>;
+
+    // Match snapshot
+    matchImageSnapshot(name?: string): Chainable<Element>;
+
+    // Xpath selector
+    xpath(name: string): Chainable<Element>;
+
+    // Attach file method
+    attachFile(fileName: string, { subjectType: string });
+
     // Visit Measures based on abbr
     goToMeasure(measure: MeasureList | string): Chainable<Element>;
 
@@ -38,6 +61,9 @@ declare namespace Cypress {
 
     /** Validate measure needs to wait for the page reload before components are interactable */
     clickValidateMeasure(timeout?: number): Chainable<Element>;
+
+    /** Add combined child coreset */
+    addCombinedChildCoreset(): Chainable<Element>;
 
     // Helper function to enter a valid date range
     enterValidDateRange(): Chainable<Element>;
