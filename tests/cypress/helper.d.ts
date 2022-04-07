@@ -1,3 +1,6 @@
+/// <reference types="cypress-xpath" />
+/// <reference types="cypress-axe" />
+
 type MeasureList = "OHD-AD";
 declare namespace Cypress {
   // interface Cypress {
@@ -14,25 +17,11 @@ declare namespace Cypress {
     // Visit Adult Core Set Measures
     goToAdultMeasures(): Chainable<Element>;
 
-    // inject Axe
-    injectAxe(): Chainable<Element>;
-
-    // Check A11y
-    checkA11y(
-      name: any,
-      options: any,
-      violations: any,
-      preventFailOnViolation: boolean
-    ): Chainable<Element>;
-
     // Visit Child Core Set Measures
     goToChildCoreSetMeasures(): Chainable<Element>;
 
     // Match snapshot
     matchImageSnapshot(name?: string): Chainable<Element>;
-
-    // Xpath selector
-    xpath(name: string): Chainable<Element>;
 
     // Attach file method
     attachFile(fileName: string, { subjectType: string });
