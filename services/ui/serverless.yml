@@ -212,20 +212,20 @@ resources:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
-    WaflogsUploadBucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        Bucket: !Ref WaflogsUploadBucketPolicy
-        PolicyDocument:
-          Statement:
-            - Action:
-                - "s3:*"
-              Effect: Deny
-              Principal: "*"
-              Resource: !Sub ${WaflogsUploadBucket.Arn}/*
-              Condition:
-                Bool:
-                  "aws:SecureTransport": false
+    # WaflogsUploadBucketPolicy:
+    #   Type: AWS::S3::BucketPolicy
+    #   Properties:
+    #     Bucket: !Ref WaflogsUploadBucketPolicy
+    #     PolicyDocument:
+    #       Statement:
+    #         - Action:
+    #             - "s3:*"
+    #           Effect: Deny
+    #           Principal: "*"
+    #           Resource: !Sub ${WaflogsUploadBucket.Arn}/*
+    #           Condition:
+    #             Bool:
+    #               "aws:SecureTransport": false
     Firehose:
       Type: AWS::KinesisFirehose::DeliveryStream
       Properties:
