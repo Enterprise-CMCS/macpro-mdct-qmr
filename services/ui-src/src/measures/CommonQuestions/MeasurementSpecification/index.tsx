@@ -42,6 +42,7 @@ interface Props {
     | "ADA-DQA"
     | "AHRQ-NCQA"
     | "AHRQ"
+    | "CDC"
     | "CMS"
     | "HEDIS"
     | "HRSA"
@@ -67,6 +68,9 @@ const specifications = {
     displayValue:
       "American Dental Association/Dental Quality Alliance (ADA/DQA)",
     value: DC.ADA_DQA,
+  CDC: {
+    displayValue: "Centers for Disease Contol and Prevention (CDC)",
+    value: DC.CDC,
   },
   CMS: {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",

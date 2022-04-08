@@ -13,6 +13,7 @@ export const AHRQ_NCQA = "AHRQ-NCQA";
 export const AMOUNT_OF_POP_NOT_COVERED = "AmountOfPopulationNotCovered";
 export const BUDGET_CONSTRAINTS = "BudgetConstraints";
 export const CATEGORIES = "categories";
+export const CDC = "CDC";
 export const CHANGE_IN_POP_EXPLANATION = "ChangeInPopulationExplanation";
 export const CMS = "CMS";
 export const COMBINED_NOT_WEIGHTED_RATES = "Combined Not Weighted Rates";
