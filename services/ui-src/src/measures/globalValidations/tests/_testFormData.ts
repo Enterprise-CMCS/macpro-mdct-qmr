@@ -1,284 +1,343 @@
-/* Seed Data for validation tests*/
-export const testFormData = {
-  DidReport: "yes",
-  DataStatus: "ReportingFinalData",
-  MeasurementSpecification: "NCQA/HEDIS",
-  "MeasurementSpecification-HEDISVersion": "HEDIS MY 2020",
-  DataSource: ["AdministrativeData"],
-  DataSourceSelections: {
-    AdministrativeData0: {
-      selected: ["MedicaidManagementInformationSystemMMIS"],
-    },
+import * as DC from "dataConstants";
+import { DefaultFormData } from "measures/CommonQuestions/types";
+
+/* Seed Data for validation tests - Uses DefaultFormData to ensure that our data matches the shape of production data.*/
+export const testFormData: DefaultFormData = {
+  [DC.ADDITIONAL_NOTES]: "",
+  [DC.ADDITIONAL_NOTES_UPLOAD]: [],
+  [DC.DID_COLLECT]: "yes",
+  [DC.DATA_STATUS]: DC.REPORTING_FINAL_DATA,
+  [DC.DATA_STATUS_PROVISIONAL_EXPLAINATION]: "",
+
+  [DC.WHY_ARE_YOU_NOT_REPORTING]: [],
+
+  [DC.AMOUNT_OF_POP_NOT_COVERED]: DC.ENTIRE_POP_NOT_COVERED,
+
+  [DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION]: "",
+
+  [DC.WHY_IS_DATA_NOT_AVAILABLE]: [],
+  [DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER]: "",
+  [DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES]: "",
+  [DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE]: [],
+  [DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER]: "",
+  [DC.INFO_NOT_COLLECTED]: [],
+  [DC.INFO_NOT_COLLECTED_OTHER]: "",
+  [DC.LIMITATION_WITH_DATA_COLLECTION]: "",
+  [DC.SMALL_SAMPLE_SIZE]: "",
+  [DC.WHY_ARE_YOU_NOT_REPORTING_OTHER]: "",
+  [DC.DID_REPORT]: "yes",
+  [DC.COMBINED_RATES]: "yes",
+  [DC.COMBINED_RATES_COMBINED_RATES]: DC.COMBINED_NOT_WEIGHTED_RATES,
+  [DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION]: "",
+  [DC.DATE_RANGE]: {
+    [DC.END_DATE]: { [DC.SELECTED_MONTH]: 1, [DC.SELECTED_YEAR]: 2021 },
+    [DC.START_DATE]: { [DC.SELECTED_MONTH]: 12, [DC.SELECTED_YEAR]: 2021 },
   },
-  DateRange: {
-    startDate: {
-      selectedMonth: 1,
-      selectedYear: 2021,
-    },
-    endDate: {
-      selectedMonth: 12,
-      selectedYear: 2021,
-    },
-  },
-  DefinitionOfDenominator: [
-    "DenominatorIncMedicaidPop",
-    "DenominatorIncCHIP",
-    "DenominatorIncMedicareMedicaidDualEligible",
-    "DenominatorIncOther",
+  [DC.DEFINITION_OF_DENOMINATOR]: [
+    DC.DENOMINATOR_INC_MEDICAID_POP,
+    DC.DENOMINATOR_INC_CHIP,
+    DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+    DC.DENOMINATOR_INC_OTHER,
   ],
-  DenominatorDefineTotalTechSpec: "yes",
-  DeliverySysRepresentationDenominator: ["FFS", "PCCM", "MCO-PIHP", "ICM"],
-  "DeliverySys-FeeForService": "yes",
-  "DeliverySys-PrimaryCareManagement": "yes",
-  "DeliverySys-MCO_PIHP": "yes",
-  "DeliverySys-IntegratedCareModel": "yes",
-  PerformanceMeasure: {
-    rates: {
+  [DC.DEFINITION_DENOMINATOR_OTHER]: "",
+  [DC.CHANGE_IN_POP_EXPLANATION]: "",
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC]: "yes",
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]: "",
+  [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE]: "",
+  [DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR]: [
+    DC.FFS,
+    DC.PCCM,
+    DC.MCO_PIHP,
+    DC.ICM,
+  ],
+
+  [DC.HYBRID_MEASURE_POPULATION_INCLUDED]: "",
+  [DC.HYBRID_MEASURE_SAMPLE_SIZE]: "",
+  [DC.DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN]: "",
+  [DC.DELIVERY_SYS_FFS]: "yes",
+  [DC.DELIVERY_SYS_FFS_NO_PERCENT]: "",
+  [DC.DELIVERY_SYS_FFS_NO_POP]: "",
+  [DC.DELIVERY_SYS_PCCM]: "yes",
+  [DC.DELIVERY_SYS_PCCM_NO_PERCENT]: "",
+  [DC.DELIVERY_SYS_PCCM_NO_POP]: "",
+  [DC.DELIVERY_SYS_MCO_PIHP]: "yes",
+  [DC.DELIVERY_SYS_MCO_PIHP_PERCENT]: "",
+  [DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS]: "",
+  [DC.DELIVERY_SYS_MCO_PIHP_NO_INC]: "",
+  [DC.DELIVERY_SYS_MCO_PIHP_NO_EXCL]: "",
+  [DC.DELIVERY_SYS_ICM]: "yes",
+  [DC.DELIVERY_SYS_ICM_NO_PERCENT]: "",
+  [DC.DELIVERY_SYS_ICM_NO_POP]: "",
+  [DC.DELIVERY_SYS_OTHER]: "",
+  [DC.DELIVERY_SYS_OTHER_PERCENT]: "",
+  [DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS]: "",
+  [DC.DELIVERY_SYS_OTHER_POP]: "",
+
+  [DC.MEASUREMENT_SPECIFICATION]: DC.NCQA,
+
+  [DC.MEASUREMENT_SPECIFICATION_HEDIS]: DC.HEDIS_MY_2020,
+  [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION]: "",
+  [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD]: new File([], ""),
+  [DC.OPM_EXPLAINATION]: "",
+  [DC.OPM_RATES]: [
+    {
+      [DC.DESCRIPTION]: "Label 1",
+      [DC.RATE]: [
+        {
+          [DC.RATE]: "50.0",
+          [DC.NUMERATOR]: "1",
+          [DC.DENOMINATOR]: "2",
+        },
+      ],
+    },
+    {
+      [DC.DESCRIPTION]: "Label 2",
+      [DC.RATE]: [
+        {
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
+        },
+      ],
+    },
+  ],
+  [DC.OPM_NOTES]: "",
+  [DC.OPM_NOTES_TEXT_INPUT]: "",
+  [DC.OMS]: {
+    [DC.OPTIONS]: ["RaceNonHispanic"],
+    [DC.SELECTIONS]: {
+      RaceNonHispanic: {
+        [DC.OPTIONS]: ["White", "BlackorAfricanAmerican"],
+        [DC.SELECTIONS]: {
+          White: {
+            [DC.RATE_DATA]: {
+              [DC.OPTIONS]: ["Ages18to64", "Age65andolder"],
+              [DC.RATES]: {
+                Ages18to64: {
+                  InitiationofAODTreatmentAlcoholAbuseorDependence: [
+                    {
+                      [DC.LABEL]:
+                        "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
+                      [DC.RATE]: "25.0",
+                      [DC.NUMERATOR]: "1",
+                      [DC.DENOMINATOR]: "4",
+                    },
+                  ],
+                  EngagementofAODTreatmentAlcoholAbuseorDependence: [
+                    {
+                      [DC.LABEL]:
+                        "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
+                      [DC.RATE]: "25.0",
+                      [DC.NUMERATOR]: "1",
+                      [DC.DENOMINATOR]: "4",
+                    },
+                  ],
+                },
+                Age65andolder: {
+                  InitiationofAODTreatmentAlcoholAbuseorDependence: [
+                    {
+                      [DC.LABEL]:
+                        "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
+                      [DC.RATE]: "50.0",
+                      [DC.NUMERATOR]: "2",
+                      [DC.DENOMINATOR]: "4",
+                    },
+                  ],
+                  EngagementofAODTreatmentAlcoholAbuseorDependence: [
+                    {
+                      [DC.LABEL]:
+                        "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
+                      [DC.RATE]: "50.0",
+                      [DC.NUMERATOR]: "2",
+                      [DC.DENOMINATOR]: "4",
+                    },
+                  ],
+                },
+              },
+            },
+            [DC.SUB_CATS]: [],
+          },
+          BlackorAfricanAmerican: {
+            [DC.RATE_DATA]: {
+              [DC.OPTIONS]: ["Ages18to64", "Age65andolder"],
+              [DC.RATES]: {
+                Ages18to64: {
+                  InitiationofAODTreatmentAlcoholAbuseorDependence: [
+                    {
+                      [DC.LABEL]:
+                        "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
+                      [DC.RATE]: "33.3",
+                      [DC.NUMERATOR]: "2",
+                      [DC.DENOMINATOR]: "6",
+                    },
+                  ],
+                  EngagementofAODTreatmentAlcoholAbuseorDependence: [
+                    {
+                      [DC.LABEL]:
+                        "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
+                      [DC.RATE]: "33.3",
+                      [DC.NUMERATOR]: "2",
+                      [DC.DENOMINATOR]: "6",
+                    },
+                  ],
+                },
+                Age65andolder: {
+                  InitiationofAODTreatmentAlcoholAbuseorDependence: [
+                    {
+                      [DC.LABEL]:
+                        "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
+                      [DC.RATE]: "50.0",
+                      [DC.NUMERATOR]: "3",
+                      [DC.DENOMINATOR]: "6",
+                    },
+                  ],
+                  EngagementofAODTreatmentAlcoholAbuseorDependence: [
+                    {
+                      [DC.LABEL]:
+                        "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
+                      [DC.RATE]: "50.0",
+                      [DC.NUMERATOR]: "3",
+                      [DC.DENOMINATOR]: "6",
+                    },
+                  ],
+                },
+              },
+            },
+            [DC.SUB_CATS]: [],
+          },
+        },
+        [DC.ADDITIONAL_SELECTIONS]: [],
+      },
+    },
+  },
+  [DC.PERFORMANCE_MEASURE]: {
+    [DC.EXPLAINATION]: "",
+    [DC.RATES]: {
       InitiationofAODTreatmentAlcoholAbuseorDependence: [
         {
-          label: "Ages 18 to 64",
-          rate: "25.0",
-          numerator: "1",
-          denominator: "4",
+          [DC.LABEL]: "Ages 18 to 64",
+          [DC.RATE]: "25.0",
+          [DC.NUMERATOR]: "1",
+          [DC.DENOMINATOR]: "4",
         },
         {
-          label: "Age 65 and older",
-          rate: "25.0",
-          numerator: "1",
-          denominator: "4",
+          [DC.LABEL]: "Age 65 and older",
+          [DC.RATE]: "25.0",
+          [DC.NUMERATOR]: "1",
+          [DC.DENOMINATOR]: "4",
         },
       ],
       EngagementofAODTreatmentAlcoholAbuseorDependence: [
         {
-          label: "Ages 18 to 64",
-          rate: "50.0",
-          numerator: "2",
-          denominator: "4",
+          [DC.LABEL]: "Ages 18 to 64",
+          [DC.RATE]: "50.0",
+          [DC.NUMERATOR]: "2",
+          [DC.DENOMINATOR]: "4",
         },
         {
-          label: "Age 65 and older",
-          rate: "50.0",
-          numerator: "2",
-          denominator: "4",
+          [DC.LABEL]: "Age 65 and older",
+          [DC.RATE]: "50.0",
+          [DC.NUMERATOR]: "2",
+          [DC.DENOMINATOR]: "4",
         },
       ],
       InitiationofAODTreatmentOpioidAbuseorDependence: [
         {
-          label: "Ages 18 to 64",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Ages 18 to 64",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
         {
-          label: "Age 65 and older",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Age 65 and older",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
       ],
       EngagementofAODTreatmentOpioidAbuseorDependence: [
         {
-          label: "Ages 18 to 64",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Ages 18 to 64",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
         {
-          label: "Age 65 and older",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Age 65 and older",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
       ],
       InitiationofAODTreatmentOtherDrugAbuseorDependence: [
         {
-          label: "Ages 18 to 64",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Ages 18 to 64",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
         {
-          label: "Age 65 and older",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Age 65 and older",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
       ],
       EngagementofAODTreatmentOtherDrugAbuseorDependence: [
         {
-          label: "Ages 18 to 64",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Ages 18 to 64",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
         {
-          label: "Age 65 and older",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Age 65 and older",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
       ],
       InitiationofAODTreatmentTotalAODAbuseorDependence: [
         {
-          label: "Ages 18 to 64",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Ages 18 to 64",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
         {
-          label: "Age 65 and older",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Age 65 and older",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
       ],
       EngagementofAODTreatmentTotalAODAbuseorDependence: [
         {
-          label: "Ages 18 to 64",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Ages 18 to 64",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
         {
-          label: "Age 65 and older",
-          rate: "",
-          numerator: "",
-          denominator: "",
+          [DC.LABEL]: "Age 65 and older",
+          [DC.RATE]: "",
+          [DC.NUMERATOR]: "",
+          [DC.DENOMINATOR]: "",
         },
       ],
+    },
+    [DC.PMHYBRIDEXPLANATION]: "",
+  },
+  [DC.DID_CALCS_DEVIATE]: "no",
+  [DC.DEVIATION_OPTIONS]: [],
+  [DC.DEVIATIONS]: {},
+
+  [DC.DATA_SOURCE]: [DC.ADMINISTRATIVE_DATA],
+  [DC.DATA_SOURCE_SELECTIONS]: {
+    [DC.ADMINISTRATIVE_DATA]: {
+      [DC.DESCRIPTION]: "",
+      [DC.SELECTED]: ["MedicaidManagementInformationSystemMMIS"],
     },
   },
-  "OtherPerformanceMeasure-Rates": [
-    {
-      description: "Label 1",
-      rate: [
-        {
-          rate: "50.0",
-          numerator: "1",
-          denominator: "2",
-        },
-      ],
-    },
-    {
-      description: "Label 2",
-      rate: [
-        {
-          rate: "",
-          numerator: "",
-          denominator: "",
-        },
-      ],
-    },
-  ],
-  DidCollect: "yes",
-  DidCalculationsDeviate: "no",
-  OptionalMeasureStratification: {
-    options: ["RaceNonHispanic"],
-    selections: {
-      RaceNonHispanic: {
-        options: ["White", "BlackorAfricanAmerican"],
-        selections: {
-          White: {
-            rateData: {
-              options: ["Ages18to64", "Age65andolder"],
-              rates: {
-                Ages18to64: {
-                  InitiationofAODTreatmentAlcoholAbuseorDependence: [
-                    {
-                      label:
-                        "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                      rate: "25.0",
-                      numerator: "1",
-                      denominator: "4",
-                    },
-                  ],
-                  EngagementofAODTreatmentAlcoholAbuseorDependence: [
-                    {
-                      label:
-                        "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                      rate: "25.0",
-                      numerator: "1",
-                      denominator: "4",
-                    },
-                  ],
-                },
-                Age65andolder: {
-                  InitiationofAODTreatmentAlcoholAbuseorDependence: [
-                    {
-                      label:
-                        "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                      rate: "50.0",
-                      numerator: "2",
-                      denominator: "4",
-                    },
-                  ],
-                  EngagementofAODTreatmentAlcoholAbuseorDependence: [
-                    {
-                      label:
-                        "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                      rate: "50.0",
-                      numerator: "2",
-                      denominator: "4",
-                    },
-                  ],
-                },
-              },
-            },
-            additionalSubCategories: [],
-          },
-          BlackorAfricanAmerican: {
-            rateData: {
-              options: ["Ages18to64", "Age65andolder"],
-              rates: {
-                Ages18to64: {
-                  InitiationofAODTreatmentAlcoholAbuseorDependence: [
-                    {
-                      label:
-                        "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                      rate: "33.3",
-                      numerator: "2",
-                      denominator: "6",
-                    },
-                  ],
-                  EngagementofAODTreatmentAlcoholAbuseorDependence: [
-                    {
-                      label:
-                        "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                      rate: "33.3",
-                      numerator: "2",
-                      denominator: "6",
-                    },
-                  ],
-                },
-                Age65andolder: {
-                  InitiationofAODTreatmentAlcoholAbuseorDependence: [
-                    {
-                      label:
-                        "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                      rate: "50.0",
-                      numerator: "3",
-                      denominator: "6",
-                    },
-                  ],
-                  EngagementofAODTreatmentAlcoholAbuseorDependence: [
-                    {
-                      label:
-                        "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                      rate: "50.0",
-                      numerator: "3",
-                      denominator: "6",
-                    },
-                  ],
-                },
-              },
-            },
-            additionalSubCategories: [],
-          },
-        },
-        additionalSelections: [],
-      },
-    },
-  },
-  "AdditionalNotes-Upload": [],
-  "AdditionalNotes-AdditionalNotes": "",
+  [DC.DATA_SOURCE_DESCRIPTION]: "",
 };

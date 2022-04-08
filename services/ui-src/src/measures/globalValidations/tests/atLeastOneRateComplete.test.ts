@@ -1,7 +1,8 @@
 import * as DC from "dataConstants";
 import * as HELP from "./_helper";
-import { testFormData } from "./_testFormData";
 import { atLeastOneRateComplete } from "measures/globalValidations";
+import { DefaultFormData } from "measures/CommonQuestions/types";
+import { testFormData } from "./_testFormData";
 
 /* Ensure that at least 1 NDR in a set is complete for either the Performance Measure or Other Performance Measure
 
@@ -20,9 +21,10 @@ import { atLeastOneRateComplete } from "measures/globalValidations";
     └─────────────────────┴────────────┘
 */
 describe("atLeastOneRateComplete", () => {
-  let formData: any;
+  let formData: DefaultFormData;
 
-  const check_errors = (data: any, numErrors: number) => {
+  // Check that the provided Form Data returns a certain number of validation errors.
+  const check_errors = (data: DefaultFormData, numErrors: number) => {
     let errorArray: FormError[] = [];
     const { ageGroups, performanceMeasureArray, OPM } = HELP.test_setup(data);
     errorArray = [
@@ -40,13 +42,13 @@ describe("atLeastOneRateComplete", () => {
   });
 
   test("when Performance Measure is undefined and OPM is undefined", () => {
-    delete formData[DC.PERFORMANCE_MEASURE];
-    delete formData[DC.OPM_RATES];
+    formData[DC.PERFORMANCE_MEASURE] = {};
+    formData[DC.OPM_RATES] = [];
     check_errors(formData, 1);
   });
 
   test("when Peformance Measure is partially complete and OPM is undefined", () => {
-    delete formData[DC.OPM_RATES];
+    formData[DC.OPM_RATES] = [];
     check_errors(formData, 0);
   });
 
@@ -56,32 +58,21 @@ describe("atLeastOneRateComplete", () => {
   });
 
   test("when Performance Measure is incomplete and OPM is incomplete", () => {
-    // zero out all data in PM
-    const PM = formData[DC.PERFORMANCE_MEASURE][DC.RATES];
-    Object.keys(PM).forEach((label: any) => {
-      PM[label].forEach((rate: any) => HELP.zero_out_rate(rate));
-    });
-    // zero out all data in OPM
-    for (const opmObj of formData[DC.OPM_RATES])
-      HELP.zero_out_rate(opmObj.rate[0]);
+    HELP.zero_PM(formData);
+    HELP.zero_OPM(formData);
     check_errors(formData, 1);
   });
 
   test("when Performance Measure is incomplete and OPM is undefined", () => {
-    // zero out all data in PM
-    const PM = formData[DC.PERFORMANCE_MEASURE][DC.RATES];
-    Object.keys(PM).forEach((label: any) => {
-      PM[label].forEach((rate: any) => HELP.zero_out_rate(rate));
-    });
-    delete formData[DC.OPM_RATES];
+    HELP.zero_PM(formData);
+    formData[DC.OPM_RATES] = [];
     check_errors(formData, 1);
   });
 
   test("when Performance Measure is undefined and OPM is incomplete", () => {
-    delete formData[DC.PERFORMANCE_MEASURE];
-    // zero out all data in OPM
-    for (const opmObj of formData[DC.OPM_RATES])
-      HELP.zero_out_rate(opmObj.rate[0]);
+    formData[DC.PERFORMANCE_MEASURE] = {};
+    HELP.zero_OPM(formData);
+
     check_errors(formData, 1);
   });
 });
