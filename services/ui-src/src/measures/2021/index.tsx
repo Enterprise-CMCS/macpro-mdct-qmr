@@ -7,26 +7,31 @@ import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
 import { APPCH } from "./APPCH";
+import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
 import { CCPAD } from "./CCPAD";
+import { CCPCH } from "./CCPCH";
 import { CCSAD } from "./CCSAD";
 import { CCWAD } from "./CCWAD";
 import { CCWCH } from "./CCWCH";
 import { CDFAD } from "./CDFAD";
+import { CDFCH } from "./CDFCH";
 import { CHLAD } from "./CHLAD";
+import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
+import { FUHAD } from "./FUHAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
 import { FVAAD } from "./FVAAD";
-import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
+import { HVLAD } from "./HVLAD";
 import { IETAD } from "./IETAD";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
@@ -40,7 +45,6 @@ import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
 import { PQI01AD } from "./PQI01AD";
 import { PQI05AD } from "./PQI05AD";
-import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
@@ -52,14 +56,18 @@ const twentyTwentyOneMeasures = {
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
   "APP-CH": APPCH,
+  "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
   "CCP-AD": CCPAD,
+  "CCP-CH": CCPCH,
   "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
   "CCW-CH": CCWCH,
   "CDF-AD": CDFAD,
+  "CDF-CH": CDFCH,
   "CHL-AD": CHLAD,
+  "CHL-CH": CHLCH,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
   "CPA-AD": CPAAD,
@@ -70,9 +78,9 @@ const twentyTwentyOneMeasures = {
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
   "FVA-AD": FVAAD,
-  "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
+  "HVL-AD": HVLAD,
   "IET-AD": IETAD,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,

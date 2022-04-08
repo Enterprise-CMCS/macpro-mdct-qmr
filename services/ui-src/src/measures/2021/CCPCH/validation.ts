@@ -4,8 +4,8 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const CCPADValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
+const CCPCHValidation = (data: FormData) => {
+  const ageGroups = ["Ages 19 to 50", "Ages 51 to 64", "Total (Ages 19 to 64)"];
   const dateRange = data["DateRange"];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -27,7 +27,6 @@ const CCPADValidation = (data: FormData) => {
     // Performance Measure and OPM Validations
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
     ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
@@ -43,6 +42,7 @@ const CCPADValidation = (data: FormData) => {
     ),
     ...GV.validateOneRateHigherThanOther(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
 
     // OMS Specific Validations
     ...GV.omsValidations({
@@ -64,8 +64,7 @@ const CCPADValidation = (data: FormData) => {
       ],
     }),
   ];
-
   return errorArray;
 };
 
-export const validationFunctions = [CCPADValidation];
+export const validationFunctions = [CCPCHValidation];
