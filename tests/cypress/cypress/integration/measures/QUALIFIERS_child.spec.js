@@ -94,7 +94,7 @@ describe("OY2 10017 Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCW-CH - Contraceptive Care - All Women Ages 15 to 20"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CDF-CH - Screening for Depression and Follow-up Plan: Ages 12 to 17"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CDF-CH - Screening for Depression and Follow-Up Plan: Ages 12 to 17"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CHL-CH - Chlamydia Screening in Women Ages 16 to 20"]'
