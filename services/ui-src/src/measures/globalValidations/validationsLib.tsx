@@ -299,11 +299,15 @@ export const validateTotalNDR = (
   let errorArray: any[] = [];
   let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
   let denominatorSum: any = null;
-
   performanceMeasureArray.forEach((ndrSet) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
     ndrSet.slice(0, -1).forEach((item: any) => {
-      if (item !== undefined && item !== null && !item["isTotal"]) {
+      if (
+        item !== undefined &&
+        item !== null &&
+        !item["isTotal"] &&
+        item.rate
+      ) {
         let x;
         if (!isNaN((x = parseFloat(item["numerator"])))) {
           numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
@@ -489,6 +493,43 @@ export const validateOneRateHigherThanOther = (
         errorArray.push(error);
       }
     });
+  }
+
+  return errorArray;
+};
+
+// Built specifically for CCP-AD and CCP-CH
+export const validate3daysLessOrEqualTo30days = (
+  data: Types.DefaultFormData,
+  performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure
+) => {
+  const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
+  const sevenDays = perfMeasure[1];
+  const thirtyDays = perfMeasure[0];
+
+  const errorArray: any[] = [];
+
+  if (sevenDays?.length === 2) {
+    if (
+      parseFloat(sevenDays[0]?.rate ?? "") >
+      parseFloat(sevenDays[1]?.rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage: `The rate value of the ${performanceMeasureData.qualifiers?.[0]} must be less than or equal to the ${performanceMeasureData.qualifiers?.[1]} within ${performanceMeasureData.categories?.[1]}.`,
+      });
+    }
+  }
+  if (thirtyDays?.length === 2) {
+    if (
+      parseFloat(thirtyDays[0]?.rate ?? "") >
+      parseFloat(thirtyDays[1]?.rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage: `The rate value of the ${performanceMeasureData.qualifiers?.[0]} must be less than or equal to the ${performanceMeasureData.qualifiers?.[1]} within ${performanceMeasureData.categories?.[0]}.`,
+      });
+    }
   }
 
   return errorArray;
