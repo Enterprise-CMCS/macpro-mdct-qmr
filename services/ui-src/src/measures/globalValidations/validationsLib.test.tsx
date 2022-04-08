@@ -6,14 +6,14 @@ describe("Testing Global Validations Lib", () => {
   ];
 
   test("validate at least one NDR in Deviation of Measure Specification", () => {
-    const atLeastOneNDRNotComplete =
+    const atLeastOneDeviationNDRNotComplete =
       GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
         performanceMeasuresWithOneNDR,
         ["Ages 18 to 64"],
         [{ RateDeviationsSelected: [] }],
         true
       );
-    const atLeastOneNDRCompleted =
+    const atLeastOneDeviationNDRCompleted =
       GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
         performanceMeasuresWithOneNDR,
         ["Ages 18 to 64"],
@@ -21,7 +21,7 @@ describe("Testing Global Validations Lib", () => {
         true
       );
 
-    expect(atLeastOneNDRNotComplete).toHaveLength(1);
-    expect(atLeastOneNDRCompleted).toHaveLength(0);
+    expect(atLeastOneDeviationNDRNotComplete).toHaveLength(1);
+    expect(atLeastOneDeviationNDRCompleted).toHaveLength(0);
   });
 });
