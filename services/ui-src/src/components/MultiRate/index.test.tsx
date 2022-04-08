@@ -63,8 +63,8 @@ describe("Test the Rate component when readOnly is false", () => {
 
   test("Check that given some input, the component calculates rates correctly (rate editable)", () => {
     const expectedValues = [
-      { num: "42", denom: "84", rate: "0.5000" },
-      { num: "42", denom: "84", rate: "0.5000" },
+      { num: "42", denom: "84", rate: "50.0000" },
+      { num: "42", denom: "84", rate: "50.0000" },
       { num: "42", denom: "84", rate: "0.5000" },
       { num: "42", denom: "84", rate: "500.0" },
     ];
@@ -108,8 +108,8 @@ describe("Test the Rate component when readOnly is true", () => {
 
   test("Check that given some input, the component calculates rates correctly (rate not editable)", () => {
     const expectedValues = [
-      { num: "42", denom: "84", rate: "0.5000" },
-      { num: "42", denom: "84", rate: "0.5000" },
+      { num: "42", denom: "84", rate: "50.0000" },
+      { num: "42", denom: "84", rate: "50.0000" },
       { num: "42", denom: "84", rate: "0.5000" },
       { num: "42", denom: "84", rate: "500.0" },
     ];
