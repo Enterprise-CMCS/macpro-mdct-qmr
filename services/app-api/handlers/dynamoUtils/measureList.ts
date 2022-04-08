@@ -276,7 +276,7 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      description: "Audiological Diagnosis No Later Than 3 Months of Age",
+      description: "Audiological Diagnosis No Later than 3 Months of Age",
       measure: "AUD-CH",
     },
     {
@@ -291,7 +291,7 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      description: "Screening for Depression and Follow-up Plan: Ages 12 to 17",
+      description: "Screening for Depression and Follow-Up Plan: Ages 12 to 17",
       measure: "CDF-CH",
     },
     {
