@@ -2,33 +2,17 @@ import { DataDrivenTypes } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 
 export const qualifiers = [
-  "DTaP",
-  "IPV",
-  "MMR",
-  "HiB",
-  "Hep B",
-  "VZV",
-  "PCV",
-  "Hep A",
-  "RV",
-  "Flu",
-  "Combo 2",
-  "Combo 3",
-  "Combo 4",
-  "Combo 5",
-  "Combo 6",
-  "Combo 7",
-  "Combo 8",
-  "Combo 9",
-  "Combo 10",
+  "Children screened by 12 months of age",
+  "Children screened by 24 months of age",
+  "Children screened by 36 months of age",
+  "Children Total",
 ];
 export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of children age 2 who had four diphtheria, tetanus and acellular pertussis (DTaP); three polio (IPV); one measles, mumps and rubella (MMR); three haemophilus influenza type B (HiB); three hepatitis B (Hep B), one chicken pox (VZV); four pneumococcal conjugate (PCV); one hepatitis A (HepA); two or three rotavirus (RV); and two influenza (flu) vaccines by their second birthday. The measure calculates a rate for each vaccine and nine separate combination rates.",
+    "Percentage of children screened for risk of developmental, behavioral, and social delays using a standardized screening tool in the 12 months preceding or on their first, second, or third birthday.",
   ],
-  questionListItems: [],
   categories,
   qualifiers,
 };
@@ -45,9 +29,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
           options: [
             {
               value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
-            },
-            {
-              value: DC.IMMUNIZATION_REGISTRY,
             },
             {
               value: DC.ADMINISTRATIVE_DATA_OTHER,
@@ -67,10 +48,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
               value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
             {
-              value: DC.IMMUNIZATION_REGISTRY,
-            },
-            {
-              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              value: DC.OTHER,
               description: true,
             },
           ],
@@ -88,10 +66,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
           ],
         },
       ],
-    },
-    {
-      value: DC.ELECTRONIC_HEALTH_RECORDS,
-      description: true,
     },
     {
       value: DC.OTHER_DATA_SOURCE,
