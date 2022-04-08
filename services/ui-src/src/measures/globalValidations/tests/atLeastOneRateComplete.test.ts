@@ -15,9 +15,8 @@ import { testFormData } from "./_testFormData";
   3 │ Partial             │ Undefined  │
   4 │ Undefined           │ Partial    │
   5 │ Incomplete          │ Incomplete │
-  6 │ Incomplete          │ Partial    │
-  7 │ Incomplete          │ Undefined  │
-  8 │ Undefined           │ Incomplete │
+  6 │ Incomplete          │ Undefined  │
+  7 │ Undefined           │ Incomplete │
     └─────────────────────┴────────────┘
 */
 describe("atLeastOneRateComplete", () => {
