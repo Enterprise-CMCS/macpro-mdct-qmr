@@ -548,7 +548,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
       ) {
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            label
+            [...label, qualifiers.slice(-1)[0]]
           )}`,
           errorMessage: ` ${customTotalLabel ? `${customTotalLabel} ` : ""}
        Total numerator field is not equal to the sum of other numerators.`,
@@ -561,7 +561,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
       ) {
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            label
+            [...label, qualifiers.slice(-1)[0]]
           )}`,
           errorMessage: `${
             customTotalLabel ? `${customTotalLabel} ` : ""
@@ -584,7 +584,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
         if (!isNaN(expectedRate) && currentRate !== expectedRate) {
           error.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              label
+              [...label, qualifiers.slice(-1)[0]]
             )}`,
             errorMessage: `${
               customTotalLabel ? `${customTotalLabel} ` : ""
@@ -594,9 +594,10 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
       }
     } else if (numeratorSum && denominatorSum) {
       error.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary(
-          label
-        )}`,
+        errorLocation: `Optional Measure Stratification: ${locationDictionary([
+          ...label,
+          qualifiers.slice(-1)[0],
+        ])}`,
         errorMessage: `${
           customTotalLabel ? `${customTotalLabel} ` : ""
         }Total must contain values if other fields are filled.`,
