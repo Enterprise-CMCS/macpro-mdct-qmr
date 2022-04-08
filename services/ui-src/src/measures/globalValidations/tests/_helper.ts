@@ -9,3 +9,13 @@ export const test_setup = (data: any) => {
     OPM: data[DC.OPM_RATES],
   };
 };
+
+export const zero_out_rate = (rateObj: {
+  rate: string;
+  numerator: string;
+  denominator: string;
+}) => {
+  rateObj.rate = "";
+  rateObj.numerator = "";
+  rateObj.denominator = "";
+};

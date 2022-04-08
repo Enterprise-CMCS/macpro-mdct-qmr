@@ -148,6 +148,28 @@ export const testFormData = {
       ],
     },
   },
+  "OtherPerformanceMeasure-Rates": [
+    {
+      description: "Label 1",
+      rate: [
+        {
+          rate: "50.0",
+          numerator: "1",
+          denominator: "2",
+        },
+      ],
+    },
+    {
+      description: "Label 2",
+      rate: [
+        {
+          rate: "",
+          numerator: "",
+          denominator: "",
+        },
+      ],
+    },
+  ],
   DidCollect: "yes",
   DidCalculationsDeviate: "no",
   OptionalMeasureStratification: {
