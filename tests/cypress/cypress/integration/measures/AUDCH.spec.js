@@ -1,8 +1,6 @@
 describe("Measure: oy2_9922 AUD-CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
-    cy.deleteChildCoreSets();
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("AUD-CH");
   });
