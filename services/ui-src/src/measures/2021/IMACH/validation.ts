@@ -41,9 +41,9 @@ const DEVCHValidation = (data: FormData) => {
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,
-        GV.validateOMSTotalNDR,
         ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
         GV.validateRateNotZero,
+        GV.validateAllDenomsAreTheSameCrossQualifier,
       ],
     }),
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -66,6 +66,11 @@ const DEVCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAllDenomsTheSameCrossQualifier(
+      data,
+      PMD.categories,
+      PMD.qualifiers
+    ),
   ];
 
   return errorArray;
