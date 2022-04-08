@@ -68,6 +68,7 @@ const specifications = {
     displayValue:
       "American Dental Association/Dental Quality Alliance (ADA/DQA)",
     value: DC.ADA_DQA,
+  },
   CDC: {
     displayValue: "Centers for Disease Contol and Prevention (CDC)",
     value: DC.CDC,
