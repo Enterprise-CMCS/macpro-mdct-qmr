@@ -297,6 +297,7 @@ jobs:
             CISCH.spec.js,
             CPCCH.spec.js,
             FUHCH.spec.js,
+            WCCCH.spec.js,
             QUALIFIERS_child.spec.js,
             CHLCH.spec.js,
           ]

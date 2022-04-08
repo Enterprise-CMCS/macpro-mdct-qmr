@@ -197,7 +197,7 @@ export const Rate = ({
     prevRate[totalIndex]["numerator"] = newValue;
 
     newValue = denominatorSum !== null ? denominatorSum.toString() : "";
-    prevRate[totalIndex]["denominator"] = denominatorSum;
+    prevRate[totalIndex]["denominator"] = newValue;
 
     if (
       numeratorSum !== null &&
