@@ -291,7 +291,7 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      description: "Screening for Depression and Follow-up Plan: Ages 12 to 17",
+      description: "Screening for Depression and Follow-Up Plan: Ages 12 to 17",
       measure: "CDF-CH",
     },
     {

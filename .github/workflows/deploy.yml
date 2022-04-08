@@ -291,6 +291,7 @@ jobs:
           [
             AMRCH.spec.js,
             CCWCH.spec.js,
+            CDFCH.spec.js,
             CISCH.spec.js,
             CPCCH.spec.js,
             FUHCH.spec.js,
