@@ -290,6 +290,7 @@ jobs:
         containers:
           [
             AMRCH.spec.js,
+            APPCH.spec.js,
             AUDCH.spec.js,
             CCPCH.spec.js,
             CCWCH.spec.js,
