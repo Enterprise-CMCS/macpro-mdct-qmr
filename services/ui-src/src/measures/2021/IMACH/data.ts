@@ -12,12 +12,9 @@ export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of discharges for children ages 6 to 17 who were hospitalized for treatment of selected mental illness or intentional self-harm diagnoses and who had a follow-up visit with a mental health provider. Two rates are reported:",
+    "Percentage of adolescents age 13 who had one dose of meningococcal vaccine, one tetanus, diphtheria toxoids and acellular pertussis (Tdap) vaccine, and have completed  the human papillomavirus (HPV) vaccine series by their 13th birthday. The measure calculates a rate for each vaccine and two combination rates.",
   ],
-  questionListItems: [
-    "Percentage of discharges for which the child received follow-up within 30 days after discharge",
-    "Percentage of discharges for which the child received follow-up within 7 days after discharge",
-  ],
+  questionListItems: [],
   categories,
   qualifiers,
 };
