@@ -6,6 +6,7 @@ import { ADDCH } from "./ADDCH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
+import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
 import { CCPAD } from "./CCPAD";
@@ -53,6 +54,7 @@ const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
+  "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
   "CCP-AD": CCPAD,

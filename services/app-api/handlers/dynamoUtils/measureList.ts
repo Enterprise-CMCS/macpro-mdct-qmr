@@ -276,7 +276,7 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      description: "Audiological Diagnosis No Later Than 3 Months of Age",
+      description: "Audiological Diagnosis No Later than 3 Months of Age",
       measure: "AUD-CH",
     },
     {
