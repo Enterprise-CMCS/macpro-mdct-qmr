@@ -568,8 +568,9 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           }Total denominator field is not equal to the sum of other denominators.`,
         });
       }
+      //NOTE: this check is to be decided by Dany
       if (totalNDR.rate) {
-        const expectedRate = parseFloat(totalNDR.rate ?? "");
+        const expectedRate = parseFloat(totalNDR.rate);
         const currentRate = parseFloat(
           (
             Math.round(
@@ -587,10 +588,19 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
             )}`,
             errorMessage: `${
               customTotalLabel ? `${customTotalLabel} ` : ""
-            }Total rate field is not equal is not equal to expected calculated rate.`,
+            }Total rate field is not equal to expected calculated rate.`,
           });
         }
       }
+    } else if (numeratorSum && denominatorSum) {
+      error.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+        errorMessage: `${
+          customTotalLabel ? `${customTotalLabel} ` : ""
+        }Total must contain values if other fields are filled.`,
+      });
     }
   }
 
