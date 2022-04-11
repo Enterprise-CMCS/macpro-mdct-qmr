@@ -47,7 +47,14 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click();
     }
-  });
+});
+});
+
+Cypress.Commands.add("goToChildCoreSetMeasuresSFMCH", () => {
+  cy.get('[data-cy="Add Child Core Set"]').click();
+  cy.get('[data-cy="ChildCoreSet-ReportType1"]').click();
+  cy.get('[data-cy="Create"]').click();
+  cy.get('[data-cy="CCS"]').click();
 });
 
 // Visit Measures based on abbr
