@@ -441,7 +441,8 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       if (!atLeastOneDevNDR) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
-          errorMessage: "You must complete one NDR set",
+          errorMessage:
+            "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
     }
