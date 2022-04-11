@@ -1,4 +1,4 @@
-describe("OY2 10017 Child Measure Qualifier: CH", () => {
+describe("Child Measure Qualifier: CH", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.login();
