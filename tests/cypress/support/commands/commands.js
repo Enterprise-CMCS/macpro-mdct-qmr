@@ -47,7 +47,7 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click();
     }
-});
+  });
 });
 
 Cypress.Commands.add("goToChildCoreSetMeasuresSFMCH", () => {
