@@ -133,13 +133,16 @@ export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
     const cleanQual = cleanString(qual);
     const rateArr: RateFields[] = [];
     for (const cat of categories.map((s) => cleanString(s))) {
+      console.log({ cat, qual });
       if (rateData.rates?.[cleanQual]?.[cat]) {
         const temp = rateData.rates[cleanQual][cat][0];
+        console.log({ temp });
         if (temp && temp.denominator) {
           rateArr.push(temp);
         }
       }
     }
+    console.log({ rateArr });
     if (!areDenomsTheSame(rateArr)) {
       errors.push({
         errorLocation: `Optional Measure Stratification: ${locationDictionary([
