@@ -1,6 +1,5 @@
 describe("Measure: BCS-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("BCS-AD");
