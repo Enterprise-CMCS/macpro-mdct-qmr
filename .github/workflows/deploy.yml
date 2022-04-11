@@ -167,7 +167,6 @@ jobs:
       fail-fast: false
       matrix:
         containers: [
-            ADDCH.spec.js,
             AMMAD.spec.js,
             AMRAD.spec.js,
             BCSAD.spec.js,
@@ -179,7 +178,6 @@ jobs:
             CHLAD.spec.js,
             COBAD.spec.js,
             CPAAD.spec.js,
-            DEVCH.spec.js,
             FUAAD.spec.js,
             FUHAD.spec.js,
             FUMAD.spec.js,
@@ -289,13 +287,16 @@ jobs:
       matrix:
         containers:
           [
+            ADDCH.spec.js,
             AMRCH.spec.js,
+            APPCH.spec.js,
             AUDCH.spec.js,
             CCPCH.spec.js,
             CCWCH.spec.js,
             CDFCH.spec.js,
             CISCH.spec.js,
             CPCCH.spec.js,
+            DEVCH.spec.js,
             FUHCH.spec.js,
             WCCCH.spec.js,
             QUALIFIERS_child.spec.js,
