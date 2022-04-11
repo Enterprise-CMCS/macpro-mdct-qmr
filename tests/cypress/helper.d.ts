@@ -1,3 +1,6 @@
+/// <reference types="cypress-xpath" />
+/// <reference types="cypress-axe" />
+
 type MeasureList = "OHD-AD";
 declare namespace Cypress {
   // interface Cypress {
@@ -13,6 +16,15 @@ declare namespace Cypress {
 
     // Visit Adult Core Set Measures
     goToAdultMeasures(): Chainable<Element>;
+
+    // Visit Child Core Set Measures
+    goToChildCoreSetMeasures(): Chainable<Element>;
+
+    // Match snapshot
+    matchImageSnapshot(name?: string): Chainable<Element>;
+
+    // Attach file method
+    attachFile(fileName: string, { subjectType: string });
 
     // Visit Measures based on abbr
     goToMeasure(measure: MeasureList | string): Chainable<Element>;
@@ -38,6 +50,9 @@ declare namespace Cypress {
 
     /** Validate measure needs to wait for the page reload before components are interactable */
     clickValidateMeasure(timeout?: number): Chainable<Element>;
+
+    /** Add combined child coreset */
+    addCombinedChildCoreset(): Chainable<Element>;
 
     // Helper function to enter a valid date range
     enterValidDateRange(): Chainable<Element>;
