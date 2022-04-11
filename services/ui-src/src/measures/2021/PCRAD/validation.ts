@@ -250,7 +250,7 @@ export const PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
     });
 
     if (ndrCount > 0) {
-      const atLeastOneDevSection = deviationArrayLength >= 0 ? true : false;
+      const atLeastOneDevSection = deviationArrayLength > 0 ? true : false;
 
       if (!atLeastOneDevSection) {
         errorArray.push({
