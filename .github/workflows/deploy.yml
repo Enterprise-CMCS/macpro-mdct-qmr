@@ -300,7 +300,7 @@ jobs:
             FUHCH,
             QUALIFIERS_child,
             CHLCH,
-            SFMCH
+            SFMCH,
           ]
     steps:
       - name: set branch_name
