@@ -504,63 +504,64 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   if (isOPM) return [];
 
   const error: FormError[] = [];
-  const ndrSets = [];
 
-  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
-  let denominatorSum: any = null;
-
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (const cat of categories.map((s) => cleanString(s))) {
+  for (const cat of categories.map((s) => cleanString(s))) {
+    const ndrSets = [];
+    let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
+    let denominatorSum: any = null;
+    for (const qual of qualifiers.map((s) => cleanString(s))) {
       ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
     }
-  }
 
-  // The last NDR set is the total
-  const totalNDR = ndrSets.pop();
+    // The last NDR set is the total
+    const totalNDR = ndrSets.pop();
 
-  // Calculate numerator and denominator totals
-  ndrSets.forEach((set) => {
-    if (set && set.denominator && set.numerator && set.rate) {
-      numeratorSum += parseFloat(set.numerator);
-      denominatorSum += parseFloat(set.denominator);
-    }
-  });
+    // Calculate numerator and denominator totals
+    ndrSets.forEach((set) => {
+      if (set && set.denominator && set.numerator && set.rate) {
+        numeratorSum += parseFloat(set.numerator);
+        denominatorSum += parseFloat(set.denominator);
+      }
+    });
 
-  /*
-  Display validation errors if the user is not using Other Performance Measures
-  and if the actual totals of numerators or denominators don't match what's in
-  the total numerator/denominator fields.
-
-  (In the case of Other Performance Measures, we don't display a total
-  numerator/denominator/rate set, so validating it is unnecessary.)
-  */
-  if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
-    let x;
-    if (
-      (x = parseFloat(totalNDR.numerator)) !== parseFloat(numeratorSum) &&
-      numeratorSum !== null &&
-      !isNaN(x)
-    ) {
-      error.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary(
-          label
-        )}`,
-        errorMessage: ` ${customTotalLabel ? `${customTotalLabel} ` : ""}
+    if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
+      let x;
+      if (
+        (x = parseFloat(totalNDR.numerator)) !== numeratorSum &&
+        numeratorSum !== null &&
+        !isNaN(x)
+      ) {
+        error.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            [...label, qualifiers.slice(-1)[0]]
+          )}`,
+          errorMessage: ` ${customTotalLabel ? `${customTotalLabel} ` : ""}
        Total numerator field is not equal to the sum of other numerators.`,
-      });
-    }
-    if (
-      (x = parseFloat(totalNDR.denominator)) !== parseFloat(denominatorSum) &&
-      denominatorSum !== null &&
-      !isNaN(x)
-    ) {
+        });
+      }
+      if (
+        (x = parseFloat(totalNDR.denominator)) !== denominatorSum &&
+        denominatorSum !== null &&
+        !isNaN(x)
+      ) {
+        error.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            [...label, qualifiers.slice(-1)[0]]
+          )}`,
+          errorMessage: `${
+            customTotalLabel ? `${customTotalLabel} ` : ""
+          }Total denominator field is not equal to the sum of other denominators.`,
+        });
+      }
+    } else if (numeratorSum && denominatorSum) {
       error.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary(
-          label
-        )}`,
+        errorLocation: `Optional Measure Stratification: ${locationDictionary([
+          ...label,
+          qualifiers.slice(-1)[0],
+        ])}`,
         errorMessage: `${
           customTotalLabel ? `${customTotalLabel} ` : ""
-        }Total denominator field is not equal to the sum of other denominators.`,
+        }Total must contain values if other fields are filled.`,
       });
     }
     if (totalNDR.rate) {

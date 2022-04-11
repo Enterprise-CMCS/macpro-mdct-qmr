@@ -154,7 +154,6 @@ export const validateEqualDenominators = (
         filledInData.push(performanceMeasureArray[index][i]);
       }
     });
-
     if (filledInData.length > 1) {
       let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;
@@ -295,15 +294,14 @@ Default assumption is that this is run for Performance Measure unless specified.
 export const validateTotalNDR = (
   performanceMeasureArray: PerformanceMeasure[][],
   errorLocation = "Performance Measure",
-  categories?: string[],
-  rateMultiplicationValue?: number
+  categories?: string[]
 ) => {
   let errorArray: any[] = [];
 
   performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
-    let numeratorSum = 0;
-    let denominatorSum = 0;
+    let numeratorSum: any = null;
+    let denominatorSum: any = null;
     ndrSet.slice(0, -1).forEach((item: any) => {
       if (item !== undefined && item !== null && !item["isTotal"]) {
         let x;
@@ -322,16 +320,6 @@ export const validateTotalNDR = (
 
       const parsedNum = parseFloat(totalNDR.numerator ?? "");
       const parsedDen = parseFloat(totalNDR.denominator ?? "");
-      const currentRate = parseFloat(
-        (
-          Math.round(
-            (parsedNum / parsedDen) *
-              (rateMultiplicationValue ?? 100) *
-              Math.pow(10, 1)
-          ) / Math.pow(10, 1)
-        ).toFixed(1)
-      );
-      const expectedRate = parseFloat(totalNDR.rate ?? "");
       if (
         parsedNum !== numeratorSum &&
         numeratorSum !== null &&
@@ -354,18 +342,6 @@ export const validateTotalNDR = (
           errorMessage: `${
             (categories && categories[idx]) || totalNDR.label
           } denominator field is not equal to the sum of other denominators.`,
-        });
-      }
-      // rate doesn't match
-      if (!isNaN(expectedRate) && currentRate !== expectedRate) {
-        errorArray.push({
-          errorLocation: errorLocation,
-          errorMessage: `${
-            (categories &&
-              categories[idx] &&
-              `${categories[idx]} - ${totalNDR.label}`) ||
-            totalNDR.label
-          } rate field is not equal to expected calculated rate.`,
         });
       }
     } else if (numeratorSum && denominatorSum) {
