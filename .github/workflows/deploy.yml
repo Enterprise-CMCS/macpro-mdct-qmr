@@ -290,11 +290,15 @@ jobs:
         containers:
           [
             AMRCH.spec.js,
+            AUDCH.spec.js,
+            CCPCH.spec.js,
             CCWCH.spec.js,
+            CDFCH.spec.js,
             CISCH.spec.js,
             CPCCH.spec.js,
             FUHCH.spec.js,
             QUALIFIERS_child.spec.js,
+            CHLCH.spec.js,
           ]
     steps:
       - name: set branch_name

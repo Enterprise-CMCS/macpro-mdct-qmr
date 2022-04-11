@@ -6,14 +6,18 @@ import { ADDCH } from "./ADDCH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
+import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
 import { CCPAD } from "./CCPAD";
+import { CCPCH } from "./CCPCH";
 import { CCSAD } from "./CCSAD";
 import { CCWAD } from "./CCWAD";
 import { CCWCH } from "./CCWCH";
 import { CDFAD } from "./CDFAD";
+import { CDFCH } from "./CDFCH";
 import { CHLAD } from "./CHLAD";
+import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
 import { CPAAD } from "./CPAAD";
@@ -51,14 +55,18 @@ const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
+  "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
   "CCP-AD": CCPAD,
+  "CCP-CH": CCPCH,
   "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
   "CCW-CH": CCWCH,
   "CDF-AD": CDFAD,
+  "CDF-CH": CDFCH,
   "CHL-AD": CHLAD,
+  "CHL-CH": CHLCH,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
   "CPA-AD": CPAAD,
