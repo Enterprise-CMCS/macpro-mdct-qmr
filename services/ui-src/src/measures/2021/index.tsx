@@ -6,14 +6,18 @@ import { ADDCH } from "./ADDCH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
+import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
 import { CCPAD } from "./CCPAD";
+import { CCPCH } from "./CCPCH";
 import { CCSAD } from "./CCSAD";
 import { CCWAD } from "./CCWAD";
 import { CCWCH } from "./CCWCH";
 import { CDFAD } from "./CDFAD";
+import { CDFCH } from "./CDFCH";
 import { CHLAD } from "./CHLAD";
+import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
 import { CPAAD } from "./CPAAD";
@@ -37,27 +41,34 @@ import { PC01AD } from "./PC01AD";
 import { PCRAD } from "./PCRAD";
 import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
+import { PPCCH } from "./PPCCH";
 import { PQI01AD } from "./PQI01AD";
 import { PQI05AD } from "./PQI05AD";
 import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
+import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
+import { IMACH } from "./IMACH";
 
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
+  "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
   "CCP-AD": CCPAD,
+  "CCP-CH": CCPCH,
   "CCS-AD": CCSAD,
   "CCW-AD": CCWAD,
   "CCW-CH": CCWCH,
   "CDF-AD": CDFAD,
+  "CDF-CH": CDFCH,
   "CHL-AD": CHLAD,
+  "CHL-CH": CHLCH,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
   "CPA-AD": CPAAD,
@@ -72,6 +83,7 @@ const twentyTwentyOneMeasures = {
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
   "IET-AD": IETAD,
+  "IMA-CH": IMACH,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
@@ -82,11 +94,13 @@ const twentyTwentyOneMeasures = {
   "PCR-AD": PCRAD,
   "PDENT-CH": PDENTCH,
   "PPC-AD": PPCAD,
+  "PPC-CH": PPCCH,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
   "SAA-AD": SAAAD,
+  "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
 };
 
