@@ -146,7 +146,6 @@ export const PerformanceMeasure = ({
   rateScale,
   customMask,
   hybridMeasure,
-  showtextbox = true,
   allowNumeratorGreaterThanDenominator,
   showtextbox = true,
 }: Props) => {
