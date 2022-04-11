@@ -148,6 +148,7 @@ export const PerformanceMeasure = ({
   hybridMeasure,
   showtextbox = true,
   allowNumeratorGreaterThanDenominator,
+  showtextbox = true,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({
