@@ -29,6 +29,7 @@ export const AdminHome = () => {
             navigate(`/${locality}/${config.currentReportingYear}`)
           }
           isFullWidth
+          data-cy="Go To State Home"
         >
           Go To State Home
         </CUI.Button>
