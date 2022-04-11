@@ -166,7 +166,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [
+        containers:
+          [
             ADDCH,
             AMMAD,
             AMRAD,
@@ -188,13 +189,13 @@ jobs:
             HPCMIAD,
             HVLAD,
             MSCAD,
-            # NCIDDSAD,
+            NCIDDSAD,
             OHDAD,
             OUDAD,
             PC01AD,
             PCRAD,
             PPCAD,
-            # PQI01AD,
+            PQI01AD,
             PQI05AD,
             PQI08AD,
             PQI15AD,
