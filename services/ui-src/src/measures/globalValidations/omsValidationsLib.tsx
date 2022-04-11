@@ -17,7 +17,6 @@ export type OmsValidationCallback = (data: {
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
   customTotalLabel?: string;
-  rateMultiplicationValue?: number;
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -30,7 +29,6 @@ interface OmsValidationProps {
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
   customTotalLabel?: string;
-  rateMultiplicationValue?: number;
 }
 export const omsValidations = ({
   categories,
@@ -40,7 +38,6 @@ export const omsValidations = ({
   qualifiers,
   validationCallbacks,
   customTotalLabel,
-  rateMultiplicationValue,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -65,8 +62,7 @@ export const omsValidations = ({
     locationDictionary,
     checkIsFilled,
     isOPM,
-    customTotalLabel,
-    rateMultiplicationValue
+    customTotalLabel
   );
 };
 // @example
@@ -193,8 +189,7 @@ const validateNDRs = (
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,
-  customTotalLabel?: string,
-  rateMultiplicationValue?: number
+  customTotalLabel?: string
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -253,7 +248,6 @@ const validateNDRs = (
           locationDictionary,
           isOPM,
           customTotalLabel,
-          rateMultiplicationValue,
         })
       );
     }
@@ -499,7 +493,6 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   locationDictionary,
   isOPM,
   customTotalLabel,
-  rateMultiplicationValue,
 }) => {
   if (isOPM) return [];
 
@@ -563,29 +556,6 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           customTotalLabel ? `${customTotalLabel} ` : ""
         }Total must contain values if other fields are filled.`,
       });
-    }
-    if (totalNDR.rate) {
-      const expectedRate = parseFloat(totalNDR.rate ?? "");
-      const currentRate = parseFloat(
-        (
-          Math.round(
-            (parseFloat(totalNDR.numerator) /
-              parseFloat(totalNDR.denominator)) *
-              (rateMultiplicationValue ?? 100) *
-              Math.pow(10, 1)
-          ) / Math.pow(10, 1)
-        ).toFixed(1)
-      );
-      if (!isNaN(expectedRate) && currentRate !== expectedRate) {
-        error.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            label
-          )}`,
-          errorMessage: `${
-            customTotalLabel ? `${customTotalLabel} ` : ""
-          }Total rate field is not equal is not equal to expected calculated rate.`,
-        });
-      }
     }
   }
 
