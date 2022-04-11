@@ -127,11 +127,6 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -141,6 +136,12 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -246,11 +247,6 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -261,6 +257,12 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -288,11 +290,16 @@ jobs:
         containers:
           [
             AMRCH.spec.js,
+            AUDCH.spec.js,
+            CCPCH.spec.js,
             CCWCH.spec.js,
+            CDFCH.spec.js,
             CISCH.spec.js,
             CPCCH.spec.js,
             FUHCH.spec.js,
+            WCCCH.spec.js,
             QUALIFIERS_child.spec.js,
+            CHLCH.spec.js,
           ]
     steps:
       - name: set branch_name
@@ -339,11 +346,6 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -354,6 +356,12 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -438,11 +446,6 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -453,6 +456,12 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -558,11 +567,6 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Check Project A11y
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -572,5 +576,9 @@ jobs:
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
           wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
