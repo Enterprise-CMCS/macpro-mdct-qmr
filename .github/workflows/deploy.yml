@@ -287,7 +287,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [AMRCH, CCWCH, CISCH, CPCCH, FUHCH, QUALIFIERS_child]
+        containers:
+          [
+            AMRCH,
+            AUDCH,
+            CCPCH,
+            CCWCH,
+            CDFCH,
+            CISCH,
+            CPCCH,
+            FUHCH,
+            QUALIFIERS_child,
+            CHLCH,
+          ]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
