@@ -56,7 +56,9 @@ export const AMBCH = ({
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
-          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
+          {isOtherMeasureSpecSelected && (
+            <CMQ.OtherPerformanceMeasure rateMultiplicationValue={rateScale} />
+          )}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
