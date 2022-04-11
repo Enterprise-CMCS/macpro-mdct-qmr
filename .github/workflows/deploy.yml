@@ -202,7 +202,6 @@ jobs:
             QUALIFIERS_adult,
             SAAAD,
             SSDAD,
-            SFMCH,
           ]
     steps:
       - name: set branch_name
@@ -301,6 +300,7 @@ jobs:
             FUHCH,
             QUALIFIERS_child,
             CHLCH,
+            SFMCH
           ]
     steps:
       - name: set branch_name
