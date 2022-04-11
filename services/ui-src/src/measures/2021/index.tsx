@@ -49,6 +49,7 @@ import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
 import { SSDAD } from "./SSDAD";
 import { WCCCH } from "./WCCCH";
+import { WCVCH } from "./WCVCH";
 
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
@@ -98,6 +99,7 @@ const twentyTwentyOneMeasures = {
   "SAA-AD": SAAAD,
   "SSD-AD": SSDAD,
   "WCC-CH": WCCCH,
+  "WCV-CH": WCVCH,
 };
 
 export default twentyTwentyOneMeasures;
