@@ -55,6 +55,7 @@ const APPCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
+        GV.validateRateZero,
         GV.validateRateNotZero,
         GV.validateOMSTotalNDR,
       ],
