@@ -13,6 +13,7 @@ interface Props {
   rateScale?: number;
   customMask?: RegExp;
   hybridMeasure?: boolean;
+  showtextbox?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
 }
 
@@ -146,6 +147,7 @@ export const PerformanceMeasure = ({
   customMask,
   hybridMeasure,
   allowNumeratorGreaterThanDenominator,
+  showtextbox = true,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({
@@ -201,10 +203,12 @@ export const PerformanceMeasure = ({
           })}
         </CUI.UnorderedList>
       )}
-      <QMR.TextArea
-        label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
-        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
-      />
+      {showtextbox && (
+        <QMR.TextArea
+          label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+          {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
+        />
+      )}
       {hybridMeasure && (
         <CUI.Box my="5">
           <CUI.Text>

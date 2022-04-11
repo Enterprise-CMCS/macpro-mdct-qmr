@@ -48,6 +48,7 @@ import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
+import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
 import { IMACH } from "./IMACH";
 
@@ -99,6 +100,7 @@ const twentyTwentyOneMeasures = {
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
   "SAA-AD": SAAAD,
+  "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
 };
 
