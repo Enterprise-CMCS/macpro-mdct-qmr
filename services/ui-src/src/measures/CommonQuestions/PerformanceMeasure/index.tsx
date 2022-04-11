@@ -13,6 +13,7 @@ interface Props {
   rateScale?: number;
   customMask?: RegExp;
   hybridMeasure?: boolean;
+  showtextbox?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
 }
 
@@ -146,6 +147,7 @@ export const PerformanceMeasure = ({
   customMask,
   hybridMeasure,
   allowNumeratorGreaterThanDenominator,
+  showtextbox = true,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({
@@ -169,6 +171,22 @@ export const PerformanceMeasure = ({
           return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
         })}
       </CUI.Stack>
+      {data.questionSubtext && (
+        <CUI.Stack my="5" spacing={5}>
+          {data.questionSubtext.map((item, idx) => {
+            return (
+              <CUI.Text key={`performanceMeasureListItem.${idx}`}>
+                {data.questionSubtextTitles?.[idx] && (
+                  <CUI.Text display="inline" fontWeight="600">
+                    {data.questionSubtextTitles?.[idx]}
+                  </CUI.Text>
+                )}
+                <CUI.Text>{item}</CUI.Text>
+              </CUI.Text>
+            );
+          })}
+        </CUI.Stack>
+      )}
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
@@ -185,10 +203,12 @@ export const PerformanceMeasure = ({
           })}
         </CUI.UnorderedList>
       )}
-      <QMR.TextArea
-        label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
-        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
-      />
+      {showtextbox && (
+        <QMR.TextArea
+          label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+          {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
+        />
+      )}
       {hybridMeasure && (
         <CUI.Box my="5">
           <CUI.Text>

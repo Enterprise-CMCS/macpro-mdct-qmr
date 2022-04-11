@@ -169,10 +169,34 @@ export const DefinitionOfPopulation = ({
         <CUI.Heading size="sm" as="h3" my="2">
           {"Which delivery systems are represented in the denominator?"}
         </CUI.Heading>
+        {!childMeasure && (
+          <CUI.Text pb="2">
+            Select all delivery systems that apply in your state (must select at
+            least one); for each delivery system selected, enter the percentage
+            of the measure-eligible population represented by that service
+            delivery system.
+          </CUI.Text>
+        )}
+
+        {childMeasure && (
+          <>
+            <CUI.Text>
+              Select all delivery systems that apply in your state. You must
+              select at least one delivery system.
+            </CUI.Text>
+            <CUI.Text py="4">
+              For each selected delivery system, enter the percentage and number
+              of enrollees covered by that delivery system that are included in
+              the data reported for this measure. For example, if the
+              measure-eligible population represents all managed care enrollees,
+              enter 100 percent for MCO, and the number covered.
+            </CUI.Text>
+          </>
+        )}
+
         <QMR.Checkbox
           formLabelProps={{ fontWeight: "400" }}
           {...register(DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR)}
-          label="Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system."
           options={[
             {
               displayValue: "Fee-for-Service (FFS)",

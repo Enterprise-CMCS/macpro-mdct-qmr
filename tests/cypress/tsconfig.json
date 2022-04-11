@@ -2,8 +2,9 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["es5", "dom"],
-    "types": ["cypress", "cypress-wait-until"],
+    "types": ["cypress", "cypress-wait-until", "cypress-xpath", "cypress-axe"],
     "allowJs": true,
     "noEmit": true
-  }
+  },
+  "include": ["**/*.ts"]
 }

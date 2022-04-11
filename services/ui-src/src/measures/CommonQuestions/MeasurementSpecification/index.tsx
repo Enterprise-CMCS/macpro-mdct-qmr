@@ -39,13 +39,17 @@ const HEDISChildren = () => {
 
 interface Props {
   type:
+    | "ADA-DQA"
     | "AHRQ-NCQA"
     | "AHRQ"
+    | "CDC"
     | "CMS"
     | "HEDIS"
     | "HRSA"
     | "JOINT"
     | "NCQA"
+    | "OHSU"
+    | "HRSA"
     | "OPA"
     | "PQA";
 }
@@ -60,6 +64,15 @@ const specifications = {
       "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
     value: DC.AHRQ_NCQA,
   },
+  "ADA-DQA": {
+    displayValue:
+      "American Dental Association/Dental Quality Alliance (ADA/DQA)",
+    value: DC.ADA_DQA,
+  },
+  CDC: {
+    displayValue: "Centers for Disease Contol and Prevention (CDC)",
+    value: DC.CDC,
+  },
   CMS: {
     displayValue: "Centers for Medicare & Medicaid Services (CMS)",
     value: DC.CMS,
@@ -73,6 +86,10 @@ const specifications = {
   HRSA: {
     displayValue: "Health Resources and Services Administration (HRSA)",
     value: DC.HRSA,
+  },
+  OHSU: {
+    displayValue: "Oregon Health and Science University (OHSU)",
+    value: "OHSU",
   },
   JOINT: {
     displayValue: "The Joint Commission",
