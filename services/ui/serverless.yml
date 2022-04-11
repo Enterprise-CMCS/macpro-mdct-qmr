@@ -125,10 +125,23 @@ resources:
       Properties:
         CloudFrontOriginAccessIdentityConfig:
           Comment: OAI to prevent direct public access to the bucket
+    CloudFrontLoggingBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub ${AWS::AccountId}-${self:service}-${self:custom.stage}-cloudfront-logs
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
     CloudFrontDistribution:
       Type: AWS::CloudFront::Distribution
+      DependsOn: CloudFrontLoggingBucket
       Properties:
         DistributionConfig:
+          Logging:
+            Bucket: !GetAtt CloudFrontLoggingBucket.RegionalDomainName
+            IncludeCookies: false
+            Prefix: ${self:custom.stage}
           Comment: CloudFront Distro for the static website hosted in S3
           Aliases:
             Fn::If:
