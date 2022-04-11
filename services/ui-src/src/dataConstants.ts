@@ -6,6 +6,7 @@ export const ADMINISTRATIVE_DATA = "Administrative Data";
 export const ADMINISTRATIVE_DATA_OTHER = "Administrative Data Other";
 export const AGE_RANGE_RATES = "ageRangeRates";
 export const RATE_DATA = "rateData";
+export const ADA_DQA = "ADA-DQA";
 export const AGGREGATE = "aggregate";
 export const AHRQ = "AHRQ";
 export const AHRQ_NCQA = "AHRQ-NCQA";
