@@ -12,9 +12,6 @@ const APMCHValidation = (data: FormData) => {
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -36,8 +33,7 @@ const APMCHValidation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers,
-      includesHybridDataSource
+      PMD.qualifiers
     ),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -65,7 +61,7 @@ const APMCHValidation = (data: FormData) => {
         GV.validateDenominatorsAreTheSame,
         GV.validateRateNotZero,
         GV.validateOMSTotalNDR,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
+        ...[GV.validateRateZero],
       ],
     }),
   ];
