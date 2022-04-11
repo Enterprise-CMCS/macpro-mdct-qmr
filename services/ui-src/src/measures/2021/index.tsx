@@ -41,6 +41,7 @@ import { PC01AD } from "./PC01AD";
 import { PCRAD } from "./PCRAD";
 import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
+import { PPCCH } from "./PPCCH";
 import { PQI01AD } from "./PQI01AD";
 import { PQI05AD } from "./PQI05AD";
 import { FUHAD } from "./FUHAD";
@@ -91,6 +92,7 @@ const twentyTwentyOneMeasures = {
   "PCR-AD": PCRAD,
   "PDENT-CH": PDENTCH,
   "PPC-AD": PPCAD,
+  "PPC-CH": PPCCH,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
