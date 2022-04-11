@@ -187,6 +187,7 @@ jobs:
             HPCAD.spec.js,
             HPCMIAD.spec.js,
             HVLAD.spec.js,
+            IMACH.spec.js,
             MSCAD.spec.js,
             # NCIDDSAD.spec.js,
             OHDAD.spec.js,
