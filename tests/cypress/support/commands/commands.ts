@@ -151,6 +151,7 @@ Cypress.Commands.add("checkA11yOfPage", () => {
   cy.checkA11y(
     null,
     {
+      // @ts-ignore
       values: ["wcag2a", "wcag2aa"],
       includedImpacts: ["minor", "moderate", "serious", "critical"], // options: "minor", "moderate", "serious", "critical"
     },
