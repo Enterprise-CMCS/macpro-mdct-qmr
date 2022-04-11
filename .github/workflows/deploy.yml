@@ -295,11 +295,12 @@ jobs:
             CCPCH,
             CCWCH,
             CDFCH,
+            CHLCH,
             CISCH,
             CPCCH,
             FUHCH,
             QUALIFIERS_child,
-            CHLCH,
+            W30CH,
           ]
     steps:
       - name: set branch_name
