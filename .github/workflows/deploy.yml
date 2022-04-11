@@ -299,6 +299,7 @@ jobs:
             FUHCH.spec.js,
             QUALIFIERS_child.spec.js,
             CHLCH.spec.js,
+            W30CH.spec.js,
           ]
     steps:
       - name: set branch_name
