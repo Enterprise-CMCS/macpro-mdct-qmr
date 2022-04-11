@@ -1,9 +1,5 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
-describe("OY2 9920 Measure 34: CBP-AD", () => {
+describe("Measure 34: CBP-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("CBP-AD");
