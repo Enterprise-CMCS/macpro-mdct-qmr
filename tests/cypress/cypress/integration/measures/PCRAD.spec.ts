@@ -152,7 +152,7 @@ describe("PCR-AD", () => {
     ).should("have.value", "1234567890");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]'
-    ).should("have.value", "1.0000");
+    ).should("have.value", "100.0000");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]'
     ).clear();
@@ -161,7 +161,7 @@ describe("PCR-AD", () => {
     );
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.4.value"]'
-    ).should("have.value", "1000000.0001");
+    ).should("have.value", "100000000.0100");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]'
     ).should("have.value", "1234567890123456.1234");
@@ -207,7 +207,7 @@ describe("PCR-AD", () => {
     cy.get(":nth-child(9) > :nth-child(8)").click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]'
-    ).should("have.value", "1.0000");
+    ).should("have.value", "100.0000");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.4.value"]'
     ).click();
@@ -262,7 +262,7 @@ describe("PCR-AD", () => {
     ).type("1234567890");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.2.value"]'
-    ).should("have.value", "1.0000");
+    ).should("have.value", "100.0000");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.1.value"]'
     ).should("have.value", "1234567890");
@@ -277,7 +277,7 @@ describe("PCR-AD", () => {
     ).type("1234567890123456.1234");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.4.value"]'
-    ).should("have.value", "1000000.0001");
+    ).should("have.value", "100000000.0100");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.3.value"]'
     ).should("have.value", "1234567890123456.1234");
