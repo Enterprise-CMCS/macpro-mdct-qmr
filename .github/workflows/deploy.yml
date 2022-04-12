@@ -188,6 +188,7 @@ jobs:
             HPCAD,
             HPCMIAD,
             HVLAD,
+            IMACH,
             MSCAD,
             NCIDDSAD,
             OHDAD,
@@ -295,11 +296,15 @@ jobs:
             CCPCH,
             CCWCH,
             CDFCH,
+            CHLCH,
             CISCH,
             CPCCH,
             FUHCH,
+            PPCCH,
             QUALIFIERS_child,
+            W30CH,
             CHLCH,
+            SFMCH,
           ]
     steps:
       - name: set branch_name

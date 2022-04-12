@@ -50,6 +50,13 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   });
 });
 
+Cypress.Commands.add("goToChildCoreSetMeasuresSFMCH", () => {
+  cy.get('[data-cy="Add Child Core Set"]').click();
+  cy.get('[data-cy="ChildCoreSet-ReportType1"]').click();
+  cy.get('[data-cy="Create"]').click();
+  cy.get('[data-cy="CCS"]').click();
+});
+
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
   cy.get(`[data-cy="${measure}"]`).should("be.visible").click();
