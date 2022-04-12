@@ -92,13 +92,13 @@ resources:
           Statement:
             - Effect: Allow
               Action: "s3:GetObject"
-              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}/*
+              Resource: !Sub arn:aws:s3:::${S3Bucket}/*
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
               Condition:
                 Bool:
                   "aws:SecureTransport": true
-        Bucket: !Ref CloudFrontLoggingBucket
+        Bucket: !Ref S3Bucket
     LogBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -109,13 +109,13 @@ resources:
               Action:
                 - "s3:GetBucketAcl"
                 - "s3:PutBucketAcl"
-              Resource: !Sub arn:aws:s3:::${S3Bucket}
+              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
               Condition:
                 Bool:
                   "aws:SecureTransport": true
-        Bucket: !Ref S3Bucket
+        Bucket: !Ref CloudFrontLoggingBucket
     CloudFrontWebAcl:
       Type: AWS::WAFv2::WebACL
       Properties:
