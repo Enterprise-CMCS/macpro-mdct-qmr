@@ -55,6 +55,7 @@ import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
 import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
+import { WCVCH } from "./WCVCH";
 
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
@@ -110,6 +111,7 @@ const twentyTwentyOneMeasures = {
   "SSD-AD": SSDAD,
   "W30-CH": W30CH,
   "WCC-CH": WCCCH,
+  "WCV-CH": WCVCH,
 };
 
 export default twentyTwentyOneMeasures;
