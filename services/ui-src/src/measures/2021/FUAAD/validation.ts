@@ -11,7 +11,6 @@ import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateOneRateHigherThanOther,
   validateOneDataSource,
-
 } from "../../globalValidations/validationsLib";
 import {
   ensureBothDatesCompletedInRange,

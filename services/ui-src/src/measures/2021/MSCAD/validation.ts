@@ -13,7 +13,6 @@ import {
   omsLocationDictionary,
   validateReasonForNotReporting,
   validateOneDataSource,
-
 } from "measures/globalValidations";
 import {
   omsValidations,

@@ -12,7 +12,7 @@ import {
   getDeviationNDRArray,
   omsLocationDictionary,
   validateDualPopInformation,
-  validateOneDataSource
+  validateOneDataSource,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
