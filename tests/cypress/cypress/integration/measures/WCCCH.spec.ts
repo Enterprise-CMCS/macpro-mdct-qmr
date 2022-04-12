@@ -1,6 +1,3 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("Measure: WCC-CH", () => {
   beforeEach(() => {
     cy.login();

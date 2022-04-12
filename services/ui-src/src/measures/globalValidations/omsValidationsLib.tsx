@@ -565,8 +565,9 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             [...label, qualifiers.slice(-1)[0]]
           )}`,
-          errorMessage: ` ${customTotalLabel ? `${customTotalLabel} ` : ""}
-       Total numerator field is not equal to the sum of other numerators.`,
+          errorMessage: `${
+            customTotalLabel ? `${customTotalLabel} ` : ""
+          }Total numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
