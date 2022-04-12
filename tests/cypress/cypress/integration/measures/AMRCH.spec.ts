@@ -112,11 +112,6 @@ describe("Measure: AMR-CH", () => {
       "have.value",
       "80.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
-      "have.attr",
-      "aria-readonly",
-      "true"
-    );
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
