@@ -114,6 +114,40 @@ export const validateOneRateLessThanOther: OmsValidationCallback = ({
   }
   return errors;
 };
+
+export const validateOneSealantGreaterThanFourMolarsSealedOMS: OmsValidationCallback =
+  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
+    if (isOPM) return [];
+    const errors: FormError[] = [];
+    const isRateLessThanOther = (rateArr: RateFields[]) => {
+      if (rateArr.length !== 2) return true;
+      const compareValue = rateArr[0].rate ?? "";
+      return parseFloat(rateArr[1].rate ?? "") <= parseFloat(compareValue);
+    };
+    const rateArr: RateFields[] = [];
+    for (const qual of qualifiers) {
+      const cleanQual = cleanString(qual);
+      for (const cat of categories.map((s) => cleanString(s))) {
+        if (rateData.rates?.[cleanQual]?.[cat]) {
+          const temp = rateData.rates[cleanQual][cat][0];
+          if (temp && temp.rate) {
+            rateArr.push(temp);
+          }
+        }
+      }
+    }
+    if (!isRateLessThanOther(rateArr)) {
+      errors.push({
+        errorLocation: `Optional Measure Stratification: ${locationDictionary(
+          label
+        )}`,
+        errorMessage: `Rate 2 (All Four Molars Sealed) should not be higher than Rate 1 (At Least One Sealant).`,
+      });
+    }
+
+    return errors;
+  };
+
 export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
   rateData,
   categories,
@@ -134,13 +168,16 @@ export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
     const cleanQual = cleanString(qual);
     const rateArr: RateFields[] = [];
     for (const cat of categories.map((s) => cleanString(s))) {
+      console.log({ cat, qual });
       if (rateData.rates?.[cleanQual]?.[cat]) {
         const temp = rateData.rates[cleanQual][cat][0];
+        console.log({ temp });
         if (temp && temp.denominator) {
           rateArr.push(temp);
         }
       }
     }
+    console.log({ rateArr });
     if (!areDenomsTheSame(rateArr)) {
       errors.push({
         errorLocation: `Optional Measure Stratification: ${locationDictionary([

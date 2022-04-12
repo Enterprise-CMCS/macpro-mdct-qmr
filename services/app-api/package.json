@@ -22,6 +22,7 @@
     "@types/prompt-sync": "^4.1.1",
     "aws-lambda": "^1.0.7",
     "jest": "^27.4.7",
+    "serverless-api-client-certificate": "^1.0.2",
     "serverless-associate-waf": "^1.2.1",
     "serverless-plugin-typescript": "^2.1.0",
     "serverless-s3-bucket-helper": "CMSgov/serverless-s3-bucket-helper#0.1.0",
