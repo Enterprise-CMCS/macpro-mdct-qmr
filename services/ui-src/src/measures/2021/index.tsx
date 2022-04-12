@@ -31,6 +31,7 @@ import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
 import { IETAD } from "./IETAD";
+import { IMACH } from "./IMACH";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
@@ -41,13 +42,16 @@ import { PC01AD } from "./PC01AD";
 import { PCRAD } from "./PCRAD";
 import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
+import { PPCCH } from "./PPCCH";
 import { PQI01AD } from "./PQI01AD";
 import { PQI05AD } from "./PQI05AD";
 import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
+import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
+import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 
 const twentyTwentyOneMeasures = {
@@ -81,6 +85,7 @@ const twentyTwentyOneMeasures = {
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
   "IET-AD": IETAD,
+  "IMA-CH": IMACH,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
@@ -91,12 +96,15 @@ const twentyTwentyOneMeasures = {
   "PCR-AD": PCRAD,
   "PDENT-CH": PDENTCH,
   "PPC-AD": PPCAD,
+  "PPC-CH": PPCCH,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
   "SAA-AD": SAAAD,
+  "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
+  "W30-CH": W30CH,
   "WCC-CH": WCCCH,
 };
 

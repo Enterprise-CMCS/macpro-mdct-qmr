@@ -81,7 +81,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [create_delete_child.spec.js]
+        containers: [create_delete_child]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
@@ -131,7 +131,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/features/${{ matrix.containers }}
+          spec: cypress/integration/features/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
@@ -166,41 +166,40 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [
-            ADDCH.spec.js,
-            AMMAD.spec.js,
-            AMRAD.spec.js,
-            BCSAD.spec.js,
-            CBPAD.spec.js,
-            CCPAD.spec.js,
-            CCSAD.spec.js,
-            CCWAD.spec.js,
-            CDFAD.spec.js,
-            CHLAD.spec.js,
-            COBAD.spec.js,
-            CPAAD.spec.js,
-            DEVCH.spec.js,
-            FUAAD.spec.js,
-            FUHAD.spec.js,
-            FUMAD.spec.js,
-            FVAAD.spec.js,
-            HPCAD.spec.js,
-            HPCMIAD.spec.js,
-            HVLAD.spec.js,
-            MSCAD.spec.js,
-            # NCIDDSAD.spec.js,
-            OHDAD.spec.js,
-            OUDAD.spec.js,
-            PC01AD.spec.js,
-            PCRAD.spec.js,
-            PPCAD.spec.js,
-            # PQI01AD.spec.js,
-            PQI05AD.spec.js,
-            PQI08AD.spec.js,
-            PQI15AD.spec.js,
-            QUALIFIERS_adult.spec.feature,
-            SAAAD.spec.js,
-            SSDAD.spec.js,
+        containers:
+          [
+            AMMAD,
+            AMRAD,
+            BCSAD,
+            CBPAD,
+            CCPAD,
+            CCSAD,
+            CCWAD,
+            CDFAD,
+            CHLAD,
+            COBAD,
+            CPAAD,
+            FUAAD,
+            FUHAD,
+            FUMAD,
+            FVAAD,
+            HPCAD,
+            HPCMIAD,
+            HVLAD,
+            MSCAD,
+            NCIDDSAD,
+            OHDAD,
+            OUDAD,
+            PC01AD,
+            PCRAD,
+            PPCAD,
+            PQI01AD,
+            PQI05AD,
+            PQI08AD,
+            PQI15AD,
+            QUALIFIERS_adult,
+            SAAAD,
+            SSDAD,
           ]
     steps:
       - name: set branch_name
@@ -252,7 +251,7 @@ jobs:
         with:
           record: false
           working-directory: tests/cypress
-          spec: cypress/integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
@@ -289,17 +288,23 @@ jobs:
       matrix:
         containers:
           [
-            AMRCH.spec.js,
-            AUDCH.spec.js,
-            CCPCH.spec.js,
-            CCWCH.spec.js,
-            CDFCH.spec.js,
-            CISCH.spec.js,
-            CPCCH.spec.js,
-            FUHCH.spec.js,
-            WCCCH.spec.js,
-            QUALIFIERS_child.spec.js,
-            CHLCH.spec.js,
+            ADDCH,
+            AMRCH,
+            AUDCH,
+            CCPCH,
+            CCWCH,
+            CDFCH,
+            CHLCH,
+            CISCH,
+            CPCCH,
+            DEVCH,
+            FUHCH,
+            IMACH,
+            PPCCH,
+            QUALIFIERS_child,
+            SFMCH,
+            W30CH,
+            WCCCH,
           ]
     steps:
       - name: set branch_name
@@ -351,7 +356,7 @@ jobs:
         with:
           record: false
           working-directory: tests/cypress
-          spec: cypress/integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
@@ -388,18 +393,18 @@ jobs:
       matrix:
         containers:
           [
-            add_validation_to_rate_when_user_selects_multiple_Data_Sources.spec.js,
-            adding_link_to_combined_rates_component.spec.js,
-            data_source_rate_to_auto_calculate_in_OPM.spec.js,
-            combined_rates_validation_warnings.spec.js,
-            date_range_adjustment.spec.js,
-            FAQ.spec.js,
-            logo.spec.feature,
-            measure_validation_error_creation_updates.spec.feature,
-            NDR_validation_updates.spec.js,
-            reporting_in_FY21_tag_for_alt_data_sources.spec.js,
-            restructuring_data_source_text_boxes.spec.js,
-            update_user_auth_handling_in_ui.spec.feature,
+            add_validation_to_rate_when_user_selects_multiple_Data_Sources,
+            adding_link_to_combined_rates_component,
+            data_source_rate_to_auto_calculate_in_OPM,
+            combined_rates_validation_warnings,
+            date_range_adjustment,
+            FAQ,
+            logo,
+            measure_validation_error_creation_updates,
+            NDR_validation_updates,
+            reporting_in_FY21_tag_for_alt_data_sources,
+            restructuring_data_source_text_boxes,
+            update_user_auth_handling_in_ui,
           ]
     steps:
       - name: set branch_name
@@ -451,7 +456,7 @@ jobs:
         with:
           record: false
           working-directory: tests/cypress
-          spec: cypress/integration/features/${{ matrix.containers }}
+          spec: cypress/integration/features/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
@@ -571,7 +576,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/a11y/${{ matrix.containers }}.spec.js
+          spec: cypress/integration/a11y/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
