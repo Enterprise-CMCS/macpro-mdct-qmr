@@ -101,7 +101,7 @@ resources:
               Action:
                 - "s3:GetBucketAcl"
                 - "s3:PutBucketAcl"
-              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}/*
+              Resource: !Sub ${CloudFrontLoggingBucket.Arn}/*
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
               Condition:
