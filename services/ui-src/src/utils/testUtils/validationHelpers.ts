@@ -54,13 +54,11 @@ export const generateRateData = (
   const rateData: OMS.OmsRateFields = {};
   rateData.options = qualifiers;
 
-  for (let j = 0; j < qualifiers.length; j++) {
-    const q = qualifiers[j];
-    for (let i = 0; i < categories.length; i++) {
-      const c = categories[i];
+  for (const [i, q] of qualifiers.entries()) {
+    for (const c of categories) {
       rateData.rates ??= {};
       rateData.rates[q] ??= {};
-      rateData.rates[q][c] = [testData[j]];
+      rateData.rates[q][c] = [testData[i]];
     }
   }
 

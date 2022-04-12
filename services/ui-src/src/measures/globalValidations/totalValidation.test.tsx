@@ -3,20 +3,12 @@ import {
   validateOMSTotalNDR,
 } from "measures/globalValidations";
 
-import {
-  doubleRate,
-  emptyRate,
-  incorrectDenominatorRate,
-  incorrectNumeratorRate,
-  partialRate,
-  generateRateData,
-  simpleRate,
-} from "utils/testUtils/validationHelpers";
+import * as VH from "utils/testUtils/validationHelpers";
 
 describe("Testing PM/OMS Total Validations", () => {
   describe("PM validation", () => {
     it("should return no errors", () => {
-      const basePM = [simpleRate, simpleRate, doubleRate];
+      const basePM = [VH.simpleRate, VH.simpleRate, VH.doubleRate];
       const singleResult = validateTotalNDR([basePM]);
       const multiResults = validateTotalNDR([basePM, basePM, basePM]);
 
@@ -25,7 +17,7 @@ describe("Testing PM/OMS Total Validations", () => {
     });
 
     it("should return numerator error", () => {
-      const basePM = [simpleRate, simpleRate, incorrectNumeratorRate];
+      const basePM = [VH.simpleRate, VH.simpleRate, VH.incorrectNumeratorRate];
       const singleResults = validateTotalNDR([basePM]);
       const multiResults = validateTotalNDR([basePM, basePM, basePM]);
 
@@ -34,13 +26,17 @@ describe("Testing PM/OMS Total Validations", () => {
       for (const result of [...singleResults, ...multiResults]) {
         expect(result.errorLocation).toBe("Performance Measure");
         expect(result.errorMessage).toBe(
-          `${incorrectNumeratorRate.label} numerator field is not equal to the sum of other numerators.`
+          `${VH.incorrectNumeratorRate.label} numerator field is not equal to the sum of other numerators.`
         );
       }
     });
 
     it("should return denominator error", () => {
-      const basePM = [simpleRate, simpleRate, incorrectDenominatorRate];
+      const basePM = [
+        VH.simpleRate,
+        VH.simpleRate,
+        VH.incorrectDenominatorRate,
+      ];
       const singleResults = validateTotalNDR([basePM]);
       const multiResults = validateTotalNDR([basePM, basePM, basePM]);
 
@@ -49,13 +45,13 @@ describe("Testing PM/OMS Total Validations", () => {
       for (const result of [...singleResults, ...multiResults]) {
         expect(result.errorLocation).toBe("Performance Measure");
         expect(result.errorMessage).toBe(
-          `${incorrectDenominatorRate.label} denominator field is not equal to the sum of other denominators.`
+          `${VH.incorrectDenominatorRate.label} denominator field is not equal to the sum of other denominators.`
         );
       }
     });
 
     it("should return field empty error", () => {
-      const basePM = [simpleRate, simpleRate, emptyRate];
+      const basePM = [VH.simpleRate, VH.simpleRate, VH.emptyRate];
 
       // single PM check
       const singleResults = validateTotalNDR([basePM]);
@@ -66,13 +62,13 @@ describe("Testing PM/OMS Total Validations", () => {
       for (const result of [...singleResults, ...multiResults]) {
         expect(result.errorLocation).toBe("Performance Measure");
         expect(result.errorMessage).toBe(
-          `${emptyRate.label} must contain values if other fields are filled.`
+          `${VH.emptyRate.label} must contain values if other fields are filled.`
         );
       }
     });
 
     it("should return no errors for partial state", () => {
-      const basePM = [partialRate, simpleRate, simpleRate];
+      const basePM = [VH.partialRate, VH.simpleRate, VH.simpleRate];
       const singleResult = validateTotalNDR([basePM]);
       const multiResults = validateTotalNDR([basePM, basePM, basePM]);
 
@@ -118,15 +114,15 @@ describe("Testing PM/OMS Total Validations", () => {
     });
 
     it("should return no errors", () => {
-      const basePMData = [simpleRate, simpleRate, doubleRate];
+      const basePMData = [VH.simpleRate, VH.simpleRate, VH.doubleRate];
 
       const singleResult = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: generateRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateRateData(noCategories, qualifiers, basePMData),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: generateRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateRateData(categories, qualifiers, basePMData),
       });
 
       expect(singleResult.length).toBe(0);
@@ -134,15 +130,19 @@ describe("Testing PM/OMS Total Validations", () => {
     });
 
     it("should return numerator error", () => {
-      const basePMData = [simpleRate, simpleRate, incorrectNumeratorRate];
+      const basePMData = [
+        VH.simpleRate,
+        VH.simpleRate,
+        VH.incorrectNumeratorRate,
+      ];
 
       const singleResults = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: generateRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateRateData(noCategories, qualifiers, basePMData),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: generateRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateRateData(categories, qualifiers, basePMData),
       });
 
       expect(singleResults.length).toBe(1);
@@ -158,15 +158,19 @@ describe("Testing PM/OMS Total Validations", () => {
     });
 
     it("should return denominator error", () => {
-      const basePMData = [simpleRate, simpleRate, incorrectDenominatorRate];
+      const basePMData = [
+        VH.simpleRate,
+        VH.simpleRate,
+        VH.incorrectDenominatorRate,
+      ];
 
       const singleResults = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: generateRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateRateData(noCategories, qualifiers, basePMData),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: generateRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateRateData(categories, qualifiers, basePMData),
       });
 
       expect(singleResults.length).toBe(1);
@@ -182,15 +186,15 @@ describe("Testing PM/OMS Total Validations", () => {
     });
 
     it("should return field empty error", () => {
-      const basePMData = [simpleRate, simpleRate, emptyRate];
+      const basePMData = [VH.simpleRate, VH.simpleRate, VH.emptyRate];
 
       const singleResults = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: generateRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateRateData(noCategories, qualifiers, basePMData),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: generateRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateRateData(categories, qualifiers, basePMData),
       });
 
       expect(singleResults.length).toBe(1);
@@ -206,15 +210,15 @@ describe("Testing PM/OMS Total Validations", () => {
     });
 
     it("should return no errors for a partial state", () => {
-      const basePMData = [partialRate, simpleRate, simpleRate];
+      const basePMData = [VH.partialRate, VH.simpleRate, VH.simpleRate];
 
       const singleResult = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: generateRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateRateData(noCategories, qualifiers, basePMData),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: generateRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateRateData(categories, qualifiers, basePMData),
       });
 
       expect(singleResult.length).toBe(0);
