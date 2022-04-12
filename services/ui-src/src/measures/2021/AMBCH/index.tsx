@@ -57,7 +57,10 @@ export const AMBCH = ({
             </>
           )}
           {isOtherMeasureSpecSelected && (
-            <CMQ.OtherPerformanceMeasure rateMultiplicationValue={rateScale} />
+            <CMQ.OtherPerformanceMeasure
+              customMask={mask}
+              rateMultiplicationValue={rateScale}
+            />
           )}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
