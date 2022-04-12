@@ -19,7 +19,7 @@ describe("validateDualPopInformation", () => {
   };
 
   beforeEach(() => {
-    formData = { ...testFormData };
+    formData = JSON.parse(JSON.stringify(testFormData)); // reset data
     errorArray = [];
   });
 
