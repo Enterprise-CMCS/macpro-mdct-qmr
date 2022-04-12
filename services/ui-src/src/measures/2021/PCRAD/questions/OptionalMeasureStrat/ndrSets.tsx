@@ -359,7 +359,7 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
  * Builds NDRs for Performance Measure AgeGroups
  */
 const PCRADNDRSets = ({ name }: NdrProps) => {
-  const { rateReadOnly, qualifiers, rateMultiplicationValue, customMask } =
+  const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
   const rates = qualifiers.map((qual, i) => {
     return { label: qual, id: i };
@@ -380,7 +380,6 @@ const PCRADNDRSets = ({ name }: NdrProps) => {
         rates={rates}
         name={`${name}.pcrad-rate`}
         readOnly={rateReadOnly}
-        rateMultiplicationValue={rateMultiplicationValue}
         customMask={customMask}
       />
     </>

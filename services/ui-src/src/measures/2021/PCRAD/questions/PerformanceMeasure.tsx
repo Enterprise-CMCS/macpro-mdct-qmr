@@ -68,7 +68,6 @@ const CategoryNdrSets = ({
 const QualifierNdrSets = ({
   rateReadOnly,
   qualifiers = [],
-  rateScale,
   customMask,
 }: NdrSetProps) => {
   const register = useCustomRegister();
@@ -82,7 +81,6 @@ const QualifierNdrSets = ({
     <MultiRate
       rates={rates}
       readOnly={rateReadOnly}
-      rateMultiplicationValue={rateScale}
       customMask={customMask}
       {...register("PerformanceMeasure.rates.singleCategory")}
     ></MultiRate>

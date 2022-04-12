@@ -250,12 +250,13 @@ export const PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
     });
 
     if (ndrCount > 0) {
-      const atLeastOneDevNDR = deviationArrayLength === 3 ? true : false;
+      const atLeastOneDevSection = deviationArrayLength > 0 ? true : false;
 
-      if (!atLeastOneDevNDR) {
+      if (!atLeastOneDevSection) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
-          errorMessage: "You must complete one NDR set",
+          errorMessage:
+            "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
     }
