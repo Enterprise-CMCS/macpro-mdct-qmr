@@ -152,13 +152,8 @@ resources:
           Comment: OAI to prevent direct public access to the bucket
     CloudFrontDistribution:
       Type: AWS::CloudFront::Distribution
-      DependsOn: CloudFrontLoggingBucket
       Properties:
         DistributionConfig:
-          Logging:
-            Bucket: !GetAtt CloudFrontLoggingBucket.RegionalDomainName
-            IncludeCookies: false
-            Prefix: ${self:custom.stage}
           Comment: CloudFront Distro for the static website hosted in S3
           Aliases:
             Fn::If:

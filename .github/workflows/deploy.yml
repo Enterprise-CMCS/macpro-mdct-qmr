@@ -296,11 +296,13 @@ jobs:
             CCPCH,
             CCWCH,
             CDFCH,
+            CHLCH,
             CISCH,
             CPCCH,
             FUHCH,
             PPCCH,
             QUALIFIERS_child,
+            W30CH,
             CHLCH,
             SFMCH,
           ]
