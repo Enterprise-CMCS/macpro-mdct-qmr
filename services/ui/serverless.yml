@@ -91,6 +91,23 @@ resources:
                 Bool:
                   "aws:SecureTransport": true
         Bucket: !Ref S3Bucket
+    LogBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - "s3:GetBucketAcl"
+                - "s3:PutBucketAcl"
+              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}/*
+              Principal:
+                CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+              Condition:
+                Bool:
+                  "aws:SecureTransport": true
+        Bucket: !Ref S3Bucket
     CloudFrontWebAcl:
       Type: AWS::WAFv2::WebACL
       Properties:
