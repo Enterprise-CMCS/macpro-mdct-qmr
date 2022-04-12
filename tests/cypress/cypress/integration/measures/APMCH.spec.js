@@ -43,7 +43,7 @@ describe("Measure: APM-CH", () => {
     );
   });
 
-  it("at least one dnr set if reporting and measurement spec or error.", () => {
+  it("at least one NDR set if reporting and measurement spec or error.", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
