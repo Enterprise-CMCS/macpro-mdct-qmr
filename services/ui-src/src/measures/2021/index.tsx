@@ -3,6 +3,7 @@ When importing a measure it should be a named import and added to the measures o
 the key should be the measure id as a string (with '-XX' included) 
 */
 import { ADDCH } from "./ADDCH";
+import { AMBCH } from "./AMBCH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
@@ -53,12 +54,14 @@ import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
 import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
+import { WCCCH } from "./WCCCH";
 import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
 
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
+  "AMB-CH": AMBCH,
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
@@ -109,6 +112,7 @@ const twentyTwentyOneMeasures = {
   "SAA-AD": SAAAD,
   "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
+  "WCC-CH": WCCCH,
   "W30-CH": W30CH,
   "WCC-CH": WCCCH,
   "WCV-CH": WCVCH,
