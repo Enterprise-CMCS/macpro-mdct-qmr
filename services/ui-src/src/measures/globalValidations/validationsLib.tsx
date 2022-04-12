@@ -295,8 +295,8 @@ export const validateTotalNDR = (
   performanceMeasureArray: PerformanceMeasure[][],
   errorLocation = "Performance Measure",
   categories?: string[]
-) => {
-  let errorArray: any[] = [];
+): FormError[] => {
+  let errorArray: FormError[] = [];
 
   performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
