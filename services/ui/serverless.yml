@@ -109,7 +109,7 @@ resources:
               Action:
                 - "s3:GetBucketAcl"
                 - "s3:PutBucketAcl"
-              Resource: "arn:aws:s3:::024259748323-ui-oy2-14497-1-cloudfront-logs"
+              Resource: !Sub arn:aws:s3:::${S3Bucket}/*
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
               Condition:
