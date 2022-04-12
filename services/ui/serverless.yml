@@ -109,7 +109,7 @@ resources:
               Action:
                 - "s3:GetBucketAcl"
                 - "s3:PutBucketAcl"
-              Resource: !Sub arn:aws:s3:::${S3Bucket}/*
+              Resource: !Sub arn:aws:s3:::${S3Bucket}
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
               Condition:
