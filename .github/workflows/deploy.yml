@@ -169,6 +169,7 @@ jobs:
         containers: [
             ADDCH.spec.js,
             AMMAD.spec.js,
+            AMPCH.spec.js,
             AMRAD.spec.js,
             BCSAD.spec.js,
             CBPAD.spec.js,
