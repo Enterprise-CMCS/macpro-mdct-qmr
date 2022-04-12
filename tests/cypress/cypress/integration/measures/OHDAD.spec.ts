@@ -517,9 +517,9 @@ describe("Measure: OHD-AD", () => {
       ).type("1");
       cy.get("#DidCalculationsDeviate-yes").click();
       cy.clickValidateMeasure();
-      cy.get('[data-cy="You must complete one NDR set"] > .chakra-text').should(
-        "be.visible"
-      );
+      cy.get(
+        '[data-cy="At least one item must be selected and completed (Numerator, Denominator, or Other)"] > .chakra-text'
+      ).should("be.visible");
       cy.get(
         '[data-cy="DeviationOptions0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
@@ -542,9 +542,9 @@ describe("Measure: OHD-AD", () => {
       ).click();
       cy.get('[data-cy="Deviations.Ages18to64.other"]').type("test");
       cy.clickValidateMeasure();
-      cy.get('[data-cy="You must complete one NDR set"] > .chakra-text').should(
-        "not.exist"
-      );
+      cy.get(
+        '[data-cy="At least one item must be selected and completed (Numerator, Denominator, or Other)"] > .chakra-text'
+      ).should("not.exist");
     });
   });
 });
