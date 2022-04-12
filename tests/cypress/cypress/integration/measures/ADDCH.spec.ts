@@ -393,9 +393,11 @@ describe("Measure: oy2-9921 ADD-CH", () => {
       "have.text",
       "Deviations from Measure Specifications Error"
     );
-    cy.get('[data-cy="You must complete one NDR set"] > .chakra-text').should(
+    cy.get(
+      '[data-cy="At least one item must be selected and completed (Numerator, Denominator, or Other)"] > .chakra-text'
+    ).should(
       "have.text",
-      "You must complete one NDR set"
+      "At least one item must be selected and completed (Numerator, Denominator, or Other)"
     );
     /* ==== End Cypress Studio ==== */
   });
