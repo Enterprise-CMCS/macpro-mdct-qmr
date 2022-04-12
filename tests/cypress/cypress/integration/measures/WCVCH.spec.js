@@ -275,12 +275,12 @@ describe("Measure: oy2-9916 WCV-CH", () => {
     cy.get(
       "#Deviations\\.Ages3to11\\.RateDeviationsSelected1-checkbox"
     ).check();
-    cy.get(
-      '[data-cy="Deviations.Ages3to11.RateDeviationsSelected2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.Ages3to11\\.RateDeviationsSelected2-checkbox"
-    ).check();
+    //cy.get(
+    //  '[data-cy="Deviations.Ages3to11.RateDeviationsSelected2"] > .chakra-checkbox__control'
+    //).click();
+    //cy.get(
+    //  "#Deviations\\.Ages3to11\\.RateDeviationsSelected2-checkbox"
+    //).check();
     cy.get('[data-cy="DeviationOptions1"] > .chakra-checkbox__control').click();
     cy.get("#DeviationOptions1-checkbox").check();
     cy.get(
