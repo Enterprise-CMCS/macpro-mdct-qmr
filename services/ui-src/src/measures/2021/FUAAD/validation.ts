@@ -10,6 +10,8 @@ import {
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   validateOneRateHigherThanOther,
+  validateOneDataSource,
+
 } from "../../globalValidations/validationsLib";
 import {
   ensureBothDatesCompletedInRange,
@@ -54,6 +56,7 @@ const FUAADValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateOneDataSource(data),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,

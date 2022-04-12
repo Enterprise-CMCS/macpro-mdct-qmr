@@ -12,6 +12,8 @@ import {
   getPerfMeasureRateArray,
   omsLocationDictionary,
   validateReasonForNotReporting,
+  validateOneDataSource,
+
 } from "measures/globalValidations";
 import {
   omsValidations,
@@ -60,6 +62,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
     ),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateOneDataSource(data),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,

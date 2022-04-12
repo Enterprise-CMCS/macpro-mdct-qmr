@@ -13,6 +13,7 @@ import {
   validateReasonForNotReporting,
   validateRequiredRadioButtonForCombinedRates,
   validateTotalNDR,
+  validateOneDataSource,
 } from "../../globalValidations";
 import {
   omsValidations,
@@ -54,6 +55,7 @@ const AMRADValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateOneDataSource(data),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
