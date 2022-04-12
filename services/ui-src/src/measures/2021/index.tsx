@@ -7,6 +7,8 @@ import { AMBCH } from "./AMBCH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
+import { APMCH } from "./APMCH";
+import { APPCH } from "./APPCH";
 import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
@@ -32,6 +34,7 @@ import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
 import { IETAD } from "./IETAD";
+import { IMACH } from "./IMACH";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
@@ -53,7 +56,8 @@ import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
 import { WCCCH } from "./WCCCH";
 import { W30CH } from "./W30CH";
-import { IMACH } from "./IMACH";
+import { WCCCH } from "./WCCCH";
+import { WCVCH } from "./WCVCH";
 
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
@@ -61,6 +65,8 @@ const twentyTwentyOneMeasures = {
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
+  "APM-CH": APMCH,
+  "APP-CH": APPCH,
   "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
@@ -108,6 +114,8 @@ const twentyTwentyOneMeasures = {
   "SSD-AD": SSDAD,
   "WCC-CH": WCCCH,
   "W30-CH": W30CH,
+  "WCC-CH": WCCCH,
+  "WCV-CH": WCVCH,
 };
 
 export default twentyTwentyOneMeasures;
