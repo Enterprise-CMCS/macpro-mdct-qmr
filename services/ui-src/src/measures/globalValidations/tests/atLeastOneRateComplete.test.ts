@@ -24,16 +24,15 @@ describe("atLeastOneRateComplete", () => {
 
   // Check that the provided Form Data returns a certain number of validation errors.
   const check_errors = (data: DefaultFormData, numErrors: number) => {
-    let errorArray: FormError[] = [];
     const { ageGroups, performanceMeasureArray, OPM } = HELP.test_setup(data);
-    errorArray = [
+    const errorArray: FormError[] = [
       ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ];
     expect(errorArray.length).toBe(numErrors);
   };
 
   beforeEach(() => {
-    formData = { ...testFormData }; // reset data
+    formData = JSON.parse(JSON.stringify(testFormData)); // reset data
   });
 
   test("when Peformance Measure is partially complete and OPM is partially complete", () => {
