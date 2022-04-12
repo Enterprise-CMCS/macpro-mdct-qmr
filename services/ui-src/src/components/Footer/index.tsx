@@ -30,6 +30,7 @@ export function Footer(): JSX.Element {
               style={{ maxWidth: "140px" }}
               src="/footer/mdct.png"
               alt="Mdct logo"
+              className="mdct-logo"
             />
             <img
               style={{ padding: "10px 0 0 50px" }}

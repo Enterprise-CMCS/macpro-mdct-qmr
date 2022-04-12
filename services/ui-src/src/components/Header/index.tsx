@@ -14,7 +14,7 @@ export function Header({ handleLogout }: Props) {
       <UsaBanner />
       {/* using hex color here for branded color */}
       <CUI.Box bg="#0071bc">
-        <CUI.Container maxW="7xl">
+        <CUI.Container className="hidden-print-items" maxW="7xl">
           <CUI.Flex py="4" alignItems="center">
             <Link to="/">
               <Logo />

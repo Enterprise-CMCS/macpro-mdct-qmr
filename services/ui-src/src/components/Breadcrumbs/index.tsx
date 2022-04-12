@@ -23,7 +23,6 @@ export const Breadcrumbs = ({ items, color }: Props) => {
           </Link>
         </CUI.Center>
       )}
-      {/* <CUI.Breadcrumb color={color} separator=""> */}
       <CUI.HStack>
         {items?.map((item, idx) => (
           <CUI.Heading

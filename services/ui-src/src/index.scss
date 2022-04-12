@@ -27,3 +27,29 @@ li::marker {
 a:focus {
   box-shadow: none;
 }
+
+@media print {
+  .mdct-logo {
+    width: 200px;
+  }
+
+  a[href]::after {
+    display: none;
+  }
+
+  .state-layout-container {
+    position: relative !important;
+
+    .header-spacer {
+      display: none;
+    }
+    a {
+      font-size: 25px;
+    }
+  }
+
+  .hidden-print-items {
+    visibility: hidden;
+    display: none !important;
+  }
+}
