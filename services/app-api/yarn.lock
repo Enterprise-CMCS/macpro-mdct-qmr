@@ -2453,6 +2453,11 @@ semver@^6.0.0, semver@^6.3.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
+serverless-api-client-certificate@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/serverless-api-client-certificate/-/serverless-api-client-certificate-1.0.2.tgz#9113f3ad3862faf8615a37733ca09a1409ced8dd"
+  integrity sha512-snlEA1129NpZGYc0ra1eae17dKPYOXrju7cN+ku8roo6XOSMvNPe4XmEf0vVojoVHburXmI+Yx7y8DgJYeM2Fg==
+
 serverless-associate-waf@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/serverless-associate-waf/-/serverless-associate-waf-1.2.1.tgz#30efcfe94038a34fba6a00a954df43e176b8ccc9"

@@ -201,7 +201,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "CH",
-      name: "Audiological Diagnosis No Later Than 3 Months of Age",
+      name: "Audiological Diagnosis No Later than 3 Months of Age",
       measureId: "AUD-CH",
     },
     {
@@ -216,7 +216,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "CH",
-      name: "Screening for Depression and Follow-up Plan: Ages 12 to 17",
+      name: "Screening for Depression and Follow-Up Plan: Ages 12 to 17",
       measureId: "CDF-CH",
     },
     {

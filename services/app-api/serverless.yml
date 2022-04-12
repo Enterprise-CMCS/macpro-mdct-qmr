@@ -16,8 +16,12 @@ plugins:
   - serverless-idempotency-helper
   - serverless-iam-helper
   - serverless-s3-bucket-helper
+  - serverless-api-client-certificate
 
 custom:
+  serverlessApiClientCertificate:
+    rotateCerts: true
+    daysLeft: 30
   serverlessPluginTypescript:
     tsConfigFileLocation: "./tsconfig.json"
   stage: ${opt:stage, self:provider.stage}
