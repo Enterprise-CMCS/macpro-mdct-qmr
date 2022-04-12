@@ -201,6 +201,7 @@ jobs:
             QUALIFIERS_adult.spec.feature,
             SAAAD.spec.js,
             SSDAD.spec.js,
+            WCVCH.spec.js,
           ]
     steps:
       - name: set branch_name
