@@ -290,6 +290,7 @@ jobs:
           [
             ADDCH,
             AMRCH,
+            APMCH,
             AUDCH,
             CCPCH,
             CCWCH,
