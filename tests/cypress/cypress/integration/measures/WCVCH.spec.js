@@ -1,7 +1,7 @@
 const emailForCognito = "//input[@name='email']";
 const passwordForCognito = "//input[@name='password']";
 
-describe("Measure: oy2-9936 WCV-CH", () => {
+describe("Measure: oy2-9916 WCV-CH", () => {
   beforeEach(() => {
     cy.login();
     cy.deleteChildCoreSets();
