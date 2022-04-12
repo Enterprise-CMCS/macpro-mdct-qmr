@@ -470,7 +470,7 @@ export const validateRequiredRadioButtonForCombinedRates = (
 
 export const validateOneDataSource = (data: Types.DataSource) => {
   const errorArray: FormError[] = [];
-  if (data.DataSource.length === 0) {
+  if (data?.DataSource?.length === 0) {
     errorArray.push({
       errorLocation: "Data Source",
       errorMessage: "You must select at least one Data Source option",
