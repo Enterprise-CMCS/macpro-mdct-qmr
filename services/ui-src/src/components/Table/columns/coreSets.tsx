@@ -2,7 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Link } from "react-router-dom";
 import { CoreSetTableItem, TableColumn } from "../types";
-import { ContainedButton } from "components/ContainedButton";
 
 // Get status string from core set data
 const getStatus = ({
@@ -79,28 +78,9 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
   {
     id: "submit_column_header",
     cell: (data: CoreSetTableItem.Data) => {
-      const status = getStatus(data);
-      const isSubmitted = status === CoreSetTableItem.Status.SUBMITTED;
-      const buttonText = isSubmitted
-        ? CoreSetTableItem.Status.SUBMITTED
-        : "submit core set";
-      const helperText = !isSubmitted
-        ? `Complete all Core Set Questions and Core Set Measures to submit FFY ${data.year}`
-        : undefined;
       return (
         <CUI.Box textAlign="center">
-          <ContainedButton
-            buttonText={buttonText}
-            disabledStatus={status !== CoreSetTableItem.Status.COMPLETED}
-            buttonProps={{
-              bg: "blue.600",
-              colorScheme: "blue",
-              textTransform: "capitalize",
-              w: "full",
-            }}
-            helperText={helperText}
-            onClick={() => console.log("core set button")}
-          />
+          <QMR.SubmitCoreSetButton status={getStatus(data)} year={data.year} />
         </CUI.Box>
       );
     },
