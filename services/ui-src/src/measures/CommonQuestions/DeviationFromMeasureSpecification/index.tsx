@@ -153,14 +153,14 @@ export const DeviationFromMeasureSpec = ({
           name: DC.DEVIATIONS,
         });
       } else {
-        Object.keys(rates).forEach((key) => {
+        categories.forEach((cat) => {
+          const key = cat.replace(/[^\w]/g, "");
           // if some of the rates have both num and den
           if (rates[key]?.some(numDenExistInRate)) {
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
               rates: rates[key]?.filter(numDenExistInRate),
-              displayValue:
-                categories.find((cat) => cleanString(cat) === key) || "",
+              displayValue: cat,
               key,
             });
           }

@@ -3,9 +3,12 @@ When importing a measure it should be a named import and added to the measures o
 the key should be the measure id as a string (with '-XX' included) 
 */
 import { ADDCH } from "./ADDCH";
+import { AMBCH } from "./AMBCH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
+import { APMCH } from "./APMCH";
+import { APPCH } from "./APPCH";
 import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
@@ -31,6 +34,7 @@ import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
 import { IETAD } from "./IETAD";
+import { IMACH } from "./IMACH";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
@@ -51,13 +55,17 @@ import { SAAAD } from "./SAAAD";
 import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
 import { W30CH } from "./W30CH";
-import { IMACH } from "./IMACH";
+import { WCCCH } from "./WCCCH";
+import { WCVCH } from "./WCVCH";
 
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
+  "AMB-CH": AMBCH,
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
+  "APM-CH": APMCH,
+  "APP-CH": APPCH,
   "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
@@ -104,6 +112,8 @@ const twentyTwentyOneMeasures = {
   "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
   "W30-CH": W30CH,
+  "WCC-CH": WCCCH,
+  "WCV-CH": WCVCH,
 };
 
 export default twentyTwentyOneMeasures;
