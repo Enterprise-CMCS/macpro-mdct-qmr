@@ -30,16 +30,18 @@ export function Footer(): JSX.Element {
               style={{ maxWidth: "140px" }}
               src="/footer/mdct.png"
               alt="Mdct logo"
-              className="mdct-logo"
+              className="logos"
             />
             <img
               style={{ padding: "10px 0 0 50px" }}
               src="/footer/logo-MedicaidGov.svg"
               alt="Medicaid.gov logo"
+              className="logos"
             />
             <CUI.Spacer />
             <CUI.Flex maxW={{ base: "none", md: "md" }}>
               <img
+                className="logos"
                 src="/footer/depthealthhumanservices_usa.svg"
                 alt="Department of Health and Human Services logo"
               />

@@ -29,8 +29,12 @@ a:focus {
 }
 
 @media print {
-  .mdct-logo {
-    width: 200px;
+  body {
+    padding: 10px 0 10px 0;
+  }
+
+  .logos {
+    width: 150px;
   }
 
   a[href]::after {
