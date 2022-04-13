@@ -147,7 +147,9 @@ describe("Measure: CCW-CH", () => {
       '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
     ).type("34");
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-testid="measure-wrapper-form"]').contains(
+    cy.get(
+      '[data-cy="Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"]'
+    ).contains(
       "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"
     );
   });

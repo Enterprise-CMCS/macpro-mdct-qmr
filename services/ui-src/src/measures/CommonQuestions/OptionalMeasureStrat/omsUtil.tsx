@@ -7,7 +7,7 @@ import { usePerformanceMeasureContext } from "./context";
 interface TempRate {
   numerator?: number;
   denominator?: number;
-  rate: string;
+  rate?: string;
 }
 
 interface TotalCalcHookProps {
@@ -34,11 +34,11 @@ const calculateOMSTotal = ({
   qualifiers,
   rateMultiplicationValue = 100,
   watchOMS,
-}: CalcOmsTotalProp) => {
+}: CalcOmsTotalProp): RateFields => {
   const tempRate: TempRate = {
     numerator: undefined,
     denominator: undefined,
-    rate: "",
+    rate: undefined,
   };
 
   for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
@@ -68,7 +68,15 @@ const calculateOMSTotal = ({
     ).toFixed(1);
   }
 
-  return tempRate;
+  return {
+    numerator:
+      tempRate.numerator !== undefined ? `${tempRate.numerator}` : undefined,
+    denominator:
+      tempRate.denominator !== undefined
+        ? `${tempRate.denominator}`
+        : undefined,
+    rate: tempRate.rate,
+  };
 };
 
 /** Checks if previous non-undefined OMS values have changed */
