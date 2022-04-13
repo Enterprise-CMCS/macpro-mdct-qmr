@@ -55,37 +55,21 @@ describe("Measure: WCC-CH", () => {
       "HEDIS MY 2020"
     );
     cy.get('[data-cy="DataSource0"]').click();
-    cy.get("#DataSource0-checkbox").check();
     cy.get(
       '[data-cy="DataSourceSelections.AdministrativeData0.selected1"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#DataSourceSelections\\.AdministrativeData0\\.selected1-checkbox"
-    ).check();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get("#DataSource1-checkbox").check();
     cy.get(
       '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData0.selected0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData0\\.selected0-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData1.selected0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData1\\.selected0-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData1.selected1"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#DataSourceSelections\\.HybridAdministrativeandMedicalRecordsData1\\.selected1-checkbox"
-    ).check();
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
-    cy.get("#DataSource2-checkbox").check();
     cy.get('[data-cy="DataSource3"] > .chakra-checkbox__control').click();
-    cy.get("#DataSource3-checkbox").check();
     cy.get('[data-cy="DataSourceDescription"]').click();
     cy.get('[data-cy="DateRange.startDate-month"]').clear();
     cy.get('[data-cy="DateRange.startDate-month"]').type("10");
@@ -116,14 +100,12 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator0-checkbox").check();
     cy.get('[data-cy="DeliverySys-FeeForService1"]').click();
     cy.get('[data-cy="DeliverySys-FeeForService-No-Percent"]').clear();
     cy.get('[data-cy="DeliverySys-FeeForService-No-Percent"]').type("12");
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check();
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement1"]').click();
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement-No-Percent"]').clear();
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement-No-Percent"]').type(
@@ -132,7 +114,6 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check();
     cy.get('[data-cy="DeliverySys-MCO_PIHP-NumberOfPlans"]').clear();
     cy.get('[data-cy="DeliverySys-MCO_PIHP-NumberOfPlans"]').type("12");
     cy.get('[data-cy="DeliverySys-MCO_PIHP1"]').click();
@@ -143,7 +124,6 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
     cy.get('[data-cy="DeliverySys-IntegratedCareModel1"]').click();
     cy.get('[data-cy="DeliverySys-IntegratedCareModel-No-Percent"]').clear();
     cy.get('[data-cy="DeliverySys-IntegratedCareModel-No-Percent"]').type("12");
@@ -154,7 +134,6 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator4-checkbox").check();
     cy.get('[data-cy="DeliverySys-Other"]').click();
     cy.get('[data-cy="DeliverySys-Other-Percent"]').clear();
     cy.get('[data-cy="DeliverySys-Other-Percent"]').type("12");
@@ -342,47 +321,26 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.CounselingforPhysicalActivity.1.rate"]'
     ).type("12.3");
-    /* ==== End Cypress Studio ==== */
-    /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
-    cy.get("#DeviationOptions0-checkbox").check();
     cy.get(
       '[data-cy="Deviations.BodymassindexBMIpercentiledocumentation.SelectedOptions0"]'
     ).click();
     cy.get(
-      "#Deviations\\.BodymassindexBMIpercentiledocumentation\\.SelectedOptions0-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="Deviations.BodymassindexBMIpercentiledocumentation.Ages3to11.RateDeviationsSelected0"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#Deviations\\.BodymassindexBMIpercentiledocumentation\\.Ages3to11\\.RateDeviationsSelected0-checkbox"
-    ).check();
     cy.get(
       '[data-cy="Deviations.BodymassindexBMIpercentiledocumentation.Ages3to11.RateDeviationsSelected1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.BodymassindexBMIpercentiledocumentation\\.Ages3to11\\.RateDeviationsSelected1-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="Deviations.BodymassindexBMIpercentiledocumentation.Ages3to11.RateDeviationsSelected2"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#Deviations\\.BodymassindexBMIpercentiledocumentation\\.Ages3to11\\.RateDeviationsSelected2-checkbox"
-    ).check();
     cy.get(
       '[data-cy="Deviations.BodymassindexBMIpercentiledocumentation.SelectedOptions1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.BodymassindexBMIpercentiledocumentation\\.SelectedOptions1-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="Deviations.BodymassindexBMIpercentiledocumentation.SelectedOptions2"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#Deviations\\.BodymassindexBMIpercentiledocumentation\\.SelectedOptions2-checkbox"
-    ).check();
     cy.get(
       '[data-cy="DeviationOptions1"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Counseling for Nutrition");
@@ -390,9 +348,7 @@ describe("Measure: WCC-CH", () => {
       '[data-cy="DeviationOptions2"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Counseling for Physical Activity");
     cy.get('[data-cy="DeviationOptions1"] > .chakra-checkbox__control').click();
-    cy.get("#DeviationOptions1-checkbox").check();
     cy.get('[data-cy="DeviationOptions2"] > .chakra-checkbox__control').click();
-    cy.get("#DeviationOptions2-checkbox").check();
     cy.get('[data-cy="CombinedRates0"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
     cy.get(
@@ -405,37 +361,21 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-    ).check();
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
+    ).click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-    ).uncheck();
-    cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-    ).uncheck();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-    ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Ages 3 to 11");
@@ -445,9 +385,6 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
-    ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.BodymassindexBMIpercentiledocumentation.0.numerator"]'
     ).clear();
@@ -496,9 +433,6 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options1-checkbox"
-    ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.BodymassindexBMIpercentiledocumentation.0.numerator"]'
     ).clear();
@@ -550,9 +484,6 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options3"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options3-checkbox"
-    ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.Asian.aggregate1"]'
     ).click();
