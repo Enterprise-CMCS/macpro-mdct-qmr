@@ -19,3 +19,22 @@ export const integersWithMaxDecimalPlaces = (maxDecimal: number) =>
   new RegExp(`^-?\\d*\\.?\\d{0,${maxDecimal}}$`);
 export const positiveNumbersWithMaxDecimalPlaces = (maxDecimal: number) =>
   new RegExp(`^\\d*\\.?\\d{0,${maxDecimal}}$`);
+
+/* Generates a RegEx mask of custom params
+  
+For the RegExp returned by this call: xNumbersYDecimals(2, 1)
+  - The greatest possible match for these params would be 100
+  - The greatest possible match with a decimal would be 99.9
+*/
+export const xNumbersYDecimals = (
+  tenPower: number = 2,
+  decimalPlaces: number = 1
+) => {
+  const greatestNumber = Math.pow(10, tenPower);
+  return new RegExp(
+    `^((?:${
+      greatestNumber - 1
+    }|\\d{0,${tenPower}})(?:\\.\\d{0,${decimalPlaces}})?|(${greatestNumber}?))$`,
+    "i"
+  );
+};
