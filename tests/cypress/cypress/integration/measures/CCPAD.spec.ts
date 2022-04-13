@@ -52,21 +52,21 @@ describe("Measure: CCP-AD", () => {
       "Performance Measure"
     );
     cy.get(
-      ':nth-child(1) > :nth-child(2) > [data-cy="Three Days Postpartum Rate"]'
-    ).should("have.text", "Three Days Postpartum Rate");
+      '[data-cy="Three Days Postpartum Rate"]'
+    ).first().should("have.text", "Three Days Postpartum Rate");
     cy.get(
-      ':nth-child(1) > :nth-child(3) > [data-cy="Sixty Days Postpartum Rate"]'
-    ).should("have.text", "Sixty Days Postpartum Rate");
+      '[data-cy="Sixty Days Postpartum Rate"]'
+    ).first().should("have.text", "Sixty Days Postpartum Rate");
     cy.get(":nth-child(6) > :nth-child(2) > .chakra-text").should(
       "have.text",
       "Long-acting reversible method of contraception (LARC)"
     );
     cy.get(
-      ':nth-child(2) > :nth-child(2) > [data-cy="Three Days Postpartum Rate"]'
-    ).should("have.text", "Three Days Postpartum Rate");
+      '[data-cy="Three Days Postpartum Rate"]'
+    ).first().should("have.text", "Three Days Postpartum Rate");
     cy.get(
-      ':nth-child(2) > :nth-child(3) > [data-cy="Sixty Days Postpartum Rate"]'
-    ).should("have.text", "Sixty Days Postpartum Rate");
+      '[data-cy="Sixty Days Postpartum Rate"]'
+    ).first().should("have.text", "Sixty Days Postpartum Rate");
   });
 
   it("if other measurement spec is selected -> show other performance measures", () => {

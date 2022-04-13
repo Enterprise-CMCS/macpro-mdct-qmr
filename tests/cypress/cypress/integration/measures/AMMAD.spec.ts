@@ -46,13 +46,13 @@ describe("Measure: AMM-AD", () => {
       "have.text",
       "Performance Measure"
     );
-    cy.get(':nth-child(1) > :nth-child(2) > [data-cy="Ages 18 to 64"]').should(
+    cy.get('[data-cy="Ages 18 to 64"]').first().should(
       "have.text",
       "Ages 18 to 64"
     );
     cy.get(
-      ':nth-child(1) > :nth-child(3) > [data-cy="Age 65 and older"]'
-    ).should("have.text", "Age 65 and older");
+      '[data-cy="Age 65 and older"]'
+    ).first().should("have.text", "Age 65 and older");
   });
 
   it("if other measurement spec is selected -> show other performance measures", () => {
