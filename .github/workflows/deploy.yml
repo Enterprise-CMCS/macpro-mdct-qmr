@@ -168,7 +168,6 @@ jobs:
       matrix:
         containers:
           [
-            ADDCH,
             AMMAD,
             AMRAD,
             BCSAD,
@@ -180,7 +179,6 @@ jobs:
             CHLAD,
             COBAD,
             CPAAD,
-            DEVCH,
             FUAAD,
             FUHAD,
             FUMAD,
@@ -188,7 +186,6 @@ jobs:
             HPCAD,
             HPCMIAD,
             HVLAD,
-            IMACH,
             MSCAD,
             NCIDDSAD,
             OHDAD,
@@ -291,7 +288,11 @@ jobs:
       matrix:
         containers:
           [
+            ADDCH,
+            AMBCH,
             AMRCH,
+            APMCH,
+            APPCH,
             AUDCH,
             CCPCH,
             CCWCH,
@@ -299,12 +300,15 @@ jobs:
             CHLCH,
             CISCH,
             CPCCH,
+            DEVCH,
             FUHCH,
+            IMACH,
             PPCCH,
             QUALIFIERS_child,
-            W30CH,
-            CHLCH,
             SFMCH,
+            W30CH,
+            WCCCH,
+            WCVCH,
           ]
     steps:
       - name: set branch_name

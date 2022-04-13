@@ -35,6 +35,7 @@ const CategoryNdrSets = ({
   rateScale,
   customMask,
   allowNumeratorGreaterThanDenominator,
+  calcTotal,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -65,6 +66,7 @@ const CategoryNdrSets = ({
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
+              calcTotal={calcTotal}
               {...register(
                 `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
               )}
