@@ -23,6 +23,7 @@ export function Footer(): JSX.Element {
       <CUI.Box bg="blue.50" py="2">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
           <CUI.Box
+            className="logo-footer"
             display={{ base: "block", md: "flex" }}
             alignItems={{ base: "none", md: "center" }}
           >
@@ -36,7 +37,7 @@ export function Footer(): JSX.Element {
               style={{ padding: "10px 0 0 50px" }}
               src="/footer/logo-MedicaidGov.svg"
               alt="Medicaid.gov logo"
-              className="logos"
+              className="medicaid-logo"
             />
             <CUI.Spacer />
             <CUI.Flex maxW={{ base: "none", md: "md" }}>
