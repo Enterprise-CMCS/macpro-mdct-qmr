@@ -223,6 +223,7 @@ describe("Measure: AMR-CH", () => {
     cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
     cy.get('[data-cy="DateRange.endDate-month"]').type("12");
     cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
+    cy.get('[data-cy="DataSource0"]').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("1");
@@ -248,6 +249,7 @@ describe("Measure: AMR-CH", () => {
     cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
     cy.get('[data-cy="DateRange.endDate-month"]').type("12");
     cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
+    cy.get('[data-cy="DataSource0"]').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("1");
