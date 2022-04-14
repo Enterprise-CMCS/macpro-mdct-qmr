@@ -61,7 +61,10 @@ export const AutocompletedMeasureTemplate = ({
           </CUI.Text>
         </CUI.Stack>
 
-        <Link to={`/${state}/${year}/${coreSetId}`}>
+        <Link
+          className="hidden-print-items"
+          to={`/${state}/${year}/${coreSetId}`}
+        >
           <QMR.ContainedButton
             buttonProps={{ colorScheme: "blue", variant: "outline" }}
             buttonText="Back to Core Set Measures"
