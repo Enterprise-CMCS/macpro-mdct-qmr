@@ -154,7 +154,6 @@ export const validateEqualDenominators = (
         filledInData.push(performanceMeasureArray[index][i]);
       }
     });
-
     if (filledInData.length > 1) {
       let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;
@@ -294,13 +293,15 @@ Default assumption is that this is run for Performance Measure unless specified.
 */
 export const validateTotalNDR = (
   performanceMeasureArray: PerformanceMeasure[][],
-  errorLocation: string = "Performance Measure"
-) => {
-  let errorArray: any[] = [];
-  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
-  let denominatorSum: any = null;
-  performanceMeasureArray.forEach((ndrSet) => {
+  errorLocation = "Performance Measure",
+  categories?: string[]
+): FormError[] => {
+  let errorArray: FormError[] = [];
+
+  performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
+    let numeratorSum: any = null;
+    let denominatorSum: any = null;
     ndrSet.slice(0, -1).forEach((item: any) => {
       if (
         item !== undefined &&
@@ -319,29 +320,45 @@ export const validateTotalNDR = (
     });
 
     let totalNDR: any = ndrSet[ndrSet.length - 1];
-    if (totalNDR) {
+    if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
-      let x;
+
+      const parsedNum = parseFloat(totalNDR.numerator ?? "");
+      const parsedDen = parseFloat(totalNDR.denominator ?? "");
       if (
-        (x = parseFloat(totalNDR["numerator"])) !== numeratorSum &&
+        parsedNum !== numeratorSum &&
         numeratorSum !== null &&
-        !isNaN(x)
+        !isNaN(parsedNum)
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
+          errorMessage: `${
+            (categories && categories[idx]) || totalNDR.label
+          } numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
-        (x = parseFloat(totalNDR["denominator"])) !== denominatorSum &&
+        parsedDen !== denominatorSum &&
         denominatorSum !== null &&
-        !isNaN(x)
+        !isNaN(parsedDen)
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
+          errorMessage: `${
+            (categories && categories[idx]) || totalNDR.label
+          } denominator field is not equal to the sum of other denominators.`,
         });
       }
+    } else if (numeratorSum && denominatorSum) {
+      errorArray.push({
+        errorLocation: errorLocation,
+        errorMessage: `${
+          (categories &&
+            categories[idx] &&
+            `${categories[idx]} - ${totalNDR.label}`) ||
+          totalNDR.label
+        } must contain values if other fields are filled.`,
+      });
     }
   });
 
@@ -429,8 +446,8 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
     if (ndrCount > 0) {
       const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
         if (
-          deviationNDR?.denominator &&
-          deviationNDR?.numerator &&
+          deviationNDR?.denominator ||
+          deviationNDR?.numerator ||
           deviationNDR?.other
         ) {
           return true;
@@ -441,7 +458,8 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       if (!atLeastOneDevNDR) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
-          errorMessage: "You must complete one NDR set",
+          errorMessage:
+            "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
     }
