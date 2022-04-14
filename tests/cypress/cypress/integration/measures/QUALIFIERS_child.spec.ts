@@ -1,4 +1,8 @@
 describe("Child Measure Qualifier: CH", () => {
+  beforeEach(() => {
+    cy.login();
+  });
+
   it("Child Core Set Measures: Combined", () => {
     cy.goToChildCoreSetMeasures();
     cy.get('[data-cy="core-set-qualifiers-link"]').click();
