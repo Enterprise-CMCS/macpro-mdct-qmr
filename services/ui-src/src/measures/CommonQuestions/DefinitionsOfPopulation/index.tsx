@@ -21,7 +21,7 @@ export const DefinitionOfPopulation = ({
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
-      <CUI.Heading size="sm" as="h3">
+      <CUI.Heading size="sm" as="h2">
         Definition of denominator
       </CUI.Heading>
       {!childMeasure && (
@@ -148,7 +148,7 @@ export const DefinitionOfPopulation = ({
       </CUI.Box>
       {hybridMeasure && (
         <CUI.Box mt="5">
-          <CUI.Heading size="sm" as="h3" my="2">
+          <CUI.Heading size="sm" as="h2" my="2">
             If you are reporting as a hybrid measure, provide the measure
             eligible population and sample size.
           </CUI.Heading>
@@ -166,7 +166,7 @@ export const DefinitionOfPopulation = ({
         </CUI.Box>
       )}
       <CUI.Box mt="5">
-        <CUI.Heading size="sm" as="h3" my="2">
+        <CUI.Heading size="sm" as="h2" my="2">
           {"Which delivery systems are represented in the denominator?"}
         </CUI.Heading>
         {!childMeasure && (

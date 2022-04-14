@@ -28,7 +28,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -50,7 +49,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -72,7 +70,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -92,7 +89,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -113,7 +109,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -136,7 +131,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -160,7 +154,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -186,7 +179,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -207,7 +199,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(
@@ -229,7 +220,6 @@ export const ApiTester = () => {
           buttonProps={{
             m: 2,
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={async () =>
             console.log(

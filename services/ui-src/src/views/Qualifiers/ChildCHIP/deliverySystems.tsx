@@ -86,7 +86,6 @@ export const DeliverySystems = () => {
             buttonProps={{
               variant: "outline",
               colorScheme: "blue",
-              textTransform: "capitalize",
               my: "5",
             }}
             onClick={() => append(initialDeliverySystemValue)}

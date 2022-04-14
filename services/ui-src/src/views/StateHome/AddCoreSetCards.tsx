@@ -43,7 +43,6 @@ export const AddCoreSetCard = ({
             buttonText={!coreSetExists ? buttonText : "Already Added"}
             buttonProps={{
               colorScheme: "blue",
-              textTransform: "capitalize",
               variant: "outline",
             }}
           />
