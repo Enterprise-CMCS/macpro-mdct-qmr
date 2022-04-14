@@ -2216,6 +2216,5 @@ describe("OY2 8977 Measure 15 MSC-AD", () => {
     cy.get('[data-cy="Validate Measure"]').should("be.visible");
     cy.get('[data-cy="Complete Measure"]').should("be.visible");
     cy.get("[data-cy=Save]").should("be.visible");
-    cy.get('[href="/WY/2021/ACS/MSC-AD"]').should("be.visible");
   });
 });
