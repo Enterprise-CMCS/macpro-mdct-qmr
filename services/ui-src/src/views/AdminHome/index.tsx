@@ -14,6 +14,7 @@ export const AdminHome = () => {
         <CUI.Select
           value={locality}
           onChange={(e) => setLocality(e.target.value)}
+          aria-label="State to view"
         >
           {stateAbbreviations.map((v: string) => {
             return (
