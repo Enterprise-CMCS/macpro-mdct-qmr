@@ -1,4 +1,4 @@
-describe("Measure: ARM-AD", () => {
+describe("Measure: AMR-AD", () => {
   beforeEach(() => {
     cy.login();
     cy.goToAdultMeasures();

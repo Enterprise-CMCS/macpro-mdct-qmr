@@ -13,5 +13,6 @@
   "downloadsFolder": "downloads",
   "supportFile": "support/index.js",
   "defaultCommandTimeout": 15000,
-  "types": ["cypress", "cypress-axe"]
+  "types": ["cypress", "cypress-axe"],
+  "failOnStatusCode": false
 }
