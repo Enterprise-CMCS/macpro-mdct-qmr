@@ -45,7 +45,11 @@ export const MeasureButtons = ({
       </CUI.HStack>
 
       {lastAltered && (
-        <CUI.Flex mb={{ base: "1", lg: "0" }} data-testid="last-saved-text">
+        <CUI.Flex
+          className="hidden-print-items"
+          mb={{ base: "1", lg: "0" }}
+          data-testid="last-saved-text"
+        >
           <QMR.LastSavedText
             lastAltered={lastAltered}
             isSubmitted={isSubmitted}
