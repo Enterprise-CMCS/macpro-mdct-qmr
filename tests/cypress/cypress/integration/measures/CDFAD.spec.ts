@@ -153,7 +153,7 @@ describe("Measure: CDF-AD", () => {
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(".chakra-alert").should(
       "have.text",
-      "Performance Measure/Other Performance Measure ErrorManually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Performance Measure/Other Performance Measure ErrorRate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
   });
 });
