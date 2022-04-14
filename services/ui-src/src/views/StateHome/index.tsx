@@ -9,6 +9,7 @@ import { formatTableItems } from "./helpers";
 import { CoreSetAbbr, UserRoles } from "types";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
+import { SPA } from "libs/spaLib";
 
 interface Data {
   state: string;
@@ -133,6 +134,8 @@ export const StateHome = () => {
     handleDelete,
   });
 
+  const spaIds = SPA.filter((s) => s.postal === state).map((s) => s.id);
+
   const childCoreSetExists = formattedTableItems.some(
     (v) =>
       v.coreSet === CoreSetAbbr.CCS ||
@@ -163,6 +166,7 @@ export const StateHome = () => {
         <AddCoreSetCards
           childCoreSetExists={childCoreSetExists}
           healthHomesCoreSetExists={healthHomesCoreSetExists}
+          renderHealthHomeCoreSet={!!spaIds.length}
         />
       </CUI.HStack>
     </QMR.StateLayout>

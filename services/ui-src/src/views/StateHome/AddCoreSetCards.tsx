@@ -56,11 +56,13 @@ export const AddCoreSetCard = ({
 interface Props {
   childCoreSetExists: boolean;
   healthHomesCoreSetExists: boolean;
+  renderHealthHomeCoreSet: boolean;
 }
 
 export const AddCoreSetCards = ({
   childCoreSetExists,
   healthHomesCoreSetExists,
+  renderHealthHomeCoreSet = true,
 }: Props) => {
   return (
     <>
@@ -70,12 +72,14 @@ export const AddCoreSetCards = ({
         to="add-child"
         coreSetExists={childCoreSetExists}
       />
-      <AddCoreSetCard
-        title="Need to report on Health Home data?"
-        buttonText="Add Health Home Core Set"
-        to="add-hh"
-        coreSetExists={healthHomesCoreSetExists}
-      />
+      {renderHealthHomeCoreSet && (
+        <AddCoreSetCard
+          title="Need to report on Health Home data?"
+          buttonText="Add Health Home Core Set"
+          to="add-hh"
+          coreSetExists={healthHomesCoreSetExists}
+        />
+      )}
       <CUI.Center w="44" textAlign="center">
         <CUI.Text fontStyle="italic" fontSize="sm">
           Only one group of Adult Core Set Measures can be submitted per FFY

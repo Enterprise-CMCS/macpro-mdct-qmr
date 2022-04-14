@@ -1,25 +1,32 @@
+import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
+import * as DC from "dataConstants";
 import * as QMR from "components";
+import { SPA } from "libs/spaLib";
+import { SelectOption } from "components";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { SPA } from "libs/spaLib";
-import { SelectOption } from "components";
+import { useQueryClient } from "react-query";
+import { CoreSetAbbr } from "types";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
 }
 
 export const AddHHCoreSet = () => {
+  const mutation = Api.useAddCoreSet();
   const navigate = useNavigate();
-  const methods = useForm({
+  const queryClient = useQueryClient();
+  const { state, year } = useParams();
+
+  const methods = useForm<HealthHome>({
     shouldUnregister: true,
     mode: "all",
   });
 
   const register = useCustomRegister<HealthHome>();
-
-  const { state, year } = useParams();
+  const watchSPAchoice = methods.watch("HealthHomeCoreSet-SPA");
 
   const sortedSPAs: SelectOption[] = SPA.filter((spa) => spa.postal === state)
     .map((spa) => {
@@ -29,6 +36,17 @@ export const AddHHCoreSet = () => {
       };
     })
     .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
+
+  const handleSubmit = (data: HealthHome) => {
+    if (data["HealthHomeCoreSet-SPA"]) {
+      mutation.mutate(CoreSetAbbr.HHCS, {
+        onSuccess: () => {
+          queryClient.refetchQueries(["coreSets", state, year]);
+          navigate(`/${state}/${year}`);
+        },
+      });
+    }
+  };
 
   return (
     <QMR.StateLayout
@@ -47,7 +65,7 @@ export const AddHHCoreSet = () => {
           for each SPA that requires reporting.
         </CUI.Text>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+          <form onSubmit={methods.handleSubmit(handleSubmit)}>
             <CUI.Box as="section" mt="6">
               <CUI.OrderedList spacing="10">
                 <CUI.ListItem>
@@ -69,12 +87,12 @@ export const AddHHCoreSet = () => {
                       {
                         displayValue:
                           "Yes, I want to add State Specific Measures now.",
-                        value: "yes",
+                        value: DC.YES,
                       },
                       {
                         displayValue:
                           "No, I’ll add State Specific Measures later.",
-                        value: "no",
+                        value: DC.NO,
                       },
                     ]}
                   />
@@ -94,6 +112,7 @@ export const AddHHCoreSet = () => {
                       <QMR.ContainedButton
                         buttonProps={{ type: "submit" }}
                         buttonText="Create"
+                        disabledStatus={!sortedSPAs.length || !watchSPAchoice}
                       />
                       <QMR.ContainedButton
                         buttonProps={{ color: "blue", colorScheme: "white" }}
