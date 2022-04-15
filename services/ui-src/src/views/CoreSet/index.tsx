@@ -7,6 +7,7 @@ import { useUser } from "hooks/authHooks";
 import { useGetMeasure, useGetMeasures } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
 import { HiCheckCircle } from "react-icons/hi";
+import { SPA } from "libs/spaLib";
 
 enum coreSetType {
   ACS = "Adult",
@@ -21,7 +22,7 @@ export enum coreSetMeasureTitle {
   CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
   CCSC = "Child Core Set Measures: CHIP",
-  HHCS = "Health Home Core Set Measures: User generated SPA name",
+  HHCS = "Health Home Core Set Measures: ",
 }
 
 enum coreSetQuestionsText {
@@ -29,7 +30,7 @@ enum coreSetQuestionsText {
   CCS = "Child Core Set Questions",
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",
-  HHCS = "Health Home Core Set Questions: User generated SPA name",
+  HHCS = "Health Home Core Set Questions: ",
 }
 
 interface MeasureTableItem {
@@ -65,6 +66,10 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
+  const coreSetInfo = coreSetId.split("_");
+  const spaName = coreSetInfo?.[1]
+    ? SPA.filter((s) => s.id === coreSetInfo[1])[0].name
+    : "";
 
   const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
   return (
@@ -72,7 +77,9 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
+          {coreSetQuestionsText[
+            coreSetInfo[0] as keyof typeof coreSetQuestionsText
+          ] + spaName}
         </CUI.Text>
       </Link>
 
