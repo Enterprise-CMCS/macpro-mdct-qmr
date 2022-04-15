@@ -39,6 +39,7 @@ custom:
   measureTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableArn}
   measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableStreamArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl
+  vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id~true, ssm:/configuration/default/vpc/id~true}
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
@@ -230,6 +231,11 @@ functions:
 
 resources:
   Resources:
+    KafkaSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Security Group for streaming functions.  Egress all is set by default.
+        VpcId: ${self:custom.vpcId}
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
       Properties:
