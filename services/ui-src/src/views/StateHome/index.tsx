@@ -72,6 +72,8 @@ const Heading = () => {
 export const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
+
+  // TODO: reload on succsessful submission
   const { data, error, isLoading } = Api.useGetCoreSets();
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();

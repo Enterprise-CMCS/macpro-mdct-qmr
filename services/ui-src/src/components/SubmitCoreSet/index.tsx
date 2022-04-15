@@ -4,22 +4,6 @@ import { CoreSetTableItem } from "components/Table/types";
 import { editCoreSet } from "libs/api";
 import { useUser } from "hooks/authHooks";
 
-const submitCoreSet = (userInfo: any) => {
-  const userState = userInfo.userState;
-  const userRole = userInfo.userRole;
-  return editCoreSet({
-    state: "OH",
-    year: "2021",
-    coreSet: "ACS",
-    body: {
-      submitted: true,
-      userState,
-      userRole,
-      status: "complete",
-    },
-  });
-};
-
 interface Props {
   status: CoreSetTableItem.Status;
   year: string;
@@ -44,7 +28,17 @@ export const SubmitCoreSetButton = ({ status, year }: Props) => {
           }}
           helperText={helperText}
           onClick={() => {
-            submitCoreSet(userInfo);
+            editCoreSet({
+              state: "OH",
+              year: "2021",
+              coreSet: "ACS",
+              body: {
+                submitted: true,
+                userState: userInfo.userState,
+                userRole: userInfo.userRole,
+                status: "submitted",
+              },
+            });
           }}
         />
       ) : (
