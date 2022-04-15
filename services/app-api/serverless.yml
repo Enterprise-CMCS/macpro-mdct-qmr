@@ -76,6 +76,16 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource: "*"
+        - Effect: "Allow"
+          Action:
+            - dynamodb:DescribeStream
+            - dynamodb:GetRecords
+            - dynamodb:GetShardIterator
+            - dynamodb:ListShards
+            - dynamodb:ListStreams
+          Resource:
+            - ${self:custom.coreSetTableStreamArn}
+            - ${self:custom.measureTableStreamArn}
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
@@ -165,7 +175,6 @@ functions:
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   ForceKafkaSync:
     handler: handlers/kafka/get/forceKafkaSync.main
-    role: LambdaApiRole
     timeout: 900
     memorySize: 3072
   postKafkaData:
@@ -183,7 +192,6 @@ functions:
           startingPosition: TRIM_HORIZON
           maximumRetryAttempts: 2
           enabled: true
-    role: LambdaApiRole
     environment:
       BOOTSTRAP_BROKER_STRING_TLS: ${self:custom.bootstrapBrokerStringTls}
       STAGE: ${self:custom.stage}
@@ -209,7 +217,6 @@ functions:
           startingPosition: TRIM_HORIZON
           maximumRetryAttempts: 2
           enabled: true
-    role: LambdaApiRole
     environment:
       BOOTSTRAP_BROKER_STRING_TLS: ${self:custom.bootstrapBrokerStringTls}
       STAGE: ${self:custom.stage}
@@ -220,7 +227,7 @@ functions:
       securityGroupIds:
         - Ref: KafkaSecurityGroup
       subnetIds: ${self:custom.privateSubnets}
-  
+
 resources:
   Resources:
     GatewayResponseDefault4XX:
