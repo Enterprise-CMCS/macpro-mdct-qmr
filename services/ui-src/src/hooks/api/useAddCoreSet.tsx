@@ -7,21 +7,23 @@ interface AddCoreSet {
   state: string;
   year: string;
   coreSet: CoreSetAbbr;
+  id?: string;
 }
 
-const addCoreSet = async ({ state, year, coreSet }: AddCoreSet) => {
+const addCoreSet = async ({ state, year, coreSet, id }: AddCoreSet) => {
   return await createCoreSet({
     state,
     year,
     coreSet,
+    id,
   });
 };
 
 export const useAddCoreSet = () => {
   const { state, year } = useParams();
   if (state && year) {
-    return useMutation((coreSet: CoreSetAbbr) =>
-      addCoreSet({ state, year, coreSet })
+    return useMutation((coreSet: CoreSetAbbr, id?: string) =>
+      addCoreSet({ state, year, coreSet, id })
     );
   }
   throw Error("Missing required fields");
