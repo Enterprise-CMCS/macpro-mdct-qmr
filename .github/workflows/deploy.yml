@@ -166,7 +166,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [create_delete_healthome]
+        containers: [create_delete_healthhome]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
@@ -660,7 +660,7 @@ jobs:
 
   a11y-tests:
     name: Test Ally
-    needs: [test-adult-measures, test-child-measures]
+    needs: [test-adult-measures, test-child-measures, test-healthhome-measures]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
