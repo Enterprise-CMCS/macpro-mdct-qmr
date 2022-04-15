@@ -3,7 +3,7 @@ const { Kafka } = require("kafkajs");
 
 const STAGE = process.env.STAGE;
 const kafka = new Kafka({
-  clientId: `seds-${STAGE}`,
+  clientId: `qmr-${STAGE}`,
   brokers: process.env.BOOTSTRAP_BROKER_STRING_TLS.split(","),
   retry: {
     initialRetryTime: 300,

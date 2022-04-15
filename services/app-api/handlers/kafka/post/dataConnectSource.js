@@ -1,18 +1,8 @@
 import KafkaSourceLib from "../../../libs/kafka-source-lib";
 
 class DataConnectTransform extends KafkaSourceLib {
-  topicPrefix = "aws.mdct.seds.cdc";
-  tables = [
-    "age-ranges",
-    "auth-user",
-    "form-answers",
-    "form-questions",
-    "form-templates",
-    "forms",
-    "state-forms",
-    "states",
-    "status",
-  ];
+  topicPrefix = "aws.mdct.qmr.cdc";
+  tables = ["coreSets", "measures"];
 
   createPayload(record) {
     const dynamodb = record.dynamodb;

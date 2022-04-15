@@ -1,19 +1,9 @@
 import KafkaSourceLib from "../../../libs/kafka-source-lib";
 
 class PostKafkaData extends KafkaSourceLib {
-  topicPrefix = "aws.mdct.seds.cdc";
+  topicPrefix = "aws.mdct.qmr.cdc";
   version = "v0";
-  tables = [
-    "age-ranges",
-    "auth-user",
-    "form-answers",
-    "form-questions",
-    "form-templates",
-    "forms",
-    "state-forms",
-    "states",
-    "status",
-  ];
+  tables = ["coreSets", "measures"];
 }
 
 const postKafkaData = new PostKafkaData();
