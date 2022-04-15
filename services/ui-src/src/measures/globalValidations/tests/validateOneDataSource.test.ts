@@ -26,7 +26,7 @@ describe("validateOneDataSource", () => {
     formData[DC.DATA_SOURCE_SELECTIONS] = {};
     _check_errors(formData, 0);
   });
- //This scenario below is actually impossible from a ui perspective I believe
+  //This scenario below is actually impossible from a ui perspective I believe
   test("When no Data Source but Data Source Selections are Selected a validation warning shows", () => {
     formData[DC.DATA_SOURCE] = [];
     _check_errors(formData, 1);
