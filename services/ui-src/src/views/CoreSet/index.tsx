@@ -66,7 +66,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
-  const coreSetInfo = coreSetId.split("_");
+  const coreSetInfo = coreSetId?.split("_") || [coreSetId];
   const spaName = coreSetInfo?.[1]
     ? SPA.filter((s) => s.id === coreSetInfo[1])[0].name
     : "";
