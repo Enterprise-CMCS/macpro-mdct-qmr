@@ -75,8 +75,6 @@ describe("Measure: oy2-9936 SFM-CH", () => {
     cy.get('[data-cy="DefinitionOfDenominator2"]').click();
     cy.get('[data-cy="DefinitionOfDenominator2"]').click();
     cy.get(".chakra-container > :nth-child(8)").click();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').clear();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').type("12");
     cy.get('[data-cy="ChangeInPopulationExplanation"]').click();
     cy.get('[data-cy="ChangeInPopulationExplanation"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
