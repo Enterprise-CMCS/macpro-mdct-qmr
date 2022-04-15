@@ -80,7 +80,11 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
     cell: (data: CoreSetTableItem.Data) => {
       return (
         <CUI.Box textAlign="center">
-          <QMR.SubmitCoreSetButton status={getStatus(data)} year={data.year} />
+          <QMR.SubmitCoreSetButton
+            coreSet={data.coreSet}
+            status={getStatus(data)}
+            year={data.year}
+          />
         </CUI.Box>
       );
     },
