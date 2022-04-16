@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useToast } from "@chakra-ui/react";
 import { ContainedButton } from "components/ContainedButton";
 import { CoreSetAbbr } from "types";
 import { CoreSetTableItem } from "components/Table/types";
@@ -19,6 +19,7 @@ export const SubmitCoreSetButton = ({ coreSet, status, year }: Props) => {
   const { mutate, isLoading } = useEditCoreSet();
   const queryClient = useQueryClient();
   const userInfo = useUser();
+  const toast = useToast();
 
   const urlParams = useParams();
   const state = urlParams.state !== undefined ? urlParams.state : "";
@@ -53,15 +54,18 @@ export const SubmitCoreSetButton = ({ coreSet, status, year }: Props) => {
               {
                 onSettled: () => {
                   queryClient.refetchQueries(["coreSets"]);
+                  toast({
+                    status: "success",
+                    description: "Core Set submitted successfully!",
+                    duration: 4000,
+                  });
                 },
               }
             );
           }}
         />
       ) : (
-        <Text fontStyle="italic">
-          This Core Set has been successfully submitted.
-        </Text>
+        <Text fontStyle="italic">Submitted</Text>
       )}
     </Box>
   );

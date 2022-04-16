@@ -16,12 +16,15 @@ interface EditCoreSet {
 }
 
 const _editCoreSet = ({ body, coreSet, state, year }: EditCoreSet & Params) => {
-  return editCoreSet({
-    body,
-    coreSet,
-    state,
-    year,
-  });
+  if (body.userState === state) {
+    return editCoreSet({
+      body,
+      coreSet,
+      state,
+      year,
+    });
+  }
+  throw new Error("User unauthorized to submit this Core Set.");
 };
 
 export const useEditCoreSet = () => {
