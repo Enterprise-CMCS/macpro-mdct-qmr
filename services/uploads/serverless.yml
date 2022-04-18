@@ -268,6 +268,11 @@ resources:
               Resource: "*"
             - Effect: Allow
               Principal:
+                AWS: ${ssm:/configuration/mprdeviam~true}
+              Action: "kms:*"
+              Resource: "*"
+            - Effect: Allow
+              Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
               Action: "kms:*"
               Resource: "*"
