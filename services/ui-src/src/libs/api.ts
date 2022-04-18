@@ -18,8 +18,9 @@ async function requestOptions(): Promise<any> {
 
     return options;
   } catch (e) {
-    console.log("Error getting current session");
+    console.log("Error getting current session - signing out");
     console.log({ e });
+    Auth.signOut();
   }
 }
 
