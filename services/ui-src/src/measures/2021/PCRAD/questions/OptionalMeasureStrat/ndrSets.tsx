@@ -271,17 +271,13 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
-          ...(!rateReadOnly
-            ? [
-                <CUI.Heading
-                  pt="1"
-                  key={`${name}.rates.${cleanedLabel}HeaderHelper`}
-                  size={"sm"}
-                >
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>,
-              ]
-            : []),
+          <CUI.Heading
+            pt="1"
+            key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+            size={"sm"}
+          >
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>,
           ...ndrSets,
         ],
       };
@@ -371,11 +367,9 @@ const PCRADNDRSets = ({ name }: NdrProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate
       </CUI.Heading>
-      {!rateReadOnly && (
-        <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
-          Please review the auto-calculated rate and revise if needed.
-        </CUI.Heading>
-      )}
+      <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
       <MultiRate
         rates={rates}
         name={`${name}.pcrad-rate`}
@@ -414,17 +408,13 @@ const renderOPMChckboxOptions = ({
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
-          ...(!rateReadOnly
-            ? [
-                <CUI.Heading
-                  pt="1"
-                  size={"sm"}
-                  key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
-                >
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>,
-              ]
-            : []),
+          <CUI.Heading
+            pt="1"
+            size={"sm"}
+            key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
+          >
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>,
           <QMR.Rate
             rates={[
               {
