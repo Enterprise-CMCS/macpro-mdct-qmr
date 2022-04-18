@@ -95,7 +95,6 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
             buttonProps={{
               bg: "blue.600",
               colorScheme: "blue",
-              textTransform: "capitalize",
               w: "full",
             }}
             helperText={helperText}

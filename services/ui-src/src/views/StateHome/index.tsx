@@ -36,6 +36,7 @@ const ReportingYear = () => {
         borderRadius="sm"
         icon={<TiArrowUnsorted />}
         value={year}
+        aria-label="Year to report core set"
         onChange={(e) => {
           navigate(`/${state}/${e.target.value}`);
         }}
