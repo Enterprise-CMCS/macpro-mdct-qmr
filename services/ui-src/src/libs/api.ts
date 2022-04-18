@@ -80,7 +80,7 @@ async function getCoreSet(inputObj: any) {
   opts.body = inputObj.body;
   return API.get(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/get`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/get`,
     opts
   );
 }

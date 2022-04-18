@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useUser } from "hooks/authHooks";
-import { useGetMeasure, useGetMeasures } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
+import { Link } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
+import { useEffect, useState } from "react";
+import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
+import { useParams } from "react-router-dom";
 
 enum coreSetType {
   ACS = "Adult",
@@ -130,10 +129,12 @@ const useMeasureTableDataBuilder = () => {
 };
 
 export const CoreSet = () => {
-  const { state, year, coreSetId } = useParams();
+  let { coreSetId, state, year } = useParams();
+  coreSetId = coreSetId ?? "";
+  state = state ?? "";
+  year = year ?? "";
 
-  const { isStateUser } = useUser();
-
+  const { data } = useGetCoreSet({ coreSetId, state, year });
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
@@ -181,20 +182,15 @@ export const CoreSet = () => {
         </CUI.HStack>
         <CUI.Spacer />
         <CUI.Box flex="1" textAlign="center" alignSelf="center">
-          <QMR.ContainedButton
-            buttonProps={{
-              colorScheme: "blue",
-            }}
-            buttonText="Submit Core Set"
-            disabledStatus={!isStateUser}
-            helperText={`Complete all ${
-              coreSetType[coreSetId as keyof typeof coreSetType]
-            } Core Set Questions and ${
-              coreSetType[coreSetId as keyof typeof coreSetType]
-            } Core Set Measures to submit FFY 2021`}
-            helperTextProps={{
-              fontSize: ".5rem",
-              paddingTop: "1",
+          <QMR.SubmitCoreSetButton
+            coreSet={coreSetId! as CoreSetAbbr}
+            isSubmitted={data?.Item?.submitted}
+            year={year!}
+            styleProps={{
+              helperText: {
+                fontSize: ".5rem",
+                paddingTop: "1",
+              },
             }}
           />
         </CUI.Box>

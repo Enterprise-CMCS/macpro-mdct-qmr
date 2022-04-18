@@ -82,7 +82,7 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
         <CUI.Box textAlign="center">
           <QMR.SubmitCoreSetButton
             coreSet={data.coreSet}
-            status={getStatus(data)}
+            isSubmitted={data.submitted}
             year={data.year}
           />
         </CUI.Box>

@@ -9,13 +9,18 @@ import { useQueryClient } from "react-query";
 
 interface Props {
   coreSet: CoreSetAbbr;
-  status: CoreSetTableItem.Status;
+  isSubmitted: boolean;
   year: string;
+  styleProps?: { button?: {}; helperText?: {} };
 }
 
-export const SubmitCoreSetButton = ({ coreSet, status, year }: Props) => {
+export const SubmitCoreSetButton = ({
+  coreSet,
+  isSubmitted = false,
+  year,
+  styleProps,
+}: Props) => {
   const helperText = `Complete all Core Set Questions and Core Set Measures to submit FFY ${year}`;
-  const isSubmitted = status === CoreSetTableItem.Status.SUBMITTED;
   const { mutate, isLoading } = useEditCoreSet();
   const queryClient = useQueryClient();
   const userInfo = useUser();
@@ -36,8 +41,10 @@ export const SubmitCoreSetButton = ({ coreSet, status, year }: Props) => {
             bg: "blue.600",
             colorScheme: "blue",
             w: "full",
+            ...styleProps?.button,
           }}
           helperText={helperText}
+          helperTextProps={styleProps?.helperText}
           onClick={() => {
             mutate(
               {
@@ -54,6 +61,7 @@ export const SubmitCoreSetButton = ({ coreSet, status, year }: Props) => {
               {
                 onSettled: () => {
                   queryClient.refetchQueries(["coreSets"]);
+                  queryClient.refetchQueries(["coreSet"]);
                   toast({
                     status: "success",
                     description: "Core Set submitted successfully!",
