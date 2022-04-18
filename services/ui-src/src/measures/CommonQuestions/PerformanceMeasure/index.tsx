@@ -56,11 +56,6 @@ const CategoryNdrSets = ({
             <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
-            {!rateReadOnly && (
-              <CUI.Heading pt="5" size={"sm"}>
-                Please review the auto-calculated rate and revise if needed.
-              </CUI.Heading>
-            )}
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
