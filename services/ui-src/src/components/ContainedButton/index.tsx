@@ -37,6 +37,10 @@ export const ContainedButton = ({
         disabled={disabledStatus}
         borderRadius="sm"
         zIndex={zIndex}
+        fontSize="sm"
+        color="black"
+        fontWeight="bold"
+        textTransform="capitalize"
         {...buttonProps}
       >
         {buttonText}
