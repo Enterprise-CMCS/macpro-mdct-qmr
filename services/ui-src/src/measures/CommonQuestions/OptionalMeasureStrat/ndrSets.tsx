@@ -189,8 +189,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
  */
 const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
-  const { categories, rateReadOnly, qualifiers, calcTotal } =
-    usePerformanceMeasureContext();
+  const { categories, qualifiers, calcTotal } = usePerformanceMeasureContext();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
