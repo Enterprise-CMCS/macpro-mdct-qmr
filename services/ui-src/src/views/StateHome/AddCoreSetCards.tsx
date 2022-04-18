@@ -44,6 +44,7 @@ export const AddCoreSetCard = ({
             buttonProps={{
               colorScheme: "blue",
               variant: "outline",
+              color: "blue.500",
             }}
           />
         </Link>
