@@ -14,6 +14,7 @@ const App = () => {
           <QMR.Header handleLogout={logout} />
           <AppRoutes />
           <QMR.Footer />
+          <QMR.SessionTimeout />
         </>
       )}
       {!user && showLocalLogins && <LocalLogins loginWithIDM={loginWithIDM} />}
