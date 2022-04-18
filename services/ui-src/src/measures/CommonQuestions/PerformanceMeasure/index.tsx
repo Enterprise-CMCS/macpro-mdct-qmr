@@ -165,7 +165,11 @@ export const PerformanceMeasure = ({
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <CUI.Stack>
         {data.questionText.map((item, idx) => {
-          return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
+          return (
+            <CUI.Text key={`questionText.${idx}`} mb={5}>
+              {item}
+            </CUI.Text>
+          );
         })}
       </CUI.Stack>
       {data.questionSubtext && (
