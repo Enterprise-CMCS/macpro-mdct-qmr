@@ -9,6 +9,7 @@ import { useQueryClient } from "react-query";
 
 interface Props {
   coreSet: CoreSetAbbr;
+  coreSetStatus?: CoreSetTableItem.Status;
   isSubmitted: boolean;
   year: string;
   styleProps?: { button?: {}; helperText?: {} };
@@ -16,6 +17,7 @@ interface Props {
 
 export const SubmitCoreSetButton = ({
   coreSet,
+  coreSetStatus = CoreSetTableItem.Status.IN_PROGRESS,
   isSubmitted = false,
   year,
   styleProps,
@@ -35,7 +37,7 @@ export const SubmitCoreSetButton = ({
         <ContainedButton
           buttonText={"Submit Core Set"}
           disabledStatus={
-            isLoading // || status !== CoreSetTableItem.Status.COMPLETED
+            isLoading || coreSetStatus !== CoreSetTableItem.Status.COMPLETED
           }
           buttonProps={{
             bg: "blue.600",

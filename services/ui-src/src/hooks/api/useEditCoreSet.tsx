@@ -16,6 +16,7 @@ interface EditCoreSet {
 }
 
 const _editCoreSet = ({ body, coreSet, state, year }: EditCoreSet & Params) => {
+  // User can only submit for their own state
   if (body.userState === state) {
     return editCoreSet({
       body,

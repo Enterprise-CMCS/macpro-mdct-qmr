@@ -16,10 +16,12 @@ import {
 } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
-import { useGetMeasure, useUpdateMeasure } from "hooks/api";
+import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
+import { CoreSetTableItem } from "components/Table/types";
+import { useUser } from "hooks/authHooks";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -142,6 +144,10 @@ export const MeasureWrapper = ({
   });
   const measureData = apiData?.Item;
 
+  const updateCoreSet = useEditCoreSet().mutate;
+  const { state, coreSetId } = useParams();
+  const userInfo = useUser();
+
   const methods = useForm({
     shouldUnregister: true,
     mode: "all",
@@ -174,6 +180,18 @@ export const MeasureWrapper = ({
             }
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
+
+            updateCoreSet({
+              coreSet: coreSetId as CoreSetAbbr,
+              state: state ?? "",
+              year,
+              body: {
+                submitted: false,
+                status: CoreSetTableItem.Status.IN_PROGRESS,
+                userRole: userInfo.userRole,
+                userState: userInfo.userState,
+              },
+            });
           },
         }
       );

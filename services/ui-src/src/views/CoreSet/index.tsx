@@ -6,6 +6,7 @@ import { HiCheckCircle } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
 import { useParams } from "react-router-dom";
+import { CoreSetTableItem } from "components/Table/types";
 
 enum coreSetType {
   ACS = "Adult",
@@ -140,6 +141,11 @@ export const CoreSet = () => {
     (measure) => measure.rateComplete > 0
   )?.length;
 
+  const coreSetStatus =
+    measures.length === completedAmount
+      ? CoreSetTableItem.Status.COMPLETED
+      : CoreSetTableItem.Status.IN_PROGRESS;
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -184,6 +190,7 @@ export const CoreSet = () => {
         <CUI.Box flex="1" textAlign="center" alignSelf="center">
           <QMR.SubmitCoreSetButton
             coreSet={coreSetId! as CoreSetAbbr}
+            coreSetStatus={coreSetStatus}
             isSubmitted={data?.Item?.submitted}
             year={year!}
             styleProps={{
