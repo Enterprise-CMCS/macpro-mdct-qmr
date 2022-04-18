@@ -121,7 +121,6 @@ export const Audit = ({ type }: Props) => {
                     buttonProps={{
                       variant: "outline",
                       colorScheme: "blue",
-                      textTransform: "capitalize",
                     }}
                     onClick={() => append(initialAuditValues)}
                   />,

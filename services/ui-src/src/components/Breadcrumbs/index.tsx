@@ -18,7 +18,10 @@ export const Breadcrumbs = ({ items, color }: Props) => {
     <CUI.Flex>
       {isMultipleItems && (
         <CUI.Center fontSize="2xl" mr="4">
-          <Link to={items[items.length - 2].path}>
+          <Link
+            to={items[items.length - 2].path}
+            aria-label="Return to measures list"
+          >
             <HiOutlineChevronLeft />
           </Link>
         </CUI.Center>
@@ -29,8 +32,10 @@ export const Breadcrumbs = ({ items, color }: Props) => {
           <CUI.Heading
             size="md"
             minW={idx === 0 ? "max-content" : "none"}
-            as={Link}
+            as={idx === items.length - 1 ? "h1" : Link}
+            // @ts-ignore
             to={item.path}
+            aria-label={`Return to ${item.name}`}
             color={color}
             _visited={{ color }}
             key={`${idx}-${item.path}`}

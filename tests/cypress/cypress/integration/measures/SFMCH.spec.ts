@@ -1,6 +1,3 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("Measure: oy2-9936 SFM-CH", () => {
   beforeEach(() => {
     cy.login();
