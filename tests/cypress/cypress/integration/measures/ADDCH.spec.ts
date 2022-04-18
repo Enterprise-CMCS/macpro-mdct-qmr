@@ -89,8 +89,6 @@ describe("Measure: oy2-9921 ADD-CH", () => {
     ).click();
     cy.get('[data-cy="DefinitionOfDenominator1"]').click();
     cy.get('[data-cy="DefinitionOfDenominator2"]').click();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').clear();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').type("test");
     cy.get('[data-cy="ChangeInPopulationExplanation"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec1"]').click();

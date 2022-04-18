@@ -98,11 +98,6 @@ export const DefinitionOfPopulation = ({
               },
             ]}
           />
-          <QMR.TextInput
-            formControlProps={{ my: "4" }}
-            {...register(DC.DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN)}
-            label="If the denominator is a subset of the definition selected above, please further define the denominator, and indicate the number of children excluded."
-          />
         </CUI.Box>
       )}
       <CUI.Box my="5">
@@ -169,30 +164,12 @@ export const DefinitionOfPopulation = ({
         <CUI.Heading size="sm" as="h2" my="2">
           {"Which delivery systems are represented in the denominator?"}
         </CUI.Heading>
-        {!childMeasure && (
-          <CUI.Text pb="2">
-            Select all delivery systems that apply in your state (must select at
-            least one); for each delivery system selected, enter the percentage
-            of the measure-eligible population represented by that service
-            delivery system.
-          </CUI.Text>
-        )}
-
-        {childMeasure && (
-          <>
-            <CUI.Text>
-              Select all delivery systems that apply in your state. You must
-              select at least one delivery system.
-            </CUI.Text>
-            <CUI.Text py="4">
-              For each selected delivery system, enter the percentage and number
-              of enrollees covered by that delivery system that are included in
-              the data reported for this measure. For example, if the
-              measure-eligible population represents all managed care enrollees,
-              enter 100 percent for MCO, and the number covered.
-            </CUI.Text>
-          </>
-        )}
+        <CUI.Text pb="2">
+          Select all delivery systems that apply in your state (must select at
+          least one); for each delivery system selected, enter the percentage of
+          the measure-eligible population represented by that service delivery
+          system.
+        </CUI.Text>
 
         <QMR.Checkbox
           formLabelProps={{ fontWeight: "400" }}
