@@ -53,7 +53,10 @@ export const AddHHCoreSet = () => {
                 <CUI.ListItem>
                   <QMR.Select
                     placeholder="Select option"
-                    selectProps={{ maxW: "30rem" }}
+                    selectProps={{
+                      maxW: "30rem",
+                      "aria-label": "The SPA you are reporting on",
+                    }}
                     formLabelProps={{ fontWeight: 600 }}
                     {...register("HealthHomeCoreSet-SPA")}
                     options={sortedSPAs}
@@ -92,7 +95,7 @@ export const AddHHCoreSet = () => {
 
                     <CUI.HStack paddingTop="5">
                       <QMR.ContainedButton
-                        buttonProps={{ type: "submit" }}
+                        buttonProps={{ type: "submit", background: "blue.500" }}
                         buttonText="Create"
                       />
                       <QMR.ContainedButton

@@ -85,6 +85,9 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
             coreSetStatus={getStatus(data)}
             isSubmitted={data.submitted}
             year={data.year}
+            styleProps={{
+              button: { bg: "blue.600", colorScheme: "blue", w: "full" },
+            }}
           />
         </CUI.Box>
       );

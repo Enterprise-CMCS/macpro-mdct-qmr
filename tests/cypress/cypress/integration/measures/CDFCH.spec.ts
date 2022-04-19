@@ -76,7 +76,6 @@ describe("Measure: oy2-8979 CDF-CH", () => {
     cy.get('[data-cy="DefinitionOfDenominator0"]').click();
     cy.get('[data-cy="DefinitionOfDenominator1"]').click();
     cy.get('[data-cy="DefinitionOfDenominator2"]').click();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').type("test");
     cy.get('[data-cy="ChangeInPopulationExplanation"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec1"]').click();
