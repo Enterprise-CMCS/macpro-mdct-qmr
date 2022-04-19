@@ -117,7 +117,10 @@ export const AddHHCoreSet = () => {
 
                       <CUI.HStack paddingTop="5">
                         <QMR.ContainedButton
-                          buttonProps={{ type: "submit" }}
+                          buttonProps={{
+                            type: "submit",
+                            background: "blue.500",
+                          }}
                           buttonText="Create"
                           disabledStatus={!sortedSPAs.length || !watchSPAchoice}
                         />
