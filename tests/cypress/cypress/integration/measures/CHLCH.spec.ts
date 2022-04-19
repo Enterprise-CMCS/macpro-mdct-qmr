@@ -45,24 +45,16 @@ describe("Measure: oy2-9923 CHL-CH", () => {
       "HEDIS MY 2020"
     );
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get("#DataSource0-checkbox").check();
     cy.get(
       '[data-cy="DataSourceSelections.AdministrativeData0.selected0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#DataSourceSelections\\.AdministrativeData0\\.selected0-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="DataSourceSelections.AdministrativeData0.selected1"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#DataSourceSelections\\.AdministrativeData0\\.selected1-checkbox"
-    ).check();
     cy.get(
       '[data-cy="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"]'
     ).click();
     cy.get('[data-cy="DataSource1"]').click();
-    cy.get("#DataSource1-checkbox").check();
     cy.get(
       '[data-cy="DataSourceSelections.ElectronicHealthRecords.description"]'
     ).click();
@@ -70,7 +62,6 @@ describe("Measure: oy2-9923 CHL-CH", () => {
       '[data-cy="DataSourceSelections.ElectronicHealthRecords.description"]'
     ).click();
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
-    cy.get("#DataSource2-checkbox").check();
     cy.get(
       '[data-cy="DataSourceSelections.OtherDataSource.description"]'
     ).click();
@@ -89,25 +80,19 @@ describe("Measure: oy2-9923 CHL-CH", () => {
     ).click();
     cy.get('[data-cy="DefinitionOfDenominator1"]').click();
     cy.get('[data-cy="DefinitionOfDenominator2"]').click();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').clear();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').type("test");
     cy.get('[data-cy="ChangeInPopulationExplanation"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec1"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec-No-Explanation"]').click();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec-No-Size"]').clear();
     cy.get('[data-cy="DenominatorDefineTotalTechSpec-No-Size"]').type("12");
-    /* ==== End Cypress Studio ==== */
-    /* ==== Question "Which delivery systems are represented in the denominator?" ==== */
     cy.get('[data-cy="DeliverySysRepresentationDenominator0"]').click();
-    cy.get("#DeliverySysRepresentationDenominator0-checkbox").check();
     cy.get('[data-cy="DeliverySys-FeeForService1"]').click();
     cy.get('[data-cy="DeliverySys-FeeForService-No-Percent"]').clear();
     cy.get('[data-cy="DeliverySys-FeeForService-No-Percent"]').type("12");
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check();
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement1"]').click();
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement-No-Percent"]').clear();
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement-No-Percent"]').type(
@@ -116,7 +101,6 @@ describe("Measure: oy2-9923 CHL-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check();
     cy.get('[data-cy="DeliverySys-MCO_PIHP-NumberOfPlans"]').clear();
     cy.get('[data-cy="DeliverySys-MCO_PIHP-NumberOfPlans"]').type("11");
     cy.get('[data-cy="DeliverySys-MCO_PIHP1"]').click();
@@ -127,7 +111,6 @@ describe("Measure: oy2-9923 CHL-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check();
     cy.get('[data-cy="DeliverySys-IntegratedCareModel1"]').click();
     cy.get('[data-cy="DeliverySys-IntegratedCareModel-No-Percent"]').clear();
     cy.get('[data-cy="DeliverySys-IntegratedCareModel-No-Percent"]').type("12");
@@ -138,13 +121,11 @@ describe("Measure: oy2-9923 CHL-CH", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator4-checkbox").check();
     cy.get('[data-cy="DeliverySys-Other"]').click();
     cy.get('[data-cy="DeliverySys-Other-Percent"]').clear();
     cy.get('[data-cy="DeliverySys-Other-Percent"]').type("12");
     cy.get('[data-cy="DeliverySys-Other-NumberOfHealthPlans"]').clear();
     cy.get('[data-cy="DeliverySys-Other-NumberOfHealthPlans"]').type("12");
-    /* ==== End Cypress Studio ==== */
     /* ==== Performance Measure & Deviations from Measure Specifications & Combined Rates from Multiple Reporting Units ==== */
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
     cy.get(
@@ -185,48 +166,29 @@ describe("Measure: oy2-9923 CHL-CH", () => {
     );
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
-    cy.get("#DeviationOptions0-checkbox").check();
     cy.get(
       '[data-cy="Deviations.Ages16to20.RateDeviationsSelected0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.Ages16to20\\.RateDeviationsSelected0-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="Deviations.Ages16to20.RateDeviationsSelected1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.Ages16to20\\.RateDeviationsSelected1-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="Deviations.Ages16to20.RateDeviationsSelected2"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#Deviations\\.Ages16to20\\.RateDeviationsSelected2-checkbox"
-    ).check();
     cy.get('[data-cy="CombinedRates1"]').click();
     cy.get('[data-cy="CombinedRates0"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates1"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates2"]').click();
-    /* ==== End Cypress Studio ==== */
-    /* ==== Verify OMS section and NDR ==== */
     cy.get(
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
-    ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages16to20.singleCategory.0.numerator"]'
     ).clear();
@@ -304,6 +266,5 @@ describe("Measure: oy2-9923 CHL-CH", () => {
       "have.text",
       "Manually entered rate should be 0 if numerator is 0"
     );
-    /* ==== End Cypress Studio ==== */
   });
 });
