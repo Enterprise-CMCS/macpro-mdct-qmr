@@ -28,6 +28,7 @@ export const AddAnotherButton = ({
       buttonProps={{
         variant: "outline",
         colorScheme: "blue",
+        color: "blue.500",
         mt: "4",
       }}
       key={"AddAnotherButton"}

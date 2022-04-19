@@ -108,6 +108,7 @@ export const DeliverySystems = () => {
               variant: "outline",
               colorScheme: "blue",
               my: "5",
+              color: "blue.500",
             }}
             onClick={() => append(initialDeliverySystemValue)}
           />
