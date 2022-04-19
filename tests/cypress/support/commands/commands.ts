@@ -73,7 +73,7 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy^="HHCS"]').length > 0) {
-      cy.get('[data-cy^="HHCS"]').click();
+      cy.get('[data-cy^="HHCS"]').first().click();
     }
   });
 });
