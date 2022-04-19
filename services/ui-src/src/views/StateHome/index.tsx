@@ -1,14 +1,15 @@
+import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { measuresList } from "measures/measuresList";
 import { useParams, useNavigate } from "react-router-dom";
 import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
-import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
 import { CoreSetAbbr, UserRoles } from "types";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
+import { useCompleteAllMeasures } from "hooks/useCompleteAllMeasures";
 
 interface Data {
   state: string;
@@ -120,6 +121,8 @@ export const StateHome = () => {
     }
   };
 
+  const completeAllMeasures = () => {};
+
   if (error) {
     console.log({ error });
     return (
@@ -133,6 +136,7 @@ export const StateHome = () => {
   const formattedTableItems = formatTableItems({
     items: data.Items,
     handleDelete,
+    completeAllMeasures,
   });
 
   const childCoreSetExists = formattedTableItems.some(

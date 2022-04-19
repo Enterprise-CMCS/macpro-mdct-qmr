@@ -24,6 +24,7 @@ interface CoreSetDataItem {
 export interface CoreSetDataItems {
   items: CoreSetDataItem[];
   handleDelete: (data: Data) => void;
+  completeAllMeasures: (data: Data) => void;
 }
 
 const getCoreSetType = (type: CoreSetAbbr) => {
@@ -43,7 +44,11 @@ const getCoreSetType = (type: CoreSetAbbr) => {
   return result;
 };
 
-export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
+export const formatTableItems = ({
+  items,
+  handleDelete,
+  completeAllMeasures,
+}: CoreSetDataItems) => {
   const coreSetTableItems = items.map(
     ({
       coreSet,
@@ -62,6 +67,13 @@ export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
             year: year.toString(),
             coreSet,
           }),
+        completeAllMeasures: () => {
+          completeAllMeasures({
+            state,
+            year: year.toString(),
+            coreSet,
+          });
+        },
         type,
       };
 
