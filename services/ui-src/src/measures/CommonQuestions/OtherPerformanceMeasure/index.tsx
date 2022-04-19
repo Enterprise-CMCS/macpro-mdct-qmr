@@ -107,6 +107,7 @@ export const OtherPerformanceMeasure = ({
           buttonProps={{
             variant: "outline",
             colorScheme: "blue",
+            color: "blue.500",
           }}
           onClick={() => {
             showRates.push({
