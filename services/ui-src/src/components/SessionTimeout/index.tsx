@@ -71,7 +71,7 @@ export const SessionTimeout = () => {
       }
       timeChecker();
     }
-  }, [timeChecker]);
+  }, [timeChecker, isOpen]);
 
   const handleClose = () => {
     onClose();
@@ -91,7 +91,7 @@ export const SessionTimeout = () => {
         window.removeEventListener(event, resetTimer);
       });
     };
-  }, [resetTimer, timeChecker, events]);
+  }, [resetTimer, timeChecker]);
 
   if (!isOpen) {
     return null;
