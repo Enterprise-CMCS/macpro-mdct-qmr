@@ -1,6 +1,5 @@
 describe("Measure: HVL-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("HVL-AD");

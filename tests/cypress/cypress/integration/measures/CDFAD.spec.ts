@@ -1,6 +1,5 @@
 describe("Measure: CDF-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("CDF-AD");

@@ -1,6 +1,5 @@
 describe("Measure: SSD-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("SSD-AD");

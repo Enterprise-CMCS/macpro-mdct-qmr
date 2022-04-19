@@ -1,6 +1,5 @@
 describe("Measure: SAA-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("SAA-AD");

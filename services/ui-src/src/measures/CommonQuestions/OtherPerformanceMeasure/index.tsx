@@ -111,7 +111,6 @@ export const OtherPerformanceMeasure = ({
           buttonProps={{
             variant: "outline",
             colorScheme: "blue",
-            textTransform: "capitalize",
           }}
           onClick={() => {
             showRates.push({
