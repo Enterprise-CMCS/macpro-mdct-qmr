@@ -62,7 +62,7 @@ Cypress.Commands.add("goToAdultMeasures", () => {
 
 // Visit Child Core Set Measures
 Cypress.Commands.add("goToChildCoreSetMeasures", () => {
-  cy.get("tbody").then(($tbody) => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click();
     }
@@ -71,7 +71,7 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 
 // Visit Health Home Core Set Measures
 Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
-  cy.get("tbody").then(($tbody) => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy^="HHCS"]').length > 0) {
       cy.get('[data-cy^="HHCS"]').click();
     }
@@ -149,7 +149,7 @@ const removeCoreSetElements = (kebab: string, coreSetAction: string) => {
   cy.get('[data-cy="Delete"]').first().click({ force: true });
   cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
   cy.wait(1000);
-  cy.get("tbody").then(($tbody) => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
       removeCoreSetElements(kebab, coreSetAction);
     }
@@ -158,7 +158,7 @@ const removeCoreSetElements = (kebab: string, coreSetAction: string) => {
 
 // removes child core set from main page
 Cypress.Commands.add("deleteChildCoreSets", () => {
-  cy.get("tbody").then(($tbody) => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
       removeCoreSetElements(
         '[data-cy="child-kebab-menu"]',
@@ -170,7 +170,7 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
 
 // removes health home core set from main page
 Cypress.Commands.add("deleteHealthHomeSets", () => {
-  cy.get("tbody").then(($tbody) => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="health home-kebab-menu"]').length > 0) {
       removeCoreSetElements(
         '[data-cy="health home-kebab-menu"]',
