@@ -369,11 +369,12 @@ resources:
                   s3:ExistingObjectTag/virusScanStatus:
                     - "CLEAN"
                   aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
-            - Action: "s3:PutObject"
-              Effect: Deny
-              Principal: "*"
-              NotResource:
-                - !Sub ${DynamoSnapshotBucket.Arn}/*.json
+            # - Action: "s3:PutObject"
+            #   Effect: Deny
+            #   Principal: "*"
+            #   NotResource:
+            #     - !Sub ${DynamoSnapshotBucket.Arn}/*.checksum
+            #     - !Sub ${DynamoSnapshotBucket.Arn}/*.json
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
