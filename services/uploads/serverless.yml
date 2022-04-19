@@ -373,7 +373,6 @@ resources:
               Effect: Deny
               Principal: "*"
               NotResource:
-                - !Sub ${DynamoSnapshotBucket.Arn}/*.checksum
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.json
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
