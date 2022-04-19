@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import moment from "moment";
 import { Auth } from "aws-amplify";
 import * as CUI from "@chakra-ui/react";
 import { useUser } from "hooks/authHooks";
+import { isAfter } from "date-fns";
 
 // window events to listen for
 const events = ["click", "load", "scroll", "keydown", "touchstart"];
@@ -19,55 +19,64 @@ export const SessionTimeout = () => {
   const startTimerInterval: any = useRef();
 
   // warning timer
-  const warningInactive = async (timeString: any) => {
+  const warningInactive = async (activeTime: number) => {
     clearTimeout(startTimerInterval.current);
 
     warningInactiveInterval.current = setInterval(() => {
-      const maxTime = 3;
-      const popTime = 1;
+      // minutes after inactivity converted to miliseconds
+      const maxTime = 3 * 60000;
+      const popTime = 1 * 60000;
 
-      const diff = moment.duration(moment().diff(moment(timeString)));
-      const minPast = diff.minutes();
-      const secondsLeft = 60 - diff.seconds();
-      const minutesLeft = maxTime - diff.minutes();
-      setSeconds(secondsLeft * minutesLeft);
+      const now = Date.now();
 
-      if (minPast === popTime) {
-        onOpen();
-      }
-
-      if (minPast === maxTime) {
+      // is the current time after the time to logout
+      if (isAfter(now, activeTime + maxTime)) {
         logout();
         clearInterval(warningInactiveInterval.current);
         localStorage.removeItem(SESSION_TIMEOUT_KEY);
+      }
+
+      // is the current time after the time for the popup to show
+      if (isAfter(now, activeTime + popTime) && !isOpen) {
+        const secondsRemaining = (activeTime + maxTime - now) / 1000;
+        setSeconds(Math.ceil(secondsRemaining));
+        if (!isOpen) {
+          onOpen();
+        }
       }
     }, 1000);
   };
 
   // start inactive check
-  const timeChecker = useCallback(() => {
+  const timeChecker = () => {
     startTimerInterval.current = setTimeout(() => {
       const storedTimeStamp = localStorage.getItem(SESSION_TIMEOUT_KEY);
-      warningInactive(storedTimeStamp);
+      warningInactive(Number(storedTimeStamp));
     }, 60000);
-  }, [startTimerInterval, warningInactive]);
+  };
 
   // reset interval timer
   const resetTimer = useCallback(async () => {
-    clearTimeout(startTimerInterval.current);
-    clearInterval(warningInactiveInterval.current);
-    const session = await Auth.currentSession();
-
-    if (session.isValid()) {
-      const timeStamp = moment();
-      localStorage.setItem(SESSION_TIMEOUT_KEY, timeStamp as any);
-    } else {
+    if (!isOpen) {
+      clearTimeout(startTimerInterval.current);
       clearInterval(warningInactiveInterval.current);
-      localStorage.removeItem(SESSION_TIMEOUT_KEY);
+      const session = await Auth.currentSession();
+
+      if (session.isValid()) {
+        const timeStamp = Date.now();
+        localStorage.setItem(SESSION_TIMEOUT_KEY, String(timeStamp));
+      } else {
+        clearInterval(warningInactiveInterval.current);
+        localStorage.removeItem(SESSION_TIMEOUT_KEY);
+      }
+      timeChecker();
     }
-    timeChecker();
+  }, [timeChecker]);
+
+  const handleClose = () => {
     onClose();
-  }, [onClose, timeChecker]);
+    resetTimer();
+  };
 
   useEffect(() => {
     events.forEach((event) => {
@@ -82,7 +91,7 @@ export const SessionTimeout = () => {
         window.removeEventListener(event, resetTimer);
       });
     };
-  }, [resetTimer, timeChecker]);
+  }, [resetTimer, timeChecker, events]);
 
   if (!isOpen) {
     return null;
@@ -91,7 +100,8 @@ export const SessionTimeout = () => {
   const minutesRemaining = Math.ceil(seconds / 60);
 
   return (
-    <CUI.Modal isOpen={isOpen} onClose={onClose}>
+    // onClose is a required prob but we dont want to close when click outside happens
+    <CUI.Modal isOpen={isOpen} onClose={() => {}}>
       <CUI.ModalOverlay />
       <CUI.ModalContent>
         <CUI.ModalHeader>Attention</CUI.ModalHeader>
@@ -102,7 +112,11 @@ export const SessionTimeout = () => {
               : `${seconds} seconds.`
           }`}
         </CUI.ModalBody>
-        <CUI.ModalFooter></CUI.ModalFooter>
+        <CUI.ModalFooter>
+          <CUI.Button colorScheme="blue" mr={3} onClick={handleClose}>
+            I'm Still Here
+          </CUI.Button>
+        </CUI.ModalFooter>
       </CUI.ModalContent>
     </CUI.Modal>
   );

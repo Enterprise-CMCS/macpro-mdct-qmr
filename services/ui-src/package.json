@@ -13,7 +13,6 @@
     "date-fns": "^2.26.0",
     "date-fns-tz": "^1.2.2",
     "framer-motion": "^4",
-    "moment": "^2.29.3",
     "object-path": "^0.11.8",
     "react": "^17.0.1",
     "react-bootstrap": "^2.0.1",
