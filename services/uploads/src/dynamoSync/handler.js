@@ -14,7 +14,7 @@ const uploadFileToS3 = async (filePath, scanResult) => {
   const bucket = new AWS.S3();
   console.log("in upload");
   const s3Promise = new Promise((resolve, reject) => {
-    console.log("before upload");
+    console.log("before upload", bucket);
     bucket.upload(
       {
         Bucket: process.env.dynamoSnapshotS3BucketName,
