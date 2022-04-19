@@ -19,12 +19,12 @@ export const SessionTimeout = () => {
   const startTimerInterval: any = useRef();
 
   // start inactive check
-  const timeChecker = () => {
+  const timeChecker = useCallback(() => {
     startTimerInterval.current = setTimeout(() => {
       const storedTimeStamp = localStorage.getItem(SESSION_TIMEOUT_KEY);
       warningInactive(storedTimeStamp);
     }, 60000);
-  };
+  }, [startTimerInterval]);
 
   // warning timer
   const warningInactive = async (timeString: any) => {
