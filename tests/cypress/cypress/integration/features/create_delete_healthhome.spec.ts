@@ -29,9 +29,4 @@ describe("Health Home Sets Should be able to be deleted and created", () => {
     cy.deleteHealthHomeSets();
     addAllHHCoreSet();
   });
-
-  it.skip("Creates Sinlge SPA set", () => {
-    cy.deleteHealthHomeSets();
-    addSingleHHCoreSet();
-  });
 });
