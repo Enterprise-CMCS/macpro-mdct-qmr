@@ -18,14 +18,6 @@ export const SessionTimeout = () => {
   const warningInactiveInterval: any = useRef();
   const startTimerInterval: any = useRef();
 
-  // start inactive check
-  const timeChecker = useCallback(() => {
-    startTimerInterval.current = setTimeout(() => {
-      const storedTimeStamp = localStorage.getItem(SESSION_TIMEOUT_KEY);
-      warningInactive(storedTimeStamp);
-    }, 60000);
-  }, [startTimerInterval]);
-
   // warning timer
   const warningInactive = async (timeString: any) => {
     clearTimeout(startTimerInterval.current);
@@ -51,6 +43,14 @@ export const SessionTimeout = () => {
       }
     }, 1000);
   };
+
+  // start inactive check
+  const timeChecker = useCallback(() => {
+    startTimerInterval.current = setTimeout(() => {
+      const storedTimeStamp = localStorage.getItem(SESSION_TIMEOUT_KEY);
+      warningInactive(storedTimeStamp);
+    }, 60000);
+  }, [startTimerInterval, warningInactive]);
 
   // reset interval timer
   const resetTimer = useCallback(async () => {
