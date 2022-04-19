@@ -279,14 +279,12 @@ resources:
             - Effect: Allow
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
-              Action: "s3:PutObject"
-              Resource: !Sub ${AttachmentsBucket.Arn}/*
-            - Effect: Allow
-              Principal:
-                AWS: !GetAtt IamRoleLambdaExecution.Arn
               Action:
                 - "s3:GetBucketLocation"
+                - "s3:GetObjectAcl"
                 - "s3:ListBucket"
+                - "s3:PutObject"
+                - "s3:PutObjectAcl"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
