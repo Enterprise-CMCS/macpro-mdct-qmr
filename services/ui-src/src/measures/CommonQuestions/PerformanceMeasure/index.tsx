@@ -177,14 +177,14 @@ export const PerformanceMeasure = ({
         <CUI.Stack my="5" spacing={5}>
           {data.questionSubtext.map((item, idx) => {
             return (
-              <CUI.Stack key={`performanceMeasureListItem.${idx}`}>
+              <CUI.Text key={`performanceMeasureListItem.${idx}`}>
                 {data.questionSubtextTitles?.[idx] && (
                   <CUI.Text display="inline" fontWeight="600">
                     {data.questionSubtextTitles?.[idx]}
                   </CUI.Text>
                 )}
                 <CUI.Text>{item}</CUI.Text>
-              </CUI.Stack>
+              </CUI.Text>
             );
           })}
         </CUI.Stack>
