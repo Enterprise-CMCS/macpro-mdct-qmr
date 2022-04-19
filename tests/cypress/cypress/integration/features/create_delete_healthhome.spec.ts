@@ -1,6 +1,6 @@
 describe("Health Home Sets Should be able to be deleted and created", () => {
   beforeEach(() => {
-    cy.login();
+    cy.loginHealthHome();
   });
 
   // recursivley makes as many HHCS as possible
