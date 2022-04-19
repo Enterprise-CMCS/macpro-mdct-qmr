@@ -178,7 +178,7 @@ export const StateHome = () => {
         <AddCoreSetCards
           childCoreSetExists={childCoreSetExists}
           healthHomesCoreSetExists={allPossibleHealthHomeCoreSetsExist}
-          renderHealthHomeCoreSet={!!spaIds.length}
+          renderHealthHomeCoreSet={!!spaIds?.length}
         />
       </CUI.HStack>
     </QMR.StateLayout>

@@ -57,13 +57,13 @@ export const AddCoreSetCard = ({
 interface Props {
   childCoreSetExists: boolean;
   healthHomesCoreSetExists: boolean;
-  renderHealthHomeCoreSet: boolean;
+  renderHealthHomeCoreSet?: boolean;
 }
 
 export const AddCoreSetCards = ({
   childCoreSetExists,
   healthHomesCoreSetExists,
-  renderHealthHomeCoreSet = true,
+  renderHealthHomeCoreSet = false,
 }: Props) => {
   return (
     <>
