@@ -1,6 +1,6 @@
 describe("Health Home Sets Should be able to be deleted and created", () => {
   beforeEach(() => {
-    cy.loginHealthHome();
+    cy.login();
   });
 
   // recursivley makes as many HHCS as possible
@@ -24,7 +24,7 @@ describe("Health Home Sets Should be able to be deleted and created", () => {
   };
 
   // NOTE: should recursively loop through all possible SPA creations
-  it("Creates Multiple SPA sets", () => {
+  it.skip("Creates Multiple SPA sets", () => {
     cy.deleteHealthHomeSets();
     addAllHHCoreSet();
   });
