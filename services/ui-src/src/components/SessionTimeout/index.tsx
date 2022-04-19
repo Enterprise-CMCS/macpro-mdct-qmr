@@ -71,6 +71,7 @@ export const SessionTimeout = () => {
       }
       timeChecker();
     }
+    // eslint-disable-line react-hooks/exhaustive-deps
   }, [timeChecker, isOpen]);
 
   const handleClose = () => {
@@ -91,6 +92,7 @@ export const SessionTimeout = () => {
         window.removeEventListener(event, resetTimer);
       });
     };
+    // eslint-disable-line react-hooks/exhaustive-deps
   }, [resetTimer, timeChecker]);
 
   if (!isOpen) {
