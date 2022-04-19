@@ -64,9 +64,6 @@ declare namespace Cypress {
     /** Add combined child coreset */
     addCombinedChildCoreset(): Chainable<Element>;
 
-    /** Add child coreset SFHCH */
-    goToChildCoreSetMeasuresSFMCH(): Chainable<Element>;
-
     // Helper function to enter a valid date range
     enterValidDateRange(): Chainable<Element>;
   }
