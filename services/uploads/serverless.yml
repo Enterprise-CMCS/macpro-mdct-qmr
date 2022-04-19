@@ -276,6 +276,19 @@ resources:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
               Action: "kms:*"
               Resource: "*"
+            - Effect: Allow
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:PutObject"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
+            - Effect: Allow
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Resource: !Sub ${AttachmentsBucket.Arn}/*
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
