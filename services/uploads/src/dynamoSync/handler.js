@@ -61,13 +61,13 @@ const syncDynamoToS3 = handler(async (_event, _context) => {
   console.log("Syncing Dynamo to Uploads");
   const measureScanResults = await scanAll(process.env.measureTableName);
   const coreSetScanResults = await scanAll(process.env.coreSetTableName);
-  console.log("1");
+  console.log("1", measureScanResults.coreSetScanResults);
   const measureResults = measureScanResults ? measureScanResults : [];
   const coreSetResults = coreSetScanResults ? coreSetScanResults : [];
-  console.log("2");
+  console.log("2", measureResults, coreSetResults);
 
   const measureCsv = await csvToS3(measureResults);
-  console.log("3");
+  console.log("3", measureCsv);
   await uploadFileToS3(`coreSetData/CSVmeasures/${Date.now()}.csv`, measureCsv);
   await uploadFileToS3(
     `coreSetData/JSONmeasures/${Date.now()}.json`,
