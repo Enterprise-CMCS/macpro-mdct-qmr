@@ -1,9 +1,5 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("OY2 9940 COB-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("COB-AD");
@@ -167,6 +163,5 @@ describe("OY2 9940 COB-AD", () => {
     cy.get('[data-cy="Validate Measure"]').should("be.visible");
     cy.get('[data-cy="Complete Measure"]').should("be.visible");
     cy.get("[data-cy=Save]").should("be.visible");
-    cy.get('[href="/WY/2021/ACS/COB-AD"]').should("be.visible");
   });
 });

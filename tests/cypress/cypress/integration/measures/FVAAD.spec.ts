@@ -1,10 +1,5 @@
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
-
 describe("OY2 9898 FVA-AD", () => {
   beforeEach(() => {
-    // Seed database with test data
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("FVA-AD");

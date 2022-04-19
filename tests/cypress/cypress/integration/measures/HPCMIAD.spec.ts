@@ -1,6 +1,5 @@
 describe("Measure: HPCMI-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("HPCMI-AD");
