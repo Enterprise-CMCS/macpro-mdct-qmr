@@ -1,6 +1,5 @@
 describe("Child Measure Qualifier: CH", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
   });
 
