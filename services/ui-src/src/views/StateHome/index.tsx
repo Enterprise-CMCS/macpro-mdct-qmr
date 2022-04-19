@@ -73,6 +73,11 @@ const Heading = () => {
 export const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
+  const mutation = useCompleteAllMeasures({
+    coreSet: CoreSetAbbr.ACS,
+    state,
+    year,
+  });
 
   // TODO: reload on succsessful submission
   const { data, error, isLoading } = Api.useGetCoreSets();
@@ -121,7 +126,9 @@ export const StateHome = () => {
     }
   };
 
-  const completeAllMeasures = () => {};
+  const completeAllMeasures = () => {
+    mutation.mutate();
+  };
 
   if (error) {
     console.log({ error });

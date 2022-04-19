@@ -1,10 +1,10 @@
 import { CoreSetAbbr } from "types";
 import { useMutation, useQuery } from "react-query";
-import { getMeasure, listMeasures } from "libs/api";
+import { listMeasures } from "libs/api";
 
 interface Params {
-  state: string;
-  year: string;
+  state?: string;
+  year?: string;
   coreSet: CoreSetAbbr;
 }
 
@@ -27,23 +27,23 @@ const useGetMeasures = (data: Params) => {
   );
 };
 
-interface GetMeasure {
-  measure: string;
-}
+// interface GetMeasure {
+//   measure: string;
+// }
 
-const _getMeasure = ({
-  state,
-  year,
-  coreSet,
-  measure,
-}: GetMeasure & Params) => {
-  return getMeasure({
-    state,
-    year,
-    coreSet,
-    measure,
-  });
-};
+// const _getMeasure = ({
+//   state,
+//   year,
+//   coreSet,
+//   measure,
+// }: GetMeasure & Params) => {
+//   return getMeasure({
+//     state,
+//     year,
+//     coreSet,
+//     measure,
+//   });
+// };
 
 // interface UpdateMeasure<DataType = any> {
 //   coreSet?: CoreSetAbbr;
@@ -76,12 +76,10 @@ const _getMeasure = ({
 // };
 
 export const useCompleteAllMeasures = (data: Params) => {
-  // const measureList = useGetMeasures(data);
-  // return useMutation((data: Params) => {
-  //   const measureList = useGetMeasures(data);
-  //   for (const measureInfo of measureList?.data?.Items) {
-  //     const measure = _getMeasure(measureInfo);
-  //     console.log(measure);
-  //   }
-  // });
+  const measureList = useGetMeasures(data);
+  return useMutation(async () => {
+    for (const measureInfo of measureList?.data?.Items) {
+      console.log(measureInfo);
+    }
+  });
 };
