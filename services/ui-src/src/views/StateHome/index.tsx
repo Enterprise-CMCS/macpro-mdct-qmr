@@ -136,7 +136,7 @@ export const StateHome = () => {
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
   }
-  if (isLoading || !data.Items) {
+  if (isLoading || !data.Items || mutation.isLoading) {
     return <QMR.LoadingWave />;
   }
 
