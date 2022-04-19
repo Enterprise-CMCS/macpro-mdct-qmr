@@ -386,7 +386,7 @@ resources:
     LambdaInvokeSnapshotPermission:
       Type: AWS::Lambda::Permission
       Properties:
-        FunctionName: !GetAtt AvScanLambdaFunction.Arn
+        FunctionName: !GetAtt DynamoSyncLambdaFunction.Arn
         Action: lambda:InvokeFunction
         Principal: s3.amazonaws.com
         SourceAccount: !Sub ${AWS::AccountId}
