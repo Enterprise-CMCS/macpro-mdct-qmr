@@ -127,7 +127,11 @@ export const StateHome = () => {
   };
 
   const completeAllMeasures = () => {
-    mutation.mutate();
+    mutation.mutate(undefined, {
+      onSuccess: () => {
+        queryClient.refetchQueries();
+      },
+    });
   };
 
   if (error) {
