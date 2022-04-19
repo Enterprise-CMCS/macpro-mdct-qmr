@@ -3,7 +3,7 @@ describe("Child Core Sets Should be able to be deleted and created", () => {
     cy.login();
   });
 
-  it("Creates separate child core-set", () => {
+  it.skip("Creates separate child core-set", () => {
     cy.deleteChildCoreSets();
     cy.get('[data-cy="add-childbutton"]').click({ force: true }); // clicking on adding child core set measures
     cy.get("#ChildCoreSet-ReportType-separate").click({ force: true }); //selecting combined core set
