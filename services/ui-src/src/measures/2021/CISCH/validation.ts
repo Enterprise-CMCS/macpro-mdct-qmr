@@ -44,7 +44,7 @@ const CISCHValidation = (data: FormData) => {
   const includesHybridDataSource =
     data["DataSource"]?.includes(
       DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-    ) && data["DataSource"].length === 1;
+    )
 
   errorArray = [
     ...errorArray,
