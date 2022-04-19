@@ -67,7 +67,7 @@ export const SessionTimeout = () => {
     }
     timeChecker();
     onClose();
-  }, [Auth]);
+  }, [onClose, timeChecker]);
 
   useEffect(() => {
     events.forEach((event) => {
@@ -82,7 +82,7 @@ export const SessionTimeout = () => {
         window.removeEventListener(event, resetTimer);
       });
     };
-  }, [resetTimer, events, timeChecker]);
+  }, [resetTimer, timeChecker]);
 
   if (!isOpen) {
     return null;
