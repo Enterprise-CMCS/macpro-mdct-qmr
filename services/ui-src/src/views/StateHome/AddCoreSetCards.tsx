@@ -63,7 +63,7 @@ interface Props {
 export const AddCoreSetCards = ({
   childCoreSetExists,
   healthHomesCoreSetExists,
-  renderHealthHomeCoreSet = false,
+  renderHealthHomeCoreSet = true,
 }: Props) => {
   return (
     <>
