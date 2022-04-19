@@ -12,7 +12,7 @@ const csvToS3 = async (scanResult) => {
 
 const uploadFileToS3 = async (filePath, scanResult) => {
   const bucket = new AWS.S3();
-
+  console.log("in upload");
   const s3Promise = new Promise((resolve, reject) => {
     bucket.upload(
       {
