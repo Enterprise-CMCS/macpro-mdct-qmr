@@ -220,6 +220,8 @@ resources:
             - Action: "s3:PutObject"
               Effect: Deny
               Principal: "*"
+              NotResource:
+                - !Sub ${AttachmentsBucket.Arn}/*.odp
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
