@@ -1,11 +1,16 @@
 import { screen } from "@testing-library/react";
 import * as QMR from "components";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 describe("Test Upload Component", () => {
   beforeEach(() => {
     renderWithHookForm(
-      <QMR.Upload name="test-component" label="test label" />,
+      <QueryClientProvider client={queryClient}>
+        <QMR.Upload name="test-component" label="test label" />
+      </QueryClientProvider>,
       {
         defaultValues: {
           "test-component": [

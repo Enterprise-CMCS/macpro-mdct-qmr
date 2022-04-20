@@ -4,12 +4,19 @@ import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
 import { Storage } from "aws-amplify";
+import { useQuery } from "react-query";
 
 interface IUploadProps {
   maxSize?: number;
   label?: string;
   acceptedFileTypes?: string | string[];
   name: string;
+}
+
+interface ListItemProps {
+  file: any;
+  index: number;
+  clearFile: (fileNumber: number) => void;
 }
 
 export const Upload = ({
@@ -194,38 +201,61 @@ export const Upload = ({
       ))}
       {field.value.map((file: any, index: any) => {
         return (
-          <CUI.HStack
-            key={`${index}-${file.name}`}
-            background="blue.50"
-            pl="1rem"
-            my="2"
-            borderRadius="10"
-            justifyContent="space-between"
-          >
-            <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
-            <CUI.Button
-              data-testid={`test-delete-btn-${index}`}
-              data-cy={`upload-delete-btn-${index}`}
-              background="none"
-              onClick={() => clearFile(index)}
-            >
-              x
-            </CUI.Button>
-            <CUI.Button
-              background="none"
-              onClick={async () => {
-                const test = await Storage.get(file.s3Key, {
-                  download: true,
-                  level: "protected",
-                });
-                console.log({ test });
-              }}
-            >
-              Click Me!
-            </CUI.Button>
-          </CUI.HStack>
+          <ListItem
+            file={file}
+            index={index}
+            clearFile={clearFile}
+            key={`${index}-${file.s3Key}`}
+          />
         );
       })}
     </>
+  );
+};
+
+const ListItem = ({ file, index, clearFile }: ListItemProps) => {
+  const { data, isError } = useQuery(
+    [file.s3Key],
+    async () => {
+      const testUrl = await Storage.get(file.s3Key, {
+        level: "protected",
+      });
+      return testUrl;
+    },
+    { retry: 10 }
+  );
+
+  return (
+    <CUI.HStack
+      background="blue.50"
+      pl="1rem"
+      my="2"
+      borderRadius="10"
+      justifyContent="space-between"
+    >
+      <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
+      <CUI.Button
+        data-testid={`test-delete-btn-${index}`}
+        data-cy={`upload-delete-btn-${index}`}
+        background="none"
+        onClick={() => clearFile(index)}
+      >
+        x
+      </CUI.Button>
+      {isError && <p>oh no</p>}
+      {!!(!isError && data) && (
+        <CUI.Button
+          background="none"
+          onClick={async () => {
+            if (data) {
+              window.open(data);
+              console.log({ data });
+            }
+          }}
+        >
+          Download
+        </CUI.Button>
+      )}
+    </CUI.HStack>
   );
 };
