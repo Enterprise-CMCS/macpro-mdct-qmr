@@ -409,6 +409,7 @@ jobs:
             reporting_in_FY21_tag_for_alt_data_sources,
             restructuring_data_source_text_boxes,
             update_user_auth_handling_in_ui,
+            oy2_17693_Measurement_Specification_Definition_of_Population_Validation_text_changes_85_87_93,
           ]
     steps:
       - name: set branch_name
