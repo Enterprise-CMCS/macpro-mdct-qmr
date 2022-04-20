@@ -2,6 +2,7 @@ import {
   useAddCoreSet,
   useDeleteCoreSet,
   useEditCoreSet,
+  useGetCoreSet,
   useGetCoreSets,
   useGetMeasure,
   useGetMeasures,
@@ -103,6 +104,9 @@ export const useApiMock = ({
   });
   (useEditCoreSet as jest.Mock).mockReturnValue({
     ...useEditCoreSetValues,
+  });
+  (useGetCoreSet as jest.Mock).mockReturnValue({
+    ...useGetCoreSetsValues,
   });
   (useGetCoreSets as jest.Mock).mockReturnValue({
     ...useGetCoreSetsValues,
