@@ -12,9 +12,8 @@ const csvToS3 = async (scanResult) => {
 
 const uploadFileToS3 = async (filePath, scanResult) => {
   const bucket = new AWS.S3();
-  console.log("in upload", process.env.dynamoSnapshotS3BucketName);
+
   const s3Promise = new Promise((resolve, reject) => {
-    console.log("before upload", process.env);
     bucket.upload(
       {
         Bucket: process.env.dynamoSnapshotS3BucketName,
