@@ -73,7 +73,12 @@ const OUDValidation = (data: FormData) => {
         OMSVal.validateAllDenomsAreTheSameCrossQualifier,
       ],
     }),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups,data),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
   ];
 
   return errorArray;

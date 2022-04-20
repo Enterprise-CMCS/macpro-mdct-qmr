@@ -24,7 +24,6 @@ const CCSADValidation = (data: FormData) => {
     return errorArray;
   }
 
-
   errorArray = [
     ...errorArray,
     ...GV.omsValidations({

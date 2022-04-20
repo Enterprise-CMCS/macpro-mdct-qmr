@@ -32,7 +32,12 @@ const AMBCHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups,data),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,

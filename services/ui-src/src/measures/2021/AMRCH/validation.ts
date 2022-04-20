@@ -53,7 +53,12 @@ const AMRCHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups,data),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,

@@ -69,7 +69,12 @@ const CCWADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups,data),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
   ];
 

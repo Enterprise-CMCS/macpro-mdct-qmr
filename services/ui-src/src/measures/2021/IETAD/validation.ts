@@ -107,7 +107,12 @@ const IETValidation = (data: FormData) => {
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups,data),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
