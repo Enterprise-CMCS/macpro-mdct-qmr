@@ -80,11 +80,15 @@ export const Upload = ({
 
           //Wait until all files are uploaded.
           resultPromise = new Promise((resolve, reject) => {
+            debugger;
+
             Promise.all(uploadPromises)
               .then((results) => {
                 resolve(results);
               })
               .catch((error) => {
+                debugger;
+
                 if (error.indexOf("No credentials") !== -1) {
                   reject("SESSION_EXPIRED");
                 } else {
