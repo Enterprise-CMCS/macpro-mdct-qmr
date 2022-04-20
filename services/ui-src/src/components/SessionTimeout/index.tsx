@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+/* eslint-disable */
+import { useState, useEffect, useRef } from "react";
 import { Auth } from "aws-amplify";
 import * as CUI from "@chakra-ui/react";
 import { useUser } from "hooks/authHooks";
@@ -56,27 +57,24 @@ export const SessionTimeout = () => {
   };
 
   // reset interval timer
-  const resetTimer = useCallback(async () => {
-    if (!isOpen) {
-      clearTimeout(startTimerInterval.current);
-      clearInterval(warningInactiveInterval.current);
-      const session = await Auth.currentSession();
+  const resetTimer = async () => {
+    clearTimeout(startTimerInterval.current);
+    clearInterval(warningInactiveInterval.current);
+    const session = await Auth.currentSession();
 
-      if (session.isValid()) {
-        const timeStamp = Date.now();
-        localStorage.setItem(SESSION_TIMEOUT_KEY, String(timeStamp));
-      } else {
-        clearInterval(warningInactiveInterval.current);
-        localStorage.removeItem(SESSION_TIMEOUT_KEY);
-      }
-      timeChecker();
+    if (session.isValid()) {
+      const timeStamp = Date.now();
+      localStorage.setItem(SESSION_TIMEOUT_KEY, String(timeStamp));
+    } else {
+      clearInterval(warningInactiveInterval.current);
+      localStorage.removeItem(SESSION_TIMEOUT_KEY);
     }
-    // eslint-disable-line react-hooks/exhaustive-deps
-  }, [timeChecker, isOpen]);
+    timeChecker();
+  };
 
   const handleClose = () => {
-    onClose();
     resetTimer();
+    onClose();
   };
 
   useEffect(() => {
