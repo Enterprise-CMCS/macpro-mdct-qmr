@@ -8,6 +8,7 @@ import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   ensureBothDatesCompletedInRange,
   validateOneRateHigherThanOther,
+  validateOneDataSource,
 } from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
@@ -69,6 +70,7 @@ const FUMADValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...validateOneDataSource(data),
     ...validateOneRateHigherThanOther(data, PMD.data),
   ];
 

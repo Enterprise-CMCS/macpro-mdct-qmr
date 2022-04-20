@@ -34,6 +34,7 @@ const CDFADValidation = (data: FormData) => {
 
   errorArray = [
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateOneDataSource(data),
     ...GV.validateDualPopInformation(
       performanceMeasureArray,
       OPM,

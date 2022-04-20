@@ -54,6 +54,7 @@ const OHDValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,

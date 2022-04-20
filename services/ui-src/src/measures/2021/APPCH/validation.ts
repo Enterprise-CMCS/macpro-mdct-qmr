@@ -26,6 +26,7 @@ const APPCHValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,

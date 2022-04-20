@@ -18,6 +18,7 @@ import {
   getPerfMeasureRateArray,
   omsLocationDictionary,
   validateReasonForNotReporting,
+  validateOneDataSource,
 } from "measures/globalValidations";
 
 const PQI05Validation = (data: FormData) => {
@@ -75,6 +76,7 @@ const PQI05Validation = (data: FormData) => {
     ),
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...validateOneDataSource(data),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,

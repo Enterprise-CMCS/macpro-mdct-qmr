@@ -49,6 +49,7 @@ const WCVCHValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,

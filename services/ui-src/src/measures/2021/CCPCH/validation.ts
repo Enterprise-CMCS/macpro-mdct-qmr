@@ -28,6 +28,7 @@ const CCPCHValidation = (data: FormData) => {
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,

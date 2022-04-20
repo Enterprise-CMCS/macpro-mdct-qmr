@@ -11,6 +11,7 @@ import {
   validateReasonForNotReporting,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   getDeviationNDRArray,
+  validateOneDataSource,
 } from "../../globalValidations";
 import { FormData } from "./types";
 import * as DC from "dataConstants";
@@ -42,6 +43,7 @@ const PQI15Validation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...validateOneDataSource(data),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       PMD.qualifiers,

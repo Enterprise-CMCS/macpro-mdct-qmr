@@ -152,6 +152,7 @@ const FUHValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...validate7DaysGreaterThan30Days(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

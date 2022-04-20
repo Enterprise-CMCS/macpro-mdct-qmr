@@ -48,6 +48,7 @@ const PC01ADValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...OV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

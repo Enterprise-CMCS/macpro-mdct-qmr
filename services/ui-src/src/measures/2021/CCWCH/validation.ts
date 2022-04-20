@@ -45,6 +45,7 @@ const CCWCHValidation = (data: FormData) => {
   errorArray = [
     ...validateLarcRateGreater(data),
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,

@@ -10,6 +10,7 @@ import {
   omsLocationDictionary,
   validateReasonForNotReporting,
   validateAllDenomsTheSameCrossQualifier,
+  validateOneDataSource,
 } from "measures/globalValidations";
 import * as OMSVal from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
@@ -51,6 +52,7 @@ const OUDValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...validateOneDataSource(data),
     ...validateAllDenomsTheSameCrossQualifier(
       data,
       PMD.categories,
