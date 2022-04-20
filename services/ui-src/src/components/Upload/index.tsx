@@ -218,6 +218,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
     [file.s3Key],
     async () => {
       const testUrl = await Storage.get(file.s3Key, {
+        download: true,
         level: "protected",
       });
       return testUrl;
@@ -248,8 +249,9 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
           background="none"
           onClick={async () => {
             if (data) {
-              window.open(data);
-              console.log({ data });
+              const url = URL.createObjectURL(data.Body as Blob);
+              window.open(url);
+              console.log({ data, url });
             }
           }}
         >
