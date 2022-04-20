@@ -197,26 +197,30 @@ export const Upload = ({
         </CUI.Alert>
       ))}
       {field.value.map((file: any, index: any) => {
-        return (
-          <CUI.HStack
-            key={`${index}-${file.name}`}
-            background="blue.50"
-            pl="1rem"
-            my="2"
-            borderRadius="10"
-            justifyContent="space-between"
-          >
-            <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
-            <CUI.Button
-              data-testid={`test-delete-btn-${index}`}
-              data-cy={`upload-delete-btn-${index}`}
-              background="none"
-              onClick={() => clearFile(index)}
+        console.log(file);
+        if (file.filename) {
+          return (
+            <CUI.HStack
+              key={`${index}-${file.name}`}
+              background="blue.50"
+              pl="1rem"
+              my="2"
+              borderRadius="10"
+              justifyContent="space-between"
             >
-              x
-            </CUI.Button>
-          </CUI.HStack>
-        );
+              <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
+              <CUI.Button
+                data-testid={`test-delete-btn-${index}`}
+                data-cy={`upload-delete-btn-${index}`}
+                background="none"
+                onClick={() => clearFile(index)}
+              >
+                x
+              </CUI.Button>
+            </CUI.HStack>
+          );
+        }
+        return undefined;
       })}
     </>
   );
