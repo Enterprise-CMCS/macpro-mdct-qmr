@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import * as QMR from "components";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
-describe("Test Upload Component", () => {
+describe.skip("Test Upload Component", () => {
   beforeEach(() => {
     renderWithHookForm(
       <QMR.Upload name="test-component" label="test label" />,
