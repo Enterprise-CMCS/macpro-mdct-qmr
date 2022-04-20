@@ -24,9 +24,6 @@ const CCSADValidation = (data: FormData) => {
     return errorArray;
   }
 
-  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   errorArray = [
     ...errorArray,
@@ -39,10 +36,11 @@ const CCSADValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
+      dataSource: data[DC.DATA_SOURCE],
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateRateNotZero,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
+        GV.validateRateZero,
       ],
     }),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -61,7 +59,7 @@ const CCSADValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       ageGroups,
-      includesHybridDataSource
+      data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),

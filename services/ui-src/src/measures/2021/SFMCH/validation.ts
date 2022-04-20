@@ -97,7 +97,7 @@ const SFMCHValidation = (data: FormData) => {
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateOneSealantGreaterThanFourMolarsSealed(data),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups,data),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(

@@ -25,9 +25,6 @@ const PC01ADValidation = (data: FormData) => {
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   errorArray = [
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -47,7 +44,7 @@ const PC01ADValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       ageGroups,
-      includesHybridDataSource
+      data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
@@ -55,6 +52,7 @@ const PC01ADValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
@@ -63,7 +61,7 @@ const PC01ADValidation = (data: FormData) => {
       validationCallbacks: [
         OV.validateDenominatorGreaterThanNumerator,
         OV.validateRateNotZero,
-        ...(includesHybridDataSource ? [] : [OV.validateRateZero]),
+        OV.validateRateZero,
       ],
     }),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(

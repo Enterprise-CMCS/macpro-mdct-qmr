@@ -3,6 +3,7 @@ import {
   RateFields,
   DefaultFormData,
 } from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
 type locationDictionaryFunction = (labels: string[]) => string;
 
 interface RateData extends OMS.OmsRateFields {
@@ -17,6 +18,7 @@ export type OmsValidationCallback = (data: {
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
   customTotalLabel?: string;
+  dataSource?: string[];
 }) => FormError[];
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
@@ -29,6 +31,7 @@ interface OmsValidationProps {
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
   customTotalLabel?: string;
+  dataSource?: string[];
 }
 export const omsValidations = ({
   categories,
@@ -38,6 +41,7 @@ export const omsValidations = ({
   qualifiers,
   validationCallbacks,
   customTotalLabel,
+  dataSource,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -62,7 +66,8 @@ export const omsValidations = ({
     locationDictionary,
     checkIsFilled,
     isOPM,
-    customTotalLabel
+    customTotalLabel,
+    dataSource
   );
 };
 // @example
@@ -226,7 +231,8 @@ const validateNDRs = (
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,
-  customTotalLabel?: string
+  customTotalLabel?: string,
+  dataSource?: string[]
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -285,6 +291,7 @@ const validateNDRs = (
           locationDictionary,
           isOPM,
           customTotalLabel,
+          dataSource,
         })
       );
     }
@@ -463,7 +470,11 @@ export const validateRateZero: OmsValidationCallback = ({
   rateData,
   label,
   locationDictionary,
+  dataSource,
 }) => {
+  const hybridData = dataSource?.includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
   const error: FormError[] = [];
   for (const qual of qualifiers.map((s) => cleanString(s))) {
     for (const cat of categories.map((s) => cleanString(s))) {
@@ -473,7 +484,8 @@ export const validateRateZero: OmsValidationCallback = ({
           if (
             parseFloat(temp.numerator) === 0 &&
             parseFloat(temp.denominator) > 0 &&
-            parseFloat(temp.rate) !== 0
+            parseFloat(temp.rate) !== 0 &&
+            !hybridData
           ) {
             error.push({
               errorLocation: `Optional Measure Stratification: ${locationDictionary(

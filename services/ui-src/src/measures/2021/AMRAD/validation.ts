@@ -53,7 +53,7 @@ const AMRADValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups,data),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
