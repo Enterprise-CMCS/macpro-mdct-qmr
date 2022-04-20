@@ -74,13 +74,7 @@ const Heading = () => {
 export const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
-  const mutation = useCompleteAllMeasures({
-    coreSet: CoreSetAbbr.ACS,
-    state,
-    year,
-  });
-
-  // TODO: reload on succsessful submission
+  const mutation = useCompleteAllMeasures();
   const { data, error, isLoading } = Api.useGetCoreSets();
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
@@ -127,8 +121,8 @@ export const StateHome = () => {
     }
   };
 
-  const completeAllMeasures = () => {
-    mutation.mutate(undefined, {
+  const completeAllMeasures = (data: Data) => {
+    mutation.mutate(data, {
       onSuccess: () => {
         queryClient.refetchQueries();
       },

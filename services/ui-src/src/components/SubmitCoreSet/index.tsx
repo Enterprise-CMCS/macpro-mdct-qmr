@@ -62,8 +62,7 @@ export const SubmitCoreSetButton = ({
               },
               {
                 onSettled: () => {
-                  queryClient.refetchQueries(["coreSets"]);
-                  queryClient.refetchQueries(["coreSet"]);
+                  queryClient.refetchQueries();
                   toast({
                     status: "success",
                     description: "Core Set submitted successfully!",

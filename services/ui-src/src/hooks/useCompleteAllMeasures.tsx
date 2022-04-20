@@ -1,5 +1,5 @@
 import { CoreSetAbbr, MeasureStatus } from "types";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { editMeasure, listMeasures } from "libs/api";
 
 interface Params {
@@ -14,17 +14,6 @@ const getMeasures = async ({ state, year, coreSet }: Params) => {
     year,
     coreSet,
   });
-};
-
-const useGetMeasures = (data: Params) => {
-  // throw Error("state or year unavailable");
-  return useQuery(["coreSetsCompletionFetch", data.state, data.year], () =>
-    getMeasures({
-      state: data.state,
-      year: data.year,
-      coreSet: data.coreSet,
-    })
-  );
 };
 
 interface UpdateMeasure<DataType = any> {
@@ -57,16 +46,21 @@ const updateMeasure = ({
   });
 };
 
-export const useCompleteAllMeasures = (data: Params) => {
-  const measureList = useGetMeasures(data);
-  return useMutation(async () => {
-    for (const measureInfo of measureList?.data?.Items) {
-      const data = measureInfo.data ?? {};
-      await updateMeasure({
-        ...measureInfo,
-        status: MeasureStatus.COMPLETE,
-        data,
-      });
-    }
+export const useCompleteAllMeasures = () => {
+  return useMutation(async (data: Params) => {
+    await getMeasures({
+      state: data.state,
+      year: data.year,
+      coreSet: data.coreSet,
+    }).then(async (measureList) => {
+      for (const measureInfo of measureList?.Items) {
+        const data = measureInfo.data ?? {};
+        await updateMeasure({
+          ...measureInfo,
+          status: MeasureStatus.COMPLETE,
+          data,
+        });
+      }
+    });
   });
 };
