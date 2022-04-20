@@ -2,14 +2,23 @@ import { API, Auth } from "aws-amplify";
 
 async function requestOptions(): Promise<any> {
   try {
+    let token;
     const session = await Auth.currentSession();
-    const token = await session.getIdToken().getJwtToken();
+
+    try {
+      token = await session.getIdToken().getJwtToken();
+    } catch (e) {
+      console.log("Error getting token");
+      console.log({ e });
+    }
 
     const options = {
       headers: { "x-api-key": token },
     };
+
     return options;
   } catch (e) {
+    console.log("Error getting current session");
     console.log({ e });
   }
 }

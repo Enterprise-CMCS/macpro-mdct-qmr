@@ -25,7 +25,6 @@ export const MeasureButtons = ({
           buttonProps={{
             minWidth: "10rem",
             colorScheme: "blue",
-            textTransform: "capitalize",
             isFullWidth: true,
           }}
           onClick={handleSave}
@@ -37,7 +36,6 @@ export const MeasureButtons = ({
           buttonProps={{
             minWidth: "10rem",
             colorScheme: "blue",
-            textTransform: "capitalize",
             isFullWidth: true,
           }}
           onClick={window.print}
@@ -47,6 +45,7 @@ export const MeasureButtons = ({
       {lastAltered && (
         <CUI.Flex
           className="hidden-print-items"
+          justifyContent="center"
           mb={{ base: "1", lg: "0" }}
           data-testid="last-saved-text"
         >

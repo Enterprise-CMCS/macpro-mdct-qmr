@@ -98,10 +98,6 @@ describe("Measure: DEV-CH", () => {
       "have.value",
       "5.6"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
-      "have.attr",
-      "aria-readonly"
-    );
   });
 
   it("Ensure that “Total” NDR set is auto calculated from the according age ranges", () => {
@@ -145,9 +141,5 @@ describe("Measure: DEV-CH", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.3.denominator"]'
     ).should("not.have.attr", "aria-readonly");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.rate"]').should(
-      "have.attr",
-      "aria-readonly"
-    );
   });
 });
