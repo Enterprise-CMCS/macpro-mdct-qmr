@@ -102,10 +102,6 @@ describe("Measure: PPC-CH", () => {
       "have.value",
       "5.6"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
-      "have.attr",
-      "aria-readonly"
-    );
   });
 
   it("Rate calculation should be correct", () => {

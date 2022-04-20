@@ -59,6 +59,7 @@ const PCRADValidation = (data: FormData) => {
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
     ...GV.omsValidations({
       data,

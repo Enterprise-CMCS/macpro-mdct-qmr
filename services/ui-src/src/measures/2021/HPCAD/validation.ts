@@ -60,6 +60,7 @@ const HPCADValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
