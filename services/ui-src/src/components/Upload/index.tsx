@@ -211,6 +211,18 @@ export const Upload = ({
             >
               x
             </CUI.Button>
+            <CUI.Button
+              background="none"
+              onClick={async () => {
+                const test = await Storage.get(file.s3Key, {
+                  download: true,
+                  level: "protected",
+                });
+                console.log({ test });
+              }}
+            >
+              Click Me!
+            </CUI.Button>
           </CUI.HStack>
         );
       })}
