@@ -29,10 +29,6 @@ a:focus {
 }
 
 @media print {
-  body {
-    padding: 10px 0 10px 0;
-  }
-
   .logos {
     width: 170px;
   }
@@ -63,5 +59,14 @@ a:focus {
 
   .logo-footer {
     display: flex !important;
+  }
+
+  .help-section {
+    text-align: start;
+    padding-top: 50px;
+  }
+
+  .pcrad-print-view {
+    width: 150px !important;
   }
 }

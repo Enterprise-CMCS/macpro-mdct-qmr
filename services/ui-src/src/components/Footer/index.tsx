@@ -10,7 +10,11 @@ export function Footer(): JSX.Element {
       textAlign={{ base: "center", md: "left" }}
       data-testid="footer"
     >
-      <CUI.Container data-testid="help-section" maxW="7xl">
+      <CUI.Container
+        data-testid="help-section"
+        className="help-section"
+        maxW="7xl"
+      >
         <CUI.Box maxW="4xl">
           <CUI.Text as="h3" fontSize="2xl" mb="3">
             Do you have questions or need support?

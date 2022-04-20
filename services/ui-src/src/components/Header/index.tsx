@@ -10,11 +10,11 @@ interface Props {
 
 export function Header({ handleLogout }: Props) {
   return (
-    <CUI.Box data-testid="header" zIndex={3}>
+    <CUI.Box data-testid="header" className="hidden-print-items" zIndex={3}>
       <UsaBanner />
       {/* using hex color here for branded color */}
       <CUI.Box bg="#0071bc">
-        <CUI.Container className="hidden-print-items" maxW="7xl">
+        <CUI.Container maxW="7xl">
           <CUI.Flex py="4" alignItems="center">
             <Link to="/">
               <Logo />
