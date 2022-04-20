@@ -215,7 +215,8 @@ resources:
                 - "s3:GetObject"
               Effect: "Deny"
               Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
-              Principal: "*"
+              NotPrincipal:
+                AWS: !GetAtt BucketAVScanRole.Arn
               Condition:
                 StringNotEquals:
                   s3:ExistingObjectTag/virusScanStatus:
