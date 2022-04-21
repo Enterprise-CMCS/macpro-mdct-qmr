@@ -24,6 +24,7 @@ export const Upload = ({
     ".jpg",
     ".jpeg",
     ".png",
+    ".jfif",
   ],
 }: IUploadProps) => {
   const { control } = useFormContext();
@@ -85,13 +86,13 @@ export const Upload = ({
                 resolve(results);
               })
               .catch((error) => {
-                console.log(error);
-                if (error && error?.indexOf("No credentials") !== -1) {
-                  reject("SESSION_EXPIRED");
-                } else {
-                  console.log("Error uploading.", error);
-                  reject("UPLOADS_ERROR");
-                }
+                console.log(error, reject);
+                // if (error && error?.indexOf("No credentials") !== -1) {
+                //   reject("SESSION_EXPIRED");
+                // } else {
+                //   console.log("Error uploading.", error);
+                //   reject("UPLOADS_ERROR");
+                // }
               });
           });
         } else {
