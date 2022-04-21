@@ -158,7 +158,7 @@ export const MultiRate = ({
             data-cy={`${name}.${index}.value`}
             bgColor={"#FFF"}
             onChange={(e) => changeRate(index, e.target.value)}
-            className="pcrad-print-view"
+            className="multi-rate-print-input"
           />
         )}
       </QMR.InputWrapper>
