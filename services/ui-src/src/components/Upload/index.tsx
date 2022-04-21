@@ -85,7 +85,8 @@ export const Upload = ({
                 resolve(results);
               })
               .catch((error) => {
-                if (error?.indexOf("No credentials") !== -1) {
+                console.log(error);
+                if (error && error?.indexOf("No credentials") !== -1) {
                   reject("SESSION_EXPIRED");
                 } else {
                   console.log("Error uploading.", error);
