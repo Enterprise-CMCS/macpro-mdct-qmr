@@ -108,9 +108,10 @@ export const Upload = ({
         return resultPromise;
       }
 
-      uploadFiles(acceptedFiles).then((result: any) =>
-        field.onChange([...field.value, ...result])
-      );
+      uploadFiles(acceptedFiles).then((result: any) => {
+        console.log(result);
+        field.onChange([...field.value, ...result]);
+      });
     },
     [field, toast]
   );
