@@ -67,10 +67,6 @@ describe("Measure: HVL-AD", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
-      "have.attr",
-      "aria-readonly"
-    );
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "not.have.attr",
