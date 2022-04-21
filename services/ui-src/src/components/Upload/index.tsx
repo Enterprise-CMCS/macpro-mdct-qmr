@@ -5,6 +5,7 @@ import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
 import { Storage } from "aws-amplify";
+import { useUser } from "hooks/authHooks";
 
 interface IUploadProps {
   maxSize?: number;
@@ -149,6 +150,11 @@ export const Upload = ({
     }
   }
 
+  // Here, we determing if this is a state user. If it's a non-state user,
+  // display the ComponentMask overlay to signal to the user that the upload box
+  // is disabled.
+  const { isStateUser } = useUser();
+
   return (
     <>
       {label && <CUI.Text>{label}</CUI.Text>}
@@ -164,7 +170,7 @@ export const Upload = ({
         cursor="pointer"
         position="relative"
       >
-        <QMR.ComponentMask />
+        {!isStateUser && <QMR.ComponentMask />}
         <FolderIcon />
         <input {...getInputProps()} style={{ display: "none" }} />
         <CUI.Text fontSize="lg">
