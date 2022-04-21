@@ -28,7 +28,7 @@ export const CompleteMeasureFooter = ({
         <CUI.Text py="3" data-cy="complete measure sub-2">
           Complete the measure and mark it for submission to CMS for review
         </CUI.Text>
-        <CUI.HStack>
+        <CUI.HStack zIndex={disabled ? 2 : 0}>
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "green",
