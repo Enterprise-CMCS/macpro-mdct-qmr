@@ -223,7 +223,12 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       });
       return testUrl;
     },
-    { retry: 10 }
+    {
+      retry: 10,
+      onError: (err) => {
+        console.log(err);
+      },
+    }
   );
 
   return (
@@ -239,11 +244,13 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
         data-testid={`test-delete-btn-${index}`}
         data-cy={`upload-delete-btn-${index}`}
         background="none"
-        onClick={() => clearFile(index)}
+        onClick={async () => {
+          await Storage.remove(file.s3Key);
+          clearFile(index);
+        }}
       >
         x
       </CUI.Button>
-      {isError && <p>oh no</p>}
       {!!(!isError && data) && (
         <CUI.Button
           background="none"
