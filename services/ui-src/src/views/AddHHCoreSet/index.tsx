@@ -36,7 +36,7 @@ export const AddHHCoreSet = () => {
     )
     .map((spa) => {
       return {
-        displayValue: `${spa.state} ${spa.id}: ${spa.name}`,
+        displayValue: `${spa.state} ${spa.id} - ${spa.name}`,
         value: spa.id,
       };
     })

@@ -67,9 +67,12 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     measure: "CSQ",
   });
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
-  const spaName = coreSetInfo?.[1]
-    ? SPA.filter((s) => s.id === coreSetInfo[1])[0].name
-    : "";
+  const tempSpa =
+    coreSetInfo.length > 1 ? SPA.filter((s) => s.id === coreSetInfo[1])[0] : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
 
   const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
   return (
@@ -141,9 +144,12 @@ export const CoreSet = () => {
 
   const { isStateUser } = useUser();
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
-  const spaName = coreSet?.[1]
-    ? SPA.filter((s) => s.id === coreSet[1])[0].name
-    : "";
+  const tempSpa =
+    coreSet.length > 1 ? SPA.filter((s) => s.id === coreSet[1])[0] : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
 
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
   const completedAmount = measures.filter(

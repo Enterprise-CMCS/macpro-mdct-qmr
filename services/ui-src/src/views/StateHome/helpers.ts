@@ -60,9 +60,12 @@ export const formatTableItems = ({
       compoundKey,
     }: CoreSetDataItem): CoreSetTableItem.Data => {
       const tempSet = coreSet.split("_");
+      const tempSpa =
+        tempSet.length === 2 &&
+        filteredSpas!.filter((s) => s.id === tempSet?.[1])[0];
       const tempTitle =
-        tempSet.length === 2
-          ? filteredSpas!.filter((s) => s.id === tempSet?.[1])[0].name
+        tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+          ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
           : "";
 
       const type = getCoreSetType(tempSet[0] as CoreSetAbbr);

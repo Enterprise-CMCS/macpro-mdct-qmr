@@ -6,7 +6,7 @@ export interface SPAi {
 
 export const SPA: SPAi[] = [
   { id: "19-0037", state: "CA", name: "California Health Home Program (HHP)" },
-  { id: "20-002", state: "CA", name: "California Behavioral Health Home" },
+  { id: "20-0002", state: "CA", name: "California Behavioral Health Home" },
   { id: "15-014", state: "CT", name: "Serious and Persistent Mental Illness" },
   {
     id: "18-006",
