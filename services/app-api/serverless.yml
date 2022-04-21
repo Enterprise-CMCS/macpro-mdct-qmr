@@ -207,7 +207,7 @@ functions:
       securityGroupIds:
         - Ref: KafkaSecurityGroup
       subnetIds: ${self:custom.privateSubnets}
-      
+
 resources:
   Resources:
     KafkaSecurityGroup:
