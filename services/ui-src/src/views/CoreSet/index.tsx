@@ -66,7 +66,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
-  const coreSetInfo = coreSetId?.split("_") || [coreSetId];
+  const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const spaName = coreSetInfo?.[1]
     ? SPA.filter((s) => s.id === coreSetInfo[1])[0].name
     : "";
@@ -140,6 +140,10 @@ export const CoreSet = () => {
   const { state, year, coreSetId } = useParams();
 
   const { isStateUser } = useUser();
+  const coreSet = coreSetId?.split("_") ?? [coreSetId];
+  const spaName = coreSet?.[1]
+    ? SPA.filter((s) => s.id === coreSet[1])[0].name
+    : "";
 
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
   const completedAmount = measures.filter(
@@ -152,9 +156,10 @@ export const CoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: coreSetMeasureTitle[
-            coreSetId as keyof typeof coreSetMeasureTitle
-          ],
+          name:
+            coreSetMeasureTitle[
+              coreSet[0] as keyof typeof coreSetMeasureTitle
+            ] + spaName,
         },
       ]}
     >
@@ -195,9 +200,9 @@ export const CoreSet = () => {
             buttonText="Submit Core Set"
             disabledStatus={!isStateUser}
             helperText={`Complete all ${
-              coreSetType[coreSetId as keyof typeof coreSetType]
+              coreSetType[coreSet[0] as keyof typeof coreSetType]
             } Core Set Questions and ${
-              coreSetType[coreSetId as keyof typeof coreSetType]
+              coreSetType[coreSet[0] as keyof typeof coreSetType]
             } Core Set Measures to submit FFY 2021`}
             helperTextProps={{
               fontSize: ".5rem",

@@ -36,7 +36,7 @@ export const AddHHCoreSet = () => {
     )
     .map((spa) => {
       return {
-        displayValue: spa.name,
+        displayValue: `${spa.state} ${spa.id}: ${spa.name}`,
         value: spa.id,
       };
     })
@@ -119,7 +119,7 @@ export const AddHHCoreSet = () => {
                         <QMR.ContainedButton
                           buttonProps={{
                             type: "submit",
-                            background: "blue.500",
+                            colorScheme: "blue",
                           }}
                           buttonText="Create"
                           disabledStatus={!sortedSPAs.length || !watchSPAchoice}
