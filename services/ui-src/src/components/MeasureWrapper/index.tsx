@@ -329,6 +329,7 @@ export const MeasureWrapper = ({
             <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
               <CUI.Container maxW="7xl" as="section" px="0">
+                <QMR.SessionTimeout handleSave={handleSave} />
                 <LastModifiedBy user={measureData?.lastAlteredBy} />
                 <CUI.Text fontSize="sm">
                   For technical questions regarding use of this application,
