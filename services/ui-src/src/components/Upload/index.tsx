@@ -88,12 +88,15 @@ export const Upload = ({
                 resolve(results);
               })
               .catch((error) => {
-                if (error && reject) {
+                if (error) {
                   toast({
                     status: "warning",
                     description: "There was an error uploading your file",
                     duration: 4000,
                   });
+
+                  console.log(error);
+                  reject("There was an upload error");
                 }
               });
           });
@@ -108,7 +111,6 @@ export const Upload = ({
       uploadFiles(acceptedFiles).then((result: any) =>
         field.onChange([...field.value, ...result])
       );
-      // field.onChange([...field.value, ...acceptedFiles]);
     },
     [field, toast]
   );
