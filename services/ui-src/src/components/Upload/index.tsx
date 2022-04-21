@@ -89,13 +89,6 @@ export const Upload = ({
               })
               .catch((error) => {
                 if (error) {
-                  toast({
-                    status: "warning",
-                    description: "There was an error uploading your file",
-                    duration: 4000,
-                  });
-
-                  console.log(error);
                   reject("There was an upload error");
                 }
               });
@@ -108,10 +101,19 @@ export const Upload = ({
         return resultPromise;
       }
 
-      uploadFiles(acceptedFiles).then((result: any) => {
-        console.log(result);
-        field.onChange([...field.value, ...result]);
-      });
+      uploadFiles(acceptedFiles)
+        .then((result: any) => {
+          field.onChange([...field.value, ...result]);
+        })
+        .catch((error) => {
+          console.log(error);
+
+          toast({
+            status: "warning",
+            description: "There was an error uploading your file",
+            duration: 4000,
+          });
+        });
     },
     [field, toast]
   );
