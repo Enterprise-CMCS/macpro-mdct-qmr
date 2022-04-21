@@ -13,6 +13,7 @@ import {
   getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
+  validateOneDataSource,
 } from "../../globalValidations";
 import { FormData } from "./types";
 import {
@@ -70,6 +71,7 @@ const IEDValidation = (data: FormData) => {
       ? []
       : validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups)),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...validateOneDataSource(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...omsValidations({
       data,
