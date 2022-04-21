@@ -27,6 +27,8 @@ export const Upload = ({
     ".jfif",
   ],
 }: IUploadProps) => {
+  const toast = CUI.useToast();
+
   const { control } = useFormContext();
 
   const { field } = useController({
@@ -86,13 +88,13 @@ export const Upload = ({
                 resolve(results);
               })
               .catch((error) => {
-                console.log(error, reject);
-                // if (error && error?.indexOf("No credentials") !== -1) {
-                //   reject("SESSION_EXPIRED");
-                // } else {
-                //   console.log("Error uploading.", error);
-                //   reject("UPLOADS_ERROR");
-                // }
+                if (error && reject) {
+                  toast({
+                    status: "warning",
+                    description: "There was an error uploading your file",
+                    duration: 4000,
+                  });
+                }
               });
           });
         } else {
@@ -108,7 +110,7 @@ export const Upload = ({
       );
       // field.onChange([...field.value, ...acceptedFiles]);
     },
-    [field]
+    [field, toast]
   );
 
   const convertFileSize = (fileSize: number) => {
