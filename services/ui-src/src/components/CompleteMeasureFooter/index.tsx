@@ -1,22 +1,20 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useUser } from "hooks/authHooks";
-
 import config from "config";
 interface Props {
   // these functions do not return a value
   handleClear: () => void;
   handleSubmit: () => void;
   handleValidation: () => void;
+  disabled?: boolean;
 }
 
 export const CompleteMeasureFooter = ({
   handleClear,
   handleSubmit,
   handleValidation,
+  disabled = false,
 }: Props) => {
-  const { isStateUser } = useUser();
-
   return (
     <>
       <CUI.Stack alignItems="flex-start">
@@ -36,7 +34,7 @@ export const CompleteMeasureFooter = ({
               colorScheme: "green",
             }}
             buttonText="Validate Measure"
-            disabledStatus={!isStateUser}
+            disabledStatus={disabled}
             onClick={handleValidation}
           />
           <QMR.ContainedButton
@@ -44,7 +42,7 @@ export const CompleteMeasureFooter = ({
               colorScheme: "blue",
             }}
             buttonText="Complete Measure"
-            disabledStatus={!isStateUser}
+            disabledStatus={disabled}
             onClick={(e) => {
               e.preventDefault();
               handleSubmit();
@@ -56,7 +54,7 @@ export const CompleteMeasureFooter = ({
                 colorScheme: "red",
               }}
               buttonText="Clear Data"
-              disabledStatus={!isStateUser}
+              disabledStatus={disabled}
               onClick={handleClear}
             />
           )}

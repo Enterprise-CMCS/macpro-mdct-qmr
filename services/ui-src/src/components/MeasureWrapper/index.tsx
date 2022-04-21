@@ -354,6 +354,7 @@ export const MeasureWrapper = ({
                       handleClear={methods.handleSubmit(handleClear)}
                       handleSubmit={methods.handleSubmit(handleSubmit)}
                       handleValidation={methods.handleSubmit(handleValidation)}
+                      disabled={!isStateUser}
                     />
                   )}
                 </CUI.Container>
