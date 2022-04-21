@@ -24,7 +24,6 @@ export const Upload = ({
     ".jpg",
     ".jpeg",
     ".png",
-    ".jfif",
   ],
 }: IUploadProps) => {
   const toast = CUI.useToast();
@@ -89,7 +88,7 @@ export const Upload = ({
               })
               .catch((error) => {
                 if (error) {
-                  reject("There was an upload error");
+                  reject("There was an error uploading your file");
                 }
               });
           });
@@ -110,7 +109,7 @@ export const Upload = ({
 
           toast({
             status: "warning",
-            description: "There was an error uploading your file",
+            description: error,
             duration: 4000,
           });
         });
