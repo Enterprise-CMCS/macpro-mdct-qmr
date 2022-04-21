@@ -62,6 +62,7 @@ const CHLValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
