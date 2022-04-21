@@ -21,6 +21,9 @@ async function requestOptions(): Promise<any> {
     console.log("Error getting current session - signin out");
     console.log({ e });
     Auth.signOut();
+    if (window !== undefined) {
+      window.location.href = window.location.origin;
+    }
   }
 }
 
