@@ -101,10 +101,11 @@ export const Upload = ({
 
         return resultPromise;
       }
-      field.onChange([...field.value, ...acceptedFiles]);
+
       uploadFiles(acceptedFiles).then((result: any) =>
         field.onChange([...field.value, ...result])
       );
+      // field.onChange([...field.value, ...acceptedFiles]);
     },
     [field]
   );
@@ -194,30 +195,26 @@ export const Upload = ({
         </CUI.Alert>
       ))}
       {field.value.map((file: any, index: any) => {
-        console.log(file);
-        if (file.filename) {
-          return (
-            <CUI.HStack
-              key={`${index}-${file.name}`}
-              background="blue.50"
-              pl="1rem"
-              my="2"
-              borderRadius="10"
-              justifyContent="space-between"
+        return (
+          <CUI.HStack
+            key={`${index}-${file.name}`}
+            background="blue.50"
+            pl="1rem"
+            my="2"
+            borderRadius="10"
+            justifyContent="space-between"
+          >
+            <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
+            <CUI.Button
+              data-testid={`test-delete-btn-${index}`}
+              data-cy={`upload-delete-btn-${index}`}
+              background="none"
+              onClick={() => clearFile(index)}
             >
-              <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
-              <CUI.Button
-                data-testid={`test-delete-btn-${index}`}
-                data-cy={`upload-delete-btn-${index}`}
-                background="none"
-                onClick={() => clearFile(index)}
-              >
-                x
-              </CUI.Button>
-            </CUI.HStack>
-          );
-        }
-        return undefined;
+              x
+            </CUI.Button>
+          </CUI.HStack>
+        );
       })}
     </>
   );
