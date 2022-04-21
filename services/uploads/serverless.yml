@@ -221,7 +221,7 @@ resources:
               Effect: Deny
               Principal: "*"
               NotResource:
-                - !Sub ${AttachmentsBucket.Arn}/*.odp
+                - !Sub ${AttachmentsBucket.Arn}/*.jfif
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
