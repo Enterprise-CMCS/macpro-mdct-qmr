@@ -1,5 +1,6 @@
 import React from "react";
 import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
@@ -161,11 +162,13 @@ export const Upload = ({
         borderRadius="10"
         boxSizing="border-box"
         cursor="pointer"
+        position="relative"
       >
+        <QMR.ComponentMask />
         <FolderIcon />
         <input {...getInputProps()} style={{ display: "none" }} />
         <CUI.Text fontSize="lg">
-          Drag & drop or{" "}
+          Drag &amp; drop or{" "}
           <button type="button">
             <CUI.Text color="blue" as="u">
               browse
