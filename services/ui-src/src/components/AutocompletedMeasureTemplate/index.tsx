@@ -27,7 +27,6 @@ export const AutocompletedMeasureTemplate = ({
         <QMR.ContainedButton
           buttonProps={{
             paddingX: "12",
-            variant: "outline",
             colorScheme: "blue",
           }}
           zIndex={3}
