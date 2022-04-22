@@ -223,11 +223,14 @@ export const validateNoNonZeroNumOrDenom = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
   ageGroups: string[],
-  hybridData: boolean = false
+  data: Types.DefaultFormData
 ) => {
   let nonZeroRateError = false;
   let zeroRateError = false;
   let errorArray: any[] = [];
+  const hybridData = data[DC.DATA_SOURCE]?.includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
