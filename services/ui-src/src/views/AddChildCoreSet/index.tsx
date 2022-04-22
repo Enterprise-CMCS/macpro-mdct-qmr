@@ -100,7 +100,7 @@ export const AddChildCoreSet = () => {
 
                   <CUI.HStack paddingTop="5">
                     <QMR.ContainedButton
-                      buttonProps={{ type: "submit" }}
+                      buttonProps={{ type: "submit", background: "blue.500" }}
                       buttonText={mutation.isLoading ? "Loading" : "Create"}
                       disabledStatus={!watchReportType || mutation.isLoading}
                     />

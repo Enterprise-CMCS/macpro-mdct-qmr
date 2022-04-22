@@ -135,6 +135,7 @@ export const CoreSet = () => {
   const { isStateUser } = useUser();
 
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
+
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
   )?.length;
@@ -200,7 +201,7 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
-        <QMR.LoadingWrapper isLoaded={!isLoading}>
+        <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
           )}

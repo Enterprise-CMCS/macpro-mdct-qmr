@@ -34,6 +34,7 @@ const CDFADValidation = (data: FormData) => {
 
   errorArray = [
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateOneDataSource(data),
     ...GV.validateDualPopInformation(
       performanceMeasureArray,
       OPM,
@@ -45,7 +46,12 @@ const CDFADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...omsValidations({

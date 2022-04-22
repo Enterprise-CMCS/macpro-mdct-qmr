@@ -28,13 +28,19 @@ const CCPCHValidation = (data: FormData) => {
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,

@@ -25,6 +25,7 @@ const APMCHValidation = (data: FormData) => {
   errorArray = [
     // Performance Measure and OPM Validations
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -33,7 +34,8 @@ const APMCHValidation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      data
     ),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(

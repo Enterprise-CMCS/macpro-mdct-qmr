@@ -409,6 +409,8 @@ jobs:
             reporting_in_FY21_tag_for_alt_data_sources,
             restructuring_data_source_text_boxes,
             update_user_auth_handling_in_ui,
+            measurement_spec_def_of_pop_validation_text_changes,
+            user_must_select_a_data_source_selection_validation,
           ]
     steps:
       - name: set branch_name

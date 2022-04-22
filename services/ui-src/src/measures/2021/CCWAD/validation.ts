@@ -9,6 +9,7 @@ import {
   getDeviationNDRArray,
   validateReasonForNotReporting,
   validateAllDenomsTheSameCrossQualifier,
+  validateOneDataSource,
 } from "measures/globalValidations";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
@@ -69,8 +70,14 @@ const CCWADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
+    ...validateOneDataSource(data),
   ];
 
   return errorArray;

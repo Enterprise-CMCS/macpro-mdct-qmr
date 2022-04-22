@@ -8,6 +8,7 @@ import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   ensureBothDatesCompletedInRange,
   validateOneRateHigherThanOther,
+  validateOneDataSource,
 } from "../../globalValidations/validationsLib";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
@@ -63,7 +64,13 @@ const FUMADValidation = (data: FormData) => {
       ageGroups
     ),
     ...sameDenominatorError,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...validateOneDataSource(data),
     ...validateOneRateHigherThanOther(data, PMD.data),
   ];
 

@@ -59,6 +59,7 @@ const PCRADValidation = (data: FormData) => {
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
     ...GV.omsValidations({
       data,
@@ -165,7 +166,7 @@ const PCRADnoNonZeroNumOrDenom = (
   if (zeroRateError) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
+      errorMessage: `Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
     });
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];
