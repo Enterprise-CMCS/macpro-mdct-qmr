@@ -90,7 +90,12 @@ const stringIsReadOnly = (dataSource: string) => {
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
-  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+  if (dataSource.length === 0) {
+    return false;
+  }
+  return (
+    dataSource?.every((source) => source === "AdministrativeData") ?? false
+  );
 };
 
 /**
@@ -107,7 +112,7 @@ export const OptionalMeasureStrat = ({
   allowNumeratorGreaterThanDenominator = false,
   customMask,
   isSingleSex = false,
-  rateAlwaysEditable = false,
+  rateAlwaysEditable,
   numberOfDecimals = 1,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
@@ -125,8 +130,8 @@ export const OptionalMeasureStrat = ({
     isSingleSex,
   });
 
-  let rateReadOnly = true;
-  if (rateAlwaysEditable) {
+  let rateReadOnly = false;
+  if (rateAlwaysEditable !== undefined) {
     rateReadOnly = false;
   } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
     rateReadOnly = arrayIsReadOnly(dataSourceWatch);
