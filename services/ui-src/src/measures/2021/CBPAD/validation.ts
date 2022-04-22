@@ -42,6 +42,7 @@ const CBPValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
+    ...GV.validateOneDataSource(data),
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,

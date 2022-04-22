@@ -11,6 +11,7 @@ import {
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   getDeviationNDRArray,
   omsLocationDictionary,
+  validateOneDataSource,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
@@ -152,6 +153,7 @@ const FUHValidation = (data: FormData) => {
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validate7DaysGreaterThan30Days(data),
+    ...validateOneDataSource(data),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,

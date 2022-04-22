@@ -138,7 +138,12 @@ const stringIsReadOnly = (dataSource: string) => {
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
-  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+  if (dataSource.length === 0) {
+    return false;
+  }
+  return (
+    dataSource?.every((source) => source === "AdministrativeData") ?? false
+  );
 };
 /** Data Driven Performance Measure Comp */
 export const PerformanceMeasure = ({
@@ -155,7 +160,7 @@ export const PerformanceMeasure = ({
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
-  let readOnly = true;
+  let readOnly = false;
   if (rateReadOnly !== undefined) {
     readOnly = rateReadOnly;
   } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {

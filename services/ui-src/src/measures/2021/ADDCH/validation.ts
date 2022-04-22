@@ -62,6 +62,7 @@ const ADDCHValidation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,

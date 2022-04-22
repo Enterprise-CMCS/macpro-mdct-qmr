@@ -1,12 +1,19 @@
 import { CoreSetTableItem } from "components/Table/types";
 import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, MeasureStatus } from "types";
 
-interface Data {
+interface HandleDeleteData {
   state: string;
   year: string;
   coreSet: CoreSetAbbr;
+}
+
+interface UpdateAllMeasuresData {
+  state: string;
+  year: string;
+  coreSet: CoreSetAbbr;
+  measureStatus: MeasureStatus;
 }
 
 interface CoreSetDataItem {
@@ -23,8 +30,8 @@ interface CoreSetDataItem {
 
 export interface CoreSetDataItems {
   items: CoreSetDataItem[];
-  handleDelete: (data: Data) => void;
-  completeAllMeasures: (data: Data) => void;
+  handleDelete: (data: HandleDeleteData) => void;
+  updateAllMeasures: (data: UpdateAllMeasuresData) => void;
 }
 
 const getCoreSetType = (type: CoreSetAbbr) => {
@@ -47,7 +54,7 @@ const getCoreSetType = (type: CoreSetAbbr) => {
 export const formatTableItems = ({
   items,
   handleDelete,
-  completeAllMeasures,
+  updateAllMeasures,
 }: CoreSetDataItems) => {
   const coreSetTableItems = items.map(
     ({
@@ -68,10 +75,19 @@ export const formatTableItems = ({
             coreSet,
           }),
         completeAllMeasures: () => {
-          completeAllMeasures({
+          updateAllMeasures({
             state,
             year: year.toString(),
             coreSet,
+            measureStatus: MeasureStatus.COMPLETE,
+          });
+        },
+        resetAllMeasures: () => {
+          updateAllMeasures({
+            state,
+            year: year.toString(),
+            coreSet,
+            measureStatus: MeasureStatus.INCOMPLETE,
           });
         },
         type,
