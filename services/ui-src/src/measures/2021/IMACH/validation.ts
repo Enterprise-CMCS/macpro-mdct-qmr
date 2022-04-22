@@ -17,9 +17,6 @@ const DEVCHValidation = (data: FormData) => {
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -32,6 +29,7 @@ const DEVCHValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
@@ -41,7 +39,7 @@ const DEVCHValidation = (data: FormData) => {
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
+        GV.validateRateZero,
         GV.validateRateNotZero,
         GV.validateAllDenomsAreTheSameCrossQualifier,
       ],
@@ -59,7 +57,7 @@ const DEVCHValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       ageGroups,
-      includesHybridDataSource
+      data
     ),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
