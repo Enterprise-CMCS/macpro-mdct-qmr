@@ -75,7 +75,9 @@ export const DateRange = ({ name }: Props) => {
   return (
     <CUI.Stack>
       <CUI.FormControl>
-        <CUI.FormLabel fontWeight={500}>{"Start Date"}</CUI.FormLabel>
+        <CUI.FormLabel id={`${name}.startDate-label`} fontWeight={500}>
+          {"Start Date"}
+        </CUI.FormLabel>
         <MonthPicker name={`${name}.startDate`} />
         <CUI.FormLabel pt={5} fontWeight={500}>
           {"End Date"}

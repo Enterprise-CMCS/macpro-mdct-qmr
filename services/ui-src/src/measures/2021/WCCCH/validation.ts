@@ -9,9 +9,6 @@ const WCCHValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const dateRange = data["DateRange"];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const includesHybridDataSource = data["DataSource"]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -29,6 +26,7 @@ const WCCHValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -38,7 +36,7 @@ const WCCHValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
-      includesHybridDataSource
+      data
     ),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -51,6 +49,7 @@ const WCCHValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
@@ -61,7 +60,7 @@ const WCCHValidation = (data: FormData) => {
         GV.validateDenominatorsAreTheSame,
         GV.validateRateNotZero,
         GV.validateOMSTotalNDR,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
+        GV.validateRateZero,
       ],
     }),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

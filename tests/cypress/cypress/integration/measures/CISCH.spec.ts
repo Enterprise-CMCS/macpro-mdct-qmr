@@ -60,8 +60,6 @@ describe("Measure: CIS-CH", () => {
     cy.get('[data-cy="DateRange.endDate-year"]').clear();
     cy.get('[data-cy="DateRange.endDate-year"]').type("2020");
     cy.get('[data-cy="DefinitionOfDenominator2"]').click();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').clear();
-    cy.get('[data-cy="DefinitionOfDenominator-Subset-Explain"]').type("20");
     cy.get('[data-cy="ChangeInPopulationExplanation"]').click();
     cy.get("#DenominatorDefineTotalTechSpec-no").should(
       "have.text",

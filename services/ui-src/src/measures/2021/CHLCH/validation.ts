@@ -12,6 +12,7 @@ import {
   validateRequiredRadioButtonForCombinedRates,
   getPerfMeasureRateArray,
   getDeviationNDRArray,
+  validateOneDataSource,
 } from "../../globalValidations";
 import {
   omsValidations,
@@ -43,12 +44,18 @@ const CHLValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateOneDataSource(data),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...omsValidations({

@@ -39,7 +39,12 @@ const BCSValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -55,6 +60,7 @@ const BCSValidation = (data: FormData) => {
         GV.validateRateNotZero,
       ],
     }),
+    ...GV.validateOneDataSource(data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
