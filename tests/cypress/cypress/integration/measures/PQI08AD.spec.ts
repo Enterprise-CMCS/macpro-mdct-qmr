@@ -1,5 +1,5 @@
 describe("Measure: PQI08-AD", () => {
-  before(() => {
+  beforeEach(() => {
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("PQI08-AD");
@@ -133,11 +133,7 @@ describe("Measure: PQI08-AD", () => {
     cy.wait(1000);
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[id="DataSource0-checkbox"]').uncheck({ force: true });
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("0");
