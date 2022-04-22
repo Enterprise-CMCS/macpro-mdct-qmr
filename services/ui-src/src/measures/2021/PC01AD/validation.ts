@@ -63,7 +63,6 @@ const PC01ADValidation = (data: FormData) => {
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateRateNotZero,
         GV.validateRateZero,
-
       ],
     }),
   ];
