@@ -53,7 +53,8 @@ const PQI05Validation = (data: FormData) => {
     ...validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      data
     ),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
