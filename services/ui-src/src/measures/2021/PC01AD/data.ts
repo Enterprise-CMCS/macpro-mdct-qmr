@@ -2,7 +2,7 @@ import { DataDrivenTypes } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 
 export const qualifiers = [
-  "Women with elective deliveries or C-sections at  ≥ 37 and <39 weeks",
+  "Women with elective vaginal deliveries or elective cesarean sections ≥ 37 and <39 weeks",
 ];
 export const categories = [];
 
