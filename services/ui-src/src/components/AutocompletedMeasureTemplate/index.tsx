@@ -28,6 +28,7 @@ export const AutocompletedMeasureTemplate = ({
           buttonProps={{
             paddingX: "12",
             colorScheme: "blue",
+            className: "hidden-print-items",
           }}
           zIndex={3}
           icon="print"
@@ -65,7 +66,10 @@ export const AutocompletedMeasureTemplate = ({
           to={`/${state}/${year}/${coreSetId}`}
         >
           <QMR.ContainedButton
-            buttonProps={{ colorScheme: "blue" }}
+            buttonProps={{
+              colorScheme: "blue",
+              className: "hidden-print-items",
+            }}
             buttonText="Back to Core Set Measures"
             zIndex={3}
           />
