@@ -103,10 +103,6 @@ describe("Measure: CHL-AD", () => {
       "have.value",
       "100.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
-      "have.attr",
-      "readonly"
-    );
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'

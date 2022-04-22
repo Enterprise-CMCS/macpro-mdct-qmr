@@ -12,6 +12,7 @@ import {
   getPerfMeasureRateArray,
   getDeviationNDRArray,
   omsLocationDictionary,
+  validateOneDataSource,
 } from "../../globalValidations";
 import { FormData } from "./types";
 import {
@@ -70,6 +71,7 @@ const CISCHValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...validateOneDataSource(data),
     ...validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,

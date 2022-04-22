@@ -11,6 +11,7 @@ import {
   omsLocationDictionary,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   getDeviationNDRArray,
+  validateOneDataSource,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
@@ -100,6 +101,7 @@ const SFMCHValidation = (data: FormData) => {
     ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateOneDataSource(data),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
