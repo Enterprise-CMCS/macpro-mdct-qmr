@@ -13,6 +13,7 @@ import {
   getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
+  validateOneDataSource,
 } from "../../globalValidations";
 import { FormData } from "./types";
 import {
@@ -40,9 +41,6 @@ const IEDValidation = (data: FormData) => {
     errorArray = [...validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-  const includesHybridDataSource = data["DataSource"]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   const deviationArray = getDeviationNDRArray(
     data.DeviationOptions,
@@ -66,15 +64,20 @@ const IEDValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...(includesHybridDataSource
-      ? []
-      : validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups)),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
+    ...validateOneDataSource(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
@@ -82,9 +85,8 @@ const IEDValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         validateDenominatorGreaterThanNumerator,
-        ...(includesHybridDataSource
-          ? []
-          : [validateRateNotZero, validateRateZero]),
+        validateRateNotZero,
+        validateRateZero,
         validateDenominatorsAreTheSame,
         validateOneRateLessThanOther,
       ],

@@ -24,7 +24,7 @@ export const useGetMeasure = ({ coreSet, measure }: GetMeasure) => {
 
   if ((state || statePath) && (year || yearPath)) {
     return useQuery(
-      ["measure", state || statePath, year || yearPath, measure],
+      ["measure", state || statePath, year || yearPath, coreSet, measure],
       () =>
         getMeasure({
           state: state || statePath,

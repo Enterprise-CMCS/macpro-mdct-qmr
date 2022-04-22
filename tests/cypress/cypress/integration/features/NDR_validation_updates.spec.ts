@@ -111,13 +111,13 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
   });
 
@@ -177,10 +177,10 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       "Performance Measure/Other Performance Measure Error"
     );
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
     cy.get('[data-cy="Complete Measure"]').click();
     cy.get(".css-cirab6").click();
@@ -188,7 +188,7 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
@@ -197,10 +197,10 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       "Performance Measure/Other Performance Measure Error"
     );
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
   });
 
@@ -312,13 +312,13 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
     cy.get('[data-cy="Complete Measure"]').click();
     cy.get(".css-cirab6").click();
@@ -332,13 +332,13 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
   });
 
@@ -402,13 +402,13 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
     cy.get('[data-cy="Complete Measure"]').click();
     cy.get(".chakra-modal__content-container").click();
@@ -425,13 +425,13 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     ).should("be.visible");
     cy.get('[data-testid="measure-wrapper-form"] > :nth-child(2)').click();
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
     /* ==== End Cypress Studio ==== */
   });

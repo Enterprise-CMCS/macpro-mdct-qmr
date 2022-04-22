@@ -15,6 +15,7 @@ import {
   getDeviationNDRArray,
   getPerfMeasureRateArray,
   omsLocationDictionary,
+  validateOneDataSource,
 } from "measures/globalValidations";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
@@ -48,6 +49,7 @@ const PQI08Validation = (data: FormData) => {
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateOneDataSource(data),
     ...validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
@@ -57,7 +59,8 @@ const PQI08Validation = (data: FormData) => {
     ...validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      data
     ),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

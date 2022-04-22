@@ -31,7 +31,6 @@ export const CompleteMeasureFooter = ({
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "green",
-              textTransform: "capitalize",
             }}
             buttonText="Validate Measure"
             onClick={handleValidation}
@@ -39,7 +38,6 @@ export const CompleteMeasureFooter = ({
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "blue",
-              textTransform: "capitalize",
             }}
             buttonText="Complete Measure"
             onClick={(e) => {
@@ -51,7 +49,6 @@ export const CompleteMeasureFooter = ({
             <QMR.ContainedButton
               buttonProps={{
                 colorScheme: "red",
-                textTransform: "capitalize",
               }}
               buttonText="Clear Data"
               onClick={handleClear}

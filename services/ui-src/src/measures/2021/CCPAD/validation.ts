@@ -29,13 +29,19 @@ const CCPADValidation = (data: FormData) => {
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
     ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,

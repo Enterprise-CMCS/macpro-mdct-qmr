@@ -90,6 +90,5 @@ describe("Measure 34: CBP-AD", () => {
     cy.get('[data-cy="Validate Measure"]').should("be.visible");
     cy.get('[data-cy="Complete Measure"]').should("be.visible");
     cy.get("[data-cy=Save]").should("be.visible");
-    cy.get('[href="/WY/2021/ACS/CBP-AD"]').should("be.visible");
   });
 });

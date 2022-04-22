@@ -11,6 +11,7 @@ import {
   omsLocationDictionary,
   validateAtLeastOneNDRInDeviationOfMeasureSpec,
   getDeviationNDRArray,
+  validateOneDataSource,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
@@ -63,9 +64,15 @@ const W30CHValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateOneDataSource(data),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,

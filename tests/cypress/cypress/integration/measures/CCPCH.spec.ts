@@ -40,10 +40,6 @@ describe("Measure CCP-CH", () => {
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.rate"]'
     ).should("have.value", "80.0");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.rate"]'
-    ).should("have.attr", "aria-readonly", "true");
-
-    cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.numerator"]'
     ).type("5");
     cy.get(
@@ -52,10 +48,6 @@ describe("Measure CCP-CH", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.rate"]'
     ).should("have.value", "83.3");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.rate"]'
-    ).should("have.attr", "aria-readonly", "true");
-
     cy.get(
       '[data-cy="PerformanceMeasure.rates.LongactingreversiblemethodofcontraceptionLARC.0.numerator"]'
     ).type("6");
@@ -66,10 +58,6 @@ describe("Measure CCP-CH", () => {
       '[data-cy="PerformanceMeasure.rates.LongactingreversiblemethodofcontraceptionLARC.0.rate"]'
     ).should("have.value", "85.7");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.LongactingreversiblemethodofcontraceptionLARC.0.rate"]'
-    ).should("have.attr", "aria-readonly", "true");
-
-    cy.get(
       '[data-cy="PerformanceMeasure.rates.LongactingreversiblemethodofcontraceptionLARC.1.numerator"]'
     ).type("70");
     cy.get(
@@ -78,9 +66,6 @@ describe("Measure CCP-CH", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.LongactingreversiblemethodofcontraceptionLARC.1.rate"]'
     ).should("have.value", "87.5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.LongactingreversiblemethodofcontraceptionLARC.1.rate"]'
-    ).should("have.attr", "aria-readonly", "true");
   });
 
   it("rounds the numerical value after the decimal up/down for auto-calculated rates", () => {
@@ -148,7 +133,7 @@ describe("Measure CCP-CH", () => {
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-testid="measure-wrapper-form"]').should(
       "include.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
   });
 

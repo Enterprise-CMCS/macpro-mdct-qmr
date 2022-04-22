@@ -12,6 +12,7 @@ import {
   getDeviationNDRArray,
   omsLocationDictionary,
   validateDualPopInformation,
+  validateOneDataSource,
 } from "../../globalValidations";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
@@ -158,9 +159,15 @@ const AMMADValidation = (data: FormData) => {
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
+    ...validateOneDataSource(data),
     ...validateContinuationGreaterThanAccute(data),
     ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
