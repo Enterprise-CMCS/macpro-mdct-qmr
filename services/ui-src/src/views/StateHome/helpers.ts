@@ -32,6 +32,7 @@ export interface CoreSetDataItems {
   items: CoreSetDataItem[];
   handleDelete: (data: HandleDeleteData) => void;
   updateAllMeasures: (data: UpdateAllMeasuresData) => void;
+  resetCoreSet: (data: any) => void;
 }
 
 const getCoreSetType = (type: CoreSetAbbr) => {
@@ -55,6 +56,7 @@ export const formatTableItems = ({
   items,
   handleDelete,
   updateAllMeasures,
+  resetCoreSet,
 }: CoreSetDataItems) => {
   const coreSetTableItems = items.map(
     ({
@@ -82,12 +84,11 @@ export const formatTableItems = ({
             measureStatus: MeasureStatus.COMPLETE,
           });
         },
-        resetAllMeasures: () => {
-          updateAllMeasures({
+        resetCoreSet: () => {
+          resetCoreSet({
             state,
             year: year.toString(),
             coreSet,
-            measureStatus: MeasureStatus.INCOMPLETE,
           });
         },
         type,

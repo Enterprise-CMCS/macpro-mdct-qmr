@@ -4,7 +4,7 @@ import config from "config";
 interface ActionsData {
   handleDelete: any;
   completeAllMeasures: () => void;
-  resetAllMeasures: () => void;
+  resetCoreSet: () => void;
   type: CoreSetTableItem.Type;
 }
 
@@ -12,7 +12,7 @@ export const getCoreSetActions = ({
   type,
   handleDelete,
   completeAllMeasures,
-  resetAllMeasures,
+  resetCoreSet,
 }: ActionsData) => {
   let actionsList = [];
 
@@ -53,7 +53,7 @@ export const getCoreSetActions = ({
     });
     actionsList.push({
       itemText: "Reset All Measures",
-      handleSelect: resetAllMeasures,
+      handleSelect: resetCoreSet,
       type: type,
     });
   }
