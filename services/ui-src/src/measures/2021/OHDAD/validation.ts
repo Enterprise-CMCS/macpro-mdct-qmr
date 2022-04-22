@@ -49,6 +49,7 @@ const OHDValidation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...omsValidations({
       data,
       qualifiers: PMD.qualifiers,
