@@ -159,7 +159,12 @@ const AMMADValidation = (data: FormData) => {
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateRequiredRadioButtonForCombinedRates(data),
     ...ensureBothDatesCompletedInRange(dateRange),
     ...validateOneDataSource(data),
