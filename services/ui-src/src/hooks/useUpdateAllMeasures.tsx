@@ -2,13 +2,13 @@ import { CoreSetAbbr, MeasureStatus } from "types";
 import { useMutation } from "react-query";
 import { editMeasure, listMeasures } from "libs/api";
 
-interface Params {
+interface GetMeasures {
   state?: string;
   year?: string;
   coreSet: CoreSetAbbr;
 }
 
-const getMeasures = async ({ state, year, coreSet }: Params) => {
+const getMeasures = async ({ state, year, coreSet }: GetMeasures) => {
   return await listMeasures({
     state,
     year,
@@ -17,6 +17,8 @@ const getMeasures = async ({ state, year, coreSet }: Params) => {
 };
 
 interface UpdateMeasure<DataType = any> {
+  state?: string;
+  year?: string;
   coreSet?: CoreSetAbbr;
   data: DataType;
   measure?: string;
@@ -32,7 +34,7 @@ const updateMeasure = ({
   reporting,
   data,
   measure,
-}: UpdateMeasure & Params) => {
+}: UpdateMeasure) => {
   return editMeasure({
     state,
     year,
@@ -46,7 +48,14 @@ const updateMeasure = ({
   });
 };
 
-export const useCompleteAllMeasures = () => {
+interface Params {
+  state?: string;
+  year?: string;
+  coreSet: CoreSetAbbr;
+  measureStatus: MeasureStatus;
+}
+
+export const useUpdateAllMeasures = () => {
   return useMutation(async (data: Params) => {
     await getMeasures({
       state: data.state,
@@ -54,11 +63,11 @@ export const useCompleteAllMeasures = () => {
       coreSet: data.coreSet,
     }).then(async (measureList) => {
       for (const measureInfo of measureList?.Items) {
-        const data = measureInfo.data ?? {};
+        const measureData = measureInfo.data ?? {};
         await updateMeasure({
           ...measureInfo,
-          status: MeasureStatus.COMPLETE,
-          data,
+          status: data.measureStatus,
+          data: measureData,
         });
       }
     });

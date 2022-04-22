@@ -4,6 +4,7 @@ import config from "config";
 interface ActionsData {
   handleDelete: any;
   completeAllMeasures: () => void;
+  resetAllMeasures: () => void;
   type: CoreSetTableItem.Type;
 }
 
@@ -11,6 +12,7 @@ export const getCoreSetActions = ({
   type,
   handleDelete,
   completeAllMeasures,
+  resetAllMeasures,
 }: ActionsData) => {
   let actionsList = [];
 
@@ -47,6 +49,11 @@ export const getCoreSetActions = ({
     actionsList.push({
       itemText: "Complete All Measures",
       handleSelect: completeAllMeasures,
+      type: type,
+    });
+    actionsList.push({
+      itemText: "Reset All Measures",
+      handleSelect: resetAllMeasures,
       type: type,
     });
   }

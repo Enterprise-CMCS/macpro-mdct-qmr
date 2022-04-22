@@ -6,15 +6,22 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { formatTableItems } from "./helpers";
-import { CoreSetAbbr, UserRoles } from "types";
+import { CoreSetAbbr, MeasureStatus, UserRoles } from "types";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
-import { useCompleteAllMeasures } from "hooks/useCompleteAllMeasures";
+import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 
-interface Data {
+interface HandleDeleteData {
   state: string;
   year: string;
   coreSet: CoreSetAbbr;
+}
+
+interface UpdateAllMeasuresData {
+  state: string;
+  year: string;
+  coreSet: CoreSetAbbr;
+  measureStatus: MeasureStatus;
 }
 
 const ReportingYear = () => {
@@ -74,7 +81,7 @@ const Heading = () => {
 export const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
-  const mutation = useCompleteAllMeasures();
+  const mutation = useUpdateAllMeasures();
   const { data, error, isLoading } = Api.useGetCoreSets();
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
@@ -89,7 +96,7 @@ export const StateHome = () => {
     );
   }
 
-  const handleDelete = (data: Data) => {
+  const handleDelete = (data: HandleDeleteData) => {
     switch (data.coreSet) {
       // if its a combined child or hh core set we can just delete the one targetted
       case CoreSetAbbr.CCS:
@@ -121,7 +128,7 @@ export const StateHome = () => {
     }
   };
 
-  const completeAllMeasures = (data: Data) => {
+  const updateAllMeasures = (data: UpdateAllMeasuresData) => {
     mutation.mutate(data, {
       onSuccess: () => {
         queryClient.refetchQueries();
@@ -142,7 +149,7 @@ export const StateHome = () => {
   const formattedTableItems = formatTableItems({
     items: data.Items,
     handleDelete,
-    completeAllMeasures,
+    updateAllMeasures,
   });
 
   const childCoreSetExists = formattedTableItems.some(
