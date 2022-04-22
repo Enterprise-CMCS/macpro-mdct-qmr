@@ -292,7 +292,7 @@ describe("Measure: OHD-AD", () => {
       );
       cy.clickValidateMeasure();
       cy.get(
-        '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'
+        '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'
       ).should("be.visible");
       cy.get(
         '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
@@ -371,7 +371,7 @@ describe("Measure: OHD-AD", () => {
       ).type("0");
       cy.clickValidateMeasure();
       cy.get(
-        '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'
+        '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'
       ).should("be.visible");
       cy.wait(1000);
       cy.get(
@@ -407,7 +407,7 @@ describe("Measure: OHD-AD", () => {
       cy.clickValidateMeasure();
       /* ==== End Cypress Studio ==== */
       cy.get(
-        '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'
+        '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'
       ).should("not.exist");
       cy.get(
         '[data-cy="Manually entered rate should be 0 if numerator is 0"] > .chakra-text'

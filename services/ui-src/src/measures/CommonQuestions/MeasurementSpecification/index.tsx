@@ -12,7 +12,7 @@ const HEDISChildren = () => {
       <CUI.Text key="measureSpecDescriptor" size="sm" pb="3">
         NCQA, the measure steward, changed its naming convention. HEDIS MY 2020
         refers to a different federal fiscal year (FFY) than HEDIS 2020. Please
-        note the FFY Core Set specification above.
+        note the FFY Core Set specification below.
       </CUI.Text>
       <QMR.Select
         {...register(DC.MEASUREMENT_SPECIFICATION_HEDIS)}
