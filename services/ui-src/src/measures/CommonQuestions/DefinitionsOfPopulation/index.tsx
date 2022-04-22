@@ -151,7 +151,7 @@ export const DefinitionOfPopulation = ({
             {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
             formControlProps={{ my: "4" }}
             mask={allPositiveIntegers}
-            label="What number of your measure-eligible population are included in the measure?"
+            label="What is the size of the measure-eligible population?"
           />
           <QMR.NumberInput
             {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
