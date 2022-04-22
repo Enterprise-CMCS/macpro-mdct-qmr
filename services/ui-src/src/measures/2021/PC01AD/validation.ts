@@ -1,18 +1,15 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
-import * as OV from "measures/globalValidations/omsValidationsLib";
+import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const PC01ADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const age65PlusIndex = 1;
-  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const dateRange = data[DC.DATE_RANGE];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const dateRange = data[DC.DATE_RANGE];
-  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -30,14 +27,18 @@ const PC01ADValidation = (data: FormData) => {
   );
 
   errorArray = [
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateDualPopInformation(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      OPM,
-      age65PlusIndex,
-      DefinitionOfDenominator,
-      "Ages 65 to 85"
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
     ),
+
+    // Performance Measure Validations
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -49,9 +50,9 @@ const PC01ADValidation = (data: FormData) => {
       ageGroups,
       includesHybridDataSource
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...OV.omsValidations({
+
+    // OMS Validations
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
@@ -61,17 +62,11 @@ const PC01ADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        OV.validateDenominatorGreaterThanNumerator,
-        OV.validateRateNotZero,
-        ...(includesHybridDataSource ? [] : [OV.validateRateZero]),
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateRateNotZero,
+        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
       ],
     }),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
   ];
 
   return errorArray;

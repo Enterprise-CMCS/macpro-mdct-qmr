@@ -24,7 +24,6 @@ export const CompleteCoreSets = ({ handleValidation, type }: Props) => {
           onClick={handleValidation}
           buttonProps={{
             colorScheme: "green",
-            textTransform: "capitalize",
             my: "5",
             type: "submit",
           }}
@@ -35,7 +34,6 @@ export const CompleteCoreSets = ({ handleValidation, type }: Props) => {
           buttonText="Complete Core Set Questions"
           buttonProps={{
             colorScheme: "blue",
-            textTransform: "capitalize",
             my: "5",
             type: "submit",
           }}

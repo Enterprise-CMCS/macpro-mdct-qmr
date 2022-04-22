@@ -19,6 +19,7 @@ export const CombinedRates = () => {
           href="https://www.medicaid.gov/medicaid/quality-of-care/downloads/state-level-rates-brief.pdf"
           color="blue"
           isExternal
+          aria-label="Additional state level brief information"
         >
           State-Level Rate Brief
         </CUI.Link>

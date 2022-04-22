@@ -1,4 +1,4 @@
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
@@ -30,13 +30,6 @@ export const PCRAD = ({
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const dataSourceWatch = useWatch({ name: "DataSource" });
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source: string) => source === "AdministrativeData"
-    ) ?? true;
-
   return (
     <>
       <CMQ.Reporting
@@ -54,11 +47,7 @@ export const PCRAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRADPerformanceMeasure
-                data={PMD.data}
-                rateReadOnly={rateReadOnly}
-                rateScale={1000}
-              />
+              <PCRADPerformanceMeasure data={PMD.data} rateScale={1000} />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.qualifiers}
                 measureName={measureId}

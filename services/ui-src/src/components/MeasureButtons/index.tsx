@@ -24,7 +24,6 @@ export const MeasureButtons = ({
         buttonProps={{
           minWidth: "10rem",
           colorScheme: "blue",
-          textTransform: "capitalize",
           isFullWidth: true,
         }}
         onClick={handleSave}

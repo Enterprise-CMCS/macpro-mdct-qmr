@@ -1,6 +1,5 @@
 describe("Measure: SAA-AD", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("SAA-AD");
@@ -109,7 +108,7 @@ describe("Measure: SAA-AD", () => {
     cy.get('[data-cy="DataSource1"]').click();
     cy.get("#DataSource1-checkbox").uncheck();
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(".chakra-alert").should(
+    cy.get(".chakra-alert:nth-of-type(2)").should(
       "have.text",
       "Performance Measure/Other Performance Measure ErrorManually entered rate should be 0 if numerator is 0"
     );
@@ -141,9 +140,9 @@ describe("Measure: SAA-AD", () => {
     cy.get('[data-cy="DataSource1"]').click();
     cy.get("#DataSource1-checkbox").uncheck();
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(".chakra-alert").should(
+    cy.get(".chakra-alert:nth-of-type(2)").should(
       "have.text",
-      "Performance Measure/Other Performance Measure ErrorManually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Performance Measure/Other Performance Measure ErrorRate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
   });
 });
