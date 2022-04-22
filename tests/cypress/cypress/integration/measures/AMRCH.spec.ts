@@ -112,11 +112,6 @@ describe("Measure: AMR-CH", () => {
       "have.value",
       "80.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
-      "have.attr",
-      "aria-readonly",
-      "true"
-    );
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
@@ -228,6 +223,7 @@ describe("Measure: AMR-CH", () => {
     cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
     cy.get('[data-cy="DateRange.endDate-month"]').type("12");
     cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
+    cy.get('[data-cy="DataSource0"]').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("1");
@@ -253,6 +249,7 @@ describe("Measure: AMR-CH", () => {
     cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
     cy.get('[data-cy="DateRange.endDate-month"]').type("12");
     cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
+    cy.get('[data-cy="DataSource0"]').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("1");

@@ -43,12 +43,6 @@ describe("Measure 45: W30-CH", () => {
       "have.value",
       "80.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
-      "have.attr",
-      "aria-readonly",
-      "true"
-    );
-
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
     ).type("5");
@@ -58,11 +52,6 @@ describe("Measure 45: W30-CH", () => {
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
       "have.value",
       "83.3"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
-      "have.attr",
-      "aria-readonly",
-      "true"
     );
   });
 
