@@ -10,6 +10,7 @@ import { CoreSetAbbr, MeasureStatus, UserRoles } from "types";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
+import { useResetCoreSet } from "hooks/useResetCoreSet";
 
 interface HandleDeleteData {
   state: string;
@@ -82,6 +83,7 @@ export const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
+  const resetCoreSetMutation = useResetCoreSet();
   const { data, error, isLoading } = Api.useGetCoreSets();
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
@@ -136,13 +138,26 @@ export const StateHome = () => {
     });
   };
 
+  const resetCoreSet = (data: any) => {
+    resetCoreSetMutation.mutate(data, {
+      onSuccess: () => {
+        queryClient.refetchQueries();
+      },
+    });
+  };
+
   if (error) {
     console.log({ error });
     return (
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
   }
-  if (isLoading || !data.Items || mutation.isLoading) {
+  if (
+    isLoading ||
+    !data.Items ||
+    mutation.isLoading ||
+    resetCoreSetMutation.isLoading
+  ) {
     return <QMR.LoadingWave />;
   }
 
@@ -150,6 +165,7 @@ export const StateHome = () => {
     items: data.Items,
     handleDelete,
     updateAllMeasures,
+    resetCoreSet,
   });
 
   const childCoreSetExists = formattedTableItems.some(
