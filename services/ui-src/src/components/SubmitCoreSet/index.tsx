@@ -22,7 +22,21 @@ export const SubmitCoreSetButton = ({
   year,
   styleProps,
 }: Props) => {
-  const helperText = `Complete all Core Set Questions and Core Set Measures to submit FFY ${year}`;
+  const helperTextFiller = () => {
+    switch (coreSet) {
+      case CoreSetAbbr.ACS:
+        return "Adult ";
+      case CoreSetAbbr.CCS:
+      case CoreSetAbbr.CCSM:
+      case CoreSetAbbr.CCSC:
+        return "Child ";
+      case CoreSetAbbr.HHCS:
+        return "Health Home ";
+      default:
+        return "";
+    }
+  };
+  const helperText = `Complete all ${helperTextFiller()}Core Set Questions and ${helperTextFiller()}Core Set Measures to submit FFY ${year}`;
   const { mutate, isLoading } = useEditCoreSet();
   const queryClient = useQueryClient();
   const userInfo = useUser();
