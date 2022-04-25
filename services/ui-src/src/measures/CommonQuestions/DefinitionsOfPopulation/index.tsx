@@ -11,11 +11,13 @@ import * as DC from "dataConstants";
 interface Props {
   childMeasure?: boolean;
   hybridMeasure?: boolean;
+  healthHomeMeasure?: boolean;
 }
 
 export const DefinitionOfPopulation = ({
   childMeasure,
   hybridMeasure,
+  healthHomeMeasure,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
 
@@ -430,6 +432,33 @@ export const DefinitionOfPopulation = ({
           ]}
         />
       </CUI.Box>
+      {healthHomeMeasure && (
+        <CUI.Box my="5">
+          <QMR.RadioButton
+            formLabelProps={{ fontWeight: "600" }}
+            label="Are all Health Home Providers represented in the denominator?"
+            {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME)}
+            options={[
+              {
+                displayValue:
+                  "Yes, all Health Home Providers are represented in the denominator.",
+                value: DC.YES,
+              },
+              {
+                displayValue:
+                  "No, not all Health Home Providers are represented in the denominator.",
+                value: DC.NO,
+                children: [
+                  <QMR.TextArea
+                    {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN)}
+                    label="Explain why all Health Home Providers are not represented in the denominator:"
+                  />,
+                ],
+              },
+            ]}
+          />
+        </CUI.Box>
+      )}
     </QMR.CoreQuestionWrapper>
   );
 };
