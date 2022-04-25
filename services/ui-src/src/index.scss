@@ -65,7 +65,8 @@ a:focus {
     text-align: start;
     padding-top: 50px;
   }
-  .multi-rate-print-input {
-    width: 180px !important;
+
+  .multi-rate-print-stack {
+    flex-wrap: wrap;
   }
 }
