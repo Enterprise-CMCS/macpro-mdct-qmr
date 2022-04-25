@@ -1,6 +1,5 @@
 import { FormData } from "./types";
 import * as Types from "measures/CommonQuestions/types";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
@@ -45,7 +44,7 @@ const PCRADValidation = (data: FormData) => {
     false
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
@@ -82,7 +81,7 @@ const PCRADValidation = (data: FormData) => {
   return errorArray;
 };
 
-const OMSValidations: GV.OmsValidationCallback = ({
+const OMSValidations: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,

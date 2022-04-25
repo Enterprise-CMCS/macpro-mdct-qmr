@@ -1,35 +1,19 @@
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import {
-  omsValidations,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
+
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import { FormData } from "./types";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateNoNonZeroNumOrDenom,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  validateDualPopInformation,
-  validateRequiredRadioButtonForCombinedRates,
-  getDeviationNDRArray,
-  getPerfMeasureRateArray,
-  omsLocationDictionary,
-  validateReasonForNotReporting,
-  validateOneDataSource,
-} from "measures/globalValidations";
 
 const PQI05Validation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const ageGroups = PMD.qualifiers;
   const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations
   );
@@ -44,49 +28,49 @@ const PQI05Validation = (data: FormData) => {
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
   errorArray = [
     ...errorArray,
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNoNonZeroNumOrDenom(
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
       data
     ),
-    ...validateDualPopInformation(
+    ...GV.validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
       1,
       ageGroups
     ),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...validateDualPopInformation(
+    ...GV.validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...validateOneDataSource(data),
-    ...omsValidations({
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [validateRateZero, validateRateNotZero],
+      validationCallbacks: [GV.validateRateZero, GV.validateRateNotZero],
     }),
   ];
 

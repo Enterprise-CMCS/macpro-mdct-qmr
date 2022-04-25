@@ -1,7 +1,8 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-import { FormData } from "./types";
 import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
+
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const WCCHValidation = (data: FormData) => {

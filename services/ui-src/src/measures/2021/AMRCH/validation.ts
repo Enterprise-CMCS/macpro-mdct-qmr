@@ -3,27 +3,7 @@ import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTool
 import * as PMD from "./data";
 import * as DC from "dataConstants";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  getDeviationNDRArray,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  validateNoNonZeroNumOrDenom,
-  validateNumeratorsLessThanDenominators,
-  validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates,
-  validateTotalNDR,
-  validateOneDataSource,
-} from "../../globalValidations";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateDenominatorsAreTheSame,
-  validateOMSTotalNDR,
-  validateOneRateLessThanOther,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
+import * as GV from "measures/globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const AMRCHValidation = (data: FormData) => {
@@ -32,7 +12,7 @@ const AMRCHValidation = (data: FormData) => {
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
@@ -41,41 +21,34 @@ const AMRCHValidation = (data: FormData) => {
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
   errorArray = [
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...validateOneDataSource(data),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...validateTotalNDR(performanceMeasureArray),
-  ];
-
-  return errorArray;
-};
-
-const validateOMS = (data: FormData) => {
-  return [
-    ...omsValidations({
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateTotalNDR(performanceMeasureArray),
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
@@ -85,15 +58,17 @@ const validateOMS = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateDenominatorsAreTheSame,
-        validateOMSTotalNDR,
-        validateOneRateLessThanOther,
-        validateRateNotZero,
-        validateRateZero,
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateDenominatorsAreTheSame,
+        GV.validateOMSTotalNDR,
+        GV.validateOneRateLessThanOther,
+        GV.validateRateNotZero,
+        GV.validateRateZero,
       ],
     }),
   ];
+
+  return errorArray;
 };
 
-export const validationFunctions = [AMRCHValidation, validateOMS];
+export const validationFunctions = [AMRCHValidation];
