@@ -29,6 +29,7 @@ export const AutocompletedMeasureTemplate = ({
             paddingX: "12",
             colorScheme: "blue",
             className: "hidden-print-items",
+            color: "blue.500",
           }}
           zIndex={3}
           icon="print"
@@ -69,6 +70,8 @@ export const AutocompletedMeasureTemplate = ({
             buttonProps={{
               colorScheme: "blue",
               className: "hidden-print-items",
+              variant: "outline",
+              color: "blue.500",
             }}
             buttonText="Back to Core Set Measures"
             zIndex={3}

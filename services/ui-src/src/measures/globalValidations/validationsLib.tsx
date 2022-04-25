@@ -223,11 +223,14 @@ export const validateNoNonZeroNumOrDenom = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
   ageGroups: string[],
-  hybridData: boolean = false
+  data: Types.DefaultFormData
 ) => {
   let nonZeroRateError = false;
   let zeroRateError = false;
   let errorArray: any[] = [];
+  const hybridData = data[DC.DATA_SOURCE]?.includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
@@ -278,7 +281,7 @@ export const validateNoNonZeroNumOrDenom = (
   if (zeroRateError) {
     errorArray.push({
       errorLocation: `Performance Measure/Other Performance Measure`,
-      errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
+      errorMessage: `Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
     });
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];
