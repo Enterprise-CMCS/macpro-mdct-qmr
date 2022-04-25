@@ -79,15 +79,22 @@ describe("Test CompleteMeasureFooter", () => {
       />
     );
 
-    expect(
-      screen.getByRole("button", { name: "Validate Measure" })
-    ).toHaveAttribute("disabled");
-    expect(
-      screen.getByRole("button", { name: "Complete Measure" })
-    ).toHaveAttribute("disabled");
-    expect(screen.getByRole("button", { name: "Clear Data" })).toHaveAttribute(
-      "disabled"
-    );
+    const renderedFooter = screen.getByTestId("complete-measure-footer");
+
+    expect(renderedFooter).toBeInTheDocument();
+
+    const validate = screen.getByRole("button", { name: "Validate Measure" });
+    const complete = screen.getByRole("button", { name: "Complete Measure" });
+    const clear = screen.getByRole("button", { name: "Clear Data" });
+
+    expect(validate).toHaveAttribute("disabled");
+    expect(validate).toHaveStyle("z-index: 1");
+
+    expect(complete).toHaveAttribute("disabled");
+    expect(complete).toHaveStyle("z-index: 1");
+
+    expect(clear).toHaveAttribute("disabled");
+    expect(clear).toHaveStyle("z-index: 1");
   });
 
   test("disabled buttons do not run validate, submit, or clear functions", () => {
