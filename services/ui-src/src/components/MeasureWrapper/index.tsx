@@ -24,7 +24,7 @@ import * as DC from "dataConstants";
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
   return (
-    <CUI.Box className="hidden-print-items" textAlign="right" mb="2">
+    <CUI.Box textAlign="right" mb="2">
       <CUI.Text fontWeight="hairline">{`Last modified by: ${user}`}</CUI.Text>
     </CUI.Box>
   );
