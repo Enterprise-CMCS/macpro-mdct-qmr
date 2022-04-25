@@ -28,6 +28,7 @@ export const AutocompletedMeasureTemplate = ({
           buttonProps={{
             paddingX: "12",
             colorScheme: "blue",
+            variant: "outline",
             className: "hidden-print-items",
             color: "blue.500",
           }}
