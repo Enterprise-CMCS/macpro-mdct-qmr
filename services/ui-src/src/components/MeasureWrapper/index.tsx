@@ -159,7 +159,7 @@ export const MeasureWrapper = ({
   });
 
   useEffect(() => {
-    methods.reset(apiData?.Item?.data);
+    if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
   }, [apiData, methods]);
 
   const handleValidation = (data: any) => {
