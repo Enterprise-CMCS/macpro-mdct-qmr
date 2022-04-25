@@ -57,6 +57,16 @@ describe("state user", () => {
     expect(screen.getByTestId("fieldset")).toBeInTheDocument();
     expect(screen.getByTestId("fieldset")).toBeEnabled();
   });
+
+  test("should display the state layout container", () => {
+    expect(screen.getByTestId("state-layout-container")).toBeInTheDocument();
+    expect(screen.getByTestId("state-layout-container")).toHaveTextContent(
+      "AMMAD"
+    );
+    expect(screen.getByTestId("state-layout-container")).toHaveTextContent(
+      "2021"
+    );
+  });
 });
 
 describe("non-state user", () => {
