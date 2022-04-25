@@ -28,7 +28,7 @@ describe("Test the SubmitCoreSetButton component", () => {
     expect(screen.getByText("Submit Core Set")).toBeVisible();
     expect(
       screen.getByText(
-        `Complete all Core Set Questions and Core Set Measures to submit FFY ${year}`
+        `Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY ${year}`
       )
     ).toBeVisible();
   });
