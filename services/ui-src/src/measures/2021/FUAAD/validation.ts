@@ -68,7 +68,12 @@ const FUAADValidation = (data: FormData) => {
       ageGroups
     ),
     ...sameDenominatorError,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...validateOneRateHigherThanOther(data, PMD.data),
   ];
 

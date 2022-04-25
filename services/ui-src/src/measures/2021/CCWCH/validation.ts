@@ -51,7 +51,12 @@ const CCWCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
