@@ -217,11 +217,15 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
   const { data, isError } = useQuery(
     [file.s3Key],
     async () => {
-      const testUrl = await Storage.get(file.s3Key, {
-        download: true,
-        level: "protected",
-      });
-      return testUrl;
+      try {
+        const testUrl = await Storage.get(file.s3Key, {
+          download: true,
+          level: "protected",
+        });
+        return testUrl;
+      } catch (error) {
+        throw Error("it didn't work");
+      }
     },
     {
       retry: 10,
