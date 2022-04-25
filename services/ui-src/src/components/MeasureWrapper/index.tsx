@@ -345,7 +345,7 @@ export const MeasureWrapper = ({
           <>
             <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
-              <fieldset disabled={!isStateUser}>
+              <fieldset data-testid="fieldset" disabled={!isStateUser}>
                 <CUI.Container maxW="7xl" as="section" px="0">
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
                   <CUI.Text fontSize="sm">
