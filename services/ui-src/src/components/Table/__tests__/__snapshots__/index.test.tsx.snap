@@ -47,6 +47,7 @@ Object {
         </thead>
         <tbody
           class="css-0"
+          data-cy="tableBody"
         />
       </table>
     </div>
@@ -66,6 +67,7 @@ Object {
       </thead>
       <tbody
         class="css-0"
+        data-cy="tableBody"
       />
     </table>
   </div>,
@@ -170,6 +172,7 @@ Object {
         </thead>
         <tbody
           class="css-0"
+          data-cy="tableBody"
         />
       </table>
     </div>
@@ -189,6 +192,7 @@ Object {
       </thead>
       <tbody
         class="css-0"
+        data-cy="tableBody"
       />
     </table>
   </div>,
