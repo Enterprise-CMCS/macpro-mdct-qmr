@@ -78,9 +78,9 @@ const OUDValidation = (data: FormData) => {
     ...validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      ageGroups,
+      data
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
   return errorArray;

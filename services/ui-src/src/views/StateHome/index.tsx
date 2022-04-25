@@ -11,6 +11,7 @@ import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
+import { SPA } from "libs/spaLib";
 
 interface HandleDeleteData {
   state: string;
@@ -99,34 +100,37 @@ export const StateHome = () => {
   }
 
   const handleDelete = (data: HandleDeleteData) => {
-    switch (data.coreSet) {
-      // if its a combined child or hh core set we can just delete the one targetted
-      case CoreSetAbbr.CCS:
-      case CoreSetAbbr.HHCS:
-        deleteCoreSet.mutate(data, {
+    // if its a combined child or hh core set we can just delete the one targetted
+    if (
+      data.coreSet === CoreSetAbbr.CCS ||
+      data.coreSet.includes(CoreSetAbbr.HHCS)
+    ) {
+      deleteCoreSet.mutate(data, {
+        onSuccess: () => {
+          queryClient.refetchQueries();
+        },
+      });
+    }
+    // if its a chip or medicaid child coreset we delete them both
+    else if (
+      data.coreSet === CoreSetAbbr.CCSC ||
+      data.coreSet === CoreSetAbbr.CCSM
+    ) {
+      deleteCoreSet.mutate(
+        { ...data, coreSet: CoreSetAbbr.CCSC },
+        {
           onSuccess: () => {
-            queryClient.refetchQueries();
+            deleteCoreSet.mutate(
+              { ...data, coreSet: CoreSetAbbr.CCSM },
+              {
+                onSuccess: () => {
+                  queryClient.refetchQueries();
+                },
+              }
+            );
           },
-        });
-        break;
-      // if its a chip or medicaid child coreset we delete them both
-      case CoreSetAbbr.CCSC:
-      case CoreSetAbbr.CCSM:
-        deleteCoreSet.mutate(
-          { ...data, coreSet: CoreSetAbbr.CCSC },
-          {
-            onSuccess: () => {
-              deleteCoreSet.mutate(
-                { ...data, coreSet: CoreSetAbbr.CCSM },
-                {
-                  onSuccess: () => {
-                    queryClient.refetchQueries();
-                  },
-                }
-              );
-            },
-          }
-        );
+        }
+      );
     }
   };
 
@@ -161,11 +165,15 @@ export const StateHome = () => {
     return <QMR.LoadingWave />;
   }
 
+  const filteredSpas = SPA.filter((s) => s.state === state);
+  const spaIds = filteredSpas.map((s) => s.id);
+
   const formattedTableItems = formatTableItems({
     items: data.Items,
     handleDelete,
     updateAllMeasures,
     resetCoreSet,
+    filteredSpas,
   });
 
   const childCoreSetExists = formattedTableItems.some(
@@ -174,8 +182,15 @@ export const StateHome = () => {
       v.coreSet === CoreSetAbbr.CCSC ||
       v.coreSet === CoreSetAbbr.CCSM
   );
-  const healthHomesCoreSetExists = formattedTableItems.some(
-    (v) => v.coreSet === CoreSetAbbr.HHCS
+
+  const filteredHealthHomeCoreSets = formattedTableItems.filter(
+    (v) => !!v?.coreSet?.includes(CoreSetAbbr.HHCS)
+  );
+  const allPossibleHealthHomeCoreSetsExist = !!(
+    filteredHealthHomeCoreSets.length &&
+    spaIds.every((s) =>
+      filteredHealthHomeCoreSets.some((v) => !!v?.coreSet?.includes(s))
+    )
   );
 
   return (
@@ -197,7 +212,8 @@ export const StateHome = () => {
       <CUI.HStack spacing="6">
         <AddCoreSetCards
           childCoreSetExists={childCoreSetExists}
-          healthHomesCoreSetExists={healthHomesCoreSetExists}
+          healthHomesCoreSetExists={allPossibleHealthHomeCoreSetsExist}
+          renderHealthHomeCoreSet={!!spaIds?.length}
         />
       </CUI.HStack>
     </QMR.StateLayout>

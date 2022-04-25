@@ -2,6 +2,7 @@ import { CoreSetTableItem } from "components/Table/types";
 import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
 import { CoreSetAbbr, MeasureStatus } from "types";
+import { SPAi } from "libs/spaLib";
 
 interface HandleDeleteData {
   state: string;
@@ -33,6 +34,7 @@ export interface CoreSetDataItems {
   handleDelete: (data: HandleDeleteData) => void;
   updateAllMeasures: (data: UpdateAllMeasuresData) => void;
   resetCoreSet: (data: any) => void;
+  filteredSpas?: SPAi[];
 }
 
 const getCoreSetType = (type: CoreSetAbbr) => {
@@ -57,6 +59,7 @@ export const formatTableItems = ({
   handleDelete,
   updateAllMeasures,
   resetCoreSet,
+  filteredSpas,
 }: CoreSetDataItems) => {
   const coreSetTableItems = items.map(
     ({
@@ -67,8 +70,17 @@ export const formatTableItems = ({
       submitted,
       compoundKey,
     }: CoreSetDataItem): CoreSetTableItem.Data => {
-      const type = getCoreSetType(coreSet);
-      const title = coreSetMeasureTitle[coreSet as CoreSetAbbr];
+      const tempSet = coreSet.split("_");
+      const tempSpa =
+        tempSet.length === 2 &&
+        filteredSpas!.filter((s) => s.id === tempSet?.[1])[0];
+      const tempTitle =
+        tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+          ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+          : "";
+
+      const type = getCoreSetType(tempSet[0] as CoreSetAbbr);
+      const title = coreSetMeasureTitle[tempSet[0] as CoreSetAbbr] + tempTitle;
       const data = {
         handleDelete: () =>
           handleDelete({

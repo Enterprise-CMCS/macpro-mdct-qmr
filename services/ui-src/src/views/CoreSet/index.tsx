@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
 import { useParams } from "react-router-dom";
 import { CoreSetTableItem } from "components/Table/types";
+import { SPA } from "libs/spaLib";
 
 enum coreSetType {
   ACS = "Adult",
@@ -21,7 +22,7 @@ export enum coreSetMeasureTitle {
   CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
   CCSC = "Child Core Set Measures: CHIP",
-  HHCS = "Health Home Core Set Measures: User generated SPA name",
+  HHCS = "Health Home Core Set Measures: ",
 }
 
 enum coreSetQuestionsText {
@@ -29,7 +30,7 @@ enum coreSetQuestionsText {
   CCS = "Child Core Set Questions",
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",
-  HHCS = "Health Home Core Set Questions: User generated SPA name",
+  HHCS = "Health Home Core Set Questions: ",
 }
 
 interface MeasureTableItem {
@@ -65,6 +66,13 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
+  const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
+  const tempSpa =
+    coreSetInfo.length > 1 ? SPA.filter((s) => s.id === coreSetInfo[1])[0] : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
 
   const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
   return (
@@ -72,7 +80,9 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
+          {coreSetQuestionsText[
+            coreSetInfo[0] as keyof typeof coreSetQuestionsText
+          ] + spaName}
         </CUI.Text>
       </Link>
 
@@ -135,8 +145,17 @@ export const CoreSet = () => {
   state = state ?? "";
   year = year ?? "";
 
+  const coreSet = coreSetId?.split("_") ?? [coreSetId];
+  const tempSpa =
+    coreSet.length > 1 ? SPA.filter((s) => s.id === coreSet[1])[0] : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
+
   const { data } = useGetCoreSet({ coreSetId, state, year });
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
+
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
   )?.length;
@@ -152,9 +171,10 @@ export const CoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: coreSetMeasureTitle[
-            coreSetId as keyof typeof coreSetMeasureTitle
-          ],
+          name:
+            coreSetMeasureTitle[
+              coreSet[0] as keyof typeof coreSetMeasureTitle
+            ] + spaName,
         },
       ]}
     >
@@ -198,12 +218,13 @@ export const CoreSet = () => {
                 fontSize: ".5rem",
                 paddingTop: "1",
               },
+              button: { colorScheme: "blue" },
             }}
           />
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
-        <QMR.LoadingWrapper isLoaded={!isLoading}>
+        <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
           )}
