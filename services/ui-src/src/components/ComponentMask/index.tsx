@@ -12,6 +12,7 @@ export const ComponentMask = () => {
       backgroundColor="gray.100"
       opacity={0.5}
       cursor="not-allowed"
+      data-testid="component-mask"
     />
   );
 };
