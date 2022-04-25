@@ -1,11 +1,11 @@
 import * as Types from "../CommonQuestions/types";
-import { PerformanceMeasure } from "./types";
+import { FormRateField } from "./types";
 import { DateRange } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 import { getPerfMeasureRateArray } from "./dataDrivenTools";
 
 export const atLeastOneRateComplete = (
-  performanceMeasureArray: PerformanceMeasure[][],
+  performanceMeasureArray: FormRateField[][],
   OPM: any,
   ageGroups: string[]
 ) => {
@@ -42,7 +42,7 @@ export const atLeastOneRateComplete = (
 };
 
 export const validateDualPopInformation = (
-  performanceMeasureArray: PerformanceMeasure[][],
+  performanceMeasureArray: FormRateField[][],
   OPM: any,
   age65PlusIndex: number,
   DefinitionOfDenominator: any,
@@ -94,7 +94,7 @@ export const validateDualPopInformation = (
 
 // For every performance measure the Numerators must always be less than the denominators
 export const validateNumeratorsLessThanDenominators = (
-  performanceMeasureArray: PerformanceMeasure[][],
+  performanceMeasureArray: FormRateField[][],
   OPM: any,
   ageGroups: string[]
 ) => {
@@ -137,7 +137,7 @@ export const validateNumeratorsLessThanDenominators = (
 // For each age group the denominators need to be the same for both
 // Initiation AND Engagement
 export const validateEqualDenominators = (
-  performanceMeasureArray: PerformanceMeasure[][],
+  performanceMeasureArray: FormRateField[][],
   ageGroups: string[],
   explicitErrorMessage?: string
 ) => {
@@ -220,7 +220,7 @@ export const validateAllDenomsTheSameCrossQualifier = (
 // It must be zero if the numerator is zero or
 // It Must be greater than zero if the Num and Denom are greater than zero
 export const validateNoNonZeroNumOrDenom = (
-  performanceMeasureArray: PerformanceMeasure[][],
+  performanceMeasureArray: FormRateField[][],
   OPM: any,
   ageGroups: string[],
   data: Types.DefaultFormData
@@ -287,87 +287,6 @@ export const validateNoNonZeroNumOrDenom = (
   return zeroRateError || nonZeroRateError ? errorArray : [];
 };
 
-/*
-Validate that the values represented in the Total NDR fields are the sum of the respective non-total fields.
-e.g. numerator === sumOfAllOtherNumerators
-
-This validation can be applied for both Performance Measure and OMS sections.
-Default assumption is that this is run for Performance Measure unless specified.
-*/
-export const validateTotalNDR = (
-  performanceMeasureArray: PerformanceMeasure[][],
-  errorLocation = "Performance Measure",
-  categories?: string[]
-): FormError[] => {
-  let errorArray: FormError[] = [];
-
-  performanceMeasureArray.forEach((ndrSet, idx) => {
-    // If this measure has a totalling NDR, the last NDR set is the total.
-    let numeratorSum: any = null;
-    let denominatorSum: any = null;
-    ndrSet.slice(0, -1).forEach((item: any) => {
-      if (
-        item !== undefined &&
-        item !== null &&
-        !item["isTotal"] &&
-        item.rate
-      ) {
-        let x;
-        if (!isNaN((x = parseFloat(item["numerator"])))) {
-          numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item["denominator"])))) {
-          denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
-        }
-      }
-    });
-
-    let totalNDR: any = ndrSet[ndrSet.length - 1];
-    if (totalNDR?.denominator && totalNDR?.numerator) {
-      // If we wanted to get fancy we could offer expected values in here quite easily.
-
-      const parsedNum = parseFloat(totalNDR.numerator ?? "");
-      const parsedDen = parseFloat(totalNDR.denominator ?? "");
-      if (
-        parsedNum !== numeratorSum &&
-        numeratorSum !== null &&
-        !isNaN(parsedNum)
-      ) {
-        errorArray.push({
-          errorLocation: errorLocation,
-          errorMessage: `${
-            (categories && categories[idx]) || totalNDR.label
-          } numerator field is not equal to the sum of other numerators.`,
-        });
-      }
-      if (
-        parsedDen !== denominatorSum &&
-        denominatorSum !== null &&
-        !isNaN(parsedDen)
-      ) {
-        errorArray.push({
-          errorLocation: errorLocation,
-          errorMessage: `${
-            (categories && categories[idx]) || totalNDR.label
-          } denominator field is not equal to the sum of other denominators.`,
-        });
-      }
-    } else if (numeratorSum && denominatorSum) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${
-          (categories &&
-            categories[idx] &&
-            `${categories[idx]} - ${totalNDR.label}`) ||
-          totalNDR.label
-        } must contain values if other fields are filled.`,
-      });
-    }
-  });
-
-  return errorArray;
-};
-
 // Ensure the user populates the data range
 export const ensureBothDatesCompletedInRange = (
   dateRange: DateRange["DateRange"]
@@ -424,7 +343,7 @@ export const validateReasonForNotReporting = (
 // When a user inputs data in multiple NDR sets in a performance measure
 // Then the user must complete at least one NDR set in the Deviation of measure specification.
 export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
-  performanceMeasureArray: PerformanceMeasure[][],
+  performanceMeasureArray: FormRateField[][],
   ageGroups: string[],
   deviationArray: Types.DeviationFields[] | any,
   didCalculationsDeviate: boolean

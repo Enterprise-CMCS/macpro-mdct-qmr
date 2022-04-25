@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as Types from "measures/CommonQuestions/types";
 import { DataDrivenTypes as DDT } from "measures/CommonQuestions/types";
-import { PerformanceMeasure as PM } from "./types";
+import { FormRateField as PM } from "./types";
 
 /**
  * Extracts Performance Measure Rates into double array for validation.
