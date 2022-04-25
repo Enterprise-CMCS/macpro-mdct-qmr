@@ -301,14 +301,14 @@ resources:
     ApplicationEndpointUrl:
       Value: !GetAtt ApplicationEndpointUrl.Value
     TestUserOne:
-      Value: !Sub ${ssm:/configuration/testUser1~true, ""}
+      Value: !Sub ${ssm:/configuration/testUser1, ""}
     TestUserTwo:
-      Value: !Sub ${ssm:/configuration/testUser2~true, ""}
+      Value: !Sub ${ssm:/configuration/testUser2, ""}
     TestUserThree:
-      Value: !Sub ${ssm:/configuration/testUser3~true, ""}
+      Value: !Sub ${ssm:/configuration/testUser3, ""}
     TestUserFour:
-      Value: !Sub ${ssm:/configuration/testUser4~true, ""}
+      Value: !Sub ${ssm:/configuration/testUser4, ""}
     TestPasswordOne:
-      Value: !Sub ${ssm:/configuration/default/cognito/bootstrapUsers/password~true, ""}
+      Value: !Sub ${ssm:/configuration/default/cognito/bootstrapUsers/password, ""}
     ProdUrl:
-      Value: !Sub ${ssm:/configuration/prodUrl~true, ""}
+      Value: !Sub ${ssm:/configuration/prodUrl, ""}
