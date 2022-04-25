@@ -7,6 +7,7 @@ import { useUser } from "hooks/authHooks";
 import { useGetMeasure, useGetMeasures } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
 import { HiCheckCircle } from "react-icons/hi";
+import { SPA } from "libs/spaLib";
 
 enum coreSetType {
   ACS = "Adult",
@@ -21,7 +22,7 @@ export enum coreSetMeasureTitle {
   CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
   CCSC = "Child Core Set Measures: CHIP",
-  HHCS = "Health Home Core Set Measures: User generated SPA name",
+  HHCS = "Health Home Core Set Measures: ",
 }
 
 enum coreSetQuestionsText {
@@ -29,7 +30,7 @@ enum coreSetQuestionsText {
   CCS = "Child Core Set Questions",
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",
-  HHCS = "Health Home Core Set Questions: User generated SPA name",
+  HHCS = "Health Home Core Set Questions: ",
 }
 
 interface MeasureTableItem {
@@ -65,6 +66,13 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
+  const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
+  const tempSpa =
+    coreSetInfo.length > 1 ? SPA.filter((s) => s.id === coreSetInfo[1])[0] : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
 
   const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
   return (
@@ -72,7 +80,9 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
+          {coreSetQuestionsText[
+            coreSetInfo[0] as keyof typeof coreSetQuestionsText
+          ] + spaName}
         </CUI.Text>
       </Link>
 
@@ -133,6 +143,13 @@ export const CoreSet = () => {
   const { state, year, coreSetId } = useParams();
 
   const { isStateUser } = useUser();
+  const coreSet = coreSetId?.split("_") ?? [coreSetId];
+  const tempSpa =
+    coreSet.length > 1 ? SPA.filter((s) => s.id === coreSet[1])[0] : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
 
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
 
@@ -146,9 +163,10 @@ export const CoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: coreSetMeasureTitle[
-            coreSetId as keyof typeof coreSetMeasureTitle
-          ],
+          name:
+            coreSetMeasureTitle[
+              coreSet[0] as keyof typeof coreSetMeasureTitle
+            ] + spaName,
         },
       ]}
     >
@@ -189,9 +207,9 @@ export const CoreSet = () => {
             buttonText="Submit Core Set"
             disabledStatus={!isStateUser}
             helperText={`Complete all ${
-              coreSetType[coreSetId as keyof typeof coreSetType]
+              coreSetType[coreSet[0] as keyof typeof coreSetType]
             } Core Set Questions and ${
-              coreSetType[coreSetId as keyof typeof coreSetType]
+              coreSetType[coreSet[0] as keyof typeof coreSetType]
             } Core Set Measures to submit FFY 2021`}
             helperTextProps={{
               fontSize: ".5rem",
