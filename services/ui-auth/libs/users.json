@@ -191,6 +191,93 @@
     ]
   },
   {
+    "username": "stateuser4@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuser4@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Carri"
+      },
+      {
+        "Name": "family_name",
+        "Value": "Connecticut"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "CT"
+      }
+    ]
+  },
+  {
+    "username": "stateuser5@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuser5@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Isaac"
+      },
+      {
+        "Name": "family_name",
+        "Value": "Iowa"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "IA"
+      }
+    ]
+  },
+  {
+    "username": "stateuser6@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuser6@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Kairu"
+      },
+      {
+        "Name": "family_name",
+        "Value": "Kansas"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "KS"
+      }
+    ]
+  },
+  {
     "username": "stateuserME@test.com",
     "attributes": [
       {

@@ -68,9 +68,6 @@ describe("Measurement Specification/Definition of Population/Validation text cha
       "0"
     );
     cy.get(
-      ':nth-child(3) > .chakra-stack > :nth-child(2) > [data-cy="Denominator"]'
-    ).click();
-    cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
     ).click();
     cy.get('[data-cy="Validate Measure"]').click();
