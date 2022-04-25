@@ -25,7 +25,7 @@ export const Table = <T extends TableData>({
           ))}
         </CUI.Tr>
       </CUI.Thead>
-      <CUI.Tbody>
+      <CUI.Tbody data-cy={"tableBody"}>
         {data?.map((row) => (
           <CUI.Tr key={row.id + "_tr"}>
             {columns.map((column) => {

@@ -30,7 +30,7 @@ export const useGetMeasures = () => {
     (year || yearPath) &&
     (coreSetId || coreSetPath)
   ) {
-    return useQuery(["coreSets", state, year], () =>
+    return useQuery(["measures", state, year], () =>
       getMeasures({
         state: state || statePath,
         year: year || yearPath,
