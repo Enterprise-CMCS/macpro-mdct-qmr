@@ -42,11 +42,7 @@ const CCWADValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
+    ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
@@ -60,8 +56,14 @@ const CCWADValidation = (data: FormData) => {
       data
     ),
     ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
-
-    // OMS Validations
+    ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      [memeRates, larcRates],
+      [""],
+      deviationArray,
+      didCalculationsDeviate
+    ),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -84,34 +86,8 @@ const CCWADValidation = (data: FormData) => {
   return errorArray;
 };
 
-// TODO: Is this any different than how we perform this check in other measures?
-const validateAtLeastOneDeviationNDR = (data: FormData) => {
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations
-  );
-
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-
-  return GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-    [memeRates, larcRates],
-    [""],
-    deviationArray,
-    didCalculationsDeviate
-  );
-};
-
 export const validationFunctions = [
   CCWADValidation,
   validateLarcRateGreater,
-  validateAtLeastOneDeviationNDR,
+  GV.validateRequiredRadioButtonForCombinedRates,
 ];

@@ -43,11 +43,7 @@ const W30CHValidation = (data: FormData) => {
   });
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure and OPM Validations
+    ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
@@ -55,6 +51,9 @@ const W30CHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
@@ -67,8 +66,6 @@ const W30CHValidation = (data: FormData) => {
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

@@ -27,11 +27,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
+    ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateDualPopInformation(
       performanceMeasureArray,
@@ -44,20 +40,21 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       OPM,
       ageGroups
     ),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

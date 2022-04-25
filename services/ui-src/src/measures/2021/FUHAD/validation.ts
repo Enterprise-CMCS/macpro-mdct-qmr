@@ -112,8 +112,6 @@ const FUHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

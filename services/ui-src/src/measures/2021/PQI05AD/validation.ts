@@ -31,11 +31,8 @@ const PQI05Validation = (data: FormData) => {
     return errorArray;
   }
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
+    ...errorArray,
     ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
@@ -61,8 +58,8 @@ const PQI05Validation = (data: FormData) => {
       definitionOfDenominator
     ),
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-
-    // OMS Validations
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

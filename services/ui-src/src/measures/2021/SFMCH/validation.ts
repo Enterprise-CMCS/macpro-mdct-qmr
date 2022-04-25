@@ -75,11 +75,7 @@ const SFMCHValidation = (data: FormData) => {
   });
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
+    ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...validateOneSealantGreaterThanFourMolarsSealed(data),
     ...GV.validateNoNonZeroNumOrDenom(
@@ -103,8 +99,6 @@ const SFMCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

@@ -41,7 +41,7 @@ const validateContinuationGreaterThanAccute = (data: any) => {
 };
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-const sameDenominatorSets: GV.OmsValidationCallback = ({
+const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   categories,
@@ -123,11 +123,7 @@ const AMMADValidation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
+    ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateDualPopInformation(
       performanceMeasureArray,
@@ -147,6 +143,9 @@ const AMMADValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...validateContinuationGreaterThanAccute(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
@@ -154,8 +153,6 @@ const AMMADValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

@@ -40,8 +40,6 @@ const PQI15Validation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

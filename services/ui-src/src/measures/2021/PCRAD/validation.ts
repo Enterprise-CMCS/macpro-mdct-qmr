@@ -86,7 +86,7 @@ const PCRADValidation = (data: FormData) => {
   return errorArray;
 };
 
-const OMSValidations: GV.OmsValidationCallback = ({
+const OMSValidations: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,

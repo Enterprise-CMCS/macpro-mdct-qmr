@@ -42,7 +42,7 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
 };
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-const sameDenominatorSets: GV.OmsValidationCallback = ({
+const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   categories,
@@ -120,11 +120,7 @@ const FUHValidation = (data: FormData) => {
   });
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
+    ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
@@ -138,15 +134,16 @@ const FUHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...validate7DaysGreaterThan30Days(data),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

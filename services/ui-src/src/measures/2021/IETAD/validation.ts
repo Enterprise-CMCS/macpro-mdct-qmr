@@ -7,7 +7,7 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 
 /** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
-const sameDenominatorSets: GV.OmsValidationCallback = ({
+const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   categories,

@@ -24,12 +24,9 @@ const OUDValidation = (data: FormData) => {
   );
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
+    ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -41,19 +38,13 @@ const OUDValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAllDenomsTheSameCrossQualifier(
       data,
       PMD.categories,
       PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -71,6 +62,12 @@ const OUDValidation = (data: FormData) => {
         GV.validateAllDenomsAreTheSameCrossQualifier,
       ],
     }),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
   ];
 
   return errorArray;

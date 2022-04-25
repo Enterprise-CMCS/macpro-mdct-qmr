@@ -7,6 +7,7 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 const FUMADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const sixtyDaysIndex = 1;
+  const dateRange = data["DateRange"];
   const whyNotReporting = data["WhyAreYouNotReporting"];
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
@@ -51,15 +52,14 @@ const FUMADValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateOneDataSource(data),
     ...GV.validateOneRateHigherThanOther(data, PMD.data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      ageGroups,
+      PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
