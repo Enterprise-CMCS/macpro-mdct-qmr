@@ -28,6 +28,8 @@ export const Upload = ({
     ".png",
   ],
 }: IUploadProps) => {
+  const toast = CUI.useToast();
+
   const { control } = useFormContext();
 
   const { field } = useController({
@@ -87,11 +89,8 @@ export const Upload = ({
                 resolve(results);
               })
               .catch((error) => {
-                if (error.indexOf("No credentials") !== -1) {
-                  reject("SESSION_EXPIRED");
-                } else {
-                  console.log("Error uploading.", error);
-                  reject("UPLOADS_ERROR");
+                if (error) {
+                  reject("There was an error uploading your file");
                 }
               });
           });
@@ -102,12 +101,22 @@ export const Upload = ({
 
         return resultPromise;
       }
-      field.onChange([...field.value, ...acceptedFiles]);
-      uploadFiles(acceptedFiles).then((result: any) =>
-        field.onChange([...field.value, ...result])
-      );
+
+      uploadFiles(acceptedFiles)
+        .then((result: any) => {
+          field.onChange([...field.value, ...result]);
+        })
+        .catch((error) => {
+          console.log(error);
+
+          toast({
+            status: "warning",
+            description: error,
+            duration: 4000,
+          });
+        });
     },
-    [field]
+    [field, toast]
   );
 
   const convertFileSize = (fileSize: number) => {
