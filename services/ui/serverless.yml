@@ -306,6 +306,8 @@ resources:
       Value: !Sub ${ssm:/configuration/testUser2~true, ""}
     TestUserThree:
       Value: !Sub ${ssm:/configuration/testUser3~true, ""}
+    TestUserFour:
+      Value: !Sub ${ssm:/configuration/testUser4~true, ""}
     TestPasswordOne:
       Value: !Sub ${ssm:/configuration/default/cognito/bootstrapUsers/password~true, ""}
     ProdUrl:

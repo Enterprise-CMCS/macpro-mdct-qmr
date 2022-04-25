@@ -119,7 +119,7 @@ export const PCRADPerformanceMeasure = ({
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      <CUI.Text>{data.questionText}</CUI.Text>
+      <CUI.Text mb={5}>{data.questionText}</CUI.Text>
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
