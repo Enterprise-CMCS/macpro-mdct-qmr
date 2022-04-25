@@ -115,6 +115,14 @@ export const MeasureWrapper = ({
   );
 
   const [showModal, setShowModal] = useState<boolean>(false);
+  const toast = CUI.useToast();
+  const toastFailtoSave = () => {
+    return toast({
+      status: "error",
+      description: "Failed to save or submit measure data.",
+      duration: 4000,
+    });
+  };
   const autoCompletedMeasure =
     !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
 
@@ -174,6 +182,9 @@ export const MeasureWrapper = ({
             }
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
+          },
+          onError: () => {
+            toastFailtoSave();
           },
         }
       );
@@ -242,6 +253,9 @@ export const MeasureWrapper = ({
 
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
+          },
+          onError: () => {
+            toastFailtoSave();
           },
         }
       );
