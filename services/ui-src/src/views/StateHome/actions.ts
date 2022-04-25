@@ -15,7 +15,10 @@ export const getCoreSetActions = ({ type, handleDelete }: ActionsData) => {
       },
     ];
   }
-  if (type === CoreSetTableItem.Type.CHILD) {
+  if (
+    type === CoreSetTableItem.Type.CHILD ||
+    type === CoreSetTableItem.Type.HEALTH_HOME
+  ) {
     return [
       {
         itemText: "Export All",

@@ -2,20 +2,27 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { AddHHCoreSet } from ".";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { useApiMock } from "utils/testUtils/useApiMock";
+
+const queryClient = new QueryClient();
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: () => ({
     year: "2021",
-    state: "OH",
+    state: "DC",
   }),
 }));
 
 beforeEach(() => {
+  useApiMock({});
   render(
-    <RouterWrappedComp>
-      <AddHHCoreSet />
-    </RouterWrappedComp>
+    <QueryClientProvider client={queryClient}>
+      <RouterWrappedComp>
+        <AddHHCoreSet />
+      </RouterWrappedComp>
+    </QueryClientProvider>
   );
 });
 
