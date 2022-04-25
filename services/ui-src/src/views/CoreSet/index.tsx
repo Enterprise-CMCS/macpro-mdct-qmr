@@ -218,6 +218,7 @@ export const CoreSet = () => {
                 fontSize: ".5rem",
                 paddingTop: "1",
               },
+              button: { colorScheme: "blue" },
             }}
           />
         </CUI.Box>
