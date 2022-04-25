@@ -159,17 +159,14 @@ describe("Measure: WCC-CH", () => {
       "have.text",
       "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
     );
-    cy.get(":nth-child(7) > :nth-child(1) > .chakra-text").should(
-      "have.text",
-      "Body mass index (BMI) percentile documentation"
-    );
-    cy.get(":nth-child(1) > .chakra-heading").should(
+    cy.xpath(
+      "//li[contains(text(),'Body mass index (BMI) percentile documentation')]"
+    ).should("have.text", "Body mass index (BMI) percentile documentation");
+    cy.xpath(
+      "//h2[contains(text(),'Please review the auto-calculated rate and revise ')]"
+    ).should(
       "have.text",
       "Please review the auto-calculated rate and revise if needed."
-    );
-    cy.get(':nth-child(1) > :nth-child(3) > [data-cy="Ages 3 to 11"]').should(
-      "have.text",
-      "Ages 3 to 11"
     );
     cy.get(
       '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.0.numerator"]'
@@ -186,10 +183,6 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.0.denominator"]'
     ).type("33");
-    cy.get(':nth-child(1) > :nth-child(4) > [data-cy="Ages 12 to 17"]').should(
-      "have.text",
-      "Ages 12 to 17"
-    );
     cy.get(
       '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.0.rate"]'
     ).should("have.value", "36.4");
@@ -208,9 +201,6 @@ describe("Measure: WCC-CH", () => {
     cy.get(
       '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.1.rate"]'
     ).should("have.value", "59.1");
-    cy.get(
-      ':nth-child(1) > :nth-child(5) > [data-cy="Total (Ages 3 to 17)"]'
-    ).should("have.text", "Total (Ages 3 to 17)");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.2.numerator"]'
     ).should("have.value", "25");

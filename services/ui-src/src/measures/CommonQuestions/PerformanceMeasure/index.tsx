@@ -56,11 +56,6 @@ const CategoryNdrSets = ({
             <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
-            {!rateReadOnly && (
-              <CUI.Heading pt="5" size={"sm"}>
-                Please review the auto-calculated rate and revise if needed.
-              </CUI.Heading>
-            )}
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
@@ -98,11 +93,6 @@ const QualifierNdrSets = ({
   }));
   return (
     <>
-      {!rateReadOnly && (
-        <CUI.Heading pt="5" size={"sm"}>
-          Please review the auto-calculated rate and revise if needed.
-        </CUI.Heading>
-      )}
       <QMR.Rate
         rates={rates}
         readOnly={rateReadOnly}
@@ -175,7 +165,11 @@ export const PerformanceMeasure = ({
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <CUI.Stack>
         {data.questionText.map((item, idx) => {
-          return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
+          return (
+            <CUI.Text key={`questionText.${idx}`} mb={5}>
+              {item}
+            </CUI.Text>
+          );
         })}
       </CUI.Stack>
       {data.questionSubtext && (
@@ -241,6 +235,9 @@ export const PerformanceMeasure = ({
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
+      <CUI.Heading pt="5" size={"sm"}>
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
       <PerformanceMeasureNdrs
         categories={data.categories}
         qualifiers={data.qualifiers}

@@ -57,10 +57,6 @@ describe("Measure: CCP-AD", () => {
     cy.get('[data-cy="Sixty Days Postpartum Rate"]')
       .first()
       .should("have.text", "Sixty Days Postpartum Rate");
-    cy.get(":nth-child(6) > :nth-child(2) > .chakra-text").should(
-      "have.text",
-      "Long-acting reversible method of contraception (LARC)"
-    );
     cy.get('[data-cy="Three Days Postpartum Rate"]')
       .first()
       .should("have.text", "Three Days Postpartum Rate");
