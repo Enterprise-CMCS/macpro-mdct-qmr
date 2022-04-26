@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "jwt-decode": "^3.1.2",
+    "kafkajs": "^1.16.0",
     "prompt-sync": "^4.2.0",
     "uuid": "^7.0.3"
   },
