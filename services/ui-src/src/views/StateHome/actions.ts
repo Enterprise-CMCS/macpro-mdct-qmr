@@ -1,5 +1,5 @@
 import { CoreSetTableItem } from "components/Table/types";
-import config from "config";
+import { isDevEnv } from "config";
 
 interface ActionsData {
   handleDelete: any;
@@ -48,7 +48,7 @@ export const getCoreSetActions = ({
     });
   }
 
-  if (config.BRANCH_NAME !== undefined && config.BRANCH_NAME !== "prod") {
+  if (isDevEnv()) {
     actionsList.push({
       itemText: "Complete All Measures",
       handleSelect: completeAllMeasures,

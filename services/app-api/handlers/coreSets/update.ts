@@ -17,9 +17,9 @@ export const editCoreSet = handler(async (event, context) => {
     ...convertToDynamoExpression(
       {
         submitted,
-        status: status,
+        status,
         lastAltered: Date.now(),
-        lastAlteredBy: lastAlteredBy,
+        lastAlteredBy,
       },
       "post"
     ),

@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import config from "config";
+import { isDevEnv } from "config";
 interface Props {
   // these functions do not return a value
   handleClear: () => void;
@@ -48,7 +48,7 @@ export const CompleteMeasureFooter = ({
               handleSubmit();
             }}
           />
-          {config.BRANCH_NAME !== undefined && config.BRANCH_NAME !== "prod" && (
+          {isDevEnv() && (
             <QMR.ContainedButton
               buttonProps={{
                 colorScheme: "red",
