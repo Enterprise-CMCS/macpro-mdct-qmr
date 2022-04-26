@@ -7,26 +7,32 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 const FUAADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const sixtyDaysIndex = 1;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
-
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const dateRange = data[DC.DATE_RANGE];
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
-  let sameDenominatorError = [
-    ...GV.validateEqualDenominators(performanceMeasureArray, ageGroups),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
+  const deviationArray = GV.getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+
   errorArray = [
-    ...errorArray,
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateOneDataSource(data),
     ...GV.validateDualPopInformation(
@@ -40,7 +46,7 @@ const FUAADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...sameDenominatorError,
+    ...GV.validateEqualDenominators(performanceMeasureArray, ageGroups),
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
@@ -48,34 +54,14 @@ const FUAADValidation = (data: FormData) => {
       data
     ),
     ...GV.validateOneRateHigherThanOther(data, PMD.data),
-  ];
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
 
-  return errorArray;
-};
-
-const validateAtLeastOneDeviationNDR = (data: FormData) => {
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-
-  return GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-    performanceMeasureArray,
-    PMD.qualifiers,
-    deviationArray,
-    didCalculationsDeviate
-  );
-};
-const validateBothDatesCompletedInRange = (data: FormData) => {
-  const dateRange = data["DateRange"];
-  return [...GV.ensureBothDatesCompletedInRange(dateRange)];
-};
-
-const validateOMS = (data: FormData) => {
-  return [
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -94,12 +80,8 @@ const validateOMS = (data: FormData) => {
       ],
     }),
   ];
+
+  return errorArray;
 };
 
-export const validationFunctions = [
-  FUAADValidation,
-  GV.validateRequiredRadioButtonForCombinedRates,
-  validateBothDatesCompletedInRange,
-  validateOMS,
-  validateAtLeastOneDeviationNDR,
-];
+export const validationFunctions = [FUAADValidation];

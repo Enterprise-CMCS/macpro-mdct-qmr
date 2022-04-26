@@ -5,15 +5,15 @@ import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const OUDValidation = (data: FormData) => {
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
   const performanceMeasureArray =
     GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
-  const dateRange = data["DateRange"];
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const dateRange = data[DC.DATE_RANGE];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
@@ -24,9 +24,12 @@ const OUDValidation = (data: FormData) => {
   );
 
   errorArray = [
-    ...errorArray,
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -38,13 +41,19 @@ const OUDValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
     ...GV.validateAllDenomsTheSameCrossQualifier(
       data,
       PMD.categories,
       PMD.qualifiers
     ),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -62,12 +71,6 @@ const OUDValidation = (data: FormData) => {
         GV.validateAllDenomsAreTheSameCrossQualifier,
       ],
     }),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
   ];
 
   return errorArray;

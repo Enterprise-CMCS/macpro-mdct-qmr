@@ -11,6 +11,7 @@ const FUMADValidation = (data: FormData) => {
   const OPM = data["OtherPerformanceMeasure-Rates"];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const dateRange = data[DC.DATE_RANGE];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === "no") {
@@ -18,14 +19,19 @@ const FUMADValidation = (data: FormData) => {
     return errorArray;
   }
 
-  let sameDenominatorError = [
-    ...GV.validateEqualDenominators(performanceMeasureArray, ageGroups),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
+  const deviationArray = GV.getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
-    ...errorArray,
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateDualPopInformation(
       performanceMeasureArray,
@@ -38,45 +44,22 @@ const FUMADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...sameDenominatorError,
+    ...GV.validateEqualDenominators(performanceMeasureArray, ageGroups),
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateOneDataSource(data),
     ...GV.validateOneRateHigherThanOther(data, PMD.data),
-  ];
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
 
-  return errorArray;
-};
-
-const validateAtLeastOneDeviationNDR = (data: FormData) => {
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-
-  return GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-    performanceMeasureArray,
-    PMD.qualifiers,
-    deviationArray,
-    didCalculationsDeviate
-  );
-};
-const validateBothDatesCompletedInRange = (data: FormData) => {
-  const dateRange = data["DateRange"];
-  return [...GV.ensureBothDatesCompletedInRange(dateRange)];
-};
-
-const validateOMS = (data: FormData) => {
-  const errorArray: FormError[] = [];
-
-  errorArray.push(
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -93,16 +76,10 @@ const validateOMS = (data: FormData) => {
         GV.validateRateZero,
         GV.validateRateNotZero,
       ],
-    })
-  );
+    }),
+  ];
 
   return errorArray;
 };
 
-export const validationFunctions = [
-  FUMADValidation,
-  validateAtLeastOneDeviationNDR,
-  GV.validateRequiredRadioButtonForCombinedRates,
-  validateBothDatesCompletedInRange,
-  validateOMS,
-];
+export const validationFunctions = [FUMADValidation];

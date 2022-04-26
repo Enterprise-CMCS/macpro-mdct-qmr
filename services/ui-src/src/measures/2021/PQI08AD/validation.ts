@@ -5,13 +5,13 @@ import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const PQI08Validation = (data: FormData) => {
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const OPM = data[DC.OPM_RATES];
   const age65PlusIndex = 0;
-  const dateRange = data["DateRange"];
-  const definitionOfDenominator = data["DefinitionOfDenominator"];
-  const whyNotReporting = data["WhyAreYouNotReporting"];
+  const dateRange = data[DC.DATE_RANGE];
+  const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -24,15 +24,17 @@ const PQI08Validation = (data: FormData) => {
     }),
   ];
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
   errorArray = [
-    ...errorArray,
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...GV.validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
@@ -51,7 +53,8 @@ const PQI08Validation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
