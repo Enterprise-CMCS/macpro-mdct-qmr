@@ -32,12 +32,6 @@ describe("Measure: FUA-HH", () => {
       "include.text",
       "Denominator includes Medicaid population"
     );
-
-    // TODO: This will be removed
-    cy.get('[data-cy="DefinitionOfDenominator1"]').should(
-      "include.text",
-      "Denominator includes CHIP population (e.g. pregnant women)"
-    );
     cy.get('[data-cy="DefinitionOfDenominator2"]').should(
       "include.text",
       "Denominator includes Medicare and Medicaid Dually-Eligible population"
@@ -46,8 +40,7 @@ describe("Measure: FUA-HH", () => {
       "include.text",
       "Other"
     );
-    // there will only be 3 options
-    cy.get('[data-cy="DefinitionOfDenominator4"]').should("not.exist");
+    cy.get('[data-cy="DefinitionOfDenominator1"]').should("not.exist");
   });
 
   it("should include 'Are all Health Home Providers represented in the denominator?' question", () => {
