@@ -18,9 +18,6 @@ const IEDValidation = (data: FormData) => {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-  const includesHybridDataSource = data["DataSource"]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -44,19 +41,20 @@ const IEDValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...(includesHybridDataSource
-      ? []
-      : GV.validateNoNonZeroNumOrDenom(
-          performanceMeasureArray,
-          OPM,
-          ageGroups
-        )),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
@@ -64,9 +62,8 @@ const IEDValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
-        ...(includesHybridDataSource
-          ? []
-          : [GV.validateRateNotZero, GV.validateRateZero]),
+        GV.validateRateNotZero,
+        GV.validateRateZero,
         GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,
       ],

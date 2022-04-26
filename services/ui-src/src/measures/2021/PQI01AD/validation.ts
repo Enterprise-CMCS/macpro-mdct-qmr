@@ -37,7 +37,8 @@ const PQI01Validation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      data
     ),
     ...GV.validateDualPopInformation(
       validateDualPopInformationArray,
@@ -52,6 +53,7 @@ const PQI01Validation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

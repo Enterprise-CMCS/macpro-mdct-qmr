@@ -2,6 +2,59 @@ interface Measure {
   [year: number]: MeasureMetaData[];
 }
 
+export const stateAbbreviations = [
+  "AL",
+  "AK",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "FL",
+  "GA",
+  "HI",
+  "ID",
+  "IL",
+  "IN",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
+  "NY",
+  "NC",
+  "ND",
+  "OH",
+  "OK",
+  "OR",
+  "PA",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY",
+];
+
 export interface MeasureMetaData {
   type: "A" | "C" | "H";
   description: string;
@@ -223,7 +276,7 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      description: "Audiological Diagnosis No Later Than 3 Months of Age",
+      description: "Audiological Diagnosis No Later than 3 Months of Age",
       measure: "AUD-CH",
     },
     {
@@ -238,7 +291,7 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      description: "Screening for Depression and Follow-up Plan: Ages 12 to 17",
+      description: "Screening for Depression and Follow-Up Plan: Ages 12 to 17",
       measure: "CDF-CH",
     },
     {

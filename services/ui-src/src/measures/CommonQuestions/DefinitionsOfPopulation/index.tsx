@@ -21,7 +21,7 @@ export const DefinitionOfPopulation = ({
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
-      <CUI.Heading size="sm" as="h3">
+      <CUI.Heading size="sm" as="h2">
         Definition of denominator
       </CUI.Heading>
       {!childMeasure && (
@@ -98,11 +98,6 @@ export const DefinitionOfPopulation = ({
               },
             ]}
           />
-          <QMR.TextInput
-            formControlProps={{ my: "4" }}
-            {...register(DC.DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN)}
-            label="If the denominator is a subset of the definition selected above, please further define the denominator, and indicate the number of children excluded."
-          />
         </CUI.Box>
       )}
       <CUI.Box my="5">
@@ -148,7 +143,7 @@ export const DefinitionOfPopulation = ({
       </CUI.Box>
       {hybridMeasure && (
         <CUI.Box mt="5">
-          <CUI.Heading size="sm" as="h3" my="2">
+          <CUI.Heading size="sm" as="h2" my="2">
             If you are reporting as a hybrid measure, provide the measure
             eligible population and sample size.
           </CUI.Heading>
@@ -156,7 +151,7 @@ export const DefinitionOfPopulation = ({
             {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
             formControlProps={{ my: "4" }}
             mask={allPositiveIntegers}
-            label="What number of your measure-eligible population are included in the measure?"
+            label="What is the size of the measure-eligible population?"
           />
           <QMR.NumberInput
             {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
@@ -166,13 +161,19 @@ export const DefinitionOfPopulation = ({
         </CUI.Box>
       )}
       <CUI.Box mt="5">
-        <CUI.Heading size="sm" as="h3" my="2">
+        <CUI.Heading size="sm" as="h2" my="2">
           {"Which delivery systems are represented in the denominator?"}
         </CUI.Heading>
+        <CUI.Text pb="2">
+          Select all delivery systems that apply in your state (must select at
+          least one); for each delivery system selected, enter the percentage of
+          the measure-eligible population represented by that service delivery
+          system.
+        </CUI.Text>
+
         <QMR.Checkbox
           formLabelProps={{ fontWeight: "400" }}
           {...register(DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR)}
-          label="Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system."
           options={[
             {
               displayValue: "Fee-for-Service (FFS)",

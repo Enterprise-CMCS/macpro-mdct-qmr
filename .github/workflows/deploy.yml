@@ -81,7 +81,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [create_delete_child.spec.js]
+        containers: [create_delete_child]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
@@ -127,19 +127,108 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v2.11.7
+        with:
+          working-directory: tests/cypress
+          spec: cypress/integration/features/${{ matrix.containers }}.spec.ts
+          browser: chrome
+          headless: true
+          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: tests/cypress/screenshots/
+
+      - name: Slack Notification
+        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,ref # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  setup-hh-tests:
+    name: Init Health Home
+    needs: deploy
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [create_delete_healthhome]
+    steps:
+      - name: set branch_name
+        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v1
+      - name: set branch specific variable names
+        run: ./.github/build_vars.sh set_names
+      - name: set variable values
+        run: ./.github/build_vars.sh set_values
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_ACCESS_KEY_ID] || secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_SECRET_ACCESS_KEY] || secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+          INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
+          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+          COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Combine yarn.lock files to single file
+        run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
+      - name: cache service dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            services/app-api/node_modules
+            services/uploads/node_modules
+            services/stream-functions/node_modules
+            services/ui/node_modules
+            services/ui-auth/node_modules
+            services/ui-src/node_modules
+            node_modules
+          key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: set path
         run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Endpoint
+        run: |
+          pushd services
+          export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
+          echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
+          echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/features/${{ matrix.containers }}
+          spec: cypress/integration/features/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -164,39 +253,40 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [
-            AMMAD.spec.js,
-            AMRAD.spec.js,
-            BCSAD.spec.js,
-            CBPAD.spec.js,
-            CCPAD.spec.js,
-            CCSAD.spec.js,
-            CCWAD.spec.js,
-            CDFAD.spec.js,
-            CHLAD.spec.js,
-            COBAD.spec.js,
-            CPAAD.spec.js,
-            FUAAD.spec.js,
-            FUHAD.spec.js,
-            FUMAD.spec.js,
-            FVAAD.spec.js,
-            HPCAD.spec.js,
-            HPCMIAD.spec.js,
-            HVLAD.spec.js,
-            MSCAD.spec.js,
-            # NCIDDSAD.spec.js,
-            OHDAD.spec.js,
-            OUDAD.spec.js,
-            PC01AD.spec.js,
-            PCRAD.spec.js,
-            PPCAD.spec.js,
-            # PQI01AD.spec.js,
-            PQI05AD.spec.js,
-            PQI08AD.spec.js,
-            PQI15AD.spec.js,
-            QUALIFIERS_adult.spec.feature,
-            SAAAD.spec.js,
-            SSDAD.spec.js,
+        containers:
+          [
+            AMMAD,
+            AMRAD,
+            BCSAD,
+            CBPAD,
+            CCPAD,
+            CCSAD,
+            CCWAD,
+            CDFAD,
+            CHLAD,
+            COBAD,
+            CPAAD,
+            FUAAD,
+            FUHAD,
+            FUMAD,
+            FVAAD,
+            HPCAD,
+            HPCMIAD,
+            HVLAD,
+            MSCAD,
+            NCIDDSAD,
+            OHDAD,
+            OUDAD,
+            PC01AD,
+            PCRAD,
+            PPCAD,
+            PQI01AD,
+            PQI05AD,
+            PQI08AD,
+            PQI15AD,
+            QUALIFIERS_adult,
+            SAAAD,
+            SSDAD,
           ]
     steps:
       - name: set branch_name
@@ -243,20 +333,23 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
           record: false
           working-directory: tests/cypress
-          spec: cypress/integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -283,11 +376,27 @@ jobs:
       matrix:
         containers:
           [
-            AMRCH.spec.js,
-            CISCH.spec.js,
-            CPCCH.spec.js,
-            FUHCH.spec.js,
-            QUALIFIERS_child.spec.js,
+            ADDCH,
+            AMBCH,
+            AMRCH,
+            APMCH,
+            APPCH,
+            AUDCH,
+            CCPCH,
+            CCWCH,
+            CDFCH,
+            CHLCH,
+            CISCH,
+            CPCCH,
+            DEVCH,
+            FUHCH,
+            IMACH,
+            PPCCH,
+            QUALIFIERS_child,
+            SFMCH,
+            W30CH,
+            WCCCH,
+            WCVCH,
           ]
     steps:
       - name: set branch_name
@@ -334,20 +443,110 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v2.11.7
+        with:
+          record: false
+          working-directory: tests/cypress
+          spec: cypress/integration/measures/${{ matrix.containers }}.spec.ts
+          browser: chrome
+          headless: true
+          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: tests/cypress/screenshots/
+
+      - name: Slack Notification
+        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,ref # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  test-healthhome-measures:
+    name: Test Health Home Measures
+    needs: setup-hh-tests
+    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [sampleHealthHome]
+    steps:
+      - name: set branch_name
+        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v1
+      - name: set branch specific variable names
+        run: ./.github/build_vars.sh set_names
+      - name: set variable values
+        run: ./.github/build_vars.sh set_values
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_ACCESS_KEY_ID] || secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_SECRET_ACCESS_KEY] || secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+          INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
+          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+          COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Combine yarn.lock files to single file
+        run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
+      - name: cache service dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            services/app-api/node_modules
+            services/uploads/node_modules
+            services/stream-functions/node_modules
+            services/ui/node_modules
+            services/ui-auth/node_modules
+            services/ui-src/node_modules
+            node_modules
+          key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: set path
         run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Endpoint
+        run: |
+          pushd services
+          export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
+          echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
+          echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
           record: false
           working-directory: tests/cypress
-          spec: cypress/integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -374,18 +573,20 @@ jobs:
       matrix:
         containers:
           [
-            add_validation_to_rate_when_user_selects_multiple_Data_Sources.spec.js,
-            adding_link_to_combined_rates_component.spec.js,
-            data_source_rate_to_auto_calculate_in_OPM.spec.js,
-            combined_rates_validation_warnings.spec.js,
-            date_range_adjustment.spec.js,
-            FAQ.spec.js,
-            logo.spec.feature,
-            measure_validation_error_creation_updates.spec.feature,
-            NDR_validation_updates.spec.js,
-            reporting_in_FY21_tag_for_alt_data_sources.spec.js,
-            restructuring_data_source_text_boxes.spec.js,
-            update_user_auth_handling_in_ui.spec.feature,
+            add_validation_to_rate_when_user_selects_multiple_Data_Sources,
+            adding_link_to_combined_rates_component,
+            data_source_rate_to_auto_calculate_in_OPM,
+            combined_rates_validation_warnings,
+            date_range_adjustment,
+            FAQ,
+            logo,
+            measure_validation_error_creation_updates,
+            NDR_validation_updates,
+            reporting_in_FY21_tag_for_alt_data_sources,
+            restructuring_data_source_text_boxes,
+            update_user_auth_handling_in_ui,
+            measurement_spec_def_of_pop_validation_text_changes,
+            user_must_select_a_data_source_selection_validation,
           ]
     steps:
       - name: set branch_name
@@ -432,20 +633,23 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
           record: false
           working-directory: tests/cypress
-          spec: cypress/integration/features/${{ matrix.containers }}
+          spec: cypress/integration/features/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         if: failure()
@@ -464,47 +668,66 @@ jobs:
 
   a11y-tests:
     name: Test Ally
-    needs: [test-adult-measures, test-child-measures]
+    needs: [test-adult-measures, test-child-measures, test-healthhome-measures]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        containers: [
+        containers:
+          [
             ammadPage,
-            # amradPage,
-            # bcsadPage,
-            # cbpadPage,
-            # ccpadPage,
-            # ccsadPage,
-            # ccwadPage,
-            # cdfadPage,
-            # chladPage,
-            # cobadPage,
-            # commonPages,
-            # cpaadPage,
-            # faqPage,
-            # fuadPage,
-            # fuhadPage,
-            # fumadPage,
-            # fvaadPage,
-            # hpcadPage,
-            # hpcmiadPage,
-            # hvladPage,
-            # ietadPage,
-            # mscadPage,
-            # nciddsPage,
-            # ohdadPage,
-            # oudadPage,
-            # pc01adPage,
-            # pcradPage,
-            # ppcadPage,
-            # pqi01adPage,
-            # pqi05adPage,
-            # pqi08adPage,
-            # pqi15adPage,
-            # ssaadPage,
-            # ssdadPage,
+            amradPage,
+            bcsadPage,
+            cbpadPage,
+            ccpadPage,
+            ccsadPage,
+            ccwadPage,
+            cdfadPage,
+            chladPage,
+            cobadPage,
+            commonPages,
+            cpaadPage,
+            fuadPage,
+            fuhadPage,
+            fumadPage,
+            fvaadPage,
+            hpcadPage,
+            hpcmiadPage,
+            hvladPage,
+            ietadPage,
+            mscadPage,
+            ohdadPage,
+            oudadPage,
+            pc01adPage,
+            pcradPage,
+            ppcadPage,
+            pqi01adPage,
+            pqi05adPage,
+            pqi08adPage,
+            pqi15adPage,
+            ssaadPage,
+            ssdadPage,
+            ADDCHpage,
+            AMBCHpage,
+            AMRCHpage,
+            APMCHpage,
+            APPCHpage,
+            AUDCHpage,
+            CCPCHpage,
+            CCWCHpage,
+            CDFCHpage,
+            CHLCHpage,
+            CISCHpage,
+            CPCCHpage,
+            DEVCHpage,
+            FUHCHpage,
+            IMACHpage,
+            PPCCHpage,
+            SFMCHpage,
+            W30CHpage,
+            WCCCHpage,
+            WCVCHpage,
           ]
     steps:
       - name: set branch_name
@@ -551,18 +774,19 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      - name: Make Test Config
-        run: |
-          pushd tests/cypress
-          sh configureLocal.sh $branch_name
-          popd
       - name: Check Project A11y
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/a11y/${{ matrix.containers }}.spec.js
+          spec: cypress/integration/a11y/${{ matrix.containers }}.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
+          env: true
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+          CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}

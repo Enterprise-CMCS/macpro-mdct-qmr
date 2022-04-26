@@ -28,6 +28,7 @@ const FUAADValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateOneDataSource(data),
     ...GV.validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
@@ -40,7 +41,12 @@ const FUAADValidation = (data: FormData) => {
       ageGroups
     ),
     ...sameDenominatorError,
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.validateOneRateHigherThanOther(data, PMD.data),
   ];
 

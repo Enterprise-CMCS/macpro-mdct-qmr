@@ -4,7 +4,7 @@
   "redirectionLimit": 20,
   "retries": 2,
   "watchForFileChanges": true,
-  "testFiles": ["**/*.feature", "**/*.spec.js"],
+  "testFiles": ["**/*.spec.ts"],
   "fixturesFolder": "fixtures",
   "pluginsFile": "plugins/index.js",
   "screenshotsFolder": "screenshots",
@@ -13,5 +13,6 @@
   "downloadsFolder": "downloads",
   "supportFile": "support/index.js",
   "defaultCommandTimeout": 15000,
-  "types": ["cypress", "cypress-axe"]
+  "types": ["cypress", "cypress-axe"],
+  "failOnStatusCode": false
 }

@@ -4,12 +4,20 @@ export const SupportLinks = () => (
   <CUI.Text>
     For technical questions regarding use of this application, please reach out
     to{" "}
-    <CUI.Link href="mailto:MDCT_help@cms.hhs.gov" color="blue.600">
+    <CUI.Link
+      href="mailto:MDCT_help@cms.hhs.gov"
+      color="blue.600"
+      aria-label="Email address for technical assistance"
+    >
       MDCT_help@cms.hhs.gov
     </CUI.Link>
     . For content related questions, such as about measure specifications or
     what information to enter into each field, please reach out to{" "}
-    <CUI.Link href="mailto:MACQualityTA@cms.hhs.gov" color="blue.600">
+    <CUI.Link
+      href="mailto:MACQualityTA@cms.hhs.gov"
+      color="blue.600"
+      aria-label="Email address for help regarding content"
+    >
       MACQualityTA@cms.hhs.gov
     </CUI.Link>
     .

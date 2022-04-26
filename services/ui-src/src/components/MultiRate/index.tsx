@@ -14,7 +14,6 @@ interface Props extends QMR.InputWrapperProps {
   name: string;
   readOnly?: boolean;
   allowMultiple?: boolean;
-  rateMultiplicationValue?: number;
   customMask?: RegExp;
 }
 
@@ -23,7 +22,6 @@ export const MultiRate = ({
   name,
   allowMultiple = false,
   readOnly = true,
-  rateMultiplicationValue = 1000,
   customMask,
   ...rest
 }: Props) => {
@@ -45,14 +43,14 @@ export const MultiRate = ({
       numerator: 1,
       denominator: 0,
       rateIndex: 2,
-      multiplier: 1,
+      multiplier: 100,
       rateDecimals: 4,
     },
     {
       numerator: 3,
       denominator: 0,
       rateIndex: 4,
-      multiplier: 1,
+      multiplier: 100,
       rateDecimals: 4,
     },
     {

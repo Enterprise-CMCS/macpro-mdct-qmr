@@ -154,7 +154,6 @@ export const validateEqualDenominators = (
         filledInData.push(performanceMeasureArray[index][i]);
       }
     });
-
     if (filledInData.length > 1) {
       let firstDenominator = filledInData[0].denominator;
       let denominatorsNotEqual = false;
@@ -224,11 +223,14 @@ export const validateNoNonZeroNumOrDenom = (
   performanceMeasureArray: PerformanceMeasure[][],
   OPM: any,
   ageGroups: string[],
-  hybridData: boolean = false
+  data: Types.DefaultFormData
 ) => {
   let nonZeroRateError = false;
   let zeroRateError = false;
   let errorArray: any[] = [];
+  const hybridData = data[DC.DATA_SOURCE]?.includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
   ageGroups.forEach((_ageGroup, i) => {
     performanceMeasureArray?.forEach((performanceMeasure) => {
       if (
@@ -279,7 +281,7 @@ export const validateNoNonZeroNumOrDenom = (
   if (zeroRateError) {
     errorArray.push({
       errorLocation: `Performance Measure/Other Performance Measure`,
-      errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
+      errorMessage: `Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
     });
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];
@@ -294,16 +296,22 @@ Default assumption is that this is run for Performance Measure unless specified.
 */
 export const validateTotalNDR = (
   performanceMeasureArray: PerformanceMeasure[][],
-  errorLocation: string = "Performance Measure"
-) => {
-  let errorArray: any[] = [];
-  let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
-  let denominatorSum: any = null;
+  errorLocation = "Performance Measure",
+  categories?: string[]
+): FormError[] => {
+  let errorArray: FormError[] = [];
 
-  performanceMeasureArray.forEach((ndrSet) => {
+  performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
+    let numeratorSum: any = null;
+    let denominatorSum: any = null;
     ndrSet.slice(0, -1).forEach((item: any) => {
-      if (item !== undefined && item !== null && !item["isTotal"]) {
+      if (
+        item !== undefined &&
+        item !== null &&
+        !item["isTotal"] &&
+        item.rate
+      ) {
         let x;
         if (!isNaN((x = parseFloat(item["numerator"])))) {
           numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
@@ -315,29 +323,45 @@ export const validateTotalNDR = (
     });
 
     let totalNDR: any = ndrSet[ndrSet.length - 1];
-    if (totalNDR) {
+    if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
-      let x;
+
+      const parsedNum = parseFloat(totalNDR.numerator ?? "");
+      const parsedDen = parseFloat(totalNDR.denominator ?? "");
       if (
-        (x = parseFloat(totalNDR["numerator"])) !== numeratorSum &&
+        parsedNum !== numeratorSum &&
         numeratorSum !== null &&
-        !isNaN(x)
+        !isNaN(parsedNum)
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${totalNDR.label} numerator field is not equal to the sum of other numerators.`,
+          errorMessage: `${
+            (categories && categories[idx]) || totalNDR.label
+          } numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
-        (x = parseFloat(totalNDR["denominator"])) !== denominatorSum &&
+        parsedDen !== denominatorSum &&
         denominatorSum !== null &&
-        !isNaN(x)
+        !isNaN(parsedDen)
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${totalNDR.label} denominator field is not equal to the sum of other denominators.`,
+          errorMessage: `${
+            (categories && categories[idx]) || totalNDR.label
+          } denominator field is not equal to the sum of other denominators.`,
         });
       }
+    } else if (numeratorSum && denominatorSum) {
+      errorArray.push({
+        errorLocation: errorLocation,
+        errorMessage: `${
+          (categories &&
+            categories[idx] &&
+            `${categories[idx]} - ${totalNDR.label}`) ||
+          totalNDR.label
+        } must contain values if other fields are filled.`,
+      });
     }
   });
 
@@ -425,8 +449,8 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
     if (ndrCount > 0) {
       const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
         if (
-          deviationNDR?.denominator &&
-          deviationNDR?.numerator &&
+          deviationNDR?.denominator ||
+          deviationNDR?.numerator ||
           deviationNDR?.other
         ) {
           return true;
@@ -437,7 +461,8 @@ export const validateAtLeastOneNDRInDeviationOfMeasureSpec = (
       if (!atLeastOneDevNDR) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
-          errorMessage: "You must complete one NDR set",
+          errorMessage:
+            "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
     }
@@ -458,6 +483,18 @@ export const validateRequiredRadioButtonForCombinedRates = (
           "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
       });
     }
+  }
+
+  return errorArray;
+};
+
+export const validateOneDataSource = (data: Types.DataSource) => {
+  const errorArray: FormError[] = [];
+  if (!data.DataSource || data.DataSource.length === 0) {
+    errorArray.push({
+      errorLocation: "Data Source",
+      errorMessage: "You must select at least one Data Source option",
+    });
   }
 
   return errorArray;
@@ -489,6 +526,43 @@ export const validateOneRateHigherThanOther = (
         errorArray.push(error);
       }
     });
+  }
+
+  return errorArray;
+};
+
+// Built specifically for CCP-AD and CCP-CH
+export const validate3daysLessOrEqualTo30days = (
+  data: Types.DefaultFormData,
+  performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure
+) => {
+  const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
+  const sevenDays = perfMeasure[1];
+  const thirtyDays = perfMeasure[0];
+
+  const errorArray: any[] = [];
+
+  if (sevenDays?.length === 2) {
+    if (
+      parseFloat(sevenDays[0]?.rate ?? "") >
+      parseFloat(sevenDays[1]?.rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage: `The rate value of the ${performanceMeasureData.qualifiers?.[0]} must be less than or equal to the ${performanceMeasureData.qualifiers?.[1]} within ${performanceMeasureData.categories?.[1]}.`,
+      });
+    }
+  }
+  if (thirtyDays?.length === 2) {
+    if (
+      parseFloat(thirtyDays[0]?.rate ?? "") >
+      parseFloat(thirtyDays[1]?.rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: "Performance Measure",
+        errorMessage: `The rate value of the ${performanceMeasureData.qualifiers?.[0]} must be less than or equal to the ${performanceMeasureData.qualifiers?.[1]} within ${performanceMeasureData.categories?.[0]}.`,
+      });
+    }
   }
 
   return errorArray;

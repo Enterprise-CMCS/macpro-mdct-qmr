@@ -58,6 +58,7 @@ const PCRADValidation = (data: FormData) => {
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
     ...GV.omsValidations({
       data,
@@ -164,7 +165,7 @@ const PCRADnoNonZeroNumOrDenom = (
   if (zeroRateError) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: `Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
+      errorMessage: `Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
     });
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];
@@ -249,12 +250,13 @@ export const PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
     });
 
     if (ndrCount > 0) {
-      const atLeastOneDevNDR = deviationArrayLength === 3 ? true : false;
+      const atLeastOneDevSection = deviationArrayLength > 0 ? true : false;
 
-      if (!atLeastOneDevNDR) {
+      if (!atLeastOneDevSection) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
-          errorMessage: "You must complete one NDR set",
+          errorMessage:
+            "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
     }

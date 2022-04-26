@@ -16,14 +16,14 @@ export function Header({ handleLogout }: Props) {
       <CUI.Box bg="#0071bc">
         <CUI.Container maxW="7xl">
           <CUI.Flex py="4" alignItems="center">
-            <Link to="/">
+            <Link to="/" aria-label="State home page">
               <Logo />
             </Link>
             <CUI.Spacer flex={6} />
             <CUI.Button onClick={handleLogout} variant="link" color="white">
               Logout
             </CUI.Button>
-            <Link to="/faq">
+            <Link to="/faq" aria-label="Read frequently asked questions">
               <FaQuestionCircle
                 color="white"
                 style={{ fontSize: "1.4rem", margin: ".5rem" }}

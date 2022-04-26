@@ -32,6 +32,7 @@ const PQI08Validation = (data: FormData) => {
     ...errorArray,
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateOneDataSource(data),
     ...GV.validateDualPopInformation(
       validateDualPopInformationArray,
       OPM,
@@ -41,7 +42,8 @@ const PQI08Validation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      data
     ),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

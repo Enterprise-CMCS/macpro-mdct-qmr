@@ -68,7 +68,6 @@ const CategoryNdrSets = ({
 const QualifierNdrSets = ({
   rateReadOnly,
   qualifiers = [],
-  rateScale,
   customMask,
 }: NdrSetProps) => {
   const register = useCustomRegister();
@@ -82,7 +81,6 @@ const QualifierNdrSets = ({
     <MultiRate
       rates={rates}
       readOnly={rateReadOnly}
-      rateMultiplicationValue={rateScale}
       customMask={customMask}
       {...register("PerformanceMeasure.rates.singleCategory")}
     ></MultiRate>
@@ -121,7 +119,7 @@ export const PCRADPerformanceMeasure = ({
 
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
-      <CUI.Text>{data.questionText}</CUI.Text>
+      <CUI.Text mb={5}>{data.questionText}</CUI.Text>
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {

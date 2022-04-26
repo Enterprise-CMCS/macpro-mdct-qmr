@@ -271,17 +271,13 @@ const buildPerformanceMeasureNDRCheckboxOptions = ({
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
-          ...(!rateReadOnly
-            ? [
-                <CUI.Heading
-                  pt="1"
-                  key={`${name}.rates.${cleanedLabel}HeaderHelper`}
-                  size={"sm"}
-                >
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>,
-              ]
-            : []),
+          <CUI.Heading
+            pt="1"
+            key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+            size={"sm"}
+          >
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>,
           ...ndrSets,
         ],
       };
@@ -359,7 +355,7 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
  * Builds NDRs for Performance Measure AgeGroups
  */
 const PCRADNDRSets = ({ name }: NdrProps) => {
-  const { rateReadOnly, qualifiers, rateMultiplicationValue, customMask } =
+  const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
   const rates = qualifiers.map((qual, i) => {
     return { label: qual, id: i };
@@ -371,16 +367,13 @@ const PCRADNDRSets = ({ name }: NdrProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate
       </CUI.Heading>
-      {!rateReadOnly && (
-        <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
-          Please review the auto-calculated rate and revise if needed.
-        </CUI.Heading>
-      )}
+      <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
       <MultiRate
         rates={rates}
         name={`${name}.pcrad-rate`}
         readOnly={rateReadOnly}
-        rateMultiplicationValue={rateMultiplicationValue}
         customMask={customMask}
       />
     </>
@@ -415,17 +408,13 @@ const renderOPMChckboxOptions = ({
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
-          ...(!rateReadOnly
-            ? [
-                <CUI.Heading
-                  pt="1"
-                  size={"sm"}
-                  key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
-                >
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>,
-              ]
-            : []),
+          <CUI.Heading
+            pt="1"
+            size={"sm"}
+            key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
+          >
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>,
           <QMR.Rate
             rates={[
               {

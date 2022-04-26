@@ -13,6 +13,7 @@ interface Props {
   rateScale?: number;
   customMask?: RegExp;
   hybridMeasure?: boolean;
+  showtextbox?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
 }
 
@@ -34,6 +35,7 @@ const CategoryNdrSets = ({
   rateScale,
   customMask,
   allowNumeratorGreaterThanDenominator,
+  calcTotal,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -54,16 +56,12 @@ const CategoryNdrSets = ({
             <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
-            {!rateReadOnly && (
-              <CUI.Heading pt="5" size={"sm"}>
-                Please review the auto-calculated rate and revise if needed.
-              </CUI.Heading>
-            )}
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
+              calcTotal={calcTotal}
               {...register(
                 `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
               )}
@@ -95,11 +93,6 @@ const QualifierNdrSets = ({
   }));
   return (
     <>
-      {!rateReadOnly && (
-        <CUI.Heading pt="5" size={"sm"}>
-          Please review the auto-calculated rate and revise if needed.
-        </CUI.Heading>
-      )}
       <QMR.Rate
         rates={rates}
         readOnly={rateReadOnly}
@@ -135,7 +128,12 @@ const stringIsReadOnly = (dataSource: string) => {
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
-  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+  if (dataSource.length === 0) {
+    return false;
+  }
+  return (
+    dataSource?.every((source) => source === "AdministrativeData") ?? false
+  );
 };
 /** Data Driven Performance Measure Comp */
 export const PerformanceMeasure = ({
@@ -146,12 +144,13 @@ export const PerformanceMeasure = ({
   customMask,
   hybridMeasure,
   allowNumeratorGreaterThanDenominator,
+  showtextbox = true,
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
-  let readOnly = true;
+  let readOnly = false;
   if (rateReadOnly !== undefined) {
     readOnly = rateReadOnly;
   } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
@@ -166,9 +165,29 @@ export const PerformanceMeasure = ({
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <CUI.Stack>
         {data.questionText.map((item, idx) => {
-          return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
+          return (
+            <CUI.Text key={`questionText.${idx}`} mb={5}>
+              {item}
+            </CUI.Text>
+          );
         })}
       </CUI.Stack>
+      {data.questionSubtext && (
+        <CUI.Stack my="5" spacing={5}>
+          {data.questionSubtext.map((item, idx) => {
+            return (
+              <CUI.Text key={`performanceMeasureListItem.${idx}`}>
+                {data.questionSubtextTitles?.[idx] && (
+                  <CUI.Text display="inline" fontWeight="600">
+                    {data.questionSubtextTitles?.[idx]}
+                  </CUI.Text>
+                )}
+                <CUI.Text>{item}</CUI.Text>
+              </CUI.Text>
+            );
+          })}
+        </CUI.Stack>
+      )}
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
@@ -185,10 +204,12 @@ export const PerformanceMeasure = ({
           })}
         </CUI.UnorderedList>
       )}
-      <QMR.TextArea
-        label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
-        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
-      />
+      {showtextbox && (
+        <QMR.TextArea
+          label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+          {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
+        />
+      )}
       {hybridMeasure && (
         <CUI.Box my="5">
           <CUI.Text>
@@ -214,6 +235,9 @@ export const PerformanceMeasure = ({
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
+      <CUI.Heading pt="5" size={"sm"}>
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
       <PerformanceMeasureNdrs
         categories={data.categories}
         qualifiers={data.qualifiers}

@@ -25,9 +25,6 @@ const HPCADValidation = (data: FormData) => {
     return errorArray;
   }
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   errorArray = [
     ...errorArray,
@@ -35,6 +32,7 @@ const HPCADValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
@@ -43,7 +41,7 @@ const HPCADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateDenominatorGreaterThanNumerator,
         GV.validateRateNotZero,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
+        GV.validateRateZero,
       ],
     }),
     ...GV.validateDualPopInformation(
@@ -60,6 +58,7 @@ const HPCADValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -69,7 +68,7 @@ const HPCADValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       ageGroups,
-      includesHybridDataSource
+      data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),

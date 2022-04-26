@@ -14,6 +14,7 @@ export const AdminHome = () => {
         <CUI.Select
           value={locality}
           onChange={(e) => setLocality(e.target.value)}
+          aria-label="State to view"
         >
           {stateAbbreviations.map((v: string) => {
             return (
@@ -29,6 +30,7 @@ export const AdminHome = () => {
             navigate(`/${locality}/${config.currentReportingYear}`)
           }
           isFullWidth
+          data-cy="Go To State Home"
         >
           Go To State Home
         </CUI.Button>

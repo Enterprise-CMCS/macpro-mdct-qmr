@@ -8,12 +8,18 @@ import {
 } from "react";
 import * as CUI from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useForm, FormProvider, useWatch } from "react-hook-form";
+import {
+  useForm,
+  FormProvider,
+  useWatch,
+  useFormContext,
+} from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { areSomeRatesCompleted } from "utils/form";
+import * as DC from "dataConstants";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -41,10 +47,14 @@ interface MeasureProps {
   year: string;
   measureId: string;
   setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
+  handleSave: (data: any) => void;
 }
 
-const Measure = ({ measure, ...rest }: MeasureProps) => {
+const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
+  const { watch } = useFormContext();
+
   const watchedData = useWatch();
+
   const watchReportingRadio = useWatch({ name: "DidReport" });
   const isNotReportingData = watchReportingRadio === "no";
 
@@ -59,6 +69,19 @@ const Measure = ({ measure, ...rest }: MeasureProps) => {
     watchedData,
     rest.measureId
   );
+
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      if (
+        (name === DC.ADDITIONAL_NOTES_UPLOAD ||
+          name === DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD) &&
+        type === "change"
+      ) {
+        handleSave(value);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, handleSave]);
 
   return cloneElement(measure, {
     ...rest,
@@ -92,6 +115,14 @@ export const MeasureWrapper = ({
   );
 
   const [showModal, setShowModal] = useState<boolean>(false);
+  const toast = CUI.useToast();
+  const toastFailtoSave = () => {
+    return toast({
+      status: "error",
+      description: "Failed to save or submit measure data.",
+      duration: 4000,
+    });
+  };
   const autoCompletedMeasure =
     !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
 
@@ -128,7 +159,7 @@ export const MeasureWrapper = ({
   });
 
   useEffect(() => {
-    methods.reset(apiData?.Item?.data);
+    if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
   }, [apiData, methods]);
 
   const handleValidation = (data: any) => {
@@ -151,6 +182,9 @@ export const MeasureWrapper = ({
             }
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
+          },
+          onError: () => {
+            toastFailtoSave();
           },
         }
       );
@@ -220,6 +254,9 @@ export const MeasureWrapper = ({
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
           },
+          onError: () => {
+            toastFailtoSave();
+          },
         }
       );
     }
@@ -284,7 +321,9 @@ export const MeasureWrapper = ({
           },
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
-            name: `${measureId} - ${apiData?.Item?.description}`,
+            name: `${measureId} ${
+              apiData?.Item?.description ? `- ${apiData.Item.description}` : ""
+            }`,
           },
         ]}
         buttons={
@@ -318,6 +357,7 @@ export const MeasureWrapper = ({
                   year={year}
                   measureId={measureId}
                   setValidationFunctions={setValidationFunctions}
+                  handleSave={handleSave}
                 />
                 {!autocompleteOnCreation && (
                   <QMR.CompleteMeasureFooter

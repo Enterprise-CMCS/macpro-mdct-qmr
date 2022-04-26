@@ -29,6 +29,7 @@ export const AutocompletedMeasureTemplate = ({
             paddingX: "12",
             variant: "outline",
             colorScheme: "blue",
+            color: "blue.500",
           }}
           zIndex={3}
           icon="print"
@@ -63,7 +64,11 @@ export const AutocompletedMeasureTemplate = ({
 
         <Link to={`/${state}/${year}/${coreSetId}`}>
           <QMR.ContainedButton
-            buttonProps={{ colorScheme: "blue", variant: "outline" }}
+            buttonProps={{
+              colorScheme: "blue",
+              variant: "outline",
+              color: "blue.500",
+            }}
             buttonText="Back to Core Set Measures"
             zIndex={3}
           />

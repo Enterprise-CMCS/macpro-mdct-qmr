@@ -41,7 +41,13 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       ageGroups
     ),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,

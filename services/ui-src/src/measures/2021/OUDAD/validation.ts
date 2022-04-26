@@ -39,6 +39,7 @@ const OUDValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
     ...GV.validateAllDenomsTheSameCrossQualifier(
       data,
       PMD.categories,
@@ -64,9 +65,9 @@ const OUDValidation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenom(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      ageGroups,
+      data
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
   return errorArray;
