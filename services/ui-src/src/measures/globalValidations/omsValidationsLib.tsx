@@ -57,55 +57,6 @@ export const omsValidations = ({
     dataSource
   );
 };
-// @example
-// OMS is setup to be qualifier -> categories -> rate component
-// can expect them to be in the same order as the data driven type
-// export const exampleValidator: OmsValidationCallback = ({categories,label,locationDictionary,qualifiers,rateData}) => {
-//   const error: FormError[] = [];
-//   for (const qual of qualifiers.map((s) => cleanString(s))) {
-//     for (const cat of categories.map((s) => cleanString(s))) {
-//       console.log('qual', qual)
-//       console.log('cat', cat)
-//     }}
-//     return error
-// }
-export const validateOneRateLessThanOther: OmsValidationCallback = ({
-  rateData,
-  categories,
-  qualifiers,
-  label,
-  locationDictionary,
-  isOPM,
-}) => {
-  if (isOPM) return [];
-  const errors: FormError[] = [];
-  const isRateLessThanOther = (rateArr: RateFields[]) => {
-    if (rateArr.length !== 2) return true;
-    const compareValue = rateArr[0].rate ?? "";
-    return parseFloat(rateArr[1].rate ?? "") <= parseFloat(compareValue);
-  };
-  for (const qual of qualifiers) {
-    const cleanQual = cleanString(qual);
-    const rateArr: RateFields[] = [];
-    for (const cat of categories.map((s) => cleanString(s))) {
-      if (rateData.rates?.[cleanQual]?.[cat]) {
-        const temp = rateData.rates[cleanQual][cat][0];
-        if (temp && temp.rate) {
-          rateArr.push(temp);
-        }
-      }
-    }
-    if (!isRateLessThanOther(rateArr)) {
-      errors.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary(
-          label
-        )} - ${qual}`,
-        errorMessage: `${categories[1]} Rate should not be higher than ${categories[0]} Rates.`,
-      });
-    }
-  }
-  return errors;
-};
 
 export const validateOneSealantGreaterThanFourMolarsSealedOMS: OmsValidationCallback =
   ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
