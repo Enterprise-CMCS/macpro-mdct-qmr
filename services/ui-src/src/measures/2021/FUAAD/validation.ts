@@ -28,27 +28,34 @@ const FUAADValidation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   let sameDenominatorError = [
-    ...GV.validateEqualDenominators(performanceMeasureArray, ageGroups),
+    ...GV.validateEqualQualifierDenominatorsPM(
+      performanceMeasureArray,
+      ageGroups
+    ),
   ];
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   errorArray = [
     ...errorArray,
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateDualPopInformation(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
       sixtyDaysIndex,
       DefinitionOfDenominator
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...sameDenominatorError,
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
@@ -56,7 +63,7 @@ const FUAADValidation = (data: FormData) => {
     ),
     ...GV.validateOneRateHigherThanOther(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateBothDatesInRange(dateRange),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -67,14 +74,14 @@ const FUAADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneRateLessThanOther,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
     }),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,

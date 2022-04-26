@@ -24,25 +24,26 @@ const AMBCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
@@ -60,11 +61,11 @@ const AMBCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneRateLessThanOther,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
         GV.validateOMSTotalNDR,
       ],
     }),

@@ -1,8 +1,8 @@
-import { testFormData } from "./_testFormData";
-import { test_setup } from "./_helper";
-// import { validateDualPopInformation } from "measures/globalValidations";
+import { testFormData } from "../testHelpers/_testFormData";
+// import { validateAtLeastOneNDRInDeviationOfMeasureSpec } from "measures/globalValidations";
+import { test_setup } from "../testHelpers/_helper";
 
-describe("validateDualPopInformation", () => {
+describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   let formData: any;
   let errorArray: FormError[];
 
@@ -13,7 +13,7 @@ describe("validateDualPopInformation", () => {
     OPM;
 
     errorArray = [
-      // ...validateDualPopInformation()
+      // ...validateAtLeastOneNDRInDeviationOfMeasureSpec()
     ];
     expect(errorArray.length).toBe(numErrors);
   };

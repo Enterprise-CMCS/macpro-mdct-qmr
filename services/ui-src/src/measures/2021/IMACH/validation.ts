@@ -24,30 +24,51 @@ const DEVCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
+      locationDictionary: omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateOneRateLessThanOther,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateEqualCategoryDenominatorsOMS,
+      ],
+    }),
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateAllDenomsTheSameCrossQualifier(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateEqualCategoryDenominatorsPM(
       data,
       PMD.categories,
       PMD.qualifiers

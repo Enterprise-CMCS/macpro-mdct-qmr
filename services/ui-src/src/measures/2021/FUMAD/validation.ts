@@ -27,34 +27,45 @@ const FUMADValidation = (data: FormData) => {
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
-  errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+  let sameDenominatorError = [
+    ...GV.validateEqualQualifierDenominatorsPM(
+      performanceMeasureArray,
+      ageGroups
+    ),
+  ];
+  sameDenominatorError =
+    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
 
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateDualPopInformation(
+  errorArray = [
+    ...errorArray,
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       sixtyDaysIndex,
       DefinitionOfDenominator
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateEqualDenominators(performanceMeasureArray, ageGroups),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...sameDenominatorError,
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateOneDataSource(data),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateBothDatesInRange(dateRange),
     ...GV.validateOneRateHigherThanOther(data, PMD.data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
@@ -70,11 +81,11 @@ const FUMADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneRateLessThanOther,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
     }),
   ];

@@ -22,19 +22,22 @@ const PQI15Validation = (data: FormData) => {
     return errorArray;
   }
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data)
+    ...errorArray,
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
@@ -49,7 +52,7 @@ const PQI15Validation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [GV.validateRateZero, GV.validateRateNotZero],
+      validationCallbacks: [GV.validateRateZeroOMS, GV.validateRateNotZeroOMS],
     }),
   ];
 

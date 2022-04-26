@@ -27,31 +27,34 @@ const HPCMIADValidation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateDualPopInformation(
+    ...errorArray,
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
       PMD.qualifiers[1]
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
@@ -70,9 +73,9 @@ const HPCMIADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
   ];

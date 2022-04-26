@@ -28,27 +28,31 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
 
   errorArray = [
     ...errorArray,
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateDualPopInformation(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
@@ -65,9 +69,9 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
     }),
   ];

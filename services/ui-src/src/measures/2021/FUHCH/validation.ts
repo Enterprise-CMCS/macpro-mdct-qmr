@@ -103,7 +103,7 @@ const FUHValidation = (data: FormData) => {
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
       ...unfilteredSameDenominatorErrors,
-      ...GV.validateEqualDenominators(
+      ...GV.validateEqualQualifierDenominatorsPM(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
@@ -121,24 +121,28 @@ const FUHValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateBothDatesInRange(dateRange),
     ...validate7DaysGreaterThan30Days(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
@@ -155,9 +159,9 @@ const FUHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateOneRateLessThanOther,
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
         sameDenominatorSets,
       ],
     }),

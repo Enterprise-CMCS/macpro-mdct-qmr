@@ -63,14 +63,40 @@ const DEVCHValidation = (data: FormData) => {
       ),
       customTotalLabel: "Children",
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneRateLessThanOther,
         GV.validateOMSTotalNDR,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
     }),
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateTotalNDR(performanceMeasureArray),
   ];
 
   return errorArray;

@@ -49,13 +49,18 @@ const CCWCHValidation = (data: FormData) => {
 
     // Performance Measure Validations
     ...validateLarcRateGreater(data),
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
@@ -84,13 +89,26 @@ const CCWCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
-        GV.validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateEqualCategoryDenominatorsOMS,
         GV.validateOneQualifierRateLessThanTheOther,
       ],
     }),
+    ...GV.validateEqualCategoryDenominatorsPM(
+      data,
+      PMD.categories,
+      PMD.qualifiers
+    ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
   ];
 
   return errorArray;

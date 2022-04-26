@@ -1,8 +1,8 @@
-import { test_setup } from "./_helper";
-import { testFormData } from "./_testFormData";
-// import { validateReasonForNotReporting } from "measures/globalValidations";
+import { test_setup } from "../testHelpers/_helper";
+import { testFormData } from "../testHelpers/_testFormData";
+// import { validateNoNonZeroNumOrDenom } from "measures/globalValidations";
 
-describe("validateReasonForNotReporting", () => {
+describe("validateNoNonZeroNumOrDenom", () => {
   let formData: any;
   let errorArray: FormError[];
 
@@ -13,7 +13,7 @@ describe("validateReasonForNotReporting", () => {
     OPM;
 
     errorArray = [
-      // ...validateReasonForNotReporting()
+      // ...validateNoNonZeroNumOrDenom()
     ];
     expect(errorArray.length).toBe(numErrors);
   };

@@ -24,24 +24,26 @@ const APPCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...errorArray,
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
       data
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
@@ -60,10 +62,10 @@ const APPCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
         GV.validateOMSTotalNDR,
       ],
     }),

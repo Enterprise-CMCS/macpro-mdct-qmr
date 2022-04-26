@@ -58,7 +58,7 @@ const SFMCHValidation = (data: FormData) => {
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
       ...unfilteredSameDenominatorErrors,
-      ...GV.validateEqualDenominators(
+      ...GV.validateEqualQualifierDenominatorsPM(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
@@ -76,24 +76,28 @@ const SFMCHValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
     ...validateOneSealantGreaterThanFourMolarsSealed(data),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
@@ -110,9 +114,9 @@ const SFMCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateOneRateLessThanOther,
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
         GV.validateOneSealantGreaterThanFourMolarsSealedOMS,
       ],
     }),

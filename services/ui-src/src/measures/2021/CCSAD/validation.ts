@@ -25,31 +25,7 @@ const CCSADValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
-
-    // OMS Validations
+    ...errorArray,
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -61,11 +37,36 @@ const CCSADValidation = (data: FormData) => {
       ),
       dataSource: data[DC.DATA_SOURCE],
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesInRange(dateRange),
   ];
 
   return errorArray;

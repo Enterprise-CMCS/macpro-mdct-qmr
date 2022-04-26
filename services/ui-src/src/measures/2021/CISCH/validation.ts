@@ -37,37 +37,41 @@ const CISCHValidation = (data: FormData) => {
       ),
       dataSource: data[DC.DATA_SOURCE],
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateAllDenomsTheSameCrossQualifier(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateEqualCategoryDenominatorsPM(
       data,
       PMD.categories,
       PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateBothDatesInRange(dateRange),
   ];
 
   return errorArray;

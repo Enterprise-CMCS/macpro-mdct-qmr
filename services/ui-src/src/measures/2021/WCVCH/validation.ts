@@ -25,29 +25,48 @@ const WCVCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...errorArray,
+    ...GV.omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: GV.omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateOMSTotalNDR,
+        GV.validateRateZeroOMS,
+      ],
+    }),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesInRange(dateRange),
     ...GV.validateTotalNDR(performanceMeasureArray),
 
     // OMS Validations

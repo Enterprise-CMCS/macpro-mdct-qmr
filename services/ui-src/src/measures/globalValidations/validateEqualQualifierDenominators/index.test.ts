@@ -1,8 +1,8 @@
-import { test_setup } from "./_helper";
-import { testFormData } from "./_testFormData";
-// import { validateNoNonZeroNumOrDenom } from "measures/globalValidations";
+import { test_setup } from "../testHelpers/_helper";
+import { testFormData } from "../testHelpers/_testFormData";
+// import {validateEqualDenominators} from "measures/globalValidations";
 
-describe("validateNoNonZeroNumOrDenom", () => {
+describe("validateEqualDenominators", () => {
   let formData: any;
   let errorArray: FormError[];
 
@@ -13,7 +13,7 @@ describe("validateNoNonZeroNumOrDenom", () => {
     OPM;
 
     errorArray = [
-      // ...validateNoNonZeroNumOrDenom()
+      // ...validateEqualDenominators()
     ];
     expect(errorArray.length).toBe(numErrors);
   };

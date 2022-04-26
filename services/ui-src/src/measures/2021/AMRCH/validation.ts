@@ -26,22 +26,26 @@ const AMRCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
@@ -58,12 +62,12 @@ const AMRCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOMSTotalNDR,
         GV.validateOneRateLessThanOther,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
   ];

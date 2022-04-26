@@ -56,12 +56,9 @@ const PCRADValidation = (data: FormData) => {
   // Quick reference list of all rate indices
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
     ...PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

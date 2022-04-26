@@ -24,26 +24,28 @@ const CCPCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    // Performance Measure and OPM Validations
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
@@ -62,12 +64,12 @@ const CCPCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateEqualCategoryDenominatorsOMS,
         GV.validateCrossQualifierRateCorrect,
-        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateOneRateLessThanOther,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
   ];

@@ -99,7 +99,7 @@ const AMMADValidation = (data: FormData) => {
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
       ...unfilteredSameDenominatorErrors,
-      ...GV.validateEqualDenominators(
+      ...GV.validateEqualQualifierDenominatorsPM(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
@@ -124,30 +124,34 @@ const AMMADValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateDualPopInformation(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateOneDataSource(data),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
     ...validateContinuationGreaterThanAccute(data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
@@ -164,9 +168,9 @@ const AMMADValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateOneRateLessThanOther,
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
         sameDenominatorSets,
       ],
     }),
