@@ -39,7 +39,7 @@ const DEVCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneRateLessThanOther,
+        GV.validateOneCatRateLessThanOtherCatOMS(),
         GV.validateOMSTotalNDR,
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,

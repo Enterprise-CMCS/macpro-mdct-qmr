@@ -1,39 +1,8 @@
-import * as Types from "../CommonQuestions/types";
-import { getPerfMeasureRateArray } from "./dataDrivenTools";
-
-export const validateOneRateHigherThanOther = (
-  data: Types.DefaultFormData,
-  performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure
-) => {
-  const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
-  const lowerRate = perfMeasure[1];
-  const higherRate = perfMeasure[0];
-  let error;
-  const errorArray: FormError[] = [];
-
-  if (lowerRate && higherRate) {
-    lowerRate.forEach((_lowerRateObj, index) => {
-      if (
-        lowerRate[index] &&
-        higherRate[index] &&
-        parseFloat(lowerRate[index]?.rate ?? "") >
-          parseFloat(higherRate[index]?.rate ?? "")
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `${performanceMeasureData.categories?.[1]} Rate should not be higher than ${performanceMeasureData.categories?.[0]} Rate for ${performanceMeasureData.qualifiers?.[index]} Rates`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-
-  return errorArray;
-};
+import * as Types from "../../CommonQuestions/types";
+import { getPerfMeasureRateArray } from "../dataDrivenTools";
 
 // Built specifically for CCP-AD and CCP-CH
-export const validate3daysLessOrEqualTo30days = (
+export const validateOneQualRateHigherThanOtherQualPM = (
   data: Types.DefaultFormData,
   performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure
 ) => {

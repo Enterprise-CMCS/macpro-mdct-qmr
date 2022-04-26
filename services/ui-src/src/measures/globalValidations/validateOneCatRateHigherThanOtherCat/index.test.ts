@@ -1,5 +1,5 @@
-import { test_setup } from "./_helper";
-import { testFormData } from "./_testFormData";
+import { test_setup } from "../testHelpers/_helper";
+import { testFormData } from "../testHelpers/_testFormData";
 // import { validateOneRateHigherThanOther } from "measures/globalValidations";
 
 describe("validateOneRateHigherThanOther", () => {

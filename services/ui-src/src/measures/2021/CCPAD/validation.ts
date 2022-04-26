@@ -31,7 +31,7 @@ const CCPADValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateBothDatesInRange(dateRange),
-    ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
@@ -51,7 +51,7 @@ const CCPADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateOneRateHigherThanOther(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
 
     // OMS Specific Validations
@@ -68,7 +68,7 @@ const CCPADValidation = (data: FormData) => {
         GV.validateEqualCategoryDenominatorsOMS,
         GV.validateCrossQualifierRateCorrect,
         GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateOneRateLessThanOther,
+        GV.validateOneCatRateLessThanOtherCatOMS(),
         GV.validateRateNotZeroOMS,
         GV.validateRateZeroOMS,
       ],

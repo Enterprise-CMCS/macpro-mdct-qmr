@@ -97,7 +97,7 @@ const CCWADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualCategoryDenominatorsOMS,
-        GV.validateOneRateLessThanOther,
+        GV.validateOneCatRateLessThanOtherCatOMS(),
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
       ],
