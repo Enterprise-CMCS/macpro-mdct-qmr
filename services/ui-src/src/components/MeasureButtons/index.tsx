@@ -18,18 +18,37 @@ export const MeasureButtons = ({
 
   return (
     <CUI.Stack>
-      <QMR.ContainedButton
-        disabledStatus={!isStateUser || isLoading}
-        buttonText={isLoading ? "Saving" : "Save"}
-        buttonProps={{
-          minWidth: "10rem",
-          colorScheme: "blue",
-          isFullWidth: true,
-        }}
-        onClick={handleSave}
-      />
+      <CUI.HStack className="hidden-print-items">
+        <QMR.ContainedButton
+          disabledStatus={!isStateUser || isLoading}
+          buttonText={isLoading ? "Saving" : "Save"}
+          buttonProps={{
+            minWidth: "10rem",
+            colorScheme: "blue",
+            isFullWidth: true,
+          }}
+          onClick={handleSave}
+        />
+        <QMR.ContainedButton
+          disabledStatus={isLoading}
+          icon="print"
+          buttonText="Print"
+          buttonProps={{
+            minWidth: "10rem",
+            colorScheme: "blue",
+            isFullWidth: true,
+          }}
+          onClick={window.print}
+        />
+      </CUI.HStack>
+
       {lastAltered && (
-        <CUI.Flex mb={{ base: "1", lg: "0" }} data-testid="last-saved-text">
+        <CUI.Flex
+          className="hidden-print-items"
+          justifyContent="center"
+          mb={{ base: "1", lg: "0" }}
+          data-testid="last-saved-text"
+        >
           <QMR.LastSavedText
             lastAltered={lastAltered}
             isSubmitted={isSubmitted}

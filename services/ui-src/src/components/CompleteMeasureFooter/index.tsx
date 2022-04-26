@@ -17,7 +17,11 @@ export const CompleteMeasureFooter = ({
 }: Props) => {
   return (
     <>
-      <CUI.Stack alignItems="flex-start" data-testid="complete-measure-footer">
+      <CUI.Stack
+        alignItems="flex-start"
+        data-testid="complete-measure-footer"
+        className="hidden-print-items"
+      >
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
         </CUI.Heading>

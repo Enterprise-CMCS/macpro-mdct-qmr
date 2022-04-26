@@ -27,8 +27,9 @@ export const AutocompletedMeasureTemplate = ({
         <QMR.ContainedButton
           buttonProps={{
             paddingX: "12",
-            variant: "outline",
             colorScheme: "blue",
+            variant: "outline",
+            className: "hidden-print-items",
             color: "blue.500",
           }}
           zIndex={3}
@@ -62,10 +63,14 @@ export const AutocompletedMeasureTemplate = ({
           </CUI.Text>
         </CUI.Stack>
 
-        <Link to={`/${state}/${year}/${coreSetId}`}>
+        <Link
+          className="hidden-print-items"
+          to={`/${state}/${year}/${coreSetId}`}
+        >
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "blue",
+              className: "hidden-print-items",
               variant: "outline",
               color: "blue.500",
             }}
