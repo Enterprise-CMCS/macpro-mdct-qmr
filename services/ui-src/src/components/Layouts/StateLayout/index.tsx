@@ -38,6 +38,7 @@ export const StateLayout: React.FC<Props> = ({
         top="0"
         left="0"
         data-testid="state-layout-container"
+        className="state-layout-container"
       >
         <CUI.Box bg={singleNavigationItem ? "blue.700" : "blue.100"}>
           <CUI.Flex maxW="7xl" p="3" alignItems="center" mx="auto">
@@ -45,7 +46,7 @@ export const StateLayout: React.FC<Props> = ({
               items={breadcrumbItems}
               color={singleNavigationItem ? "white" : "inherit"}
             />
-            <CUI.Spacer />
+            <CUI.Spacer className="hidden-print-items" />
             {buttons}
           </CUI.Flex>
         </CUI.Box>
