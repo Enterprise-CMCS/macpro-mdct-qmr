@@ -17,6 +17,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
+import { useUser } from "hooks/authHooks";
 import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
@@ -107,6 +108,8 @@ export const MeasureWrapper = ({
   measureId,
   autocompleteOnCreation,
 }: Props) => {
+  const { isStateUser } = useUser();
+
   const navigate = useNavigate();
   const params = useParams();
   const [errors, setErrors] = useState<FormError[] | undefined>(undefined);
@@ -342,60 +345,69 @@ export const MeasureWrapper = ({
           <>
             <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
-              <CUI.Container maxW="7xl" as="section" px="0">
-                <LastModifiedBy user={measureData?.lastAlteredBy} />
-                <CUI.Text fontSize="sm">
-                  For technical questions regarding use of this application,
-                  please reach out to MDCT_Help@cms.hhs.gov. For content-related
-                  questions about measure specifications, or what information to
-                  enter in each field, please reach out to
-                  MACQualityTA@cms.hhs.gov.
-                </CUI.Text>
-                <Measure
-                  measure={measure}
-                  name={name}
-                  year={year}
-                  measureId={measureId}
-                  setValidationFunctions={setValidationFunctions}
-                  handleSave={handleSave}
-                />
-                {!autocompleteOnCreation && (
-                  <QMR.CompleteMeasureFooter
-                    handleClear={methods.handleSubmit(handleClear)}
-                    handleSubmit={methods.handleSubmit(handleSubmit)}
-                    handleValidation={methods.handleSubmit(handleValidation)}
+              <fieldset data-testid="fieldset" disabled={!isStateUser}>
+                <CUI.Container maxW="7xl" as="section" px="0">
+                  <QMR.SessionTimeout handleSave={handleSave} />
+                  <LastModifiedBy user={measureData?.lastAlteredBy} />
+                  <CUI.Text fontSize="sm">
+                    For technical questions regarding use of this application,
+                    please reach out to MDCT_Help@cms.hhs.gov. For
+                    content-related questions about measure specifications, or
+                    what information to enter in each field, please reach out to
+                    MACQualityTA@cms.hhs.gov.
+                  </CUI.Text>
+                  <Measure
+                    measure={measure}
+                    name={name}
+                    year={year}
+                    measureId={measureId}
+                    setValidationFunctions={setValidationFunctions}
+                    handleSave={handleSave}
                   />
-                )}
-              </CUI.Container>
-              {errors?.length === 0 && (
-                <QMR.Notification
-                  key={uuidv4()}
-                  alertProps={{ my: "3" }}
-                  alertStatus="success"
-                  alertTitle={`Success`}
-                  alertDescription="The measure has been validated successfully"
-                  close={() => {
-                    setErrors(undefined);
-                  }}
-                />
-              )}
-              {errors
-                ?.sort((a, b) => a.errorLocation.localeCompare(b.errorLocation))
-                ?.map((error, index) => (
+
+                  {!autocompleteOnCreation && (
+                    <QMR.CompleteMeasureFooter
+                      handleClear={methods.handleSubmit(handleClear)}
+                      handleSubmit={methods.handleSubmit(handleSubmit)}
+                      handleValidation={methods.handleSubmit(handleValidation)}
+                      disabled={!isStateUser}
+                    />
+                  )}
+                </CUI.Container>
+                {errors?.length === 0 && (
                   <QMR.Notification
                     key={uuidv4()}
                     alertProps={{ my: "3" }}
-                    alertStatus="error"
-                    alertTitle={`${error.errorLocation} Error`}
-                    alertDescription={error.errorMessage}
-                    extendedAlertList={error.errorList}
+                    alertStatus="success"
+                    alertTitle={`Success`}
+                    alertDescription="The measure has been validated successfully"
                     close={() => {
-                      const newErrors = [...errors];
-                      newErrors.splice(index, 1);
-                      setErrors(newErrors.length !== 0 ? newErrors : undefined);
+                      setErrors(undefined);
                     }}
                   />
-                ))}
+                )}
+                {errors
+                  ?.sort((a, b) =>
+                    a.errorLocation.localeCompare(b.errorLocation)
+                  )
+                  ?.map((error, index) => (
+                    <QMR.Notification
+                      key={uuidv4()}
+                      alertProps={{ my: "3" }}
+                      alertStatus="error"
+                      alertTitle={`${error.errorLocation} Error`}
+                      alertDescription={error.errorMessage}
+                      extendedAlertList={error.errorList}
+                      close={() => {
+                        const newErrors = [...errors];
+                        newErrors.splice(index, 1);
+                        setErrors(
+                          newErrors.length !== 0 ? newErrors : undefined
+                        );
+                      }}
+                    />
+                  ))}
+              </fieldset>
             </form>
           </>
         </CUI.Skeleton>
