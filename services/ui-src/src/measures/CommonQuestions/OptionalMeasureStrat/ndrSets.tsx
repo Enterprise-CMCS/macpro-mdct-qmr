@@ -189,8 +189,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
  */
 const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
-  const { categories, rateReadOnly, qualifiers, calcTotal } =
-    usePerformanceMeasureContext();
+  const { categories, qualifiers, calcTotal } = usePerformanceMeasureContext();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
@@ -208,17 +207,13 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
-          ...(!rateReadOnly
-            ? [
-                <CUI.Heading
-                  pt="1"
-                  key={`${name}.rates.${cleanedLabel}HeaderHelper`}
-                  size={"sm"}
-                >
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>,
-              ]
-            : []),
+          <CUI.Heading
+            pt="1"
+            key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+            size={"sm"}
+          >
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>,
           ...rateArrays[idx],
         ],
       };
@@ -278,17 +273,13 @@ const useRenderOPMChckboxOptions = (name: string) => {
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
-          ...(!rateReadOnly
-            ? [
-                <CUI.Heading
-                  pt="1"
-                  size={"sm"}
-                  key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
-                >
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>,
-              ]
-            : []),
+          <CUI.Heading
+            pt="1"
+            size={"sm"}
+            key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
+          >
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>,
           <QMR.Rate
             rates={[
               {
