@@ -46,7 +46,7 @@ export const SubmitCoreSetButton = ({
   const state = urlParams.state !== undefined ? urlParams.state : "";
 
   return (
-    <Box textAlign="center">
+    <Box textAlign="center" data-cy="SubmitCoreSetButtonWrapper">
       {!isSubmitted ? (
         <ContainedButton
           buttonText={"Submit Core Set"}
