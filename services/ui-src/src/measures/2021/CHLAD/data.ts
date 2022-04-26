@@ -35,23 +35,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
       ],
     },
     {
-      value: DC.HYBRID_DATA,
-      subOptions: [
-        {
-          label: "What is the Administrative Data Source?",
-          options: [
-            {
-              value: "Medicaid Management Information System (MMIS)",
-            },
-            {
-              value: "Other",
-              description: true,
-            },
-          ],
-        },
-      ],
-    },
-    {
       value: DC.ELECTRONIC_HEALTH_RECORDS,
       description: true,
     },
