@@ -22,7 +22,7 @@ export const SessionTimeout = ({ handleSave }: Props) => {
     setShowModal(!showModal);
     logoutTimer.current = setTimeout(() => {
       logout();
-    }, 1000 * 60 * 2); // 2 mins
+    }, 1000 * 60 * 5); // 5 mins
   };
 
   const handleStayLoggedIn = () => {
@@ -43,7 +43,7 @@ export const SessionTimeout = ({ handleSave }: Props) => {
         element={document}
         stopOnIdle
         onIdle={onIdle}
-        timeout={1000 * 60 * 1} // 1 min
+        timeout={1000 * 60 * 55} // 55 mins
         debounce={500}
       />
 
