@@ -37,9 +37,8 @@ describe("User must select a data source selection validation", () => {
   });
 
   it("Verify user can manually change rate in PM and OMS section without click data source option", function () {
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="AMR-AD"]').click();
-    cy.wait(2000);
+    cy.goToAdultMeasures();
+    cy.goToMeasure("AMR-AD");
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="DataStatus0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
@@ -186,9 +185,8 @@ describe("User must select a data source selection validation", () => {
   });
 
   it("Verify user can manually change rate in OPM section without click data source option", function () {
-    cy.get('[data-cy="ACS"]').click();
-    cy.get('[data-cy="AMR-AD"]').click();
-    cy.wait(2000);
+    cy.goToAdultMeasures();
+    cy.goToMeasure("AMR-AD");
     cy.get('[data-cy="DidReport0"]').click();
     cy.get(
       "#DataStatus_radiogroup > .chakra-stack > :nth-child(1) > .chakra-radio"

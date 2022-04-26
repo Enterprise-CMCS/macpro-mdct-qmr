@@ -1,20 +1,29 @@
+import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { measuresList } from "measures/measuresList";
 import { useParams, useNavigate } from "react-router-dom";
 import { AddCoreSetCards } from "./AddCoreSetCards";
 import { TiArrowUnsorted } from "react-icons/ti";
-import * as Api from "hooks/api";
 import { formatTableItems } from "./helpers";
-import { CoreSetAbbr, UserRoles } from "types";
+import { CoreSetAbbr, MeasureStatus, UserRoles } from "types";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
+import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
+import { useResetCoreSet } from "hooks/useResetCoreSet";
 import { SPA } from "libs/spaLib";
 
-interface Data {
+interface HandleDeleteData {
   state: string;
   year: string;
   coreSet: CoreSetAbbr;
+}
+
+interface UpdateAllMeasuresData {
+  state: string;
+  year: string;
+  coreSet: CoreSetAbbr;
+  measureStatus: MeasureStatus;
 }
 
 const ReportingYear = () => {
@@ -74,6 +83,8 @@ const Heading = () => {
 export const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
+  const mutation = useUpdateAllMeasures();
+  const resetCoreSetMutation = useResetCoreSet();
   const { data, error, isLoading } = Api.useGetCoreSets();
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
@@ -88,7 +99,7 @@ export const StateHome = () => {
     );
   }
 
-  const handleDelete = (data: Data) => {
+  const handleDelete = (data: HandleDeleteData) => {
     // if its a combined child or hh core set we can just delete the one targetted
     if (
       data.coreSet === CoreSetAbbr.CCS ||
@@ -123,13 +134,34 @@ export const StateHome = () => {
     }
   };
 
+  const updateAllMeasures = (data: UpdateAllMeasuresData) => {
+    mutation.mutate(data, {
+      onSuccess: () => {
+        queryClient.refetchQueries();
+      },
+    });
+  };
+
+  const resetCoreSet = (data: any) => {
+    resetCoreSetMutation.mutate(data, {
+      onSuccess: () => {
+        queryClient.refetchQueries();
+      },
+    });
+  };
+
   if (error) {
     console.log({ error });
     return (
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
   }
-  if (isLoading || !data.Items) {
+  if (
+    isLoading ||
+    !data.Items ||
+    mutation.isLoading ||
+    resetCoreSetMutation.isLoading
+  ) {
     return <QMR.LoadingWave />;
   }
 
@@ -139,6 +171,8 @@ export const StateHome = () => {
   const formattedTableItems = formatTableItems({
     items: data.Items,
     handleDelete,
+    updateAllMeasures,
+    resetCoreSet,
     filteredSpas,
   });
 
