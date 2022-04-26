@@ -1,6 +1,6 @@
 service: ui-src
 
-frameworkVersion: "3"
+frameworkVersion: "2"
 
 plugins:
   - serverless-plugin-scripts
@@ -34,7 +34,7 @@ custom:
   ui_s3_bucket_name: ${cf:ui-${self:custom.stage}.S3BucketName}
   ui_cloudfront_distribution_id: ${cf:ui-${self:custom.stage}.CloudFrontDistributionId}
   application_endpoint_url: ${cf:ui-${self:custom.stage}.ApplicationEndpointUrl}
-  prod_url: ${ssm:/configuration/prodUrl, ""}
+  prod_url: ${ssm:/configuration/prodUrl~true, ""}
   s3Sync:
     - bucketName: ${self:custom.ui_s3_bucket_name}
       localDir: ./build
@@ -68,4 +68,4 @@ custom:
 resources:
   Outputs:
     ProdUrl:
-      Value: !Sub ${ssm:/configuration/prodUrl, ""}
+      Value: !Sub ${ssm:/configuration/prodUrl~true, ""}
