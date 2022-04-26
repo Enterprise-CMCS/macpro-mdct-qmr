@@ -191,7 +191,7 @@ export const MultiRate = ({
 
   return (
     <>
-      <CUI.Stack my={8} direction="row">
+      <CUI.Stack my={8} direction="row" className="multi-rate-print-stack">
         {rates.slice(0, 6).map((rate, index) => {
           return generateInputs(rate, index);
         })}

@@ -347,7 +347,6 @@ export const MeasureWrapper = ({
           },
         ]}
         buttons={
-          // Using a ternary to appease type error instead of double &&
           !autoCompletedMeasure ? (
             <QMR.MeasureButtons
               isLoading={mutationRunning}
