@@ -346,6 +346,7 @@ export const MeasureWrapper = ({
             <form data-testid="measure-wrapper-form">
               <fieldset data-testid="fieldset" disabled={!isStateUser}>
                 <CUI.Container maxW="7xl" as="section" px="0">
+                  <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
                   <CUI.Text fontSize="sm">
                     For technical questions regarding use of this application,
@@ -362,6 +363,7 @@ export const MeasureWrapper = ({
                     setValidationFunctions={setValidationFunctions}
                     handleSave={handleSave}
                   />
+
                   {!autocompleteOnCreation && (
                     <QMR.CompleteMeasureFooter
                       handleClear={methods.handleSubmit(handleClear)}
