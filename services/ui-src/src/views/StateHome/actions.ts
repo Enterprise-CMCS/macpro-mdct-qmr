@@ -22,7 +22,10 @@ export const getCoreSetActions = ({
       handleSelect: handleDelete,
       type: type,
     });
-  } else if (type === CoreSetTableItem.Type.CHILD) {
+  } else if (
+    type === CoreSetTableItem.Type.CHILD ||
+    type === CoreSetTableItem.Type.HEALTH_HOME
+  ) {
     actionsList.push(
       ...[
         {
