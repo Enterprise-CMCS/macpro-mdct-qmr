@@ -314,7 +314,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "HH",
-      name: "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+      name: "Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
       measureId: "FUA-HH",
     },
     {
