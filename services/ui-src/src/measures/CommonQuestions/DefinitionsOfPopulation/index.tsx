@@ -54,6 +54,7 @@ export const DefinitionOfPopulation = ({
                 displayValue:
                   "Denominator includes CHIP population (e.g. pregnant women)",
                 value: DC.DENOMINATOR_INC_CHIP,
+                isHealthHome: healthHomeMeasure,
               },
               {
                 displayValue:
