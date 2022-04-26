@@ -31,19 +31,11 @@ custom:
       - master
       - val
       - prod
-  bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls~true, ssm:/configuration/default/qmr/bootstrapBrokerStringTls~true}
   coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
   coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
-  coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableStreamArn}
   measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
   measureTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableArn}
-  measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableStreamArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl
-  vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id~true, ssm:/configuration/default/vpc/id~true}
-  privateSubnets:
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/a/id~true, ssm:/configuration/default/vpc/subnets/private/a/id~true}
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/b/id~true, ssm:/configuration/default/vpc/subnets/private/b/id~true}
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/c/id~true, ssm:/configuration/default/vpc/subnets/private/c/id~true}
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
@@ -81,16 +73,6 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource: "*"
-        - Effect: "Allow"
-          Action:
-            - dynamodb:DescribeStream
-            - dynamodb:GetRecords
-            - dynamodb:GetShardIterator
-            - dynamodb:ListShards
-            - dynamodb:ListStreams
-          Resource:
-            - ${self:custom.coreSetTableStreamArn}
-            - ${self:custom.measureTableStreamArn}
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
@@ -178,43 +160,8 @@ functions:
           method: delete
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
-  ForceKafkaSync:
-    handler: handlers/kafka/get/forceKafkaSync.main
-    timeout: 900
-    memorySize: 3072
-  postKafkaData:
-    handler: handlers/kafka/post/postKafkaData.handler
-    events:
-      - stream:
-          type: dynamodb
-          arn: ${self:custom.measureTableStreamArn}
-          startingPosition: TRIM_HORIZON
-          maximumRetryAttempts: 2
-          enabled: true
-      - stream:
-          type: dynamodb
-          arn: ${self:custom.coreSetTableStreamArn}
-          startingPosition: TRIM_HORIZON
-          maximumRetryAttempts: 2
-          enabled: true
-    environment:
-      BOOTSTRAP_BROKER_STRING_TLS: ${self:custom.bootstrapBrokerStringTls}
-      STAGE: ${self:custom.stage}
-    maximumRetryAttempts: 2
-    timeout: 120
-    memorySize: 2048
-    vpc:
-      securityGroupIds:
-        - Ref: KafkaSecurityGroup
-      subnetIds: ${self:custom.privateSubnets}
-
 resources:
   Resources:
-    KafkaSecurityGroup:
-      Type: AWS::EC2::SecurityGroup
-      Properties:
-        GroupDescription: Security Group for streaming functions.  Egress all is set by default.
-        VpcId: ${self:custom.vpcId}
     GatewayResponseDefault4XX:
       Type: "AWS::ApiGateway::GatewayResponse"
       Properties:
