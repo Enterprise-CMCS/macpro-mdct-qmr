@@ -1,8 +1,8 @@
-import { test_setup } from "./_helper";
-import { testFormData } from "./_testFormData";
-// import { validateRequiredRadioButtonForCombinedRates } from "measures/globalValidations";
+import { test_setup } from "../testHelpers/_helper";
+import { testFormData } from "../testHelpers/_testFormData";
+// import { validateAllDenomsAreTheSameCrossQualifier } from "measures/globalValidations";
 
-describe("validateRequiredRadioButtonForCombinedRates", () => {
+describe("validateAllDenomsAreTheSameCrossQualifier", () => {
   let formData: any;
   let errorArray: FormError[];
 
@@ -13,13 +13,13 @@ describe("validateRequiredRadioButtonForCombinedRates", () => {
     OPM;
 
     errorArray = [
-      // ...validateRequiredRadioButtonForCombinedRates()
+      // ...validateAllDenomsAreTheSameCrossQualifier()
     ];
     expect(errorArray.length).toBe(numErrors);
   };
 
   beforeEach(() => {
-    formData = { ...testFormData };
+    formData = JSON.parse(JSON.stringify(testFormData)); // reset data
     errorArray = [];
   });
 

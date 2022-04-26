@@ -1,13 +1,13 @@
-import { testFormData } from "./_testFormData";
+import { testFormData } from "../testHelpers/_testFormData";
 import * as DC from "dataConstants";
-import { validateOneDataSource } from "measures/globalValidations";
+import { validateAtLeastOneDataSource } from "./index";
 
 describe("validateOneDataSource", () => {
   let formData: any;
   let errorArray: FormError[];
 
   const _check_errors = (data: any, numErrors: number) => {
-    errorArray = [...validateOneDataSource(data)];
+    errorArray = [...validateAtLeastOneDataSource(data)];
     expect(errorArray.length).toBe(numErrors);
   };
 

@@ -1,8 +1,8 @@
-import { test_setup } from "./_helper";
-import { testFormData } from "./_testFormData";
-// import {validateEqualDenominators} from "measures/globalValidations";
+import { test_setup } from "../testHelpers/_helper";
+import { testFormData } from "../testHelpers/_testFormData";
+// import { validateRequiredRadioButtonForCombinedRates } from "measures/globalValidations";
 
-describe("validateEqualDenominators", () => {
+describe("validateRequiredRadioButtonForCombinedRates", () => {
   let formData: any;
   let errorArray: FormError[];
 
@@ -13,13 +13,13 @@ describe("validateEqualDenominators", () => {
     OPM;
 
     errorArray = [
-      // ...validateEqualDenominators()
+      // ...validateRequiredRadioButtonForCombinedRates()
     ];
     expect(errorArray.length).toBe(numErrors);
   };
 
   beforeEach(() => {
-    formData = JSON.parse(JSON.stringify(testFormData)); // reset data
+    formData = { ...testFormData };
     errorArray = [];
   });
 

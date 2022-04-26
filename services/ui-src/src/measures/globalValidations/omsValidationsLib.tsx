@@ -8,7 +8,6 @@ import {
   RateFields,
   DefaultFormData,
 } from "measures/CommonQuestions/types";
-import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
 
 interface OmsValidationProps {
@@ -141,76 +140,6 @@ export const validateOneSealantGreaterThanFourMolarsSealedOMS: OmsValidationCall
     return errors;
   };
 
-export const validateDenominatorsAreTheSame: OmsValidationCallback = ({
-  rateData,
-  categories,
-  qualifiers,
-  label,
-  locationDictionary,
-  isOPM,
-}) => {
-  if (isOPM) return [];
-
-  const errors: FormError[] = [];
-  const areDenomsTheSame = (rateArr: RateFields[]) => {
-    if (rateArr.length === 0) return true;
-    const compareValue = rateArr[0].denominator;
-    return rateArr.every((rate) => rate.denominator === compareValue);
-  };
-  for (const qual of qualifiers) {
-    const cleanQual = cleanString(qual);
-    const rateArr: RateFields[] = [];
-    for (const cat of categories.map((s) => cleanString(s))) {
-      console.log({ cat, qual });
-      if (rateData.rates?.[cleanQual]?.[cat]) {
-        const temp = rateData.rates[cleanQual][cat][0];
-        console.log({ temp });
-        if (temp && temp.denominator) {
-          rateArr.push(temp);
-        }
-      }
-    }
-    console.log({ rateArr });
-    if (!areDenomsTheSame(rateArr)) {
-      errors.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary([
-          ...label,
-          qual,
-        ])}`,
-        errorMessage: "Denominators must be the same for each category.",
-      });
-    }
-  }
-  return errors;
-};
-export const validateDenominatorGreaterThanNumerator: OmsValidationCallback = ({
-  categories,
-  qualifiers,
-  rateData,
-  label,
-  locationDictionary,
-}) => {
-  const error: FormError[] = [];
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (const cat of categories.map((s) => cleanString(s))) {
-      if (rateData.rates?.[qual]?.[cat]) {
-        const temp = rateData.rates[qual][cat][0];
-        if (temp && temp.denominator && temp.numerator) {
-          if (parseFloat(temp.denominator) < parseFloat(temp.numerator)) {
-            error.push({
-              errorLocation: `Optional Measure Stratification: ${locationDictionary(
-                [...label, qual]
-              )}`,
-              errorMessage:
-                "Numerator cannot be greater than the Denominator for NDR sets.",
-            });
-          }
-        }
-      }
-    }
-  }
-  return error;
-};
 const validateNDRs = (
   data: DefaultFormData,
   callbackArr: OmsValidationCallback[],
@@ -374,41 +303,6 @@ const validateNDRs = (
   return errorArray;
 };
 
-export const validateAllDenomsAreTheSameCrossQualifier: OmsValidationCallback =
-  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
-    const denomArray: string[] = [];
-    const locationArray: string[] = [];
-    if (isOPM) return [];
-
-    for (const qual of qualifiers.map((qual) => cleanString(qual))) {
-      for (const cat of categories.map((cat) => cleanString(cat))) {
-        const temp = rateData.rates?.[qual]?.[cat]?.[0]?.denominator;
-
-        if (temp) {
-          denomArray.push(temp);
-          locationArray.push(
-            locationDictionary([
-              categories[0] === "singleCategory" ? qual : cat,
-            ])
-          );
-        }
-      }
-    }
-
-    const areTheSame = denomArray.every((denom) => denom === denomArray[0]);
-
-    return !areTheSame
-      ? [
-          {
-            errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              label
-            )}`,
-            errorMessage: `The following categories must have the same denominator:`,
-            errorList: locationArray.filter((v, i, a) => a.indexOf(v) === i),
-          },
-        ]
-      : [];
-  };
 /*
 ex. rate of 3 day should be less than or equal to 6 day
 */
@@ -451,75 +345,6 @@ export const validateCrossQualifierRateCorrect: OmsValidationCallback = ({
     }
   }
   return errors;
-};
-export const validateRateZero: OmsValidationCallback = ({
-  categories,
-  qualifiers,
-  rateData,
-  label,
-  locationDictionary,
-  dataSource,
-}) => {
-  const hybridData = dataSource?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
-  const error: FormError[] = [];
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (const cat of categories.map((s) => cleanString(s))) {
-      if (rateData.rates?.[qual]?.[cat]) {
-        const temp = rateData.rates[qual][cat][0];
-        if (temp && temp.denominator && temp.numerator && temp.rate) {
-          if (
-            parseFloat(temp.numerator) === 0 &&
-            parseFloat(temp.denominator) > 0 &&
-            parseFloat(temp.rate) !== 0 &&
-            !hybridData
-          ) {
-            error.push({
-              errorLocation: `Optional Measure Stratification: ${locationDictionary(
-                label
-              )}`,
-              errorMessage:
-                "Manually entered rate should be 0 if numerator is 0",
-            });
-          }
-        }
-      }
-    }
-  }
-  return error;
-};
-export const validateRateNotZero: OmsValidationCallback = ({
-  categories,
-  qualifiers,
-  rateData,
-  label,
-  locationDictionary,
-}) => {
-  const error: FormError[] = [];
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (const cat of categories.map((s) => cleanString(s))) {
-      if (rateData.rates?.[qual]?.[cat]) {
-        const temp = rateData.rates[qual][cat][0];
-        if (temp && temp.denominator && temp.numerator && temp.rate) {
-          if (
-            parseFloat(temp.numerator) > 0 &&
-            parseFloat(temp.denominator) > 0 &&
-            parseFloat(temp.rate) === 0
-          ) {
-            error.push({
-              errorLocation: `Optional Measure Stratification: ${locationDictionary(
-                label
-              )}`,
-              errorMessage:
-                "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
-            });
-          }
-        }
-      }
-    }
-  }
-  return error;
 };
 
 export const validateOneQualifierRateLessThanTheOther: OmsValidationCallback =

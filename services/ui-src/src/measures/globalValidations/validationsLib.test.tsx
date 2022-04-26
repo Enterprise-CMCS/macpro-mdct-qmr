@@ -7,14 +7,14 @@ describe("Testing Global Validations Lib", () => {
 
   test("validate at least one NDR in Deviation of Measure Specification", () => {
     const atLeastOneDeviationNDRNotComplete =
-      GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      GV.validateAtLeastOneDeviationFieldFilled(
         performanceMeasuresWithOneNDR,
         ["Ages 18 to 64"],
         [{ RateDeviationsSelected: [] }],
         true
       );
     const atLeastOneDeviationNDRCompleted =
-      GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      GV.validateAtLeastOneDeviationFieldFilled(
         performanceMeasuresWithOneNDR,
         ["Ages 18 to 64"],
         [{ RateDeviationsSelected: ["numerator"], numerator: "3" }],

@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
-import { ensureBothDatesCompletedInRange } from "measures/globalValidations";
-import { testFormData } from "./_testFormData";
+import { validateBothDatesInRange } from "./index";
+import { testFormData } from "../testHelpers/_testFormData";
 
 /* This validation checks that both date fields have been completed.
 
@@ -26,9 +26,7 @@ describe("ensureBothDatesCompletedInRange", () => {
 
   const check_errors = (data: any, numErrors: number) => {
     const dateRange = data[DC.DATE_RANGE];
-    const errorArray: FormError[] = [
-      ...ensureBothDatesCompletedInRange(dateRange),
-    ];
+    const errorArray: FormError[] = [...validateBothDatesInRange(dateRange)];
     expect(errorArray.length).toBe(numErrors);
   };
 
