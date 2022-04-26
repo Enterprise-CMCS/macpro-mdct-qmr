@@ -166,6 +166,8 @@ export const CCSQualifiers = () => {
           handleModalResponse={handleValidationModalResponse}
           bodyText="There are still errors on this measure, would you still like to complete?"
         />
+        <QMR.SessionTimeout handleSave={handleSave} />
+
         <QMR.AdminMask />
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="5xl" as="section">
