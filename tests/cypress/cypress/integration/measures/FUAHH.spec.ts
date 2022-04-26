@@ -1,8 +1,8 @@
-describe("Measure: FUA-AD", () => {
+describe("Measure: FUA-HH", () => {
   beforeEach(() => {
-    cy.login();
-    cy.goToAdultMeasures();
-    cy.goToMeasure("FUA-AD");
+    cy.loginHealthHome();
+    cy.goToHealthHomeSetMeasures();
+    cy.goToMeasure("FUA-HH");
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
@@ -23,6 +23,42 @@ describe("Measure: FUA-AD", () => {
     cy.get("#MeasurementSpecification-Other").should("have.text", "Other");
   });
 
+  it("should include correct Definition of Population options", () => {
+    cy.get('[data-cy="DidReport0"]').click();
+    cy.get(
+      '[data-cy="Definition of Population Included in the Measure"]'
+    ).should("be.visible");
+    cy.get('[data-cy="DefinitionOfDenominator0"]').should(
+      "include.text",
+      "Denominator includes Medicaid population"
+    );
+
+    // TODO: This will be removed
+    cy.get('[data-cy="DefinitionOfDenominator1"]').should(
+      "include.text",
+      "Denominator includes CHIP population (e.g. pregnant women)"
+    );
+    cy.get('[data-cy="DefinitionOfDenominator2"]').should(
+      "include.text",
+      "Denominator includes Medicare and Medicaid Dually-Eligible population"
+    );
+    cy.get('[data-cy="DefinitionOfDenominator3"]').should(
+      "include.text",
+      "Other"
+    );
+    // there will only be 3 options
+    cy.get('[data-cy="DefinitionOfDenominator4"]').should("not.exist");
+  });
+
+  it("should include 'Are all Health Home Providers represented in the denominator?' question", () => {
+    cy.get('[data-cy="DidReport0"]').click();
+    cy.get(
+      '[data-cy="Are all Health Home Providers represented in the denominator?"]'
+    ).should("be.visible");
+    cy.get("#DenominatorDefineHealthHome-yes").should("be.visible");
+    cy.get("#DenominatorDefineHealthHome-no").should("be.visible");
+  });
+
   it("if primary measurement spec is selected -> show performance measures", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
@@ -38,10 +74,6 @@ describe("Measure: FUA-AD", () => {
     cy.get('[data-cy="Other Performance Measure"]').should("be.visible");
   });
 
-  it("should show the correct calculated rate amount in total", () => {});
-
-  it("if only admin data cannot override, if anything else, rate is editable", () => {});
-
   it(
     "at least one ndr set if reporting and measurement spec or error.",
     cy.showErrorIfReportingAndNoNdrSet
@@ -51,8 +83,6 @@ describe("Measure: FUA-AD", () => {
     "if yes for combined rates → and no additional selection → show warning",
     cy.showErrorIfCombinedRatesAndNoAdditionalSelection
   );
-
-  it("does not calculate total rate if any numerator is greater than its denominator", () => {});
 
   it("displays validation warnings when a user selects Yes for Deviation and/or Combined Rates without making any sub-selections", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
