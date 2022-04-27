@@ -22,11 +22,10 @@ export const Breadcrumbs = ({ items, color }: Props) => {
             to={items[items.length - 2].path}
             aria-label="Return to measures list"
           >
-            <HiOutlineChevronLeft />
+            <HiOutlineChevronLeft className="hidden-print-items" />
           </Link>
         </CUI.Center>
       )}
-      {/* <CUI.Breadcrumb color={color} separator=""> */}
       <CUI.HStack>
         {items?.map((item, idx) => (
           <CUI.Heading

@@ -1,9 +1,11 @@
 import React from "react";
 import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
 import { Storage } from "aws-amplify";
+import { useUser } from "hooks/authHooks";
 
 interface IUploadProps {
   maxSize?: number;
@@ -157,6 +159,11 @@ export const Upload = ({
     }
   }
 
+  // Here, we determing if this is a state user. If it's a non-state user,
+  // display the ComponentMask overlay to signal to the user that the upload box
+  // is disabled.
+  const { isStateUser } = useUser();
+
   return (
     <>
       {label && <CUI.Text>{label}</CUI.Text>}
@@ -170,11 +177,13 @@ export const Upload = ({
         borderRadius="10"
         boxSizing="border-box"
         cursor="pointer"
+        position="relative"
       >
+        {!isStateUser && <QMR.ComponentMask />}
         <FolderIcon />
         <input {...getInputProps()} style={{ display: "none" }} />
         <CUI.Text fontSize="lg">
-          Drag & drop or{" "}
+          Drag &amp; drop or{" "}
           <button type="button">
             <CUI.Text color="blue" as="u">
               browse

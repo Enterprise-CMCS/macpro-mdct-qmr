@@ -1,8 +1,8 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import * as GV from "measures/globalValidations";
 
 const PPCADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -25,23 +25,11 @@ const PPCADValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...errorArray,
-    ...GV.omsValidations({
-      data,
-      qualifiers: PMD.qualifiers,
-      categories: PMD.categories,
-      dataSource: data[DC.DATA_SOURCE],
-      locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
-        PMD.qualifiers,
-        PMD.categories
-      ),
-      validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
-      ],
-    }),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
@@ -63,6 +51,24 @@ const PPCADValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // OMS Validations
+    ...GV.omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
+      locationDictionary: GV.omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateRateNotZero,
+        GV.validateRateZero,
+      ],
+    }),
   ];
 
   return errorArray;

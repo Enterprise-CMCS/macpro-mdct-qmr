@@ -1,8 +1,7 @@
-import { FormData } from "./types";
 import * as DC from "dataConstants";
-import * as PMD from "./data";
 import * as GV from "measures/globalValidations";
-
+import * as PMD from "./data";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const SSDValidation = (data: FormData) => {
@@ -25,7 +24,11 @@ const SSDValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...errorArray,
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
@@ -38,6 +41,14 @@ const SSDValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -53,15 +64,6 @@ const SSDValidation = (data: FormData) => {
         GV.validateRateNotZero,
       ],
     }),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
   ];
 
   return errorArray;
