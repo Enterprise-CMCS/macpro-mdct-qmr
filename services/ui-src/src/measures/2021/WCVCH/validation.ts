@@ -68,24 +68,6 @@ const WCVCHValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesInRange(dateRange),
     ...GV.validateTotalNDR(performanceMeasureArray),
-
-    // OMS Validations
-    ...GV.omsValidations({
-      data,
-      qualifiers: PMD.qualifiers,
-      categories: PMD.categories,
-      locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
-        PMD.qualifiers,
-        PMD.categories
-      ),
-      validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateNotZero,
-        GV.validateOMSTotalNDR,
-        GV.validateRateZero,
-      ],
-    }),
   ];
 
   return errorArray;

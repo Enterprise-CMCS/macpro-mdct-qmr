@@ -24,32 +24,6 @@ const DEVCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
-    ...GV.validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
-    ...GV.validateTotalNDR(performanceMeasureArray),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

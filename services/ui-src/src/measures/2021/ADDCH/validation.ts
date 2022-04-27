@@ -27,11 +27,11 @@ const ADDCHValidation = (data: FormData) => {
 
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateBothDatesInRange(dateRange),
 
     // Performance Measure Validations
-    ...validateInitiationDenomGreater(data),
+    ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
     ...errorArray,
     ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
     ...GV.validateAtLeastOneRateComplete(
@@ -50,7 +50,7 @@ const ADDCHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,

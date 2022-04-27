@@ -41,12 +41,6 @@ const SSDValidation = (data: FormData) => {
       ageGroups,
       data
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
 
     // OMS Validations
     ...GV.omsValidations({

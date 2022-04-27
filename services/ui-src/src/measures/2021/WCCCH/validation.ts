@@ -50,7 +50,6 @@ const WCCHValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
-    ...GV.validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
 
     // OMS Validations
     ...GV.omsValidations({

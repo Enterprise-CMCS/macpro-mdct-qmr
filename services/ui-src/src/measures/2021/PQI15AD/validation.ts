@@ -22,7 +22,7 @@ const PQI15Validation = (data: FormData) => {
     return errorArray;
   }
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data)
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...errorArray,
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,

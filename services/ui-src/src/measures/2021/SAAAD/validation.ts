@@ -42,12 +42,6 @@ const SAAADValidation = (data: FormData) => {
       ageGroups,
       data
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
 
     // OMS Validations
     ...GV.omsValidations({

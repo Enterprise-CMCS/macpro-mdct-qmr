@@ -73,27 +73,6 @@ const DEVCHValidation = (data: FormData) => {
       PMD.categories,
       PMD.qualifiers
     ),
-
-    // OMS Validations
-    ...GV.omsValidations({
-      data,
-      qualifiers: PMD.qualifiers,
-      categories: PMD.categories,
-      dataSource: data[DC.DATA_SOURCE],
-      locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
-        PMD.qualifiers,
-        PMD.categories
-      ),
-      validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
-        GV.validateOneRateLessThanOther,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
-        GV.validateAllDenomsAreTheSameCrossQualifier,
-      ],
-    }),
   ];
 
   return errorArray;
