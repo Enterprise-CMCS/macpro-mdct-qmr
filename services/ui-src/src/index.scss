@@ -27,3 +27,46 @@ li::marker {
 a:focus {
   box-shadow: none;
 }
+
+@media print {
+  .logos {
+    width: 170px;
+  }
+
+  .medicaid-logo {
+    width: 190px;
+  }
+
+  a[href]::after {
+    display: none;
+  }
+
+  .state-layout-container {
+    position: relative !important;
+
+    .header-spacer {
+      display: none;
+    }
+    a {
+      font-size: 25px;
+    }
+  }
+
+  .hidden-print-items {
+    visibility: hidden;
+    display: none !important;
+  }
+
+  .logo-footer {
+    display: flex !important;
+  }
+
+  .help-section {
+    text-align: start;
+    padding-top: 50px;
+  }
+
+  .multi-rate-print-stack {
+    flex-wrap: wrap;
+  }
+}

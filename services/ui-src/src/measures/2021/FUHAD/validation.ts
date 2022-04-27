@@ -1,16 +1,7 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-import * as GV from "../../globalValidations";
-import { getPerfMeasureRateArray } from "../../globalValidations";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateOneRateLessThanOther,
-  validateRateNotZero,
-  validateRateZero,
-  validateDenominatorsAreTheSame,
-} from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const validate7DaysGreaterThan30Days = (data: FormData) => {
@@ -50,51 +41,11 @@ const validate7DaysGreaterThan30Days = (data: FormData) => {
   return error ? errorArray : [];
 };
 
-// const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-// const sameDenominatorSets: OmsValidationCallback = ({
-//   rateData,
-//   locationDictionary,
-//   categories,
-//   qualifiers,
-//   isOPM,
-//   label,
-// }) => {
-//   if (isOPM) return [];
-//   const errorArray: FormError[] = [];
-
-//   for (const qual of qualifiers.map((s) => cleanString(s))) {
-//     for (let initiation = 0; initiation < categories.length; initiation += 2) {
-//       const engagement = initiation + 1;
-//       const initRate =
-//         rateData.rates?.[qual]?.[cleanString(categories[initiation])]?.[0];
-//       const engageRate =
-//         rateData.rates?.[qual]?.[cleanString(categories[engagement])]?.[0];
-
-//       if (
-//         initRate &&
-//         engageRate &&
-//         initRate.denominator !== engageRate.denominator
-//       ) {
-//         errorArray.push({
-//           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-//             [...label, qual]
-//           )}`,
-//           errorMessage: `Denominators must be the same for ${locationDictionary(
-//             [categories[initiation]]
-//           )} and ${locationDictionary([categories[engagement]])}.`,
-//         });
-//       }
-//     }
-//   }
-
-//   return errorArray;
-// };
-
 const FUHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -105,7 +56,7 @@ const FUHValidation = (data: FormData) => {
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
@@ -130,7 +81,11 @@ const FUHValidation = (data: FormData) => {
   });
 
   errorArray = [
-    ...errorArray,
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
@@ -150,9 +105,6 @@ const FUHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateOneDataSource(data),
     ...validate7DaysGreaterThan30Days(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
@@ -160,7 +112,9 @@ const FUHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...omsValidations({
+
+    // OMS Validations
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
@@ -170,11 +124,11 @@ const FUHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        validateOneRateLessThanOther,
-        validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
-        validateDenominatorsAreTheSame,
+        GV.validateOneRateLessThanOther,
+        GV.validateDenominatorGreaterThanNumerator,
+        GV.validateRateZero,
+        GV.validateRateNotZero,
+        GV.validateDenominatorsAreTheSame,
       ],
     }),
   ];
