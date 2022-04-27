@@ -201,7 +201,7 @@ export const MultiRate = ({
         [2, 3, 4, 5].map((i) => generateInputWarning(field?.value[i], 4))
       }
       <CUI.Divider />
-      <CUI.Stack my={8} direction="row">
+      <CUI.Stack my={8} direction="row" className="multi-rate-print-stack">
         {rates.slice(6).map((rate, index) => {
           index += 6;
           return generateInputs(rate, index);
