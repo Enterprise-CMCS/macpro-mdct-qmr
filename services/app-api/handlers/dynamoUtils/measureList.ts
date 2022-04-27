@@ -394,7 +394,7 @@ export const measures: Measure = {
     {
       type: "H",
       description:
-        "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+        "Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
       measure: "FUA-HH",
     },
     {

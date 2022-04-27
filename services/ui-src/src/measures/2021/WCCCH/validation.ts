@@ -1,13 +1,13 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-import { FormData } from "./types";
 import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const WCCHValidation = (data: FormData) => {
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const dateRange = data["DateRange"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
+  const dateRange = data[DC.DATE_RANGE];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
 
   const deviationArray = GV.getDeviationNDRArray(
@@ -15,18 +15,21 @@ const WCCHValidation = (data: FormData) => {
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
   errorArray = [
-    ...errorArray,
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure and OPM Validations
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -38,13 +41,16 @@ const WCCHValidation = (data: FormData) => {
       PMD.qualifiers,
       data
     ),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
+    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
+    ...GV.validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -63,9 +69,6 @@ const WCCHValidation = (data: FormData) => {
         GV.validateRateZero,
       ],
     }),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
-    ...GV.validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
   ];
 
   return errorArray;
