@@ -43,7 +43,7 @@ describe("Measure: FUA-AD", () => {
   it("if only admin data cannot override, if anything else, rate is editable", () => {});
 
   it(
-    "at least one dnr set if reporting and measurement spec or error.",
+    "at least one ndr set if reporting and measurement spec or error.",
     cy.showErrorIfReportingAndNoNdrSet
   );
 

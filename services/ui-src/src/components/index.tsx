@@ -26,6 +26,8 @@ export * from "./Notification";
 export * from "./ProgressCircle";
 export * from "./QuestionChild";
 export * from "./Rate";
+export * from "./SubmitCoreSet";
+export * from "./SessionTimeout";
 export * from "./SupportInfo";
 export * from "./ScrollToTop";
 export * from "./Table";

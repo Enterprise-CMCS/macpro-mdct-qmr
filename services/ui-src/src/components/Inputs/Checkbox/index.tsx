@@ -10,6 +10,7 @@ export interface CheckboxOption {
   removable?: boolean;
   onDelete?: () => void;
   childKey?: string;
+  isHealthHome?: boolean;
 }
 
 interface CheckboxProps extends QMR.InputWrapperProps {
@@ -50,6 +51,9 @@ export const Checkbox = ({
       >
         <CUI.Stack>
           {options.map((option, idx) => {
+            if (option.isHealthHome) {
+              return null;
+            }
             const showChildren = !!field.value?.find(
               (valueToCheck: string) => valueToCheck === option.value
             );

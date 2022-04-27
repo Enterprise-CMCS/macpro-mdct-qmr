@@ -135,6 +135,11 @@ resources:
               - BackWithOkta
               - !Ref OktaUserPoolIdentityProvider
               - COGNITO
+        AccessTokenValidity: ${ssm:/configuration/${self:custom.stage}/accessTokenValidity, 12}
+        IdTokenValidity: ${ssm:/configuration/${self:custom.stage}/idTokenValidity, 12}
+        TokenValidityUnits:
+          AccessToken: hours
+          IdToken: hours
     UserPoolDomain:
       Type: AWS::Cognito::UserPoolDomain
       Properties:

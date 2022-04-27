@@ -74,6 +74,9 @@ export const DENOMINATOR_DEFINE_TOTAL_TECH_SPEC =
   "DenominatorDefineTotalTechSpec";
 export const DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN =
   "DenominatorDefineTotalTechSpec-No-Explanation";
+export const DENOMINATOR_DEFINE_HEALTH_HOME = "DenominatorDefineHealthHome";
+export const DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN =
+  "DenominatorDefineHealthHome-No-Explanation";
 export const DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE =
   "DenominatorDefineTotalTechSpec-No-Size";
 export const DENOMINATOR_INC_CHIP = "DenominatorIncCHIP";
