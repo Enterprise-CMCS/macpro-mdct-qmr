@@ -1,6 +1,8 @@
 import {
   useAddCoreSet,
   useDeleteCoreSet,
+  useEditCoreSet,
+  useGetCoreSet,
   useGetCoreSets,
   useGetMeasure,
   useGetMeasures,
@@ -14,6 +16,10 @@ export const defaultMockValues = {
     },
   },
   useDeleteCoreSetValues: { mutate: jest.fn() },
+  useEditCoreSetValues: {
+    mutate: jest.fn(),
+    isLoading: false,
+  },
   useGetCoreSetsValues: {
     data: {
       Items: [
@@ -84,6 +90,7 @@ export const defaultMockValues = {
 export const useApiMock = ({
   useAddCoreSetValues = defaultMockValues.useAddCoreSetValues,
   useDeleteCoreSetValues = defaultMockValues.useDeleteCoreSetValues,
+  useEditCoreSetValues = defaultMockValues.useEditCoreSetValues,
   useGetCoreSetsValues = defaultMockValues.useGetCoreSetsValues,
   useGetMeasureValues = defaultMockValues.useGetMeasureValues,
   useGetMeasuresValues = defaultMockValues.useGetMeasuresValues,
@@ -94,6 +101,12 @@ export const useApiMock = ({
   });
   (useDeleteCoreSet as jest.Mock).mockReturnValue({
     ...useDeleteCoreSetValues,
+  });
+  (useEditCoreSet as jest.Mock).mockReturnValue({
+    ...useEditCoreSetValues,
+  });
+  (useGetCoreSet as jest.Mock).mockReturnValue({
+    ...useGetCoreSetsValues,
   });
   (useGetCoreSets as jest.Mock).mockReturnValue({
     ...useGetCoreSetsValues,
