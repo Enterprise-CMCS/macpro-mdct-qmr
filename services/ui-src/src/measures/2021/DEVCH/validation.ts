@@ -37,7 +37,6 @@ const DEVCHValidation = (data: FormData) => {
       customTotalLabel: "Children",
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateOMSTotalNDR,
         GV.validateRateZeroOMS,
