@@ -160,6 +160,7 @@ export const ACSQualifiers = () => {
       }
     >
       <FormProvider {...methods}>
+        <QMR.SessionTimeout handleSave={handleSave} />
         <QMR.YesNoModalDialog
           isOpen={showModal}
           headerText="Validation Error"

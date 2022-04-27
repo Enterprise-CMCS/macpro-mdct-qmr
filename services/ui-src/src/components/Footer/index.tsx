@@ -10,7 +10,11 @@ export function Footer(): JSX.Element {
       textAlign={{ base: "center", md: "left" }}
       data-testid="footer"
     >
-      <CUI.Container data-testid="help-section" maxW="7xl">
+      <CUI.Container
+        data-testid="help-section"
+        className="help-section"
+        maxW="7xl"
+      >
         <CUI.Box maxW="4xl">
           <CUI.Text as="h3" fontSize="2xl" mb="3">
             Do you have questions or need support?
@@ -23,6 +27,7 @@ export function Footer(): JSX.Element {
       <CUI.Box bg="blue.50" py="2">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
           <CUI.Box
+            className="logo-footer"
             display={{ base: "block", md: "flex" }}
             alignItems={{ base: "none", md: "center" }}
           >
@@ -30,15 +35,18 @@ export function Footer(): JSX.Element {
               style={{ maxWidth: "140px" }}
               src="/footer/mdct.png"
               alt="Mdct logo"
+              className="logos"
             />
             <img
               style={{ padding: "10px 0 0 50px" }}
               src="/footer/logo-MedicaidGov.svg"
               alt="Medicaid.gov logo"
+              className="medicaid-logo"
             />
             <CUI.Spacer />
             <CUI.Flex maxW={{ base: "none", md: "md" }}>
               <img
+                className="logos"
                 src="/footer/depthealthhumanservices_usa.svg"
                 alt="Department of Health and Human Services logo"
               />
