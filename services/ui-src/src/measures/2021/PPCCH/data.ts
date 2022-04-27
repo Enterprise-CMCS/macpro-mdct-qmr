@@ -2,13 +2,13 @@ import { DataDrivenTypes } from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
 
 export const qualifiers = [
-  "Prenatal care visit in the first trimester, on or before the enrollment start date, or within 42 days of enrollment in Medicaid/CHIP.",
+  "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
 ];
 export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year that received a prenatal care visit in the first trimester, on or before the enrollment start date, or within 42 days of enrollment in Medicaid/CHIP.",
+    "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year that received a prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
   ],
   questionListItems: [],
   categories,

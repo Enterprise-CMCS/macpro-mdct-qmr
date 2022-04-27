@@ -31,6 +31,8 @@ export interface DefinitionOfPopulation {
   [DC.CHANGE_IN_POP_EXPLANATION]: string; // text explaination of change in polulation
   [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC]: YesNo; // Does this denominator represent your total measure-eligible population?
   [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]: string; // if NO selected in DENOMINATOR_DEFINE_TOTAL_TECH_SPEC - > explaination which populations are excluded
+  [DC.DENOMINATOR_DEFINE_HEALTH_HOME]: YesNo; // Does this denominator represent your total measure-eligible population?
+  [DC.DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN]: string; // if NO selected in DENOMINATOR_DEFINE_TOTAL_TECH_SPEC - > explaination which populations are excluded
   [DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE]: string; // if NO selected in DENOMINATOR_DEFINE_TOTAL_TECH_SPEC - > explaination of the size of population excluded
   [DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR]: Array<
     | typeof DC.FFS

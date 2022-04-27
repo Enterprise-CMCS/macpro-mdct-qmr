@@ -62,10 +62,10 @@ describe("Measure: PPC-CH", () => {
       "Performance Measure"
     );
     cy.get(
-      '[data-cy="Prenatal care visit in the first trimester, on or before the enrollment start date, or within 42 days of enrollment in Medicaid/CHIP."]'
+      '[data-cy="Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."]'
     ).should(
       "have.text",
-      "Prenatal care visit in the first trimester, on or before the enrollment start date, or within 42 days of enrollment in Medicaid/CHIP."
+      "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
     );
   });
 
