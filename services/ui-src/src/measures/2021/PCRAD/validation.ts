@@ -58,6 +58,7 @@ const PCRADValidation = (data: FormData) => {
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
     ...PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
