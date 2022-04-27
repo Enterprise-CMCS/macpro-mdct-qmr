@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import config from "config";
+import { isDevEnv } from "config";
 interface Props {
   // these functions do not return a value
   handleClear: () => void;
@@ -17,7 +17,11 @@ export const CompleteMeasureFooter = ({
 }: Props) => {
   return (
     <>
-      <CUI.Stack alignItems="flex-start" data-testid="complete-measure-footer">
+      <CUI.Stack
+        alignItems="flex-start"
+        data-testid="complete-measure-footer"
+        className="hidden-print-items"
+      >
         <CUI.Heading fontSize="xl" fontWeight="600">
           Complete the Measure
         </CUI.Heading>
@@ -48,7 +52,7 @@ export const CompleteMeasureFooter = ({
               handleSubmit();
             }}
           />
-          {config.BRANCH_NAME !== undefined && config.BRANCH_NAME !== "prod" && (
+          {isDevEnv() && (
             <QMR.ContainedButton
               buttonProps={{
                 colorScheme: "red",
