@@ -113,11 +113,10 @@ const SFMCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateOneQualRateHigherThanOtherQualOMS(),
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
-        GV.validateOneSealantGreaterThanFourMolarsSealedOMS,
       ],
     }),
   ];
