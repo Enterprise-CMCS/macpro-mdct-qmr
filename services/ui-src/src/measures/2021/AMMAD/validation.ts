@@ -4,42 +4,6 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validateContinuationGreaterThanAccute = (data: any) => {
-  if (
-    !(
-      data?.PerformanceMeasure?.rates?.EffectiveAcutePhaseTreatment ||
-      data?.PerformanceMeasure?.rates?.EffectiveContinuationPhaseTreatment
-    )
-  ) {
-    return [];
-  }
-  const accute =
-    data["PerformanceMeasure"]["rates"]["EffectiveAcutePhaseTreatment"];
-  const continuation =
-    data["PerformanceMeasure"]["rates"]["EffectiveContinuationPhaseTreatment"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (accute && continuation) {
-    accute.forEach((_accuteObj: any, index: number) => {
-      if (
-        accute[index] &&
-        continuation[index] &&
-        parseFloat(continuation[index]?.rate) > parseFloat(accute[index]?.rate)
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage:
-            "Effective Continuation Phase Treatment Rate should not be higher than Effective Acute Phase Treatment Rates.",
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-  return error ? [errorArray[0]] : [];
-};
-
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,
@@ -150,13 +114,13 @@ const AMMADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesInRange(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
-    ...validateContinuationGreaterThanAccute(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -167,7 +131,7 @@ const AMMADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,

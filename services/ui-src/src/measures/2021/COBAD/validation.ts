@@ -69,7 +69,7 @@ const IEDValidation = (data: FormData) => {
         GV.validateRateNotZeroOMS,
         GV.validateRateZeroOMS,
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(

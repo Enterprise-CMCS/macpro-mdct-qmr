@@ -65,7 +65,7 @@ const AMRCHValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOMSTotalNDR,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateNotZeroOMS,
         GV.validateRateZeroOMS,
       ],

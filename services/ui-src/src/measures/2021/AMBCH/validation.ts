@@ -63,7 +63,7 @@ const AMBCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
         GV.validateOMSTotalNDR,

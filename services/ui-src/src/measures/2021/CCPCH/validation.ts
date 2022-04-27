@@ -66,9 +66,9 @@ const CCPCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateEqualCategoryDenominatorsOMS,
-        GV.validateCrossQualifierRateCorrect,
+        GV.validateOneQualRateHigherThanOtherQualOMS(),
         GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateNotZeroOMS,
         GV.validateRateZeroOMS,
       ],

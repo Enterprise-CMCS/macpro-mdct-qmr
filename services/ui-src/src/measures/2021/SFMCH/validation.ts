@@ -113,7 +113,7 @@ const SFMCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,

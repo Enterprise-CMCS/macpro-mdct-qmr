@@ -1,5 +1,5 @@
 export * from "./dataDrivenTools";
-export * from "./omsValidationsLib";
+export * from "./omsValidator";
 export * as Types from "./types";
 
 export * from "./validateAtLeastOneDataSource";
@@ -12,6 +12,7 @@ export * from "./validateEqualQualifierDenominators";
 export * from "./validateNoNonZeroNumOrDenom";
 export * from "./validateNumeratorsLessThanDenominators";
 export * from "./validateOneCatRateHigherThanOtherCat";
+export * from "./validateOneQualDenomHigherThanOtherDenomOMS";
 export * from "./validateOneQualRateHigherThanOtherQual";
 export * from "./validateReasonForNotReporting";
 export * from "./validateRequiredRadioButtonForCombinedRates";

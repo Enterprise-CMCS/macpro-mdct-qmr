@@ -29,7 +29,7 @@ const DEVCHValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       dataSource: data[DC.DATA_SOURCE],
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
@@ -37,7 +37,7 @@ const DEVCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
         GV.validateEqualCategoryDenominatorsOMS,

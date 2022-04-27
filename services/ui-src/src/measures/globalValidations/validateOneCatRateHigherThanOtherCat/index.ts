@@ -16,7 +16,7 @@ import { getPerfMeasureRateArray } from "../dataDrivenTools";
 //     }}
 //     return error
 // }
-export const validateOneCatRateLessThanOtherCatOMS = (
+export const validateOneCatRateHigherThanOtherCatOMS = (
   higherIndex = 0,
   lowerIndex = 1
 ): OmsValidationCallback => {

@@ -27,16 +27,12 @@ const FUAADValidation = (data: FormData) => {
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
-  let sameDenominatorError = [
+  errorArray = [
+    ...errorArray,
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
       ageGroups
     ),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
-  errorArray = [
-    ...errorArray,
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
@@ -54,7 +50,6 @@ const FUAADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...sameDenominatorError,
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
@@ -76,7 +71,7 @@ const FUAADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
       ],
