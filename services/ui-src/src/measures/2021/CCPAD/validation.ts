@@ -6,30 +6,32 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const dateRange = data["DateRange"];
+  const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const whyNotReporting = data["WhyAreYouNotReporting"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
   errorArray = [
-    // Performance Measure and OPM Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
     ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
     ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
-    ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
@@ -48,7 +50,6 @@ const CCPADValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateOneRateHigherThanOther(data, PMD.data),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
 
     // OMS Specific Validations
     ...GV.omsValidations({

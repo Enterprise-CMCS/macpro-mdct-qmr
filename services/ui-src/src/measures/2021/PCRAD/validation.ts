@@ -1,9 +1,8 @@
-import { FormData } from "./types";
-import * as Types from "measures/CommonQuestions/types";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
+import * as Types from "measures/CommonQuestions/types";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 interface NDRforumla {
@@ -38,15 +37,15 @@ const ndrForumlas = [
 const PCRADValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const ageGroups = PMD.qualifiers;
-  const dateRange = data["DateRange"];
+  const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     false
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const OPM = data[DC.OPM_RATES];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -57,10 +56,21 @@ const PCRADValidation = (data: FormData) => {
   // Quick reference list of all rate indices
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
-    ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
+    ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
+    ...PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ndrForumlas,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -72,12 +82,6 @@ const PCRADValidation = (data: FormData) => {
       ),
       validationCallbacks: [OMSValidations],
     }),
-    ...PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ndrForumlas,
-      deviationArray,
-      didCalculationsDeviate
-    ),
   ];
   return errorArray;
 };
@@ -266,7 +270,4 @@ export const PCRADvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
   return errorArray;
 };
 
-export const validationFunctions = [
-  PCRADValidation,
-  GV.validateRequiredRadioButtonForCombinedRates,
-];
+export const validationFunctions = [PCRADValidation];
