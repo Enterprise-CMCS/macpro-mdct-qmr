@@ -1,8 +1,8 @@
 import * as PMD from "./data";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import * as GV from "measures/globalValidations";
 
 const CCSADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;

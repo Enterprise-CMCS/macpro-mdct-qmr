@@ -19,7 +19,7 @@ const WCVCHValidation = (data: FormData) => {
   const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data["DidReport"] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }

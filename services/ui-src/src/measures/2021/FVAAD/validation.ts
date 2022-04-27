@@ -1,13 +1,12 @@
 import * as PMD from "./data";
 import * as GV from "measures/globalValidations";
 import * as DC from "dataConstants";
-import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const FVAADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];

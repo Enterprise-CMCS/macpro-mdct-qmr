@@ -1,7 +1,7 @@
 import * as PMD from "./data";
 import * as DC from "dataConstants";
-import { FormData } from "./types";
 import * as GV from "measures/globalValidations";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const FUAADValidation = (data: FormData) => {
@@ -27,16 +27,12 @@ const FUAADValidation = (data: FormData) => {
     return errorArray;
   }
 
-  let sameDenominatorError = [
+  errorArray = [
+    ...errorArray,
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
       ageGroups
     ),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
-  errorArray = [
-    ...errorArray,
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
@@ -54,7 +50,6 @@ const FUAADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...sameDenominatorError,
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
@@ -76,7 +71,7 @@ const FUAADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
       ],

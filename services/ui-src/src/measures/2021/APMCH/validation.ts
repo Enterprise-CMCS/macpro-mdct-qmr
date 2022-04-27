@@ -68,9 +68,9 @@ const APMCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
         GV.validateOMSTotalNDR,
-        ...[GV.validateRateZeroOMS],
       ],
     }),
   ];

@@ -49,6 +49,8 @@ const APPCHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -66,8 +68,6 @@ const APPCHValidation = (data: FormData) => {
         GV.validateOMSTotalNDR,
       ],
     }),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateTotalNDR(performanceMeasureArray),
   ];
 
   return errorArray;

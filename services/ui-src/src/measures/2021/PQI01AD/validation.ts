@@ -1,7 +1,7 @@
-import { FormData } from "./types";
-import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const PQI01Validation = (data: FormData) => {
@@ -19,7 +19,7 @@ const PQI01Validation = (data: FormData) => {
   const definitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data["DidReport"] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }

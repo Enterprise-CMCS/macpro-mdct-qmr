@@ -1,8 +1,7 @@
-import { FormData } from "./types";
-import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
-import * as DC from "dataConstants";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const CHLValidation = (data: FormData) => {
@@ -49,7 +48,7 @@ const CHLValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories

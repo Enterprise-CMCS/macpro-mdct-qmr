@@ -1,8 +1,8 @@
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import * as DC from "dataConstants";
 
 const IEDValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -69,7 +69,7 @@ const IEDValidation = (data: FormData) => {
         GV.validateRateNotZeroOMS,
         GV.validateRateZeroOMS,
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(

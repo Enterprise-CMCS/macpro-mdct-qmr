@@ -27,7 +27,7 @@ const PQI05Validation = (data: FormData) => {
   const definitionOfDenominator = data["DefinitionOfDenominator"];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data["DidReport"] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }

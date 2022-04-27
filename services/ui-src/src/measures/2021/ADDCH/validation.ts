@@ -1,34 +1,10 @@
 import * as PMD from "./data";
 import * as GV from "measures/globalValidations";
 import * as DC from "dataConstants";
+
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-
-const validateInitiationDenomGreater = (data: FormData) => {
-  const errorArray: FormError[] = [];
-  const InitiationRates = data.PerformanceMeasure?.rates?.singleCategory?.[0];
-  const cmRates = data.PerformanceMeasure?.rates?.singleCategory?.[1];
-
-  if (
-    InitiationRates &&
-    cmRates &&
-    InitiationRates.denominator &&
-    cmRates.denominator
-  ) {
-    if (
-      parseFloat(cmRates.denominator) > parseFloat(InitiationRates.denominator)
-    ) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Continuation and Maintenance (C&M) Phase denominator must be less than or equal to Initiation Phase denominator",
-      });
-    }
-  }
-
-  return errorArray;
-};
 
 const ADDCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -52,7 +28,7 @@ const ADDCHValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...validateInitiationDenomGreater(data),
+    ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
@@ -91,7 +67,7 @@ const ADDCHValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
-        GV.validateOneQualifierDenomLessThanTheOther,
+        GV.validateOneQualDenomHigherThanOtherDenomOMS(),
       ],
     }),
   ];

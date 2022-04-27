@@ -1,26 +1,8 @@
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import * as DC from "dataConstants";
-
-const validateLarcRateGreater = (data: FormData) => {
-  const errorArray: FormError[] = [];
-  const memeRates = data.PerformanceMeasure?.rates?.singleCategory?.[0];
-  const larcRates = data.PerformanceMeasure?.rates?.singleCategory?.[1];
-
-  if (memeRates && larcRates && memeRates.rate && larcRates.rate) {
-    if (parseFloat(larcRates.rate) > parseFloat(memeRates.rate)) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate",
-      });
-    }
-  }
-
-  return errorArray;
-};
 
 const CCWCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -43,7 +25,6 @@ const CCWCHValidation = (data: FormData) => {
   );
 
   errorArray = [
-    ...validateLarcRateGreater(data),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
@@ -61,6 +42,7 @@ const CCWCHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -75,7 +57,7 @@ const CCWCHValidation = (data: FormData) => {
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
         GV.validateEqualCategoryDenominatorsOMS,
-        GV.validateOneQualifierRateLessThanTheOther,
+        GV.validateOneQualRateHigherThanOtherQualOMS(),
       ],
     }),
     ...GV.validateEqualCategoryDenominatorsPM(

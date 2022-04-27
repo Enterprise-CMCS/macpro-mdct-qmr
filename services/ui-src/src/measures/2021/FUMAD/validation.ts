@@ -22,7 +22,7 @@ const FUMADValidation = (data: FormData) => {
   );
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data["DidReport"] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
@@ -83,7 +83,7 @@ const FUMADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
       ],

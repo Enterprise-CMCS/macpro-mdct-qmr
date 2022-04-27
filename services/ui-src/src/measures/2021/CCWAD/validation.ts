@@ -1,35 +1,14 @@
-import { FormData } from "./types";
-import * as GV from "measures/globalValidations";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
 
-import { omsLocationDictionary } from "measures/globalValidations";
+import { FormData } from "./types";
+import { cleanString } from "utils/cleanString";
+import {
+  getPerfMeasureRateArray,
+  omsLocationDictionary,
+} from "measures/globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-
-const validateLarcRateGreater = (data: FormData) => {
-  let error;
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-
-  if (memeRates && larcRates && memeRates[0]?.rate && larcRates[0]?.rate) {
-    if (parseFloat(larcRates[0].rate) > parseFloat(memeRates[0].rate)) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate",
-      };
-    }
-  }
-
-  return error;
-};
 
 const CCWADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -44,16 +23,12 @@ const CCWADValidation = (data: FormData) => {
   );
 
   const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
+    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[0])] ?? [];
   const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
+    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[1])] ?? [];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data["DidReport"] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
@@ -76,9 +51,11 @@ const CCWADValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       [memeRates, larcRates],
       [""],
@@ -97,7 +74,7 @@ const CCWADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualCategoryDenominatorsOMS,
-        GV.validateOneCatRateLessThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
       ],
@@ -107,8 +84,4 @@ const CCWADValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [
-  CCWADValidation,
-  validateLarcRateGreater,
-  GV.validateRequiredRadioButtonForCombinedRates,
-];
+export const validationFunctions = [CCWADValidation];
