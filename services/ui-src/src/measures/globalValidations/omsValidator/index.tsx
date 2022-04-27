@@ -5,7 +5,6 @@ import {
 } from "../types";
 import {
   OmsNodes as OMS,
-  RateFields,
   DefaultFormData,
 } from "measures/CommonQuestions/types";
 import { cleanString } from "utils/cleanString";
@@ -57,39 +56,6 @@ export const omsValidations = ({
     dataSource
   );
 };
-
-export const validateOneSealantGreaterThanFourMolarsSealedOMS: OmsValidationCallback =
-  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
-    if (isOPM) return [];
-    const errors: FormError[] = [];
-    const isRateLessThanOther = (rateArr: RateFields[]) => {
-      if (rateArr.length !== 2) return true;
-      const compareValue = rateArr[0].rate ?? "";
-      return parseFloat(rateArr[1].rate ?? "") <= parseFloat(compareValue);
-    };
-    const rateArr: RateFields[] = [];
-    for (const qual of qualifiers) {
-      const cleanQual = cleanString(qual);
-      for (const cat of categories.map((s) => cleanString(s))) {
-        if (rateData.rates?.[cleanQual]?.[cat]) {
-          const temp = rateData.rates[cleanQual][cat][0];
-          if (temp && temp.rate) {
-            rateArr.push(temp);
-          }
-        }
-      }
-    }
-    if (!isRateLessThanOther(rateArr)) {
-      errors.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary(
-          label
-        )}`,
-        errorMessage: `Rate 2 (All Four Molars Sealed) should not be higher than Rate 1 (At Least One Sealant).`,
-      });
-    }
-
-    return errors;
-  };
 
 const validateNDRs = (
   data: DefaultFormData,

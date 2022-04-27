@@ -43,7 +43,7 @@ export const validateOneQualRateHigherThanOtherQualOMS = (
         errorLocation: `Optional Measure Stratification: ${locationDictionary(
           label
         )}`,
-        errorMessage: `${qualifiers[lowerIndex]} rate should not be higher than ${qualifiers[higherIndex]} Rates.`,
+        errorMessage: `${qualifiers[lowerIndex]} rate should not be higher than ${qualifiers[higherIndex]} rates.`,
       });
     }
     return errors;
