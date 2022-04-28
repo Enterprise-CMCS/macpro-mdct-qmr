@@ -29,7 +29,7 @@ const AMRADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,

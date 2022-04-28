@@ -112,7 +112,7 @@ const AMMADValidation = (data: FormData) => {
       data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

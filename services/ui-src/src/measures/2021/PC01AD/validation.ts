@@ -25,7 +25,7 @@ const PC01ADValidation = (data: FormData) => {
 
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

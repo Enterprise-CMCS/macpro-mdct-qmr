@@ -44,7 +44,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,

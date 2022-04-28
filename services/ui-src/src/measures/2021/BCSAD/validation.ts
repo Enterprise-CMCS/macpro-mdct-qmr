@@ -68,7 +68,7 @@ const BCSValidation = (data: FormData) => {
     }),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,

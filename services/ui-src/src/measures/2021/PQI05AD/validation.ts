@@ -32,7 +32,7 @@ const PQI05Validation = (data: FormData) => {
   }
   errorArray = [
     ...errorArray,
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,

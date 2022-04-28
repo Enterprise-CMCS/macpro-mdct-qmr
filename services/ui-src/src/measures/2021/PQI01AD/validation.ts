@@ -37,7 +37,7 @@ const PQI01Validation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,

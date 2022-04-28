@@ -1,3 +1,4 @@
+import * as DC from "dataConstants";
 import { FormRateField } from "../types";
 
 export const validateDualPopInformationPM = (
@@ -14,7 +15,7 @@ export const validateDualPopInformationPM = (
   if (DefinitionOfDenominator) {
     dualEligible =
       DefinitionOfDenominator.indexOf(
-        "DenominatorIncMedicareMedicaidDualEligible"
+        DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE
       ) !== -1;
   } else {
     dualEligible = false;

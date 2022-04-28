@@ -61,7 +61,7 @@ const FUMADValidation = (data: FormData) => {
       data
     ),
     ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(

@@ -35,7 +35,7 @@ const PQI08Validation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,

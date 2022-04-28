@@ -35,7 +35,7 @@ const FUAHHValidation = (data: FormData) => {
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   errorArray = [
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,

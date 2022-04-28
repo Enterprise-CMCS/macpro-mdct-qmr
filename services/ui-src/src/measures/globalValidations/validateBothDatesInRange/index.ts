@@ -1,7 +1,9 @@
 import { DateRange } from "measures/CommonQuestions/types";
 
 // Ensure the user populates the data range
-export const validateBothDatesInRange = (dateRange: DateRange["DateRange"]) => {
+export const validateBothDatesCompleted = (
+  dateRange: DateRange["DateRange"]
+) => {
   let errorArray: any[] = [];
   let error;
 

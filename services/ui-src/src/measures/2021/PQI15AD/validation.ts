@@ -29,7 +29,7 @@ const PQI15Validation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,

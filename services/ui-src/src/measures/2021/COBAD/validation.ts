@@ -53,7 +53,7 @@ const IEDValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

@@ -1,29 +1,34 @@
-import { test_setup } from "../testHelpers/_helper";
+import * as DC from "dataConstants";
 import { testFormData } from "../testHelpers/_testFormData";
-// import { validateReasonForNotReporting } from "measures/globalValidations";
+import { validateReasonForNotReporting } from "measures/globalValidations";
 
 describe("validateReasonForNotReporting", () => {
-  let formData: any;
+  let formData: string[];
   let errorArray: FormError[];
 
-  const _check_errors = (data: any, numErrors: number) => {
-    const { ageGroups, performanceMeasureArray, OPM } = test_setup(data);
-    ageGroups;
-    performanceMeasureArray;
-    OPM;
-
-    errorArray = [
-      // ...validateReasonForNotReporting()
-    ];
+  const _check_errors = (
+    data: string[],
+    numErrors: number,
+    collecting?: boolean
+  ) => {
+    errorArray = [...validateReasonForNotReporting(data, collecting)];
     expect(errorArray.length).toBe(numErrors);
   };
 
   beforeEach(() => {
-    formData = JSON.parse(JSON.stringify(testFormData)); // reset data
+    formData = testFormData[DC.WHY_ARE_YOU_NOT_REPORTING]; // reset data
     errorArray = [];
   });
 
-  test("", () => {
-    _check_errors(formData, 0);
+  test("Default form data", () => {
+    _check_errors(["Sample Error Reason"], 0, false);
+  });
+
+  test("Reason for not reporting not selected (reporting)", () => {
+    _check_errors(formData, 1);
+  });
+
+  test("Reason for not reporting not selected (collecting)", () => {
+    _check_errors(formData, 1, true);
   });
 });

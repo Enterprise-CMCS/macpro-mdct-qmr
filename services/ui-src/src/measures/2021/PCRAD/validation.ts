@@ -57,7 +57,7 @@ const PCRADValidation = (data: FormData) => {
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
     ...PCRADatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...PCRADnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),

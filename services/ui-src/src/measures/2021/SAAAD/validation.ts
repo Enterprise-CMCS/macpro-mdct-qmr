@@ -60,7 +60,7 @@ const SAAADValidation = (data: FormData) => {
       ],
     }),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

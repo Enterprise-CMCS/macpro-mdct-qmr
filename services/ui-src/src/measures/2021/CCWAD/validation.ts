@@ -49,7 +49,7 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       [memeRates, larcRates],

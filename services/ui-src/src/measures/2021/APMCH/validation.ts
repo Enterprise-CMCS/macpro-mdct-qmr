@@ -41,7 +41,7 @@ const APMCHValidation = (data: FormData) => {
       PMD.qualifiers,
       data
     ),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

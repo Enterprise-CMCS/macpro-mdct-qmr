@@ -42,7 +42,7 @@ const WCCHValidation = (data: FormData) => {
       PMD.qualifiers,
       data
     ),
-    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
