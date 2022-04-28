@@ -108,13 +108,13 @@ const useMeasureTableDataBuilder = () => {
   useEffect(() => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
-      // data.Items.measure.status = "complete"
-      let numCompletedMeasures = 0;
+      let numCompleteItems = 0;
+      // include qualifier in core set status check
       for (const m of data.Items as MeasureData[]) {
-        if (m.status === "complete") numCompletedMeasures++;
+        if (m.status === "complete") numCompleteItems++;
       }
       const coreSetStatus =
-        data.Items.length === numCompletedMeasures
+        data.Items.length === numCompleteItems
           ? CoreSetTableItem.Status.COMPLETED
           : CoreSetTableItem.Status.IN_PROGRESS;
       setCoreSetStatus(coreSetStatus);
