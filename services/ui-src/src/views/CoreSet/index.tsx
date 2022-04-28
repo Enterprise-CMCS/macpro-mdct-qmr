@@ -57,7 +57,11 @@ const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
       </CUI.Flex>
     );
   }
-  return <CUI.Text>Incomplete</CUI.Text>;
+  return (
+    <CUI.Text>
+      Incomplete (Qualifier Questions must be complete to submit the Core Set)
+    </CUI.Text>
+  );
 };
 
 const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
