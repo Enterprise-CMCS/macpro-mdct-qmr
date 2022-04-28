@@ -89,7 +89,6 @@ const SFMCHValidation = (data: FormData) => {
       data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateOneDataSource(data),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
