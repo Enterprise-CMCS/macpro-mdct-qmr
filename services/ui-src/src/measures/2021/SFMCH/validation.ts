@@ -4,38 +4,6 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validateOneSealantGreaterThanFourMolarsSealed = (data: FormData) => {
-  if (
-    !(
-      data?.PerformanceMeasure?.rates?.singleCategory?.[0] ||
-      data?.PerformanceMeasure?.rates?.singleCategory?.[1]
-    )
-  ) {
-    return [];
-  }
-  const oneSealant = data["PerformanceMeasure"]["rates"]["singleCategory"][0];
-  const fourMolarsSealed =
-    data["PerformanceMeasure"]["rates"]["singleCategory"][1];
-  let error;
-  const errorArray: any[] = [];
-
-  if (oneSealant && fourMolarsSealed) {
-    if (
-      parseFloat(oneSealant?.rate ?? "") <
-      parseFloat(fourMolarsSealed?.rate ?? "")
-    ) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Rate 2 (All Four Molars Sealed) should not be higher than Rate 1 (At Least One Sealant).",
-      };
-
-      errorArray.push(error);
-    }
-  }
-  return error ? errorArray : [];
-};
-
 const SFMCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -81,7 +49,7 @@ const SFMCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...validateOneSealantGreaterThanFourMolarsSealed(data),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
