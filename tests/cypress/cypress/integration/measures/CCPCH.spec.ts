@@ -308,7 +308,7 @@ describe("Measure CCP-CH", () => {
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-testid="measure-wrapper-form"]').should(
       "contain",
-      "Performance Measure ErrorThree Days Postpartum Rate rate must be less than or equal to Sixty Days Postpartum Rate rate within Most effective or moderately effective method of contraception."
+      "Three Days Postpartum Rate rate must be less than or equal to Sixty Days Postpartum Rate rate within Long-acting reversible method of contraception (LARC)."
     );
   });
 });
