@@ -1,13 +1,20 @@
 import { CoreSetTableItem } from "components/Table/types";
 import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, MeasureStatus } from "types";
 import { SPAi } from "libs/spaLib";
 
-interface Data {
+interface HandleDeleteData {
   state: string;
   year: string;
   coreSet: CoreSetAbbr;
+}
+
+interface UpdateAllMeasuresData {
+  state: string;
+  year: string;
+  coreSet: CoreSetAbbr;
+  measureStatus: MeasureStatus;
 }
 
 interface CoreSetDataItem {
@@ -24,7 +31,9 @@ interface CoreSetDataItem {
 
 export interface CoreSetDataItems {
   items: CoreSetDataItem[];
-  handleDelete: (data: Data) => void;
+  handleDelete: (data: HandleDeleteData) => void;
+  updateAllMeasures: (data: UpdateAllMeasuresData) => void;
+  resetCoreSet: (data: any) => void;
   filteredSpas?: SPAi[];
 }
 
@@ -48,6 +57,8 @@ const getCoreSetType = (type: CoreSetAbbr) => {
 export const formatTableItems = ({
   items,
   handleDelete,
+  updateAllMeasures,
+  resetCoreSet,
   filteredSpas,
 }: CoreSetDataItems) => {
   const coreSetTableItems = items.map(
@@ -77,6 +88,21 @@ export const formatTableItems = ({
             year: year.toString(),
             coreSet,
           }),
+        completeAllMeasures: () => {
+          updateAllMeasures({
+            state,
+            year: year.toString(),
+            coreSet,
+            measureStatus: MeasureStatus.COMPLETE,
+          });
+        },
+        resetCoreSet: () => {
+          resetCoreSet({
+            state,
+            year: year.toString(),
+            coreSet,
+          });
+        },
         type,
       };
 

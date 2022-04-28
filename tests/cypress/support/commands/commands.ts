@@ -47,6 +47,7 @@ Cypress.Commands.add(
       stateuser4: Cypress.env("TEST_USER_4"),
       stateuser3: Cypress.env("TEST_USER_3"),
       stateuser2: Cypress.env("TEST_USER_2"),
+      stateuser1: Cypress.env("TEST_USER_1"),
     };
     cy.visit("/");
     cy.xpath(emailForCognito).type(`${users[user]}`);

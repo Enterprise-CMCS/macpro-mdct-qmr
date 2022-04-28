@@ -1,8 +1,8 @@
-import * as PMD from "./data";
+import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import * as DC from "dataConstants";
 
 const HVLADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -27,6 +27,11 @@ const HVLADValidation = (data: FormData) => {
   );
 
   errorArray = [
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateDualPopInformation(
       performanceMeasureArray,
@@ -45,6 +50,14 @@ const HVLADValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -60,15 +73,6 @@ const HVLADValidation = (data: FormData) => {
         GV.validateRateNotZero,
       ],
     }),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
   ];
 
   return errorArray;

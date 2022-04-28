@@ -25,16 +25,16 @@ const PC01ADValidation = (data: FormData) => {
 
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // Performance Measure Validations
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,

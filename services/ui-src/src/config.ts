@@ -1,5 +1,12 @@
 //  @ts-nocheck
 
+export const isDevEnv = () => {
+  return (
+    configToExport.BRANCH_NAME !== undefined &&
+    configToExport.BRANCH_NAME !== "prod"
+  );
+};
+
 const configToExport = {
   PROD_URL: window._env_.PROD_URL,
   BRANCH_NAME: window._env_.BRANCH_NAME,
