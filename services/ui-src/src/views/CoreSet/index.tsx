@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { AddStateSpecificMeasureCard } from "./AddStateSpecificMeasureCard";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
 import { Link } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
@@ -153,6 +154,11 @@ export const CoreSet = () => {
       ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
+  // It appears that spaName only has a value for HH Core Sets. Is this true?
+  // Or should we determine whether or not this is a HH Core Set another way,
+  // like checking the coreSetId for "HH"?
+  const isHHCoreSet = spaName.length > 0;
+
   const { data } = useGetCoreSet({ coreSetId, state, year });
   const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
 
@@ -234,6 +240,14 @@ export const CoreSet = () => {
               alertTitle="Error In Measure Retrieval"
               alertDescription={(error as Error)?.message}
             />
+          )}
+          {isHHCoreSet && (
+            <CUI.HStack spacing="6">
+              <AddStateSpecificMeasureCard
+                buttonText="Add State Specific Measure"
+                title="Need to report on State Specific data?"
+              />
+            </CUI.HStack>
           )}
         </QMR.LoadingWrapper>
       </CUI.Box>
