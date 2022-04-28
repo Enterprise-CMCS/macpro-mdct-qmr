@@ -83,7 +83,7 @@ export const validateOneCatRateHigherThanOtherCatPM = (
       ) {
         error = {
           errorLocation: "Performance Measure",
-          errorMessage: `${performanceMeasureData.categories?.[lowerIndex]} Rate should not be higher than ${performanceMeasureData.categories?.[higherIndex]} Rate for ${performanceMeasureData.qualifiers?.[index]} Rates`,
+          errorMessage: `${performanceMeasureData.categories?.[lowerIndex]} Rate should not be higher than ${performanceMeasureData.categories?.[higherIndex]} Rate for ${performanceMeasureData.qualifiers?.[index]} Rates.`,
         };
 
         errorArray.push(error);

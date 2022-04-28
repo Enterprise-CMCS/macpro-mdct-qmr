@@ -70,7 +70,15 @@ export const validateOneQualRateHigherThanOtherQualPM = (
     ) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `The rate value of the ${performanceMeasureData.qualifiers?.[lowerIndex]} must be less than or equal to the ${performanceMeasureData.qualifiers?.[higherIndex]} within ${performanceMeasureData.categories?.[higherIndex]}.`,
+        errorMessage: `${
+          performanceMeasureData.qualifiers?.[lowerIndex]
+        } rate must be less than or equal to ${
+          performanceMeasureData.qualifiers?.[higherIndex]
+        } rate${
+          performanceMeasureData.categories?.length
+            ? ` within ${performanceMeasureData.categories?.[higherIndex]}`
+            : ""
+        }.`,
       });
     }
   }
@@ -81,7 +89,15 @@ export const validateOneQualRateHigherThanOtherQualPM = (
     ) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `The rate value of the ${performanceMeasureData.qualifiers?.[lowerIndex]} must be less than or equal to the ${performanceMeasureData.qualifiers?.[higherIndex]} within ${performanceMeasureData.categories?.[lowerIndex]}.`,
+        errorMessage: `${
+          performanceMeasureData.qualifiers?.[lowerIndex]
+        } rate must be less than or equal to ${
+          performanceMeasureData.qualifiers?.[higherIndex]
+        } rate${
+          performanceMeasureData.categories?.length
+            ? ` within ${performanceMeasureData.categories?.[lowerIndex]}`
+            : ""
+        }.`,
       });
     }
   }

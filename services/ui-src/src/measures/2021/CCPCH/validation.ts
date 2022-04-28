@@ -52,7 +52,7 @@ const CCPCHValidation = (data: FormData) => {
     ),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
 
     // OMS Specific Validations
     ...GV.omsValidations({
@@ -66,7 +66,7 @@ const CCPCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateEqualCategoryDenominatorsOMS,
-        GV.validateOneQualRateHigherThanOtherQualOMS(),
+        GV.validateOneQualRateHigherThanOtherQualOMS(1, 0),
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateNotZeroOMS,
