@@ -7,10 +7,10 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 const FUMADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const sixtyDaysIndex = 1;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const dateRange = data[DC.DATE_RANGE];
 
   let errorArray: any[] = [];

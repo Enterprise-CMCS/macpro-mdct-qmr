@@ -2,14 +2,12 @@ import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const AMRADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const deviationArray = GV.getDeviationNDRArray(
@@ -56,7 +54,7 @@ const AMRADValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories

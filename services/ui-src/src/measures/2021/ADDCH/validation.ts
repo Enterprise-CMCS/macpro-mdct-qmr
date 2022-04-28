@@ -26,12 +26,6 @@ const ADDCHValidation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateBothDatesInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
     ...errorArray,
     ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
     ...GV.validateAtLeastOneRateComplete(
@@ -50,6 +44,9 @@ const ADDCHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
