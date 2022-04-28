@@ -7,6 +7,7 @@ export interface CoreSet {
   progress: {
     numAvailable: number;
     numComplete: number;
+    qualifiersComplete?: boolean;
   };
   state: string;
   submitted: boolean;

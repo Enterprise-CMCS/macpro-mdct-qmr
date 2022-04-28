@@ -23,7 +23,11 @@ interface CoreSetDataItem {
   createdAt: number;
   lastAltered: number;
   lastAlteredBy: string;
-  progress: { numAvailable: number; numComplete: number };
+  progress: {
+    numAvailable: number;
+    numComplete: number;
+    qualifiersComplete: boolean;
+  };
   state: string;
   submitted: boolean;
   year: number;

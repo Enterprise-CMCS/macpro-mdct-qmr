@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { CoreSetTableItem, TableColumn } from "../types";
 
 // Get status string from core set data
-const getStatus = ({
-  progress,
-  submitted,
-}: CoreSetTableItem.Data): CoreSetTableItem.Status => {
+const getStatus = (
+  { progress, submitted }: CoreSetTableItem.Data,
+  includeQualifiers = false
+): CoreSetTableItem.Status => {
   let status = CoreSetTableItem.Status.NOT_STARTED;
 
   if (submitted) return CoreSetTableItem.Status.SUBMITTED;
@@ -18,7 +18,9 @@ const getStatus = ({
   ) {
     status = CoreSetTableItem.Status.IN_PROGRESS;
   } else if (progress && progress.numComplete === progress.numAvailable) {
-    status = CoreSetTableItem.Status.COMPLETED;
+    if (includeQualifiers && !progress.qualifiersComplete)
+      status = CoreSetTableItem.Status.IN_PROGRESS;
+    else status = CoreSetTableItem.Status.COMPLETED;
   }
 
   return status;
@@ -82,7 +84,7 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
         <CUI.Box textAlign="center">
           <QMR.SubmitCoreSetButton
             coreSet={data.coreSet}
-            coreSetStatus={getStatus(data)}
+            coreSetStatus={getStatus(data, true)}
             isSubmitted={data.submitted}
             year={data.year}
             styleProps={{

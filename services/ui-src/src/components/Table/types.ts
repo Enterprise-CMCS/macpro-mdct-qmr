@@ -6,6 +6,7 @@ export namespace CoreSetTableItem {
   export interface Progress {
     numAvailable: number;
     numComplete: number;
+    qualifiersComplete: boolean;
   }
 
   export enum Type {

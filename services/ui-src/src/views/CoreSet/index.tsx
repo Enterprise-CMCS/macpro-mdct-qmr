@@ -102,9 +102,23 @@ const useMeasureTableDataBuilder = () => {
   const { state, year, coreSetId } = useParams();
   const { data, isLoading, isError, error } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
+  const [coreSetStatus, setCoreSetStatus] = useState(
+    CoreSetTableItem.Status.IN_PROGRESS
+  );
   useEffect(() => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
+      // data.Items.measure.status = "complete"
+      let numCompletedMeasures = 0;
+      for (const m of data.Items as MeasureData[]) {
+        if (m.status === "complete") numCompletedMeasures++;
+      }
+      const coreSetStatus =
+        data.Items.length === numCompletedMeasures
+          ? CoreSetTableItem.Status.COMPLETED
+          : CoreSetTableItem.Status.IN_PROGRESS;
+      setCoreSetStatus(coreSetStatus);
+
       const filteredItems = (data.Items as MeasureData[]).filter(
         // filter out the coreset qualifiers
         (item) => item.measure && item.measure !== "CSQ"
@@ -135,8 +149,7 @@ const useMeasureTableDataBuilder = () => {
       mounted = false;
     };
   }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
-
-  return { measures, isLoading, isError, error };
+  return { coreSetStatus, measures, isLoading, isError, error };
 };
 
 export const CoreSet = () => {
@@ -154,16 +167,12 @@ export const CoreSet = () => {
       : "";
 
   const { data } = useGetCoreSet({ coreSetId, state, year });
-  const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
+  const { coreSetStatus, measures, isLoading, isError, error } =
+    useMeasureTableDataBuilder();
 
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
   )?.length;
-
-  const coreSetStatus =
-    measures.length === completedAmount
-      ? CoreSetTableItem.Status.COMPLETED
-      : CoreSetTableItem.Status.IN_PROGRESS;
 
   return (
     <QMR.StateLayout
