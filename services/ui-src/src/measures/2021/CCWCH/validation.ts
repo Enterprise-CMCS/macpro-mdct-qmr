@@ -1,8 +1,8 @@
-import * as PMD from "./data";
+import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import * as DC from "dataConstants";
 
 const validateLarcRateGreater = (data: FormData) => {
   const errorArray: FormError[] = [];
@@ -43,9 +43,13 @@ const CCWCHValidation = (data: FormData) => {
   );
 
   errorArray = [
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
     ...validateLarcRateGreater(data),
     ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -57,6 +61,19 @@ const CCWCHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateAllDenomsTheSameCrossQualifier(
+      data,
+      PMD.categories,
+      PMD.qualifiers
+    ),
+    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -74,19 +91,6 @@ const CCWCHValidation = (data: FormData) => {
         GV.validateOneQualifierRateLessThanTheOther,
       ],
     }),
-    ...GV.validateAllDenomsTheSameCrossQualifier(
-      data,
-      PMD.categories,
-      PMD.qualifiers
-    ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
   ];
 
   return errorArray;

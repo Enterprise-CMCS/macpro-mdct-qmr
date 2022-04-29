@@ -23,9 +23,12 @@ const APMCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    // Performance Measure and OPM Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOneDataSource(data),
+    ...GV.ensureBothDatesCompletedInRange(dateRange),
+
+    // Performance Measure Validations
+    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
     ...GV.validateNumeratorsLessThanDenominators(
       performanceMeasureArray,
       OPM,
@@ -37,14 +40,12 @@ const APMCHValidation = (data: FormData) => {
       PMD.qualifiers,
       data
     ),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
     ...GV.validateEqualDenominators(performanceMeasureArray, PMD.qualifiers),
 

@@ -18,8 +18,12 @@ async function requestOptions(): Promise<any> {
 
     return options;
   } catch (e) {
-    console.log("Error getting current session");
+    console.log("Error getting current session - signin out");
     console.log({ e });
+    Auth.signOut();
+    if (window !== undefined) {
+      window.location.href = window.location.origin;
+    }
   }
 }
 
@@ -89,7 +93,7 @@ async function getCoreSet(inputObj: any) {
   opts.body = inputObj.body;
   return API.get(
     "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/get`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/get`,
     opts
   );
 }
