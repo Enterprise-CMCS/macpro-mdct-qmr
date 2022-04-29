@@ -42,7 +42,7 @@ export const MonthPicker = ({
             <CUI.Input
               data-cy={`${name}-month`}
               width="4rem"
-              label="Month"
+              // label="Month"
               aria-label="Month Input Field"
               name={`${name}.month`}
               value={field.value?.selectedMonth ?? ""}
@@ -65,7 +65,7 @@ export const MonthPicker = ({
           <CUI.HStack>
             <CUI.Input
               width="6rem"
-              label="Year"
+              // label="Year"
               aria-label="Year Input Field"
               name={`${name}.year`}
               data-cy={`${name}-year`}

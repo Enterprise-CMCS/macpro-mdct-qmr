@@ -10,6 +10,6 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
-export const RouterWrappedComp: React.FC = ({ children }) => (
-  <Router>{children}</Router>
-);
+export const RouterWrappedComp: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => <Router>{children}</Router>;

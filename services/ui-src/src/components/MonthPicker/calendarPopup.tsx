@@ -62,6 +62,8 @@ export const MonthPickerCalendar = ({
         setPickerOpen(!pickerOpen);
       }}
     >
+      {/*
+ // @ts-ignore */}
       <CUI.PopoverTrigger>
         <CUI.IconButton
           variant="outline"

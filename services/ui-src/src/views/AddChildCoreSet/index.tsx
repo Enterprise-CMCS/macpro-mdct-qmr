@@ -13,7 +13,7 @@ enum ReportType {
 }
 
 interface ChildCoreSetReportType {
-  "ChildCoreSet-ReportType": ReportType;
+  "ChildCoreSet-ReportType"?: ReportType;
 }
 
 export const AddChildCoreSet = () => {

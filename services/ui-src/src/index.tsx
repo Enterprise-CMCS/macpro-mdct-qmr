@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "index.scss";
 import App from "App";
 import * as serviceWorker from "serviceWorker";
@@ -18,8 +18,9 @@ Amplify.configure({
     identityPoolId: config.cognito.IDENTITY_POOL_ID,
   },
 });
+const root = createRoot(document.getElementById("root")!); // exclamation is necessary if you use TypeScript per react docs
 
-ReactDOM.render(
+root.render(
   <Router>
     <UserProvider>
       <ApiProvider>
@@ -31,8 +32,7 @@ ReactDOM.render(
         </QueryProvider>
       </ApiProvider>
     </UserProvider>
-  </Router>,
-  document.getElementById("root")
+  </Router>
 );
 
 // If you want your app to work offline and load faster, you can change
