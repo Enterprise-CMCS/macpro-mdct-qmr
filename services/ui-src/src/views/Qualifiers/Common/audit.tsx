@@ -24,7 +24,7 @@ export const CloseButton = ({ onClick }: { onClick: () => void }) => (
 );
 
 interface Props {
-  type: "CH" | "AD";
+  type: "CH" | "AD" | "HH";
 }
 
 export const Audit = ({ type }: Props) => {

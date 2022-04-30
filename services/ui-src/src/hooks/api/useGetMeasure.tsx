@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
 import * as API from "libs/api";
-import { CoreSetAbbr, Params } from "types";
+import { Params } from "types";
 import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router-dom";
 
 interface GetMeasure {
-  coreSet: CoreSetAbbr;
+  coreSet: string;
   measure: string;
 }
 
