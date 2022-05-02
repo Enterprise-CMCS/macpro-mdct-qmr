@@ -52,7 +52,9 @@ export const SubmitCoreSetButton = ({
         <ContainedButton
           buttonText={"Submit Core Set"}
           disabledStatus={
-            isLoading || coreSetStatus !== CoreSetTableItem.Status.COMPLETED
+            isLoading ||
+            userInfo.userRole !== "mdctqmr-state-user" ||
+            coreSetStatus !== CoreSetTableItem.Status.COMPLETED
           }
           buttonProps={{
             bg: "blue.600",
