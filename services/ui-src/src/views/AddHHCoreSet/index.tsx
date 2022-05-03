@@ -95,6 +95,12 @@ export const AddHHCoreSet = () => {
                           displayValue:
                             "Yes, I want to add State Specific Measures now.",
                           value: DC.YES,
+                          children: [
+                            <QMR.TextInput
+                              label="Name the measure"
+                              {...register("HealthHomeCoreSet-SPA")}
+                            ></QMR.TextInput>,
+                          ],
                         },
                         {
                           displayValue:
