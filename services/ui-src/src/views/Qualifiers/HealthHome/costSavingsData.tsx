@@ -8,18 +8,19 @@ import { useParams } from "react-router-dom";
 export const CostSavingsData = () => {
   const { year } = useParams();
   const register = useCustomRegister<Types.CostSavingsData>();
+  const padding = "10px";
   return (
     <CUI.ListItem mr="4">
       <Common.QualifierHeader header="Cost Savings Data" description="" />
       <QMR.NumberInput
         {...register("yearlyCostSavings")}
-        formLabelProps={{ fontWeight: "400" }}
+        formLabelProps={{ fontWeight: "400", padding: padding }}
         label={`Amount of cost savings for FFY ${year}`}
       />
       <QMR.TextArea
         {...register("costSavingsMethodology")}
         label="Please describe your cost savings methodology:"
-        formLabelProps={{ fontWeight: 400 }}
+        formLabelProps={{ fontWeight: "400", padding: padding }}
       />
       <CUI.Box marginTop={10}>
         <QMR.Upload
