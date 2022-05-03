@@ -14,6 +14,17 @@ export interface RateData extends OMS.OmsRateFields {
   "pcrad-rate"?: { id?: number; value?: string; label?: string }[];
 }
 
+export interface UnifiedValFuncProps {
+  categories?: string[];
+  qualifiers?: string[];
+  rateData: FormRateField[][];
+  location: string;
+}
+
+export type UnifiedValidationFunction = (
+  props: UnifiedValFuncProps
+) => FormError[];
+
 export type OmsValidationCallback = (data: {
   rateData: RateData;
   qualifiers: string[];

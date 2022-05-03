@@ -1,9 +1,52 @@
-import * as Types from "../../CommonQuestions/types";
+import * as Types from "measures/CommonQuestions/types";
+import { OmsValidationCallback, UnifiedValFuncProps as UVFP } from "../types";
+import {
+  getPerfMeasureRateArray,
+  convertOmsDataToRateArray,
+} from "../dataDrivenTools";
 
-import { cleanString } from "utils/cleanString";
-import { OmsValidationCallback } from "../types";
-import { getPerfMeasureRateArray } from "../dataDrivenTools";
+interface ValProps extends UVFP {
+  lowerIndex: number;
+  higherIndex: number;
+}
 
+const _validation = ({
+  categories,
+  location,
+  qualifiers,
+  rateData,
+  higherIndex,
+  lowerIndex,
+}: ValProps) => {
+  const errorArray: FormError[] = [];
+
+  for (const [i, ratefields] of rateData.entries()) {
+    if (
+      ratefields.length >= 2 &&
+      parseFloat(ratefields[lowerIndex]?.rate ?? "") >
+        parseFloat(ratefields[higherIndex]?.rate ?? "")
+    ) {
+      errorArray.push({
+        errorLocation: location,
+        errorMessage: `${
+          qualifiers?.[lowerIndex]
+        } rate must be less than or equal to ${qualifiers?.[higherIndex]} rate${
+          categories?.length ? ` within ${categories?.[i]}` : ""
+        }.`,
+      });
+    }
+  }
+  return errorArray;
+};
+
+/**
+ * Validates that one qualifiers rate is higher than the other specified qualifiers rate
+ * @note this function returns the oms validation function
+ *
+ *
+ * @param higherIndex which qualifier index should have the higher rate
+ * @param lowerIndex which qualifier index should have the lower rate
+ */
 export const validateOneQualRateHigherThanOtherQualOMS = (
   higherIndex = 0,
   lowerIndex = 1
@@ -17,90 +60,38 @@ export const validateOneQualRateHigherThanOtherQualOMS = (
     isOPM,
   }) => {
     if (isOPM) return [];
-    const rateArr: Types.RateFields[] = [];
-    const errors: FormError[] = [];
-    const isRateLessThanOther = (rateArr: Types.RateFields[]) => {
-      if (rateArr.length !== 2) return true;
-      const compareValue = rateArr[higherIndex].rate ?? "";
-      return (
-        parseFloat(rateArr[lowerIndex].rate ?? "") <= parseFloat(compareValue)
-      );
-    };
-    for (const qual of qualifiers) {
-      const cleanQual = cleanString(qual);
-      for (const cat of categories.map((s) => cleanString(s))) {
-        if (rateData.rates?.[cleanQual]?.[cat]) {
-          const temp = rateData.rates[cleanQual][cat][0];
-          if (temp && temp.rate) {
-            rateArr.push(temp);
-          }
-        }
-      }
-    }
-
-    if (!isRateLessThanOther(rateArr)) {
-      errors.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary(
-          label
-        )}`,
-        errorMessage: `${qualifiers[lowerIndex]} rate should not be higher than ${qualifiers[higherIndex]} rates.`,
-      });
-    }
-    return errors;
+    return _validation({
+      categories,
+      qualifiers,
+      location: `Optional Measure Stratification: ${locationDictionary(label)}`,
+      higherIndex,
+      lowerIndex,
+      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+    });
   };
 };
 
-// Built specifically for CCP-AD and CCP-CH
+/**
+ * Validates that one qualifiers rate is higher than the other specified qualifiers rate
+ *
+ * @param data form data
+ * @param performanceMeasureData data driven information
+ * @param higherIndex which qualifier index should have the higher rate
+ * @param lowerIndex which qualifier index should have the lower rate
+ */
 export const validateOneQualRateHigherThanOtherQualPM = (
-  data: Types.DefaultFormData,
+  data: Types.PerformanceMeasure,
   performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure,
   higherIndex = 0,
   lowerIndex = 1
 ) => {
   const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
-  const sevenDays = perfMeasure[higherIndex];
-  const thirtyDays = perfMeasure[lowerIndex];
-
-  const errorArray: any[] = [];
-
-  if (sevenDays?.length === 2) {
-    if (
-      parseFloat(sevenDays[lowerIndex]?.rate ?? "") >
-      parseFloat(sevenDays[higherIndex]?.rate ?? "")
-    ) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage: `${
-          performanceMeasureData.qualifiers?.[lowerIndex]
-        } rate must be less than or equal to ${
-          performanceMeasureData.qualifiers?.[higherIndex]
-        } rate${
-          performanceMeasureData.categories?.length
-            ? ` within ${performanceMeasureData.categories?.[higherIndex]}`
-            : ""
-        }.`,
-      });
-    }
-  }
-  if (thirtyDays?.length === 2) {
-    if (
-      parseFloat(thirtyDays[lowerIndex]?.rate ?? "") >
-      parseFloat(thirtyDays[higherIndex]?.rate ?? "")
-    ) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage: `${
-          performanceMeasureData.qualifiers?.[lowerIndex]
-        } rate must be less than or equal to ${
-          performanceMeasureData.qualifiers?.[higherIndex]
-        } rate${
-          performanceMeasureData.categories?.length
-            ? ` within ${performanceMeasureData.categories?.[lowerIndex]}`
-            : ""
-        }.`,
-      });
-    }
-  }
-
-  return errorArray;
+  return _validation({
+    categories: performanceMeasureData.categories,
+    qualifiers: performanceMeasureData.qualifiers,
+    higherIndex,
+    lowerIndex,
+    rateData: perfMeasure,
+    location: "Performance Measure",
+  });
 };

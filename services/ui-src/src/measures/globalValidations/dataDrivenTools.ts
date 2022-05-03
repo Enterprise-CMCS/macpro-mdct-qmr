@@ -1,7 +1,8 @@
 import * as DC from "dataConstants";
 import * as Types from "measures/CommonQuestions/types";
 import { DataDrivenTypes as DDT } from "measures/CommonQuestions/types";
-import { FormRateField as PM } from "./types";
+import { cleanString } from "utils/cleanString";
+import { FormRateField as PM, RateData } from "./types";
 
 /**
  * Extracts Performance Measure Rates into double array for validation.
@@ -27,6 +28,25 @@ export const getPerfMeasureRateArray = (
   }
 
   return performanceMeasureData;
+};
+
+/** Utility function for converting oms data to be the same as returned performance measure. Encourages shared validations. */
+export const convertOmsDataToRateArray = (
+  categories: string[],
+  qualifiers: string[],
+  rateData: RateData
+) => {
+  const rateArray: PM[][] = [];
+
+  for (const cat of categories.map((c) => cleanString(c))) {
+    const tempArr: PM[] = [];
+    for (const qual of qualifiers.map((q) => cleanString(q))) {
+      tempArr.push(rateData.rates?.[qual]?.[cat][0] ?? {});
+    }
+    rateArray.push(tempArr);
+  }
+
+  return rateArray;
 };
 
 interface PMErrorDictionary {
