@@ -53,7 +53,7 @@ export const SubmitCoreSetButton = ({
           buttonText={"Submit Core Set"}
           disabledStatus={
             isLoading ||
-            userInfo.userRole !== "mdctqmr-state-user" ||
+            !userInfo.isStateUser ||
             coreSetStatus !== CoreSetTableItem.Status.COMPLETED
           }
           buttonProps={{
