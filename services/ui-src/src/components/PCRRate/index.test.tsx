@@ -3,7 +3,7 @@ import fireEvent from "@testing-library/user-event";
 
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
-import { MultiRate } from ".";
+import { PCRRate } from ".";
 
 // Example input fields
 const qualifiers = [
@@ -51,7 +51,7 @@ const rates = qualifiers.map((item, idx) => ({
 describe("Test the Rate component when readOnly is false", () => {
   beforeEach(() => {
     renderWithHookForm(
-      <MultiRate rates={rates} name="test-component" readOnly={false} />
+      <PCRRate rates={rates} name="test-component" readOnly={false} />
     );
   });
 
@@ -96,7 +96,7 @@ describe("Test the Rate component when readOnly is false", () => {
 describe("Test the Rate component when readOnly is true", () => {
   beforeEach(() => {
     renderWithHookForm(
-      <MultiRate rates={rates} name="test-component" readOnly={true} />
+      <PCRRate rates={rates} name="test-component" readOnly={true} />
     );
   });
 

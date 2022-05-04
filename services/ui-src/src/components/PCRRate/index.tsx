@@ -17,7 +17,7 @@ interface Props extends QMR.InputWrapperProps {
   customMask?: RegExp;
 }
 
-export const MultiRate = ({
+export const PCRRate = ({
   rates,
   name,
   allowMultiple = false,

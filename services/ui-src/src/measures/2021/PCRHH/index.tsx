@@ -5,11 +5,11 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { validationFunctions } from "./validation";
-import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
-import { PCRADOptionalMeasureStrat } from "./questions/OptionalMeasureStrat";
+import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
+import { PCRHHOptionalMeasureStrat } from "./questions/OptionalMeasureStrat";
 import { FormData } from "./types";
 
-export const PCRAD = ({
+export const PCRHH = ({
   name,
   year,
   measureId,
@@ -43,11 +43,11 @@ export const PCRAD = ({
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
-          <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <CMQ.DateRange type="health" />
+          <CMQ.DefinitionOfPopulation healthHomeMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRADPerformanceMeasure data={PMD.data} />
+              <PCRHHPerformanceMeasure data={PMD.data} />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.qualifiers}
                 measureName={measureId}
@@ -57,7 +57,7 @@ export const PCRAD = ({
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
-            <PCRADOptionalMeasureStrat
+            <PCRHHOptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
