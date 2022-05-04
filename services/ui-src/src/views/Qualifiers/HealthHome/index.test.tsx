@@ -10,7 +10,7 @@ jest.mock("react-router-dom", () => ({
   useParams: () => ({
     year: "2021",
     state: "DC",
-    coreSetId: "HHCS",
+    coreSetId: "HHCS_18-0007",
     measureId: "questions",
   }),
 }));
@@ -25,8 +25,10 @@ beforeEach(() => {
     </QueryClientProvider>
   );
 });
-describe("test header (delivery system) component", () => {
-  it("renders header properly", async () => {
-    expect(await screen.findByText("Delivery System")).toBeInTheDocument();
+describe("test header (Administrative Questions) component", () => {
+  it("renders Administrative Questions properly", async () => {
+    expect(
+      await screen.findByText("Administrative Questions")
+    ).toBeInTheDocument();
   });
 });
