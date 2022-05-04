@@ -9,13 +9,16 @@ import { useForm, FormProvider } from "react-hook-form";
 import { HHCSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
 import { useUpdateMeasure, useGetMeasure } from "hooks/api";
-import { CoreSetAbbr, MeasureStatus } from "types";
+import { CoreSetAbbr, MeasureStatus, UserRoles } from "types";
 import { useQueryClient } from "react-query";
+import { useUser } from "hooks/authHooks";
 import { validationFunctions } from "./validationFunctions";
+import { SPA } from "libs/spaLib";
 import { v4 as uuidv4 } from "uuid";
 
 export const HHCSQualifiers = () => {
   const { state, year, HHCS } = useParams();
+  const { userState, userRole } = useUser();
   const mutation = useUpdateMeasure();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -144,6 +147,34 @@ export const HHCSQualifiers = () => {
       setErrors(undefined);
     }
   };
+
+  const spaArray = SPA.map(function (spa) {
+    return spa.state + "-" + spa.id;
+  });
+
+  console.log(spaArray.indexOf("CA-19-0037"));
+
+  if (spaArray?.indexOf(state + "-" + spaId) === -1) {
+    return (
+      <CUI.Box data-testid="unauthorized-container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="This page does not exist"
+        />
+      </CUI.Box>
+    );
+  }
+
+  if (userState && userState !== state && userRole === UserRoles.STATE) {
+    return (
+      <CUI.Box data-testid="unauthorized-container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="You are not authorized to view this page"
+        />
+      </CUI.Box>
+    );
+  }
 
   return (
     <QMR.StateLayout
