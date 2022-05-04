@@ -12,6 +12,8 @@ import { CoreSetAbbr } from "types";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
+  "HealthHomeCoreSet-ShareSSM-Name": string;
+  "HealthHomeCoreSet-ShareSSM-Description": string;
 }
 
 export const AddHHCoreSet = () => {
@@ -110,11 +112,17 @@ export const AddHHCoreSet = () => {
                                 You may associate up to five core measures with
                                 this core set.
                               </CUI.Text>
+                              <QMR.TextInput
+                                label="Name the measure"
+                                {...register("HealthHomeCoreSet-ShareSSM-Name")}
+                              ></QMR.TextInput>
+                              <QMR.TextArea
+                                label="Please provide a description of the measure"
+                                {...register(
+                                  "HealthHomeCoreSet-ShareSSM-Description"
+                                )}
+                              ></QMR.TextArea>
                             </CUI.Stack>,
-                            <QMR.TextInput
-                              label="Name the measure"
-                              {...register("HealthHomeCoreSet-SPA")}
-                            ></QMR.TextInput>,
                           ],
                         },
                         {
