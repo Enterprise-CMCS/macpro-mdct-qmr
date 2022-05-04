@@ -98,7 +98,7 @@ export const AddHHCoreSet = () => {
                             "Yes, I want to add State Specific Measures now.",
                           value: DC.YES,
                           children: [
-                            <CUI.Stack spacing={6} mb={6}>
+                            <CUI.Stack spacing={6} mb={6} key="add-ssm-stack">
                               <CUI.Text>
                                 In addition to the CMS recommended core and
                                 utilization measures, identify and define the{" "}
