@@ -96,6 +96,21 @@ export const AddHHCoreSet = () => {
                             "Yes, I want to add State Specific Measures now.",
                           value: DC.YES,
                           children: [
+                            <CUI.Stack spacing={6} mb={6}>
+                              <CUI.Text>
+                                In addition to the CMS recommended core and
+                                utilization measures, identify and define the{" "}
+                                <em>
+                                  <strong>measures</strong>
+                                </em>{" "}
+                                the State will use to assess its Health Home
+                                model of service delivery.
+                              </CUI.Text>
+                              <CUI.Text>
+                                You may associate up to five core measures with
+                                this core set.
+                              </CUI.Text>
+                            </CUI.Stack>,
                             <QMR.TextInput
                               label="Name the measure"
                               {...register("HealthHomeCoreSet-SPA")}
