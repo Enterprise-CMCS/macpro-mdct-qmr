@@ -10,7 +10,7 @@ jest.mock("react-router-dom", () => ({
   useParams: () => ({
     year: "2021",
     state: "DC",
-    coreSetId: "HHCS_18-0007",
+    HHCS: "HHCS_18-0007",
     measureId: "questions",
   }),
 }));
@@ -25,10 +25,10 @@ beforeEach(() => {
     </QueryClientProvider>
   );
 });
-describe("test header (Administrative Questions) component", () => {
-  it("renders Administrative Questions properly", async () => {
+describe("test header (This page does not exist) component", () => {
+  it("renders This page does not exist properly", async () => {
     expect(
-      await screen.findByText("Administrative Questions")
+      await screen.findByText("This page does not exist")
     ).toBeInTheDocument();
   });
 });
