@@ -1,4 +1,5 @@
 import * as Types from "measures/CommonQuestions/types";
+import * as DC from "dataConstants";
 import { OmsValidationCallback, UnifiedValFuncProps as UVFP } from "../types";
 import {
   getPerfMeasureRateArray,
@@ -31,7 +32,9 @@ const _validation = ({
         errorMessage: `${
           qualifiers?.[lowerIndex]
         } rate must be less than or equal to ${qualifiers?.[higherIndex]} rate${
-          categories?.length ? ` within ${categories?.[i]}` : ""
+          categories?.length && categories[0] !== DC.SINGLE_CATEGORY
+            ? ` within ${categories?.[i]}`
+            : ""
         }.`,
       });
     }

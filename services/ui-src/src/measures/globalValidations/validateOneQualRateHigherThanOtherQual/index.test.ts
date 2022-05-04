@@ -1,3 +1,4 @@
+import { SINGLE_CATEGORY } from "dataConstants";
 import {
   validateOneQualRateHigherThanOtherQualOMS,
   validateOneQualRateHigherThanOtherQualPM,
@@ -15,7 +16,8 @@ import {
 describe("Testing Qualifier Rate Higher Than Other Validation", () => {
   const categories = ["Test Cat 1", "Test Cat 2"];
   const qualifiers = ["Test Qual 1", "Test Qual 2"];
-  const singleCat: string[] = [];
+  const singleCat = [SINGLE_CATEGORY];
+  const noCat: string[] = [];
 
   const baseOMSInfo = {
     categories,
@@ -58,12 +60,12 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
     });
 
     it("should have error - single category", () => {
-      const data = generatePmRateData({ categories: singleCat, qualifiers }, [
+      const data = generatePmRateData({ categories: noCat, qualifiers }, [
         lowerRate,
         higherRate,
       ]);
       const errors = validateOneQualRateHigherThanOtherQualPM(data, {
-        categories: singleCat,
+        categories: noCat,
         qualifiers,
       });
 
@@ -110,6 +112,23 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
         isOPM: true,
       });
       expect(errors).toHaveLength(0);
+    });
+
+    it("should not show last string portion when OMS has no categories", () => {
+      const data = generateOmsRateData(singleCat, qualifiers, [
+        lowerRate,
+        higherRate,
+      ]);
+      const errors = validateOneQualRateHigherThanOtherQualOMS()({
+        ...baseOMSInfo,
+        categories: singleCat,
+        rateData: data,
+      });
+
+      expect(errors).toHaveLength(1);
+      expect(errors[0].errorMessage).toBe(
+        `${qualifiers?.[1]} rate must be less than or equal to ${qualifiers?.[0]} rate.`
+      );
     });
   });
 });

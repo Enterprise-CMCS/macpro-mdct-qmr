@@ -52,6 +52,7 @@
     "collectCoverageFrom": [
       "src/components/**/*.{ts,tsx}",
       "src/views/**/*.{ts,tsx}",
+      "src/measures/globalValidations/**/*.{ts,tsx}",
       "!src/components/CoreQuestions/index.tsx",
       "!src/components/ScrollToTop/index.tsx",
       "!src/components/CoreQuestionWrapper/index.tsx",
@@ -76,7 +77,11 @@
       "!src/views/ApiTester/index.tsx",
       "!src/components/Upload/index.tsx",
       "!src/views/Qualifiers/**/*.{ts,tsx}",
-      "!src/measures/**/*.{ts,tsx}"
+      "!src/measures/2021/**/*.{ts,tsx}",
+      "!src/measures/CommonQuestions/**/*.{ts,tsx}",
+      "!src/measures/globalValidations/testHelpers/*.{ts,tsx}",
+      "!src/measures/globalValidations/index.ts",
+      "!src/measures/globalValidations/types.ts"
     ],
     "moduleDirectories": [
       "node_modules",
