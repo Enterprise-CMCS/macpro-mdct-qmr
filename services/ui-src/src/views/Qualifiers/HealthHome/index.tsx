@@ -152,8 +152,6 @@ export const HHCSQualifiers = () => {
     return spa.state + "-" + spa.id;
   });
 
-  console.log(spaArray.indexOf("CA-19-0037"));
-
   if (spaArray?.indexOf(state + "-" + spaId) === -1) {
     return (
       <CUI.Box data-testid="unauthorized-container">
