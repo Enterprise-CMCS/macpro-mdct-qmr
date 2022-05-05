@@ -111,7 +111,7 @@ export const HHCSQualifiers = () => {
       data,
       measure: "CSQ",
       status,
-      coreSet: "HHCS_18-0007",
+      coreSet: CoreSetAbbr.HHCS + `_${spaId}`,
     };
 
     mutation.mutate(requestData, {

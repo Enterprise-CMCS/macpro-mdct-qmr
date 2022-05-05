@@ -1,6 +1,8 @@
 import { integer } from "aws-sdk/clients/storagegateway";
 
 export interface HHCSQualifierForm {
+  AdministrativeData: AdministrativeQuestions;
+  CostSavingsData: CostSavingsData;
   PercentageEnrolledInEachDeliverySystem: DeliverySystem[];
   CoreSetMeasuresAuditedOrValidated: string;
   CoreSetMeasuresAuditedOrValidatedDetails: AuditDetails[];
