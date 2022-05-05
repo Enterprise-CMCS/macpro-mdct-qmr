@@ -58,7 +58,10 @@ export const Audit = ({ type }: Props) => {
     <CUI.ListItem>
       <QualifierHeader
         header="Audit or Validation of Measures"
-        description="Were any of the Core Set measures audited or validated?"
+        description={
+          "Were any of the Core Set measures audited or validated" +
+          (type === "HH" ? " (optional)?" : "?")
+        }
       />
       <CUI.Spacer />
       <CUI.Stack>

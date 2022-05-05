@@ -10,7 +10,7 @@ interface Props {
 export const CompleteCoreSets = ({ handleValidation, type }: Props) => {
   let qualifierType = type === "AD" ? "Adult" : "Child";
   if (type === "HH") {
-    qualifierType = "Health Home";
+    qualifierType = "Health Homes";
   }
 
   return (

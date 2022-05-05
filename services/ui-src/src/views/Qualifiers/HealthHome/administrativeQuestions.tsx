@@ -3,6 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import * as Common from "../Common";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "./types";
+import { allPositiveIntegers } from "utils/numberInputMasks";
 
 export const AdministrativeQuestions = () => {
   const register = useCustomRegister<Types.AdministrativeQuestions>();
@@ -15,33 +16,87 @@ export const AdministrativeQuestions = () => {
       />
       <QMR.NumberInput
         {...register("numberOfAdults")}
+        mask={allPositiveIntegers}
         formLabelProps={{ fontWeight: "400", padding: padding }}
-        label="What is the total annual number of adults in the Health Home program?"
+        label={
+          <>
+            What is the total annual number of{" "}
+            <b>
+              <i>adults</i>
+            </b>{" "}
+            in the Health Home program?
+          </>
+        }
       />
       <QMR.NumberInput
         {...register("minAgeOfAdults")}
+        mask={allPositiveIntegers}
         formLabelProps={{ fontWeight: "400", padding: padding }}
-        label="The minimum age of an adult in the program is:"
+        label={
+          <>
+            The minimum age of an{" "}
+            <b>
+              <i>adult</i>
+            </b>{" "}
+            in the program is:
+          </>
+        }
       />
       <QMR.NumberInput
         {...register("numberOfChildren")}
+        mask={allPositiveIntegers}
         formLabelProps={{ fontWeight: "400", padding: padding }}
-        label="What is the total annual number of children in the Health Home program?"
+        label={
+          <>
+            What is the total annual number of{" "}
+            <b>
+              <i>children</i>
+            </b>{" "}
+            in the Health Home program?
+          </>
+        }
       />
       <QMR.NumberInput
         {...register("maxAgeChildren")}
+        mask={allPositiveIntegers}
         formLabelProps={{ fontWeight: "400", padding: padding }}
-        label="The maximum age of a child in the program is:"
+        label={
+          <>
+            The maximum age of a{" "}
+            <b>
+              <i>child</i>
+            </b>{" "}
+            in the program is:
+          </>
+        }
       />
       <QMR.NumberInput
         {...register("numberOfIndividuals")}
+        mask={allPositiveIntegers}
         formLabelProps={{ fontWeight: "400", padding: padding }}
-        label="What is the total annual number of individuals in the Health Home program?"
+        label={
+          <>
+            What is the total annual number of{" "}
+            <b>
+              <i>individuals</i>
+            </b>{" "}
+            in the Health Home program?
+          </>
+        }
       />
       <QMR.NumberInput
         {...register("numberOfProviders")}
+        mask={allPositiveIntegers}
         formLabelProps={{ fontWeight: "400", padding: padding }}
-        label="What is the number of providers operating under the Health Home program?"
+        label={
+          <>
+            What is the number of{" "}
+            <b>
+              <i>providers</i>
+            </b>{" "}
+            operating under the Health Home program?
+          </>
+        }
       />
     </CUI.ListItem>
   );

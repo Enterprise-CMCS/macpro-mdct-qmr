@@ -4,6 +4,7 @@ import * as Common from "../Common";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "./types";
 import { useParams } from "react-router-dom";
+import { allPositiveIntegers } from "utils/numberInputMasks";
 
 export const CostSavingsData = () => {
   const { year } = useParams();
@@ -14,6 +15,7 @@ export const CostSavingsData = () => {
       <Common.QualifierHeader header="Cost Savings Data" description="" />
       <QMR.NumberInput
         {...register("yearlyCostSavings")}
+        mask={allPositiveIntegers}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={`Amount of cost savings for FFY ${year}`}
       />
@@ -24,7 +26,7 @@ export const CostSavingsData = () => {
       />
       <CUI.Box marginTop={10}>
         <QMR.Upload
-          label="If you need additional space to include comments or supplemental information, please attach further documentation below."
+          label="If you need additional space to provide information regarding cost savings data, please attach further documentation below."
           {...register("costSavingsFile")}
         />
       </CUI.Box>

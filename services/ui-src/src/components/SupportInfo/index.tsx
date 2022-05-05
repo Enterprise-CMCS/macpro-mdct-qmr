@@ -11,7 +11,7 @@ export const SupportLinks = () => (
     >
       MDCT_help@cms.hhs.gov
     </CUI.Link>
-    . For content related questions, such as about measure specifications or
+    . For content-related questions, such as about measure specifications or
     what information to enter into each field, please reach out to{" "}
     <CUI.Link
       href="mailto:MACQualityTA@cms.hhs.gov"

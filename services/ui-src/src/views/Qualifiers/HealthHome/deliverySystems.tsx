@@ -81,6 +81,7 @@ export const DeliverySystems = () => {
                     textInputProps={{
                       isReadOnly: true,
                       border: "none",
+                      width: "120%",
                       pl: "0",
                       tabIndex: -1,
                     }}
