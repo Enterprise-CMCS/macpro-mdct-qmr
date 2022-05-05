@@ -52,6 +52,7 @@ export const AMBCH = ({
                 calcTotal
                 customMask={mask}
                 rateScale={rateScale}
+                allowNumeratorGreaterThanDenominator
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
@@ -60,6 +61,7 @@ export const AMBCH = ({
             <CMQ.OtherPerformanceMeasure
               customMask={mask}
               rateMultiplicationValue={rateScale}
+              allowNumeratorGreaterThanDenominator
             />
           )}
           <CMQ.CombinedRates />
@@ -72,6 +74,7 @@ export const AMBCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               rateMultiplicationValue={rateScale}
+              allowNumeratorGreaterThanDenominator
             />
           )}
         </>
