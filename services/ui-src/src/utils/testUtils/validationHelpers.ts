@@ -53,7 +53,7 @@ export const emptyRate: RateFields = {
 };
 
 /**
- * Helper function to prep oms validation test data
+ * Helper function to prep oms validation test data  by slotting test data in qualifier order
  *
  * @param categories should always at least contain "singleCategory"
  * @param qualifiers a non-negotiable string array
@@ -61,7 +61,7 @@ export const emptyRate: RateFields = {
  *
  * @note testData MUST be the same length as chosen qualifiers
  */
-export const generateOmsRateData = (
+export const generateOmsQualifierRateData = (
   categories: string[],
   qualifiers: string[],
   testData: RateFields[]
@@ -86,11 +86,43 @@ export const generateOmsRateData = (
 };
 
 /**
- * Helper function to prep pm validation test data
+ * Helper function to prep oms validation test data  by slotting test data in category order
+ *
+ * @param categories should be longer than just singleCategory
+ * @param qualifiers a non-negotiable string array
+ * @param testData what test data to place in the category location in rate data
+ *
+ * @note testData MUST be the same length as chosen categories
+ */
+export const generateOmsCategoryRateData = (
+  categories: string[],
+  qualifiers: string[],
+  testData: RateFields[]
+) => {
+  if (testData.length !== categories.length) {
+    console.error("Mismatch in test data length");
+    return {};
+  }
+
+  const rateData: OMS.OmsRateFields = {};
+  for (const [i, c] of categories.map((c) => cleanString(c)).entries()) {
+    for (const q of qualifiers.map((q) => cleanString(q))) {
+      rateData.rates ??= {};
+      rateData.rates[q] ??= {};
+      rateData.rates[q][c] = [testData[i]];
+    }
+  }
+
+  return rateData;
+};
+
+/**
+ * Helper function to prep pm validation test data by slotting test data in qualifier order
+ *
  * @param pmd needs to contain the qualifiers and categories
  * @param testData an array of rate objects that is the same length as qualifiers
  */
-export const generatePmRateData = (
+export const generatePmQualifierRateData = (
   pmd: DDT.PerformanceMeasure,
   testData: RateFields[]
 ) => {
@@ -111,6 +143,36 @@ export const generatePmRateData = (
   return rateData;
 };
 
+/**
+ * Helper function to prep pm validation test data by slotting test data in category order
+ *
+ * @param pmd needs to contain the categories and qualifiers
+ * @param testData an array of rate objects that is the same length as categories
+ */
+export const generatePmCategoryRateData = (
+  pmd: DDT.PerformanceMeasure,
+  testData: RateFields[]
+) => {
+  if (testData.length !== pmd?.categories?.length) {
+    console.error("Mismatch in test data length");
+    return {};
+  }
+
+  const rateData: PerformanceMeasure = { PerformanceMeasure: { rates: {} } };
+
+  for (const [i, c] of pmd.categories.map((c) => cleanString(c)).entries()) {
+    pmd.qualifiers?.forEach(() => {
+      rateData.PerformanceMeasure!.rates![c] ??= [];
+      rateData?.PerformanceMeasure?.rates?.[c]?.push(testData[i]);
+    });
+  }
+
+  return rateData;
+};
+
+/**
+ * Dummy location dictionary function for testing utility
+ */
 export const locationDictionary = (s: string[]) => {
   return s[0];
 };

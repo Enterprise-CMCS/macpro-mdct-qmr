@@ -5,15 +5,15 @@ import {
 } from "./index";
 
 import {
-  generatePmRateData,
-  generateOmsRateData,
+  generatePmQualifierRateData,
+  generateOmsQualifierRateData,
   locationDictionary,
   doubleRate,
   simpleRate,
   partialRate,
 } from "utils/testUtils/validationHelpers";
 
-describe("Testing Qualifier Rate Higher Than Other Validation", () => {
+describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
   const categories = ["Test Cat 1", "Test Cat 2"];
   const qualifiers = ["Test Qual 1", "Test Qual 2"];
   const singleCat = [SINGLE_CATEGORY];
@@ -30,7 +30,7 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
   // PM
   describe("PM Validation", () => {
     it("should return no errors", () => {
-      const data = generatePmRateData({ categories, qualifiers }, [
+      const data = generatePmQualifierRateData({ categories, qualifiers }, [
         doubleRate,
         simpleRate,
       ]);
@@ -43,7 +43,7 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
     });
 
     it("should have error", () => {
-      const data = generatePmRateData({ categories, qualifiers }, [
+      const data = generatePmQualifierRateData({ categories, qualifiers }, [
         simpleRate,
         doubleRate,
       ]);
@@ -60,10 +60,10 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
     });
 
     it("should have error - single category", () => {
-      const data = generatePmRateData({ categories: noCat, qualifiers }, [
-        simpleRate,
-        doubleRate,
-      ]);
+      const data = generatePmQualifierRateData(
+        { categories: noCat, qualifiers },
+        [simpleRate, doubleRate]
+      );
       const errors = validateOneQualDenomHigherThanOtherDenomPM(data, {
         categories: noCat,
         qualifiers,
@@ -77,7 +77,7 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
     });
 
     it("should NOT have error from empty rate value ", () => {
-      const data = generatePmRateData({ categories, qualifiers }, [
+      const data = generatePmQualifierRateData({ categories, qualifiers }, [
         partialRate,
         partialRate,
       ]);
@@ -93,7 +93,7 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
   // OMS
   describe("OMS Validation", () => {
     it("should return no errors", () => {
-      const data = generateOmsRateData(categories, qualifiers, [
+      const data = generateOmsQualifierRateData(categories, qualifiers, [
         doubleRate,
         simpleRate,
       ]);
@@ -115,7 +115,7 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
     });
 
     it("should not show last string portion when OMS has no categories", () => {
-      const data = generateOmsRateData(singleCat, qualifiers, [
+      const data = generateOmsQualifierRateData(singleCat, qualifiers, [
         simpleRate,
         doubleRate,
       ]);

@@ -118,11 +118,19 @@ describe("Testing PM/OMS Total Validations", () => {
 
       const singleResult = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: VH.generateOmsRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          noCategories,
+          qualifiers,
+          basePMData
+        ),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: VH.generateOmsRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          categories,
+          qualifiers,
+          basePMData
+        ),
       });
 
       expect(singleResult.length).toBe(0);
@@ -138,11 +146,19 @@ describe("Testing PM/OMS Total Validations", () => {
 
       const singleResults = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: VH.generateOmsRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          noCategories,
+          qualifiers,
+          basePMData
+        ),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: VH.generateOmsRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          categories,
+          qualifiers,
+          basePMData
+        ),
       });
 
       expect(singleResults.length).toBe(1);
@@ -166,11 +182,19 @@ describe("Testing PM/OMS Total Validations", () => {
 
       const singleResults = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: VH.generateOmsRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          noCategories,
+          qualifiers,
+          basePMData
+        ),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: VH.generateOmsRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          categories,
+          qualifiers,
+          basePMData
+        ),
       });
 
       expect(singleResults.length).toBe(1);
@@ -190,11 +214,19 @@ describe("Testing PM/OMS Total Validations", () => {
 
       const singleResults = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: VH.generateOmsRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          noCategories,
+          qualifiers,
+          basePMData
+        ),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: VH.generateOmsRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          categories,
+          qualifiers,
+          basePMData
+        ),
       });
 
       expect(singleResults.length).toBe(1);
@@ -214,11 +246,19 @@ describe("Testing PM/OMS Total Validations", () => {
 
       const singleResult = validateOMSTotalNDR({
         ...baseSingleFunctionInfo,
-        rateData: VH.generateOmsRateData(noCategories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          noCategories,
+          qualifiers,
+          basePMData
+        ),
       });
       const multiResults = validateOMSTotalNDR({
         ...baseMultiFunctionInfo,
-        rateData: VH.generateOmsRateData(categories, qualifiers, basePMData),
+        rateData: VH.generateOmsQualifierRateData(
+          categories,
+          qualifiers,
+          basePMData
+        ),
       });
 
       expect(singleResult.length).toBe(0);

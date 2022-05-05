@@ -1,7 +1,66 @@
 import * as DC from "dataConstants";
 import * as Types from "measures/CommonQuestions/types";
-import { OmsValidationCallback, FormRateField } from "../types";
-import { cleanString } from "utils/cleanString";
+import {
+  OmsValidationCallback,
+  FormRateField,
+  UnifiedValFuncProps as UVFP,
+} from "../types";
+import {
+  convertOmsDataToRateArray,
+  // getPerfMeasureRateArray,
+} from "../dataDrivenTools";
+
+interface ValProps extends UVFP {
+  hybridData?: boolean;
+}
+
+const _validationRateNotZero = ({ location, rateData }: UVFP) => {
+  const errorArray: FormError[] = [];
+
+  for (const ratefields of rateData) {
+    for (const rate of ratefields) {
+      if (rate && rate.denominator && rate.numerator && rate.rate) {
+        if (
+          parseFloat(rate.numerator) > 0 &&
+          parseFloat(rate.denominator) > 0 &&
+          parseFloat(rate.rate) === 0
+        ) {
+          errorArray.push({
+            errorLocation: location,
+            errorMessage:
+              "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
+          });
+        }
+      }
+    }
+  }
+
+  return errorArray;
+};
+
+const _validationRateZero = ({ location, rateData, hybridData }: ValProps) => {
+  const errorArray: FormError[] = [];
+
+  for (const ratefields of rateData) {
+    for (const rate of ratefields) {
+      if (rate && rate.denominator && rate.numerator && rate.rate) {
+        if (
+          parseFloat(rate.numerator) === 0 &&
+          parseFloat(rate.denominator) > 0 &&
+          parseFloat(rate.rate) !== 0 &&
+          !hybridData
+        ) {
+          errorArray.push({
+            errorLocation: location,
+            errorMessage: "Manually entered rate should be 0 if numerator is 0",
+          });
+        }
+      }
+    }
+  }
+
+  return errorArray;
+};
 
 export const validateRateZeroOMS: OmsValidationCallback = ({
   categories,
@@ -14,31 +73,13 @@ export const validateRateZeroOMS: OmsValidationCallback = ({
   const hybridData = dataSource?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
   );
-  const error: FormError[] = [];
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (const cat of categories.map((s) => cleanString(s))) {
-      if (rateData.rates?.[qual]?.[cat]) {
-        const temp = rateData.rates[qual][cat][0];
-        if (temp && temp.denominator && temp.numerator && temp.rate) {
-          if (
-            parseFloat(temp.numerator) === 0 &&
-            parseFloat(temp.denominator) > 0 &&
-            parseFloat(temp.rate) !== 0 &&
-            !hybridData
-          ) {
-            error.push({
-              errorLocation: `Optional Measure Stratification: ${locationDictionary(
-                label
-              )}`,
-              errorMessage:
-                "Manually entered rate should be 0 if numerator is 0",
-            });
-          }
-        }
-      }
-    }
-  }
-  return error;
+  return _validationRateZero({
+    categories,
+    qualifiers,
+    hybridData,
+    location: `Optional Measure Stratification: ${locationDictionary(label)}`,
+    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+  });
 };
 
 export const validateRateNotZeroOMS: OmsValidationCallback = ({
@@ -48,30 +89,12 @@ export const validateRateNotZeroOMS: OmsValidationCallback = ({
   label,
   locationDictionary,
 }) => {
-  const error: FormError[] = [];
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (const cat of categories.map((s) => cleanString(s))) {
-      if (rateData.rates?.[qual]?.[cat]) {
-        const temp = rateData.rates[qual][cat][0];
-        if (temp && temp.denominator && temp.numerator && temp.rate) {
-          if (
-            parseFloat(temp.numerator) > 0 &&
-            parseFloat(temp.denominator) > 0 &&
-            parseFloat(temp.rate) === 0
-          ) {
-            error.push({
-              errorLocation: `Optional Measure Stratification: ${locationDictionary(
-                label
-              )}`,
-              errorMessage:
-                "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
-            });
-          }
-        }
-      }
-    }
-  }
-  return error;
+  return _validationRateNotZero({
+    categories,
+    qualifiers,
+    location: `Optional Measure Stratification: ${locationDictionary(label)}`,
+    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+  });
 };
 
 // If a user manually over-rides a rate it must not violate two rules:

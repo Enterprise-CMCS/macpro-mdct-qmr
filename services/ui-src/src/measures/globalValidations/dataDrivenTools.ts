@@ -30,6 +30,21 @@ export const getPerfMeasureRateArray = (
   return performanceMeasureData;
 };
 
+/**
+ * Extracts OPM into double array for validation.
+ */
+export const getOtherPerformanceMeasureRateArray = (
+  opmRates: Types.OtherRatesFields[]
+) => {
+  const otherPmData: PM[][] = [];
+  for (const rates of opmRates) {
+    if (rates.rate) {
+      otherPmData.push(rates.rate);
+    }
+  }
+  return otherPmData;
+};
+
 /** Utility function for converting oms data to be the same as returned performance measure. Encourages shared validations. */
 export const convertOmsDataToRateArray = (
   categories: string[],

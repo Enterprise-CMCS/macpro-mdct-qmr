@@ -19,6 +19,7 @@ export interface UnifiedValFuncProps {
   qualifiers?: string[];
   rateData: FormRateField[][];
   location: string;
+  errorMessage?: string;
 }
 
 export type UnifiedValidationFunction = (

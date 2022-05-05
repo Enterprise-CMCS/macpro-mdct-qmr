@@ -1,6 +1,48 @@
-import { OmsValidationCallback, FormRateField } from "../types";
-import { cleanString } from "utils/cleanString";
+import {
+  OmsValidationCallback,
+  FormRateField,
+  UnifiedValFuncProps as UVFP,
+} from "../types";
+import {
+  convertOmsDataToRateArray,
+  getOtherPerformanceMeasureRateArray,
+} from "../dataDrivenTools";
 
+interface ValProps extends UVFP {
+  locationFunc?: (qualifier: string) => string;
+}
+
+const _validation = ({
+  location,
+  rateData,
+  errorMessage,
+  locationFunc,
+  qualifiers,
+}: ValProps) => {
+  const errorArray: FormError[] = [];
+
+  for (const fieldSet of rateData) {
+    for (const [i, rate] of fieldSet.entries()) {
+      if (
+        rate.numerator &&
+        rate.denominator &&
+        rate.rate &&
+        parseFloat(rate.denominator) < parseFloat(rate.numerator)
+      ) {
+        errorArray.push({
+          errorLocation: locationFunc ? locationFunc(qualifiers![i]) : location,
+          errorMessage: errorMessage!,
+        });
+      }
+    }
+  }
+
+  return errorArray;
+};
+
+/**
+ * Validated OMS sections for numerator being less than denominator
+ */
 export const validateNumeratorLessThanDenominatorOMS: OmsValidationCallback = ({
   categories,
   qualifiers,
@@ -8,66 +50,34 @@ export const validateNumeratorLessThanDenominatorOMS: OmsValidationCallback = ({
   label,
   locationDictionary,
 }) => {
-  const error: FormError[] = [];
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
-    for (const cat of categories.map((s) => cleanString(s))) {
-      if (rateData.rates?.[qual]?.[cat]) {
-        const temp = rateData.rates[qual][cat][0];
-        if (temp && temp.denominator && temp.numerator) {
-          if (parseFloat(temp.denominator) < parseFloat(temp.numerator)) {
-            error.push({
-              errorLocation: `Optional Measure Stratification: ${locationDictionary(
-                [...label, qual]
-              )}`,
-              errorMessage:
-                "Numerator cannot be greater than the Denominator for NDR sets.",
-            });
-          }
-        }
-      }
-    }
-  }
-  return error;
+  return _validation({
+    location: "Optional Measure Stratification",
+    categories,
+    qualifiers,
+    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+    locationFunc: (q) =>
+      `Optional Measure Stratification: ${locationDictionary([...label, q])}`,
+    errorMessage:
+      "Numerator cannot be greater than the Denominator for NDR sets.",
+  });
 };
 
-// For every performance measure the Numerators must always be less than the denominators
+/**
+ * Checks both performance measure and other performance measure for numerator greater than denominator errors
+ */
 export const validateNumeratorsLessThanDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  ageGroups: string[]
+  qualifiers: string[]
 ) => {
-  let error = false;
-  let errorArray: FormError[] = [];
-  ageGroups.forEach((_ageGroup, i) => {
-    performanceMeasureArray?.forEach((performanceMeasure) => {
-      if (
-        performanceMeasure &&
-        performanceMeasure[i] &&
-        performanceMeasure[i].denominator &&
-        performanceMeasure[i].numerator
-      ) {
-        if (
-          parseFloat(performanceMeasure[i].denominator!) <
-          parseFloat(performanceMeasure[i].numerator!)
-        ) {
-          error = true;
-        }
-      }
-    });
-  });
-  OPM &&
-    OPM.forEach((performanceMeasure: any) => {
-      performanceMeasure.rate.forEach((rate: any) => {
-        if (parseFloat(rate.numerator) > parseFloat(rate.denominator)) {
-          error = true;
-        }
-      });
-    });
-  if (error) {
-    errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure`,
-      errorMessage: `Numerators must be less than Denominators for all applicable performance measures`,
-    });
-  }
-  return error ? errorArray : [];
+  const location = `Performance Measure/Other Performance Measure`;
+  const errorMessage = `Numerators must be less than Denominators for all applicable performance measures`;
+  const rateData = OPM
+    ? getOtherPerformanceMeasureRateArray(OPM)
+    : performanceMeasureArray;
+  const errorArray: FormError[] = [
+    ..._validation({ location, qualifiers, rateData, errorMessage }),
+  ];
+
+  return !!errorArray.length ? [errorArray[0]] : [];
 };

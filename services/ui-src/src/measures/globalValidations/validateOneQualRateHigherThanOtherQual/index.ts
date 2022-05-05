@@ -43,7 +43,7 @@ const _validation = ({
 };
 
 /**
- * Validates that one qualifiers rate is higher than the other specified qualifiers rate
+ * Validates that one qualifier's rate is higher than the other specified qualifier's rate
  * @note this function returns the oms validation function
  *
  *
@@ -75,7 +75,7 @@ export const validateOneQualRateHigherThanOtherQualOMS = (
 };
 
 /**
- * Validates that one qualifiers rate is higher than the other specified qualifiers rate
+ * Validates that one qualifier's rate is higher than the other specified qualifier's rate
  *
  * @param data form data
  * @param performanceMeasureData data driven information
