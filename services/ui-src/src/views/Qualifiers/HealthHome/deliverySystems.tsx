@@ -3,9 +3,11 @@ import * as CUI from "@chakra-ui/react";
 import * as Common from "../Common";
 import { useFieldArray, useWatch } from "react-hook-form";
 import { DeliverySystem } from "./types";
+import { UserRoles } from "types";
 import { BsPercent } from "react-icons/bs";
 import { percentageAllowOneDecimalMax } from "utils/numberInputMasks";
 import { useParams } from "react-router-dom";
+import { useUser } from "hooks/authHooks";
 
 const initialDeliverySystemValue = {
   label: "",
@@ -16,6 +18,7 @@ const initialDeliverySystemValue = {
 
 export const DeliverySystems = () => {
   const { year } = useParams();
+  const { userRole } = useUser();
   const { fields, append, remove } = useFieldArray({
     name: "PercentageEnrolledInEachDeliverySystem",
   });
@@ -106,18 +109,28 @@ export const DeliverySystems = () => {
                 />
               </CUI.Td>
               <CUI.Td>
-                <QMR.DeleteWrapper
-                  allowDeletion={index >= 4}
-                  onDelete={() => remove(index)}
-                  showText={false}
-                >
+                {userRole === UserRoles.STATE && (
+                  <QMR.DeleteWrapper
+                    allowDeletion={index >= 4}
+                    onDelete={() => remove(index)}
+                    showText={false}
+                  >
+                    <QMR.NumberInput
+                      displayPercent
+                      name={`PercentageEnrolledInEachDeliverySystem.${index}.GreaterThanSixtyFive`}
+                      numberInputProps={{ textAlign: "right" }}
+                      mask={percentageAllowOneDecimalMax}
+                    />
+                  </QMR.DeleteWrapper>
+                )}
+                {userRole !== UserRoles.STATE && (
                   <QMR.NumberInput
                     displayPercent
                     name={`PercentageEnrolledInEachDeliverySystem.${index}.GreaterThanSixtyFive`}
                     numberInputProps={{ textAlign: "right" }}
                     mask={percentageAllowOneDecimalMax}
                   />
-                </QMR.DeleteWrapper>
+                )}
               </CUI.Td>
             </CUI.Tr>
           ))}
