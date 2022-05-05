@@ -98,7 +98,11 @@ export const AddHHCoreSet = () => {
                             "Yes, I want to add State Specific Measures now.",
                           value: DC.YES,
                           children: [
-                            <CUI.Stack spacing={6} mb={6} key="add-ssm-stack">
+                            <CUI.Stack
+                              spacing={6}
+                              mb={6}
+                              key="add-ssm-stack-intro"
+                            >
                               <CUI.Text>
                                 In addition to the CMS recommended core and
                                 utilization measures, identify and define the{" "}
@@ -112,6 +116,8 @@ export const AddHHCoreSet = () => {
                                 You may associate up to five core measures with
                                 this core set.
                               </CUI.Text>
+                            </CUI.Stack>,
+                            <CUI.Stack spacking={6} mb={6} key="ad-ssm-stack">
                               <QMR.TextInput
                                 label="Name the measure"
                                 {...register("HealthHomeCoreSet-ShareSSM-Name")}
@@ -123,6 +129,19 @@ export const AddHHCoreSet = () => {
                                 )}
                               ></QMR.TextArea>
                             </CUI.Stack>,
+                            <QMR.ContainedButton
+                              buttonText={"+ Add Another"}
+                              buttonProps={{
+                                variant: "outline",
+                                colorScheme: "blue",
+                                color: "blue.500",
+                                mt: "4",
+                              }}
+                              key={"AddAnotherButton"}
+                              // onClick={onClick}
+                              // disabledStatus={isDisabled}
+                              // testId={testid}
+                            />,
                           ],
                         },
                         {
