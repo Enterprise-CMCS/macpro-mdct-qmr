@@ -214,7 +214,7 @@ export const Upload = ({
 };
 
 const ListItem = ({ file, index, clearFile }: ListItemProps) => {
-  const { data, isError } = useQuery(
+  const { data } = useQuery(
     [file.s3Key],
     async () => {
       try {
@@ -255,7 +255,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       >
         x
       </CUI.Button>
-      {!!(!isError && data) && (
+      {data && (
         <CUI.Button
           background="none"
           onClick={async () => {
