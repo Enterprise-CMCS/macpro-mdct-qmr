@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
 import { Storage } from "aws-amplify";
 import { useQuery } from "react-query";
+import { saveAs } from "file-saver";
 
 interface IUploadProps {
   maxSize?: number;
@@ -258,12 +259,8 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       {data && (
         <CUI.Button
           background="none"
-          onClick={async () => {
-            if (data) {
-              const url = URL.createObjectURL(data.Body as Blob);
-              window.open(url);
-              console.log({ data, url });
-            }
+          onClick={() => {
+            saveAs(data.Body as Blob);
           }}
         >
           Download
