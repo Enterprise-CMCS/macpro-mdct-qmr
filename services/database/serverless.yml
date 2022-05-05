@@ -15,8 +15,8 @@ custom:
       - master
       - val
       - prod
-  coreSetTableName: ${self:custom.stage}-coreSets
-  measureTableName: ${self:custom.stage}-measures
+  coreSetTableName: ${self:provider.stage}-coreSets
+  measureTableName: ${self:provider.stage}-measures
   dynamodb:
     stages:
       - local

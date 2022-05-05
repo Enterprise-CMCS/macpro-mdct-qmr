@@ -2330,9 +2330,9 @@ serverless-plugin-typescript@^2.1.0:
     globby "^10.0.2"
     lodash "^4.17.21"
 
-serverless-s3-bucket-helper@CMSgov/serverless-s3-bucket-helper#0.1.0:
+serverless-s3-bucket-helper@CMSgov/serverless-s3-bucket-helper#0.1.1:
   version "1.0.0"
-  resolved "https://codeload.github.com/CMSgov/serverless-s3-bucket-helper/tar.gz/a6016a9ab164a21044741eb8eb69293f729605a0"
+  resolved "https://codeload.github.com/CMSgov/serverless-s3-bucket-helper/tar.gz/f0f6d6a1ffe54e292f0afc93777764bce16a4037"
 
 serverless-s3-local@^0.6.7:
   version "0.6.7"
