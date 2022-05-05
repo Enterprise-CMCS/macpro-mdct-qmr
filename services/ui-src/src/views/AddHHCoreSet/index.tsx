@@ -8,7 +8,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useQueryClient } from "react-query";
-import { CoreSetAbbr } from "types";
+import { useUser } from "hooks/authHooks";
+import { CoreSetAbbr, UserRoles } from "types";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
@@ -18,6 +19,7 @@ export const AddHHCoreSet = () => {
   const mutation = Api.useAddCoreSet();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { userState, userRole } = useUser();
   const { isLoading, data } = Api.useGetCoreSets();
   const { state, year } = useParams();
 
@@ -29,10 +31,23 @@ export const AddHHCoreSet = () => {
   const register = useCustomRegister<HealthHome>();
   const watchSPAchoice = methods.watch("HealthHomeCoreSet-SPA");
 
+  if (userState && userState !== state && userRole === UserRoles.STATE) {
+    return (
+      <CUI.Box data-testid="unauthorized-container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="You are not authorized to view this page"
+        />
+      </CUI.Box>
+    );
+  }
+
   const sortedSPAs: SelectOption[] = SPA.filter((spa) => spa.state === state)
     .filter(
       (spa) =>
-        !data.Items.some((coreset: any) => coreset.compoundKey.includes(spa.id))
+        !data?.Items.some((coreset: any) =>
+          coreset.compoundKey.includes(spa.id)
+        )
     )
     .map((spa) => {
       return {
