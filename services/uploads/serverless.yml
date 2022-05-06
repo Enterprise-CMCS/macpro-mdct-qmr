@@ -215,6 +215,8 @@ resources:
                 - "s3:GetObject"
               Effect: "Deny"
               Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
               Condition:
                 StringEquals:
                   s3:ExistingObjectTag/virusScanStatus:
