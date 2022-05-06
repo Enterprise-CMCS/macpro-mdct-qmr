@@ -225,8 +225,6 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
     return testUrl;
   });
 
-  if (!data) return null;
-
   return (
     <CUI.HStack
       background="blue.50"
@@ -238,25 +236,29 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       <CUI.Text
         as="a"
         onClick={() => {
-          saveAs(data.Body as Blob, file.filename);
+          if (data) {
+            saveAs(data.Body as Blob, file.filename);
+          }
         }}
         variant="xl"
       >
-        {file.filename}
+        {file.filename || "loading..."}
       </CUI.Text>
-      <CUI.Button
-        data-testid={`test-delete-btn-${index}`}
-        data-cy={`upload-delete-btn-${index}`}
-        background="none"
-        onClick={async () => {
-          await Storage.remove(file.s3Key, {
-            level: "protected",
-          });
-          clearFile(index);
-        }}
-      >
-        x
-      </CUI.Button>
+      {data && (
+        <CUI.Button
+          data-testid={`test-delete-btn-${index}`}
+          data-cy={`upload-delete-btn-${index}`}
+          background="none"
+          onClick={async () => {
+            await Storage.remove(file.s3Key, {
+              level: "protected",
+            });
+            clearFile(index);
+          }}
+        >
+          x
+        </CUI.Button>
+      )}
     </CUI.HStack>
   );
 };
