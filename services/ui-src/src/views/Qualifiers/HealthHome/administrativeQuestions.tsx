@@ -3,7 +3,10 @@ import * as CUI from "@chakra-ui/react";
 import * as Common from "../Common";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "./types";
-import { allPositiveIntegers } from "utils/numberInputMasks";
+import {
+  allPositiveIntegersWith10Digits,
+  allPositiveIntegersWith3Digits,
+} from "utils/numberInputMasks";
 
 export const AdministrativeQuestions = () => {
   const register = useCustomRegister<Types.AdministrativeQuestions>();
@@ -15,8 +18,22 @@ export const AdministrativeQuestions = () => {
         description=""
       />
       <QMR.NumberInput
+        {...register("numberOfAdults")}
+        mask={allPositiveIntegersWith10Digits}
+        formLabelProps={{ fontWeight: "400", padding: padding }}
+        label={
+          <>
+            What is the total annual number of{" "}
+            <b>
+              <i>adults</i>
+            </b>{" "}
+            in the Health Home program?
+          </>
+        }
+      />
+      <QMR.NumberInput
         {...register("minAgeOfAdults")}
-        mask={allPositiveIntegers}
+        mask={allPositiveIntegersWith3Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
           <>
@@ -30,7 +47,7 @@ export const AdministrativeQuestions = () => {
       />
       <QMR.NumberInput
         {...register("numberOfChildren")}
-        mask={allPositiveIntegers}
+        mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
           <>
@@ -44,7 +61,7 @@ export const AdministrativeQuestions = () => {
       />
       <QMR.NumberInput
         {...register("maxAgeChildren")}
-        mask={allPositiveIntegers}
+        mask={allPositiveIntegersWith3Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
           <>
@@ -58,7 +75,7 @@ export const AdministrativeQuestions = () => {
       />
       <QMR.NumberInput
         {...register("numberOfIndividuals")}
-        mask={allPositiveIntegers}
+        mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
           <>
@@ -72,7 +89,7 @@ export const AdministrativeQuestions = () => {
       />
       <QMR.NumberInput
         {...register("numberOfProviders")}
-        mask={allPositiveIntegers}
+        mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
           <>

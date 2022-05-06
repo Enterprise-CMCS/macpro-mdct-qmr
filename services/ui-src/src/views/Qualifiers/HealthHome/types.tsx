@@ -20,6 +20,7 @@ export interface DeliverySystem {
 }
 
 export interface AdministrativeQuestions {
+  numberOfAdults: integer;
   minAgeOfAdults: integer;
   numberOfChildren: integer;
   maxAgeChildren: integer;
