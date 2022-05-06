@@ -11,6 +11,7 @@ export * from "./Footer";
 export * from "./Header";
 export * from "./InputWrapper";
 export * from "./Inputs";
+export * from "./IUHHRate";
 export * from "./KebabMenu";
 export * from "./LastSavedText";
 export * from "./Layouts";

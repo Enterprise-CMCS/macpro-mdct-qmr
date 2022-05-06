@@ -1,0 +1,255 @@
+import * as CUI from "@chakra-ui/react";
+import { useController, useFormContext } from "react-hook-form";
+import {
+  allNumbers,
+  eightNumbersOneDecimal,
+  rateThatAllowsFourDecimals,
+  rateThatAllowsOneDecimal,
+  allPositiveIntegersWith8Digits,
+} from "utils/numberInputMasks";
+import * as QMR from "components";
+import objectPath from "object-path";
+import { useEffect, useLayoutEffect } from "react";
+import { IRate, rateCalculation } from "components";
+
+interface Props extends QMR.InputWrapperProps {
+  rates: IRate[];
+  name: string;
+  readOnly?: boolean;
+  allowMultiple?: boolean;
+  rateMultiplicationValue?: number;
+  customMask?: RegExp;
+  calcTotal?: boolean;
+  allowNumeratorGreaterThanDenominator?: boolean;
+}
+
+export const IUHHRate = ({
+  rates,
+  name,
+  allowMultiple = false,
+  readOnly = true,
+  rateMultiplicationValue = 100,
+  customMask,
+  allowNumeratorGreaterThanDenominator,
+}: // ...rest
+Props) => {
+  const {
+    control,
+    formState: { errors },
+    unregister,
+  } = useFormContext();
+
+  const { field } = useController({
+    name,
+    control,
+    defaultValue: [],
+  });
+
+  rates[rates.length - 1]["isTotal"] = true;
+
+  /*
+  On component render, verify that all NDRs have a label and isTotal value.
+  This is required for accurate data representation in DB and to calculateTotals().
+  */
+  useEffect(() => {
+    const prevRate = [...field.value];
+    rates.forEach((rate, index) => {
+      if (prevRate[index] === undefined) {
+        prevRate[index] = {};
+      }
+      prevRate[index]["label"] = rate.label ?? undefined;
+    });
+
+    prevRate[prevRate.length - 1]["isTotal"] = true;
+
+    field.onChange([...prevRate]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const changeRate = (
+    index: number,
+    type: "numerator" | "denominator" | "rate",
+    newValue: string,
+    isTotal?: boolean
+  ) => {
+    const digitsAfterDecimal = 1;
+    if (!allNumbers.test(newValue)) return;
+    if (type === "rate" && readOnly) return;
+
+    const prevRate = [...field.value];
+    const editRate = { ...prevRate[index] };
+    const validEditRate = eightNumbersOneDecimal.test(newValue);
+
+    if (
+      (type === "numerator" || type === "denominator") &&
+      allPositiveIntegersWith8Digits.test(newValue)
+    ) {
+      editRate[type] = validEditRate ? newValue : editRate[type];
+    }
+
+    if (type === "rate" && !readOnly) {
+      prevRate[index] ??= {
+        numerator: "",
+        denominator: "",
+        rate: "",
+      };
+
+      const regex = allowMultiple
+        ? rateThatAllowsFourDecimals
+        : rateThatAllowsOneDecimal;
+
+      prevRate[index].rate =
+        regex.test(newValue) || newValue === "" || customMask?.test(newValue)
+          ? newValue
+          : prevRate[index].rate;
+
+      field.onChange([...prevRate]);
+      return;
+    }
+
+    if (
+      parseInt(editRate.denominator) &&
+      editRate.numerator &&
+      (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
+        allowNumeratorGreaterThanDenominator)
+    ) {
+      editRate.rate = rateCalculation(
+        editRate.numerator,
+        editRate.denominator,
+        rateMultiplicationValue,
+        digitsAfterDecimal
+      );
+    } else if (editRate.rate) {
+      editRate.rate = "";
+    }
+
+    prevRate[index] = {
+      label: rates[index].label,
+      ...editRate,
+    };
+
+    // Totals NDR should be independently editable
+    if (!isTotal) calculateTotals(prevRate);
+    field.onChange([...prevRate]);
+  };
+
+  /*
+  Iterate over all numerators and denominators of NDRs where isTotal is false.
+  Sum these values and set the NDR where isTotal is true to be these sumed values.
+  */
+  const calculateTotals = (prevRate: any[]) => {
+    let numeratorSum: any = null;
+    let denominatorSum: any = null;
+    let x;
+
+    // sum all Ns and Ds
+    // we assume last NDR is total if calcTotal is true
+    prevRate.slice(0, -1).forEach((item) => {
+      if (item !== undefined && item !== null && !item["isTotal"]) {
+        if (item["rate"]) {
+          if (!isNaN((x = parseFloat(item["numerator"])))) {
+            numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
+          }
+          if (!isNaN((x = parseFloat(item["denominator"])))) {
+            denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
+          }
+        }
+      }
+    });
+
+    // Set total values and calculate total rate
+    let totalIndex = prevRate.length - 1;
+    let newValue = numeratorSum !== null ? numeratorSum.toString() : "";
+    prevRate[totalIndex]["numerator"] = newValue;
+
+    newValue = denominatorSum !== null ? denominatorSum.toString() : "";
+    prevRate[totalIndex]["denominator"] = newValue;
+
+    if (
+      numeratorSum !== null &&
+      denominatorSum !== null &&
+      numeratorSum <= denominatorSum
+    ) {
+      prevRate[totalIndex]["rate"] =
+        numeratorSum !== 0
+          ? rateCalculation(
+              numeratorSum.toString(),
+              denominatorSum.toString(),
+              rateMultiplicationValue,
+              1
+            )
+          : "0";
+    } else {
+      prevRate[totalIndex]["rate"] = "";
+    }
+  };
+
+  useEffect(
+    () => () => {
+      unregister(name);
+    },
+    [unregister, name]
+  );
+
+  useLayoutEffect(() => {
+    field.onChange(field.value);
+
+    return () => {
+      field.onChange([]);
+    };
+    // purposefully ignoring field to stop infinite rerender
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name]);
+
+  const inputFieldNames = [
+    "Discharges",
+    "Discharges per 1,000 Enrollee Months",
+    "Days",
+    "Days per 1,000 Enrollee Months",
+    "Average Length of Stay",
+  ];
+
+  // const generateInputs = () => {};
+
+  // console.log(rates, name);
+  return (
+    <>
+      {rates.map((rate, index) => {
+        return (
+          <CUI.Stack
+            my={8}
+            direction="column"
+            className="iuhh-rate-stack"
+            key={`iuhh-rate-stack-${index}`}
+          >
+            <CUI.Heading key={`${rate.label}-heading`}>
+              {rate.label}
+            </CUI.Heading>
+            <CUI.Stack direction="row" key={`iuhh-field-stack-${index}`}>
+              {inputFieldNames.map((ifn, index) => {
+                return (
+                  <QMR.InputWrapper
+                    isInvalid={
+                      !!objectPath.get(errors, `${name}.${index}.value`)
+                        ?.message
+                    }
+                    key={`input-wrapper-${ifn}-${index}`}
+                    label={ifn}
+                  >
+                    <CUI.Input
+                      key={`input-field-${index}`}
+                      value={field.value[index]?.value ?? ""}
+                      data-cy={`${name}.${index}.value`}
+                      onChange={(e) =>
+                        changeRate(index, "numerator", e.target.value)
+                      }
+                    />
+                  </QMR.InputWrapper>
+                );
+              })}
+            </CUI.Stack>
+          </CUI.Stack>
+        );
+      })}
+    </>
+  );
+};
