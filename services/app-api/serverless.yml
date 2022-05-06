@@ -26,7 +26,7 @@ custom:
   serverlessPluginTypescript:
     tsConfigFileLocation: "./tsconfig.json"
   stage: ${opt:stage, self:provider.stage}
-  region: ${param:region, self:provider.region}
+  region: ${opt:region, self:provider.region}
   serverlessTerminationProtection:
     stages:
       - master
