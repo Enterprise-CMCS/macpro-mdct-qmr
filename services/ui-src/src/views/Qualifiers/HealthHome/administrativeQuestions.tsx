@@ -15,20 +15,6 @@ export const AdministrativeQuestions = () => {
         description=""
       />
       <QMR.NumberInput
-        {...register("numberOfAdults")}
-        mask={allPositiveIntegers}
-        formLabelProps={{ fontWeight: "400", padding: padding }}
-        label={
-          <>
-            What is the total annual number of{" "}
-            <b>
-              <i>adults</i>
-            </b>{" "}
-            in the Health Home program?
-          </>
-        }
-      />
-      <QMR.NumberInput
         {...register("minAgeOfAdults")}
         mask={allPositiveIntegers}
         formLabelProps={{ fontWeight: "400", padding: padding }}
