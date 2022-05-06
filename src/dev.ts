@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import LabeledProcessRunner from "./runner.js";
 
 // load .env
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 // run_db_locally runs the local db
 async function run_db_locally(runner: LabeledProcessRunner) {
