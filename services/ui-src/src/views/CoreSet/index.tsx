@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { AddStateSpecificMeasureCard } from "./AddStateSpecificMeasureCard";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
 import { Link } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
@@ -243,10 +242,11 @@ export const CoreSet = () => {
           )}
           {isHHCoreSet && (
             <CUI.HStack spacing="6">
-              <AddStateSpecificMeasureCard
+              <QMR.AddCard
                 buttonText="Add State Specific Measure"
                 title="Need to report on State Specific data?"
-              />
+                linkTo={`/${state}/${year}/${coreSetId}/add-ssm`}
+              ></QMR.AddCard>
             </CUI.HStack>
           )}
         </QMR.LoadingWrapper>

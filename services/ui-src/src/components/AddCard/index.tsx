@@ -1,19 +1,18 @@
-import { Link, useParams } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { Link } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
 
-interface AddStateSpecificMeasureCardProps {
+interface AddCardProps {
   buttonText: string;
   title: string;
+  linkTo: string;
 }
 
-export const AddStateSpecificMeasureCard = ({
-  buttonText,
-  title,
-}: AddStateSpecificMeasureCardProps) => {
-  const { state, year } = useParams();
+// "Add" card, used for adding a new State-Specific Measure
+export const AddCard = ({ buttonText, title, linkTo }: AddCardProps) => {
   const { isStateUser } = useUser();
+  const testId = title.replace(/\s/g, "-");
 
   return (
     <CUI.Box
@@ -28,7 +27,7 @@ export const AddStateSpecificMeasureCard = ({
       <CUI.Stack spacing="6">
         <CUI.Text fontWeight="bold">{title}</CUI.Text>
         <Link
-          to={`/${state}/${year}/add-hh`}
+          to={linkTo}
           style={{
             textDecoration: "none",
           }}
@@ -36,7 +35,7 @@ export const AddStateSpecificMeasureCard = ({
           <QMR.ContainedButton
             disabledStatus={!isStateUser}
             icon="plus"
-            testId="add-state-specific-measure-button"
+            testId={testId}
             buttonText={buttonText}
             buttonProps={{
               colorScheme: "blue",
