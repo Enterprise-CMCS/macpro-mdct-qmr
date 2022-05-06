@@ -217,7 +217,8 @@ resources:
               Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
               Condition:
                 StringEquals:
-                  s3:ExistingObjectTag/virusScanStatus: "INFECTED"
+                  s3:ExistingObjectTag/virusScanStatus:
+                    - "INFECTED"
                   aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
             - Action: "s3:PutObject"
               Effect: Deny
