@@ -245,7 +245,7 @@ export const CoreSet = () => {
               <QMR.AddCard
                 buttonText="Add State Specific Measure"
                 title="Need to report on State Specific data?"
-                linkTo={`/${state}/${year}/${coreSetId}/add-ssm`}
+                to={`/${state}/${year}/${coreSetId}/add-ssm`}
               ></QMR.AddCard>
             </CUI.HStack>
           )}

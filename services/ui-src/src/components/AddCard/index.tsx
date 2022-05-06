@@ -5,14 +5,22 @@ import { useUser } from "hooks/authHooks";
 
 interface AddCardProps {
   buttonText: string;
+  disabled?: boolean;
   title: string;
-  linkTo: string;
+  to: string;
 }
 
 // "Add" card, used for adding a new State-Specific Measure
-export const AddCard = ({ buttonText, title, linkTo }: AddCardProps) => {
+export const AddCard = ({
+  buttonText,
+  disabled = false,
+  title,
+  to,
+}: AddCardProps) => {
   const { isStateUser } = useUser();
-  const testId = title.replace(/\s/g, "-");
+
+  // Create a unique testId for each card based on destination in link
+  const testId = to.substring(to.lastIndexOf("/") + 1) + "-button";
 
   return (
     <CUI.Box
@@ -27,21 +35,21 @@ export const AddCard = ({ buttonText, title, linkTo }: AddCardProps) => {
       <CUI.Stack spacing="6">
         <CUI.Text fontWeight="bold">{title}</CUI.Text>
         <Link
-          to={linkTo}
+          to={to}
           style={{
             textDecoration: "none",
           }}
         >
           <QMR.ContainedButton
-            disabledStatus={!isStateUser}
-            icon="plus"
-            testId={testId}
-            buttonText={buttonText}
             buttonProps={{
               colorScheme: "blue",
               variant: "outline",
               color: "blue.500",
             }}
+            buttonText={buttonText}
+            disabledStatus={!isStateUser || disabled}
+            icon="plus"
+            testId={testId}
           />
         </Link>
       </CUI.Stack>
