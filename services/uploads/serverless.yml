@@ -225,7 +225,7 @@ resources:
             - Action:
                 - "s3:*"
               Effect: "Allow"
-              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
             - Action: "s3:PutObject"

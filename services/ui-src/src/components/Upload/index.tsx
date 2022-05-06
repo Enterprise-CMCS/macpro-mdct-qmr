@@ -250,7 +250,9 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
         data-cy={`upload-delete-btn-${index}`}
         background="none"
         onClick={async () => {
-          await Storage.remove(file.s3Key);
+          await Storage.remove(file.s3Key, {
+            level: "protected",
+          });
           clearFile(index);
         }}
       >
