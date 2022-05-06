@@ -8,7 +8,7 @@ describe("Child Measure Qualifier: CH", () => {
     cy.get('[data-cy="core-set-qualifiers-link"]').click();
     cy.get(".css-1wb0lb9 > .css-0").should(
       "have.text",
-      "For technical questions regarding use of this application, please reach out to MDCT_help@cms.hhs.gov. For content related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
+      "For technical questions regarding use of this application, please reach out to MDCT_help@cms.hhs.gov. For content-related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
     );
     cy.get(".css-2lzsxm > .chakra-stack > .css-722v25").should(
       "have.text",
