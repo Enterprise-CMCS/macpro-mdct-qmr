@@ -3,7 +3,6 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as QMR from "components";
 import { SPA } from "libs/spaLib";
-import { SelectOption } from "components";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
@@ -31,18 +30,25 @@ export const AddHHCoreSet = () => {
   const register = useCustomRegister<HealthHome>();
   const watchSPAchoice = methods.watch("HealthHomeCoreSet-SPA");
 
-  const sortedSPAs: SelectOption[] = SPA.filter((spa) => spa.state === state)
-    .filter(
-      (spa) =>
-        !data.Items.some((coreset: any) => coreset.compoundKey.includes(spa.id))
-    )
-    .map((spa) => {
-      return {
-        displayValue: `${spa.state} ${spa.id} - ${spa.name}`,
-        value: spa.id,
-      };
-    })
-    .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
+  // Prevent iteration error if data is undefined
+  let sortedSPAs = [] as QMR.SelectOption[];
+
+  if (data) {
+    sortedSPAs = SPA.filter((spa) => spa.state === state)
+      .filter(
+        (spa) =>
+          !data.Items.some((coreset: any) =>
+            coreset.compoundKey.includes(spa.id)
+          )
+      )
+      .map((spa) => {
+        return {
+          displayValue: `${spa.state} ${spa.id} - ${spa.name}`,
+          value: spa.id,
+        };
+      })
+      .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
+  }
 
   const handleSubmit = (data: HealthHome) => {
     if (data["HealthHomeCoreSet-SPA"]) {
@@ -97,52 +103,7 @@ export const AddHHCoreSet = () => {
                           displayValue:
                             "Yes, I want to add State Specific Measures now.",
                           value: DC.YES,
-                          children: [
-                            <CUI.Stack
-                              spacing={6}
-                              mb={6}
-                              key="add-ssm-stack-intro"
-                            >
-                              <CUI.Text>
-                                In addition to the CMS recommended core and
-                                utilization measures, identify and define the{" "}
-                                <em>
-                                  <strong>measures</strong>
-                                </em>{" "}
-                                the State will use to assess its Health Home
-                                model of service delivery.
-                              </CUI.Text>
-                              <CUI.Text>
-                                You may associate up to five core measures with
-                                this core set.
-                              </CUI.Text>
-                            </CUI.Stack>,
-                            <CUI.Stack spacking={6} mb={6} key="ad-ssm-stack">
-                              <QMR.TextInput
-                                label="Name the measure"
-                                {...register("HealthHomeCoreSet-ShareSSM-Name")}
-                              ></QMR.TextInput>
-                              <QMR.TextArea
-                                label="Please provide a description of the measure"
-                                {...register(
-                                  "HealthHomeCoreSet-ShareSSM-Description"
-                                )}
-                              ></QMR.TextArea>
-                            </CUI.Stack>,
-                            <QMR.ContainedButton
-                              buttonText={"+ Add Another"}
-                              buttonProps={{
-                                variant: "outline",
-                                colorScheme: "blue",
-                                color: "blue.500",
-                                mt: "4",
-                              }}
-                              key={"AddAnotherButton"}
-                              // onClick={onClick}
-                              // disabledStatus={isDisabled}
-                              // testId={testid}
-                            />,
-                          ],
+                          children: [<QMR.AddSSM />],
                         },
                         {
                           displayValue:
