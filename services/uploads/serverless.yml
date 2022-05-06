@@ -223,7 +223,7 @@ resources:
                     - "INFECTED"
                   aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
-                - "s3:*"
+                - "s3:DeleteObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
               Principal:
