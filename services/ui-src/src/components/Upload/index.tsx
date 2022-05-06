@@ -238,8 +238,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       <CUI.Text
         as="a"
         onClick={() => {
-          console.log({ data });
-          saveAs(data.Body as Blob);
+          saveAs(data.Body as Blob, file.filename);
         }}
         variant="xl"
       >
