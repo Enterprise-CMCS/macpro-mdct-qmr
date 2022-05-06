@@ -48,7 +48,10 @@ export const Upload = ({
         const fileToUpload = ensureLowerCaseFileExtension(file);
 
         let retPromise;
-        const targetPathname = `${Date.now()}/${fileToUpload.name}`;
+        const targetPathname = `${Date.now()}/${fileToUpload.name.replaceAll(
+          " ",
+          ""
+        )}`;
 
         try {
           const stored = await Storage.vault.put(targetPathname, fileToUpload, {
