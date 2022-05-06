@@ -55,7 +55,7 @@ export const PCRHH = ({
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
-          <CMQ.CombinedRates />
+          <CMQ.CombinedRates healthHomeMeasure />
           {showOptionalMeasureStrat && (
             <PCRHHOptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
