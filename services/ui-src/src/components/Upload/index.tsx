@@ -215,26 +215,15 @@ export const Upload = ({
 };
 
 const ListItem = ({ file, index, clearFile }: ListItemProps) => {
-  const { data } = useQuery(
-    [file.s3Key],
-    async () => {
-      try {
-        const testUrl = await Storage.get(file.s3Key, {
-          download: true,
-          level: "protected",
-        });
-        return testUrl;
-      } catch (error) {
-        throw Error("it didn't work");
-      }
-    },
-    {
-      retry: 10,
-      onError: (err) => {
-        console.log(err);
-      },
-    }
-  );
+  const { data } = useQuery([file.s3Key], async () => {
+    const testUrl = await Storage.get(file.s3Key, {
+      download: true,
+      level: "protected",
+    });
+    return testUrl;
+  });
+
+  if (!data) return null;
 
   return (
     <CUI.HStack
@@ -244,7 +233,16 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       borderRadius="10"
       justifyContent="space-between"
     >
-      <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
+      <CUI.Text
+        as="a"
+        onClick={() => {
+          console.log({ data });
+          saveAs(data.Body as Blob);
+        }}
+        variant="xl"
+      >
+        {file.filename}
+      </CUI.Text>
       <CUI.Button
         data-testid={`test-delete-btn-${index}`}
         data-cy={`upload-delete-btn-${index}`}
@@ -258,16 +256,6 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       >
         x
       </CUI.Button>
-      {data && (
-        <CUI.Button
-          background="none"
-          onClick={() => {
-            saveAs(data.Body as Blob);
-          }}
-        >
-          Download
-        </CUI.Button>
-      )}
     </CUI.HStack>
   );
 };
