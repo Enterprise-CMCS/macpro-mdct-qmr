@@ -2,8 +2,8 @@ import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { FormData } from "./types";
-import { xNumbersYDecimals } from "utils/numberInputMasks";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
@@ -20,7 +20,7 @@ export const AMBCH = ({
 }: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const data = watch();
-  let mask: RegExp = xNumbersYDecimals(3, 1);
+  let mask: RegExp = positiveNumbersWithMaxDecimalPlaces(1);
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const rateScale = 1000;
 
