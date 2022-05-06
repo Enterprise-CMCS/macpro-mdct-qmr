@@ -200,16 +200,18 @@ export const Upload = ({
           </CUI.AlertTitle>
         </CUI.Alert>
       ))}
-      {field.value.map((file: any, index: any) => {
-        return (
-          <ListItem
-            file={file}
-            index={index}
-            clearFile={clearFile}
-            key={`${index}-${file.s3Key}`}
-          />
-        );
-      })}
+      {field.value
+        .filter((file: any) => file.s3Key)
+        .map((file: any, index: any) => {
+          return (
+            <ListItem
+              file={file}
+              index={index}
+              clearFile={clearFile}
+              key={`${index}-${file.s3Key}`}
+            />
+          );
+        })}
     </>
   );
 };

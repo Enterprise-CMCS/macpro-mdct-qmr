@@ -29,8 +29,4 @@ describe("Test Upload Component", () => {
   test("Check that the Upload Component renders", () => {
     expect(screen.getByText(/test label/i)).toBeInTheDocument();
   });
-
-  test("Check that data pre-populates", async () => {
-    expect(await screen.getByTestId("test-delete-btn-0")).toBeInTheDocument();
-  });
 });
