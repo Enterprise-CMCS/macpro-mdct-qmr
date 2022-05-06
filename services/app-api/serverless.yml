@@ -25,7 +25,7 @@ custom:
     daysLeft: 30
   serverlessPluginTypescript:
     tsConfigFileLocation: "./tsconfig.json"
-  stage: ${param:stage, self:provider.stage}
+  stage: ${opt:stage, self:provider.stage}
   region: ${param:region, self:provider.region}
   serverlessTerminationProtection:
     stages:
@@ -96,7 +96,7 @@ provider:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
     uploadS3BucketName: ${cf:uploads-${self:custom.stage}.AttachmentsBucketName, ""}
-    stage: ${param:stage, self:provider.stage}
+    stage: ${opt:stage, self:provider.stage}
 
 functions:
   listMeasures:
