@@ -35,7 +35,7 @@ export const Upload = ({
   ],
 }: IUploadProps) => {
   const { control } = useFormContext();
-
+  const [uploadStatus, setUploadStatus] = React.useState(0);
   const { field } = useController({
     name,
     control,
@@ -54,6 +54,12 @@ export const Upload = ({
           const stored = await Storage.vault.put(targetPathname, fileToUpload, {
             level: "protected",
             contentType: fileToUpload.type,
+            progressCallback(progress) {
+              const progressRatio = (progress.loaded / progress.total) * 100;
+              console.log({ progressRatio });
+              setUploadStatus(progressRatio);
+              console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
+            },
           });
 
           const url = await Storage.vault.get(stored.key, {
@@ -212,6 +218,9 @@ export const Upload = ({
             />
           );
         })}
+      {Boolean(uploadStatus) && Boolean(uploadStatus < 100) && (
+        <CUI.Progress value={uploadStatus} my="3" />
+      )}
     </>
   );
 };
@@ -225,6 +234,8 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
     return testUrl;
   });
 
+  if (!data) return null;
+
   return (
     <CUI.HStack
       background="blue.50"
@@ -236,29 +247,25 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       <CUI.Text
         as="a"
         onClick={() => {
-          if (data) {
-            saveAs(data.Body as Blob, file.filename);
-          }
+          saveAs(data.Body as Blob, file.filename);
         }}
         variant="xl"
       >
-        {file.filename || "loading..."}
+        {file.filename}
       </CUI.Text>
-      {data && (
-        <CUI.Button
-          data-testid={`test-delete-btn-${index}`}
-          data-cy={`upload-delete-btn-${index}`}
-          background="none"
-          onClick={async () => {
-            await Storage.remove(file.s3Key, {
-              level: "protected",
-            });
-            clearFile(index);
-          }}
-        >
-          x
-        </CUI.Button>
-      )}
+      <CUI.Button
+        data-testid={`test-delete-btn-${index}`}
+        data-cy={`upload-delete-btn-${index}`}
+        background="none"
+        onClick={async () => {
+          await Storage.remove(file.s3Key, {
+            level: "protected",
+          });
+          clearFile(index);
+        }}
+      >
+        x
+      </CUI.Button>
     </CUI.HStack>
   );
 };
