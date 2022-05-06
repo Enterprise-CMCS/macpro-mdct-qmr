@@ -15,7 +15,7 @@ interface Props {
   hybridMeasure?: boolean;
   showtextbox?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
-  RateComponent?: any;
+  RateComponent?: RateComp;
 }
 
 interface NdrSetProps {
@@ -26,7 +26,7 @@ interface NdrSetProps {
   rateScale?: number;
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
-  RateComponent: any;
+  RateComponent: RateComp;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
