@@ -56,9 +56,7 @@ export const Upload = ({
             contentType: fileToUpload.type,
             progressCallback(progress) {
               const progressRatio = (progress.loaded / progress.total) * 100;
-              console.log({ progressRatio });
               setUploadStatus(progressRatio);
-              console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
             },
           });
 
@@ -219,7 +217,7 @@ export const Upload = ({
           );
         })}
       {Boolean(uploadStatus) && Boolean(uploadStatus < 100) && (
-        <CUI.Progress value={uploadStatus} my="3" />
+        <CUI.Progress hasStripe value={uploadStatus} my="3" />
       )}
     </>
   );
