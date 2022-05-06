@@ -53,8 +53,8 @@ custom:
       enabled: true
       prewarm: true
       events:
-        - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule, ssm:/configuration/default/warmup/schedule, "60 minutes"})
-      concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency, ssm:/configuration/default/warmup/concurrency, 5}
+        - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule, ssm:/configuration/default/warmup/schedule~true, "60 minutes"})
+      concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency, ssm:/configuration/default/warmup/concurrency~true, 5}
   authValue:
     master: aws_iam
     val: aws_iam
@@ -69,8 +69,8 @@ provider:
     restApi: true
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
-      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
+      path: ${ssm:/configuration/${self:custom.stage}/iam/path~true, ssm:/configuration/default/iam/path~true, "/"}
+      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy~true, ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
       statements:
         - Effect: "Allow"
           Action:
