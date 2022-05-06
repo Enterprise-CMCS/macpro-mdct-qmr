@@ -1676,9 +1676,9 @@
     ws "^7.5.3"
 
 "@serverless/utils@^6.0.3":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@serverless/utils/-/utils-6.2.0.tgz#b5cedde548310e8a8305ebd1d8692b5977153985"
-  integrity sha512-J+BwreQ5NL1ZZYBEHdPZLE7IiAo9jsu/WeCPbpuNTRLkpPQAtPB3vK1QI2AT/bgmozVW2xYUqvNpfxOZmcejRg==
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@serverless/utils/-/utils-6.3.0.tgz#42abdd721d942c5840b8584c1880bd8fe2ff9ef0"
+  integrity sha512-P/oqfBi/2biT1W0JJ3knxnlPBr8jYPT6TJhyB7ziGUZndKvhzywCp5Pk+8i/8/6pLAqcKIpgjEn/HlhqOgHu4g==
   dependencies:
     archive-type "^4.0.0"
     chalk "^4.1.2"
@@ -4088,9 +4088,9 @@ data-urls@^2.0.0:
     whatwg-url "^8.0.0"
 
 dayjs@^1.10.4, dayjs@^1.11.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.1.tgz#90b33a3dda3417258d48ad2771b415def6545eb0"
-  integrity sha512-ER7EjqVAMkRRsxNCC5YqJ9d9VQYuWdGt7aiH2qA5R5wt8ZmWaP2dLUSIK6y/kVzLMlmh1Tvu5xUf4M/wdGJ5KA==
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.2.tgz#fa0f5223ef0d6724b3d8327134890cfe3d72fbe5"
+  integrity sha512-F4LXf1OeU9hrSYRPTTj/6FbO4HTjPKXvEIC1P2kcnFurViINCVk3ZV0xAS3XVx9MkMsXbbqlK6hjseaYbgKEHw==
 
 debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3:
   version "4.3.4"
@@ -9621,19 +9621,19 @@ serverless-plugin-scripts@^1.0.2:
   resolved "https://registry.yarnpkg.com/serverless-plugin-scripts/-/serverless-plugin-scripts-1.0.2.tgz#21808c3cfd0a1a84e48c0660b0f6f370b5665486"
   integrity sha1-IYCMPP0KGoTkjAZgsPbzcLVmVIY=
 
-serverless-plugin-warmup@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/serverless-plugin-warmup/-/serverless-plugin-warmup-7.1.0.tgz#884acdc9fe4c5822132adf68a73a5c8ef62e77e9"
-  integrity sha512-p2+fIChOnBXkuw3+uyqk7ZNGRj9ymVXTgYYqyxqSJX1tYXBF7QdcKbMUMqU2SDdccFLTRUSejIq7OfRsqe/jdw==
+serverless-plugin-warmup@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/serverless-plugin-warmup/-/serverless-plugin-warmup-5.3.1.tgz#cc8ca43452c5468a79a7b5447c84267035fa8d1e"
+  integrity sha512-+nY6VCTLf/VjwkwAudtCXE/neaYSKy+9NmnYTSL0y8ZGfKB6u9Hrh9J2vqYEcam6eQFnCAEsch9iTs/dbU2vGg==
 
-serverless-s3-bucket-helper@CMSgov/serverless-s3-bucket-helper#0.1.1:
+serverless-s3-bucket-helper@CMSgov/serverless-s3-bucket-helper#0.1.0:
   version "1.0.0"
-  resolved "https://codeload.github.com/CMSgov/serverless-s3-bucket-helper/tar.gz/f0f6d6a1ffe54e292f0afc93777764bce16a4037"
+  resolved "https://codeload.github.com/CMSgov/serverless-s3-bucket-helper/tar.gz/a6016a9ab164a21044741eb8eb69293f729605a0"
 
-serverless-stack-termination-protection@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/serverless-stack-termination-protection/-/serverless-stack-termination-protection-2.0.0.tgz#912dfa44f630186a7febb33a5e4d98116528976e"
-  integrity sha512-MZ98a5aQoS46ppMKZFtbJCbWWmQov63dfvWsfjhb3FrITtABuZsoYd2T58qIOK0jT5c4IC6qQrtk/Z3jOe4pqQ==
+serverless-stack-termination-protection@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/serverless-stack-termination-protection/-/serverless-stack-termination-protection-1.0.4.tgz#e0430108cfc8f4d72a63138ef5781c6fe9707868"
+  integrity sha512-2uOF6/t90VXpWq8ZbWgEXMiYXA+9ZKsgm8or5jJLQYnm0Sbu2z7/EK2/ACwH4uaErFOdprI0tO9H8STdKK4TFQ==
 
 serverless-webpack@^5.6.1:
   version "5.7.0"

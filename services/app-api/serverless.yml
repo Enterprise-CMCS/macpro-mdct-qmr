@@ -2,7 +2,7 @@
 service: app-api
 useDotenv: true
 
-frameworkVersion: "3"
+frameworkVersion: "2"
 
 package:
   individually: true
