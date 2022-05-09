@@ -262,7 +262,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
       </CUI.Heading>
       <QMR.PCRRate
         rates={rates}
-        name={`${name}.pcrad-rate`}
+        name={`${name}.pcr-rate`}
         readOnly={rateReadOnly}
         customMask={customMask}
       />

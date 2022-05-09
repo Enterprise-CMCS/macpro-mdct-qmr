@@ -6,7 +6,6 @@ import * as QMR from "components";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { validationFunctions } from "./validation";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
-import { PCRHHOptionalMeasureStrat } from "./questions/OptionalMeasureStrat";
 import { FormData } from "./types";
 
 export const PCRHH = ({
@@ -57,11 +56,12 @@ export const PCRHH = ({
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates healthHomeMeasure />
           {showOptionalMeasureStrat && (
-            <PCRHHOptionalMeasureStrat
+            <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
+              adultMeasure={false}
+              compFlag={"PCR"}
             />
           )}
         </>
