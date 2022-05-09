@@ -5,13 +5,13 @@ import { useState } from "react";
 
 // Add State-Specific Measure component
 export const AddSSM = () => {
-  const [SSMs, addSSM] = useState([<SingleSSM index={0} />]);
+  const [SSMs, addSSM] = useState([<SingleSSM key="add-ssm-0" index={0} />]);
 
   const appendNewSSM = () => {
     if (SSMs.length < 5) {
       addSSM((previousState) => [
         ...previousState,
-        <SingleSSM index={SSMs.length} />,
+        <SingleSSM key={`add-ssm-${SSMs.length}`} index={SSMs.length} />,
       ]);
     }
   };
