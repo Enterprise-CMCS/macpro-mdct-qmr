@@ -244,7 +244,7 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
   );
 };
 
-const PCRADNDRSets = ({ name }: NdrProps) => {
+const PCRNDRSets = ({ name }: NdrProps) => {
   const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
   const rates = qualifiers.map((qual, i) => {
@@ -260,7 +260,7 @@ const PCRADNDRSets = ({ name }: NdrProps) => {
       <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
         Please review the auto-calculated rate and revise if needed.
       </CUI.Heading>
-      <QMR.MultiRate
+      <QMR.PCRRate
         rates={rates}
         name={`${name}.pcrad-rate`}
         readOnly={rateReadOnly}
@@ -359,7 +359,7 @@ export const NDRSets = ({ name }: NdrProps) => {
       break;
     case "PCR":
       if (!OPM) {
-        children.push(<PCRADNDRSets name={name} key={name} />);
+        children.push(<PCRNDRSets name={name} key={name} />);
       }
       break;
   }
