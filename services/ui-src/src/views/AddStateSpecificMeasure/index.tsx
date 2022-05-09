@@ -31,6 +31,23 @@ export const AddStateSpecificMeasure = () => {
           <QMR.AddSSM></QMR.AddSSM>
         </FormProvider>
       </CUI.Box>
+      <CUI.HStack paddingTop="5">
+        <QMR.ContainedButton
+          buttonProps={{
+            type: "submit",
+            colorScheme: "blue",
+          }}
+          buttonText="Create"
+          // disabledStatus={!sortedSPAs.length || !watchSPAchoice}
+        />
+        <QMR.ContainedButton
+          buttonProps={{ color: "blue.500", colorScheme: "white" }}
+          buttonText="Cancel"
+          // onClick={() => {
+          //   navigate(`/${state}/${year}`);
+          // }}
+        />
+      </CUI.HStack>
     </QMR.StateLayout>
   );
 };
