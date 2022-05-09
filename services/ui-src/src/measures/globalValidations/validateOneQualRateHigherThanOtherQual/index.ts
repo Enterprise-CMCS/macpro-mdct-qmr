@@ -23,7 +23,7 @@ const _validation = ({
 
   for (const [i, ratefields] of rateData.entries()) {
     if (
-      ratefields.length >= 2 &&
+      ratefields?.length >= 2 &&
       parseFloat(ratefields[lowerIndex]?.rate ?? "") >
         parseFloat(ratefields[higherIndex]?.rate ?? "")
     ) {

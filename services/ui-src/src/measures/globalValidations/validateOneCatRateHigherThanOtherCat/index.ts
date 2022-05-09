@@ -26,7 +26,7 @@ const _validation = ({
   const errorArray: FormError[] = [];
   const lowerRate = rateData[lowerIndex];
   const higherRate = rateData[higherIndex];
-  for (let i = 0; i < lowerRate.length; i++) {
+  for (let i = 0; i < lowerRate?.length; i++) {
     const lrate = lowerRate?.[i]?.rate;
     const hrate = higherRate?.[i]?.rate;
 

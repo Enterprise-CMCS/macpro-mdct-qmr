@@ -37,7 +37,7 @@ export const getOtherPerformanceMeasureRateArray = (
   opmRates: Types.OtherRatesFields[]
 ) => {
   const otherPmData: PM[][] = [];
-  if (opmRates && opmRates.length) {
+  if (opmRates && opmRates?.length) {
     for (const rates of opmRates) {
       if (rates.rate) {
         otherPmData.push(rates.rate);
@@ -81,6 +81,8 @@ export const performanceMeasureErrorLocationDicitonary = (
   }
 
   errorDict[DC.SINGLE_CATEGORY] = DC.PERFORMANCE_MEASURE;
+
+  return errorDict;
 };
 
 /**
