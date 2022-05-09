@@ -7,6 +7,7 @@ import {
 } from "../types";
 import {
   convertOmsDataToRateArray,
+  getOtherPerformanceMeasureRateArray,
   // getPerfMeasureRateArray,
 } from "../dataDrivenTools";
 
@@ -103,67 +104,30 @@ export const validateRateNotZeroOMS: OmsValidationCallback = ({
 export const validateNoNonZeroNumOrDenomPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  ageGroups: string[],
+  _qualifiers: string[],
   data: Types.DefaultFormData
 ) => {
-  let nonZeroRateError = false;
-  let zeroRateError = false;
-  let errorArray: any[] = [];
-  const hybridData = data[DC.DATA_SOURCE]?.includes(
+  const errorArray: FormError[] = [];
+  const hybridData = data?.[DC.DATA_SOURCE]?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
   );
-  ageGroups.forEach((_ageGroup, i) => {
-    performanceMeasureArray?.forEach((performanceMeasure) => {
-      if (
-        performanceMeasure &&
-        performanceMeasure[i] &&
-        performanceMeasure[i].denominator &&
-        performanceMeasure[i].numerator &&
-        performanceMeasure[i].rate
-      ) {
-        if (
-          parseFloat(performanceMeasure[i].rate!) !== 0 &&
-          parseFloat(performanceMeasure[i].numerator!) === 0
-        ) {
-          nonZeroRateError = true;
-        }
-        if (
-          parseFloat(performanceMeasure[i].rate!) === 0 &&
-          parseFloat(performanceMeasure[i].numerator!) !== 0 &&
-          parseFloat(performanceMeasure[i].denominator!) !== 0
-        ) {
-          zeroRateError = true;
-        }
-      }
-    });
-  });
+  const location = `Performance Measure/Other Performance Measure`;
+  const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
 
-  OPM &&
-    OPM.forEach((performanceMeasure: any) => {
-      performanceMeasure.rate.forEach((rate: any) => {
-        if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
-          nonZeroRateError = true;
-        }
-        if (
-          parseFloat(rate.numerator) !== 0 &&
-          parseFloat(rate.denominator) !== 0 &&
-          parseFloat(rate.rate) === 0
-        ) {
-          zeroRateError = true;
-        }
-      });
-    });
-  if (nonZeroRateError && !hybridData) {
-    errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure`,
-      errorMessage: `Manually entered rate should be 0 if numerator is 0`,
-    });
-  }
-  if (zeroRateError) {
-    errorArray.push({
-      errorLocation: `Performance Measure/Other Performance Measure`,
-      errorMessage: `Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
-    });
-  }
-  return zeroRateError || nonZeroRateError ? errorArray : [];
+  const nonZeroErrors = [
+    ..._validationRateNotZero({ location, rateData: performanceMeasureArray }),
+    ..._validationRateNotZero({ location, rateData: rateDataOPM }),
+  ];
+  const zeroErrors = [
+    ..._validationRateZero({
+      location,
+      rateData: performanceMeasureArray,
+      hybridData,
+    }),
+    ..._validationRateZero({ location, rateData: rateDataOPM, hybridData }),
+  ];
+
+  if (!!nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);
+  if (!!zeroErrors.length) errorArray.push(zeroErrors[0]);
+  return errorArray;
 };

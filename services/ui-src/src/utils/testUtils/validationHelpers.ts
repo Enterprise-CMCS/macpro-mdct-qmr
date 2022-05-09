@@ -1,4 +1,5 @@
 import * as DC from "dataConstants";
+import * as Types from "measures/CommonQuestions/types";
 import { cleanString } from "utils/cleanString";
 import {
   RateFields,
@@ -9,6 +10,21 @@ import {
 
 export const partialRate: RateFields = {
   numerator: "5",
+};
+export const badNumeratorRate: RateFields = {
+  numerator: "7",
+  denominator: "5",
+  rate: "33.3",
+};
+export const manualZeroRate: RateFields = {
+  numerator: "7",
+  denominator: "5",
+  rate: "0.0",
+};
+export const manualNonZeroRate: RateFields = {
+  numerator: "0",
+  denominator: "5",
+  rate: "55.0",
 };
 export const simpleRate: RateFields = {
   numerator: "1",
@@ -168,6 +184,24 @@ export const generatePmCategoryRateData = (
   }
 
   return rateData;
+};
+
+/**
+ * Helper function to prep opm validation test data by slotting test data into x number of fields
+ * @param testData object to be pushed onto OPM rates
+ * @param numberOfFields how many field sets to make
+ */
+export const generateOtherPerformanceMeasureData = (
+  testData: RateFields[],
+  numberOfFields = 3
+) => {
+  const data: Types.OtherRatesFields[] = [];
+
+  for (let index = 0; index < numberOfFields; index++) {
+    data.push({ rate: testData });
+  }
+
+  return data;
 };
 
 /**

@@ -1,29 +1,117 @@
-import { test_setup } from "../testHelpers/_helper";
-import { testFormData } from "../testHelpers/_testFormData";
-// import {validateEqualDenominators} from "measures/globalValidations";
+import {
+  validateEqualQualifierDenominatorsOMS,
+  validateEqualQualifierDenominatorsPM,
+} from "./index";
 
-describe("validateEqualDenominators", () => {
-  let formData: any;
-  let errorArray: FormError[];
+import {
+  generateOmsCategoryRateData,
+  locationDictionary,
+  doubleRate,
+  simpleRate,
+  partialRate,
+} from "utils/testUtils/validationHelpers";
 
-  const _check_errors = (data: any, numErrors: number) => {
-    const { ageGroups, performanceMeasureArray, OPM } = test_setup(data);
-    ageGroups;
-    performanceMeasureArray;
-    OPM;
+describe("Testing Equal Qualifier Denominators Across Category Validation", () => {
+  const categories = ["Test Cat 1", "Test Cat 2"];
+  const qualifiers = ["Test Qual 1", "Test Qual 2"];
 
-    errorArray = [
-      // ...validateEqualDenominators()
-    ];
-    expect(errorArray.length).toBe(numErrors);
+  const baseOMSInfo = {
+    categories,
+    qualifiers,
+    locationDictionary,
+    isOPM: false,
+    label: ["TestLabel"],
   };
 
-  beforeEach(() => {
-    formData = JSON.parse(JSON.stringify(testFormData)); // reset data
-    errorArray = [];
+  // PM
+  describe("PM/OPM Validation", () => {
+    it("should return NO errors", () => {
+      const errors = validateEqualQualifierDenominatorsPM(
+        [[simpleRate, simpleRate]],
+        qualifiers
+      );
+
+      expect(errors).toHaveLength(0);
+    });
+
+    it("should have error", () => {
+      const errors = validateEqualQualifierDenominatorsPM(
+        [
+          [simpleRate, simpleRate],
+          [doubleRate, doubleRate],
+        ],
+        qualifiers
+      );
+
+      expect(errors).toHaveLength(2);
+      expect(errors[0].errorLocation).toBe("Performance Measure");
+      expect(errors[0].errorMessage).toBe(
+        `Denominators must be the same for each category of performance measures for ${qualifiers[0]}`
+      );
+    });
+
+    it("should NOT have error from empty rate value", () => {
+      const errors = validateEqualQualifierDenominatorsPM(
+        [
+          [partialRate, partialRate],
+          [partialRate, partialRate],
+        ],
+        qualifiers
+      );
+
+      expect(errors).toHaveLength(0);
+    });
   });
 
-  test("", () => {
-    _check_errors(formData, 0);
+  // OMS
+  describe("OMS Validation", () => {
+    it("should return NO errors", () => {
+      const data = generateOmsCategoryRateData(categories, qualifiers, [
+        simpleRate,
+        simpleRate,
+      ]);
+      const errors = validateEqualQualifierDenominatorsOMS({
+        ...baseOMSInfo,
+        rateData: data,
+      });
+
+      expect(errors).toHaveLength(0);
+    });
+
+    it("should return no errors if OPM", () => {
+      const data = generateOmsCategoryRateData(categories, qualifiers, [
+        simpleRate,
+        simpleRate,
+      ]);
+      const errors = validateEqualQualifierDenominatorsOMS({
+        ...baseOMSInfo,
+        rateData: data,
+        isOPM: true,
+      });
+
+      expect(errors).toHaveLength(0);
+    });
+
+    it("should have errors", () => {
+      const locationDictionaryJestFunc = jest.fn();
+      const data = generateOmsCategoryRateData(categories, qualifiers, [
+        simpleRate,
+        doubleRate,
+      ]);
+      const errors = validateEqualQualifierDenominatorsOMS({
+        ...baseOMSInfo,
+        locationDictionary: locationDictionaryJestFunc,
+        rateData: data,
+      });
+
+      expect(errors).toHaveLength(2);
+      expect(errors[0].errorLocation).toContain(
+        "Optional Measure Stratification:"
+      );
+      expect(locationDictionaryJestFunc).toHaveBeenCalledWith([
+        "TestLabel",
+        qualifiers[0],
+      ]);
+    });
   });
 });

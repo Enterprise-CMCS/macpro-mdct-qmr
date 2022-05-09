@@ -37,9 +37,11 @@ export const getOtherPerformanceMeasureRateArray = (
   opmRates: Types.OtherRatesFields[]
 ) => {
   const otherPmData: PM[][] = [];
-  for (const rates of opmRates) {
-    if (rates.rate) {
-      otherPmData.push(rates.rate);
+  if (opmRates && opmRates.length) {
+    for (const rates of opmRates) {
+      if (rates.rate) {
+        otherPmData.push(rates.rate);
+      }
     }
   }
   return otherPmData;

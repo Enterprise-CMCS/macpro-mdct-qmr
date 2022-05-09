@@ -1,7 +1,48 @@
-import { OmsValidationCallback, FormRateField } from "../types";
-import { RateFields } from "measures/CommonQuestions/types";
-import { cleanString } from "utils/cleanString";
+import {
+  OmsValidationCallback,
+  FormRateField,
+  UnifiedValFuncProps as UVFP,
+} from "../types";
+import { convertOmsDataToRateArray } from "../dataDrivenTools";
 
+interface ValProps extends UVFP {
+  locationFunc?: (qualifier: string) => string;
+}
+
+const _validation = ({
+  rateData,
+  qualifiers,
+  location,
+  errorMessage,
+  locationFunc,
+}: ValProps): FormError[] => {
+  const errorArray: FormError[] = [];
+
+  for (const [i, qual] of qualifiers!.entries()) {
+    const denominators: (string | undefined)[] = [];
+    for (const rateSet of rateData) {
+      if (rateSet && rateSet[i] && rateSet[i].denominator) {
+        denominators.push(rateSet[i].denominator);
+      }
+    }
+
+    const error = !denominators.every((v) => !v || v === denominators[0]);
+    if (error) {
+      errorArray.push({
+        errorLocation: locationFunc ? locationFunc(qual) : location,
+        errorMessage:
+          errorMessage ??
+          `Denominators must be the same for each category of performance measures for ${qual}`,
+      });
+    }
+  }
+
+  return errorArray;
+};
+
+/**
+ * All qualifiers need to have the same denominator
+ */
 export const validateEqualQualifierDenominatorsOMS: OmsValidationCallback = ({
   rateData,
   categories,
@@ -11,78 +52,31 @@ export const validateEqualQualifierDenominatorsOMS: OmsValidationCallback = ({
   isOPM,
 }) => {
   if (isOPM) return [];
-
-  const errors: FormError[] = [];
-  const areDenomsTheSame = (rateArr: RateFields[]) => {
-    if (rateArr.length === 0) return true;
-    const compareValue = rateArr[0].denominator;
-    return rateArr.every((rate) => rate.denominator === compareValue);
-  };
-  for (const qual of qualifiers) {
-    const cleanQual = cleanString(qual);
-    const rateArr: RateFields[] = [];
-    for (const cat of categories.map((s) => cleanString(s))) {
-      console.log({ cat, qual });
-      if (rateData.rates?.[cleanQual]?.[cat]) {
-        const temp = rateData.rates[cleanQual][cat][0];
-        console.log({ temp });
-        if (temp && temp.denominator) {
-          rateArr.push(temp);
-        }
-      }
-    }
-    console.log({ rateArr });
-    if (!areDenomsTheSame(rateArr)) {
-      errors.push({
-        errorLocation: `Optional Measure Stratification: ${locationDictionary([
-          ...label,
-          qual,
-        ])}`,
-        errorMessage: "Denominators must be the same for each category.",
-      });
-    }
-  }
-  return errors;
+  return _validation({
+    qualifiers,
+    location: "Optional Measure Stratification",
+    locationFunc: (qual) =>
+      `Optional Measure Stratification: ${locationDictionary([
+        ...label,
+        qual,
+      ])}`,
+    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+    errorMessage: "Denominators must be the same for each category.",
+  });
 };
 
-// For each age group the denominators need to be the same for both
-// Initiation AND Engagement
+/**
+ * All qualifiers need to have the same denominator
+ */
 export const validateEqualQualifierDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
-  ageGroups: string[],
+  qualifiers: string[],
   explicitErrorMessage?: string
 ) => {
-  let error;
-  let errorArray: FormError[] = [];
-  ageGroups.forEach((ageGroup, i) => {
-    let filledInData: any[] = [];
-    performanceMeasureArray?.forEach((_performanceObj, index) => {
-      if (
-        performanceMeasureArray[index] &&
-        performanceMeasureArray[index][i] &&
-        performanceMeasureArray[index][i].denominator
-      ) {
-        filledInData.push(performanceMeasureArray[index][i]);
-      }
-    });
-    if (filledInData.length > 1) {
-      let firstDenominator = filledInData[0].denominator;
-      let denominatorsNotEqual = false;
-      filledInData.forEach((_filledInDataObj, index) => {
-        if (filledInData[index].denominator !== firstDenominator) {
-          denominatorsNotEqual = true;
-        }
-      });
-      if (denominatorsNotEqual) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage:
-            explicitErrorMessage ||
-            `Denominators must be the same for each category of performance measures for ${ageGroup}`,
-        };
-        errorArray.push(error);
-      }
-    }
+  return _validation({
+    location: "Performance Measure",
+    errorMessage: explicitErrorMessage,
+    qualifiers,
+    rateData: performanceMeasureArray,
   });
-  return errorArray;
 };
