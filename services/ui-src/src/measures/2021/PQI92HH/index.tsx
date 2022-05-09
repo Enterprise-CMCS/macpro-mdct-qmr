@@ -72,6 +72,7 @@ export const PQI92HH = ({
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
               allowNumeratorGreaterThanDenominator
+              calcTotal
             />
           )}
         </>
