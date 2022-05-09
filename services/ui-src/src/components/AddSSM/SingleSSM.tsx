@@ -1,17 +1,20 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
-export const SingleSSM = () => {
+interface SingleSSMProps {
+  index: number;
+}
+
+export const SingleSSM = ({ index }: SingleSSMProps) => {
   return (
     <CUI.Stack spacing={6}>
-      <CUI.Divider />
       <QMR.TextInput
         label="Name the measure"
-        name="measure-name"
+        name={`ssm-name-${index}`}
       ></QMR.TextInput>
       <QMR.TextArea
         label="Please provide a description of the measure"
-        name="measure-description"
+        name={`measure-description-${index}`}
       ></QMR.TextArea>
     </CUI.Stack>
   );
