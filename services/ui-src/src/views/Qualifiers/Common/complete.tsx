@@ -10,14 +10,14 @@ interface Props {
 export const CompleteCoreSets = ({ handleValidation, type }: Props) => {
   let qualifierType = type === "AD" ? "Adult" : "Child";
   if (type === "HH") {
-    qualifierType = "Health Homes";
+    qualifierType = "Health Home";
   }
 
   return (
     <CUI.ListItem data-cy="complete-CoreSet">
       <Common.QualifierHeader
         header={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS`}
-        description={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS for review`}
+        description={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS for review.`}
       />
 
       <CUI.HStack>
