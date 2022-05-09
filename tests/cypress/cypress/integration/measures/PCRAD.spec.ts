@@ -63,7 +63,7 @@ describe("PCR-AD", () => {
     ).click();
     cy.get(":nth-child(9) > :nth-child(3) > :nth-child(1)").should(
       "have.text",
-      "Count of Index Hospital Stays (IHS) "
+      "Count of Index Hospital Stays (IHS)"
     );
     cy.get(":nth-child(9) > :nth-child(3) > :nth-child(2)").should(
       "have.text",

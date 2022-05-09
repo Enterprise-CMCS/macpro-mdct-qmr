@@ -1,13 +1,12 @@
-import { useFormContext } from "react-hook-form";
-import { useEffect } from "react";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
-import { validationFunctions } from "./validation";
-import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
-import { PCRADOptionalMeasureStrat } from "./questions/OptionalMeasureStrat";
 import { FormData } from "./types";
+import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
+import { useFormContext } from "react-hook-form";
+import { useEffect } from "react";
+import { validationFunctions } from "./validation";
 
 export const PCRAD = ({
   name,
@@ -57,10 +56,11 @@ export const PCRAD = ({
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
-            <PCRADOptionalMeasureStrat
+            <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
+              compFlag={"PCR"}
               adultMeasure
             />
           )}
