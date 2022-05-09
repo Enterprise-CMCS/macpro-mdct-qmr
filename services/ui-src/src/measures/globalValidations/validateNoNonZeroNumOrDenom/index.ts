@@ -80,7 +80,7 @@ export const validateRateZeroOMS: OmsValidationCallback = ({
     hybridData,
     location: `Optional Measure Stratification: ${locationDictionary(label)}`,
     rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-  });
+  }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
 };
 
 export const validateRateNotZeroOMS: OmsValidationCallback = ({
@@ -95,7 +95,7 @@ export const validateRateNotZeroOMS: OmsValidationCallback = ({
     qualifiers,
     location: `Optional Measure Stratification: ${locationDictionary(label)}`,
     rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-  });
+  }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
 };
 
 // If a user manually over-rides a rate it must not violate two rules:

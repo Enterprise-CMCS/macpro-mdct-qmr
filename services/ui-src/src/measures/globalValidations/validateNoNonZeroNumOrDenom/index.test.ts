@@ -188,7 +188,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
         rateData: data,
       });
 
-      expect(errors).toHaveLength(4);
+      expect(errors).toHaveLength(1);
       expect(errors[0].errorLocation).toContain(
         "Optional Measure Stratification: TestLabel"
       );
@@ -207,7 +207,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
         rateData: data,
       });
 
-      expect(errors).toHaveLength(4);
+      expect(errors).toHaveLength(1);
       expect(errors[0].errorLocation).toContain(
         "Optional Measure Stratification: TestLabel"
       );
