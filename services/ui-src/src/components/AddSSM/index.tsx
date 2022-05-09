@@ -1,8 +1,21 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { SingleSSM } from "./SingleSSM";
+import { useState } from "react";
 
 // Add State-Specific Measure component
 export const AddSSM = () => {
+  const [SSMs, addSSM] = useState([<SingleSSM key="0" />]);
+
+  const appendNewSSM = () => {
+    if (SSMs.length < 5) {
+      addSSM((previousState) => [
+        ...previousState,
+        <SingleSSM key={SSMs.length.toString()} />,
+      ]);
+    }
+  };
+
   return (
     <CUI.Stack spacing={6} mb={6} key="add-ssm-stack-intro">
       <CUI.Text>
@@ -16,14 +29,7 @@ export const AddSSM = () => {
       <CUI.Text>
         You may associate up to five core measures with this core set.
       </CUI.Text>
-      <QMR.TextInput
-        label="Name the measure"
-        name="measure-name"
-      ></QMR.TextInput>
-      <QMR.TextArea
-        label="Please provide a description of the measure"
-        name="measure-description"
-      ></QMR.TextArea>
+      {SSMs}
       <QMR.ContainedButton
         buttonText={"+ Add Another"}
         buttonProps={{
@@ -33,8 +39,8 @@ export const AddSSM = () => {
           mt: "4",
         }}
         key={"AddAnotherButton"}
-        // onClick={onClick}
-        // disabledStatus={isDisabled}
+        onClick={appendNewSSM}
+        disabledStatus={SSMs.length >= 5}
         // testId={testid}
       />
     </CUI.Stack>
