@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
@@ -7,6 +7,7 @@ interface StateSpecificMeasure {}
 
 export const AddStateSpecificMeasure = () => {
   const { coreSetId, state, year } = useParams();
+  const navigate = useNavigate();
 
   const methods = useForm<StateSpecificMeasure>({
     shouldUnregister: true,
@@ -43,9 +44,9 @@ export const AddStateSpecificMeasure = () => {
         <QMR.ContainedButton
           buttonProps={{ color: "blue.500", colorScheme: "white" }}
           buttonText="Cancel"
-          // onClick={() => {
-          //   navigate(`/${state}/${year}`);
-          // }}
+          onClick={() => {
+            navigate(`/${state}/${year}/${coreSetId}`);
+          }}
         />
       </CUI.HStack>
     </QMR.StateLayout>
