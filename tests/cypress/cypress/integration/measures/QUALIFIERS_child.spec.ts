@@ -172,7 +172,7 @@ describe("Child Measure Qualifier: CH", () => {
       "[data-cy='complete-CoreSet']  [data-cy='qualifier-header-description']"
     ).should(
       "have.text",
-      "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS for review"
+      "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS for review."
     );
     cy.get('[data-cy="complete-core-set-questions-button"]').should(
       "be.enabled"
