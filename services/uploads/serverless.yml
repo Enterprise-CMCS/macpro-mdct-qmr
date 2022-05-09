@@ -220,7 +220,6 @@ resources:
                 StringEquals:
                   s3:ExistingObjectTag/virusScanStatus:
                     - "INFECTED"
-                  aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
                 - "s3:DeleteObject"
               Effect: "Allow"
