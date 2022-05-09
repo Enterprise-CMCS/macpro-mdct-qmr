@@ -24,13 +24,19 @@ const validate0To64EqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
     },
     0
   );
-  if (total0To17Percent < 99 || total0To17Percent > 101) {
+  if (
+    (total0To17Percent < 99 || total0To17Percent > 101) &&
+    total0To17Percent !== 0
+  ) {
     errorArray.push({
       errorLocation: "Delivery System",
       errorMessage: "Entries for Ages 0 to 17 column must total 100",
     });
   }
-  if (total18To64Percent < 99 || total18To64Percent > 101) {
+  if (
+    (total18To64Percent < 99 || total18To64Percent > 101) &&
+    total18To64Percent !== 0
+  ) {
     errorArray.push({
       errorLocation: "Delivery System",
       errorMessage: "Entries for Ages 18 to 64 column must total 100",
