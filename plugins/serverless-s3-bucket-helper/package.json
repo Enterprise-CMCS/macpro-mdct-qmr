@@ -9,7 +9,7 @@
   "dependencies": {},
   "devDependencies": {},
   "peerDependencies": {
-    "serverless": "2.x"
+    "serverless": "3.x"
   },
   "engines": {
     "node": ">=10.0"
