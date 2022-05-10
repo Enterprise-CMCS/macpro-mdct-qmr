@@ -172,42 +172,50 @@ export const MultiRate = ({
         ndrField.value.split(".")[1]?.length < decimals)
     )
       return (
-        <CUI.Stack mb={2} key={`${ndrField.label}-warning-stack`}>
-          <QMR.Notification
-            key={`${ndrField.label}-decimal-warning`}
-            alertTitle="Value Error"
-            // Identify the problematic field using labels
-            alertDescription={`"${
-              ndrField.label
-            }" value must be a number with ${decimals} decimal ${
-              decimals > 1 ? "places" : "place"
-            }.`}
-            alertStatus="warning"
-          />
-        </CUI.Stack>
+        <QMR.Notification
+          key={`${ndrField.label}-decimal-warning`}
+          alertTitle="Value Error"
+          // Identify the problematic field using labels
+          alertDescription={`"${
+            ndrField.label
+          }" value must be a number with ${decimals} decimal ${
+            decimals > 1 ? "places" : "place"
+          }.`}
+          alertStatus="warning"
+        />
       );
     return;
   };
 
+  const warnings = [2, 3, 4, 5]
+    .map((i) => generateInputWarning(field?.value[i], 4))
+    .filter((v) => v !== undefined);
+
   return (
-    <>
+    <CUI.Box>
       <CUI.Stack my={8} direction="row" className="multi-rate-print-stack">
         {rates.slice(0, 6).map((rate, index) => {
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
-      {
-        // only display for specific fields
-        [2, 3, 4, 5].map((i) => generateInputWarning(field?.value[i], 4))
-      }
+      {!!(warnings.length > 0) && (
+        <CUI.Stack my={8} spacing={3} className="multi-rate-print-stack">
+          {warnings}
+        </CUI.Stack>
+      )}
       <CUI.Divider />
-      <CUI.Stack my={8} direction="row" className="multi-rate-print-stack">
+      <CUI.Stack
+        my={8}
+        spacing={3}
+        direction="row"
+        className="multi-rate-print-stack"
+      >
         {rates.slice(6).map((rate, index) => {
           index += 6;
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
       {generateInputWarning(field?.value[8], 1)}
-    </>
+    </CUI.Box>
   );
 };
