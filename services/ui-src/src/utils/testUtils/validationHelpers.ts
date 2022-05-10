@@ -1,5 +1,9 @@
 import * as DC from "dataConstants";
 import * as Types from "measures/CommonQuestions/types";
+import {
+  OMSData,
+  OmsNode,
+} from "measures/CommonQuestions/OptionalMeasureStrat/data";
 import { cleanString } from "utils/cleanString";
 import {
   RateFields,
@@ -8,6 +12,7 @@ import {
   PerformanceMeasure,
 } from "measures/CommonQuestions/types";
 
+// Test Rate Objects
 export const partialRate: RateFields = {
   numerator: "5",
 };
@@ -88,7 +93,7 @@ export const generateOmsQualifierRateData = (
   }
   const rateData: OMS.OmsRateFields = {};
   const cats = categories.length ? categories : [DC.SINGLE_CATEGORY];
-  rateData.options = qualifiers;
+  rateData.options = qualifiers.map((s) => cleanString(s));
 
   for (const [i, q] of qualifiers.map((q) => cleanString(q)).entries()) {
     for (const c of cats.map((c) => cleanString(c))) {
@@ -121,6 +126,8 @@ export const generateOmsCategoryRateData = (
   }
 
   const rateData: OMS.OmsRateFields = {};
+  rateData.options = qualifiers.map((s) => cleanString(s));
+
   for (const [i, c] of categories.map((c) => cleanString(c)).entries()) {
     for (const q of qualifiers.map((q) => cleanString(q))) {
       rateData.rates ??= {};
@@ -209,4 +216,88 @@ export const generateOtherPerformanceMeasureData = (
  */
 export const locationDictionary = (s: string[]) => {
   return s[0];
+};
+
+/**
+ * Generates a filled OMS form data object
+ *
+ * @param rateData test data that is applied to all nodes
+ * @param addToSelections should every node be added to checkbox selections
+ * @param renderData in case you want a specific OMS layout
+ */
+export const generateOmsFormData = (
+  rateData: OMS.OmsRateFields,
+  addToSelections = true,
+  renderData?: Types.DataDrivenTypes.OptionalMeasureStrat
+) => {
+  const data = renderData ?? OMSData();
+  const description = "TestAdditionalCategoryOrSubCategory";
+  const omsData: Types.OptionalMeasureStratification = {
+    OptionalMeasureStratification: { options: [], selections: {} },
+  };
+
+  // urban/domestic - english/spanish - etc
+  const createMidLevelNode = (
+    node: OmsNode
+  ): Types.OmsNodes.MidLevelOMSNode => {
+    const midNode: Types.OmsNodes.MidLevelOMSNode = {};
+    if (!!node.options?.length) {
+      midNode.aggregate = "NoIndependentData";
+      for (const opt of node.options) {
+        midNode.options ??= [];
+        midNode.selections ??= {};
+        addToSelections && midNode.options.push(cleanString(opt.id));
+        midNode.selections[cleanString(opt.id)] = {
+          rateData,
+          additionalSubCategories: [{ description, rateData }],
+        };
+      }
+    } else {
+      midNode.rateData = rateData;
+      midNode.additionalSubCategories = [{ description, rateData }];
+    }
+
+    return midNode;
+  };
+
+  // race - sex - geography - etc
+  const createTopLevelNode = (
+    node: OmsNode
+  ): Types.OmsNodes.TopLevelOmsNode => {
+    const topNode: Types.OmsNodes.TopLevelOmsNode = {};
+    if (!node.options) {
+      topNode.rateData = rateData;
+    }
+    if (!!node.options?.length) {
+      for (const opt of node.options) {
+        topNode.options ??= [];
+        topNode.selections ??= {};
+        addToSelections && topNode.options.push(cleanString(opt.id));
+        topNode.selections[cleanString(opt.id)] = createMidLevelNode(opt);
+      }
+    }
+    if (node.addMore) {
+      const tempAdd: Types.OmsNodes.AddtnlOmsNode = {
+        description,
+        rateData,
+        additionalSubCategories: [{ description, rateData }],
+      };
+      topNode.additionalSelections = [tempAdd, tempAdd];
+    }
+    return topNode;
+  };
+
+  // makes top level node for each omsnode
+  const createBaseOMS = (node: OmsNode) => {
+    const cleanLabel = cleanString(node.id);
+    addToSelections &&
+      omsData.OptionalMeasureStratification.options.push(cleanLabel);
+    omsData.OptionalMeasureStratification.selections ??= {};
+    omsData.OptionalMeasureStratification.selections[cleanLabel] =
+      createTopLevelNode(node);
+  };
+
+  data.forEach((node) => createBaseOMS(node));
+
+  return omsData;
 };

@@ -1,0 +1,2156 @@
+{
+  "OptionalMeasureStratification": {
+    "options": [
+      "RaceNonHispanic",
+      "Ethnicity",
+      "Sex",
+      "PrimaryLanguageincludingsignlanguage",
+      "DisabilityStatus",
+      "Geography"
+    ],
+    "selections": {
+      "RaceNonHispanic": {
+        "options": [
+          "White",
+          "BlackorAfricanAmerican",
+          "AmericanIndianorAlaskaNative",
+          "Asian",
+          "NativeHawaiianorOtherPacificIslander"
+        ],
+        "selections": {
+          "White": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "BlackorAfricanAmerican": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "AmericanIndianorAlaskaNative": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "Asian": {
+            "aggregate": "NoIndependentData",
+            "options": [
+              "AsianIndian",
+              "Chinese",
+              "Filipino",
+              "Japanese",
+              "Korean",
+              "Vietnamese",
+              "OtherAsian"
+            ],
+            "selections": {
+              "AsianIndian": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Chinese": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Filipino": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Japanese": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Korean": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Vietnamese": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "OtherAsian": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "NativeHawaiianorOtherPacificIslander": {
+            "aggregate": "NoIndependentData",
+            "options": [
+              "NativeHawaiian",
+              "GuamanianorChamorro",
+              "Samoan",
+              "OtherPacificIslander"
+            ],
+            "selections": {
+              "NativeHawaiian": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "GuamanianorChamorro": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Samoan": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "OtherPacificIslander": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "additionalSelections": [
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "Ethnicity": {
+        "options": [
+          "NotofHispanicLatinoaorSpanishorigin",
+          "HispanicorLatino"
+        ],
+        "selections": {
+          "NotofHispanicLatinoaorSpanishorigin": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "HispanicorLatino": {
+            "aggregate": "NoIndependentData",
+            "options": [
+              "MexicanMexicanAmericanChicanoa",
+              "PuertoRican",
+              "Cuban",
+              "AnotherHispanicLatinoaorSpanishorigin"
+            ],
+            "selections": {
+              "MexicanMexicanAmericanChicanoa": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "PuertoRican": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Cuban": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "AnotherHispanicLatinoaorSpanishorigin": {
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                },
+                "additionalSubCategories": [
+                  {
+                    "description": "TestAdditionalCategoryOrSubCategory",
+                    "rateData": {
+                      "options": [
+                        "TestQual1",
+                        "TestQual2"
+                      ],
+                      "rates": {
+                        "TestQual1": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        },
+                        "TestQual2": {
+                          "TestCat1": [
+                            {}
+                          ],
+                          "TestCat2": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "additionalSelections": [
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "Sex": {
+        "options": [
+          "Male",
+          "Female"
+        ],
+        "selections": {
+          "Male": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "Female": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "PrimaryLanguageincludingsignlanguage": {
+        "options": [
+          "English",
+          "Spanish"
+        ],
+        "selections": {
+          "English": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "Spanish": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "additionalSelections": [
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "DisabilityStatus": {
+        "options": [
+          "SSI",
+          "NonSSI"
+        ],
+        "selections": {
+          "SSI": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "NonSSI": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "additionalSelections": [
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "Geography": {
+        "options": [
+          "Urban",
+          "Rural"
+        ],
+        "selections": {
+          "Urban": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "Rural": {
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "additionalSelections": [
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "description": "TestAdditionalCategoryOrSubCategory",
+            "rateData": {
+              "options": [
+                "TestQual1",
+                "TestQual2"
+              ],
+              "rates": {
+                "TestQual1": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                },
+                "TestQual2": {
+                  "TestCat1": [
+                    {}
+                  ],
+                  "TestCat2": [
+                    {}
+                  ]
+                }
+              }
+            },
+            "additionalSubCategories": [
+              {
+                "description": "TestAdditionalCategoryOrSubCategory",
+                "rateData": {
+                  "options": [
+                    "TestQual1",
+                    "TestQual2"
+                  ],
+                  "rates": {
+                    "TestQual1": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    },
+                    "TestQual2": {
+                      "TestCat1": [
+                        {}
+                      ],
+                      "TestCat2": [
+                        {}
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
