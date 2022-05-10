@@ -7,6 +7,7 @@ import {
   convertOmsDataToRateArray,
   getPerfMeasureRateArray,
 } from "../dataDrivenTools";
+import { SINGLE_CATEGORY } from "dataConstants";
 
 const _validation: UVF = ({ rateData, qualifiers, categories, location }) => {
   const errorArray: FormError[] = [];
@@ -17,7 +18,11 @@ const _validation: UVF = ({ rateData, qualifiers, categories, location }) => {
     for (const [j, rate] of rateSet.entries()) {
       if (rate && rate.denominator) {
         denominatorArray.push(rate.denominator);
-        locationArray.push(qualifiers?.length ? qualifiers[j] : categories![i]);
+        locationArray.push(
+          !!categories?.length && categories[0] !== SINGLE_CATEGORY
+            ? categories![i]
+            : qualifiers![j]
+        );
       }
     }
   }

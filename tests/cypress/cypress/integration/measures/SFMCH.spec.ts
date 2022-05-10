@@ -373,10 +373,10 @@ describe("Measure: oy2-9936 SFM-CH", () => {
       "Optional Measure Stratification: Race (Non-Hispanic) - White Error"
     );
     cy.get(
-      ':nth-child(3) > div.css-0 > [data-cy="Rate 2 - All Four Molars Sealed rate should not be higher than Rate 1 - At Least One Sealant rates."] > .chakra-text'
+      ':nth-child(3) > div.css-0 > [data-cy="Rate 2 - All Four Molars Sealed rate must be less than or equal to Rate 1 - At Least One Sealant rate."] > .chakra-text'
     ).should(
       "have.text",
-      "Rate 2 - All Four Molars Sealed rate should not be higher than Rate 1 - At Least One Sealant rates."
+      "Rate 2 - All Four Molars Sealed rate must be less than or equal to Rate 1 - At Least One Sealant rate."
     );
     cy.get('[data-cy="Performance Measure Error"]').should(
       "have.text",

@@ -131,8 +131,8 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
       expect(errors[0].errorMessage).toBe(
         `The following categories must have the same denominator:`
       );
-      expect(errors[0].errorList).toContain(qualifiers[0]);
-      expect(errors[0].errorList).toContain(qualifiers[1]);
+      expect(errors[0].errorList).toContain(categories[0]);
+      expect(errors[0].errorList).toContain(categories[1]);
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
   });

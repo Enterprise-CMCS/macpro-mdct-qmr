@@ -26,7 +26,6 @@ const _validation = ({
       if (
         rate.numerator &&
         rate.denominator &&
-        rate.rate &&
         parseFloat(rate.denominator) < parseFloat(rate.numerator)
       ) {
         errorArray.push({
