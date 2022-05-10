@@ -1,20 +1,15 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { SingleSSM } from "./SingleSSM";
-import { useState } from "react";
+import { useFieldArray } from "react-hook-form";
 
 // Add State-Specific Measure component
 export const AddSSM = () => {
-  const [SSMs, addSSM] = useState([<SingleSSM key="add-ssm-0" index={0} />]);
-
-  const appendNewSSM = () => {
-    if (SSMs.length < 5) {
-      addSSM((previousState) => [
-        ...previousState,
-        <SingleSSM key={`add-ssm-${SSMs.length}`} index={SSMs.length} />,
-      ]);
-    }
-  };
+  // useFieldArray() wrangles the dynamic form below
+  const { fields, append } = useFieldArray({
+    name: "add-ssm",
+    shouldUnregister: true,
+  });
 
   return (
     <CUI.Stack spacing={6} mb={6} key="add-ssm-stack-intro">
@@ -29,7 +24,11 @@ export const AddSSM = () => {
       <CUI.Text>
         You may associate up to five core measures with this core set.
       </CUI.Text>
-      {SSMs}
+
+      {fields.map((field: any, index: number) => (
+        <SingleSSM key={field.id} index={index} />
+      ))}
+
       <QMR.ContainedButton
         buttonText={"+ Add Another"}
         buttonProps={{
@@ -38,10 +37,10 @@ export const AddSSM = () => {
           color: "blue.500",
           mt: "4",
         }}
-        key={"AddAnotherButton"}
-        onClick={appendNewSSM}
-        disabledStatus={SSMs.length >= 5}
-        // testId={testid}
+        key={"AddAnotherSSMButton"}
+        onClick={() => append({})}
+        disabledStatus={fields.length >= 5}
+        testId={"AddAnotherSSMButton"}
       />
     </CUI.Stack>
   );
