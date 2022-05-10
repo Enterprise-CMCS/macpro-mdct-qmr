@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://d3i2erqf56nkr1.cloudfront.net/",
+  "baseUrl": "http://localhost:3000/",
   "experimentalStudio": true,
   "redirectionLimit": 20,
   "retries": 2,

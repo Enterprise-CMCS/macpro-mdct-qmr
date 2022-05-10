@@ -351,7 +351,7 @@ describe("PCR-HH", () => {
     );
   });
 
-  it("Verify new section for Health Home measures", function () {
+  it("Verify new section for Health Home measures only", function () {
     cy.get(
       '[data-cy="Are all Health Home Providers represented in the denominator?"]'
     ).should(
