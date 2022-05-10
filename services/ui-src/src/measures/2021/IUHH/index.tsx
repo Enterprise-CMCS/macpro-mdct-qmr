@@ -3,7 +3,6 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { FormData } from "./types";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
-import { IUHHPerformanceMeasure } from "./questions/IUHHPerformanceMeasure";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
@@ -46,7 +45,11 @@ export const IUHH = ({
           <CMQ.DefinitionOfPopulation healthHomeMeasure={true} />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <IUHHPerformanceMeasure data={PMD.data} calcTotal={true} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                RateComponent={QMR.IUHHRate}
+                calcTotal={true}
+              />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
