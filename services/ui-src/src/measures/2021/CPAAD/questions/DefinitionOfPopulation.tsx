@@ -55,7 +55,7 @@ export const DefinitionOfPopulation = () => {
         ]}
       />
       <QMR.TextArea
-        label="If there has been a change in the included population from the previous reporting year, please provide any available context below:"
+        label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
         formControlProps={{ paddingTop: "15px" }}
         {...register("DefinitionOfSurveySample-Changes")}
       />
