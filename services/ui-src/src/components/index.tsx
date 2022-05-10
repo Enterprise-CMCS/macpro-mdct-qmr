@@ -22,6 +22,7 @@ export * from "./Logo";
 export * from "./MeasureButtons";
 export * from "./MeasureWrapper";
 export * from "./MonthPicker";
+export * from "./MultiRate";
 export * from "./MultiSelect";
 export * from "./Notification";
 export * from "./ProgressCircle";
