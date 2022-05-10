@@ -8,6 +8,7 @@ interface SingleSSMProps {
 export const SingleSSM = ({ index }: SingleSSMProps) => {
   return (
     <CUI.Stack spacing={6}>
+      <CUI.Divider />
       <QMR.TextInput
         label="Name the measure"
         name={`ssm-name-${index}`}
