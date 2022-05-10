@@ -218,7 +218,7 @@ export const PCRRate = ({
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
-      {generateInputWarning(field?.value[8], 1)}
+      {generateInputWarning(field?.value[8], measureId === "PCR-HH" ? 4 : 1)}
     </CUI.Box>
   );
 };
