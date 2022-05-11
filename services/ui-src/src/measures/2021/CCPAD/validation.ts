@@ -24,32 +24,35 @@ const CCPADValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
-    ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    // Performance Measure and OPM Validations
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateOneRateHigherThanOther(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
 
     // OMS Specific Validations
     ...GV.omsValidations({
@@ -62,12 +65,12 @@ const CCPADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateAllDenomsAreTheSameCrossQualifier,
-        GV.validateCrossQualifierRateCorrect,
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateOneRateLessThanOther,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateOneQualRateHigherThanOtherQualOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
   ];

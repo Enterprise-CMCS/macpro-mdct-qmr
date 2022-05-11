@@ -2,14 +2,12 @@ import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const AMRCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const deviationArray = GV.getDeviationNDRArray(
@@ -26,48 +24,46 @@ const AMRCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
+        GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateOMSTotalNDR,
-        GV.validateOneRateLessThanOther,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
   ];

@@ -5,7 +5,7 @@ import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router-dom";
 
 interface UpdateMeasure<DataType = any> {
-  coreSet?: CoreSetAbbr;
+  coreSet?: string;
   data: DataType;
   measure?: string;
   status: MeasureStatus;
