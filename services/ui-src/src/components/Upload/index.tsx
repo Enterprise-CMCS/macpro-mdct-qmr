@@ -61,6 +61,7 @@ export const Upload = ({
               const progressRatio = (progress.loaded / progress.total) * 100;
               setUploadStatus(progressRatio);
             },
+            tagging: "virusScanStatus=PENDING",
           });
 
           const url = await Storage.vault.get(stored.key, {

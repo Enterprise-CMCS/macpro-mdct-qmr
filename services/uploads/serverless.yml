@@ -211,15 +211,6 @@ resources:
               Condition:
                 Bool:
                   "aws:SecureTransport": false
-            # - Action:
-            #     - "s3:GetObject"
-            #   Effect: "Deny"
-            #   Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
-            #   Principal: "*"
-            #   Condition:
-            #     StringEquals:
-            #       s3:ExistingObjectTag/virusScanStatus:
-            #         - "INFECTED"
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"
@@ -230,6 +221,7 @@ resources:
                 StringNotEquals:
                   s3:ExistingObjectTag/virusScanStatus:
                     - "CLEAN"
+                    - "PENDING"
                   aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
                 - "s3:DeleteObject"
