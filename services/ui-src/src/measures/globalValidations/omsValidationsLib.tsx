@@ -560,7 +560,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
 
     // Calculate numerator and denominator totals
     ndrSets.forEach((set) => {
-      if (set && set.denominator && set.numerator && set.rate) {
+      if (set && set.denominator && set.numerator) {
         numeratorSum += parseFloat(set.numerator);
         denominatorSum += parseFloat(set.denominator);
       }
