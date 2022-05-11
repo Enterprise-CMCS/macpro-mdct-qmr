@@ -12,6 +12,7 @@ const AMBCHValidation = (data: FormData) => {
     data.Deviations,
     true
   );
+
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
