@@ -25,34 +25,7 @@ const PPCADValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateOneDataSource(data),
-    ...GV.validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // OMS Validations
+    ...errorArray,
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -64,11 +37,36 @@ const PPCADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesCompleted(dateRange),
   ];
 
   return errorArray;

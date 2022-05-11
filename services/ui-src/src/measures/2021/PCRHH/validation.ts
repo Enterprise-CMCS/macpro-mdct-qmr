@@ -50,8 +50,8 @@ const PCRHHValidation = (data: FormData) => {
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateBothDatesCompleted(dateRange),
 
     // Performance Measure Validations
     ...GV.PCRatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -79,7 +79,7 @@ const PCRHHValidation = (data: FormData) => {
   return errorArray;
 };
 
-const OMSValidations: GV.OmsValidationCallback = ({
+const OMSValidations: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,

@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as HELP from "./_helper";
-import { atLeastOneRateComplete } from "measures/globalValidations";
+import * as HELP from "../testHelpers/_helper";
+import { validateAtLeastOneRateComplete } from "./index";
 import { DefaultFormData } from "measures/CommonQuestions/types";
-import { testFormData } from "./_testFormData";
+import { testFormData } from "../testHelpers/_testFormData";
 
 /* Ensure that at least 1 NDR in a set is complete for either the Performance Measure or Other Performance Measure
 
@@ -26,7 +26,11 @@ describe("atLeastOneRateComplete", () => {
   const check_errors = (data: DefaultFormData, numErrors: number) => {
     const { ageGroups, performanceMeasureArray, OPM } = HELP.test_setup(data);
     const errorArray: FormError[] = [
-      ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+      ...validateAtLeastOneRateComplete(
+        performanceMeasureArray,
+        OPM,
+        ageGroups
+      ),
     ];
     expect(errorArray.length).toBe(numErrors);
   };

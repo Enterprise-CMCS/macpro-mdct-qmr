@@ -29,32 +29,33 @@ const PQI08Validation = (data: FormData) => {
     return errorArray;
   }
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
-    ...GV.validateDualPopInformation(
+    ...errorArray,
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
       data
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -64,7 +65,7 @@ const PQI08Validation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [GV.validateRateZero, GV.validateRateNotZero],
+      validationCallbacks: [GV.validateRateZeroOMS, GV.validateRateNotZeroOMS],
     }),
   ];
 

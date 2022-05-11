@@ -49,9 +49,9 @@ const PCRADValidation = (data: FormData) => {
   // Quick reference list of all rate indices
   // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
 
     // Performance Measure Validations
     ...GV.PCRatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
@@ -79,7 +79,7 @@ const PCRADValidation = (data: FormData) => {
   return errorArray;
 };
 
-const OMSValidations: GV.OmsValidationCallback = ({
+const OMSValidations: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,

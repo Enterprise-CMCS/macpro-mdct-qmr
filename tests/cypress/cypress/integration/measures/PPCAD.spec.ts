@@ -1,4 +1,4 @@
-describe("Measure: PQI01-AD", () => {
+describe("Measure: PPC-AD", () => {
   beforeEach(() => {
     cy.login();
     cy.goToAdultMeasures();
