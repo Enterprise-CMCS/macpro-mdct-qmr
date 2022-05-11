@@ -23,7 +23,8 @@ export const SubmitCoreSetButton = ({
   styleProps,
 }: Props) => {
   const helperTextFiller = () => {
-    switch (coreSet) {
+    const abbr = coreSet?.split("_") ?? [coreSet];
+    switch (abbr[0]) {
       case CoreSetAbbr.ACS:
         return "Adult ";
       case CoreSetAbbr.CCS:
@@ -51,7 +52,9 @@ export const SubmitCoreSetButton = ({
         <ContainedButton
           buttonText={"Submit Core Set"}
           disabledStatus={
-            isLoading || coreSetStatus !== CoreSetTableItem.Status.COMPLETED
+            isLoading ||
+            !userInfo.isStateUser ||
+            coreSetStatus !== CoreSetTableItem.Status.COMPLETED
           }
           buttonProps={{
             bg: "blue.600",

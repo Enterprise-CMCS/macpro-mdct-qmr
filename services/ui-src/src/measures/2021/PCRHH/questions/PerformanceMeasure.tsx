@@ -1,10 +1,10 @@
-import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../../../CommonQuestions/types";
-import { PerformanceMeasureData } from "../../../CommonQuestions/PerformanceMeasure/data";
-import { useWatch } from "react-hook-form";
+import * as Types from "measures/CommonQuestions/types";
+import * as QMR from "components";
+import { PerformanceMeasureData } from "measures/CommonQuestions/PerformanceMeasure/data";
 import { PCRRate } from "components/PCRRate";
+import { useCustomRegister } from "hooks/useCustomRegister";
+import { useWatch } from "react-hook-form";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -101,7 +101,7 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
 };
 
 /** Data Driven Performance Measure Comp */
-export const PCRADPerformanceMeasure = ({
+export const PCRHHPerformanceMeasure = ({
   data,
   calcTotal = false,
   rateReadOnly,
@@ -137,14 +137,14 @@ export const PCRADPerformanceMeasure = ({
         </CUI.UnorderedList>
       )}
       <CUI.Text>
-        For beneficiaries ages 18 to 64, states should also report the rate of
-        beneficiaries who are identified as outliers based on high rates of
+        For Health Home enrollees ages 18 to 64, states should also report the
+        rate of enrollees who are identified as outliers based on high rates of
         inpatient and observation stays during the measurement year. Data are
         reported in the following categories:
       </CUI.Text>
       <CUI.UnorderedList m="5" ml="10" spacing={5}>
         {[
-          "Count of Beneficiaries in Medicaid Population",
+          "Count of Enrollees in Health Home Population",
           "Number of Outliers",
         ].map((item, idx) => {
           return (
