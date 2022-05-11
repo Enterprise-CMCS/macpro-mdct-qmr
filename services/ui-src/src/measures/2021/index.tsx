@@ -44,6 +44,7 @@ import { OHDAD } from "./OHDAD";
 import { OUDAD } from "./OUDAD";
 import { PC01AD } from "./PC01AD";
 import { PCRAD } from "./PCRAD";
+import { PCRHH } from "./PCRHH";
 import { PDENTCH } from "./PDENTCH";
 import { PPCAD } from "./PPCAD";
 import { PPCCH } from "./PPCCH";
@@ -104,6 +105,7 @@ const twentyTwentyOneMeasures = {
   "OUD-AD": OUDAD,
   "PC01-AD": PC01AD,
   "PCR-AD": PCRAD,
+  "PCR-HH": PCRHH,
   "PDENT-CH": PDENTCH,
   "PPC-AD": PPCAD,
   "PPC-CH": PPCCH,
