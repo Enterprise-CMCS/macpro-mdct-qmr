@@ -8,6 +8,7 @@ import {
 import * as QMR from "components";
 import objectPath from "object-path";
 import { IRate, rateCalculation } from "components";
+import { usePathParams } from "hooks/api/usePathParams";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -17,7 +18,7 @@ interface Props extends QMR.InputWrapperProps {
   customMask?: RegExp;
 }
 
-export const MultiRate = ({
+export const PCRRate = ({
   rates,
   name,
   allowMultiple = false,
@@ -35,6 +36,8 @@ export const MultiRate = ({
     control,
     defaultValue: rates,
   });
+
+  const { measureId } = usePathParams();
 
   // This is the basic structure of the NDR sets.
   // There are 4 rates, each is calculated by a combination of the other fields.
@@ -65,7 +68,7 @@ export const MultiRate = ({
       denominator: 6,
       rateIndex: 8,
       multiplier: 1000,
-      rateDecimals: 1,
+      rateDecimals: measureId === "PCR-HH" ? 4 : 1,
     },
   ];
 
@@ -215,7 +218,7 @@ export const MultiRate = ({
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
-      {generateInputWarning(field?.value[8], 1)}
+      {generateInputWarning(field?.value[8], measureId === "PCR-HH" ? 4 : 1)}
     </CUI.Box>
   );
 };
