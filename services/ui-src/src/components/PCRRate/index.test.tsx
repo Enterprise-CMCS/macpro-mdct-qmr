@@ -1,9 +1,11 @@
 import { screen } from "@testing-library/react";
 import fireEvent from "@testing-library/user-event";
-
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import { PCRRate } from ".";
+import { usePathParams } from "hooks/api/usePathParams";
 
-import { MultiRate } from ".";
+jest.mock("hooks/api/usePathParams");
+const mockUsePathParams = usePathParams as jest.Mock;
 
 // Example input fields
 const qualifiers = [
@@ -18,7 +20,7 @@ const qualifiers = [
   "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000",
 ];
 
-// This is the basic structure of the NDR sets in MultiRate.
+// This is the basic structure of the NDR sets in PCRRate.
 // There are 4 rates, each is calculated by a combination of the other fields.
 const ndrForumlas = [
   {
@@ -50,8 +52,14 @@ const rates = qualifiers.map((item, idx) => ({
 
 describe("Test the Rate component when readOnly is false", () => {
   beforeEach(() => {
+    mockUsePathParams.mockReturnValue({
+      state: "DC",
+      year: "2021",
+      coreSet: "ACS",
+      measureId: "PCR-AD",
+    });
     renderWithHookForm(
-      <MultiRate rates={rates} name="test-component" readOnly={false} />
+      <PCRRate rates={rates} name="test-component" readOnly={false} />
     );
   });
 
@@ -95,8 +103,14 @@ describe("Test the Rate component when readOnly is false", () => {
 
 describe("Test the Rate component when readOnly is true", () => {
   beforeEach(() => {
+    mockUsePathParams.mockReturnValue({
+      state: "DC",
+      year: "2021",
+      coreSet: "ACS",
+      measureId: "PCR-AD",
+    });
     renderWithHookForm(
-      <MultiRate rates={rates} name="test-component" readOnly={true} />
+      <PCRRate rates={rates} name="test-component" readOnly={true} />
     );
   });
 
@@ -133,6 +147,42 @@ describe("Test the Rate component when readOnly is true", () => {
     ndrForumlas.forEach((ndr) => {
       const rate = screen.getByText(qualifiers[ndr.rate]).nextSibling;
       expect(rate?.nodeName).toBe("P");
+    });
+  });
+});
+
+describe("Test the component for PCR-HH specific conditions", () => {
+  beforeEach(() => {
+    mockUsePathParams.mockReturnValue({
+      state: "DC",
+      year: "2021",
+      coreSet: "HHCS",
+      measureId: "PCR-HH",
+    });
+    renderWithHookForm(
+      <PCRRate rates={rates} name="test-component" readOnly={false} />
+    );
+  });
+
+  test("(PCR-HH) Check that given some input, the component calculates rates correctly", () => {
+    const expectedValues = [
+      { num: "42", denom: "84", rate: "50.0000" },
+      { num: "42", denom: "84", rate: "50.0000" },
+      { num: "42", denom: "84", rate: "0.5000" },
+      { num: "42", denom: "84", rate: "500.0000" },
+    ];
+
+    ndrForumlas.forEach((ndr, i) => {
+      const numerator = screen.getByLabelText(qualifiers[ndr.numerator]);
+      const denominator = screen.getByLabelText(qualifiers[ndr.denominator]);
+      const rate = screen.getByLabelText(qualifiers[ndr.rate]);
+
+      fireEvent.type(numerator, "42");
+      fireEvent.type(denominator, "84");
+
+      expect(numerator).toHaveDisplayValue(expectedValues[i].num);
+      expect(denominator).toHaveDisplayValue(expectedValues[i].denom);
+      expect(rate).toHaveDisplayValue(expectedValues[i].rate);
     });
   });
 });

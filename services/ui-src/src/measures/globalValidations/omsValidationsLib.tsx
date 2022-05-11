@@ -7,7 +7,7 @@ import * as DC from "dataConstants";
 type locationDictionaryFunction = (labels: string[]) => string;
 
 interface RateData extends OMS.OmsRateFields {
-  "pcrad-rate"?: { id?: number; value?: string; label?: string }[];
+  "pcr-rate"?: { id?: number; value?: string; label?: string }[];
 }
 
 export type OmsValidationCallback = (data: {
@@ -307,8 +307,8 @@ const validateNDRs = (
   //checks at least one ndr filled
   const checkNdrsFilled = (rateData: RateData) => {
     // pcr-ad check
-    if (rateData?.["pcrad-rate"]) {
-      return rateData["pcrad-rate"].every((o) => !!o?.value);
+    if (rateData?.["pcr-rate"]) {
+      return rateData["pcr-rate"].every((o) => !!o?.value);
     }
     for (const qual of qualifiers.map((s) => cleanString(s))) {
       for (const cat of categories.map((s) => cleanString(s))) {
@@ -328,8 +328,8 @@ const validateNDRs = (
     if (!rateData || !rateData.options?.length) return;
 
     // pcr-ad check
-    if (rateData?.["pcrad-rate"]) {
-      isDeepFilled[`${location}`] = rateData["pcrad-rate"].every(
+    if (rateData?.["pcr-rate"]) {
+      isDeepFilled[`${location}`] = rateData["pcr-rate"].every(
         (o) => !!o?.value
       );
     }

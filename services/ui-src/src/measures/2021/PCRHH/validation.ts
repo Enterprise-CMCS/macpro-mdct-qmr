@@ -27,7 +27,7 @@ const ndrForumlas = [
   },
 ];
 
-const PCRADValidation = (data: FormData) => {
+const PCRHHValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
@@ -103,4 +103,4 @@ const OMSValidations: GV.OmsValidationCallback = ({
   ];
 };
 
-export const validationFunctions = [PCRADValidation];
+export const validationFunctions = [PCRHHValidation];
