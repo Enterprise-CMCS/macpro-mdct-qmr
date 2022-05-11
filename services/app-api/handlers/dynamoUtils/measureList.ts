@@ -75,6 +75,11 @@ export const measures: Measure = {
       measure: "CSQ",
     },
     {
+      type: "H",
+      description: "Health Home Qualifiers",
+      measure: "CSQ",
+    },
+    {
       type: "A",
       description: "Antidepressant Medication Management",
       measure: "AMM-AD",
