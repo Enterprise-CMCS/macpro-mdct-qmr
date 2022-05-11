@@ -62,10 +62,10 @@ describe("Measure: OHD-AD", () => {
       "The percentage of beneficiaries age 18 and older who received prescriptions for opioids with an average daily dosage greater than or equal to 90 morphine milligram equivalents (MME) over a period of 90 days or more. Beneficiaries with a cancer diagnosis, sickle cell disease diagnosis, or in hospice are excluded."
     );
     cy.get(
-      '[data-cy="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"]'
+      '[data-cy="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"]'
     ).should(
       "have.text",
-      "If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+      "If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
     );
     cy.get(".css-35ezg3").should(
       "have.text",

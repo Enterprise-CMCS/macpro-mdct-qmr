@@ -86,10 +86,10 @@ describe("PCR-AD", () => {
       "Number of Outliers"
     );
     cy.get(
-      '[data-cy="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"]'
+      '[data-cy="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"]'
     ).should(
       "have.text",
-      "If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+      "If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
     );
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
     cy.get('[data-cy="Count of Index Hospital Stays"]').should(

@@ -15,8 +15,8 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
     " Children who turned age 30 months during the measurement year: Two or more well-child visits.",
   ],
   questionListTitles: [
-    "Well-Child Visits in the First 15 Months",
-    "Well-Child Visits for Age 15 Months-30 Months",
+    "Well-Child Visits in the First 15 Months.",
+    "Well-Child Visits for Age 15 Months-30 Months.",
   ],
   categories,
   qualifiers,
