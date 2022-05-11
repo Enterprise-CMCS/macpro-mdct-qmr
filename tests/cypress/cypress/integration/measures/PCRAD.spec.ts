@@ -86,10 +86,10 @@ describe("PCR-AD", () => {
       "Number of Outliers"
     );
     cy.get(
-      '[data-cy="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"]'
+      '[data-cy="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"]'
     ).should(
       "have.text",
-      "If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+      "If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
     );
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
     cy.get('[data-cy="Count of Index Hospital Stays"]').should(
@@ -249,61 +249,61 @@ describe("PCR-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.0.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.0.value"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.0.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.0.value"]'
     ).type("1234567890");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.1.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.1.value"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.1.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.1.value"]'
     ).type("1234567890");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.2.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.2.value"]'
     ).should("have.value", "100.0000");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.1.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.1.value"]'
     ).should("have.value", "1234567890");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.0.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.0.value"]'
     ).should("have.value", "1234567890");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.3.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.3.value"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.3.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.3.value"]'
     ).type("1234567890123456.1234");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.4.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.4.value"]'
     ).should("have.value", "100000000.0100");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.3.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.3.value"]'
     ).should("have.value", "1234567890123456.1234");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.5.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.5.value"]'
     ).should("have.value", "0.0000");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.6.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.6.value"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.6.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.6.value"]'
     ).type("1234567890");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.7.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.7.value"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.7.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.7.value"]'
     ).type("1234567890");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.6.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.6.value"]'
     ).should("have.value", "1234567890");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.7.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.7.value"]'
     ).should("have.value", "1234567890");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcrad-rate.8.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.8.value"]'
     ).should("have.value", "1000.0");
     cy.get(
       ":nth-child(1) > :nth-child(1) > .css-1kxonj9 > .css-n21gh5 > :nth-child(2)"
@@ -313,10 +313,10 @@ describe("PCR-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.pcrad-rate.3.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.pcr-rate.3.value"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.pcrad-rate.3.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.pcr-rate.3.value"]'
     ).type("123");
     cy.get(
       '[data-cy="OptionalMeasureStratification.options2"] > .chakra-checkbox__control'

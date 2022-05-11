@@ -2,6 +2,7 @@ import { ACSQualifierForm } from "../Adult/types";
 import { CCSQualifierForm } from "../Child/types";
 import { CCSCQualifierForm } from "../ChildCHIP/types";
 import { CCSMQualifierForm } from "../ChildMedicaid/types";
+import { HHCSQualifierForm } from "../HealthHome/types";
 
 export function validateData(
   validationFunctions: Function[],
@@ -10,6 +11,7 @@ export function validateData(
     | CCSQualifierForm
     | ACSQualifierForm
     | CCSCQualifierForm
+    | HHCSQualifierForm
 ): any {
   return validationFunctions.reduce((acc: any, current: any) => {
     const error = current(data);

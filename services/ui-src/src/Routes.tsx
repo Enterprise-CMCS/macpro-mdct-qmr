@@ -65,6 +65,10 @@ export function AppRoutes() {
         />
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
+        <Route
+          path=":state/:year/:HHCS/CSQ"
+          element={<Views.HHCSQualifiers />}
+        />
         <Route path=":state/:year/ACS/CSQ" element={<Views.ACSQualifiers />} />
         <Route path=":state/:year/CCS/CSQ" element={<Views.CCSQualifiers />} />
         <Route
