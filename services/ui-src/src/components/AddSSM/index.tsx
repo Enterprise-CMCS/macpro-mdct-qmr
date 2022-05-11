@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { SingleSSM } from "./SingleSSM";
 import { useFieldArray } from "react-hook-form";
 
 // Add State-Specific Measure component
@@ -25,8 +24,18 @@ export const AddSSM = () => {
         You may associate up to five core measures with this core set.
       </CUI.Text>
 
-      {fields.map((field: any, index: number) => (
-        <SingleSSM key={field.id} index={index} />
+      {fields.map((field: any, idx: number) => (
+        <CUI.Stack spacing={6} key={field.id}>
+          <CUI.Divider />
+          <QMR.TextInput
+            label="Name the measure"
+            name={`add-ssm.${idx}.name`}
+          ></QMR.TextInput>
+          <QMR.TextArea
+            label="Please provide a description of the measure"
+            name={`add-ssm.${idx}.description`}
+          ></QMR.TextArea>
+        </CUI.Stack>
       ))}
 
       <QMR.ContainedButton
