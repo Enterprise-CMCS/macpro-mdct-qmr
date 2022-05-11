@@ -227,9 +227,9 @@ resources:
               NotPrincipal:
                 AWS: !GetAtt BucketAVScanRole.Arn
               Condition:
-                StringEquals:
+                StringNotEquals:
                   s3:ExistingObjectTag/virusScanStatus:
-                    - "INFECTED"
+                    - "CLEAN"
                   aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
             - Action:
                 - "s3:DeleteObject"
