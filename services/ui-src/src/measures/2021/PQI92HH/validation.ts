@@ -32,24 +32,28 @@ const PQI92Validation = (data: FormData) => {
 
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateBothDatesCompleted(dateRange),
 
     // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateDualPopInformation(
+    ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
@@ -66,7 +70,7 @@ const PQI92Validation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [GV.validateRateZero, GV.validateRateNotZero],
+      validationCallbacks: [GV.validateRateZeroOMS, GV.validateRateNotZeroOMS],
     }),
   ];
 
