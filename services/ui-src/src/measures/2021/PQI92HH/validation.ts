@@ -5,6 +5,7 @@ import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const PQI92Validation = (data: FormData) => {
+  const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -21,6 +22,14 @@ const PQI92Validation = (data: FormData) => {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+  const validateDualPopInformationArray = [
+    performanceMeasureArray?.[0].filter((pm) => {
+      return pm?.label === "Age 65 and older";
+    }),
+  ];
+
+  const age65PlusIndex = 0;
+
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOneDataSource(data),
@@ -33,6 +42,12 @@ const PQI92Validation = (data: FormData) => {
       OPM,
       ageGroups,
       data
+    ),
+    ...GV.validateDualPopInformation(
+      validateDualPopInformationArray,
+      OPM,
+      age65PlusIndex,
+      definitionOfDenominator
     ),
     ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
