@@ -41,12 +41,12 @@ export const PCRAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRADPerformanceMeasure data={PMD.data} rateScale={1000} />
+              <PCRADPerformanceMeasure data={PMD.data} />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.qualifiers}
                 measureName={measureId}

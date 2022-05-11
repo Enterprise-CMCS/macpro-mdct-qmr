@@ -1,45 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
+import * as GV from "../../globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-
-const validate7DaysGreaterThan30Days = (data: FormData) => {
-  if (
-    !(
-      data?.PerformanceMeasure?.rates?.FollowUpwithin7daysafterdischarge ||
-      data?.PerformanceMeasure?.rates?.FollowUpwithin30daysafterdischarge
-    )
-  ) {
-    return [];
-  }
-  const sevenDays =
-    data.PerformanceMeasure.rates.FollowUpwithin7daysafterdischarge;
-  const thirtyDays =
-    data.PerformanceMeasure.rates.FollowUpwithin30daysafterdischarge;
-
-  let error;
-  const errorArray: any[] = [];
-
-  if (sevenDays && thirtyDays) {
-    sevenDays.forEach((_sevenDaysObj: any, index: number) => {
-      if (
-        sevenDays[index] &&
-        thirtyDays[index] &&
-        parseFloat(sevenDays[index]?.rate ?? "") >
-          parseFloat(thirtyDays[index]?.rate ?? "")
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage: `Follow up within 7 days after discharge Rate should not be higher than Follow up within 30 days after discharge Rates for ${PMD.qualifiers[index]}.`,
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-  return error ? errorArray : [];
-};
 
 const FUHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -64,7 +27,7 @@ const FUHValidation = (data: FormData) => {
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
       ...unfilteredSameDenominatorErrors,
-      ...GV.validateEqualDenominators(
+      ...GV.validateEqualQualifierDenominatorsPM(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
@@ -81,39 +44,40 @@ const FUHValidation = (data: FormData) => {
   });
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...errorArray,
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateDualPopInformation(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       1,
       DefinitionOfDenominator
     ),
     ...filteredSameDenominatorErrors,
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...validate7DaysGreaterThan30Days(data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -124,11 +88,11 @@ const FUHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateOneRateLessThanOther,
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
-        GV.validateDenominatorsAreTheSame,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
       ],
     }),
   ];

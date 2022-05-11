@@ -4,44 +4,8 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validateContinuationGreaterThanAccute = (data: any) => {
-  if (
-    !(
-      data?.PerformanceMeasure?.rates?.EffectiveAcutePhaseTreatment ||
-      data?.PerformanceMeasure?.rates?.EffectiveContinuationPhaseTreatment
-    )
-  ) {
-    return [];
-  }
-  const accute =
-    data["PerformanceMeasure"]["rates"]["EffectiveAcutePhaseTreatment"];
-  const continuation =
-    data["PerformanceMeasure"]["rates"]["EffectiveContinuationPhaseTreatment"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (accute && continuation) {
-    accute.forEach((_accuteObj: any, index: number) => {
-      if (
-        accute[index] &&
-        continuation[index] &&
-        parseFloat(continuation[index]?.rate) > parseFloat(accute[index]?.rate)
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage:
-            "Effective Continuation Phase Treatment Rate should not be higher than Effective Acute Phase Treatment Rates.",
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-  return error ? [errorArray[0]] : [];
-};
-
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-const sameDenominatorSets: GV.OmsValidationCallback = ({
+const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   categories,
@@ -99,7 +63,7 @@ const AMMADValidation = (data: FormData) => {
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
       ...unfilteredSameDenominatorErrors,
-      ...GV.validateEqualDenominators(
+      ...GV.validateEqualQualifierDenominatorsPM(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
@@ -123,39 +87,40 @@ const AMMADValidation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateDualPopInformation(
+    ...errorArray,
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...validateContinuationGreaterThanAccute(data),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-
-    // OMS Validations
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -166,10 +131,10 @@ const AMMADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateOneRateLessThanOther,
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
         sameDenominatorSets,
       ],
     }),
