@@ -1,7 +1,7 @@
 import { DataDrivenTypes } from "measures/CommonQuestions/types";
 
 export const categories = [
-  "Age Ranges",
+  // "Age Ranges",
   "Inpatient",
   "Maternity",
   "Mental and Behavioral Disorders",

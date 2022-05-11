@@ -71,6 +71,7 @@ const CategoryNdrSets = ({
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }
+              categoryName={item}
             />
           </CUI.Box>
         );
