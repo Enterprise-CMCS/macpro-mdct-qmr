@@ -157,10 +157,10 @@ describe("Measure: oy2-9921 ADD-CH", () => {
       "Percentage of children ages 6 to 12 with an ambulatory prescription dispensed for ADHD medication who remained on the medication for at least 210 days and who, in addition to the visit in the Initiation Phase, had at least two follow-up visits with a practitioner within 270 days (9 months) after the Initiation Phase ended."
     );
     cy.get(
-      '[data-cy="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below::"]'
+      '[data-cy="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"]'
     ).should(
       "have.text",
-      "If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below::"
+      "If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
     );
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
     cy.get(
