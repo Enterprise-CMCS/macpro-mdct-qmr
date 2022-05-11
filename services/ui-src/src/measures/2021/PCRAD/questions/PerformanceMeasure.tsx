@@ -160,7 +160,7 @@ export const PCRADPerformanceMeasure = ({
         })}
       </CUI.UnorderedList>
       <QMR.TextArea
-        label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below::"
+        label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
         {...register("PerformanceMeasure.explanation")}
       />
       <CUI.Text
