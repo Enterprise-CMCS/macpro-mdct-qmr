@@ -310,7 +310,8 @@ export const validateTotalNDR = (
         item !== undefined &&
         item !== null &&
         !item["isTotal"] &&
-        item.rate
+        item["numerator"] &&
+        item["denominator"]
       ) {
         let x;
         if (!isNaN((x = parseFloat(item["numerator"])))) {
@@ -333,6 +334,7 @@ export const validateTotalNDR = (
         numeratorSum !== null &&
         !isNaN(parsedNum)
       ) {
+        console.log(numeratorSum, parsedNum);
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage: `${

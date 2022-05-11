@@ -7,10 +7,10 @@ import fireEvent from "@testing-library/user-event";
 import { PerformanceMeasure } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
-import { MultiRate } from "components";
+import { PCRRate } from "components";
 
 interface Props {
-  component: any;
+  component?: RateComp | undefined;
   calcTotal: boolean;
   data: PerformanceMeasureData;
   rateReadOnly: undefined | boolean;
@@ -113,11 +113,11 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     // modifying data to be easier to check
     PCRData.qualifiers = PCRData.qualifiers!.map((qual) => `qual ${qual}`);
 
-    props.component = MultiRate;
+    props.component = PCRRate;
     props.data = PCRData;
     renderComponet(props);
 
-    // should render match MultiRate layout using PCR-XX data
+    // should render match PCRRate layout using PCR-XX data
     expect(screen.getByText(/Performance Measure/i)).toBeVisible();
     expect(screen.getByText(PCRData.questionText![0])).toBeVisible();
     expect(screen.getByText(PCRData.questionListItems![0])).toBeVisible();
@@ -141,7 +141,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
   });
 
   test("(PCR-XX) Rates should not be editable", () => {
-    props.component = MultiRate;
+    props.component = PCRRate;
     props.data = PCRData;
     props.rateReadOnly = true;
     renderComponet(props);

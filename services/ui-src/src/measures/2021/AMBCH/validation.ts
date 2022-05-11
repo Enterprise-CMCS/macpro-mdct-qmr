@@ -42,11 +42,6 @@ const AMBCHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
 
     // OMS Validations
@@ -60,7 +55,6 @@ const AMBCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
         GV.validateDenominatorsAreTheSame,
         GV.validateOneRateLessThanOther,
         GV.validateRateZero,

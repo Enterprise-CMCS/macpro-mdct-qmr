@@ -10,16 +10,16 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
   let ratesExist = false;
   const rateExists = (rate: Types.RateFields) =>
     rate?.rate || (rate?.denominator && rate?.numerator);
-  const PCRADrateExists = (rate: any) => rate?.value;
+  const PCRrateExists = (rate: any) => rate?.value;
 
   const performanceMeasureRates = data.PerformanceMeasure?.rates;
   if (performanceMeasureRates) {
     for (const option in performanceMeasureRates) {
-      // Ugly, but PCRAD is the only measure that breaks this check.
+      // Ugly, but PCR-XX are the only measures that break this check.
       // If you are thinking about adding another hard-coded value here, consider refactoring this function.
       if (
-        measureId === "PCR-AD" &&
-        performanceMeasureRates?.[option]?.some(PCRADrateExists)
+        (measureId === "PCR-AD" || measureId === "PCR-HH") &&
+        performanceMeasureRates?.[option]?.some(PCRrateExists)
       ) {
         ratesExist = true;
       }

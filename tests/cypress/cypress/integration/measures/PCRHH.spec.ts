@@ -1,10 +1,10 @@
-describe("PCR-AD", () => {
+describe("PCR-HH", () => {
   beforeEach(() => {
-    cy.login();
-    cy.goToAdultMeasures();
-    cy.goToMeasure("PCR-AD");
+    cy.loginHealthHome();
+    cy.goToHealthHomeSetMeasures();
+    cy.goToMeasure("PCR-HH");
   });
-  it("fill out oy2-9910 PCR-AD form", () => {
+  it("fill out oy2-9908 PCR-HH form", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="DataStatus0"]').click();
     cy.get('[data-cy="DataStatus-ProvisionalExplanation"]').click();
@@ -31,66 +31,7 @@ describe("PCR-AD", () => {
     cy.get('[data-cy="DateRange.endDate-month"]').type("10");
     cy.get('[data-cy="DateRange.endDate-year"]').click();
     cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
-    cy.get(
-      '[data-cy="DefinitionOfDenominator0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="ChangeInPopulationExplanation"]').click();
-    cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="DeliverySys-FeeForService1"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="DeliverySys-PrimaryCareManagement1"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="DeliverySys-MCO_PIHP1"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="DeliverySys-IntegratedCareModel1"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(":nth-child(9) > :nth-child(3) > :nth-child(1)").should(
-      "have.text",
-      "Count of Index Hospital Stays (IHS)"
-    );
-    cy.get(":nth-child(9) > :nth-child(3) > :nth-child(2)").should(
-      "have.text",
-      "Count of Observed 30-Day Readmissions"
-    );
-    cy.get(":nth-child(9) > :nth-child(3) > :nth-child(3)").should(
-      "have.text",
-      "Count of Expected 30-Day Readmissions"
-    );
-    cy.get(":nth-child(9) > :nth-child(4)").should(
-      "have.text",
-      "For beneficiaries ages 18 to 64, states should also report the rate of beneficiaries who are identified as outliers based on high rates of inpatient and observation stays during the measurement year. Data are reported in the following categories:"
-    );
-    cy.get(":nth-child(9) > :nth-child(5) > :nth-child(1)").should(
-      "have.text",
-      "Count of Beneficiaries in Medicaid Population"
-    );
-    cy.get(":nth-child(9) > :nth-child(5) > :nth-child(2)").should(
-      "have.text",
-      "Number of Outliers"
-    );
-    cy.get(
-      '[data-cy="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below::"]'
-    ).should(
-      "have.text",
-      "If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below::"
-    );
+
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
     cy.get('[data-cy="Count of Index Hospital Stays"]').should(
       "have.text",
@@ -118,19 +59,19 @@ describe("PCR-AD", () => {
       "have.text",
       "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)"
     );
-    cy.get('[data-cy="Count of Beneficiaries in Medicaid Population"]').should(
+    cy.get('[data-cy="Count of Enrollees in Health Home Population"]').should(
       "have.text",
-      "Count of Beneficiaries in Medicaid Population"
+      "Count of Enrollees in Health Home Population"
     );
     cy.get('[data-cy="Number of Outliers"]').should(
       "have.text",
       "Number of Outliers"
     );
     cy.get(
-      '[data-cy="Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000"]'
+      '[data-cy="Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000"]'
     ).should(
       "have.text",
-      "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000"
+      "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000"
     );
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.value"]'
@@ -185,7 +126,7 @@ describe("PCR-AD", () => {
     ).should("have.value", "1234567890");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.8.value"]'
-    ).should("have.value", "1000.0");
+    ).should("have.value", "1000.0000");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]'
     ).clear();
@@ -225,7 +166,7 @@ describe("PCR-AD", () => {
     );
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.8.value"]'
-    ).should("have.value", "40.5");
+    ).should("have.value", "40.5000");
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get(
@@ -304,7 +245,7 @@ describe("PCR-AD", () => {
     ).should("have.value", "1234567890");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.8.value"]'
-    ).should("have.value", "1000.0");
+    ).should("have.value", "1000.0000");
     cy.get(
       ":nth-child(1) > :nth-child(1) > .css-1kxonj9 > .css-n21gh5 > :nth-child(2)"
     ).click();
@@ -330,10 +271,7 @@ describe("PCR-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.options5"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.options6"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="OptionalMeasureStratification.options6"]').click();
+
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="At least one item must be selected and completed (Numerator, Denominator, or Other)"] > .chakra-text'
@@ -368,37 +306,7 @@ describe("PCR-AD", () => {
     cy.get('[data-cy="DateRange.endDate-month"]').type("10");
     cy.get('[data-cy="DateRange.endDate-year"]').clear();
     cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
-    cy.get(
-      '[data-cy="DefinitionOfDenominator0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="DenominatorDefineTotalTechSpec0"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#DeliverySys-FeeForService_radiogroup > .chakra-stack > :nth-child(2) > .chakra-radio"
-    ).click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="DeliverySys-PrimaryCareManagement1"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="DeliverySys-MCO_PIHP1"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__control'
-    ).click();
-    cy.get('[data-cy="DeliverySys-IntegratedCareModel1"]').click();
-    cy.get(
-      '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control'
-    ).click();
+
     cy.get('[data-cy="Other Performance Measure"]').should(
       "have.text",
       "Other Performance Measure"
@@ -441,5 +349,17 @@ describe("PCR-AD", () => {
       "have.text",
       "Performance Measure/Other Performance Measure Error"
     );
+  });
+
+  it("Verify new section for Health Home measures only", function () {
+    cy.get(
+      '[data-cy="Are all Health Home Providers represented in the denominator?"]'
+    ).should(
+      "have.text",
+      "Are all Health Home Providers represented in the denominator?"
+    );
+    cy.get('[data-cy="DenominatorDefineHealthHome0"]').click();
+
+    cy.get('[data-cy="Validate Measure"]').click();
   });
 });

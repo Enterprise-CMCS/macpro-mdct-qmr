@@ -17,9 +17,8 @@ const getStatus = ({
     progress.numComplete < progress.numAvailable
   ) {
     status = CoreSetTableItem.Status.IN_PROGRESS;
-  } else if (progress && progress.numComplete === progress.numAvailable) {
+  } else if (progress && progress.numComplete === progress.numAvailable)
     status = CoreSetTableItem.Status.COMPLETED;
-  }
 
   return status;
 };
@@ -74,24 +73,6 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
     header: "Status",
     id: "status_column_header",
     cell: (data: CoreSetTableItem.Data) => <CoreSetStatusText {...data} />,
-  },
-  {
-    id: "submit_column_header",
-    cell: (data: CoreSetTableItem.Data) => {
-      return (
-        <CUI.Box textAlign="center">
-          <QMR.SubmitCoreSetButton
-            coreSet={data.coreSet}
-            coreSetStatus={getStatus(data)}
-            isSubmitted={data.submitted}
-            year={data.year}
-            styleProps={{
-              button: { bg: "blue.600", colorScheme: "blue", w: "full" },
-            }}
-          />
-        </CUI.Box>
-      );
-    },
   },
   {
     header: "Core Set Actions",
