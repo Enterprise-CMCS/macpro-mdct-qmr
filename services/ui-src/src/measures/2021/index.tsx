@@ -53,6 +53,7 @@ import { PQI05AD } from "./PQI05AD";
 import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
+import { PQI92HH } from "./PQI92HH";
 import { SAAAD } from "./SAAAD";
 import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
@@ -112,6 +113,7 @@ const twentyTwentyOneMeasures = {
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
+  "PQI92-HH": PQI92HH,
   "SAA-AD": SAAAD,
   "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
