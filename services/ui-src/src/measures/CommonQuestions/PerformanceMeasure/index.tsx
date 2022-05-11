@@ -211,7 +211,7 @@ export const PerformanceMeasure = ({
       )}
       {showtextbox && (
         <QMR.TextArea
-          label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below::"
+          label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
           {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
         />
       )}
