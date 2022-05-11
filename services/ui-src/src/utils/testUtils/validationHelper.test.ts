@@ -8,7 +8,7 @@ const mockedConsoleError = jest.fn();
 
 describe("Test Validation Helpers", () => {
   it("should create valid rateData", () => {
-    const data = VH.generateRateData(
+    const data = VH.generateOmsQualifierRateData(
       ["test1"],
       ["test2"],
       [{ numerator: "5" }]
@@ -17,7 +17,7 @@ describe("Test Validation Helpers", () => {
   });
 
   it("should not create data if no data passed", () => {
-    const data = VH.generateRateData(["test1"], ["test2"], []);
+    const data = VH.generateOmsQualifierRateData(["test1"], ["test2"], []);
 
     expect(data).toEqual({});
     expect(mockedConsoleError).toHaveBeenCalled();

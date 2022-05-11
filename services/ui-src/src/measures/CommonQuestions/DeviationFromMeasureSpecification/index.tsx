@@ -129,8 +129,11 @@ export const DeviationFromMeasureSpec = ({
       const { rates } = watchPerformanceMeasure;
 
       if (rates.singleCategory) {
-        // handle for PCR-AD
-        if (measureName && measureName === "PCR-AD") {
+        // handle for PCR-XX measures
+        if (
+          (measureName && measureName === "PCR-AD") ||
+          measureName === "PCR-HH"
+        ) {
           const quals = rates.singleCategory.filter((r: any) => r.value !== "");
           if (quals.length > 0) {
             return getRateTextAreaOptions(DC.DEVIATIONS);

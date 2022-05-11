@@ -244,6 +244,32 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
   );
 };
 
+const PCRNDRSets = ({ name }: NdrProps) => {
+  const { rateReadOnly, qualifiers, customMask } =
+    usePerformanceMeasureContext();
+  const rates = qualifiers.map((qual, i) => {
+    return { label: qual, id: i };
+  });
+
+  return (
+    <>
+      <CUI.Heading key={`${name}.rates.Header`} size={"sm"}>
+        Enter a number for the numerator and the denominator. Rate will
+        auto-calculate
+      </CUI.Heading>
+      <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
+      <QMR.PCRRate
+        rates={rates}
+        name={`${name}.pcr-rate`}
+        readOnly={rateReadOnly}
+        customMask={customMask}
+      />
+    </>
+  );
+};
+
 /**
  * Builds OPM Checkboxes
  */
@@ -321,11 +347,26 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM } = usePerformanceMeasureContext();
+  const { OPM, compFlag } = usePerformanceMeasureContext();
+  const children: JSX.Element[] = [];
+
+  if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
+  switch (compFlag) {
+    case "DEFAULT":
+      if (!OPM) {
+        children.push(<AgeGroupNDRSets name={name} key={name} />);
+      }
+      break;
+    case "PCR":
+      if (!OPM) {
+        children.push(<PCRNDRSets name={name} key={name} />);
+      }
+      break;
+  }
+
   return (
     <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
-      {OPM && <OPMNDRSets name={name} key={name} />}
-      {!OPM && <AgeGroupNDRSets name={name} key={name} />}
+      {children}
     </CUI.VStack>
   );
 };
