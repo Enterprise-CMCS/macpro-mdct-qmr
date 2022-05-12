@@ -54,16 +54,17 @@ export const Upload = ({
         )}`;
 
         try {
-          const stored = await Storage.vault.put(targetPathname, fileToUpload, {
+          const stored = await Storage.put(targetPathname, fileToUpload, {
             level: "protected",
             contentType: fileToUpload.type,
             progressCallback(progress) {
               const progressRatio = (progress.loaded / progress.total) * 100;
               setUploadStatus(progressRatio);
             },
+            tagging: "something=tagapplied",
           });
 
-          const url = await Storage.vault.get(stored.key, {
+          const url = await Storage.get(stored.key, {
             level: "protected",
           });
 
