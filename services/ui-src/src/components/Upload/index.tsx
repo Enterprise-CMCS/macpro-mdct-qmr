@@ -61,7 +61,6 @@ export const Upload = ({
               const progressRatio = (progress.loaded / progress.total) * 100;
               setUploadStatus(progressRatio);
             },
-            tagging: "something=tagapplied",
           });
 
           const url = await Storage.get(stored.key, {
