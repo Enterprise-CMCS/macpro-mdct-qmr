@@ -5,6 +5,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
+import { cleanString } from "utils/cleanString";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -52,7 +53,7 @@ const CategoryNdrSets = ({
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = item.replace(/[^\w]/g, "");
+        const cleanedName = cleanString(item);
 
         return (
           <CUI.Box key={item}>

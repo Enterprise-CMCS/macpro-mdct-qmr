@@ -29,8 +29,8 @@ export const IUHHRate = ({
   name,
   readOnly = true,
   categoryName,
-}: // ...rest
-Props) => {
+  ...rest
+}: Props) => {
   const {
     control,
     formState: { errors },
@@ -46,11 +46,42 @@ Props) => {
     "Average Length of Stay",
   ];
 
+  // Rate structure by index in row
+  const ndrForumlas = [
+    // Discharges per 1,000 Enrollee Months
+    {
+      num: 1,
+      denom: 0,
+      rate: 2,
+    },
+    // Days per 1,000 Enrollee Months
+    {
+      num: 3,
+      denom: 0,
+      rate: 4,
+    },
+    // Average Length of Stay
+    {
+      num: 3,
+      denom: 1,
+      rate: 5,
+    },
+  ];
+
+  // Quick reference list of all rate indices
+  const rateLocations = ndrForumlas.map((ndr) => ndr.rate);
+
   const { field } = useController({
     name,
     control,
     defaultValue: [],
   });
+
+  // TODO:
+  // - defaultValue : {}
+  // - use cleanString()
+  // - instead of looping over array, loop over field names, use as keys to access objs instead
+  // - yada yada yada
 
   rates[rates.length - 1]["isTotal"] = true;
 
@@ -80,20 +111,23 @@ Props) => {
   const changeRate = (
     qualIndex: number,
     fieldIndex: number,
-    type: "numerator" | "denominator" | "rate",
     newValue: string,
     isTotal?: boolean
   ) => {
+    const isRate = rateLocations.includes(fieldIndex);
     if (!allNumbers.test(newValue)) return;
-    if (type === "rate" && readOnly) return;
+    if (isRate && readOnly) return;
 
     const prevRate = [...field.value];
     // const editRate = { ...prevRate[index] };
     // const validEditRate = eightNumbersOneDecimal.test(newValue);
 
     prevRate[qualIndex][fieldIndex].value = newValue;
+    if (!isRate) {
+      prevRate[qualIndex] = calculateRates(prevRate[qualIndex]);
+    }
 
-    // Totals NDR should be independently editable
+    // Totals should be independently editable
     if (!isTotal) {
       calculateTotals(prevRate);
     }
@@ -101,14 +135,27 @@ Props) => {
     field.onChange([...prevRate]);
   };
 
-  const calculateRate = (num: number, denom: number) => {
-    if (num !== null && denom !== null) {
-      return num !== 0
-        ? rateCalculation(num.toString(), denom.toString(), 1000, 1)
-        : "0";
-    } else {
-      return "";
+  // Calculate Rates for a row of data using the ndrFormulas as a guide
+  const calculateRates = (fieldRow: { name: string; value: string }[]) => {
+    for (const formula of ndrForumlas) {
+      let x;
+      const num = !isNaN((x = parseFloat(fieldRow[formula.num].value)))
+        ? x
+        : null;
+      const denom = !isNaN((x = parseFloat(fieldRow[formula.denom].value)))
+        ? x
+        : null;
+
+      if (num !== null && denom !== null) {
+        fieldRow[formula.rate].value =
+          num !== 0
+            ? rateCalculation(num.toString(), denom.toString(), 1000, 1)
+            : "0";
+      } else {
+        fieldRow[formula.rate].value = "";
+      }
     }
+    return fieldRow;
   };
 
   /*
@@ -137,30 +184,19 @@ Props) => {
 
     // Set total values and calculate total rate
     let totalIndex = prevRate.length - 1;
+    let totals = prevRate[totalIndex];
+
     let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
-    prevRate[totalIndex][0].value = newValue;
+    totals[0].value = newValue;
 
     newValue = dischargeSum !== null ? dischargeSum.toString() : "";
-    prevRate[totalIndex][1].value = newValue;
+    totals[1].value = newValue;
 
     newValue = daySum !== null ? daySum.toString() : "";
-    prevRate[totalIndex][3].value = newValue;
+    totals[3].value = newValue;
 
-    // Discharges per 1,000 Enrollee Months
-    prevRate[totalIndex][2].value = calculateRate(dischargeSum, numEnrolleeSum);
-
-    // Days per 1,000 Enrollee Months
-    prevRate[totalIndex][4].value = calculateRate(daySum, numEnrolleeSum);
-
-    // Average Length of Stay
-    if (dischargeSum !== null && daySum !== null) {
-      prevRate[totalIndex][5].value =
-        daySum !== 0
-          ? rateCalculation(daySum.toString(), dischargeSum.toString(), 1, 1)
-          : "0";
-    } else {
-      prevRate[totalIndex][5].value = "";
-    }
+    totals = calculateRates(totals);
+    prevRate[totalIndex] = totals;
   };
 
   useEffect(
@@ -196,6 +232,7 @@ Props) => {
             <CUI.Stack direction="row" key={`iuhh-field-stack-${qualIndex}`}>
               {inputFieldNames.map((ifn, fieldIndex) => {
                 return (
+                  // TODO: Change the way the data is registered
                   <QMR.InputWrapper
                     isInvalid={
                       !!objectPath.get(errors, `${name}.${fieldIndex}.value`)
@@ -203,6 +240,7 @@ Props) => {
                     }
                     key={`input-wrapper-${ifn}-${fieldIndex}`}
                     label={ifn}
+                    {...rest}
                   >
                     <CUI.Input
                       key={`input-field-${fieldIndex}`}
@@ -214,7 +252,6 @@ Props) => {
                         changeRate(
                           qualIndex,
                           fieldIndex,
-                          "denominator",
                           e.target.value,
                           field.value[qualIndex].isTotal ?? false
                         )
