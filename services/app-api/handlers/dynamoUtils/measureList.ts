@@ -404,7 +404,7 @@ export const measures: Measure = {
     },
     {
       type: "H",
-      description: "Follow-Up after Hosptialization for Mental Illness",
+      description: "Follow-Up after Hospitalization for Mental Illness",
       measure: "FUH-HH",
     },
     {
@@ -415,7 +415,7 @@ export const measures: Measure = {
     },
     {
       type: "H",
-      description: "Inpatient Hospitalization",
+      description: "Inpatient Utilization",
       measure: "IU-HH",
     },
     {

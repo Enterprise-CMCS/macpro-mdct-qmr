@@ -235,10 +235,10 @@ describe("Health Home Measure Qualifier: HH", () => {
       "FUA-HH - Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence"
     );
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-HH - Follow-Up after Hosptialization for Mental Illness"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-HH - Follow-Up after Hospitalization for Mental Illness"]'
     ).should(
       "have.text",
-      "FUH-HH - Follow-Up after Hosptialization for Mental Illness"
+      "FUH-HH - Follow-Up after Hospitalization for Mental Illness"
     );
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IET-HH - Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment"]'
@@ -247,8 +247,8 @@ describe("Health Home Measure Qualifier: HH", () => {
       "IET-HH - Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment"
     );
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IU-HH - Inpatient Hospitalization"]'
-    ).should("have.text", "IU-HH - Inpatient Hospitalization");
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IU-HH - Inpatient Utilization"]'
+    ).should("have.text", "IU-HH - Inpatient Utilization");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-OUD-HH - Use of Pharmacotherapy for Opioid Use Disorder"]'
     ).should(
