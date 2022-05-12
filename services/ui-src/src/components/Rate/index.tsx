@@ -199,11 +199,7 @@ export const Rate = ({
     newValue = denominatorSum !== null ? denominatorSum.toString() : "";
     prevRate[totalIndex]["denominator"] = newValue;
 
-    if (
-      numeratorSum !== null &&
-      denominatorSum !== null &&
-      numeratorSum <= denominatorSum
-    ) {
+    if (numeratorSum !== null && denominatorSum !== null) {
       prevRate[totalIndex]["rate"] =
         numeratorSum !== 0
           ? rateCalculation(

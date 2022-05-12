@@ -24,7 +24,10 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
       errorMessage: "Entries for Ages 21 to 64 column must have values",
     });
   }
-  if (total21To64Percent < 99 || total21To64Percent > 101) {
+  if (
+    (total21To64Percent < 99 || total21To64Percent > 101) &&
+    total21To64Percent !== 0
+  ) {
     errorArray.push({
       errorLocation: "Delivery System",
       errorMessage: "Entries for Ages 21 to 64 column must total 100",

@@ -1,8 +1,7 @@
+import * as PMD from "./data";
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
-import * as PMD from "./data";
 import { FormData } from "./types";
-import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const DEVCHValidation = (data: FormData) => {
@@ -25,52 +24,51 @@ const DEVCHValidation = (data: FormData) => {
   }
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
-    ...GV.validateNumeratorsLessThanDenominators(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
-    ...GV.validateTotalNDR(performanceMeasureArray),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       dataSource: data[DC.DATA_SOURCE],
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       customTotalLabel: "Children",
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
-        GV.validateOneRateLessThanOther,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateOMSTotalNDR,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
     }),
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateTotalNDR(performanceMeasureArray),
   ];
 
   return errorArray;

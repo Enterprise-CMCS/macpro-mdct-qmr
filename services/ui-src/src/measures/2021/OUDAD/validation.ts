@@ -24,36 +24,31 @@ const OUDValidation = (data: FormData) => {
   );
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneDataSource(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-
-    // Performance Measure Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...errorArray,
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateAllDenomsTheSameCrossQualifier(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateEqualCategoryDenominatorsPM(
       data,
       PMD.categories,
       PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -64,13 +59,19 @@ const OUDValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
-        GV.validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateEqualCategoryDenominatorsOMS,
       ],
     }),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
   ];
 
   return errorArray;

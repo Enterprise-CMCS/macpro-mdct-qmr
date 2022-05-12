@@ -5,15 +5,23 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { SubmitCoreSetButton } from ".";
 import { useApiMock } from "utils/testUtils/useApiMock";
+import { useUser } from "hooks/authHooks";
+
+jest.mock("hooks/authHooks");
+const mockUseUser = useUser as jest.Mock;
 
 interface Props {
   coreSet: CoreSetAbbr;
   coreSetStatus: CoreSetTableItem.Status;
   isSubmitted: boolean;
   year: string;
+  isStateUser: boolean;
 }
 
 const renderTestComponent = (props: Props) => {
+  mockUseUser.mockImplementation(() => {
+    return { isStateUser: props.isStateUser };
+  });
   const queryClient = new QueryClient();
   useApiMock({});
   renderWithHookForm(
@@ -38,6 +46,7 @@ describe("Test the SubmitCoreSetButton component", () => {
       coreSetStatus: CoreSetTableItem.Status.COMPLETED,
       isSubmitted: false,
       year: "2021",
+      isStateUser: true,
     };
   });
 
@@ -52,6 +61,20 @@ describe("Test the SubmitCoreSetButton component", () => {
     expect(
       screen.getByText(/Submit Core Set/i).closest("button")
     ).not.toBeDisabled();
+  });
+
+  test("Check that for a non-state user the button is disabled", () => {
+    props.isStateUser = false;
+    renderTestComponent(props);
+    expect(screen.getByText(/Submit Core Set/i)).toBeVisible();
+    expect(
+      screen.getByText(
+        /Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021/i
+      )
+    ).toBeVisible();
+    expect(
+      screen.getByText(/Submit Core Set/i).closest("button")
+    ).toBeDisabled();
   });
 
   test("Check that coreSet prop changes the helper text (CCS)", () => {

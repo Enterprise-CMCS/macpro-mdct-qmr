@@ -81,7 +81,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
           {
             displayValue: !healthHomeMeasure
               ? "No, we did not combine rates from multiple reporting units to create a State-Level rate."
-              : "No, we did not combine rates from multiple reporting units to create a SPA-Level rate for Health Homes measures.",
+              : "No, we did not combine rates from multiple reporting units to create a SPA-Level rate for Health Home measures.",
             value: DC.NO,
           },
         ]}

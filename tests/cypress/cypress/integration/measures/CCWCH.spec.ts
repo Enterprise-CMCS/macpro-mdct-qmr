@@ -127,7 +127,7 @@ describe("Measure: CCW-CH", () => {
     );
   });
 
-  it('displays the expected warning if the LARC rate is greater than the "Most effective or moderately effective method of contraception" rate', () => {
+  it.only('displays the expected warning if the LARC rate is greater than the "Most effective or moderately effective method of contraception" rate', () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -143,9 +143,9 @@ describe("Measure: CCW-CH", () => {
     ).type("34");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"]'
+      '[data-cy="Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate."]'
     ).contains(
-      "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"
+      "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate."
     );
   });
 });
