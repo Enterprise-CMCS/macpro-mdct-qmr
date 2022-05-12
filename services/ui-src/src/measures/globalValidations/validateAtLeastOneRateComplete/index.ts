@@ -25,6 +25,7 @@ export const validateAtLeastOneRateComplete = (
         performanceMeasureArray[index] &&
         performanceMeasureArray[index][i] &&
         performanceMeasureArray[index][i].denominator &&
+        performanceMeasureArray[index][i].rate &&
         performanceMeasureArray[index][i].numerator
       ) {
         rateCompletionError = false;
