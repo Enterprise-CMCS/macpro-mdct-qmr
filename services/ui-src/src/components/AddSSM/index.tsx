@@ -5,7 +5,7 @@ import { useFieldArray } from "react-hook-form";
 // Add State-Specific Measure component
 export const AddSSM = () => {
   // useFieldArray() wrangles the dynamic form below
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "add-ssm",
     shouldUnregister: true,
   });
@@ -37,20 +37,34 @@ export const AddSSM = () => {
           ></QMR.TextArea>
         </CUI.Stack>
       ))}
-
-      <QMR.ContainedButton
-        buttonText={"+ Add Another"}
-        buttonProps={{
-          variant: "outline",
-          colorScheme: "blue",
-          color: "blue.500",
-          mt: "4",
-        }}
-        key={"AddAnotherSSMButton"}
-        onClick={() => append({})}
-        disabledStatus={fields.length >= 5}
-        testId={"AddAnotherSSMButton"}
-      />
+      <CUI.Stack spacing={6} direction="row">
+        <QMR.ContainedButton
+          buttonText={"+ Add Another"}
+          buttonProps={{
+            variant: "outline",
+            colorScheme: "blue",
+            color: "blue.500",
+            mt: "4",
+          }}
+          key={"AddAnotherSSMButton"}
+          onClick={() => append({})}
+          disabledStatus={fields.length >= 5}
+          testId={"AddAnotherSSMButton"}
+        />
+        <QMR.ContainedButton
+          buttonText={"- Remove Last"}
+          buttonProps={{
+            variant: "outline",
+            colorScheme: "red",
+            color: "red.500",
+            mt: "4",
+          }}
+          key={"RemoveLastSSMButton"}
+          onClick={() => remove(fields.length - 1)}
+          disabledStatus={fields.length === 0}
+          testId={"RemoveLastSSMButton"}
+        />
+      </CUI.Stack>
     </CUI.Stack>
   );
 };
