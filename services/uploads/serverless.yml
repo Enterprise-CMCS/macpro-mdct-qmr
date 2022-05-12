@@ -124,6 +124,8 @@ resources:
           LambdaConfigurations:
             - Event:
                 - s3:ObjectCreated:Put
+              Function: !GetAtt AvScanLambdaFunction.Arn
+            - Event:
                 - s3:ObjectCreated:CompleteMultipartUpload
               Function: !GetAtt AvScanLambdaFunction.Arn
       DependsOn: LambdaInvokePermission
