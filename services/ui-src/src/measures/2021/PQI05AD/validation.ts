@@ -60,7 +60,8 @@ const PQI05Validation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),

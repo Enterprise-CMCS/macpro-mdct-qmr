@@ -31,7 +31,8 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
