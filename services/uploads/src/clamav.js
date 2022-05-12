@@ -203,6 +203,7 @@ function scanLocalFile(pathToFile) {
     return constants.STATUS_CLEAN_FILE;
   } catch (err) {
     // Error status 1 means that the file is infected.
+    console.log(err);
     if (err.status === 1) {
       utils.generateSystemMessage("SUCCESSFUL SCAN, FILE INFECTED");
       return constants.STATUS_INFECTED_FILE;
