@@ -20,6 +20,7 @@ export const DefinitionOfPopulation = ({
   healthHomeMeasure,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
+  console.log(healthHomeMeasure);
 
   return (
     <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
