@@ -25,7 +25,7 @@ export const CCSMQualifiers = () => {
   const [errors, setErrors] = useState<any[]>();
 
   // get qualifier data and prepoulate default values if data exists
-  const { data } = useGetMeasure({
+  const { data: apiData, refetch } = useGetMeasure({
     coreSet: CoreSetAbbr.CCSM,
     measure: "CSQ",
   });
@@ -58,9 +58,9 @@ export const CCSMQualifiers = () => {
 
   useEffect(() => {
     if (!methods.formState.isDirty) {
-      methods.reset(data?.Item?.data);
+      methods.reset(apiData?.Item?.data);
     }
-  }, [data, methods]);
+  }, [apiData, methods]);
 
   const handleValidation = (data: CCSMQualifierForm) => {
     validateAndSetErrors(data);
@@ -113,6 +113,9 @@ export const CCSMQualifiers = () => {
         if (callback) {
           callback();
         }
+
+        refetch();
+
         updateCoreSet({
           coreSet: CoreSetAbbr.CCSM,
           state: state ?? "",
@@ -166,7 +169,7 @@ export const CCSMQualifiers = () => {
       buttons={
         <QMR.MeasureButtons
           handleSave={methods.handleSubmit(handleSave)}
-          lastAltered={data?.Item.lastAltered}
+          lastAltered={apiData?.Item.lastAltered}
         />
       }
     >
