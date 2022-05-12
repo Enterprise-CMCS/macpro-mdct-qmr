@@ -90,6 +90,25 @@ async function lambdaHandleEvent(event, context) {
 
   let virusScanStatus;
 
+  try {
+    await s3
+      .putObjectTagging({
+        Bucket: s3ObjectBucket,
+        Key: s3ObjectKey,
+        Tagging: {
+          TagSet: [
+            {
+              Key: constants.VIRUS_STATUS_STATUS_KEY,
+              Value: "PENDING",
+            },
+          ],
+        },
+      })
+      .promise();
+  } catch (e) {
+    console.log(e);
+  }
+
   //You need to verify that you are not getting too large a file
   //currently lambdas max out at 500MB storage.
   if (await isS3FileTooBig(s3ObjectKey, s3ObjectBucket)) {
