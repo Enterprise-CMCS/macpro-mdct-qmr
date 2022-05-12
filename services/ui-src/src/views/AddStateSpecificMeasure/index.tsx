@@ -43,8 +43,7 @@ export const AddStateSpecificMeasure = () => {
 
         mutation.mutate(requestData, {
           onSuccess: () => {
-            console.log("Success");
-            // navigate(`/${state}/${year}`);
+            navigate(`/${state}/${year}/${coreSetId}`);
           },
         });
       }
