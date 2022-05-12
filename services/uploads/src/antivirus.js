@@ -88,25 +88,6 @@ async function lambdaHandleEvent(event, context) {
     `S3 Bucket and Key\n ${s3ObjectBucket}\n${s3ObjectKey}`
   );
 
-  try {
-    await s3
-      .putObjectTagging({
-        Bucket: s3ObjectBucket,
-        Key: s3ObjectKey,
-        Tagging: {
-          TagSet: [
-            {
-              Key: constants.VIRUS_STATUS_STATUS_KEY,
-              Value: "PENDING",
-            },
-          ],
-        },
-      })
-      .promise();
-  } catch (e) {
-    console.log(e);
-  }
-
   let virusScanStatus;
 
   //You need to verify that you are not getting too large a file
