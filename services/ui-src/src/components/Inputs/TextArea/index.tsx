@@ -5,16 +5,17 @@ import objectPath from "object-path";
 import ResizeTextarea from "react-textarea-autosize";
 
 interface TextAreaProps extends QMR.InputWrapperProps {
-  placeholder?: string;
-  name: string;
   isRequired?: boolean;
+  name: string;
+  placeholder?: string;
   textAreaProps?: CUI.TextareaProps;
 }
 
 export const TextArea = ({
+  isRequired = false,
+  name,
   placeholder,
   textAreaProps,
-  name,
   ...rest
 }: TextAreaProps) => {
   const {
@@ -41,6 +42,7 @@ export const TextArea = ({
         onBlur={field.onBlur}
         data-cy={name}
         as={ResizeTextarea}
+        isRequired={isRequired}
         {...textAreaProps}
       />
     </QMR.InputWrapper>

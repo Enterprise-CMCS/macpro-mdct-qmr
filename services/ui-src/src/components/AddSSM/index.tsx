@@ -30,10 +30,12 @@ export const AddSSM = () => {
           <QMR.TextInput
             label="Name the measure"
             name={`add-ssm.${idx}.name`}
+            isRequired={true}
           ></QMR.TextInput>
           <QMR.TextArea
             label="Please provide a description of the measure"
             name={`add-ssm.${idx}.description`}
+            isRequired={true}
           ></QMR.TextArea>
         </CUI.Stack>
       ))}

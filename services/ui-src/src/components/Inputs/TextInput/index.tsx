@@ -5,16 +5,18 @@ import objectPath from "object-path";
 import { ControllerRules } from "global";
 
 interface TextInputProps extends QMR.InputWrapperProps, ControllerRules {
-  placeholder?: string;
+  isRequired?: boolean;
   name: string;
+  placeholder?: string;
   textInputProps?: CUI.InputProps;
 }
 
 export const TextInput = ({
-  textInputProps,
-  placeholder,
+  isRequired = false,
   name,
+  placeholder,
   rules,
+  textInputProps,
   ...rest
 }: TextInputProps) => {
   const {
@@ -48,6 +50,7 @@ export const TextInput = ({
         onBlur={field.onBlur}
         ref={field.ref}
         data-cy={name}
+        isRequired={isRequired}
         {...textInputProps}
       />
     </QMR.InputWrapper>
