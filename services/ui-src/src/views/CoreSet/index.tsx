@@ -183,6 +183,14 @@ export const CoreSet = () => {
         },
       ]}
     >
+      <CUI.Box mb="6">
+        <QMR.Notification
+          alertDescription="The new core set and state specific measure were successfully created and are ready for reporting."
+          alertStatus="success"
+          alertTitle="New Core Set Created"
+        ></QMR.Notification>
+      </CUI.Box>
+
       <CUI.Flex>
         <CUI.HStack
           justifyContent="space-between"
