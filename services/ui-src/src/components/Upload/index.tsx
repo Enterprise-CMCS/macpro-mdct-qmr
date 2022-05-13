@@ -1,5 +1,6 @@
 import React from "react";
 import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
@@ -235,7 +236,13 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
     return testUrl;
   });
 
-  if (!data) return null;
+  if (!data)
+    return (
+      <CUI.Alert status="info">
+        <CUI.AlertIcon />
+        Your file(s) are being processed. Please wait.
+      </CUI.Alert>
+    );
 
   return (
     <CUI.HStack
