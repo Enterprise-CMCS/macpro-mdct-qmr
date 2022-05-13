@@ -46,6 +46,12 @@ export const IUHHRate = ({
     "Average Length of Stay",
   ];
 
+  const readOnlyFields = [
+    "Discharges per 1,000 Enrollee Months",
+    "Days per 1,000 Enrollee Months",
+    "Average Length of Stay",
+  ];
+
   // Rate structure by index in row
   const ndrForumlas = [
     // Discharges per 1,000 Enrollee Months
@@ -226,7 +232,7 @@ export const IUHHRate = ({
             className="iuhh-rate-stack"
             key={`iuhh-rate-stack-${qualIndex}`}
           >
-            <CUI.Heading size={"md"} key={`${qual.label}-heading`}>
+            <CUI.Heading size={"sm"} key={`${qual.label}-heading`}>
               {`${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
             <CUI.Stack direction="row" key={`iuhh-field-stack-${qualIndex}`}>
@@ -240,23 +246,36 @@ export const IUHHRate = ({
                     }
                     key={`input-wrapper-${ifn}-${fieldIndex}`}
                     label={ifn}
+                    formLabelProps={{
+                      minH: "50px",
+                    }}
                     {...rest}
                   >
-                    <CUI.Input
-                      key={`input-field-${fieldIndex}`}
-                      value={
-                        field.value?.[qualIndex]?.[fieldIndex]?.value ?? ""
-                      }
-                      data-cy={`${name}.${fieldIndex}.value`}
-                      onChange={(e) =>
-                        changeRate(
-                          qualIndex,
-                          fieldIndex,
-                          e.target.value,
-                          field.value[qualIndex].isTotal ?? false
-                        )
-                      }
-                    />
+                    {!readOnlyFields.includes(ifn) ? (
+                      <CUI.Input
+                        key={`input-field-${fieldIndex}`}
+                        value={
+                          field.value?.[qualIndex]?.[fieldIndex]?.value ?? ""
+                        }
+                        data-cy={`${name}.${fieldIndex}.value`}
+                        onChange={(e) =>
+                          changeRate(
+                            qualIndex,
+                            fieldIndex,
+                            e.target.value,
+                            field.value[qualIndex].isTotal ?? false
+                          )
+                        }
+                      />
+                    ) : (
+                      <CUI.Text
+                        paddingTop="2"
+                        key={`input-field-${fieldIndex}`}
+                        data-cy={`${name}.${fieldIndex}.value`}
+                      >
+                        {field.value?.[qualIndex]?.[fieldIndex]?.value ?? ""}
+                      </CUI.Text>
+                    )}
                   </QMR.InputWrapper>
                 );
               })}
