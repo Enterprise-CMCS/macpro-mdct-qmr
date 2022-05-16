@@ -82,8 +82,10 @@ Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
 
 // Visit Measures based on abbr
 Cypress.Commands.add("goToMeasure", (measure) => {
+  cy.wait(1000);
   cy.get(`[data-cy="${measure}"]`).should("be.visible").click();
   cy.get(`[data-cy="Clear Data"]`).should("be.visible").click();
+  cy.wait(1000);
   cy.get(`[data-cy="${measure}"]`).should("be.visible").click();
 });
 
