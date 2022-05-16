@@ -113,7 +113,6 @@ export const CCSMQualifiers = () => {
         if (callback) {
           callback();
         }
-
         refetch();
 
         updateCoreSet({

@@ -117,7 +117,6 @@ export const CCSQualifiers = () => {
         if (callback) {
           callback();
         }
-
         refetch();
 
         updateCoreSet({
