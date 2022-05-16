@@ -93,7 +93,6 @@ export const AddHHCoreSet = () => {
                   <CUI.ListItem>
                     <QMR.Select
                       placeholder="Select option"
-                      selectProps={{ maxW: "30rem" }}
                       formLabelProps={{ fontWeight: 600 }}
                       {...register("HealthHomeCoreSet-SPA")}
                       options={sortedSPAs}

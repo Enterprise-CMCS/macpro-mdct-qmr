@@ -736,5 +736,34 @@
         "Value": "WI"
       }
     ]
+  },
+  {
+    "username": "stateuserVT@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserWI@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Victoria"
+      },
+      {
+        "Name": "family_name",
+        "Value": "VT"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "VT"
+      }
+    ]
   }
 ]
