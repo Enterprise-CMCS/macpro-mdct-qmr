@@ -1,12 +1,13 @@
-import { useMemo } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { QualifierHeader } from "./qualifierHeader";
-import { ICheckbox } from "components/MultiSelect";
-import { useFieldArray } from "react-hook-form";
+
+import { useMemo } from "react";
 import { HiX } from "react-icons/hi";
-import { measuresList } from "measures/measuresList";
-import { useParams } from "react-router-dom";
+import { useFieldArray } from "react-hook-form";
+
+import { useGetMeasures } from "hooks/api";
+import { ICheckbox } from "components/MultiSelect";
+import { QualifierHeader } from "./qualifierHeader";
 
 export const initialAuditValues = {
   MeasuresAuditedOrValidated: [],
@@ -28,23 +29,20 @@ interface Props {
 }
 
 export const Audit = ({ type }: Props) => {
-  const { year } = useParams();
   const { fields, append, remove, replace } = useFieldArray({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
   });
+  const { data, isLoading } = useGetMeasures();
 
-  const multiSelectMeasures = measuresList[year as string]
-    .filter((item) => {
-      return item.type === type;
-    })
+  const multiSelectMeasures = data?.Items
     // filter out the survey measures.
-    .filter((item) => {
-      return !item.autocompleteOnCreation;
+    .filter((item: any) => {
+      return !item.autoCompleted;
     })
-    .map((obj) => {
+    .map((obj: any) => {
       return {
-        label: obj.measureId + " - " + obj.name,
-        value: obj.measureId,
+        label: obj.measure + " - " + obj.description,
+        value: obj.measure,
         isVisible: true,
       };
     });
@@ -53,6 +51,10 @@ export const Audit = ({ type }: Props) => {
     () => multiSelectMeasures,
     [multiSelectMeasures]
   );
+
+  if (isLoading || !data.Items) {
+    return <QMR.LoadingWave />;
+  }
 
   return (
     <CUI.ListItem>
@@ -76,7 +78,7 @@ export const Audit = ({ type }: Props) => {
                 value:
                   "Yes, some of the Core Set measures have been audited or validated",
                 children: [
-                  <CUI.Stack mb="5" spacing="6">
+                  <CUI.Stack mb="5" spacing="6" key={"AuditSelectorStack"}>
                     {fields?.map((field, index: number) => {
                       return (
                         <CUI.Box
@@ -127,6 +129,7 @@ export const Audit = ({ type }: Props) => {
                       color: "blue.500",
                     }}
                     onClick={() => append(initialAuditValues)}
+                    key={"AddAnotherAuditSelectorButton"}
                   />,
                 ],
                 onClick: () => {
