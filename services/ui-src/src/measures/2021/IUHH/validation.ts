@@ -87,7 +87,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
     ),
     ...GV.IUHHvalidateNDRTotals(
       [rateData?.["pcr-rate"] ?? []],
-      `Optional Measure Stratification: ${locationDictionary(label)}`
+      `Optional Measure Stratification: ${locationDictionary(label)} Total`
     ),
   ];
 };

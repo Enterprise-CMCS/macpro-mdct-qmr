@@ -1,7 +1,7 @@
 /* At least one NDR set must be complete (OPM or PM) */
 export const IUHHvalidateNDRTotals = (
   categoryArray: any,
-  errorLocation: string = "Performance MeasureTotal"
+  errorLocation: string = "Performance Measure Total"
 ) => {
   let errorArray: any[] = [];
 
