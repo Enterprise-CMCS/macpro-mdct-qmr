@@ -74,16 +74,19 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
     return { rate: [rateData?.rates?.[x].OPM[0]] };
   });
   return [
-    // ...GV.PCRnoNonZeroNumOrDenom(
-    //   [rateData?.["pcr-rate"] ?? []],
-    //   rates ?? [],
-    //   ndrForumlas,
-    //   `Optional Measure Stratification: ${locationDictionary(label)}`
-    // ),
-    ...GV.PCRatLeastOneRateComplete(
+    ...GV.IUHHnoNonZeroNumOrDenom(
+      [rateData?.["pcr-rate"] ?? []],
+      rates ?? [],
+      `Optional Measure Stratification: ${locationDictionary(label)}`
+    ),
+    ...GV.IUHHatLeastOneRateComplete(
       [rateData?.["pcr-rate"] ?? []],
       rates ?? [],
       PMD.qualifiers,
+      `Optional Measure Stratification: ${locationDictionary(label)}`
+    ),
+    ...GV.IUHHvalidateNDRTotals(
+      [rateData?.["pcr-rate"] ?? []],
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
   ];
