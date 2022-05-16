@@ -5,72 +5,49 @@ import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const IUHHValidation = (data: FormData) => {
+  let errorArray: any[] = [];
   const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
-  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
-    true
+    false
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const sixtyDaysIndex = 2;
-  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
+  const OPM = data[DC.OPM_RATES];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
-  let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
-  let sameDenominatorError = [
-    ...GV.validateEqualQualifierDenominatorsPM(
-      performanceMeasureArray,
-      ageGroups
-    ),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
+  console.log(
+    ageGroups,
+    deviationArray,
+    didCalculationsDeviate,
+    performanceMeasureArray,
+    OPM
+  );
+
+  // Quick reference list of all rate indices
+  // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
-    ...GV.validateBothDatesCompleted(dateRange),
-    ...GV.validateAtLeastOneRateComplete(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateBothDatesCompleted(dateRange),
 
     // Performance Measure Validations
-    ...GV.validateDualPopInformationPM(
-      validateDualPopInformationArray,
-      OPM,
-      sixtyDaysIndex,
-      DefinitionOfDenominator
-    ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    //Most likely will do an Object.Keys before passing into these validations
+    ...GV.IUHHatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.IUHHnoNonZeroNumOrDenom(performanceMeasureArray, OPM),
+    ...GV.IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    // ...GV.validateNumeratorsLessThanDenominatorsPM(
-    //   performanceMeasureArray,
-    //   OPM,
-    //   ageGroups
-    // ),
-    ...sameDenominatorError,
-    ...GV.validateTotalNDR(performanceMeasureArray),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
-    // ...GV.validateOneRateHigherThanOtherPM(data, PMD.data),
+    ...GV.IUHHvalidateNDRTotals(performanceMeasureArray),
 
     // OMS Validations
     ...GV.omsValidations({
@@ -82,18 +59,34 @@ const IUHHValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [
-        // GV.validateDenominatorGreaterThanNumerator,
-        GV.validateEqualQualifierDenominatorsOMS,
-        // GV.validateOneRateLessThanOther,
-        GV.validateOMSTotalNDR,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-      ],
+      validationCallbacks: [OMSValidations],
     }),
   ];
-
   return errorArray;
+};
+
+const OMSValidations: GV.Types.OmsValidationCallback = ({
+  rateData,
+  locationDictionary,
+  label,
+}) => {
+  const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
+    return { rate: [rateData?.rates?.[x].OPM[0]] };
+  });
+  return [
+    // ...GV.PCRnoNonZeroNumOrDenom(
+    //   [rateData?.["pcr-rate"] ?? []],
+    //   rates ?? [],
+    //   ndrForumlas,
+    //   `Optional Measure Stratification: ${locationDictionary(label)}`
+    // ),
+    ...GV.PCRatLeastOneRateComplete(
+      [rateData?.["pcr-rate"] ?? []],
+      rates ?? [],
+      PMD.qualifiers,
+      `Optional Measure Stratification: ${locationDictionary(label)}`
+    ),
+  ];
 };
 
 export const validationFunctions = [IUHHValidation];
