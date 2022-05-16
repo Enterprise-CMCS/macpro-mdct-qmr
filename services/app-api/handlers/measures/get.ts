@@ -40,3 +40,8 @@ export const getMeasure = handler(async (event, context) => {
   const queryValue = await dynamoDb.get(params);
   return queryValue;
 });
+
+export const getReportingYears = handler(async () => {
+  const reportingYears = Object.keys(measures);
+  return reportingYears;
+});
