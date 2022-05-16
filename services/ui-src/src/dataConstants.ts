@@ -23,9 +23,13 @@ export const COMBINED_WEIGHTED_RATES = "Combined Weighted Rates";
 export const COMBINED_WEIGHTED_RATES_OTHER = "Combined Weighted Rates Other";
 export const COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION =
   "CombinedRates-CombinedRates-Other-Explanation";
+export const CONTINUOUS_ENROLLMENT_REQUIREMENT_NOT_MET_DUE_TO_START_DATE_OF_SPA =
+  "ContinuousEnrollmentRequirementNotMetDueToStartDateOfSPA";
 export const DATA_INCONSISTENCIES_ACCURACY_ISSUES =
   "DataInconsistenciesAccuracyIssues";
 export const DATA_NOT_AVAILABLE = "DataNotAvailable";
+export const DATA_NOT_SUBMITTED_BY_PROVIDERS_TO_STATE =
+  "DataNotSubmittedByProvidersToState";
 export const DATA_SOURCE = "DataSource";
 export const DATA_SOURCE_DESCRIPTION = "DataSourceDescription";
 export const DATA_SOURCE_NOT_EASILY_ACCESSIBLE =
@@ -74,6 +78,9 @@ export const DENOMINATOR_DEFINE_TOTAL_TECH_SPEC =
   "DenominatorDefineTotalTechSpec";
 export const DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN =
   "DenominatorDefineTotalTechSpec-No-Explanation";
+export const DENOMINATOR_DEFINE_HEALTH_HOME = "DenominatorDefineHealthHome";
+export const DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN =
+  "DenominatorDefineHealthHome-No-Explanation";
 export const DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE =
   "DenominatorDefineTotalTechSpec-No-Size";
 export const DENOMINATOR_INC_CHIP = "DenominatorIncCHIP";

@@ -1,8 +1,7 @@
 describe("Measure: oy2-9936 SFM-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.deleteChildCoreSets();
-    cy.goToChildCoreSetMeasuresSFMCH();
+    cy.goToChildCoreSetMeasures();
     cy.goToMeasure("SFM-CH");
   });
 
@@ -374,20 +373,14 @@ describe("Measure: oy2-9936 SFM-CH", () => {
       "Optional Measure Stratification: Race (Non-Hispanic) - White Error"
     );
     cy.get(
-      ':nth-child(3) > div.css-0 > [data-cy="Rate 2 (All Four Molars Sealed) should not be higher than Rate 1 (At Least One Sealant)."] > .chakra-text'
+      ':nth-child(3) > div.css-0 > [data-cy="Rate 2 - All Four Molars Sealed rate must be less than or equal to Rate 1 - At Least One Sealant rate."] > .chakra-text'
     ).should(
       "have.text",
-      "Rate 2 (All Four Molars Sealed) should not be higher than Rate 1 (At Least One Sealant)."
+      "Rate 2 - All Four Molars Sealed rate must be less than or equal to Rate 1 - At Least One Sealant rate."
     );
     cy.get('[data-cy="Performance Measure Error"]').should(
       "have.text",
       "Performance Measure Error"
-    );
-    cy.get(
-      ':nth-child(4) > div.css-0 > [data-cy="Rate 2 (All Four Molars Sealed) should not be higher than Rate 1 (At Least One Sealant)."] > .chakra-text'
-    ).should(
-      "have.text",
-      "Rate 2 (All Four Molars Sealed) should not be higher than Rate 1 (At Least One Sealant)."
     );
     /* ==== End Cypress Studio ==== */
   });

@@ -1,8 +1,7 @@
-import { FormData } from "./types";
-import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const DEVCHValidation = (data: FormData) => {
@@ -17,9 +16,6 @@ const DEVCHValidation = (data: FormData) => {
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -32,41 +28,47 @@ const DEVCHValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      dataSource: data[DC.DATA_SOURCE],
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateDenominatorsAreTheSame,
-        GV.validateOneRateLessThanOther,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
-        GV.validateRateNotZero,
-        GV.validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateEqualCategoryDenominatorsOMS,
       ],
     }),
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
-      includesHybridDataSource
+      data
     ),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAllDenomsTheSameCrossQualifier(
+    ...GV.validateEqualCategoryDenominatorsPM(
       data,
       PMD.categories,
       PMD.qualifiers

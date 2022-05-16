@@ -1,93 +1,77 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
-  validateAllDenomsTheSameCrossQualifier,
-  validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  getPerfMeasureRateArray,
-  getDeviationNDRArray,
-  omsLocationDictionary,
-} from "../../globalValidations";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const CISCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
-  const dateRange = data["DateRange"];
-  const deviationArray = getDeviationNDRArray(
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
+  const performanceMeasureArray =
+    GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
+  const dateRange = data[DC.DATE_RANGE];
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
-  const includesHybridDataSource =
-    data["DataSource"]?.includes(
-      DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-    ) && data["DataSource"].length === 1;
-
   errorArray = [
     ...errorArray,
-    ...omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
+      dataSource: data[DC.DATA_SOURCE],
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateRateNotZero,
-        ...(includesHybridDataSource ? [] : [validateRateZero]),
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateAllDenomsTheSameCrossQualifier(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateEqualCategoryDenominatorsPM(
       data,
       PMD.categories,
       PMD.qualifiers
     ),
-    ...validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
-      includesHybridDataSource
+      data
     ),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesCompleted(dateRange),
   ];
 
   return errorArray;

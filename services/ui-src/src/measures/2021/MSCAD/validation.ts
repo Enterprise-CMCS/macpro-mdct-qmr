@@ -1,85 +1,77 @@
-import * as Types from "measures/CommonQuestions/types";
 import * as DC from "dataConstants";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateDualPopInformation,
-  validateNumeratorsLessThanDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  validateRequiredRadioButtonForCombinedRates,
-  getDeviationNDRArray,
-  getPerfMeasureRateArray,
-  omsLocationDictionary,
-  validateReasonForNotReporting,
-} from "measures/globalValidations";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
+import * as Types from "measures/CommonQuestions/types";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const MSCADValidation = (data: Types.DefaultFormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
-  const dateRange = data["DateRange"];
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const OPM = data[DC.OPM_RATES];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
+  const dateRange = data[DC.DATE_RANGE];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateDualPopInformation(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator
     ),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...omsValidations({
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
     }),
   ];

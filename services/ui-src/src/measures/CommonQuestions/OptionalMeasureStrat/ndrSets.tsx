@@ -189,8 +189,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
  */
 const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
-  const { categories, rateReadOnly, qualifiers, calcTotal } =
-    usePerformanceMeasureContext();
+  const { categories, qualifiers, calcTotal } = usePerformanceMeasureContext();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
@@ -208,17 +207,13 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
-          ...(!rateReadOnly
-            ? [
-                <CUI.Heading
-                  pt="1"
-                  key={`${name}.rates.${cleanedLabel}HeaderHelper`}
-                  size={"sm"}
-                >
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>,
-              ]
-            : []),
+          <CUI.Heading
+            pt="1"
+            key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+            size={"sm"}
+          >
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>,
           ...rateArrays[idx],
         ],
       };
@@ -245,6 +240,32 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
         options={ageGroupsOptions}
       />
       {calcTotal && <TotalNDRSets name={name} key={`${name}.totalWrapper`} />}
+    </>
+  );
+};
+
+const PCRNDRSets = ({ name }: NdrProps) => {
+  const { rateReadOnly, qualifiers, customMask } =
+    usePerformanceMeasureContext();
+  const rates = qualifiers.map((qual, i) => {
+    return { label: qual, id: i };
+  });
+
+  return (
+    <>
+      <CUI.Heading key={`${name}.rates.Header`} size={"sm"}>
+        Enter a number for the numerator and the denominator. Rate will
+        auto-calculate
+      </CUI.Heading>
+      <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
+      <QMR.PCRRate
+        rates={rates}
+        name={`${name}.pcr-rate`}
+        readOnly={rateReadOnly}
+        customMask={customMask}
+      />
     </>
   );
 };
@@ -278,17 +299,13 @@ const useRenderOPMChckboxOptions = (name: string) => {
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
-          ...(!rateReadOnly
-            ? [
-                <CUI.Heading
-                  pt="1"
-                  size={"sm"}
-                  key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
-                >
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>,
-              ]
-            : []),
+          <CUI.Heading
+            pt="1"
+            size={"sm"}
+            key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
+          >
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>,
           <QMR.Rate
             rates={[
               {
@@ -330,11 +347,26 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM } = usePerformanceMeasureContext();
+  const { OPM, compFlag } = usePerformanceMeasureContext();
+  const children: JSX.Element[] = [];
+
+  if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
+  switch (compFlag) {
+    case "DEFAULT":
+      if (!OPM) {
+        children.push(<AgeGroupNDRSets name={name} key={name} />);
+      }
+      break;
+    case "PCR":
+      if (!OPM) {
+        children.push(<PCRNDRSets name={name} key={name} />);
+      }
+      break;
+  }
+
   return (
     <CUI.VStack key={`${name}.NDRwrapper`} alignItems={"flex-start"}>
-      {OPM && <OPMNDRSets name={name} key={name} />}
-      {!OPM && <AgeGroupNDRSets name={name} key={name} />}
+      {children}
     </CUI.VStack>
   );
 };

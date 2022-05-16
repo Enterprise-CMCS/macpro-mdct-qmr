@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useUser } from "hooks/authHooks";
-import { useGetMeasure, useGetMeasures } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
+import { Link } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
+import { useEffect, useState } from "react";
+import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
+import { useParams } from "react-router-dom";
+import { CoreSetTableItem } from "components/Table/types";
+import { SPA } from "libs/spaLib";
 
 enum coreSetType {
   ACS = "Adult",
@@ -21,7 +22,7 @@ export enum coreSetMeasureTitle {
   CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
   CCSC = "Child Core Set Measures: CHIP",
-  HHCS = "Health Home Core Set Measures: User generated SPA name",
+  HHCS = "Health Home Core Set Measures: ",
 }
 
 enum coreSetQuestionsText {
@@ -29,7 +30,7 @@ enum coreSetQuestionsText {
   CCS = "Child Core Set Questions",
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",
-  HHCS = "Health Home Core Set Questions: User generated SPA name",
+  HHCS = "Health Home Core Set Questions: ",
 }
 
 interface MeasureTableItem {
@@ -56,7 +57,11 @@ const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
       </CUI.Flex>
     );
   }
-  return <CUI.Text>Incomplete</CUI.Text>;
+  return (
+    <CUI.Text>
+      Incomplete (Qualifier Questions must be complete to submit the Core Set)
+    </CUI.Text>
+  );
 };
 
 const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
@@ -65,6 +70,13 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
+  const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
+  const tempSpa =
+    coreSetInfo.length > 1 ? SPA.filter((s) => s.id === coreSetInfo[1])[0] : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
 
   const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
   return (
@@ -72,7 +84,9 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetQuestionsText[coreSetId as keyof typeof coreSetQuestionsText]}
+          {coreSetQuestionsText[
+            coreSetInfo[0] as keyof typeof coreSetQuestionsText
+          ] + spaName}
         </CUI.Text>
       </Link>
 
@@ -92,9 +106,23 @@ const useMeasureTableDataBuilder = () => {
   const { state, year, coreSetId } = useParams();
   const { data, isLoading, isError, error } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
+  const [coreSetStatus, setCoreSetStatus] = useState(
+    CoreSetTableItem.Status.IN_PROGRESS
+  );
   useEffect(() => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
+      let numCompleteItems = 0;
+      // include qualifier in core set status check
+      for (const m of data.Items as MeasureData[]) {
+        if (m.status === "complete") numCompleteItems++;
+      }
+      const coreSetStatus =
+        data.Items.length === numCompleteItems
+          ? CoreSetTableItem.Status.COMPLETED
+          : CoreSetTableItem.Status.IN_PROGRESS;
+      setCoreSetStatus(coreSetStatus);
+
       const filteredItems = (data.Items as MeasureData[]).filter(
         // filter out the coreset qualifiers
         (item) => item.measure && item.measure !== "CSQ"
@@ -125,16 +153,27 @@ const useMeasureTableDataBuilder = () => {
       mounted = false;
     };
   }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
-
-  return { measures, isLoading, isError, error };
+  return { coreSetStatus, measures, isLoading, isError, error };
 };
 
 export const CoreSet = () => {
-  const { state, year, coreSetId } = useParams();
+  let { coreSetId, state, year } = useParams();
+  coreSetId = coreSetId ?? "";
+  state = state ?? "";
+  year = year ?? "";
 
-  const { isStateUser } = useUser();
+  const coreSet = coreSetId?.split("_") ?? [coreSetId];
+  const tempSpa =
+    coreSet.length > 1 ? SPA.filter((s) => s.id === coreSet[1])[0] : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
 
-  const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
+  const { data } = useGetCoreSet({ coreSetId, state, year });
+  const { coreSetStatus, measures, isLoading, isError, error } =
+    useMeasureTableDataBuilder();
+
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
   )?.length;
@@ -145,9 +184,10 @@ export const CoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: coreSetMeasureTitle[
-            coreSetId as keyof typeof coreSetMeasureTitle
-          ],
+          name:
+            coreSetMeasureTitle[
+              coreSet[0] as keyof typeof coreSetMeasureTitle
+            ] + spaName,
         },
       ]}
     >
@@ -181,26 +221,23 @@ export const CoreSet = () => {
         </CUI.HStack>
         <CUI.Spacer />
         <CUI.Box flex="1" textAlign="center" alignSelf="center">
-          <QMR.ContainedButton
-            buttonProps={{
-              colorScheme: "blue",
-            }}
-            buttonText="Submit Core Set"
-            disabledStatus={!isStateUser}
-            helperText={`Complete all ${
-              coreSetType[coreSetId as keyof typeof coreSetType]
-            } Core Set Questions and ${
-              coreSetType[coreSetId as keyof typeof coreSetType]
-            } Core Set Measures to submit FFY 2021`}
-            helperTextProps={{
-              fontSize: ".5rem",
-              paddingTop: "1",
+          <QMR.SubmitCoreSetButton
+            coreSet={coreSetId! as CoreSetAbbr}
+            coreSetStatus={coreSetStatus}
+            isSubmitted={data?.Item?.submitted}
+            year={year!}
+            styleProps={{
+              helperText: {
+                fontSize: ".5rem",
+                paddingTop: "1",
+              },
+              button: { colorScheme: "blue" },
             }}
           />
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
-        <QMR.LoadingWrapper isLoaded={!isLoading}>
+        <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
           )}

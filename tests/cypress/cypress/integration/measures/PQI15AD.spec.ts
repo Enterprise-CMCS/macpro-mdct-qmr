@@ -1,5 +1,5 @@
 describe("Measure: PQI15-AD", () => {
-  before(() => {
+  beforeEach(() => {
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("PQI15-AD");
@@ -47,18 +47,13 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
 
     cy.get('[id="DataSource0-checkbox"]').check({ force: true });
-    cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
 
     // Rate calculation should be = (N/D*100,000)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
+
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
+
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("10");
@@ -114,15 +109,11 @@ describe("Measure: PQI15-AD", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
+
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("10");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
+
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("20");
@@ -150,17 +141,10 @@ describe("Measure: PQI15-AD", () => {
     cy.wait(1000);
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[id="DataSource0-checkbox"]').uncheck({ force: true });
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("0");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("5");
@@ -192,13 +176,8 @@ describe("Measure: PQI15-AD", () => {
   it("Ensure that warning appears if N>0, D>0, then R should be >0 for user entered rates.", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[id="DataSource0-checkbox"]').uncheck({ force: true });
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear({
-      force: true,
-    });
+
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("5");
@@ -220,10 +199,10 @@ describe("Measure: PQI15-AD", () => {
     );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
@@ -261,23 +240,14 @@ describe("Measure: PQI15-AD", () => {
   // values entered in other performance measure are presented in:
   //  - Optional Measure specification
   it("Age ranges are represented in OMS when other measure spec", () => {
-    cy.wait(2000);
     cy.get('[data-cy="MeasurementSpecification1"]').click();
     cy.get('[id="DataSource0-checkbox"]').check({ force: true });
-    cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
-    cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.description"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.description"]').type(
       "example 1"
     );
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
-    ).clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "5"
     );
-    cy.get(
-      '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
-    ).clear();
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.denominator"]'
     ).type("10");
@@ -285,25 +255,17 @@ describe("Measure: PQI15-AD", () => {
       "have.value",
       "50000.0"
     );
-    /* ==== Generated with Cypress Studio ==== */
     cy.get(
       '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#OptionalMeasureStratification\\.options1-checkbox").check();
     cy.get("[data-cy=CombinedRates0]").click();
     cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Ethnicity\\.options0-checkbox"
-    ).check();
-    cy.get(
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Ethnicity\\.selections\\.NotofHispanicLatinoaorSpanishorigin\\.rateData\\.options0-checkbox"
-    ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
@@ -325,12 +287,9 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.example1.OPM.0.rate"]'
     ).should("have.value", "50000.0");
-    /* ==== End Cypress Studio ==== */
   });
 
-  /* ==== Test Created with Cypress Studio ==== */
   it("Delivery system are represented in denominator", function () {
-    /* ==== Generated with Cypress Studio ==== */
     cy.get("[data-cy=DidReport0]").click();
     cy.get("[data-cy=DataStatus0]").click();
     cy.get("[data-cy=DataStatus-ProvisionalExplanation]").click();
@@ -343,7 +302,6 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator0] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator0-checkbox").check();
     cy.get("[data-cy=DeliverySys-FeeForService0]").click();
     cy.get("[data-cy=DeliverySys-FeeForService1]").click();
     cy.get(
@@ -352,17 +310,11 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check({
-      force: true,
-    });
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement0]").click();
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement1]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check({
-      force: true,
-    });
     cy.get(
       '[data-cy="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data?"]'
     ).should("be.visible");
@@ -371,9 +323,6 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check({
-      force: true,
-    });
     cy.get("[data-cy=DeliverySys-IntegratedCareModel0]").click();
     cy.get("[data-cy=DeliverySys-IntegratedCareModel1]").click();
     cy.get("[data-cy=DeliverySysRepresentationDenominator4]").click();
@@ -387,7 +336,6 @@ describe("Measure: PQI15-AD", () => {
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
-    cy.get(".css-1f2vcwt > .chakra-text").should("be.visible");
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
@@ -395,68 +343,50 @@ describe("Measure: PQI15-AD", () => {
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
     cy.get("[data-cy=DeliverySysRepresentationDenominator4]").click();
-    /* ==== End Cypress Studio ==== */
   });
 
-  /* ==== Test Created with Cypress Studio ==== */
   it("Combined rates from multiple reporting", function () {
-    /* ==== Generated with Cypress Studio ==== */
     cy.get("[data-cy=DidReport0]").click();
     cy.get("[data-cy=DataStatus0]").click();
     cy.get("[data-cy=MeasurementSpecification0]").click();
     cy.get("[data-cy=DataSource0] > .chakra-checkbox__control").click();
-    cy.get("#DataSource0-checkbox").check();
     cy.get(
       '[data-cy="DataSourceSelections.AdministrativeData0.selected0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
       "[data-cy=DefinitionOfDenominator0] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DefinitionOfDenominator0-checkbox").check();
     cy.get("[data-cy=DenominatorDefineTotalTechSpec0]").click();
     cy.get("[data-cy=CombinedRates0]").click();
     cy.get("[data-cy=DidCalculationsDeviate0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator0] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator0-checkbox").check({
-      force: true,
-    });
     cy.get(
       "#DeliverySys-FeeForService_radiogroup > .chakra-stack > :nth-child(1) > .chakra-radio"
     ).click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator1] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator1-checkbox").check({
-      force: true,
-    });
+
     cy.get("[data-cy=DeliverySys-PrimaryCareManagement0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator2] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator2-checkbox").check({
-      force: true,
-    });
+
     cy.get("[data-cy=DeliverySys-MCO_PIHP0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check({
-      force: true,
-    });
+
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").uncheck({
-      force: true,
-    });
+
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator3] > .chakra-checkbox__control"
     ).click();
-    cy.get("#DeliverySysRepresentationDenominator3-checkbox").check({
-      force: true,
-    });
+
     cy.get("[data-cy=DeliverySys-IntegratedCareModel0]").click();
     cy.get(
       "[data-cy=DeliverySysRepresentationDenominator4] > .chakra-checkbox__control"
@@ -466,6 +396,5 @@ describe("Measure: PQI15-AD", () => {
     });
     cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
     cy.get(".css-bxak8j").should("be.visible");
-    /* ==== End Cypress Studio ==== */
   });
 });

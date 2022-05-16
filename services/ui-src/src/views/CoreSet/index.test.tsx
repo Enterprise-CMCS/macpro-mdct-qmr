@@ -26,8 +26,6 @@ describe("Test CoreSet.tsx", () => {
       expect(screen.getByText(/Core Set Qualifiers/i)).toBeInTheDocument();
 
       expect(screen.getByText(/Submit Core Set/i)).toBeInTheDocument();
-
-      expect(screen.getByText(/Reporting FFY 2021/i)).toBeInTheDocument();
     });
   });
 });

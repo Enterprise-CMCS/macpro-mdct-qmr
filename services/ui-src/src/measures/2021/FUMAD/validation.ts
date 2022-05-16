@@ -1,126 +1,95 @@
-import {
-  atLeastOneRateComplete,
-  validateDualPopInformation,
-  validateNumeratorsLessThanDenominators,
-  validateEqualDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  ensureBothDatesCompletedInRange,
-  validateOneRateHigherThanOther,
-} from "../../globalValidations/validationsLib";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
-import {
-  getPerfMeasureRateArray,
-  getDeviationNDRArray,
-  validateRequiredRadioButtonForCombinedRates,
-  omsLocationDictionary,
-} from "../../globalValidations";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateDenominatorsAreTheSame,
-  validateOneRateLessThanOther,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const FUMADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const sixtyDaysIndex = 1;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
+  const dateRange = data[DC.DATE_RANGE];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data["DidReport"] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
+  const deviationArray = GV.getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+
   let sameDenominatorError = [
-    ...validateEqualDenominators(performanceMeasureArray, ageGroups),
+    ...GV.validateEqualQualifierDenominatorsPM(
+      performanceMeasureArray,
+      ageGroups
+    ),
   ];
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateDualPopInformation(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       sixtyDaysIndex,
       DefinitionOfDenominator
     ),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...sameDenominatorError,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateOneRateHigherThanOther(data, PMD.data),
-  ];
-
-  return errorArray;
-};
-
-const validateAtLeastOneDeviationNDR = (data: FormData) => {
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const deviationArray = getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-
-  return validateAtLeastOneNDRInDeviationOfMeasureSpec(
-    performanceMeasureArray,
-    PMD.qualifiers,
-    deviationArray,
-    didCalculationsDeviate
-  );
-};
-const validateBothDatesCompletedInRange = (data: FormData) => {
-  const dateRange = data["DateRange"];
-  return [...ensureBothDatesCompletedInRange(dateRange)];
-};
-
-const validateOMS = (data: FormData) => {
-  const errorArray: FormError[] = [];
-
-  errorArray.push(
-    ...omsValidations({
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      performanceMeasureArray,
+      PMD.qualifiers,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateDenominatorsAreTheSame,
-        validateOneRateLessThanOther,
-        validateRateZero,
-        validateRateNotZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
-    })
-  );
+    }),
+  ];
 
   return errorArray;
 };
 
-export const validationFunctions = [
-  FUMADValidation,
-  validateAtLeastOneDeviationNDR,
-  validateRequiredRadioButtonForCombinedRates,
-  validateBothDatesCompletedInRange,
-  validateOMS,
-];
+export const validationFunctions = [FUMADValidation];

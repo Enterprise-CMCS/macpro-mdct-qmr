@@ -11,11 +11,13 @@ import * as DC from "dataConstants";
 interface Props {
   childMeasure?: boolean;
   hybridMeasure?: boolean;
+  healthHomeMeasure?: boolean;
 }
 
 export const DefinitionOfPopulation = ({
   childMeasure,
   hybridMeasure,
+  healthHomeMeasure,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
 
@@ -27,9 +29,9 @@ export const DefinitionOfPopulation = ({
       {!childMeasure && (
         <CUI.Box>
           <CUI.Text mt="3">
-            Please select all populations that are included. For example, if
-            your data include both non-dual Medicaid beneficiaries and Medicare
-            and Medicaid Dual Eligibles, select both:
+            {`Please select all populations that are included. For example, if your data include both non-dual Medicaid ${
+              healthHomeMeasure ? "enrollees" : "beneficiaries"
+            } and Medicare and Medicaid Dual Eligibles, select both:`}
           </CUI.Text>
           <CUI.UnorderedList m="5" ml="10">
             <CUI.ListItem>
@@ -52,6 +54,7 @@ export const DefinitionOfPopulation = ({
                 displayValue:
                   "Denominator includes CHIP population (e.g. pregnant women)",
                 value: DC.DENOMINATOR_INC_CHIP,
+                isHealthHome: healthHomeMeasure,
               },
               {
                 displayValue:
@@ -103,7 +106,7 @@ export const DefinitionOfPopulation = ({
       <CUI.Box my="5">
         <QMR.TextArea
           formLabelProps={{ fontWeight: "400" }}
-          label="If there has been a change in the included population from the previous reporting year, please provide any available context below:"
+          label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
           {...register(DC.CHANGE_IN_POP_EXPLANATION)}
         />
       </CUI.Box>
@@ -151,7 +154,7 @@ export const DefinitionOfPopulation = ({
             {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
             formControlProps={{ my: "4" }}
             mask={allPositiveIntegers}
-            label="What number of your measure-eligible population are included in the measure?"
+            label="What is the size of the measure-eligible population?"
           />
           <QMR.NumberInput
             {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
@@ -430,6 +433,33 @@ export const DefinitionOfPopulation = ({
           ]}
         />
       </CUI.Box>
+      {healthHomeMeasure && (
+        <CUI.Box my="5">
+          <QMR.RadioButton
+            formLabelProps={{ fontWeight: "600" }}
+            label="Are all Health Home Providers represented in the denominator?"
+            {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME)}
+            options={[
+              {
+                displayValue:
+                  "Yes, all Health Home Providers are represented in the denominator.",
+                value: DC.YES,
+              },
+              {
+                displayValue:
+                  "No, not all Health Home Providers are represented in the denominator.",
+                value: DC.NO,
+                children: [
+                  <QMR.TextArea
+                    {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN)}
+                    label="Explain why all Health Home Providers are not represented in the denominator:"
+                  />,
+                ],
+              },
+            ]}
+          />
+        </CUI.Box>
+      )}
     </QMR.CoreQuestionWrapper>
   );
 };

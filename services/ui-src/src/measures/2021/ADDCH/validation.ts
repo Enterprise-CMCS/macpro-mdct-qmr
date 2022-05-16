@@ -1,34 +1,9 @@
-import * as PMD from "./data";
-import * as GV from "measures/globalValidations";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { getPerfMeasureRateArray } from "../../globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-
-const validateInitiationDenomGreater = (data: FormData) => {
-  const errorArray: FormError[] = [];
-  const InitiationRates = data.PerformanceMeasure?.rates?.singleCategory?.[0];
-  const cmRates = data.PerformanceMeasure?.rates?.singleCategory?.[1];
-
-  if (
-    InitiationRates &&
-    cmRates &&
-    InitiationRates.denominator &&
-    cmRates.denominator
-  ) {
-    if (
-      parseFloat(cmRates.denominator) > parseFloat(InitiationRates.denominator)
-    ) {
-      errorArray.push({
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Continuation and Maintenance (C&M) Phase denominator must be less than or equal to Initiation Phase denominator",
-      });
-    }
-  }
-
-  return errorArray;
-};
 
 const ADDCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -52,22 +27,34 @@ const ADDCHValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...validateInitiationDenomGreater(data),
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -78,10 +65,10 @@ const ADDCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateZero,
-        GV.validateRateNotZero,
-        GV.validateOneQualifierDenomLessThanTheOther,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateOneQualDenomHigherThanOtherDenomOMS(),
       ],
     }),
   ];

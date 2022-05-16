@@ -1,12 +1,12 @@
+import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { useFormContext } from "react-hook-form";
 import * as Types from "../types";
 import { OMSData, OmsNode } from "./data";
-import { PerformanceMeasureProvider } from "./context";
+import { PerformanceMeasureProvider, CompFlagType } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
-import * as CUI from "@chakra-ui/react";
+import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -58,6 +58,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   isSingleSex?: boolean;
   rateAlwaysEditable?: boolean;
   numberOfDecimals?: number;
+  compFlag?: CompFlagType;
 }
 
 /** data for dynamic rendering will be provided */
@@ -90,7 +91,12 @@ const stringIsReadOnly = (dataSource: string) => {
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
-  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+  if (dataSource.length === 0) {
+    return false;
+  }
+  return (
+    dataSource?.every((source) => source === "AdministrativeData") ?? false
+  );
 };
 
 /**
@@ -107,8 +113,9 @@ export const OptionalMeasureStrat = ({
   allowNumeratorGreaterThanDenominator = false,
   customMask,
   isSingleSex = false,
-  rateAlwaysEditable = false,
+  rateAlwaysEditable,
   numberOfDecimals = 1,
+  compFlag = "DEFAULT",
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -125,8 +132,8 @@ export const OptionalMeasureStrat = ({
     isSingleSex,
   });
 
-  let rateReadOnly = true;
-  if (rateAlwaysEditable) {
+  let rateReadOnly = false;
+  if (rateAlwaysEditable !== undefined) {
     rateReadOnly = false;
   } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
     rateReadOnly = arrayIsReadOnly(dataSourceWatch);
@@ -157,6 +164,7 @@ export const OptionalMeasureStrat = ({
           customMask,
           allowNumeratorGreaterThanDenominator,
           numberOfDecimals,
+          compFlag,
         }}
       >
         <CUI.Text py="3">

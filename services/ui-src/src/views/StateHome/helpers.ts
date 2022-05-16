@@ -1,12 +1,20 @@
 import { CoreSetTableItem } from "components/Table/types";
 import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, MeasureStatus } from "types";
+import { SPAi } from "libs/spaLib";
 
-interface Data {
+interface HandleDeleteData {
   state: string;
   year: string;
   coreSet: CoreSetAbbr;
+}
+
+interface UpdateAllMeasuresData {
+  state: string;
+  year: string;
+  coreSet: CoreSetAbbr;
+  measureStatus: MeasureStatus;
 }
 
 interface CoreSetDataItem {
@@ -23,7 +31,10 @@ interface CoreSetDataItem {
 
 export interface CoreSetDataItems {
   items: CoreSetDataItem[];
-  handleDelete: (data: Data) => void;
+  handleDelete: (data: HandleDeleteData) => void;
+  updateAllMeasures: (data: UpdateAllMeasuresData) => void;
+  resetCoreSet: (data: any) => void;
+  filteredSpas?: SPAi[];
 }
 
 const getCoreSetType = (type: CoreSetAbbr) => {
@@ -43,7 +54,13 @@ const getCoreSetType = (type: CoreSetAbbr) => {
   return result;
 };
 
-export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
+export const formatTableItems = ({
+  items,
+  handleDelete,
+  updateAllMeasures,
+  resetCoreSet,
+  filteredSpas,
+}: CoreSetDataItems) => {
   const coreSetTableItems = items.map(
     ({
       coreSet,
@@ -53,8 +70,17 @@ export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
       submitted,
       compoundKey,
     }: CoreSetDataItem): CoreSetTableItem.Data => {
-      const type = getCoreSetType(coreSet);
-      const title = coreSetMeasureTitle[coreSet as CoreSetAbbr];
+      const tempSet = coreSet.split("_");
+      const tempSpa =
+        tempSet.length === 2 &&
+        filteredSpas!.filter((s) => s.id === tempSet?.[1])[0];
+      const tempTitle =
+        tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+          ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+          : "";
+
+      const type = getCoreSetType(tempSet[0] as CoreSetAbbr);
+      const title = coreSetMeasureTitle[tempSet[0] as CoreSetAbbr] + tempTitle;
       const data = {
         handleDelete: () =>
           handleDelete({
@@ -62,6 +88,21 @@ export const formatTableItems = ({ items, handleDelete }: CoreSetDataItems) => {
             year: year.toString(),
             coreSet,
           }),
+        completeAllMeasures: () => {
+          updateAllMeasures({
+            state,
+            year: year.toString(),
+            coreSet,
+            measureStatus: MeasureStatus.COMPLETE,
+          });
+        },
+        resetCoreSet: () => {
+          resetCoreSet({
+            state,
+            year: year.toString(),
+            coreSet,
+          });
+        },
         type,
       };
 

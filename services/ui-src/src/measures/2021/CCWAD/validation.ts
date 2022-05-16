@@ -1,142 +1,82 @@
-import { FormData } from "./types";
-import {
-  atLeastOneRateComplete,
-  validateNumeratorsLessThanDenominators,
-  ensureBothDatesCompletedInRange,
-  validateNoNonZeroNumOrDenom,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  validateRequiredRadioButtonForCombinedRates,
-  getDeviationNDRArray,
-  validateReasonForNotReporting,
-  validateAllDenomsTheSameCrossQualifier,
-} from "measures/globalValidations";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-
-import {
-  omsValidations,
-  validateAllDenomsAreTheSameCrossQualifier,
-  validateDenominatorGreaterThanNumerator,
-  validateOneRateLessThanOther,
-  validateRateZero,
-  validateRateNotZero,
-} from "measures/globalValidations/omsValidationsLib";
-import { omsLocationDictionary } from "measures/globalValidations";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
+import { FormData } from "./types";
+import { cleanString } from "utils/cleanString";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-
-const validateLarcRateGreater = (data: FormData) => {
-  let error;
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-
-  if (memeRates && larcRates && memeRates[0]?.rate && larcRates[0]?.rate) {
-    if (parseFloat(larcRates[0].rate) > parseFloat(memeRates[0].rate)) {
-      error = {
-        errorLocation: "Performance Measure",
-        errorMessage:
-          "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate",
-      };
-    }
-  }
-
-  return error;
-};
 
 const CCWADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const dateRange = data[DC.DATE_RANGE];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationArray = GV.getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
+
+  const memeRates =
+    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[0])] ?? [];
+  const larcRates =
+    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[1])] ?? [];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
-  ];
-
-  return errorArray;
-};
-
-const validateAtLeastOneDeviationNDR = (data: FormData) => {
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[0].replace(/[^\w]/g, "")}`
-    ] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[
-      `${PMD.categories[1].replace(/[^\w]/g, "")}`
-    ] ?? [];
-
-  const deviationArray = getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations
-  );
-
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-
-  return validateAtLeastOneNDRInDeviationOfMeasureSpec(
-    [memeRates, larcRates],
-    [""],
-    deviationArray,
-    didCalculationsDeviate
-  );
-};
-
-const validateBothDatesCompletedInRange = (data: FormData) => {
-  const dateRange = data["DateRange"];
-  return [...ensureBothDatesCompletedInRange(dateRange)];
-};
-
-const validateOMS = (data: FormData) => {
-  const errorArray: FormError[] = [];
-
-  errorArray.push(
-    ...omsValidations({
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      [memeRates, larcRates],
+      [""],
+      deviationArray,
+      didCalculationsDeviate
+    ),
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateAllDenomsAreTheSameCrossQualifier,
-        validateOneRateLessThanOther,
-        validateRateZero,
-        validateRateNotZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
-    })
-  );
+    }),
+  ];
 
   return errorArray;
 };
 
-export const validationFunctions = [
-  CCWADValidation,
-  validateBothDatesCompletedInRange,
-  validateLarcRateGreater,
-  validateAtLeastOneDeviationNDR,
-  validateRequiredRadioButtonForCombinedRates,
-  validateOMS,
-];
+export const validationFunctions = [CCWADValidation];

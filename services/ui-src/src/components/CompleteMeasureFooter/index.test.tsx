@@ -41,12 +41,84 @@ describe("Test CompleteMeasureFooter", () => {
     ).not.toBeInTheDocument();
   });
 
-  /* TODO: Possibly mock out the functions for each button, in the interim
-   it should be safe to assume that tests that rely on these will be substantial.
+  test("buttons run validate, submit, and clear functions", () => {
+    config.BRANCH_NAME = "test";
+    const mockClear = jest.fn();
+    const mockSubmit = jest.fn();
+    const mockValidate = jest.fn();
 
-   Because the functionality is currently in the MeasureWrapper,
-   should these tests be written there?
-  
-   it("Check that the fuctions fire", () => {});
-  */
+    render(
+      <CompleteMeasureFooter
+        handleClear={mockClear}
+        handleSubmit={mockSubmit}
+        handleValidation={mockValidate}
+      />
+    );
+
+    screen.getByRole("button", { name: "Clear Data" }).click();
+    expect(mockClear.mock.calls.length).toEqual(1);
+
+    screen.getByRole("button", { name: "Complete Measure" }).click();
+    expect(mockSubmit.mock.calls.length).toEqual(1);
+
+    screen.getByRole("button", { name: "Validate Measure" }).click();
+    expect(mockValidate.mock.calls.length).toEqual(1);
+  });
+
+  test("disabled buttons appear in their disabled state", () => {
+    config.BRANCH_NAME = "test";
+
+    const mockSubmit = jest.fn;
+
+    render(
+      <CompleteMeasureFooter
+        handleClear={() => {}}
+        handleSubmit={mockSubmit}
+        handleValidation={() => {}}
+        disabled={true}
+      />
+    );
+
+    const renderedFooter = screen.getByTestId("complete-measure-footer");
+
+    expect(renderedFooter).toBeInTheDocument();
+
+    const validate = screen.getByRole("button", { name: "Validate Measure" });
+    const complete = screen.getByRole("button", { name: "Complete Measure" });
+    const clear = screen.getByRole("button", { name: "Clear Data" });
+
+    expect(validate).toHaveAttribute("disabled");
+    expect(validate).toHaveStyle("z-index: 1");
+
+    expect(complete).toHaveAttribute("disabled");
+    expect(complete).toHaveStyle("z-index: 1");
+
+    expect(clear).toHaveAttribute("disabled");
+    expect(clear).toHaveStyle("z-index: 1");
+  });
+
+  test("disabled buttons do not run validate, submit, or clear functions", () => {
+    config.BRANCH_NAME = "test";
+    const mockClear = jest.fn();
+    const mockSubmit = jest.fn();
+    const mockValidate = jest.fn();
+
+    render(
+      <CompleteMeasureFooter
+        handleClear={mockClear}
+        handleSubmit={mockSubmit}
+        handleValidation={mockValidate}
+        disabled={true}
+      />
+    );
+
+    screen.getByRole("button", { name: "Clear Data" }).click();
+    expect(mockClear.mock.calls.length).toEqual(0);
+
+    screen.getByRole("button", { name: "Complete Measure" }).click();
+    expect(mockSubmit.mock.calls.length).toEqual(0);
+
+    screen.getByRole("button", { name: "Validate Measure" }).click();
+    expect(mockValidate.mock.calls.length).toEqual(0);
+  });
 });

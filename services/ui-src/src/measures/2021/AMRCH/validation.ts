@@ -1,92 +1,74 @@
-import { FormData } from "./types";
-import { omsLocationDictionary } from "measures/globalValidations/dataDrivenTools";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  getDeviationNDRArray,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  validateNoNonZeroNumOrDenom,
-  validateNumeratorsLessThanDenominators,
-  validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates,
-  validateTotalNDR,
-} from "../../globalValidations";
-import {
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateDenominatorsAreTheSame,
-  validateOMSTotalNDR,
-  validateOneRateLessThanOther,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
+import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const AMRCHValidation = (data: FormData) => {
-  const ageGroups = ["Ages 19 to 50", "Ages 51 to 64", "Total (Ages 19 to 64)"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const dateRange = data["DateRange"];
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const deviationArray = getDeviationNDRArray(
+  const ageGroups = PMD.qualifiers;
+  const OPM = data[DC.OPM_RATES];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const dateRange = data[DC.DATE_RANGE];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
   errorArray = [
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...validateTotalNDR(performanceMeasureArray),
-  ];
-
-  return errorArray;
-};
-
-const validateOMS = (data: FormData) => {
-  return [
-    ...omsValidations({
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateTotalNDR(performanceMeasureArray),
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        validateDenominatorGreaterThanNumerator,
-        validateDenominatorsAreTheSame,
-        validateOMSTotalNDR,
-        validateOneRateLessThanOther,
-        validateRateNotZero,
-        validateRateZero,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateOMSTotalNDR,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
   ];
+
+  return errorArray;
 };
 
-export const validationFunctions = [AMRCHValidation, validateOMS];
+export const validationFunctions = [AMRCHValidation];

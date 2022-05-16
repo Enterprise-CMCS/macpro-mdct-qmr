@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useWatch, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/CommonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
@@ -28,13 +28,6 @@ export const COBAD = ({
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  const dataSourceWatch = useWatch({ name: "DataSource" });
-  const rateReadOnly =
-    dataSourceWatch?.every(
-      (source: string) => source === "AdministrativeData"
-    ) ?? true;
-
   return (
     <>
       <CMQ.Reporting
@@ -52,10 +45,7 @@ export const COBAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure
-                data={PMD.data}
-                rateReadOnly={rateReadOnly}
-              />
+              <CMQ.PerformanceMeasure data={PMD.data} />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}

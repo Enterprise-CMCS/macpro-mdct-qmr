@@ -1,34 +1,73 @@
+import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
+import * as DC from "dataConstants";
 import * as QMR from "components";
+import { SPA } from "libs/spaLib";
+import { SelectOption } from "components";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { SPA } from "libs/spaLib";
-import { SelectOption } from "components";
+import { useQueryClient } from "react-query";
+import { useUser } from "hooks/authHooks";
+import { CoreSetAbbr, UserRoles } from "types";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
 }
 
 export const AddHHCoreSet = () => {
+  const mutation = Api.useAddCoreSet();
   const navigate = useNavigate();
-  const methods = useForm({
+  const queryClient = useQueryClient();
+  const { userState, userRole } = useUser();
+  const { isLoading, data } = Api.useGetCoreSets();
+  const { state, year } = useParams();
+
+  const methods = useForm<HealthHome>({
     shouldUnregister: true,
     mode: "all",
   });
 
   const register = useCustomRegister<HealthHome>();
+  const watchSPAchoice = methods.watch("HealthHomeCoreSet-SPA");
 
-  const { state, year } = useParams();
+  if (userState && userState !== state && userRole === UserRoles.STATE) {
+    return (
+      <CUI.Box data-testid="unauthorized-container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="You are not authorized to view this page"
+        />
+      </CUI.Box>
+    );
+  }
 
-  const sortedSPAs: SelectOption[] = SPA.filter((spa) => spa.postal === state)
+  const sortedSPAs: SelectOption[] = SPA.filter((spa) => spa.state === state)
+    .filter(
+      (spa) =>
+        !data?.Items.some((coreset: any) =>
+          coreset.compoundKey.includes(spa.id)
+        )
+    )
     .map((spa) => {
       return {
-        displayValue: spa.name,
+        displayValue: `${spa.state} ${spa.id} - ${spa.name}`,
         value: spa.id,
       };
     })
     .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
+
+  const handleSubmit = (data: HealthHome) => {
+    if (data["HealthHomeCoreSet-SPA"]) {
+      const coreset: unknown = `${CoreSetAbbr.HHCS}_${data["HealthHomeCoreSet-SPA"]}`;
+      mutation.mutate(coreset as CoreSetAbbr, {
+        onSuccess: () => {
+          queryClient.refetchQueries(["coreSets", state, year]);
+          navigate(`/${state}/${year}`);
+        },
+      });
+    }
+  };
 
   return (
     <QMR.StateLayout
@@ -37,82 +76,85 @@ export const AddHHCoreSet = () => {
         { path: `/${state}/${year}/add-hh`, name: "Add Health Home Core Set" },
       ]}
     >
-      <CUI.Box maxW="container.lg">
-        <CUI.Heading fontSize="2xl" fontWeight="600" my="2">
-          Health Home Core Set Details
-        </CUI.Heading>
-        <CUI.Text>
-          Complete the details below and when finished create the additional
-          Health Home Core Set package. You can submit one Health Home Core set
-          for each SPA that requires reporting.
-        </CUI.Text>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
-            <CUI.Box as="section" mt="6">
-              <CUI.OrderedList spacing="10">
-                <CUI.ListItem>
-                  <QMR.Select
-                    placeholder="Select option"
-                    selectProps={{
-                      maxW: "30rem",
-                      "aria-label": "The SPA you are reporting on",
-                    }}
-                    formLabelProps={{ fontWeight: 600 }}
-                    {...register("HealthHomeCoreSet-SPA")}
-                    options={sortedSPAs}
-                    label="Select the SPA you are reporting on?"
-                  />
-                </CUI.ListItem>
-                <CUI.ListItem>
-                  <QMR.RadioButton
-                    formLabelProps={{ fontWeight: 600 }}
-                    label="Do you want to add State Specific Measures now?"
-                    {...register("HealthHomeCoreSet-ShareSSM")}
-                    options={[
-                      {
-                        displayValue:
-                          "Yes, I want to add State Specific Measures now.",
-                        value: "yes",
-                      },
-                      {
-                        displayValue:
-                          "No, I’ll add State Specific Measures later.",
-                        value: "no",
-                      },
-                    ]}
-                  />
-                </CUI.ListItem>
-                <CUI.ListItem>
-                  <CUI.Box>
-                    <CUI.Text fontWeight="600">
-                      Finish to create a Health Home Core Set
-                    </CUI.Text>
-                    <CUI.Text pt={1}>
-                      Remember to complete all Health Home Core Set Questions
-                      and Health Home Core Set Measures to submit for CMS
-                      review.
-                    </CUI.Text>
+      <CUI.Skeleton isLoaded={!isLoading}>
+        <CUI.Box maxW="container.lg">
+          <CUI.Heading fontSize="2xl" fontWeight="600" my="2">
+            Health Home Core Set Details
+          </CUI.Heading>
+          <CUI.Text>
+            Complete the details below and when finished create the additional
+            Health Home Core Set package. You can submit one Health Home Core
+            set for each SPA that requires reporting.
+          </CUI.Text>
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(handleSubmit)}>
+              <CUI.Box as="section" mt="6">
+                <CUI.OrderedList spacing="10">
+                  <CUI.ListItem>
+                    <QMR.Select
+                      placeholder="Select option"
+                      selectProps={{ maxW: "30rem" }}
+                      formLabelProps={{ fontWeight: 600 }}
+                      {...register("HealthHomeCoreSet-SPA")}
+                      options={sortedSPAs}
+                      label="Select the SPA you are reporting on?"
+                    />
+                  </CUI.ListItem>
+                  <CUI.ListItem>
+                    <QMR.RadioButton
+                      formLabelProps={{ fontWeight: 600 }}
+                      label="Do you want to add State Specific Measures now?"
+                      {...register("HealthHomeCoreSet-ShareSSM")}
+                      options={[
+                        {
+                          displayValue:
+                            "Yes, I want to add State Specific Measures now.",
+                          value: DC.YES,
+                        },
+                        {
+                          displayValue:
+                            "No, I’ll add State Specific Measures later.",
+                          value: DC.NO,
+                        },
+                      ]}
+                    />
+                  </CUI.ListItem>
+                  <CUI.ListItem>
+                    <CUI.Box>
+                      <CUI.Text fontWeight="600">
+                        Finish to create a Health Home Core Set
+                      </CUI.Text>
+                      <CUI.Text pt={1}>
+                        Remember to complete all Health Home Core Set Questions
+                        and Health Home Core Set Measures to submit for CMS
+                        review.
+                      </CUI.Text>
 
-                    <CUI.HStack paddingTop="5">
-                      <QMR.ContainedButton
-                        buttonProps={{ type: "submit", background: "blue.500" }}
-                        buttonText="Create"
-                      />
-                      <QMR.ContainedButton
-                        buttonProps={{ color: "blue", colorScheme: "white" }}
-                        buttonText="Cancel"
-                        onClick={() => {
-                          navigate(`/${state}/${year}`);
-                        }}
-                      />
-                    </CUI.HStack>
-                  </CUI.Box>
-                </CUI.ListItem>
-              </CUI.OrderedList>
-            </CUI.Box>
-          </form>
-        </FormProvider>
-      </CUI.Box>
+                      <CUI.HStack paddingTop="5">
+                        <QMR.ContainedButton
+                          buttonProps={{
+                            type: "submit",
+                            colorScheme: "blue",
+                          }}
+                          buttonText="Create"
+                          disabledStatus={!sortedSPAs.length || !watchSPAchoice}
+                        />
+                        <QMR.ContainedButton
+                          buttonProps={{ color: "blue", colorScheme: "white" }}
+                          buttonText="Cancel"
+                          onClick={() => {
+                            navigate(`/${state}/${year}`);
+                          }}
+                        />
+                      </CUI.HStack>
+                    </CUI.Box>
+                  </CUI.ListItem>
+                </CUI.OrderedList>
+              </CUI.Box>
+            </form>
+          </FormProvider>
+        </CUI.Box>
+      </CUI.Skeleton>
     </QMR.StateLayout>
   );
 };

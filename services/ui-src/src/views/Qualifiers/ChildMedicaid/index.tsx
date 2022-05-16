@@ -6,15 +6,19 @@ import * as Common from "../Common";
 import { useForm, FormProvider } from "react-hook-form";
 import { CCSMQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
-import { useUpdateMeasure, useGetMeasure } from "hooks/api";
+import { useUpdateMeasure, useGetMeasure, useEditCoreSet } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { useQueryClient } from "react-query";
 import { validationFunctions } from "./validationFunctions";
 import { v4 as uuidv4 } from "uuid";
+import { useUser } from "hooks/authHooks";
+import { CoreSetTableItem } from "components/Table/types";
 
 export const CCSMQualifiers = () => {
   const { state, year } = useParams();
   const mutation = useUpdateMeasure();
+  const userInfo = useUser();
+  const updateCoreSet = useEditCoreSet().mutate;
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -109,6 +113,17 @@ export const CCSMQualifiers = () => {
         if (callback) {
           callback();
         }
+        updateCoreSet({
+          coreSet: CoreSetAbbr.CCSM,
+          state: state ?? "",
+          year: year ?? "",
+          body: {
+            submitted: false,
+            status: CoreSetTableItem.Status.IN_PROGRESS,
+            userRole: userInfo.userRole,
+            userState: userInfo.userState,
+          },
+        });
       },
     });
   };
@@ -162,6 +177,8 @@ export const CCSMQualifiers = () => {
           handleModalResponse={handleValidationModalResponse}
           bodyText="There are still errors on this measure, would you still like to complete?"
         />
+        <QMR.SessionTimeout handleSave={handleSave} />
+
         <QMR.AdminMask />
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="5xl" as="section">
