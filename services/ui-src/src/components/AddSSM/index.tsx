@@ -36,6 +36,7 @@ export const AddSSM = () => {
             label="Please provide a description of the measure"
             name={`add-ssm.${idx}.description`}
             isRequired={true}
+            maxLength={4000}
           ></QMR.TextArea>
         </CUI.Stack>
       ))}

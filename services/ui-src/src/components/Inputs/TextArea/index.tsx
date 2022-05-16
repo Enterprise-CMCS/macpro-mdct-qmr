@@ -6,6 +6,7 @@ import ResizeTextarea from "react-textarea-autosize";
 
 interface TextAreaProps extends QMR.InputWrapperProps {
   isRequired?: boolean;
+  maxLength?: number;
   name: string;
   placeholder?: string;
   textAreaProps?: CUI.TextareaProps;
@@ -13,6 +14,7 @@ interface TextAreaProps extends QMR.InputWrapperProps {
 
 export const TextArea = ({
   isRequired = false,
+  maxLength,
   name,
   placeholder,
   textAreaProps,
@@ -30,19 +32,20 @@ export const TextArea = ({
 
   return (
     <QMR.InputWrapper
-      isInvalid={!!objectPath.get(errors, name)?.message}
       errorMessage={objectPath.get(errors, name)?.message}
+      isInvalid={!!objectPath.get(errors, name)?.message}
       {...rest}
     >
       <CUI.Textarea
-        name={name}
-        value={field.value ?? ""}
-        placeholder={placeholder}
-        onChange={field.onChange}
-        onBlur={field.onBlur}
-        data-cy={name}
         as={ResizeTextarea}
+        data-cy={name}
         isRequired={isRequired}
+        maxLength={maxLength}
+        name={name}
+        onBlur={field.onBlur}
+        onChange={field.onChange}
+        placeholder={placeholder}
+        value={field.value ?? ""}
         {...textAreaProps}
       />
     </QMR.InputWrapper>
