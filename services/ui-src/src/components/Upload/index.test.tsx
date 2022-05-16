@@ -38,10 +38,6 @@ describe("Test Upload Component", () => {
     expect(screen.getByText(/test label/i)).toBeInTheDocument();
   });
 
-  test("Check that data pre-populates", async () => {
-    expect(await screen.getByTestId("test-delete-btn-0")).toBeInTheDocument();
-  });
-
   test("ComponentMask does not render for state user", () => {
     const mask = screen.queryByTestId("component-mask");
     expect(mask).toBeNull();
