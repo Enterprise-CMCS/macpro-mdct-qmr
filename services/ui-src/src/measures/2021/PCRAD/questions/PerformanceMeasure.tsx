@@ -4,7 +4,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../../../CommonQuestions/types";
 import { PerformanceMeasureData } from "../../../CommonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
-import { MultiRate } from "components/MultiRate";
+import { PCRRate } from "components/PCRRate";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -78,12 +78,12 @@ const QualifierNdrSets = ({
   }));
 
   return (
-    <MultiRate
+    <PCRRate
       rates={rates}
       readOnly={rateReadOnly}
       customMask={customMask}
       {...register("PerformanceMeasure.rates.singleCategory")}
-    ></MultiRate>
+    />
   );
 };
 
@@ -160,7 +160,7 @@ export const PCRADPerformanceMeasure = ({
         })}
       </CUI.UnorderedList>
       <QMR.TextArea
-        label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+        label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
         {...register("PerformanceMeasure.explanation")}
       />
       <CUI.Text

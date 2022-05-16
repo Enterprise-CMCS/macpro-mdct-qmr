@@ -8,7 +8,7 @@ type Inputs =
   | ReactElement<CUI.InputProps>;
 
 export interface InputWrapperProps {
-  label?: string;
+  label?: string | ReactElement;
   helperText?: string;
   formControlProps?: CUI.FormControlProps;
   formLabelProps?: CUI.FormLabelProps;

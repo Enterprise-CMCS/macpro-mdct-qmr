@@ -15,6 +15,7 @@ interface Props {
   hybridMeasure?: boolean;
   showtextbox?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
+  RateComponent?: RateComp;
 }
 
 interface NdrSetProps {
@@ -25,6 +26,7 @@ interface NdrSetProps {
   rateScale?: number;
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
+  RateComponent: RateComp;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -36,6 +38,7 @@ const CategoryNdrSets = ({
   customMask,
   allowNumeratorGreaterThanDenominator,
   calcTotal,
+  RateComponent,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -56,7 +59,7 @@ const CategoryNdrSets = ({
             <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
-            <QMR.Rate
+            <RateComponent
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
@@ -84,6 +87,7 @@ const QualifierNdrSets = ({
   customMask,
   calcTotal,
   allowNumeratorGreaterThanDenominator,
+  RateComponent,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -93,7 +97,7 @@ const QualifierNdrSets = ({
   }));
   return (
     <>
-      <QMR.Rate
+      <RateComponent
         rates={rates}
         readOnly={rateReadOnly}
         rateMultiplicationValue={rateScale}
@@ -145,6 +149,7 @@ export const PerformanceMeasure = ({
   hybridMeasure,
   allowNumeratorGreaterThanDenominator,
   showtextbox = true,
+  RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({
@@ -206,7 +211,7 @@ export const PerformanceMeasure = ({
       )}
       {showtextbox && (
         <QMR.TextArea
-          label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+          label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
           {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
         />
       )}
@@ -239,6 +244,7 @@ export const PerformanceMeasure = ({
         Please review the auto-calculated rate and revise if needed.
       </CUI.Heading>
       <PerformanceMeasureNdrs
+        RateComponent={RateComponent}
         categories={data.categories}
         qualifiers={data.qualifiers}
         rateReadOnly={readOnly}

@@ -57,7 +57,11 @@ const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
       </CUI.Flex>
     );
   }
-  return <CUI.Text>Incomplete</CUI.Text>;
+  return (
+    <CUI.Text>
+      Incomplete (Qualifier Questions must be complete to submit the Core Set)
+    </CUI.Text>
+  );
 };
 
 const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
@@ -102,9 +106,23 @@ const useMeasureTableDataBuilder = () => {
   const { state, year, coreSetId } = useParams();
   const { data, isLoading, isError, error } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
+  const [coreSetStatus, setCoreSetStatus] = useState(
+    CoreSetTableItem.Status.IN_PROGRESS
+  );
   useEffect(() => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
+      let numCompleteItems = 0;
+      // include qualifier in core set status check
+      for (const m of data.Items as MeasureData[]) {
+        if (m.status === "complete") numCompleteItems++;
+      }
+      const coreSetStatus =
+        data.Items.length === numCompleteItems
+          ? CoreSetTableItem.Status.COMPLETED
+          : CoreSetTableItem.Status.IN_PROGRESS;
+      setCoreSetStatus(coreSetStatus);
+
       const filteredItems = (data.Items as MeasureData[]).filter(
         // filter out the coreset qualifiers
         (item) => item.measure && item.measure !== "CSQ"
@@ -135,8 +153,7 @@ const useMeasureTableDataBuilder = () => {
       mounted = false;
     };
   }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
-
-  return { measures, isLoading, isError, error };
+  return { coreSetStatus, measures, isLoading, isError, error };
 };
 
 export const CoreSet = () => {
@@ -159,16 +176,12 @@ export const CoreSet = () => {
   const isHHCoreSet = spaName.length > 0;
 
   const { data } = useGetCoreSet({ coreSetId, state, year });
-  const { measures, isLoading, isError, error } = useMeasureTableDataBuilder();
+  const { coreSetStatus, measures, isLoading, isError, error } =
+    useMeasureTableDataBuilder();
 
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
   )?.length;
-
-  const coreSetStatus =
-    measures.length === completedAmount
-      ? CoreSetTableItem.Status.COMPLETED
-      : CoreSetTableItem.Status.IN_PROGRESS;
 
   return (
     <QMR.StateLayout

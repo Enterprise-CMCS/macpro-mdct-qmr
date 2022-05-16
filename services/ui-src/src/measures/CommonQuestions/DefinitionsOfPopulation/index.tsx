@@ -29,9 +29,9 @@ export const DefinitionOfPopulation = ({
       {!childMeasure && (
         <CUI.Box>
           <CUI.Text mt="3">
-            Please select all populations that are included. For example, if
-            your data include both non-dual Medicaid beneficiaries and Medicare
-            and Medicaid Dual Eligibles, select both:
+            {`Please select all populations that are included. For example, if your data include both non-dual Medicaid ${
+              healthHomeMeasure ? "enrollees" : "beneficiaries"
+            } and Medicare and Medicaid Dual Eligibles, select both:`}
           </CUI.Text>
           <CUI.UnorderedList m="5" ml="10">
             <CUI.ListItem>
@@ -106,7 +106,7 @@ export const DefinitionOfPopulation = ({
       <CUI.Box my="5">
         <QMR.TextArea
           formLabelProps={{ fontWeight: "400" }}
-          label="If there has been a change in the included population from the previous reporting year, please provide any available context below:"
+          label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
           {...register(DC.CHANGE_IN_POP_EXPLANATION)}
         />
       </CUI.Box>

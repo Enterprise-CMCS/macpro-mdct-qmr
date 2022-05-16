@@ -76,10 +76,10 @@ describe("CCW-AD", () => {
     ).should("have.value", "66.7");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"]'
+      '[data-cy="Long-acting reversible method of contraception (LARC) Rate should not be higher than Most effective or moderately effective method of contraception Rate for All Women Ages 21 to 44 Rates."]'
     ).should(
-      "have.text",
-      "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"
+      "contain.text",
+      "Long-acting reversible method of contraception (LARC) Rate should not be higher than Most effective or moderately effective method of contraception Rate for All Women Ages 21 to 44 Rates."
     );
     cy.get(
       '[data-cy="The following categories must have the same denominator:"]'

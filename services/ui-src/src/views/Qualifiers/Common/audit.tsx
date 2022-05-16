@@ -24,7 +24,7 @@ export const CloseButton = ({ onClick }: { onClick: () => void }) => (
 );
 
 interface Props {
-  type: "CH" | "AD";
+  type: "CH" | "AD" | "HH";
 }
 
 export const Audit = ({ type }: Props) => {
@@ -58,7 +58,10 @@ export const Audit = ({ type }: Props) => {
     <CUI.ListItem>
       <QualifierHeader
         header="Audit or Validation of Measures"
-        description="Were any of the Core Set measures audited or validated?"
+        description={
+          "Were any of the Core Set measures audited or validated" +
+          (type === "HH" ? " (optional)?" : "?")
+        }
       />
       <CUI.Spacer />
       <CUI.Stack>

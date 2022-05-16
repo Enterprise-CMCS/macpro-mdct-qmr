@@ -6,15 +6,19 @@ import * as Common from "../Common";
 import { useForm, FormProvider } from "react-hook-form";
 import { ACSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
-import { useUpdateMeasure, useGetMeasure } from "hooks/api";
+import { useUpdateMeasure, useGetMeasure, useEditCoreSet } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { useQueryClient } from "react-query";
 import { validationFunctions } from "./validationFunctions";
 import { v4 as uuidv4 } from "uuid";
+import { useUser } from "hooks/authHooks";
+import { CoreSetTableItem } from "components/Table/types";
 
 export const ACSQualifiers = () => {
   const { state, year } = useParams();
   const mutation = useUpdateMeasure();
+  const userInfo = useUser();
+  const updateCoreSet = useEditCoreSet().mutate;
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -113,6 +117,17 @@ export const ACSQualifiers = () => {
         if (callback) {
           callback();
         }
+        updateCoreSet({
+          coreSet: CoreSetAbbr.ACS,
+          state: state ?? "",
+          year: year ?? "",
+          body: {
+            submitted: false,
+            status: CoreSetTableItem.Status.IN_PROGRESS,
+            userRole: userInfo.userRole,
+            userState: userInfo.userState,
+          },
+        });
       },
     });
   };

@@ -3,18 +3,21 @@ import * as CUI from "@chakra-ui/react";
 import * as Common from ".";
 
 interface Props {
-  type: "AD" | "CH";
+  type: "AD" | "CH" | "HH";
   handleValidation: (data: any) => void;
 }
 
 export const CompleteCoreSets = ({ handleValidation, type }: Props) => {
-  const qualifierType = type === "AD" ? "Adult" : "Child";
+  let qualifierType = type === "AD" ? "Adult" : "Child";
+  if (type === "HH") {
+    qualifierType = "Health Home";
+  }
 
   return (
     <CUI.ListItem data-cy="complete-CoreSet">
       <Common.QualifierHeader
         header={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS`}
-        description={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS for review`}
+        description={`Complete all ${qualifierType} Core Set Questions and ${qualifierType} Core Set Measures to submit to CMS for review.`}
       />
 
       <CUI.HStack>

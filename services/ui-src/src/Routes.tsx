@@ -69,6 +69,10 @@ export function AppRoutes() {
           path=":state/:year/:coreSetId/add-ssm"
           element={<Views.AddStateSpecificMeasure />}
         />
+        <Route
+          path=":state/:year/:HHCS/CSQ"
+          element={<Views.HHCSQualifiers />}
+        />
         <Route path=":state/:year/ACS/CSQ" element={<Views.ACSQualifiers />} />
         <Route path=":state/:year/CCS/CSQ" element={<Views.CCSQualifiers />} />
         <Route

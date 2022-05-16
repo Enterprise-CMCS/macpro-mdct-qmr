@@ -11,7 +11,7 @@ export const SupportLinks = () => (
     >
       MDCT_help@cms.hhs.gov
     </CUI.Link>
-    . For content related questions, such as about measure specifications or
+    . For content-related questions, such as about measure specifications or
     what information to enter into each field, please reach out to{" "}
     <CUI.Link
       href="mailto:MACQualityTA@cms.hhs.gov"
@@ -58,6 +58,23 @@ export const SupportInfo = () => (
       accuracy of the time estimate(s) or suggestions for imprving this form,
       please write to: CMS, 7500 Security Boulevard, Attn: PRA Reports Clerance
       Office, Mail Stop C4-26-05, Baltimore, Maryland 21244-1850.
+    </CUI.Text>
+  </>
+);
+
+export const HealthHomeInfo = () => (
+  <>
+    <CUI.Text paddingTop="4" color="gray.700" line-height="normal">
+      The Health Home provision, authorized by section 2703 of the Affordable
+      Care Act (section 1945 of the Social Security Act), provides an
+      opportunity to build a person-centered care delivery model that focuses on
+      improving outcomes and disease management for beneficiaries with chronic
+      conditions. The Health Home core set of quality measures will be used to
+      evaluate care across all state Health Home programs. Specifically, section
+      2703 requires Health Home providers to report health care quality measures
+      in order to receive payment. The recommended Health Home core set will
+      require reporting at the Health Home provider level which the state will
+      collect and aggregate at the Health Home program level.
     </CUI.Text>
   </>
 );
