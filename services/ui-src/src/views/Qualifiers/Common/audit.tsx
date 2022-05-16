@@ -34,18 +34,19 @@ export const Audit = ({ type }: Props) => {
   });
   const { data, isLoading } = useGetMeasures();
 
-  const multiSelectMeasures = data?.Items
-    // filter out the survey measures.
-    .filter((item: any) => {
-      return !item.autoCompleted;
-    })
-    .map((obj: any) => {
-      return {
-        label: obj.measure + " - " + obj.description,
-        value: obj.measure,
-        isVisible: true,
-      };
-    });
+  const multiSelectMeasures =
+    data?.Items
+      // filter out the survey measures.
+      ?.filter((item: any) => {
+        return !item.autoCompleted;
+      })
+      ?.map((obj: any) => {
+        return {
+          label: obj.measure + " - " + obj.description,
+          value: obj.measure,
+          isVisible: true,
+        };
+      }) ?? [];
 
   const multiSelectList = useMemo<ICheckbox[]>(
     () => multiSelectMeasures,

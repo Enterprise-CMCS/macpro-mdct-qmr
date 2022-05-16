@@ -20,7 +20,7 @@ export const useGetReportingYears = () => {
   const { state, year } = useParams();
 
   if ((state || statePath) && (year || yearPath)) {
-    return useQuery(["measures", state, year], () =>
+    return useQuery(["reportingYears", state, year], () =>
       getYears({
         state: state || statePath,
         year: year || yearPath,
