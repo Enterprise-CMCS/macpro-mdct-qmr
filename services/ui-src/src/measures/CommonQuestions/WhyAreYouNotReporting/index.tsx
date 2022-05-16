@@ -3,7 +3,11 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import * as DC from "dataConstants";
 
-export const WhyAreYouNotReporting = () => {
+interface Props {
+  healthHomeMeasure?: boolean;
+}
+
+export const WhyAreYouNotReporting = ({ healthHomeMeasure }: Props) => {
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
   return (
     <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
@@ -69,6 +73,15 @@ export const WhyAreYouNotReporting = () => {
                       />,
                     ],
                   },
+                  ...(healthHomeMeasure
+                    ? [
+                        {
+                          displayValue:
+                            "Data not submitted by Providers to State",
+                          value: DC.DATA_NOT_SUBMITTED_BY_PROVIDERS_TO_STATE,
+                        },
+                      ]
+                    : []),
                   {
                     displayValue: "Data source not easily accessible",
                     value: DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE,
@@ -165,6 +178,16 @@ export const WhyAreYouNotReporting = () => {
               />,
             ],
           },
+          ...(healthHomeMeasure
+            ? [
+                {
+                  displayValue:
+                    "Continuous enrollment requirement not met due to start date of SPA",
+                  value:
+                    DC.CONTINUOUS_ENROLLMENT_REQUIREMENT_NOT_MET_DUE_TO_START_DATE_OF_SPA,
+                },
+              ]
+            : []),
           {
             displayValue: "Other",
             value: DC.OTHER,

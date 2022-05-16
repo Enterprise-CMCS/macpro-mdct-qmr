@@ -1,8 +1,8 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import * as PMD from "./data";
 import { FormData } from "./types";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const HPCADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -25,9 +25,6 @@ const HPCADValidation = (data: FormData) => {
     return errorArray;
   }
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-  const includesHybridDataSource = data[DC.DATA_SOURCE]?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
 
   errorArray = [
     ...errorArray,
@@ -35,44 +32,50 @@ const HPCADValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateRateNotZero,
-        ...(includesHybridDataSource ? [] : [GV.validateRateZero]),
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
-    ...GV.validateDualPopInformation(
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
       "Ages 65 to 75"
     ),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenom(
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
-      includesHybridDataSource
+      data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
+    ...GV.validateBothDatesCompleted(dateRange),
   ];
 
   return errorArray;

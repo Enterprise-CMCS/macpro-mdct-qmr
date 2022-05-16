@@ -1,6 +1,8 @@
 import { createContext, useContext } from "react";
 import * as Types from "../types";
 
+export type CompFlagType = "DEFAULT" | "PCR";
+
 interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
@@ -12,6 +14,7 @@ interface ContextProps {
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
   numberOfDecimals: number;
+  compFlag?: CompFlagType;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
@@ -25,6 +28,7 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   customMask: undefined,
   allowNumeratorGreaterThanDenominator: false,
   numberOfDecimals: 1,
+  compFlag: "DEFAULT",
 });
 
 export const usePerformanceMeasureContext = () =>

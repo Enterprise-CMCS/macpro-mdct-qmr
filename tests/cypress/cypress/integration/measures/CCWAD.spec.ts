@@ -76,10 +76,10 @@ describe("CCW-AD", () => {
     ).should("have.value", "66.7");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"]'
+      '[data-cy="Long-acting reversible method of contraception (LARC) Rate should not be higher than Most effective or moderately effective method of contraception Rate for All Women Ages 21 to 44 Rates."]'
     ).should(
-      "have.text",
-      "Long-acting reversible method of contraception (LARC) rate must be less than or equal to Most effective or moderately effective method of contraception rate"
+      "contain.text",
+      "Long-acting reversible method of contraception (LARC) Rate should not be higher than Most effective or moderately effective method of contraception Rate for All Women Ages 21 to 44 Rates."
     );
     cy.get(
       '[data-cy="The following categories must have the same denominator:"]'
@@ -222,10 +222,10 @@ describe("CCW-AD", () => {
     );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
   });
 });

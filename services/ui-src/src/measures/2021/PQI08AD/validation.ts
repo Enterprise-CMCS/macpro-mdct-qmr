@@ -1,35 +1,19 @@
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import {
-  omsValidations,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateNoNonZeroNumOrDenom,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  validateReasonForNotReporting,
-  validateDualPopInformation,
-  validateRequiredRadioButtonForCombinedRates,
-  getDeviationNDRArray,
-  getPerfMeasureRateArray,
-  omsLocationDictionary,
-} from "measures/globalValidations";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const PQI08Validation = (data: FormData) => {
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const OPM = data[DC.OPM_RATES];
   const age65PlusIndex = 0;
-  const dateRange = data["DateRange"];
-  const definitionOfDenominator = data["DefinitionOfDenominator"];
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const dateRange = data[DC.DATE_RANGE];
+  const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations
   );
@@ -40,42 +24,48 @@ const PQI08Validation = (data: FormData) => {
     }),
   ];
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateDualPopInformation(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      data
     ),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...omsValidations({
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [validateRateZero, validateRateNotZero],
+      validationCallbacks: [GV.validateRateZeroOMS, GV.validateRateNotZeroOMS],
     }),
   ];
 

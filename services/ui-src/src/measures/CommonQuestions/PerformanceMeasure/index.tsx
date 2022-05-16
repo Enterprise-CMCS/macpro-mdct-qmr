@@ -15,6 +15,7 @@ interface Props {
   hybridMeasure?: boolean;
   showtextbox?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
+  RateComponent?: RateComp;
 }
 
 interface NdrSetProps {
@@ -25,6 +26,7 @@ interface NdrSetProps {
   rateScale?: number;
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
+  RateComponent: RateComp;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -36,6 +38,7 @@ const CategoryNdrSets = ({
   customMask,
   allowNumeratorGreaterThanDenominator,
   calcTotal,
+  RateComponent,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -56,12 +59,7 @@ const CategoryNdrSets = ({
             <CUI.Text fontWeight="bold" my="5">
               {item}
             </CUI.Text>
-            {!rateReadOnly && (
-              <CUI.Heading pt="5" size={"sm"}>
-                Please review the auto-calculated rate and revise if needed.
-              </CUI.Heading>
-            )}
-            <QMR.Rate
+            <RateComponent
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
@@ -89,6 +87,7 @@ const QualifierNdrSets = ({
   customMask,
   calcTotal,
   allowNumeratorGreaterThanDenominator,
+  RateComponent,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -98,12 +97,7 @@ const QualifierNdrSets = ({
   }));
   return (
     <>
-      {!rateReadOnly && (
-        <CUI.Heading pt="5" size={"sm"}>
-          Please review the auto-calculated rate and revise if needed.
-        </CUI.Heading>
-      )}
-      <QMR.Rate
+      <RateComponent
         rates={rates}
         readOnly={rateReadOnly}
         rateMultiplicationValue={rateScale}
@@ -138,7 +132,12 @@ const stringIsReadOnly = (dataSource: string) => {
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
-  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+  if (dataSource.length === 0) {
+    return false;
+  }
+  return (
+    dataSource?.every((source) => source === "AdministrativeData") ?? false
+  );
 };
 /** Data Driven Performance Measure Comp */
 export const PerformanceMeasure = ({
@@ -150,12 +149,13 @@ export const PerformanceMeasure = ({
   hybridMeasure,
   allowNumeratorGreaterThanDenominator,
   showtextbox = true,
+  RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
-  let readOnly = true;
+  let readOnly = false;
   if (rateReadOnly !== undefined) {
     readOnly = rateReadOnly;
   } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
@@ -170,7 +170,11 @@ export const PerformanceMeasure = ({
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <CUI.Stack>
         {data.questionText.map((item, idx) => {
-          return <CUI.Text key={`questionText.${idx}`}>{item}</CUI.Text>;
+          return (
+            <CUI.Text key={`questionText.${idx}`} mb={5}>
+              {item}
+            </CUI.Text>
+          );
         })}
       </CUI.Stack>
       {data.questionSubtext && (
@@ -207,7 +211,7 @@ export const PerformanceMeasure = ({
       )}
       {showtextbox && (
         <QMR.TextArea
-          label="If the rate or measure-eligible population increased or decreased substantially from the previous reporting year, please provide any context you have for these changes:"
+          label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
           {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
         />
       )}
@@ -236,7 +240,11 @@ export const PerformanceMeasure = ({
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
+      <CUI.Heading pt="5" size={"sm"}>
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
       <PerformanceMeasureNdrs
+        RateComponent={RateComponent}
         categories={data.categories}
         qualifiers={data.qualifiers}
         rateReadOnly={readOnly}

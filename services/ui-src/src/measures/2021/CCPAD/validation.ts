@@ -6,42 +6,52 @@ import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const CCPADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const dateRange = data["DateRange"];
+  const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const whyNotReporting = data["WhyAreYouNotReporting"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
+  if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
   errorArray = [
     // Performance Measure and OPM Validations
-    ...GV.atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.ensureBothDatesCompletedInRange(dateRange),
-    ...GV.validate3daysLessOrEqualTo30days(data, PMD.data),
-    ...GV.validateAllDenomsTheSameCrossQualifier(data, PMD.categories),
-    ...GV.validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateNumeratorsLessThanDenominators(
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
-    ...GV.validateOneRateHigherThanOther(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
 
     // OMS Specific Validations
@@ -55,12 +65,12 @@ const CCPADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateAllDenomsAreTheSameCrossQualifier,
-        GV.validateCrossQualifierRateCorrect,
-        GV.validateDenominatorGreaterThanNumerator,
-        GV.validateOneRateLessThanOther,
-        GV.validateRateNotZero,
-        GV.validateRateZero,
+        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateOneQualRateHigherThanOtherQualOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
       ],
     }),
   ];

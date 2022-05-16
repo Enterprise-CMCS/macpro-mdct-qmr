@@ -1,5 +1,5 @@
 describe("Measure: PQI08-AD", () => {
-  before(() => {
+  beforeEach(() => {
     cy.login();
     cy.goToAdultMeasures();
     cy.goToMeasure("PQI08-AD");
@@ -133,11 +133,7 @@ describe("Measure: PQI08-AD", () => {
     cy.wait(1000);
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[id="DataSource0-checkbox"]').uncheck({ force: true });
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("0");
@@ -203,10 +199,10 @@ describe("Measure: PQI08-AD", () => {
     );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
+      '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should(
       "have.text",
-      "Manually entered rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
+      "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
     );
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'

@@ -1,84 +1,77 @@
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  validateRequiredRadioButtonForCombinedRates,
-  getDeviationNDRArray,
-  getPerfMeasureRateArray,
-  omsLocationDictionary,
-  validateReasonForNotReporting,
-  validateAllDenomsTheSameCrossQualifier,
-} from "measures/globalValidations";
-import * as OMSVal from "measures/globalValidations/omsValidationsLib";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
-import * as PMD from "./data";
 import * as DC from "dataConstants";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const OUDValidation = (data: FormData) => {
-  const OPM = data["OtherPerformanceMeasure-Rates"];
+  const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data) ?? [];
-  const dateRange = data["DateRange"];
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const performanceMeasureArray =
+    GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
+  const dateRange = data[DC.DATE_RANGE];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations
   );
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, PMD.qualifiers),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers
     ),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...validateAllDenomsTheSameCrossQualifier(
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateEqualCategoryDenominatorsPM(
       data,
       PMD.categories,
       PMD.qualifiers
     ),
-    ...OMSVal.omsValidations({
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        OMSVal.validateDenominatorGreaterThanNumerator,
-        OMSVal.validateDenominatorsAreTheSame,
-        OMSVal.validateRateZero,
-        OMSVal.validateRateNotZero,
-        OMSVal.validateAllDenomsAreTheSameCrossQualifier,
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateEqualCategoryDenominatorsOMS,
       ],
     }),
-    ...validateNoNonZeroNumOrDenom(
+    ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      ageGroups,
+      data
     ),
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
   ];
 
   return errorArray;

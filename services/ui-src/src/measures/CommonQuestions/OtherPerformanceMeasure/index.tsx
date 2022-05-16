@@ -18,7 +18,12 @@ const stringIsReadOnly = (dataSource: string) => {
 };
 
 const arrayIsReadOnly = (dataSource: string[]) => {
-  return dataSource?.every((source) => source === "AdministrativeData") ?? true;
+  if (dataSource.length === 0) {
+    return false;
+  }
+  return (
+    dataSource?.every((source) => source === "AdministrativeData") ?? false
+  );
 };
 
 export const OtherPerformanceMeasure = ({
@@ -46,15 +51,14 @@ export const OtherPerformanceMeasure = ({
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-  let rateReadOnly = true;
-  if (rateAlwaysEditable) {
+
+  let rateReadOnly = false;
+  if (rateAlwaysEditable !== undefined) {
     rateReadOnly = false;
   } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
     rateReadOnly = arrayIsReadOnly(dataSourceWatch);
   } else if (dataSourceWatch) {
     rateReadOnly = stringIsReadOnly(dataSourceWatch);
-  } else {
-    rateReadOnly = !!dataSourceWatch;
   }
 
   return (
@@ -79,11 +83,9 @@ export const OtherPerformanceMeasure = ({
                 Enter a number for the numerator and the denominator. Rate will
                 auto-calculate:
               </CUI.Text>
-              {!rateReadOnly && (
-                <CUI.Heading pt="5" size={"sm"}>
-                  Please review the auto-calculated rate and revise if needed.
-                </CUI.Heading>
-              )}
+              <CUI.Heading pt="5" size={"sm"}>
+                Please review the auto-calculated rate and revise if needed.
+              </CUI.Heading>
               <QMR.Rate
                 rates={[
                   {
@@ -107,6 +109,7 @@ export const OtherPerformanceMeasure = ({
           buttonProps={{
             variant: "outline",
             colorScheme: "blue",
+            color: "blue.500",
           }}
           onClick={() => {
             showRates.push({

@@ -1,68 +1,11 @@
-import * as PMD from "./data";
 import * as DC from "dataConstants";
-import {
-  atLeastOneRateComplete,
-  ensureBothDatesCompletedInRange,
-  validateNumeratorsLessThanDenominators,
-  validateEqualDenominators,
-  validateNoNonZeroNumOrDenom,
-  validateReasonForNotReporting,
-  validateRequiredRadioButtonForCombinedRates,
-  validateAtLeastOneNDRInDeviationOfMeasureSpec,
-  getDeviationNDRArray,
-  omsLocationDictionary,
-  validateDualPopInformation,
-} from "../../globalValidations";
-import { getPerfMeasureRateArray } from "../../globalValidations";
+import * as GV from "measures/globalValidations";
+import * as PMD from "./data";
 import { FormData } from "./types";
-import {
-  OmsValidationCallback,
-  omsValidations,
-  validateDenominatorGreaterThanNumerator,
-  validateOneRateLessThanOther,
-  validateRateNotZero,
-  validateRateZero,
-} from "measures/globalValidations/omsValidationsLib";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const validateContinuationGreaterThanAccute = (data: any) => {
-  if (
-    !(
-      data?.PerformanceMeasure?.rates?.EffectiveAcutePhaseTreatment ||
-      data?.PerformanceMeasure?.rates?.EffectiveContinuationPhaseTreatment
-    )
-  ) {
-    return [];
-  }
-  const accute =
-    data["PerformanceMeasure"]["rates"]["EffectiveAcutePhaseTreatment"];
-  const continuation =
-    data["PerformanceMeasure"]["rates"]["EffectiveContinuationPhaseTreatment"];
-  let error;
-  const errorArray: any[] = [];
-
-  if (accute && continuation) {
-    accute.forEach((_accuteObj: any, index: number) => {
-      if (
-        accute[index] &&
-        continuation[index] &&
-        parseFloat(continuation[index]?.rate) > parseFloat(accute[index]?.rate)
-      ) {
-        error = {
-          errorLocation: "Performance Measure",
-          errorMessage:
-            "Effective Continuation Phase Treatment Rate should not be higher than Effective Acute Phase Treatment Rates.",
-        };
-
-        errorArray.push(error);
-      }
-    });
-  }
-  return error ? [errorArray[0]] : [];
-};
-
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-const sameDenominatorSets: OmsValidationCallback = ({
+const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   categories,
@@ -104,15 +47,15 @@ const sameDenominatorSets: OmsValidationCallback = ({
 const AMMADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
-  const whyNotReporting = data["WhyAreYouNotReporting"];
-  const OPM = data["OtherPerformanceMeasure-Rates"];
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const dateRange = data["DateRange"];
-  const DefinitionOfDenominator = data["DefinitionOfDenominator"];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const OPM = data[DC.OPM_RATES];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const dateRange = data[DC.DATE_RANGE];
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
-  if (data["DidReport"] === "no") {
-    errorArray = [...validateReasonForNotReporting(whyNotReporting)];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
 
@@ -120,7 +63,7 @@ const AMMADValidation = (data: FormData) => {
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
     unfilteredSameDenominatorErrors = [
       ...unfilteredSameDenominatorErrors,
-      ...validateEqualDenominators(
+      ...GV.validateEqualQualifierDenominatorsPM(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups
       ),
@@ -136,52 +79,62 @@ const AMMADValidation = (data: FormData) => {
     }
   });
 
-  const deviationArray = getDeviationNDRArray(
+  const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
-  const didCalculationsDeviate = data["DidCalculationsDeviate"] === DC.YES;
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
     ...errorArray,
-    ...atLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...validateDualPopInformation(
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator
     ),
-    ...validateNumeratorsLessThanDenominators(
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...validateNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ageGroups),
-    ...validateRequiredRadioButtonForCombinedRates(data),
-    ...ensureBothDatesCompletedInRange(dateRange),
-    ...validateContinuationGreaterThanAccute(data),
-    ...validateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...omsValidations({
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
+    ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: omsLocationDictionary(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
         PMD.categories
       ),
       validationCallbacks: [
-        validateOneRateLessThanOther,
-        validateDenominatorGreaterThanNumerator,
-        validateRateZero,
-        validateRateNotZero,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
         sameDenominatorSets,
       ],
     }),

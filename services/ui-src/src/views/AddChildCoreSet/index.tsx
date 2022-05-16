@@ -5,7 +5,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
 import { useQueryClient } from "react-query";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, UserRoles } from "types";
+import { useUser } from "hooks/authHooks";
 
 enum ReportType {
   SEPARATE = "separate",
@@ -20,6 +21,7 @@ export const AddChildCoreSet = () => {
   const mutation = Api.useAddCoreSet();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { userState, userRole } = useUser();
 
   const methods = useForm({
     shouldUnregister: true,
@@ -30,6 +32,17 @@ export const AddChildCoreSet = () => {
 
   const { state, year } = useParams();
   const register = useCustomRegister<ChildCoreSetReportType>();
+
+  if (userState && userState !== state && userRole === UserRoles.STATE) {
+    return (
+      <CUI.Box data-testid="unauthorized-container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="You are not authorized to view this page"
+        />
+      </CUI.Box>
+    );
+  }
 
   const handleSubmit = (data: ChildCoreSetReportType) => {
     switch (data["ChildCoreSet-ReportType"]) {
@@ -100,7 +113,7 @@ export const AddChildCoreSet = () => {
 
                   <CUI.HStack paddingTop="5">
                     <QMR.ContainedButton
-                      buttonProps={{ type: "submit" }}
+                      buttonProps={{ type: "submit", background: "blue.500" }}
                       buttonText={mutation.isLoading ? "Loading" : "Create"}
                       disabledStatus={!watchReportType || mutation.isLoading}
                     />

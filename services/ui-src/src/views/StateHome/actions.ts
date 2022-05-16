@@ -1,39 +1,65 @@
 import { CoreSetTableItem } from "components/Table/types";
+import { isDevEnv } from "config";
 
 interface ActionsData {
   handleDelete: any;
+  completeAllMeasures: () => void;
+  resetCoreSet: () => void;
   type: CoreSetTableItem.Type;
 }
 
-export const getCoreSetActions = ({ type, handleDelete }: ActionsData) => {
+export const getCoreSetActions = ({
+  type,
+  handleDelete,
+  completeAllMeasures,
+  resetCoreSet,
+}: ActionsData) => {
+  let actionsList = [];
+
   if (type === CoreSetTableItem.Type.ADULT) {
-    return [
-      {
-        itemText: "Export",
-        handleSelect: handleDelete,
-        type: type,
-      },
-    ];
-  }
-  if (type === CoreSetTableItem.Type.CHILD) {
-    return [
-      {
-        itemText: "Export All",
-        handleSelect: () => console.log("Export All"),
-        type: type,
-      },
-      {
-        itemText: "Delete",
-        handleSelect: handleDelete,
-        type: type,
-      },
-    ];
-  }
-  return [
-    {
+    actionsList.push({
+      itemText: "Export",
+      handleSelect: handleDelete,
+      type: type,
+    });
+  } else if (
+    type === CoreSetTableItem.Type.CHILD ||
+    type === CoreSetTableItem.Type.HEALTH_HOME
+  ) {
+    actionsList.push(
+      ...[
+        {
+          itemText: "Export All",
+          handleSelect: () => console.log("Export All"),
+          type: type,
+        },
+        {
+          itemText: "Delete",
+          handleSelect: handleDelete,
+          type: type,
+        },
+      ]
+    );
+  } else {
+    actionsList.push({
       itemText: "Export All",
       handleSelect: () => console.log("Export All"),
       type: type,
-    },
-  ];
+    });
+  }
+
+  if (isDevEnv()) {
+    actionsList.push({
+      itemText: "Complete All Measures",
+      handleSelect: completeAllMeasures,
+      type: type,
+    });
+    actionsList.push({
+      itemText: "Reset All Measures",
+      handleSelect: resetCoreSet,
+      type: type,
+    });
+  }
+
+  return actionsList;
 };
