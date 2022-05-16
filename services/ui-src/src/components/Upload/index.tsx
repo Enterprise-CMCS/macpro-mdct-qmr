@@ -237,9 +237,9 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
 
   if (!data)
     return (
-      <CUI.Alert status="info">
+      <CUI.Alert status="info" mt="2" borderRadius={10}>
         <CUI.AlertIcon />
-        Your file(s) are being processed. Please wait.
+        Your files are being processed. Please wait.
       </CUI.Alert>
     );
 
@@ -247,7 +247,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
     <CUI.HStack
       background="blue.50"
       pl="1rem"
-      my="2"
+      mt="2"
       borderRadius="10"
       justifyContent="space-between"
     >
