@@ -50,6 +50,7 @@ export namespace MeasureTableItem {
     lastDateModified: number;
     actions: IKebabMenuItem[];
     reporting: string | undefined | null;
+    autoCompleted?: boolean;
   };
 
   export interface StatusTextProps {

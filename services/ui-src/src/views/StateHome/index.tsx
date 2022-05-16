@@ -39,12 +39,13 @@ const ReportingYear = () => {
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
 
-  const reportingyearOptions: IRepYear[] = reportingYears?.map(
-    (year: string) => ({
-      displayValue: year + " Core Set",
-      value: year,
-    })
-  ) ?? [{ displayValue: `${year} Core Set`, value: `${year}` }];
+  const reportingyearOptions: IRepYear[] =
+    reportingYears && reportingYears.length
+      ? reportingYears?.map((year: string) => ({
+          displayValue: year + " Core Set",
+          value: year,
+        }))
+      : [{ displayValue: `${year} Core Set`, value: `${year}` }];
 
   return (
     <CUI.Box w={{ base: "full", md: "48" }}>
