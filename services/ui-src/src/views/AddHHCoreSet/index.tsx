@@ -117,7 +117,7 @@ export const AddHHCoreSet = () => {
                         },
                         {
                           displayValue:
-                            "No, I’ll add State Specific Measures later.",
+                            "No, I'll add State Specific Measures later.",
                           value: DC.NO,
                         },
                       ]}
