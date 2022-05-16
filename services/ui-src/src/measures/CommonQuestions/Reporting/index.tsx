@@ -9,12 +9,14 @@ interface Props {
   measureName: string;
   measureAbbreviation: string;
   reportingYear: string;
+  healthHomeMeasure?: boolean;
 }
 
 export const Reporting = ({
   measureName,
   reportingYear,
   measureAbbreviation,
+  healthHomeMeasure,
 }: Props) => {
   const register = useCustomRegister<Types.DidReport>();
   const { watch } = useFormContext<Types.DidReport>();
@@ -37,7 +39,9 @@ export const Reporting = ({
           ]}
         />
       </QMR.CoreQuestionWrapper>
-      {watchRadioStatus === DC.NO && <WhyAreYouNotReporting />}
+      {watchRadioStatus === DC.NO && (
+        <WhyAreYouNotReporting healthHomeMeasure={healthHomeMeasure} />
+      )}
     </>
   );
 };
