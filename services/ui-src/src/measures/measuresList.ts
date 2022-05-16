@@ -319,7 +319,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "HH",
-      name: "Follow-Up after Hosptialization for Mental Illness",
+      name: "Follow-Up after Hospitalization for Mental Illness",
       measureId: "FUH-HH",
     },
     {
@@ -329,7 +329,7 @@ export const measuresList: MeasureList = {
     },
     {
       type: "HH",
-      name: "Inpatient Hospitalization",
+      name: "Inpatient Utilization",
       measureId: "IU-HH",
     },
     {

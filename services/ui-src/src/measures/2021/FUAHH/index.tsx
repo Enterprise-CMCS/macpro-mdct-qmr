@@ -34,6 +34,7 @@ export const FUAHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        healthHomeMeasure
       />
 
       {!isNotReportingData && (
