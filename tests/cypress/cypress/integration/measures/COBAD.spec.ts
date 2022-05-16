@@ -159,7 +159,7 @@ describe("OY2 9940 COB-AD", () => {
     cy.xpath(browseBTN).attachFile(filePath + "test3.docx", {
       subjectType: "drag-n-drop",
     });
-    cy.get(".css-9uu7yb > .chakra-text").should("be.visible");
+    cy.get('[data-cy="file-upload-test3.docx"]').should("be.visible");
     cy.get('[data-cy="Validate Measure"]').should("be.visible");
     cy.get('[data-cy="Complete Measure"]').should("be.visible");
     cy.get("[data-cy=Save]").should("be.visible");

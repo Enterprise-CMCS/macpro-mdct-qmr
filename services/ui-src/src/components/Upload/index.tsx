@@ -275,6 +275,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
           saveAs(data.Body as Blob, file.filename);
         }}
         variant="xl"
+        data-cy={`file-upload-${file.filename}`}
       >
         {file.filename}
       </CUI.Text>
