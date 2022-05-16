@@ -55,7 +55,7 @@ export const AddSSM = () => {
           testId={"AddAnotherSSMButton"}
         />
         <QMR.ContainedButton
-          buttonText={"- Remove Last"}
+          buttonText={"Remove Last"}
           buttonProps={{
             variant: "outline",
             colorScheme: "red",
