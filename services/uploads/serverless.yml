@@ -282,7 +282,6 @@ resources:
             - Effect: Allow
               Principal: s3.amazonaws.com
               SourceAccount: !Sub ${AWS::AccountId}
-              SourceArn: !Sub arn:aws:s3:::${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
               Action: "kms:*"
               Resource: "*"
     DynamoSnapshotBucket:
