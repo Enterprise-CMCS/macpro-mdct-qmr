@@ -261,30 +261,22 @@ resources:
               Principal:
                 AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
               Action: "kms:*"
-              Resource:
-                - !Sub ${AttachmentsBucket.Arn}/*
-                - !Sub ${DynamoSnapshotBucket.Arn}/*
+              Resource: "*"
             - Effect: Allow
               Principal:
                 AWS: ${ssm:/configuration/mpriamrole}
               Action: "kms:*"
-              Resource:
-                - !Sub ${AttachmentsBucket.Arn}/*
-                - !Sub ${DynamoSnapshotBucket.Arn}/*
+              Resource: "*"
             - Effect: Allow
               Principal:
                 AWS: ${ssm:/configuration/mprdeviam}
               Action: "kms:*"
-              Resource:
-                - !Sub ${AttachmentsBucket.Arn}/*
-                - !Sub ${DynamoSnapshotBucket.Arn}/*
+              Resource: "*"
             - Effect: Allow
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
               Action: "kms:*"
-              Resource:
-                - !Sub ${AttachmentsBucket.Arn}/*
-                - !Sub ${DynamoSnapshotBucket.Arn}/*
+              Resource: "*"
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
