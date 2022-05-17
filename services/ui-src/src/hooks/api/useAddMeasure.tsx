@@ -5,6 +5,7 @@ import { CoreSetAbbr, Params } from "types";
 interface CreateMeasure {
   body: {
     description: string;
+    userCreated?: boolean;
     userState: string;
   };
   coreSet: CoreSetAbbr;

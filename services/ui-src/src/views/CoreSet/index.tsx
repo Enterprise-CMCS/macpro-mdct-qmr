@@ -42,6 +42,7 @@ interface MeasureTableItem {
   createdAt: number;
   lastDateModified: number;
   id: string;
+  userCreated?: boolean;
   actions: { itemText: string; handleSelect: () => void }[];
 }
 
@@ -141,6 +142,7 @@ const useMeasureTableDataBuilder = () => {
           lastDateModified: item.lastAltered,
           createdAt: item.createdAt,
           id: item.measure,
+          userCreated: item.userCreated,
           actions: [
             {
               itemText: "Edit",

@@ -30,6 +30,7 @@ export interface Measure {
   measure: string;
   state: string;
   status: MeasureStatus;
+  userCreated?: boolean;
   year: number;
 }
 

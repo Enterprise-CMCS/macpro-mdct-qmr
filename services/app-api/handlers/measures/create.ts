@@ -21,6 +21,7 @@ export const createMeasure = handler(async (event, context) => {
       description: body.description ?? "",
       detailedDescription: body.detailedDescription ?? "",
       data: body.data,
+      userCreated: body.userCreated,
     },
   };
 

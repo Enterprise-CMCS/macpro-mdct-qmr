@@ -37,6 +37,7 @@ export interface MeasureData<DataType = any> {
   reporting: "yes" | "no" | null | undefined;
   year: number;
   data: DataType;
+  userCreated?: boolean;
 }
 
 export enum AutoCompletedMeasures {
