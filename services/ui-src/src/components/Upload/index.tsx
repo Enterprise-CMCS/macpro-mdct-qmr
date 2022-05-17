@@ -268,6 +268,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       mt="2"
       borderRadius="10"
       justifyContent="space-between"
+      zIndex={3}
     >
       <CUI.Text
         as="a"
