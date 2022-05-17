@@ -79,6 +79,7 @@ export const IUHHRate = ({
   // - instead of looping over array, loop over field names, use as keys to access objs instead
   // - yada yada yada
 
+  if (categoryName === "Maternity") rates = [rates[1], rates[3], rates[4]];
   rates[rates.length - 1]["isTotal"] = true;
 
   /*
@@ -227,7 +228,9 @@ export const IUHHRate = ({
             key={`iuhh-rate-stack-${qualIndex}`}
           >
             <CUI.Heading size={"sm"} key={`${qual.label}-heading`}>
-              {`${categoryName} ${qual.label?.toLowerCase()}`}
+              {qual.label === "Total"
+                ? `${qual.label} ${categoryName}`
+                : `${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
             <CUI.Stack direction="row" key={`iuhh-field-stack-${qualIndex}`}>
               {inputFieldNames.map((inputFieldName, fieldIndex) => {
