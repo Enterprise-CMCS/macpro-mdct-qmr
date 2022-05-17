@@ -1,11 +1,10 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
-import { useParams } from "react-router-dom";
 import { CoreSetTableItem } from "components/Table/types";
 import { SPA } from "libs/spaLib";
 
@@ -44,6 +43,10 @@ interface MeasureTableItem {
   lastDateModified: number;
   id: string;
   actions: { itemText: string; handleSelect: () => void }[];
+}
+
+interface LocationState {
+  state: { success: boolean };
 }
 
 const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
@@ -157,6 +160,8 @@ const useMeasureTableDataBuilder = () => {
 };
 
 export const CoreSet = () => {
+  const { state: locationState } = useLocation() as LocationState;
+
   let { coreSetId, state, year } = useParams();
   coreSetId = coreSetId ?? "";
   state = state ?? "";
@@ -196,13 +201,16 @@ export const CoreSet = () => {
         },
       ]}
     >
-      <CUI.Box mb="6">
-        <QMR.Notification
-          alertDescription="The new core set and state specific measure were successfully created and are ready for reporting."
-          alertStatus="success"
-          alertTitle="New Core Set Created"
-        ></QMR.Notification>
-      </CUI.Box>
+      {/* Show success banner after redirect from creating new SSMs */}
+      {locationState && locationState.success === true && (
+        <CUI.Box mb="6">
+          <QMR.Notification
+            alertDescription="The new State Specific Measures were successfully created and are ready for reporting."
+            alertStatus="success"
+            alertTitle="New State Specific Measures created"
+          ></QMR.Notification>
+        </CUI.Box>
+      )}
 
       <CUI.Flex>
         <CUI.HStack

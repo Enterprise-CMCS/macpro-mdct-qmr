@@ -43,7 +43,9 @@ export const AddStateSpecificMeasure = () => {
 
         mutation.mutate(requestData, {
           onSuccess: () => {
-            navigate(`/${state}/${year}/${coreSetId}`);
+            navigate(`/${state}/${year}/${coreSetId}`, {
+              state: { success: true },
+            });
           },
         });
       }
