@@ -48,7 +48,7 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
 
 const IETValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const age65PlusIndex = 1;
+  const age65PlusIndex = 2;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
