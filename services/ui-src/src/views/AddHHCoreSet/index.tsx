@@ -1,6 +1,5 @@
 import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
-import * as DC from "dataConstants";
 import * as QMR from "components";
 import { SPA } from "libs/spaLib";
 import { useParams, useNavigate } from "react-router-dom";
@@ -24,9 +23,7 @@ interface NewMeasure {
 }
 
 export const AddHHCoreSet = () => {
-  const [error, setError] = useState<Error>();
   const mutation = Api.useAddCoreSet();
-  const addMeasureMutation = Api.useAddMeasure();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { userState, userRole } = useUser();
@@ -69,57 +66,11 @@ export const AddHHCoreSet = () => {
     })
     .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
 
-  const createSSMs = (data: any) => {
-    const coreSetId: unknown = `${CoreSetAbbr.HHCS}_${data["HealthHomeCoreSet-SPA"]}`;
-
-    if (data["add-ssm"] && data["add-ssm"].length > 0) {
-      data["add-ssm"].forEach((measure: NewMeasure) => {
-        if (state && year) {
-          const requestData = {
-            body: {
-              description: measure["description"],
-              userState: state,
-            },
-            coreSet: coreSetId as CoreSetAbbr,
-            measure: measure["name"],
-            state,
-            year,
-          };
-
-          addMeasureMutation.mutate(requestData, {
-            onSuccess: () => {
-              navigate(`/${state}/${year}/${coreSetId}`);
-            },
-          });
-        }
-      });
-    } else {
-      console.error("Error finding State Specific Measures data");
-      return;
-    }
-  };
-
   const handleSubmit = (data: HealthHome) => {
-    const newSSMs = data["add-ssm"];
-
-    if (data["HealthHomeCoreSet-ShareSSM"] === "yes" && newSSMs.length <= 0) {
-      // Display an error if the user has selected to add SSMs but
-      // has not included any:
-      setError({
-        message: "Please add at least one State Specific Measure",
-        name: "State Specific Measure required",
-      });
-
-      return;
-    }
-
     if (data["HealthHomeCoreSet-SPA"]) {
       const coreset: unknown = `${CoreSetAbbr.HHCS}_${data["HealthHomeCoreSet-SPA"]}`;
       mutation.mutate(coreset as CoreSetAbbr, {
         onSuccess: () => {
-          // Save SSMs upon successful core set save, then refresh queries:
-          createSSMs(data);
-
           queryClient.refetchQueries(["coreSets", state, year]);
           navigate(`/${state}/${year}`);
         },
@@ -159,26 +110,6 @@ export const AddHHCoreSet = () => {
                     />
                   </CUI.ListItem>
                   <CUI.ListItem>
-                    <QMR.RadioButton
-                      formLabelProps={{ fontWeight: 600 }}
-                      label="Do you want to add State Specific Measures now?"
-                      {...register("HealthHomeCoreSet-ShareSSM")}
-                      options={[
-                        {
-                          displayValue:
-                            "Yes, I want to add State Specific Measures now.",
-                          value: DC.YES,
-                          children: [<QMR.AddSSM key="add-ssm" />],
-                        },
-                        {
-                          displayValue:
-                            "No, I'll add State Specific Measures later.",
-                          value: DC.NO,
-                        },
-                      ]}
-                    />
-                  </CUI.ListItem>
-                  <CUI.ListItem>
                     <CUI.Box>
                       <CUI.Text fontWeight="600">
                         Finish to create a Health Home Core Set
@@ -209,16 +140,6 @@ export const AddHHCoreSet = () => {
                     </CUI.Box>
                   </CUI.ListItem>
                 </CUI.OrderedList>
-              </CUI.Box>
-              <CUI.Box mt="6">
-                {error && (
-                  <QMR.Notification
-                    // key={index}
-                    alertStatus="error"
-                    alertTitle={error.name}
-                    alertDescription={error.message}
-                  />
-                )}
               </CUI.Box>
             </form>
           </FormProvider>
