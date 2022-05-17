@@ -427,6 +427,7 @@ resources:
                     - s3:PutObjectAcl
                     - s3:PutObjectTagging
                     - s3:PutObjectVersionTagging
+                    - kms:*
                   Resource: !Sub ${AttachmentsBucket.Arn}/*
                 - Effect: "Allow"
                   Action:
@@ -440,6 +441,7 @@ resources:
                     - s3:PutObjectAcl
                     - s3:PutObjectTagging
                     - s3:PutObjectVersionTagging
+                    - kms:*
                   Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
                 - Effect: "Allow"
                   Action:
