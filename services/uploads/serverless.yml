@@ -104,7 +104,7 @@ resources:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: aws:kms
-        BucketName: !Sub ${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
+        BucketName: !Sub ${self:service.name}-${self:custom.stage}-attachments-${AWS::AccountId}
         CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
@@ -380,7 +380,7 @@ resources:
         Action: lambda:InvokeFunction
         Principal: s3.amazonaws.com
         SourceAccount: !Sub ${AWS::AccountId}
-        SourceArn: !Sub arn:aws:s3:::${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
+        SourceArn: !Sub arn:aws:s3:::${self:service.name}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
     ClamDefsBucket:
       Type: AWS::S3::Bucket
       Properties:
