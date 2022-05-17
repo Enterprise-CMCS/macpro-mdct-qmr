@@ -1,12 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
-import {
-  allNumbers,
-  // eightNumbersOneDecimal,
-  // rateThatAllowsFourDecimals,
-  // rateThatAllowsOneDecimal,
-  // allPositiveIntegersWith8Digits,
-} from "utils/numberInputMasks";
+import { allNumbers, xNumbersYDecimals } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
@@ -40,15 +34,11 @@ export const IUHHRate = ({
   const inputFieldNames = [
     "Number of Enrollee Months",
     "Discharges",
-    "Discharges per 1,000 Enrollee Months",
+    // "Discharges per 1,000 Enrollee Months",
+    "(Discharges / Enrollee Months) x 1,000",
     "Days",
-    "Days per 1,000 Enrollee Months",
-    "Average Length of Stay",
-  ];
-
-  const readOnlyFields = [
-    "Discharges per 1,000 Enrollee Months",
-    "Days per 1,000 Enrollee Months",
+    // "Days per 1,000 Enrollee Months",
+    "(Days / Enrollee Months) x 1,000",
     "Average Length of Stay",
   ];
 
@@ -99,12 +89,15 @@ export const IUHHRate = ({
     const prevRate = [...field.value];
     rates.forEach((rate, index) => {
       if (prevRate[index] === undefined) {
-        prevRate[index] = inputFieldNames.map((label) => {
-          return {
-            name: label,
-            value: undefined,
-          };
-        });
+        prevRate[index] = {
+          label: rate.label,
+          fields: inputFieldNames.map((label) => {
+            return {
+              label,
+              value: undefined,
+            };
+          }),
+        };
       }
       prevRate[index]["label"] = rate.label ?? undefined;
     });
@@ -121,16 +114,17 @@ export const IUHHRate = ({
     isTotal?: boolean
   ) => {
     const isRate = rateLocations.includes(fieldIndex);
-    if (!allNumbers.test(newValue)) return;
     if (isRate && readOnly) return;
+    if (!allNumbers.test(newValue)) return;
+    if (!isRate && !xNumbersYDecimals(9, 0).test(newValue)) return;
+    if (isRate && !xNumbersYDecimals(12, 1).test(newValue)) return;
 
     const prevRate = [...field.value];
-    // const editRate = { ...prevRate[index] };
-    // const validEditRate = eightNumbersOneDecimal.test(newValue);
-
-    prevRate[qualIndex][fieldIndex].value = newValue;
+    prevRate[qualIndex]["fields"][fieldIndex].value = newValue;
     if (!isRate) {
-      prevRate[qualIndex] = calculateRates(prevRate[qualIndex]);
+      prevRate[qualIndex]["fields"] = calculateRates(
+        prevRate[qualIndex]["fields"]
+      );
     }
 
     // Totals should be independently editable
@@ -176,13 +170,13 @@ export const IUHHRate = ({
     // sum all field values - we assume last row is total
     prevRate.slice(0, -1).forEach((item) => {
       if (item !== undefined && item !== null && !item["isTotal"]) {
-        if (!isNaN((x = parseFloat(item[0].value)))) {
+        if (!isNaN((x = parseFloat(item["fields"][0].value)))) {
           numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
         }
-        if (!isNaN((x = parseFloat(item[1].value)))) {
+        if (!isNaN((x = parseFloat(item["fields"][1].value)))) {
           dischargeSum = dischargeSum + x; // += syntax does not work if default value is null
         }
-        if (!isNaN((x = parseFloat(item[3].value)))) {
+        if (!isNaN((x = parseFloat(item["fields"][3].value)))) {
           daySum = daySum + x; // += syntax does not work if default value is null
         }
       }
@@ -193,15 +187,15 @@ export const IUHHRate = ({
     let totals = prevRate[totalIndex];
 
     let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
-    totals[0].value = newValue;
+    totals["fields"][0].value = newValue;
 
     newValue = dischargeSum !== null ? dischargeSum.toString() : "";
-    totals[1].value = newValue;
+    totals["fields"][1].value = newValue;
 
     newValue = daySum !== null ? daySum.toString() : "";
-    totals[3].value = newValue;
+    totals["fields"][3].value = newValue;
 
-    totals = calculateRates(totals);
+    totals["fields"] = calculateRates(totals["fields"]);
     prevRate[totalIndex] = totals;
   };
 
@@ -236,26 +230,35 @@ export const IUHHRate = ({
               {`${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
             <CUI.Stack direction="row" key={`iuhh-field-stack-${qualIndex}`}>
-              {inputFieldNames.map((ifn, fieldIndex) => {
+              {inputFieldNames.map((inputFieldName, fieldIndex) => {
                 return (
-                  // TODO: Change the way the data is registered
                   <QMR.InputWrapper
                     isInvalid={
                       !!objectPath.get(errors, `${name}.${fieldIndex}.value`)
                         ?.message
                     }
-                    key={`input-wrapper-${ifn}-${fieldIndex}`}
-                    label={ifn}
+                    key={`input-wrapper-${inputFieldName}-${fieldIndex}`}
+                    label={inputFieldName}
                     formLabelProps={{
                       minH: "50px",
                     }}
                     {...rest}
                   >
-                    {!readOnlyFields.includes(ifn) ? (
+                    {readOnly && rateLocations.includes(fieldIndex) ? (
+                      <CUI.Text
+                        paddingTop="2"
+                        key={`input-field-${fieldIndex}`}
+                        data-cy={`${name}.${fieldIndex}.value`}
+                      >
+                        {field.value?.[qualIndex]?.["fields"]?.[fieldIndex]
+                          ?.value ?? ""}
+                      </CUI.Text>
+                    ) : (
                       <CUI.Input
                         key={`input-field-${fieldIndex}`}
                         value={
-                          field.value?.[qualIndex]?.[fieldIndex]?.value ?? ""
+                          field.value?.[qualIndex]?.["fields"]?.[fieldIndex]
+                            ?.value ?? ""
                         }
                         data-cy={`${name}.${fieldIndex}.value`}
                         onChange={(e) =>
@@ -267,14 +270,6 @@ export const IUHHRate = ({
                           )
                         }
                       />
-                    ) : (
-                      <CUI.Text
-                        paddingTop="2"
-                        key={`input-field-${fieldIndex}`}
-                        data-cy={`${name}.${fieldIndex}.value`}
-                      >
-                        {field.value?.[qualIndex]?.[fieldIndex]?.value ?? ""}
-                      </CUI.Text>
                     )}
                   </QMR.InputWrapper>
                 );
