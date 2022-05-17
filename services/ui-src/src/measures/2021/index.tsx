@@ -60,6 +60,7 @@ import { SSDAD } from "./SSDAD";
 import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
+import { OUDHH } from "./OUDHH";
 
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
@@ -103,6 +104,7 @@ const twentyTwentyOneMeasures = {
   "NCIDDS-AD": NCIDDSAD,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
+  "OUD-HH": OUDHH,
   "PC01-AD": PC01AD,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
