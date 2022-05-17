@@ -64,7 +64,6 @@ export const CDFHH = ({
               rateMultiplicationValue={100}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure={false}
-              allowNumeratorGreaterThanDenominator
               calcTotal
             />
           )}
