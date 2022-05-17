@@ -19,6 +19,7 @@ export const createMeasure = handler(async (event, context) => {
       lastAlteredBy: event.headers["cognito-identity-id"],
       status: MeasureStatus.INCOMPLETE,
       description: body.description ?? "",
+      detailedDescription: body.detailedDescription ?? "",
       data: body.data,
     },
   };

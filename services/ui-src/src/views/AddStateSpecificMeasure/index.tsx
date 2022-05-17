@@ -13,8 +13,8 @@ interface StateSpecificMeasure {
 }
 
 interface NewMeasure {
-  name: string;
   description: string;
+  detailedDescription: string;
 }
 
 export const AddStateSpecificMeasure = () => {
@@ -38,6 +38,7 @@ export const AddStateSpecificMeasure = () => {
         const requestData = {
           body: {
             description: measure["description"],
+            detailedDescription: measure["detailedDescription"],
             userState: state,
           },
           coreSet: coreSetId as CoreSetAbbr,
@@ -86,7 +87,6 @@ export const AddStateSpecificMeasure = () => {
                 colorScheme: "blue",
               }}
               buttonText="Create"
-              // disabledStatus={!sortedSPAs.length || !watchSPAchoice}
             />
             <QMR.ContainedButton
               buttonProps={{ color: "blue.500", colorScheme: "white" }}

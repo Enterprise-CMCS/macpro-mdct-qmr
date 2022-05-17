@@ -29,12 +29,12 @@ export const AddSSM = () => {
           <CUI.Divider />
           <QMR.TextInput
             label="Name the measure"
-            name={`add-ssm.${idx}.name`}
+            name={`add-ssm.${idx}.description`}
             isRequired={true}
           ></QMR.TextInput>
           <QMR.TextArea
             label="Please provide a description of the measure"
-            name={`add-ssm.${idx}.description`}
+            name={`add-ssm.${idx}.detailedDescription`}
             isRequired={true}
             maxLength={4000}
           ></QMR.TextArea>

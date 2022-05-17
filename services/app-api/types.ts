@@ -24,6 +24,7 @@ export interface Measure {
   coreSet: CoreSetAbbr;
   createdAt: number;
   description: string;
+  detailedDescription: string;
   lastAltered: number;
   lastAlteredBy?: string;
   measure: string;
