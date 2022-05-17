@@ -12,6 +12,7 @@ import { APPCH } from "./APPCH";
 import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
+import { CBPHH } from "./CBPHH";
 import { CCPAD } from "./CCPAD";
 import { CCPCH } from "./CCPCH";
 import { CCSAD } from "./CCSAD";
@@ -72,6 +73,7 @@ const twentyTwentyOneMeasures = {
   "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
+  "CBP-HH": CBPHH,
   "CCP-AD": CCPAD,
   "CCP-CH": CCPCH,
   "CCS-AD": CCSAD,
