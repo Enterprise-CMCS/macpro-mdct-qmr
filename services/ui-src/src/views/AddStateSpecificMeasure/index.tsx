@@ -28,7 +28,7 @@ export const AddStateSpecificMeasure = () => {
   });
 
   const handleSubmit = (data: any) => {
-    if (!data["add-ssm"]) {
+    if (!data["add-ssm"] || data["add-ssm"].length === 0) {
       console.error("Error finding State Specific Measures data");
       return;
     }
