@@ -279,11 +279,6 @@ resources:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
               Action: "kms:*"
               Resource: "*"
-            - Effect: Allow
-              Principal: s3.amazonaws.com
-              SourceAccount: !Sub ${AWS::AccountId}
-              Action: "kms:*"
-              Resource: "*"
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
