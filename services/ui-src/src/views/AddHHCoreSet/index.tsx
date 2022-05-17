@@ -6,7 +6,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useQueryClient } from "react-query";
-import { useState } from "react";
 import { useUser } from "hooks/authHooks";
 import { CoreSetAbbr, UserRoles } from "types";
 interface HealthHome {
