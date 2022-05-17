@@ -37,10 +37,16 @@ export const Audit = ({ type }: Props) => {
   const multiSelectList = useMemo<ICheckbox[]>(
     () =>
       data?.Items
-        // filter out the survey measures.
+        // filter out the autocompleted measures.
         ?.filter((item: any) => {
           return !item.autoCompleted;
         })
+        // filter out the qualifier measures
+        ?.filter((item: any) => {
+          return !item?.measure?.includes("CSQ");
+        })
+        //TODO: filter out HH SS generated measures
+        //?.filter((item: any) => {return {INSERT HH-SS CHECK HERE}; })
         ?.map((obj: any) => {
           return {
             label: obj.measure + " - " + obj.description,
