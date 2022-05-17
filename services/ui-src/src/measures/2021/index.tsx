@@ -29,6 +29,7 @@ import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
 import { FUAHH } from "./FUAHH";
 import { FUHCH } from "./FUHCH";
+import { FUHHH } from "./FUHHH";
 import { FUMAD } from "./FUMAD";
 import { FVAAD } from "./FVAAD";
 import { HVLAD } from "./HVLAD";
@@ -90,6 +91,7 @@ const twentyTwentyOneMeasures = {
   "FUA-HH": FUAHH,
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
+  "FUH-HH": FUHHH,
   "FUM-AD": FUMAD,
   "FVA-AD": FVAAD,
   "HVL-AD": HVLAD,
