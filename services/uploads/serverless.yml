@@ -104,6 +104,7 @@ resources:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: aws:kms
+                KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
         CorsConfiguration: # Set the CORS policy
           CorsRules:
@@ -283,6 +284,7 @@ resources:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: aws:kms
+                KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
         CorsConfiguration: # Set the CORS policy
           CorsRules:
