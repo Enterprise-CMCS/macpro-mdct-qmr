@@ -263,12 +263,12 @@ resources:
               Resource: "*"
             - Effect: Allow
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole~true}
+                AWS: ${ssm:/configuration/mpriamrole}
               Action: "kms:*"
               Resource: "*"
             - Effect: Allow
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam~true}
+                AWS: ${ssm:/configuration/mprdeviam}
               Action: "kms:*"
               Resource: "*"
             - Effect: Allow
@@ -316,26 +316,26 @@ resources:
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole~true}
+                AWS: ${ssm:/configuration/mpriamrole}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole~true}
+                AWS: ${ssm:/configuration/mpriamrole}
             - Action:
                 - "s3:GetBucketLocation"
                 - "s3:ListBucket"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam~true}
+                AWS: ${ssm:/configuration/mprdeviam}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam~true}
+                AWS: ${ssm:/configuration/mprdeviam}
             - Action:
                 - "s3:PutObject"
               Effect: "Allow"
