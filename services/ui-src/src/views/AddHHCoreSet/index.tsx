@@ -72,26 +72,31 @@ export const AddHHCoreSet = () => {
   const createSSMs = (data: any) => {
     const coreSetId: unknown = `${CoreSetAbbr.HHCS}_${data["HealthHomeCoreSet-SPA"]}`;
 
-    data["add-ssm"].forEach((measure: NewMeasure) => {
-      if (state && year) {
-        const requestData = {
-          body: {
-            description: measure["description"],
-            userState: state,
-          },
-          coreSet: coreSetId as CoreSetAbbr,
-          measure: measure["name"],
-          state,
-          year,
-        };
+    if (data["add-ssm"] && data["add-ssm"].length > 0) {
+      data["add-ssm"].forEach((measure: NewMeasure) => {
+        if (state && year) {
+          const requestData = {
+            body: {
+              description: measure["description"],
+              userState: state,
+            },
+            coreSet: coreSetId as CoreSetAbbr,
+            measure: measure["name"],
+            state,
+            year,
+          };
 
-        addMeasureMutation.mutate(requestData, {
-          onSuccess: () => {
-            navigate(`/${state}/${year}/${coreSetId}`);
-          },
-        });
-      }
-    });
+          addMeasureMutation.mutate(requestData, {
+            onSuccess: () => {
+              navigate(`/${state}/${year}/${coreSetId}`);
+            },
+          });
+        }
+      });
+    } else {
+      console.error("Error finding State Specific Measures data");
+      return;
+    }
   };
 
   const handleSubmit = (data: HealthHome) => {

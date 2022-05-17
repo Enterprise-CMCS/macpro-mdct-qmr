@@ -28,6 +28,11 @@ export const AddStateSpecificMeasure = () => {
   });
 
   const handleSubmit = (data: any) => {
+    if (!data["add-ssm"]) {
+      console.error("Error finding State Specific Measures data");
+      return;
+    }
+
     data["add-ssm"].forEach((measure: NewMeasure) => {
       if (state && year) {
         const requestData = {
