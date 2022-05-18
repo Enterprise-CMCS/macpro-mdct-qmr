@@ -127,7 +127,6 @@ resources:
               Function: !GetAtt AvScanLambdaFunction.Arn
       DependsOn:
         - LambdaInvokePermission
-        - LambdaInvokeSnapshotPermission
     AVBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -279,6 +278,12 @@ resources:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
               Action: "kms:*"
               Resource: "*"
+            - Effect: Allow
+              Principal: s3.amazonaws.com
+              SourceAccount: !Sub ${AWS::AccountId}
+              SourceArn: !Sub arn:aws:s3:::${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
+              Action: "kms:*"
+              Resource: "*"
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
@@ -309,7 +314,6 @@ resources:
               Function: !GetAtt AvScanLambdaFunction.Arn
       DependsOn:
         - LambdaInvokePermission
-        - LambdaInvokeSnapshotPermission
     DynamoSnapshotBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
