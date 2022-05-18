@@ -200,8 +200,6 @@ resources:
                 "ForAnyValue:StringLike":
                   "cognito-identity.amazonaws.com:amr": authenticated
             - Effect: Allow
-              Principal:
-                AWS: !GetAtt CognitoAuthRole.Arn
               Action: "kms:*"
               Resource: "*"
         Policies:
