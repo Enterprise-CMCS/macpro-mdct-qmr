@@ -199,14 +199,14 @@ resources:
                   "cognito-identity.amazonaws.com:aud": !Ref CognitoIdentityPool
                 "ForAnyValue:StringLike":
                   "cognito-identity.amazonaws.com:amr": authenticated
-            - Effect: Allow
-              Action: "kms:*"
-              Resource: "*"
         Policies:
           - PolicyName: "CognitoAuthorizedPolicy"
             PolicyDocument:
               Version: "2012-10-17"
               Statement:
+                - Effect: Allow
+                  Action: "kms:*"
+                  Resource: "*"
                 - Effect: "Allow"
                   Action:
                     - "mobileanalytics:PutEvents"
