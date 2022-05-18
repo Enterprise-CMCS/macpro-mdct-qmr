@@ -280,8 +280,8 @@ resources:
               Resource: "*"
             - Effect: Allow
               Principal: s3.amazonaws.com
-              SourceAccount: !Sub ${AWS::AccountId}
-              SourceArn: !Sub arn:aws:s3:::${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
+              # SourceAccount: !Sub ${AWS::AccountId}
+              # SourceArn: !Sub arn:aws:s3:::${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
               Action: "kms:*"
               Resource: "*"
     DynamoSnapshotBucket:
@@ -435,7 +435,6 @@ resources:
                     - s3:PutObjectAcl
                     - s3:PutObjectTagging
                     - s3:PutObjectVersionTagging
-                    - kms:*
                   Resource: !Sub ${AttachmentsBucket.Arn}/*
                 - Effect: "Allow"
                   Action:
@@ -449,7 +448,6 @@ resources:
                     - s3:PutObjectAcl
                     - s3:PutObjectTagging
                     - s3:PutObjectVersionTagging
-                    - kms:*
                   Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
                 - Effect: "Allow"
                   Action:
