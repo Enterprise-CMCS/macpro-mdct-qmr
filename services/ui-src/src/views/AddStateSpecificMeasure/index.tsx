@@ -37,14 +37,40 @@ export const AddStateSpecificMeasure = () => {
     mode: "all",
   });
 
-  // Save the new SSMs
+  // Create an array of IDs for existing user-created SSMs for the core set (if any).
+  const existingIds: number[] = [];
+  userCreatedMeasureIds.forEach((id) => {
+    // Get the ID number from the string.
+    const matches = id.match(/\d+/) || [];
+
+    // Add it to the existingIDs array
+    if (matches.length) {
+      existingIds.push(parseInt(matches[0]));
+    }
+  });
+
+  // Save each of the new SSMs
   const handleSubmit = (data: any) => {
     if (!data["add-ssm"] || data["add-ssm"].length === 0) {
       console.error("Error finding State Specific Measures data");
       return;
     }
 
-    data["add-ssm"].forEach((measure: NewMeasure) => {
+    data["add-ssm"].forEach((measure: NewMeasure, index: number) => {
+      // Start by assuming this is a new SSM with ID 1.
+      let measureIdNumber = index + 1;
+
+      // If there's already an existing SSM, then use the next available ID number.
+      // (For example, if a user creates SS-1-HH, SS-2-HH, and SS-3-HH and then
+      // deletes SS-2-HH, we fill in the gap by assigning the next new SSM an ID
+      // of SS-2-HH.)
+      if (existingIds.includes(measureIdNumber)) {
+        while (existingIds.includes(measureIdNumber) && measureIdNumber < 5) {
+          measureIdNumber++;
+        }
+      }
+
+      // Save the SSM with its corresponding ID (as the `measure` attribute).
       if (state && year) {
         const requestData = {
           body: {
@@ -54,7 +80,7 @@ export const AddStateSpecificMeasure = () => {
             userCreated: true,
           },
           coreSet: coreSetId as CoreSetAbbr,
-          measure: measure["name"],
+          measure: `SS-${measureIdNumber}-HH`,
           state,
           year,
         };
