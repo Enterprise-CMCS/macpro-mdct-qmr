@@ -172,6 +172,11 @@ export interface RateFields {
   [DC.RATE]?: string;
 }
 
+export interface IUHHRateFields {
+  [DC.LABEL]?: string;
+  fields?: { [DC.LABEL]?: string; value: string }[];
+}
+
 export interface DeviationFields {
   [DC.OPTIONS]: string[];
   [DC.DENOMINATOR]: string;

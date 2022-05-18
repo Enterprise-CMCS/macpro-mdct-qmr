@@ -59,9 +59,10 @@ export const IUHH = ({
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
-              performanceMeasureArray={performanceMeasureArray}
+              IUHHPerformanceMeasureArray={performanceMeasureArray}
               adultMeasure={false}
               calcTotal={true}
+              compFlag={"IU"}
             />
           )}
         </>

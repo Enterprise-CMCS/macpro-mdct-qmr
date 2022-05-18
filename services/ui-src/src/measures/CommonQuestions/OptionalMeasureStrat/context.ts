@@ -1,11 +1,12 @@
 import { createContext, useContext } from "react";
 import * as Types from "../types";
 
-export type CompFlagType = "DEFAULT" | "PCR";
+export type CompFlagType = "DEFAULT" | "IU" | "PCR";
 
 interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
+  IUHHPerformanceMeasureArray?: Types.IUHHRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
   categories: string[];

@@ -228,7 +228,7 @@ export const IUHHRate = ({
             key={`iuhh-rate-stack-${qualIndex}`}
           >
             <CUI.Heading size={"sm"} key={`${qual.label}-heading`}>
-              {qual.label === "Total"
+              {qual.label === "Total" || categoryName === ""
                 ? `${qual.label} ${categoryName}`
                 : `${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
