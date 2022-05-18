@@ -52,6 +52,9 @@ export const AMBHH = ({
                 rateScale={1000}
                 customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 calcTotal
+                customDenominatorLabel="ED Visits"
+                customNumeratorLabel="Enrollee Months"
+                customRateLabel="Visits per 1,000 Enrollee Months"
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
