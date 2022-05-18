@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { CoreSetAbbr } from "types";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface StateSpecificMeasure {
   coreSet: string;
@@ -17,7 +17,17 @@ interface NewMeasure {
   detailedDescription: string;
 }
 
+interface UserMeasuresLocationState {
+  userCreatedMeasureIds: string[];
+}
+
 export const AddStateSpecificMeasure = () => {
+  // Get the count of user-created SSMs (if any) from the location.state.
+  const location = useLocation();
+  const locationState = location.state as UserMeasuresLocationState;
+  const userCreatedMeasureIds = locationState?.userCreatedMeasureIds ?? [];
+  const userCreatedMeasuresCount = userCreatedMeasureIds.length;
+
   const mutation = Api.useAddMeasure();
   const navigate = useNavigate();
   const { coreSetId, state, year } = useParams();
@@ -27,6 +37,7 @@ export const AddStateSpecificMeasure = () => {
     mode: "all",
   });
 
+  // Save the new SSMs
   const handleSubmit = (data: any) => {
     if (!data["add-ssm"] || data["add-ssm"].length === 0) {
       console.error("Error finding State Specific Measures data");
@@ -40,6 +51,7 @@ export const AddStateSpecificMeasure = () => {
             description: measure["description"],
             detailedDescription: measure["detailedDescription"],
             userState: state,
+            userCreated: true,
           },
           coreSet: coreSetId as CoreSetAbbr,
           measure: measure["name"],
@@ -78,7 +90,9 @@ export const AddStateSpecificMeasure = () => {
             <CUI.Heading fontSize="2xl" fontWeight="600" my="2">
               Health Home Core Set Details
             </CUI.Heading>
-            <QMR.AddSSM></QMR.AddSSM>
+            <QMR.AddSSM
+              userCreatedCount={userCreatedMeasuresCount}
+            ></QMR.AddSSM>
           </CUI.Box>
           <CUI.HStack paddingTop="5">
             <QMR.ContainedButton

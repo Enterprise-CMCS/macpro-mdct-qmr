@@ -2,9 +2,15 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useFieldArray } from "react-hook-form";
 
+interface AddSSMProps {
+  userCreatedCount?: number;
+}
+
 // Add State-Specific Measure component
-export const AddSSM = () => {
-  // useFieldArray() wrangles the dynamic form below
+export const AddSSM = ({ userCreatedCount = 0 }: AddSSMProps) => {
+  const maxNumberOfSSMs = 5;
+
+  // useFieldArray() manages the dynamic form below
   const { fields, append, remove } = useFieldArray({
     name: "add-ssm",
     shouldUnregister: true,
@@ -51,7 +57,7 @@ export const AddSSM = () => {
           }}
           key={"AddAnotherSSMButton"}
           onClick={() => append({})}
-          disabledStatus={fields.length >= 5}
+          disabledStatus={fields.length + userCreatedCount >= maxNumberOfSSMs}
           testId={"AddAnotherSSMButton"}
         />
         <QMR.ContainedButton

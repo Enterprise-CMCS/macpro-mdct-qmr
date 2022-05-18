@@ -46,6 +46,8 @@ interface MeasureTableItem {
   actions: { itemText: string; handleSelect: () => void }[];
 }
 
+// Interface for handling location.state for a success flag, used when creating
+// a new State Specific Measure.
 interface LocationState {
   state: { success: boolean };
 }
@@ -190,6 +192,11 @@ export const CoreSet = () => {
     (measure) => measure.rateComplete > 0
   )?.length;
 
+  const userCreatedMeasures = measures.filter((measure) => measure.userCreated);
+  const userCreatedMeasureIds = userCreatedMeasures.map(
+    (measure) => measure.id
+  );
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -277,6 +284,7 @@ export const CoreSet = () => {
                 buttonText="Add State Specific Measure"
                 title="Need to report on State Specific data?"
                 to={`/${state}/${year}/${coreSetId}/add-ssm`}
+                otherProps={userCreatedMeasureIds}
               ></QMR.AddCard>
             </CUI.HStack>
           )}
