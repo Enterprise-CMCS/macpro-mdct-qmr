@@ -273,6 +273,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
         }}
         variant="xl"
         data-cy={`file-upload-${file.filename}`}
+        zIndex={3}
       >
         {file.filename}
       </CUI.Text>
