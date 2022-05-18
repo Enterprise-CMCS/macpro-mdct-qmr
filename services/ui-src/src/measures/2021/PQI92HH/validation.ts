@@ -39,7 +39,8 @@ const PQI92Validation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
