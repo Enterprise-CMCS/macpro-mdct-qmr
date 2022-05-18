@@ -46,11 +46,6 @@ const FUAADValidation = (data: FormData) => {
       sixtyDaysIndex,
       DefinitionOfDenominator
     ),
-    ...GV.validateNumeratorsLessThanDenominatorsPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
@@ -70,7 +65,6 @@ const FUAADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,
