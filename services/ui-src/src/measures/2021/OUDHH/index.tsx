@@ -41,7 +41,7 @@ export const OUDHH = ({
           <CMQ.MeasurementSpecification type="CMS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <CMQ.DefinitionOfPopulation healthHomeMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
@@ -49,13 +49,14 @@ export const OUDHH = ({
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
-          <CMQ.CombinedRates />
+          <CMQ.CombinedRates healthHomeMeasure />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure
+              adultMeasure={false}
+              calcTotal
             />
           )}
         </>

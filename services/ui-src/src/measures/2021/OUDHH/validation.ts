@@ -36,6 +36,7 @@ const OUDValidation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
+    ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
@@ -64,6 +65,7 @@ const OUDValidation = (data: FormData) => {
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
         GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateOMSTotalNDR,
       ],
     }),
     ...GV.validateNoNonZeroNumOrDenomPM(
