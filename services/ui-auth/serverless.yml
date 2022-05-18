@@ -199,6 +199,11 @@ resources:
                   "cognito-identity.amazonaws.com:aud": !Ref CognitoIdentityPool
                 "ForAnyValue:StringLike":
                   "cognito-identity.amazonaws.com:amr": authenticated
+            - Effect: Allow
+              Principal:
+                AWS: !GetAtt CognitoAuthRole.Arn
+              Action: "kms:*"
+              Resource: "*"
         Policies:
           - PolicyName: "CognitoAuthorizedPolicy"
             PolicyDocument:
