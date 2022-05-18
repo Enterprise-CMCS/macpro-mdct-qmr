@@ -280,8 +280,7 @@ resources:
               Resource: "*"
             - Effect: Allow
               Principal:
-                AWS: !Sub ${AWS::AccountId}
-              # SourceAccount: !Sub ${AWS::AccountId}
+                AWS: !Sub arn:aws:sts::${AWS::AccountId}:${self:custom.stage}.UserPoolClientId
               Action: "kms:*"
               Resource: "*"
     DynamoSnapshotBucket:
