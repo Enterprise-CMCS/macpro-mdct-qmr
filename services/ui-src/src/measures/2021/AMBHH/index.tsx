@@ -6,6 +6,7 @@ import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/globalValidations";
 import { FormData } from "./types";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
 
 export const AMBHH = ({
   name,
@@ -49,6 +50,7 @@ export const AMBHH = ({
                 allowNumeratorGreaterThanDenominator
                 data={PMD.data}
                 rateScale={1000}
+                customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 calcTotal
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
