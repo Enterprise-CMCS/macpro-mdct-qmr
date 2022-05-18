@@ -28,7 +28,8 @@ const OUDValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
