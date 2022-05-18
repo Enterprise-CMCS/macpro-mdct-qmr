@@ -32,6 +32,9 @@ const TotalNDR = ({
     rateMultiplicationValue,
     rateReadOnly,
     allowNumeratorGreaterThanDenominator,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
   } = usePerformanceMeasureContext();
 
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
@@ -53,6 +56,9 @@ const TotalNDR = ({
       allowNumeratorGreaterThanDenominator={
         allowNumeratorGreaterThanDenominator
       }
+      customNumeratorLabel={customNumeratorLabel}
+      customDenominatorLabel={customDenominatorLabel}
+      customRateLabel={customRateLabel}
     />
   );
 };
@@ -104,6 +110,9 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     performanceMeasureArray,
     rateMultiplicationValue,
     rateReadOnly,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
@@ -126,6 +135,9 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
             allowNumeratorGreaterThanDenominator={
               allowNumeratorGreaterThanDenominator
             }
+            customNumeratorLabel={customNumeratorLabel}
+            customDenominatorLabel={customDenominatorLabel}
+            customRateLabel={customRateLabel}
             customMask={customMask}
             rates={[
               {
@@ -153,6 +165,9 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     performanceMeasureArray,
     rateMultiplicationValue,
     rateReadOnly,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
@@ -172,6 +187,9 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           allowNumeratorGreaterThanDenominator={
             allowNumeratorGreaterThanDenominator
           }
+          customNumeratorLabel={customNumeratorLabel}
+          customDenominatorLabel={customDenominatorLabel}
+          customRateLabel={customRateLabel}
           customMask={customMask}
           rates={[{ id: 0 }]}
         />,
@@ -282,6 +300,9 @@ const useRenderOPMChckboxOptions = (name: string) => {
     rateMultiplicationValue,
     customMask,
     allowNumeratorGreaterThanDenominator,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
   } = usePerformanceMeasureContext();
 
   OPM?.forEach(({ description }, idx) => {
@@ -320,6 +341,9 @@ const useRenderOPMChckboxOptions = (name: string) => {
             allowNumeratorGreaterThanDenominator={
               allowNumeratorGreaterThanDenominator
             }
+            customNumeratorLabel={customNumeratorLabel}
+            customDenominatorLabel={customDenominatorLabel}
+            customRateLabel={customRateLabel}
           />,
         ],
       });

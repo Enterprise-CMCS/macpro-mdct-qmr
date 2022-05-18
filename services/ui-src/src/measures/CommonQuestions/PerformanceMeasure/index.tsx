@@ -16,8 +16,8 @@ interface Props {
   showtextbox?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
   RateComponent?: RateComp;
-  customDenominatorLabel?: string;
   customNumeratorLabel?: string;
+  customDenominatorLabel?: string;
   customRateLabel?: string;
 }
 
@@ -30,8 +30,8 @@ interface NdrSetProps {
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
   RateComponent: RateComp;
-  customDenominatorLabel?: string;
   customNumeratorLabel?: string;
+  customDenominatorLabel?: string;
   customRateLabel?: string;
 }
 
@@ -45,8 +45,8 @@ const CategoryNdrSets = ({
   allowNumeratorGreaterThanDenominator,
   calcTotal,
   RateComponent,
-  customDenominatorLabel,
   customNumeratorLabel,
+  customDenominatorLabel,
   customRateLabel,
 }: NdrSetProps) => {
   const register = useCustomRegister();
@@ -74,8 +74,8 @@ const CategoryNdrSets = ({
               rateMultiplicationValue={rateScale}
               customMask={customMask}
               calcTotal={calcTotal}
-              customDenominatorLabel={customDenominatorLabel}
               customNumeratorLabel={customNumeratorLabel}
+              customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               {...register(
                 `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
@@ -100,8 +100,8 @@ const QualifierNdrSets = ({
   calcTotal,
   allowNumeratorGreaterThanDenominator,
   RateComponent,
-  customDenominatorLabel,
   customNumeratorLabel,
+  customDenominatorLabel,
   customRateLabel,
 }: NdrSetProps) => {
   const register = useCustomRegister();
@@ -118,8 +118,8 @@ const QualifierNdrSets = ({
         rateMultiplicationValue={rateScale}
         customMask={customMask}
         calcTotal={calcTotal}
-        customDenominatorLabel={customDenominatorLabel}
         customNumeratorLabel={customNumeratorLabel}
+        customDenominatorLabel={customDenominatorLabel}
         customRateLabel={customRateLabel}
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
@@ -166,8 +166,8 @@ export const PerformanceMeasure = ({
   customMask,
   hybridMeasure,
   allowNumeratorGreaterThanDenominator,
-  customDenominatorLabel,
   customNumeratorLabel,
+  customDenominatorLabel,
   customRateLabel,
   showtextbox = true,
   RateComponent = QMR.Rate, // Default to QMR.Rate
@@ -272,8 +272,8 @@ export const PerformanceMeasure = ({
         calcTotal={calcTotal}
         rateScale={rateScale}
         customMask={customMask}
-        customDenominatorLabel={customDenominatorLabel}
         customNumeratorLabel={customNumeratorLabel}
+        customDenominatorLabel={customDenominatorLabel}
         customRateLabel={customRateLabel}
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
