@@ -59,7 +59,6 @@ export const Upload = ({
 
         try {
           const stored = await Storage.put(targetPathname, fileToUpload, {
-            level: "public",
             contentType: fileToUpload.type,
             progressCallback(progress) {
               const progressRatio = (progress.loaded / progress.total) * 100;
@@ -67,9 +66,7 @@ export const Upload = ({
             },
           });
 
-          const url = await Storage.get(stored.key, {
-            level: "public",
-          });
+          const url = await Storage.get(stored.key);
 
           let result = {
             s3Key: stored.key,
@@ -248,7 +245,6 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
   const { data } = useQuery([file.s3Key], async () => {
     const testUrl = await Storage.get(file.s3Key, {
       download: true,
-      level: "public",
     });
     return testUrl;
   });
@@ -285,9 +281,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
         data-cy={`upload-delete-btn-${index}`}
         background="none"
         onClick={async () => {
-          await Storage.remove(file.s3Key, {
-            level: "public",
-          });
+          await Storage.remove(file.s3Key);
           clearFile(index);
         }}
       >
