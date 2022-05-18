@@ -218,7 +218,7 @@ resources:
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"
-              Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
+              Resource: !Sub ${AttachmentsBucket.Arn}/public/*
               NotPrincipal:
                 AWS: !GetAtt BucketAVScanRole.Arn
               Condition:
@@ -230,7 +230,7 @@ resources:
             - Action:
                 - "s3:DeleteObject"
               Effect: "Allow"
-              Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
+              Resource: !Sub ${AttachmentsBucket.Arn}/public/*
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
             - Action: "s3:PutObject"
