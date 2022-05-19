@@ -131,35 +131,6 @@ sh configureLocal.sh your-branch-name
 
 Once it is done runnning you should see a cypress.env.json file in your tests/cypress directory and now the tests will be able to properly access the right credentials.
 
-## End of Year Transition
-
-Go into the services/ui-src/src/measures directory and one should see past years as
-folders (2021,2022,etc.). Ideally changes to measures would be made from the previous
-year to the next so one would make a copy the folder of the most recent year and rename
-it to the next year (2021->2022 for example). Then go into the folder and make any additions or removals of measures as needed per requirements.
-
-Once the directory for the new year has been made there are a couple of changes one needs
-to make in order to get that year working.
-
-1. Go into the index.tsx file for the directory you just created
-   (services/ui-src/src/measures/2022/index.tsx) and update the name of the export
-   (twentyTwentyOneMeasures -> twentyTwentyTwoMeasures)
-
-2. Go to the services/ui-src/src/measures/index.tsx file and add that new export
-   (before and after shown below)
-
-   Before
-
-   ![Before](./.images/beforeCode.png?raw=true)
-
-   After
-
-   ![After](./.images/afterCode.png?raw=true)
-
-3. Go to the services/app-api/handlers/dynamoUtils/measureList.ts and copy the array of
-   measures from the previous year and copy them into the new year. Make any additions or
-   removals of measures as needed per requirements.
-
 ## Examples
 
 None.
