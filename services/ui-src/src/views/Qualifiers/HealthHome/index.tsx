@@ -26,7 +26,7 @@ export const HHCSQualifiers = () => {
   const [errors, setErrors] = useState<any[]>();
   const spaId = HHCS?.split("_")[1];
   // get qualifier data and prepoulate default values if data exists
-  const { data } = useGetMeasure({
+  const { data: apiData, refetch } = useGetMeasure({
     coreSet: CoreSetAbbr.HHCS + `_${spaId}`,
     measure: "CSQ",
   });
@@ -67,9 +67,9 @@ export const HHCSQualifiers = () => {
 
   useEffect(() => {
     if (!methods.formState.isDirty) {
-      methods.reset(data?.Item?.data);
+      methods.reset(apiData?.Item?.data);
     }
-  }, [data, methods]);
+  }, [apiData, methods]);
 
   const handleValidation = (data: HHCSQualifierForm) => {
     validateAndSetErrors(data);
@@ -122,6 +122,7 @@ export const HHCSQualifiers = () => {
         if (callback) {
           callback();
         }
+        refetch();
       },
     });
   };
@@ -190,7 +191,7 @@ export const HHCSQualifiers = () => {
       buttons={
         <QMR.MeasureButtons
           handleSave={methods.handleSubmit(handleSave)}
-          lastAltered={data?.Item?.lastAltered}
+          lastAltered={apiData?.Item?.lastAltered}
         />
       }
     >

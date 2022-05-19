@@ -27,7 +27,8 @@ const APMCHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      PMD.categories
     ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(

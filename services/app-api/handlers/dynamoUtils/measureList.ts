@@ -435,5 +435,4 @@ export const measures: Measure = {
       measure: "PQI92-HH",
     },
   ],
-  2022: [],
 };
