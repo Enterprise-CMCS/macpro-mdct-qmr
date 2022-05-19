@@ -14,6 +14,12 @@ import {
 
 describe("Testing Category Rate Higher Than Other Validation", () => {
   const categories = ["Test Cat 1", "Test Cat 2"];
+  const expandedCategories = [
+    "Test Cat 1",
+    "Test Cat 2",
+    "Test Cat 3",
+    "Test Cat 4",
+  ];
   const qualifiers = ["Test Qual 1", "Test Qual 2"];
 
   const baseOMSInfo = {
@@ -68,6 +74,29 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
 
       expect(errors).toHaveLength(0);
     });
+
+    it("should generate multiple error sets for increment props", () => {
+      const data = generatePmCategoryRateData(
+        { categories: expandedCategories, qualifiers },
+        [lowerRate, higherRate, lowerRate, higherRate]
+      );
+      const errors = validateOneCatRateHigherThanOtherCatPM(
+        data,
+        {
+          categories: expandedCategories,
+          qualifiers,
+        },
+        0,
+        1,
+        2
+      );
+
+      expect(errors).toHaveLength(4);
+      expect(errors[0].errorLocation).toBe("Performance Measure");
+      expect(errors[0].errorMessage).toBe(
+        `${categories[1]} Rate should not be higher than ${categories[0]} Rate for ${qualifiers[0]} Rates.`
+      );
+    });
   });
 
   // OMS
@@ -105,6 +134,29 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
       });
 
       expect(errors).toHaveLength(2);
+      expect(errors[0].errorMessage).toBe(
+        `${categories[1]} Rate should not be higher than ${categories[0]} Rates.`
+      );
+    });
+
+    it("should generate multi-error sets for increment prop", () => {
+      const data = generateOmsCategoryRateData(expandedCategories, qualifiers, [
+        lowerRate,
+        higherRate,
+        lowerRate,
+        higherRate,
+      ]);
+      const errors = validateOneCatRateHigherThanOtherCatOMS(
+        0,
+        1,
+        2
+      )({
+        ...baseOMSInfo,
+        categories: expandedCategories,
+        rateData: data,
+      });
+
+      expect(errors).toHaveLength(4);
       expect(errors[0].errorMessage).toBe(
         `${categories[1]} Rate should not be higher than ${categories[0]} Rates.`
       );
