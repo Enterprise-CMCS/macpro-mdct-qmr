@@ -56,7 +56,8 @@ const _validation = ({
  */
 export const validateOneCatRateHigherThanOtherCatOMS = (
   higherIndex = 0,
-  lowerIndex = 1
+  lowerIndex = 1,
+  increment?: number
 ): OmsValidationCallback => {
   return ({
     rateData,
@@ -67,18 +68,52 @@ export const validateOneCatRateHigherThanOtherCatOMS = (
     isOPM,
   }) => {
     if (isOPM) return [];
-    return _validation({
-      categories,
-      qualifiers,
-      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-      higherIndex,
-      lowerIndex,
-      locationFunc: (q) =>
-        `Optional Measure Stratification: ${locationDictionary(label)} - ${q}`,
-      location: "Optional Measure Stratification",
-      messageFunc: (hc, lc) =>
-        `${lc} Rate should not be higher than ${hc} Rates.`,
-    });
+    const errorArray: FormError[] = [];
+
+    if (increment) {
+      for (
+        let i = higherIndex, j = lowerIndex;
+        i <= categories.length && j <= categories.length;
+        i = i + increment, j = j + increment
+      ) {
+        errorArray.push(
+          ..._validation({
+            categories,
+            qualifiers,
+            rateData: convertOmsDataToRateArray(
+              categories,
+              qualifiers,
+              rateData
+            ),
+            higherIndex: i,
+            lowerIndex: j,
+            locationFunc: (q) =>
+              `Optional Measure Stratification: ${locationDictionary(
+                label
+              )} - ${q}`,
+            location: "Optional Measure Stratification",
+            messageFunc: (hc, lc) =>
+              `${lc} Rate should not be higher than ${hc} Rates.`,
+          })
+        );
+      }
+      return errorArray;
+    } else {
+      return _validation({
+        categories,
+        qualifiers,
+        rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+        higherIndex,
+        lowerIndex,
+        locationFunc: (q) =>
+          `Optional Measure Stratification: ${locationDictionary(
+            label
+          )} - ${q}`,
+        location: "Optional Measure Stratification",
+        messageFunc: (hc, lc) =>
+          `${lc} Rate should not be higher than ${hc} Rates.`,
+      });
+    }
   };
 };
 
@@ -93,17 +128,43 @@ export const validateOneCatRateHigherThanOtherCatOMS = (
 export const validateOneCatRateHigherThanOtherCatPM = (
   data: Types.PerformanceMeasure,
   performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure,
+  higherIndex = 0,
   lowerIndex = 1,
-  higherIndex = 0
+  increment?: number
 ) => {
-  return _validation({
-    categories: performanceMeasureData.categories,
-    qualifiers: performanceMeasureData.qualifiers,
-    rateData: getPerfMeasureRateArray(data, performanceMeasureData),
-    higherIndex,
-    location: "Performance Measure",
-    lowerIndex,
-    messageFunc: (hc, lc, q) =>
-      `${lc} Rate should not be higher than ${hc} Rate for ${q} Rates.`,
-  });
+  const errorArray: FormError[] = [];
+
+  if (increment) {
+    const catLength = performanceMeasureData!.categories!.length;
+    for (
+      let i = higherIndex, j = lowerIndex;
+      i <= catLength && j <= catLength;
+      i = i + increment, j = j + increment
+    ) {
+      errorArray.push(
+        ..._validation({
+          categories: performanceMeasureData.categories,
+          qualifiers: performanceMeasureData.qualifiers,
+          rateData: getPerfMeasureRateArray(data, performanceMeasureData),
+          higherIndex: i,
+          location: "Performance Measure",
+          lowerIndex: j,
+          messageFunc: (hc, lc, q) =>
+            `${lc} Rate should not be higher than ${hc} Rate for ${q} Rates.`,
+        })
+      );
+    }
+    return errorArray;
+  } else {
+    return _validation({
+      categories: performanceMeasureData.categories,
+      qualifiers: performanceMeasureData.qualifiers,
+      rateData: getPerfMeasureRateArray(data, performanceMeasureData),
+      higherIndex,
+      location: "Performance Measure",
+      lowerIndex,
+      messageFunc: (hc, lc, q) =>
+        `${lc} Rate should not be higher than ${hc} Rate for ${q} Rates.`,
+    });
+  }
 };
