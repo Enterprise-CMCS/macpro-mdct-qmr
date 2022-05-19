@@ -63,6 +63,7 @@ export const AMBHH = ({
             <CMQ.OtherPerformanceMeasure
               allowNumeratorGreaterThanDenominator
               rateMultiplicationValue={1000}
+              customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
           )}
           <CMQ.CombinedRates healthHomeMeasure />
