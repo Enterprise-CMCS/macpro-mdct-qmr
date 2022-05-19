@@ -287,21 +287,6 @@ resources:
                 SSEAlgorithm: aws:kms
                 KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
-        CorsConfiguration: # Set the CORS policy
-          CorsRules:
-            - AllowedOrigins:
-                - "*"
-              AllowedHeaders:
-                - "*"
-              AllowedMethods:
-                - GET
-                - PUT
-                - POST
-                - DELETE
-                - HEAD
-              MaxAge: 3000
-              ExposedHeaders:
-                - ETag
         NotificationConfiguration:
           LambdaConfigurations:
             - Event: s3:ObjectCreated:Put
