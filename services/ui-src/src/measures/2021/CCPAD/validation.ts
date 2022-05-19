@@ -28,7 +28,8 @@ const CCPADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data),
