@@ -52,8 +52,8 @@ export const AMBHH = ({
                 rateScale={1000}
                 customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 calcTotal
-                customDenominatorLabel="Enrollee Months"
                 customNumeratorLabel="ED Visits"
+                customDenominatorLabel="Enrollee Months"
                 customRateLabel="Visits per 1,000 Enrollee Months"
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
@@ -76,9 +76,17 @@ export const AMBHH = ({
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure={false}
               calcTotal
-              customNumeratorLabel="ED Visits"
-              customDenominatorLabel="Enrollee Months"
-              customRateLabel="Visits per 1,000 Enrollee Months"
+              customNumeratorLabel={
+                isPrimaryMeasureSpecSelected ? "ED Visits" : "Numerator"
+              }
+              customDenominatorLabel={
+                isPrimaryMeasureSpecSelected ? "Enrollee Months" : "Denominator"
+              }
+              customRateLabel={
+                isPrimaryMeasureSpecSelected
+                  ? "Visits per 1,000 Enrollee Months"
+                  : "Rate"
+              }
               allowNumeratorGreaterThanDenominator
             />
           )}
