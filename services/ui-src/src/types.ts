@@ -31,6 +31,7 @@ export interface MeasureData<DataType = any> {
   createdAt: number;
   description: string;
   lastAltered: number;
+  autoCompleted?: boolean;
   measure: string;
   state: string;
   status: "incomplete" | "complete" | undefined;

@@ -143,6 +143,7 @@ const useMeasureTableDataBuilder = () => {
           rateComplete: item.status === MeasureStatus.COMPLETE ? 1 : 0,
           lastDateModified: item.lastAltered,
           createdAt: item.createdAt,
+          autoCompleted: item.autoCompleted,
           id: item.measure,
           userCreated: item.userCreated,
           actions: [
