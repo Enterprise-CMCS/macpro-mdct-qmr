@@ -1,17 +1,20 @@
 import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { measuresList } from "measures/measuresList";
-import { useParams, useNavigate } from "react-router-dom";
-import { AddCoreSetCards } from "./AddCoreSetCards";
+
+import { useQueryClient } from "react-query";
 import { TiArrowUnsorted } from "react-icons/ti";
+import { useParams, useNavigate } from "react-router-dom";
+
+import { SPA } from "libs/spaLib";
+import { AddCoreSetCards } from "./AddCoreSetCards";
 import { formatTableItems } from "./helpers";
 import { CoreSetAbbr, MeasureStatus, UserRoles } from "types";
-import { useQueryClient } from "react-query";
+
 import { useUser } from "hooks/authHooks";
+import { useGetReportingYears } from "hooks/api";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
-import { SPA } from "libs/spaLib";
 
 interface HandleDeleteData {
   state: string;
@@ -26,15 +29,23 @@ interface UpdateAllMeasuresData {
   measureStatus: MeasureStatus;
 }
 
+interface IRepYear {
+  displayValue: string;
+  value: string;
+}
+
 const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
-  const reportingYears = Object.keys(measuresList);
+  const { data: reportingYears } = useGetReportingYears();
 
-  const reportingyearOptions = reportingYears.map((year: string) => ({
-    displayValue: year + " Core Set",
-    value: year,
-  }));
+  const reportingyearOptions: IRepYear[] =
+    reportingYears && reportingYears.length
+      ? reportingYears?.map((year: string) => ({
+          displayValue: year + " Core Set",
+          value: year,
+        }))
+      : [{ displayValue: `${year} Core Set`, value: `${year}` }];
 
   return (
     <CUI.Box w={{ base: "full", md: "48" }}>
