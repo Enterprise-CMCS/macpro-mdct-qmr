@@ -149,9 +149,11 @@ to make in order to get that year working.
    (before and after shown below)
 
    Before
+
    ![Before](./.images/beforeCode.png?raw=true)
 
    After
+
    ![After](./.images/afterCode.png?raw=true)
 
 3. Go to the services/app-api/handlers/dynamoUtils/measureList.ts and copy the array of
