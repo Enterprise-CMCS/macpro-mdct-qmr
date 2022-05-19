@@ -485,7 +485,14 @@ jobs:
       fail-fast: false
       matrix:
         containers:
-          [sampleHealthHome, FUAHH, PCRHH, PQI92HH, QUALIFIERS_healthhome]
+          [
+            sampleHealthHome,
+            FUAHH,
+            IETHH,
+            PCRHH,
+            PQI92HH,
+            QUALIFIERS_healthhome,
+          ]
     steps:
       - name: set branch_name
         run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
