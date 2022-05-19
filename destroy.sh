@@ -123,3 +123,11 @@ do
   echo $i
   aws cloudformation delete-stack --stack-name $i
 done
+
+# Delete Client Certificates associated with a branch
+certToDestroy=$(aws apigateway get-client-certificates\
+    | grep \"app-api-${stage}\" -B 2 \
+    | grep -o '"clientCertificateId": "[^"]*' \
+    | grep -o '[^"]*$')
+
+aws apigateway delete-client-certificate --client-certificate-id $certToDestroy
