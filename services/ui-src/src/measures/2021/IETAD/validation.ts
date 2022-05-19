@@ -117,6 +117,7 @@ const IETValidation = (data: FormData) => {
       ageGroups,
       data
     ),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
 
     // OMS Validations
     ...GV.omsValidations({
@@ -133,6 +134,7 @@ const IETValidation = (data: FormData) => {
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
         sameDenominatorSets,
+        GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],
     }),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
