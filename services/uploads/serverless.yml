@@ -287,8 +287,6 @@ resources:
                 SSEAlgorithm: aws:kms
                 KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
-      DependsOn:
-        - LambdaInvokePermission
     DynamoSnapshotBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
