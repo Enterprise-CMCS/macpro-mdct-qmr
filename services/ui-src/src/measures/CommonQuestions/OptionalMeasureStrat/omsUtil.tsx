@@ -1,8 +1,8 @@
 import objectPath from "object-path";
-import { RateFields } from "../types";
+import { IUHHRateFields, RateFields } from "../types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { usePerformanceMeasureContext } from "./context";
+import { CompFlagType, usePerformanceMeasureContext } from "./context";
 
 interface TempRate {
   numerator?: number;
@@ -15,6 +15,8 @@ interface TotalCalcHookProps {
   name: string;
   // current cleaned category
   cleanedCategory?: string;
+  // Rate component type identifier
+  compFlag: CompFlagType;
 }
 
 interface CalcOmsTotalProp {
@@ -79,6 +81,58 @@ const calculateOMSTotal = ({
   };
 };
 
+const calculateIUHHOMSTotal = ({
+  cleanedCategory,
+  numberOfDecimals,
+  qualifiers,
+  rateMultiplicationValue = 100,
+  watchOMS,
+}: CalcOmsTotalProp): RateFields => {
+  console.log("calculateIUHHOMSTotal");
+  const tempRate: TempRate = {
+    numerator: undefined,
+    denominator: undefined,
+    rate: undefined,
+  };
+
+  for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
+    if (
+      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
+      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.denominator &&
+      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate
+    ) {
+      tempRate.numerator ??= 0;
+      tempRate.denominator ??= 0;
+      tempRate.numerator += parseFloat(
+        watchOMS[qual][cleanedCategory][0].numerator
+      );
+      tempRate.denominator += parseFloat(
+        watchOMS[qual][cleanedCategory][0].denominator
+      );
+    }
+  }
+
+  if (tempRate.numerator !== undefined && tempRate.denominator !== undefined) {
+    tempRate.rate = (
+      Math.round(
+        (tempRate.numerator / tempRate.denominator) *
+          rateMultiplicationValue *
+          Math.pow(10, numberOfDecimals)
+      ) / Math.pow(10, numberOfDecimals)
+    ).toFixed(1);
+  }
+
+  return {
+    numerator:
+      tempRate.numerator !== undefined ? `${tempRate.numerator}` : undefined,
+    denominator:
+      tempRate.denominator !== undefined
+        ? `${tempRate.denominator}`
+        : undefined,
+    rate: tempRate.rate,
+  };
+};
+
 /** Checks if previous non-undefined OMS values have changed */
 const checkNewOmsValuesChanged = (
   next: RateFields[],
@@ -93,6 +147,23 @@ const checkNewOmsValuesChanged = (
   );
 };
 
+const checkNewIUHHOmsValuesChanged = (
+  next: IUHHRateFields[],
+  prev?: IUHHRateFields[]
+): boolean => {
+  if (!prev) return false;
+  return !next.every((v, i) => {
+    return (
+      v.fields?.[0]?.value === prev?.[i]?.fields?.[0]?.value &&
+      v.fields?.[1]?.value === prev?.[i]?.fields?.[1]?.value &&
+      v.fields?.[2]?.value === prev?.[i]?.fields?.[2]?.value &&
+      v.fields?.[3]?.value === prev?.[i]?.fields?.[3]?.value &&
+      v.fields?.[4]?.value === prev?.[i]?.fields?.[4]?.value &&
+      v.fields?.[5]?.value === prev?.[i]?.fields?.[5]?.value
+    );
+  });
+};
+
 /**
  * Hook to handle OMS total calculation only on field changes
  *
@@ -105,11 +176,13 @@ const checkNewOmsValuesChanged = (
 export const useTotalAutoCalculation = ({
   name,
   cleanedCategory = "singleCategory",
+  compFlag,
 }: TotalCalcHookProps) => {
   const { watch, setValue } = useFormContext();
   const { qualifiers, numberOfDecimals, rateMultiplicationValue } =
     usePerformanceMeasureContext();
   const [previousOMS, setPreviousOMS] = useState<RateFields[] | undefined>();
+  console.log("first previousOMS: ", previousOMS);
 
   useEffect(() => {
     const totalFieldName = `${name}.rates.${cleanString(
@@ -124,28 +197,47 @@ export const useTotalAutoCalculation = ({
 
     const subscription = watch((values, { name: fieldName, type }) => {
       if (fieldName && values) {
-        const omsFields: RateFields[] = [];
+        const omsFields =
+          compFlag === "IU" ? ([] as IUHHRateFields[]) : ([] as RateFields[]);
         const watchOMS = objectPath.get(values, `${name}.rates`);
         for (const q of nonTotalQualifiers) {
           omsFields.push(watchOMS?.[q]?.[cleanedCategory]?.[0] ?? {});
         }
 
+        // console.log("omsFields: ", omsFields);
+        console.log("previousOMS: ", previousOMS);
+
+        const OMSValuesChanged: boolean =
+          compFlag === "IU"
+            ? checkNewIUHHOmsValuesChanged(omsFields, previousOMS)
+            : checkNewOmsValuesChanged(omsFields, previousOMS);
         if (
           type === "change" &&
           includedNames.includes(fieldName) &&
-          checkNewOmsValuesChanged(omsFields, previousOMS)
+          OMSValuesChanged
         ) {
+          console.log("here");
           setValue(totalFieldName, [
-            calculateOMSTotal({
-              cleanedCategory,
-              qualifiers,
-              numberOfDecimals,
-              rateMultiplicationValue,
-              watchOMS,
-            }),
+            compFlag === "IU"
+              ? calculateIUHHOMSTotal({
+                  cleanedCategory,
+                  qualifiers,
+                  numberOfDecimals,
+                  rateMultiplicationValue,
+                  watchOMS,
+                })
+              : calculateOMSTotal({
+                  cleanedCategory,
+                  qualifiers,
+                  numberOfDecimals,
+                  rateMultiplicationValue,
+                  watchOMS,
+                }),
           ]);
         }
-        if (values) setPreviousOMS(omsFields);
+        if (values) {
+          setPreviousOMS(omsFields);
+        }
       }
     });
 

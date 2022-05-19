@@ -41,30 +41,33 @@ const TotalNDR = ({
   const cleanedCategory = cleanString(category);
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
   const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
+  useTotalAutoCalculation({ name, cleanedCategory, compFlag });
 
-  useTotalAutoCalculation({ name, cleanedCategory });
-
-  return compFlag === "IU" ? (
-    <QMR.IUHHRate
-      key={cleanedName}
-      name={cleanedName}
-      readOnly={rateReadOnly}
-      rates={[{ label: label, id: 0 }]}
-      categoryName={""}
-    />
-  ) : (
-    <QMR.Rate
-      key={cleanedName}
-      name={cleanedName}
-      readOnly={rateReadOnly}
-      customMask={customMask}
-      rates={[{ label: label, id: 0 }]}
-      rateMultiplicationValue={rateMultiplicationValue}
-      allowNumeratorGreaterThanDenominator={
-        allowNumeratorGreaterThanDenominator
-      }
-    />
-  );
+  if (compFlag === "IU") {
+    return (
+      <QMR.IUHHRate
+        key={cleanedName}
+        name={cleanedName}
+        readOnly={rateReadOnly}
+        rates={[{ label: label, id: 0 }]}
+        categoryName={""}
+      />
+    );
+  } else {
+    return (
+      <QMR.Rate
+        key={cleanedName}
+        name={cleanedName}
+        readOnly={rateReadOnly}
+        customMask={customMask}
+        rates={[{ label: label, id: 0 }]}
+        rateMultiplicationValue={rateMultiplicationValue}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
+      />
+    );
+  }
 };
 
 /** OMS Total wrapper for any variation of qulaifier and category combination*/

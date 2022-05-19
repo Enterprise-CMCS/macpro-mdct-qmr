@@ -121,11 +121,9 @@ export const IUHHRate = ({
     if (isRate && !xNumbersYDecimals(12, 1).test(newValue)) return;
 
     const prevRate = [...field.value];
-    prevRate[qualIndex]["fields"][fieldIndex].value = newValue;
+    prevRate[qualIndex].fields[fieldIndex].value = newValue;
     if (!isRate) {
-      prevRate[qualIndex]["fields"] = calculateRates(
-        prevRate[qualIndex]["fields"]
-      );
+      prevRate[qualIndex].fields = calculateRates(prevRate[qualIndex].fields);
     }
 
     // Totals should be independently editable
@@ -171,13 +169,13 @@ export const IUHHRate = ({
     // sum all field values - we assume last row is total
     prevRate.slice(0, -1).forEach((item) => {
       if (item !== undefined && item !== null && !item["isTotal"]) {
-        if (!isNaN((x = parseFloat(item["fields"][0].value)))) {
+        if (!isNaN((x = parseFloat(item.fields[0].value)))) {
           numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
         }
-        if (!isNaN((x = parseFloat(item["fields"][1].value)))) {
+        if (!isNaN((x = parseFloat(item.fields[1].value)))) {
           dischargeSum = dischargeSum + x; // += syntax does not work if default value is null
         }
-        if (!isNaN((x = parseFloat(item["fields"][3].value)))) {
+        if (!isNaN((x = parseFloat(item.fields[3].value)))) {
           daySum = daySum + x; // += syntax does not work if default value is null
         }
       }
@@ -188,15 +186,15 @@ export const IUHHRate = ({
     let totals = prevRate[totalIndex];
 
     let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
-    totals["fields"][0].value = newValue;
+    totals.fields[0].value = newValue;
 
     newValue = dischargeSum !== null ? dischargeSum.toString() : "";
-    totals["fields"][1].value = newValue;
+    totals.fields[1].value = newValue;
 
     newValue = daySum !== null ? daySum.toString() : "";
-    totals["fields"][3].value = newValue;
+    totals.fields[3].value = newValue;
 
-    totals["fields"] = calculateRates(totals["fields"]);
+    totals.fields = calculateRates(totals.fields);
     prevRate[totalIndex] = totals;
   };
 
@@ -253,14 +251,14 @@ export const IUHHRate = ({
                         key={`input-field-${fieldIndex}`}
                         data-cy={`${name}.${fieldIndex}.value`}
                       >
-                        {field.value?.[qualIndex]?.["fields"]?.[fieldIndex]
+                        {field.value?.[qualIndex]?.fields?.[fieldIndex]
                           ?.value ?? ""}
                       </CUI.Text>
                     ) : (
                       <CUI.Input
                         key={`input-field-${fieldIndex}`}
                         value={
-                          field.value?.[qualIndex]?.["fields"]?.[fieldIndex]
+                          field.value?.[qualIndex]?.fields?.[fieldIndex]
                             ?.value ?? ""
                         }
                         data-cy={`${name}.${fieldIndex}.value`}
