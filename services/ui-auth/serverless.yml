@@ -228,16 +228,6 @@ resources:
                           - "/protected/"
                           - "$"
                           - "{cognito-identity.amazonaws.com:sub}/*"
-                - Effect: "Allow"
-                  Action:
-                    - "s3:*"
-                  Resource:
-                    - Fn::Join:
-                        - ""
-                        - - ${self:custom.dynamoSnapshot_bucket_arn}
-                          - "/protected/"
-                          - "$"
-                          - "{cognito-identity.amazonaws.com:sub}/*"
   Outputs:
     UserPoolId:
       Value: !Ref CognitoUserPool

@@ -377,14 +377,6 @@ resources:
         Principal: s3.amazonaws.com
         SourceAccount: !Sub ${AWS::AccountId}
         SourceArn: !Sub arn:aws:s3:::${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
-    LambdaInvokeSnapshotPermission:
-      Type: AWS::Lambda::Permission
-      Properties:
-        FunctionName: !GetAtt DynamoSyncLambdaFunction.Arn
-        Action: lambda:InvokeFunction
-        Principal: s3.amazonaws.com
-        SourceAccount: !Sub ${AWS::AccountId}
-        SourceArn: !Sub arn:aws:s3:::${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
     ClamDefsBucket:
       Type: AWS::S3::Bucket
       Properties:
