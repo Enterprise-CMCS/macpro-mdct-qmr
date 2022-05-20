@@ -577,11 +577,6 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      description: "PC-01: Elective Delivery",
-      measure: "PC01-AD",
-    },
-    {
-      type: "A",
       description: "Plan All-Cause Readmissions",
       measure: "PCR-AD",
     },
@@ -653,11 +648,6 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      description: "Audiological Diagnosis No Later than 3 Months of Age",
-      measure: "AUD-CH",
-    },
-    {
-      type: "C",
       description: "Contraceptive Care - Postpartum Women Ages 15 to 20",
       measure: "CCP-CH",
     },
@@ -713,13 +703,6 @@ export const measures: Measure = {
       type: "C",
       description: "Low-Risk Cesarean Delivery",
       measure: "LRCD-CH",
-      autocompleteOnCreation: true,
-    },
-    {
-      type: "C",
-      description:
-        "Percentage of Eligibles Who Received Preventive Dental Services",
-      measure: "PDENT-CH",
       autocompleteOnCreation: true,
     },
     {
