@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
 import { Storage } from "aws-amplify";
-import { useQuery } from "react-query";
 import { saveAs } from "file-saver";
 import { useUser } from "hooks/authHooks";
 
@@ -242,18 +241,22 @@ export const Upload = ({
 };
 
 const ListItem = ({ file, index, clearFile }: ListItemProps) => {
-  const { data } = useQuery([file.s3Key], async () => {
-    const testUrl = await Storage.get(file.s3Key, {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleSave = async () => {
+    setIsProcessing(true);
+    const data = await Storage.get(file.s3Key, {
       download: true,
     });
-    return testUrl;
-  });
+    saveAs(data.Body as Blob, file.filename);
+    setIsProcessing(false);
+  };
 
-  if (!data)
+  if (isProcessing)
     return (
       <CUI.Alert status="info" mt="2" borderRadius={10}>
         <CUI.AlertIcon />
-        Your files are being processed. Please wait.
+        Processing. Please wait.
       </CUI.Alert>
     );
 
@@ -268,9 +271,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
     >
       <CUI.Text
         as="a"
-        onClick={() => {
-          saveAs(data.Body as Blob, file.filename);
-        }}
+        onClick={handleSave}
         variant="xl"
         data-cy={`file-upload-${file.filename}`}
         zIndex={3}
