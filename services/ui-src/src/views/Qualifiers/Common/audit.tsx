@@ -47,7 +47,9 @@ export const Audit = ({ type }: Props) => {
         })
         // filter out HH SS generated measures
         ?.filter((item: any) => {
-          return item?.measure?.match(/SS-.*-HH/).length === 1;
+          return !(
+            item?.measure?.includes("SS-") && item?.measure?.includes("-HH")
+          );
         })
         ?.map((obj: any) => {
           return {
