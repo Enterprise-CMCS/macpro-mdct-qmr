@@ -98,6 +98,7 @@ const checkNewOmsValuesChanged = (
 interface IUHHTempRate {
   label: string;
   fields: { label: string; value: any }[];
+  isTotal: true;
 }
 
 const IUHHndrForumlas = [
@@ -141,6 +142,7 @@ const calculateIUHHOMSTotal = ({
         value: undefined,
       };
     }),
+    isTotal: true,
   };
 
   // Store sums in temp
