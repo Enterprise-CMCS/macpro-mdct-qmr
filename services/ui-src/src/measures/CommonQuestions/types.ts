@@ -174,7 +174,7 @@ export interface RateFields {
 
 export interface IUHHRateFields {
   [DC.LABEL]?: string;
-  fields?: { [DC.LABEL]?: string; value: string }[];
+  fields?: { [DC.LABEL]?: string; value: string | undefined }[];
 }
 
 export interface DeviationFields {

@@ -81,58 +81,6 @@ const calculateOMSTotal = ({
   };
 };
 
-const calculateIUHHOMSTotal = ({
-  cleanedCategory,
-  numberOfDecimals,
-  qualifiers,
-  rateMultiplicationValue = 100,
-  watchOMS,
-}: CalcOmsTotalProp): RateFields => {
-  console.log("calculateIUHHOMSTotal");
-  const tempRate: TempRate = {
-    numerator: undefined,
-    denominator: undefined,
-    rate: undefined,
-  };
-
-  for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
-    if (
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.denominator &&
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate
-    ) {
-      tempRate.numerator ??= 0;
-      tempRate.denominator ??= 0;
-      tempRate.numerator += parseFloat(
-        watchOMS[qual][cleanedCategory][0].numerator
-      );
-      tempRate.denominator += parseFloat(
-        watchOMS[qual][cleanedCategory][0].denominator
-      );
-    }
-  }
-
-  if (tempRate.numerator !== undefined && tempRate.denominator !== undefined) {
-    tempRate.rate = (
-      Math.round(
-        (tempRate.numerator / tempRate.denominator) *
-          rateMultiplicationValue *
-          Math.pow(10, numberOfDecimals)
-      ) / Math.pow(10, numberOfDecimals)
-    ).toFixed(1);
-  }
-
-  return {
-    numerator:
-      tempRate.numerator !== undefined ? `${tempRate.numerator}` : undefined,
-    denominator:
-      tempRate.denominator !== undefined
-        ? `${tempRate.denominator}`
-        : undefined,
-    rate: tempRate.rate,
-  };
-};
-
 /** Checks if previous non-undefined OMS values have changed */
 const checkNewOmsValuesChanged = (
   next: RateFields[],
@@ -147,6 +95,85 @@ const checkNewOmsValuesChanged = (
   );
 };
 
+interface IUHHTempRate {
+  label: string;
+  fields: { label: string; value: any }[];
+}
+
+const IUHHndrForumlas = [
+  // Discharges per 1,000 Enrollee Months
+  {
+    num: 1,
+    denom: 0,
+    rate: 2,
+  },
+  // Days per 1,000 Enrollee Months
+  {
+    num: 3,
+    denom: 0,
+    rate: 4,
+  },
+  // Average Length of Stay
+  {
+    num: 3,
+    denom: 1,
+    rate: 5,
+  },
+];
+
+/** (IU-HH Specific) Process all OMS rate values pertaining to set category and calculate new rate object */
+const calculateIUHHOMSTotal = ({
+  cleanedCategory,
+  qualifiers,
+  watchOMS,
+}: CalcOmsTotalProp): IUHHRateFields => {
+  const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
+  const fieldNames = watchOMS?.[cleanedQualifiers[0]]?.[
+    cleanedCategory
+  ]?.[0]?.fields.map((field: any) => field.label);
+
+  // Create empty temp obj
+  const tempRate: IUHHTempRate = {
+    label: cleanedCategory,
+    fields: fieldNames.map((f: string) => {
+      return {
+        label: f,
+        value: undefined,
+      };
+    }),
+  };
+
+  // Store sums in temp
+  for (const qual of cleanedQualifiers) {
+    const fields = watchOMS?.[qual]?.[cleanedCategory]?.[0]?.fields;
+    fields?.forEach((field: { value: string }, i: number) => {
+      if (field.value && tempRate.fields[i]) {
+        tempRate.fields[i].value ??= 0;
+        tempRate.fields[i].value += parseFloat(field.value);
+      }
+    });
+  }
+
+  // Calculate rates for totals
+  for (const f of IUHHndrForumlas) {
+    const numerator = tempRate.fields[f.num].value;
+    const denominator = tempRate.fields[f.denom].value;
+    if (numerator && denominator) {
+      tempRate.fields[f.rate].value = (
+        Math.round((numerator / denominator) * 10000) / 10
+      ).toFixed(1);
+    }
+  }
+
+  // Convert numbers to strings
+  for (const field of tempRate.fields) {
+    field.value = field.value !== undefined ? `${field.value}` : undefined;
+  }
+
+  return tempRate;
+};
+
+/** (IU-HH Specific) Checks if previous non-undefined OMS values have changed */
 const checkNewIUHHOmsValuesChanged = (
   next: IUHHRateFields[],
   prev?: IUHHRateFields[]
@@ -181,8 +208,9 @@ export const useTotalAutoCalculation = ({
   const { watch, setValue } = useFormContext();
   const { qualifiers, numberOfDecimals, rateMultiplicationValue } =
     usePerformanceMeasureContext();
-  const [previousOMS, setPreviousOMS] = useState<RateFields[] | undefined>();
-  console.log("first previousOMS: ", previousOMS);
+  const [previousOMS, setPreviousOMS] = useState<
+    IUHHRateFields[] | undefined
+  >();
 
   useEffect(() => {
     const totalFieldName = `${name}.rates.${cleanString(
@@ -204,9 +232,6 @@ export const useTotalAutoCalculation = ({
           omsFields.push(watchOMS?.[q]?.[cleanedCategory]?.[0] ?? {});
         }
 
-        // console.log("omsFields: ", omsFields);
-        console.log("previousOMS: ", previousOMS);
-
         const OMSValuesChanged: boolean =
           compFlag === "IU"
             ? checkNewIUHHOmsValuesChanged(omsFields, previousOMS)
@@ -216,8 +241,7 @@ export const useTotalAutoCalculation = ({
           includedNames.includes(fieldName) &&
           OMSValuesChanged
         ) {
-          console.log("here");
-          setValue(totalFieldName, [
+          const newFieldValue =
             compFlag === "IU"
               ? calculateIUHHOMSTotal({
                   cleanedCategory,
@@ -232,11 +256,12 @@ export const useTotalAutoCalculation = ({
                   numberOfDecimals,
                   rateMultiplicationValue,
                   watchOMS,
-                }),
-          ]);
+                });
+          setValue(totalFieldName, [newFieldValue]);
         }
         if (values) {
-          setPreviousOMS(omsFields);
+          const currentOMSFields = JSON.parse(JSON.stringify(omsFields));
+          setPreviousOMS(currentOMSFields);
         }
       }
     });
