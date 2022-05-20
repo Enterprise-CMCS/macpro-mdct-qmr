@@ -5,6 +5,7 @@ global.React = React;
 
 jest.mock("hooks/api", () => ({
   useAddCoreSet: jest.fn(),
+  useAddMeasure: jest.fn(),
   useEditCoreSet: jest.fn(),
   useDeleteCoreSet: jest.fn(),
   useGetCoreSet: jest.fn(),
