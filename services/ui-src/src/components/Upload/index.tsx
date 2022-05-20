@@ -52,7 +52,9 @@ export const Upload = ({
         const fileToUpload = ensureLowerCaseFileExtension(file);
 
         let retPromise;
-        const targetPathname = `${Date.now()}/${uuidv4()}`;
+        const targetPathname = `${Date.now()}/${uuidv4()}.${fileToUpload
+          .split(".")
+          .pop()}`;
 
         try {
           const stored = await Storage.put(targetPathname, fileToUpload, {
