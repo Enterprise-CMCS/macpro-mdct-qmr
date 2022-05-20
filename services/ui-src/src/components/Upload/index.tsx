@@ -7,7 +7,7 @@ import { useController, useFormContext } from "react-hook-form";
 import { Storage } from "aws-amplify";
 import { saveAs } from "file-saver";
 import { useUser } from "hooks/authHooks";
-import { v4 as uuidv4 } from "uuid";
+import { createSafeS3Key } from "utils/cleanString";
 
 interface IUploadProps {
   maxSize?: number;
@@ -52,9 +52,9 @@ export const Upload = ({
         const fileToUpload = ensureLowerCaseFileExtension(file);
 
         let retPromise;
-        const targetPathname = `${Date.now()}/${uuidv4()}.${fileToUpload
-          .split(".")
-          .pop()}`;
+        const targetPathname = `${Date.now()}/${createSafeS3Key(
+          fileToUpload.name
+        )}`;
 
         try {
           const stored = await Storage.put(targetPathname, fileToUpload, {
