@@ -36,6 +36,7 @@ import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
 import { IETAD } from "./IETAD";
+import { IETHH } from "./IETHH";
 import { IMACH } from "./IMACH";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
@@ -98,6 +99,7 @@ const twentyTwentyOneMeasures = {
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
   "IET-AD": IETAD,
+  "IET-HH": IETHH,
   "IMA-CH": IMACH,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
