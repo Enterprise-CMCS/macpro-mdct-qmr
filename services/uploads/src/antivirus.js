@@ -20,8 +20,12 @@ async function sizeOf(key, bucket) {
   console.log("key: " + key);
   console.log("bucket: " + bucket);
 
-  let res = await s3.headObject({ Key: key, Bucket: bucket }).promise();
-  return res.ContentLength;
+  try {
+    let res = await s3.headObject({ Key: key, Bucket: bucket }).promise();
+    return res.ContentLength;
+  } catch (err) {
+    console.log("sizeOf error:" + err);
+  }
 }
 
 /**
@@ -31,8 +35,12 @@ async function sizeOf(key, bucket) {
  * @return {boolean} True if S3 object is larger then MAX_FILE_SIZE
  */
 async function isS3FileTooBig(s3ObjectKey, s3ObjectBucket) {
-  let fileSize = await sizeOf(s3ObjectKey, s3ObjectBucket);
-  return fileSize > constants.MAX_FILE_SIZE;
+  try {
+    let fileSize = await sizeOf(s3ObjectKey, s3ObjectBucket);
+    return fileSize > constants.MAX_FILE_SIZE;
+  } catch (err) {
+    console.log("isS3FileTooBig error:" + err);
+  }
 }
 
 function downloadFileFromS3(s3ObjectKey, s3ObjectBucket) {
@@ -81,6 +89,25 @@ async function lambdaHandleEvent(event, context) {
   );
 
   let virusScanStatus;
+
+  try {
+    await s3
+      .putObjectTagging({
+        Bucket: s3ObjectBucket,
+        Key: s3ObjectKey,
+        Tagging: {
+          TagSet: [
+            {
+              Key: constants.VIRUS_STATUS_STATUS_KEY,
+              Value: "PENDING",
+            },
+          ],
+        },
+      })
+      .promise();
+  } catch (e) {
+    console.log(e);
+  }
 
   //You need to verify that you are not getting too large a file
   //currently lambdas max out at 500MB storage.

@@ -4,51 +4,55 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const AMBCHValidation = (data: FormData) => {
+const CBPValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const dateRange = data[DC.DATE_RANGE];
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-
-  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const age65PlusIndex = 1;
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const dateRange = data[DC.DATE_RANGE];
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+  const deviationArray = GV.getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations,
+    true
+  );
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
-      PMD.categories
+      ageGroups
     ),
-    ...GV.validateBothDatesCompleted(dateRange),
-    ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
+      OPM,
+      age65PlusIndex,
+      DefinitionOfDenominator,
+      PMD.qualifiers[1]
     ),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups
+    ),
+    ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
       ageGroups,
       data
     ),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-
-    // OMS Validations
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -58,17 +62,23 @@ const AMBCHValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
+      dataSource: data[DC.DATA_SOURCE],
       validationCallbacks: [
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS,
         GV.validateOMSTotalNDR,
       ],
     }),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [AMBCHValidation];
+export const validationFunctions = [CBPValidation];
