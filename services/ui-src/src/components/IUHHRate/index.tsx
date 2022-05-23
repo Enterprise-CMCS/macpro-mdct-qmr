@@ -150,7 +150,7 @@ export const IUHHRate = ({
 
       if (num !== null && denom !== null) {
         fieldRow[formula.rate].value =
-          num !== 0
+          num !== 0 && denom !== 0
             ? rateCalculation(num.toString(), denom.toString(), formula.mult, 1)
             : "0";
       } else {
