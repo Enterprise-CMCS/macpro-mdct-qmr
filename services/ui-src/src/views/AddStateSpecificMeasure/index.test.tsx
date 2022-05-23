@@ -26,7 +26,48 @@ beforeEach(() => {
 });
 
 describe("AddStateSpecificMeasure", () => {
-  test("Check that the nav renders", () => {
+  it("renders the nav", () => {
     expect(screen.getByTestId("state-layout-container")).toBeVisible();
+  });
+  it("renders correctly", () => {
+    expect(screen.getByText(/Add State-Specific Measures/i)).toBeVisible();
+    expect(screen.getByText(/Health Home Core Set Details/i)).toBeVisible();
+  });
+
+  describe("Add and Remove buttons", () => {
+    it("renders the Add button", () => {
+      expect(screen.getByText(/\+ Add Another/i)).toBeVisible();
+      expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+    });
+
+    it("renders the remove button", () => {
+      expect(screen.getByText(/Remove/i)).toBeVisible();
+      expect(screen.getByText(/Remove/i)).toBeDisabled();
+    });
+
+    it("renders the SSM form", () => {
+      screen.getByText(/\+ Add Another/i).click();
+      expect(screen.getByText(/Name the measure/i)).toBeVisible();
+
+      expect(screen.getByLabelText("Name the measure")).toBeVisible();
+      expect(screen.getByLabelText("Name the measure")).toBeEnabled();
+
+      expect(
+        screen.getByLabelText("Please provide a description of the measure")
+      ).toBeVisible();
+      expect(
+        screen.getByLabelText("Please provide a description of the measure")
+      ).toBeEnabled();
+    });
+
+    it("allows a maximum of 5 new SSMs", () => {
+      for (let i = 0; i < 4; i++) {
+        screen.getByText(/\+ Add Another/i).click();
+      }
+
+      expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+      screen.getByText(/\+ Add Another/i).click();
+      expect(screen.getByText(/\+ Add Another/i)).toBeDisabled();
+    });
   });
 });
