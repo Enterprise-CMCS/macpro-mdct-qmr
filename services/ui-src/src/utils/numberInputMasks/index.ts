@@ -33,9 +33,9 @@ export const xNumbersYDecimals = (
 ) => {
   const greatestNumber = Math.pow(10, tenPower);
   return new RegExp(
-    `^((?:${
-      greatestNumber - 1
-    }|\\d{0,${tenPower}})(?:\\.\\d{0,${decimalPlaces}})?|(${greatestNumber}?))$`,
+    `^((?:${greatestNumber - 1}|\\d{0,${tenPower}})${
+      decimalPlaces > 0 ? `(?:\\.\\d{0,${decimalPlaces}})` : ``
+    }?|(${greatestNumber}?))$`,
     "i"
   );
 };
