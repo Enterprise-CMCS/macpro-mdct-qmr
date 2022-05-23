@@ -1,6 +1,9 @@
 import { screen } from "@testing-library/react";
 import * as QMR from "components";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 import { useUser } from "hooks/authHooks";
 
 jest.mock("hooks/authHooks");
@@ -13,7 +16,9 @@ describe("Test Upload Component", () => {
     });
 
     renderWithHookForm(
-      <QMR.Upload name="test-component" label="test label" />,
+      <QueryClientProvider client={queryClient}>
+        <QMR.Upload name="test-component" label="test label" />
+      </QueryClientProvider>,
       {
         defaultValues: {
           "test-component": [
@@ -31,10 +36,6 @@ describe("Test Upload Component", () => {
 
   test("Check that the Upload Component renders", () => {
     expect(screen.getByText(/test label/i)).toBeInTheDocument();
-  });
-
-  test("Check that data pre-populates", async () => {
-    expect(await screen.getByTestId("test-delete-btn-0")).toBeInTheDocument();
   });
 
   test("ComponentMask does not render for state user", () => {
