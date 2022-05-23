@@ -285,7 +285,7 @@ export const CoreSet = () => {
                 buttonText="Add State Specific Measure"
                 title="Need to report on State Specific data?"
                 to={`/${state}/${year}/${coreSetId}/add-ssm`}
-                otherProps={userCreatedMeasureIds}
+                userCreatedMeasureIds={userCreatedMeasureIds}
               ></QMR.AddCard>
             </CUI.HStack>
           )}

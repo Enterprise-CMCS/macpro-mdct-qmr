@@ -8,7 +8,7 @@ interface AddCardProps {
   disabled?: boolean;
   title: string;
   to: string;
-  otherProps?: any[];
+  userCreatedMeasureIds?: any[];
 }
 
 // "Add" card, used for adding a new State-Specific Measure
@@ -17,7 +17,7 @@ export const AddCard = ({
   disabled = false,
   title,
   to,
-  otherProps = [],
+  userCreatedMeasureIds = [],
 }: AddCardProps) => {
   const { isStateUser } = useUser();
 
@@ -38,7 +38,7 @@ export const AddCard = ({
         <CUI.Text fontWeight="bold">{title}</CUI.Text>
         <Link
           to={to}
-          state={{ userCreatedMeasureIds: otherProps }}
+          state={{ userCreatedMeasureIds: userCreatedMeasureIds }}
           style={{
             textDecoration: "none",
           }}
