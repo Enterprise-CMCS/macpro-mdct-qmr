@@ -83,6 +83,7 @@ export const DefinitionOfPopulation = ({
           </CUI.Text>
           <QMR.RadioButton
             {...register(DC.DEFINITION_OF_DENOMINATOR)}
+            valueAsArray
             options={[
               {
                 displayValue:
