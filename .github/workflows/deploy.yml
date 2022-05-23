@@ -487,8 +487,9 @@ jobs:
         containers:
           [
             sampleHealthHome,
-            FUAHH,
             FUHHH,
+            CBPHH,
+            FUAHH,
             PCRHH,
             PQI92HH,
             QUALIFIERS_healthhome,

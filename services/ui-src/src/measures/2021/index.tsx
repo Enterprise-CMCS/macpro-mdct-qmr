@@ -12,6 +12,7 @@ import { APPCH } from "./APPCH";
 import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
+import { CBPHH } from "./CBPHH";
 import { CCPAD } from "./CCPAD";
 import { CCPCH } from "./CCPCH";
 import { CCSAD } from "./CCSAD";
@@ -36,6 +37,7 @@ import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
 import { IETAD } from "./IETAD";
+import { IETHH } from "./IETHH";
 import { IMACH } from "./IMACH";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
@@ -73,6 +75,7 @@ const twentyTwentyOneMeasures = {
   "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
+  "CBP-HH": CBPHH,
   "CCP-AD": CCPAD,
   "CCP-CH": CCPCH,
   "CCS-AD": CCSAD,
@@ -98,6 +101,7 @@ const twentyTwentyOneMeasures = {
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
   "IET-AD": IETAD,
+  "IET-HH": IETHH,
   "IMA-CH": IMACH,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
