@@ -1,11 +1,10 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Link } from "react-router-dom";
-import { useUser } from "hooks/authHooks";
 
 interface AddCardProps {
   buttonText: string;
-  disabled?: boolean;
+  enabled?: boolean;
   title: string;
   to: string;
   userCreatedMeasureIds?: any[];
@@ -14,13 +13,11 @@ interface AddCardProps {
 // "Add" card, used for adding a new State-Specific Measure
 export const AddCard = ({
   buttonText,
-  disabled = false,
+  enabled = true,
   title,
   to,
   userCreatedMeasureIds = [],
 }: AddCardProps) => {
-  const { isStateUser } = useUser();
-
   // Create a unique testId for each card based on destination in link
   const testId = to.substring(to.lastIndexOf("/") + 1) + "-button";
 
@@ -50,7 +47,7 @@ export const AddCard = ({
               color: "blue.500",
             }}
             buttonText={buttonText}
-            disabledStatus={!isStateUser || disabled}
+            disabledStatus={!enabled}
             icon="plus"
             testId={testId}
           />

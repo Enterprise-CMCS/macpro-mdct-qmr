@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
 import { CoreSetTableItem } from "components/Table/types";
 import { SPA } from "libs/spaLib";
+import { useUser } from "hooks/authHooks";
 
 enum coreSetType {
   ACS = "Adult",
@@ -166,6 +167,7 @@ const useMeasureTableDataBuilder = () => {
 
 export const CoreSet = () => {
   const { state: locationState } = useLocation() as LocationState;
+  const { isStateUser } = useUser();
 
   let { coreSetId, state, year } = useParams();
   coreSetId = coreSetId ?? "";
@@ -283,6 +285,7 @@ export const CoreSet = () => {
             <CUI.HStack spacing="6">
               <QMR.AddCard
                 buttonText="Add State Specific Measure"
+                enabled={isStateUser || false}
                 title="Need to report on State Specific data?"
                 to={`/${state}/${year}/${coreSetId}/add-ssm`}
                 userCreatedMeasureIds={userCreatedMeasureIds}
