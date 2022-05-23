@@ -11,6 +11,7 @@ jest.mock("react-router-dom", () => ({
   useParams: () => ({
     year: "2021",
     state: "DC",
+    coreSetId: "HH",
   }),
 }));
 
@@ -91,7 +92,12 @@ describe("AddStateSpecificMeasure", () => {
 
     it("navigates to the correct place on cancel", () => {
       screen.getByText(/Cancel/i).click();
-      expect(global.window.location.pathname).toContain("/DC/2021");
+      expect(global.window.location.pathname).toContain("/DC/2021/HH");
+    });
+
+    it("handles submit with no data entered", async () => {
+      screen.getByText(/Create/i).click();
+      expect(global.window.location.pathname).toContain("/DC/2021/HH");
     });
   });
 });
