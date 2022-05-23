@@ -11,6 +11,11 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
   const rateExists = (rate: Types.RateFields) =>
     rate?.rate || (rate?.denominator && rate?.numerator);
   const PCRrateExists = (rate: any) => rate?.value;
+  const IUHHRateExists = (rate: any) => {
+    return rate?.fields.some((field: any) => {
+      return field?.value;
+    });
+  };
 
   const performanceMeasureRates = data.PerformanceMeasure?.rates;
   if (performanceMeasureRates) {
@@ -22,13 +27,18 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
         performanceMeasureRates?.[option]?.some(PCRrateExists)
       ) {
         ratesExist = true;
+        break;
       }
-      if (measureId === "IU-HH") {
-        // TODO: Come back and make this actually work
+      if (
+        measureId === "IU-HH" &&
+        performanceMeasureRates?.[option]?.some(IUHHRateExists)
+      ) {
         ratesExist = true;
+        break;
       }
       if (performanceMeasureRates?.[option]?.some(rateExists)) {
         ratesExist = true;
+        break;
       }
     }
   }
