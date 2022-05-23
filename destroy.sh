@@ -131,7 +131,7 @@ certToDestroy=$(aws apigateway get-client-certificates\
     | grep -o '[^"]*$')
 
 certDestroyStatus=$(aws apigateway delete-client-certificate --client-certificate-id $certToDestroy)
-while [ ! -z $certDestroyStatus ];
+until [ ! -z $certDestroyStatus ];
 do 
   sleep 10
   certDestroyStatus=$(aws apigateway delete-client-certificate --client-certificate-id $certToDestroy)
