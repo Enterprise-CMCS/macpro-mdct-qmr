@@ -61,7 +61,6 @@ const IUHHValidation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
 
     // Performance Measure Validations
-    //Most likely will do an Object.Keys before passing into these validations
     ...GV.IUHHatLeastOneRateComplete(performanceMeasureArray, OPM),
     ...GV.IUHHnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
     ...GV.IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
@@ -70,7 +69,11 @@ const IUHHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    // ...GV.IUHHvalidateNDRTotals(performanceMeasureArray),
+    ...GV.IUHHvalidateNDRTotals(
+      performanceMeasureArray,
+      PMD.categories,
+      ndrForumlas
+    ),
 
     // OMS Validations
     // ...GV.omsValidations({

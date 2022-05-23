@@ -1,74 +1,46 @@
+interface NDRforumla {
+  numerator: number;
+  denominator: number;
+  rateIndex: number;
+}
+
 /* At least one NDR set must be complete (OPM or PM) */
 export const IUHHvalidateNDRTotals = (
-  categoryArray: any,
+  performanceMeasureArray: any,
+  categories: string[],
+  ndrFormulas: NDRforumla[],
   errorLocation: string = "Performance Measure Total"
 ) => {
   let errorArray: any[] = [];
+  const rateLocations = ndrFormulas.map((ndr: NDRforumla) => ndr.rateIndex);
 
-  categoryArray?.forEach((category: any) => {
-    let numberOfEnrolleeMonths = 0;
-    let discharges = 0;
-    let dischargesPerThousandMonths = 0;
-    let days = 0;
-    let daysPerThousand = 0;
-    let averageStays = 0;
+  performanceMeasureArray.forEach((category: any, i: number) => {
+    // Sum all fields for each qualifier
+    let categorySums: any[] = [];
+    for (const qualifier of category.slice(0, -1)) {
+      qualifier.fields.forEach((field: any, x: number) => {
+        if (field?.value) {
+          categorySums[x] ??= 0;
+          categorySums[x] += parseFloat(field.value);
+        }
+      });
+    }
 
-    category.forEach((performanceObj: any) => {
-      if (!performanceObj.isTotal) {
-        numberOfEnrolleeMonths += performanceObj?.numberOfEnrolleeMonths || 0;
-        discharges += performanceObj?.discharges || 0;
-        dischargesPerThousandMonths +=
-          performanceObj?.dischargesPerThousandMonths || 0;
-        days += performanceObj?.days || 0;
-        daysPerThousand += performanceObj?.daysPerThousand || 0;
-        averageStays += performanceObj?.averageStay || 0;
+    // Compare calculated sums to values in Total qualifier
+    const categoryTotal = category.slice(-1)[0];
+    categoryTotal.fields.forEach((field: any, x: number) => {
+      if (
+        rateLocations.includes(x) &&
+        ((!field?.value && categorySums[x] !== undefined) ||
+          (field?.value && categorySums[x] !== parseFloat(field.value)))
+      ) {
+        errorArray.push({
+          errorLocation: errorLocation,
+          errorMessage: `${categories[i]} - ${field.label} - Total is different from the sum of the section`,
+        });
       }
     });
-
-    const totalNDR =
-      category.find((cat: any) => cat.isTotal) || category[category.length - 1];
-
-    if (totalNDR?.numberOfEnrolleeMonths !== numberOfEnrolleeMonths) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${category} Number of Enrollee Months must total is different from the sum of the section`,
-      });
-    }
-
-    if (totalNDR?.discharges !== discharges) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${category} Discharge total is different from the sum of the section`,
-      });
-    }
-
-    if (totalNDR?.dischargesPerThousandMonths !== dischargesPerThousandMonths) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${category} Discharges per 1,000 Enrollee Months total is different from the sum of the section`,
-      });
-    }
-
-    if (totalNDR?.days !== days) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${category} Days total is different from the sum of the section`,
-      });
-    }
-
-    if (totalNDR?.daysPerThousand !== daysPerThousand) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${category} Days per 1,000 Enrollee Months total is different from the sum of the section`,
-      });
-    }
-
-    if (totalNDR?.averageStays !== averageStays) {
-      errorArray.push({
-        errorLocation: errorLocation,
-        errorMessage: `${category} Average Length of Stay total is different from the sum of the section`,
-      });
-    }
   });
-  return errorArray.length ? errorArray : [];
+
+  return errorArray;
 };
