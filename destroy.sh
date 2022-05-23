@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 if [[ $1 == "" ]] ; then
     echo 'ERROR:  You must pass a stage to destroy.  Ex. sh destroy.sh my-stage-name'
@@ -28,14 +27,11 @@ if [[ $stage =~ $protected_stage_regex ]] ; then
 fi
 echo "\nCollecting information on stage $stage before attempting a destroy... This can take a minute or two..."
 
-set -e
-
 # Find cloudformation stacks associated with stage
 stackList=(`aws cloudformation describe-stacks | jq -r ".Stacks[] | select(.Tags[] | select(.Key==\"STAGE\") | select(.Value==\"$stage\")) | .StackName"`)
 
 # Find buckets attached to any of the stages, so we can empty them before removal.
 bucketList=()
-set +e
 for i in "${stackList[@]}"
 do
   buckets=(`aws cloudformation list-stack-resources --stack-name $i | jq -r ".StackResourceSummaries[] | select(.ResourceType==\"AWS::S3::Bucket\") | .PhysicalResourceId"`)
@@ -78,8 +74,6 @@ fi
 for i in "${bucketList[@]}"
 do
   echo $i
-  set -e
-
   # Suspend bucket versioning.
   aws s3api put-bucket-versioning --bucket $i --versioning-configuration Status=Suspended
 
@@ -130,9 +124,13 @@ certToDestroy=$(aws apigateway get-client-certificates\
     | grep -o '"clientCertificateId": "[^"]*' \
     | grep -o '[^"]*$')
 
-certDestroyStatus=$(aws apigateway delete-client-certificate --client-certificate-id $certToDestroy)
-until [ ! -z $certDestroyStatus ];
+until [ -z $certToDestroy ];
 do 
+  echo $certToDestroy
   sleep 10
-  certDestroyStatus=$(aws apigateway delete-client-certificate --client-certificate-id $certToDestroy)
+  aws apigateway delete-client-certificate --client-certificate-id $certToDestroy
+  certToDestroy=$(aws apigateway get-client-certificates\
+    | grep \"app-api-${stage}\" -B 2 \
+    | grep -o '"clientCertificateId": "[^"]*' \
+    | grep -o '[^"]*$')
 done 
