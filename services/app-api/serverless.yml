@@ -108,6 +108,22 @@ functions:
           method: get
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  getReportingYears:
+    handler: handlers/measures/get.getReportingYears
+    events:
+      - http:
+          path: coreset/reportingyears
+          method: get
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  getMeasureListInfo:
+    handler: handlers/measures/get.getMeasureListInfo
+    events:
+      - http:
+          path: coreset/measureListInfo
+          method: get
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getMeasure:
     handler: handlers/measures/get.getMeasure
     events:
