@@ -487,6 +487,7 @@ jobs:
         containers:
           [
             sampleHealthHome,
+            FUHHH,
             CBPHH,
             FUAHH,
             PCRHH,
