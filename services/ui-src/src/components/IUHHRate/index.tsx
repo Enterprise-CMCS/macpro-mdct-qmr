@@ -49,18 +49,21 @@ export const IUHHRate = ({
       num: 1,
       denom: 0,
       rate: 2,
+      mult: 1000,
     },
     // Days per 1,000 Enrollee Months
     {
       num: 3,
       denom: 0,
       rate: 4,
+      mult: 1000,
     },
     // Average Length of Stay
     {
       num: 3,
       denom: 1,
       rate: 5,
+      mult: 1,
     },
   ];
 
@@ -148,7 +151,7 @@ export const IUHHRate = ({
       if (num !== null && denom !== null) {
         fieldRow[formula.rate].value =
           num !== 0
-            ? rateCalculation(num.toString(), denom.toString(), 1000, 1)
+            ? rateCalculation(num.toString(), denom.toString(), formula.mult, 1)
             : "0";
       } else {
         fieldRow[formula.rate].value = "";

@@ -107,18 +107,21 @@ const IUHHndrForumlas = [
     num: 1,
     denom: 0,
     rate: 2,
+    mult: 1000,
   },
   // Days per 1,000 Enrollee Months
   {
     num: 3,
     denom: 0,
     rate: 4,
+    mult: 1000,
   },
   // Average Length of Stay
   {
     num: 3,
     denom: 1,
     rate: 5,
+    mult: 1,
   },
 ];
 
@@ -162,7 +165,7 @@ const calculateIUHHOMSTotal = ({
     const denominator = tempRate.fields[f.denom].value;
     if (numerator && denominator) {
       tempRate.fields[f.rate].value = (
-        Math.round((numerator / denominator) * 10000) / 10
+        Math.round((numerator / denominator) * f.mult * 10) / 10
       ).toFixed(1);
     }
   }
