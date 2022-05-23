@@ -50,7 +50,10 @@ export const IUHH = ({
                 RateComponent={QMR.IUHHRate}
                 calcTotal={true}
               />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpec
+                categories={PMD.categories}
+                measureName={measureId}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

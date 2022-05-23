@@ -1,33 +1,42 @@
+interface NDRforumla {
+  numerator: number;
+  denominator: number;
+  rateIndex: number;
+}
+
 /* Validation for manually entered rates */
 export const IUHHnoNonZeroNumOrDenom = (
-  categoryArray: any,
+  performanceMeasureArray: any,
   OPM: any,
+  ndrFormulas: NDRforumla[],
   errorLocation: string = "Performance Measure/Other Performance Measure"
 ) => {
   let nonZeroRateError = false;
   let zeroRateError = false;
   let errorArray: any[] = [];
 
-  categoryArray?.forEach((cateogry: any) => {
-    cateogry.forEach((performanceObj: any) => {
-      if (
-        (performanceObj?.discharges === 0 &&
-          performanceObj?.dischargesPerThousandMonths !== 0) ||
-        (performanceObj?.days === 0 && performanceObj?.daysPerThousand !== 0)
-      ) {
-        nonZeroRateError = true;
-      }
+  for (const category of performanceMeasureArray) {
+    if (category && category.length > 0) {
+      for (const qualifier of category) {
+        for (const formula of ndrFormulas) {
+          const numerator = qualifier.fields[formula.numerator]?.value;
+          const denominator = qualifier.fields[formula.denominator]?.value;
+          const rate = qualifier.fields[formula.rateIndex]?.value;
 
-      if (
-        performanceObj?.numberOfEnrolleeMonths !== 0 &&
-        ((performanceObj?.discharges !== 0 &&
-          performanceObj?.dischargesPerThousandMonths === 0) ||
-          (performanceObj?.days !== 0 && performanceObj?.daysPerThousand === 0))
-      ) {
-        zeroRateError = true;
+          if (numerator && denominator && rate) {
+            if (parseFloat(numerator) === 0 && parseFloat(rate) !== 0)
+              nonZeroRateError = true;
+            if (
+              parseFloat(rate) === 0 &&
+              parseFloat(numerator) !== 0 &&
+              parseFloat(denominator) !== 0
+            )
+              zeroRateError = true;
+          }
+        }
       }
-    });
-  });
+    }
+  }
 
   OPM &&
     OPM.forEach((performanceMeasure: any) => {

@@ -1,43 +1,54 @@
 import * as Types from "measures/CommonQuestions/types";
 
+interface NDRforumla {
+  numerator: number;
+  denominator: number;
+  rateIndex: number;
+}
+
 /*
  * If the user indicates that there is a deviation from the measure spec, they must
  * indicate where the deviation is.
  */
 export const IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
-  categoryArray: any,
+  performanceMeasureArray: any,
+  ndrFormulas: NDRforumla[],
   deviationArray: Types.DeviationFields[] | any,
   didCalculationsDeviate: boolean
 ) => {
   let errorArray: FormError[] = [];
-  let oneCompletedNDR = false;
+  let oneRateComplete = false;
 
   if (didCalculationsDeviate) {
-    categoryArray?.forEach((cateogry: any) => {
-      oneCompletedNDR = cateogry.some((performanceObj: any) => {
-        if (
-          performanceObj?.numberOfEnrolleeMonths &&
-          performanceObj?.discharges &&
-          performanceObj?.dischargesPerThousandMonths &&
-          performanceObj?.days &&
-          performanceObj?.daysPerThousand &&
-          performanceObj?.averageStay
-        ) {
-          return true;
+    for (const category of performanceMeasureArray) {
+      if (oneRateComplete) break;
+      for (const qualifier of category) {
+        if (oneRateComplete) break;
+        for (const formula of ndrFormulas) {
+          const numerator = qualifier.fields[formula.numerator]?.value;
+          const denominator = qualifier.fields[formula.denominator]?.value;
+          const rate = qualifier.fields[formula.rateIndex]?.value;
+
+          if (![numerator, denominator, rate].includes("")) {
+            oneRateComplete = true;
+            break;
+          }
         }
-        return false;
+      }
+    }
+
+    if (oneRateComplete) {
+      const atLeastOneDevNDR = deviationArray?.some((deviationNDR: any) => {
+        return deviationNDR?.SelectedOptions?.some((option: string) => {
+          return (
+            deviationNDR[option]?.denominator ||
+            deviationNDR[option]?.numerator ||
+            deviationNDR[option]?.other
+          );
+        });
       });
-    });
 
-    let deviationArrayLength = 0;
-    deviationArray.forEach((itm: string) => {
-      if (itm) deviationArrayLength++;
-    });
-
-    if (oneCompletedNDR) {
-      const atLeastOneDevSection = deviationArrayLength > 0 ? true : false;
-
-      if (!atLeastOneDevSection) {
+      if (!atLeastOneDevNDR) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
           errorMessage:
