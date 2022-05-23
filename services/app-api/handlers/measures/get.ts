@@ -2,6 +2,8 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { measures } from "../dynamoUtils/measureList";
+import { Measure } from "../../types";
 
 export const listMeasures = handler(async (event, context) => {
   const state = event.pathParameters?.state;
@@ -16,6 +18,13 @@ export const listMeasures = handler(async (event, context) => {
     ),
   };
   const queryValue = await dynamoDb.scan(params);
+  queryValue.Items = queryValue?.Items?.map((v) => {
+    const measure = measures[parseInt(year)]?.filter(
+      (m) => m.measure === (v as Measure)?.measure
+    )[0];
+    return { ...v, autoCompleted: !!measure?.autocompleteOnCreation };
+  });
+
   return queryValue;
 });
 
@@ -30,4 +39,13 @@ export const getMeasure = handler(async (event, context) => {
   };
   const queryValue = await dynamoDb.get(params);
   return queryValue;
+});
+
+export const getReportingYears = handler(async () => {
+  const reportingYears = Object.keys(measures);
+  return reportingYears;
+});
+
+export const getMeasureListInfo = handler(async () => {
+  return measures;
 });

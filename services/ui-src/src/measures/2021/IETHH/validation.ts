@@ -95,7 +95,7 @@ const IETValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
@@ -135,7 +135,7 @@ const IETValidation = (data: FormData) => {
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
         sameDenominatorSets,
-        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],
     }),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
