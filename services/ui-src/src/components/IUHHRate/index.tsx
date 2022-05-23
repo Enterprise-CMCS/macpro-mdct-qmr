@@ -43,7 +43,7 @@ export const IUHHRate = ({
   ];
 
   // Rate structure by index in row
-  const ndrForumlas = [
+  const ndrFormulas = [
     // Discharges per 1,000 Enrollee Months
     {
       num: 1,
@@ -68,7 +68,7 @@ export const IUHHRate = ({
   ];
 
   // Quick reference list of all rate indices
-  const rateLocations = ndrForumlas.map((ndr) => ndr.rate);
+  const rateLocations = ndrFormulas.map((ndr) => ndr.rate);
 
   const { field } = useController({
     name,
@@ -139,7 +139,7 @@ export const IUHHRate = ({
 
   // Calculate Rates for a row of data using the ndrFormulas as a guide
   const calculateRates = (fieldRow: { name: string; value: string }[]) => {
-    for (const formula of ndrForumlas) {
+    for (const formula of ndrFormulas) {
       let x;
       const num = !isNaN((x = parseFloat(fieldRow[formula.num].value)))
         ? x
