@@ -49,8 +49,8 @@ describe("AddStateSpecificMeasure", () => {
       screen.getByText(/\+ Add Another/i).click();
       expect(screen.getByText(/Name the measure/i)).toBeVisible();
 
-      expect(screen.getByLabelText("Name the measure")).toBeVisible();
-      expect(screen.getByLabelText("Name the measure")).toBeEnabled();
+      expect(screen.getByLabelText(/Name the measure/i)).toBeVisible();
+      expect(screen.getByLabelText(/Name the measure/i)).toBeEnabled();
 
       expect(
         screen.getByLabelText("Please provide a description of the measure")
@@ -65,9 +65,33 @@ describe("AddStateSpecificMeasure", () => {
         screen.getByText(/\+ Add Another/i).click();
       }
 
+      expect(screen.getAllByText(/Name the measure/i)).toHaveLength(4);
       expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
       screen.getByText(/\+ Add Another/i).click();
+      expect(screen.getAllByText(/Name the measure/i)).toHaveLength(5);
       expect(screen.getByText(/\+ Add Another/i)).toBeDisabled();
+    });
+
+    it("removes an SSM with the Remove button", () => {
+      screen.getByText(/Remove/i).click();
+      expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+    });
+  });
+
+  describe("Create and Cancel buttons", () => {
+    it("renders the submit button", () => {
+      expect(screen.getByText(/Create/i)).toBeVisible();
+      expect(screen.getByText(/Create/i)).toBeEnabled();
+    });
+
+    it("renders the cancel button", () => {
+      expect(screen.getByText(/Cancel/i)).toBeVisible();
+      expect(screen.getByText(/Cancel/i)).toBeEnabled();
+    });
+
+    it("navigates to the correct place on cancel", () => {
+      screen.getByText(/Cancel/i).click();
+      expect(global.window.location.pathname).toContain("/DC/2021");
     });
   });
 });
