@@ -126,7 +126,6 @@ certToDestroy=$(aws apigateway get-client-certificates\
 
 until [ -z $certToDestroy ];
 do 
-  echo $certToDestroy
   sleep 10
   aws apigateway delete-client-certificate --client-certificate-id $certToDestroy
   certToDestroy=$(aws apigateway get-client-certificates\
