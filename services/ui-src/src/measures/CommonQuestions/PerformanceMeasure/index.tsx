@@ -261,8 +261,8 @@ export const PerformanceMeasure = ({
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
-      {dataSourceWatch?.[0] === "AdministrativeData" &&
-        dataSourceWatch.length === 1 && (
+      {dataSourceWatch?.[0] !== "AdministrativeData" &&
+        dataSourceWatch?.length !== 1 && (
           <CUI.Heading pt="5" size={"sm"}>
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>
