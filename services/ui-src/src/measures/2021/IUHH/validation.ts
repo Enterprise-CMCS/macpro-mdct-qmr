@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-// import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 // Rate structure by index in row
 const ndrForumlas = [
@@ -54,7 +54,6 @@ const IUHHValidation = (data: FormData) => {
   // );
 
   // Quick reference list of all rate indices
-  // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
@@ -76,46 +75,47 @@ const IUHHValidation = (data: FormData) => {
     ),
 
     // OMS Validations
-    // ...GV.omsValidations({
-    //   data,
-    //   qualifiers: PMD.qualifiers,
-    //   categories: PMD.categories,
-    //   locationDictionary: GV.omsLocationDictionary(
-    //     OMSData(true),
-    //     PMD.qualifiers,
-    //     PMD.categories
-    //   ),
-    //   validationCallbacks: [OMSValidations],
-    // }),
+    ...GV.omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: GV.omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [OMSValidations],
+    }),
   ];
   return errorArray;
 };
 
-// const OMSValidations: GV.Types.OmsValidationCallback = ({
-//   rateData,
-//   locationDictionary,
-//   label,
-// }) => {
-//   const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
-//     return { rate: [rateData?.rates?.[x].OPM[0]] };
-//   });
-//   return [
-//     ...GV.IUHHnoNonZeroNumOrDenom(
-//       [rateData?.["pcr-rate"] ?? []],
-//       rates ?? [],
-//       `Optional Measure Stratification: ${locationDictionary(label)}`
-//     ),
-//     ...GV.IUHHatLeastOneRateComplete(
-//       [rateData?.["pcr-rate"] ?? []],
-//       rates ?? [],
-//       PMD.qualifiers,
-//       `Optional Measure Stratification: ${locationDictionary(label)}`
-//     ),
-//     ...GV.IUHHvalidateNDRTotals(
-//       [rateData?.["pcr-rate"] ?? []],
-//       `Optional Measure Stratification: ${locationDictionary(label)} Total`
-//     ),
-//   ];
-// };
+const OMSValidations: GV.Types.OmsValidationCallback = ({
+  rateData,
+  locationDictionary,
+  label,
+}) => {
+  const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
+    return { rate: [rateData?.rates?.[x]?.OPM?.[0]] };
+  });
+  return [
+    ...GV.IUHHnoNonZeroNumOrDenomOMS(
+      rateData?.["iuhh-rate"]?.rates ?? {},
+      rates ?? [],
+      ndrForumlas,
+      `Optional Measure Stratification: ${locationDictionary(label)}`
+    ),
+    // ...GV.IUHHatLeastOneRateComplete(
+    //   [rateData?.["pcr-rate"] ?? []],
+    //   rates ?? [],
+    //   PMD.qualifiers,
+    //   `Optional Measure Stratification: ${locationDictionary(label)}`
+    // ),
+    // ...GV.IUHHvalidateNDRTotals(
+    //   [rateData?.["pcr-rate"] ?? []],
+    //   `Optional Measure Stratification: ${locationDictionary(label)} Total`
+    // ),
+  ];
+};
 
 export const validationFunctions = [IUHHValidation];

@@ -4,6 +4,28 @@ interface NDRforumla {
   rateIndex: number;
 }
 
+export const IUHHnoNonZeroNumOrDenomOMS = (
+  rateData: any,
+  OPM: any,
+  ndrFormulas: NDRforumla[],
+  errorLocation: string
+) => {
+  let errorArray: any[] = [];
+  for (const key in rateData) {
+    for (const category in rateData[key]) {
+      errorArray.push(
+        ...IUHHnoNonZeroNumOrDenom(
+          [rateData[key][category]],
+          OPM,
+          ndrFormulas,
+          `${errorLocation} - ${key} - ${category}`
+        )
+      );
+    }
+  }
+  return errorArray;
+};
+
 /* Validation for manually entered rates */
 export const IUHHnoNonZeroNumOrDenom = (
   performanceMeasureArray: any,

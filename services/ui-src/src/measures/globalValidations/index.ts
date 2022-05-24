@@ -25,6 +25,9 @@ export { PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./PCRValidatio
 
 //IUHH Specific Validations
 export { IUHHatLeastOneRateComplete } from "./IUHHValidations/IUHHatLeastOneRateComplete";
-export { IUHHnoNonZeroNumOrDenom } from "./IUHHValidations/IUHHnoNonZeroNumOrDenom";
+export {
+  IUHHnoNonZeroNumOrDenom,
+  IUHHnoNonZeroNumOrDenomOMS,
+} from "./IUHHValidations/IUHHnoNonZeroNumOrDenom";
 export { IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./IUHHValidations/IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec";
 export { IUHHvalidateNDRTotals } from "./IUHHValidations/IUHHvalidateNDRTotals";
