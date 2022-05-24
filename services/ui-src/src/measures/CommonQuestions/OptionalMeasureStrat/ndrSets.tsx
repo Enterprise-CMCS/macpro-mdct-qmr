@@ -218,8 +218,8 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
   const shouldDisplay =
-    dataSourceWatch?.[0] === "AdministrativeData" &&
-    dataSourceWatch.length === 1;
+    dataSourceWatch?.[0] !== "AdministrativeData" ||
+    dataSourceWatch?.length !== 1;
 
   quals?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
@@ -236,7 +236,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
             pt="1"
             key={`${name}.rates.${cleanedLabel}HeaderHelper`}
             size={"sm"}
-            hidden={shouldDisplay}
+            hidden={!shouldDisplay}
           >
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
@@ -288,12 +288,12 @@ const PCRNDRSets = ({ name }: NdrProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate
       </CUI.Heading>
-      {dataSourceWatch?.[0] !== "AdministrativeData" &&
-        dataSourceWatch?.length !== 1 && (
+      {dataSourceWatch?.[0] !== "AdministrativeData" ||
+        (dataSourceWatch?.length !== 1 && (
           <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>
-        )}
+        ))}
       <QMR.PCRRate
         rates={rates}
         name={`${name}.pcr-rate`}
@@ -325,8 +325,8 @@ const useRenderOPMChckboxOptions = (name: string) => {
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
   const shouldDisplay =
-    dataSourceWatch?.[0] === "AdministrativeData" &&
-    dataSourceWatch.length === 1;
+    dataSourceWatch?.[0] !== "AdministrativeData" ||
+    dataSourceWatch?.length !== 1;
 
   OPM?.forEach(({ description }, idx) => {
     if (description) {
@@ -347,7 +347,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
             pt="1"
             size={"sm"}
             key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
-            hidden={shouldDisplay}
+            hidden={!shouldDisplay}
           >
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
