@@ -49,6 +49,9 @@ interface Props extends QMR.InputWrapperProps {
   customMask?: RegExp;
   calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
+  customDenominatorLabel?: string;
+  customNumeratorLabel?: string;
+  customRateLabel?: string;
 }
 
 export const Rate = ({
@@ -60,6 +63,9 @@ export const Rate = ({
   customMask,
   calcTotal,
   allowNumeratorGreaterThanDenominator,
+  customDenominatorLabel,
+  customNumeratorLabel,
+  customRateLabel,
   ...rest
 }: Props) => {
   const {
@@ -244,7 +250,7 @@ export const Rate = ({
             )}
             <CUI.HStack spacing={16}>
               <QMR.InputWrapper
-                label="Numerator"
+                label={customNumeratorLabel || "Numerator"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.numerator`)
                     ?.message
@@ -263,7 +269,7 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
               <QMR.InputWrapper
-                label="Denominator"
+                label={customDenominatorLabel || "Denominator"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.denominator`)
                     ?.message
@@ -283,7 +289,7 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
               <QMR.InputWrapper
-                label="Rate"
+                label={customRateLabel || "Rate"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.rate`)?.message
                 }

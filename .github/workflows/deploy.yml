@@ -486,12 +486,15 @@ jobs:
       matrix:
         containers:
           [
-            sampleHealthHome,
-            FUHHH,
+            AMBHH,
             CBPHH,
+            FUAHH,
+            FUHHH,
+            IETHH,
             FUAHH,
             PCRHH,
             PQI92HH,
+            sampleHealthHome,
             QUALIFIERS_healthhome,
           ]
     steps:
