@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2021/globalValidations";
+import * as GV from "measures/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 
@@ -50,7 +50,7 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
 
 const IETValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const age65PlusIndex = 1;
+  const age65PlusIndex = 2;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
@@ -95,11 +95,11 @@ const IETValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
-      PMD.categories
+      ageGroups
     ),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
@@ -119,7 +119,6 @@ const IETValidation = (data: FormData) => {
       ageGroups,
       data
     ),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
 
     // OMS Validations
     ...GV.omsValidations({

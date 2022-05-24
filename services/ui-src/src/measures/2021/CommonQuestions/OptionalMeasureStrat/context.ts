@@ -15,6 +15,9 @@ interface ContextProps {
   allowNumeratorGreaterThanDenominator?: boolean;
   numberOfDecimals: number;
   compFlag?: CompFlagType;
+  customNumeratorLabel?: string;
+  customDenominatorLabel?: string;
+  customRateLabel?: string;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
@@ -29,6 +32,9 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   allowNumeratorGreaterThanDenominator: false,
   numberOfDecimals: 1,
   compFlag: "DEFAULT",
+  customNumeratorLabel: "Numerator",
+  customDenominatorLabel: "Denominator",
+  customRateLabel: "Rate",
 });
 
 export const usePerformanceMeasureContext = () =>
