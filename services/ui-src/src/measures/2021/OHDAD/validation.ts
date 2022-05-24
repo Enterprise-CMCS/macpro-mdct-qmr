@@ -30,7 +30,8 @@ const OHDValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,

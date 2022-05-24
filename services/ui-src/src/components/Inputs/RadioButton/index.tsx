@@ -17,6 +17,7 @@ interface RadioButtonProps extends QMR.InputWrapperProps, ControllerRules {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
+  valueAsArray?: boolean;
 }
 
 export const RadioButton = ({
@@ -24,6 +25,7 @@ export const RadioButton = ({
   radioGroupProps,
   name,
   rules,
+  valueAsArray,
   ...rest
 }: RadioButtonProps) => {
   const {
@@ -53,16 +55,17 @@ export const RadioButton = ({
         ref={field.ref}
         id={field.name + "_radiogroup"}
         size="lg"
-        value={field.value}
+        value={!!valueAsArray ? field.value?.[0] : field.value}
         onBlur={field.onBlur}
         onChange={(newValue) => {
-          field.onChange(newValue);
+          field.onChange(!!valueAsArray ? [newValue] : newValue);
         }}
         {...radioGroupProps}
       >
         <CUI.Stack>
           {options.map((option, idx) => {
-            const showChildren = option.value === field.value;
+            const compVal = valueAsArray ? field.value?.[0] : field.value;
+            const showChildren = option.value === compVal;
             return (
               <QMR.DeleteWrapper
                 key={option.displayValue}

@@ -28,7 +28,8 @@ const SAAADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
 
     ...GV.validateNumeratorsLessThanDenominatorsPM(
@@ -39,8 +40,7 @@ const SAAADValidation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
-      ageGroups,
-      data
+      ageGroups
     ),
 
     // OMS Validations

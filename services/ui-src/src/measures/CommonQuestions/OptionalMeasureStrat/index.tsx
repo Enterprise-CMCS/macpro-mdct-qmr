@@ -59,6 +59,9 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   rateAlwaysEditable?: boolean;
   numberOfDecimals?: number;
   compFlag?: CompFlagType;
+  customNumeratorLabel?: string;
+  customDenominatorLabel?: string;
+  customRateLabel?: string;
 }
 
 /** data for dynamic rendering will be provided */
@@ -116,6 +119,9 @@ export const OptionalMeasureStrat = ({
   rateAlwaysEditable,
   numberOfDecimals = 1,
   compFlag = "DEFAULT",
+  customNumeratorLabel = "Numerator",
+  customDenominatorLabel = "Denominator",
+  customRateLabel = "Rate",
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -165,6 +171,9 @@ export const OptionalMeasureStrat = ({
           allowNumeratorGreaterThanDenominator,
           numberOfDecimals,
           compFlag,
+          customDenominatorLabel,
+          customNumeratorLabel,
+          customRateLabel,
         }}
       >
         <CUI.Text py="3">
