@@ -48,8 +48,6 @@ describe("AddStateSpecificMeasure", () => {
 
     it("renders the SSM form", () => {
       screen.getByText(/\+ Add Another/i).click();
-      expect(screen.getByText(/Name the measure/i)).toBeVisible();
-
       expect(screen.getByLabelText(/Name the measure/i)).toBeVisible();
       expect(screen.getByLabelText(/Name the measure/i)).toBeEnabled();
 
@@ -95,7 +93,7 @@ describe("AddStateSpecificMeasure", () => {
       expect(global.window.location.pathname).toContain("/DC/2021/HH");
     });
 
-    it("handles submit with no data entered", async () => {
+    it("handles submit with no data entered", () => {
       screen.getByText(/Create/i).click();
       expect(global.window.location.pathname).toContain("/DC/2021/HH");
     });
