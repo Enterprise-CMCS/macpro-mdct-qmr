@@ -486,6 +486,7 @@ jobs:
       matrix:
         containers:
           [
+            AMBHH,
             CBPHH,
             FUAHH,
             FUHHH,
