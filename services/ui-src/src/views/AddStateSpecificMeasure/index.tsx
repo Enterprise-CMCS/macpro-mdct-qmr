@@ -96,10 +96,6 @@ export const AddStateSpecificMeasure = () => {
     });
   };
 
-  const onErrors = (errors: any) => {
-    console.error(errors);
-  };
-
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -111,7 +107,7 @@ export const AddStateSpecificMeasure = () => {
       ]}
     >
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(handleSubmit, onErrors)}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="container.lg">
             <CUI.Heading fontSize="2xl" fontWeight="600" my="2">
               Health Home Core Set Details
