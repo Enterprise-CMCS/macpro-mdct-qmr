@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import * as Views from "views";
@@ -28,41 +28,43 @@ interface MeasureRoute {
 // eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
 function useMeasureRoutes(): MeasureRoute[] {
   const { data } = useGetMeasureListInfo();
-  const [measureRoutes, setMeasureRoutes] = useState<MeasureRoute[]>([]);
 
-  useEffect(() => {
-    if (data) {
-      const routes: MeasureRoute[] = [];
+  const measureRoutes: MeasureRoute[] = [];
+  if (data) {
+    Object.keys(data).forEach((year: string) => {
+      data[year].forEach(
+        ({ measure, description, autocompleteOnCreation }: any) => {
+          if (measure in Measures[year]) {
+            const Comp = Measures[year][measure];
 
-      Object.keys(data).forEach((year: string) => {
-        data[year].forEach(
-          ({ measure, description, autocompleteOnCreation }: any) => {
-            if (measure in Measures[year]) {
-              const Comp = Measures[year][measure];
-
-              routes.push({
-                key: `:state/${year}/:coreSetId/${measure}`,
-                path: `:state/${year}/:coreSetId/${measure}`,
-                element: (
-                  <QMR.MeasureWrapper
-                    name={description}
-                    year={year}
-                    measureId={measure}
-                    measure={createElement(Comp)}
-                    autocompleteOnCreation={autocompleteOnCreation ?? false}
-                  />
-                ),
-              });
-            }
+            measureRoutes.push({
+              key: `:state/${year}/:coreSetId/${measure}`,
+              path: `:state/${year}/:coreSetId/${measure}`,
+              element: (
+                <QMR.MeasureWrapper
+                  name={description}
+                  year={year}
+                  measureId={measure}
+                  measure={createElement(Comp)}
+                  autocompleteOnCreation={autocompleteOnCreation ?? false}
+                />
+              ),
+            });
           }
-        );
-      });
+        }
+      );
+    });
+  }
 
-      setMeasureRoutes(routes);
-    }
-  }, [data, setMeasureRoutes]);
-
-  return measureRoutes;
+  return data
+    ? measureRoutes
+    : [
+        {
+          key: ":state/:year/:coreSetId/:measure",
+          path: ":state/:year/:coreSetId/:measure",
+          element: <Views.MeasuresLoading />,
+        },
+      ];
 }
 
 export function AppRoutes() {
