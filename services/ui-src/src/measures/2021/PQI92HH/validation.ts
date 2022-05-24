@@ -61,7 +61,6 @@ const PQI92Validation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.validateTotalNDR(performanceMeasureArray),
-
     // OMS Validations
     ...GV.omsValidations({
       data,
