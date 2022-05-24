@@ -16,8 +16,8 @@ const _validation: UVF = ({ location, rateData, categories, qualifiers }) => {
     for (const [j, rate] of rateSet.entries()) {
       if (
         rate &&
-        ((rate.numerator && !rate.denominator) ||
-          (rate.denominator && !rate.numerator))
+        (rate.numerator || rate.denominator || rate.rate) &&
+        (!rate.denominator || !rate.numerator || !rate.rate)
       ) {
         errors.push({
           errorLocation: location,
