@@ -5,6 +5,7 @@ if [[ $1 == "" ]] ; then
     exit 1
 fi
 stage=$1
+set -e
 
 # A list of protected/important branches/environments/stages.
 protected_stage_regex="(^master$|^val$|^prod)"
@@ -127,7 +128,7 @@ certToDestroy=$(aws apigateway get-client-certificates\
 until [ -z $certToDestroy ];
 do 
   sleep 10
-  aws apigateway delete-client-certificate --client-certificate-id $certToDestroy
+  aws apigateway delete-client-certificate --client-certificate-id $certToDestroy || true
   certToDestroy=$(aws apigateway get-client-certificates\
     | grep \"app-api-${stage}\" -B 2 \
     | grep -o '"clientCertificateId": "[^"]*' \
