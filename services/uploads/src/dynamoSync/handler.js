@@ -22,7 +22,6 @@ const uploadFileToS3 = async (filePath, scanResult) => {
       },
       function (err, data) {
         if (err) {
-          console.log("ERROR");
           reject(err);
           throw err;
         }
