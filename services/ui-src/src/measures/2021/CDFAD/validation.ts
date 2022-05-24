@@ -30,7 +30,8 @@ const CDFADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateDualPopInformationPM(

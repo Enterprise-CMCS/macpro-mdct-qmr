@@ -25,7 +25,7 @@ export const ACSQualifiers = () => {
   const [errors, setErrors] = useState<any[]>();
 
   // get qualifier data and prepoulate default values if data exists
-  const { data } = useGetMeasure({
+  const { data: apiData, refetch } = useGetMeasure({
     coreSet: CoreSetAbbr.ACS,
     measure: "CSQ",
   });
@@ -62,9 +62,9 @@ export const ACSQualifiers = () => {
 
   useEffect(() => {
     if (!methods.formState.isDirty) {
-      methods.reset(data?.Item?.data);
+      methods.reset(apiData?.Item?.data);
     }
-  }, [data, methods]);
+  }, [apiData, methods]);
 
   const handleValidation = (data: ACSQualifierForm) => {
     validateAndSetErrors(data);
@@ -117,6 +117,8 @@ export const ACSQualifiers = () => {
         if (callback) {
           callback();
         }
+        refetch();
+
         updateCoreSet({
           coreSet: CoreSetAbbr.ACS,
           state: state ?? "",
@@ -170,7 +172,7 @@ export const ACSQualifiers = () => {
       buttons={
         <QMR.MeasureButtons
           handleSave={methods.handleSubmit(handleSave)}
-          lastAltered={data?.Item.lastAltered}
+          lastAltered={apiData?.Item.lastAltered}
         />
       }
     >

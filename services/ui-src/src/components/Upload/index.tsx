@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
 import { Storage } from "aws-amplify";
+import { saveAs } from "file-saver";
 import { useUser } from "hooks/authHooks";
+import { createSafeS3Key } from "utils/cleanString";
 
 interface IUploadProps {
   maxSize?: number;
   label?: string;
   acceptedFileTypes?: string | string[];
   name: string;
+}
+
+interface ListItemProps {
+  file: any;
+  index: number;
+  clearFile: (fileNumber: number) => void;
 }
 
 export const Upload = ({
@@ -31,7 +39,7 @@ export const Upload = ({
   const toast = CUI.useToast();
 
   const { control } = useFormContext();
-
+  const [uploadStatus, setUploadStatus] = React.useState(0);
   const { field } = useController({
     name,
     control,
@@ -44,17 +52,20 @@ export const Upload = ({
         const fileToUpload = ensureLowerCaseFileExtension(file);
 
         let retPromise;
-        const targetPathname = `${Date.now()}/${fileToUpload.name}`;
+        const targetPathname = `${Date.now()}/${createSafeS3Key(
+          fileToUpload.name
+        )}`;
 
         try {
-          const stored = await Storage.vault.put(targetPathname, fileToUpload, {
-            level: "protected",
+          const stored = await Storage.put(targetPathname, fileToUpload, {
             contentType: fileToUpload.type,
+            progressCallback(progress) {
+              const progressRatio = (progress.loaded / progress.total) * 100;
+              setUploadStatus(progressRatio);
+            },
           });
 
-          const url = await Storage.vault.get(stored.key, {
-            level: "protected",
-          });
+          const url = await Storage.get(stored.key);
 
           let result = {
             s3Key: stored.key,
@@ -210,28 +221,75 @@ export const Upload = ({
           </CUI.AlertTitle>
         </CUI.Alert>
       ))}
-      {field.value.map((file: any, index: any) => {
-        return (
-          <CUI.HStack
-            key={`${index}-${file.name}`}
-            background="blue.50"
-            pl="1rem"
-            my="2"
-            borderRadius="10"
-            justifyContent="space-between"
-          >
-            <CUI.Text variant="xl">File Name: {file.filename}</CUI.Text>
-            <CUI.Button
-              data-testid={`test-delete-btn-${index}`}
-              data-cy={`upload-delete-btn-${index}`}
-              background="none"
-              onClick={() => clearFile(index)}
-            >
-              x
-            </CUI.Button>
-          </CUI.HStack>
-        );
-      })}
+      {field.value
+        .filter((file: any) => file.s3Key)
+        .map((file: any, index: any) => {
+          return (
+            <ListItem
+              file={file}
+              index={index}
+              clearFile={clearFile}
+              key={`${index}-${file.s3Key}`}
+            />
+          );
+        })}
+      {Boolean(uploadStatus) && Boolean(uploadStatus < 100) && (
+        <CUI.Progress hasStripe value={uploadStatus} my="3" />
+      )}
     </>
+  );
+};
+
+const ListItem = ({ file, index, clearFile }: ListItemProps) => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleSave = async () => {
+    setIsProcessing(true);
+    const data = await Storage.get(file.s3Key, {
+      download: true,
+    });
+    saveAs(data.Body as Blob, file.filename);
+    setIsProcessing(false);
+  };
+
+  if (isProcessing)
+    return (
+      <CUI.Alert status="info" mt="2" borderRadius={10}>
+        <CUI.AlertIcon />
+        Processing. Please wait.
+      </CUI.Alert>
+    );
+
+  return (
+    <CUI.HStack
+      background="blue.50"
+      pl="1rem"
+      mt="2"
+      borderRadius="10"
+      justifyContent="space-between"
+      zIndex={3}
+      py="6px"
+    >
+      <CUI.Text
+        as="a"
+        onClick={handleSave}
+        variant="xl"
+        data-cy={`file-upload-${file.filename}`}
+        zIndex={3}
+      >
+        {file.filename}
+      </CUI.Text>
+      <CUI.Button
+        data-testid={`test-delete-btn-${index}`}
+        data-cy={`upload-delete-btn-${index}`}
+        background="none"
+        onClick={async () => {
+          await Storage.remove(file.s3Key);
+          clearFile(index);
+        }}
+      >
+        x
+      </CUI.Button>
+    </CUI.HStack>
   );
 };

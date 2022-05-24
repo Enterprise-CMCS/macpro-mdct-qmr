@@ -28,6 +28,14 @@ provider:
             - dynamodb:PutItem
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
+            - s3:GetObject
+            - s3:GetObjectTagging
+            - s3:PutObject
+            - s3:PutObjectAcl
+            - s3:PutObjectTagging
+            - s3:PutObjectVersionTagging
+            - s3:DeleteObject
+            - s3:ListBucket
           Resource: "*"
 
 custom:
@@ -118,7 +126,7 @@ resources:
                 - ETag
         NotificationConfiguration:
           LambdaConfigurations:
-            - Event: s3:ObjectCreated:Put
+            - Event: s3:ObjectCreated:*
               Function: !GetAtt AvScanLambdaFunction.Arn
       DependsOn: LambdaInvokePermission
     AVBucketPolicy:
@@ -210,13 +218,21 @@ resources:
             - Action:
                 - "s3:GetObject"
               Effect: "Deny"
-              Resource: !Sub ${AttachmentsBucket.Arn}/protected/*
-              Principal: "*"
+              Resource: !Sub ${AttachmentsBucket.Arn}/public/*
+              NotPrincipal:
+                AWS: !GetAtt BucketAVScanRole.Arn
               Condition:
                 StringNotEquals:
                   s3:ExistingObjectTag/virusScanStatus:
                     - "CLEAN"
+                    - "PENDING"
                   aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
+            - Action:
+                - "s3:DeleteObject"
+              Effect: "Allow"
+              Resource: !Sub ${AttachmentsBucket.Arn}/public/*
+              Principal:
+                AWS: !GetAtt IamRoleLambdaExecution.Arn
             - Action: "s3:PutObject"
               Effect: Deny
               Principal: "*"

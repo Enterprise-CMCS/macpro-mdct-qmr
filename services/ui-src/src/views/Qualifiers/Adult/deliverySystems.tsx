@@ -137,7 +137,7 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={total21To64Percent.toFixed(1)}
+                  value={total21To64Percent?.toFixed(1) ?? ""}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
@@ -154,7 +154,7 @@ export const DeliverySystems = () => {
               <CUI.InputGroup>
                 <CUI.Input
                   isReadOnly
-                  value={total65AndOlderPercent.toFixed(1)}
+                  value={total65AndOlderPercent?.toFixed(1) ?? ""}
                   border="none"
                   textAlign="right"
                   fontWeight="bold"
