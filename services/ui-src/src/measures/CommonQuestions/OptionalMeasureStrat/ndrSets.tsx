@@ -302,20 +302,20 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
 const IUNDRSets = ({ name }: NdrProps) => {
   const { calcTotal } = usePerformanceMeasureContext();
 
-  const ageGroupsOptions = useAgeGroupsCheckboxes(name);
+  const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.iuhh-rate`);
 
   return (
     <>
       <QMR.Checkbox
-        name={`${name}.options`}
-        key={`${name}.options`}
+        name={`${name}.iuhh-rate.options`}
+        key={`${name}.iuhh-rate.options`}
         options={ageGroupsOptions}
       />
       {calcTotal && (
         <TotalNDRSets
           compFlag={"IU"}
-          name={name}
-          key={`${name}.totalWrapper`}
+          name={`${name}.iuhh-rate`}
+          key={`${name}.iuhh-rate.totalWrapper`}
         />
       )}
     </>
