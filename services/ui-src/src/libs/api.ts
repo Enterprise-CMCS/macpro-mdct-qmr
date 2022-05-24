@@ -37,6 +37,18 @@ async function listMeasures(inputObj: any) {
   );
 }
 
+async function getReportingYears(inputObj: any) {
+  const opts = await requestOptions();
+  opts.body = inputObj.body;
+  return API.get("coreSet", `/coreset/reportingyears`, opts);
+}
+
+async function getMeasureListInfo(inputObj: any) {
+  const opts = await requestOptions();
+  opts.body = inputObj.body;
+  return API.get("coreSet", `/coreset/measureListInfo`, opts);
+}
+
 async function getMeasure(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
@@ -139,4 +151,6 @@ export {
   createMeasure,
   editMeasure,
   deleteMeasure,
+  getReportingYears,
+  getMeasureListInfo,
 };

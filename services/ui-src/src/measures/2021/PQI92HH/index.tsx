@@ -34,6 +34,7 @@ export const PQI92HH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        healthHomeMeasure
       />
 
       {!isNotReportingData && (

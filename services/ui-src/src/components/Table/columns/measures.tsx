@@ -4,7 +4,6 @@ import { BsCheck } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { MeasureTableItem, TableColumn } from "../types";
-import { measuresList } from "measures/measuresList";
 
 // Get status string from measure data
 const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
@@ -82,13 +81,9 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     id: "reporting_column_header",
     styleProps: { textAlign: "center" },
     cell: (data: MeasureTableItem.Data) => {
-      const autoCompletedMeasure = measuresList[2021]?.find(
-        (measure) => measure.measureId === data.id
-      )?.autocompleteOnCreation;
-
       let reportingText = "--";
       if (data.reporting) reportingText = data.reporting;
-      if (autoCompletedMeasure) reportingText = "N/A";
+      if (!!data?.autoCompleted) reportingText = "N/A";
       return (
         <CUI.Text fontSize="xs" textTransform="capitalize">
           {reportingText}

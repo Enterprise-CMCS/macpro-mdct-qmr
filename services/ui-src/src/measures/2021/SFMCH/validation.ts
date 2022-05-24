@@ -47,7 +47,8 @@ const SFMCHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
     ...GV.validateNoNonZeroNumOrDenomPM(
