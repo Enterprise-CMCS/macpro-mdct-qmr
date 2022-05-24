@@ -40,7 +40,8 @@ const SAAADValidation = (data: FormData) => {
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      data
     ),
 
     // OMS Validations
