@@ -494,7 +494,6 @@ jobs:
             FUAHH,
             PCRHH,
             PQI92HH,
-            sampleHealthHome,
             QUALIFIERS_healthhome,
           ]
     steps:
