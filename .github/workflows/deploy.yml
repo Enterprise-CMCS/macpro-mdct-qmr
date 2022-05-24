@@ -486,11 +486,13 @@ jobs:
       matrix:
         containers:
           [
+            AMBHH,
             CBPHH,
             FUAHH,
             FUHHH,
             IETHH,
             FUAHH,
+            OUDHH,
             PCRHH,
             PQI92HH,
             sampleHealthHome,

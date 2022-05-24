@@ -4,7 +4,7 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const PQI92Validation = (data: FormData) => {
+const AMBHHValidation = (data: FormData) => {
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
@@ -39,8 +39,7 @@ const PQI92Validation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
-      PMD.categories
+      ageGroups
     ),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
@@ -61,6 +60,7 @@ const PQI92Validation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.validateTotalNDR(performanceMeasureArray),
+
     // OMS Validations
     ...GV.omsValidations({
       data,
@@ -82,4 +82,4 @@ const PQI92Validation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PQI92Validation];
+export const validationFunctions = [AMBHHValidation];
