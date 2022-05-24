@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import { testFormData } from "../testHelpers/_testFormData";
-import { validateReasonForNotReporting } from "measures/2021/globalValidations";
+import { validateReasonForNotReporting } from "measures/2022/globalValidations";
 
 describe("validateReasonForNotReporting", () => {
   let formData: string[];

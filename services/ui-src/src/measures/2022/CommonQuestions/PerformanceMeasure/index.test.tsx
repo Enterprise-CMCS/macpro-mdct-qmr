@@ -1,8 +1,8 @@
 import {
   exampleData,
   PerformanceMeasureData,
-} from "measures/2021/CommonQuestions/PerformanceMeasure/data";
-import { data as PCRData } from "measures/2021/PCRAD/data";
+} from "measures/2022/CommonQuestions/PerformanceMeasure/data";
+import { data as PCRData } from "measures/2022/PCRAD/data";
 import fireEvent from "@testing-library/user-event";
 import { PerformanceMeasure } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";

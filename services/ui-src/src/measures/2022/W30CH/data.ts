@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
 
 export const qualifiers = [
   "Rate 1 - Six or more well-child visits in the first 15 months ",

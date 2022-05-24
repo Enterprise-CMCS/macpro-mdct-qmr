@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as PMD from "./data";
 import * as GV from "../globalValidations";
 import { FormData } from "./types";
-import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
 
 const FUHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;

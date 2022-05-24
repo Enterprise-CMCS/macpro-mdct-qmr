@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as HELP from "../testHelpers/_helper";
 import { validateAtLeastOneRateComplete } from "./index";
-import { DefaultFormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormData } from "measures/2022/CommonQuestions/types";
 import { testFormData } from "../testHelpers/_testFormData";
 
 /* Ensure that at least 1 NDR in a set is complete for either the Performance Measure or Other Performance Measure

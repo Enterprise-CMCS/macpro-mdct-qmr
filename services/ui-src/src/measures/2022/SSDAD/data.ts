@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
 
 export const qualifiers = ["Percentage of Beneficiaries Ages 18 to 64"];
 export const categories = [];

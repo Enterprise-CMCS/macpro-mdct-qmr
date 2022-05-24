@@ -3,7 +3,7 @@ import { testFormData } from "../testHelpers/_testFormData";
 import {
   validateAtLeastOneDeviationFieldFilled,
   getDeviationNDRArray,
-} from "measures/2021/globalValidations";
+} from "measures/2022/globalValidations";
 import { test_setup } from "../testHelpers/_helper";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {

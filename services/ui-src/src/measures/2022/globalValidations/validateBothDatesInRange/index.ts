@@ -1,4 +1,4 @@
-import { DateRange } from "measures/2021/CommonQuestions/types";
+import { DateRange } from "measures/2022/CommonQuestions/types";
 
 // Ensure the user populates the data range
 export const validateBothDatesCompleted = (

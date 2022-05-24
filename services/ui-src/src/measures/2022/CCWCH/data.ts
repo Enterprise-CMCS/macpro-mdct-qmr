@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
 export const qualifiers = [
   "Most effective or moderately effective method of contraception",
   "Long-acting reversible method of contraception (LARC)",

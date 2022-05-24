@@ -1,7 +1,7 @@
 import {
   validateTotalNDR,
   validateOMSTotalNDR,
-} from "measures/2021/globalValidations";
+} from "measures/2022/globalValidations";
 
 import * as VH from "utils/testUtils/validationHelpers";
 

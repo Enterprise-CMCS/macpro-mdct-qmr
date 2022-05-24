@@ -1,4 +1,4 @@
-import * as Types from "measures/2021/CommonQuestions/types";
+import * as Types from "measures/2022/CommonQuestions/types";
 import { FormRateField } from "../types";
 
 // When a user inputs data in multiple NDR sets in a performance measure

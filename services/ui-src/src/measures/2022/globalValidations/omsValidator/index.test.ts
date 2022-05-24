@@ -5,8 +5,8 @@ import {
   simpleRate,
   generateOmsFormData,
 } from "utils/testUtils/validationHelpers";
-import { DefaultFormData } from "measures/2021/CommonQuestions/types";
-import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
+import { DefaultFormData } from "measures/2022/CommonQuestions/types";
+import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
 
 describe("Testing OMS validation processor", () => {
   const categories = ["Test Cat 1", "Test Cat 2"];
