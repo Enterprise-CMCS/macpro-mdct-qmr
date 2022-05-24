@@ -133,8 +133,7 @@ resources:
           LambdaConfigurations:
             - Event: s3:ObjectCreated:*
               Function: !GetAtt AvScanLambdaFunction.Arn
-      DependsOn:
-        - LambdaInvokePermission
+      DependsOn: LambdaInvokePermission
     AVBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
