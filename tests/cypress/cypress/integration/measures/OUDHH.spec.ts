@@ -162,8 +162,5 @@ describe("Measure: OUD-HH", () => {
     cy.get(
       '[data-cy="The following categories must have the same denominator:"]'
     ).should("exist");
-    cy.get(
-      '[data-cy="Methadone must contain values if other fields are filled."]'
-    ).should("exist");
   });
 });
