@@ -1,16 +1,16 @@
 import * as DC from "dataConstants";
-import * as Types from "measures/CommonQuestions/types";
+import * as Types from "measures/2021/CommonQuestions/types";
 import {
   OMSData,
   OmsNode,
-} from "measures/CommonQuestions/OptionalMeasureStrat/data";
+} from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 import { cleanString } from "utils/cleanString";
 import {
   RateFields,
   OmsNodes as OMS,
   DataDrivenTypes as DDT,
   PerformanceMeasure,
-} from "measures/CommonQuestions/types";
+} from "measures/2021/CommonQuestions/types";
 
 // Test Rate Objects
 export const partialRate: RateFields = {
