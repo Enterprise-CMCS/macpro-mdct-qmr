@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 
 export const qualifiers = ["All Women Ages 21 to 44"];
 export const categories = [
