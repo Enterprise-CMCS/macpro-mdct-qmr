@@ -139,3 +139,5 @@ do
     | grep -o '"clientCertificateId": "[^"]*' \
     | grep -o '[^"]*$')
 done 
+
+exit 0
