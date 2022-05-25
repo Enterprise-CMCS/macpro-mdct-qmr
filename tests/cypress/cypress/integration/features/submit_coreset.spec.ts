@@ -1,11 +1,11 @@
 describe("Submit Core Set button", () => {
   beforeEach(() => {
-    cy.login("stateuser1");
+    cy.login("stateuser4");
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Reset All Measures"]').first().click();
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-MA2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2021ACS"]').should(
       "contain.text",
       "in progress1 of 32 complete"
     );
@@ -16,7 +16,7 @@ describe("Submit Core Set button", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Complete All Measures"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-MA2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2021ACS"]').should(
       "contain.text",
       "complete32 of 32 complete"
     );
@@ -31,7 +31,7 @@ describe("Submit Core Set button", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-MA2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2021ACS"]').should(
       "contain.text",
       "submitted32 of 32 complete"
     );
@@ -48,7 +48,7 @@ describe("Submit Core Set button", () => {
 
     // confirm all measures complete
     cy.visit("/");
-    cy.get('[data-cy="Status-MA2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2021ACS"]').should(
       "contain.text",
       "complete32 of 32 complete"
     );
@@ -75,7 +75,7 @@ describe("Submit Core Set button", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Complete All Measures"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-MA2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2021ACS"]').should(
       "contain.text",
       "complete32 of 32 complete"
     );
@@ -95,7 +95,7 @@ describe("Submit Core Set button", () => {
 
     // Confirm unsubmission
     cy.visit("/");
-    cy.get('[data-cy="Status-MA2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2021ACS"]').should(
       "contain.text",
       "in progress31 of 32 complete"
     );
@@ -107,7 +107,7 @@ describe("Submit Core Set button", () => {
   it("edits to qualifier of a 'submited' core set unsubmit the measure; button should reappear (ACS)", () => {
     // complete all measures, qualifier, submit core set
     cy.goToAdultMeasures();
-    qualifierTestSetup("ADULT", "MA2021ACS");
+    qualifierTestSetup("ADULT", "CT2021ACS");
 
     // update submitted qualifier
     cy.goToAdultMeasures();
@@ -118,7 +118,7 @@ describe("Submit Core Set button", () => {
 
     // Confirm unsubmission
     cy.visit("/");
-    cy.get('[data-cy="Status-MA2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2021ACS"]').should(
       "contain.text",
       "complete32 of 32 complete"
     );
@@ -213,7 +213,63 @@ describe("Submit Core Set button", () => {
     cy.get('[data-cy="Submit Core Set"]').should("be.enabled");
   });
 
-  // it("edits to qualifier of a 'submited' core set unsubmit the measure; button should reappear (HHCS)", () => {});
+  it("edits to qualifier of a 'submited' core set unsubmit the measure; button should reappear (HHCS)", () => {
+    cy.get('[data-cy="add-hhbutton"]').click();
+    cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select("15-014");
+    cy.get('[data-cy="HealthHomeCoreSet-ShareSSM1"]').click();
+    cy.get('[data-cy="Create"]').click();
+
+    // complete all measures, qualifier, submit core set
+    cy.get('[data-cy="health home-kebab-menu"]').click();
+    cy.get(
+      '[data-cy="health home-kebab-menu"] + div > div > [data-cy="Complete All Measures"]'
+    ).click();
+    cy.wait(4000);
+    cy.get('[data-cy="Status-CT2021HHCS_15-014"]').should(
+      "contain.text",
+      "complete11 of 11 complete"
+    );
+
+    // update submitted qualifier
+    cy.get('[data-cy="HHCS_15-014"]').click();
+
+    // confirm submit button reappears
+    cy.get('[data-cy="Submit Core Set"]').should("be.enabled");
+
+    // Confirm the user can submit a coreset and submit should be disabled
+    cy.get('[data-cy="Submit Core Set"]').click();
+    cy.wait(1000);
+    cy.get('[data-cy="SubmitCoreSetButtonWrapper"]').should(
+      "contain.text",
+      "Submitted"
+    );
+
+    // Show a submitted status
+    cy.visit("/");
+    cy.get('[data-cy="Status-CT2021HHCS_15-014"]').should(
+      "contain.text",
+      "submitted11 of 11 complete"
+    );
+    cy.get('[data-cy="HHCS_15-014"]').click();
+
+    // Ideally we would want to save the qualifier and see if it puts
+    // the coreset in progress however theres a bug in qualifiers at the moment
+    // cy.get('[data-cy="core-set-qualifiers-link"]').click();
+
+    // Save a measure to put coreset back in progress
+    cy.get('[data-cy="AMB-HH"]').click();
+    cy.get('[data-cy="Save"]').click();
+    cy.wait(1000);
+
+    // Check if core set is in progress
+    cy.visit("/");
+    cy.get('[data-cy="Status-CT2021HHCS_15-014"]').should(
+      "contain.text",
+      "in progress10 of 11 complete"
+    );
+    cy.get('[data-cy="HHCS_15-014"]').click();
+    cy.get('[data-cy="Submit Core Set"]').should("be.disabled");
+  });
 });
 
 const completeQualifier = () => {
