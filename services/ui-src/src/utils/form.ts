@@ -1,4 +1,4 @@
-import * as Types from "measures/CommonQuestions/types";
+import * as Types from "measures/2021/CommonQuestions/types";
 
 /**
  * Given a PerformanceMeasure or OtherPerformanceMeasure object, return true if any of the rates are

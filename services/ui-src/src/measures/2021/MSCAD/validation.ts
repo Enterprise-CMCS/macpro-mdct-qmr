@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/globalValidations";
+import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
-import * as Types from "measures/CommonQuestions/types";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import * as Types from "measures/2021/CommonQuestions/types";
+import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 const MSCADValidation = (data: Types.DefaultFormData) => {
   const ageGroups = PMD.qualifiers;

@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 
 export const qualifiers = [
   "Percentage of newborns who did not pass hearing screening and have an audiological diagnosis no later than 3 months of age",
