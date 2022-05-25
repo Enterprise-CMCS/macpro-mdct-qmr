@@ -7,6 +7,7 @@ import {
   useGetMeasure,
   useGetMeasures,
   useUpdateMeasure,
+  useGetReportingYears,
 } from "hooks/api";
 
 export const defaultMockValues = {
@@ -64,8 +65,9 @@ export const defaultMockValues = {
     error: undefined,
     isError: undefined,
     data: {
-      Item: [
+      Items: [
         {
+          autoCompleted: false,
           compoundKey: "AL2021ACSIET-AD",
           coreSet: "ACS",
           createdAt: 1642167976771,
@@ -79,6 +81,12 @@ export const defaultMockValues = {
         },
       ],
     },
+  },
+  useGetReportingYearsValues: {
+    isLoading: false,
+    error: undefined,
+    isError: undefined,
+    data: ["2021"],
   },
   useUpdateMeasureValues: {
     useMutation: () => {
@@ -95,6 +103,7 @@ export const useApiMock = ({
   useGetMeasureValues = defaultMockValues.useGetMeasureValues,
   useGetMeasuresValues = defaultMockValues.useGetMeasuresValues,
   useUpdateMeasureValues = defaultMockValues.useUpdateMeasureValues,
+  useGetReportingYearsValues = defaultMockValues.useGetReportingYearsValues,
 }) => {
   (useAddCoreSet as jest.Mock).mockReturnValue({
     ...useAddCoreSetValues,
@@ -119,5 +128,8 @@ export const useApiMock = ({
   });
   (useUpdateMeasure as jest.Mock).mockReturnValue({
     ...useUpdateMeasureValues,
+  });
+  (useGetReportingYears as jest.Mock).mockReturnValue({
+    ...useGetReportingYearsValues,
   });
 };

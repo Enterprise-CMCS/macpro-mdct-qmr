@@ -8,25 +8,28 @@ import { DeliverySystems } from "./deliverySystems";
 import { useForm, FormProvider } from "react-hook-form";
 import { HHCSQualifierForm } from "./types";
 import { useParams, useNavigate } from "react-router-dom";
-import { useUpdateMeasure, useGetMeasure } from "hooks/api";
+import { useUpdateMeasure, useGetMeasure, useEditCoreSet } from "hooks/api";
 import { CoreSetAbbr, MeasureStatus, UserRoles } from "types";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 import { validationFunctions } from "./validationFunctions";
 import { SPA } from "libs/spaLib";
 import { v4 as uuidv4 } from "uuid";
+import { CoreSetTableItem } from "components/Table/types";
 
 export const HHCSQualifiers = () => {
   const { state, year, HHCS } = useParams();
   const { userState, userRole } = useUser();
   const mutation = useUpdateMeasure();
   const queryClient = useQueryClient();
+  const userInfo = useUser();
+  const updateCoreSet = useEditCoreSet().mutate;
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [errors, setErrors] = useState<any[]>();
   const spaId = HHCS?.split("_")[1];
   // get qualifier data and prepoulate default values if data exists
-  const { data } = useGetMeasure({
+  const { data: apiData, refetch } = useGetMeasure({
     coreSet: CoreSetAbbr.HHCS + `_${spaId}`,
     measure: "CSQ",
   });
@@ -67,9 +70,9 @@ export const HHCSQualifiers = () => {
 
   useEffect(() => {
     if (!methods.formState.isDirty) {
-      methods.reset(data?.Item?.data);
+      methods.reset(apiData?.Item?.data);
     }
-  }, [data, methods]);
+  }, [apiData, methods]);
 
   const handleValidation = (data: HHCSQualifierForm) => {
     validateAndSetErrors(data);
@@ -122,6 +125,19 @@ export const HHCSQualifiers = () => {
         if (callback) {
           callback();
         }
+        refetch();
+
+        updateCoreSet({
+          coreSet: (CoreSetAbbr.HHCS + `_${spaId}`) as CoreSetAbbr.HHCS,
+          state: state ?? "",
+          year: year ?? "",
+          body: {
+            submitted: false,
+            status: CoreSetTableItem.Status.IN_PROGRESS,
+            userRole: userInfo.userRole,
+            userState: userInfo.userState,
+          },
+        });
       },
     });
   };
@@ -190,7 +206,7 @@ export const HHCSQualifiers = () => {
       buttons={
         <QMR.MeasureButtons
           handleSave={methods.handleSubmit(handleSave)}
-          lastAltered={data?.Item?.lastAltered}
+          lastAltered={apiData?.Item?.lastAltered}
         />
       }
     >

@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/globalValidations";
+import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 const OHDValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -30,7 +30,8 @@ const OHDValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,

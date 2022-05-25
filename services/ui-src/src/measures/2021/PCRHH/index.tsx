@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
-import * as CMQ from "measures/CommonQuestions";
+import * as CMQ from "measures/2021/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { validationFunctions } from "./validation";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { FormData } from "./types";
@@ -35,6 +35,7 @@ export const PCRHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        healthHomeMeasure
       />
 
       {!isNotReportingData && (

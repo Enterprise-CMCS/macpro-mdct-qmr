@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/globalValidations";
+import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 const OUDValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
@@ -28,7 +28,8 @@ const OUDValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      PMD.qualifiers
+      PMD.qualifiers,
+      PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateNumeratorsLessThanDenominatorsPM(

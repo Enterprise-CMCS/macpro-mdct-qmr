@@ -1,10 +1,10 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import * as Views from "views";
 import * as QMR from "components";
 import Measures from "measures";
-import { measuresList, MeasuresListItem } from "measures/measuresList";
+import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -19,39 +19,55 @@ import { measuresList, MeasuresListItem } from "measures/measuresList";
 
 interface MeasureRoute {
   path: string;
-  el: ReactElement;
+  element: ReactElement;
+  key: string;
 }
 
 // For each year we want a route for each measure.
 // The measures available for each year are defined in the measuresList
 // eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
+function useMeasureRoutes(): MeasureRoute[] {
+  const { data } = useGetMeasureListInfo();
+  const [measureRoutes, setMeasureRoutes] = useState<MeasureRoute[]>([]);
 
-const measureRoutes: MeasureRoute[] = [];
+  useEffect(() => {
+    if (data) {
+      const routes: MeasureRoute[] = [];
 
-Object.keys(measuresList).forEach((year: string) => {
-  measuresList[year].forEach(
-    ({ measureId, name, autocompleteOnCreation }: MeasuresListItem) => {
-      if (measureId in Measures[year]) {
-        const Comp = Measures[year][measureId];
+      Object.keys(data).forEach((year: string) => {
+        data[year].forEach(
+          ({ measure, description, autocompleteOnCreation }: any) => {
+            if (Measures?.[year] && measure in Measures[year]) {
+              const Comp = Measures[year][measure];
 
-        measureRoutes.push({
-          path: `:state/${year}/:coreSetId/${measureId}`,
-          el: (
-            <QMR.MeasureWrapper
-              name={name}
-              year={year}
-              measureId={measureId}
-              measure={createElement(Comp)}
-              autocompleteOnCreation={autocompleteOnCreation ?? false}
-            />
-          ),
-        });
-      }
+              routes.push({
+                key: `:state/${year}/:coreSetId/${measure}`,
+                path: `:state/${year}/:coreSetId/${measure}`,
+                element: (
+                  <QMR.MeasureWrapper
+                    name={description}
+                    year={year}
+                    measureId={measure}
+                    measure={createElement(Comp)}
+                    autocompleteOnCreation={autocompleteOnCreation ?? false}
+                  />
+                ),
+              });
+            }
+          }
+        );
+      });
+
+      setMeasureRoutes(routes);
     }
-  );
-});
+  }, [data, setMeasureRoutes]);
+
+  return measureRoutes;
+}
 
 export function AppRoutes() {
+  const measureRoutes = useMeasureRoutes();
+
   return (
     <main id="main-wrapper">
       <Routes>
@@ -81,7 +97,7 @@ export function AppRoutes() {
         />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
-          <Route path={m.path} element={m.el} key={m.path} />
+          <Route {...m} />
         ))}
         <Route path="*" element={<Views.NotFound />} />
       </Routes>
