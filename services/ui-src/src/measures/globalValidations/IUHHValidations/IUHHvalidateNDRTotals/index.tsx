@@ -77,7 +77,7 @@ export const IUHHvalidateNDRTotals = (
     // Sum all fields for each qualifier
     let categorySums: any[] = [];
     for (const qualifier of category.slice(0, -1)) {
-      qualifier.fields?.forEach((field: Field, x: number) => {
+      qualifier?.fields?.forEach((field: Field, x: number) => {
         if (field?.value) {
           categorySums[x] ??= 0;
           categorySums[x] += parseFloat(field.value);
@@ -87,7 +87,7 @@ export const IUHHvalidateNDRTotals = (
 
     // Compare calculated sums to values in Total qualifier
     const categoryTotal = category.slice(-1)[0];
-    categoryTotal.fields.forEach((field: Field, x: number) => {
+    categoryTotal?.fields?.forEach((field: Field, x: number) => {
       if (
         !rateLocations.includes(x) &&
         ((!field?.value && categorySums[x] !== undefined) ||

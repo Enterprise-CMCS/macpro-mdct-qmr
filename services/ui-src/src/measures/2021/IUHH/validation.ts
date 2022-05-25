@@ -28,7 +28,6 @@ const ndrForumlas = [
 
 const IUHHValidation = (data: FormData) => {
   let errorArray: any[] = [];
-  // const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -44,14 +43,6 @@ const IUHHValidation = (data: FormData) => {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-
-  // console.log(
-  //   ageGroups,
-  //   deviationArray,
-  //   didCalculationsDeviate,
-  //   performanceMeasureArray,
-  //   OPM
-  // );
 
   // Quick reference list of all rate indices
   errorArray = [
@@ -105,15 +96,6 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
       ndrForumlas,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
-
-    // I don't think we need this. Should be handled in OMS validation setup
-
-    // ...GV.IUHHatLeastOneRateComplete(
-    //   rateData?.["iuhh-rate"]?.rates ?? {},
-    //   rates ?? [],
-    //   PMD.qualifiers,
-    //   `Optional Measure Stratification: ${locationDictionary(label)}`
-    // ),
     ...GV.IUHHvalidateNDRTotalsOMS(
       rateData?.["iuhh-rate"]?.rates ?? {},
       PMD.categories,

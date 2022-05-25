@@ -20,19 +20,15 @@ export const IUHHatLeastOneRateComplete = (
   //    Check that the performance measure has a field representation for each age groups
   //    Check that each field has a "value" and it is not an empty string
   //    For a complete measure the sum of the booleans will equal the length of the age groups
-  if (error) {
-    for (const category of performanceMeasureArray) {
-      if (!error) break;
-      for (const qualifier of category) {
-        const qualComplete = qualifier.fields.every(
-          (field: { value: string; label: string }) => {
-            return field.value !== undefined && field.value !== "";
-          }
-        );
-        if (qualComplete) {
-          error = false;
-          break;
+  for (const category of performanceMeasureArray) {
+    for (const qualifier of category) {
+      const qualComplete = qualifier.fields.every(
+        (field: { value: string; label: string }) => {
+          return field.value !== undefined && field.value !== "";
         }
+      );
+      if (qualComplete) {
+        error = false;
       }
     }
   }

@@ -27,18 +27,13 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
         performanceMeasureRates?.[option]?.some(PCRrateExists)
       ) {
         ratesExist = true;
-        break;
-      }
-      if (
+      } else if (
         measureId === "IU-HH" &&
         performanceMeasureRates?.[option]?.some(IUHHRateExists)
       ) {
         ratesExist = true;
-        break;
-      }
-      if (performanceMeasureRates?.[option]?.some(rateExists)) {
+      } else if (performanceMeasureRates?.[option]?.some(rateExists)) {
         ratesExist = true;
-        break;
       }
     }
   }

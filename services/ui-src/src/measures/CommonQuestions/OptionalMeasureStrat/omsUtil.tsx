@@ -139,7 +139,7 @@ const calculateIUHHOMSTotal = ({
   // Create empty temp obj
   const tempRate: IUHHTempRate = {
     label: cleanedCategory,
-    fields: fieldNames.map((f: string) => {
+    fields: fieldNames?.map((f: string) => {
       return {
         label: f,
         value: undefined,
@@ -161,8 +161,8 @@ const calculateIUHHOMSTotal = ({
 
   // Calculate rates for totals
   for (const f of IUHHndrForumlas) {
-    const numerator = tempRate.fields[f.num].value;
-    const denominator = tempRate.fields[f.denom].value;
+    const numerator = tempRate.fields?.[f.num]?.value;
+    const denominator = tempRate.fields?.[f.denom]?.value;
     if (numerator && denominator) {
       tempRate.fields[f.rate].value = (
         Math.round((numerator / denominator) * f.mult * 10) / 10
@@ -171,7 +171,7 @@ const calculateIUHHOMSTotal = ({
   }
 
   // Convert numbers to strings
-  for (const field of tempRate.fields) {
+  for (const field of tempRate?.fields ?? []) {
     field.value = field.value !== undefined ? `${field.value}` : undefined;
   }
 
@@ -278,6 +278,7 @@ export const useTotalAutoCalculation = ({
     watch,
     setValue,
     cleanedCategory,
+    compFlag,
     name,
     numberOfDecimals,
     qualifiers,
