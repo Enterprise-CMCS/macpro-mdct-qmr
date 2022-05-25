@@ -120,7 +120,6 @@ const IETValidation = (data: FormData) => {
       data
     ),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
-
     // OMS Validations
     ...GV.omsValidations({
       data,

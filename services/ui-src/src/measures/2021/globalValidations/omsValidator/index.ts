@@ -145,7 +145,6 @@ const validateNDRs = (
         })
       );
     }
-
     const locationReduced = label.reduce(
       (prev, curr, i) => `${prev}${i ? "-" : ""}${curr}`,
       ""
