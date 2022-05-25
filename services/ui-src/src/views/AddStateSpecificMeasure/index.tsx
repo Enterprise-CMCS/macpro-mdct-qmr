@@ -5,16 +5,13 @@ import { CoreSetAbbr } from "types";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-interface StateSpecificMeasure {
-  coreSet: string;
-  measure: string;
-  state: string;
-  year: string;
-}
-
 interface NewMeasure {
   description: string;
   detailedDescription: string;
+}
+
+interface NewSSMs {
+  "add-ssm": NewMeasure[];
 }
 
 interface UserMeasuresLocationState {
@@ -32,9 +29,12 @@ export const AddStateSpecificMeasure = () => {
   const navigate = useNavigate();
   const { coreSetId, state, year } = useParams();
 
-  const methods = useForm<StateSpecificMeasure>({
+  const methods = useForm<NewSSMs>({
     shouldUnregister: true,
     mode: "all",
+    defaultValues: {
+      "add-ssm": [{ description: "", detailedDescription: "" }],
+    },
   });
 
   // Create an array of IDs for existing user-created SSMs for the core set (if any).
