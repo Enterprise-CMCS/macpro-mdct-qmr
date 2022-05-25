@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { DataDrivenTypes } from "measures/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 
 export const categories = [];
 export const qualifiers = [
