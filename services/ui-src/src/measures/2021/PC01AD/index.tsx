@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
-import * as CMQ from "measures/CommonQuestions";
+import * as CMQ from "measures/2021/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { FormData } from "./types";
 import { validationFunctions } from "./validation";
-import { getPerfMeasureRateArray } from "measures/globalValidations";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 
 export const PC01AD = ({
   name,

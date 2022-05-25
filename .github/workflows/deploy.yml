@@ -488,6 +488,7 @@ jobs:
           [
             AMBHH,
             CBPHH,
+            CDFHH,
             FUAHH,
             FUHHH,
             IETHH,
@@ -495,7 +496,6 @@ jobs:
             OUDHH,
             PCRHH,
             PQI92HH,
-            sampleHealthHome,
             QUALIFIERS_healthhome,
           ]
     steps:
@@ -590,6 +590,7 @@ jobs:
             adding_link_to_combined_rates_component,
             data_source_rate_to_auto_calculate_in_OPM,
             combined_rates_validation_warnings,
+            copy_coreset_and_measures_for_new_year,
             date_range_adjustment,
             FAQ,
             logo,
