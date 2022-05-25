@@ -54,6 +54,7 @@ const ReportingYear = () => {
       </CUI.Text>
       <CUI.Select
         data-testid="select"
+        data-cy="year-select"
         borderRadius="sm"
         icon={<TiArrowUnsorted />}
         value={year}
@@ -77,7 +78,7 @@ const Heading = () => {
   return (
     <CUI.Box display={{ base: "block", md: "flex" }}>
       <CUI.Box maxW="3xl" pb="6">
-        <CUI.Heading size="lg">
+        <CUI.Heading size="lg" data-cy="reporting-year-heading">
           {`FFY ${year} Core Set Measures Reporting`}
         </CUI.Heading>
         <CUI.Text fontWeight="bold" py="6">
