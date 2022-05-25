@@ -28,7 +28,9 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
 
       if (
         initRate &&
+        initRate.denominator &&
         engageRate &&
+        engageRate.denominator &&
         initRate.denominator !== engageRate.denominator
       ) {
         errorArray.push({
@@ -117,7 +119,7 @@ const IETValidation = (data: FormData) => {
       ageGroups,
       data
     ),
-
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
     // OMS Validations
     ...GV.omsValidations({
       data,
@@ -133,6 +135,7 @@ const IETValidation = (data: FormData) => {
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
         sameDenominatorSets,
+        GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],
     }),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

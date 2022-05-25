@@ -60,7 +60,7 @@ const PQI92Validation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-
+    ...GV.validateTotalNDR(performanceMeasureArray),
     // OMS Validations
     ...GV.omsValidations({
       data,
@@ -71,7 +71,11 @@ const PQI92Validation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [GV.validateRateZeroOMS, GV.validateRateNotZeroOMS],
+      validationCallbacks: [
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+        GV.validateOMSTotalNDR,
+      ],
     }),
   ];
 
