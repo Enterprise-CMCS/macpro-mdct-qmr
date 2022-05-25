@@ -1,9 +1,10 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
-
+import { useFormContext } from "react-hook-form";
 import { usePerformanceMeasureContext } from "./context";
 import { cleanString, useTotalAutoCalculation } from "./omsUtil";
+import * as Types from "../types";
 
 interface NdrProps {
   name: string;
@@ -213,6 +214,12 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const standardRates = useStandardRateArray(name);
   const rateArrays = !categories.length ? qualRates : standardRates;
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
+  const { watch } = useFormContext<Types.DataSource>();
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
+
+  const shouldDisplay =
+    dataSourceWatch?.[0] !== "AdministrativeData" ||
+    dataSourceWatch?.length !== 1;
 
   quals?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
@@ -229,6 +236,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
             pt="1"
             key={`${name}.rates.${cleanedLabel}HeaderHelper`}
             size={"sm"}
+            hidden={!shouldDisplay}
           >
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
@@ -268,6 +276,11 @@ const PCRNDRSets = ({ name }: NdrProps) => {
   const rates = qualifiers.map((qual, i) => {
     return { label: qual, id: i };
   });
+  // ! Waiting for data source refactor to type data source here
+  const { watch } = useFormContext<Types.DataSource>();
+
+  // Watch for dataSource data
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
 
   return (
     <>
@@ -275,9 +288,12 @@ const PCRNDRSets = ({ name }: NdrProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate
       </CUI.Heading>
-      <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
-        Please review the auto-calculated rate and revise if needed.
-      </CUI.Heading>
+      {dataSourceWatch?.[0] !== "AdministrativeData" ||
+        (dataSourceWatch?.length !== 1 && (
+          <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>
+        ))}
       <QMR.PCRRate
         rates={rates}
         name={`${name}.pcr-rate`}
@@ -305,6 +321,13 @@ const useRenderOPMChckboxOptions = (name: string) => {
     customRateLabel,
   } = usePerformanceMeasureContext();
 
+  const { watch } = useFormContext<Types.DataSource>();
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
+
+  const shouldDisplay =
+    dataSourceWatch?.[0] !== "AdministrativeData" ||
+    dataSourceWatch?.length !== 1;
+
   OPM?.forEach(({ description }, idx) => {
     if (description) {
       const cleanedFieldName = cleanString(description);
@@ -324,6 +347,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
             pt="1"
             size={"sm"}
             key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
+            hidden={!shouldDisplay}
           >
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
