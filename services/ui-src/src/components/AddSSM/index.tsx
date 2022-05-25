@@ -56,7 +56,12 @@ export const AddSSM = ({ userCreatedCount = 0 }: AddSSMProps) => {
             mt: "4",
           }}
           key={"AddAnotherSSMButton"}
-          onClick={() => append({})}
+          onClick={() =>
+            append({
+              description: "",
+              detailedDescription: "",
+            })
+          }
           disabledStatus={fields.length + userCreatedCount >= maxNumberOfSSMs}
           testId={"AddAnotherSSMButton"}
         />
