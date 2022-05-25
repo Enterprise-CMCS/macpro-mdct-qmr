@@ -105,16 +105,21 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
       ndrForumlas,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
+
+    // I don't think we need this. Should be handled in OMS validation setup
+
     // ...GV.IUHHatLeastOneRateComplete(
-    //   [rateData?.["pcr-rate"] ?? []],
+    //   rateData?.["iuhh-rate"]?.rates ?? {},
     //   rates ?? [],
     //   PMD.qualifiers,
     //   `Optional Measure Stratification: ${locationDictionary(label)}`
     // ),
-    // ...GV.IUHHvalidateNDRTotals(
-    //   [rateData?.["pcr-rate"] ?? []],
-    //   `Optional Measure Stratification: ${locationDictionary(label)} Total`
-    // ),
+    ...GV.IUHHvalidateNDRTotalsOMS(
+      rateData?.["iuhh-rate"]?.rates ?? {},
+      PMD.categories,
+      ndrForumlas,
+      `Optional Measure Stratification: ${locationDictionary(label)} Total`
+    ),
   ];
 };
 

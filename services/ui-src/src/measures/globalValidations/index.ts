@@ -30,4 +30,7 @@ export {
   IUHHnoNonZeroNumOrDenomOMS,
 } from "./IUHHValidations/IUHHnoNonZeroNumOrDenom";
 export { IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./IUHHValidations/IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec";
-export { IUHHvalidateNDRTotals } from "./IUHHValidations/IUHHvalidateNDRTotals";
+export {
+  IUHHvalidateNDRTotals,
+  IUHHvalidateNDRTotalsOMS,
+} from "./IUHHValidations/IUHHvalidateNDRTotals";
