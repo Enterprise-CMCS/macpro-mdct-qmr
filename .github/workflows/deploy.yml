@@ -488,6 +488,7 @@ jobs:
           [
             AMBHH,
             CBPHH,
+            CDFHH,
             FUAHH,
             FUHHH,
             IETHH,
@@ -495,7 +496,6 @@ jobs:
             OUDHH,
             PCRHH,
             PQI92HH,
-            sampleHealthHome,
             QUALIFIERS_healthhome,
           ]
     steps:
