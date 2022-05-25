@@ -103,6 +103,7 @@ export const FFS = "FFS";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
+export const HEDIS_MY_2021 = "HEDIS MY 2021";
 export const HRSA = "HRSA";
 export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
   "HybridAdministrativeandMedicalRecordsData";
