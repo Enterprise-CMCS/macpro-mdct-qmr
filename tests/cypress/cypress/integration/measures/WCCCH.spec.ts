@@ -162,12 +162,6 @@ describe("Measure: WCC-CH", () => {
     cy.xpath(
       "//li[contains(text(),'Body mass index (BMI) percentile documentation')]"
     ).should("have.text", "Body mass index (BMI) percentile documentation");
-    cy.xpath(
-      "//h2[contains(text(),'Please review the auto-calculated rate and revise ')]"
-    ).should(
-      "have.text",
-      "Please review the auto-calculated rate and revise if needed."
-    );
     cy.get(
       '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.0.numerator"]'
     ).click();

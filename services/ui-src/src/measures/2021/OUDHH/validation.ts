@@ -4,55 +4,37 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
 
-const PQI92Validation = (data: FormData) => {
-  const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
+const OUDValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
+  const performanceMeasureArray =
+    GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
+  const dateRange = data[DC.DATE_RANGE];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations
-  );
-  const dateRange = data[DC.DATE_RANGE];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
-
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-  const validateDualPopInformationArray = [
-    performanceMeasureArray?.[0].filter((pm) => {
-      return pm?.label === "Age 65 and older";
-    }),
-  ];
 
-  const age65PlusIndex = 0;
+  const deviationArray = GV.getDeviationNDRArray(
+    data.DeviationOptions,
+    data.Deviations
+  );
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateBothDatesCompleted(dateRange),
-
-    // Performance Measure Validations
+    ...errorArray,
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
-      PMD.categories
+      PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
+    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
-      ageGroups,
-      data
-    ),
-    ...GV.validateDualPopInformationPM(
-      validateDualPopInformationArray,
-      OPM,
-      age65PlusIndex,
-      definitionOfDenominator
+      PMD.qualifiers
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
@@ -60,8 +42,13 @@ const PQI92Validation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateTotalNDR(performanceMeasureArray),
-    // OMS Validations
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateEqualCategoryDenominatorsPM(
+      data,
+      PMD.categories,
+      PMD.qualifiers
+    ),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -72,14 +59,22 @@ const PQI92Validation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
+        GV.validateEqualCategoryDenominatorsOMS,
       ],
     }),
+    ...GV.validateNoNonZeroNumOrDenomPM(
+      performanceMeasureArray,
+      OPM,
+      ageGroups,
+      data
+    ),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [PQI92Validation];
+export const validationFunctions = [OUDValidation];
