@@ -37,7 +37,7 @@ function useMeasureRoutes(): MeasureRoute[] {
       Object.keys(data).forEach((year: string) => {
         data[year].forEach(
           ({ measure, description, autocompleteOnCreation }: any) => {
-            if (measure in Measures[year]) {
+            if (Measures?.[year] && measure in Measures[year]) {
               const Comp = Measures[year][measure];
 
               routes.push({
