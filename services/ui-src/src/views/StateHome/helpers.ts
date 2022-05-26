@@ -110,7 +110,6 @@ export const formatTableItems = ({
       let healthHomeId = "";
       if (coreSet.includes(CoreSetAbbr.HHCS)) {
         healthHomeId = `${coreSet}_${state}`;
-        console.log(healthHomeId);
       }
 
       return {
