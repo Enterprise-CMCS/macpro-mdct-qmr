@@ -77,13 +77,21 @@ const createDependentMeasures = async (
     const measureId = measure["measure"];
     // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
     const dynamoKey = `${state}${year}${coreSet}${measureId}`;
+
+    let healthHomeCoreSet;
+    if (coreSet.includes(Types.CoreSetAbbr.HHCS)) {
+      healthHomeCoreSet = `${coreSet}_${state}`;
+    }
+
     const params = {
       TableName: process.env.measureTableName!,
       Item: {
         compoundKey: dynamoKey,
         state: state,
         year: year,
-        coreSet: coreSet,
+        coreSet: healthHomeCoreSet
+          ? (healthHomeCoreSet as Types.CoreSetAbbr)
+          : coreSet,
         measure: measureId,
         createdAt: Date.now(),
         lastAltered: Date.now(),
@@ -96,5 +104,6 @@ const createDependentMeasures = async (
 
     const result = await dynamoDb.post(params);
     dependentMeasures.push(result);
+    console.log();
   }
 };
