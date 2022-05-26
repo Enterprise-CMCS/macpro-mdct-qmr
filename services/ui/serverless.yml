@@ -98,14 +98,6 @@ resources:
               Condition:
                 Bool:
                   "aws:SecureTransport": true
-            - Action:
-                - "s3:*"
-              Effect: "Deny"
-              Principal: "*"
-              Resource: !Sub arn:aws:s3:::${S3Bucket}/*
-              Condition:
-                Bool:
-                  "aws:SecureTransport": false
         Bucket: !Ref S3Bucket
     LogBucketPolicy:
       Type: AWS::S3::BucketPolicy
@@ -237,20 +229,6 @@ resources:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
-    WaflogsUploadBucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        Bucket: !Ref WaflogsUploadBucket
-        PolicyDocument:
-          Statement:
-            - Action:
-                - "s3:*"
-              Effect: Deny
-              Principal: "*"
-              Resource: !Sub ${WaflogsUploadBucket.Arn}/*
-              Condition:
-                Bool:
-                  "aws:SecureTransport": false
     Firehose:
       Type: AWS::KinesisFirehose::DeliveryStream
       Properties:
