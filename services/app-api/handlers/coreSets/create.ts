@@ -104,6 +104,5 @@ const createDependentMeasures = async (
 
     const result = await dynamoDb.post(params);
     dependentMeasures.push(result);
-    console.log();
   }
 };
