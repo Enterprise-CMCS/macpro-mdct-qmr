@@ -107,13 +107,15 @@ export const formatTableItems = ({
       };
       const actions = getCoreSetActions(data);
 
-      let healthHomeId = "";
+      let healthHomeCoreSet = "";
       if (coreSet.includes(CoreSetAbbr.HHCS)) {
-        healthHomeId = `${coreSet}_${state}`;
+        healthHomeCoreSet = `${coreSet}_${state}`;
       }
 
       return {
-        coreSet: healthHomeId ? (healthHomeId as CoreSetAbbr) : coreSet,
+        coreSet: healthHomeCoreSet
+          ? (healthHomeCoreSet as CoreSetAbbr)
+          : coreSet,
         title,
         type,
         progress,
