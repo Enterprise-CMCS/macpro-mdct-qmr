@@ -147,7 +147,6 @@ const DeleteMenuItemAlertDialog = ({
               </CUI.Button>
               <CUI.Button
                 colorScheme="red"
-                onClick={handleDelete}
                 ml={3}
                 type="submit"
                 isDisabled={userInput.toLocaleLowerCase() !== "delete"}
