@@ -135,6 +135,21 @@ const useMeasureTableDataBuilder = () => {
         (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
+        const actions = [
+          {
+            itemText: "Edit",
+            handleSelect: () => console.log("Edit " + item.measure),
+          },
+        ];
+
+        // Let user delete user-created measures
+        if (item.userCreated === true) {
+          actions.push({
+            itemText: "Delete",
+            handleSelect: () => console.log("Delete " + item.measure),
+          });
+        }
+
         return {
           Type: coreSetType[item.coreSet],
           title: item.description,
@@ -147,12 +162,7 @@ const useMeasureTableDataBuilder = () => {
           autoCompleted: item.autoCompleted,
           id: item.measure,
           userCreated: item.userCreated,
-          actions: [
-            {
-              itemText: "Edit",
-              handleSelect: () => console.log("Edit " + item.measure),
-            },
-          ],
+          actions: actions,
         };
       });
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
