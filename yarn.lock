@@ -2644,9 +2644,9 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 aws-sdk@^2.1136.0, aws-sdk@^2.1140.0, aws-sdk@^2.923.0:
-  version "2.1143.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1143.0.tgz#a9180172b42c2041e70d689d8e1c8c9fca075f17"
-  integrity sha512-WSFpJomqDbsO9buVBL9O3R5/qM2uGzqSEBCyo2W9IiE81mOZ/LrX0fWa9vHhYwCVBYQ2HhS+C0rwJxhRvYEhjQ==
+  version "2.1144.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1144.0.tgz#e0f548e45e6a3c774bc8e4e387968f638402c69b"
+  integrity sha512-0QZNPezu+MJOgvRRVeE1LyNPgZD4MaomHTAbZpRgCBca9fu2C7rJCm3eX/xwfNvvqVZ0RZfEpagcFXAxk9HITg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -11306,9 +11306,9 @@ write-file-atomic@^4.0.1:
     signal-exit "^3.0.7"
 
 ws@^7.3.1, ws@^7.4.6, ws@^7.5.3, ws@^7.5.7:
-  version "7.5.7"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.7.tgz#9e0ac77ee50af70d58326ecff7e85eb3fa375e67"
-  integrity sha512-KMvVuFzpKBuiIXW3E4u3mySRO2/mCHSyZDJQM5NQ9Q9KHWHWh0NHgfbRMLLrceUK5qAL4ytALJbpRMjixFZh8A==
+  version "7.5.8"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.8.tgz#ac2729881ab9e7cbaf8787fe3469a48c5c7f636a"
+  integrity sha512-ri1Id1WinAX5Jqn9HejiGb8crfRio0Qgu8+MtL36rlTA6RLsMdWt1Az/19A2Qij6uSHUMphEFaTKa4WG+UNHNw==
 
 xdg-basedir@^4.0.0:
   version "4.0.0"
