@@ -166,7 +166,7 @@ describe("PCR-HH", () => {
     );
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.8.value"]'
-    ).should("have.value", "40.5000");
+    ).should("have.value", "40.5");
     /* ==== End Cypress Studio ==== */
     /* ==== Generated with Cypress Studio ==== */
     cy.get(
