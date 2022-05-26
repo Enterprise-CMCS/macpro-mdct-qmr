@@ -126,7 +126,7 @@ describe("PCR-HH", () => {
     ).should("have.value", "1234567890");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.8.value"]'
-    ).should("have.value", "1000.0000");
+    ).should("have.value", "1000.0");
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]'
     ).clear();
@@ -245,7 +245,7 @@ describe("PCR-HH", () => {
     ).should("have.value", "1234567890");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.pcr-rate.8.value"]'
-    ).should("have.value", "1000.0000");
+    ).should("have.value", "1000.0");
     cy.get(
       ":nth-child(1) > :nth-child(1) > .css-1kxonj9 > .css-n21gh5 > :nth-child(2)"
     ).click();
