@@ -4,6 +4,7 @@ import { MonthPicker } from "components/MonthPicker";
 import { useFormContext } from "react-hook-form";
 import { format } from "date-fns";
 import { useEffect } from "react";
+import { usePathParams } from "../../hooks/api/usePathParams";
 
 interface Props {
   name: string;
@@ -23,10 +24,11 @@ const RangeNotification = ({ text }: { text: string }) => (
   />
 );
 
-export const currentYear = parseInt(format(new Date(), "yyyy"));
 export const currentMonth = parseInt(format(new Date(), "M"));
 
 export const DateRangeError = ({ name }: { name: string }) => {
+  const { year: selectedYear } = usePathParams();
+  const currentYear = parseInt(selectedYear);
   const { setValue, watch } = useFormContext();
   const range = watch(name);
   const toast = CUI.useToast();

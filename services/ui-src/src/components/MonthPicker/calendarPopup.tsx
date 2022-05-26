@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
-import config from "config";
 import {
   BsFillCalendar2DateFill,
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
+import { usePathParams } from "../../hooks/api/usePathParams";
 
 interface CalendarProps {
   selectedYear?: string;
@@ -33,12 +33,12 @@ const monthNames = [
 
 export const MonthPickerCalendar = ({
   selectedMonth,
-  selectedYear = config.currentReportingYear,
-  maxYear = parseInt(config.currentReportingYear),
-  minYear = parseInt(config.currentReportingYear) - 1,
   yearLocked = false,
   onChange: handleChange,
 }: CalendarProps) => {
+  const { year: selectedYear } = usePathParams();
+  const maxYear = parseInt(selectedYear);
+  const minYear = parseInt(selectedYear) - 1;
   const [pickerOpen, setPickerOpen] = useState(false);
   const [year, setYear] = useState(parseInt(selectedYear) || maxYear);
   const [month, setMonth] = useState(
