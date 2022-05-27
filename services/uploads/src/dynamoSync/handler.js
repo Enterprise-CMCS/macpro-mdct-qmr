@@ -16,7 +16,7 @@ const uploadFileToS3 = async (filePath, scanResult) => {
   const s3Promise = new Promise((resolve, reject) => {
     bucket.upload(
       {
-        Bucket: process.env.dynamoSnapshotS3BucketName,
+        Bucket: process.env.uploadS3BucketName,
         Key: filePath,
         Body: scanResult,
       },
