@@ -28,7 +28,8 @@ export interface MeasureRoute {
 // eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
 export function useMeasureRoutes(
   coreSetType?: "A" | "C" | "H",
-  year?: "2021" | "2022" | "2023"
+  year?: "2021" | "2022" | "2023",
+  isPrintable: boolean = false
 ): MeasureRoute[] {
   let { data } = useGetMeasureListInfo();
   const [measureRoutes, setMeasureRoutes] = useState<MeasureRoute[]>([]);
@@ -53,7 +54,7 @@ export function useMeasureRoutes(
               routes.push({
                 key: `:state/${year}/:coreSetId/${measure}`,
                 path: `:state/${year}/:coreSetId/${measure}`,
-                element: (
+                element: !isPrintable ? (
                   <QMR.MeasureWrapper
                     name={description}
                     year={year}
@@ -61,6 +62,8 @@ export function useMeasureRoutes(
                     measure={createElement(Comp)}
                     autocompleteOnCreation={autocompleteOnCreation ?? false}
                   />
+                ) : (
+                  <h1>Hello World</h1>
                 ),
               });
             }
