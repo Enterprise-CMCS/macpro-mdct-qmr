@@ -132,7 +132,7 @@ const useMeasureTableDataBuilder = () => {
         const [itemYear, itemMeasureType, itemMeasureId] =
           item.description.split("/");
 
-        const foundMeasureDescription = measuresList[itemYear].find(
+        const foundMeasureDescription = measuresList[itemYear]?.find(
           (measure) => {
             return (
               measure.measureId === itemMeasureId &&

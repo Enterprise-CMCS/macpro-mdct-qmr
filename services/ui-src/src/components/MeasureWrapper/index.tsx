@@ -327,7 +327,7 @@ export const MeasureWrapper = ({
   const formatTitle = (stringId: string) => {
     const [itemYear, itemMeasureType, itemMeasureId] = stringId.split("/");
 
-    const foundMeasureDescription = measuresList[itemYear].find((measure) => {
+    const foundMeasureDescription = measuresList[itemYear]?.find((measure) => {
       return (
         measure.measureId === itemMeasureId && measure.type === itemMeasureType
       );
