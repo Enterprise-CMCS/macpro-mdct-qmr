@@ -63,7 +63,13 @@ export function useMeasureRoutes(
                     autocompleteOnCreation={autocompleteOnCreation ?? false}
                   />
                 ) : (
-                  <h1>Hello World</h1>
+                  <QMR.PrintableMeasureWrapper
+                    name={description}
+                    year={year}
+                    measureId={measure}
+                    measure={createElement(Comp)}
+                    autocompleteOnCreation={autocompleteOnCreation ?? false}
+                  />
                 ),
               });
             }

@@ -34,3 +34,4 @@ export * from "./ScrollToTop";
 export * from "./Table";
 export * from "./Upload";
 export * from "./YesNoModalDialog";
+export * from "./PrintableMeasureWrapper";
