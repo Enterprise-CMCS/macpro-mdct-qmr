@@ -22,6 +22,7 @@ import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
+import { measuresList } from "measures/measuresList";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -323,6 +324,18 @@ export const MeasureWrapper = ({
     return null;
   }
 
+  const formatTitle = (stringId: string) => {
+    const [itemYear, itemMeasureType, itemMeasureId] = stringId.split("/");
+
+    const foundMeasureDescription = measuresList[itemYear].find((measure) => {
+      return (
+        measure.measureId === itemMeasureId && measure.type === itemMeasureType
+      );
+    })?.name as string;
+
+    return foundMeasureDescription || "";
+  };
+
   return (
     <FormProvider {...methods}>
       <QMR.YesNoModalDialog
@@ -342,7 +355,9 @@ export const MeasureWrapper = ({
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
             name: `${measureId} ${
-              apiData?.Item?.description ? `- ${apiData.Item.description}` : ""
+              apiData?.Item?.description
+                ? `- ${formatTitle(apiData.Item.description)}`
+                : ""
             }`,
           },
         ]}
