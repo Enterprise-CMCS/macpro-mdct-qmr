@@ -16,11 +16,10 @@ import {
 } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
-import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
-import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
+import { useGetMeasure, useUpdateMeasure } from "hooks/api";
+import { CoreSetAbbr, MeasureStatus } from "types";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
-import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
@@ -107,16 +106,12 @@ export const PrintableMeasureWrapper = ({
   name,
   year,
   measureId,
-  autocompleteOnCreation,
 }: Props) => {
   const { isStateUser } = useUser();
 
   const navigate = useNavigate();
   const params = useParams();
   const [errors, setErrors] = useState<FormError[] | undefined>(undefined);
-  const [validationFunctions, setValidationFunctions] = useState<Function[]>(
-    []
-  );
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const toast = CUI.useToast();
@@ -152,9 +147,7 @@ export const PrintableMeasureWrapper = ({
   });
   const measureData = apiData?.Item;
 
-  const updateCoreSet = useEditCoreSet().mutate;
-  const { state, coreSetId } = useParams();
-  const userInfo = useUser();
+  // const { state, coreSetId } = useParams();
 
   const methods = useForm({
     shouldUnregister: true,
@@ -167,74 +160,6 @@ export const PrintableMeasureWrapper = ({
   useEffect(() => {
     if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
   }, [apiData, methods]);
-
-  const handleValidation = (data: any) => {
-    handleSave(data);
-    validateAndSetErrors(data);
-  };
-
-  const handleSave = (data: any) => {
-    if (!mutationRunning && !loadingData) {
-      updateMeasure(
-        {
-          data,
-          status: MeasureStatus.INCOMPLETE,
-          reporting: handleReportingResponse(data),
-        },
-        {
-          onSettled: (data, error) => {
-            if (data && !error) {
-              refetch();
-            }
-            //TODO: some form of error showcasing should display here
-            if (error) console.log(error);
-
-            updateCoreSet({
-              coreSet: coreSetId as CoreSetAbbr,
-              state: state ?? "",
-              year,
-              body: {
-                submitted: false,
-                status: CoreSetTableItem.Status.IN_PROGRESS,
-                userRole: userInfo.userRole,
-                userState: userInfo.userState,
-              },
-            });
-          },
-          onError: () => {
-            toastFailtoSave();
-          },
-        }
-      );
-    }
-  };
-
-  const handleClear = () => {
-    submitDataToServer({
-      data: {},
-      status: MeasureStatus.INCOMPLETE,
-      reporting: undefined,
-      callback: () => {
-        navigate(-1);
-      },
-    });
-  };
-
-  const handleSubmit = (data: any) => {
-    const validatedErrors = validateAndSetErrors(data);
-
-    if (validatedErrors) {
-      setShowModal(true);
-    } else {
-      submitDataToServer({
-        data,
-        reporting: handleReportingResponse(data),
-        callback: () => {
-          navigate(-1);
-        },
-      });
-    }
-  };
 
   const handleReportingResponse = (data: any) => {
     if (data["DidReport"] === "yes" || data["DidCollect"] === "yes") {
@@ -280,27 +205,6 @@ export const PrintableMeasureWrapper = ({
     }
   };
 
-  const validateAndSetErrors = (data: any): boolean => {
-    const validationErrors = validationFunctions.reduce(
-      (acc: any, current: any) => {
-        const error = current(data);
-        let errorArray = [];
-
-        if (Array.isArray(error)) {
-          errorArray = [...error];
-        } else {
-          errorArray = [error];
-        }
-
-        return error ? [...acc, ...errorArray] : acc;
-      },
-      []
-    );
-
-    setErrors(validationErrors.length > 0 ? validationErrors : []);
-    return validationErrors.length > 0;
-  };
-
   const handleValidationModalResponse = (continueWithErrors: boolean) => {
     setShowModal(false);
 
@@ -322,70 +226,76 @@ export const PrintableMeasureWrapper = ({
   }
 
   return (
-    <FormProvider {...methods}>
-      <QMR.YesNoModalDialog
-        isOpen={showModal}
-        headerText="Validation Error"
-        handleModalResponse={handleValidationModalResponse}
-        bodyText="There are still errors on this measure, would you still like to complete?"
-      />
-      <CUI.Skeleton isLoaded={!loadingData}>
-        <>
-          <QMR.AdminMask />
-          <form data-testid="measure-wrapper-form">
-            <fieldset data-testid="fieldset" disabled={!isStateUser}>
-              <CUI.Container maxW="7xl" as="section" px="0">
-                <QMR.SessionTimeout handleSave={handleSave} />
-                <LastModifiedBy user={measureData?.lastAlteredBy} />
-                <CUI.Text fontSize="sm">
-                  For technical questions regarding use of this application,
-                  please reach out to MDCT_Help@cms.hhs.gov. For content-related
-                  questions about measure specifications, or what information to
-                  enter in each field, please reach out to
-                  MACQualityTA@cms.hhs.gov.
-                </CUI.Text>
-                <Measure
-                  measure={measure}
-                  name={name}
-                  year={year}
-                  measureId={measureId}
-                  setValidationFunctions={setValidationFunctions}
-                  handleSave={handleSave}
-                />
-              </CUI.Container>
-              {errors?.length === 0 && (
-                <QMR.Notification
-                  key={uuidv4()}
-                  alertProps={{ my: "3" }}
-                  alertStatus="success"
-                  alertTitle={`Success`}
-                  alertDescription="The measure has been validated successfully"
-                  close={() => {
-                    setErrors(undefined);
-                  }}
-                />
-              )}
-              {errors
-                ?.sort((a, b) => a.errorLocation.localeCompare(b.errorLocation))
-                ?.map((error, index) => (
+    <div>
+      {apiData?.Item?.description}
+      <FormProvider {...methods}>
+        <QMR.YesNoModalDialog
+          isOpen={showModal}
+          headerText="Validation Error"
+          handleModalResponse={handleValidationModalResponse}
+          bodyText="There are still errors on this measure, would you still like to complete?"
+        />
+        <CUI.Skeleton isLoaded={!loadingData}>
+          <>
+            <QMR.AdminMask />
+            <form data-testid="measure-wrapper-form">
+              <fieldset data-testid="fieldset" disabled={!isStateUser}>
+                <CUI.Container maxW="7xl" as="section" px="0">
+                  <LastModifiedBy user={measureData?.lastAlteredBy} />
+                  <CUI.Text fontSize="sm">
+                    For technical questions regarding use of this application,
+                    please reach out to MDCT_Help@cms.hhs.gov. For
+                    content-related questions about measure specifications, or
+                    what information to enter in each field, please reach out to
+                    MACQualityTA@cms.hhs.gov.
+                  </CUI.Text>
+                  <Measure
+                    measure={measure}
+                    name={name}
+                    year={year}
+                    measureId={measureId}
+                    setValidationFunctions={() => {}}
+                    handleSave={() => {}}
+                  />
+                </CUI.Container>
+                {errors?.length === 0 && (
                   <QMR.Notification
                     key={uuidv4()}
                     alertProps={{ my: "3" }}
-                    alertStatus="error"
-                    alertTitle={`${error.errorLocation} Error`}
-                    alertDescription={error.errorMessage}
-                    extendedAlertList={error.errorList}
+                    alertStatus="success"
+                    alertTitle={`Success`}
+                    alertDescription="The measure has been validated successfully"
                     close={() => {
-                      const newErrors = [...errors];
-                      newErrors.splice(index, 1);
-                      setErrors(newErrors.length !== 0 ? newErrors : undefined);
+                      setErrors(undefined);
                     }}
                   />
-                ))}
-            </fieldset>
-          </form>
-        </>
-      </CUI.Skeleton>
-    </FormProvider>
+                )}
+                {errors
+                  ?.sort((a, b) =>
+                    a.errorLocation.localeCompare(b.errorLocation)
+                  )
+                  ?.map((error, index) => (
+                    <QMR.Notification
+                      key={uuidv4()}
+                      alertProps={{ my: "3" }}
+                      alertStatus="error"
+                      alertTitle={`${error.errorLocation} Error`}
+                      alertDescription={error.errorMessage}
+                      extendedAlertList={error.errorList}
+                      close={() => {
+                        const newErrors = [...errors];
+                        newErrors.splice(index, 1);
+                        setErrors(
+                          newErrors.length !== 0 ? newErrors : undefined
+                        );
+                      }}
+                    />
+                  ))}
+              </fieldset>
+            </form>
+          </>
+        </CUI.Skeleton>
+      </FormProvider>
+    </div>
   );
 };

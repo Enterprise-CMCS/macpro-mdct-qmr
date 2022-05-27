@@ -42,7 +42,8 @@ export function useMeasureRoutes(
         tempData[year] = data[year].filter(
           (measure: any) => measure.type === coreSetType
         );
-        data = tempData;
+
+        data = tempData; // eslint-disable-line
       }
 
       Object.keys(data).forEach((year: string) => {
