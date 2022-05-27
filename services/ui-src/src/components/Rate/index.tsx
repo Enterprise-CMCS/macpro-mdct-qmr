@@ -120,20 +120,19 @@ export const Rate = ({
     }
 
     if (type === "rate" && !readOnly) {
-      prevRate[index] ??= {
-        numerator: "",
-        denominator: "",
-        rate: "",
-      };
-
       const regex = allowMultiple
         ? rateThatAllowsFourDecimals
         : rateThatAllowsOneDecimal;
 
-      prevRate[index].rate =
+      editRate[type] =
         regex.test(newValue) || newValue === "" || customMask?.test(newValue)
           ? newValue
-          : prevRate[index].rate;
+          : editRate[type];
+
+      prevRate[index] = {
+        label: rates[index].label,
+        ...editRate,
+      };
 
       // Totals NDR should be independently editable
       if (calcTotal && !isTotal) {
