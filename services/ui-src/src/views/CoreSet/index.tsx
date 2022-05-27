@@ -8,6 +8,7 @@ import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
 import { useParams } from "react-router-dom";
 import { CoreSetTableItem } from "components/Table/types";
 import { SPA } from "libs/spaLib";
+import { measuresList } from "measures/measuresList";
 
 enum coreSetType {
   ACS = "Adult",
@@ -128,9 +129,21 @@ const useMeasureTableDataBuilder = () => {
         (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
+        const [itemYear, itemMeasureType, itemMeasureId] =
+          item.description.split("/");
+
+        const foundMeasureDescription = measuresList[itemYear].find(
+          (measure) => {
+            return (
+              measure.measureId === itemMeasureId &&
+              measure.type === itemMeasureType
+            );
+          }
+        )?.name as string;
+
         return {
           Type: coreSetType[item.coreSet],
-          title: item.description,
+          title: foundMeasureDescription,
           abbr: item.measure,
           path: `/${state}/${year}/${coreSetId}/${item.measure}`,
           reporting: item.reporting,

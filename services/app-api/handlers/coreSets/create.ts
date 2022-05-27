@@ -76,7 +76,8 @@ const createDependentMeasures = async (
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
     // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
-    const dynamoKey = `${state}/${year}/${coreSet}/${measureId}`;
+    const dynamoKey = `${state}${year}${coreSet}${measureId}`;
+    const description = `${year}/${measure.type}/${measureId}`;
     const params = {
       TableName: process.env.measureTableName!,
       Item: {
@@ -90,7 +91,7 @@ const createDependentMeasures = async (
         status: measure.autocompleteOnCreation
           ? Types.MeasureStatus.COMPLETE
           : Types.MeasureStatus.INCOMPLETE,
-        description: measure.description,
+        description,
       },
     };
 
