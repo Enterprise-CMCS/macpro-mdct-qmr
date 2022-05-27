@@ -165,7 +165,9 @@ export const CoreSet = () => {
 
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
-    coreSet.length > 1 ? SPA.filter((s) => s.id === coreSet[1])[0] : "";
+    coreSet.length > 1
+      ? SPA.filter((s) => s.id === coreSet[1] && s.state === coreSet[2])[0]
+      : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
       ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
