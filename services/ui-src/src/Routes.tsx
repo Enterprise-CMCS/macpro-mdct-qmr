@@ -17,7 +17,7 @@ import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 // } from "libs/awsLib";
 // import config from "config";
 
-interface MeasureRoute {
+export interface MeasureRoute {
   path: string;
   element: ReactElement;
   key: string;
@@ -26,13 +26,23 @@ interface MeasureRoute {
 // For each year we want a route for each measure.
 // The measures available for each year are defined in the measuresList
 // eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
-function useMeasureRoutes(): MeasureRoute[] {
-  const { data } = useGetMeasureListInfo();
+export function useMeasureRoutes(
+  coreSetType?: "A" | "C" | "H",
+  year?: "2021" | "2022" | "2023"
+): MeasureRoute[] {
+  let { data } = useGetMeasureListInfo();
   const [measureRoutes, setMeasureRoutes] = useState<MeasureRoute[]>([]);
 
   useEffect(() => {
     if (data) {
       const routes: MeasureRoute[] = [];
+      if (coreSetType && year) {
+        const tempData = { [year]: [] };
+        tempData[year] = data[year].filter(
+          (measure: any) => measure.type === coreSetType
+        );
+        data = tempData;
+      }
 
       Object.keys(data).forEach((year: string) => {
         data[year].forEach(
