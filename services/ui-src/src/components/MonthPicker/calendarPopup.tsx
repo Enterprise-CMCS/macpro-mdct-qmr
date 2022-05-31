@@ -8,6 +8,7 @@ import {
 } from "react-icons/bs";
 
 interface CalendarProps {
+  yearForMeasure?: string;
   selectedYear?: string;
   selectedMonth?: string;
   yearLocked?: boolean;
@@ -32,10 +33,11 @@ const monthNames = [
 ];
 
 export const MonthPickerCalendar = ({
+  yearForMeasure = config.currentReportingYear,
   selectedMonth,
-  selectedYear = config.currentReportingYear,
-  maxYear = parseInt(config.currentReportingYear),
-  minYear = parseInt(config.currentReportingYear) - 1,
+  selectedYear = yearForMeasure,
+  maxYear = parseInt(yearForMeasure),
+  minYear = parseInt(yearForMeasure) - 1,
   yearLocked = false,
   onChange: handleChange,
 }: CalendarProps) => {
