@@ -1,6 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import { MonthPickerCalendar } from "./calendarPopup";
 import { useController, useFormContext } from "react-hook-form";
+import { usePathParams } from "../../hooks/api/usePathParams";
 
 interface CommonProps {
   name: string;
@@ -29,7 +30,7 @@ export const MonthPicker = ({
     name,
     control,
   });
-
+  const { year } = usePathParams();
   const monthRegex = /^((1[0-2])|[1-9])?$/;
   const yearRegex = /^((19|20)?\d{0,2})$/;
 
@@ -80,6 +81,7 @@ export const MonthPicker = ({
               }
             />
             <MonthPickerCalendar
+              yearForMeasure={year}
               yearLocked={yearLocked}
               selectedMonth={field.value?.selectedMonth || initMonth}
               selectedYear={yearLocked ? initYear : field.value?.selectedYear}
