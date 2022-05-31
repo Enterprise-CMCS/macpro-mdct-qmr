@@ -49,16 +49,6 @@ async function getMeasureListInfo(inputObj: any) {
   return API.get("coreSet", `/coreset/measureListInfo`, opts);
 }
 
-async function getFilteredMeasureListInfo(inputObj: any) {
-  const opts = await requestOptions();
-  opts.body = inputObj.body;
-  return API.get(
-    "coreSet",
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coresetType}/measureListInfo`,
-    opts
-  );
-}
-
 async function getMeasure(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
@@ -163,5 +153,4 @@ export {
   deleteMeasure,
   getReportingYears,
   getMeasureListInfo,
-  getFilteredMeasureListInfo,
 };

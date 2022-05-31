@@ -4,10 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import * as Views from "views";
 import * as QMR from "components";
 import Measures from "measures";
-import {
-  useGetFilteredMeasureListInfo,
-  useGetMeasureListInfo,
-} from "hooks/api/useGetMeasureListInfo";
+import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -34,12 +31,20 @@ export function useMeasureRoutes(
   year?: string,
   isPrintable: boolean = false
 ): MeasureRoute[] {
-  let { data } = useGetMeasureListInfo(isPrintable);
+  let { data } = useGetMeasureListInfo();
   const [measureRoutes, setMeasureRoutes] = useState<MeasureRoute[]>([]);
 
   useEffect(() => {
     if (data) {
       const routes: MeasureRoute[] = [];
+      if (coreSetType && year) {
+        const tempData = { [year]: [] };
+        tempData[year] = data[year].filter(
+          (measure: any) => measure.type === coreSetType
+        );
+
+        data = tempData; // eslint-disable-line
+      }
 
       Object.keys(data).forEach((year: string) => {
         data[year].forEach(
@@ -75,7 +80,7 @@ export function useMeasureRoutes(
 
       setMeasureRoutes(routes);
     }
-  }, [data, isPrintable]);
+  }, [data, setMeasureRoutes]);
 
   return measureRoutes;
 }

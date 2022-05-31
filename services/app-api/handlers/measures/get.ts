@@ -49,17 +49,3 @@ export const getReportingYears = handler(async () => {
 export const getMeasureListInfo = handler(async () => {
   return measures;
 });
-
-export const getFilteredMeasureListInfo = handler(async (event) => {
-  console.log(event.pathParameters);
-  const state = event.pathParameters?.state;
-  const year = event.pathParameters?.year as string;
-  const coreSetType = event.pathParameters?.coresetType;
-
-  const tempData = measures[parseInt(year)].filter(
-    (m) => m.type === coreSetType
-  );
-  console.log(tempData);
-
-  return { [year]: tempData };
-});
