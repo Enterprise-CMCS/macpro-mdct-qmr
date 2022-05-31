@@ -37,23 +37,25 @@ export const IUHHnoNonZeroNumOrDenom = (
   let zeroRateError = false;
   let errorArray: any[] = [];
 
-  for (const category of performanceMeasureArray) {
-    if (category && category.length > 0) {
-      for (const qualifier of category) {
-        for (const formula of ndrFormulas) {
-          const numerator = qualifier.fields[formula.numerator]?.value;
-          const denominator = qualifier.fields[formula.denominator]?.value;
-          const rate = qualifier.fields[formula.rateIndex]?.value;
+  if (!OPM) {
+    for (const category of performanceMeasureArray) {
+      if (category && category.length > 0) {
+        for (const qualifier of category) {
+          for (const formula of ndrFormulas) {
+            const numerator = qualifier.fields[formula.numerator]?.value;
+            const denominator = qualifier.fields[formula.denominator]?.value;
+            const rate = qualifier.fields[formula.rateIndex]?.value;
 
-          if (numerator && denominator && rate) {
-            if (parseFloat(numerator) === 0 && parseFloat(rate) !== 0)
-              nonZeroRateError = true;
-            if (
-              parseFloat(rate) === 0 &&
-              parseFloat(numerator) !== 0 &&
-              parseFloat(denominator) !== 0
-            )
-              zeroRateError = true;
+            if (numerator && denominator && rate) {
+              if (parseFloat(numerator) === 0 && parseFloat(rate) !== 0)
+                nonZeroRateError = true;
+              if (
+                parseFloat(rate) === 0 &&
+                parseFloat(numerator) !== 0 &&
+                parseFloat(denominator) !== 0
+              )
+                zeroRateError = true;
+            }
           }
         }
       }

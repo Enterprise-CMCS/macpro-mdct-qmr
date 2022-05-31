@@ -34,6 +34,7 @@ export const IUHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        healthHomeMeasure
       />
 
       {!isNotReportingData && (
@@ -56,15 +57,18 @@ export const IUHH = ({
               />
             </>
           )}
-          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
+          {isOtherMeasureSpecSelected && (
+            <CMQ.OtherPerformanceMeasure allowNumeratorGreaterThanDenominator />
+          )}
           <CMQ.CombinedRates healthHomeMeasure={true} />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
-              IUHHPerformanceMeasureArray={performanceMeasureArray}
+              allowNumeratorGreaterThanDenominator
               adultMeasure={false}
               calcTotal={true}
+              IUHHPerformanceMeasureArray={performanceMeasureArray}
               compFlag={"IU"}
             />
           )}

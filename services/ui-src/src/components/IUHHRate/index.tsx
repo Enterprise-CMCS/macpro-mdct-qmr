@@ -34,11 +34,9 @@ export const IUHHRate = ({
   const inputFieldNames = [
     "Number of Enrollee Months",
     "Discharges",
-    // "Discharges per 1,000 Enrollee Months",
-    "(Discharges / Enrollee Months) x 1,000",
+    "Discharges per 1,000 Enrollee Months",
     "Days",
-    // "Days per 1,000 Enrollee Months",
-    "(Days / Enrollee Months) x 1,000",
+    "Days per 1,000 Enrollee Months",
     "Average Length of Stay",
   ];
 
@@ -75,12 +73,6 @@ export const IUHHRate = ({
     control,
     defaultValue: [],
   });
-
-  // TODO:
-  // - defaultValue : {}
-  // - use cleanString()
-  // - instead of looping over array, loop over field names, use as keys to access objs instead
-  // - yada yada yada
 
   if (categoryName === "Maternity") rates = [rates[1], rates[3], rates[4]];
   rates[rates.length - 1]["isTotal"] = true;
@@ -160,9 +152,7 @@ export const IUHHRate = ({
     return fieldRow;
   };
 
-  /*
-  Sum the values of all columns
-  */
+  // Sum the values of all columns
   const calculateTotals = (prevRate: any[]) => {
     let dischargeSum: any = null;
     let daySum: any = null;

@@ -26,9 +26,12 @@ const ndrForumlas = [
   },
 ];
 
+let OPM: any;
+
 const IUHHValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const dateRange = data[DC.DATE_RANGE];
+  const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
@@ -36,7 +39,7 @@ const IUHHValidation = (data: FormData) => {
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const OPM = data[DC.OPM_RATES];
+  OPM = data[DC.OPM_RATES];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -49,6 +52,12 @@ const IUHHValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
+
+    ...GV.IUHHvalidateDualPopInformation(
+      performanceMeasureArray,
+      OPM,
+      definitionOfDenominator
+    ),
 
     // Performance Measure Validations
     ...GV.IUHHatLeastOneRateComplete(performanceMeasureArray, OPM),
@@ -89,20 +98,29 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
     return { rate: [rateData?.rates?.[x]?.OPM?.[0]] };
   });
-  return [
-    ...GV.IUHHnoNonZeroNumOrDenomOMS(
-      rateData?.["iuhh-rate"]?.rates ?? {},
-      rates ?? [],
-      ndrForumlas,
-      `Optional Measure Stratification: ${locationDictionary(label)}`
-    ),
-    ...GV.IUHHvalidateNDRTotalsOMS(
-      rateData?.["iuhh-rate"]?.rates ?? {},
-      PMD.categories,
-      ndrForumlas,
-      `Optional Measure Stratification: ${locationDictionary(label)} Total`
-    ),
-  ];
+  return OPM === undefined
+    ? [
+        ...GV.IUHHnoNonZeroNumOrDenomOMS(
+          rateData?.["iuhh-rate"]?.rates ?? {},
+          rates ?? [],
+          ndrForumlas,
+          `Optional Measure Stratification: ${locationDictionary(label)}`
+        ),
+        ...GV.IUHHvalidateNDRTotalsOMS(
+          rateData?.["iuhh-rate"]?.rates ?? {},
+          PMD.categories,
+          ndrForumlas,
+          `Optional Measure Stratification: ${locationDictionary(label)} Total`
+        ),
+      ]
+    : [
+        ...GV.IUHHnoNonZeroNumOrDenomOMS(
+          rateData?.rates,
+          rates ?? [],
+          ndrForumlas,
+          `Optional Measure Stratification: ${locationDictionary(label)}`
+        ),
+      ];
 };
 
 export const validationFunctions = [IUHHValidation];

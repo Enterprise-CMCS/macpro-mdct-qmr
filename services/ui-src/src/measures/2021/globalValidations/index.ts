@@ -34,3 +34,4 @@ export {
   IUHHvalidateNDRTotals,
   IUHHvalidateNDRTotalsOMS,
 } from "./IUHHValidations/IUHHvalidateNDRTotals";
+export { IUHHvalidateDualPopInformation } from "./IUHHValidations/IUHHvalidateDualPopInformation";

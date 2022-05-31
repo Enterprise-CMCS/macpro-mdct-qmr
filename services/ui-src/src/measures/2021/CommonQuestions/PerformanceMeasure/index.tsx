@@ -260,8 +260,9 @@ export const PerformanceMeasure = ({
         mt={5}
         data-cy="Enter a number for the numerator and the denominator"
       >
-        Enter a number for the numerator and the denominator. Rate will
-        auto-calculate:
+        {data.customPrompt ??
+          `Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:`}
       </CUI.Text>
       {(dataSourceWatch?.[0] !== "AdministrativeData" ||
         dataSourceWatch?.length !== 1) && (
