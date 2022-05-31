@@ -15,7 +15,6 @@ import { useUser } from "hooks/authHooks";
 import { useGetReportingYears } from "hooks/api";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
-
 interface HandleDeleteData {
   state: string;
   year: string;
@@ -93,6 +92,7 @@ const Heading = () => {
 };
 
 export const StateHome = () => {
+  const navigate = useNavigate();
   const { state, year } = useParams();
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
@@ -162,6 +162,10 @@ export const StateHome = () => {
     });
   };
 
+  const exportAll = () => {
+    navigate(`/${state}/ACS/pdf`);
+  };
+
   if (error) {
     console.log({ error });
     return (
@@ -186,6 +190,7 @@ export const StateHome = () => {
     updateAllMeasures,
     resetCoreSet,
     filteredSpas,
+    exportAll,
   });
 
   const childCoreSetExists = formattedTableItems.some(

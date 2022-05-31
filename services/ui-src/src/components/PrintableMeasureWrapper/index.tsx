@@ -226,8 +226,13 @@ export const PrintableMeasureWrapper = ({
   }
 
   return (
-    <div>
-      {apiData?.Item?.description}
+    <CUI.VStack padding={10}>
+      <CUI.HStack>
+        <CUI.Text fontSize={"2xl"} fontWeight="bold">
+          ({apiData?.Item?.measure}) {apiData?.Item?.description}
+        </CUI.Text>
+      </CUI.HStack>
+      <LastModifiedBy user={measureData?.lastAlteredBy} />
       <FormProvider {...methods}>
         <QMR.YesNoModalDialog
           isOpen={showModal}
@@ -241,14 +246,6 @@ export const PrintableMeasureWrapper = ({
             <form data-testid="measure-wrapper-form">
               <fieldset data-testid="fieldset" disabled={!isStateUser}>
                 <CUI.Container maxW="7xl" as="section" px="0">
-                  <LastModifiedBy user={measureData?.lastAlteredBy} />
-                  <CUI.Text fontSize="sm">
-                    For technical questions regarding use of this application,
-                    please reach out to MDCT_Help@cms.hhs.gov. For
-                    content-related questions about measure specifications, or
-                    what information to enter in each field, please reach out to
-                    MACQualityTA@cms.hhs.gov.
-                  </CUI.Text>
                   <Measure
                     measure={measure}
                     name={name}
@@ -296,6 +293,6 @@ export const PrintableMeasureWrapper = ({
           </>
         </CUI.Skeleton>
       </FormProvider>
-    </div>
+    </CUI.VStack>
   );
 };
