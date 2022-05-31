@@ -223,7 +223,11 @@ export const IUHHRate = ({
                 ? `${qual.label} ${categoryName}`
                 : `${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
-            <CUI.Stack direction="row" key={`iuhh-field-stack-${qualIndex}`}>
+            <CUI.Stack
+              direction="row"
+              className="iuhh-field-stack"
+              key={`iuhh-field-stack-${qualIndex}`}
+            >
               {inputFieldNames.map((inputFieldName, fieldIndex) => {
                 return (
                   <QMR.InputWrapper

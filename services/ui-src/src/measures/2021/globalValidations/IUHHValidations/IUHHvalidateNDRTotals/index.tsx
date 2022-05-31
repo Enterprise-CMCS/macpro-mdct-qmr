@@ -87,18 +87,30 @@ export const IUHHvalidateNDRTotals = (
 
     // Compare calculated sums to values in Total qualifier
     const categoryTotal = category.slice(-1)[0];
-    categoryTotal?.fields?.forEach((field: Field, x: number) => {
-      if (
-        !rateLocations.includes(x) &&
-        ((!field?.value && categorySums[x] !== undefined) ||
-          (field?.value && categorySums[x] !== parseFloat(field.value)))
-      ) {
-        errorArray.push({
-          errorLocation: errorLocation,
-          errorMessage: `${categories[i]} - ${field.label} - Total is different from the sum of the section`,
-        });
-      }
-    });
+    if (
+      categorySums.length > 0 &&
+      !categoryTotal?.fields.every(
+        (field) => field.value !== undefined && field.value !== ""
+      )
+    ) {
+      errorArray.push({
+        errorLocation: `${errorLocation} - ${categories[i]}`,
+        errorMessage: `Total ${categories[i]} must contain values if other fields are filled.`,
+      });
+    } else {
+      categoryTotal?.fields?.forEach((field: Field, x: number) => {
+        if (
+          !rateLocations.includes(x) &&
+          ((!field?.value && categorySums[x] !== undefined) ||
+            (field?.value && categorySums[x] !== parseFloat(field.value)))
+        ) {
+          errorArray.push({
+            errorLocation: `${errorLocation} - ${categories[i]}`,
+            errorMessage: `Total ${field.label} is not equal to the sum of other "${field.label}" fields in ${categories[i]} section.`,
+          });
+        }
+      });
+    }
   });
 
   return errorArray;
