@@ -108,7 +108,7 @@ export const formatTableItems = ({
       const actions = getCoreSetActions(data);
 
       return {
-        coreSet: coreSet,
+        coreSet,
         title,
         type,
         progress,
