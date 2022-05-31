@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/globalValidations";
+import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 
@@ -28,7 +28,9 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
 
       if (
         initRate &&
+        initRate.denominator &&
         engageRate &&
+        engageRate.denominator &&
         initRate.denominator !== engageRate.denominator
       ) {
         errorArray.push({
@@ -118,7 +120,6 @@ const IETValidation = (data: FormData) => {
       data
     ),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
-
     // OMS Validations
     ...GV.omsValidations({
       data,

@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/globalValidations";
+import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "measures/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 const AMBCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -45,11 +45,6 @@ const AMBCHValidation = (data: FormData) => {
       ageGroups,
       data
     ),
-    ...GV.validateNumeratorsLessThanDenominatorsPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
 
@@ -64,7 +59,6 @@ const AMBCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,

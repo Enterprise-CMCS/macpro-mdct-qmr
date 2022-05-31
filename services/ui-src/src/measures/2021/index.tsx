@@ -4,6 +4,7 @@ the key should be the measure id as a string (with '-XX' included)
 */
 import { ADDCH } from "./ADDCH";
 import { AMBCH } from "./AMBCH";
+import { AMBHH } from "./AMBHH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
 import { AMRCH } from "./AMRCH";
@@ -12,6 +13,7 @@ import { APPCH } from "./APPCH";
 import { AUDCH } from "./AUDCH";
 import { BCSAD } from "./BCSAD";
 import { CBPAD } from "./CBPAD";
+import { CBPHH } from "./CBPHH";
 import { CCPAD } from "./CCPAD";
 import { CCPCH } from "./CCPCH";
 import { CCSAD } from "./CCSAD";
@@ -19,6 +21,7 @@ import { CCWAD } from "./CCWAD";
 import { CCWCH } from "./CCWCH";
 import { CDFAD } from "./CDFAD";
 import { CDFCH } from "./CDFCH";
+import { CDFHH } from "./CDFHH";
 import { CHLAD } from "./CHLAD";
 import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
@@ -29,12 +32,14 @@ import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
 import { FUAHH } from "./FUAHH";
 import { FUHCH } from "./FUHCH";
+import { FUHHH } from "./FUHHH";
 import { FUMAD } from "./FUMAD";
 import { FVAAD } from "./FVAAD";
 import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
 import { IETAD } from "./IETAD";
+import { IETHH } from "./IETHH";
 import { IMACH } from "./IMACH";
 import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
@@ -60,10 +65,12 @@ import { SSDAD } from "./SSDAD";
 import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
+import { OUDHH } from "./OUDHH";
 
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
   "AMB-CH": AMBCH,
+  "AMB-HH": AMBHH,
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
@@ -72,6 +79,7 @@ const twentyTwentyOneMeasures = {
   "AUD-CH": AUDCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
+  "CBP-HH": CBPHH,
   "CCP-AD": CCPAD,
   "CCP-CH": CCPCH,
   "CCS-AD": CCSAD,
@@ -79,6 +87,7 @@ const twentyTwentyOneMeasures = {
   "CCW-CH": CCWCH,
   "CDF-AD": CDFAD,
   "CDF-CH": CDFCH,
+  "CDF-HH": CDFHH,
   "CHL-AD": CHLAD,
   "CHL-CH": CHLCH,
   "CIS-CH": CISCH,
@@ -90,12 +99,14 @@ const twentyTwentyOneMeasures = {
   "FUA-HH": FUAHH,
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
+  "FUH-HH": FUHHH,
   "FUM-AD": FUMAD,
   "FVA-AD": FVAAD,
   "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
   "IET-AD": IETAD,
+  "IET-HH": IETHH,
   "IMA-CH": IMACH,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
@@ -103,6 +114,7 @@ const twentyTwentyOneMeasures = {
   "NCIDDS-AD": NCIDDSAD,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
+  "OUD-HH": OUDHH,
   "PC01-AD": PC01AD,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
