@@ -80,7 +80,7 @@ functions:
     environment:
       coreSetTableName: ${self:custom.coreSetTableName}
       measureTableName: ${self:custom.measureTableName}
-      dynamoSnapshotS3BucketName: !Ref DynamoSnapshotBucket
+      uploadS3BucketName: !Ref AttachmentsBucket
   avScan:
     handler: src/antivirus.lambdaHandleEvent
     name: ${self:service}-${self:custom.stage}-avScan
@@ -108,11 +108,6 @@ resources:
     AttachmentsBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: aws:kms
-                KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
         CorsConfiguration: # Set the CORS policy
           CorsRules:
@@ -263,106 +258,6 @@ resources:
                 - !Sub ${AttachmentsBucket.Arn}/*.xls
                 - !Sub ${AttachmentsBucket.Arn}/*.xlsx
                 - !Sub ${AttachmentsBucket.Arn}/*.json
-    BucketEncryptionKMSKey:
-      Type: "AWS::KMS::Key"
-      Properties:
-        Description: "Key for encrypting dynamo snapshots and upload buckets"
-        EnableKeyRotation: true
-        PendingWindowInDays: 10
-        MultiRegion: true
-        KeyPolicy:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Principal:
-                AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
-              Action: "kms:*"
-              Resource: "*"
-            - Effect: Allow
-              Principal:
-                AWS: ${ssm:/configuration/mpriamrole}
-              Action: "kms:*"
-              Resource: "*"
-            - Effect: Allow
-              Principal:
-                AWS: ${ssm:/configuration/mprdeviam}
-              Action: "kms:*"
-              Resource: "*"
-            - Effect: Allow
-              Principal:
-                AWS: !GetAtt IamRoleLambdaExecution.Arn
-              Action: "kms:*"
-              Resource: "*"
-    DynamoSnapshotBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: aws:kms
-                KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
-        BucketName: !Sub ${self:service}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
-    DynamoSnapshotBucketPolicy:
-      Type: AWS::S3::BucketPolicy
-      Properties:
-        Bucket: !Ref DynamoSnapshotBucket
-        PolicyDocument:
-          Statement:
-            - Action:
-                - "s3:GetBucketLocation"
-                - "s3:ListBucket"
-              Effect: "Allow"
-              Resource: !Sub ${DynamoSnapshotBucket.Arn}
-              Principal:
-                AWS: ${ssm:/configuration/mpriamrole}
-            - Action:
-                - "s3:GetObject"
-              Effect: "Allow"
-              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
-              Principal:
-                AWS: ${ssm:/configuration/mpriamrole}
-            - Action:
-                - "s3:GetBucketLocation"
-                - "s3:ListBucket"
-              Effect: "Allow"
-              Resource: !Sub ${DynamoSnapshotBucket.Arn}
-              Principal:
-                AWS: ${ssm:/configuration/mprdeviam}
-            - Action:
-                - "s3:GetObject"
-              Effect: "Allow"
-              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
-              Principal:
-                AWS: ${ssm:/configuration/mprdeviam}
-            - Action:
-                - "s3:PutObject"
-              Effect: "Allow"
-              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
-              Principal:
-                AWS: !GetAtt IamRoleLambdaExecution.Arn
-            - Action:
-                - "s3:GetBucketLocation"
-                - "s3:ListBucket"
-              Effect: "Allow"
-              Resource: !Sub ${DynamoSnapshotBucket.Arn}
-              Principal:
-                AWS: !GetAtt IamRoleLambdaExecution.Arn
-            - Action:
-                - "s3:GetObject"
-              Effect: "Deny"
-              Resource: !Sub ${DynamoSnapshotBucket.Arn}/protected/*
-              Principal: "*"
-              Condition:
-                StringNotEquals:
-                  s3:ExistingObjectTag/virusScanStatus:
-                    - "CLEAN"
-                  aws:PrincipalArn: !GetAtt IamRoleLambdaExecution.Arn
-            - Action: "s3:PutObject"
-              Effect: Deny
-              Principal: "*"
-              NotResource:
-                - !Sub ${DynamoSnapshotBucket.Arn}/*.csv
-                - !Sub ${DynamoSnapshotBucket.Arn}/*.json
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
@@ -420,19 +315,6 @@ resources:
                   Action:
                     - s3:ListBucket
                   Resource: !Sub ${AttachmentsBucket.Arn}
-                - Effect: "Allow"
-                  Action:
-                    - s3:GetObject
-                    - s3:GetObjectTagging
-                    - s3:PutObject
-                    - s3:PutObjectAcl
-                    - s3:PutObjectTagging
-                    - s3:PutObjectVersionTagging
-                  Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
-                - Effect: "Allow"
-                  Action:
-                    - s3:ListBucket
-                  Resource: !Sub ${DynamoSnapshotBucket.Arn}
                 - Effect: "Allow"
                   Action:
                     - s3:ListBucket
@@ -495,11 +377,5 @@ resources:
       Value: !Ref AttachmentsBucket
     AttachmentsBucketArn:
       Value: !GetAtt AttachmentsBucket.Arn
-    BucketEncryptionKMSKey:
-      Value: !GetAtt BucketEncryptionKMSKey.Arn
-    DynamoSnapshotBucketName: # Print out the name of the bucket that is created
-      Value: !Ref DynamoSnapshotBucket
-    DynamoSnapshotBucketArn:
-      Value: !GetAtt DynamoSnapshotBucket.Arn
     Region:
       Value: !Sub ${AWS::Region}
