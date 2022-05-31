@@ -32,7 +32,7 @@ interface CoreSetDataItem {
 export interface CoreSetDataItems {
   items: CoreSetDataItem[];
   handleDelete: (data: HandleDeleteData) => void;
-  exportAll: () => void;
+  exportAll: (data: any) => void;
   updateAllMeasures: (data: UpdateAllMeasuresData) => void;
   resetCoreSet: (data: any) => void;
   filteredSpas?: SPAi[];
@@ -105,7 +105,13 @@ export const formatTableItems = ({
             coreSet,
           });
         },
-        exportAll: exportAll,
+        exportAll: () => {
+          exportAll({
+            state,
+            year: year.toString(),
+            coreSet,
+          });
+        },
         type,
       };
 

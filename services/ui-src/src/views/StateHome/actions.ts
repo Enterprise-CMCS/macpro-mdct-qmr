@@ -6,7 +6,7 @@ interface ActionsData {
   completeAllMeasures: () => void;
   resetCoreSet: () => void;
   type: CoreSetTableItem.Type;
-  exportAll: () => void;
+  exportAll: (data: any) => void;
 }
 
 export const getCoreSetActions = ({

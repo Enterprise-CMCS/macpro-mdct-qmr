@@ -7,7 +7,7 @@ import { useUser } from "hooks/authHooks";
 
 export interface IKebabMenuItem {
   itemText: string;
-  handleSelect: () => void;
+  handleSelect: (data?: any) => void;
   type?: CoreSetTableItem.Type;
 }
 

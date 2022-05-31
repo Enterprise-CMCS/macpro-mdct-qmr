@@ -162,8 +162,8 @@ export const StateHome = () => {
     });
   };
 
-  const exportAll = () => {
-    navigate(`/${state}/ACS/pdf`);
+  const exportAll = (data: any) => {
+    navigate(`/${state}/${year}/${data.coreSet}/pdf`);
   };
 
   if (error) {
