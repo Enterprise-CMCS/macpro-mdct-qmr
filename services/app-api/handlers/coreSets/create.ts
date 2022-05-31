@@ -77,7 +77,6 @@ const createDependentMeasures = async (
     const measureId = measure["measure"];
     // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
     const dynamoKey = `${state}${year}${coreSet}${measureId}`;
-
     const params = {
       TableName: process.env.measureTableName!,
       Item: {
