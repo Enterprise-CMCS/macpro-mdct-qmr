@@ -132,9 +132,9 @@ const calculateIUHHOMSTotal = ({
   watchOMS,
 }: CalcOmsTotalProp): IUHHRateFields => {
   const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
-  const fieldNames = watchOMS?.[cleanedQualifiers[0]]?.[
-    cleanedCategory
-  ]?.[0]?.fields.map((field: any) => field.label);
+  const fieldNames = watchOMS?.["Total"]?.[cleanedCategory]?.[0]?.fields.map(
+    (field: any) => field.label
+  );
 
   // Create empty temp obj
   const tempRate: IUHHTempRate = {
@@ -152,7 +152,7 @@ const calculateIUHHOMSTotal = ({
   for (const qual of cleanedQualifiers) {
     const fields = watchOMS?.[qual]?.[cleanedCategory]?.[0]?.fields;
     fields?.forEach((field: { value: string }, i: number) => {
-      if (field.value && tempRate.fields[i]) {
+      if (field?.value && tempRate?.fields?.[i]) {
         tempRate.fields[i].value ??= 0;
         tempRate.fields[i].value += parseFloat(field.value);
       }

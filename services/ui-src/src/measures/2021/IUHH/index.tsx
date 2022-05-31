@@ -6,6 +6,7 @@ import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
+import { xNumbersYDecimals } from "utils/numberInputMasks";
 
 export const IUHH = ({
   name,
@@ -58,7 +59,10 @@ export const IUHH = ({
             </>
           )}
           {isOtherMeasureSpecSelected && (
-            <CMQ.OtherPerformanceMeasure allowNumeratorGreaterThanDenominator />
+            <CMQ.OtherPerformanceMeasure
+              allowNumeratorGreaterThanDenominator
+              customMask={xNumbersYDecimals(12, 1)}
+            />
           )}
           <CMQ.CombinedRates healthHomeMeasure={true} />
           {showOptionalMeasureStrat && (
@@ -68,6 +72,7 @@ export const IUHH = ({
               allowNumeratorGreaterThanDenominator
               adultMeasure={false}
               calcTotal={true}
+              customMask={xNumbersYDecimals(12, 1)}
               IUHHPerformanceMeasureArray={performanceMeasureArray}
               compFlag={"IU"}
             />

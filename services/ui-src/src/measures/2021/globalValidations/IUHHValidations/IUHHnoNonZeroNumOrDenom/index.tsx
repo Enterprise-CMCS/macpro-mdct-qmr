@@ -16,7 +16,7 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
       errorArray.push(
         ...IUHHnoNonZeroNumOrDenom(
           [rateData[key][category]],
-          OPM,
+          [rateData[key][category]],
           ndrFormulas,
           `${errorLocation} - ${key} - ${category}`
         )

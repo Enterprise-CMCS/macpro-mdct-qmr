@@ -152,13 +152,19 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     const ndrSets: React.ReactElement[] = [];
 
     if (IUHHPerformanceMeasureArray) {
-      IUHHPerformanceMeasureArray?.forEach((measure, idx) => {
-        const cleanedName = `${name}.rates.${cleanString(
-          singleQual
-        )}.${cleanString(categories[idx])}`;
-        const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
-        const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
-        const rate3 = measure?.[qualIndex]?.fields?.[5]?.value ? true : false;
+      IUHHPerformanceMeasureArray?.forEach((category, idx) => {
+        // The shape of Maternity is different than all other Categories
+        if (idx === 1) {
+          category = [{}, category[0], {}, category[1], category[2]];
+        }
+        const cleanQual = cleanString(singleQual);
+        const cleanCat = cleanString(categories[idx]);
+        const cleanedName = `${name}.rates.${cleanQual}.${cleanCat}`;
+
+        // Confirm that there is at least 1 rate complete
+        const rate1 = category?.[qualIndex]?.fields?.[2]?.value ? true : false;
+        const rate2 = category?.[qualIndex]?.fields?.[4]?.value ? true : false;
+        const rate3 = category?.[qualIndex]?.fields?.[5]?.value ? true : false;
         if (rate1 || rate2 || rate3) {
           ndrSets.push(
             <QMR.IUHHRate
