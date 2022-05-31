@@ -1,11 +1,15 @@
-// import * as QMR from "components";
-// import { AMRAD } from "measures/2021/AMRAD";
-// import { createElement } from "react";
+import { useParams } from "react-router-dom";
 import { useMeasureRoutes, MeasureRoute } from "Routes";
 
+type CoreSetType = "A" | "C" | "H";
+
 export const ExportAll = () => {
-  const measureRoutes = useMeasureRoutes("A", "2021", true);
-  console.log(measureRoutes);
+  const { year, coreSetId } = useParams();
+  const measureRoutes = useMeasureRoutes(
+    coreSetId![0] as CoreSetType,
+    year,
+    true
+  );
   return (
     <>
       {measureRoutes.map((measureRoute: MeasureRoute) => {
@@ -13,13 +17,4 @@ export const ExportAll = () => {
       })}
     </>
   );
-  // return (
-  //   <QMR.MeasureWrapper
-  //     name={"Test Description"}
-  //     year={"2021"}
-  //     measureId={"AMR-AD"}
-  //     measure={createElement(AMRAD)}
-  //     autocompleteOnCreation={false}
-  //   />
-  // );
 };

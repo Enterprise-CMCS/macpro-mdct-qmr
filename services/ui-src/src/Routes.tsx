@@ -28,7 +28,7 @@ export interface MeasureRoute {
 // eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
 export function useMeasureRoutes(
   coreSetType?: "A" | "C" | "H",
-  year?: "2021" | "2022" | "2023",
+  year?: string,
   isPrintable: boolean = false
 ): MeasureRoute[] {
   let { data } = useGetMeasureListInfo();
