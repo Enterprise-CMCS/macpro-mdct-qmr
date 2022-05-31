@@ -5,11 +5,27 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "./types";
 import { useParams } from "react-router-dom";
 import { allPositiveIntegersWith10Digits } from "utils/numberInputMasks";
+import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 
-export const CostSavingsData = () => {
+interface CostSavingsDataProps {
+  handleSave: (data: any) => void;
+}
+
+export const CostSavingsData = ({ handleSave }: CostSavingsDataProps) => {
   const { year }: any = useParams();
   const register = useCustomRegister<Types.CostSavingsData>();
   const padding = "10px";
+  const { watch } = useFormContext();
+
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      if (name === "costSavingsFile" && type === "change") {
+        handleSave(value);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, handleSave]);
   return (
     <CUI.ListItem mr="4">
       <Common.QualifierHeader header="Cost Savings Data" description="" />
