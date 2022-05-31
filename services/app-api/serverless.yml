@@ -123,6 +123,14 @@ functions:
           method: get
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  getFilteredMeasureListInfo:
+    handler: handlers/measures/get.getFilteredMeasureListInfo
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coresetType}/measureListInfo
+          method: get
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getMeasure:
     handler: handlers/measures/get.getMeasure
     events:
