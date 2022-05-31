@@ -4,10 +4,23 @@ import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
 import { useEffect, useState } from "react";
-import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
+import {
+  useDeleteMeasure,
+  useGetCoreSet,
+  useGetMeasure,
+  useGetMeasures,
+} from "hooks/api";
+import { useQueryClient } from "react-query";
 import { CoreSetTableItem } from "components/Table/types";
 import { SPA } from "libs/spaLib";
 import { useUser } from "hooks/authHooks";
+
+interface HandleDeleteMeasureData {
+  coreSet: CoreSetAbbr;
+  measure: string;
+  state: string;
+  year: string;
+}
 
 enum coreSetType {
   ACS = "Adult",
@@ -110,12 +123,23 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
  * Create an array of the measure data to be usable by the table component from db pull
  */
 const useMeasureTableDataBuilder = () => {
+  const queryClient = useQueryClient();
   const { state, year, coreSetId } = useParams();
   const { data, isLoading, isError, error } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   const [coreSetStatus, setCoreSetStatus] = useState(
     CoreSetTableItem.Status.IN_PROGRESS
   );
+  const { mutate: deleteMeasure } = useDeleteMeasure();
+
+  const handleDeleteMeasure = (data: HandleDeleteMeasureData) => {
+    deleteMeasure(data, {
+      onSuccess: () => {
+        queryClient.refetchQueries();
+      },
+    });
+  };
+
   useEffect(() => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
@@ -146,7 +170,13 @@ const useMeasureTableDataBuilder = () => {
         if (item.userCreated === true) {
           actions.push({
             itemText: "Delete",
-            handleSelect: () => console.log("Delete " + item.measure),
+            handleSelect: () =>
+              handleDeleteMeasure({
+                coreSet: item.coreSet,
+                measure: item.measure,
+                state: item.state,
+                year: item.year.toString(),
+              }),
           });
         }
 

@@ -8,6 +8,7 @@ jest.mock("hooks/api", () => ({
   useAddMeasure: jest.fn(),
   useEditCoreSet: jest.fn(),
   useDeleteCoreSet: jest.fn(),
+  useDeleteMeasure: jest.fn(),
   useGetCoreSet: jest.fn(),
   useGetCoreSets: jest.fn(),
   useGetMeasure: jest.fn(),

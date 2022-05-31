@@ -141,16 +141,16 @@ async function deleteCoreSet(inputObj: any) {
 }
 
 export {
+  createCoreSet,
+  createMeasure,
+  deleteCoreSet,
+  deleteMeasure,
+  editCoreSet,
+  editMeasure,
   getAllCoreSets,
   getCoreSet,
-  createCoreSet,
-  editCoreSet,
-  deleteCoreSet,
-  listMeasures,
   getMeasure,
-  createMeasure,
-  editMeasure,
-  deleteMeasure,
-  getReportingYears,
   getMeasureListInfo,
+  getReportingYears,
+  listMeasures,
 };
