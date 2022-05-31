@@ -230,7 +230,7 @@ export const HHCSQualifiers = () => {
             </CUI.Box>
             <CUI.OrderedList>
               <AdministrativeQuestions />
-              <CostSavingsData />
+              <CostSavingsData handleSave={handleSave} />
               <DeliverySystems />
               <Common.Audit type="HH" />
               <Common.CompleteCoreSets
