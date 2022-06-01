@@ -7,7 +7,7 @@ interface AddSSMProps {
   userCreatedCount?: number;
 }
 
-// Add State-Specific Measure component
+// Add State Specific Measure component
 export const AddSSM = ({ userCreatedCount = 0 }: AddSSMProps) => {
   const maxNumberOfSSMs = 5;
 

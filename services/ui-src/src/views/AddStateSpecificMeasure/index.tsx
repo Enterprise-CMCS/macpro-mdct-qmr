@@ -107,7 +107,7 @@ export const AddStateSpecificMeasure = () => {
         { path: `/${state}/${year}/${coreSetId}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}/add-ssm`,
-          name: "Add State-Specific Measures",
+          name: "Add State Specific Measures",
         },
       ]}
     >

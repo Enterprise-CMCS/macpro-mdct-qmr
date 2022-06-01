@@ -31,7 +31,7 @@ describe("AddStateSpecificMeasure", () => {
     expect(screen.getByTestId("state-layout-container")).toBeVisible();
   });
   it("renders correctly", () => {
-    expect(screen.getByText(/Add State-Specific Measures/i)).toBeVisible();
+    expect(screen.getByText(/Add State Specific Measures/i)).toBeVisible();
     expect(screen.getByText(/Health Home Core Set Details/i)).toBeVisible();
   });
 

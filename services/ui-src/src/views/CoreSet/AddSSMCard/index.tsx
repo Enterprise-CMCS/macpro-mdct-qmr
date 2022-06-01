@@ -10,7 +10,7 @@ interface AddSSMCardProps {
   userCreatedMeasureIds?: any[];
 }
 
-// "Add" card, used for adding a new State-Specific Measure
+// "Add" card, used for adding a new State Specific Measure
 export const AddSSMCard = ({
   buttonText,
   enabled = true,
