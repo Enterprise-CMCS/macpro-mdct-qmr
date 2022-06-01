@@ -1,7 +1,7 @@
 import { HHCSQualifierForm } from "./types";
 import { DeliverySystem } from "./types";
 
-const validate0To64EqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
+const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
   const errorArray: any[] = [];
   const total0To17Percent = values?.reduce(
@@ -75,6 +75,6 @@ const validateTotalNumberOfIndividuals = (data: HHCSQualifierForm) => {
 };
 
 export const validationFunctions = [
-  validate0To64EqualsToOneHundredPercent,
+  validateEqualsToOneHundredPercent,
   validateTotalNumberOfIndividuals,
 ];
