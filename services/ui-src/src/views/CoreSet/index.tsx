@@ -133,11 +133,11 @@ const useMeasureTableDataBuilder = () => {
         const [, itemYear, , itemMeasureId] = item?.compoundKey?.split("/");
 
         const foundMeasureDescription =
-          measureDescriptions[itemYear]?.[itemMeasureId];
+          measureDescriptions[itemYear]?.[itemMeasureId] || item.description;
 
         return {
           Type: coreSetType[item.coreSet],
-          title: foundMeasureDescription || item.description || "",
+          title: foundMeasureDescription || "",
           abbr: item.measure,
           path: `/${state}/${year}/${coreSetId}/${item.measure}`,
           reporting: item.reporting,

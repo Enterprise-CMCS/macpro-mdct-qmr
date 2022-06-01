@@ -329,9 +329,9 @@ export const MeasureWrapper = ({
     const [, itemYear, , itemMeasureId] = measureKey?.split("/");
 
     const foundMeasureDescription =
-      measureDescriptions?.[itemYear]?.[itemMeasureId];
+      measureDescriptions?.[itemYear]?.[itemMeasureId] || customDescription;
 
-    return customDescription || foundMeasureDescription || "";
+    return foundMeasureDescription || "";
   };
 
   return (
