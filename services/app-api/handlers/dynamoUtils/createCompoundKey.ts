@@ -14,5 +14,5 @@ export const createCompoundKey = (event: APIGatewayProxyEvent) => {
   const coreSet = event.pathParameters.coreSet;
   const measure = event.pathParameters.measure ?? "";
 
-  return `${state}${year}${coreSet}${measure}`;
+  return `${state}/${year}/${coreSet}/${measure}`;
 };

@@ -22,7 +22,7 @@ import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
-import { measuresList } from "measures/measuresList";
+import { measureDescriptions } from "measures/measuresDescriptions";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -324,16 +324,14 @@ export const MeasureWrapper = ({
     return null;
   }
 
-  const formatTitle = (stringId: string) => {
-    const [itemYear, itemMeasureType, itemMeasureId] = stringId.split("/");
+  const formatTitle = (measureKey: string, customDescription?: string) => {
+    // Destruct out only the year and id
+    const [, itemYear, , itemMeasureId] = measureKey?.split("/");
 
-    const foundMeasureDescription = measuresList[itemYear]?.find((measure) => {
-      return (
-        measure.measureId === itemMeasureId && measure.type === itemMeasureType
-      );
-    })?.name as string;
+    const foundMeasureDescription =
+      measureDescriptions?.[itemYear]?.[itemMeasureId];
 
-    return foundMeasureDescription || "";
+    return customDescription || foundMeasureDescription || "";
   };
 
   return (
@@ -355,8 +353,11 @@ export const MeasureWrapper = ({
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
             name: `${measureId} ${
-              apiData?.Item?.description
-                ? `- ${formatTitle(apiData.Item.description)}`
+              apiData?.Item
+                ? `- ${formatTitle(
+                    apiData?.Item?.compoundKey,
+                    apiData?.Item?.description
+                  )}`
                 : ""
             }`,
           },

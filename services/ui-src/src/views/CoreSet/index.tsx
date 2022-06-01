@@ -8,7 +8,7 @@ import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
 import { useParams } from "react-router-dom";
 import { CoreSetTableItem } from "components/Table/types";
 import { SPA } from "libs/spaLib";
-import { measuresList } from "measures/measuresList";
+import { measureDescriptions } from "measures/measuresDescriptions";
 
 enum coreSetType {
   ACS = "Adult",
@@ -129,21 +129,15 @@ const useMeasureTableDataBuilder = () => {
         (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
-        const [itemYear, itemMeasureType, itemMeasureId] =
-          item.description.split("/");
+        // Destruct out only the year and id
+        const [, itemYear, , itemMeasureId] = item?.compoundKey?.split("/");
 
-        const foundMeasureDescription = measuresList[itemYear]?.find(
-          (measure) => {
-            return (
-              measure.measureId === itemMeasureId &&
-              measure.type === itemMeasureType
-            );
-          }
-        )?.name as string;
+        const foundMeasureDescription =
+          measureDescriptions[itemYear]?.[itemMeasureId];
 
         return {
           Type: coreSetType[item.coreSet],
-          title: foundMeasureDescription,
+          title: foundMeasureDescription || item.description || "",
           abbr: item.measure,
           path: `/${state}/${year}/${coreSetId}/${item.measure}`,
           reporting: item.reporting,
