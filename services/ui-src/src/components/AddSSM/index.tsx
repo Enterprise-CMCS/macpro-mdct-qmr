@@ -31,26 +31,16 @@ export const AddSSM = ({ userCreatedCount = 0 }: AddSSMProps) => {
         You may associate up to five core measures with this core set.
       </CUI.Text>
 
-      <CUI.VStack
-        spacing={6}
-        divider={<CUI.StackDivider />}
-        // border="1px solid blue"
-      >
+      <CUI.VStack spacing={6} divider={<CUI.StackDivider />}>
         {fields.map((field: any, idx: number) => (
           <CUI.HStack
-            key={field.id}
-            divider={<CUI.StackDivider />}
+            alignItems="justify-start"
             justifyItems={"space-between"}
+            key={field.id}
+            spacing={6}
             w="100%"
           >
-            <CUI.Icon
-              color={"red.600"}
-              fontSize={"xl"}
-              as={BsTrash}
-              cursor="pointer"
-              onClick={() => remove(idx)}
-            />
-            <CUI.VStack w="100%">
+            <CUI.VStack w="100%" alignItems="start">
               <QMR.TextInput
                 label="Name the measure"
                 name={`add-ssm.${idx}.description`}
@@ -63,6 +53,13 @@ export const AddSSM = ({ userCreatedCount = 0 }: AddSSMProps) => {
                 maxLength={4000}
               ></QMR.TextArea>
             </CUI.VStack>
+            <CUI.IconButton
+              aria-label="Delete State Specific Measure"
+              colorScheme="red"
+              icon={<BsTrash />}
+              onClick={() => remove(idx)}
+              variant="outline"
+            />
           </CUI.HStack>
         ))}
       </CUI.VStack>
