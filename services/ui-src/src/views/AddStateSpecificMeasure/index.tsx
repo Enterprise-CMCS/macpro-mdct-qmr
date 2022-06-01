@@ -91,6 +91,11 @@ export const AddStateSpecificMeasure = () => {
               state: { success: true },
             });
           },
+          onError: () => {
+            navigate(`/${state}/${year}/${coreSetId}`, {
+              state: { success: false },
+            });
+          },
         });
       }
     });

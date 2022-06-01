@@ -265,6 +265,17 @@ export const CoreSet = () => {
         </CUI.Box>
       )}
 
+      {/* Show success banner after redirect from creating new SSMs */}
+      {locationState && locationState.success === false && (
+        <CUI.Box mb="6">
+          <QMR.Notification
+            alertDescription="An error occurred. Unable to create State Specific Measures."
+            alertStatus="error"
+            alertTitle="Error creating State Specific Measures"
+          ></QMR.Notification>
+        </CUI.Box>
+      )}
+
       <CUI.Flex>
         <CUI.HStack
           justifyContent="space-between"
