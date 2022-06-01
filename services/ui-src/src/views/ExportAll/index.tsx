@@ -1,20 +1,17 @@
-import { useParams } from "react-router-dom";
-import { useMeasureRoutes, MeasureRoute } from "Routes";
+import * as QMR from "components";
+import { useGetMeasures } from "hooks/api";
 
-type CoreSetType = "A" | "C" | "H";
+// type CoreSetType = "A" | "C" | "H";
 
 export const ExportAll = () => {
-  const { year, coreSetId } = useParams();
-  const measureRoutes = useMeasureRoutes(
-    coreSetId![0] as CoreSetType,
-    year,
-    true
+  const { data, isLoading } = useGetMeasures();
+  if (isLoading || !data.Items) {
+    return <QMR.LoadingWave />;
+  }
+
+  const sortedData = data?.Items?.sort((a: any, b: any) =>
+    a?.measure?.localeCompare(b?.measure)
   );
-  return (
-    <>
-      {measureRoutes.map((measureRoute: MeasureRoute) => {
-        return measureRoute.element;
-      })}
-    </>
-  );
+  console.log(sortedData);
+  return <></>;
 };
