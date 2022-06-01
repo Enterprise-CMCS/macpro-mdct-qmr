@@ -30,7 +30,7 @@ export const AddSSM = ({ userCreatedCount = 0 }: AddSSMProps) => {
       <CUI.Text>
         You may associate up to five core measures with this core set.
       </CUI.Text>
-
+      <CUI.Divider />
       <CUI.VStack spacing={6} divider={<CUI.StackDivider />}>
         {fields.map((field: any, idx: number) => (
           <CUI.HStack
