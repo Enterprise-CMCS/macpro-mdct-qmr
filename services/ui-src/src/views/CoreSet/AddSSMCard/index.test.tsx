@@ -1,4 +1,4 @@
-import { AddCard } from ".";
+import { AddSSMCard } from ".";
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 
@@ -7,12 +7,12 @@ jest.mock("hooks/authHooks", () => ({
   useUser: jest.fn(),
 }));
 
-describe("AddCard", () => {
+describe("AddSSMCard", () => {
   describe("renders the component", () => {
     beforeEach(() => {
       render(
         <RouterWrappedComp>
-          <AddCard
+          <AddSSMCard
             buttonText="Test button text"
             title="Test title"
             to="/test-link"
@@ -48,7 +48,7 @@ describe("AddCard", () => {
     it("enables the button properly", () => {
       render(
         <RouterWrappedComp>
-          <AddCard
+          <AddSSMCard
             enabled={true}
             buttonText="Test button text"
             title="Test title"
@@ -63,7 +63,7 @@ describe("AddCard", () => {
     it("disables the button properly", () => {
       render(
         <RouterWrappedComp>
-          <AddCard
+          <AddSSMCard
             enabled={false}
             buttonText="Test button text"
             title="Test title"
