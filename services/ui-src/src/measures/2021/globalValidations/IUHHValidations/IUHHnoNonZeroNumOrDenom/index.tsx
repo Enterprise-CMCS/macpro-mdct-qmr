@@ -12,17 +12,29 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
 ) => {
   let errorArray: any[] = [];
   for (const key in rateData) {
-    for (const category in rateData[key]) {
+    if (OPM) {
       errorArray.push(
         ...IUHHnoNonZeroNumOrDenom(
-          [rateData[key][category]],
-          [rateData[key][category]],
+          [],
+          [{ description: key, rate: [...rateData[key]["OPM"]] }],
           ndrFormulas,
-          `${errorLocation} - ${key} - ${category}`
+          `${errorLocation} - ${key}`
         )
       );
+    } else {
+      for (const category in rateData[key]) {
+        errorArray.push(
+          ...IUHHnoNonZeroNumOrDenom(
+            [rateData[key][category]],
+            OPM,
+            ndrFormulas,
+            `${errorLocation} - ${key} - ${category}`
+          )
+        );
+      }
     }
   }
+
   return errorArray;
 };
 
