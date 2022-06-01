@@ -27,41 +27,47 @@ describe("Health Home Measure Qualifier: HH", () => {
       "have.text",
       "What is the total annual number of adults in the Health Home program?"
     );
-    cy.get('[data-cy="numberOfAdults"]').clear();
-    cy.get('[data-cy="numberOfAdults"]').type("2");
+    cy.get('[data-cy="AdministrativeData.numberOfAdults"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfAdults"]').type("2");
     cy.get(':nth-child(3) > [data-cy="[object Object]"]').click();
     cy.get(':nth-child(3) > [data-cy="[object Object]"]').should(
       "have.text",
       "The minimum age of an adult in the program is:"
     );
-    cy.get('[data-cy="minAgeOfAdults"]').clear();
-    cy.get('[data-cy="minAgeOfAdults"]').type("123");
+    cy.get('[data-cy="AdministrativeData.minAgeOfAdults"]').clear();
+    cy.get('[data-cy="AdministrativeData.minAgeOfAdults"]').type("123");
     cy.get(':nth-child(4) > [data-cy="[object Object]"]').click();
     cy.get(':nth-child(4) > [data-cy="[object Object]"]').should(
       "have.text",
       "What is the total annual number of children in the Health Home program?"
     );
-    cy.get('[data-cy="numberOfChildren"]').clear();
-    cy.get('[data-cy="numberOfChildren"]').type("1234567890");
+    cy.get('[data-cy="AdministrativeData.numberOfChildren"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfChildren"]').type(
+      "1234567890"
+    );
     cy.get(':nth-child(5) > [data-cy="[object Object]"]').click();
     cy.get(':nth-child(5) > [data-cy="[object Object]"]').should(
       "have.text",
       "The maximum age of a child in the program is:"
     );
-    cy.get('[data-cy="maxAgeChildren"]').clear();
-    cy.get('[data-cy="maxAgeChildren"]').type("123");
+    cy.get('[data-cy="AdministrativeData.maxAgeChildren"]').clear();
+    cy.get('[data-cy="AdministrativeData.maxAgeChildren"]').type("123");
     cy.get(':nth-child(6) > [data-cy="[object Object]"]').should(
       "have.text",
       "What is the total annual number of individuals in the Health Home program?"
     );
-    cy.get('[data-cy="numberOfIndividuals"]').clear();
-    cy.get('[data-cy="numberOfIndividuals"]').type("1234567890");
+    cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').type(
+      "1234567890"
+    );
     cy.get(':nth-child(7) > [data-cy="[object Object]"]').should(
       "have.text",
       "What is the number of providers operating under the Health Home program?"
     );
-    cy.get('[data-cy="numberOfProviders"]').clear();
-    cy.get('[data-cy="numberOfProviders"]').type("1234567890");
+    cy.get('[data-cy="AdministrativeData.numberOfProviders"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfProviders"]').type(
+      "1234567890"
+    );
 
     //testing section 2 with fields inside it
     cy.get(":nth-child(2) > .css-1vvfi3 > .css-722v25").should(
