@@ -15,7 +15,6 @@ export const ExportAll = () => {
     a?.measure?.localeCompare(b?.measure)
   ).filter((item: any) => item?.measure !== "CSQ");
 
-  console.log(sortedData);
   return (
     <>
       {sortedData?.map((measure: any) => {
