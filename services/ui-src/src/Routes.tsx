@@ -26,25 +26,13 @@ export interface MeasureRoute {
 // For each year we want a route for each measure.
 // The measures available for each year are defined in the measuresList
 // eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
-export function useMeasureRoutes(
-  coreSetType?: "A" | "C" | "H",
-  year?: string,
-  isPrintable: boolean = false
-): MeasureRoute[] {
+export function useMeasureRoutes(): MeasureRoute[] {
   let { data } = useGetMeasureListInfo();
   const [measureRoutes, setMeasureRoutes] = useState<MeasureRoute[]>([]);
 
   useEffect(() => {
     if (data) {
       const routes: MeasureRoute[] = [];
-      if (coreSetType && year) {
-        const tempData = { [year]: [] };
-        tempData[year] = data[year].filter(
-          (measure: any) => measure.type === coreSetType
-        );
-
-        data = tempData; // eslint-disable-line
-      }
 
       Object.keys(data).forEach((year: string) => {
         data[year].forEach(
@@ -55,16 +43,8 @@ export function useMeasureRoutes(
               routes.push({
                 key: `:state/${year}/:coreSetId/${measure}`,
                 path: `:state/${year}/:coreSetId/${measure}`,
-                element: !isPrintable ? (
+                element: (
                   <QMR.MeasureWrapper
-                    name={description}
-                    year={year}
-                    measureId={measure}
-                    measure={createElement(Comp)}
-                    autocompleteOnCreation={autocompleteOnCreation ?? false}
-                  />
-                ) : (
-                  <QMR.PrintableMeasureWrapper
                     name={description}
                     year={year}
                     measureId={measure}
