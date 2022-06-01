@@ -52,7 +52,29 @@ const validate0To64EqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
       errorMessage: "Entries for Age 65 and Older column must total 100",
     });
   }
+
   return errorArray.length ? errorArray : [];
 };
 
-export const validationFunctions = [validate0To64EqualsToOneHundredPercent];
+const validateTotalNumberOfIndividuals = (data: HHCSQualifierForm) => {
+  const adults = parseInt(data.AdministrativeData.numberOfAdults) || 0;
+  const children = parseInt(data.AdministrativeData.numberOfChildren) || 0;
+  const totalIndividuals =
+    parseInt(data.AdministrativeData.numberOfIndividuals) || 0;
+  const errorArray: any[] = [];
+
+  if (adults + children !== totalIndividuals) {
+    errorArray.push({
+      errorLocation: "Administrative Questions",
+      errorMessage:
+        "The sum of adults and children did not equal total individuals",
+    });
+  }
+
+  return errorArray.length ? errorArray : [];
+};
+
+export const validationFunctions = [
+  validate0To64EqualsToOneHundredPercent,
+  validateTotalNumberOfIndividuals,
+];
