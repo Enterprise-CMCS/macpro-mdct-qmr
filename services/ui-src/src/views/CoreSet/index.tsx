@@ -133,11 +133,8 @@ const useMeasureTableDataBuilder = () => {
         (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
-        // Destruct out only the year and id
-        const [, itemYear, , itemMeasureId] = item?.compoundKey?.split("/");
-
         const foundMeasureDescription =
-          measureDescriptions[itemYear]?.[itemMeasureId] || item.description;
+          measureDescriptions[item.year]?.[item.measure] || item.description;
 
         return {
           Type: coreSetType[item.coreSet],

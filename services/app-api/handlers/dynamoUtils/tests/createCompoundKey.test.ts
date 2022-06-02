@@ -23,7 +23,7 @@ describe("Testing CreateCompundKey", () => {
       ...testEvent,
       pathParameters: { year: "2022", state: "FL", coreSet: "ACS" },
     });
-    expect(key).toEqual("FL/2022/ACS/");
+    expect(key).toEqual("FL2022ACS");
   });
 
   test("Successful key creation with passed measure", () => {
@@ -36,6 +36,6 @@ describe("Testing CreateCompundKey", () => {
         measure: "FUA-AD",
       },
     });
-    expect(key).toEqual("FL/2022/ACS/FUA-AD");
+    expect(key).toEqual("FL2022ACSFUA-AD");
   });
 });

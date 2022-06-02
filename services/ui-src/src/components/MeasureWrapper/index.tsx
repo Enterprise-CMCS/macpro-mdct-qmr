@@ -324,12 +324,9 @@ export const MeasureWrapper = ({
     return null;
   }
 
-  const formatTitle = (measureKey: string, customDescription?: string) => {
-    // Destruct out only the year and id
-    const [, itemYear, , itemMeasureId] = measureKey?.split("/");
-
+  const formatTitle = (customDescription?: string) => {
     const foundMeasureDescription =
-      measureDescriptions?.[itemYear]?.[itemMeasureId] || customDescription;
+      measureDescriptions?.[year]?.[measureId] || customDescription;
 
     return foundMeasureDescription || "";
   };
@@ -354,10 +351,7 @@ export const MeasureWrapper = ({
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
             name: `${measureId} ${
               apiData?.Item
-                ? `- ${formatTitle(
-                    apiData?.Item?.compoundKey,
-                    apiData?.Item?.description
-                  )}`
+                ? `- ${formatTitle(apiData?.Item?.description)}`
                 : ""
             }`,
           },
