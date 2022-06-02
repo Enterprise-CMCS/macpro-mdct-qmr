@@ -5,7 +5,7 @@ export const qualifiers = [
   "Ages 18 to 64",
   "Age 65 and older",
   "Ages unknown",
-  "Total",
+  "Total (All Ages)",
 ];
 export const categories = [];
 
