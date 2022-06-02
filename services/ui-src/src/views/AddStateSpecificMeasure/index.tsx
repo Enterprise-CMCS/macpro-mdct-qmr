@@ -51,12 +51,14 @@ export const AddStateSpecificMeasure = () => {
 
   // Save each of the new SSMs
   const handleSubmit = (data: any) => {
-    if (!data["add-ssm"] || data["add-ssm"].length === 0) {
+    const newMeasures = data["add-ssm"];
+
+    if (!newMeasures || newMeasures.length === 0) {
       console.error("Error finding State Specific Measures data");
       return;
     }
 
-    data["add-ssm"].forEach((measure: NewMeasure, index: number) => {
+    newMeasures.forEach((measure: NewMeasure, index: number) => {
       // Start by assuming this is a new SSM with ID 1.
       let measureIdNumber = index + 1;
 
@@ -72,6 +74,10 @@ export const AddStateSpecificMeasure = () => {
 
       // Save the SSM with its corresponding ID (as the `measure` attribute).
       if (state && year) {
+        // Add this measure ID to the existingIDs array so we don't overwrite
+        // this SSM with the next one.
+        existingIds.push(measureIdNumber);
+
         const requestData = {
           body: {
             description: measure["description"],
