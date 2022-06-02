@@ -69,9 +69,10 @@ export const measureDescriptions: MeasureList = {
       "Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17",
     "IMA-CH": "Immunizations for Adolescents",
     "LBW-CH": "Live Births Weighing Less Than 2,500 Grams",
-    "LRCD-CH": "Contraceptive Care - All Women Ages 15 to 20",
-    "PDENT-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
-    "PPC-CH": "Contraceptive Care - All Women Ages 15 to 20",
+    "LRCD-CH": "Low-Risk Cesarean Delivery",
+    "PDENT-CH":
+      "Percentage of Eligibles Who Received Preventive Dental Services",
+    "PPC-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",
     "W30-CH": "Well-Child Visits in the First 30 Months of Life",
     "WCC-CH":
@@ -86,9 +87,9 @@ export const measureDescriptions: MeasureList = {
     "FUA-HH":
       "Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
     "FUH-HH": "Follow-Up after Hospitalization for Mental Illness",
-    "IU-HH": "Inpatient Utilization",
     "IET-HH":
       "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
+    "IU-HH": "Inpatient Utilization",
     "OUD-HH": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-HH": "Plan All-Cause Readmissions",
     "PQI92-HH":
@@ -160,8 +161,8 @@ export const measureDescriptions: MeasureList = {
       "Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17",
     "IMA-CH": "Immunizations for Adolescents",
     "LBW-CH": "Live Births Weighing Less Than 2,500 Grams",
-    "LRCD-CH": "Contraceptive Care - All Women Ages 15 to 20",
-    "PPC-CH": "Contraceptive Care - All Women Ages 15 to 20",
+    "LRCD-CH": "Low-Risk Cesarean Delivery",
+    "PPC-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",
     "W30-CH": "Well-Child Visits in the First 30 Months of Life",
     "WCC-CH":
@@ -176,9 +177,9 @@ export const measureDescriptions: MeasureList = {
     "FUA-HH":
       "Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
     "FUH-HH": "Follow-Up after Hospitalization for Mental Illness",
-    "IU-HH": "Inpatient Utilization",
     "IET-HH":
       "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
+    "IU-HH": "Inpatient Utilization",
     "OUD-HH": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-HH": "Plan All-Cause Readmissions",
     "PQI92-HH":
