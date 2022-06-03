@@ -49,6 +49,7 @@ export const FUAAD = ({
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
+
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (

@@ -1,13 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-
 import { useMemo } from "react";
 import { HiX } from "react-icons/hi";
 import { useFieldArray } from "react-hook-form";
-
 import { useGetMeasures } from "hooks/api";
 import { ICheckbox } from "components/MultiSelect";
 import { QualifierHeader } from "./qualifierHeader";
+import { measureDescriptions } from "measures/measuresDescriptions";
 
 export const initialAuditValues = {
   MeasuresAuditedOrValidated: [],
@@ -52,8 +51,11 @@ export const Audit = ({ type }: Props) => {
           );
         })
         ?.map((obj: any) => {
+          const foundMeasureDescription =
+            measureDescriptions[obj.year]?.[obj.measure] || obj.description;
+
           return {
-            label: obj.measure + " - " + obj.description,
+            label: obj.measure + " - " + foundMeasureDescription,
             value: obj.measure,
             isVisible: true,
           };

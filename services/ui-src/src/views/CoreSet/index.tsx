@@ -15,6 +15,7 @@ import { useQueryClient } from "react-query";
 import { CoreSetTableItem } from "components/Table/types";
 import { SPA } from "libs/spaLib";
 import { useUser } from "hooks/authHooks";
+import { measureDescriptions } from "measures/measuresDescriptions";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -91,9 +92,13 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
+  let { state } = useParams();
+
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
-    coreSetInfo.length > 1 ? SPA.filter((s) => s.id === coreSetInfo[1])[0] : "";
+    coreSetInfo.length > 1
+      ? SPA.filter((s) => s.id === coreSetInfo[1] && s.state === state)[0]
+      : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
       ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
@@ -181,9 +186,12 @@ const useMeasureTableDataBuilder = () => {
           });
         }
 
+        const foundMeasureDescription =
+          measureDescriptions[item.year]?.[item.measure] || item.description;
+
         return {
           Type: coreSetType[item.coreSet],
-          title: item.description,
+          title: foundMeasureDescription || "",
           abbr: item.measure,
           path: `/${state}/${year}/${coreSetId}/${item.measure}`,
           reporting: item.reporting,
@@ -227,7 +235,9 @@ export const CoreSet = () => {
 
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
-    coreSet.length > 1 ? SPA.filter((s) => s.id === coreSet[1])[0] : "";
+    coreSet.length > 1
+      ? SPA.filter((s) => s.id === coreSet[1] && s.state === state)[0]
+      : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
       ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
