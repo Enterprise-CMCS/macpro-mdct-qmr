@@ -131,10 +131,10 @@ const useMeasureTableDataBuilder = () => {
   const [coreSetStatus, setCoreSetStatus] = useState(
     CoreSetTableItem.Status.IN_PROGRESS
   );
-  const { mutate: deleteMeasure } = useDeleteMeasure();
+  const deleteMeasure = useDeleteMeasure();
 
   const handleDeleteMeasure = (data: HandleDeleteMeasureData) => {
-    deleteMeasure(data, {
+    deleteMeasure.mutate(data, {
       onSuccess: () => {
         queryClient.refetchQueries();
       },
