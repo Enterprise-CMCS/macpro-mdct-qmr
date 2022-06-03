@@ -11,9 +11,10 @@ export const getPDF = handler(async (event, context) => {
       host: "macpro-platform-dev.cms.gov",
       service: "execute-api",
       region: "us-east-1",
+      method: "POST",
     });
 
-    console.log("hello there", test.headers?.["X-Amz-Date"]);
+    console.log("hello there", test.headers);
 
     const pdf = await axios.post(
       "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf",
@@ -24,6 +25,9 @@ export const getPDF = handler(async (event, context) => {
         headers: {
           Authorization: test.headers?.Authorization as string,
           "X-Amz-Date": test.headers?.["X-Amz-Date"] as string,
+          "X-Amz-Security-Token": test.headers?.[
+            "X-Amz-Security-Token"
+          ] as string,
         },
       }
       // body
