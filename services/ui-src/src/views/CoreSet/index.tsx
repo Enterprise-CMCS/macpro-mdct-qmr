@@ -133,17 +133,17 @@ const useMeasureTableDataBuilder = () => {
   );
   const deleteMeasure = useDeleteMeasure();
 
-  const handleDeleteMeasure = (data: HandleDeleteMeasureData) => {
-    deleteMeasure.mutate(data, {
-      onSuccess: () => {
-        queryClient.refetchQueries();
-      },
-    });
-  };
-
   useEffect(() => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
+      const handleDeleteMeasure = (data: HandleDeleteMeasureData) => {
+        deleteMeasure.mutate(data, {
+          onSuccess: () => {
+            queryClient.refetchQueries();
+          },
+        });
+      };
+
       let numCompleteItems = 0;
       // include qualifier in core set status check
       for (const m of data.Items as MeasureData[]) {
@@ -202,16 +202,7 @@ const useMeasureTableDataBuilder = () => {
     return () => {
       mounted = false;
     };
-  }, [
-    data,
-    handleDeleteMeasure,
-    isLoading,
-    isError,
-    setMeasures,
-    coreSetId,
-    state,
-    year,
-  ]);
+  }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
   return { coreSetStatus, measures, isLoading, isError, error };
 };
 
