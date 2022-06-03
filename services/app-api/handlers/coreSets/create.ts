@@ -90,7 +90,6 @@ const createDependentMeasures = async (
         status: measure.autocompleteOnCreation
           ? Types.MeasureStatus.COMPLETE
           : Types.MeasureStatus.INCOMPLETE,
-        description: measure.description,
       },
     };
 
