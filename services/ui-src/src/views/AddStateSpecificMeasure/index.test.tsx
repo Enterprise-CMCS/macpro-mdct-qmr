@@ -35,45 +35,38 @@ describe("AddStateSpecificMeasure", () => {
     expect(screen.getByText(/Health Home Core Set Details/i)).toBeVisible();
   });
 
+  it("renders the SSM form", () => {
+    expect(screen.getByLabelText(/Name the measure/i)).toBeVisible();
+    expect(screen.getByLabelText(/Name the measure/i)).toBeEnabled();
+
+    expect(
+      screen.getByLabelText("Please provide a description of the measure")
+    ).toBeVisible();
+    expect(
+      screen.getByLabelText("Please provide a description of the measure")
+    ).toBeEnabled();
+  });
+
   describe("Add and Remove buttons", () => {
     it("renders the Add button", () => {
       expect(screen.getByText(/\+ Add Another/i)).toBeVisible();
       expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
     });
 
-    it("renders the remove button", () => {
-      expect(screen.getByText(/Remove/i)).toBeVisible();
-      expect(screen.getByText(/Remove/i)).toBeDisabled();
-    });
-
-    it("renders the SSM form", () => {
-      screen.getByText(/\+ Add Another/i).click();
-      expect(screen.getByLabelText(/Name the measure/i)).toBeVisible();
-      expect(screen.getByLabelText(/Name the measure/i)).toBeEnabled();
-
-      expect(
-        screen.getByLabelText("Please provide a description of the measure")
-      ).toBeVisible();
-      expect(
-        screen.getByLabelText("Please provide a description of the measure")
-      ).toBeEnabled();
-    });
-
     it("allows a maximum of 5 new SSMs", () => {
-      for (let i = 0; i < 4; i++) {
+      // Add 3 additional SSMs (for a total of 4)
+      for (let i = 0; i < 3; i++) {
         screen.getByText(/\+ Add Another/i).click();
       }
 
+      // Expect that we can add a 5th SSM
       expect(screen.getAllByText(/Name the measure/i)).toHaveLength(4);
       expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+
       screen.getByText(/\+ Add Another/i).click();
+
       expect(screen.getAllByText(/Name the measure/i)).toHaveLength(5);
       expect(screen.getByText(/\+ Add Another/i)).toBeDisabled();
-    });
-
-    it("removes an SSM with the Remove button", () => {
-      screen.getByText(/Remove/i).click();
-      expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
     });
   });
 
