@@ -181,13 +181,13 @@ describe("Measure: FUH-HH", () => {
       .type("1");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.Followupwithin30daysafterdischarge.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge6andolder.Followupwithin30daysafterdischarge.0.numerator"]'
     ).should("have.value", "12");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.Followupwithin30daysafterdischarge.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge6andolder.Followupwithin30daysafterdischarge.0.denominator"]'
     ).should("have.value", "13");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.Followupwithin30daysafterdischarge.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge6andolder.Followupwithin30daysafterdischarge.0.rate"]'
     ).should("have.value", "92.3");
 
     // validation errors
