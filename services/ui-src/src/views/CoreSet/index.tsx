@@ -202,7 +202,16 @@ const useMeasureTableDataBuilder = () => {
     return () => {
       mounted = false;
     };
-  }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
+  }, [
+    data,
+    handleDeleteMeasure,
+    isLoading,
+    isError,
+    setMeasures,
+    coreSetId,
+    state,
+    year,
+  ]);
   return { coreSetStatus, measures, isLoading, isError, error };
 };
 
