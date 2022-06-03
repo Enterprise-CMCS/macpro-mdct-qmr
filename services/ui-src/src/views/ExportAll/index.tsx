@@ -2,10 +2,14 @@ import * as QMR from "components";
 import Measures from "measures";
 import { useGetMeasures } from "hooks/api";
 import { createElement } from "react";
+import { getPDF } from "libs/api";
+import { useParams } from "react-router-dom";
 
 // type CoreSetType = "A" | "C" | "H";
 
 export const ExportAll = () => {
+  const { state, coreSetId, year } = useParams();
+
   const { data, isLoading } = useGetMeasures();
   if (isLoading || !data.Items) {
     return <QMR.LoadingWave />;
@@ -16,8 +20,23 @@ export const ExportAll = () => {
   ).filter((item: any) => item?.measure !== "CSQ");
 
   console.log(sortedData);
+
   return (
     <>
+      <button
+        type="button"
+        onClick={async () => {
+          const test = await getPDF({
+            body: "hello",
+            state,
+            coreSet: coreSetId,
+            year,
+          });
+          console.log(test);
+        }}
+      >
+        Testing
+      </button>
       {sortedData?.map((measure: any) => {
         const Comp = Measures[measure.year][measure.measure];
 

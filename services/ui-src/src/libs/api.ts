@@ -140,6 +140,18 @@ async function deleteCoreSet(inputObj: any) {
   );
 }
 
+async function getPDF(inputObj: any) {
+  const opts = await requestOptions();
+  opts.body = inputObj.body;
+  console.log({ opts });
+  console.log("hello");
+  return API.post(
+    "coreSet",
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/getPDF`,
+    opts
+  );
+}
+
 export {
   getAllCoreSets,
   getCoreSet,
@@ -153,4 +165,5 @@ export {
   deleteMeasure,
   getReportingYears,
   getMeasureListInfo,
+  getPDF,
 };
