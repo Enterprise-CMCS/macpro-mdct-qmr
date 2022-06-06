@@ -23,7 +23,7 @@ export interface Measure {
   compoundKey: string;
   coreSet: CoreSetAbbr;
   createdAt: number;
-  description: string;
+  description?: string;
   lastAltered: number;
   lastAlteredBy?: string;
   measure: string;
