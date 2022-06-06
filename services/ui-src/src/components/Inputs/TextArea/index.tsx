@@ -6,13 +6,11 @@ import ResizeTextarea from "react-textarea-autosize";
 import { ControllerRules } from "global";
 
 interface TextAreaProps extends QMR.InputWrapperProps, ControllerRules {
-  maxLength?: number;
   name: string;
   textAreaProps?: CUI.TextareaProps;
 }
 
 export const TextArea = ({
-  maxLength,
   name,
   rules,
   textAreaProps,
@@ -38,7 +36,6 @@ export const TextArea = ({
       <CUI.Textarea
         as={ResizeTextarea}
         data-cy={name}
-        maxLength={maxLength}
         name={name}
         onBlur={field.onBlur}
         onChange={field.onChange}
