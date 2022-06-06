@@ -448,6 +448,35 @@
     ]
   },
   {
+    "username": "stateuserDE@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserDE@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "John"
+      },
+      {
+        "Name": "family_name",
+        "Value": "DE"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "DE"
+      }
+    ]
+  },
+  {
     "username": "stateuserMD@test.com",
     "attributes": [
       {
