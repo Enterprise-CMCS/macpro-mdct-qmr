@@ -8,14 +8,12 @@ import { ControllerRules } from "global";
 interface TextAreaProps extends QMR.InputWrapperProps, ControllerRules {
   maxLength?: number;
   name: string;
-  placeholder?: string;
   textAreaProps?: CUI.TextareaProps;
 }
 
 export const TextArea = ({
   maxLength,
   name,
-  placeholder,
   rules,
   textAreaProps,
   ...rest
@@ -44,7 +42,6 @@ export const TextArea = ({
         name={name}
         onBlur={field.onBlur}
         onChange={field.onChange}
-        placeholder={placeholder}
         value={field.value ?? ""}
         {...textAreaProps}
       />
