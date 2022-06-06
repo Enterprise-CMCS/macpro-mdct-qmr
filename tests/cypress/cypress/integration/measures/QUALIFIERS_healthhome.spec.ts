@@ -314,7 +314,17 @@ describe("Health Home Measure Qualifier: HH", () => {
   it("Health Home Core Set Measures", () => {
     cy.goToHealthHomeSetMeasures();
     cy.get('[data-cy="core-set-qualifiers-link"]').click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.ZeroToSeventeen"]'
+    ).clear();
 
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
+    ).clear();
+
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFive"]'
+    ).clear();
     cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').clear();
     cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').type(
       "1234567892"
