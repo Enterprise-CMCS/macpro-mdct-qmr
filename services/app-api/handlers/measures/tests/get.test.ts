@@ -70,7 +70,9 @@ describe("Test Get Measure Handlers", () => {
     const res = await listMeasures(event, null);
 
     expect(res.statusCode).toBe(200);
-    expect(res.body).toContain("[]");
+    expect(res.body).toContain("array");
+    expect(res.body).toContain("of");
+    expect(res.body).toContain("measures");
     expect(dbLib.scan).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       testValue: "test",
