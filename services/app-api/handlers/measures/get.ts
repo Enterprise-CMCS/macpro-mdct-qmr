@@ -17,13 +17,24 @@ export const listMeasures = handler(async (event, context) => {
       "list"
     ),
   };
-  const queryValue = await dynamoDb.scan(params);
-  queryValue.Items = queryValue?.Items?.map((v) => {
-    const measure = measures[parseInt(year)]?.filter(
-      (m) => m.measure === (v as Measure)?.measure
-    )[0];
-    return { ...v, autoCompleted: !!measure?.autocompleteOnCreation };
-  });
+
+  const scannedResults = [];
+  let queryValue;
+  do {
+    queryValue = await dynamoDb.scan(params);
+    queryValue?.Items?.forEach((v) => {
+      const measure = measures[parseInt(year)]?.filter(
+        (m) => m.measure === (v as Measure)?.measure
+      )[0];
+
+      scannedResults.push({
+        ...v,
+        autoCompleted: !!measure?.autocompleteOnCreation,
+      });
+    });
+    // @ts-ignore
+    params.ExclusiveStartKey = queryValue.LastEvaluatedKey;
+  } while (queryValue.LastEvaluatedKey !== undefined);
 
   return queryValue;
 });
