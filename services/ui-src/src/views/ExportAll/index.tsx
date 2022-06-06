@@ -4,6 +4,7 @@ import { useGetMeasures } from "hooks/api";
 import { createElement } from "react";
 import { getPDF } from "libs/api";
 import { useParams } from "react-router-dom";
+import base64 from "base-64";
 
 // type CoreSetType = "A" | "C" | "H";
 
@@ -24,8 +25,12 @@ export const ExportAll = () => {
       <button
         type="button"
         onClick={async () => {
+          const html = document.querySelector("html")!.innerHTML!;
+
+          const base64String = base64.encode(escape(html));
+
           const test = await getPDF({
-            body: "hello",
+            body: base64String,
             state,
             coreSet: coreSetId,
             year,
