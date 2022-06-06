@@ -22,6 +22,7 @@ import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
+import * as Types from "types";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -100,6 +101,7 @@ interface Props {
   year: string;
   measureId: string;
   autocompleteOnCreation?: boolean;
+  defaultData?: { [type: string]: { formData: any; title: string } };
 }
 
 export const MeasureWrapper = ({
@@ -107,6 +109,7 @@ export const MeasureWrapper = ({
   name,
   year,
   measureId,
+  defaultData,
   autocompleteOnCreation,
 }: Props) => {
   const { isStateUser } = useUser();
@@ -117,6 +120,12 @@ export const MeasureWrapper = ({
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
+  const defaultVals = params.coreSetId
+    ? defaultData?.[
+        (params.coreSetId?.split("_")?.[0] ??
+          params.coreSetId) as Types.CoreSetAbbr
+      ]
+    : undefined;
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const toast = CUI.useToast();
@@ -167,8 +176,17 @@ export const MeasureWrapper = ({
   });
 
   useEffect(() => {
-    if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
-  }, [apiData, methods]);
+    if (!methods.formState.isDirty && !apiData)
+      methods.reset(
+        params.coreSetId
+          ? defaultData?.[
+              (params.coreSetId?.split("_")?.[0] ??
+                params.coreSetId) as Types.CoreSetAbbr
+            ]?.formData
+          : undefined
+      );
+    else if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
+  }, [apiData, methods, defaultData, params]);
 
   const handleValidation = (data: any) => {
     handleSave(data);
@@ -341,9 +359,13 @@ export const MeasureWrapper = ({
           },
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
-            name: `${measureId} ${
-              apiData?.Item?.description ? `- ${apiData.Item.description}` : ""
-            }`,
+            name:
+              defaultVals?.title ??
+              `${measureId} ${
+                apiData?.Item?.description
+                  ? `- ${apiData.Item.description}`
+                  : ""
+              }`,
           },
         ]}
         buttons={

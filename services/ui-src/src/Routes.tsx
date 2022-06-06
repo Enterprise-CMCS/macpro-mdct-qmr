@@ -1,9 +1,9 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, Fragment } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import * as Views from "views";
 import * as QMR from "components";
-import Measures from "measures";
+import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 
 // Todo: Uncomment this segment when need to run S3 locally
@@ -28,41 +28,54 @@ interface MeasureRoute {
 // eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
 function useMeasureRoutes(): MeasureRoute[] {
   const { data } = useGetMeasureListInfo();
-  const [measureRoutes, setMeasureRoutes] = useState<MeasureRoute[]>([]);
 
-  useEffect(() => {
-    if (data) {
-      const routes: MeasureRoute[] = [];
+  const measureRoutes: MeasureRoute[] = [];
 
-      Object.keys(data).forEach((year: string) => {
-        data[year].forEach(
-          ({ measure, description, autocompleteOnCreation }: any) => {
-            if (Measures?.[year] && measure in Measures[year]) {
-              const Comp = Measures[year][measure];
+  for (const qualYear of QualifierData) {
+    measureRoutes.push({
+      key: `:state/${qualYear.year}/:coreSetId/CSQ`,
+      path: `:state/${qualYear.year}/:coreSetId/CSQ`,
+      element: (
+        <QMR.MeasureWrapper
+          name={""}
+          year={qualYear.year}
+          measureId={"CSQ"}
+          measure={createElement(
+            Measures?.[qualYear.year]?.["Qualifier"] ?? Fragment
+          )}
+          autocompleteOnCreation={false}
+          defaultData={qualYear.data}
+        />
+      ),
+    });
+  }
 
-              routes.push({
-                key: `:state/${year}/:coreSetId/${measure}`,
-                path: `:state/${year}/:coreSetId/${measure}`,
-                element: (
-                  <QMR.MeasureWrapper
-                    name={description}
-                    year={year}
-                    measureId={measure}
-                    measure={createElement(Comp)}
-                    autocompleteOnCreation={autocompleteOnCreation ?? false}
-                  />
-                ),
-              });
-            }
+  if (data) {
+    Object.keys(data).forEach((year: string) => {
+      data[year].forEach(
+        ({ measure, description, autocompleteOnCreation }: any) => {
+          if (measure in Measures[year]) {
+            const Comp = Measures[year][measure];
+            measureRoutes.push({
+              key: `:state/${year}/:coreSetId/${measure}`,
+              path: `:state/${year}/:coreSetId/${measure}`,
+              element: (
+                <QMR.MeasureWrapper
+                  name={description}
+                  year={year}
+                  measureId={measure}
+                  measure={createElement(Comp)}
+                  autocompleteOnCreation={autocompleteOnCreation ?? false}
+                />
+              ),
+            });
           }
-        );
-      });
+        }
+      );
+    });
+  }
 
-      setMeasureRoutes(routes);
-    }
-  }, [data, setMeasureRoutes]);
-
-  return measureRoutes;
+  return data ? measureRoutes : [...measureRoutes];
 }
 
 export function AppRoutes() {
@@ -81,20 +94,6 @@ export function AppRoutes() {
         />
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
-        <Route
-          path=":state/:year/:HHCS/CSQ"
-          element={<Views.HHCSQualifiers />}
-        />
-        <Route path=":state/:year/ACS/CSQ" element={<Views.ACSQualifiers />} />
-        <Route path=":state/:year/CCS/CSQ" element={<Views.CCSQualifiers />} />
-        <Route
-          path=":state/:year/CCSM/CSQ"
-          element={<Views.CCSMQualifiers />}
-        />
-        <Route
-          path=":state/:year/CCSC/CSQ"
-          element={<Views.CCSCQualifiers />}
-        />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route {...m} />
