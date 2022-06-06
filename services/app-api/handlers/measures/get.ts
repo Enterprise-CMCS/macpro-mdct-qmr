@@ -4,6 +4,7 @@ import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpress
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { measures } from "../dynamoUtils/measureList";
 import { Measure } from "../../types";
+import { Key } from "aws-sdk/clients/dynamodb";
 
 export const listMeasures = handler(async (event, context) => {
   const state = event.pathParameters?.state;
@@ -16,6 +17,7 @@ export const listMeasures = handler(async (event, context) => {
       { state: state, year: parseInt(year), coreSet: coreSet },
       "list"
     ),
+    ExclusiveStartKey: undefined as Key | undefined,
   };
 
   const scannedResults = [];
@@ -32,7 +34,7 @@ export const listMeasures = handler(async (event, context) => {
         autoCompleted: !!measure?.autocompleteOnCreation,
       });
     });
-    // @ts-ignore
+
     params.ExclusiveStartKey = queryValue.LastEvaluatedKey;
   } while (queryValue.LastEvaluatedKey !== undefined);
 
