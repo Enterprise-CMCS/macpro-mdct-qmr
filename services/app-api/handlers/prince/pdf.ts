@@ -30,6 +30,11 @@ export const getPDF = handler(async (event, context) => {
     path: "/doc-conv/508html-to-508pdf",
     service: "execute-api",
     region: "us-east-1",
+    headers: { "User-Agent": "Mozilla/5.0" },
+    method: "POST",
+    body: JSON.stringify({
+      html: "PGh0bWwgbGFuZz0iZW4iPgogICAgICAgIDxoZWFkPgogICAgICAgICAgPHRpdGxlPkFQUyBwcmludCBwYWdlPC90aXRsZT4KICAgICAgICA8L2hlYWQ+CiAgICAgICAgPGJvZHk+CiAgICAgICAgICA8aW1nCiAgICAgICAgICAgIGFsdD0iU0Mgc3RhdGUgbG9nbyIKICAgICAgICAgICAgc3JjPSJodHRwczovL2kucGluaW1nLmNvbS9vcmlnaW5hbHMvYzQvNTIvMDQvYzQ1MjA0NDBiNzI3Njk1YjVhY2E4OWU3YWZhMmU3ZTMuanBnIgogICAgICAgICAgICB3aWR0aD0iNTAiCiAgICAgICAgICAvPgogICAgICAgICAgPHAgc3R5bGU9e3sgImJvcmRlci10b3AiOiAiMXB4IHNvbGlkIGJsYWNrIiB9fT4mbmJzcDs8L3A+CiAgICAgICAgICA8aDE+QW1lbmRtZW50IHRvIFBsYW5uZWQgU2V0dGxlbWVudCAoQVBTKTwvaDE+CiAgICAgICAgICA8cD4mbmJzcDs8L3A+CiAgICAgICAgICA8cD5BUEQtSUQ6IE5ELTAwMDE8L3A+CgkJICAgPHAgc3R5bGU9ImZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zJywgc2Fucy1zZXJpZjsiPlN1Ym1pdHRlcjogSmVmZnJleSAmbWRhc2g7ICZsZHF1bzsg4oCUIOKAmCAtICYjOTc0NDsgJiN4MjYxMDsgJiN4MjYxMTsgU29iY2hhazwvcD4KICAgICAgICAgIDxwPlN1Ym1pdHRlciBFbWFpbDogamVmZnJleS5zb2JjaGFrQGdtYWlsLmNvbTwvcD4KICAgICAgICAgIDxwPlVyZ2VudD86IGZhbHNlPC9wPgogICAgICAgICAgPHA+Q29tbWVudHM6PC9wPgogICAgICAgIDwvYm9keT4KICAgICAgPC9odG1sPg==",
+    }),
   };
 
   aws4.sign(opts);
