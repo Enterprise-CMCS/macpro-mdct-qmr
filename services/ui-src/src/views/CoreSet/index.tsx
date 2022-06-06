@@ -115,6 +115,7 @@ const useMeasureTableDataBuilder = () => {
     CoreSetTableItem.Status.IN_PROGRESS
   );
   useEffect(() => {
+    console.log(isLoading, measures, data, isError, data.Items);
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
       let numCompleteItems = 0;
@@ -156,12 +157,13 @@ const useMeasureTableDataBuilder = () => {
         };
       });
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
+      console.log(measureTableData);
       mounted && setMeasures(measureTableData);
     }
     return () => {
       mounted = false;
     };
-  }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
+  }, [data, isLoading, isError, setMeasures, coreSetId, state, year, measures]);
   return { coreSetStatus, measures, isLoading, isError, error };
 };
 
