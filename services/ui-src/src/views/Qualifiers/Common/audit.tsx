@@ -44,11 +44,9 @@ export const Audit = ({ type }: Props) => {
         ?.filter((item: any) => {
           return !item?.measure?.includes("CSQ");
         })
-        // filter out HH SS generated measures
+        // filter out HH user-created state specific measures
         ?.filter((item: any) => {
-          return !(
-            item?.measure?.includes("SS-") && item?.measure?.includes("-HH")
-          );
+          return !item?.measure?.userCreated;
         })
         ?.map((obj: any) => {
           const foundMeasureDescription =
