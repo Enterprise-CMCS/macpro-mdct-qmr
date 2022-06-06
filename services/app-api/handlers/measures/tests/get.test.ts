@@ -71,8 +71,6 @@ describe("Test Get Measure Handlers", () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toContain("[]");
-    expect(res.body).toContain("of");
-    expect(res.body).toContain("measures");
     expect(dbLib.scan).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       testValue: "test",
