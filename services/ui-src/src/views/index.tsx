@@ -6,5 +6,4 @@ export * from "./StateHome";
 export * from "./AddChildCoreSet";
 export * from "./AddHHCoreSet";
 export * from "./ApiTester";
-export * from "./Qualifiers";
 export * from "./FAQ";

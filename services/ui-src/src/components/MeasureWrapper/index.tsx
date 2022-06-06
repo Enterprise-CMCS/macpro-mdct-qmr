@@ -176,7 +176,7 @@ export const MeasureWrapper = ({
   });
 
   useEffect(() => {
-    if (!methods.formState.isDirty && !apiData)
+    if (!methods.formState.isDirty && !apiData?.Item?.data) {
       methods.reset(
         params.coreSetId
           ? defaultData?.[
@@ -185,7 +185,7 @@ export const MeasureWrapper = ({
             ]?.formData
           : undefined
       );
-    else if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
+    } else if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
   }, [apiData, methods, defaultData, params]);
 
   const handleValidation = (data: any) => {

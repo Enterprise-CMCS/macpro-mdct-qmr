@@ -1,5 +1,5 @@
-import { CCSCQualifierForm } from "./types";
-import { DeliverySystem } from "./types";
+import { CCSCQualifierForm } from "../types";
+import { DeliverySystem } from "../types";
 
 const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
@@ -30,4 +30,4 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
   return errorArray.length ? errorArray : [];
 };
 
-export const validationFunctions = [validate21To64EqualsToOneHundredPercent];
+export const CCSC = [validate21To64EqualsToOneHundredPercent];

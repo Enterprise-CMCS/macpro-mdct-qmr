@@ -1,5 +1,5 @@
-import { ACSQualifierForm } from "./types";
-import { DeliverySystem } from "./types";
+import { ACSQualifierForm } from "../types";
+import { DeliverySystem } from "../types";
 
 const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
@@ -45,4 +45,4 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
   return errorArray.length ? errorArray : [];
 };
 
-export const validationFunctions = [validate21To64EqualsToOneHundredPercent];
+export const ACS = [validate21To64EqualsToOneHundredPercent];

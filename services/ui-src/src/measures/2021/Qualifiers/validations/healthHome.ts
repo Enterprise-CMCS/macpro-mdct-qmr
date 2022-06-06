@@ -1,5 +1,4 @@
-import { HHCSQualifierForm } from "./types";
-import { DeliverySystem } from "./types";
+import { HHCSQualifierForm, DeliverySystem } from "../types";
 
 const validate0To64EqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
@@ -55,4 +54,4 @@ const validate0To64EqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   return errorArray.length ? errorArray : [];
 };
 
-export const validationFunctions = [validate0To64EqualsToOneHundredPercent];
+export const HHCS = [validate0To64EqualsToOneHundredPercent];
