@@ -3,9 +3,9 @@ import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import ResizeTextarea from "react-textarea-autosize";
+import { ControllerRules } from "global";
 
-interface TextAreaProps extends QMR.InputWrapperProps {
-  isRequired?: boolean;
+interface TextAreaProps extends QMR.InputWrapperProps, ControllerRules {
   maxLength?: number;
   name: string;
   placeholder?: string;
@@ -13,10 +13,10 @@ interface TextAreaProps extends QMR.InputWrapperProps {
 }
 
 export const TextArea = ({
-  isRequired = false,
   maxLength,
   name,
   placeholder,
+  rules,
   textAreaProps,
   ...rest
 }: TextAreaProps) => {
@@ -28,6 +28,7 @@ export const TextArea = ({
   const { field } = useController({
     name,
     control,
+    rules,
   });
 
   return (
@@ -39,7 +40,6 @@ export const TextArea = ({
       <CUI.Textarea
         as={ResizeTextarea}
         data-cy={name}
-        isRequired={isRequired}
         maxLength={maxLength}
         name={name}
         onBlur={field.onBlur}

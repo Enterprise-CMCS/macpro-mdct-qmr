@@ -44,12 +44,12 @@ export const AddSSM = ({ userCreatedCount = 0 }: AddSSMProps) => {
               <QMR.TextInput
                 label="Name the measure"
                 name={`add-ssm.${idx}.description`}
-                isRequired={true}
+                rules={{ required: true }}
               ></QMR.TextInput>
               <QMR.TextArea
                 label="Please provide a description of the measure"
                 name={`add-ssm.${idx}.detailedDescription`}
-                isRequired={true}
+                rules={{ required: true }}
               ></QMR.TextArea>
             </CUI.VStack>
             <CUI.IconButton
