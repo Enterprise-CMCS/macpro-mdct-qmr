@@ -315,14 +315,6 @@ describe("Health Home Measure Qualifier: HH", () => {
     cy.goToHealthHomeSetMeasures();
     cy.get('[data-cy="core-set-qualifiers-link"]').click();
     cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.ZeroToSeventeen"]'
-    ).clear();
-
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.ZeroToSeventeen"]'
-    ).clear();
-
-    cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
     ).clear();
 
