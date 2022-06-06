@@ -20,8 +20,9 @@ export const listMeasures = handler(async (event, context) => {
     ExclusiveStartKey: undefined as Key | undefined,
   };
 
-  const scannedResults = [];
+  const scannedResults: any[] = [];
   let queryValue;
+
   do {
     queryValue = await dynamoDb.scan(params);
     queryValue?.Items?.forEach((v) => {
@@ -38,7 +39,7 @@ export const listMeasures = handler(async (event, context) => {
     params.ExclusiveStartKey = queryValue.LastEvaluatedKey;
   } while (queryValue.LastEvaluatedKey !== undefined);
 
-  return queryValue;
+  return scannedResults;
 });
 
 export const getMeasure = handler(async (event, context) => {

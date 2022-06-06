@@ -83,6 +83,7 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     cell: (data: MeasureTableItem.Data) => {
       let reportingText = "--";
       if (data.reporting) reportingText = data.reporting;
+      console.log(data);
       if (!!data?.autoCompleted) reportingText = "N/A";
       return (
         <CUI.Text fontSize="xs" textTransform="capitalize">
