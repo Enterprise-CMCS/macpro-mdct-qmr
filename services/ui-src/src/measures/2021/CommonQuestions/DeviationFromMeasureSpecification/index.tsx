@@ -145,8 +145,8 @@ export const DeviationFromMeasureSpec = ({
         );
         if (totalIndex >= 0) {
           rates.singleCategory[totalIndex].label = `${
-            customTotalLabel ? `${customTotalLabel} ` : ""
-          }Total`;
+            customTotalLabel ? `${customTotalLabel} ` : "Total"
+          }`;
         }
 
         /* This is checking if the rates object has a singleCategory key.

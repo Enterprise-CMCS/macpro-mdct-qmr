@@ -22,7 +22,7 @@ import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
-import * as Types from "types";
+import { measureDescriptions } from "measures/measuresDescriptions";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -122,8 +122,7 @@ export const MeasureWrapper = ({
   );
   const defaultVals = params.coreSetId
     ? defaultData?.[
-        (params.coreSetId?.split("_")?.[0] ??
-          params.coreSetId) as Types.CoreSetAbbr
+        (params.coreSetId?.split("_")?.[0] ?? params.coreSetId) as CoreSetAbbr
       ]
     : undefined;
 
@@ -181,7 +180,7 @@ export const MeasureWrapper = ({
         params.coreSetId
           ? defaultData?.[
               (params.coreSetId?.split("_")?.[0] ??
-                params.coreSetId) as Types.CoreSetAbbr
+                params.coreSetId) as CoreSetAbbr
             ]?.formData
           : undefined
       );
@@ -341,6 +340,13 @@ export const MeasureWrapper = ({
     return null;
   }
 
+  const formatTitle = (customDescription?: string) => {
+    const foundMeasureDescription =
+      measureDescriptions?.[year]?.[measureId] || customDescription;
+
+    return foundMeasureDescription || "";
+  };
+
   return (
     <FormProvider {...methods}>
       <QMR.YesNoModalDialog
@@ -362,8 +368,8 @@ export const MeasureWrapper = ({
             name:
               defaultVals?.title ??
               `${measureId} ${
-                apiData?.Item?.description
-                  ? `- ${apiData.Item.description}`
+                apiData?.Item
+                  ? `- ${formatTitle(apiData?.Item?.description)}`
                   : ""
               }`,
           },

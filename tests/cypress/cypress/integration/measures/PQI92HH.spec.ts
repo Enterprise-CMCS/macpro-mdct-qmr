@@ -92,7 +92,7 @@ describe("Measure: PQI92-HH", () => {
     );
   });
 
-  it("calculates correct rate totals for both PM and OMS", () => {
+  it("calculates correct rate Total for both PM and OMS", () => {
     cy.get("#MeasurementSpecification-AHRQ").click();
 
     // PM
@@ -168,13 +168,13 @@ describe("Measure: PQI92-HH", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age65andolder.singleCategory.0.rate"]'
     ).should("have.value", "100000.0");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge18andolder.singleCategory.0.numerator"]'
     ).should("have.value", "5");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge18andolder.singleCategory.0.denominator"]'
     ).should("have.value", "4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge18andolder.singleCategory.0.rate"]'
     ).should("have.value", "125000.0");
 
     // validation errors
