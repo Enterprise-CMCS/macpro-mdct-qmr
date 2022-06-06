@@ -39,6 +39,7 @@ export const listMeasures = handler(async (event, context) => {
     params.ExclusiveStartKey = queryValue.LastEvaluatedKey;
   } while (queryValue.LastEvaluatedKey !== undefined);
 
+  queryValue.Items = scannedResults;
   return scannedResults;
 });
 
