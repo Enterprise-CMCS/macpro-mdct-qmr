@@ -12,7 +12,7 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
 ) => {
   let errorArray: any[] = [];
   for (const key in rateData) {
-    if (OPM) {
+    if (OPM && OPM.length > 0) {
       errorArray.push(
         ...IUHHnoNonZeroNumOrDenom(
           [],
