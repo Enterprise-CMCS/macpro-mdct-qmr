@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import * as CUI from "@chakra-ui/react";
 import * as CMQ from "measures/2021/CommonQuestions";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
@@ -6,6 +7,7 @@ import { PerformanceMeasure } from "./questions/PerformanceMeasure";
 
 export const SSHH = ({
   name,
+  detailedDescription,
   year,
   measureId,
   setValidationFunctions,
@@ -19,6 +21,9 @@ export const SSHH = ({
 
   return (
     <>
+      <CUI.Text fontSize="xl" my="6" fontWeight={400}>
+        {detailedDescription}
+      </CUI.Text>
       <CMQ.Reporting
         reportingYear={year}
         measureName={name}
