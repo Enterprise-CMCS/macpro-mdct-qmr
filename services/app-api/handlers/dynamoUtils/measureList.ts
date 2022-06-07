@@ -434,6 +434,31 @@ export const measures: Measure = {
         "Prevention Quality Indicator (PQI) 92: Chronic Conditions Composite",
       measure: "PQI92-HH",
     },
+    {
+      type: "H",
+      description: "Custom State Specific Measure 1 of 5",
+      measure: "SS-1-HH",
+    },
+    {
+      type: "H",
+      description: "Custom State Specific Measure 2 of 5",
+      measure: "SS-2-HH",
+    },
+    {
+      type: "H",
+      description: "Custom State Specific Measure 3 of 5",
+      measure: "SS-3-HH",
+    },
+    {
+      type: "H",
+      description: "Custom State Specific Measure 4 of 5",
+      measure: "SS-4-HH",
+    },
+    {
+      type: "H",
+      description: "Custom State Specific Measure 5 of 5",
+      measure: "SS-5-HH",
+    },
   ],
   2022: [
     {

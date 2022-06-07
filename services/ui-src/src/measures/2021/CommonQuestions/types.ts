@@ -194,6 +194,7 @@ export interface PerformanceMeasure {
     [DC.RATES]?: PerformanceMeasureRate;
     [DC.PMHYBRIDEXPLANATION]?: string;
   };
+  [DC.PERFORMANCE_MEASURE_APPLY_ALL_AGES]?: string; // Applicable to State Specific Measures
 }
 export namespace OmsNodes {
   export interface OmsRateFields {

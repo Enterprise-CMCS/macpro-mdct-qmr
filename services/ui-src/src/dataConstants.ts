@@ -153,6 +153,8 @@ export const PQA = "PQA";
 export const PERFORMANCE_MEASURE = "PerformanceMeasure";
 export const PERFORMANCE_MEASURE_EXPLAINATION =
   "PerformanceMeasure.explanation";
+export const PERFORMANCE_MEASURE_APPLY_ALL_AGES =
+  "PerformanceMeasureApplyAllAges";
 export const POP_NOT_COVERED = "PopulationNotCovered";
 export const QUALIFIERS = "qualifiers";
 export const RATE = "rate";
