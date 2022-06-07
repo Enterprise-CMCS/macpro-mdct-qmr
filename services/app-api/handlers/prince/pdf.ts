@@ -1,45 +1,41 @@
 import handler from "../../libs/handler-lib";
 import aws4 from "aws4";
 import https from "https";
+import { aws4Interceptor } from "aws4-axios";
+import axios from "axios";
 
 export const getPDF = handler(async (event, context) => {
-  async function request(opts: any): Promise<any> {
-    const body: any[] = [];
-    const prom = new Promise((resolve, reject) => {
-      https
-        .request(opts, function (res) {
-          res.on("data", (d) => {
-            body.push(d);
-          });
-          res.on("error", (e) => {
-            reject(e);
-          });
-          res.on("end", () => {
-            const data = JSON.parse(Buffer.concat(body).toString());
-            resolve(data);
-          });
-        })
-        .end(opts.body || "");
-    });
+  // const opts = {
+  //   host: "macpro-platform-dev.cms.gov",
+  //   path: "/doc-conv/508html-to-508pdf",
+  //   service: "execute-api",
+  //   region: "us-east-1",
+  //   headers: { "User-Agent": "Mozilla/5.0" },
+  //   method: "POST",
+  //   body: event.body!,
+  // };
 
-    return prom;
+  // aws4.sign(opts);
+
+  const interceptor = aws4Interceptor({
+    region: "us-east-1",
+    service: "execute-api",
+  });
+
+  axios.interceptors.request.use(interceptor);
+
+  try {
+    const test = await axios.post(
+      "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf",
+      event.body!
+    );
+    console.log(test.data);
+    return test.data;
+  } catch (err) {
+    // console.log(err);
   }
 
-  const opts = {
-    host: "macpro-platform-dev.cms.gov",
-    path: "/doc-conv/508html-to-508pdf",
-    service: "execute-api",
-    region: "us-east-1",
-    headers: { "User-Agent": "Mozilla/5.0" },
-    method: "POST",
-    body: event.body!,
-  };
-
-  aws4.sign(opts);
-
-  const res = await request(opts);
-
-  console.log(res);
+  // console.log(res);
 
   // // make request to prince api
   // // const body = JSON.(event.body!);

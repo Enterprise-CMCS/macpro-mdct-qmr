@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "aws4": "^1.11.0",
+    "aws4-axios": "^2.4.9",
     "axios": "^0.27.2",
     "jwt-decode": "^3.1.2",
     "kafkajs": "^1.16.0",
