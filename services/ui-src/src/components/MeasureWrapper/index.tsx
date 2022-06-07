@@ -23,6 +23,7 @@ import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measuresDescriptions";
+import { CompleteCoreSets } from "./complete";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -77,7 +78,8 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
     const subscription = watch((value, { name, type }) => {
       if (
         (name === DC.ADDITIONAL_NOTES_UPLOAD ||
-          name === DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD) &&
+          name === DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD ||
+          name === "costSavingsFile") &&
         type === "change"
       ) {
         handleSave(value);
@@ -120,11 +122,25 @@ export const MeasureWrapper = ({
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
+  const coreSet = (params.coreSetId?.split("_")?.[0] ??
+    params.coreSetId ??
+    "ACS") as CoreSetAbbr;
   const defaultVals = params.coreSetId
     ? defaultData?.[
         (params.coreSetId?.split("_")?.[0] ?? params.coreSetId) as CoreSetAbbr
       ]
     : undefined;
+
+  let type: "CH" | "AD" | "HH" = "AD";
+  if (
+    coreSet === CoreSetAbbr.CCS ||
+    coreSet === CoreSetAbbr.CCSC ||
+    coreSet === CoreSetAbbr.CCSM
+  ) {
+    type = "CH";
+  } else if (coreSet === CoreSetAbbr.HHCS) {
+    type = "HH";
+  }
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const toast = CUI.useToast();
@@ -409,12 +425,19 @@ export const MeasureWrapper = ({
                     handleSave={handleSave}
                   />
 
-                  {!autocompleteOnCreation && (
+                  {!!(!autocompleteOnCreation && !defaultData) && (
                     <QMR.CompleteMeasureFooter
                       handleClear={methods.handleSubmit(handleClear)}
                       handleSubmit={methods.handleSubmit(handleSubmit)}
                       handleValidation={methods.handleSubmit(handleValidation)}
                       disabled={!isStateUser}
+                    />
+                  )}
+                  {!!(!autocompleteOnCreation && defaultData) && (
+                    <CompleteCoreSets
+                      handleSubmit={methods.handleSubmit(handleSubmit)}
+                      handleValidation={methods.handleSubmit(handleValidation)}
+                      type={type}
                     />
                   )}
                 </CUI.Container>

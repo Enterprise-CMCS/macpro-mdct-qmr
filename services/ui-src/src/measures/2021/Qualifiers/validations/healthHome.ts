@@ -51,6 +51,7 @@ const validate0To64EqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
       errorMessage: "Entries for Age 65 and Older column must total 100",
     });
   }
+
   return errorArray.length ? errorArray : [];
 };
 

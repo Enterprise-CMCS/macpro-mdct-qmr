@@ -13,13 +13,14 @@ export * from "./data";
 
 export const Qualifier = ({
   setValidationFunctions,
+  year,
 }: QMR.MeasureWrapperProps) => {
   const { coreSetId } = useParams();
   const coreSet = (coreSetId?.split("_")?.[0] ??
     coreSetId) as Types.CoreSetAbbr;
 
   useEffect(() => {
-    if (setValidationFunctions) {
+    if (setValidationFunctions && coreSetId) {
       setValidationFunctions(
         validationFunctions?.[
           (coreSetId?.split("_")?.[0] ?? coreSetId) as Types.CoreSetAbbr
@@ -49,10 +50,17 @@ export const Qualifier = ({
             {data?.title}
           </CUI.Text>
           <QMR.SupportLinks />
+          {type === "HH" && <QMR.HealthHomeInfo />}
         </CUI.Box>
         <CUI.OrderedList>
+          {type === "HH" && (
+            <>
+              <Common.AdministrativeQuestions />
+              <Common.CostSavingsData year={year} />
+            </>
+          )}
           <DeliverySystems data={data} />
-          <Common.Audit type={type} />
+          <Common.Audit type={type} year={year} />
           <Common.ExternalContractor />
         </CUI.OrderedList>
       </CUI.Box>

@@ -1,12 +1,14 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+
 import { useMemo } from "react";
 import { HiX } from "react-icons/hi";
 import { useFieldArray } from "react-hook-form";
+
 import { useGetMeasures } from "hooks/api";
 import { ICheckbox } from "components/MultiSelect";
 import { QualifierHeader } from "./qualifierHeader";
-import { measureDescriptions } from "measures/measuresDescriptions";
+import { measureDescriptions } from "../../../measuresDescriptions";
 
 export const initialAuditValues = {
   MeasuresAuditedOrValidated: [],
@@ -25,13 +27,15 @@ export const CloseButton = ({ onClick }: { onClick: () => void }) => (
 
 interface Props {
   type: "CH" | "AD" | "HH";
+  year: string;
 }
 
-export const Audit = ({ type }: Props) => {
+export const Audit = ({ type, year }: Props) => {
   const { fields, append, remove, replace } = useFieldArray({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
   });
   const { data, isLoading } = useGetMeasures();
+  console.group("measureList");
 
   const multiSelectList = useMemo<ICheckbox[]>(
     () =>
@@ -47,17 +51,16 @@ export const Audit = ({ type }: Props) => {
         //TODO: filter out HH SS generated measures
         //?.filter((item: any) => {return {INSERT HH-SS CHECK HERE}; })
         ?.map((obj: any) => {
-          const foundMeasureDescription =
-            measureDescriptions[obj.year]?.[obj.measure] || obj.description;
-
+          const desc = measureDescriptions?.[year]?.[obj.measure];
           return {
-            label: obj.measure + " - " + foundMeasureDescription,
+            label: `${obj.measure}${desc ? ` - ${desc}` : ""}`,
             value: obj.measure,
             isVisible: true,
           };
         }) ?? [],
-    [data]
+    [data, year]
   );
+  console.groupEnd();
 
   if (isLoading || !data.Items) {
     return <QMR.LoadingWave />;

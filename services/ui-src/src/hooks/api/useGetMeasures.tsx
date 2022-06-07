@@ -24,6 +24,7 @@ export const useGetMeasures = () => {
     coreSet: coreSetPath,
   } = usePathParams();
   const { state, year, coreSetId } = useParams();
+  console.log(year || yearPath);
 
   if (
     (state || statePath) &&

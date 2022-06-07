@@ -51,6 +51,7 @@ export const DeliverySystems = ({ data }: Props) => {
                     return (
                       <CUI.Text
                         key={`labelRow.${index}.${idx}`}
+                        data-cy={`labelRow.${index}.${idx}`}
                         fontSize={idx === 0 ? "md" : "sm"}
                       >
                         {str}

@@ -1,3 +1,5 @@
+import { integer } from "aws-sdk/clients/storagegateway";
+
 interface BaseQualifierForm {
   PercentageEnrolledInEachDeliverySystem: DeliverySystem[];
   CoreSetMeasuresAuditedOrValidated: string;
@@ -19,6 +21,21 @@ export interface CCSMQualifierForm extends BaseQualifierForm {}
 
 export interface DeliverySystem {
   [type: string]: any;
+}
+
+export interface AdministrativeQuestions {
+  numberOfAdults: integer;
+  minAgeOfAdults: integer;
+  numberOfChildren: integer;
+  maxAgeChildren: integer;
+  numberOfIndividuals: integer;
+  numberOfProviders: integer;
+}
+
+export interface CostSavingsData {
+  yearlyCostSavings: integer;
+  costSavingsMethodology: string;
+  costSavingsFile: File[];
 }
 
 export interface AuditDetails {
