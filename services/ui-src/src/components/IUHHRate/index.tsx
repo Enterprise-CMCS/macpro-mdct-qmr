@@ -118,7 +118,16 @@ export const IUHHRate = ({
     const prevRate = [...field.value];
     prevRate[qualIndex].fields[fieldIndex].value = newValue;
     if (!isRate) {
-      prevRate[qualIndex].fields = calculateRates(prevRate[qualIndex].fields);
+      // create a list of the ndrFormulas where fieldIndex is present
+      const ndrFormulasSubset = ndrFormulas.filter((formula) => {
+        if (formula.num === fieldIndex || formula.denom === fieldIndex)
+          return true;
+        return false;
+      });
+      prevRate[qualIndex].fields = calculateRates(
+        prevRate[qualIndex].fields,
+        ndrFormulasSubset
+      );
     }
 
     // Totals should be independently editable
@@ -130,8 +139,11 @@ export const IUHHRate = ({
   };
 
   // Calculate Rates for a row of data using the ndrFormulas as a guide
-  const calculateRates = (fieldRow: { name: string; value: string }[]) => {
-    for (const formula of ndrFormulas) {
+  const calculateRates = (
+    fieldRow: { name: string; value: string }[],
+    ndrFormulasSubset: any
+  ) => {
+    for (const formula of ndrFormulasSubset) {
       let x;
       const num = !isNaN((x = parseFloat(fieldRow[formula.num].value)))
         ? x
@@ -187,7 +199,7 @@ export const IUHHRate = ({
     newValue = daySum !== null ? daySum.toString() : "";
     totals.fields[3].value = newValue;
 
-    totals.fields = calculateRates(totals.fields);
+    totals.fields = calculateRates(totals.fields, ndrFormulas);
     prevRate[totalIndex] = totals;
   };
 
