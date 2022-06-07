@@ -27,41 +27,47 @@ describe("Health Home Measure Qualifier: HH", () => {
       "have.text",
       "What is the total annual number of adults in the Health Home program?"
     );
-    cy.get('[data-cy="numberOfAdults"]').clear();
-    cy.get('[data-cy="numberOfAdults"]').type("2");
+    cy.get('[data-cy="AdministrativeData.numberOfAdults"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfAdults"]').type("2");
     cy.get(':nth-child(3) > [data-cy="[object Object]"]').click();
     cy.get(':nth-child(3) > [data-cy="[object Object]"]').should(
       "have.text",
       "The minimum age of an adult in the program is:"
     );
-    cy.get('[data-cy="minAgeOfAdults"]').clear();
-    cy.get('[data-cy="minAgeOfAdults"]').type("123");
+    cy.get('[data-cy="AdministrativeData.minAgeOfAdults"]').clear();
+    cy.get('[data-cy="AdministrativeData.minAgeOfAdults"]').type("123");
     cy.get(':nth-child(4) > [data-cy="[object Object]"]').click();
     cy.get(':nth-child(4) > [data-cy="[object Object]"]').should(
       "have.text",
       "What is the total annual number of children in the Health Home program?"
     );
-    cy.get('[data-cy="numberOfChildren"]').clear();
-    cy.get('[data-cy="numberOfChildren"]').type("1234567890");
+    cy.get('[data-cy="AdministrativeData.numberOfChildren"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfChildren"]').type(
+      "1234567890"
+    );
     cy.get(':nth-child(5) > [data-cy="[object Object]"]').click();
     cy.get(':nth-child(5) > [data-cy="[object Object]"]').should(
       "have.text",
       "The maximum age of a child in the program is:"
     );
-    cy.get('[data-cy="maxAgeChildren"]').clear();
-    cy.get('[data-cy="maxAgeChildren"]').type("123");
+    cy.get('[data-cy="AdministrativeData.maxAgeChildren"]').clear();
+    cy.get('[data-cy="AdministrativeData.maxAgeChildren"]').type("123");
     cy.get(':nth-child(6) > [data-cy="[object Object]"]').should(
       "have.text",
       "What is the total annual number of individuals in the Health Home program?"
     );
-    cy.get('[data-cy="numberOfIndividuals"]').clear();
-    cy.get('[data-cy="numberOfIndividuals"]').type("1234567890");
+    cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').type(
+      "1234567890"
+    );
     cy.get(':nth-child(7) > [data-cy="[object Object]"]').should(
       "have.text",
       "What is the number of providers operating under the Health Home program?"
     );
-    cy.get('[data-cy="numberOfProviders"]').clear();
-    cy.get('[data-cy="numberOfProviders"]').type("1234567890");
+    cy.get('[data-cy="AdministrativeData.numberOfProviders"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfProviders"]').type(
+      "1234567890"
+    );
 
     //testing section 2 with fields inside it
     cy.get(":nth-child(2) > .css-1vvfi3 > .css-722v25").should(
@@ -132,44 +138,22 @@ describe("Health Home Measure Qualifier: HH", () => {
     ).clear();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.ZeroToSeventeen"]'
-    ).type("100");
+    ).type("98");
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
     ).clear();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
-    ).type("99");
+    ).type("102");
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFive"]'
     ).clear();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFive"]'
-    ).type("100");
-    cy.get('[data-cy="+ Add Another"]').click();
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.4.label"]'
-    ).clear();
-    cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.4.label"]').type(
-      "Other"
+    ).type("103");
+    cy.get('tbody.css-0 > .css-0 > [data-cy="+ Add Another"]').should(
+      "be.enabled"
     );
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.4.ZeroToSeventeen"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.4.ZeroToSeventeen"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.4.EighteenToSixtyFour"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.4.EighteenToSixtyFour"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.4.GreaterThanSixtyFive"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.4.GreaterThanSixtyFive"]'
-    ).type("1");
 
     //testing section 4 with fields inside it
     cy.get(":nth-child(4) > .css-1vvfi3 > .css-722v25").should(
@@ -208,11 +192,12 @@ describe("Health Home Measure Qualifier: HH", () => {
       "AIF-HH - Admission to an Institution from the Community"
     );
     cy.get(
-      ".chakra-form-control > :nth-child(2) > .chakra-checkbox > .chakra-checkbox__control"
-    ).click();
+      ".chakra-form-control > :nth-child(4) > .chakra-checkbox > .chakra-checkbox__control"
+    ).click({ force: true });
     cy.get(
-      ".chakra-form-control > :nth-child(2) > .chakra-checkbox > .chakra-checkbox__input"
+      ".chakra-form-control > :nth-child(4) > .chakra-checkbox > .chakra-checkbox__input"
     ).check();
+
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AMB-HH - Ambulatory Care: Emergency Department (ED) Visits"]'
     ).should(
@@ -289,6 +274,21 @@ describe("Health Home Measure Qualifier: HH", () => {
       "be.enabled"
     );
     cy.get('[data-cy="validate-core-set-questions-button"]').click();
+    cy.get(
+      '[data-cy="Entries for Ages 0 to 17 column must total 100"] > .chakra-text'
+    ).should("have.text", "Entries for Ages 0 to 17 column must total 100");
+    cy.get(
+      '[data-cy="Entries for Ages 18 to 64 column must total 100"] > .chakra-text'
+    ).should("have.text", "Entries for Ages 18 to 64 column must total 100");
+    cy.get(
+      '[data-cy="Entries for Age 65 and Older column must total 100"] > .chakra-text'
+    ).should("have.text", "Entries for Age 65 and Older column must total 100");
+    cy.get(
+      '[data-cy="The sum of adults and children did not equal total individuals"] > .chakra-text'
+    ).should(
+      "have.text",
+      "The sum of adults and children did not equal total individuals"
+    );
     cy.get('[data-cy="complete-core-set-questions-button"]').should(
       "be.enabled"
     );
@@ -307,5 +307,34 @@ describe("Health Home Measure Qualifier: HH", () => {
       "have.text",
       "PRA Disclosure Statement: Centers for Medicare & Medicaid Services (CMS) collects this mandatory information in accordance with (42 U.S.C. 1396a) and (42 CFR 430.12); which sets forth the authority for the submittal and collection of state plans and plan amendment information in a format defined by CMS for the purpose of improving the state application and federal review processes, improve federal program management of Medicaid programs and Children’s Health Insurance Program, and to standardize Medicaid program data which covers basic requirements, and individual content that reflects the characteristics of the particular state’s program. The information will be used to monitor and analyze performance metrics related to the Medicaid and Children’s Health Insurance Program in efforts to boost program integrity efforts, improve performance and accountability across the programs. Under the Privacy Act of 1974 any personally identifying information obtained will be kept private to the extent of the law. According to the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information unless it displays a valid OMB control number. The valid OMB control number for this information collection is 0938-1188. The time required to complete and review the information collection is estimated to range from 1 hour to 80 hours per response (see below), including the time to review instructions, search existing data resources, gather the data needed, and completeand review the information collection. If you have comments concerning the accuracy of the time estimate(s) or suggestions for imprving this form, please write to: CMS, 7500 Security Boulevard, Attn: PRA Reports Clerance Office, Mail Stop C4-26-05, Baltimore, Maryland 21244-1850."
     );
+
+    cy.get('[data-cy="upload-delete-btn-0"]').click();
+  });
+
+  it("Health Home Core Set Measures", () => {
+    cy.goToHealthHomeSetMeasures();
+    cy.get('[data-cy="core-set-qualifiers-link"]').click();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
+    ).clear();
+
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFive"]'
+    ).clear();
+    cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').clear();
+    cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').type(
+      "1234567892"
+    );
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.ZeroToSeventeen"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.ZeroToSeventeen"]'
+    ).type("2");
+    cy.get('[data-cy="CoreSetMeasuresAuditedOrValidated1"]').click();
+    cy.get('[data-cy="validate-core-set-questions-button"]').click();
+    cy.get(
+      '[data-cy="The Qualifier has been validated successfully"] > .chakra-text'
+    ).should("have.text", "The Qualifier has been validated successfully");
   });
 });
