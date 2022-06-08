@@ -61,8 +61,6 @@ export const PerformanceMeasure = ({
     rateReadOnly = stringIsReadOnly(dataSourceWatch);
   }
 
-  console.log({ showRates });
-
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <QMR.TextArea
