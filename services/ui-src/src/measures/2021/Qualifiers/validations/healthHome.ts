@@ -1,6 +1,6 @@
 import { HHCSQualifierForm, DeliverySystem } from "../types";
 
-const validate0To64EqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
+const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
   const errorArray: any[] = [];
   const total0To17Percent = values?.reduce(
@@ -55,4 +55,25 @@ const validate0To64EqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   return errorArray.length ? errorArray : [];
 };
 
-export const HHCS = [validate0To64EqualsToOneHundredPercent];
+const validateTotalNumberOfIndividuals = (data: HHCSQualifierForm) => {
+  const adults = parseInt(data.AdministrativeData.numberOfAdults) || 0;
+  const children = parseInt(data.AdministrativeData.numberOfChildren) || 0;
+  const totalIndividuals =
+    parseInt(data.AdministrativeData.numberOfIndividuals) || 0;
+  const errorArray: any[] = [];
+
+  if (adults + children !== totalIndividuals) {
+    errorArray.push({
+      errorLocation: "Administrative Questions",
+      errorMessage:
+        "The sum of adults and children did not equal total individuals",
+    });
+  }
+
+  return errorArray.length ? errorArray : [];
+};
+
+export const HHCS = [
+  validateEqualsToOneHundredPercent,
+  validateTotalNumberOfIndividuals,
+];
