@@ -49,7 +49,8 @@ export const buildOmsCheckboxes = ({
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** string array for perfromance measure descriptions */
-  performanceMeasureArray: Types.RateFields[][];
+  performanceMeasureArray?: Types.RateFields[][];
+  IUHHPerformanceMeasureArray?: Types.IUHHRateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
@@ -104,6 +105,7 @@ const arrayIsReadOnly = (dataSource: string[]) => {
  */
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
+  IUHHPerformanceMeasureArray,
   qualifiers = [],
   categories = [],
   data,
@@ -156,6 +158,7 @@ export const OptionalMeasureStrat = ({
         value={{
           OPM,
           performanceMeasureArray,
+          IUHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
           qualifiers,

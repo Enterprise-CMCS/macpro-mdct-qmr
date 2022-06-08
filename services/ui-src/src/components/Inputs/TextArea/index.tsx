@@ -3,18 +3,17 @@ import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import ResizeTextarea from "react-textarea-autosize";
+import { ControllerRules } from "global";
 
-interface TextAreaProps extends QMR.InputWrapperProps {
-  placeholder?: string;
+interface TextAreaProps extends QMR.InputWrapperProps, ControllerRules {
   name: string;
-  isRequired?: boolean;
   textAreaProps?: CUI.TextareaProps;
 }
 
 export const TextArea = ({
-  placeholder,
-  textAreaProps,
   name,
+  rules,
+  textAreaProps,
   ...rest
 }: TextAreaProps) => {
   const {
@@ -25,22 +24,27 @@ export const TextArea = ({
   const { field } = useController({
     name,
     control,
+    rules,
   });
+
+  const path = objectPath.get(errors, name);
 
   return (
     <QMR.InputWrapper
-      isInvalid={!!objectPath.get(errors, name)?.message}
-      errorMessage={objectPath.get(errors, name)?.message}
+      isInvalid={!!path?.message || path?.type === "required"}
+      errorMessage={
+        path?.message ||
+        (path?.type === "required" && `This is a required field`)
+      }
       {...rest}
     >
       <CUI.Textarea
-        name={name}
-        value={field.value ?? ""}
-        placeholder={placeholder}
-        onChange={field.onChange}
-        onBlur={field.onBlur}
-        data-cy={name}
         as={ResizeTextarea}
+        data-cy={name}
+        name={name}
+        onBlur={field.onBlur}
+        onChange={field.onChange}
+        value={field.value ?? ""}
         {...textAreaProps}
       />
     </QMR.InputWrapper>

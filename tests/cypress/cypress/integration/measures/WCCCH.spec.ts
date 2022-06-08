@@ -157,7 +157,7 @@ describe("Measure: WCC-CH", () => {
       '[data-cy="Enter a number for the numerator and the denominator"]'
     ).should(
       "have.text",
-      "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
+      "Enter a number for the numerator and the denominator. Rate will\n        auto-calculate:"
     );
     cy.xpath(
       "//li[contains(text(),'Body mass index (BMI) percentile documentation')]"
