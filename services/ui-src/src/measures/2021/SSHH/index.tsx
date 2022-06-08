@@ -25,7 +25,7 @@ export const SSHH = ({
       <CMQ.DataSource data={PMD.dataSourceData} />
       <CMQ.DateRange type="health" />
       <CMQ.DefinitionOfPopulation healthHomeMeasure />
-      <PerformanceMeasure />
+      <PerformanceMeasure rateAlwaysEditable />
       <CMQ.AdditionalNotes />
     </>
   );
