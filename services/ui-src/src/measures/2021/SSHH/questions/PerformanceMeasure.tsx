@@ -1,12 +1,21 @@
-import * as QMR from "components";
+import { useFormContext, useForm, useFieldArray } from "react-hook-form";
 import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
 import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "measures/2021/CommonQuestions/types";
-import { useFormContext, useFieldArray } from "react-hook-form";
 
 interface Props {
   rateAlwaysEditable?: boolean;
+}
+
+interface ListProps {
+  [DC.DESCRIPTION]: string;
+}
+
+interface FormProps {
+  name: string;
+  [DC.OPM_RATES]: ListProps[];
 }
 
 const stringIsReadOnly = (dataSource: string) => {
@@ -23,7 +32,17 @@ const arrayIsReadOnly = (dataSource: string[]) => {
 };
 
 export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
-  const { control } = useFormContext();
+  const { control } = useForm<FormProps>({
+    defaultValues: {
+      name: DC.OPM_RATES,
+      [DC.OPM_RATES]: [
+        {
+          [DC.DESCRIPTION]: "",
+        },
+      ],
+    },
+  });
+
   const { fields, remove, append } = useFieldArray({
     name: DC.OPM_RATES,
     control,
@@ -32,14 +51,12 @@ export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
 
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
 
-  // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();
 
   // Watch for dataSource data
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
   // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
-
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {
     rateReadOnly = false;
