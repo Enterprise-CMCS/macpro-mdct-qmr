@@ -50,7 +50,7 @@ describe("Test the SubmitCoreSetButton component", () => {
     };
   });
 
-  test("Check that the component renders", () => {
+  test("Check that the view renders", () => {
     renderTestComponent(props);
     expect(screen.getByText(/Submit Core Set/i)).toBeVisible();
     expect(
