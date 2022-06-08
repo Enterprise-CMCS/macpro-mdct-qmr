@@ -5,16 +5,16 @@ import objectPath from "object-path";
 import { ControllerRules } from "global";
 
 interface TextInputProps extends QMR.InputWrapperProps, ControllerRules {
-  placeholder?: string;
   name: string;
+  placeholder?: string;
   textInputProps?: CUI.InputProps;
 }
 
 export const TextInput = ({
-  textInputProps,
-  placeholder,
   name,
+  placeholder,
   rules,
+  textInputProps,
   ...rest
 }: TextInputProps) => {
   const {
