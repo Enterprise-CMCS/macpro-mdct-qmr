@@ -121,7 +121,7 @@ export const AddStateSpecificMeasure = () => {
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <CUI.Box maxW="container.lg">
             <CUI.Heading fontSize="2xl" fontWeight="600" my="2">
-              Health Home Core Set Details
+              Health Home State Specific Measure Details
             </CUI.Heading>
             <QMR.AddSSM
               userCreatedCount={userCreatedMeasuresCount}

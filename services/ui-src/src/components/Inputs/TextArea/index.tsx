@@ -27,10 +27,15 @@ export const TextArea = ({
     rules,
   });
 
+  const path = objectPath.get(errors, name);
+
   return (
     <QMR.InputWrapper
-      errorMessage={objectPath.get(errors, name)?.message}
-      isInvalid={!!objectPath.get(errors, name)?.message}
+      isInvalid={!!path?.message || path?.type === "required"}
+      errorMessage={
+        path?.message ||
+        (path?.type === "required" && `This is a required field`)
+      }
       {...rest}
     >
       <CUI.Textarea
