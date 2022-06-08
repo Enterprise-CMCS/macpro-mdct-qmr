@@ -76,10 +76,11 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
+      // on file upload, save measure
       if (
         (name === DC.ADDITIONAL_NOTES_UPLOAD ||
           name === DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD ||
-          name === "costSavingsFile") &&
+          name === DC.HEALTH_HOME_QUALIFIER_FILE_UPLOAD) &&
         type === "change"
       ) {
         handleSave(value);
@@ -122,6 +123,8 @@ export const MeasureWrapper = ({
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
+
+  // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
   const coreSet = (params.coreSetId?.split("_")?.[0] ??
     params.coreSetId ??
     "ACS") as CoreSetAbbr;
@@ -131,6 +134,7 @@ export const MeasureWrapper = ({
       ]
     : undefined;
 
+  // check what type of core set we deal with for data driven rendering
   let type: "CH" | "AD" | "HH" = "AD";
   if (
     coreSet === CoreSetAbbr.CCS ||
@@ -191,6 +195,7 @@ export const MeasureWrapper = ({
   });
 
   useEffect(() => {
+    // reset core set qualifier data to use the default values for table rendering
     if (!methods.formState.isDirty && !apiData?.Item?.data) {
       methods.reset(
         params.coreSetId
@@ -200,7 +205,9 @@ export const MeasureWrapper = ({
             ]?.formData
           : undefined
       );
-    } else if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
+    }
+    // default loaded data reset
+    else if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
   }, [apiData, methods, defaultData, params]);
 
   const handleValidation = (data: any) => {
@@ -425,6 +432,7 @@ export const MeasureWrapper = ({
                     handleSave={handleSave}
                   />
 
+                  {/* Core set qualifiers use a slightly different submission button layout */}
                   {!!(!autocompleteOnCreation && !defaultData) && (
                     <QMR.CompleteMeasureFooter
                       handleClear={methods.handleSubmit(handleClear)}

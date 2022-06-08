@@ -1,5 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
+import * as DC from "dataConstants";
 import * as Common from "../Common";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
@@ -30,7 +31,7 @@ export const CostSavingsData = ({ year }: Props) => {
       <CUI.Box marginTop={10}>
         <QMR.Upload
           label="If you need additional space to provide information regarding cost savings data, please attach further documentation below."
-          {...register("costSavingsFile")}
+          {...register(DC.HEALTH_HOME_QUALIFIER_FILE_UPLOAD)}
         />
       </CUI.Box>
     </CUI.ListItem>

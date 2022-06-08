@@ -35,7 +35,6 @@ export const Audit = ({ type, year }: Props) => {
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
   });
   const { data, isLoading } = useGetMeasures();
-  console.group("measureList");
 
   const multiSelectList = useMemo<ICheckbox[]>(
     () =>
@@ -60,7 +59,6 @@ export const Audit = ({ type, year }: Props) => {
         }) ?? [],
     [data, year]
   );
-  console.groupEnd();
 
   if (isLoading || !data.Items) {
     return <QMR.LoadingWave />;

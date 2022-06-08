@@ -31,6 +31,8 @@ function useMeasureRoutes(): MeasureRoute[] {
 
   const measureRoutes: MeasureRoute[] = [];
 
+  // Add qualifier routes separately from regular measures
+  // Qualifiers all share one component with an additional data object passed in for core-set variance
   for (const qualYear of QualifierData) {
     measureRoutes.push({
       key: `:state/${qualYear.year}/:coreSetId/CSQ`,
