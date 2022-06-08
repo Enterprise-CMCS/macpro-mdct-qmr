@@ -23,12 +23,14 @@ export interface Measure {
   compoundKey: string;
   coreSet: CoreSetAbbr;
   createdAt: number;
+  detailedDescription?: string;
   description?: string;
   lastAltered: number;
   lastAlteredBy?: string;
   measure: string;
   state: string;
   status: MeasureStatus;
+  userCreated?: boolean;
   year: number;
 }
 
