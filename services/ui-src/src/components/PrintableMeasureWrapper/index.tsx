@@ -16,7 +16,6 @@ import {
 import * as QMR from "components";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
-import { useUser } from "hooks/authHooks";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -105,8 +104,6 @@ export const PrintableMeasureWrapper = ({
   measureId,
   measureData,
 }: Props) => {
-  const { isStateUser } = useUser();
-
   const params = useParams();
 
   const methods = useForm({
@@ -124,7 +121,7 @@ export const PrintableMeasureWrapper = ({
   return (
     <CUI.VStack padding={10}>
       <CUI.HStack>
-        <CUI.Text fontSize={"2xl"} fontWeight="bold">
+        <CUI.Text id={measureData?.measure} fontSize={"2xl"} fontWeight="bold">
           ({measureData?.measure}) {measureData?.description}
         </CUI.Text>
       </CUI.HStack>
@@ -133,7 +130,7 @@ export const PrintableMeasureWrapper = ({
         <>
           <QMR.AdminMask />
           <form data-testid="measure-wrapper-form">
-            <fieldset data-testid="fieldset" disabled={!isStateUser}>
+            <fieldset data-testid="fieldset" disabled>
               <CUI.Container maxW="7xl" as="section" px="0">
                 <Measure
                   measure={measure}
@@ -146,6 +143,7 @@ export const PrintableMeasureWrapper = ({
               </CUI.Container>
             </fieldset>
           </form>
+          <a href="#top-of-page">Back to top</a>
         </>
       </FormProvider>
     </CUI.VStack>

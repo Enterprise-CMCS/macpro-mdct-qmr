@@ -30,13 +30,45 @@ export const ExportAll = () => {
 
   return (
     <>
-      <CUI.Button
-        type="button"
-        onClick={() => window.print()}
-        className="hidden-print-items"
+      <CUI.Container maxW={"xs"}>
+        <QMR.ContainedButton
+          buttonProps={{
+            isFullWidth: true,
+            type: "button",
+            className: "hidden-print-items",
+            background: "blue.500",
+            margin: "1",
+          }}
+          onClick={() => window.print()}
+          buttonText={"Print"}
+        />
+      </CUI.Container>
+      <CUI.UnorderedList
+        display={"grid"}
+        gridTemplateRows={"1fr"}
+        gridTemplateColumns="repeat(auto-fill, minmax(200px, 1fr));"
+        listStyleType={"none"}
+        placeItems={"center"}
       >
-        Print
-      </CUI.Button>
+        <CUI.Text
+          gridColumn={"1 / -1"}
+          fontSize={"xl"}
+          id="top-of-page"
+          as="h2"
+          my="4"
+        >
+          Click the Link to Navigate to the Relevant Measure
+        </CUI.Text>
+        {sortedData?.map((measure: any) => {
+          return (
+            <CUI.ListItem my="2">
+              <CUI.Button as="a" width={"28"} href={`#${measure?.measure}`}>
+                {measure?.measure}
+              </CUI.Button>
+            </CUI.ListItem>
+          );
+        })}
+      </CUI.UnorderedList>
       {sortedData?.map((measure: any) => {
         const Comp = Measures[measure.year][measure.measure];
 
