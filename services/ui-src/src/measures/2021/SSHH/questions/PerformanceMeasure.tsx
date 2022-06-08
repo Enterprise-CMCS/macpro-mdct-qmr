@@ -3,14 +3,10 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "measures/2021/CommonQuestions/types";
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useFieldArray } from "react-hook-form";
 
 interface Props {
   rateAlwaysEditable?: boolean;
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-  allowNumeratorGreaterThanDenominator?: boolean;
 }
 
 const stringIsReadOnly = (dataSource: string) => {
@@ -26,23 +22,15 @@ const arrayIsReadOnly = (dataSource: string[]) => {
   );
 };
 
-export const PerformanceMeasure = ({
-  rateAlwaysEditable,
-  rateMultiplicationValue,
-  customMask,
-  allowNumeratorGreaterThanDenominator,
-}: Props) => {
+export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
+  const { control } = useFormContext();
+  const { fields, remove, append } = useFieldArray({
+    name: DC.OPM_RATES,
+    control,
+    shouldUnregister: true,
+  });
+
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
-  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
-  const savedRates = getValues(DC.OPM_RATES);
-  const [showRates, setRates] = React.useState<Types.OtherRatesFields[]>(
-    savedRates ?? [
-      {
-        rate: [{ denominator: "", numerator: "", rate: "" }],
-        description: "",
-      },
-    ]
-  );
 
   // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();
@@ -69,41 +57,42 @@ export const PerformanceMeasure = ({
         {...register(DC.OPM_EXPLAINATION)}
       />
       <CUI.Box marginTop={10}>
-        {showRates.map((_item, index) => {
+        {fields.map((_item, index) => {
           return (
-            <CUI.Stack key={index} my={10}>
-              <CUI.Heading fontSize="lg" fontWeight="600">
-                Describe the Rate:
-              </CUI.Heading>
-              <QMR.TextInput
-                label="For example, specify the age groups and whether you are reporting on a certain indicator:"
-                name={`${DC.OPM_RATES}.${index}.${DC.DESCRIPTION}`}
-              />
-              <CUI.Text fontWeight="bold">
-                Enter a number for the numerator and the denominator. Rate will
-                auto-calculate:
-              </CUI.Text>
-              {(dataSourceWatch?.[0] !== "AdministrativeData" ||
-                dataSourceWatch?.length !== 1) && (
-                <CUI.Heading pt="5" size={"sm"}>
-                  Please review the auto-calculated rate and revise if needed.
+            <QMR.DeleteWrapper
+              allowDeletion={index !== 0}
+              onDelete={() => remove(index)}
+              key={_item.id}
+            >
+              <CUI.Stack key={index} my={10}>
+                <CUI.Heading fontSize="lg" fontWeight="600">
+                  Describe the Rate:
                 </CUI.Heading>
-              )}
-              <QMR.Rate
-                rates={[
-                  {
-                    id: index,
-                  },
-                ]}
-                name={`${DC.OPM_RATES}.${index}.${DC.RATE}`}
-                rateMultiplicationValue={rateMultiplicationValue}
-                customMask={customMask}
-                readOnly={rateReadOnly}
-                allowNumeratorGreaterThanDenominator={
-                  allowNumeratorGreaterThanDenominator
-                }
-              />
-            </CUI.Stack>
+                <QMR.TextInput
+                  label="For example, specify the age groups and whether you are reporting on a certain indicator:"
+                  name={`${DC.OPM_RATES}.${index}.${DC.DESCRIPTION}`}
+                />
+                <CUI.Text fontWeight="bold">
+                  Enter a number for the numerator and the denominator. Rate
+                  will auto-calculate:
+                </CUI.Text>
+                {(dataSourceWatch?.[0] !== "AdministrativeData" ||
+                  dataSourceWatch?.length !== 1) && (
+                  <CUI.Heading pt="5" size={"sm"}>
+                    Please review the auto-calculated rate and revise if needed.
+                  </CUI.Heading>
+                )}
+                <QMR.Rate
+                  rates={[
+                    {
+                      id: index,
+                    },
+                  ]}
+                  name={`${DC.OPM_RATES}.${index}.${DC.RATE}`}
+                  readOnly={rateReadOnly}
+                />
+              </CUI.Stack>
+            </QMR.DeleteWrapper>
           );
         })}
 
@@ -115,17 +104,7 @@ export const PerformanceMeasure = ({
             color: "blue.500",
           }}
           onClick={() => {
-            showRates.push({
-              description: "",
-              rate: [
-                {
-                  denominator: "",
-                  numerator: "",
-                  rate: "",
-                },
-              ],
-            });
-            setRates([...showRates]);
+            append({});
           }}
         />
       </CUI.Box>
