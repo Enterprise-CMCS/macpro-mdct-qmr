@@ -1,6 +1,8 @@
 import {
   useAddCoreSet,
+  useAddMeasure,
   useDeleteCoreSet,
+  useDeleteMeasure,
   useEditCoreSet,
   useGetCoreSet,
   useGetCoreSets,
@@ -16,7 +18,13 @@ export const defaultMockValues = {
       mutate: () => {};
     },
   },
+  useAddMeasureValues: {
+    useMutation: () => {
+      mutate: () => {};
+    },
+  },
   useDeleteCoreSetValues: { mutate: jest.fn() },
+  useDeleteMeasureValues: { mutate: jest.fn() },
   useEditCoreSetValues: {
     mutate: jest.fn(),
     isLoading: false,
@@ -97,7 +105,9 @@ export const defaultMockValues = {
 
 export const useApiMock = ({
   useAddCoreSetValues = defaultMockValues.useAddCoreSetValues,
+  useAddMeasureValues = defaultMockValues.useAddMeasureValues,
   useDeleteCoreSetValues = defaultMockValues.useDeleteCoreSetValues,
+  useDeleteMeasureValues = defaultMockValues.useDeleteMeasureValues,
   useEditCoreSetValues = defaultMockValues.useEditCoreSetValues,
   useGetCoreSetsValues = defaultMockValues.useGetCoreSetsValues,
   useGetMeasureValues = defaultMockValues.useGetMeasureValues,
@@ -108,8 +118,14 @@ export const useApiMock = ({
   (useAddCoreSet as jest.Mock).mockReturnValue({
     ...useAddCoreSetValues,
   });
+  (useAddMeasure as jest.Mock).mockReturnValue({
+    ...useAddMeasureValues,
+  });
   (useDeleteCoreSet as jest.Mock).mockReturnValue({
     ...useDeleteCoreSetValues,
+  });
+  (useDeleteMeasure as jest.Mock).mockReturnValue({
+    ...useDeleteMeasureValues,
   });
   (useEditCoreSet as jest.Mock).mockReturnValue({
     ...useEditCoreSetValues,

@@ -1,9 +1,7 @@
 import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
-import * as DC from "dataConstants";
 import * as QMR from "components";
 import { SPA } from "libs/spaLib";
-import { SelectOption } from "components";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
@@ -13,6 +11,14 @@ import { CoreSetAbbr, UserRoles } from "types";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
+  "HealthHomeCoreSet-ShareSSM-Name": string;
+  "HealthHomeCoreSet-ShareSSM-Description": string;
+  "add-ssm": NewMeasure[];
+}
+
+interface NewMeasure {
+  name: string;
+  description: string;
 }
 
 export const AddHHCoreSet = () => {
@@ -42,7 +48,9 @@ export const AddHHCoreSet = () => {
     );
   }
 
-  const sortedSPAs: SelectOption[] = SPA.filter((spa) => spa.state === state)
+  const sortedSPAs: QMR.SelectOption[] = SPA.filter(
+    (spa) => spa.state === state
+  )
     .filter(
       (spa) =>
         !data?.Items.some((coreset: any) =>
@@ -103,25 +111,6 @@ export const AddHHCoreSet = () => {
                       {...register("HealthHomeCoreSet-SPA")}
                       options={sortedSPAs}
                       label="Select the SPA you are reporting on?"
-                    />
-                  </CUI.ListItem>
-                  <CUI.ListItem>
-                    <QMR.RadioButton
-                      formLabelProps={{ fontWeight: 600 }}
-                      label="Do you want to add State Specific Measures now?"
-                      {...register("HealthHomeCoreSet-ShareSSM")}
-                      options={[
-                        {
-                          displayValue:
-                            "Yes, I want to add State Specific Measures now.",
-                          value: DC.YES,
-                        },
-                        {
-                          displayValue:
-                            "No, I’ll add State Specific Measures later.",
-                          value: DC.NO,
-                        },
-                      ]}
                     />
                   </CUI.ListItem>
                   <CUI.ListItem>
