@@ -12,6 +12,7 @@ export type locationDictionaryFunction = (labels: string[]) => string;
 
 export interface RateData extends OMS.OmsRateFields {
   "pcr-rate"?: { id?: number; value?: string; label?: string }[];
+  "iuhh-rate"?: any;
 }
 
 export interface UnifiedValFuncProps {

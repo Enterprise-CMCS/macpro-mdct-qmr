@@ -5,6 +5,7 @@ export const qualifiers = [
   "Ages 13 to 17",
   "Ages 18 to 64",
   "Age 65 and older",
+  "Total (age 13 and older)",
 ];
 export const categories = [
   "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
@@ -22,8 +23,8 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
     "The percentage of Health Home enrollees age 13 and older with a new episode of alcohol or other drug (AOD) abuse or dependence who received the following:",
   ],
   questionListItems: [
-    "Initiation of AOD Treatment: Percentage of enrollees who initiated treatment through an inpatient AOD admission, outpatient visit, intensive outpatient encounter, or partial hospitalization, telehealth, or medication assisted treatment within 14 days of the diagnosis. ",
-    "Engagement of AOD Treatment: Percentage of enrollees who initiated treatment and who were engaged in ongoing AOD treatment within 34 days of the initiation visit.",
+    "Initiation of AOD Treatment. Percentage of enrollees who initiate treatment through an inpatient AOD admission, outpatient visit, intensive outpatient encounter or partial hospitalization, telehealth, or medication treatment within 14 days of the diagnosis. ",
+    "Engagement of AOD Treatment. Percentage of enrollees who initiated treatment and who were engaged in ongoing AOD treatment within 34 days of the initiation visit.",
   ],
   categories,
   qualifiers,
