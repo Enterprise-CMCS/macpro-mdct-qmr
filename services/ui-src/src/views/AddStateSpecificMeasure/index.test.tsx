@@ -32,7 +32,9 @@ describe("AddStateSpecificMeasure", () => {
   });
   it("renders correctly", () => {
     expect(screen.getByText(/Add State Specific Measures/i)).toBeVisible();
-    expect(screen.getByText(/Health Home Core Set Details/i)).toBeVisible();
+    expect(
+      screen.getByText(/Health Home State Specific Measure Details/i)
+    ).toBeVisible();
   });
 
   it("renders the SSM form", () => {

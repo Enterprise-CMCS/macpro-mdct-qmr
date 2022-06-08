@@ -46,7 +46,7 @@ export const Audit = ({ type }: Props) => {
         })
         // filter out HH user-created state specific measures
         ?.filter((item: any) => {
-          return !item?.measure?.userCreated;
+          return !item?.userCreated;
         })
         ?.map((obj: any) => {
           const foundMeasureDescription =
