@@ -52,7 +52,6 @@ const IUHHValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
-
     ...GV.IUHHvalidateDualPopInformation(
       performanceMeasureArray,
       OPM,
@@ -73,6 +72,7 @@ const IUHHValidation = (data: FormData) => {
       PMD.categories,
       ndrForumlas
     ),
+    ...GV.IUHHvalueSameCrossCategory(performanceMeasureArray, OPM, 0),
 
     // OMS Validations
     ...GV.omsValidations({
