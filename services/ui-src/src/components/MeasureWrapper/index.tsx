@@ -455,7 +455,9 @@ export const MeasureWrapper = ({
                     alertProps={{ my: "3" }}
                     alertStatus="success"
                     alertTitle={`Success`}
-                    alertDescription="The measure has been validated successfully"
+                    alertDescription={`The ${
+                      defaultVals ? "Qualifier" : "measure"
+                    } has been validated successfully`}
                     close={() => {
                       setErrors(undefined);
                     }}

@@ -1,6 +1,6 @@
-import { integer } from "aws-sdk/clients/storagegateway";
-
 interface BaseQualifierForm {
+  AdministrativeData: AdministrativeQuestions;
+  CostSavingsData: CostSavingsData;
   PercentageEnrolledInEachDeliverySystem: DeliverySystem[];
   CoreSetMeasuresAuditedOrValidated: string;
   CoreSetMeasuresAuditedOrValidatedDetails: AuditDetails[];
@@ -24,16 +24,16 @@ export interface DeliverySystem {
 }
 
 export interface AdministrativeQuestions {
-  numberOfAdults: integer;
-  minAgeOfAdults: integer;
-  numberOfChildren: integer;
-  maxAgeChildren: integer;
-  numberOfIndividuals: integer;
-  numberOfProviders: integer;
+  numberOfAdults: string;
+  minAgeOfAdults: string;
+  numberOfChildren: string;
+  maxAgeChildren: string;
+  numberOfIndividuals: string;
+  numberOfProviders: string;
 }
 
 export interface CostSavingsData {
-  yearlyCostSavings: integer;
+  yearlyCostSavings: number;
   costSavingsMethodology: string;
   costSavingsFile: File[];
 }
