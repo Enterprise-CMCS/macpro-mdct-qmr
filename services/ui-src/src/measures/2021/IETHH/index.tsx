@@ -46,7 +46,7 @@ export const IETHH = ({
           <CMQ.DefinitionOfPopulation healthHomeMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
@@ -57,6 +57,7 @@ export const IETHH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
+              calcTotal
               adultMeasure={false}
             />
           )}

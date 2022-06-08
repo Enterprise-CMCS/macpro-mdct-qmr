@@ -153,6 +153,23 @@ const validateNDRs = (
   };
   //checks at least one ndr filled
   const checkNdrsFilled = (rateData: RateData) => {
+    // iu-hh check
+    if (rateData?.["iuhh-rate"]) {
+      const section = rateData["iuhh-rate"]?.rates ?? {};
+      for (const category in section) {
+        for (const qual in section[category]) {
+          const fields = section[category][qual][0].fields;
+          if (
+            fields.every(
+              (field: { label: string; value?: string }) => !!field?.value
+            )
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
     // pcr-ad check
     if (rateData?.["pcr-rate"]) {
       return rateData["pcr-rate"].every((o) => !!o?.value);
