@@ -102,26 +102,17 @@ describe("Measure 19: AMB-HH", () => {
       "Performance Measure"
     );
     cy.get(
-      ':nth-child(1) > .chakra-stack > :nth-child(1) > [data-cy="ED Visits"]'
-    ).should("have.text", "ED Visits");
-    cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).clear();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
     ).type("1");
     cy.get(
-      ':nth-child(1) > .chakra-stack > :nth-child(2) > [data-cy="Enrollee Months"]'
-    ).should("have.text", "Enrollee Months");
-    cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).clear();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("2");
-    cy.get(
-      ':nth-child(1) > .chakra-stack > :nth-child(3) > [data-cy="Visits per 1,000 Enrollee Months"]'
-    ).should("have.text", "Visits per 1,000 Enrollee Months");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
       "have.value",
       "500.0"
@@ -198,17 +189,11 @@ describe("Measure 19: AMB-HH", () => {
       "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
     ).check();
     cy.get(
-      '.css-zhlq69 > .css-1wlqfwj > .chakra-stack > :nth-child(1) > [data-cy="ED Visits"]'
-    ).should("have.text", "ED Visits");
-    cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages0to17.singleCategory.0.numerator"]'
     ).clear();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages0to17.singleCategory.0.numerator"]'
     ).type("1");
-    cy.get(
-      '.css-zhlq69 > .css-1wlqfwj > .chakra-stack > :nth-child(2) > [data-cy="Enrollee Months"]'
-    ).should("have.text", "Enrollee Months");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages0to17.singleCategory.0.denominator"]'
     ).clear();
@@ -218,9 +203,6 @@ describe("Measure 19: AMB-HH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages0to17.singleCategory.0.rate"]'
     ).should("have.value", "500.0");
-    cy.get(
-      '.css-zhlq69 > .css-1wlqfwj > .chakra-stack > :nth-child(3) > [data-cy="Visits per 1,000 Enrollee Months"]'
-    ).should("have.text", "Visits per 1,000 Enrollee Months");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"] > .chakra-checkbox__control'
     ).click();
@@ -300,7 +282,7 @@ describe("Measure 19: AMB-HH", () => {
     ).clear();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Total must contain values if other fields are filled."]'
+      '[data-cy="Total (All Ages)  must contain values if other fields are filled."]'
     ).should("be.visible");
   });
 
@@ -380,17 +362,17 @@ describe("Measure 19: AMB-HH", () => {
     ).type("4");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.numerator"]'
     ).type("6");
     cy.get(":nth-child(2) > .css-0 > .css-1wlqfwj > .chakra-stack").click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.denominator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.denominator"]'
     ).type("8");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
@@ -424,10 +406,10 @@ describe("Measure 19: AMB-HH", () => {
     ).type("6");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Total numerator field is not equal to the sum of other numerators."]'
+      '[data-cy="Total (All Ages)  numerator field is not equal to the sum of other numerators."]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Total denominator field is not equal to the sum of other denominators."]'
+      '[data-cy="Total (All Ages)  denominator field is not equal to the sum of other denominators."]'
     ).should("be.visible");
   });
 
@@ -505,22 +487,21 @@ describe("Measure 19: AMB-HH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.denominator"]'
     ).type("4");
-    cy.get(':nth-child(2) > .css-0 > .css-1wlqfwj > [data-cy="Total"]').should(
-      "have.text",
-      "Total"
-    );
+    cy.get(
+      ':nth-child(2) > .css-0 > .css-1wlqfwj > [data-cy="Total (All Ages)"]'
+    ).should("have.text", "Total (All Ages)");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.numerator"]'
     ).should("have.value", "4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.denominator"]'
     ).should("have.value", "6");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.denominator"]'
     ).clear();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
