@@ -72,7 +72,10 @@ const IUHHValidation = (data: FormData) => {
       PMD.categories,
       ndrForumlas
     ),
-    ...GV.IUHHvalueSameCrossCategory(performanceMeasureArray, OPM, 0),
+    ...GV.IUHHvalueSameCrossCategory({
+      rateData: performanceMeasureArray,
+      OPM,
+    }),
 
     // OMS Validations
     ...GV.omsValidations({
@@ -111,6 +114,12 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           PMD.categories,
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)} Total`
+        ),
+        ...GV.IUHHvalueSameCrossCategoryOMS(
+          rateData?.["iuhh-rate"]?.rates ?? {},
+          PMD.categories,
+          PMD.qualifiers,
+          `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
       ]
     : [

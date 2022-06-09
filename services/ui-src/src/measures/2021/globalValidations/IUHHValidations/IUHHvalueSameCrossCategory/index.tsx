@@ -1,6 +1,62 @@
 import { cleanString } from "utils/cleanString";
 
-export const IUHHvalueSameCrossCategoryOMS = () => {};
+export const IUHHvalueSameCrossCategoryOMS = (
+  rateData: any,
+  categories: string[],
+  qualifiers: string[],
+  errorLocation: string
+) => {
+  let errorArray: any[] = [];
+  const cleanedCategories = categories.map((cat) => cleanString(cat));
+
+  // Using a subset of rateData as iterator to be sure that Total
+  // is always at the end of the category array.
+  const qualifierObj = { ...rateData };
+  delete qualifierObj["Total"];
+  const totalData = rateData["Total"]; // quick reference variable
+
+  const qualifierLabels: any = {};
+  for (const q of qualifiers) {
+    const qCleaned = cleanString(q);
+    qualifierLabels[qCleaned] = q;
+  }
+
+  // build performanceMeasureArray
+  let performanceMeasureArray = [];
+  for (const cat of cleanedCategories) {
+    let row = [];
+    for (const q in qualifierObj) {
+      const qual = qualifierObj[q]?.[cat]?.[0];
+      if (qual) {
+        qual.label = qualifierLabels[q];
+        row.push(qual);
+      }
+    }
+    // only need to add total data if other data exists
+    if (row.length > 0) {
+      const catTotal = { ...totalData[cat][0] };
+      catTotal.label = "Total";
+      row.push(catTotal);
+      performanceMeasureArray.push(row);
+    }
+  }
+
+  // if (performanceMeasureArray)
+  errorArray = IUHHvalueSameCrossCategory({
+    rateData: performanceMeasureArray,
+    OPM: undefined,
+    errorLocation,
+  });
+  return errorArray;
+};
+
+interface Props {
+  rateData: any;
+  OPM: any;
+  fieldIndex?: number;
+  fieldLabel?: string;
+  errorLocation?: string;
+}
 
 /*
  * Validate that the value of a given field with a given qualifier is consistent
@@ -8,13 +64,15 @@ export const IUHHvalueSameCrossCategoryOMS = () => {};
  *
  * Ex - "Number of Enrollee Months" in Inpatient ages 0-17 === Medicine ages 0-17
  */
-export const IUHHvalueSameCrossCategory = (
-  rateData: any,
-  OPM: any,
-  fieldIndex: number = 0,
-  fieldLabel: string = "Number of Enrollee Months",
-  errorLocation: string = "Performance Measure/Other Performance Measure"
-) => {
+export const IUHHvalueSameCrossCategory = ({
+  rateData,
+  OPM,
+  fieldIndex = 0,
+  fieldLabel = "Number of Enrollee Months",
+  errorLocation = "Performance Measure/Other Performance Measure",
+}: Props) => {
+  // if (errorLocation === "Performance Measure/Other Performance Measure")
+  console.log(rateData);
   let errorArray: any[] = [];
   if (!OPM) {
     const tempValues: {
@@ -25,7 +83,7 @@ export const IUHHvalueSameCrossCategory = (
       };
     } = {};
     for (const category of rateData) {
-      for (const qualifier of category) {
+      for (const qualifier of category.slice(0, -1)) {
         const cleanQual = cleanString(qualifier.label);
         if (tempValues[cleanQual]?.value) {
           if (
