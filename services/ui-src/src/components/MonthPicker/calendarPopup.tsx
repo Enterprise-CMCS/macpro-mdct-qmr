@@ -37,7 +37,7 @@ export const MonthPickerCalendar = ({
   selectedMonth,
   selectedYear = yearForMeasure,
   maxYear = parseInt(yearForMeasure),
-  minYear = parseInt(yearForMeasure) - 1,
+  minYear = parseInt(yearForMeasure) - 2,
   yearLocked = false,
   onChange: handleChange,
 }: CalendarProps) => {
