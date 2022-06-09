@@ -504,6 +504,11 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      description: "Colorectal Cancer Screening",
+      measure: "COL-AD",
+    },
+    {
+      type: "A",
       description:
         "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
       measure: "CPA-AD",
