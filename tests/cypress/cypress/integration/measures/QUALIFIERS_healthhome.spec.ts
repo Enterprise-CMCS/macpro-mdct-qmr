@@ -141,7 +141,7 @@ describe("Health Home Measure Qualifier: HH", () => {
     ).type("98");
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
-    ).clear();
+    ).clear({ force: true });
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
     ).type("102");
@@ -309,32 +309,5 @@ describe("Health Home Measure Qualifier: HH", () => {
     );
 
     cy.get('[data-cy="upload-delete-btn-0"]').click();
-  });
-
-  it("Health Home Core Set Measures", () => {
-    cy.goToHealthHomeSetMeasures();
-    cy.get('[data-cy="core-set-qualifiers-link"]').click();
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
-    ).clear();
-
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFive"]'
-    ).clear();
-    cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').clear();
-    cy.get('[data-cy="AdministrativeData.numberOfIndividuals"]').type(
-      "1234567892"
-    );
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.ZeroToSeventeen"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PercentageEnrolledInEachDeliverySystem.1.ZeroToSeventeen"]'
-    ).type("2");
-    cy.get('[data-cy="CoreSetMeasuresAuditedOrValidated1"]').click();
-    cy.get('[data-cy="validate-core-set-questions-button"]').click();
-    cy.get(
-      '[data-cy="The Qualifier has been validated successfully"] > .chakra-text'
-    ).should("have.text", "The Qualifier has been validated successfully");
   });
 });
