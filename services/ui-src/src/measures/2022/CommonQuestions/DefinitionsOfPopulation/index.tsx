@@ -349,6 +349,15 @@ export const DefinitionOfPopulation = ({
                         "No, not all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.",
                       value: DC.NO,
                       children: [
+                        <CUI.Text mb="5" key="AdditionalICMIncludedText">
+                          {
+                            "What percent of your measure-eligible Integrated Care Models (ICM) population are"
+                          }
+                          <CUI.Text as="i" fontWeight="600">
+                            {" included "}
+                          </CUI.Text>
+                          {"in the measure?"}
+                        </CUI.Text>,
                         <QMR.NumberInput
                           displayPercent
                           renderHelperTextAbove
@@ -363,7 +372,6 @@ export const DefinitionOfPopulation = ({
                           select fee-for-service and enter 50."
                           mask={percentageAllowOneDecimalMax}
                           formLabelProps={{ fontWeight: "400" }}
-                          label="What percent of your measure-eligible Integrated Care Models (ICM) population are included in the measure?"
                           {...register(DC.DELIVERY_SYS_ICM_NO_PERCENT)}
                         />,
                         <CUI.Box py="5" key="AdditionalICMText">
