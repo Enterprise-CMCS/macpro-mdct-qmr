@@ -24,7 +24,8 @@ interface NdrNodeProps {
   flagSubCat: boolean;
 }
 
-const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {  return (
+const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
+  return (
     <CUI.Box key={`${name}.ndrWrapper`}>
       <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
       {flagSubCat && <SubCatSection name={name} />}
