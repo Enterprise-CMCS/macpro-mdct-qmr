@@ -82,6 +82,7 @@ export const AddStateSpecificMeasure = () => {
           body: {
             description: measure["description"],
             detailedDescription: measure["detailedDescription"],
+            placeholder: false,
             userState: state,
             userCreated: true,
           },
