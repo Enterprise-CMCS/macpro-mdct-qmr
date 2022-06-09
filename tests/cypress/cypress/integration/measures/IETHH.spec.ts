@@ -181,6 +181,12 @@ describe("Measure: IET-HH", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.InitiationofAODTreatmentAlcoholAbuseorDependence.0.rate"]'
     ).should("have.value", "100.0");
 
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Totalage13andolder.InitiationofAODTreatmentAlcoholAbuseorDependence.0.numerator"]'
+    )
+      .should("exist")
+      .type("1");
+
     // validation errors
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
@@ -190,5 +196,8 @@ describe("Measure: IET-HH", () => {
       '[data-cy="You must select at least one Data Source option"]'
     ).should("exist");
     cy.get('[data-cy="Date Range Error"]').should("exist");
+    cy.get(
+      '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White - Total (age 13 and older) Error"]'
+    ).should("exist");
   });
 });

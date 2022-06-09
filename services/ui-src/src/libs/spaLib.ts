@@ -54,7 +54,7 @@ export const SPA: SPAi[] = [
   },
   { id: "15-2000", state: "MI", name: "Michigan Care Team" },
   { id: "18-1500", state: "MI", name: "Opioid Health Home" },
-  { id: "19-0015", state: "MN", name: "Minnesota Behavioral Health Home" },
+  { id: "19-0015", state: "MN", name: "Minnesota Behavioral Health Homes" },
   {
     id: "19-0020",
     state: "MO",

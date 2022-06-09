@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { AddHHCoreSet } from ".";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -37,23 +36,9 @@ describe("Test HealthHome coreset component", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText(/Do you want to add State Specific Measures now/i)
-    ).toBeInTheDocument();
-
-    expect(
       screen.getByText(
         /remember to complete all Health Home Core Set Questions and Health Home Core Set Measures to submit for CMS review./i
       )
     ).toBeInTheDocument();
-  });
-
-  it("should behave correctly with user interaction filling out component", () => {
-    userEvent.click(
-      screen.getByText(/Yes, I want to add State Specific Measures now/i)
-    );
-
-    expect(
-      screen.getByLabelText(/Yes, I want to add State Specific Measures now/i)
-    ).toBeChecked();
   });
 });
