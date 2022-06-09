@@ -60,6 +60,7 @@ export interface MeasureMetaData {
   description: string;
   measure: string;
   autocompleteOnCreation?: boolean;
+  userCreated?: boolean;
 }
 
 export const measures: Measure = {
@@ -438,26 +439,31 @@ export const measures: Measure = {
       type: "H",
       description: "Custom State Specific Measure 1 of 5",
       measure: "SS-1-HH",
+      userCreated: true,
     },
     {
       type: "H",
       description: "Custom State Specific Measure 2 of 5",
       measure: "SS-2-HH",
+      userCreated: true,
     },
     {
       type: "H",
       description: "Custom State Specific Measure 3 of 5",
       measure: "SS-3-HH",
+      userCreated: true,
     },
     {
       type: "H",
       description: "Custom State Specific Measure 4 of 5",
       measure: "SS-4-HH",
+      userCreated: true,
     },
     {
       type: "H",
       description: "Custom State Specific Measure 5 of 5",
       measure: "SS-5-HH",
+      userCreated: true,
     },
   ],
   2022: [

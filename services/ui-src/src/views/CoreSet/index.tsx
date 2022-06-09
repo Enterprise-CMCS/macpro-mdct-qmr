@@ -165,7 +165,12 @@ const useMeasureTableDataBuilder = () => {
         (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[])
-        .filter((item) => !item.measure.includes("SS-") || item.userCreated)
+        .filter(
+          (item) =>
+            !item.measure.includes("SS-") ||
+            // Don't show placeholder SS measures (those without descriptions)
+            (item.userCreated && item.description)
+        )
         .map((item) => {
           const actions = [
             {
