@@ -109,6 +109,7 @@ export const measureDescriptions: MeasureList = {
     "CDF-AD": "Screening for Depression and Follow-Up Plan: Age 18 and Older",
     "CHL-AD": "Chlamydia Screening in Women Ages 21 to 24",
     "COB-AD": "Concurrent Use of Opioids and Benzodiazepines",
+    "COL-AD": "Colorectal Cancer Screening",
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
     "FUA-AD":
