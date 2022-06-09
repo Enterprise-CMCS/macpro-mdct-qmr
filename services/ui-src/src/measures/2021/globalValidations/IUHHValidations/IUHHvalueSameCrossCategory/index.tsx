@@ -6,9 +6,6 @@ export const IUHHvalueSameCrossCategoryOMS = (
   qualifiers: string[],
   errorLocation: string
 ) => {
-  let errorArray: any[] = [];
-  const cleanedCategories = categories.map((cat) => cleanString(cat));
-
   // Using a subset of rateData as iterator to be sure that Total
   // is always at the end of the category array.
   const qualifierObj = { ...rateData };
@@ -20,6 +17,7 @@ export const IUHHvalueSameCrossCategoryOMS = (
     const qCleaned = cleanString(q);
     qualifierLabels[qCleaned] = q;
   }
+  const cleanedCategories = categories.map((cat) => cleanString(cat));
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];
@@ -42,7 +40,7 @@ export const IUHHvalueSameCrossCategoryOMS = (
   }
 
   // if (performanceMeasureArray)
-  errorArray = IUHHvalueSameCrossCategory({
+  let errorArray: any[] = IUHHvalueSameCrossCategory({
     rateData: performanceMeasureArray,
     OPM: undefined,
     errorLocation,
@@ -71,8 +69,6 @@ export const IUHHvalueSameCrossCategory = ({
   fieldLabel = "Number of Enrollee Months",
   errorLocation = "Performance Measure/Other Performance Measure",
 }: Props) => {
-  // if (errorLocation === "Performance Measure/Other Performance Measure")
-  console.log(rateData);
   let errorArray: any[] = [];
   if (!OPM) {
     const tempValues: {
