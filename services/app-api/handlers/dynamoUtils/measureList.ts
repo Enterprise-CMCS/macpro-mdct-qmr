@@ -453,6 +453,12 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      description:
+        "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis",
+      measure: "AAB-AD",
+    },
+    {
+      type: "A",
       description: "Antidepressant Medication Management",
       measure: "AMM-AD",
     },

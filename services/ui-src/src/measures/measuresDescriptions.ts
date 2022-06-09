@@ -99,6 +99,8 @@ export const measureDescriptions: MeasureList = {
   // New measures will be added here
   "2022": {
     // Adult
+    "AAB-AD":
+      "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis",
     "AMM-AD": "Antidepressant Medication Management",
     "AMR-AD": "Asthma Medication Ratio: Ages 19 to 64",
     "BCS-AD": "Breast Cancer Screening",
