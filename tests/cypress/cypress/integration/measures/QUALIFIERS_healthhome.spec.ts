@@ -141,7 +141,7 @@ describe("Health Home Measure Qualifier: HH", () => {
     ).type("98");
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
-    ).clear();
+    ).clear({ force: true });
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
     ).type("102");
@@ -316,7 +316,7 @@ describe("Health Home Measure Qualifier: HH", () => {
     cy.get('[data-cy="core-set-qualifiers-link"]').click();
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.EighteenToSixtyFour"]'
-    ).clear();
+    ).clear({ force: true });
 
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.0.GreaterThanSixtyFive"]'
