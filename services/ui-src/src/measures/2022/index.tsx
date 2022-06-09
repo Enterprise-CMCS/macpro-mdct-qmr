@@ -27,6 +27,7 @@ import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
+import { FUACH } from "./FUACH";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
 import { FVAAD } from "./FVAAD";
@@ -56,7 +57,8 @@ import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
 
-const twentyTwentyOneMeasures = {
+// TODO: Is there a reason we didn't change this var name?
+const twentyTwentyTwoMeasures = {
   "ADD-CH": ADDCH,
   "AMB-CH": AMBCH,
   "AMM-AD": AMMAD,
@@ -82,6 +84,7 @@ const twentyTwentyOneMeasures = {
   "CPC-CH": CPCCH,
   "DEV-CH": DEVCH,
   "FUA-AD": FUAAD,
+  "FUA-CH": FUACH,
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
@@ -112,4 +115,5 @@ const twentyTwentyOneMeasures = {
   "WCV-CH": WCVCH,
 };
 
-export default twentyTwentyOneMeasures;
+// TODO: Is there a reason we didn't change this var name?
+export default twentyTwentyTwoMeasures;

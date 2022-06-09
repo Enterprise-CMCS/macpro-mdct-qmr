@@ -685,6 +685,12 @@ export const measures: Measure = {
     {
       type: "C",
       description:
+        "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence: Ages 13 to 17",
+      measure: "FUA-CH",
+    },
+    {
+      type: "C",
+      description:
         "Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17",
       measure: "FUH-CH",
     },
