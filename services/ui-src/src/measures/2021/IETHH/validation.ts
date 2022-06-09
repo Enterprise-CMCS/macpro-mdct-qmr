@@ -101,6 +101,7 @@ const IETValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
+    ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
@@ -134,6 +135,7 @@ const IETValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateRateZeroOMS,
         GV.validateRateNotZeroOMS,
+        GV.validateOMSTotalNDR,
         sameDenominatorSets,
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],

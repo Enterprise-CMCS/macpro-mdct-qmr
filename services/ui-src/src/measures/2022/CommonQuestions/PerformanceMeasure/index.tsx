@@ -5,6 +5,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
+import { cleanString } from "utils/cleanString";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -16,6 +17,9 @@ interface Props {
   showtextbox?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
   RateComponent?: RateComp;
+  customNumeratorLabel?: string;
+  customDenominatorLabel?: string;
+  customRateLabel?: string;
 }
 
 interface NdrSetProps {
@@ -27,6 +31,9 @@ interface NdrSetProps {
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
   RateComponent: RateComp;
+  customNumeratorLabel?: string;
+  customDenominatorLabel?: string;
+  customRateLabel?: string;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -39,6 +46,9 @@ const CategoryNdrSets = ({
   allowNumeratorGreaterThanDenominator,
   calcTotal,
   RateComponent,
+  customNumeratorLabel,
+  customDenominatorLabel,
+  customRateLabel,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -52,7 +62,7 @@ const CategoryNdrSets = ({
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = item.replace(/[^\w]/g, "");
+        const cleanedName = cleanString(item);
 
         return (
           <CUI.Box key={item}>
@@ -63,8 +73,12 @@ const CategoryNdrSets = ({
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
-              customMask={customMask}
               calcTotal={calcTotal}
+              categoryName={item}
+              customMask={customMask}
+              customNumeratorLabel={customNumeratorLabel}
+              customDenominatorLabel={customDenominatorLabel}
+              customRateLabel={customRateLabel}
               {...register(
                 `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
               )}
@@ -88,6 +102,9 @@ const QualifierNdrSets = ({
   calcTotal,
   allowNumeratorGreaterThanDenominator,
   RateComponent,
+  customNumeratorLabel,
+  customDenominatorLabel,
+  customRateLabel,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -103,6 +120,9 @@ const QualifierNdrSets = ({
         rateMultiplicationValue={rateScale}
         customMask={customMask}
         calcTotal={calcTotal}
+        customNumeratorLabel={customNumeratorLabel}
+        customDenominatorLabel={customDenominatorLabel}
+        customRateLabel={customRateLabel}
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
         }
@@ -148,6 +168,9 @@ export const PerformanceMeasure = ({
   customMask,
   hybridMeasure,
   allowNumeratorGreaterThanDenominator,
+  customNumeratorLabel,
+  customDenominatorLabel,
+  customRateLabel,
   showtextbox = true,
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
@@ -240,9 +263,12 @@ export const PerformanceMeasure = ({
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate:
       </CUI.Text>
-      <CUI.Heading pt="5" size={"sm"}>
-        Please review the auto-calculated rate and revise if needed.
-      </CUI.Heading>
+      {(dataSourceWatch?.[0] !== "AdministrativeData" ||
+        dataSourceWatch?.length !== 1) && (
+        <CUI.Heading pt="5" size={"sm"}>
+          Please review the auto-calculated rate and revise if needed.
+        </CUI.Heading>
+      )}
       <PerformanceMeasureNdrs
         RateComponent={RateComponent}
         categories={data.categories}
@@ -251,6 +277,9 @@ export const PerformanceMeasure = ({
         calcTotal={calcTotal}
         rateScale={rateScale}
         customMask={customMask}
+        customNumeratorLabel={customNumeratorLabel}
+        customDenominatorLabel={customDenominatorLabel}
+        customRateLabel={customRateLabel}
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
         }

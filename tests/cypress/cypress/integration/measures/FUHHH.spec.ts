@@ -181,13 +181,13 @@ describe("Measure: FUH-HH", () => {
       .type("1");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.Followupwithin30daysafterdischarge.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge6andolder.Followupwithin30daysafterdischarge.0.numerator"]'
     ).should("have.value", "12");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.Followupwithin30daysafterdischarge.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge6andolder.Followupwithin30daysafterdischarge.0.denominator"]'
     ).should("have.value", "13");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.Followupwithin30daysafterdischarge.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge6andolder.Followupwithin30daysafterdischarge.0.rate"]'
     ).should("have.value", "92.3");
 
     // validation errors
@@ -200,10 +200,10 @@ describe("Measure: FUH-HH", () => {
     ).should("exist");
     cy.get('[data-cy="Date Range Error"]').should("exist");
     cy.get(
-      '[data-cy="Denominators must be the same for each category of performance measures for Total"]'
+      '[data-cy="Denominators must be the same for each category of performance measures for Total (Age 6 and older)"]'
     ).should("exist");
     cy.get(
-      '[data-cy="Follow-up within 7 days after discharge Rate should not be higher than Follow-up within 30 days after discharge Rate for Total Rates."]'
+      '[data-cy="Follow-up within 7 days after discharge Rate should not be higher than Follow-up within 30 days after discharge Rate for Total (Age 6 and older) Rates."]'
     ).should("exist");
   });
 });
