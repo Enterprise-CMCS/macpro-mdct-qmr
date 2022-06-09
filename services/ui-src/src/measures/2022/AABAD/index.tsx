@@ -45,7 +45,10 @@ export const AABAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                RateComponent={QMR.AABRate}
+              />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
@@ -57,6 +60,7 @@ export const AABAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
+              componentFlag={"AAB"}
             />
           )}
         </>

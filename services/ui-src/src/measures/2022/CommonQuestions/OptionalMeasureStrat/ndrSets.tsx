@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
-import { CompFlagType, usePerformanceMeasureContext } from "./context";
+import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { cleanString, useTotalAutoCalculation } from "./omsUtil";
 import * as Types from "../types";
 
@@ -12,7 +12,7 @@ interface NdrProps {
 
 interface TotalProps {
   name: string;
-  compFlag: CompFlagType;
+  componentFlag: ComponentFlagType;
   qualifier?: string;
   category?: string;
 }
@@ -25,7 +25,7 @@ type RateArrayBuilder = (name: string) => React.ReactElement[][];
  */
 const TotalNDR = ({
   name,
-  compFlag,
+  componentFlag,
   category = DC.SINGLE_CATEGORY,
   qualifier,
 }: TotalProps) => {
@@ -46,9 +46,9 @@ const TotalNDR = ({
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
   const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
 
-  useTotalAutoCalculation({ name, cleanedCategory, compFlag });
+  useTotalAutoCalculation({ name, cleanedCategory, componentFlag });
 
-  if (compFlag === "IU") {
+  if (componentFlag === "IU") {
     return (
       <QMR.IUHHRate
         key={cleanedName}
@@ -56,6 +56,23 @@ const TotalNDR = ({
         readOnly={rateReadOnly}
         rates={[{ label: label, id: 0 }]}
         categoryName={""}
+      />
+    );
+  } else if (componentFlag === "AAB") {
+    return (
+      <QMR.AABRate
+        key={cleanedName}
+        name={cleanedName}
+        readOnly={rateReadOnly}
+        customMask={customMask}
+        rates={[{ label: label, id: 0 }]}
+        rateMultiplicationValue={rateMultiplicationValue}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
+        customNumeratorLabel={customNumeratorLabel}
+        customDenominatorLabel={customDenominatorLabel}
+        customRateLabel={customRateLabel}
       />
     );
   } else {
@@ -80,10 +97,10 @@ const TotalNDR = ({
 
 /** OMS Total wrapper for any variation of qulaifier and category combination*/
 const TotalNDRSets = ({
-  compFlag = "DEFAULT",
+  componentFlag = "DEFAULT",
   name,
 }: {
-  compFlag?: CompFlagType;
+  componentFlag?: ComponentFlagType;
   name: string;
 }) => {
   const rateArray: React.ReactElement[] = [];
@@ -98,7 +115,7 @@ const TotalNDRSets = ({
           <TotalNDR
             name={name}
             category={cat}
-            compFlag={compFlag}
+            componentFlag={componentFlag}
             qualifier={totalQual}
           />
         </CUI.Box>
@@ -109,7 +126,7 @@ const TotalNDRSets = ({
       <CUI.Box key={`${name}.totalWrapper`}>
         <TotalNDR
           name={name}
-          compFlag={compFlag}
+          componentFlag={componentFlag}
           key={`${name}.TotalWrapper`}
         />{" "}
       </CUI.Box>
@@ -139,6 +156,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     customMask,
     performanceMeasureArray,
     IUHHPerformanceMeasureArray,
+    componentFlag,
     rateMultiplicationValue,
     rateReadOnly,
     customDenominatorLabel,
@@ -182,28 +200,51 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
           const adjustedName = `${name}.rates.${cleanString(
             singleQual
           )}.${cleanString(categories[idx])}`;
-
-          ndrSets.push(
-            <QMR.Rate
-              readOnly={rateReadOnly}
-              name={adjustedName}
-              key={adjustedName}
-              rateMultiplicationValue={rateMultiplicationValue}
-              allowNumeratorGreaterThanDenominator={
-                allowNumeratorGreaterThanDenominator
-              }
-              customNumeratorLabel={customNumeratorLabel}
-              customDenominatorLabel={customDenominatorLabel}
-              customRateLabel={customRateLabel}
-              customMask={customMask}
-              rates={[
-                {
-                  id: 0,
-                  label: categories[idx],
-                },
-              ]}
-            />
-          );
+          if (componentFlag === "AAB") {
+            ndrSets.push(
+              <QMR.AABRate
+                readOnly={rateReadOnly}
+                name={adjustedName}
+                key={adjustedName}
+                rateMultiplicationValue={rateMultiplicationValue}
+                allowNumeratorGreaterThanDenominator={
+                  allowNumeratorGreaterThanDenominator
+                }
+                customNumeratorLabel={customNumeratorLabel}
+                customDenominatorLabel={customDenominatorLabel}
+                customRateLabel={customRateLabel}
+                customMask={customMask}
+                rates={[
+                  {
+                    id: 0,
+                    label: categories[idx],
+                  },
+                ]}
+              />
+            );
+          } else {
+            ndrSets.push(
+              <QMR.Rate
+                readOnly={rateReadOnly}
+                name={adjustedName}
+                key={adjustedName}
+                rateMultiplicationValue={rateMultiplicationValue}
+                allowNumeratorGreaterThanDenominator={
+                  allowNumeratorGreaterThanDenominator
+                }
+                customNumeratorLabel={customNumeratorLabel}
+                customDenominatorLabel={customDenominatorLabel}
+                customRateLabel={customRateLabel}
+                customMask={customMask}
+                rates={[
+                  {
+                    id: 0,
+                    label: categories[idx],
+                  },
+                ]}
+              />
+            );
+          }
         }
       });
     }
@@ -220,6 +261,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     calcTotal,
     allowNumeratorGreaterThanDenominator,
     customMask,
+    componentFlag,
     performanceMeasureArray,
     rateMultiplicationValue,
     rateReadOnly,
@@ -236,22 +278,41 @@ const useQualRateArray: RateArrayBuilder = (name) => {
         DC.SINGLE_CATEGORY
       }`;
 
-      rateArrays.push([
-        <QMR.Rate
-          readOnly={rateReadOnly}
-          name={cleanedName}
-          key={cleanedName}
-          rateMultiplicationValue={rateMultiplicationValue}
-          allowNumeratorGreaterThanDenominator={
-            allowNumeratorGreaterThanDenominator
-          }
-          customNumeratorLabel={customNumeratorLabel}
-          customDenominatorLabel={customDenominatorLabel}
-          customRateLabel={customRateLabel}
-          customMask={customMask}
-          rates={[{ id: 0 }]}
-        />,
-      ]);
+      if (componentFlag === "AAB") {
+        rateArrays.push([
+          <QMR.AABRate
+            readOnly={rateReadOnly}
+            name={cleanedName}
+            key={cleanedName}
+            rateMultiplicationValue={rateMultiplicationValue}
+            allowNumeratorGreaterThanDenominator={
+              allowNumeratorGreaterThanDenominator
+            }
+            customNumeratorLabel={customNumeratorLabel}
+            customDenominatorLabel={customDenominatorLabel}
+            customRateLabel={customRateLabel}
+            customMask={customMask}
+            rates={[{ id: 0 }]}
+          />,
+        ]);
+      } else {
+        rateArrays.push([
+          <QMR.Rate
+            readOnly={rateReadOnly}
+            name={cleanedName}
+            key={cleanedName}
+            rateMultiplicationValue={rateMultiplicationValue}
+            allowNumeratorGreaterThanDenominator={
+              allowNumeratorGreaterThanDenominator
+            }
+            customNumeratorLabel={customNumeratorLabel}
+            customDenominatorLabel={customDenominatorLabel}
+            customRateLabel={customRateLabel}
+            customMask={customMask}
+            rates={[{ id: 0 }]}
+          />,
+        ]);
+      }
     } else {
       rateArrays.push([]);
     }
@@ -341,7 +402,7 @@ const IUHHNDRSets = ({ name }: NdrProps) => {
       />
       {calcTotal && (
         <TotalNDRSets
-          compFlag={"IU"}
+          componentFlag={"IU"}
           name={`${name}.iuhh-rate`}
           key={`${name}.iuhh-rate.totalWrapper`}
         />
@@ -475,12 +536,17 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM, compFlag } = usePerformanceMeasureContext();
+  const { OPM, componentFlag } = usePerformanceMeasureContext();
   const children: JSX.Element[] = [];
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
-  switch (compFlag) {
+  switch (componentFlag) {
     case "DEFAULT":
+      if (!OPM) {
+        children.push(<AgeGroupNDRSets name={name} key={name} />);
+      }
+      break;
+    case "AAB":
       if (!OPM) {
         children.push(<AgeGroupNDRSets name={name} key={name} />);
       }

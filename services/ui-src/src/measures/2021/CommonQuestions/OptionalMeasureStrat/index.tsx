@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../types";
 import { OMSData, OmsNode } from "./data";
-import { PerformanceMeasureProvider, CompFlagType } from "./context";
+import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect } from "react";
@@ -59,7 +59,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   isSingleSex?: boolean;
   rateAlwaysEditable?: boolean;
   numberOfDecimals?: number;
-  compFlag?: CompFlagType;
+  componentFlag?: ComponentFlagType;
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
@@ -120,7 +120,7 @@ export const OptionalMeasureStrat = ({
   isSingleSex = false,
   rateAlwaysEditable,
   numberOfDecimals = 1,
-  compFlag = "DEFAULT",
+  componentFlag = "DEFAULT",
   customNumeratorLabel = "Numerator",
   customDenominatorLabel = "Denominator",
   customRateLabel = "Rate",
@@ -173,7 +173,7 @@ export const OptionalMeasureStrat = ({
           customMask,
           allowNumeratorGreaterThanDenominator,
           numberOfDecimals,
-          compFlag,
+          componentFlag,
           customDenominatorLabel,
           customNumeratorLabel,
           customRateLabel,

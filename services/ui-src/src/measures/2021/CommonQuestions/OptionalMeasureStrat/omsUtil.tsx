@@ -2,7 +2,7 @@ import objectPath from "object-path";
 import { IUHHRateFields, RateFields } from "../types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { CompFlagType, usePerformanceMeasureContext } from "./context";
+import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 
 interface TempRate {
   numerator?: number;
@@ -16,7 +16,7 @@ interface TotalCalcHookProps {
   // current cleaned category
   cleanedCategory?: string;
   // Rate component type identifier
-  compFlag: CompFlagType;
+  componentFlag: ComponentFlagType;
 }
 
 interface CalcOmsTotalProp {
@@ -208,7 +208,7 @@ const checkNewIUHHOmsValuesChanged = (
 export const useTotalAutoCalculation = ({
   name,
   cleanedCategory = "singleCategory",
-  compFlag,
+  componentFlag,
 }: TotalCalcHookProps) => {
   const { watch, setValue } = useFormContext();
   const { qualifiers, numberOfDecimals, rateMultiplicationValue } =
@@ -231,14 +231,16 @@ export const useTotalAutoCalculation = ({
     const subscription = watch((values, { name: fieldName, type }) => {
       if (fieldName && values) {
         const omsFields =
-          compFlag === "IU" ? ([] as IUHHRateFields[]) : ([] as RateFields[]);
+          componentFlag === "IU"
+            ? ([] as IUHHRateFields[])
+            : ([] as RateFields[]);
         const watchOMS = objectPath.get(values, `${name}.rates`);
         for (const q of nonTotalQualifiers) {
           omsFields.push(watchOMS?.[q]?.[cleanedCategory]?.[0] ?? {});
         }
 
         const OMSValuesChanged: boolean =
-          compFlag === "IU"
+          componentFlag === "IU"
             ? checkNewIUHHOmsValuesChanged(omsFields, previousOMS)
             : checkNewOmsValuesChanged(omsFields, previousOMS);
         if (
@@ -247,7 +249,7 @@ export const useTotalAutoCalculation = ({
           OMSValuesChanged
         ) {
           const newFieldValue =
-            compFlag === "IU"
+            componentFlag === "IU"
               ? calculateIUHHOMSTotal({
                   cleanedCategory,
                   qualifiers,
@@ -278,7 +280,7 @@ export const useTotalAutoCalculation = ({
     watch,
     setValue,
     cleanedCategory,
-    compFlag,
+    componentFlag,
     name,
     numberOfDecimals,
     qualifiers,
