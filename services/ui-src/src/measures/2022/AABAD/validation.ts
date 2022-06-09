@@ -39,12 +39,6 @@ const AABADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
@@ -71,11 +65,7 @@ const AABADValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-      ],
+      validationCallbacks: [GV.validateNumeratorLessThanDenominatorOMS],
     }),
   ];
 
