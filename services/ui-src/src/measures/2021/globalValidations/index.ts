@@ -22,3 +22,16 @@ export * from "./validateTotals";
 export { PCRatLeastOneRateComplete } from "./PCRValidations/PCRatLeastOneRateComplete";
 export { PCRnoNonZeroNumOrDenom } from "./PCRValidations/PCRnoNonZeroNumOrDenom";
 export { PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec";
+
+//IUHH Specific Validations
+export { IUHHatLeastOneRateComplete } from "./IUHHValidations/IUHHatLeastOneRateComplete";
+export {
+  IUHHnoNonZeroNumOrDenom,
+  IUHHnoNonZeroNumOrDenomOMS,
+} from "./IUHHValidations/IUHHnoNonZeroNumOrDenom";
+export { IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./IUHHValidations/IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec";
+export {
+  IUHHvalidateNDRTotals,
+  IUHHvalidateNDRTotalsOMS,
+} from "./IUHHValidations/IUHHvalidateNDRTotals";
+export { IUHHvalidateDualPopInformation } from "./IUHHValidations/IUHHvalidateDualPopInformation";
