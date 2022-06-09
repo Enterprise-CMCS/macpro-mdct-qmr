@@ -57,7 +57,7 @@ export const ExportAll = () => {
           as="h2"
           my="4"
         >
-          Click the Link to Navigate to the Relevant Measure
+          Click on one of the measures below to navigate to it.
         </CUI.Text>
         {sortedData?.map((measure: any) => {
           return (

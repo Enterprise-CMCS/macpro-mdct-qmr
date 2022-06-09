@@ -92,7 +92,6 @@ const Heading = () => {
 };
 
 export const StateHome = () => {
-  const navigate = useNavigate();
   const { state, year } = useParams();
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
@@ -163,11 +162,10 @@ export const StateHome = () => {
   };
 
   const exportAll = (data: any) => {
-    navigate(`/${state}/${year}/${data.coreSet}/pdf`);
+    window.open(`${window.location.href}/${data.coreSet}/pdf`, "_blank");
   };
 
   if (error) {
-    console.log({ error });
     return (
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
