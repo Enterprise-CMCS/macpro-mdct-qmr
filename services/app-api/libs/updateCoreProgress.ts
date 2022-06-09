@@ -17,13 +17,22 @@ export const updateCoreSetProgress = async (
       );
 
       const measures = measuresList.Items;
+
       const completedAmount = measures?.filter(
         (measure) =>
           measure.status === Types.MeasureStatus.COMPLETE &&
           measure.measure !== "CSQ"
       ).length;
+
+      const availableAmount = measures?.filter(
+        (measure) => measure.placeholder !== true && measure.measure !== "CSQ"
+      ).length;
+
       coreSet.progress.numComplete =
         completedAmount ?? coreSet.progress.numComplete;
+
+      coreSet.progress.numAvailable =
+        availableAmount ?? coreSet.progress.numAvailable;
     }
     return coreSets;
   }
