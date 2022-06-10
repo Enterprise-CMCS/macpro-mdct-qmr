@@ -249,7 +249,7 @@ export const AIFHHRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
                     label={inputFieldName}
                     formLabelProps={{
                       minH: "50px",
-                      h: "75px", //need to see how this looks on smaller screens
+                      h: "100px", //need to see how this looks on smaller screens
                     }}
                     {...rest}
                   >

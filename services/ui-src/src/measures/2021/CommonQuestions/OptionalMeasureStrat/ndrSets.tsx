@@ -268,10 +268,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rates={[{ id: 0 }]}
         />,
       ]);
-    } else {
-      rateArrays.push([]);
-    }
-    if (AIFHHPerformanceMeasureArray) {
+    } else if (AIFHHPerformanceMeasureArray) {
       AIFHHPerformanceMeasureArray?.forEach((measure) => {
         const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
           DC.SINGLE_CATEGORY
@@ -297,6 +294,8 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rateArrays.push([]);
         }
       });
+    } else {
+      rateArrays.push([]);
     }
   });
 
