@@ -6,6 +6,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "measures/2021/CommonQuestions/types";
 
 interface Props {
+  hybridMeasure?: boolean;
   rateAlwaysEditable?: boolean;
 }
 
@@ -31,7 +32,10 @@ const arrayIsReadOnly = (dataSource: string[]) => {
   );
 };
 
-export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
+export const PerformanceMeasure = ({
+  hybridMeasure,
+  rateAlwaysEditable,
+}: Props) => {
   const { control } = useForm<FormProps>({
     defaultValues: {
       name: DC.OPM_RATES,
@@ -73,6 +77,24 @@ export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
         formLabelProps={{ fontWeight: 700 }}
         {...register(DC.OPM_EXPLAINATION)}
       />
+      {hybridMeasure && (
+        <CUI.Box my="5">
+          <CUI.Text>
+            CMS recognizes that social distancing will make onsite medical chart
+            reviews inadvisable during the COVID-19 pandemic. As such, hybrid
+            measures that rely on such techniques will be particularly
+            challenging during this time. While reporting of the Core Sets is
+            voluntary, CMS encourages states that can collect information safely
+            to continue reporting the measures they have reported in the past.
+          </CUI.Text>
+          <QMR.TextArea
+            formLabelProps={{ mt: 5 }}
+            {...register(DC.OPM_HYBRID_EXPLANATION)}
+            label="Describe any COVID-related difficulties encountered while collecting this data:"
+          />
+        </CUI.Box>
+      )}
+
       <CUI.Box marginTop={10}>
         {fields.map((_item, index) => {
           return (
