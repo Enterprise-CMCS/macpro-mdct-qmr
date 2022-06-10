@@ -60,6 +60,13 @@ Running tests locally
 
 - npm test
 
+## Destroy
+
+Want to destroy from your Mac? This may be necessary in some cases where you have orphaned infrastructure
+
+- Install/configure the AWS CLI (You will have to copy AWS keys into your terminal)
+- sh destroy.sh "name_of_your_branch" and re-enter the branch name once it has found all associated resources
+
 ## Requirements
 
 Node - we enforce using a specific version of node, specified in the file `.nvmrc`. This version matches the Lambda runtime. We recommend managing node versions using [NVM](https://github.com/nvm-sh/nvm#installing-and-updating).
