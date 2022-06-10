@@ -5,7 +5,7 @@ import { getPerfMeasureRateArray } from "../globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
 
-const ADDCHValidation = (data: FormData) => {
+const FUACHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -79,4 +79,4 @@ const ADDCHValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [ADDCHValidation];
+export const validationFunctions = [FUACHValidation];
