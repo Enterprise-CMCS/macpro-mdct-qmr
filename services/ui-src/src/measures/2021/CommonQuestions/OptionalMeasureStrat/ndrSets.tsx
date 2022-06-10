@@ -268,6 +268,8 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rates={[{ id: 0 }]}
         />,
       ]);
+    } else {
+      rateArrays.push([]);
     }
     if (AIFHHPerformanceMeasureArray) {
       AIFHHPerformanceMeasureArray?.forEach((measure) => {
@@ -295,8 +297,6 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rateArrays.push([]);
         }
       });
-    } else {
-      rateArrays.push([]);
     }
   });
 
