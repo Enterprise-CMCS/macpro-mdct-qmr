@@ -40,7 +40,7 @@ export const IUHHvalidateNDRTotalsOMS = (
         row.push(qual);
       }
     }
-    if (row.length > 1) {
+    if (row) {
       row.push(totalData[cat][0]);
       performanceMeasureArray.push(row);
     }
@@ -56,7 +56,9 @@ export const IUHHvalidateNDRTotalsOMS = (
   return errorArray;
 };
 
-/* At least one NDR set must be complete (OPM or PM) */
+/* Validate Totals have data if qualifiers in section have data
+ * and validate Total is equal to the sum of other qualifiers in section
+ */
 export const IUHHvalidateNDRTotals = (
   performanceMeasureArray: any,
   categories: string[],
