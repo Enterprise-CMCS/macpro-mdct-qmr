@@ -717,6 +717,11 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      description: "Prevention: Topical Fluoride for Children",
+      measure: "TFL-CH",
+    },
+    {
+      type: "C",
       description: "Well-Child Visits in the First 30 Months of Life",
       measure: "W30-CH",
     },

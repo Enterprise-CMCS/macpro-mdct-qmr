@@ -164,6 +164,7 @@ export const measureDescriptions: MeasureList = {
     "LRCD-CH": "Low-Risk Cesarean Delivery",
     "PPC-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",
+    "TFL-CH": "Prevention: Topical Fluoride for Children",
     "W30-CH": "Well-Child Visits in the First 30 Months of Life",
     "WCC-CH":
       "Weight Assessment and Counseling for Nutrition and Physical Activity for Children/Adolescents",
