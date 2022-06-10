@@ -39,7 +39,11 @@ export const _validationRateNotZero = ({ location, rateData }: UVFP) => {
   return errorArray;
 };
 
-const _validationRateZero = ({ location, rateData, hybridData }: ValProps) => {
+export const _validationRateZero = ({
+  location,
+  rateData,
+  hybridData,
+}: ValProps) => {
   const errorArray: FormError[] = [];
 
   for (const ratefields of rateData) {

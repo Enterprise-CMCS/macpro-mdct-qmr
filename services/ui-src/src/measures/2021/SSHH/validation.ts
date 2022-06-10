@@ -1,5 +1,11 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
+import {
+  getOtherPerformanceMeasureRateArray,
+  _validationRateNotZero,
+  _validationRateZero,
+} from "measures/2021/globalValidations";
+
 import { FormData } from "./types";
 
 export interface FormRateField {
@@ -12,6 +18,7 @@ export interface FormRateField {
 export const validateAtLeastOneRateComplete = (data: any) => {
   const errorArray: FormError[] = [];
   const PMData = data[DC.OPM_RATES];
+
   let rateCompletionError = true;
 
   PMData &&
@@ -30,12 +37,37 @@ export const validateAtLeastOneRateComplete = (data: any) => {
   return errorArray;
 };
 
+// If a user manually over-rides a rate it must not violate two rules:
+// It must be zero if the numerator is zero or
+// It Must be greater than zero if the Num and Denom are greater than zero
+export const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
+  const errorArray: FormError[] = [];
+  const hybridData = data?.[DC.DATA_SOURCE]?.includes(
+    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+  );
+  const location = `Performance Measure/Other Performance Measure`;
+  const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
+
+  const nonZeroErrors = [
+    ..._validationRateNotZero({ location, rateData: rateDataOPM }),
+  ];
+  const zeroErrors = [
+    ..._validationRateZero({ location, rateData: rateDataOPM, hybridData }),
+  ];
+
+  if (!!nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);
+  if (!!zeroErrors.length) errorArray.push(zeroErrors[0]);
+  return errorArray;
+};
+
 const SSHHValidation = (data: FormData) => {
   let errorArray: any[] = [];
+  const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
 
   errorArray = [
     ...validateAtLeastOneRateComplete(data),
+    ...validateNoNonZeroNumOrDenomPM(OPM, data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
   ];

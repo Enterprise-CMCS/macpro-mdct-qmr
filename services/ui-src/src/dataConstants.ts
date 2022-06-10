@@ -138,6 +138,8 @@ export const NUMERATOR = "numerator";
 export const OMS = "OptionalMeasureStratification";
 export const OPA = "OPA";
 export const OPM_EXPLAINATION = "OtherPerformanceMeasure-Explanation";
+export const OPM_HYBRID_EXPLANATION =
+  "OtherPerformanceMeasure-HybridExplanation";
 export const OPM_NOTES = "OtherPerformanceMeasure-Notes";
 export const OPM_NOTES_TEXT_INPUT = "OtherPerformanceMeasure-Rates-TextInput";
 export const OPM_RATES = "OtherPerformanceMeasure-Rates";
