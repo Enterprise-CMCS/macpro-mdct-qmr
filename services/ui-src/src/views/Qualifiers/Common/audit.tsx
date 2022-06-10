@@ -48,6 +48,10 @@ export const Audit = ({ type }: Props) => {
         ?.filter((item: any) => {
           return !item?.userCreated;
         })
+        // filter out placeholder HH user-created state specific measures
+        ?.filter((item: any) => {
+          return !item?.placeholder;
+        })
         ?.map((obj: any) => {
           const foundMeasureDescription =
             measureDescriptions[obj.year]?.[obj.measure] || obj.description;
