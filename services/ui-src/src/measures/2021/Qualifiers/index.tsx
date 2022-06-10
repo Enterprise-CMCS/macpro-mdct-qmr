@@ -61,7 +61,7 @@ export const Qualifier = ({
           )}
           <DeliverySystems data={data} />
           <Common.Audit type={type} year={year} />
-          <Common.ExternalContractor />
+          {type !== "HH" && <Common.ExternalContractor />}
         </CUI.OrderedList>
       </CUI.Box>
     </>
