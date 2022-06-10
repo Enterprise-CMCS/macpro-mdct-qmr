@@ -65,6 +65,7 @@ Running tests locally
 Want to destroy from your Mac? This may be necessary in some cases where you have orphaned infrastructure
 
 - Install/configure the AWS CLI (You will have to copy AWS keys into your terminal)
+- brew install jq (if you don't have already installed)
 - sh destroy.sh "name_of_your_branch" and re-enter the branch name once it has found all associated resources
 
 ## Requirements
