@@ -5,7 +5,7 @@ import * as Views from "views";
 import * as QMR from "components";
 import Measures from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
-import { measureDescriptions } from "measures/measuresDescriptions";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
