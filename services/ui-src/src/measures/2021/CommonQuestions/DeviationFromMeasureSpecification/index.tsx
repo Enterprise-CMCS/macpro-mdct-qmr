@@ -155,18 +155,19 @@ export const DeviationFromMeasureSpec = ({
             customTotalLabel ? `${customTotalLabel} ` : "Total"
           }`;
         }
-
         /* This is checking if the rates object has a singleCategory key.
         If it does, then it will return the low level deviation options. */
         return getLowLvlDeviationOptions({
-          qualifiers: rates.singleCategory.filter(numDenExistInRate),
+          qualifiers:
+            measureName === "AIF-HH"
+              ? rates.singleCategory.filter(IUHHnumDenExistInRate)
+              : rates.singleCategory.filter(numDenExistInRate),
           name: DC.DEVIATIONS,
         });
       } else {
         categories.forEach((cat) => {
           const key = cat.replace(/[^\w]/g, "");
           // if some of the rates have both num and den
-
           const deviations =
             measureName === "IU-HH"
               ? rates[key]?.some(IUHHnumDenExistInRate)

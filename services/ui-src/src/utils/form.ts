@@ -28,7 +28,7 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
       ) {
         ratesExist = true;
       } else if (
-        measureId === "IU-HH" &&
+        (measureId === "IU-HH" || measureId === "AIF-HH") &&
         performanceMeasureRates?.[option]?.some(IUHHRateExists)
       ) {
         ratesExist = true;

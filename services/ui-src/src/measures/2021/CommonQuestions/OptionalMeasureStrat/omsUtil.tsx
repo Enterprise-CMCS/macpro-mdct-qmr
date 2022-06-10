@@ -1,5 +1,5 @@
 import objectPath from "object-path";
-import { IUHHRateFields, RateFields } from "../types";
+import { AIFHHRateFields, IUHHRateFields, RateFields } from "../types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { CompFlagType, usePerformanceMeasureContext } from "./context";
@@ -125,6 +125,30 @@ const IUHHndrForumlas = [
   },
 ];
 
+const AIFHHndrFormulas = [
+  // Discharges per 1,000 Enrollee Months
+  {
+    num: 1,
+    denom: 0,
+    rate: 2,
+    mult: 1000,
+  },
+  // Days per 1,000 Enrollee Months
+  {
+    num: 3,
+    denom: 0,
+    rate: 4,
+    mult: 1000,
+  },
+  // Average Length of Stay
+  {
+    num: 5,
+    denom: 0,
+    rate: 6,
+    mult: 1000,
+  },
+];
+
 /** (IU-HH Specific) Process all OMS rate values pertaining to set category and calculate new rate object */
 const calculateIUHHOMSTotal = ({
   cleanedCategory,
@@ -178,6 +202,58 @@ const calculateIUHHOMSTotal = ({
   return tempRate;
 };
 
+const calculateAIFHHOMSTotal = ({
+  cleanedCategory,
+  qualifiers,
+  watchOMS,
+}: CalcOmsTotalProp): AIFHHRateFields => {
+  const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
+  const fieldNames = watchOMS?.["Total"]?.[cleanedCategory]?.[0]?.fields.map(
+    (field: any) => field.label
+  );
+
+  // Create empty temp obj
+  const tempRate: IUHHTempRate = {
+    label: cleanedCategory,
+    fields: fieldNames?.map((f: string) => {
+      return {
+        label: f,
+        value: undefined,
+      };
+    }),
+    isTotal: true,
+  };
+
+  // Store sums in temp
+  for (const qual of cleanedQualifiers) {
+    const fields = watchOMS?.[qual]?.[cleanedCategory]?.[0]?.fields;
+    fields?.forEach((field: { value: string }, i: number) => {
+      if (field?.value && tempRate?.fields?.[i]) {
+        tempRate.fields[i].value ??= 0;
+        tempRate.fields[i].value += parseFloat(field.value);
+      }
+    });
+  }
+
+  // Calculate rates for totals
+  for (const f of AIFHHndrFormulas) {
+    const numerator = tempRate.fields?.[f.num]?.value;
+    const denominator = tempRate.fields?.[f.denom]?.value;
+    if (numerator && denominator) {
+      tempRate.fields[f.rate].value = (
+        Math.round((numerator / denominator) * f.mult * 10) / 10
+      ).toFixed(1);
+    }
+  }
+
+  // Convert numbers to strings
+  for (const field of tempRate?.fields ?? []) {
+    field.value = field.value !== undefined ? `${field.value}` : undefined;
+  }
+
+  return tempRate;
+};
+
 /** (IU-HH Specific) Checks if previous non-undefined OMS values have changed */
 const checkNewIUHHOmsValuesChanged = (
   next: IUHHRateFields[],
@@ -192,6 +268,25 @@ const checkNewIUHHOmsValuesChanged = (
       v.fields?.[3]?.value === prev?.[i]?.fields?.[3]?.value &&
       v.fields?.[4]?.value === prev?.[i]?.fields?.[4]?.value &&
       v.fields?.[5]?.value === prev?.[i]?.fields?.[5]?.value
+    );
+  });
+};
+
+/** (AIF-HH Specific) Checks if previous non-undefined OMS values have changed */
+const checkNewAIFHHOmsValuesChanged = (
+  next: IUHHRateFields[],
+  prev?: IUHHRateFields[]
+): boolean => {
+  if (!prev) return false;
+  return !next.every((v, i) => {
+    return (
+      v.fields?.[0]?.value === prev?.[i]?.fields?.[0]?.value &&
+      v.fields?.[1]?.value === prev?.[i]?.fields?.[1]?.value &&
+      v.fields?.[2]?.value === prev?.[i]?.fields?.[2]?.value &&
+      v.fields?.[3]?.value === prev?.[i]?.fields?.[3]?.value &&
+      v.fields?.[4]?.value === prev?.[i]?.fields?.[4]?.value &&
+      v.fields?.[5]?.value === prev?.[i]?.fields?.[5]?.value &&
+      v.fields?.[6]?.value === prev?.[i]?.fields?.[6]?.value
     );
   });
 };
@@ -214,7 +309,7 @@ export const useTotalAutoCalculation = ({
   const { qualifiers, numberOfDecimals, rateMultiplicationValue } =
     usePerformanceMeasureContext();
   const [previousOMS, setPreviousOMS] = useState<
-    IUHHRateFields[] | undefined
+    IUHHRateFields[] | AIFHHRateFields[] | undefined
   >();
 
   useEffect(() => {
@@ -230,38 +325,76 @@ export const useTotalAutoCalculation = ({
 
     const subscription = watch((values, { name: fieldName, type }) => {
       if (fieldName && values) {
-        const omsFields =
-          compFlag === "IU" ? ([] as IUHHRateFields[]) : ([] as RateFields[]);
+        let omsFields;
+        switch (compFlag) {
+          case "IU":
+            omsFields = [] as IUHHRateFields[];
+            break;
+          case "AIF":
+            omsFields = [] as AIFHHRateFields[];
+            break;
+          default:
+            omsFields = [] as RateFields[];
+            break;
+        }
         const watchOMS = objectPath.get(values, `${name}.rates`);
         for (const q of nonTotalQualifiers) {
           omsFields.push(watchOMS?.[q]?.[cleanedCategory]?.[0] ?? {});
         }
 
-        const OMSValuesChanged: boolean =
-          compFlag === "IU"
-            ? checkNewIUHHOmsValuesChanged(omsFields, previousOMS)
-            : checkNewOmsValuesChanged(omsFields, previousOMS);
+        let OMSValuesChanged: boolean;
+        switch (compFlag) {
+          case "IU":
+            OMSValuesChanged = checkNewIUHHOmsValuesChanged(
+              omsFields,
+              previousOMS
+            );
+            break;
+          case "AIF":
+            OMSValuesChanged = checkNewAIFHHOmsValuesChanged(
+              omsFields,
+              previousOMS
+            );
+            break;
+          default:
+            OMSValuesChanged = checkNewOmsValuesChanged(omsFields, previousOMS);
+            break;
+        }
         if (
           type === "change" &&
           includedNames.includes(fieldName) &&
           OMSValuesChanged
         ) {
-          const newFieldValue =
-            compFlag === "IU"
-              ? calculateIUHHOMSTotal({
-                  cleanedCategory,
-                  qualifiers,
-                  numberOfDecimals,
-                  rateMultiplicationValue,
-                  watchOMS,
-                })
-              : calculateOMSTotal({
-                  cleanedCategory,
-                  qualifiers,
-                  numberOfDecimals,
-                  rateMultiplicationValue,
-                  watchOMS,
-                });
+          let newFieldValue;
+          switch (compFlag) {
+            case "IU":
+              newFieldValue = calculateIUHHOMSTotal({
+                cleanedCategory,
+                qualifiers,
+                numberOfDecimals,
+                rateMultiplicationValue,
+                watchOMS,
+              });
+              break;
+            case "AIF":
+              newFieldValue = calculateAIFHHOMSTotal({
+                cleanedCategory,
+                qualifiers,
+                numberOfDecimals,
+                rateMultiplicationValue,
+                watchOMS,
+              });
+              break;
+            default:
+              newFieldValue = calculateOMSTotal({
+                cleanedCategory,
+                qualifiers,
+                numberOfDecimals,
+                rateMultiplicationValue,
+                watchOMS,
+              });
+              break;
+          }
           setValue(totalFieldName, [newFieldValue]);
         }
         if (values) {

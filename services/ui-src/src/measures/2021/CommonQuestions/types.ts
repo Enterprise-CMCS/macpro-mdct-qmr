@@ -176,6 +176,10 @@ export interface IUHHRateFields {
   [DC.LABEL]?: string;
   fields?: { [DC.LABEL]?: string; value: string | undefined }[];
 }
+export interface AIFHHRateFields {
+  [DC.LABEL]?: string;
+  fields?: { [DC.LABEL]?: string; value: string | undefined }[];
+}
 
 export interface DeviationFields {
   [DC.OPTIONS]: string[];

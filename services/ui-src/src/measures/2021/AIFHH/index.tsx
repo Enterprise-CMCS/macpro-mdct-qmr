@@ -73,8 +73,8 @@ export const AIFHH = ({
               adultMeasure={false}
               calcTotal={true}
               customMask={xNumbersYDecimals(12, 1)}
-              IUHHPerformanceMeasureArray={performanceMeasureArray}
-              compFlag={"IU"}
+              AIFHHPerformanceMeasureArray={performanceMeasureArray}
+              compFlag={"AIF"}
             />
           )}
         </>

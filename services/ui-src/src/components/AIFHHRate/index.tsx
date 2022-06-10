@@ -15,16 +15,9 @@ interface Props extends QMR.InputWrapperProps {
   customMask?: RegExp;
   calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
-  categoryName: string;
 }
 
-export const AIFHHRate = ({
-  rates,
-  name,
-  readOnly = true,
-  categoryName,
-  ...rest
-}: Props) => {
+export const AIFHHRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
   const {
     control,
     formState: { errors },
@@ -59,10 +52,10 @@ export const AIFHHRate = ({
     },
     // Average Length of Stay
     {
-      num: 3,
-      denom: 1,
-      rate: 5,
-      mult: 1,
+      num: 5,
+      denom: 0,
+      rate: 6,
+      mult: 1000,
     },
   ];
 
@@ -75,7 +68,6 @@ export const AIFHHRate = ({
     defaultValue: [],
   });
 
-  if (categoryName === "Maternity") rates = [rates[1], rates[3], rates[4]];
   rates[rates.length - 1]["isTotal"] = true;
 
   /*
@@ -167,9 +159,10 @@ export const AIFHHRate = ({
 
   // Sum the values of all columns
   const calculateTotals = (prevRate: any[]) => {
-    let dischargeSum: any = null;
-    let daySum: any = null;
     let numEnrolleeSum: any = null;
+    let shortSum: any = null;
+    let medSum: any = null;
+    let longSum: any = null;
     let x;
 
     // sum all field values - we assume last row is total
@@ -179,10 +172,13 @@ export const AIFHHRate = ({
           numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
         }
         if (!isNaN((x = parseFloat(item.fields[1].value)))) {
-          dischargeSum = dischargeSum + x; // += syntax does not work if default value is null
+          shortSum = shortSum + x; // += syntax does not work if default value is null
         }
         if (!isNaN((x = parseFloat(item.fields[3].value)))) {
-          daySum = daySum + x; // += syntax does not work if default value is null
+          medSum = medSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item.fields[5].value)))) {
+          longSum = longSum + x; // += syntax does not work if default value is null
         }
       }
     });
@@ -194,11 +190,14 @@ export const AIFHHRate = ({
     let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
     totals.fields[0].value = newValue;
 
-    newValue = dischargeSum !== null ? dischargeSum.toString() : "";
+    newValue = shortSum !== null ? shortSum.toString() : "";
     totals.fields[1].value = newValue;
 
-    newValue = daySum !== null ? daySum.toString() : "";
+    newValue = medSum !== null ? medSum.toString() : "";
     totals.fields[3].value = newValue;
+
+    newValue = longSum !== null ? longSum.toString() : "";
+    totals.fields[5].value = newValue;
 
     totals.fields = calculateRates(totals.fields, ndrFormulas);
     prevRate[totalIndex] = totals;
