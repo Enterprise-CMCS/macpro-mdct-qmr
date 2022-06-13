@@ -65,7 +65,7 @@ const validateNumeratorsLessThanDenominatorsPM = (OPM: any) => {
   const errorArray: FormError[] = [];
 
   for (const fieldSet of rateDataOPM) {
-    for (const [_, rate] of fieldSet.entries()) {
+    for (const [, rate] of fieldSet.entries()) {
       if (
         rate.numerator &&
         rate.denominator &&
@@ -93,8 +93,8 @@ export const validatePartialRateCompletion = (OPM: any) => {
 
   const location = `Performance Measure`;
 
-  for (const [_, rateSet] of rateDataOPM.entries()) {
-    for (const [_, rate] of rateSet.entries()) {
+  for (const [, rateSet] of rateDataOPM.entries()) {
+    for (const [, rate] of rateSet.entries()) {
       if (
         rate &&
         ((rate.numerator && !rate.denominator) ||
