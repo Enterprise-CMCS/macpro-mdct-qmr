@@ -44,13 +44,16 @@ const TFLCHValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
+    // Dental Services rate cannot be larger than the Dental or Oral Health Services rate
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    // Oral Health Services rate cannot be larger than the Dental or Oral Health Services rate
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 2),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups,
       PMD.categories
     ),
-    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
@@ -84,6 +87,10 @@ const TFLCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
+        // Dental Services rate cannot be larger than the Dental or Oral Health Services rate
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        // Oral Health Services rate cannot be larger than the Dental or Oral Health Services rate
+        GV.validateOneCatRateHigherThanOtherCatOMS(0, 2),
         GV.validateOneQualRateHigherThanOtherQualOMS(),
         GV.validateNumeratorLessThanDenominatorOMS,
         GV.validateRateZeroOMS,

@@ -45,11 +45,7 @@ export const TFLCH = ({
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure
-                data={PMD.data}
-                showtextbox={false}
-                calcTotal
-              />
+              <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
