@@ -96,6 +96,10 @@ export function AppRoutes() {
         />
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
+        <Route
+          path=":state/:year/:coreSetId/add-ssm"
+          element={<Views.AddStateSpecificMeasure />}
+        />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route {...m} />

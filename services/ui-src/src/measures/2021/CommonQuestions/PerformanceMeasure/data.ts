@@ -1,6 +1,7 @@
 export interface PerformanceMeasureData {
   qualifiers?: string[]; // age ranges, etc
   categories?: string[]; //performance measure descriptions
+  customPrompt?: string; // Default: "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
   questionText?: string[];
   questionListItems?: string[];
   questionListTitles?: string[];
