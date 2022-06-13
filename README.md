@@ -60,15 +60,19 @@ Running tests locally
 
 - npm test
 
-## Local Destroy Instructions
+## Destroy Infrastructure from Command Line
 
 Want to destroy locally? This may be necessary in some cases where you have orphaned infrastructure
 
 - Install/configure the AWS CLI (You will have to copy AWS keys into your terminal)
 - Go to https://cloudtamer.cms.gov/portal/project and login with your EUA
-- Go to the mdct-qmr-dev project and click on "Cloud access", click on your account, click on mdctqmr-developer-admin, click on Short-term Access Keys, Then paste the the text from Option 1 into your terminal
-- brew install jq (if you don't have already installed) (jq is command-line JSON processor necessary for the destroy script to run properly)
-- sh destroy.sh "name_of_your_branch" and re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
+- Go to the mdct-qmr-dev project and click on "Cloud access"
+- Click on your account
+- Click on mdctqmr-developer-admin
+- Click on Short-term Access Keys
+- Paste the the text from Option 1 into your terminal
+- `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
+- `sh destroy.sh name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
 ## Requirements
 
