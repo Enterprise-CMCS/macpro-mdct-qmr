@@ -36,21 +36,21 @@ export const AIFHHRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
 
   // Rate structure by index in row
   const ndrFormulas = [
-    // Discharges per 1,000 Enrollee Months
+    // Short-Term Admissions per 1,000 Enrollee Months
     {
       num: 1,
       denom: 0,
       rate: 2,
       mult: 1000,
     },
-    // Days per 1,000 Enrollee Months
+    // Medium-Term Admissions per 1,000 Enrollee Months
     {
       num: 3,
       denom: 0,
       rate: 4,
       mult: 1000,
     },
-    // Average Length of Stay
+    // Long-Term Admissions per 1,000 Enrollee Months
     {
       num: 5,
       denom: 0,

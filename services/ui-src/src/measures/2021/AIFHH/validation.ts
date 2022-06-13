@@ -28,7 +28,7 @@ const ndrForumlas = [
 
 let OPM: any;
 
-const IUHHValidation = (data: FormData) => {
+const AIFHHValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const dateRange = data[DC.DATE_RANGE];
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
@@ -101,13 +101,13 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   return OPM === undefined
     ? [
         ...GV.IUHHnoNonZeroNumOrDenomOMS(
-          rateData?.["iuhh-rate"]?.rates ?? {},
+          rateData?.["aifhh-rate"]?.rates ?? {},
           rates ?? [],
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
         ...GV.IUHHvalidateNDRTotalsOMS(
-          rateData?.["iuhh-rate"]?.rates ?? {},
+          rateData?.["aifhh-rate"]?.rates ?? {},
           PMD.categories,
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)} Total`
@@ -123,4 +123,4 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
       ];
 };
 
-export const validationFunctions = [IUHHValidation];
+export const validationFunctions = [AIFHHValidation];
