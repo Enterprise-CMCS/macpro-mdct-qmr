@@ -114,7 +114,6 @@ const TotalNDRSets = ({
       );
     });
   } else {
-    console.log("here");
     rateArray.push(
       <CUI.Box key={`${name}.totalWrapper`}>
         <TotalNDR

@@ -25,6 +25,7 @@ interface CalcOmsTotalProp {
   qualifiers: string[];
   rateMultiplicationValue?: number;
   numberOfDecimals: number;
+  compFlag?: any;
 }
 
 export const cleanString = (s: string) => s && s.replace(/[^\w]/g, "");
@@ -95,7 +96,7 @@ const checkNewOmsValuesChanged = (
   );
 };
 
-interface IUHHTempRate {
+interface complexTempRate {
   label: string;
   fields: { label: string; value: any }[];
   isTotal: true;
@@ -126,21 +127,21 @@ const IUHHndrForumlas = [
 ];
 
 const AIFHHndrFormulas = [
-  // Discharges per 1,000 Enrollee Months
+  // short term
   {
     num: 1,
     denom: 0,
     rate: 2,
     mult: 1000,
   },
-  // Days per 1,000 Enrollee Months
+  // medium term
   {
     num: 3,
     denom: 0,
     rate: 4,
     mult: 1000,
   },
-  // Average Length of Stay
+  // long term
   {
     num: 5,
     denom: 0,
@@ -150,10 +151,11 @@ const AIFHHndrFormulas = [
 ];
 
 /** (IU-HH Specific) Process all OMS rate values pertaining to set category and calculate new rate object */
-const calculateIUHHOMSTotal = ({
+const calculateComplexOMSTotal = ({
   cleanedCategory,
   qualifiers,
   watchOMS,
+  compFlag,
 }: CalcOmsTotalProp): complexRateFields => {
   const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
   const fieldNames = watchOMS?.["Total"]?.[cleanedCategory]?.[0]?.fields.map(
@@ -161,7 +163,7 @@ const calculateIUHHOMSTotal = ({
   );
 
   // Create empty temp obj
-  const tempRate: IUHHTempRate = {
+  const tempRate: complexTempRate = {
     label: cleanedCategory,
     fields: fieldNames?.map((f: string) => {
       return {
@@ -182,61 +184,17 @@ const calculateIUHHOMSTotal = ({
       }
     });
   }
-
+  let formulaSet: any;
+  switch (compFlag) {
+    case "AIF":
+      formulaSet = AIFHHndrFormulas;
+      break;
+    case "IU":
+      formulaSet = IUHHndrForumlas;
+      break;
+  }
   // Calculate rates for totals
-  for (const f of IUHHndrForumlas) {
-    const numerator = tempRate.fields?.[f.num]?.value;
-    const denominator = tempRate.fields?.[f.denom]?.value;
-    if (numerator && denominator) {
-      tempRate.fields[f.rate].value = (
-        Math.round((numerator / denominator) * f.mult * 10) / 10
-      ).toFixed(1);
-    }
-  }
-
-  // Convert numbers to strings
-  for (const field of tempRate?.fields ?? []) {
-    field.value = field.value !== undefined ? `${field.value}` : undefined;
-  }
-
-  return tempRate;
-};
-
-const calculateAIFHHOMSTotal = ({
-  cleanedCategory,
-  qualifiers,
-  watchOMS,
-}: CalcOmsTotalProp): complexRateFields => {
-  const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
-  const fieldNames = watchOMS?.["Total"]?.[cleanedCategory]?.[0]?.fields.map(
-    (field: any) => field.label
-  );
-
-  // Create empty temp obj
-  const tempRate: IUHHTempRate = {
-    label: cleanedCategory,
-    fields: fieldNames?.map((f: string) => {
-      return {
-        label: f,
-        value: undefined,
-      };
-    }),
-    isTotal: true,
-  };
-
-  // Store sums in temp
-  for (const qual of cleanedQualifiers) {
-    const fields = watchOMS?.[qual]?.[cleanedCategory]?.[0]?.fields;
-    fields?.forEach((field: { value: string }, i: number) => {
-      if (field?.value && tempRate?.fields?.[i]) {
-        tempRate.fields[i].value ??= 0;
-        tempRate.fields[i].value += parseFloat(field.value);
-      }
-    });
-  }
-
-  // Calculate rates for totals
-  for (const f of AIFHHndrFormulas) {
+  for (const f of formulaSet!) {
     const numerator = tempRate.fields?.[f.num]?.value;
     const denominator = tempRate.fields?.[f.denom]?.value;
     if (numerator && denominator) {
@@ -368,21 +326,23 @@ export const useTotalAutoCalculation = ({
           let newFieldValue;
           switch (compFlag) {
             case "IU":
-              newFieldValue = calculateIUHHOMSTotal({
+              newFieldValue = calculateComplexOMSTotal({
                 cleanedCategory,
                 qualifiers,
                 numberOfDecimals,
                 rateMultiplicationValue,
                 watchOMS,
+                compFlag,
               });
               break;
             case "AIF":
-              newFieldValue = calculateAIFHHOMSTotal({
+              newFieldValue = calculateComplexOMSTotal({
                 cleanedCategory,
                 qualifiers,
                 numberOfDecimals,
                 rateMultiplicationValue,
                 watchOMS,
+                compFlag,
               });
               break;
             default:
