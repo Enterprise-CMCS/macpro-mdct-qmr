@@ -167,8 +167,10 @@ const useMeasureTableDataBuilder = () => {
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
         const actions = [
           {
-            itemText: "Edit",
-            handleSelect: () => console.log("Edit " + item.measure),
+            itemText: "View",
+            handleSelect: () => {
+              window.location.href = `${window.location.href}/${item.measure}`;
+            },
           },
         ];
 
@@ -342,6 +344,7 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
+        <p>TEst this</p>
         <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
