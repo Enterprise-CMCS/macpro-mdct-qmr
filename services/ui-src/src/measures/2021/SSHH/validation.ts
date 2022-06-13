@@ -61,30 +61,29 @@ export const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
 };
 
 /**
- * Checks both performance measure and other performance measure for numerator greater than denominator errors
+ * Checks user-created performance measures for numerator greater than denominator errors
  */
-export const validateNumeratorsLessThanDenominatorsPM = (
-  performanceMeasureArray: FormRateField[][],
-  OPM: any,
-  qualifiers: string[]
-) => {
-  const location = `Performance Measure/Other Performance Measure`;
+export const validateNumeratorsLessThanDenominatorsPM = (OPM: any) => {
+  const location = `Performance Measure`;
   const errorMessage = `Numerators must be less than Denominators for all applicable performance measures`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
-  const errorArray: FormError[] = [
-    ..._validation({
-      location,
-      qualifiers,
-      rateData: performanceMeasureArray,
-      errorMessage,
-    }),
-    ..._validation({
-      location,
-      qualifiers,
-      rateData: rateDataOPM,
-      errorMessage,
-    }),
-  ];
+
+  const errorArray: FormError[] = [];
+
+  for (const fieldSet of rateDataOPM) {
+    for (const [_, rate] of fieldSet.entries()) {
+      if (
+        rate.numerator &&
+        rate.denominator &&
+        parseFloat(rate.denominator) < parseFloat(rate.numerator)
+      ) {
+        errorArray.push({
+          errorLocation: location,
+          errorMessage: errorMessage,
+        });
+      }
+    }
+  }
 
   return !!errorArray.length ? [errorArray[0]] : [];
 };
@@ -97,9 +96,9 @@ const SSHHValidation = (data: FormData) => {
   errorArray = [
     ...validateAtLeastOneRateComplete(data),
     ...validateNoNonZeroNumOrDenomPM(OPM, data),
+    ...validateNumeratorsLessThanDenominatorsPM(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
-    ...GV.validateNumeratorsLessThanDenominatorsPM(),
   ];
 
   return errorArray;
