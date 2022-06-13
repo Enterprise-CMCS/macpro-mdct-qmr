@@ -6,8 +6,8 @@ export type CompFlagType = "DEFAULT" | "AIF" | "IU" | "PCR";
 interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.IUHHRateFields[][];
-  AIFHHPerformanceMeasureArray?: Types.AIFHHRateFields[][];
+  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
+  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
   categories: string[];

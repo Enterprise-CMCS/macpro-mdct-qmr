@@ -11,7 +11,7 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
   const rateExists = (rate: Types.RateFields) =>
     rate?.rate || (rate?.denominator && rate?.numerator);
   const PCRrateExists = (rate: any) => rate?.value;
-  const IUHHRateExists = (rate: any) => {
+  const complexRateExists = (rate: any) => {
     return rate?.fields.some((field: any) => {
       return field?.value;
     });
@@ -29,7 +29,7 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
         ratesExist = true;
       } else if (
         (measureId === "IU-HH" || measureId === "AIF-HH") &&
-        performanceMeasureRates?.[option]?.some(IUHHRateExists)
+        performanceMeasureRates?.[option]?.some(complexRateExists)
       ) {
         ratesExist = true;
       } else if (performanceMeasureRates?.[option]?.some(rateExists)) {

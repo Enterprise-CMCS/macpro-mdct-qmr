@@ -50,8 +50,8 @@ export const buildOmsCheckboxes = ({
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.IUHHRateFields[][];
-  AIFHHPerformanceMeasureArray?: Types.AIFHHRateFields[][];
+  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
+  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
