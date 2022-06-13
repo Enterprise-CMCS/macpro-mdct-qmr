@@ -45,7 +45,7 @@ export const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
   );
-  const location = `Performance Measure/Other Performance Measure`;
+  const location = `Performance Measure`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
 
   const nonZeroErrors = [
@@ -60,6 +60,35 @@ export const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
   return errorArray;
 };
 
+/**
+ * Checks both performance measure and other performance measure for numerator greater than denominator errors
+ */
+export const validateNumeratorsLessThanDenominatorsPM = (
+  performanceMeasureArray: FormRateField[][],
+  OPM: any,
+  qualifiers: string[]
+) => {
+  const location = `Performance Measure/Other Performance Measure`;
+  const errorMessage = `Numerators must be less than Denominators for all applicable performance measures`;
+  const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
+  const errorArray: FormError[] = [
+    ..._validation({
+      location,
+      qualifiers,
+      rateData: performanceMeasureArray,
+      errorMessage,
+    }),
+    ..._validation({
+      location,
+      qualifiers,
+      rateData: rateDataOPM,
+      errorMessage,
+    }),
+  ];
+
+  return !!errorArray.length ? [errorArray[0]] : [];
+};
+
 const SSHHValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const OPM = data[DC.OPM_RATES];
@@ -70,6 +99,7 @@ const SSHHValidation = (data: FormData) => {
     ...validateNoNonZeroNumOrDenomPM(OPM, data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(),
   ];
 
   return errorArray;
