@@ -707,6 +707,11 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      description: "Oral Evaluation, Dental Services",
+      measure: "OEV-CH",
+    },
+    {
+      type: "C",
       description: "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
       measure: "PPC-CH",
     },

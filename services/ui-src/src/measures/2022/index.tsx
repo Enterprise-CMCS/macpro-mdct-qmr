@@ -39,6 +39,7 @@ import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
 import { NCIDDSAD } from "./NCIDDSAD";
+import { OEVCH } from "./OEVCH";
 import { OHDAD } from "./OHDAD";
 import { OUDAD } from "./OUDAD";
 import { PCRAD } from "./PCRAD";
@@ -95,6 +96,7 @@ const twentyTwentyOneMeasures = {
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
   "NCIDDS-AD": NCIDDSAD,
+  "OEV-CH": OEVCH,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
   "PCR-AD": PCRAD,
