@@ -90,7 +90,9 @@ export const ComplexValidateNDRTotals = (
     ) {
       errorArray.push({
         errorLocation: `${errorLocation} - ${categories[i]}`,
-        errorMessage: `Total ${categories[i]} must contain values if other fields are filled.`,
+        errorMessage: `Total ${
+          categories[i] ? categories[i] : ""
+        } must contain values if other fields are filled.`,
       });
     } else {
       categoryTotal?.fields?.forEach((field: Field, x: number) => {
@@ -100,8 +102,14 @@ export const ComplexValidateNDRTotals = (
             (field?.value && categorySums[x] !== parseFloat(field.value)))
         ) {
           errorArray.push({
-            errorLocation: `${errorLocation} - ${categories[i]}`,
-            errorMessage: `Total ${field.label} is not equal to the sum of other "${field.label}" fields in ${categories[i]} section.`,
+            errorLocation: `${errorLocation} - ${
+              categories[i] ? categories[i] : ""
+            }`,
+            errorMessage: `Total ${
+              field.label
+            } is not equal to the sum of other "${field.label}" fields in ${
+              categories[i] ? categories[i] : ""
+            } section.`,
           });
         }
       });

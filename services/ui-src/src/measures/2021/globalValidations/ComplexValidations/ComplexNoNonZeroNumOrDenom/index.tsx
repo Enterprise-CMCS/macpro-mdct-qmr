@@ -23,10 +23,11 @@ export const ComplexNoNonZeroNumOrDenomOMS = (
       );
     } else {
       for (const category in rateData[key]) {
+        console.log([rateData[key][category]]);
         errorArray.push(
           ...ComplexNoNonZeroNumOrDenom(
             [rateData[key][category]],
-            OPM,
+            false,
             ndrFormulas,
             `${errorLocation} - ${key} - ${category}`
           )
@@ -73,13 +74,13 @@ export const ComplexNoNonZeroNumOrDenom = (
       }
     }
   }
-
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
       performanceMeasure.rate?.forEach((rate: any) => {
         if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
           nonZeroRateError = true;
         }
+
         if (
           parseFloat(rate.numerator) !== 0 &&
           parseFloat(rate.denominator) !== 0 &&
