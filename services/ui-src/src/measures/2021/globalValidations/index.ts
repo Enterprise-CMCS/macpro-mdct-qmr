@@ -35,3 +35,7 @@ export {
   IUHHvalidateNDRTotalsOMS,
 } from "./IUHHValidations/IUHHvalidateNDRTotals";
 export { IUHHvalidateDualPopInformation } from "./IUHHValidations/IUHHvalidateDualPopInformation";
+export {
+  IUHHvalueSameCrossCategory,
+  IUHHvalueSameCrossCategoryOMS,
+} from "./IUHHValidations/IUHHvalueSameCrossCategory";
