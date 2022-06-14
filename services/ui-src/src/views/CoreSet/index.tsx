@@ -138,6 +138,14 @@ const useMeasureTableDataBuilder = () => {
   );
   const { mutate: deleteMeasure } = useDeleteMeasure();
 
+  interface ModalProps {
+    isOpen: boolean;
+    measure?: MeasureData<any>;
+  }
+  const [modalProps, setModalProps] = useState<ModalProps>({
+    isOpen: false,
+  });
+
   useEffect(() => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
@@ -176,6 +184,12 @@ const useMeasureTableDataBuilder = () => {
 
         // Let user delete user-created measures
         if (item.userCreated === true) {
+          actions.push({
+            itemText: "Edit",
+            handleSelect: () => {
+              setModalProps({ isOpen: true, measure: item });
+            },
+          });
           actions.push({
             itemText: "Delete",
             handleSelect: () =>
@@ -223,7 +237,17 @@ const useMeasureTableDataBuilder = () => {
     state,
     year,
   ]);
-  return { coreSetStatus, measures, isLoading, isError, error };
+  return {
+    coreSetStatus,
+    measures,
+    isLoading,
+    isError,
+    error,
+
+    // update measure modal state variables
+    modalProps,
+    setModalProps,
+  };
 };
 
 export const CoreSet = () => {
@@ -251,8 +275,21 @@ export const CoreSet = () => {
   const isHHCoreSet = spaName.length > 0;
 
   const { data } = useGetCoreSet({ coreSetId, state, year });
-  const { coreSetStatus, measures, isLoading, isError, error } =
-    useMeasureTableDataBuilder();
+  const {
+    coreSetStatus,
+    measures,
+    isLoading,
+    isError,
+    error,
+
+    // update measure modal state variables
+    modalProps,
+    setModalProps,
+  } = useMeasureTableDataBuilder();
+
+  const handleModalResponse = () => {
+    setModalProps({ isOpen: false });
+  };
 
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
@@ -276,6 +313,12 @@ export const CoreSet = () => {
         },
       ]}
     >
+      <QMR.UpdateInfoModal
+        modalProps={modalProps}
+        headerText="Update Measure Details"
+        handleModalResponse={handleModalResponse}
+        bodyText="Update this measures's information"
+      />
       {/* Show success banner after redirect from creating new SSMs */}
       {locationState && locationState.success === true && (
         <CUI.Box mb="6">

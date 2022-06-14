@@ -10,6 +10,8 @@ export const editMeasure = handler(async (event, context) => {
   const dynamoKey = createCompoundKey(event);
   const lastAlteredBy = getUserNameFromJwt(event);
 
+  // TODO: Update to optionally accept a new description and detailedDescription
+  // see measures/create.ts
   const params = {
     TableName: process.env.measureTableName!,
     Key: {
