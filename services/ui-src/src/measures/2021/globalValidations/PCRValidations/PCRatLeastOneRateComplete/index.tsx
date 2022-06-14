@@ -38,9 +38,8 @@ export const PCRatLeastOneRateComplete = (
   if (error) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: explicitErrorMessage
-        ? explicitErrorMessage
-        : "All data fields must be completed.",
+      errorMessage:
+        explicitErrorMessage ?? "All data fields must be completed.",
     });
   }
   return error ? errorArray : [];

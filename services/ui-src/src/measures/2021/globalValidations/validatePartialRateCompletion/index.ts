@@ -27,11 +27,11 @@ const _validation: UVF = ({
       ) {
         errors.push({
           errorLocation: location,
-          errorMessage: errorMessage
-            ? errorMessage
-            : `Should not have partially filled NDR sets${
-                !!qualifiers?.length ? ` at ${qualifiers[j]}` : ""
-              }${!!categories?.length ? `, ${categories[i]}` : ""}.`,
+          errorMessage:
+            errorMessage ??
+            `Should not have partially filled NDR sets${
+              !!qualifiers?.length ? ` at ${qualifiers[j]}` : ""
+            }${!!categories?.length ? `, ${categories[i]}` : ""}.`,
         });
       }
     }

@@ -57,9 +57,9 @@ export const validateNumeratorLessThanDenominatorOMS: OmsValidationCallback = ({
     rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
     locationFunc: (q) =>
       `Optional Measure Stratification: ${locationDictionary([...label, q])}`,
-    errorMessage: explicitErrorMessage
-      ? explicitErrorMessage
-      : "Numerator cannot be greater than the Denominator for NDR sets.",
+    errorMessage:
+      explicitErrorMessage ??
+      "Numerator cannot be greater than the Denominator for NDR sets.",
   });
 };
 

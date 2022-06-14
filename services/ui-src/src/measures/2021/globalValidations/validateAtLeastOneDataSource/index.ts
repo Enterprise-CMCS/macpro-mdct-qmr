@@ -8,9 +8,9 @@ export const validateAtLeastOneDataSource = (
   if (!data.DataSource || data.DataSource.length === 0) {
     errorArray.push({
       errorLocation: "Data Source",
-      errorMessage: explicitErrorMessage
-        ? explicitErrorMessage
-        : "You must select at least one Data Source option",
+      errorMessage:
+        explicitErrorMessage ??
+        "You must select at least one Data Source option",
     });
   }
 

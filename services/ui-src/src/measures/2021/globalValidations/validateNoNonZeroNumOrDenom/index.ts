@@ -28,9 +28,9 @@ const _validationRateNotZero = ({ location, rateData, errorMessage }: UVFP) => {
         ) {
           errorArray.push({
             errorLocation: location,
-            errorMessage: errorMessage
-              ? errorMessage
-              : "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
+            errorMessage:
+              errorMessage ??
+              "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
           });
         }
       }
@@ -59,9 +59,9 @@ const _validationRateZero = ({
         ) {
           errorArray.push({
             errorLocation: location,
-            errorMessage: errorMessage
-              ? errorMessage
-              : "Manually entered rate should be 0 if numerator is 0",
+            errorMessage:
+              errorMessage ??
+              "Manually entered rate should be 0 if numerator is 0",
           });
         }
       }

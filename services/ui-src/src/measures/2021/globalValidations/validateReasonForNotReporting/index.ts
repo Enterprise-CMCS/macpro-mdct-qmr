@@ -14,11 +14,11 @@ export const validateReasonForNotReporting = (
       errorLocation: `Why Are You Not ${
         collecting ? "Collecting" : "Reporting"
       } On This Measure`,
-      errorMessage: explicitErrorMessage
-        ? explicitErrorMessage
-        : `You must select at least one reason for not ${
-            collecting ? "collecting" : "reporting"
-          } on this measure`,
+      errorMessage:
+        explicitErrorMessage ??
+        `You must select at least one reason for not ${
+          collecting ? "collecting" : "reporting"
+        } on this measure`,
     });
   }
   return errorArray;

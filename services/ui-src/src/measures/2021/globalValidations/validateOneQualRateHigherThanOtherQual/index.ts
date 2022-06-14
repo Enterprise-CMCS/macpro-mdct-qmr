@@ -30,15 +30,15 @@ const _validation = ({
     ) {
       errorArray.push({
         errorLocation: location,
-        errorMessage: errorMessage
-          ? errorMessage
-          : `${qualifiers?.[lowerIndex]} rate must be less than or equal to ${
-              qualifiers?.[higherIndex]
-            } rate${
-              categories?.length && categories[0] !== DC.SINGLE_CATEGORY
-                ? ` within ${categories?.[i]}`
-                : ""
-            }.`,
+        errorMessage:
+          errorMessage ??
+          `${qualifiers?.[lowerIndex]} rate must be less than or equal to ${
+            qualifiers?.[higherIndex]
+          } rate${
+            categories?.length && categories[0] !== DC.SINGLE_CATEGORY
+              ? ` within ${categories?.[i]}`
+              : ""
+          }.`,
       });
     }
   }

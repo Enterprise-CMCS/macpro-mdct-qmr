@@ -11,9 +11,9 @@ export const validateRequiredRadioButtonForCombinedRates = (
     if (!data["CombinedRates-CombinedRates"]) {
       errorArray.push({
         errorLocation: "Combined Rate(s)",
-        errorMessage: explicitErrorMessage
-          ? explicitErrorMessage
-          : "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
+        errorMessage:
+          explicitErrorMessage ??
+          "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
       });
     }
   }

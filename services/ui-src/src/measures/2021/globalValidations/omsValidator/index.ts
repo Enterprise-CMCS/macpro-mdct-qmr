@@ -235,9 +235,8 @@ const validateNDRs = (
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             [topLevelKey]
           )}`,
-          errorMessage: explicitErrorMessage
-            ? explicitErrorMessage
-            : "Must fill out at least one NDR set.",
+          errorMessage:
+            explicitErrorMessage ?? "Must fill out at least one NDR set.",
         });
       }
     }

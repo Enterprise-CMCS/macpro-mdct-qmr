@@ -23,9 +23,7 @@ export const validateBothDatesCompleted = (
     if (error) {
       errorArray.push({
         errorLocation: `Date Range`,
-        errorMessage: explicitErrorMessage
-          ? explicitErrorMessage
-          : `Date Range must be completed`,
+        errorMessage: explicitErrorMessage ?? `Date Range must be completed`,
       });
     }
   }

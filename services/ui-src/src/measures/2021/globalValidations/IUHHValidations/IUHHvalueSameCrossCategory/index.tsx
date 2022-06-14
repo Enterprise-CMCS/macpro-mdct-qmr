@@ -106,9 +106,9 @@ export const IUHHvalueSameCrossCategory = ({
       if (tempValues[tempValue]?.error) {
         errorArray.push({
           errorLocation,
-          errorMessage: explicitErrorMessage
-            ? explicitErrorMessage
-            : `Value of "${fieldLabel}" in ${tempValues[tempValue].label} must be the same across all measurement categories.`,
+          errorMessage:
+            explicitErrorMessage ??
+            `Value of "${fieldLabel}" in ${tempValues[tempValue].label} must be the same across all measurement categories.`,
         });
       }
     }

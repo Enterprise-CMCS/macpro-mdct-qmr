@@ -43,17 +43,17 @@ export const IUHHvalidateDualPopInformation = (
   if (!dualEligible && filledInData.length > 0) {
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage: explicitErrorMessage
-        ? explicitErrorMessage
-        : `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
+      errorMessage:
+        explicitErrorMessage ??
+        `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
     });
   }
   if (dualEligible && filledInData.length === 0) {
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage: explicitErrorMessage
-        ? explicitErrorMessage
-        : `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
+      errorMessage:
+        explicitErrorMessage ??
+        `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
     });
   }
   return errorArray;

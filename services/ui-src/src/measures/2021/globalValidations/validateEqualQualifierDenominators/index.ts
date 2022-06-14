@@ -50,6 +50,7 @@ export const validateEqualQualifierDenominatorsOMS: OmsValidationCallback = ({
   label,
   locationDictionary,
   isOPM,
+  explicitErrorMessage,
 }) => {
   if (isOPM) return [];
   return _validation({
@@ -61,7 +62,9 @@ export const validateEqualQualifierDenominatorsOMS: OmsValidationCallback = ({
         qual,
       ])}`,
     rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-    errorMessage: "Denominators must be the same for each category.",
+    errorMessage:
+      explicitErrorMessage ??
+      "Denominators must be the same for each category.",
   });
 };
 

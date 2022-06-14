@@ -93,9 +93,9 @@ export const IUHHvalidateNDRTotals = (
     ) {
       errorArray.push({
         errorLocation: `${errorLocation} - ${categories[i]}`,
-        errorMessage: explicitErrorMessage
-          ? explicitErrorMessage
-          : `Total ${categories[i]} must contain values if other fields are filled.`,
+        errorMessage:
+          explicitErrorMessage ??
+          `Total ${categories[i]} must contain values if other fields are filled.`,
       });
     } else {
       categoryTotal?.fields?.forEach((field: Field, x: number) => {
@@ -106,9 +106,9 @@ export const IUHHvalidateNDRTotals = (
         ) {
           errorArray.push({
             errorLocation: `${errorLocation} - ${categories[i]}`,
-            errorMessage: explicitErrorMessage
-              ? explicitErrorMessage
-              : `Total ${field.label} is not equal to the sum of other "${field.label}" fields in ${categories[i]} section.`,
+            errorMessage:
+              explicitErrorMessage ??
+              `Total ${field.label} is not equal to the sum of other "${field.label}" fields in ${categories[i]} section.`,
           });
         }
       });

@@ -36,9 +36,9 @@ const _validation: UVF = ({
   if (!denominatorArray.every((v) => denominatorArray[0] === v)) {
     errorArray.push({
       errorLocation: location,
-      errorMessage: errorMessage
-        ? errorMessage
-        : `The following categories must have the same denominator:`,
+      errorMessage:
+        errorMessage ??
+        `The following categories must have the same denominator:`,
       errorList: locationArray.filter((v, i, a) => a.indexOf(v) === i),
     });
   }

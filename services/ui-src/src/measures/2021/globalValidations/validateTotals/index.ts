@@ -45,11 +45,11 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             [...label, qualifiers.slice(-1)[0]]
           )}`,
-          errorMessage: explicitErrorMessage
-            ? explicitErrorMessage
-            : `${
-                customTotalLabel ? `${customTotalLabel} ` : ""
-              }Total numerator field is not equal to the sum of other numerators.`,
+          errorMessage:
+            explicitErrorMessage ??
+            `${
+              customTotalLabel ? `${customTotalLabel} ` : ""
+            }Total numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
@@ -61,11 +61,11 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             [...label, qualifiers.slice(-1)[0]]
           )}`,
-          errorMessage: explicitErrorMessage
-            ? explicitErrorMessage
-            : `${
-                customTotalLabel ? `${customTotalLabel} ` : ""
-              }Total denominator field is not equal to the sum of other denominators.`,
+          errorMessage:
+            explicitErrorMessage ??
+            `${
+              customTotalLabel ? `${customTotalLabel} ` : ""
+            }Total denominator field is not equal to the sum of other denominators.`,
         });
       }
     } else if (numeratorSum && denominatorSum) {
@@ -74,11 +74,11 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           ...label,
           qualifiers.slice(-1)[0],
         ])}`,
-        errorMessage: explicitErrorMessage
-          ? explicitErrorMessage
-          : `${
-              customTotalLabel ? `${customTotalLabel} ` : ""
-            }Total must contain values if other fields are filled.`,
+        errorMessage:
+          explicitErrorMessage ??
+          `${
+            customTotalLabel ? `${customTotalLabel} ` : ""
+          }Total must contain values if other fields are filled.`,
       });
     }
   }
@@ -135,11 +135,11 @@ export const validateTotalNDR = (
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: explicitErrorMessage
-            ? explicitErrorMessage
-            : `${
-                (categories && categories[idx]) || totalNDR.label
-              } numerator field is not equal to the sum of other numerators.`,
+          errorMessage:
+            explicitErrorMessage ??
+            `${
+              (categories && categories[idx]) || totalNDR.label
+            } numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
@@ -149,24 +149,24 @@ export const validateTotalNDR = (
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: explicitErrorMessage
-            ? explicitErrorMessage
-            : `${
-                (categories && categories[idx]) || totalNDR.label
-              } denominator field is not equal to the sum of other denominators.`,
+          errorMessage:
+            explicitErrorMessage ??
+            `${
+              (categories && categories[idx]) || totalNDR.label
+            } denominator field is not equal to the sum of other denominators.`,
         });
       }
     } else if (numeratorSum && denominatorSum) {
       errorArray.push({
         errorLocation: errorLocation,
-        errorMessage: explicitErrorMessage
-          ? explicitErrorMessage
-          : `${
-              (categories &&
-                categories[idx] &&
-                `${categories[idx]} - ${totalNDR.label}`) ||
-              totalNDR.label
-            } must contain values if other fields are filled.`,
+        errorMessage:
+          explicitErrorMessage ??
+          `${
+            (categories &&
+              categories[idx] &&
+              `${categories[idx]} - ${totalNDR.label}`) ||
+            totalNDR.label
+          } must contain values if other fields are filled.`,
       });
     }
   });

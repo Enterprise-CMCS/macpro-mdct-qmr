@@ -35,9 +35,9 @@ export const validateAtLeastOneRateComplete = (
   if (rateCompletionError) {
     errorArray.push({
       errorLocation: `Performance Measure/Other Performance Measure`,
-      errorMessage: explicitErrorMessage
-        ? explicitErrorMessage
-        : `At least one Performance Measure Numerator, Denominator, and Rate must be completed`,
+      errorMessage:
+        explicitErrorMessage ??
+        `At least one Performance Measure Numerator, Denominator, and Rate must be completed`,
     });
   }
   return [

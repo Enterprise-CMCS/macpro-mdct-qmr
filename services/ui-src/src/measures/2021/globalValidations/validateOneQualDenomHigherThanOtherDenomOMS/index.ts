@@ -36,9 +36,9 @@ const _validation = ({
       ) {
         errorArray.push({
           errorLocation: location,
-          errorMessage: errorMessage
-            ? errorMessage
-            : `${qualifiers?.[lowerIndex]} denominator must be less than or equal to ${qualifiers?.[higherIndex]} denominator.`,
+          errorMessage:
+            errorMessage ??
+            `${qualifiers?.[lowerIndex]} denominator must be less than or equal to ${qualifiers?.[higherIndex]} denominator.`,
         });
       }
     }

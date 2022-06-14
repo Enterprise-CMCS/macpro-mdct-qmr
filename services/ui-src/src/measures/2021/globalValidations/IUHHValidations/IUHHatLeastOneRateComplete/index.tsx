@@ -37,9 +37,8 @@ export const IUHHatLeastOneRateComplete = (
   if (error) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: explicitErrorMessage
-        ? explicitErrorMessage
-        : "At least one set of fields must be complete.",
+      errorMessage:
+        explicitErrorMessage ?? "At least one set of fields must be complete.",
     });
   }
   return error ? errorArray : [];

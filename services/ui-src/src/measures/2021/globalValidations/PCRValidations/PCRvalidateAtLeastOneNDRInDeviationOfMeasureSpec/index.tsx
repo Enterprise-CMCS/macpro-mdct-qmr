@@ -46,9 +46,9 @@ export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
       if (!atLeastOneDevSection) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
-          errorMessage: explicitErrorMessage
-            ? explicitErrorMessage
-            : "At least one item must be selected and completed (Numerator, Denominator, or Other)",
+          errorMessage:
+            explicitErrorMessage ??
+            "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
     }
