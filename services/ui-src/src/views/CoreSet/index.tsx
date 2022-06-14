@@ -140,10 +140,11 @@ const useMeasureTableDataBuilder = () => {
 
   interface ModalProps {
     isOpen: boolean;
-    measure?: MeasureData<any>;
+    measure: MeasureData<any> | any;
   }
   const [modalProps, setModalProps] = useState<ModalProps>({
     isOpen: false,
+    measure: {},
   });
 
   useEffect(() => {
@@ -288,7 +289,7 @@ export const CoreSet = () => {
   } = useMeasureTableDataBuilder();
 
   const handleModalResponse = () => {
-    setModalProps({ isOpen: false });
+    setModalProps({ isOpen: false, measure: {} });
   };
 
   const completedAmount = measures.filter(
@@ -317,7 +318,6 @@ export const CoreSet = () => {
         modalProps={modalProps}
         headerText="Update Measure Details"
         handleModalResponse={handleModalResponse}
-        bodyText="Update this measures's information"
       />
       {/* Show success banner after redirect from creating new SSMs */}
       {locationState && locationState.success === true && (

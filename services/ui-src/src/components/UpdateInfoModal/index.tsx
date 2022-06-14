@@ -1,46 +1,50 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { MeasureData } from "types";
 
 interface Props {
   headerText: string;
-  bodyText: string;
+  modalProps: { isOpen: boolean; measure: MeasureData<any> };
   handleModalResponse: (response: boolean) => void;
-  modalProps: { isOpen: boolean; measure?: MeasureData<any> };
 }
 
 interface MeasureDetail {
-  description: string;
-  detailedDescription: string;
+  description?: string;
+  detailedDescription?: string;
 }
 
 interface UpdateSSM {
-  "update-ssm": MeasureDetail[];
+  "update-ssm": MeasureDetail;
 }
 
 export const UpdateInfoModal = ({
   headerText,
   handleModalResponse,
-  modalProps,
+  modalProps: {
+    isOpen,
+    measure: { description, detailedDescription },
+  },
 }: Props) => {
   const methods = useForm<UpdateSSM>({
     shouldUnregister: true,
     mode: "all",
-    defaultValues: {
-      "update-ssm": [
-        {
-          description: modalProps.measure?.description,
-          detailedDescription: modalProps.measure?.detailedDescription,
-        },
-      ],
-    },
   });
+
+  useEffect(() => {
+    methods.reset({
+      "update-ssm": {
+        description,
+        detailedDescription,
+      },
+    });
+  }, [description, detailedDescription, methods]);
 
   return (
     <>
       <CUI.Modal
-        isOpen={modalProps.isOpen}
+        isOpen={isOpen}
         size={"3xl"}
         onClose={() => handleModalResponse(false)}
       >
