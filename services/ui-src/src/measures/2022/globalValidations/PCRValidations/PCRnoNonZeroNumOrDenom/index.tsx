@@ -59,9 +59,9 @@ export const PCRnoNonZeroNumOrDenom = (
   if (nonZeroRateError) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: explicitErrorMessage
-        ? explicitErrorMessage
-        : `Manually entered rate should be 0 if numerator is 0`,
+      errorMessage:
+        explicitErrorMessage ??
+        `Manually entered rate should be 0 if numerator is 0`,
     });
   }
   if (zeroRateError) {

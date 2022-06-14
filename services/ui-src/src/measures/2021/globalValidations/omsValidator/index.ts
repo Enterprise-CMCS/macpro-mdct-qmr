@@ -248,9 +248,9 @@ const validateNDRs = (
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             topLevelKey.split("-")
           )}`,
-          errorMessage: explicitErrorMessage
-            ? explicitErrorMessage
-            : "For any category selected, all NDR sets must be filled.",
+          errorMessage:
+            explicitErrorMessage ??
+            "For any category selected, all NDR sets must be filled.",
         });
       }
     }

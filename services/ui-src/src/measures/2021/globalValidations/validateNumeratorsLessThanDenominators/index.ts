@@ -73,9 +73,9 @@ export const validateNumeratorsLessThanDenominatorsPM = (
   explicitErrorMessage?: string
 ) => {
   const location = `Performance Measure/Other Performance Measure`;
-  const errorMessage = explicitErrorMessage
-    ? explicitErrorMessage
-    : `Numerators must be less than Denominators for all applicable performance measures`;
+  const errorMessage =
+    explicitErrorMessage ??
+    `Numerators must be less than Denominators for all applicable performance measures`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
   const errorArray: FormError[] = [
     ..._validation({
