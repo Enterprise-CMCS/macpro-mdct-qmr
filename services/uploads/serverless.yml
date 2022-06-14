@@ -367,7 +367,7 @@ resources:
                 - "s3:*"
               Effect: Deny
               Principal: "*"
-              Resource: !Sub ${ClamDefsBucket.Arn}/*
+              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
               Condition:
                 Bool:
                   "aws:SecureTransport": false
