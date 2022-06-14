@@ -2,7 +2,8 @@
 export const IUHHatLeastOneRateComplete = (
   performanceMeasureArray: any,
   OPM: any,
-  errorLocation: string = "Performance Measure/Other Performance Measure"
+  errorLocation: string = "Performance Measure/Other Performance Measure",
+  explicitErrorMessage?: string
 ) => {
   let error = true;
   let errorArray: any[] = [];
@@ -36,7 +37,9 @@ export const IUHHatLeastOneRateComplete = (
   if (error) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: "At least one set of fields must be complete.",
+      errorMessage: explicitErrorMessage
+        ? explicitErrorMessage
+        : "At least one set of fields must be complete.",
     });
   }
   return error ? errorArray : [];

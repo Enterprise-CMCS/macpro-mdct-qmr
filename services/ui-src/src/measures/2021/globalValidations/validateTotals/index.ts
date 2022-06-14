@@ -9,6 +9,7 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   locationDictionary,
   isOPM,
   customTotalLabel,
+  explicitErrorMessage,
 }) => {
   if (isOPM) return [];
 
@@ -44,9 +45,11 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             [...label, qualifiers.slice(-1)[0]]
           )}`,
-          errorMessage: `${
-            customTotalLabel ? `${customTotalLabel} ` : ""
-          }Total numerator field is not equal to the sum of other numerators.`,
+          errorMessage: explicitErrorMessage
+            ? explicitErrorMessage
+            : `${
+                customTotalLabel ? `${customTotalLabel} ` : ""
+              }Total numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
@@ -58,9 +61,11 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             [...label, qualifiers.slice(-1)[0]]
           )}`,
-          errorMessage: `${
-            customTotalLabel ? `${customTotalLabel} ` : ""
-          }Total denominator field is not equal to the sum of other denominators.`,
+          errorMessage: explicitErrorMessage
+            ? explicitErrorMessage
+            : `${
+                customTotalLabel ? `${customTotalLabel} ` : ""
+              }Total denominator field is not equal to the sum of other denominators.`,
         });
       }
     } else if (numeratorSum && denominatorSum) {
@@ -69,9 +74,11 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
           ...label,
           qualifiers.slice(-1)[0],
         ])}`,
-        errorMessage: `${
-          customTotalLabel ? `${customTotalLabel} ` : ""
-        }Total must contain values if other fields are filled.`,
+        errorMessage: explicitErrorMessage
+          ? explicitErrorMessage
+          : `${
+              customTotalLabel ? `${customTotalLabel} ` : ""
+            }Total must contain values if other fields are filled.`,
       });
     }
   }
@@ -89,7 +96,8 @@ Default assumption is that this is run for Performance Measure unless specified.
 export const validateTotalNDR = (
   performanceMeasureArray: FormRateField[][],
   errorLocation = "Performance Measure",
-  categories?: string[]
+  categories?: string[],
+  explicitErrorMessage?: string
 ): FormError[] => {
   let errorArray: FormError[] = [];
 
@@ -127,9 +135,11 @@ export const validateTotalNDR = (
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${
-            (categories && categories[idx]) || totalNDR.label
-          } numerator field is not equal to the sum of other numerators.`,
+          errorMessage: explicitErrorMessage
+            ? explicitErrorMessage
+            : `${
+                (categories && categories[idx]) || totalNDR.label
+              } numerator field is not equal to the sum of other numerators.`,
         });
       }
       if (
@@ -139,20 +149,24 @@ export const validateTotalNDR = (
       ) {
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${
-            (categories && categories[idx]) || totalNDR.label
-          } denominator field is not equal to the sum of other denominators.`,
+          errorMessage: explicitErrorMessage
+            ? explicitErrorMessage
+            : `${
+                (categories && categories[idx]) || totalNDR.label
+              } denominator field is not equal to the sum of other denominators.`,
         });
       }
     } else if (numeratorSum && denominatorSum) {
       errorArray.push({
         errorLocation: errorLocation,
-        errorMessage: `${
-          (categories &&
-            categories[idx] &&
-            `${categories[idx]} - ${totalNDR.label}`) ||
-          totalNDR.label
-        } must contain values if other fields are filled.`,
+        errorMessage: explicitErrorMessage
+          ? explicitErrorMessage
+          : `${
+              (categories &&
+                categories[idx] &&
+                `${categories[idx]} - ${totalNDR.label}`) ||
+              totalNDR.label
+            } must contain values if other fields are filled.`,
       });
     }
   });

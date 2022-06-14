@@ -17,6 +17,7 @@ const _validation = ({
   rateData,
   higherIndex,
   lowerIndex,
+  errorMessage,
 }: ValProps) => {
   const errorArray: FormError[] = [];
 
@@ -35,7 +36,9 @@ const _validation = ({
       ) {
         errorArray.push({
           errorLocation: location,
-          errorMessage: `${qualifiers?.[lowerIndex]} denominator must be less than or equal to ${qualifiers?.[higherIndex]} denominator.`,
+          errorMessage: errorMessage
+            ? errorMessage
+            : `${qualifiers?.[lowerIndex]} denominator must be less than or equal to ${qualifiers?.[higherIndex]} denominator.`,
         });
       }
     }
@@ -54,7 +57,8 @@ const _validation = ({
  */
 export const validateOneQualDenomHigherThanOtherDenomOMS = (
   higherIndex = 0,
-  lowerIndex = 1
+  lowerIndex = 1,
+  explicitErrorMessage?: string
 ): OmsValidationCallback => {
   return ({
     rateData,
@@ -72,6 +76,7 @@ export const validateOneQualDenomHigherThanOtherDenomOMS = (
       lowerIndex,
       location: `Optional Measure Stratification: ${locationDictionary(label)}`,
       rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      errorMessage: explicitErrorMessage,
     });
   };
 };
@@ -88,7 +93,8 @@ export const validateOneQualDenomHigherThanOtherDenomPM = (
   data: Types.PerformanceMeasure,
   pmData: Types.DataDrivenTypes.PerformanceMeasure,
   higherIndex = 0,
-  lowerIndex = 1
+  lowerIndex = 1,
+  explicitErrorMessage?: string
 ) => {
   return _validation({
     higherIndex,
@@ -97,5 +103,6 @@ export const validateOneQualDenomHigherThanOtherDenomPM = (
     rateData: getPerfMeasureRateArray(data, pmData),
     categories: pmData.categories,
     qualifiers: pmData.qualifiers,
+    errorMessage: explicitErrorMessage,
   });
 };

@@ -21,7 +21,8 @@ export const IUHHvalidateNDRTotalsOMS = (
   rateData: any,
   categories: string[],
   ndrFormulas: NDRforumla[],
-  errorLocation: string
+  errorLocation: string,
+  explicitErrorMessage?: string
 ) => {
   // Using a subset of rateData as iterator to be sure that Total
   // is always at the end of the category array.
@@ -50,7 +51,8 @@ export const IUHHvalidateNDRTotalsOMS = (
     performanceMeasureArray,
     categories,
     ndrFormulas,
-    `${errorLocation}`
+    `${errorLocation}`,
+    explicitErrorMessage
   );
 
   return errorArray;
@@ -63,7 +65,8 @@ export const IUHHvalidateNDRTotals = (
   performanceMeasureArray: any,
   categories: string[],
   ndrFormulas: NDRforumla[],
-  errorLocation: string = "Performance Measure Total"
+  errorLocation: string = "Performance Measure Total",
+  explicitErrorMessage?: string
 ) => {
   let errorArray: any[] = [];
   const rateLocations = ndrFormulas.map((ndr: NDRforumla) => ndr.rateIndex);
@@ -90,7 +93,9 @@ export const IUHHvalidateNDRTotals = (
     ) {
       errorArray.push({
         errorLocation: `${errorLocation} - ${categories[i]}`,
-        errorMessage: `Total ${categories[i]} must contain values if other fields are filled.`,
+        errorMessage: explicitErrorMessage
+          ? explicitErrorMessage
+          : `Total ${categories[i]} must contain values if other fields are filled.`,
       });
     } else {
       categoryTotal?.fields?.forEach((field: Field, x: number) => {
@@ -101,7 +106,9 @@ export const IUHHvalidateNDRTotals = (
         ) {
           errorArray.push({
             errorLocation: `${errorLocation} - ${categories[i]}`,
-            errorMessage: `Total ${field.label} is not equal to the sum of other "${field.label}" fields in ${categories[i]} section.`,
+            errorMessage: explicitErrorMessage
+              ? explicitErrorMessage
+              : `Total ${field.label} is not equal to the sum of other "${field.label}" fields in ${categories[i]} section.`,
           });
         }
       });

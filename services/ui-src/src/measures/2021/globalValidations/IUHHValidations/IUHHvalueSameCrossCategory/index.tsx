@@ -54,6 +54,7 @@ interface Props {
   fieldIndex?: number;
   fieldLabel?: string;
   errorLocation?: string;
+  explicitErrorMessage?: string;
 }
 
 /*
@@ -68,6 +69,7 @@ export const IUHHvalueSameCrossCategory = ({
   fieldIndex = 0,
   fieldLabel = "Number of Enrollee Months",
   errorLocation = "Performance Measure/Other Performance Measure",
+  explicitErrorMessage,
 }: Props) => {
   let errorArray: any[] = [];
   if (!OPM) {
@@ -104,7 +106,9 @@ export const IUHHvalueSameCrossCategory = ({
       if (tempValues[tempValue]?.error) {
         errorArray.push({
           errorLocation,
-          errorMessage: `Value of "${fieldLabel}" in ${tempValues[tempValue].label} must be the same across all measurement categories.`,
+          errorMessage: explicitErrorMessage
+            ? explicitErrorMessage
+            : `Value of "${fieldLabel}" in ${tempValues[tempValue].label} must be the same across all measurement categories.`,
         });
       }
     }

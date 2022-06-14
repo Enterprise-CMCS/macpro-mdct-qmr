@@ -3,7 +3,7 @@ import { DateRange } from "measures/2021/CommonQuestions/types";
 // Ensure the user populates the data range
 export const validateBothDatesCompleted = (
   dateRange: DateRange["DateRange"],
-  customErrorMessage?: string
+  explicitErrorMessage?: string
 ) => {
   let errorArray: any[] = [];
   let error;
@@ -23,8 +23,8 @@ export const validateBothDatesCompleted = (
     if (error) {
       errorArray.push({
         errorLocation: `Date Range`,
-        errorMessage: customErrorMessage
-          ? customErrorMessage
+        errorMessage: explicitErrorMessage
+          ? explicitErrorMessage
           : `Date Range must be completed`,
       });
     }

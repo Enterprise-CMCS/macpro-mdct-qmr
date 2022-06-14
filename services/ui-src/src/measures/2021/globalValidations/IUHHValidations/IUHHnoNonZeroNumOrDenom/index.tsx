@@ -8,7 +8,8 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
   rateData: any,
   OPM: any,
   ndrFormulas: NDRforumla[],
-  errorLocation: string
+  errorLocation: string,
+  explicitErrorMessage?: string
 ) => {
   let errorArray: any[] = [];
   for (const key in rateData) {
@@ -28,7 +29,8 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
             [rateData[key][category]],
             OPM,
             ndrFormulas,
-            `${errorLocation} - ${key} - ${category}`
+            `${errorLocation} - ${key} - ${category}`,
+            explicitErrorMessage
           )
         );
       }
@@ -43,7 +45,8 @@ export const IUHHnoNonZeroNumOrDenom = (
   performanceMeasureArray: any,
   OPM: any,
   ndrFormulas: NDRforumla[],
-  errorLocation: string = "Performance Measure/Other Performance Measure"
+  errorLocation: string = "Performance Measure/Other Performance Measure",
+  explicitErrorMessage?: string
 ) => {
   let nonZeroRateError = false;
   let zeroRateError = false;
@@ -92,13 +95,17 @@ export const IUHHnoNonZeroNumOrDenom = (
   if (nonZeroRateError) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: `Manually entered rate should be 0 if numerator is 0`,
+      errorMessage: explicitErrorMessage
+        ? explicitErrorMessage
+        : `Manually entered rate should be 0 if numerator is 0`,
     });
   }
   if (zeroRateError) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: `Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
+      errorMessage: explicitErrorMessage
+        ? explicitErrorMessage
+        : `Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.`,
     });
   }
   return zeroRateError || nonZeroRateError ? errorArray : [];

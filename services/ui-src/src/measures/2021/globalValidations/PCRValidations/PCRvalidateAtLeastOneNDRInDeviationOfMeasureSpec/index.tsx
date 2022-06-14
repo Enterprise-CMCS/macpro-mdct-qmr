@@ -14,7 +14,8 @@ export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: any,
   ndrFormulas: NDRforumla[],
   deviationArray: Types.DeviationFields[] | any,
-  didCalculationsDeviate: boolean
+  didCalculationsDeviate: boolean,
+  explicitErrorMessage?: string
 ) => {
   let errorArray: FormError[] = [];
   let ndrCount = 0;
@@ -45,8 +46,9 @@ export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
       if (!atLeastOneDevSection) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
-          errorMessage:
-            "At least one item must be selected and completed (Numerator, Denominator, or Other)",
+          errorMessage: explicitErrorMessage
+            ? explicitErrorMessage
+            : "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
     }

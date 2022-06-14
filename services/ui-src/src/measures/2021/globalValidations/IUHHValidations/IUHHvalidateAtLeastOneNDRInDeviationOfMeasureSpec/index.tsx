@@ -14,7 +14,8 @@ export const IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: any,
   ndrFormulas: NDRforumla[],
   deviationArray: Types.DeviationFields[] | any,
-  didCalculationsDeviate: boolean
+  didCalculationsDeviate: boolean,
+  explicitErrorMessage?: string
 ) => {
   let errorArray: FormError[] = [];
   let oneRateComplete = false;
@@ -51,8 +52,9 @@ export const IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
       if (!atLeastOneDevNDR) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
-          errorMessage:
-            "At least one item must be selected and completed (Numerator, Denominator, or Other)",
+          errorMessage: explicitErrorMessage
+            ? explicitErrorMessage
+            : "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
     }

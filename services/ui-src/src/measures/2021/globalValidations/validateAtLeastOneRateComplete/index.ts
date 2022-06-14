@@ -6,7 +6,7 @@ export const validateAtLeastOneRateComplete = (
   OPM: any,
   qualifiers: string[],
   categories?: string[],
-  customErrorMessage?: string
+  explicitErrorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
   let rateCompletionError = true;
@@ -35,8 +35,8 @@ export const validateAtLeastOneRateComplete = (
   if (rateCompletionError) {
     errorArray.push({
       errorLocation: `Performance Measure/Other Performance Measure`,
-      errorMessage: customErrorMessage
-        ? customErrorMessage
+      errorMessage: explicitErrorMessage
+        ? explicitErrorMessage
         : `At least one Performance Measure Numerator, Denominator, and Rate must be completed`,
     });
   }

@@ -5,7 +5,8 @@ export const IUHHvalidateDualPopInformation = (
   performanceMeasureArray: any,
   OPM: any,
   DefinitionOfDenominator: string[] | undefined,
-  errorReplacementText: string = "Age 65 and Older"
+  errorReplacementText: string = "Age 65 and Older",
+  explicitErrorMessage?: string
 ) => {
   if (OPM) {
     return [];
@@ -42,13 +43,17 @@ export const IUHHvalidateDualPopInformation = (
   if (!dualEligible && filledInData.length > 0) {
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
+      errorMessage: explicitErrorMessage
+        ? explicitErrorMessage
+        : `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
     });
   }
   if (dualEligible && filledInData.length === 0) {
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
+      errorMessage: explicitErrorMessage
+        ? explicitErrorMessage
+        : `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
     });
   }
   return errorArray;

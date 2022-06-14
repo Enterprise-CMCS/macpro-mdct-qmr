@@ -48,6 +48,7 @@ export const validateNumeratorLessThanDenominatorOMS: OmsValidationCallback = ({
   rateData,
   label,
   locationDictionary,
+  explicitErrorMessage,
 }) => {
   return _validation({
     location: "Optional Measure Stratification",
@@ -56,8 +57,9 @@ export const validateNumeratorLessThanDenominatorOMS: OmsValidationCallback = ({
     rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
     locationFunc: (q) =>
       `Optional Measure Stratification: ${locationDictionary([...label, q])}`,
-    errorMessage:
-      "Numerator cannot be greater than the Denominator for NDR sets.",
+    errorMessage: explicitErrorMessage
+      ? explicitErrorMessage
+      : "Numerator cannot be greater than the Denominator for NDR sets.",
   });
 };
 
@@ -67,10 +69,13 @@ export const validateNumeratorLessThanDenominatorOMS: OmsValidationCallback = ({
 export const validateNumeratorsLessThanDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  qualifiers: string[]
+  qualifiers: string[],
+  explicitErrorMessage?: string
 ) => {
   const location = `Performance Measure/Other Performance Measure`;
-  const errorMessage = `Numerators must be less than Denominators for all applicable performance measures`;
+  const errorMessage = explicitErrorMessage
+    ? explicitErrorMessage
+    : `Numerators must be less than Denominators for all applicable performance measures`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
   const errorArray: FormError[] = [
     ..._validation({
