@@ -9,7 +9,13 @@ import {
 } from "../dataDrivenTools";
 import { SINGLE_CATEGORY } from "dataConstants";
 
-const _validation: UVF = ({ rateData, qualifiers, categories, location }) => {
+const _validation: UVF = ({
+  rateData,
+  qualifiers,
+  categories,
+  location,
+  errorMessage,
+}) => {
   const errorArray: FormError[] = [];
   const locationArray: string[] = [];
   const denominatorArray: string[] = [];
@@ -30,7 +36,9 @@ const _validation: UVF = ({ rateData, qualifiers, categories, location }) => {
   if (!denominatorArray.every((v) => denominatorArray[0] === v)) {
     errorArray.push({
       errorLocation: location,
-      errorMessage: `The following categories must have the same denominator:`,
+      errorMessage: errorMessage
+        ? errorMessage
+        : `The following categories must have the same denominator:`,
       errorList: locationArray.filter((v, i, a) => a.indexOf(v) === i),
     });
   }
@@ -60,12 +68,14 @@ export const validateEqualCategoryDenominatorsOMS: OmsValidationCallback = ({
 export const validateEqualCategoryDenominatorsPM = (
   data: Types.PerformanceMeasure,
   categories: string[],
-  qualifiers?: string[]
+  qualifiers?: string[],
+  explicitErrorMessage?: string
 ) => {
   return _validation({
     categories,
     qualifiers,
     location: "Performance Measure",
     rateData: getPerfMeasureRateArray(data, { categories, qualifiers }),
+    errorMessage: explicitErrorMessage,
   });
 };
