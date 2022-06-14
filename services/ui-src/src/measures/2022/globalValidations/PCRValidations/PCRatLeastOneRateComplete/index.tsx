@@ -3,7 +3,8 @@ export const PCRatLeastOneRateComplete = (
   performanceMeasureArray: any,
   OPM: any,
   ageGroups: string[],
-  errorLocation: string = "Performance Measure/Other Performance Measure"
+  errorLocation: string = "Performance Measure/Other Performance Measure",
+  explicitErrorMessage?: string
 ) => {
   let error = true;
   let errorArray: any[] = [];
@@ -37,7 +38,8 @@ export const PCRatLeastOneRateComplete = (
   if (error) {
     errorArray.push({
       errorLocation: errorLocation,
-      errorMessage: "All data fields must be completed.",
+      errorMessage:
+        explicitErrorMessage ?? "All data fields must be completed.",
     });
   }
   return error ? errorArray : [];

@@ -2,7 +2,8 @@ import * as DC from "dataConstants";
 import * as Types from "measures/2022/CommonQuestions/types";
 
 export const validateRequiredRadioButtonForCombinedRates = (
-  data: Types.CombinedRates
+  data: Types.CombinedRates,
+  explicitErrorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
 
@@ -11,6 +12,7 @@ export const validateRequiredRadioButtonForCombinedRates = (
       errorArray.push({
         errorLocation: "Combined Rate(s)",
         errorMessage:
+          explicitErrorMessage ??
           "You must select at least one option for Combined Rate(s) Details if Yes is selected.",
       });
     }

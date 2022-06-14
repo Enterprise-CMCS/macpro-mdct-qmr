@@ -9,7 +9,13 @@ import {
   OmsValidationCallback,
 } from "../types";
 
-const _validation: UVF = ({ location, rateData, categories, qualifiers }) => {
+const _validation: UVF = ({
+  location,
+  rateData,
+  categories,
+  qualifiers,
+  errorMessage,
+}) => {
   const errors: FormError[] = [];
 
   for (const [i, rateSet] of rateData.entries()) {
@@ -21,9 +27,11 @@ const _validation: UVF = ({ location, rateData, categories, qualifiers }) => {
       ) {
         errors.push({
           errorLocation: location,
-          errorMessage: `Should not have partially filled NDR sets${
-            !!qualifiers?.length ? ` at ${qualifiers[j]}` : ""
-          }${!!categories?.length ? `, ${categories[i]}` : ""}.`,
+          errorMessage:
+            errorMessage ??
+            `Should not have partially filled NDR sets${
+              !!qualifiers?.length ? ` at ${qualifiers[j]}` : ""
+            }${!!categories?.length ? `, ${categories[i]}` : ""}.`,
         });
       }
     }
@@ -39,6 +47,7 @@ export const validatePartialRateCompletionOMS: OmsValidationCallback = ({
   locationDictionary,
   qualifiers,
   rateData,
+  explicitErrorMessage,
 }) => {
   return [
     ..._validation({
@@ -50,6 +59,7 @@ export const validatePartialRateCompletionOMS: OmsValidationCallback = ({
         ? undefined
         : categories,
       qualifiers: !!isOPM ? undefined : qualifiers,
+      errorMessage: explicitErrorMessage,
     }),
   ];
 };
@@ -66,7 +76,8 @@ export const validatePartialRateCompletionPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   qualifiers: string[],
-  categories?: string[]
+  categories?: string[],
+  explicitErrorMessage?: string
 ) => {
   return [
     ..._validation({
@@ -78,6 +89,7 @@ export const validatePartialRateCompletionPM = (
     ..._validation({
       location: "Other Performance Measure",
       rateData: getOtherPerformanceMeasureRateArray(OPM),
+      errorMessage: explicitErrorMessage,
     }),
   ];
 };

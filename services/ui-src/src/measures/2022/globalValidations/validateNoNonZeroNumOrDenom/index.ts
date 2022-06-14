@@ -15,7 +15,7 @@ interface ValProps extends UVFP {
   hybridData?: boolean;
 }
 
-const _validationRateNotZero = ({ location, rateData }: UVFP) => {
+const _validationRateNotZero = ({ location, rateData, errorMessage }: UVFP) => {
   const errorArray: FormError[] = [];
 
   for (const ratefields of rateData) {
@@ -29,6 +29,7 @@ const _validationRateNotZero = ({ location, rateData }: UVFP) => {
           errorArray.push({
             errorLocation: location,
             errorMessage:
+              errorMessage ??
               "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
           });
         }
@@ -39,7 +40,12 @@ const _validationRateNotZero = ({ location, rateData }: UVFP) => {
   return errorArray;
 };
 
-const _validationRateZero = ({ location, rateData, hybridData }: ValProps) => {
+const _validationRateZero = ({
+  location,
+  rateData,
+  hybridData,
+  errorMessage,
+}: ValProps) => {
   const errorArray: FormError[] = [];
 
   for (const ratefields of rateData) {
@@ -53,7 +59,9 @@ const _validationRateZero = ({ location, rateData, hybridData }: ValProps) => {
         ) {
           errorArray.push({
             errorLocation: location,
-            errorMessage: "Manually entered rate should be 0 if numerator is 0",
+            errorMessage:
+              errorMessage ??
+              "Manually entered rate should be 0 if numerator is 0",
           });
         }
       }
@@ -70,6 +78,7 @@ export const validateRateZeroOMS: OmsValidationCallback = ({
   label,
   locationDictionary,
   dataSource,
+  explicitErrorMessage,
 }) => {
   const hybridData = dataSource?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
@@ -80,6 +89,7 @@ export const validateRateZeroOMS: OmsValidationCallback = ({
     hybridData,
     location: `Optional Measure Stratification: ${locationDictionary(label)}`,
     rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+    errorMessage: explicitErrorMessage,
   }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
 };
 
@@ -89,12 +99,14 @@ export const validateRateNotZeroOMS: OmsValidationCallback = ({
   rateData,
   label,
   locationDictionary,
+  explicitErrorMessage,
 }) => {
   return _validationRateNotZero({
     categories,
     qualifiers,
     location: `Optional Measure Stratification: ${locationDictionary(label)}`,
     rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+    errorMessage: explicitErrorMessage,
   }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
 };
 
@@ -105,7 +117,8 @@ export const validateNoNonZeroNumOrDenomPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   _qualifiers: string[],
-  data: Types.DefaultFormData
+  data: Types.DefaultFormData,
+  explicitErrorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(
@@ -115,8 +128,16 @@ export const validateNoNonZeroNumOrDenomPM = (
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
 
   const nonZeroErrors = [
-    ..._validationRateNotZero({ location, rateData: performanceMeasureArray }),
-    ..._validationRateNotZero({ location, rateData: rateDataOPM }),
+    ..._validationRateNotZero({
+      location,
+      rateData: performanceMeasureArray,
+      errorMessage: explicitErrorMessage,
+    }),
+    ..._validationRateNotZero({
+      location,
+      rateData: rateDataOPM,
+      errorMessage: explicitErrorMessage,
+    }),
   ];
   const zeroErrors = [
     ..._validationRateZero({
@@ -124,7 +145,12 @@ export const validateNoNonZeroNumOrDenomPM = (
       rateData: performanceMeasureArray,
       hybridData,
     }),
-    ..._validationRateZero({ location, rateData: rateDataOPM, hybridData }),
+    ..._validationRateZero({
+      location,
+      rateData: rateDataOPM,
+      hybridData,
+      errorMessage: explicitErrorMessage,
+    }),
   ];
 
   if (!!nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);

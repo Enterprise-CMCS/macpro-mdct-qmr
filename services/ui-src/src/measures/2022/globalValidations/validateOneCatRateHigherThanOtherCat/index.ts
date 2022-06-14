@@ -22,6 +22,7 @@ const _validation = ({
   lowerIndex,
   locationFunc,
   messageFunc,
+  errorMessage,
 }: ValProps) => {
   const errorArray: FormError[] = [];
   const lowerRate = rateData[lowerIndex];
@@ -34,11 +35,13 @@ const _validation = ({
       if (parseFloat(lrate) > parseFloat(hrate)) {
         errorArray.push({
           errorLocation: locationFunc ? locationFunc(qualifiers![i]) : location,
-          errorMessage: messageFunc(
-            categories![higherIndex],
-            categories![lowerIndex],
-            qualifiers![i]
-          ),
+          errorMessage:
+            errorMessage ??
+            messageFunc(
+              categories![higherIndex],
+              categories![lowerIndex],
+              qualifiers![i]
+            ),
         });
       }
     }
@@ -57,7 +60,8 @@ const _validation = ({
 export const validateOneCatRateHigherThanOtherCatOMS = (
   higherIndex = 0,
   lowerIndex = 1,
-  increment?: number
+  increment?: number,
+  explicitErrorMessage?: string
 ): OmsValidationCallback => {
   return ({
     rateData,
@@ -94,6 +98,7 @@ export const validateOneCatRateHigherThanOtherCatOMS = (
             location: "Optional Measure Stratification",
             messageFunc: (hc, lc) =>
               `${lc} Rate should not be higher than ${hc} Rates.`,
+            errorMessage: explicitErrorMessage,
           })
         );
       }
@@ -112,6 +117,7 @@ export const validateOneCatRateHigherThanOtherCatOMS = (
         location: "Optional Measure Stratification",
         messageFunc: (hc, lc) =>
           `${lc} Rate should not be higher than ${hc} Rates.`,
+        errorMessage: explicitErrorMessage,
       });
     }
   };
@@ -130,7 +136,8 @@ export const validateOneCatRateHigherThanOtherCatPM = (
   performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure,
   higherIndex = 0,
   lowerIndex = 1,
-  increment?: number
+  increment?: number,
+  explicitErrorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
 
@@ -151,6 +158,7 @@ export const validateOneCatRateHigherThanOtherCatPM = (
           lowerIndex: j,
           messageFunc: (hc, lc, q) =>
             `${lc} Rate should not be higher than ${hc} Rate for ${q} Rates.`,
+          errorMessage: explicitErrorMessage,
         })
       );
     }
@@ -165,6 +173,7 @@ export const validateOneCatRateHigherThanOtherCatPM = (
       lowerIndex,
       messageFunc: (hc, lc, q) =>
         `${lc} Rate should not be higher than ${hc} Rate for ${q} Rates.`,
+      errorMessage: explicitErrorMessage,
     });
   }
 };

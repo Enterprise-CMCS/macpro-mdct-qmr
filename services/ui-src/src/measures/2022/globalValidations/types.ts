@@ -36,4 +36,5 @@ export type OmsValidationCallback = (data: {
   isOPM: boolean;
   customTotalLabel?: string;
   dataSource?: string[];
+  explicitErrorMessage?: string;
 }) => FormError[];

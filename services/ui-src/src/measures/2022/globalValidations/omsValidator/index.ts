@@ -19,6 +19,7 @@ interface OmsValidationProps {
   validationCallbacks: OmsValidationCallback[];
   customTotalLabel?: string;
   dataSource?: string[];
+  explicitErrorMessage?: string;
 }
 export const omsValidations = ({
   categories,
@@ -29,6 +30,7 @@ export const omsValidations = ({
   validationCallbacks,
   customTotalLabel,
   dataSource,
+  explicitErrorMessage,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
   const opmQuals: string[] = [];
@@ -54,7 +56,8 @@ export const omsValidations = ({
     checkIsFilled,
     isOPM,
     customTotalLabel,
-    dataSource
+    dataSource,
+    explicitErrorMessage
   );
 };
 
@@ -67,7 +70,8 @@ const validateNDRs = (
   checkIsFilled: boolean,
   isOPM: boolean,
   customTotalLabel?: string,
-  dataSource?: string[]
+  dataSource?: string[],
+  explicitErrorMessage?: string
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
@@ -127,6 +131,7 @@ const validateNDRs = (
           isOPM,
           customTotalLabel,
           dataSource,
+          explicitErrorMessage,
         })
       );
     }
@@ -142,6 +147,7 @@ const validateNDRs = (
           isOPM,
           customTotalLabel,
           dataSource,
+          explicitErrorMessage,
         })
       );
     }
@@ -231,7 +237,8 @@ const validateNDRs = (
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             [topLevelKey]
           )}`,
-          errorMessage: "Must fill out at least one NDR set.",
+          errorMessage:
+            explicitErrorMessage ?? "Must fill out at least one NDR set.",
         });
       }
     }
@@ -244,6 +251,7 @@ const validateNDRs = (
             topLevelKey.split("-")
           )}`,
           errorMessage:
+            explicitErrorMessage ??
             "For any category selected, all NDR sets must be filled.",
         });
       }
