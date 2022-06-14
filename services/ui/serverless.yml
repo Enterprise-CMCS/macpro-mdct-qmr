@@ -114,9 +114,7 @@ resources:
           Version: "2012-10-17"
           Statement:
             - Effect: Allow
-              Action:
-                - "s3:GetBucketAcl"
-                - "s3:PutBucketAcl"
+              Action: "s3:GetBucketAcl"
               Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId

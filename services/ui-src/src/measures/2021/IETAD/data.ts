@@ -15,11 +15,11 @@ export const categories = [
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "The percentage of beneficiaries age 18 and Older with a new episode of alcohol or other drug (AOD) abuse or dependence who received the following",
+    "The percentage of beneficiaries age 18 and older with a new episode of alcohol or other drug (AOD) abuse or dependence who received the following:",
   ],
   questionListItems: [
-    "Initiation of AOD Treatment: Percentage of beneficiaries who initiate treatment through an inpatient AOD admission, outpatient visit, intensive outpatient encounter, or partial hospitalization, telehealth, or medication assisted treatment within 14 days of the diagnosis.",
-    "Engagement of AOD Treatment: Percentage of beneficiaries who initiated treatment and who were engaged in ongoing AOD treatment within 34 days of the initiation visit.",
+    "Initiation of AOD Treatment. Percentage of beneficiaries who initiate treatment through an inpatient AOD admission, outpatient visit, intensive outpatient encounter or partial hospitalization, telehealth, or medication treatment within 14 days of the diagnosis.",
+    "Engagement of AOD Treatment. Percentage of beneficiaries who initiated treatment and who were engaged in ongoing AOD treatment within 34 days of the initiation visit.",
   ],
   categories,
   qualifiers,

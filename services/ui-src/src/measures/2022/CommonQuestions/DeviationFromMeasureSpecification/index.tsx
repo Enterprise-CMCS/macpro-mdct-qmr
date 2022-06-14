@@ -40,6 +40,16 @@ const numDenExistInRate = (el: Types.RateFields) =>
   el?.numerator && el?.denominator;
 
 /**
+ * Check if the rates within a qualifier have both a numerator and a denominator.
+ * @param qualifier - The qualifier that we're checking.
+ */
+const IUHHnumDenExistInRate = (qualifier: any) => {
+  return qualifier.fields.some(
+    (field: any) => field?.value && field?.value !== ""
+  );
+};
+
+/**
  * It returns an array of objects that contain a display value, value, and single TextArea child
  * @param {string} name - The name of the field.
  */
@@ -112,7 +122,7 @@ export const PCRADgetLowLvlDeviationOptions = ({
 
 export const DeviationFromMeasureSpec = ({
   categories,
-  measureName,
+  measureName = "",
   customTotalLabel,
 }: Props) => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
@@ -130,10 +140,7 @@ export const DeviationFromMeasureSpec = ({
 
       if (rates.singleCategory) {
         // handle for PCR-XX measures
-        if (
-          (measureName && measureName === "PCR-AD") ||
-          measureName === "PCR-HH"
-        ) {
+        if (["PCR-AD", "PCR-HH"].includes(measureName)) {
           const quals = rates.singleCategory.filter((r: any) => r.value !== "");
           if (quals.length > 0) {
             return getRateTextAreaOptions(DC.DEVIATIONS);
@@ -159,10 +166,20 @@ export const DeviationFromMeasureSpec = ({
         categories.forEach((cat) => {
           const key = cat.replace(/[^\w]/g, "");
           // if some of the rates have both num and den
-          if (rates[key]?.some(numDenExistInRate)) {
+
+          const deviations =
+            measureName === "IU-HH"
+              ? rates[key]?.some(IUHHnumDenExistInRate)
+              : rates[key]?.some(numDenExistInRate);
+          const deviationRates =
+            measureName === "IU-HH"
+              ? rates[key]?.filter(IUHHnumDenExistInRate)
+              : rates[key]?.filter(numDenExistInRate);
+
+          if (deviations) {
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
-              rates: rates[key]?.filter(numDenExistInRate),
+              rates: deviationRates,
               displayValue: cat,
               key,
             });

@@ -1,9 +1,10 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
-
-import { usePerformanceMeasureContext } from "./context";
+import { useFormContext } from "react-hook-form";
+import { CompFlagType, usePerformanceMeasureContext } from "./context";
 import { cleanString, useTotalAutoCalculation } from "./omsUtil";
+import * as Types from "../types";
 
 interface NdrProps {
   name: string;
@@ -11,6 +12,7 @@ interface NdrProps {
 
 interface TotalProps {
   name: string;
+  compFlag: CompFlagType;
   qualifier?: string;
   category?: string;
 }
@@ -23,6 +25,7 @@ type RateArrayBuilder = (name: string) => React.ReactElement[][];
  */
 const TotalNDR = ({
   name,
+  compFlag,
   category = DC.SINGLE_CATEGORY,
   qualifier,
 }: TotalProps) => {
@@ -32,6 +35,9 @@ const TotalNDR = ({
     rateMultiplicationValue,
     rateReadOnly,
     allowNumeratorGreaterThanDenominator,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
   } = usePerformanceMeasureContext();
 
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
@@ -40,25 +46,46 @@ const TotalNDR = ({
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
   const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
 
-  useTotalAutoCalculation({ name, cleanedCategory });
+  useTotalAutoCalculation({ name, cleanedCategory, compFlag });
 
-  return (
-    <QMR.Rate
-      key={cleanedName}
-      name={cleanedName}
-      readOnly={rateReadOnly}
-      customMask={customMask}
-      rates={[{ label: label, id: 0 }]}
-      rateMultiplicationValue={rateMultiplicationValue}
-      allowNumeratorGreaterThanDenominator={
-        allowNumeratorGreaterThanDenominator
-      }
-    />
-  );
+  if (compFlag === "IU") {
+    return (
+      <QMR.IUHHRate
+        key={cleanedName}
+        name={cleanedName}
+        readOnly={rateReadOnly}
+        rates={[{ label: label, id: 0 }]}
+        categoryName={""}
+      />
+    );
+  } else {
+    return (
+      <QMR.Rate
+        key={cleanedName}
+        name={cleanedName}
+        readOnly={rateReadOnly}
+        customMask={customMask}
+        rates={[{ label: label, id: 0 }]}
+        rateMultiplicationValue={rateMultiplicationValue}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
+        customNumeratorLabel={customNumeratorLabel}
+        customDenominatorLabel={customDenominatorLabel}
+        customRateLabel={customRateLabel}
+      />
+    );
+  }
 };
 
 /** OMS Total wrapper for any variation of qulaifier and category combination*/
-const TotalNDRSets = ({ name }: { name: string }) => {
+const TotalNDRSets = ({
+  compFlag = "DEFAULT",
+  name,
+}: {
+  compFlag?: CompFlagType;
+  name: string;
+}) => {
   const rateArray: React.ReactElement[] = [];
 
   const { qualifiers, categories } = usePerformanceMeasureContext();
@@ -68,14 +95,23 @@ const TotalNDRSets = ({ name }: { name: string }) => {
     categories.forEach((cat, idx) => {
       rateArray.push(
         <CUI.Box key={`${name}.${idx}.totalWrapper`}>
-          <TotalNDR name={name} category={cat} qualifier={totalQual} />
+          <TotalNDR
+            name={name}
+            category={cat}
+            compFlag={compFlag}
+            qualifier={totalQual}
+          />
         </CUI.Box>
       );
     });
   } else {
     rateArray.push(
       <CUI.Box key={`${name}.totalWrapper`}>
-        <TotalNDR name={name} key={`${name}.TotalWrapper`} />{" "}
+        <TotalNDR
+          name={name}
+          compFlag={compFlag}
+          key={`${name}.TotalWrapper`}
+        />{" "}
       </CUI.Box>
     );
   }
@@ -102,8 +138,12 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     allowNumeratorGreaterThanDenominator,
     customMask,
     performanceMeasureArray,
+    IUHHPerformanceMeasureArray,
     rateMultiplicationValue,
     rateReadOnly,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
@@ -111,32 +151,62 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
   quals?.forEach((singleQual, qualIndex) => {
     const ndrSets: React.ReactElement[] = [];
 
-    performanceMeasureArray?.forEach((measure, idx) => {
-      if (measure?.[qualIndex]?.rate) {
-        const adjustedName = `${name}.rates.${cleanString(
+    if (IUHHPerformanceMeasureArray) {
+      IUHHPerformanceMeasureArray?.forEach((measure, idx) => {
+        const cleanedName = `${name}.rates.${cleanString(
           singleQual
         )}.${cleanString(categories[idx])}`;
+        const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
+        const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
+        const rate3 = measure?.[qualIndex]?.fields?.[5]?.value ? true : false;
+        if (rate1 || rate2 || rate3) {
+          ndrSets.push(
+            <QMR.IUHHRate
+              readOnly={rateReadOnly}
+              name={cleanedName}
+              key={cleanedName}
+              rates={[
+                {
+                  id: 0,
+                  label: categories[idx],
+                },
+              ]}
+              categoryName={""}
+            />
+          );
+        }
+      });
+    } else if (performanceMeasureArray) {
+      performanceMeasureArray?.forEach((measure, idx) => {
+        if (measure?.[qualIndex]?.rate) {
+          const adjustedName = `${name}.rates.${cleanString(
+            singleQual
+          )}.${cleanString(categories[idx])}`;
 
-        ndrSets.push(
-          <QMR.Rate
-            readOnly={rateReadOnly}
-            name={adjustedName}
-            key={adjustedName}
-            rateMultiplicationValue={rateMultiplicationValue}
-            allowNumeratorGreaterThanDenominator={
-              allowNumeratorGreaterThanDenominator
-            }
-            customMask={customMask}
-            rates={[
-              {
-                id: 0,
-                label: categories[idx],
-              },
-            ]}
-          />
-        );
-      }
-    });
+          ndrSets.push(
+            <QMR.Rate
+              readOnly={rateReadOnly}
+              name={adjustedName}
+              key={adjustedName}
+              rateMultiplicationValue={rateMultiplicationValue}
+              allowNumeratorGreaterThanDenominator={
+                allowNumeratorGreaterThanDenominator
+              }
+              customNumeratorLabel={customNumeratorLabel}
+              customDenominatorLabel={customDenominatorLabel}
+              customRateLabel={customRateLabel}
+              customMask={customMask}
+              rates={[
+                {
+                  id: 0,
+                  label: categories[idx],
+                },
+              ]}
+            />
+          );
+        }
+      });
+    }
     rateArrays.push(ndrSets);
   });
 
@@ -153,6 +223,9 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     performanceMeasureArray,
     rateMultiplicationValue,
     rateReadOnly,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
@@ -172,6 +245,9 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           allowNumeratorGreaterThanDenominator={
             allowNumeratorGreaterThanDenominator
           }
+          customNumeratorLabel={customNumeratorLabel}
+          customDenominatorLabel={customDenominatorLabel}
+          customRateLabel={customRateLabel}
           customMask={customMask}
           rates={[{ id: 0 }]}
         />,
@@ -195,6 +271,12 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const standardRates = useStandardRateArray(name);
   const rateArrays = !categories.length ? qualRates : standardRates;
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
+  const { watch } = useFormContext<Types.DataSource>();
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
+
+  const shouldDisplay =
+    dataSourceWatch?.[0] !== "AdministrativeData" ||
+    dataSourceWatch?.length !== 1;
 
   quals?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
@@ -211,6 +293,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
             pt="1"
             key={`${name}.rates.${cleanedLabel}HeaderHelper`}
             size={"sm"}
+            hidden={!shouldDisplay}
           >
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
@@ -244,12 +327,40 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
   );
 };
 
+const IUHHNDRSets = ({ name }: NdrProps) => {
+  const { calcTotal } = usePerformanceMeasureContext();
+
+  const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.iuhh-rate`);
+
+  return (
+    <>
+      <QMR.Checkbox
+        name={`${name}.iuhh-rate.options`}
+        key={`${name}.iuhh-rate.options`}
+        options={ageGroupsOptions}
+      />
+      {calcTotal && (
+        <TotalNDRSets
+          compFlag={"IU"}
+          name={`${name}.iuhh-rate`}
+          key={`${name}.iuhh-rate.totalWrapper`}
+        />
+      )}
+    </>
+  );
+};
+
 const PCRNDRSets = ({ name }: NdrProps) => {
   const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
   const rates = qualifiers.map((qual, i) => {
     return { label: qual, id: i };
   });
+  // ! Waiting for data source refactor to type data source here
+  const { watch } = useFormContext<Types.DataSource>();
+
+  // Watch for dataSource data
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
 
   return (
     <>
@@ -257,9 +368,12 @@ const PCRNDRSets = ({ name }: NdrProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate
       </CUI.Heading>
-      <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
-        Please review the auto-calculated rate and revise if needed.
-      </CUI.Heading>
+      {dataSourceWatch?.[0] !== "AdministrativeData" ||
+        (dataSourceWatch?.length !== 1 && (
+          <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
+            Please review the auto-calculated rate and revise if needed.
+          </CUI.Heading>
+        ))}
       <QMR.PCRRate
         rates={rates}
         name={`${name}.pcr-rate`}
@@ -282,7 +396,17 @@ const useRenderOPMChckboxOptions = (name: string) => {
     rateMultiplicationValue,
     customMask,
     allowNumeratorGreaterThanDenominator,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
   } = usePerformanceMeasureContext();
+
+  const { watch } = useFormContext<Types.DataSource>();
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
+
+  const shouldDisplay =
+    dataSourceWatch?.[0] !== "AdministrativeData" ||
+    dataSourceWatch?.length !== 1;
 
   OPM?.forEach(({ description }, idx) => {
     if (description) {
@@ -303,6 +427,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
             pt="1"
             size={"sm"}
             key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
+            hidden={!shouldDisplay}
           >
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
@@ -320,6 +445,9 @@ const useRenderOPMChckboxOptions = (name: string) => {
             allowNumeratorGreaterThanDenominator={
               allowNumeratorGreaterThanDenominator
             }
+            customNumeratorLabel={customNumeratorLabel}
+            customDenominatorLabel={customDenominatorLabel}
+            customRateLabel={customRateLabel}
           />,
         ],
       });
@@ -355,6 +483,11 @@ export const NDRSets = ({ name }: NdrProps) => {
     case "DEFAULT":
       if (!OPM) {
         children.push(<AgeGroupNDRSets name={name} key={name} />);
+      }
+      break;
+    case "IU":
+      if (!OPM) {
+        children.push(<IUHHNDRSets name={name} key={name} />);
       }
       break;
     case "PCR":
