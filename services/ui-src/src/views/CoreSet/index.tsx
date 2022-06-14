@@ -1,13 +1,28 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { AddSSMCard } from "./AddSSMCard";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
 import { useEffect, useState } from "react";
-import { useGetCoreSet, useGetMeasure, useGetMeasures } from "hooks/api";
-import { useParams } from "react-router-dom";
+import {
+  useDeleteMeasure,
+  useGetCoreSet,
+  useGetMeasure,
+  useGetMeasures,
+} from "hooks/api";
+import { useQueryClient } from "react-query";
 import { CoreSetTableItem } from "components/Table/types";
 import { SPA } from "libs/spaLib";
+import { useUser } from "hooks/authHooks";
+import { measureDescriptions } from "measures/measureDescriptions";
+
+interface HandleDeleteMeasureData {
+  coreSet: CoreSetAbbr;
+  measure: string;
+  state: string;
+  year: string;
+}
 
 enum coreSetType {
   ACS = "Adult",
@@ -43,7 +58,14 @@ interface MeasureTableItem {
   createdAt: number;
   lastDateModified: number;
   id: string;
+  userCreated?: boolean;
   actions: { itemText: string; handleSelect: () => void }[];
+}
+
+// Interface for handling location.state for a success flag, used when creating
+// a new State Specific Measure.
+interface LocationState {
+  state: { success: boolean };
 }
 
 const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
@@ -70,9 +92,13 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
+  let { state } = useParams();
+
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
-    coreSetInfo.length > 1 ? SPA.filter((s) => s.id === coreSetInfo[1])[0] : "";
+    coreSetInfo.length > 1
+      ? SPA.filter((s) => s.id === coreSetInfo[1] && s.state === state)[0]
+      : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
       ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
@@ -103,15 +129,26 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
  * Create an array of the measure data to be usable by the table component from db pull
  */
 const useMeasureTableDataBuilder = () => {
+  const queryClient = useQueryClient();
   const { state, year, coreSetId } = useParams();
   const { data, isLoading, isError, error } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   const [coreSetStatus, setCoreSetStatus] = useState(
     CoreSetTableItem.Status.IN_PROGRESS
   );
+  const { mutate: deleteMeasure } = useDeleteMeasure();
+
   useEffect(() => {
     let mounted = true;
     if (!isLoading && !isError && data && data.Items && mounted) {
+      const handleDeleteMeasure = (data: HandleDeleteMeasureData) => {
+        deleteMeasure(data, {
+          onSuccess: () => {
+            queryClient.refetchQueries();
+          },
+        });
+      };
+
       let numCompleteItems = 0;
       // include qualifier in core set status check
       for (const m of data.Items as MeasureData[]) {
@@ -128,9 +165,33 @@ const useMeasureTableDataBuilder = () => {
         (item) => item.measure && item.measure !== "CSQ"
       );
       const measureTableData = (filteredItems as MeasureData[]).map((item) => {
+        const actions = [
+          {
+            itemText: "Edit",
+            handleSelect: () => console.log("Edit " + item.measure),
+          },
+        ];
+
+        // Let user delete user-created measures
+        if (item.userCreated === true) {
+          actions.push({
+            itemText: "Delete",
+            handleSelect: () =>
+              handleDeleteMeasure({
+                coreSet: item.coreSet,
+                measure: item.measure,
+                state: item.state,
+                year: item.year.toString(),
+              }),
+          });
+        }
+
+        const foundMeasureDescription =
+          measureDescriptions[item.year]?.[item.measure] || item.description;
+
         return {
           Type: coreSetType[item.coreSet],
-          title: item.description,
+          title: foundMeasureDescription || "",
           abbr: item.measure,
           path: `/${state}/${year}/${coreSetId}/${item.measure}`,
           reporting: item.reporting,
@@ -139,12 +200,8 @@ const useMeasureTableDataBuilder = () => {
           createdAt: item.createdAt,
           autoCompleted: item.autoCompleted,
           id: item.measure,
-          actions: [
-            {
-              itemText: "Edit",
-              handleSelect: () => console.log("Edit " + item.measure),
-            },
-          ],
+          userCreated: item.userCreated,
+          actions: actions,
         };
       });
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
@@ -153,11 +210,24 @@ const useMeasureTableDataBuilder = () => {
     return () => {
       mounted = false;
     };
-  }, [data, isLoading, isError, setMeasures, coreSetId, state, year]);
+  }, [
+    data,
+    deleteMeasure,
+    isLoading,
+    isError,
+    setMeasures,
+    coreSetId,
+    queryClient,
+    state,
+    year,
+  ]);
   return { coreSetStatus, measures, isLoading, isError, error };
 };
 
 export const CoreSet = () => {
+  const { state: locationState } = useLocation() as LocationState;
+  const { isStateUser } = useUser();
+
   let { coreSetId, state, year } = useParams();
   coreSetId = coreSetId ?? "";
   state = state ?? "";
@@ -165,11 +235,18 @@ export const CoreSet = () => {
 
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
-    coreSet.length > 1 ? SPA.filter((s) => s.id === coreSet[1])[0] : "";
+    coreSet.length > 1
+      ? SPA.filter((s) => s.id === coreSet[1] && s.state === state)[0]
+      : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
       ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
+
+  // It appears that spaName only has a value for HH Core Sets. Is this true?
+  // Or should we determine whether or not this is a HH Core Set another way,
+  // like checking the coreSetId for "HH"?
+  const isHHCoreSet = spaName.length > 0;
 
   const { data } = useGetCoreSet({ coreSetId, state, year });
   const { coreSetStatus, measures, isLoading, isError, error } =
@@ -178,6 +255,11 @@ export const CoreSet = () => {
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
   )?.length;
+
+  const userCreatedMeasures = measures.filter((measure) => measure.userCreated);
+  const userCreatedMeasureIds = userCreatedMeasures.map(
+    (measure) => measure.id
+  );
 
   return (
     <QMR.StateLayout
@@ -192,6 +274,28 @@ export const CoreSet = () => {
         },
       ]}
     >
+      {/* Show success banner after redirect from creating new SSMs */}
+      {locationState && locationState.success === true && (
+        <CUI.Box mb="6">
+          <QMR.Notification
+            alertDescription="The new State Specific Measures were successfully created and are ready for reporting."
+            alertStatus="success"
+            alertTitle="New State Specific Measures created"
+          ></QMR.Notification>
+        </CUI.Box>
+      )}
+
+      {/* Show success banner after redirect from creating new SSMs */}
+      {locationState && locationState.success === false && (
+        <CUI.Box mb="6">
+          <QMR.Notification
+            alertDescription="An error occurred. Unable to create State Specific Measures."
+            alertStatus="error"
+            alertTitle="Error creating State Specific Measures"
+          ></QMR.Notification>
+        </CUI.Box>
+      )}
+
       <CUI.Flex>
         <CUI.HStack
           justifyContent="space-between"
@@ -248,6 +352,19 @@ export const CoreSet = () => {
               alertTitle="Error In Measure Retrieval"
               alertDescription={(error as Error)?.message}
             />
+          )}
+          {isHHCoreSet && (
+            <CUI.HStack spacing="6">
+              <AddSSMCard
+                buttonText="Add State Specific Measure"
+                enabled={
+                  (isStateUser && userCreatedMeasureIds.length < 5) || false
+                }
+                title="Need to report on State Specific data?"
+                to={`/${state}/${year}/${coreSetId}/add-ssm`}
+                userCreatedMeasureIds={userCreatedMeasureIds}
+              ></AddSSMCard>
+            </CUI.HStack>
           )}
         </QMR.LoadingWrapper>
       </CUI.Box>

@@ -9,13 +9,15 @@ export interface IKebabMenuItem {
   itemText: string;
   handleSelect: (data?: any) => void;
   type?: CoreSetTableItem.Type;
+  headerText?: string;
 }
 
 export interface KebabMenuProps {
   menuItems: IKebabMenuItem[];
+  headerText?: string;
 }
 
-export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
+export const KebabMenu = ({ menuItems, headerText }: KebabMenuProps) => {
   return (
     <CUI.Menu>
       <CUI.MenuButton
@@ -29,6 +31,7 @@ export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
           <KebabMenuItem
             itemText={i.itemText}
             handleSelect={i.handleSelect}
+            headerText={headerText}
             key={uuidv4()}
             type={i.type}
           />
@@ -38,7 +41,12 @@ export const KebabMenu = ({ menuItems }: KebabMenuProps) => {
   );
 };
 
-const KebabMenuItem = ({ itemText, handleSelect, type }: IKebabMenuItem) => {
+const KebabMenuItem = ({
+  itemText,
+  handleSelect,
+  type,
+  headerText,
+}: IKebabMenuItem) => {
   const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
   const handleCloseDeleteDialog = () => setDeleteDialogIsOpen(false);
   const cancelRef = useRef();
@@ -73,6 +81,7 @@ const KebabMenuItem = ({ itemText, handleSelect, type }: IKebabMenuItem) => {
         cancelRef={cancelRef}
         handleDelete={handleSelect}
         type={type}
+        headerText={headerText}
       />
     </>
   );
@@ -83,6 +92,7 @@ interface DeleteMenuItemAlertDialogProps {
   onClose: () => void;
   cancelRef: RefObject<any>;
   handleDelete: () => void;
+  headerText?: string;
   type?: CoreSetTableItem.Type;
 }
 
@@ -92,6 +102,7 @@ const DeleteMenuItemAlertDialog = ({
   onClose,
   cancelRef,
   handleDelete,
+  headerText,
   type,
 }: DeleteMenuItemAlertDialogProps) => {
   const [userInput, setUserInput] = useState("");
@@ -120,7 +131,7 @@ const DeleteMenuItemAlertDialog = ({
             }}
           >
             <CUI.AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Core Set
+              {headerText || "Delete Core Set"}
             </CUI.AlertDialogHeader>
 
             <CUI.AlertDialogBody>
@@ -147,7 +158,6 @@ const DeleteMenuItemAlertDialog = ({
               </CUI.Button>
               <CUI.Button
                 colorScheme="red"
-                onClick={handleDelete}
                 ml={3}
                 type="submit"
                 isDisabled={userInput.toLocaleLowerCase() !== "delete"}

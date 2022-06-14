@@ -1,13 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-
 import { useMemo } from "react";
 import { HiX } from "react-icons/hi";
 import { useFieldArray } from "react-hook-form";
-
 import { useGetMeasures } from "hooks/api";
 import { ICheckbox } from "components/MultiSelect";
 import { QualifierHeader } from "./qualifierHeader";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 export const initialAuditValues = {
   MeasuresAuditedOrValidated: [],
@@ -45,11 +44,16 @@ export const Audit = ({ type }: Props) => {
         ?.filter((item: any) => {
           return !item?.measure?.includes("CSQ");
         })
-        //TODO: filter out HH SS generated measures
-        //?.filter((item: any) => {return {INSERT HH-SS CHECK HERE}; })
+        // filter out HH user-created state specific measures
+        ?.filter((item: any) => {
+          return !item?.userCreated;
+        })
         ?.map((obj: any) => {
+          const foundMeasureDescription =
+            measureDescriptions[obj.year]?.[obj.measure] || obj.description;
+
           return {
-            label: obj.measure + " - " + obj.description,
+            label: obj.measure + " - " + foundMeasureDescription,
             value: obj.measure,
             isVisible: true,
           };

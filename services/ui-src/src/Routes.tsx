@@ -5,6 +5,7 @@ import * as Views from "views";
 import * as QMR from "components";
 import Measures from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -40,12 +41,14 @@ export function useMeasureRoutes(): MeasureRoute[] {
             if (Measures?.[year] && measure in Measures[year]) {
               const Comp = Measures[year][measure];
 
+              const foundMeasureDescription =
+                measureDescriptions?.[year]?.[measure] || description;
               routes.push({
                 key: `:state/${year}/:coreSetId/${measure}`,
                 path: `:state/${year}/:coreSetId/${measure}`,
                 element: (
                   <QMR.MeasureWrapper
-                    name={description}
+                    name={foundMeasureDescription}
                     year={year}
                     measureId={measure}
                     measure={createElement(Comp)}
@@ -84,6 +87,10 @@ export function AppRoutes() {
         <Route
           path=":state/:year/:coreSetId/pdf"
           element={<Views.ExportAll />}
+        />
+        <Route
+          path=":state/:year/:coreSetId/add-ssm"
+          element={<Views.AddStateSpecificMeasure />}
         />
         <Route
           path=":state/:year/:HHCS/CSQ"

@@ -114,7 +114,6 @@ export const formatTableItems = ({
         },
         type,
       };
-
       const actions = getCoreSetActions(data);
 
       return {

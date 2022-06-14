@@ -119,7 +119,7 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: MeasureTableItem.Data) => (
       <CUI.Box textAlign="center">
-        <QMR.KebabMenu menuItems={data.actions} />
+        <QMR.KebabMenu menuItems={data.actions} headerText="Delete Measure" />
       </CUI.Box>
     ),
   },

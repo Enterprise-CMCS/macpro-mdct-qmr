@@ -144,7 +144,7 @@ export const HHCSQualifiers = () => {
 
   const validateAndSetErrors = (data: HHCSQualifierForm): boolean => {
     const validationErrors = Common.validateData(validationFunctions, data);
-    setErrors(validationErrors.length > 0 ? validationErrors : undefined);
+    setErrors(validationErrors);
     return validationErrors.length > 0;
   };
 
@@ -230,7 +230,7 @@ export const HHCSQualifiers = () => {
             </CUI.Box>
             <CUI.OrderedList>
               <AdministrativeQuestions />
-              <CostSavingsData />
+              <CostSavingsData handleSave={handleSave} />
               <DeliverySystems />
               <Common.Audit type="HH" />
               <Common.CompleteCoreSets
@@ -239,6 +239,18 @@ export const HHCSQualifiers = () => {
               />
             </CUI.OrderedList>
           </CUI.Box>
+          {errors?.length === 0 && (
+            <QMR.Notification
+              key={uuidv4()}
+              alertProps={{ my: "3" }}
+              alertStatus="success"
+              alertTitle={`Success`}
+              alertDescription="The Qualifier has been validated successfully"
+              close={() => {
+                setErrors(undefined);
+              }}
+            />
+          )}
           {errors?.map((error, index) => (
             <QMR.Notification
               key={uuidv4()}

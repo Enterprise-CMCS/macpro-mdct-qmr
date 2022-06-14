@@ -169,7 +169,7 @@ describe("Test the component for PCR-HH specific conditions", () => {
       { num: "42", denom: "84", rate: "50.0000" },
       { num: "42", denom: "84", rate: "50.0000" },
       { num: "42", denom: "84", rate: "0.5000" },
-      { num: "42", denom: "84", rate: "500.0000" },
+      { num: "42", denom: "84", rate: "500.0" },
     ];
 
     ndrForumlas.forEach((ndr, i) => {
