@@ -17,7 +17,7 @@ interface Field {
 }
 
 /* At least one NDR set must be complete (OMS) */
-export const IUHHvalidateNDRTotalsOMS = (
+export const ComplexValidateNDRTotalsOMS = (
   rateData: any,
   categories: string[],
   ndrFormulas: NDRforumla[],
@@ -46,7 +46,7 @@ export const IUHHvalidateNDRTotalsOMS = (
     }
   }
 
-  let errorArray: any[] = IUHHvalidateNDRTotals(
+  let errorArray: any[] = ComplexValidateNDRTotals(
     performanceMeasureArray,
     categories,
     ndrFormulas,
@@ -59,7 +59,7 @@ export const IUHHvalidateNDRTotalsOMS = (
 /* Validate Totals have data if qualifiers in section have data
  * and validate Total is equal to the sum of other qualifiers in section
  */
-export const IUHHvalidateNDRTotals = (
+export const ComplexValidateNDRTotals = (
   performanceMeasureArray: any,
   categories: string[],
   ndrFormulas: NDRforumla[],

@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import { FormRateField } from "measures/2022/globalValidations/types";
 
-export const IUHHvalidateDualPopInformation = (
+export const ComplexValidateDualPopInformation = (
   performanceMeasureArray: any,
   OPM: any,
   DefinitionOfDenominator: string[] | undefined,

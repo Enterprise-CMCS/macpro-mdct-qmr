@@ -4,7 +4,7 @@ interface NDRforumla {
   rateIndex: number;
 }
 
-export const IUHHnoNonZeroNumOrDenomOMS = (
+export const ComplexNoNonZeroNumOrDenomOMS = (
   rateData: any,
   OPM: any,
   ndrFormulas: NDRforumla[],
@@ -14,7 +14,7 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
   for (const key in rateData) {
     if (OPM && OPM.length > 0) {
       errorArray.push(
-        ...IUHHnoNonZeroNumOrDenom(
+        ...ComplexNoNonZeroNumOrDenom(
           [],
           [{ description: key, rate: [...rateData[key]["OPM"]] }],
           ndrFormulas,
@@ -24,7 +24,7 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
     } else {
       for (const category in rateData[key]) {
         errorArray.push(
-          ...IUHHnoNonZeroNumOrDenom(
+          ...ComplexNoNonZeroNumOrDenom(
             [rateData[key][category]],
             OPM,
             ndrFormulas,
@@ -39,7 +39,7 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
 };
 
 /* Validation for manually entered rates */
-export const IUHHnoNonZeroNumOrDenom = (
+export const ComplexNoNonZeroNumOrDenom = (
   performanceMeasureArray: any,
   OPM: any,
   ndrFormulas: NDRforumla[],

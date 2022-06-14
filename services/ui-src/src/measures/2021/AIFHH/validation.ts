@@ -5,24 +5,27 @@ import { FormData } from "./types";
 import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 // Rate structure by index in row
-const ndrForumlas = [
-  // Discharges per 1,000 Enrollee Months
+const ndrFormulas = [
+  // Short-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 1,
     denominator: 0,
     rateIndex: 2,
+    mult: 1000,
   },
-  // Days per 1,000 Enrollee Months
+  // Medium-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 3,
     denominator: 0,
     rateIndex: 4,
+    mult: 1000,
   },
-  // Average Length of Stay
+  // Long-Term Admissions per 1,000 Enrollee Months
   {
-    numerator: 3,
-    denominator: 1,
-    rateIndex: 5,
+    numerator: 5,
+    denominator: 0,
+    rateIndex: 6,
+    mult: 1000,
   },
 ];
 
@@ -53,25 +56,25 @@ const AIFHHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
 
-    ...GV.IUHHvalidateDualPopInformation(
+    ...GV.ComplexValidateDualPopInformation(
       performanceMeasureArray,
       OPM,
       definitionOfDenominator
     ),
 
     // Performance Measure Validations
-    ...GV.IUHHatLeastOneRateComplete(performanceMeasureArray, OPM),
-    ...GV.IUHHnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
-    ...GV.IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
+    ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrFormulas),
+    ...GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      ndrForumlas,
+      ndrFormulas,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.IUHHvalidateNDRTotals(
+    ...GV.ComplexValidateNDRTotals(
       performanceMeasureArray,
       PMD.categories,
-      ndrForumlas
+      ndrFormulas
     ),
 
     // OMS Validations
@@ -100,24 +103,24 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   });
   return OPM === undefined
     ? [
-        ...GV.IUHHnoNonZeroNumOrDenomOMS(
+        ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
           rates ?? [],
-          ndrForumlas,
+          ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
-        ...GV.IUHHvalidateNDRTotalsOMS(
+        ...GV.ComplexValidateNDRTotalsOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
           PMD.categories,
-          ndrForumlas,
+          ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)} Total`
         ),
       ]
     : [
-        ...GV.IUHHnoNonZeroNumOrDenomOMS(
+        ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
           rates ?? [],
-          ndrForumlas,
+          ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
       ];
