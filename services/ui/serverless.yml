@@ -121,6 +121,14 @@ resources:
               Condition:
                 Bool:
                   "aws:SecureTransport": true
+            - Action:
+                - "s3:*"
+              Effect: "Deny"
+              Principal: "*"
+              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}
+              Condition:
+                Bool:
+                  "aws:SecureTransport": false
         Bucket: !Ref CloudFrontLoggingBucket
     CloudFrontWebAcl:
       Type: AWS::WAFv2::WebACL

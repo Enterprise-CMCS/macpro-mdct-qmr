@@ -363,6 +363,14 @@ resources:
               NotResource:
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.csv
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.json
+            - Action:
+                - "s3:*"
+              Effect: Deny
+              Principal: "*"
+              Resource: !Sub ${ClamDefsBucket.Arn}/*
+              Condition:
+                Bool:
+                  "aws:SecureTransport": false
     LambdaInvokePermission:
       Type: AWS::Lambda::Permission
       Properties:
