@@ -57,7 +57,7 @@ import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
 
-const twentyTwentyOneMeasures = {
+const twentyTwentyTwoMeasures = {
   "ADD-CH": ADDCH,
   "AMB-CH": AMBCH,
   "AMM-AD": AMMAD,
@@ -114,4 +114,4 @@ const twentyTwentyOneMeasures = {
   "WCV-CH": WCVCH,
 };
 
-export default twentyTwentyOneMeasures;
+export default twentyTwentyTwoMeasures;
