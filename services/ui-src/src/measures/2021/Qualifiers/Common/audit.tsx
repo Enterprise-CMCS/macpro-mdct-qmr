@@ -1,7 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
-import { useMemo } from "react";
 import { HiX } from "react-icons/hi";
 import { useFieldArray } from "react-hook-form";
 
@@ -36,29 +35,26 @@ export const Audit = ({ type, year }: Props) => {
   });
   const { data, isLoading } = useGetMeasures();
 
-  const multiSelectList = useMemo<ICheckbox[]>(
-    () =>
-      data?.Items
-        // filter out the autocompleted measures.
-        ?.filter((item: any) => {
-          return !item.autoCompleted;
-        })
-        // filter out the qualifier measures
-        ?.filter((item: any) => {
-          return !item?.measure?.includes("CSQ");
-        })
-        //TODO: filter out HH SS generated measures
-        //?.filter((item: any) => {return {INSERT HH-SS CHECK HERE}; })
-        ?.map((obj: any) => {
-          const desc = measureDescriptions?.[year]?.[obj.measure];
-          return {
-            label: `${obj.measure}${desc ? ` - ${desc}` : ""}`,
-            value: obj.measure,
-            isVisible: true,
-          };
-        }) ?? [],
-    [data, year]
-  );
+  const multiSelectList: ICheckbox[] =
+    data?.Items
+      // filter out the autocompleted measures.
+      ?.filter((item: any) => {
+        return !item.autoCompleted;
+      })
+      // filter out the qualifier measures
+      ?.filter((item: any) => {
+        return !item?.measure?.includes("CSQ");
+      })
+      //TODO: filter out HH SS generated measures
+      //?.filter((item: any) => {return {INSERT HH-SS CHECK HERE}; })
+      ?.map((obj: any) => {
+        const desc = measureDescriptions?.[year]?.[obj.measure];
+        return {
+          label: `${obj.measure}${desc ? ` - ${desc}` : ""}`,
+          value: obj.measure,
+          isVisible: true,
+        };
+      }) ?? [];
 
   if (isLoading || !data.Items) {
     return <QMR.LoadingWave />;
