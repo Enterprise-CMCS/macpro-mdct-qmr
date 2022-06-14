@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import * as CMQ from "measures/2021/CommonQuestions";
+import * as CMQ from "measures/2022/CommonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
