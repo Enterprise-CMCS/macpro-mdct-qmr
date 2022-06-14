@@ -22,7 +22,7 @@ import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
-import { measureDescriptions } from "measures/measuresDescriptions";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
