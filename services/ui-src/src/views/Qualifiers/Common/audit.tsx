@@ -6,7 +6,7 @@ import { useFieldArray } from "react-hook-form";
 import { useGetMeasures } from "hooks/api";
 import { ICheckbox } from "components/MultiSelect";
 import { QualifierHeader } from "./qualifierHeader";
-import { measureDescriptions } from "measures/measuresDescriptions";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 export const initialAuditValues = {
   MeasuresAuditedOrValidated: [],

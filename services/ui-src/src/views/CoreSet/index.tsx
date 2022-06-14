@@ -15,7 +15,7 @@ import { useQueryClient } from "react-query";
 import { CoreSetTableItem } from "components/Table/types";
 import { SPA } from "libs/spaLib";
 import { useUser } from "hooks/authHooks";
-import { measureDescriptions } from "measures/measuresDescriptions";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
