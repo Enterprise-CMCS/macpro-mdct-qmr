@@ -2,10 +2,9 @@ import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
 import {
   allNumbers,
-  eightNumbersOneDecimal,
-  rateThatAllowsFourDecimals,
-  rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
+  eightNumbersOneDecimal,
+  rateThatAllowsOneDecimal,
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
@@ -37,42 +36,21 @@ export const AABRateCalculation = (
 export interface AABIRate {
   label?: string;
   id: number;
-  isTotal?: boolean;
 }
 
 interface Props extends QMR.InputWrapperProps {
   rates: AABIRate[];
   name: string;
   readOnly?: boolean;
-  allowMultiple?: boolean;
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-  calcTotal?: boolean;
-  allowNumeratorGreaterThanDenominator?: boolean;
-  customDenominatorLabel?: string;
-  customNumeratorLabel?: string;
-  customRateLabel?: string;
 }
 
-export const AABRate = ({
-  rates,
-  name,
-  allowMultiple = false,
-  readOnly = true,
-  rateMultiplicationValue = 100,
-  customMask,
-  calcTotal,
-  allowNumeratorGreaterThanDenominator,
-  customDenominatorLabel,
-  customNumeratorLabel,
-  customRateLabel,
-  ...rest
-}: Props) => {
+export const AABRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
   const {
     control,
     formState: { errors },
     unregister,
   } = useFormContext();
+  const rateMultiplicationValue = 100;
 
   const { field } = useController({
     name,
@@ -80,14 +58,6 @@ export const AABRate = ({
     defaultValue: [],
   });
 
-  if (calcTotal) {
-    rates[rates.length - 1]["isTotal"] = true;
-  }
-
-  /*
-  On component render, verify that all NDRs have a label and isTotal value.
-  This is required for accurate data representation in DB and to calculateTotals().
-  */
   useEffect(() => {
     const prevRate = [...field.value];
     rates.forEach((rate, index) => {
@@ -97,18 +67,13 @@ export const AABRate = ({
       prevRate[index]["label"] = rate.label ?? undefined;
     });
 
-    if (calcTotal) {
-      prevRate[prevRate.length - 1]["isTotal"] = true;
-    }
-
     field.onChange([...prevRate]);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate",
-    newValue: string,
-    isTotal?: boolean
+    newValue: string
   ) => {
     const digitsAfterDecimal = 1;
     if (!allNumbers.test(newValue)) return;
@@ -132,12 +97,10 @@ export const AABRate = ({
         rate: "",
       };
 
-      const regex = allowMultiple
-        ? rateThatAllowsFourDecimals
-        : rateThatAllowsOneDecimal;
+      const regex = rateThatAllowsOneDecimal;
 
       prevRate[index].rate =
-        regex.test(newValue) || newValue === "" || customMask?.test(newValue)
+        regex.test(newValue) || newValue === ""
           ? newValue
           : prevRate[index].rate;
 
@@ -148,8 +111,7 @@ export const AABRate = ({
     if (
       parseInt(editRate.denominator) &&
       editRate.numerator &&
-      (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
-        allowNumeratorGreaterThanDenominator)
+      parseFloat(editRate.numerator) <= parseFloat(editRate.denominator)
     ) {
       editRate.rate = AABRateCalculation(
         editRate.numerator,
@@ -166,58 +128,7 @@ export const AABRate = ({
       ...editRate,
     };
 
-    // Totals NDR should be independently editable
-    if (calcTotal && !isTotal) {
-      calculateTotals(prevRate);
-    }
     field.onChange([...prevRate]);
-  };
-
-  /*
-  Iterate over all numerators and denominators of NDRs where isTotal is false.
-  Sum these values and set the NDR where isTotal is true to be these sumed values.
-  */
-  const calculateTotals = (prevRate: any[]) => {
-    let numeratorSum: any = null;
-    let denominatorSum: any = null;
-    let x;
-
-    // sum all Ns and Ds
-    // we assume last NDR is total if calcTotal is true
-    prevRate.slice(0, -1).forEach((item) => {
-      if (item !== undefined && item !== null && !item["isTotal"]) {
-        if (item["rate"]) {
-          if (!isNaN((x = parseFloat(item["numerator"])))) {
-            numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
-          }
-          if (!isNaN((x = parseFloat(item["denominator"])))) {
-            denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
-          }
-        }
-      }
-    });
-
-    // Set total values and calculate total rate
-    let totalIndex = prevRate.length - 1;
-    let newValue = numeratorSum !== null ? numeratorSum.toString() : "";
-    prevRate[totalIndex]["numerator"] = newValue;
-
-    newValue = denominatorSum !== null ? denominatorSum.toString() : "";
-    prevRate[totalIndex]["denominator"] = newValue;
-
-    if (numeratorSum !== null && denominatorSum !== null) {
-      prevRate[totalIndex]["rate"] =
-        numeratorSum !== 0
-          ? AABRateCalculation(
-              numeratorSum.toString(),
-              denominatorSum.toString(),
-              rateMultiplicationValue,
-              1
-            )
-          : "0";
-    } else {
-      prevRate[totalIndex]["rate"] = "";
-    }
   };
 
   useEffect(
@@ -240,7 +151,6 @@ export const AABRate = ({
   return (
     <>
       {rates.map((rate, index) => {
-        const isTotal = rate.isTotal ?? undefined;
         return (
           <CUI.Stack key={rate.id} mt={4} mb={8}>
             {rate.label && (
@@ -250,7 +160,7 @@ export const AABRate = ({
             )}
             <CUI.HStack spacing={16}>
               <QMR.InputWrapper
-                label={customNumeratorLabel || "Numerator"}
+                label={"Numerator"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.numerator`)
                     ?.message
@@ -264,12 +174,12 @@ export const AABRate = ({
                   value={field.value[index]?.numerator ?? ""}
                   data-cy={`${name}.${index}.numerator`}
                   onChange={(e) =>
-                    changeRate(index, "numerator", e.target.value, isTotal)
+                    changeRate(index, "numerator", e.target.value)
                   }
                 />
               </QMR.InputWrapper>
               <QMR.InputWrapper
-                label={customDenominatorLabel || "Denominator"}
+                label={"Denominator"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.denominator`)
                     ?.message
@@ -284,12 +194,12 @@ export const AABRate = ({
                   value={field.value[index]?.denominator ?? ""}
                   data-cy={`${name}.${index}.denominator`}
                   onChange={(e) =>
-                    changeRate(index, "denominator", e.target.value, isTotal)
+                    changeRate(index, "denominator", e.target.value)
                   }
                 />
               </QMR.InputWrapper>
               <QMR.InputWrapper
-                label={customRateLabel || "Rate"}
+                label={"Rate"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.rate`)?.message
                 }
@@ -301,22 +211,19 @@ export const AABRate = ({
                 <CUI.Input
                   value={field.value[index]?.rate ?? ""}
                   data-cy={`${name}.${index}.rate`}
-                  onChange={(e) =>
-                    changeRate(index, "rate", e.target.value, isTotal)
-                  }
+                  onChange={(e) => changeRate(index, "rate", e.target.value)}
                   readOnly={readOnly}
                 />
               </QMR.InputWrapper>
             </CUI.HStack>
-            {!allowNumeratorGreaterThanDenominator &&
-              parseFloat(field.value[index]?.numerator) >
-                parseFloat(field.value[index]?.denominator) && (
-                <QMR.Notification
-                  alertTitle="Rate Error"
-                  alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
-                  alertStatus="warning"
-                />
-              )}
+            {parseFloat(field.value[index]?.numerator) >
+              parseFloat(field.value[index]?.denominator) && (
+              <QMR.Notification
+                alertTitle="Rate Error"
+                alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
+                alertStatus="warning"
+              />
+            )}
           </CUI.Stack>
         );
       })}

@@ -64,15 +64,7 @@ const TotalNDR = ({
         key={cleanedName}
         name={cleanedName}
         readOnly={rateReadOnly}
-        customMask={customMask}
         rates={[{ label: label, id: 0 }]}
-        rateMultiplicationValue={rateMultiplicationValue}
-        allowNumeratorGreaterThanDenominator={
-          allowNumeratorGreaterThanDenominator
-        }
-        customNumeratorLabel={customNumeratorLabel}
-        customDenominatorLabel={customDenominatorLabel}
-        customRateLabel={customRateLabel}
       />
     );
   } else {
@@ -206,14 +198,6 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
                 readOnly={rateReadOnly}
                 name={adjustedName}
                 key={adjustedName}
-                rateMultiplicationValue={rateMultiplicationValue}
-                allowNumeratorGreaterThanDenominator={
-                  allowNumeratorGreaterThanDenominator
-                }
-                customNumeratorLabel={customNumeratorLabel}
-                customDenominatorLabel={customDenominatorLabel}
-                customRateLabel={customRateLabel}
-                customMask={customMask}
                 rates={[
                   {
                     id: 0,
@@ -284,14 +268,6 @@ const useQualRateArray: RateArrayBuilder = (name) => {
             readOnly={rateReadOnly}
             name={cleanedName}
             key={cleanedName}
-            rateMultiplicationValue={rateMultiplicationValue}
-            allowNumeratorGreaterThanDenominator={
-              allowNumeratorGreaterThanDenominator
-            }
-            customNumeratorLabel={customNumeratorLabel}
-            customDenominatorLabel={customDenominatorLabel}
-            customRateLabel={customRateLabel}
-            customMask={customMask}
             rates={[{ id: 0 }]}
           />,
         ]);
