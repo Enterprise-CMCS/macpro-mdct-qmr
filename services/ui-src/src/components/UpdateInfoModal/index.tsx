@@ -7,7 +7,7 @@ import { MeasureData } from "types";
 interface Props {
   headerText: string;
   modalProps: { isOpen: boolean; measure: MeasureData<any> };
-  handleModalResponse: (response: boolean) => void;
+  handleModalResponse: (measure?: MeasureData<any>) => void;
 }
 
 interface MeasureDetail {
@@ -24,6 +24,7 @@ export const UpdateInfoModal = ({
   handleModalResponse,
   modalProps: {
     isOpen,
+    measure,
     measure: { description, detailedDescription },
   },
 }: Props) => {
@@ -46,7 +47,7 @@ export const UpdateInfoModal = ({
       <CUI.Modal
         isOpen={isOpen}
         size={"3xl"}
-        onClose={() => handleModalResponse(false)}
+        onClose={() => handleModalResponse()}
       >
         <CUI.ModalOverlay />
         <CUI.ModalContent>
@@ -74,14 +75,18 @@ export const UpdateInfoModal = ({
             <CUI.Button
               colorScheme="blue"
               mr={3}
-              onClick={() => handleModalResponse(true)}
+              onClick={() => {
+                handleModalResponse({
+                  ...measure,
+                  description: methods.watch()?.["update-ssm"].description!,
+                  detailedDescription:
+                    methods.watch()?.["update-ssm"].detailedDescription!,
+                });
+              }}
             >
               Yes
             </CUI.Button>
-            <CUI.Button
-              variant="ghost"
-              onClick={() => handleModalResponse(false)}
-            >
+            <CUI.Button variant="ghost" onClick={() => handleModalResponse()}>
               No
             </CUI.Button>
           </CUI.ModalFooter>

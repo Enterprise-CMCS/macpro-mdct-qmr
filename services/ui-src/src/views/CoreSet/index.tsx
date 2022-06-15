@@ -288,7 +288,8 @@ export const CoreSet = () => {
     setModalProps,
   } = useMeasureTableDataBuilder();
 
-  const handleModalResponse = () => {
+  const handleModalResponse = (measureData: any) => {
+    console.log(measureData);
     setModalProps({ isOpen: false, measure: {} });
   };
 
