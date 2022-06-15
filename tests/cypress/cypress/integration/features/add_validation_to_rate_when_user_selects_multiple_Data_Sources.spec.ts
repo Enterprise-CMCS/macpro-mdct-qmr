@@ -14,7 +14,7 @@ describe("Add Validation to Rate when user selects multiple Data Sources.", () =
       '[data-cy="Enter a number for the numerator and the denominator"]'
     ).should(
       "have.text",
-      "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
+      "Enter a number for the numerator and the denominator. Rate will\n        auto-calculate:"
     );
   });
   it("Checks for two sentence validation", () => {
@@ -29,7 +29,7 @@ describe("Add Validation to Rate when user selects multiple Data Sources.", () =
       '[data-cy="Enter a number for the numerator and the denominator"]'
     ).should(
       "have.text",
-      "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
+      "Enter a number for the numerator and the denominator. Rate will\n        auto-calculate:"
     );
   });
   it("Checks for race section for two sentence validation", () => {

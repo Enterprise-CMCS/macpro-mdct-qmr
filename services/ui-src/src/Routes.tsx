@@ -5,6 +5,7 @@ import * as Views from "views";
 import * as QMR from "components";
 import Measures from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -34,22 +35,25 @@ function useMeasureRoutes(): MeasureRoute[] {
     Object.keys(data).forEach((year: string) => {
       data[year].forEach(
         ({ measure, description, autocompleteOnCreation }: any) => {
-          if (measure in Measures[year]) {
-            const Comp = Measures[year][measure];
+            if (Measures?.[year] && measure in Measures[year]) {
+              const Comp = Measures[year][measure];
 
-            measureRoutes.push({
-              key: `:state/${year}/:coreSetId/${measure}`,
-              path: `:state/${year}/:coreSetId/${measure}`,
-              element: (
-                <QMR.MeasureWrapper
-                  name={description}
-                  year={year}
-                  measureId={measure}
-                  measure={createElement(Comp)}
-                  autocompleteOnCreation={autocompleteOnCreation ?? false}
-                />
-              ),
-            });
+              const foundMeasureDescription =
+                measureDescriptions?.[year]?.[measure] || description;
+                measureRoutes.push({
+                key: `:state/${year}/:coreSetId/${measure}`,
+                path: `:state/${year}/:coreSetId/${measure}`,
+                element: (
+                  <QMR.MeasureWrapper
+                    name={foundMeasureDescription}
+                    year={year}
+                    measureId={measure}
+                    measure={createElement(Comp)}
+                    autocompleteOnCreation={autocompleteOnCreation ?? false}
+                  />
+                ),
+              });
+            }
           }
         }
       );
