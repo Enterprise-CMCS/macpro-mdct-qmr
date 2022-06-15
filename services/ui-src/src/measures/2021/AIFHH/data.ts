@@ -3,7 +3,7 @@ import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 export const categories = [];
 export const qualifiers = [
   "Ages 18 to 64",
-  "Ages 64 to 75",
+  "Ages 65 to 74",
   "Ages 75 to 84",
   "Age 85 and older",
   "Total",
