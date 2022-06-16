@@ -23,6 +23,7 @@ import { CHLAD } from "./CHLAD";
 import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
+import { COLAD } from "./COLAD";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
@@ -78,6 +79,7 @@ const twentyTwentyTwoMeasures = {
   "CHL-CH": CHLCH,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
+  "COL-AD": COLAD,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "DEV-CH": DEVCH,

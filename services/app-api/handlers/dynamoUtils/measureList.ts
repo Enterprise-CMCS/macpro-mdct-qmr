@@ -399,6 +399,10 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "COL-AD",
+    },
+    {
+      type: "A",
       measure: "CPA-AD",
     },
     {
