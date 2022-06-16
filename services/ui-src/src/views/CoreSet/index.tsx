@@ -2,8 +2,11 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { AddSSMCard } from "./AddSSMCard";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { CoreSetTableItem } from "components/Table/types";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
+import { measureDescriptions } from "measures/measureDescriptions";
+import { SPA } from "libs/spaLib";
 import { useEffect, useState } from "react";
 import {
   useDeleteMeasure,
@@ -13,10 +16,7 @@ import {
   useUpdateMeasure,
 } from "hooks/api";
 import { useQueryClient } from "react-query";
-import { CoreSetTableItem } from "components/Table/types";
-import { SPA } from "libs/spaLib";
 import { useUser } from "hooks/authHooks";
-import { measureDescriptions } from "measures/measureDescriptions";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -144,6 +144,7 @@ const useMeasureTableDataBuilder = () => {
     CoreSetTableItem.Status.IN_PROGRESS
   );
   const { mutate: deleteMeasure } = useDeleteMeasure();
+  const navigate = useNavigate();
 
   interface ModalProps {
     isOpen: boolean;
@@ -185,7 +186,7 @@ const useMeasureTableDataBuilder = () => {
           {
             itemText: "View",
             handleSelect: () => {
-              window.location.href = `${window.location.href}/${item.measure}`;
+              navigate(`${item.measure}`);
             },
           },
         ];
@@ -336,7 +337,6 @@ export const CoreSet = () => {
       <QMR.UpdateInfoModal
         closeModal={closeModal}
         handleModalResponse={handleModalResponse}
-        headerText="Update Measure Details"
         modalProps={modalProps}
       />
       {/* Show success banner after redirect from creating new SSMs */}
