@@ -99,7 +99,7 @@ export const OtherPerformanceMeasure = ({
                   Please review the auto-calculated rate and revise if needed.
                 </CUI.Heading>
               )}
-              <QMR.Rate
+              <RateComponent
                 rates={[
                   {
                     id: index,
