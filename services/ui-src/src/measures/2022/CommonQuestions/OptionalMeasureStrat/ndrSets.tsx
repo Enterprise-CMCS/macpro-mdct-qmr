@@ -302,7 +302,8 @@ const useQualRateArray: RateArrayBuilder = (name) => {
  */
 const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
-  const { categories, qualifiers, calcTotal } = usePerformanceMeasureContext();
+  const { categories, qualifiers, calcTotal, customPrompt } =
+    usePerformanceMeasureContext();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
@@ -323,8 +324,9 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
         displayValue: value,
         children: [
           <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
-            Enter a number for the numerator and the denominator. Rate will
-            auto-calculate
+            {customPrompt ??
+              `Enter a number for the numerator and the denominator. Rate will
+auto-calculate:`}
           </CUI.Heading>,
           <CUI.Heading
             pt="1"
@@ -437,6 +439,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
+    customPrompt,
   } = usePerformanceMeasureContext();
 
   const { watch } = useFormContext<Types.DataSource>();
@@ -489,8 +492,9 @@ const useRenderOPMCheckboxOptions = (name: string) => {
             key={`${name}.rates.${cleanedFieldName}Header`}
             size={"sm"}
           >
-            Enter a number for the numerator and the denominator. Rate will
-            auto-calculate
+            {customPrompt ??
+              `Enter a number for the numerator and the denominator. Rate will
+auto-calculate:`}
           </CUI.Heading>,
           <CUI.Heading
             pt="1"

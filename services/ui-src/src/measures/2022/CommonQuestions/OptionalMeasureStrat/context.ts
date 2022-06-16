@@ -19,6 +19,7 @@ interface ContextProps {
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
+  customPrompt?: string;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({

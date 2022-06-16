@@ -66,6 +66,7 @@ export const AABAD = ({
               categories={PMD.categories}
               adultMeasure
               componentFlag={"AAB"}
+              customPrompt={PMD.data.customPrompt}
             />
           )}
         </>

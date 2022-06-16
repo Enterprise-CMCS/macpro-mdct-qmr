@@ -60,6 +60,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   rateAlwaysEditable?: boolean;
   numberOfDecimals?: number;
   componentFlag?: ComponentFlagType;
+  customPrompt?: string;
 }
 
 /** data for dynamic rendering will be provided */
@@ -118,6 +119,7 @@ export const OptionalMeasureStrat = ({
   rateAlwaysEditable,
   numberOfDecimals = 1,
   componentFlag = "DEFAULT",
+  customPrompt,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -168,6 +170,7 @@ export const OptionalMeasureStrat = ({
           allowNumeratorGreaterThanDenominator,
           numberOfDecimals,
           componentFlag,
+          customPrompt,
         }}
       >
         <CUI.Text py="3">
