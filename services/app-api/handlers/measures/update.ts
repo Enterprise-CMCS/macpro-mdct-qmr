@@ -10,12 +10,19 @@ export const editMeasure = handler(async (event, context) => {
     status,
     reporting = null,
     description,
-    detailedDescription = "",
+    detailedDescription,
   } = JSON.parse(event!.body!);
 
   const dynamoKey = createCompoundKey(event);
   const lastAlteredBy = getUserNameFromJwt(event);
 
+  const descriptionParams =
+    description && detailedDescription
+      ? {
+          description,
+          detailedDescription,
+        }
+      : {};
   const params = {
     TableName: process.env.measureTableName!,
     Key: {
@@ -24,8 +31,7 @@ export const editMeasure = handler(async (event, context) => {
     },
     ...convertToDynamoExpression(
       {
-        description,
-        detailedDescription,
+        ...descriptionParams,
         status,
         reporting,
         lastAltered: Date.now(),
