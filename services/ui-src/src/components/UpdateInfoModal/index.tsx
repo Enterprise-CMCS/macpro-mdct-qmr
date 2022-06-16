@@ -69,6 +69,7 @@ export const UpdateInfoModal = ({
       ...measure,
       description: methods.watch()?.["update-ssm"].description!,
       detailedDescription: methods.watch()?.["update-ssm"].detailedDescription!,
+      data: measure.data ?? {},
     };
   };
 

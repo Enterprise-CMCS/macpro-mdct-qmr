@@ -10,6 +10,7 @@ import {
   useGetCoreSet,
   useGetMeasure,
   useGetMeasures,
+  useUpdateMeasure,
 } from "hooks/api";
 import { useQueryClient } from "react-query";
 import { CoreSetTableItem } from "components/Table/types";
@@ -288,11 +289,13 @@ export const CoreSet = () => {
     setModalProps,
   } = useMeasureTableDataBuilder();
 
+  const { mutate: updateMeasure } = useUpdateMeasure();
+
   /*
    * If measure data exists and has changed, make an updateMeasure request
    */
   const handleModalResponse = (measureData: any) => {
-    console.log(measureData);
+    updateMeasure(measureData);
     closeModal();
   };
 
