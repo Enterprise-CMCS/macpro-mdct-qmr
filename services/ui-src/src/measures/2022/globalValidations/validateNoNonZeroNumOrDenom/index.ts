@@ -8,7 +8,6 @@ import {
 import {
   convertOmsDataToRateArray,
   getOtherPerformanceMeasureRateArray,
-  // getPerfMeasureRateArray,
 } from "../dataDrivenTools";
 
 interface ValProps extends UVFP {

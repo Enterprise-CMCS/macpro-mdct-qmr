@@ -1,18 +1,14 @@
-import * as DC from "dataConstants";
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import * as DC from "dataConstants";
 
+export const qualifiers = ["Ages 50 to 64", "Age 65 and older"];
 export const categories = [];
-export const qualifiers = [
-  "Ages 12 to 17",
-  "Ages 18 to 64",
-  "Age 65 and older",
-  "Total (Age 12 and older)",
-];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of Health Home enrollees age 12 and older screened for depression on the date of the encounter or 14 days prior to the date of the encounter using an age appropriate standardized depression screening tool, and if positive, a follow-up plan is documented on the date of the eligible encounter.",
+    "Percentage of beneficiaries ages 50 to 75 who had appropriate screening for colorectal cancer.",
   ],
+  questionListItems: [],
   categories,
   qualifiers,
 };
