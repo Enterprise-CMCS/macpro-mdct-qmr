@@ -4,7 +4,7 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
 
-const IEDValidation = (data: FormData) => {
+const COBADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -83,4 +83,4 @@ const IEDValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [IEDValidation];
+export const validationFunctions = [COBADValidation];
