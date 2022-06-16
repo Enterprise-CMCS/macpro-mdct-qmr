@@ -196,7 +196,11 @@ export const MeasureWrapper = ({
 
   useEffect(() => {
     // reset core set qualifier data to use the default values for table rendering
-    if (!methods.formState.isDirty && !apiData?.Item?.data) {
+    if (
+      !methods.formState.isDirty &&
+      !apiData?.Item?.data &&
+      apiData?.Item?.measure === "CSQ"
+    ) {
       methods.reset(
         params.coreSetId
           ? defaultData?.[
