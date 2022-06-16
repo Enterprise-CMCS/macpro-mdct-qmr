@@ -6,7 +6,7 @@ export const qualifiers = [
   "Ages 12 to 17",
   "Ages 18 to 64",
   "Age 65 and older",
-  "Total",
+  "Total (Age 12 and older)",
 ];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
