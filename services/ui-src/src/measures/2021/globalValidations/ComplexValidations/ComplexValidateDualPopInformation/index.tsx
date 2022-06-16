@@ -24,6 +24,9 @@ export const ComplexValidateDualPopInformation = (
   performanceMeasureArray.forEach((cat: any) => {
     cat?.forEach((qual: any) => {
       if (qual?.label === "Age 65 and older") age65Data.push(qual);
+      if (qual?.label === "Ages 65 to 74") age65Data.push(qual);
+      if (qual?.label === "Ages 75 to 84") age65Data.push(qual);
+      if (qual?.label === "Age 85 and older") age65Data.push(qual);
     });
   });
 
