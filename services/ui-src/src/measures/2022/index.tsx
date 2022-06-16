@@ -60,6 +60,8 @@ import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
 
+import { Data, Qualifier } from "./Qualifiers";
+
 const twentyTwentyTwoMeasures = {
   "ADD-CH": ADDCH,
   "AMB-CH": AMBCH,
@@ -118,6 +120,8 @@ const twentyTwentyTwoMeasures = {
   "W30-CH": W30CH,
   "WCC-CH": WCCCH,
   "WCV-CH": WCVCH,
+  Qualifier,
 };
 
+export const QualifierData = Data;
 export default twentyTwentyTwoMeasures;

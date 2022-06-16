@@ -42,6 +42,18 @@ describe("AdultMeasure Qualifiers", () => {
     cy.get(
       '[data-cy="PercentageEnrolledInEachDeliverySystem.1.GreaterThanSixtyFour"]'
     ).type("7");
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.TwentyOneToSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.2.GreaterThanSixtyFour"]'
+    ).clear();
+    cy.get(
+      '[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]'
+    ).clear();
     cy.get(":nth-child(2) > .chakra-input__group > .chakra-input").should(
       "have.value",
       "11.0"
