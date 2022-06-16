@@ -7,7 +7,8 @@ import { MeasureData } from "types";
 interface Props {
   headerText: string;
   modalProps: { isOpen: boolean; measure: MeasureData<any> };
-  handleModalResponse: (measure?: MeasureData<any>) => void;
+  handleModalResponse: (measure: MeasureData<any>) => void;
+  closeModal: () => void;
 }
 
 interface MeasureDetail {
@@ -22,6 +23,7 @@ interface UpdateSSM {
 export const UpdateInfoModal = ({
   headerText,
   handleModalResponse,
+  closeModal,
   modalProps: {
     isOpen,
     measure,
@@ -42,13 +44,37 @@ export const UpdateInfoModal = ({
     });
   }, [description, detailedDescription, methods]);
 
+  /*
+   * Return boolean value determining if modal data can be submitted
+   */
+  const isDisabled = () => {
+    return (
+      // Fields must not be empty
+      !(
+        methods.watch()?.["update-ssm"]?.description &&
+        methods.watch()?.["update-ssm"]?.detailedDescription
+      ) ||
+      // At least one value must differ from original data
+      (methods.watch()?.["update-ssm"]?.description === description &&
+        methods.watch()?.["update-ssm"]?.detailedDescription ===
+          detailedDescription)
+    );
+  };
+
+  /*
+   * Build obj representing changes to be returned on modal close
+   */
+  const modalResponseData = () => {
+    return {
+      ...measure,
+      description: methods.watch()?.["update-ssm"].description!,
+      detailedDescription: methods.watch()?.["update-ssm"].detailedDescription!,
+    };
+  };
+
   return (
     <>
-      <CUI.Modal
-        isOpen={isOpen}
-        size={"3xl"}
-        onClose={() => handleModalResponse()}
-      >
+      <CUI.Modal isOpen={isOpen} size={"3xl"} onClose={() => closeModal()}>
         <CUI.ModalOverlay />
         <CUI.ModalContent>
           <CUI.ModalHeader id="update-measure-info-header">
@@ -75,24 +101,14 @@ export const UpdateInfoModal = ({
             <CUI.Button
               colorScheme="blue"
               mr={3}
-              isDisabled={
-                !(
-                  methods.watch()?.["update-ssm"]?.description &&
-                  methods.watch()?.["update-ssm"]?.detailedDescription
-                )
-              }
+              isDisabled={isDisabled()}
               onClick={() => {
-                handleModalResponse({
-                  ...measure,
-                  description: methods.watch()?.["update-ssm"].description!,
-                  detailedDescription:
-                    methods.watch()?.["update-ssm"].detailedDescription!,
-                });
+                handleModalResponse(modalResponseData());
               }}
             >
               Yes
             </CUI.Button>
-            <CUI.Button variant="ghost" onClick={() => handleModalResponse()}>
+            <CUI.Button variant="ghost" onClick={() => closeModal()}>
               No
             </CUI.Button>
           </CUI.ModalFooter>

@@ -288,9 +288,16 @@ export const CoreSet = () => {
     setModalProps,
   } = useMeasureTableDataBuilder();
 
+  /*
+   * If measure data exists and has changed, make an updateMeasure request
+   */
   const handleModalResponse = (measureData: any) => {
     console.log(measureData);
-    setModalProps({ isOpen: false, measure: {} });
+    closeModal();
+  };
+
+  const closeModal = () => {
+    setModalProps({ isOpen: false, measure: {} }); // reset state, close modal
   };
 
   const completedAmount = measures.filter(
@@ -316,9 +323,10 @@ export const CoreSet = () => {
       ]}
     >
       <QMR.UpdateInfoModal
-        modalProps={modalProps}
-        headerText="Update Measure Details"
+        closeModal={closeModal}
         handleModalResponse={handleModalResponse}
+        headerText="Update Measure Details"
+        modalProps={modalProps}
       />
       {/* Show success banner after redirect from creating new SSMs */}
       {locationState && locationState.success === true && (
@@ -388,7 +396,6 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Flex>
       <CUI.Box mt="4">
-        <p>TEst this</p>
         <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns} />
