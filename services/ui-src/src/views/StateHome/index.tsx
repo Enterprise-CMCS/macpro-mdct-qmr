@@ -15,7 +15,6 @@ import { useUser } from "hooks/authHooks";
 import { useGetReportingYears } from "hooks/api";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
-
 interface HandleDeleteData {
   state: string;
   year: string;
@@ -162,8 +161,11 @@ export const StateHome = () => {
     });
   };
 
+  const exportAll = (data: any) => {
+    window.open(`${window.location.href}/${data.coreSet}/pdf`, "_blank");
+  };
+
   if (error) {
-    console.log({ error });
     return (
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
@@ -186,6 +188,7 @@ export const StateHome = () => {
     updateAllMeasures,
     resetCoreSet,
     filteredSpas,
+    exportAll,
   });
 
   const childCoreSetExists = formattedTableItems.some(

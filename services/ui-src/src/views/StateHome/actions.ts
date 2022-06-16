@@ -6,6 +6,7 @@ interface ActionsData {
   completeAllMeasures: () => void;
   resetCoreSet: () => void;
   type: CoreSetTableItem.Type;
+  exportAll: (data: any) => void;
 }
 
 export const getCoreSetActions = ({
@@ -13,13 +14,14 @@ export const getCoreSetActions = ({
   handleDelete,
   completeAllMeasures,
   resetCoreSet,
+  exportAll,
 }: ActionsData) => {
   let actionsList = [];
 
   if (type === CoreSetTableItem.Type.ADULT) {
     actionsList.push({
       itemText: "Export",
-      handleSelect: handleDelete,
+      handleSelect: exportAll,
       type: type,
     });
   } else if (
@@ -30,7 +32,7 @@ export const getCoreSetActions = ({
       ...[
         {
           itemText: "Export All",
-          handleSelect: () => console.log("Export All"),
+          handleSelect: exportAll,
           type: type,
         },
         {

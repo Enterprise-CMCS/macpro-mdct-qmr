@@ -18,7 +18,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 // } from "libs/awsLib";
 // import config from "config";
 
-interface MeasureRoute {
+export interface MeasureRoute {
   path: string;
   element: ReactElement;
   key: string;
@@ -27,7 +27,7 @@ interface MeasureRoute {
 // For each year we want a route for each measure.
 // The measures available for each year are defined in the measuresList
 // eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
-function useMeasureRoutes(): MeasureRoute[] {
+export function useMeasureRoutes(): MeasureRoute[] {
   const { data } = useGetMeasureListInfo();
 
   const measureRoutes: MeasureRoute[] = [];
@@ -99,6 +99,10 @@ export function AppRoutes() {
         />
         <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
+        <Route
+          path=":state/:year/:coreSetId/pdf"
+          element={<Views.ExportAll />}
+        />
         <Route
           path=":state/:year/:coreSetId/add-ssm"
           element={<Views.AddStateSpecificMeasure />}
