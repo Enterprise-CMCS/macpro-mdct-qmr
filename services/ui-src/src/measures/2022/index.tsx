@@ -23,6 +23,7 @@ import { CHLAD } from "./CHLAD";
 import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
+import { COLAD } from "./COLAD";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
@@ -30,6 +31,7 @@ import { FUAAD } from "./FUAAD";
 import { FUACH } from "./FUACH";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
+import { FUMCH } from "./FUMCH";
 import { FVAAD } from "./FVAAD";
 import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
@@ -40,6 +42,7 @@ import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
 import { NCIDDSAD } from "./NCIDDSAD";
+import { OEVCH } from "./OEVCH";
 import { OHDAD } from "./OHDAD";
 import { OUDAD } from "./OUDAD";
 import { PCRAD } from "./PCRAD";
@@ -57,7 +60,6 @@ import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
 
-// TODO: Is there a reason we didn't change this var name?
 const twentyTwentyTwoMeasures = {
   "ADD-CH": ADDCH,
   "AMB-CH": AMBCH,
@@ -80,6 +82,7 @@ const twentyTwentyTwoMeasures = {
   "CHL-CH": CHLCH,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
+  "COL-AD": COLAD,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "DEV-CH": DEVCH,
@@ -88,6 +91,7 @@ const twentyTwentyTwoMeasures = {
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
+  "FUM-CH": FUMCH,
   "FVA-AD": FVAAD,
   "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,
@@ -98,6 +102,7 @@ const twentyTwentyTwoMeasures = {
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
   "NCIDDS-AD": NCIDDSAD,
+  "OEV-CH": OEVCH,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
   "PCR-AD": PCRAD,
@@ -115,5 +120,4 @@ const twentyTwentyTwoMeasures = {
   "WCV-CH": WCVCH,
 };
 
-// TODO: Is there a reason we didn't change this var name?
 export default twentyTwentyTwoMeasures;

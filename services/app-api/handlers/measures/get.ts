@@ -4,6 +4,7 @@ import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpress
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { measures } from "../dynamoUtils/measureList";
 import { Measure } from "../../types";
+import { Key } from "aws-sdk/clients/dynamodb";
 
 export const listMeasures = handler(async (event, context) => {
   const state = event.pathParameters?.state;
@@ -16,15 +17,28 @@ export const listMeasures = handler(async (event, context) => {
       { state: state, year: parseInt(year), coreSet: coreSet },
       "list"
     ),
+    ExclusiveStartKey: undefined as Key | undefined,
   };
-  const queryValue = await dynamoDb.scan(params);
-  queryValue.Items = queryValue?.Items?.map((v) => {
-    const measure = measures[parseInt(year)]?.filter(
-      (m) => m.measure === (v as Measure)?.measure
-    )[0];
-    return { ...v, autoCompleted: !!measure?.autocompleteOnCreation };
-  });
 
+  const scannedResults: any[] = [];
+  let queryValue;
+
+  do {
+    queryValue = await dynamoDb.scan(params);
+    queryValue?.Items?.forEach((v) => {
+      const measure = measures[parseInt(year)]?.filter(
+        (m) => m.measure === (v as Measure)?.measure
+      )[0];
+
+      scannedResults.push({
+        ...v,
+        autoCompleted: !!measure?.autocompleteOnCreation,
+      });
+    });
+
+    params.ExclusiveStartKey = queryValue.LastEvaluatedKey;
+  } while (queryValue.LastEvaluatedKey !== undefined);
+  queryValue.Items = scannedResults;
   return queryValue;
 });
 

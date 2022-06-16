@@ -135,6 +135,7 @@ export const NO = "no";
 export const NOT_COLLECTED_BY_PROVIDER =
   "NotCollectedByProviderHospitalHealthPlan";
 export const NUMERATOR = "numerator";
+export const OHSU = "OHSU";
 export const OMS = "OptionalMeasureStratification";
 export const OPA = "OPA";
 export const OPM_EXPLAINATION = "OtherPerformanceMeasure-Explanation";

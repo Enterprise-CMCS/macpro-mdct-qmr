@@ -4,21 +4,12 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
 
-const COBADValidation = (data: FormData) => {
+const FUMCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
-  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-
-  let errorArray: any[] = [];
-  if (data[DC.DID_REPORT] === DC.NO) {
-    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
-    return errorArray;
-  }
-
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
@@ -26,26 +17,44 @@ const COBADValidation = (data: FormData) => {
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
+  let errorArray: any[] = [];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
+  let unfilteredSameDenominatorErrors: any[] = [];
+  for (let i = 0; i < performanceMeasureArray.length; i += 2) {
+    unfilteredSameDenominatorErrors = [
+      ...unfilteredSameDenominatorErrors,
+      ...GV.validateEqualQualifierDenominatorsPM(
+        [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
+        ageGroups
+      ),
+    ];
+  }
+
+  let filteredSameDenominatorErrors: any = [];
+  let errorList: string[] = [];
+  unfilteredSameDenominatorErrors.forEach((error) => {
+    if (!(errorList.indexOf(error.errorMessage) > -1)) {
+      errorList.push(error.errorMessage);
+      filteredSameDenominatorErrors.push(error);
+    }
+  });
+
   errorArray = [
-    ...errorArray,
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups,
       PMD.categories
     ),
-    ...GV.validateDualPopInformationPM(
-      performanceMeasureArray,
-      OPM,
-      age65PlusIndex,
-      DefinitionOfDenominator,
-      "Ages 65 to 85"
-    ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
       ageGroups
     ),
+    ...filteredSameDenominatorErrors,
     ...GV.validateNoNonZeroNumOrDenomPM(
       performanceMeasureArray,
       OPM,
@@ -53,34 +62,35 @@ const COBADValidation = (data: FormData) => {
       data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
-    ...GV.omsValidations({
-      data,
-      qualifiers: PMD.qualifiers,
-      categories: PMD.categories,
-      dataSource: data[DC.DATA_SOURCE],
-      locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
-        PMD.qualifiers,
-        PMD.categories
-      ),
-      validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
-      ],
-    }),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
+    ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
+    ...GV.omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: GV.omsLocationDictionary(
+        OMSData(true),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
+      ],
+    }),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [COBADValidation];
+export const validationFunctions = [FUMCHValidation];

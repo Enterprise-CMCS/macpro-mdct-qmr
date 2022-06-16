@@ -152,10 +152,10 @@ describe("Measure: CDF-HH", () => {
       .type("1");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge12andolder.singleCategory.0.numerator"]'
     ).should("have.value", "2");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Total.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge12andolder.singleCategory.0.denominator"]'
     ).should("have.value", "2");
   });
 });

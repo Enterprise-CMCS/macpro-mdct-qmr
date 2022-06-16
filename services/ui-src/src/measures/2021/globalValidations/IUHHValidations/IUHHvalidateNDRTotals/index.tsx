@@ -23,15 +23,11 @@ export const IUHHvalidateNDRTotalsOMS = (
   ndrFormulas: NDRforumla[],
   errorLocation: string
 ) => {
-  let errorArray: any[] = [];
-
-  // If only total, nothing to check against
-  const keys = Object.keys(rateData);
-  if (rateData && keys.length <= 1 && keys[0] === "Total") return errorArray;
-
-  const totalData = rateData["Total"];
+  // Using a subset of rateData as iterator to be sure that Total
+  // is always at the end of the category array.
   const qualifierObj = { ...rateData };
   delete qualifierObj["Total"];
+  const totalData = rateData["Total"];
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];
@@ -50,20 +46,19 @@ export const IUHHvalidateNDRTotalsOMS = (
     }
   }
 
-  if (performanceMeasureArray) {
-    errorArray.push(
-      ...IUHHvalidateNDRTotals(
-        performanceMeasureArray,
-        categories,
-        ndrFormulas,
-        `${errorLocation}`
-      )
-    );
-  }
+  let errorArray: any[] = IUHHvalidateNDRTotals(
+    performanceMeasureArray,
+    categories,
+    ndrFormulas,
+    `${errorLocation}`
+  );
+
   return errorArray;
 };
 
-/* At least one NDR set must be complete (OPM or PM) */
+/* Validate Totals have data if qualifiers in section have data
+ * and validate Total is equal to the sum of other qualifiers in section
+ */
 export const IUHHvalidateNDRTotals = (
   performanceMeasureArray: any,
   categories: string[],

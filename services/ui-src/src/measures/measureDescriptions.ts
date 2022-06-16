@@ -109,6 +109,7 @@ export const measureDescriptions: MeasureList = {
     "CDF-AD": "Screening for Depression and Follow-Up Plan: Age 18 and Older",
     "CHL-AD": "Chlamydia Screening in Women Ages 21 to 24",
     "COB-AD": "Concurrent Use of Opioids and Benzodiazepines",
+    "COL-AD": "Colorectal Cancer Screening",
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
     "FUA-AD":
@@ -161,9 +162,12 @@ export const measureDescriptions: MeasureList = {
       "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence: Ages 13 to 17",
     "FUH-CH":
       "Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17",
+    "FUM-CH":
+      "Follow-Up After Emergency Department Visit for Mental Illness: Ages 6 to 17",
     "IMA-CH": "Immunizations for Adolescents",
     "LBW-CH": "Live Births Weighing Less Than 2,500 Grams",
     "LRCD-CH": "Low-Risk Cesarean Delivery",
+    "OEV-CH": "Oral Evaluation, Dental Services",
     "PPC-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",
     "W30-CH": "Well-Child Visits in the First 30 Months of Life",
