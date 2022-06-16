@@ -540,6 +540,10 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      measure: "FUM-CH",
+    },
+    {
+      type: "C",
       measure: "IMA-CH",
     },
     {

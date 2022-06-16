@@ -160,6 +160,8 @@ export const measureDescriptions: MeasureList = {
     "DEV-CH": "Developmental Screening in the First Three Years of Life",
     "FUH-CH":
       "Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17",
+    "FUM-CH":
+      "Follow-Up After Emergency Department Visit for Mental Illness: Ages 6 to 17",
     "IMA-CH": "Immunizations for Adolescents",
     "LBW-CH": "Live Births Weighing Less Than 2,500 Grams",
     "LRCD-CH": "Low-Risk Cesarean Delivery",
