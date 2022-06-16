@@ -1,22 +1,19 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2022/globalValidations";
 import * as PMD from "./data";
+import { getPerfMeasureRateArray } from "../globalValidations";
 import { FormData } from "./types";
 import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
 
-const COBADValidation = (data: FormData) => {
+const FUACHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const age65PlusIndex = 1;
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
-  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
-  let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
-    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
-    return errorArray;
+    return [...GV.validateReasonForNotReporting(whyNotReporting)];
   }
 
   const deviationArray = GV.getDeviationNDRArray(
@@ -26,20 +23,16 @@ const COBADValidation = (data: FormData) => {
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
-  errorArray = [
-    ...errorArray,
+  let errorArray: any[] = [
+    ...GV.validateEqualQualifierDenominatorsPM(
+      performanceMeasureArray,
+      ageGroups
+    ),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups,
       PMD.categories
-    ),
-    ...GV.validateDualPopInformationPM(
-      performanceMeasureArray,
-      OPM,
-      age65PlusIndex,
-      DefinitionOfDenominator,
-      "Ages 65 to 85"
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
@@ -53,13 +46,21 @@ const COBADValidation = (data: FormData) => {
       data
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      performanceMeasureArray,
+      ageGroups,
+      deviationArray,
+      didCalculationsDeviate
+    ),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+
+    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
         PMD.qualifiers,
@@ -67,20 +68,15 @@ const COBADValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
         GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateOneCatRateHigherThanOtherCatOMS(),
+        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS,
       ],
     }),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
-    ),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [COBADValidation];
+export const validationFunctions = [FUACHValidation];
