@@ -2,8 +2,10 @@ import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { CoreSetAbbr } from "types";
+import { CoreSetTableItem } from "components/Table/types";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useUser } from "hooks/authHooks";
 
 interface NewMeasure {
   description: string;
@@ -24,10 +26,13 @@ export const AddStateSpecificMeasure = () => {
   const locationState = location.state as UserMeasuresLocationState;
   const userCreatedMeasureIds = locationState?.userCreatedMeasureIds ?? [];
   const userCreatedMeasuresCount = userCreatedMeasureIds.length;
+  const userInfo = useUser();
 
   const mutation = Api.useAddMeasure();
   const navigate = useNavigate();
   const { coreSetId, state, year } = useParams();
+
+  const updateCoreSet = Api.useEditCoreSet().mutate;
 
   const methods = useForm<NewSSMs>({
     shouldUnregister: true,
@@ -94,6 +99,18 @@ export const AddStateSpecificMeasure = () => {
 
         mutation.mutate(requestData, {
           onSuccess: () => {
+            updateCoreSet({
+              coreSet: coreSetId as CoreSetAbbr,
+              state: state ?? "",
+              year,
+              body: {
+                submitted: false,
+                status: CoreSetTableItem.Status.IN_PROGRESS,
+                userRole: userInfo.userRole,
+                userState: userInfo.userState,
+              },
+            });
+
             navigate(`/${state}/${year}/${coreSetId}`, {
               state: { success: true },
             });
