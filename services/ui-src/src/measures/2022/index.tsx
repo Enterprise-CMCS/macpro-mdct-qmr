@@ -23,12 +23,14 @@ import { CHLAD } from "./CHLAD";
 import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
+import { COLAD } from "./COLAD";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
+import { FUMCH } from "./FUMCH";
 import { FVAAD } from "./FVAAD";
 import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
@@ -79,6 +81,7 @@ const twentyTwentyTwoMeasures = {
   "CHL-CH": CHLCH,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
+  "COL-AD": COLAD,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "DEV-CH": DEVCH,
@@ -86,6 +89,7 @@ const twentyTwentyTwoMeasures = {
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
+  "FUM-CH": FUMCH,
   "FVA-AD": FVAAD,
   "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,

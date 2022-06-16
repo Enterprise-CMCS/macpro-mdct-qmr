@@ -399,6 +399,10 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "COL-AD",
+    },
+    {
+      type: "A",
       measure: "CPA-AD",
     },
     {
@@ -533,6 +537,10 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "FUH-CH",
+    },
+    {
+      type: "C",
+      measure: "FUM-CH",
     },
     {
       type: "C",
