@@ -3,7 +3,7 @@ import * as Common from "./Common";
 import * as CUI from "@chakra-ui/react";
 
 import { Data } from "./data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { validationFunctions } from "./validationFunctions";
 import { DeliverySystems } from "./deliverySystems";
 import { useParams } from "react-router-dom";
@@ -16,6 +16,7 @@ export const Qualifier = ({
   year,
 }: QMR.MeasureWrapperProps) => {
   const { coreSetId } = useParams();
+  const [type, setType] = useState<"CH" | "AD" | "HH">("AD");
   const coreSet = (coreSetId?.split("_")?.[0] ??
     coreSetId) as Types.CoreSetAbbr;
 
@@ -27,18 +28,16 @@ export const Qualifier = ({
         ] ?? []
       );
     }
-  }, [setValidationFunctions, coreSetId]);
-
-  let type: "CH" | "AD" | "HH" = "AD";
-  if (
-    coreSetId === Types.CoreSetAbbr.CCS ||
-    coreSetId === Types.CoreSetAbbr.CCSC ||
-    coreSetId === Types.CoreSetAbbr.CCSM
-  ) {
-    type = "CH";
-  } else if (coreSet === Types.CoreSetAbbr.HHCS) {
-    type = "HH";
-  }
+    if (
+      coreSetId === Types.CoreSetAbbr.CCS ||
+      coreSetId === Types.CoreSetAbbr.CCSC ||
+      coreSetId === Types.CoreSetAbbr.CCSM
+    ) {
+      setType("CH");
+    } else if (coreSet === Types.CoreSetAbbr.HHCS) {
+      setType("HH");
+    }
+  }, [setValidationFunctions, coreSetId, setType, coreSet]);
 
   const data = Data[coreSet];
 
@@ -59,9 +58,9 @@ export const Qualifier = ({
               <Common.CostSavingsData year={year} />
             </>
           )}
-          <DeliverySystems data={data} />
+          <DeliverySystems data={data} year={year} />
           <Common.Audit type={type} year={year} />
-          <Common.ExternalContractor />
+          {type !== "HH" && <Common.ExternalContractor />}
         </CUI.OrderedList>
       </CUI.Box>
     </>

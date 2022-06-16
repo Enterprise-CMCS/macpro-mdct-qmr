@@ -5,7 +5,6 @@ import { useFieldArray, useWatch } from "react-hook-form";
 import { DeliverySystem } from "./types";
 import { BsPercent } from "react-icons/bs";
 import { percentageAllowOneDecimalMax } from "utils/numberInputMasks";
-import { useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
 import { DataDriven } from "./data";
@@ -18,10 +17,10 @@ const initialDeliverySystemValue = {
 
 interface Props {
   data: DataDriven;
+  year: string;
 }
 
-export const DeliverySystems = ({ data }: Props) => {
-  const { year } = useParams();
+export const DeliverySystems = ({ data, year }: Props) => {
   const { userRole } = useUser();
   const { fields, append, remove } = useFieldArray({
     name: "PercentageEnrolledInEachDeliverySystem",
