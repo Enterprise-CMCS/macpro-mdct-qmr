@@ -5,6 +5,7 @@ import * as Views from "views";
 import * as QMR from "components";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -58,12 +59,14 @@ function useMeasureRoutes(): MeasureRoute[] {
         ({ measure, description, autocompleteOnCreation }: any) => {
           if (measure in Measures[year]) {
             const Comp = Measures[year][measure];
+            const foundMeasureDescription =
+              measureDescriptions?.[year]?.[measure] || description;
             measureRoutes.push({
               key: `:state/${year}/:coreSetId/${measure}`,
               path: `:state/${year}/:coreSetId/${measure}`,
               element: (
                 <QMR.MeasureWrapper
-                  name={description}
+                  name={foundMeasureDescription}
                   year={year}
                   measureId={measure}
                   measure={createElement(Comp)}
