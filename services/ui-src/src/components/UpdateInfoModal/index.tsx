@@ -75,6 +75,12 @@ export const UpdateInfoModal = ({
             <CUI.Button
               colorScheme="blue"
               mr={3}
+              isDisabled={
+                !(
+                  methods.watch()?.["update-ssm"]?.description &&
+                  methods.watch()?.["update-ssm"]?.detailedDescription
+                )
+              }
               onClick={() => {
                 handleModalResponse({
                   ...measure,
