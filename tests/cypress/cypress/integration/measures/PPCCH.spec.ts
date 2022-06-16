@@ -36,11 +36,9 @@ describe("Measure: PPC-CH", () => {
     cy.get(
       '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData1.selected0"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Electronic Health Record (EHR) Data");
-    cy.get(
-      '[data-cy="What is the Medical Records Data Source? (Both can be selected)"]'
-    ).should(
+    cy.get('[data-cy="What is the Medical Records Data Source?"]').should(
       "have.text",
-      "What is the Medical Records Data Source? (Both can be selected)"
+      "What is the Medical Records Data Source?"
     );
     cy.get(
       '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData1.selected1"] > .chakra-checkbox__label > .chakra-text'

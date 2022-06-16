@@ -23,6 +23,7 @@ import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
+import { CompleteCoreSets } from "./complete";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -77,9 +78,11 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
+      // on file upload, save measure
       if (
         (name === DC.ADDITIONAL_NOTES_UPLOAD ||
-          name === DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD) &&
+          name === DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD ||
+          name === DC.HEALTH_HOME_QUALIFIER_FILE_UPLOAD) &&
         type === "change"
       ) {
         handleSave(value);
@@ -103,6 +106,7 @@ interface Props {
   year: string;
   measureId: string;
   autocompleteOnCreation?: boolean;
+  defaultData?: { [type: string]: { formData: any; title: string } };
 }
 
 export const MeasureWrapper = ({
@@ -110,6 +114,7 @@ export const MeasureWrapper = ({
   name,
   year,
   measureId,
+  defaultData,
   autocompleteOnCreation,
 }: Props) => {
   const { isStateUser } = useUser();
@@ -120,6 +125,28 @@ export const MeasureWrapper = ({
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
+
+  // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
+  const coreSet = (params.coreSetId?.split("_")?.[0] ??
+    params.coreSetId ??
+    "ACS") as CoreSetAbbr;
+  const defaultVals = params.coreSetId
+    ? defaultData?.[
+        (params.coreSetId?.split("_")?.[0] ?? params.coreSetId) as CoreSetAbbr
+      ]
+    : undefined;
+
+  // check what type of core set we deal with for data driven rendering
+  let type: "CH" | "AD" | "HH" = "AD";
+  if (
+    coreSet === CoreSetAbbr.CCS ||
+    coreSet === CoreSetAbbr.CCSC ||
+    coreSet === CoreSetAbbr.CCSM
+  ) {
+    type = "CH";
+  } else if (coreSet === CoreSetAbbr.HHCS) {
+    type = "HH";
+  }
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const toast = CUI.useToast();
@@ -164,8 +191,20 @@ export const MeasureWrapper = ({
   });
 
   useEffect(() => {
-    if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
-  }, [apiData, methods]);
+    // reset core set qualifier data to use the default values for table rendering
+    if (!methods.formState.isDirty && !apiData?.Item?.data) {
+      methods.reset(
+        params.coreSetId
+          ? defaultData?.[
+              (params.coreSetId?.split("_")?.[0] ??
+                params.coreSetId) as CoreSetAbbr
+            ]?.formData
+          : undefined
+      );
+    }
+    // default loaded data reset
+    else if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
+  }, [apiData, methods, defaultData, params]);
 
   const handleValidation = (data: any) => {
     handleSave(data);
@@ -345,11 +384,13 @@ export const MeasureWrapper = ({
           },
           {
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
-            name: `${measureId} ${
-              apiData?.Item
-                ? `- ${formatTitle(apiData?.Item?.description)}`
-                : ""
-            }`,
+            name:
+              defaultVals?.title ??
+              `${measureId} ${
+                apiData?.Item
+                  ? `- ${formatTitle(apiData?.Item?.description)}`
+                  : ""
+              }`,
           },
         ]}
         buttons={
@@ -371,13 +412,15 @@ export const MeasureWrapper = ({
                 <CUI.Container maxW="7xl" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
-                  <CUI.Text fontSize="sm">
-                    For technical questions regarding use of this application,
-                    please reach out to MDCT_Help@cms.hhs.gov. For
-                    content-related questions about measure specifications, or
-                    what information to enter in each field, please reach out to
-                    MACQualityTA@cms.hhs.gov.
-                  </CUI.Text>
+                  {measureId !== "CSQ" && (
+                    <CUI.Text fontSize="sm">
+                      For technical questions regarding use of this application,
+                      please reach out to MDCT_Help@cms.hhs.gov. For
+                      content-related questions about measure specifications, or
+                      what information to enter in each field, please reach out
+                      to MACQualityTA@cms.hhs.gov.
+                    </CUI.Text>
+                  )}
                   <Measure
                     measure={measure}
                     name={name}
@@ -388,12 +431,20 @@ export const MeasureWrapper = ({
                     handleSave={handleSave}
                   />
 
-                  {!autocompleteOnCreation && (
+                  {/* Core set qualifiers use a slightly different submission button layout */}
+                  {!!(!autocompleteOnCreation && !defaultData) && (
                     <QMR.CompleteMeasureFooter
                       handleClear={methods.handleSubmit(handleClear)}
                       handleSubmit={methods.handleSubmit(handleSubmit)}
                       handleValidation={methods.handleSubmit(handleValidation)}
                       disabled={!isStateUser}
+                    />
+                  )}
+                  {!!(!autocompleteOnCreation && defaultData) && (
+                    <CompleteCoreSets
+                      handleSubmit={methods.handleSubmit(handleSubmit)}
+                      handleValidation={methods.handleSubmit(handleValidation)}
+                      type={type}
                     />
                   )}
                 </CUI.Container>
@@ -403,7 +454,9 @@ export const MeasureWrapper = ({
                     alertProps={{ my: "3" }}
                     alertStatus="success"
                     alertTitle={`Success`}
-                    alertDescription="The measure has been validated successfully"
+                    alertDescription={`The ${
+                      defaultVals ? "Qualifier" : "measure"
+                    } has been validated successfully`}
                     close={() => {
                       setErrors(undefined);
                     }}

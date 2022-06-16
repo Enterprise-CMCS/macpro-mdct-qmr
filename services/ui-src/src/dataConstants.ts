@@ -100,6 +100,7 @@ export const ENTIRE_POP_NOT_COVERED = "EntirePopulationNotCovered";
 export const ELECTRONIC_HEALTH_RECORDS = "Electronic Health Records";
 export const EXPLAINATION = "explanation";
 export const FFS = "FFS";
+export const HEALTH_HOME_QUALIFIER_FILE_UPLOAD = "costSavingsFile";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
@@ -135,6 +136,7 @@ export const NO = "no";
 export const NOT_COLLECTED_BY_PROVIDER =
   "NotCollectedByProviderHospitalHealthPlan";
 export const NUMERATOR = "numerator";
+export const OHSU = "OHSU";
 export const OMS = "OptionalMeasureStratification";
 export const OPA = "OPA";
 export const OPM_EXPLAINATION = "OtherPerformanceMeasure-Explanation";
