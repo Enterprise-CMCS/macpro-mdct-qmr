@@ -346,31 +346,26 @@ export const measures: Measure = {
     },
     {
       type: "H",
-      description: "Custom State Specific Measure 1 of 5",
       measure: "SS-1-HH",
       placeholder: true,
     },
     {
       type: "H",
-      description: "Custom State Specific Measure 2 of 5",
       measure: "SS-2-HH",
       placeholder: true,
     },
     {
       type: "H",
-      description: "Custom State Specific Measure 3 of 5",
       measure: "SS-3-HH",
       placeholder: true,
     },
     {
       type: "H",
-      description: "Custom State Specific Measure 4 of 5",
       measure: "SS-4-HH",
       placeholder: true,
     },
     {
       type: "H",
-      description: "Custom State Specific Measure 5 of 5",
       measure: "SS-5-HH",
       placeholder: true,
     },
