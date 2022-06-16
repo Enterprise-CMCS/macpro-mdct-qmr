@@ -393,7 +393,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
 /**
  * Builds OPM Checkboxes
  */
-const useRenderOPMChckboxOptions = (name: string) => {
+const useRenderOPMCheckboxOptions = (name: string) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
 
   const {
@@ -467,7 +467,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
-  const options = useRenderOPMChckboxOptions(name);
+  const options = useRenderOPMCheckboxOptions(name);
   return (
     <QMR.Checkbox
       name={`${name}.options`}

@@ -424,7 +424,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
 /**
  * Builds OPM Checkboxes
  */
-const useRenderOPMChckboxOptions = (name: string) => {
+const useRenderOPMCheckboxOptions = (name: string) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
 
   const {
@@ -433,6 +433,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
     rateMultiplicationValue,
     customMask,
     allowNumeratorGreaterThanDenominator,
+    componentFlag,
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
@@ -448,6 +449,37 @@ const useRenderOPMChckboxOptions = (name: string) => {
   OPM?.forEach(({ description }, idx) => {
     if (description) {
       const cleanedFieldName = cleanString(description);
+      let RateComponent = (
+        <QMR.Rate
+          rates={[
+            {
+              id: 0,
+            },
+          ]}
+          name={`${name}.rates.${cleanedFieldName}.OPM`}
+          key={`${name}.rates.${cleanedFieldName}.OPM`}
+          readOnly={rateReadOnly}
+          rateMultiplicationValue={rateMultiplicationValue}
+          customMask={customMask}
+          allowNumeratorGreaterThanDenominator={
+            allowNumeratorGreaterThanDenominator
+          }
+          customNumeratorLabel={customNumeratorLabel}
+          customDenominatorLabel={customDenominatorLabel}
+          customRateLabel={customRateLabel}
+        />
+      );
+
+      if (componentFlag === "AAB") {
+        RateComponent = (
+          <QMR.AABRate
+            readOnly={rateReadOnly}
+            name={`${name}.rates.${cleanedFieldName}.OPM`}
+            key={`${name}.rates.${cleanedFieldName}.OPM`}
+            rates={[{ id: 0 }]}
+          />
+        );
+      }
 
       checkBoxOptions.push({
         value: cleanedFieldName,
@@ -468,24 +500,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
           >
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
-          <QMR.Rate
-            rates={[
-              {
-                id: 0,
-              },
-            ]}
-            name={`${name}.rates.${cleanedFieldName}.OPM`}
-            key={`${name}.rates.${cleanedFieldName}.OPM`}
-            readOnly={rateReadOnly}
-            rateMultiplicationValue={rateMultiplicationValue}
-            customMask={customMask}
-            allowNumeratorGreaterThanDenominator={
-              allowNumeratorGreaterThanDenominator
-            }
-            customNumeratorLabel={customNumeratorLabel}
-            customDenominatorLabel={customDenominatorLabel}
-            customRateLabel={customRateLabel}
-          />,
+          RateComponent,
         ],
       });
     }
@@ -498,7 +513,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
-  const options = useRenderOPMChckboxOptions(name);
+  const options = useRenderOPMCheckboxOptions(name);
   return (
     <QMR.Checkbox
       name={`${name}.options`}

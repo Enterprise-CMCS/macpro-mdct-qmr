@@ -52,7 +52,12 @@ export const AABAD = ({
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
-          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
+          {isOtherMeasureSpecSelected && (
+            <CMQ.OtherPerformanceMeasure
+              data={PMD.data}
+              RateComponent={QMR.AABRate}
+            />
+          )}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
