@@ -132,7 +132,13 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
 const useMeasureTableDataBuilder = () => {
   const queryClient = useQueryClient();
   const { state, year, coreSetId } = useParams();
-  const { data, isLoading, isError, error } = useGetMeasures();
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch: refetchMeasures,
+    error,
+  } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   const [coreSetStatus, setCoreSetStatus] = useState(
     CoreSetTableItem.Status.IN_PROGRESS
@@ -245,6 +251,7 @@ const useMeasureTableDataBuilder = () => {
     isLoading,
     isError,
     error,
+    refetchMeasures,
 
     // update measure modal state variables
     modalProps,
@@ -283,6 +290,7 @@ export const CoreSet = () => {
     isLoading,
     isError,
     error,
+    refetchMeasures,
 
     // update measure modal state variables
     modalProps,
@@ -295,7 +303,7 @@ export const CoreSet = () => {
    * If measure data exists and has changed, make an updateMeasure request
    */
   const handleModalResponse = (measureData: any) => {
-    updateMeasure(measureData);
+    updateMeasure(measureData, { onSettled: () => refetchMeasures() });
     closeModal();
   };
 
