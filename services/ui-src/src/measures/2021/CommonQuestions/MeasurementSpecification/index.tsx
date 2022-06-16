@@ -40,8 +40,8 @@ const HEDISChildren = () => {
 interface Props {
   type:
     | "ADA-DQA"
-    | "AHRQ-NCQA"
     | "AHRQ"
+    | "AHRQ-NCQA"
     | "CDC"
     | "CMS"
     | "HEDIS"
@@ -49,12 +49,16 @@ interface Props {
     | "JOINT"
     | "NCQA"
     | "OHSU"
-    | "HRSA"
     | "OPA"
     | "PQA";
 }
 
 const specifications = {
+  "ADA-DQA": {
+    displayValue:
+      "American Dental Association/Dental Quality Alliance (ADA/DQA)",
+    value: DC.ADA_DQA,
+  },
   AHRQ: {
     displayValue: "Agency for Healthcare Research and Quality (AHRQ)",
     value: DC.AHRQ,
@@ -63,11 +67,6 @@ const specifications = {
     displayValue:
       "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
     value: DC.AHRQ_NCQA,
-  },
-  "ADA-DQA": {
-    displayValue:
-      "American Dental Association/Dental Quality Alliance (ADA/DQA)",
-    value: DC.ADA_DQA,
   },
   CDC: {
     displayValue: "Centers for Disease Contol and Prevention (CDC)",
@@ -87,10 +86,6 @@ const specifications = {
     displayValue: "Health Resources and Services Administration (HRSA)",
     value: DC.HRSA,
   },
-  OHSU: {
-    displayValue: "Oregon Health and Science University (OHSU)",
-    value: "OHSU",
-  },
   JOINT: {
     displayValue: "The Joint Commission",
     value: DC.JOINT_COMMISSION,
@@ -98,6 +93,10 @@ const specifications = {
   NCQA: {
     displayValue: "National Committee for Quality Assurance (NCQA)",
     value: DC.NCQA,
+  },
+  OHSU: {
+    displayValue: "Oregon Health and Science University (OHSU)",
+    value: DC.OHSU,
   },
   OPA: {
     displayValue: "HHS Office of Population Affairs (OPA)",
