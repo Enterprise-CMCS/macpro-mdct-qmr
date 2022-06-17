@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
+import { ReactElement, Fragment } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import * as Views from "views";
 import * as QMR from "components";
-import Measures from "measures";
+import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { measureDescriptions } from "measures/measureDescriptions";
 
@@ -31,29 +31,49 @@ function useMeasureRoutes(): MeasureRoute[] {
   const { data } = useGetMeasureListInfo();
 
   const measureRoutes: MeasureRoute[] = [];
+
+  // Add qualifier routes separately from regular measures
+  // Qualifiers all share one component with an additional data object passed in for core-set variance
+  for (const qualYear of QualifierData) {
+    measureRoutes.push({
+      key: `:state/${qualYear.year}/:coreSetId/CSQ`,
+      path: `:state/${qualYear.year}/:coreSetId/CSQ`,
+      element: (
+        <QMR.MeasureWrapper
+          name={""}
+          year={qualYear.year}
+          measureId={"CSQ"}
+          measure={createElement(
+            Measures?.[qualYear.year]?.["Qualifier"] ?? Fragment
+          )}
+          autocompleteOnCreation={false}
+          defaultData={qualYear.data}
+        />
+      ),
+    });
+  }
+
   if (data) {
     Object.keys(data).forEach((year: string) => {
       data[year].forEach(
         ({ measure, description, autocompleteOnCreation }: any) => {
-            if (Measures?.[year] && measure in Measures[year]) {
-              const Comp = Measures[year][measure];
-
-              const foundMeasureDescription =
-                measureDescriptions?.[year]?.[measure] || description;
-                measureRoutes.push({
-                key: `:state/${year}/:coreSetId/${measure}`,
-                path: `:state/${year}/:coreSetId/${measure}`,
-                element: (
-                  <QMR.MeasureWrapper
-                    name={foundMeasureDescription}
-                    year={year}
-                    measureId={measure}
-                    measure={createElement(Comp)}
-                    autocompleteOnCreation={autocompleteOnCreation ?? false}
-                  />
-                ),
-              });
-            }
+          if (measure in Measures[year]) {
+            const Comp = Measures[year][measure];
+            const foundMeasureDescription =
+              measureDescriptions?.[year]?.[measure] || description;
+            measureRoutes.push({
+              key: `:state/${year}/:coreSetId/${measure}`,
+              path: `:state/${year}/:coreSetId/${measure}`,
+              element: (
+                <QMR.MeasureWrapper
+                  name={foundMeasureDescription}
+                  year={year}
+                  measureId={measure}
+                  measure={createElement(Comp)}
+                  autocompleteOnCreation={autocompleteOnCreation ?? false}
+                />
+              ),
+            });
           }
         }
       );
@@ -68,6 +88,7 @@ function useMeasureRoutes(): MeasureRoute[] {
           path: ":state/:year/:coreSetId/:measure",
           element: <Views.MeasuresLoading />,
         },
+        ...measureRoutes,
       ];
 }
 
@@ -90,20 +111,6 @@ export function AppRoutes() {
         <Route
           path=":state/:year/:coreSetId/add-ssm"
           element={<Views.AddStateSpecificMeasure />}
-        />
-        <Route
-          path=":state/:year/:HHCS/CSQ"
-          element={<Views.HHCSQualifiers />}
-        />
-        <Route path=":state/:year/ACS/CSQ" element={<Views.ACSQualifiers />} />
-        <Route path=":state/:year/CCS/CSQ" element={<Views.CCSQualifiers />} />
-        <Route
-          path=":state/:year/CCSM/CSQ"
-          element={<Views.CCSMQualifiers />}
-        />
-        <Route
-          path=":state/:year/CCSC/CSQ"
-          element={<Views.CCSCQualifiers />}
         />
         <Route path="api-test" element={<Views.ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (

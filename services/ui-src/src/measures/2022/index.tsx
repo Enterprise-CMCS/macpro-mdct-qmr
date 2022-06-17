@@ -28,8 +28,10 @@ import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
+import { FUACH } from "./FUACH";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
+import { FUMCH } from "./FUMCH";
 import { FVAAD } from "./FVAAD";
 import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
@@ -40,6 +42,7 @@ import { LBWCH } from "./LBWCH";
 import { LRCDCH } from "./LRCDCH";
 import { MSCAD } from "./MSCAD";
 import { NCIDDSAD } from "./NCIDDSAD";
+import { OEVCH } from "./OEVCH";
 import { OHDAD } from "./OHDAD";
 import { OUDAD } from "./OUDAD";
 import { PCRAD } from "./PCRAD";
@@ -56,6 +59,8 @@ import { SSDAD } from "./SSDAD";
 import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
+
+import { Data, Qualifier } from "./Qualifiers";
 
 const twentyTwentyTwoMeasures = {
   "ADD-CH": ADDCH,
@@ -84,9 +89,11 @@ const twentyTwentyTwoMeasures = {
   "CPC-CH": CPCCH,
   "DEV-CH": DEVCH,
   "FUA-AD": FUAAD,
+  "FUA-CH": FUACH,
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
+  "FUM-CH": FUMCH,
   "FVA-AD": FVAAD,
   "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,
@@ -97,6 +104,7 @@ const twentyTwentyTwoMeasures = {
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
   "NCIDDS-AD": NCIDDSAD,
+  "OEV-CH": OEVCH,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
   "PCR-AD": PCRAD,
@@ -112,6 +120,8 @@ const twentyTwentyTwoMeasures = {
   "W30-CH": W30CH,
   "WCC-CH": WCCCH,
   "WCV-CH": WCVCH,
+  Qualifier,
 };
 
+export const QualifierData = Data;
 export default twentyTwentyTwoMeasures;

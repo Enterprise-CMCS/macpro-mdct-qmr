@@ -536,7 +536,15 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      measure: "FUA-CH",
+    },
+    {
+      type: "C",
       measure: "FUH-CH",
+    },
+    {
+      type: "C",
+      measure: "FUM-CH",
     },
     {
       type: "C",
@@ -551,6 +559,10 @@ export const measures: Measure = {
       type: "C",
       measure: "LRCD-CH",
       autocompleteOnCreation: true,
+    },
+    {
+      type: "C",
+      measure: "OEV-CH",
     },
     {
       type: "C",
