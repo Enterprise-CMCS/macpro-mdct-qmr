@@ -1,6 +1,7 @@
+import { useState } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import Measures from "measures";
+import Measures, { QualifierData } from "measures";
 import { useGetMeasures } from "hooks/api";
 import { createElement } from "react";
 import "index.scss";
@@ -9,6 +10,7 @@ import { useParams } from "react-router-dom";
 
 export const ExportAll = () => {
   const { state, coreSetId, year } = useParams();
+  const [isLoadingPDF, setIsLoadingPDF] = useState(false);
 
   const openPdf = (basePdf: string) => {
     let byteCharacters = atob(basePdf);
@@ -39,22 +41,19 @@ export const ExportAll = () => {
       .replaceAll(`‘`, `'`)
       .replaceAll(`”`, `"`)
       .replaceAll(`“`, `"`)
-      .replaceAll(`chakra-space-0\\.5`, `helloworld`)
       .replaceAll("\u2013", "-")
       .replaceAll("\u2014", "-");
-    console.log(htmlString);
 
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
     try {
-      const test = await getPDF({
+      const pdf = await getPDF({
         body: base64String,
         state,
         coreSet: coreSetId,
         year,
       });
-      console.log(test);
-      openPdf(test);
+      openPdf(pdf);
     } catch (err) {
       console.log(err);
     }
@@ -65,35 +64,35 @@ export const ExportAll = () => {
     return <QMR.LoadingWave />;
   }
 
-  const sortedData = data?.Items?.sort((a: any, b: any) =>
-    a?.measure?.localeCompare(b?.measure)
-  ).filter((item: any) => item?.measure !== "CSQ");
+  const csqMeasure = data?.Items?.find((d: any) => d.measure === "CSQ");
+  const regMeasures = data?.Items?.filter((d: any) => d.measure !== "CSQ").sort(
+    (a: any, b: any) => a?.measure?.localeCompare(b?.measure)
+  );
+  const sortedData = [csqMeasure, ...regMeasures];
 
   return (
     <>
       <CUI.Container maxW={"xs"}>
-        <QMR.ContainedButton
-          buttonProps={{
-            isFullWidth: true,
-            type: "button",
-            className: "hidden-print-items",
-            background: "blue.500",
-            margin: "1",
+        <CUI.Button
+          disabled={isLoadingPDF}
+          isFullWidth={true}
+          type="button"
+          className="hidden-print-items"
+          margin="1"
+          isLoading={isLoadingPDF}
+          loadingText="Preparing"
+          colorScheme="orange"
+          variant="solid"
+          fontWeight="700"
+          fontSize="large"
+          onClick={async () => {
+            setIsLoadingPDF(true);
+            await makePrinceRequest();
+            setIsLoadingPDF(false);
           }}
-          onClick={() => window.print()}
-          buttonText={"Print"}
-        />
-        <QMR.ContainedButton
-          buttonProps={{
-            isFullWidth: true,
-            type: "button",
-            className: "hidden-print-items",
-            background: "blue.500",
-            margin: "1",
-          }}
-          onClick={async () => await makePrinceRequest()}
-          buttonText={"Print 508"}
-        />
+        >
+          PRINT PDF
+        </CUI.Button>
       </CUI.Container>
       <CUI.UnorderedList
         display={"grid"}
@@ -125,7 +124,15 @@ export const ExportAll = () => {
         })}
       </CUI.UnorderedList>
       {sortedData?.map((measure: any) => {
-        const Comp = Measures[measure.year][measure.measure];
+        const Comp =
+          measure.measure === "CSQ"
+            ? Measures?.[measure.year]?.["Qualifier"]
+            : Measures[measure.year][measure.measure];
+
+        const defaultData =
+          measure.measure === "CSQ"
+            ? QualifierData.find((d) => d.year === measure.year + "")?.data
+            : undefined;
 
         return (
           <QMR.PrintableMeasureWrapper
@@ -135,6 +142,7 @@ export const ExportAll = () => {
             name={measure.description}
             year={measure.year}
             key={measure.compoundKey}
+            defaultData={defaultData}
           />
         );
       })}

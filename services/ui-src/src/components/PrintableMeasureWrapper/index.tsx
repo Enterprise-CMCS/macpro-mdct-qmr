@@ -16,6 +16,7 @@ import {
 import * as QMR from "components";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
+import { CoreSetAbbr } from "types";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -95,6 +96,7 @@ interface Props {
   measureId: string;
   autocompleteOnCreation?: boolean;
   measureData: any;
+  defaultData?: { [type: string]: { formData: any; title: string } };
 }
 
 export const PrintableMeasureWrapper = ({
@@ -103,6 +105,7 @@ export const PrintableMeasureWrapper = ({
   year,
   measureId,
   measureData,
+  defaultData,
 }: Props) => {
   const params = useParams();
 
@@ -113,6 +116,26 @@ export const PrintableMeasureWrapper = ({
     criteriaMode: "firstError",
     shouldFocusError: true,
   });
+
+  useEffect(() => {
+    // reset core set qualifier data to use the default values for table rendering
+    if (
+      !methods.formState.isDirty &&
+      !measureData?.Item?.data &&
+      measureId === "CSQ"
+    ) {
+      methods.reset(
+        params.coreSetId
+          ? defaultData?.[
+              (params.coreSetId?.split("_")?.[0] ??
+                params.coreSetId) as CoreSetAbbr
+            ]?.formData
+          : undefined
+      );
+    }
+    // default loaded data reset
+    else if (!methods.formState.isDirty) methods.reset(measureData?.Item?.data);
+  }, [measureData, methods, defaultData, params]);
 
   if (!params.coreSetId || !params.state) {
     return null;

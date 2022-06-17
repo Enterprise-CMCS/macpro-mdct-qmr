@@ -96,6 +96,7 @@ provider:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
     uploadS3BucketName: ${cf:uploads-${self:custom.stage}.AttachmentsBucketName, ""}
+    dynamoSnapshotS3BucketName: ${cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, ""}
     stage: ${opt:stage, self:provider.stage}
 
 functions:
