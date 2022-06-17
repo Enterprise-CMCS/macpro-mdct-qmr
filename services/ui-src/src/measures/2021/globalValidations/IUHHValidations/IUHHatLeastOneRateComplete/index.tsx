@@ -1,3 +1,5 @@
+import { validatePartialRateCompletionPM } from "../../validatePartialRateCompletion";
+
 /* At least one NDR set must be complete (OPM or PM) */
 export const IUHHatLeastOneRateComplete = (
   performanceMeasureArray: any,
@@ -5,7 +7,7 @@ export const IUHHatLeastOneRateComplete = (
   errorLocation: string = "Performance Measure/Other Performance Measure"
 ) => {
   let error = true;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
 
   // Check OPM first
   OPM &&
@@ -39,5 +41,10 @@ export const IUHHatLeastOneRateComplete = (
       errorMessage: "At least one set of fields must be complete.",
     });
   }
-  return error ? errorArray : [];
+
+  if (OPM) {
+    errorArray.push(...validatePartialRateCompletionPM([], OPM, []));
+  }
+
+  return errorArray;
 };
