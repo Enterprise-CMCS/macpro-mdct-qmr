@@ -236,13 +236,14 @@ const useMeasureTableDataBuilder = () => {
       mounted = false;
     };
   }, [
+    coreSetId,
     data,
     deleteMeasure,
-    isLoading,
     isError,
-    setMeasures,
-    coreSetId,
+    isLoading,
+    navigate,
     queryClient,
+    setMeasures,
     state,
     year,
   ]);
