@@ -135,7 +135,7 @@ export const PrintableMeasureWrapper = ({
     }
     // default loaded data reset
     else if (!methods.formState.isDirty) methods.reset(measureData?.Item?.data);
-  }, [measureData, methods, defaultData, params]);
+  }, [measureData, methods, defaultData, params, measureId]);
 
   if (!params.coreSetId || !params.state) {
     return null;
