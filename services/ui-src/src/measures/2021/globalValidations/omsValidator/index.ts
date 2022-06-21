@@ -132,11 +132,17 @@ const validateNDRs = (
     }
     if (checkIsFilled) {
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
+
+      // check for complex rate type and assign appropriate tag
+      const rateType = !!rateData?.["iuhh-rate"]
+        ? "iuhh-rate"
+        : !!rateData?.["aifhh-rate"]
+        ? "aifhh-rate"
+        : undefined;
+
       if (!rateData?.["pcr-rate"])
         errorArray.push(
-          ...validatePartialRateCompletionOMS(
-            !!rateData?.["iuhh-rate"] || !!rateData?.["aifhh-rate"]
-          )({
+          ...validatePartialRateCompletionOMS(rateType)({
             rateData,
             categories,
             qualifiers,

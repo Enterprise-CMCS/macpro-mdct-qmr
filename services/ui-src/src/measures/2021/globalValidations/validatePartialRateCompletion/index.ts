@@ -76,15 +76,15 @@ const _singleValueValidation = ({
 };
 
 export const validatePartialRateCompletionOMS =
-  (singleValueFieldFlag = false): OmsValidationCallback =>
+  (singleValueFieldFlag?: "iuhh-rate" | "aifhh-rate"): OmsValidationCallback =>
   ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
     return [
-      ...(singleValueFieldFlag
+      ...(!!singleValueFieldFlag
         ? _singleValueValidation({
             location: `Optional Measure Stratification: ${locationDictionary([
               ...label,
             ])}`,
-            rateData: rateData["iuhh-rate"],
+            rateData: rateData?.[singleValueFieldFlag],
             categories: !!(isOPM || categories[0] === SINGLE_CATEGORY)
               ? undefined
               : categories,
