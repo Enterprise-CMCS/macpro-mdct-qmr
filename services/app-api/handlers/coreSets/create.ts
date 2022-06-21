@@ -34,7 +34,12 @@ export const createCoreSet = handler(async (event, context) => {
       if (measure.autocompleteOnCreation && measure.type === type) {
         autoCompletedMeasures++;
       }
-      return measure.type === type && measure.measure !== "CSQ";
+      return (
+        measure.type === type &&
+        measure.measure !== "CSQ" &&
+        // Filter out placeholder state specific measures
+        !measure.placeholder
+      );
     }
   ).length;
 
@@ -90,6 +95,7 @@ const createDependentMeasures = async (
         status: measure.autocompleteOnCreation
           ? Types.MeasureStatus.COMPLETE
           : Types.MeasureStatus.INCOMPLETE,
+        placeholder: measure.placeholder,
       },
     };
 
