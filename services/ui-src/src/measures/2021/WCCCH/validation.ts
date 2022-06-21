@@ -64,11 +64,11 @@ const WCCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
-        GV.validateRateZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
+        GV.validateRateZeroOMS(),
       ],
     }),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

@@ -81,9 +81,9 @@ const W30CHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
       ],
     }),
   ];

@@ -74,9 +74,9 @@ const HPCMIADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];

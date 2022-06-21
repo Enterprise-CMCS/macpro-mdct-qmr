@@ -67,11 +67,11 @@ const APMCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];

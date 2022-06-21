@@ -56,11 +56,13 @@ const _validation = ({
  *
  * @param higherIndex which category index should have the higher rate
  * @param lowerIndex which category index should have the lower rate
+ * @param explicitErrorMessage gives the measure the ability to explicitly set a measure error message
  */
 export const validateOneCatRateHigherThanOtherCatOMS = (
   higherIndex = 0,
   lowerIndex = 1,
-  increment?: number
+  increment?: number,
+  explicitErrorMessage?: string
 ): OmsValidationCallback => {
   return ({
     rateData,
@@ -69,7 +71,6 @@ export const validateOneCatRateHigherThanOtherCatOMS = (
     label,
     locationDictionary,
     isOPM,
-    explicitErrorMessage,
   }) => {
     if (isOPM) return [];
     const errorArray: FormError[] = [];
@@ -130,6 +131,7 @@ export const validateOneCatRateHigherThanOtherCatOMS = (
  * @param performanceMeasureData data driven information
  * @param higherIndex which category index should have the higher rate
  * @param lowerIndex which category index should have the lower rate
+ * @param explicitErrorMessage gives the measure the ability to explicitly set a measure error message
  */
 export const validateOneCatRateHigherThanOtherCatPM = (
   data: Types.PerformanceMeasure,

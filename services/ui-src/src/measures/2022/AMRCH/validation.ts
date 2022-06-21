@@ -61,10 +61,10 @@ const AMRCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateOMSTotalNDR,
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateOMSTotalNDR(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];

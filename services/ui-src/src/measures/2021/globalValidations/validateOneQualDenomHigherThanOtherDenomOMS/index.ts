@@ -54,6 +54,7 @@ const _validation = ({
  *
  * @param higherIndex which qualifier index should have the higher denominator
  * @param lowerIndex which qualifier index should have the lower denominator
+ * @param explicitErrorMessage gives the measure the ability to explicitly set a measure error message
  */
 export const validateOneQualDenomHigherThanOtherDenomOMS = (
   higherIndex = 0,
@@ -88,6 +89,7 @@ export const validateOneQualDenomHigherThanOtherDenomOMS = (
  * @param pmData data driven information
  * @param higherIndex which qualifier index should have the higher denominator
  * @param lowerIndex which qualifier index should have the lower denominator
+ * @param explicitErrorMessage gives the measure the ability to explicitly set a measure error message
  */
 export const validateOneQualDenomHigherThanOtherDenomPM = (
   data: Types.PerformanceMeasure,

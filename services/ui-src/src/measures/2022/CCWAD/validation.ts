@@ -68,11 +68,11 @@ const CCWADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualCategoryDenominatorsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
       ],
     }),
   ];

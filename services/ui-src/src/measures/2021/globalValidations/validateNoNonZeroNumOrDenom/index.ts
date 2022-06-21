@@ -71,44 +71,40 @@ const _validationRateZero = ({
   return errorArray;
 };
 
-export const validateRateZeroOMS: OmsValidationCallback = ({
-  categories,
-  qualifiers,
-  rateData,
-  label,
-  locationDictionary,
-  dataSource,
-  explicitErrorMessage,
-}) => {
-  const hybridData = dataSource?.includes(
-    DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
-  );
-  return _validationRateZero({
+export const validateRateZeroOMS =
+  (explicitErrorMessage?: string): OmsValidationCallback =>
+  ({
     categories,
     qualifiers,
-    hybridData,
-    location: `Optional Measure Stratification: ${locationDictionary(label)}`,
-    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-    errorMessage: explicitErrorMessage,
-  }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
-};
+    rateData,
+    label,
+    locationDictionary,
+    dataSource,
+  }) => {
+    const hybridData = dataSource?.includes(
+      DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
+    );
+    return _validationRateZero({
+      categories,
+      qualifiers,
+      hybridData,
+      location: `Optional Measure Stratification: ${locationDictionary(label)}`,
+      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      errorMessage: explicitErrorMessage,
+    }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
+  };
 
-export const validateRateNotZeroOMS: OmsValidationCallback = ({
-  categories,
-  qualifiers,
-  rateData,
-  label,
-  locationDictionary,
-  explicitErrorMessage,
-}) => {
-  return _validationRateNotZero({
-    categories,
-    qualifiers,
-    location: `Optional Measure Stratification: ${locationDictionary(label)}`,
-    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-    errorMessage: explicitErrorMessage,
-  }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
-};
+export const validateRateNotZeroOMS =
+  (explicitErrorMessage?: string): OmsValidationCallback =>
+  ({ categories, qualifiers, rateData, label, locationDictionary }) => {
+    return _validationRateNotZero({
+      categories,
+      qualifiers,
+      location: `Optional Measure Stratification: ${locationDictionary(label)}`,
+      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      errorMessage: explicitErrorMessage,
+    }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
+  };
 
 // If a user manually over-rides a rate it must not violate two rules:
 // It must be zero if the numerator is zero or

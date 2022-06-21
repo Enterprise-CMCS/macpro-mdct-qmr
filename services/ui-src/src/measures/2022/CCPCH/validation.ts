@@ -66,12 +66,12 @@ const CCPCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateEqualCategoryDenominatorsOMS(),
         GV.validateOneQualRateHigherThanOtherQualOMS(1, 0),
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];

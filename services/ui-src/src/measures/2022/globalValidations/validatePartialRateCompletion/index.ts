@@ -40,29 +40,23 @@ const _validation: UVF = ({
   return errors;
 };
 
-export const validatePartialRateCompletionOMS: OmsValidationCallback = ({
-  categories,
-  isOPM,
-  label,
-  locationDictionary,
-  qualifiers,
-  rateData,
-  explicitErrorMessage,
-}) => {
-  return [
-    ..._validation({
-      location: `Optional Measure Stratification: ${locationDictionary([
-        ...label,
-      ])}`,
-      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-      categories: !!(isOPM || categories[0] === SINGLE_CATEGORY)
-        ? undefined
-        : categories,
-      qualifiers: !!isOPM ? undefined : qualifiers,
-      errorMessage: explicitErrorMessage,
-    }),
-  ];
-};
+export const validatePartialRateCompletionOMS =
+  (explicitErrorMessage?: string): OmsValidationCallback =>
+  ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
+    return [
+      ..._validation({
+        location: `Optional Measure Stratification: ${locationDictionary([
+          ...label,
+        ])}`,
+        rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+        categories: !!(isOPM || categories[0] === SINGLE_CATEGORY)
+          ? undefined
+          : categories,
+        qualifiers: !!isOPM ? undefined : qualifiers,
+        errorMessage: explicitErrorMessage,
+      }),
+    ];
+  };
 
 /**
  * Checks for fields that have been partially filled out and reports them.

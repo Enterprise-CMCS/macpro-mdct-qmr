@@ -70,9 +70,9 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
       ],
     }),
   ];

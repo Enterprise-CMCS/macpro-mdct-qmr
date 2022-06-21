@@ -105,7 +105,7 @@ describe("Testing PM/OMS Total Validations", () => {
     };
 
     it("should stop if this is OPM", () => {
-      const results = validateOMSTotalNDR({
+      const results = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         isOPM: true,
       });
@@ -116,7 +116,7 @@ describe("Testing PM/OMS Total Validations", () => {
     it("should return no errors", () => {
       const basePMData = [VH.simpleRate, VH.simpleRate, VH.doubleRate];
 
-      const singleResult = validateOMSTotalNDR({
+      const singleResult = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -124,7 +124,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -144,7 +144,7 @@ describe("Testing PM/OMS Total Validations", () => {
         VH.incorrectNumeratorRate,
       ];
 
-      const singleResults = validateOMSTotalNDR({
+      const singleResults = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -152,7 +152,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -180,7 +180,7 @@ describe("Testing PM/OMS Total Validations", () => {
         VH.incorrectDenominatorRate,
       ];
 
-      const singleResults = validateOMSTotalNDR({
+      const singleResults = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -188,7 +188,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -212,7 +212,7 @@ describe("Testing PM/OMS Total Validations", () => {
     it("should return field empty error", () => {
       const basePMData = [VH.simpleRate, VH.simpleRate, VH.emptyRate];
 
-      const singleResults = validateOMSTotalNDR({
+      const singleResults = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -220,7 +220,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -244,7 +244,7 @@ describe("Testing PM/OMS Total Validations", () => {
     it("should return no errors for a partial state", () => {
       const basePMData = [VH.partialRate, VH.simpleRate, VH.simpleRate];
 
-      const singleResult = validateOMSTotalNDR({
+      const singleResult = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -252,7 +252,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,

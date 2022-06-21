@@ -59,11 +59,11 @@ const AMBCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];

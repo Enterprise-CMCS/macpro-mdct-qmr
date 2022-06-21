@@ -59,11 +59,11 @@ const OUDValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateEqualCategoryDenominatorsOMS(),
       ],
     }),
     ...GV.validateNoNonZeroNumOrDenomPM(

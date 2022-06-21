@@ -99,7 +99,7 @@ describe("Testing Numerator Less Than Denominator", () => {
         simpleRate,
         simpleRate,
       ]);
-      const errors = validateNumeratorLessThanDenominatorOMS({
+      const errors = validateNumeratorLessThanDenominatorOMS()({
         ...baseOMSInfo,
         rateData: data,
       });
@@ -113,7 +113,7 @@ describe("Testing Numerator Less Than Denominator", () => {
         badNumeratorRate,
         badNumeratorRate,
       ]);
-      const errors = validateNumeratorLessThanDenominatorOMS({
+      const errors = validateNumeratorLessThanDenominatorOMS()({
         ...baseOMSInfo,
         locationDictionary: locationDictionaryJestFunc,
         rateData: data,

@@ -36,10 +36,10 @@ const WCVCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
-        GV.validateRateZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
+        GV.validateRateZeroOMS(),
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(

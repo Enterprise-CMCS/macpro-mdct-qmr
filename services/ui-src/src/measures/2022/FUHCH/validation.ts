@@ -83,10 +83,10 @@ const FUHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
       ],
     }),
   ];

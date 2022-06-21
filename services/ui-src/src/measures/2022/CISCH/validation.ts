@@ -37,9 +37,9 @@ const CISCHValidation = (data: FormData) => {
       ),
       dataSource: data[DC.DATA_SOURCE],
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(

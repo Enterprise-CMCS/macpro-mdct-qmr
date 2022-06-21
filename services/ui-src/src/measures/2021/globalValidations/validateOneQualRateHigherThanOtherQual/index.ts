@@ -52,6 +52,7 @@ const _validation = ({
  *
  * @param higherIndex which qualifier index should have the higher rate
  * @param lowerIndex which qualifier index should have the lower rate
+ * @param explicitErrorMessage gives the measure the ability to explicitly set a measure error message
  */
 export const validateOneQualRateHigherThanOtherQualOMS = (
   higherIndex = 0,
@@ -86,6 +87,7 @@ export const validateOneQualRateHigherThanOtherQualOMS = (
  * @param performanceMeasureData data driven information
  * @param higherIndex which qualifier index should have the higher rate
  * @param lowerIndex which qualifier index should have the lower rate
+ * @param explicitErrorMessage gives the measure the ability to explicitly set a measure error message
  */
 export const validateOneQualRateHigherThanOtherQualPM = (
   data: Types.PerformanceMeasure,

@@ -130,9 +130,9 @@ const IETValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
         sameDenominatorSets,
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],

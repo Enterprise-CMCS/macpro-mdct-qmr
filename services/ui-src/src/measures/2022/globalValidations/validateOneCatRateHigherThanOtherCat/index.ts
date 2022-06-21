@@ -56,6 +56,7 @@ const _validation = ({
  *
  * @param higherIndex which category index should have the higher rate
  * @param lowerIndex which category index should have the lower rate
+ * @param explicitErrorMessage gives the measure the ability to explicitly set a measure error message
  */
 export const validateOneCatRateHigherThanOtherCatOMS = (
   higherIndex = 0,
@@ -130,6 +131,7 @@ export const validateOneCatRateHigherThanOtherCatOMS = (
  * @param performanceMeasureData data driven information
  * @param higherIndex which category index should have the higher rate
  * @param lowerIndex which category index should have the lower rate
+ * @param explicitErrorMessage gives the measure the ability to explicitly set a measure error message
  */
 export const validateOneCatRateHigherThanOtherCatPM = (
   data: Types.PerformanceMeasure,

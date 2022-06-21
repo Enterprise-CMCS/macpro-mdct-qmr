@@ -66,12 +66,12 @@ const CCPADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateEqualCategoryDenominatorsOMS(),
         GV.validateOneQualRateHigherThanOtherQualOMS(),
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];
