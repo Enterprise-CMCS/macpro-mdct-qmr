@@ -32,7 +32,7 @@ export const getPDF = handler(async (event, context) => {
     console.log(test.data);
     return test.data;
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 
   // console.log(res);
