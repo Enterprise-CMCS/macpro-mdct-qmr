@@ -50,7 +50,8 @@ export const buildOmsCheckboxes = ({
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.IUHHRateFields[][];
+  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
+  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
@@ -109,6 +110,7 @@ const arrayIsReadOnly = (dataSource: string[]) => {
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
   IUHHPerformanceMeasureArray,
+  AIFHHPerformanceMeasureArray,
   qualifiers = [],
   categories = [],
   data,
@@ -157,7 +159,6 @@ export const OptionalMeasureStrat = ({
       unregister("OptionalMeasureStratification");
     };
   }, [watchDataSourceSwitch, unregister]);
-
   return (
     <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
       <PerformanceMeasureProvider
@@ -165,6 +166,7 @@ export const OptionalMeasureStrat = ({
           OPM,
           performanceMeasureArray,
           IUHHPerformanceMeasureArray,
+          AIFHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
           qualifiers,
