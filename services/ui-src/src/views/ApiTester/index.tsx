@@ -22,7 +22,7 @@ export const ApiTester = () => {
   console.log(userInfo);
   return (
     <>
-      <CUI.Flex flexWrap="wrap" spacing={5}>
+      <CUI.Flex flexWrap="wrap" gap={5}>
         <ContainedButton
           buttonText={"Create Core Set"}
           buttonProps={{
@@ -125,7 +125,7 @@ export const ApiTester = () => {
           }
         />
       </CUI.Flex>
-      <CUI.Flex flexWrap="wrap" spacing={5}>
+      <CUI.Flex flexWrap="wrap" gap={5}>
         <ContainedButton
           buttonText={"Create Measure"}
           buttonProps={{

@@ -29,7 +29,7 @@ export const AdminHome = () => {
           onClick={() =>
             navigate(`/${locality}/${config.currentReportingYear}`)
           }
-          isFullWidth
+          w="full"
           data-cy="Go To State Home"
         >
           Go To State Home

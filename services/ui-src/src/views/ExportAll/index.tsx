@@ -85,7 +85,7 @@ export const ExportAll = () => {
       <CUI.Container maxW={"xs"}>
         <CUI.Button
           disabled={isLoadingPDF}
-          isFullWidth={true}
+          w="full"
           type="button"
           className="hidden-print-items"
           margin="1"
