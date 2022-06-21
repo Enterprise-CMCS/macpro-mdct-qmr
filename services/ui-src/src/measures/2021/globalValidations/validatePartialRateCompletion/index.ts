@@ -53,7 +53,7 @@ const _singleValueValidation = ({
     for (const catKey of Object.keys(rateData?.rates?.[qualKey] ?? {})) {
       if (
         !!rateData?.rates?.[qualKey]?.[catKey]?.[0]?.fields &&
-        rateData.rates[qualKey][catKey][0].fields.every(
+        !rateData.rates[qualKey][catKey][0].fields.every(
           (field: any) => !!field.value
         )
       ) {
