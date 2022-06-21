@@ -7,6 +7,7 @@ export const IUHHatLeastOneRateComplete = (
   errorLocation: string = "Performance Measure/Other Performance Measure"
 ) => {
   let error = true;
+  let partialError = false;
   let errorArray: FormError[] = [];
 
   // Check OPM first
@@ -29,10 +30,25 @@ export const IUHHatLeastOneRateComplete = (
           return field.value !== undefined && field.value !== "";
         }
       );
+      if (
+        !qualComplete &&
+        qualifier.fields.some((field: { value?: string; label?: string }) => {
+          return !!(field?.value !== undefined && field?.value !== "");
+        })
+      ) {
+        partialError = true;
+      }
       if (qualComplete) {
         error = false;
       }
     }
+  }
+
+  if (partialError) {
+    errorArray.push({
+      errorLocation: errorLocation,
+      errorMessage: `Should not have partially filled data sets.`,
+    });
   }
 
   if (error) {

@@ -48,7 +48,6 @@ const _singleValueValidation = ({
   locationDictionary,
 }: SVVProps): FormError[] => {
   const errors: FormError[] = [];
-  console.log(rateData, categories, qualifiers, location);
 
   for (const qualKey of Object.keys(rateData?.rates ?? {})) {
     for (const catKey of Object.keys(rateData?.rates?.[qualKey] ?? {})) {

@@ -13,8 +13,8 @@ export const PCRatLeastOneRateComplete = (
 
   // Check OPM first
   if (OPM) {
-    error = OPM.some(
-      (measure: any) => !!measure?.rate && measure?.rate?.[0]?.rate
+    error = !OPM.some(
+      (measure: any) => !!(measure?.rate && measure?.rate?.[0]?.rate)
     );
   }
 
