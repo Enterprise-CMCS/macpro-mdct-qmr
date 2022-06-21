@@ -248,6 +248,7 @@ const useMeasureTableDataBuilder = () => {
     deleteMeasure,
     isError,
     isLoading,
+    isStateUser,
     navigate,
     queryClient,
     setMeasures,
