@@ -138,7 +138,7 @@ const validateNDRs = (
     if (checkIsFilled) {
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
       errorArray.push(
-        ...validatePartialRateCompletionOMS({
+        ...validatePartialRateCompletionOMS()({
           rateData,
           categories,
           qualifiers,
