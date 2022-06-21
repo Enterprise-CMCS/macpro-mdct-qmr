@@ -20,6 +20,12 @@ interface Props {
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
+  rateCalc?: (
+    numerator: string,
+    denominator: string,
+    rateMultiplicationValue: number,
+    numbersAfterDecimal: number
+  ) => string;
 }
 
 interface NdrSetProps {
@@ -34,6 +40,12 @@ interface NdrSetProps {
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
+  rateCalc?: (
+    numerator: string,
+    denominator: string,
+    rateMultiplicationValue: number,
+    numbersAfterDecimal: number
+  ) => string;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
@@ -49,6 +61,7 @@ const CategoryNdrSets = ({
   customNumeratorLabel,
   customDenominatorLabel,
   customRateLabel,
+  rateCalc,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -79,6 +92,7 @@ const CategoryNdrSets = ({
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
+              rateCalc={rateCalc}
               {...register(
                 `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
               )}
@@ -105,6 +119,7 @@ const QualifierNdrSets = ({
   customNumeratorLabel,
   customDenominatorLabel,
   customRateLabel,
+  rateCalc,
 }: NdrSetProps) => {
   const register = useCustomRegister();
 
@@ -123,6 +138,7 @@ const QualifierNdrSets = ({
         customNumeratorLabel={customNumeratorLabel}
         customDenominatorLabel={customDenominatorLabel}
         customRateLabel={customRateLabel}
+        rateCalc={rateCalc}
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
         }
@@ -172,6 +188,7 @@ export const PerformanceMeasure = ({
   customDenominatorLabel,
   customRateLabel,
   showtextbox = true,
+  rateCalc,
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
@@ -284,6 +301,7 @@ export const PerformanceMeasure = ({
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
         }
+        rateCalc={rateCalc}
       />
     </QMR.CoreQuestionWrapper>
   );

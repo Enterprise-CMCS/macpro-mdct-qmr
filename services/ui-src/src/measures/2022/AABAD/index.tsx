@@ -47,7 +47,7 @@ export const AABAD = ({
             <>
               <CMQ.PerformanceMeasure
                 data={PMD.data}
-                RateComponent={QMR.AABRate}
+                rateCalc={QMR.AABRateCalculation}
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
@@ -55,7 +55,7 @@ export const AABAD = ({
           {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure
               data={PMD.data}
-              RateComponent={QMR.AABRate}
+              rateCalc={QMR.AABRateCalculation}
             />
           )}
           <CMQ.CombinedRates />
@@ -65,7 +65,7 @@ export const AABAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
-              componentFlag={"AAB"}
+              rateCalc={QMR.AABRateCalculation}
               customPrompt={PMD.data.customPrompt}
             />
           )}

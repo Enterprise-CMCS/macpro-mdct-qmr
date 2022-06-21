@@ -61,6 +61,12 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   numberOfDecimals?: number;
   componentFlag?: ComponentFlagType;
   customPrompt?: string;
+  rateCalc?: (
+    numerator: string,
+    denominator: string,
+    rateMultiplicationValue: number,
+    numbersAfterDecimal: number
+  ) => string;
 }
 
 /** data for dynamic rendering will be provided */
@@ -120,6 +126,7 @@ export const OptionalMeasureStrat = ({
   numberOfDecimals = 1,
   componentFlag = "DEFAULT",
   customPrompt,
+  rateCalc,
 }: Props) => {
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
@@ -171,6 +178,7 @@ export const OptionalMeasureStrat = ({
           numberOfDecimals,
           componentFlag,
           customPrompt,
+          rateCalculation: rateCalc,
         }}
       >
         <CUI.Text py="3">

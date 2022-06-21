@@ -34,6 +34,22 @@ export const rateCalculation = (
   return roundedRate.toFixed(numbersAfterDecimal);
 };
 
+export const AABRateCalculation = (
+  numerator: string,
+  denominator: string,
+  rateMultiplicationValue: number,
+  numbersAfterDecimal: number
+) => {
+  const floatNumerator = parseFloat(numerator);
+  const floatDenominator = parseFloat(denominator);
+  const floatRate = 1 - floatNumerator / floatDenominator;
+  const roundedRate = fixRounding(
+    floatRate * rateMultiplicationValue,
+    numbersAfterDecimal
+  );
+  return roundedRate.toFixed(numbersAfterDecimal);
+};
+
 export interface IRate {
   label?: string;
   id: number;
@@ -52,6 +68,12 @@ interface Props extends QMR.InputWrapperProps {
   customDenominatorLabel?: string;
   customNumeratorLabel?: string;
   customRateLabel?: string;
+  rateCalc?: (
+    numerator: string,
+    denominator: string,
+    rateMultiplicationValue: number,
+    numbersAfterDecimal: number
+  ) => string;
 }
 
 export const Rate = ({
@@ -66,6 +88,7 @@ export const Rate = ({
   customDenominatorLabel,
   customNumeratorLabel,
   customRateLabel,
+  rateCalc = rateCalculation,
   ...rest
 }: Props) => {
   const {
@@ -151,7 +174,7 @@ export const Rate = ({
       (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
         allowNumeratorGreaterThanDenominator)
     ) {
-      editRate.rate = rateCalculation(
+      editRate.rate = rateCalc(
         editRate.numerator,
         editRate.denominator,
         rateMultiplicationValue,
@@ -208,7 +231,7 @@ export const Rate = ({
     if (numeratorSum !== null && denominatorSum !== null) {
       prevRate[totalIndex]["rate"] =
         numeratorSum !== 0
-          ? rateCalculation(
+          ? rateCalc(
               numeratorSum.toString(),
               denominatorSum.toString(),
               rateMultiplicationValue,
