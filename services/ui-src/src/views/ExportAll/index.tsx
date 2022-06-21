@@ -28,20 +28,32 @@ export const ExportAll = () => {
   const makePrinceRequest = async () => {
     const html = document.querySelector("html")!;
     html.querySelector("noscript")?.remove();
+    let styleInnerBody = "";
 
     for (let i = 0; i < document.styleSheets.length - 1; i++) {
-      if (
-        !document.styleSheets[i].href &&
-        document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
-        document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
-      ) {
-        const chakraVars = document.styleSheets[i];
-        document.body.setAttribute(
-          "style",
-          chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
-        );
+      if (!document.styleSheets[i].href) {
+        styleInnerBody += document.styleSheets[i]?.cssRules[0]?.cssText;
+
+        if (
+          document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
+          document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
+        ) {
+          const chakraVars = document.styleSheets[i];
+          document.body.setAttribute(
+            "style",
+            chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
+          );
+        }
       }
     }
+
+    console.log(styleInnerBody);
+
+    const style = document.createElement("style");
+
+    document.head.appendChild(style);
+
+    style.appendChild(document.createTextNode(styleInnerBody));
 
     const htmlString = html
       .innerHTML!.replaceAll(
