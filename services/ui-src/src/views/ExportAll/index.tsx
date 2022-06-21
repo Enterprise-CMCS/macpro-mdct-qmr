@@ -26,32 +26,28 @@ export const ExportAll = () => {
   };
 
   const makePrinceRequest = async () => {
-    let styleInnerBody = "";
-
     for (let i = 0; i < document.styleSheets.length - 1; i++) {
-      if (!document.styleSheets[i].href) {
-        styleInnerBody += document.styleSheets[i]?.cssRules[0]?.cssText;
-
-        if (
-          document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
-          document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
-        ) {
-          const chakraVars = document.styleSheets[i];
-          document.body.setAttribute(
-            "style",
-            chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
-          );
-        }
+      if (
+        !document.styleSheets[i].href &&
+        document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
+        document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
+      ) {
+        const chakraVars = document.styleSheets[i];
+        document.body.setAttribute(
+          "style",
+          chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
+        );
       }
     }
 
-    console.log(styleInnerBody);
+    //@ts-ignore
+    const styleString = [...document.querySelectorAll("[data-emotion]")]
+      .flatMap(({ sheet }) => [...sheet.cssRules].map((rules) => rules.cssText))
+      .join("\n");
 
-    const style = document.createElement("style");
-
-    document.head.appendChild(style);
-
-    style.appendChild(document.createTextNode(styleInnerBody));
+    const styleTag = document.createElement("style");
+    document.head.appendChild(styleTag);
+    styleTag.appendChild(document.createTextNode(styleString));
 
     const html = document.querySelector("html")!;
     html.querySelector("noscript")?.remove();
