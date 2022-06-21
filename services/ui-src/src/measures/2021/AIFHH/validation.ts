@@ -5,30 +5,33 @@ import { FormData } from "./types";
 import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 // Rate structure by index in row
-const ndrForumlas = [
-  // Discharges per 1,000 Enrollee Months
+const ndrFormulas = [
+  // Short-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 1,
     denominator: 0,
     rateIndex: 2,
+    mult: 1000,
   },
-  // Days per 1,000 Enrollee Months
+  // Medium-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 3,
     denominator: 0,
     rateIndex: 4,
+    mult: 1000,
   },
-  // Average Length of Stay
+  // Long-Term Admissions per 1,000 Enrollee Months
   {
-    numerator: 3,
-    denominator: 1,
-    rateIndex: 5,
+    numerator: 5,
+    denominator: 0,
+    rateIndex: 6,
+    mult: 1000,
   },
 ];
 
 let OPM: any;
 
-const IUHHValidation = (data: FormData) => {
+const AIFHHValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const dateRange = data[DC.DATE_RANGE];
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
@@ -52,6 +55,7 @@ const IUHHValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
+
     ...GV.ComplexValidateDualPopInformation(
       performanceMeasureArray,
       OPM,
@@ -60,22 +64,18 @@ const IUHHValidation = (data: FormData) => {
 
     // Performance Measure Validations
     ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
-    ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
+    ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrFormulas),
     ...GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      ndrForumlas,
+      ndrFormulas,
       deviationArray,
       didCalculationsDeviate
     ),
     ...GV.ComplexValidateNDRTotals(
       performanceMeasureArray,
       PMD.categories,
-      ndrForumlas
+      ndrFormulas
     ),
-    ...GV.ComplexValueSameCrossCategory({
-      rateData: performanceMeasureArray,
-      OPM,
-    }),
 
     // OMS Validations
     ...GV.omsValidations({
@@ -104,32 +104,26 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   return OPM === undefined
     ? [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
-          rateData?.["iuhh-rate"]?.rates ?? {},
+          rateData?.["aifhh-rate"]?.rates ?? {},
           rates ?? [],
-          ndrForumlas,
+          ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
         ...GV.ComplexValidateNDRTotalsOMS(
-          rateData?.["iuhh-rate"]?.rates ?? {},
+          rateData?.["aifhh-rate"]?.rates ?? {},
           PMD.categories,
-          ndrForumlas,
+          ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)} Total`
-        ),
-        ...GV.ComplexValueSameCrossCategoryOMS(
-          rateData?.["iuhh-rate"]?.rates ?? {},
-          PMD.categories,
-          PMD.qualifiers,
-          `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
       ]
     : [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
           rates ?? [],
-          ndrForumlas,
+          ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
       ];
 };
 
-export const validationFunctions = [IUHHValidation];
+export const validationFunctions = [AIFHHValidation];

@@ -173,7 +173,7 @@ export interface RateFields {
   [DC.RATE]?: string;
 }
 
-export interface IUHHRateFields {
+export interface complexRateFields {
   [DC.LABEL]?: string;
   fields?: { [DC.LABEL]?: string; value: string | undefined }[];
 }
