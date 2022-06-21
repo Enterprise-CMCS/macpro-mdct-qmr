@@ -145,6 +145,7 @@ const useMeasureTableDataBuilder = () => {
   );
   const { mutate: deleteMeasure } = useDeleteMeasure();
   const navigate = useNavigate();
+  const { isStateUser } = useUser();
 
   interface ModalProps {
     isOpen: boolean;
@@ -192,7 +193,7 @@ const useMeasureTableDataBuilder = () => {
         ];
 
         // Let user delete user-created measures
-        if (item.userCreated === true) {
+        if (isStateUser && item.userCreated === true) {
           actions.push({
             itemText: "Edit",
             handleSelect: () => {
