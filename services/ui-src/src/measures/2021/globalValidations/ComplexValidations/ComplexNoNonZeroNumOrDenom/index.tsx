@@ -4,7 +4,7 @@ interface NDRforumla {
   rateIndex: number;
 }
 
-export const IUHHnoNonZeroNumOrDenomOMS = (
+export const ComplexNoNonZeroNumOrDenomOMS = (
   rateData: any,
   OPM: any,
   ndrFormulas: NDRforumla[],
@@ -14,7 +14,7 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
   for (const key in rateData) {
     if (OPM && OPM.length > 0) {
       errorArray.push(
-        ...IUHHnoNonZeroNumOrDenom(
+        ...ComplexNoNonZeroNumOrDenom(
           [],
           [{ description: key, rate: [...rateData[key]["OPM"]] }],
           ndrFormulas,
@@ -23,10 +23,11 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
       );
     } else {
       for (const category in rateData[key]) {
+        console.log([rateData[key][category]]);
         errorArray.push(
-          ...IUHHnoNonZeroNumOrDenom(
+          ...ComplexNoNonZeroNumOrDenom(
             [rateData[key][category]],
-            OPM,
+            false,
             ndrFormulas,
             `${errorLocation} - ${key} - ${category}`
           )
@@ -39,7 +40,7 @@ export const IUHHnoNonZeroNumOrDenomOMS = (
 };
 
 /* Validation for manually entered rates */
-export const IUHHnoNonZeroNumOrDenom = (
+export const ComplexNoNonZeroNumOrDenom = (
   performanceMeasureArray: any,
   OPM: any,
   ndrFormulas: NDRforumla[],
@@ -73,13 +74,13 @@ export const IUHHnoNonZeroNumOrDenom = (
       }
     }
   }
-
   OPM &&
     OPM.forEach((performanceMeasure: any) => {
       performanceMeasure.rate?.forEach((rate: any) => {
         if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
           nonZeroRateError = true;
         }
+
         if (
           parseFloat(rate.numerator) !== 0 &&
           parseFloat(rate.denominator) !== 0 &&
