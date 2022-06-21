@@ -134,7 +134,9 @@ const validateNDRs = (
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
       if (!rateData?.["pcr-rate"])
         errorArray.push(
-          ...validatePartialRateCompletionOMS(!!rateData?.["iuhh-rate"])({
+          ...validatePartialRateCompletionOMS(
+            !!rateData?.["iuhh-rate"] || !!rateData?.["aifhh-rate"]
+          )({
             rateData,
             categories,
             qualifiers,
