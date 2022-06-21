@@ -22,20 +22,26 @@ export const ExportAll = () => {
     let file = new Blob([byteArray], { type: "application/pdf;base64" });
     let fileURL = URL.createObjectURL(file);
 
-    console.log({ byteCharacters, byteNumbers, byteArray, file, fileURL });
-
     window.open(fileURL);
   };
 
   const makePrinceRequest = async () => {
     const html = document.querySelector("html")!;
     html.querySelector("noscript")?.remove();
-    document.body.setAttribute(
-      "style",
-      document.querySelectorAll("style")[2].innerHTML.split(/{|}/g)[1]
-    );
 
-    console.log("got html content");
+    for (let i = 0; i < document.styleSheets.length - 1; i++) {
+      if (
+        !document.styleSheets[i].href &&
+        document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
+        document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
+      ) {
+        const chakraVars = document.styleSheets[i];
+        document.body.setAttribute(
+          "style",
+          chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
+        );
+      }
+    }
 
     const htmlString = html
       .innerHTML!.replaceAll(
@@ -51,8 +57,6 @@ export const ExportAll = () => {
 
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
-    console.log("encoded base64 string", base64String);
-
     try {
       const pdf = await getPDF({
         body: base64String,
@@ -61,12 +65,8 @@ export const ExportAll = () => {
         year,
       });
 
-      console.log(pdf);
-
       openPdf(pdf);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const { data, isLoading } = useGetMeasures();
