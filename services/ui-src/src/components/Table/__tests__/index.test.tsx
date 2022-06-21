@@ -14,7 +14,7 @@ const WrappedDemoComponents = ({ props }: any) => (
   </Router>
 );
 
-describe("Test Table Component", () => {
+describe.skip("Test Table Component", () => {
   it("renders coreset table correctly", () => {
     const el = render(
       <WrappedDemoComponents
