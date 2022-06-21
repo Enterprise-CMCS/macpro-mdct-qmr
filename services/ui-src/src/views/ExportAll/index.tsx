@@ -21,6 +21,9 @@ export const ExportAll = () => {
     let byteArray = new Uint8Array(byteNumbers);
     let file = new Blob([byteArray], { type: "application/pdf;base64" });
     let fileURL = URL.createObjectURL(file);
+
+    console.log({ byteCharacters, byteNumbers, byteArray, file, fileURL });
+
     window.open(fileURL);
   };
 
@@ -31,6 +34,8 @@ export const ExportAll = () => {
       "style",
       document.querySelectorAll("style")[2].innerHTML.split(/{|}/g)[1]
     );
+
+    console.log("got html content");
 
     const htmlString = html
       .innerHTML!.replaceAll(
@@ -46,6 +51,8 @@ export const ExportAll = () => {
 
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
+    console.log("encoded base64 string", base64String);
+
     try {
       const pdf = await getPDF({
         body: base64String,
@@ -53,6 +60,9 @@ export const ExportAll = () => {
         coreSet: coreSetId,
         year,
       });
+
+      console.log(pdf);
+
       openPdf(pdf);
     } catch (err) {
       console.log(err);
