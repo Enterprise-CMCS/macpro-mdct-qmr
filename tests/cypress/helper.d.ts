@@ -66,5 +66,17 @@ declare namespace Cypress {
 
     // Helper function to enter a valid date range
     enterValidDateRange(): Chainable<Element>;
+
+    /** Add a new State Specific measure. Optionally define description and detailedDescription. */
+    addStateSpecificMeasure(
+      description?: string,
+      detailedDescription?: string
+    ): Chainable<Element>;
+
+    /** Delete a State Specific measure. Optionally define description*/
+    deleteStateSpecificMeasure(description?: string): Chainable<Element>;
+
+    /** Correct sections visible in SSHH measure */
+    SSHHdisplaysCorrectSections(): Chainable<Element>;
   }
 }
