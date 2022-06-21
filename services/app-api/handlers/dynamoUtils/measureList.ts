@@ -600,6 +600,10 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      measure: "TFL-CH",
+    },
+    {
+      type: "C",
       measure: "W30-CH",
     },
     {
