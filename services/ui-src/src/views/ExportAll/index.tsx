@@ -26,8 +26,6 @@ export const ExportAll = () => {
   };
 
   const makePrinceRequest = async () => {
-    const html = document.querySelector("html")!;
-    html.querySelector("noscript")?.remove();
     let styleInnerBody = "";
 
     for (let i = 0; i < document.styleSheets.length - 1; i++) {
@@ -54,6 +52,9 @@ export const ExportAll = () => {
     document.head.appendChild(style);
 
     style.appendChild(document.createTextNode(styleInnerBody));
+
+    const html = document.querySelector("html")!;
+    html.querySelector("noscript")?.remove();
 
     const htmlString = html
       .innerHTML!.replaceAll(
