@@ -53,8 +53,13 @@ const _singleValueValidation = ({
     for (const catKey of Object.keys(rateData?.rates?.[qualKey] ?? {})) {
       if (
         !!rateData?.rates?.[qualKey]?.[catKey]?.[0]?.fields &&
+        // check some fields are empty
+        rateData.rates[qualKey][catKey][0].fields.some(
+          (field: any) => !field.value
+        ) &&
+        // check not all fields are empty
         !rateData.rates[qualKey][catKey][0].fields.every(
-          (field: any) => !!field.value
+          (field: any) => !field.value
         )
       ) {
         errors.push({
