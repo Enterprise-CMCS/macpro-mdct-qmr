@@ -2,20 +2,21 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { AddSSMCard } from "./AddSSMCard";
 import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { CoreSetTableItem } from "components/Table/types";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
+import { measureDescriptions } from "measures/measureDescriptions";
+import { SPA } from "libs/spaLib";
 import { useEffect, useState } from "react";
 import {
   useDeleteMeasure,
   useGetCoreSet,
   useGetMeasure,
   useGetMeasures,
+  useUpdateMeasure,
 } from "hooks/api";
 import { useQueryClient } from "react-query";
-import { CoreSetTableItem } from "components/Table/types";
-import { SPA } from "libs/spaLib";
 import { useUser } from "hooks/authHooks";
-import { measureDescriptions } from "measures/measureDescriptions";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -131,12 +132,29 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
 const useMeasureTableDataBuilder = () => {
   const queryClient = useQueryClient();
   const { state, year, coreSetId } = useParams();
-  const { data, isLoading, isError, error } = useGetMeasures();
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch: refetchMeasures,
+    error,
+  } = useGetMeasures();
   const [measures, setMeasures] = useState<MeasureTableItem[]>([]);
   const [coreSetStatus, setCoreSetStatus] = useState(
     CoreSetTableItem.Status.IN_PROGRESS
   );
   const { mutate: deleteMeasure } = useDeleteMeasure();
+  const navigate = useNavigate();
+  const { isStateUser } = useUser();
+
+  interface ModalProps {
+    isOpen: boolean;
+    measure: MeasureData<any> | any;
+  }
+  const [modalProps, setModalProps] = useState<ModalProps>({
+    isOpen: false,
+    measure: {},
+  });
 
   useEffect(() => {
     let mounted = true;
@@ -174,13 +192,20 @@ const useMeasureTableDataBuilder = () => {
         .map((item) => {
           const actions = [
             {
-              itemText: "Edit",
-              handleSelect: () => console.log("Edit " + item.measure),
+              itemText: "View",
+              handleSelect: () => {
+                navigate(`${item.measure}`);
+              },
             },
           ];
 
           // Let user delete user-created measures
-          if (item.userCreated === true) {
+          if (isStateUser && item.userCreated === true) {
+            actions.push({
+              itemText: "Edit",
+              handleSelect: () =>
+                setModalProps({ isOpen: true, measure: item }),
+            });
             actions.push({
               itemText: "Delete",
               handleSelect: () =>
@@ -218,17 +243,30 @@ const useMeasureTableDataBuilder = () => {
       mounted = false;
     };
   }, [
+    coreSetId,
     data,
     deleteMeasure,
-    isLoading,
     isError,
-    setMeasures,
-    coreSetId,
+    isLoading,
+    isStateUser,
+    navigate,
     queryClient,
+    setMeasures,
     state,
     year,
   ]);
-  return { coreSetStatus, measures, isLoading, isError, error };
+  return {
+    coreSetStatus,
+    measures,
+    isLoading,
+    isError,
+    error,
+    refetchMeasures,
+
+    // update measure modal state variables
+    modalProps,
+    setModalProps,
+  };
 };
 
 export const CoreSet = () => {
@@ -256,8 +294,32 @@ export const CoreSet = () => {
   const isHHCoreSet = spaName.length > 0;
 
   const { data } = useGetCoreSet({ coreSetId, state, year });
-  const { coreSetStatus, measures, isLoading, isError, error } =
-    useMeasureTableDataBuilder();
+  const {
+    coreSetStatus,
+    measures,
+    isLoading,
+    isError,
+    error,
+    refetchMeasures,
+
+    // update measure modal state variables
+    modalProps,
+    setModalProps,
+  } = useMeasureTableDataBuilder();
+
+  const { mutate: updateMeasure } = useUpdateMeasure();
+
+  /*
+   * If measure data exists and has changed, make an updateMeasure request
+   */
+  const handleModalResponse = (measureData: any) => {
+    updateMeasure(measureData, { onSettled: () => refetchMeasures() });
+    closeModal();
+  };
+
+  const closeModal = () => {
+    setModalProps({ isOpen: false, measure: {} }); // reset state, close modal
+  };
 
   const completedAmount = measures.filter(
     (measure) => measure.rateComplete > 0
@@ -281,6 +343,11 @@ export const CoreSet = () => {
         },
       ]}
     >
+      <QMR.UpdateInfoModal
+        closeModal={closeModal}
+        handleModalResponse={handleModalResponse}
+        modalProps={modalProps}
+      />
       {/* Show success banner after redirect from creating new SSMs */}
       {locationState && locationState.success === true && (
         <CUI.Box mb="6">
