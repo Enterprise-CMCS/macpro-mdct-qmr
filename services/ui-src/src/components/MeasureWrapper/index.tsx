@@ -36,6 +36,7 @@ const LastModifiedBy = ({ user }: { user: string | undefined }) => {
 
 export interface MeasureWrapperProps {
   name: string;
+  detailedDescription?: string;
   year: string;
   measureId: string;
   setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
@@ -48,6 +49,7 @@ export interface MeasureWrapperProps {
 interface MeasureProps {
   measure: ReactElement;
   name: string;
+  detailedDescription?: string;
   year: string;
   measureId: string;
   setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
@@ -160,13 +162,6 @@ export const MeasureWrapper = ({
 
   /*
   this is where we put all the high level stuff for measures
-  this would include:
-  - validating the route params (state, coreset)
-  - querying the measure data
-  - defining the update method
-  - handing top level errors
-  - loading states (maybe?)
-
   all of the methods defined here can be passed as props to every measure below
   */
 
@@ -181,6 +176,7 @@ export const MeasureWrapper = ({
     measure: measureId,
   });
   const measureData = apiData?.Item;
+  const detailedDescription = apiData?.Item?.detailedDescription;
 
   const updateCoreSet = useEditCoreSet().mutate;
   const { state, coreSetId } = useParams();
@@ -428,6 +424,7 @@ export const MeasureWrapper = ({
                   <Measure
                     measure={measure}
                     name={name}
+                    detailedDescription={detailedDescription}
                     year={year}
                     measureId={measureId}
                     setValidationFunctions={setValidationFunctions}
