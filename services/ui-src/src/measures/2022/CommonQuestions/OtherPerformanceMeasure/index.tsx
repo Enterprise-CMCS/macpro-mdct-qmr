@@ -14,6 +14,7 @@ interface Props {
   allowNumeratorGreaterThanDenominator?: boolean;
   data?: DataDrivenTypes.PerformanceMeasure;
   RateComponent?: RateComp;
+  rateCalc?: RateFormula;
 }
 
 const stringIsReadOnly = (dataSource: string) => {
@@ -36,6 +37,7 @@ export const OtherPerformanceMeasure = ({
   allowNumeratorGreaterThanDenominator,
   data = {},
   RateComponent = QMR.Rate,
+  rateCalc,
 }: Props) => {
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
   const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
@@ -112,6 +114,7 @@ export const OtherPerformanceMeasure = ({
                 allowNumeratorGreaterThanDenominator={
                   allowNumeratorGreaterThanDenominator
                 }
+                rateCalc={rateCalc}
               />
             </CUI.Stack>
           );

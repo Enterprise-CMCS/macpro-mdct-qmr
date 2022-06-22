@@ -38,6 +38,7 @@ const TotalNDR = ({
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
+    rateCalculation,
   } = usePerformanceMeasureContext();
 
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
@@ -58,15 +59,6 @@ const TotalNDR = ({
         categoryName={""}
       />
     );
-  } else if (componentFlag === "AAB") {
-    return (
-      <QMR.AABRate
-        key={cleanedName}
-        name={cleanedName}
-        readOnly={rateReadOnly}
-        rates={[{ label: label, id: 0 }]}
-      />
-    );
   } else {
     return (
       <QMR.Rate
@@ -82,6 +74,7 @@ const TotalNDR = ({
         customNumeratorLabel={customNumeratorLabel}
         customDenominatorLabel={customDenominatorLabel}
         customRateLabel={customRateLabel}
+        rateCalc={rateCalculation}
       />
     );
   }
@@ -148,7 +141,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     customMask,
     performanceMeasureArray,
     IUHHPerformanceMeasureArray,
-    componentFlag,
+    rateCalculation,
     rateMultiplicationValue,
     rateReadOnly,
     customDenominatorLabel,
@@ -192,43 +185,29 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
           const adjustedName = `${name}.rates.${cleanString(
             singleQual
           )}.${cleanString(categories[idx])}`;
-          if (componentFlag === "AAB") {
-            ndrSets.push(
-              <QMR.AABRate
-                readOnly={rateReadOnly}
-                name={adjustedName}
-                key={adjustedName}
-                rates={[
-                  {
-                    id: 0,
-                    label: categories[idx],
-                  },
-                ]}
-              />
-            );
-          } else {
-            ndrSets.push(
-              <QMR.Rate
-                readOnly={rateReadOnly}
-                name={adjustedName}
-                key={adjustedName}
-                rateMultiplicationValue={rateMultiplicationValue}
-                allowNumeratorGreaterThanDenominator={
-                  allowNumeratorGreaterThanDenominator
-                }
-                customNumeratorLabel={customNumeratorLabel}
-                customDenominatorLabel={customDenominatorLabel}
-                customRateLabel={customRateLabel}
-                customMask={customMask}
-                rates={[
-                  {
-                    id: 0,
-                    label: categories[idx],
-                  },
-                ]}
-              />
-            );
-          }
+
+          ndrSets.push(
+            <QMR.Rate
+              readOnly={rateReadOnly}
+              name={adjustedName}
+              key={adjustedName}
+              rateMultiplicationValue={rateMultiplicationValue}
+              allowNumeratorGreaterThanDenominator={
+                allowNumeratorGreaterThanDenominator
+              }
+              customNumeratorLabel={customNumeratorLabel}
+              customDenominatorLabel={customDenominatorLabel}
+              customRateLabel={customRateLabel}
+              customMask={customMask}
+              rateCalc={rateCalculation}
+              rates={[
+                {
+                  id: 0,
+                  label: categories[idx],
+                },
+              ]}
+            />
+          );
         }
       });
     }
@@ -245,7 +224,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     calcTotal,
     allowNumeratorGreaterThanDenominator,
     customMask,
-    componentFlag,
+    rateCalculation,
     performanceMeasureArray,
     rateMultiplicationValue,
     rateReadOnly,
@@ -262,33 +241,23 @@ const useQualRateArray: RateArrayBuilder = (name) => {
         DC.SINGLE_CATEGORY
       }`;
 
-      if (componentFlag === "AAB") {
-        rateArrays.push([
-          <QMR.AABRate
-            readOnly={rateReadOnly}
-            name={cleanedName}
-            key={cleanedName}
-            rates={[{ id: 0 }]}
-          />,
-        ]);
-      } else {
-        rateArrays.push([
-          <QMR.Rate
-            readOnly={rateReadOnly}
-            name={cleanedName}
-            key={cleanedName}
-            rateMultiplicationValue={rateMultiplicationValue}
-            allowNumeratorGreaterThanDenominator={
-              allowNumeratorGreaterThanDenominator
-            }
-            customNumeratorLabel={customNumeratorLabel}
-            customDenominatorLabel={customDenominatorLabel}
-            customRateLabel={customRateLabel}
-            customMask={customMask}
-            rates={[{ id: 0 }]}
-          />,
-        ]);
-      }
+      rateArrays.push([
+        <QMR.Rate
+          readOnly={rateReadOnly}
+          name={cleanedName}
+          key={cleanedName}
+          rateMultiplicationValue={rateMultiplicationValue}
+          allowNumeratorGreaterThanDenominator={
+            allowNumeratorGreaterThanDenominator
+          }
+          customNumeratorLabel={customNumeratorLabel}
+          customDenominatorLabel={customDenominatorLabel}
+          customRateLabel={customRateLabel}
+          customMask={customMask}
+          rateCalc={rateCalculation}
+          rates={[{ id: 0 }]}
+        />,
+      ]);
     } else {
       rateArrays.push([]);
     }
@@ -435,7 +404,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
     rateMultiplicationValue,
     customMask,
     allowNumeratorGreaterThanDenominator,
-    componentFlag,
+    rateCalculation,
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
@@ -452,7 +421,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
   OPM?.forEach(({ description }, idx) => {
     if (description) {
       const cleanedFieldName = cleanString(description);
-      let RateComponent = (
+      const RateComponent = (
         <QMR.Rate
           rates={[
             {
@@ -470,19 +439,9 @@ const useRenderOPMCheckboxOptions = (name: string) => {
           customNumeratorLabel={customNumeratorLabel}
           customDenominatorLabel={customDenominatorLabel}
           customRateLabel={customRateLabel}
+          rateCalc={rateCalculation}
         />
       );
-
-      if (componentFlag === "AAB") {
-        RateComponent = (
-          <QMR.AABRate
-            readOnly={rateReadOnly}
-            name={`${name}.rates.${cleanedFieldName}.OPM`}
-            key={`${name}.rates.${cleanedFieldName}.OPM`}
-            rates={[{ id: 0 }]}
-          />
-        );
-      }
 
       checkBoxOptions.push({
         value: cleanedFieldName,
