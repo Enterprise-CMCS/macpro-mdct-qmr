@@ -98,7 +98,8 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
       [rateData?.["pcr-rate"] ?? []],
       rates ?? [],
       PMD.qualifiers,
-      `Optional Measure Stratification: ${locationDictionary(label)}`
+      `Optional Measure Stratification: ${locationDictionary(label)}`,
+      true
     ),
   ];
 };
