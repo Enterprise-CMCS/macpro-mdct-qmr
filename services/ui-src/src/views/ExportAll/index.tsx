@@ -66,16 +66,14 @@ export const ExportAll = () => {
 
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
-    try {
-      const pdf = await getPDF({
-        body: base64String,
-        state,
-        coreSet: coreSetId,
-        year,
-      });
+    const pdf = await getPDF({
+      body: base64String,
+      state,
+      coreSet: coreSetId,
+      year,
+    });
 
-      openPdf(pdf);
-    } catch (err) {}
+    openPdf(pdf);
   };
 
   const { data, isLoading } = useGetMeasures();
