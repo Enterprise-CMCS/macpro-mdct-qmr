@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import { FormRateField } from "measures/2022/globalValidations/types";
 
-export const IUHHvalidateDualPopInformation = (
+export const ComplexValidateDualPopInformation = (
   performanceMeasureArray: any,
   OPM: any,
   DefinitionOfDenominator: string[] | undefined,
@@ -24,6 +24,9 @@ export const IUHHvalidateDualPopInformation = (
   performanceMeasureArray.forEach((cat: any) => {
     cat?.forEach((qual: any) => {
       if (qual?.label === "Age 65 and older") age65Data.push(qual);
+      if (qual?.label === "Ages 65 to 74") age65Data.push(qual);
+      if (qual?.label === "Ages 75 to 84") age65Data.push(qual);
+      if (qual?.label === "Age 85 and older") age65Data.push(qual);
     });
   });
 

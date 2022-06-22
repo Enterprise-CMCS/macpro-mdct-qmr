@@ -10,7 +10,7 @@ interface NDRforumla {
  * If the user indicates that there is a deviation from the measure spec, they must
  * indicate where the deviation is.
  */
-export const IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
+export const ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: any,
   ndrFormulas: NDRforumla[],
   deviationArray: Types.DeviationFields[] | any,
