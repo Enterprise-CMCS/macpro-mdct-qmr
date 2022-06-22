@@ -1,6 +1,6 @@
 import { cleanString } from "utils/cleanString";
 
-export const IUHHvalueSameCrossCategoryOMS = (
+export const ComplexValueSameCrossCategoryOMS = (
   rateData: any,
   categories: string[],
   qualifiers: string[],
@@ -40,7 +40,7 @@ export const IUHHvalueSameCrossCategoryOMS = (
   }
 
   // if (performanceMeasureArray)
-  let errorArray: any[] = IUHHvalueSameCrossCategory({
+  let errorArray: any[] = ComplexValueSameCrossCategory({
     rateData: performanceMeasureArray,
     OPM: undefined,
     errorLocation,
@@ -62,7 +62,7 @@ interface Props {
  *
  * Ex - "Number of Enrollee Months" in Inpatient ages 0-17 === Medicine ages 0-17
  */
-export const IUHHvalueSameCrossCategory = ({
+export const ComplexValueSameCrossCategory = ({
   rateData,
   OPM,
   fieldIndex = 0,
