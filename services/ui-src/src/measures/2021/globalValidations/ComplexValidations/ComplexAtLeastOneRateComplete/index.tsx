@@ -1,3 +1,5 @@
+import { validatePartialRateCompletionPM } from "../../validatePartialRateCompletion";
+
 /* At least one NDR set must be complete (OPM or PM) */
 export const ComplexAtLeastOneRateComplete = (
   performanceMeasureArray: any,
@@ -5,7 +7,8 @@ export const ComplexAtLeastOneRateComplete = (
   errorLocation: string = "Performance Measure/Other Performance Measure"
 ) => {
   let error = true;
-  let errorArray: any[] = [];
+  let partialError = false;
+  let errorArray: FormError[] = [];
 
   // Check OPM first
   OPM &&
@@ -27,10 +30,25 @@ export const ComplexAtLeastOneRateComplete = (
           return field.value !== undefined && field.value !== "";
         }
       );
+      if (
+        !qualComplete &&
+        qualifier.fields.some((field: { value?: string; label?: string }) => {
+          return !!(field?.value !== undefined && field?.value !== "");
+        })
+      ) {
+        partialError = true;
+      }
       if (qualComplete) {
         error = false;
       }
     }
+  }
+
+  if (partialError) {
+    errorArray.push({
+      errorLocation: errorLocation,
+      errorMessage: `Should not have partially filled data sets.`,
+    });
   }
 
   if (error) {
@@ -39,5 +57,10 @@ export const ComplexAtLeastOneRateComplete = (
       errorMessage: "At least one set of fields must be complete.",
     });
   }
-  return error ? errorArray : [];
+
+  if (OPM) {
+    errorArray.push(...validatePartialRateCompletionPM([], OPM, []));
+  }
+
+  return errorArray;
 };
