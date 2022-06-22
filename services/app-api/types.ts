@@ -32,6 +32,7 @@ export interface Measure {
   status: MeasureStatus;
   userCreated?: boolean;
   year: number;
+  placeholder?: boolean;
 }
 
 export interface DynamoMeasureList {

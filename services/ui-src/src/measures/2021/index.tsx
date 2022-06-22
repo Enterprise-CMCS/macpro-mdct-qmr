@@ -3,6 +3,7 @@ When importing a measure it should be a named import and added to the measures o
 the key should be the measure id as a string (with '-XX' included) 
 */
 import { ADDCH } from "./ADDCH";
+import { AIFHH } from "./AIFHH";
 import { AMBCH } from "./AMBCH";
 import { AMBHH } from "./AMBHH";
 import { AMMAD } from "./AMMAD";
@@ -63,13 +64,17 @@ import { PQI92HH } from "./PQI92HH";
 import { SAAAD } from "./SAAAD";
 import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
+import { SSHH } from "./SSHH";
 import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
 import { OUDHH } from "./OUDHH";
 
+import { Qualifier, Data } from "./Qualifiers";
+
 const twentyTwentyOneMeasures = {
   "ADD-CH": ADDCH,
+  "AIF-HH": AIFHH,
   "AMB-CH": AMBCH,
   "AMB-HH": AMBHH,
   "AMM-AD": AMMAD,
@@ -130,10 +135,17 @@ const twentyTwentyOneMeasures = {
   "PQI92-HH": PQI92HH,
   "SAA-AD": SAAAD,
   "SFM-CH": SFMCH,
+  "SS-1-HH": SSHH,
+  "SS-2-HH": SSHH,
+  "SS-3-HH": SSHH,
+  "SS-4-HH": SSHH,
+  "SS-5-HH": SSHH,
   "SSD-AD": SSDAD,
   "W30-CH": W30CH,
   "WCC-CH": WCCCH,
   "WCV-CH": WCVCH,
+  Qualifier,
 };
 
 export default twentyTwentyOneMeasures;
+export const QualifierData = Data;

@@ -1,8 +1,8 @@
 import objectPath from "object-path";
-import { IUHHRateFields, RateFields } from "../types";
+import { complexRateFields, RateFields } from "../types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { CompFlagType, usePerformanceMeasureContext } from "./context";
+import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 
 interface TempRate {
   numerator?: number;
@@ -16,7 +16,7 @@ interface TotalCalcHookProps {
   // current cleaned category
   cleanedCategory?: string;
   // Rate component type identifier
-  compFlag: CompFlagType;
+  componentFlag: ComponentFlagType;
 }
 
 interface CalcOmsTotalProp {
@@ -130,7 +130,7 @@ const calculateIUHHOMSTotal = ({
   cleanedCategory,
   qualifiers,
   watchOMS,
-}: CalcOmsTotalProp): IUHHRateFields => {
+}: CalcOmsTotalProp): complexRateFields => {
   const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
   const fieldNames = watchOMS?.[cleanedQualifiers[0]]?.[
     cleanedCategory
@@ -180,8 +180,8 @@ const calculateIUHHOMSTotal = ({
 
 /** (IU-HH Specific) Checks if previous non-undefined OMS values have changed */
 const checkNewIUHHOmsValuesChanged = (
-  next: IUHHRateFields[],
-  prev?: IUHHRateFields[]
+  next: complexRateFields[],
+  prev?: complexRateFields[]
 ): boolean => {
   if (!prev) return false;
   return !next.every((v, i) => {
@@ -208,13 +208,13 @@ const checkNewIUHHOmsValuesChanged = (
 export const useTotalAutoCalculation = ({
   name,
   cleanedCategory = "singleCategory",
-  compFlag,
+  componentFlag,
 }: TotalCalcHookProps) => {
   const { watch, setValue } = useFormContext();
   const { qualifiers, numberOfDecimals, rateMultiplicationValue } =
     usePerformanceMeasureContext();
   const [previousOMS, setPreviousOMS] = useState<
-    IUHHRateFields[] | undefined
+    complexRateFields[] | undefined
   >();
 
   useEffect(() => {
@@ -231,14 +231,16 @@ export const useTotalAutoCalculation = ({
     const subscription = watch((values, { name: fieldName, type }) => {
       if (fieldName && values) {
         const omsFields =
-          compFlag === "IU" ? ([] as IUHHRateFields[]) : ([] as RateFields[]);
+          componentFlag === "IU"
+            ? ([] as complexRateFields[])
+            : ([] as RateFields[]);
         const watchOMS = objectPath.get(values, `${name}.rates`);
         for (const q of nonTotalQualifiers) {
           omsFields.push(watchOMS?.[q]?.[cleanedCategory]?.[0] ?? {});
         }
 
         const OMSValuesChanged: boolean =
-          compFlag === "IU"
+          componentFlag === "IU"
             ? checkNewIUHHOmsValuesChanged(omsFields, previousOMS)
             : checkNewOmsValuesChanged(omsFields, previousOMS);
         if (
@@ -247,7 +249,7 @@ export const useTotalAutoCalculation = ({
           OMSValuesChanged
         ) {
           const newFieldValue =
-            compFlag === "IU"
+            componentFlag === "IU"
               ? calculateIUHHOMSTotal({
                   cleanedCategory,
                   qualifiers,
@@ -278,7 +280,7 @@ export const useTotalAutoCalculation = ({
     watch,
     setValue,
     cleanedCategory,
-    compFlag,
+    componentFlag,
     name,
     numberOfDecimals,
     qualifiers,

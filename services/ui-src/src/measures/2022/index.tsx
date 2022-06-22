@@ -2,6 +2,7 @@
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
 the key should be the measure id as a string (with '-XX' included) 
 */
+import { AABAD } from "./AABAD";
 import { ADDCH } from "./ADDCH";
 import { AMBCH } from "./AMBCH";
 import { AMMAD } from "./AMMAD";
@@ -23,12 +24,15 @@ import { CHLAD } from "./CHLAD";
 import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
+import { COLAD } from "./COLAD";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
+import { FUACH } from "./FUACH";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
+import { FUMCH } from "./FUMCH";
 import { FVAAD } from "./FVAAD";
 import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
@@ -53,11 +57,15 @@ import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
 import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
+import { TFLCH } from "./TFLCH";
 import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
 
+import { Data, Qualifier } from "./Qualifiers";
+
 const twentyTwentyTwoMeasures = {
+  "AAB-AD": AABAD,
   "ADD-CH": ADDCH,
   "AMB-CH": AMBCH,
   "AMM-AD": AMMAD,
@@ -79,13 +87,16 @@ const twentyTwentyTwoMeasures = {
   "CHL-CH": CHLCH,
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
+  "COL-AD": COLAD,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "DEV-CH": DEVCH,
   "FUA-AD": FUAAD,
+  "FUA-CH": FUACH,
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
+  "FUM-CH": FUMCH,
   "FVA-AD": FVAAD,
   "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,
@@ -109,9 +120,12 @@ const twentyTwentyTwoMeasures = {
   "SAA-AD": SAAAD,
   "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
+  "TFL-CH": TFLCH,
   "W30-CH": W30CH,
   "WCC-CH": WCCCH,
   "WCV-CH": WCVCH,
+  Qualifier,
 };
 
+export const QualifierData = Data;
 export default twentyTwentyTwoMeasures;

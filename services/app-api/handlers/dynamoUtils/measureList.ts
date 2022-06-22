@@ -59,6 +59,7 @@ export interface MeasureMetaData {
   type: "A" | "C" | "H";
   measure: string;
   autocompleteOnCreation?: boolean;
+  placeholder?: boolean;
 }
 
 export const measures: Measure = {
@@ -343,6 +344,31 @@ export const measures: Measure = {
       type: "H",
       measure: "PQI92-HH",
     },
+    {
+      type: "H",
+      measure: "SS-1-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-2-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-3-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-4-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-5-HH",
+      placeholder: true,
+    },
   ],
   2022: [
     {
@@ -356,6 +382,10 @@ export const measures: Measure = {
     {
       type: "H",
       measure: "CSQ",
+    },
+    {
+      type: "A",
+      measure: "AAB-AD",
     },
     {
       type: "A",
@@ -396,6 +426,10 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "COB-AD",
+    },
+    {
+      type: "A",
+      measure: "COL-AD",
     },
     {
       type: "A",
@@ -532,7 +566,15 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      measure: "FUA-CH",
+    },
+    {
+      type: "C",
       measure: "FUH-CH",
+    },
+    {
+      type: "C",
+      measure: "FUM-CH",
     },
     {
       type: "C",
@@ -559,6 +601,10 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "SFM-CH",
+    },
+    {
+      type: "C",
+      measure: "TFL-CH",
     },
     {
       type: "C",
