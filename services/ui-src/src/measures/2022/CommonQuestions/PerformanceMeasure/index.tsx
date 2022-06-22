@@ -20,12 +20,7 @@ interface Props {
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
-  rateCalc?: (
-    numerator: string,
-    denominator: string,
-    rateMultiplicationValue: number,
-    numbersAfterDecimal: number
-  ) => string;
+  rateCalc?: RateFormula;
 }
 
 interface NdrSetProps {
@@ -40,12 +35,7 @@ interface NdrSetProps {
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
-  rateCalc?: (
-    numerator: string,
-    denominator: string,
-    rateMultiplicationValue: number,
-    numbersAfterDecimal: number
-  ) => string;
+  rateCalc?: RateFormula;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */

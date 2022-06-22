@@ -61,12 +61,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   numberOfDecimals?: number;
   componentFlag?: ComponentFlagType;
   customPrompt?: string;
-  rateCalc?: (
-    numerator: string,
-    denominator: string,
-    rateMultiplicationValue: number,
-    numbersAfterDecimal: number
-  ) => string;
+  rateCalc?: RateFormula;
 }
 
 /** data for dynamic rendering will be provided */

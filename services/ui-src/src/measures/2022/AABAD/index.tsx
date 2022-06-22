@@ -1,11 +1,14 @@
+import * as PMD from "./data";
+import * as QMR from "components";
+import * as CMQ from "measures/2022/CommonQuestions";
+
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import * as CMQ from "measures/2022/CommonQuestions";
-import * as PMD from "./data";
-import { validationFunctions } from "./validation";
-import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
-import * as QMR from "components";
+
 import { FormData } from "./types";
+import { validationFunctions } from "./validation";
+import { AABRateCalculation } from "utils/rateFormulas";
+import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
 
 export const AABAD = ({
   name,
@@ -47,7 +50,7 @@ export const AABAD = ({
             <>
               <CMQ.PerformanceMeasure
                 data={PMD.data}
-                rateCalc={QMR.AABRateCalculation}
+                rateCalc={AABRateCalculation}
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
@@ -55,7 +58,7 @@ export const AABAD = ({
           {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure
               data={PMD.data}
-              rateCalc={QMR.AABRateCalculation}
+              rateCalc={AABRateCalculation}
             />
           )}
           <CMQ.CombinedRates />
@@ -65,7 +68,7 @@ export const AABAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure
-              rateCalc={QMR.AABRateCalculation}
+              rateCalc={AABRateCalculation}
               customPrompt={PMD.data.customPrompt}
             />
           )}

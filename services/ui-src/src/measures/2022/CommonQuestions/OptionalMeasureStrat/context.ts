@@ -20,12 +20,7 @@ interface ContextProps {
   customDenominatorLabel?: string;
   customRateLabel?: string;
   customPrompt?: string;
-  rateCalculation?: (
-    numerator: string,
-    denominator: string,
-    rateMultiplicationValue: number,
-    numbersAfterDecimal: number
-  ) => string;
+  rateCalculation?: RateFormula;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({

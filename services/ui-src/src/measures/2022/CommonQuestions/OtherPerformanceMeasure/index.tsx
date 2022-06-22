@@ -14,12 +14,7 @@ interface Props {
   allowNumeratorGreaterThanDenominator?: boolean;
   data?: DataDrivenTypes.PerformanceMeasure;
   RateComponent?: RateComp;
-  rateCalc?: (
-    numerator: string,
-    denominator: string,
-    rateMultiplicationValue: number,
-    numbersAfterDecimal: number
-  ) => string;
+  rateCalc?: RateFormula;
 }
 
 const stringIsReadOnly = (dataSource: string) => {
