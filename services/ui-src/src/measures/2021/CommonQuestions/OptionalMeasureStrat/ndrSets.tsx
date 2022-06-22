@@ -58,6 +58,15 @@ const TotalNDR = ({
         categoryName={""}
       />
     );
+  } else if (compFlag === "AIF") {
+    return (
+      <QMR.AIFHHRate
+        key={cleanedName}
+        name={cleanedName}
+        readOnly={rateReadOnly}
+        rates={[{ label: label, id: 0 }]}
+      />
+    );
   } else {
     return (
       <QMR.Rate
@@ -215,7 +224,6 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     }
     rateArrays.push(ndrSets);
   });
-
   return rateArrays;
 };
 
@@ -228,6 +236,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     customMask,
     performanceMeasureArray,
     rateMultiplicationValue,
+    AIFHHPerformanceMeasureArray,
     rateReadOnly,
     customDenominatorLabel,
     customNumeratorLabel,
@@ -258,6 +267,32 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rates={[{ id: 0 }]}
         />,
       ]);
+    } else if (AIFHHPerformanceMeasureArray) {
+      AIFHHPerformanceMeasureArray?.forEach((measure) => {
+        const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
+          DC.SINGLE_CATEGORY
+        }`;
+        //Confirm that there is at least 1 rate complete
+        const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
+        const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
+        const rate3 = measure?.[qualIndex]?.fields?.[6]?.value ? true : false;
+        if (rate1 || rate2 || rate3) {
+          rateArrays.push([
+            <QMR.AIFHHRate
+              readOnly={rateReadOnly}
+              name={cleanedName}
+              key={cleanedName}
+              rates={[
+                {
+                  id: 0,
+                },
+              ]}
+            />,
+          ]);
+        } else {
+          rateArrays.push([]);
+        }
+      });
     } else {
       rateArrays.push([]);
     }
@@ -350,6 +385,28 @@ const IUHHNDRSets = ({ name }: NdrProps) => {
           compFlag={"IU"}
           name={`${name}.iuhh-rate`}
           key={`${name}.iuhh-rate.totalWrapper`}
+        />
+      )}
+    </>
+  );
+};
+
+const AIFHHNDRSets = ({ name }: NdrProps) => {
+  const { calcTotal } = usePerformanceMeasureContext();
+
+  const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.aifhh-rate`);
+  return (
+    <>
+      <QMR.Checkbox
+        name={`${name}.aifhh-rate.options`}
+        key={`${name}.aifhh-rate.options`}
+        options={ageGroupsOptions}
+      />
+      {calcTotal && (
+        <TotalNDRSets
+          compFlag={"AIF"}
+          name={`${name}.aifhh-rate`}
+          key={`${name}.aifhh-rate.totalWrapper`}
         />
       )}
     </>
@@ -494,6 +551,11 @@ export const NDRSets = ({ name }: NdrProps) => {
     case "IU":
       if (!OPM) {
         children.push(<IUHHNDRSets name={name} key={name} />);
+      }
+      break;
+    case "AIF":
+      if (!OPM) {
+        children.push(<AIFHHNDRSets name={name} key={name} />);
       }
       break;
     case "PCR":

@@ -164,46 +164,53 @@ const useMeasureTableDataBuilder = () => {
         // filter out the coreset qualifiers
         (item) => item.measure && item.measure !== "CSQ"
       );
-      const measureTableData = (filteredItems as MeasureData[]).map((item) => {
-        const actions = [
-          {
-            itemText: "Edit",
-            handleSelect: () => console.log("Edit " + item.measure),
-          },
-        ];
+      const measureTableData = (filteredItems as MeasureData[])
+        .filter(
+          (item) =>
+            !item.measure.includes("SS-") ||
+            // Don't show placeholder SS measures
+            (item.userCreated && !item.placeholder)
+        )
+        .map((item) => {
+          const actions = [
+            {
+              itemText: "Edit",
+              handleSelect: () => console.log("Edit " + item.measure),
+            },
+          ];
 
-        // Let user delete user-created measures
-        if (item.userCreated === true) {
-          actions.push({
-            itemText: "Delete",
-            handleSelect: () =>
-              handleDeleteMeasure({
-                coreSet: item.coreSet,
-                measure: item.measure,
-                state: item.state,
-                year: item.year.toString(),
-              }),
-          });
-        }
+          // Let user delete user-created measures
+          if (item.userCreated === true) {
+            actions.push({
+              itemText: "Delete",
+              handleSelect: () =>
+                handleDeleteMeasure({
+                  coreSet: item.coreSet,
+                  measure: item.measure,
+                  state: item.state,
+                  year: item.year.toString(),
+                }),
+            });
+          }
 
-        const foundMeasureDescription =
-          measureDescriptions[item.year]?.[item.measure] || item.description;
+          const foundMeasureDescription =
+            measureDescriptions[item.year]?.[item.measure] || item.description;
 
-        return {
-          Type: coreSetType[item.coreSet],
-          title: foundMeasureDescription || "",
-          abbr: item.measure,
-          path: `/${state}/${year}/${coreSetId}/${item.measure}`,
-          reporting: item.reporting,
-          rateComplete: item.status === MeasureStatus.COMPLETE ? 1 : 0,
-          lastDateModified: item.lastAltered,
-          createdAt: item.createdAt,
-          autoCompleted: item.autoCompleted,
-          id: item.measure,
-          userCreated: item.userCreated,
-          actions: actions,
-        };
-      });
+          return {
+            Type: coreSetType[item.coreSet],
+            title: foundMeasureDescription || "",
+            abbr: item.measure,
+            path: `/${state}/${year}/${coreSetId}/${item.measure}`,
+            reporting: item.reporting,
+            rateComplete: item.status === MeasureStatus.COMPLETE ? 1 : 0,
+            lastDateModified: item.lastAltered,
+            createdAt: item.createdAt,
+            autoCompleted: item.autoCompleted,
+            id: item.measure,
+            userCreated: item.userCreated,
+            actions: actions,
+          };
+        });
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
       mounted && setMeasures(measureTableData);
     }
