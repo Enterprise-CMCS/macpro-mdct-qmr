@@ -39,13 +39,11 @@ export const ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec = (
 
     if (oneRateComplete) {
       const atLeastOneDevNDR = deviationArray?.some((deviationNDR: any) => {
-        return deviationNDR?.SelectedOptions?.some((option: string) => {
-          return (
-            deviationNDR[option]?.denominator ||
-            deviationNDR[option]?.numerator ||
-            deviationNDR[option]?.other
-          );
-        });
+        return (
+          deviationNDR?.denominator ||
+          deviationNDR?.numerator ||
+          deviationNDR?.other
+        );
       });
 
       if (!atLeastOneDevNDR) {
