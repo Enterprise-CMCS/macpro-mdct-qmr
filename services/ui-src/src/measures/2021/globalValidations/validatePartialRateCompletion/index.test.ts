@@ -88,7 +88,7 @@ describe("Testing Partial Rate Validation", () => {
         simpleRate,
         simpleRate,
       ]);
-      const errors = validatePartialRateCompletionOMS({
+      const errors = validatePartialRateCompletionOMS()({
         ...baseOMSInfo,
         rateData: data,
       });
@@ -101,7 +101,7 @@ describe("Testing Partial Rate Validation", () => {
         simpleRate,
         simpleRate,
       ]);
-      const errors = validatePartialRateCompletionOMS({
+      const errors = validatePartialRateCompletionOMS()({
         ...baseOMSInfo,
         rateData: data,
         isOPM: true,
@@ -116,7 +116,7 @@ describe("Testing Partial Rate Validation", () => {
         partialRate,
         partialRate,
       ]);
-      const errors = validatePartialRateCompletionOMS({
+      const errors = validatePartialRateCompletionOMS()({
         ...baseOMSInfo,
         locationDictionary: locationDictionaryJestFunc,
         rateData: data,
@@ -137,7 +137,7 @@ describe("Testing Partial Rate Validation", () => {
       const data = generateOmsCategoryRateData([SINGLE_CATEGORY], qualifiers, [
         partialRate,
       ]);
-      const errors = validatePartialRateCompletionOMS({
+      const errors = validatePartialRateCompletionOMS()({
         ...baseOMSInfo,
         locationDictionary: locationDictionaryJestFunc,
         rateData: data,
@@ -160,7 +160,7 @@ describe("Testing Partial Rate Validation", () => {
         partialRate,
         partialRate,
       ]);
-      const errors = validatePartialRateCompletionOMS({
+      const errors = validatePartialRateCompletionOMS()({
         ...baseOMSInfo,
         locationDictionary: locationDictionaryJestFunc,
         rateData: data,

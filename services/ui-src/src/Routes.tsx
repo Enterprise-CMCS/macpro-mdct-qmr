@@ -80,7 +80,16 @@ function useMeasureRoutes(): MeasureRoute[] {
     });
   }
 
-  return data ? measureRoutes : [...measureRoutes];
+  return data
+    ? measureRoutes
+    : [
+        {
+          key: ":state/:year/:coreSetId/:measure",
+          path: ":state/:year/:coreSetId/:measure",
+          element: <Views.MeasuresLoading />,
+        },
+        ...measureRoutes,
+      ];
 }
 
 export function AppRoutes() {

@@ -23,7 +23,6 @@ export const ComplexNoNonZeroNumOrDenomOMS = (
       );
     } else {
       for (const category in rateData[key]) {
-        console.log([rateData[key][category]]);
         errorArray.push(
           ...ComplexNoNonZeroNumOrDenom(
             [rateData[key][category]],
