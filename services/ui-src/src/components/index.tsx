@@ -35,5 +35,6 @@ export * from "./SessionTimeout";
 export * from "./SubmitCoreSet";
 export * from "./SupportInfo";
 export * from "./Table";
+export * from "./UpdateInfoModal";
 export * from "./Upload";
 export * from "./YesNoModalDialog";
