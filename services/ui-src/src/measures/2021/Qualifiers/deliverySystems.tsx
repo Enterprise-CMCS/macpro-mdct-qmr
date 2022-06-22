@@ -39,7 +39,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
       <CUI.Table variant="simple" mt="4" size="md" verticalAlign="top">
         <CUI.Thead>
           <CUI.Tr>
-            <CUI.Th key="labelRow"></CUI.Th>
+            <CUI.Th key="labelRow" minWidth={"xs"}></CUI.Th>
             {data.textTable.map((textTableArr, index) => {
               return (
                 <CUI.Th
