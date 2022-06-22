@@ -31,7 +31,8 @@ const _validation = ({
       errorArray.push({
         errorLocation: locationFunc ? locationFunc(qual) : location,
         errorMessage:
-          errorMessage ??
+          // We can specifiy a custom error message and /QUALIFIER_VAR/g regex when we want to reference the qualifier
+          errorMessage?.replace(/QUALIFIER_VAR/g, qual) ??
           `Denominators must be the same for each category of performance measures for ${qual}`,
       });
     }

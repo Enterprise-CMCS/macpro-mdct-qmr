@@ -1,8 +1,14 @@
 import { OmsValidationCallback, FormRateField } from "../types";
 import { cleanString } from "utils/cleanString";
 
+interface ExplicitErrorObj {
+  numeratorMessage?: string;
+  denominatorMessage?: string;
+  totalMessage?: string;
+}
+
 export const validateOMSTotalNDR =
-  (explicitErrorMessage?: string): OmsValidationCallback =>
+  (explicitErrorObj?: ExplicitErrorObj): OmsValidationCallback =>
   ({
     categories,
     qualifiers,
@@ -47,7 +53,7 @@ export const validateOMSTotalNDR =
               [...label, qualifiers.slice(-1)[0]]
             )}`,
             errorMessage:
-              explicitErrorMessage ??
+              explicitErrorObj?.numeratorMessage ??
               `${
                 customTotalLabel ? `${customTotalLabel} ` : ""
               }Total numerator field is not equal to the sum of other numerators.`,
@@ -63,7 +69,7 @@ export const validateOMSTotalNDR =
               [...label, qualifiers.slice(-1)[0]]
             )}`,
             errorMessage:
-              explicitErrorMessage ??
+              explicitErrorObj?.denominatorMessage ??
               `${
                 customTotalLabel ? `${customTotalLabel} ` : ""
               }Total denominator field is not equal to the sum of other denominators.`,
@@ -75,7 +81,7 @@ export const validateOMSTotalNDR =
             [...label, qualifiers.slice(-1)[0]]
           )}`,
           errorMessage:
-            explicitErrorMessage ??
+            explicitErrorObj?.totalMessage ??
             `${
               customTotalLabel ? `${customTotalLabel} ` : ""
             }Total must contain values if other fields are filled.`,
@@ -97,7 +103,7 @@ export const validateTotalNDR = (
   performanceMeasureArray: FormRateField[][],
   errorLocation = "Performance Measure",
   categories?: string[],
-  explicitErrorMessage?: string
+  explicitErrorObj?: ExplicitErrorObj
 ): FormError[] => {
   let errorArray: FormError[] = [];
 
@@ -136,7 +142,11 @@ export const validateTotalNDR = (
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage:
-            explicitErrorMessage ??
+            // We can specifiy a custom error message and /CATEGORY_VAR/g regex when we want to reference the qualifier
+            explicitErrorObj?.numeratorMessage?.replace(
+              /CATEGORY_VAR/g,
+              (categories && categories[idx]) || totalNDR.label
+            ) ??
             `${
               (categories && categories[idx]) || totalNDR.label
             } numerator field is not equal to the sum of other numerators.`,
@@ -150,7 +160,11 @@ export const validateTotalNDR = (
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage:
-            explicitErrorMessage ??
+            // We can specifiy a custom error message and /CATEGORY_VAR/g regex when we want to reference the qualifier
+            explicitErrorObj?.denominatorMessage?.replace(
+              /CATEGORY_VAR/g,
+              (categories && categories[idx]) || totalNDR.label
+            ) ??
             `${
               (categories && categories[idx]) || totalNDR.label
             } denominator field is not equal to the sum of other denominators.`,
@@ -160,7 +174,14 @@ export const validateTotalNDR = (
       errorArray.push({
         errorLocation: errorLocation,
         errorMessage:
-          explicitErrorMessage ??
+          // We can specifiy a custom error message and /CATEGORY_VAR/g regex when we want to reference the qualifier
+          explicitErrorObj?.totalMessage?.replace(
+            /CATEGORY_VAR/g,
+            (categories &&
+              categories[idx] &&
+              `${categories[idx]} - ${totalNDR.label}`) ||
+              totalNDR.label
+          ) ??
           `${
             (categories &&
               categories[idx] &&
