@@ -77,7 +77,7 @@ export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
     },
   },
   {
-    header: "Reporting FFY 2021",
+    header: "Reporting FFY 2022",
     id: "reporting_column_header",
     styleProps: { textAlign: "center" },
     cell: (data: MeasureTableItem.Data) => {
