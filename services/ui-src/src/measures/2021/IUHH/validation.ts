@@ -52,27 +52,30 @@ const IUHHValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
-
-    ...GV.IUHHvalidateDualPopInformation(
+    ...GV.ComplexValidateDualPopInformation(
       performanceMeasureArray,
       OPM,
       definitionOfDenominator
     ),
 
     // Performance Measure Validations
-    ...GV.IUHHatLeastOneRateComplete(performanceMeasureArray, OPM),
-    ...GV.IUHHnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
-    ...GV.IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
+    ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
+    ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
+    ...GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
       ndrForumlas,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.IUHHvalidateNDRTotals(
+    ...GV.ComplexValidateNDRTotals(
       performanceMeasureArray,
       PMD.categories,
       ndrForumlas
     ),
+    ...GV.ComplexValueSameCrossCategory({
+      rateData: performanceMeasureArray,
+      OPM,
+    }),
 
     // OMS Validations
     ...GV.omsValidations({
@@ -100,21 +103,27 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   });
   return OPM === undefined
     ? [
-        ...GV.IUHHnoNonZeroNumOrDenomOMS(
+        ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},
           rates ?? [],
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
-        ...GV.IUHHvalidateNDRTotalsOMS(
+        ...GV.ComplexValidateNDRTotalsOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},
           PMD.categories,
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)} Total`
         ),
+        ...GV.ComplexValueSameCrossCategoryOMS(
+          rateData?.["iuhh-rate"]?.rates ?? {},
+          PMD.categories,
+          PMD.qualifiers,
+          `Optional Measure Stratification: ${locationDictionary(label)}`
+        ),
       ]
     : [
-        ...GV.IUHHnoNonZeroNumOrDenomOMS(
+        ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
           rates ?? [],
           ndrForumlas,

@@ -23,15 +23,19 @@ export { PCRatLeastOneRateComplete } from "./PCRValidations/PCRatLeastOneRateCom
 export { PCRnoNonZeroNumOrDenom } from "./PCRValidations/PCRnoNonZeroNumOrDenom";
 export { PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec";
 
-//IUHH Specific Validations
-export { IUHHatLeastOneRateComplete } from "./IUHHValidations/IUHHatLeastOneRateComplete";
+//Complex Measure Specific Validations
+export { ComplexAtLeastOneRateComplete } from "./ComplexValidations/ComplexAtLeastOneRateComplete";
 export {
-  IUHHnoNonZeroNumOrDenom,
-  IUHHnoNonZeroNumOrDenomOMS,
-} from "./IUHHValidations/IUHHnoNonZeroNumOrDenom";
-export { IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./IUHHValidations/IUHHvalidateAtLeastOneNDRInDeviationOfMeasureSpec";
+  ComplexNoNonZeroNumOrDenom,
+  ComplexNoNonZeroNumOrDenomOMS,
+} from "./ComplexValidations/ComplexNoNonZeroNumOrDenom";
+export { ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec";
 export {
-  IUHHvalidateNDRTotals,
-  IUHHvalidateNDRTotalsOMS,
-} from "./IUHHValidations/IUHHvalidateNDRTotals";
-export { IUHHvalidateDualPopInformation } from "./IUHHValidations/IUHHvalidateDualPopInformation";
+  ComplexValidateNDRTotals,
+  ComplexValidateNDRTotalsOMS,
+} from "./ComplexValidations/ComplexValidateNDRTotals";
+export { ComplexValidateDualPopInformation } from "./ComplexValidations/ComplexValidateDualPopInformation";
+export {
+  ComplexValueSameCrossCategory,
+  ComplexValueSameCrossCategoryOMS,
+} from "./ComplexValidations/ComplexValueSameCrossCategory";

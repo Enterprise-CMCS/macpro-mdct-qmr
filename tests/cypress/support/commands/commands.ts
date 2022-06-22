@@ -272,3 +272,57 @@ Cypress.Commands.add("enterValidDateRange", () => {
   cy.get('[data-cy="DateRange.endDate-month"]').type("12");
   cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
 });
+
+const _description = `New Measure ${Date.now()}`;
+const _detailedDescription =
+  "Don't hurry. Take your time and enjoy. Fluff it up a little and hypnotize it. The more we do this - the more it will do good things to our heart. There are no mistakes. You can fix anything that happens.";
+
+/** Add a new State Specific measure.
+ *
+ * Optionally define description and detailedDescription.
+ * */
+Cypress.Commands.add(
+  "addStateSpecificMeasure",
+  (description = _description, detailedDescription = _detailedDescription) => {
+    cy.get('[data-cy="add-ssm-button"]').click();
+    cy.get('[data-cy="add-ssm.0.description"]').type(description);
+    cy.get('[data-cy="add-ssm.0.detailedDescription"]').type(
+      detailedDescription
+    );
+    cy.get('[data-cy="Create"]').click();
+
+    // Confirm measure exists and values set correctly
+    cy.contains(description).click();
+    cy.contains(detailedDescription);
+  }
+);
+
+/** Delete a State Specific measure.
+ *
+ * Optionally define description. If no description provided, delete the most recently created SSHH.
+ */
+Cypress.Commands.add("deleteStateSpecificMeasure", (description?) => {
+  if (description) {
+    cy.contains("tr", description).within(() => {
+      cy.get('[data-cy="undefined-kebab-menu"]').click();
+    });
+  } else {
+    cy.get('tr [data-cy="undefined-kebab-menu"]').last().click();
+  }
+  cy.get('[data-cy="Delete"]').last().click();
+  cy.get('[data-cy="delete-table-item-input"]').type("DELETE{enter}");
+});
+
+// Correct sections visible when user is reporting data on measure
+Cypress.Commands.add("SSHHdisplaysCorrectSections", () => {
+  cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
+  cy.get('[data-cy="Data Source"]').should("be.visible");
+  cy.get('[data-cy="Date Range"]').should("be.visible");
+  cy.get('[data-cy="Definition of Population Included in the Measure"]').should(
+    "be.visible"
+  );
+  cy.get('[data-cy="Performance Measure"]').should("be.visible");
+  cy.get(
+    '[data-cy="Additional Notes/Comments on the measure (optional)"]'
+  ).should("be.visible");
+});
