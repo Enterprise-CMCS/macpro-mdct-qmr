@@ -11,10 +11,7 @@ export const getPDF = handler(async (event, _context) => {
   axios.interceptors.request.use(interceptor);
 
   try {
-    const pdf = await axios.post(
-      "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf",
-      event.body!
-    );
+    const pdf = await axios.post(process.env.princeUrl!, event.body!);
     return pdf.data;
   } catch (err) {
     console.log(err);

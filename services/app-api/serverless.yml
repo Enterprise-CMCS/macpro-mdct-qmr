@@ -32,6 +32,7 @@ custom:
       - master
       - val
       - prod
+  princeUrl: ${ssm:/configuration/default/princeurl~true, "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf"}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls~true, ssm:/configuration/default/qmr/bootstrapBrokerStringTls~true}
   coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
   coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
@@ -101,6 +102,7 @@ provider:
     uploadS3BucketName: ${cf:uploads-${self:custom.stage}.AttachmentsBucketName, ""}
     dynamoSnapshotS3BucketName: ${cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, ""}
     stage: ${opt:stage, self:provider.stage}
+    princeUrl: ${self:custom.princeUrl}
 
 functions:
   listMeasures:
