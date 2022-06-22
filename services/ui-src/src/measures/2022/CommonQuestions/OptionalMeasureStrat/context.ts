@@ -1,12 +1,12 @@
 import { createContext, useContext } from "react";
 import * as Types from "../types";
 
-export type CompFlagType = "DEFAULT" | "IU" | "PCR";
+export type ComponentFlagType = "DEFAULT" | "IU" | "PCR" | "AAB";
 
 interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.IUHHRateFields[][];
+  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
   categories: string[];
@@ -15,10 +15,12 @@ interface ContextProps {
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
   numberOfDecimals: number;
-  compFlag?: CompFlagType;
+  componentFlag?: ComponentFlagType;
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
+  customPrompt?: string;
+  rateCalculation?: RateFormula;
 }
 
 const PerformanceMeasureContext = createContext<ContextProps>({
@@ -32,7 +34,7 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   customMask: undefined,
   allowNumeratorGreaterThanDenominator: false,
   numberOfDecimals: 1,
-  compFlag: "DEFAULT",
+  componentFlag: "DEFAULT",
   customNumeratorLabel: "Numerator",
   customDenominatorLabel: "Denominator",
   customRateLabel: "Rate",

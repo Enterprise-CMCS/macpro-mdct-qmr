@@ -140,6 +140,8 @@ export const OHSU = "OHSU";
 export const OMS = "OptionalMeasureStratification";
 export const OPA = "OPA";
 export const OPM_EXPLAINATION = "OtherPerformanceMeasure-Explanation";
+export const OPM_HYBRID_EXPLANATION =
+  "OtherPerformanceMeasure-HybridExplanation";
 export const OPM_NOTES = "OtherPerformanceMeasure-Notes";
 export const OPM_NOTES_TEXT_INPUT = "OtherPerformanceMeasure-Rates-TextInput";
 export const OPM_RATES = "OtherPerformanceMeasure-Rates";
@@ -155,6 +157,8 @@ export const PQA = "PQA";
 export const PERFORMANCE_MEASURE = "PerformanceMeasure";
 export const PERFORMANCE_MEASURE_EXPLAINATION =
   "PerformanceMeasure.explanation";
+export const PERFORMANCE_MEASURE_APPLY_ALL_AGES =
+  "PerformanceMeasureApplyAllAges";
 export const POP_NOT_COVERED = "PopulationNotCovered";
 export const QUALIFIERS = "qualifiers";
 export const RATE = "rate";

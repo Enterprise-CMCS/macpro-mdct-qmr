@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../types";
 import { OMSData, OmsNode } from "./data";
-import { PerformanceMeasureProvider, CompFlagType } from "./context";
+import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect } from "react";
@@ -50,7 +50,8 @@ export const buildOmsCheckboxes = ({
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.IUHHRateFields[][];
+  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
+  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
@@ -59,7 +60,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   isSingleSex?: boolean;
   rateAlwaysEditable?: boolean;
   numberOfDecimals?: number;
-  compFlag?: CompFlagType;
+  componentFlag?: ComponentFlagType;
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
@@ -109,6 +110,7 @@ const arrayIsReadOnly = (dataSource: string[]) => {
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
   IUHHPerformanceMeasureArray,
+  AIFHHPerformanceMeasureArray,
   qualifiers = [],
   categories = [],
   data,
@@ -120,7 +122,7 @@ export const OptionalMeasureStrat = ({
   isSingleSex = false,
   rateAlwaysEditable,
   numberOfDecimals = 1,
-  compFlag = "DEFAULT",
+  componentFlag = "DEFAULT",
   customNumeratorLabel = "Numerator",
   customDenominatorLabel = "Denominator",
   customRateLabel = "Rate",
@@ -157,7 +159,6 @@ export const OptionalMeasureStrat = ({
       unregister("OptionalMeasureStratification");
     };
   }, [watchDataSourceSwitch, unregister]);
-
   return (
     <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
       <PerformanceMeasureProvider
@@ -165,6 +166,7 @@ export const OptionalMeasureStrat = ({
           OPM,
           performanceMeasureArray,
           IUHHPerformanceMeasureArray,
+          AIFHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
           qualifiers,
@@ -173,7 +175,7 @@ export const OptionalMeasureStrat = ({
           customMask,
           allowNumeratorGreaterThanDenominator,
           numberOfDecimals,
-          compFlag,
+          componentFlag,
           customDenominatorLabel,
           customNumeratorLabel,
           customRateLabel,

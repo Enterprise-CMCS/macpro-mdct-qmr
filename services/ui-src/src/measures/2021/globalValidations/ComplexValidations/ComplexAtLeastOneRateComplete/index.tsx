@@ -1,5 +1,5 @@
 /* At least one NDR set must be complete (OPM or PM) */
-export const IUHHatLeastOneRateComplete = (
+export const ComplexAtLeastOneRateComplete = (
   performanceMeasureArray: any,
   OPM: any,
   errorLocation: string = "Performance Measure/Other Performance Measure"
