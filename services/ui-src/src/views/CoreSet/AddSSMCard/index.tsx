@@ -36,7 +36,7 @@ export const AddSSMCard = ({
           <CUI.Text fontWeight="bold">{title}</CUI.Text>
           <Link
             to={to}
-            state={{ userCreatedMeasureIds: userCreatedMeasureIds }}
+            state={{ userCreatedMeasureIds }}
             style={{
               textDecoration: "none",
             }}

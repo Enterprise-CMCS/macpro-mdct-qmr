@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 interface UpdateMeasure<DataType = any> {
   coreSet?: string;
   data: DataType;
+  description?: string;
+  detailedDescription?: string;
   measure?: string;
   status: MeasureStatus;
   reporting?: string | undefined;
@@ -16,6 +18,8 @@ const updateMeasure = ({
   state,
   year,
   coreSet,
+  description,
+  detailedDescription,
   status,
   reporting,
   data,
@@ -28,6 +32,8 @@ const updateMeasure = ({
     measure,
     body: {
       data,
+      description,
+      detailedDescription,
       reporting,
       status,
     },

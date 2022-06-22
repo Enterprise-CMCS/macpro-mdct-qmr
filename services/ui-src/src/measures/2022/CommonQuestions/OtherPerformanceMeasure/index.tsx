@@ -5,12 +5,16 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { DataDrivenTypes } from "../types";
 
 interface Props {
   rateAlwaysEditable?: boolean;
   rateMultiplicationValue?: number;
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
+  data?: DataDrivenTypes.PerformanceMeasure;
+  RateComponent?: RateComp;
+  rateCalc?: RateFormula;
 }
 
 const stringIsReadOnly = (dataSource: string) => {
@@ -31,6 +35,9 @@ export const OtherPerformanceMeasure = ({
   rateMultiplicationValue,
   customMask,
   allowNumeratorGreaterThanDenominator,
+  data = {},
+  RateComponent = QMR.Rate,
+  rateCalc,
 }: Props) => {
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
   const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
@@ -79,9 +86,14 @@ export const OtherPerformanceMeasure = ({
                 label="For example, specify the age groups and whether you are reporting on a certain indicator:"
                 name={`${DC.OPM_RATES}.${index}.${DC.DESCRIPTION}`}
               />
-              <CUI.Text fontWeight="bold">
-                Enter a number for the numerator and the denominator. Rate will
-                auto-calculate:
+              <CUI.Text
+                fontWeight="bold"
+                mt={5}
+                data-cy="Enter a number for the numerator and the denominator"
+              >
+                {data.customPrompt ??
+                  `Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:`}
               </CUI.Text>
               {(dataSourceWatch?.[0] !== "AdministrativeData" ||
                 dataSourceWatch?.length !== 1) && (
@@ -89,7 +101,7 @@ export const OtherPerformanceMeasure = ({
                   Please review the auto-calculated rate and revise if needed.
                 </CUI.Heading>
               )}
-              <QMR.Rate
+              <RateComponent
                 rates={[
                   {
                     id: index,
@@ -102,6 +114,7 @@ export const OtherPerformanceMeasure = ({
                 allowNumeratorGreaterThanDenominator={
                   allowNumeratorGreaterThanDenominator
                 }
+                rateCalc={rateCalc}
               />
             </CUI.Stack>
           );

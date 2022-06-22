@@ -1,14 +1,16 @@
-import * as CMQ from "measures/2021/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { FormData } from "./types";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
-import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
-import { useFormContext } from "react-hook-form";
-import { useEffect } from "react";
-import { validationFunctions } from "./validation";
+import * as CMQ from "measures/2022/CommonQuestions";
 
-export const PCRAD = ({
+import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+
+import { FormData } from "./types";
+import { validationFunctions } from "./validation";
+import { AABRateCalculation } from "utils/rateFormulas";
+import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
+
+export const AABAD = ({
   name,
   year,
   measureId,
@@ -46,22 +48,28 @@ export const PCRAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRADPerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec
-                categories={PMD.qualifiers}
-                measureName={measureId}
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                rateCalc={AABRateCalculation}
               />
+              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
-          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
+          {isOtherMeasureSpecSelected && (
+            <CMQ.OtherPerformanceMeasure
+              data={PMD.data}
+              rateCalc={AABRateCalculation}
+            />
+          )}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              componentFlag={"PCR"}
               adultMeasure
+              rateCalc={AABRateCalculation}
+              customPrompt={PMD.data.customPrompt}
             />
           )}
         </>
