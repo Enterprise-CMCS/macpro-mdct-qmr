@@ -7,7 +7,8 @@ import {
 } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
-import { IRate, rateCalculation } from "components";
+import { IRate } from "components";
+import { defaultRateCalculation } from "utils/rateFormulas";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -91,7 +92,7 @@ export const PCRRate = ({
 
         // Normal division
       } else {
-        prevRate[ndr.rateIndex]["value"] = rateCalculation(
+        prevRate[ndr.rateIndex]["value"] = defaultRateCalculation(
           prevRate[ndr.numerator].value,
           prevRate[ndr.denominator].value,
           ndr.multiplier,
