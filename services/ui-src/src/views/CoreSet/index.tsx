@@ -351,7 +351,7 @@ export const CoreSet = () => {
       <CUI.Box mt="4">
         <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (
-            <QMR.Table data={measures} columns={QMR.measuresColumns} />
+            <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
           )}
           {isError && (
             <QMR.Notification
