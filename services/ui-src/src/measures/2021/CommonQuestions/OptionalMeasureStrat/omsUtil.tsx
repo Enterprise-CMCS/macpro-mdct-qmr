@@ -177,12 +177,14 @@ const calculateComplexOMSTotal = ({
   // Store sums in temp
   for (const qual of cleanedQualifiers) {
     const fields = watchOMS?.[qual]?.[cleanedCategory]?.[0]?.fields;
-    fields?.forEach((field: { value: string }, i: number) => {
-      if (field?.value && tempRate?.fields?.[i]) {
-        tempRate.fields[i].value ??= 0;
-        tempRate.fields[i].value += parseFloat(field.value);
-      }
-    });
+    if (fields?.every((f: { value?: string }) => !!f?.value)) {
+      fields?.forEach((field: { value: string }, i: number) => {
+        if (field?.value && tempRate?.fields?.[i]) {
+          tempRate.fields[i].value ??= 0;
+          tempRate.fields[i].value += parseFloat(field.value);
+        }
+      });
+    }
   }
   let formulaSet: any;
   switch (compFlag) {

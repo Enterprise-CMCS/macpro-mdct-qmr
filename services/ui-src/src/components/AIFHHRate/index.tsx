@@ -168,17 +168,19 @@ export const AIFHHRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
     // sum all field values - we assume last row is total
     prevRate.slice(0, -1).forEach((item) => {
       if (item !== undefined && item !== null && !item["isTotal"]) {
-        if (!isNaN((x = parseFloat(item.fields[0].value)))) {
-          numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[1].value)))) {
-          shortSum = shortSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[3].value)))) {
-          medSum = medSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[5].value)))) {
-          longSum = longSum + x; // += syntax does not work if default value is null
+        if (item?.fields?.every((f: { value?: string }) => !!f?.value)) {
+          if (!isNaN((x = parseFloat(item.fields[0].value)))) {
+            numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
+          }
+          if (!isNaN((x = parseFloat(item.fields[1].value)))) {
+            shortSum = shortSum + x; // += syntax does not work if default value is null
+          }
+          if (!isNaN((x = parseFloat(item.fields[3].value)))) {
+            medSum = medSum + x; // += syntax does not work if default value is null
+          }
+          if (!isNaN((x = parseFloat(item.fields[5].value)))) {
+            longSum = longSum + x; // += syntax does not work if default value is null
+          }
         }
       }
     });
