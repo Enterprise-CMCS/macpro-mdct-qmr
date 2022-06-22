@@ -4,7 +4,8 @@ import { allNumbers, xNumbersYDecimals } from "utils/numberInputMasks";
 import * as QMR from "components";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
-import { IRate, rateCalculation } from "components";
+import { IRate } from "components";
+import { defaultRateCalculation } from "utils/rateFormulas";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -155,7 +156,12 @@ export const IUHHRate = ({
       if (num !== null && denom !== null) {
         fieldRow[formula.rate].value =
           num !== 0 && denom !== 0
-            ? rateCalculation(num.toString(), denom.toString(), formula.mult, 1)
+            ? defaultRateCalculation(
+                num.toString(),
+                denom.toString(),
+                formula.mult,
+                1
+              )
             : "0";
       } else {
         fieldRow[formula.rate].value = "";

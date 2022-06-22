@@ -1,5 +1,11 @@
 import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
+
 import { useController, useFormContext } from "react-hook-form";
+import objectPath from "object-path";
+import { useEffect, useLayoutEffect } from "react";
+
+import { defaultRateCalculation } from "utils/rateFormulas";
 import {
   allNumbers,
   eightNumbersOneDecimal,
@@ -7,33 +13,6 @@ import {
   rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
 } from "utils/numberInputMasks";
-import * as QMR from "components";
-import objectPath from "object-path";
-import { useEffect, useLayoutEffect } from "react";
-
-const fixRounding = (value: number, numbersAfterDecimal: number) => {
-  return (
-    Math.round((value + Number.EPSILON) * Math.pow(10, numbersAfterDecimal)) /
-    Math.pow(10, numbersAfterDecimal)
-  );
-};
-
-export const rateCalculation = (
-  numerator: string,
-  denominator: string,
-  rateMultiplicationValue: number,
-  numbersAfterDecimal: number
-) => {
-  const floatNumerator = parseFloat(numerator);
-  const floatDenominator = parseFloat(denominator);
-  const floatRate = floatNumerator / floatDenominator;
-  const roundedRate = fixRounding(
-    floatRate * rateMultiplicationValue,
-    numbersAfterDecimal
-  );
-  return roundedRate.toFixed(numbersAfterDecimal);
-};
-
 export interface IRate {
   label?: string;
   id: number;
@@ -52,6 +31,7 @@ interface Props extends QMR.InputWrapperProps {
   customDenominatorLabel?: string;
   customNumeratorLabel?: string;
   customRateLabel?: string;
+  rateCalc?: RateFormula;
 }
 
 export const Rate = ({
@@ -66,6 +46,7 @@ export const Rate = ({
   customDenominatorLabel,
   customNumeratorLabel,
   customRateLabel,
+  rateCalc = defaultRateCalculation,
   ...rest
 }: Props) => {
   const {
@@ -154,7 +135,7 @@ export const Rate = ({
       (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
         allowNumeratorGreaterThanDenominator)
     ) {
-      editRate.rate = rateCalculation(
+      editRate.rate = rateCalc(
         editRate.numerator,
         editRate.denominator,
         rateMultiplicationValue,
@@ -211,7 +192,7 @@ export const Rate = ({
     if (numeratorSum !== null && denominatorSum !== null) {
       prevRate[totalIndex]["rate"] =
         numeratorSum !== 0
-          ? rateCalculation(
+          ? rateCalc(
               numeratorSum.toString(),
               denominatorSum.toString(),
               rateMultiplicationValue,

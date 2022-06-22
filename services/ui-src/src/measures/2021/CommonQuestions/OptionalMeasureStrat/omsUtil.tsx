@@ -2,7 +2,7 @@ import objectPath from "object-path";
 import { complexRateFields, RateFields } from "../types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { CompFlagType, usePerformanceMeasureContext } from "./context";
+import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 
 interface TempRate {
   numerator?: number;
@@ -16,7 +16,7 @@ interface TotalCalcHookProps {
   // current cleaned category
   cleanedCategory?: string;
   // Rate component type identifier
-  compFlag: CompFlagType;
+  componentFlag: ComponentFlagType;
 }
 
 interface CalcOmsTotalProp {
@@ -25,7 +25,7 @@ interface CalcOmsTotalProp {
   qualifiers: string[];
   rateMultiplicationValue?: number;
   numberOfDecimals: number;
-  compFlag?: any;
+  componentFlag?: any;
 }
 
 export const cleanString = (s: string) => s && s.replace(/[^\w]/g, "");
@@ -155,7 +155,7 @@ const calculateComplexOMSTotal = ({
   cleanedCategory,
   qualifiers,
   watchOMS,
-  compFlag,
+  componentFlag,
 }: CalcOmsTotalProp): complexRateFields => {
   const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
   const fieldNames = watchOMS?.["Total"]?.[cleanedCategory]?.[0]?.fields.map(
@@ -187,7 +187,7 @@ const calculateComplexOMSTotal = ({
     }
   }
   let formulaSet: any;
-  switch (compFlag) {
+  switch (componentFlag) {
     case "AIF":
       formulaSet = AIFHHndrFormulas;
       break;
@@ -263,7 +263,7 @@ const checkNewAIFHHOmsValuesChanged = (
 export const useTotalAutoCalculation = ({
   name,
   cleanedCategory = "singleCategory",
-  compFlag,
+  componentFlag,
 }: TotalCalcHookProps) => {
   const { watch, setValue } = useFormContext();
   const { qualifiers, numberOfDecimals, rateMultiplicationValue } =
@@ -286,7 +286,7 @@ export const useTotalAutoCalculation = ({
     const subscription = watch((values, { name: fieldName, type }) => {
       if (fieldName && values) {
         let omsFields;
-        switch (compFlag) {
+        switch (componentFlag) {
           case "IU":
             omsFields = [] as complexRateFields[];
             break;
@@ -303,7 +303,7 @@ export const useTotalAutoCalculation = ({
         }
 
         let OMSValuesChanged: boolean;
-        switch (compFlag) {
+        switch (componentFlag) {
           case "IU":
             OMSValuesChanged = checkNewIUHHOmsValuesChanged(
               omsFields,
@@ -326,7 +326,7 @@ export const useTotalAutoCalculation = ({
           OMSValuesChanged
         ) {
           let newFieldValue;
-          switch (compFlag) {
+          switch (componentFlag) {
             case "IU":
               newFieldValue = calculateComplexOMSTotal({
                 cleanedCategory,
@@ -334,7 +334,7 @@ export const useTotalAutoCalculation = ({
                 numberOfDecimals,
                 rateMultiplicationValue,
                 watchOMS,
-                compFlag,
+                componentFlag,
               });
               break;
             case "AIF":
@@ -344,7 +344,7 @@ export const useTotalAutoCalculation = ({
                 numberOfDecimals,
                 rateMultiplicationValue,
                 watchOMS,
-                compFlag,
+                componentFlag,
               });
               break;
             default:
@@ -373,7 +373,7 @@ export const useTotalAutoCalculation = ({
     watch,
     setValue,
     cleanedCategory,
-    compFlag,
+    componentFlag,
     name,
     numberOfDecimals,
     qualifiers,
