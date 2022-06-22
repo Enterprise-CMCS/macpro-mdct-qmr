@@ -99,6 +99,8 @@ export const measureDescriptions: MeasureList = {
   // New measures will be added here
   "2022": {
     // Adult
+    "AAB-AD":
+      "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis",
     "AMM-AD": "Antidepressant Medication Management",
     "AMR-AD": "Asthma Medication Ratio: Ages 19 to 64",
     "BCS-AD": "Breast Cancer Screening",
@@ -170,6 +172,7 @@ export const measureDescriptions: MeasureList = {
     "OEV-CH": "Oral Evaluation, Dental Services",
     "PPC-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",
+    "TFL-CH": "Prevention: Topical Fluoride for Children",
     "W30-CH": "Well-Child Visits in the First 30 Months of Life",
     "WCC-CH":
       "Weight Assessment and Counseling for Nutrition and Physical Activity for Children/Adolescents",

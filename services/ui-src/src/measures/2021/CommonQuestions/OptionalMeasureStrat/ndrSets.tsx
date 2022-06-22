@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
-import { CompFlagType, usePerformanceMeasureContext } from "./context";
+import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { cleanString, useTotalAutoCalculation } from "./omsUtil";
 import * as Types from "../types";
 
@@ -12,7 +12,7 @@ interface NdrProps {
 
 interface TotalProps {
   name: string;
-  compFlag: CompFlagType;
+  componentFlag: ComponentFlagType;
   qualifier?: string;
   category?: string;
 }
@@ -25,7 +25,7 @@ type RateArrayBuilder = (name: string) => React.ReactElement[][];
  */
 const TotalNDR = ({
   name,
-  compFlag,
+  componentFlag,
   category = DC.SINGLE_CATEGORY,
   qualifier,
 }: TotalProps) => {
@@ -46,9 +46,9 @@ const TotalNDR = ({
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
   const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
 
-  useTotalAutoCalculation({ name, cleanedCategory, compFlag });
+  useTotalAutoCalculation({ name, cleanedCategory, componentFlag });
 
-  if (compFlag === "IU") {
+  if (componentFlag === "IU") {
     return (
       <QMR.IUHHRate
         key={cleanedName}
@@ -56,6 +56,15 @@ const TotalNDR = ({
         readOnly={rateReadOnly}
         rates={[{ label: label, id: 0 }]}
         categoryName={""}
+      />
+    );
+  } else if (componentFlag === "AIF") {
+    return (
+      <QMR.AIFHHRate
+        key={cleanedName}
+        name={cleanedName}
+        readOnly={rateReadOnly}
+        rates={[{ label: label, id: 0 }]}
       />
     );
   } else {
@@ -80,10 +89,10 @@ const TotalNDR = ({
 
 /** OMS Total wrapper for any variation of qulaifier and category combination*/
 const TotalNDRSets = ({
-  compFlag = "DEFAULT",
+  componentFlag = "DEFAULT",
   name,
 }: {
-  compFlag?: CompFlagType;
+  componentFlag?: ComponentFlagType;
   name: string;
 }) => {
   const rateArray: React.ReactElement[] = [];
@@ -98,7 +107,7 @@ const TotalNDRSets = ({
           <TotalNDR
             name={name}
             category={cat}
-            compFlag={compFlag}
+            componentFlag={componentFlag}
             qualifier={totalQual}
           />
         </CUI.Box>
@@ -109,7 +118,7 @@ const TotalNDRSets = ({
       <CUI.Box key={`${name}.totalWrapper`}>
         <TotalNDR
           name={name}
-          compFlag={compFlag}
+          componentFlag={componentFlag}
           key={`${name}.TotalWrapper`}
         />{" "}
       </CUI.Box>
@@ -215,7 +224,6 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     }
     rateArrays.push(ndrSets);
   });
-
   return rateArrays;
 };
 
@@ -228,6 +236,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     customMask,
     performanceMeasureArray,
     rateMultiplicationValue,
+    AIFHHPerformanceMeasureArray,
     rateReadOnly,
     customDenominatorLabel,
     customNumeratorLabel,
@@ -258,6 +267,32 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rates={[{ id: 0 }]}
         />,
       ]);
+    } else if (AIFHHPerformanceMeasureArray) {
+      AIFHHPerformanceMeasureArray?.forEach((measure) => {
+        const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
+          DC.SINGLE_CATEGORY
+        }`;
+        //Confirm that there is at least 1 rate complete
+        const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
+        const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
+        const rate3 = measure?.[qualIndex]?.fields?.[6]?.value ? true : false;
+        if (rate1 || rate2 || rate3) {
+          rateArrays.push([
+            <QMR.AIFHHRate
+              readOnly={rateReadOnly}
+              name={cleanedName}
+              key={cleanedName}
+              rates={[
+                {
+                  id: 0,
+                },
+              ]}
+            />,
+          ]);
+        } else {
+          rateArrays.push([]);
+        }
+      });
     } else {
       rateArrays.push([]);
     }
@@ -347,9 +382,31 @@ const IUHHNDRSets = ({ name }: NdrProps) => {
       />
       {calcTotal && (
         <TotalNDRSets
-          compFlag={"IU"}
+          componentFlag={"IU"}
           name={`${name}.iuhh-rate`}
           key={`${name}.iuhh-rate.totalWrapper`}
+        />
+      )}
+    </>
+  );
+};
+
+const AIFHHNDRSets = ({ name }: NdrProps) => {
+  const { calcTotal } = usePerformanceMeasureContext();
+
+  const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.aifhh-rate`);
+  return (
+    <>
+      <QMR.Checkbox
+        name={`${name}.aifhh-rate.options`}
+        key={`${name}.aifhh-rate.options`}
+        options={ageGroupsOptions}
+      />
+      {calcTotal && (
+        <TotalNDRSets
+          componentFlag={"AIF"}
+          name={`${name}.aifhh-rate`}
+          key={`${name}.aifhh-rate.totalWrapper`}
         />
       )}
     </>
@@ -393,7 +450,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
 /**
  * Builds OPM Checkboxes
  */
-const useRenderOPMChckboxOptions = (name: string) => {
+const useRenderOPMCheckboxOptions = (name: string) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
 
   const {
@@ -467,7 +524,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
-  const options = useRenderOPMChckboxOptions(name);
+  const options = useRenderOPMCheckboxOptions(name);
   return (
     <QMR.Checkbox
       name={`${name}.options`}
@@ -481,11 +538,11 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM, compFlag } = usePerformanceMeasureContext();
+  const { OPM, componentFlag } = usePerformanceMeasureContext();
   const children: JSX.Element[] = [];
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
-  switch (compFlag) {
+  switch (componentFlag) {
     case "DEFAULT":
       if (!OPM) {
         children.push(<AgeGroupNDRSets name={name} key={name} />);
@@ -494,6 +551,11 @@ export const NDRSets = ({ name }: NdrProps) => {
     case "IU":
       if (!OPM) {
         children.push(<IUHHNDRSets name={name} key={name} />);
+      }
+      break;
+    case "AIF":
+      if (!OPM) {
+        children.push(<AIFHHNDRSets name={name} key={name} />);
       }
       break;
     case "PCR":

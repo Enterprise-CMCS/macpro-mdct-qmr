@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
-import { CompFlagType, usePerformanceMeasureContext } from "./context";
+import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { cleanString, useTotalAutoCalculation } from "./omsUtil";
 import * as Types from "../types";
 
@@ -12,7 +12,7 @@ interface NdrProps {
 
 interface TotalProps {
   name: string;
-  compFlag: CompFlagType;
+  componentFlag: ComponentFlagType;
   qualifier?: string;
   category?: string;
 }
@@ -25,7 +25,7 @@ type RateArrayBuilder = (name: string) => React.ReactElement[][];
  */
 const TotalNDR = ({
   name,
-  compFlag,
+  componentFlag,
   category = DC.SINGLE_CATEGORY,
   qualifier,
 }: TotalProps) => {
@@ -38,6 +38,7 @@ const TotalNDR = ({
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
+    rateCalculation,
   } = usePerformanceMeasureContext();
 
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
@@ -46,9 +47,9 @@ const TotalNDR = ({
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
   const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
 
-  useTotalAutoCalculation({ name, cleanedCategory, compFlag });
+  useTotalAutoCalculation({ name, cleanedCategory, componentFlag });
 
-  if (compFlag === "IU") {
+  if (componentFlag === "IU") {
     return (
       <QMR.IUHHRate
         key={cleanedName}
@@ -73,6 +74,7 @@ const TotalNDR = ({
         customNumeratorLabel={customNumeratorLabel}
         customDenominatorLabel={customDenominatorLabel}
         customRateLabel={customRateLabel}
+        rateCalc={rateCalculation}
       />
     );
   }
@@ -80,10 +82,10 @@ const TotalNDR = ({
 
 /** OMS Total wrapper for any variation of qulaifier and category combination*/
 const TotalNDRSets = ({
-  compFlag = "DEFAULT",
+  componentFlag = "DEFAULT",
   name,
 }: {
-  compFlag?: CompFlagType;
+  componentFlag?: ComponentFlagType;
   name: string;
 }) => {
   const rateArray: React.ReactElement[] = [];
@@ -98,7 +100,7 @@ const TotalNDRSets = ({
           <TotalNDR
             name={name}
             category={cat}
-            compFlag={compFlag}
+            componentFlag={componentFlag}
             qualifier={totalQual}
           />
         </CUI.Box>
@@ -109,7 +111,7 @@ const TotalNDRSets = ({
       <CUI.Box key={`${name}.totalWrapper`}>
         <TotalNDR
           name={name}
-          compFlag={compFlag}
+          componentFlag={componentFlag}
           key={`${name}.TotalWrapper`}
         />{" "}
       </CUI.Box>
@@ -139,6 +141,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     customMask,
     performanceMeasureArray,
     IUHHPerformanceMeasureArray,
+    rateCalculation,
     rateMultiplicationValue,
     rateReadOnly,
     customDenominatorLabel,
@@ -196,6 +199,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               customMask={customMask}
+              rateCalc={rateCalculation}
               rates={[
                 {
                   id: 0,
@@ -220,6 +224,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     calcTotal,
     allowNumeratorGreaterThanDenominator,
     customMask,
+    rateCalculation,
     performanceMeasureArray,
     rateMultiplicationValue,
     rateReadOnly,
@@ -249,6 +254,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           customDenominatorLabel={customDenominatorLabel}
           customRateLabel={customRateLabel}
           customMask={customMask}
+          rateCalc={rateCalculation}
           rates={[{ id: 0 }]}
         />,
       ]);
@@ -265,7 +271,8 @@ const useQualRateArray: RateArrayBuilder = (name) => {
  */
 const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
-  const { categories, qualifiers, calcTotal } = usePerformanceMeasureContext();
+  const { categories, qualifiers, calcTotal, customPrompt } =
+    usePerformanceMeasureContext();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
@@ -286,8 +293,9 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
         displayValue: value,
         children: [
           <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
-            Enter a number for the numerator and the denominator. Rate will
-            auto-calculate
+            {customPrompt ??
+              `Enter a number for the numerator and the denominator. Rate will
+auto-calculate:`}
           </CUI.Heading>,
           <CUI.Heading
             pt="1"
@@ -341,7 +349,7 @@ const IUHHNDRSets = ({ name }: NdrProps) => {
       />
       {calcTotal && (
         <TotalNDRSets
-          compFlag={"IU"}
+          componentFlag={"IU"}
           name={`${name}.iuhh-rate`}
           key={`${name}.iuhh-rate.totalWrapper`}
         />
@@ -387,7 +395,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
 /**
  * Builds OPM Checkboxes
  */
-const useRenderOPMChckboxOptions = (name: string) => {
+const useRenderOPMCheckboxOptions = (name: string) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
 
   const {
@@ -396,9 +404,11 @@ const useRenderOPMChckboxOptions = (name: string) => {
     rateMultiplicationValue,
     customMask,
     allowNumeratorGreaterThanDenominator,
+    rateCalculation,
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
+    customPrompt,
   } = usePerformanceMeasureContext();
 
   const { watch } = useFormContext<Types.DataSource>();
@@ -411,6 +421,27 @@ const useRenderOPMChckboxOptions = (name: string) => {
   OPM?.forEach(({ description }, idx) => {
     if (description) {
       const cleanedFieldName = cleanString(description);
+      const RateComponent = (
+        <QMR.Rate
+          rates={[
+            {
+              id: 0,
+            },
+          ]}
+          name={`${name}.rates.${cleanedFieldName}.OPM`}
+          key={`${name}.rates.${cleanedFieldName}.OPM`}
+          readOnly={rateReadOnly}
+          rateMultiplicationValue={rateMultiplicationValue}
+          customMask={customMask}
+          allowNumeratorGreaterThanDenominator={
+            allowNumeratorGreaterThanDenominator
+          }
+          customNumeratorLabel={customNumeratorLabel}
+          customDenominatorLabel={customDenominatorLabel}
+          customRateLabel={customRateLabel}
+          rateCalc={rateCalculation}
+        />
+      );
 
       checkBoxOptions.push({
         value: cleanedFieldName,
@@ -420,8 +451,9 @@ const useRenderOPMChckboxOptions = (name: string) => {
             key={`${name}.rates.${cleanedFieldName}Header`}
             size={"sm"}
           >
-            Enter a number for the numerator and the denominator. Rate will
-            auto-calculate
+            {customPrompt ??
+              `Enter a number for the numerator and the denominator. Rate will
+auto-calculate:`}
           </CUI.Heading>,
           <CUI.Heading
             pt="1"
@@ -431,24 +463,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
           >
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
-          <QMR.Rate
-            rates={[
-              {
-                id: 0,
-              },
-            ]}
-            name={`${name}.rates.${cleanedFieldName}.OPM`}
-            key={`${name}.rates.${cleanedFieldName}.OPM`}
-            readOnly={rateReadOnly}
-            rateMultiplicationValue={rateMultiplicationValue}
-            customMask={customMask}
-            allowNumeratorGreaterThanDenominator={
-              allowNumeratorGreaterThanDenominator
-            }
-            customNumeratorLabel={customNumeratorLabel}
-            customDenominatorLabel={customDenominatorLabel}
-            customRateLabel={customRateLabel}
-          />,
+          RateComponent,
         ],
       });
     }
@@ -461,7 +476,7 @@ const useRenderOPMChckboxOptions = (name: string) => {
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
-  const options = useRenderOPMChckboxOptions(name);
+  const options = useRenderOPMCheckboxOptions(name);
   return (
     <QMR.Checkbox
       name={`${name}.options`}
@@ -475,12 +490,17 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
-  const { OPM, compFlag } = usePerformanceMeasureContext();
+  const { OPM, componentFlag } = usePerformanceMeasureContext();
   const children: JSX.Element[] = [];
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
-  switch (compFlag) {
+  switch (componentFlag) {
     case "DEFAULT":
+      if (!OPM) {
+        children.push(<AgeGroupNDRSets name={name} key={name} />);
+      }
+      break;
+    case "AAB":
       if (!OPM) {
         children.push(<AgeGroupNDRSets name={name} key={name} />);
       }

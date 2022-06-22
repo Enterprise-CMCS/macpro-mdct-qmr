@@ -60,7 +60,7 @@ export const PCRAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              compFlag={"PCR"}
+              componentFlag={"PCR"}
               adultMeasure
             />
           )}
