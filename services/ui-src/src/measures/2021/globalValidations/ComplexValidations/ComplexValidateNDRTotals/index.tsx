@@ -17,7 +17,7 @@ interface Field {
 }
 
 /* At least one NDR set must be complete (OMS) */
-export const IUHHvalidateNDRTotalsOMS = (
+export const ComplexValidateNDRTotalsOMS = (
   rateData: any,
   categories: string[],
   ndrFormulas: NDRforumla[],
@@ -46,7 +46,7 @@ export const IUHHvalidateNDRTotalsOMS = (
     }
   }
 
-  let errorArray: any[] = IUHHvalidateNDRTotals(
+  let errorArray: any[] = ComplexValidateNDRTotals(
     performanceMeasureArray,
     categories,
     ndrFormulas,
@@ -59,7 +59,7 @@ export const IUHHvalidateNDRTotalsOMS = (
 /* Validate Totals have data if qualifiers in section have data
  * and validate Total is equal to the sum of other qualifiers in section
  */
-export const IUHHvalidateNDRTotals = (
+export const ComplexValidateNDRTotals = (
   performanceMeasureArray: any,
   categories: string[],
   ndrFormulas: NDRforumla[],
@@ -90,7 +90,9 @@ export const IUHHvalidateNDRTotals = (
     ) {
       errorArray.push({
         errorLocation: `${errorLocation} - ${categories[i]}`,
-        errorMessage: `Total ${categories[i]} must contain values if other fields are filled.`,
+        errorMessage: `Total ${
+          categories[i] ? categories[i] : ""
+        } must contain values if other fields are filled.`,
       });
     } else {
       categoryTotal?.fields?.forEach((field: Field, x: number) => {
@@ -100,8 +102,14 @@ export const IUHHvalidateNDRTotals = (
             (field?.value && categorySums[x] !== parseFloat(field.value)))
         ) {
           errorArray.push({
-            errorLocation: `${errorLocation} - ${categories[i]}`,
-            errorMessage: `Total ${field.label} is not equal to the sum of other "${field.label}" fields in ${categories[i]} section.`,
+            errorLocation: `${errorLocation} - ${
+              categories[i] ? categories[i] : ""
+            }`,
+            errorMessage: `Total ${
+              field.label
+            } is not equal to the sum of other "${field.label}" fields in ${
+              categories[i] ? categories[i] : ""
+            } section.`,
           });
         }
       });

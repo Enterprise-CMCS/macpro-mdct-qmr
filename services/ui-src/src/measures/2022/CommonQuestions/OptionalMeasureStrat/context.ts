@@ -6,7 +6,7 @@ export type ComponentFlagType = "DEFAULT" | "IU" | "PCR" | "AAB";
 interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.IUHHRateFields[][];
+  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
   categories: string[];

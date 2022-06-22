@@ -39,6 +39,7 @@ export interface MeasureData<DataType = any> {
   year: number;
   data: DataType;
   userCreated?: boolean;
+  placeholder?: boolean;
 }
 
 export enum AutoCompletedMeasures {
