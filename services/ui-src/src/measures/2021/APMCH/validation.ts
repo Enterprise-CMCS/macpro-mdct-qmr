@@ -50,10 +50,16 @@ const APMCHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
+    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories, {
+      denominatorMessage:
+        "Denominator for the CATEGORY_VAR Total rate is not equal to the sum of the CATEGORY_VAR age-specific denominators",
+      numeratorMessage:
+        "Numerator for the CATEGORY_VAR Total rate is not equal to the sum of the CATEGORY_VAR age-specific numerators.",
+    }),
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
-      PMD.qualifiers
+      PMD.qualifiers,
+      "The QUALIFIER_VAR denominator must be the same for each indicator."
     ),
 
     // OMS Validations
