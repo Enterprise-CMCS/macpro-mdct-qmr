@@ -2,10 +2,16 @@
 
 ## High Level Overview of the application's purpose
 
+The new Quality Measure Reporting (QMR) application will house all the state required measures for reporting on Adult, Child, and Health Home core sets. The new application is replacing the time intensive SDF files previously used for submission. Data collected within the QMR application will be sent to the CMS partner MPR for analytics and reporting via the CollabraLink owned BigMAC application.
+This application measures the quality of care and programs offered by states related to their Adult, Child and Health Home offerings.
+
+## Value
+
+The new web-based QMR application will allow CMS to access data submitted by the states in real time and with more accuracy. QMR has also been designed with HCD best practices in mind and has incorporated conditional logic and validation to ensure moving through each measure provides a better user experience and ease in understanding of what is being asked.
+
 ## Quickstart
 
 ### link to the quickstart it was forked from
-
 
 # Getting Started
 
