@@ -5,7 +5,7 @@ describe("OY2 15211 Reporting in FY22 Tag for Alt Data Sources", () => {
 
   it("N/A And Completed Statuses", () => {
     cy.get("a > [data-cy='ACS']").click();
-    cy.get("[data-cy='Reporting FFY 2022-NCIDDS-AD'] > p").should(
+    cy.get("[data-cy='Reporting FFY 2021-NCIDDS-AD'] > p").should(
       "have.text",
       "N/A"
     );
