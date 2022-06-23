@@ -183,6 +183,7 @@ export const measureDescriptions: MeasureList = {
     "AMB-HH": "Ambulatory Care: Emergency Department (ED) Visits",
     "CBP-HH": "Controlling High Blood Pressure",
     "CDF-HH": "Screening for Depression and Follow-Up Plan",
+    "COL-HH": "Colorectal Cancer Screening",
     "FUA-HH":
       "Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
     "FUH-HH": "Follow-Up after Hospitalization for Mental Illness",
