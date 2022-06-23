@@ -29,8 +29,11 @@ const WCCHValidation = (data: FormData) => {
     return `The ${qualifier} denominator must be the same for each indicator.`;
   };
 
-  const validateTotalNDRErrorMessage = (label: string, fieldType: string) => {
-    return `${fieldType} for the ${label} Total rate is not equal to the sum of the ${label} age-specific ${fieldType.toLowerCase()}s.`;
+  const validateTotalNDRErrorMessage = (
+    qualifier: string,
+    fieldType: string
+  ) => {
+    return `${fieldType} for the ${qualifier} Total rate is not equal to the sum of the ${qualifier} age-specific ${fieldType.toLowerCase()}s.`;
   };
 
   errorArray = [

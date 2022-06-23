@@ -79,8 +79,8 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   return error;
 };
 
-const validateTotalNDRErrorMessage = (label: string, fieldType: string) => {
-  return `${label} ${fieldType.toLowerCase()} field is not equal to the sum of other ${fieldType.toLowerCase()}s.`;
+const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
+  return `${qualifier} ${fieldType.toLowerCase()} field is not equal to the sum of other ${fieldType.toLowerCase()}s.`;
 };
 
 /*
@@ -94,7 +94,7 @@ export const validateTotalNDR = (
   performanceMeasureArray: FormRateField[][],
   errorLocation = "Performance Measure",
   categories?: string[],
-  getErrorMessage = validateTotalNDRErrorMessage
+  errorMessageFunc = validateTotalNDRErrorMessage
 ): FormError[] => {
   let errorArray: FormError[] = [];
 
@@ -130,10 +130,11 @@ export const validateTotalNDR = (
         numeratorSum !== null &&
         !isNaN(parsedNum)
       ) {
-        const label: string = (categories && categories[idx]) || totalNDR.label;
+        const qualifier: string =
+          (categories && categories[idx]) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: getErrorMessage(label, "Numerator"),
+          errorMessage: errorMessageFunc(qualifier, "Numerator"),
         });
       }
       if (
@@ -141,10 +142,11 @@ export const validateTotalNDR = (
         denominatorSum !== null &&
         !isNaN(parsedDen)
       ) {
-        const label: string = (categories && categories[idx]) || totalNDR.label;
+        const qualifier: string =
+          (categories && categories[idx]) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: getErrorMessage(label, "Denominator"),
+          errorMessage: errorMessageFunc(qualifier, "Denominator"),
         });
       }
     } else if (numeratorSum && denominatorSum) {
