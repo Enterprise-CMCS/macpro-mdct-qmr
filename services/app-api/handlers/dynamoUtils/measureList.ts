@@ -644,6 +644,10 @@ export const measures: Measure = {
     },
     {
       type: "H",
+      measure: "FUM-HH",
+    },
+    {
+      type: "H",
       measure: "IET-HH",
     },
     {
