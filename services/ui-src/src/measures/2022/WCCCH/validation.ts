@@ -23,6 +23,12 @@ const WCCHValidation = (data: FormData) => {
     return errorArray;
   }
 
+  const validateEqualQualifierDenominatorsErrorMessage = (
+    qualifier: string
+  ) => {
+    return `The ${qualifier} denominator must be the same for each indicator.`;
+  };
+
   const validateTotalNDRErrorMessage = (label: string, fieldType: string) => {
     return `${fieldType} for the ${label} Total rate is not equal to the sum of the ${label} age-specific ${fieldType.toLowerCase()}s.`;
   };
@@ -50,7 +56,9 @@ const WCCHValidation = (data: FormData) => {
     ),
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
-      PMD.qualifiers
+      PMD.qualifiers,
+      undefined,
+      validateEqualQualifierDenominatorsErrorMessage
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
