@@ -2,11 +2,23 @@
 
 ## High Level Overview of the application's purpose
 
-## link to the quickstart it was forked from
+## Quickstart
+
+### link to the quickstart it was forked from
+
+### Where QMR Shares Functionality with the Quickstart
+
+### Where it Diverges
 
 # Getting Started
 
+If you haven't already, you need to first create an EUA user ID by visiting this site: https://eua.cms.gov/iam/im/pri/
+
 ## Eua
+
+EUA is the first step to getting started with the application. Access to everything else starts here and can take days to weeks to process so it's best to request access as early as possible.
+
+### List of EUA access codes needed for QMR and MacPRO projects in general
 
 ## IDM
 
