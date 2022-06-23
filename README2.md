@@ -6,9 +6,6 @@
 
 ### link to the quickstart it was forked from
 
-### Where QMR Shares Functionality with the Quickstart
-
-### Where it Diverges
 
 # Getting Started
 
@@ -93,6 +90,8 @@ EUA is the first step to getting started with the application. Access to everyth
 ### user pools / cognito
 
 ## testing
+
+### Generate ENV with AWS Credentials
 
 ### runners used
 
