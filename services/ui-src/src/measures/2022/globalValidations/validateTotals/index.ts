@@ -79,6 +79,10 @@ export const validateOMSTotalNDR: OmsValidationCallback = ({
   return error;
 };
 
+const validateTotalNDRErrorMessage = (label: string, fieldType: string) => {
+  return `${label} ${fieldType.toLowerCase()} field is not equal to the sum of other ${fieldType.toLowerCase()}s.`;
+};
+
 /*
 Validate that the values represented in the Total NDR fields are the sum of the respective non-total fields.
 e.g. numerator === sumOfAllOtherNumerators
@@ -89,7 +93,8 @@ Default assumption is that this is run for Performance Measure unless specified.
 export const validateTotalNDR = (
   performanceMeasureArray: FormRateField[][],
   errorLocation = "Performance Measure",
-  categories?: string[]
+  categories?: string[],
+  getErrorMessage = validateTotalNDRErrorMessage
 ): FormError[] => {
   let errorArray: FormError[] = [];
 
@@ -125,11 +130,10 @@ export const validateTotalNDR = (
         numeratorSum !== null &&
         !isNaN(parsedNum)
       ) {
+        const label: string = (categories && categories[idx]) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${
-            (categories && categories[idx]) || totalNDR.label
-          } numerator field is not equal to the sum of other numerators.`,
+          errorMessage: getErrorMessage(label, "Numerator"),
         });
       }
       if (
@@ -137,11 +141,10 @@ export const validateTotalNDR = (
         denominatorSum !== null &&
         !isNaN(parsedDen)
       ) {
+        const label: string = (categories && categories[idx]) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: `${
-            (categories && categories[idx]) || totalNDR.label
-          } denominator field is not equal to the sum of other denominators.`,
+          errorMessage: getErrorMessage(label, "Denominator"),
         });
       }
     } else if (numeratorSum && denominatorSum) {
