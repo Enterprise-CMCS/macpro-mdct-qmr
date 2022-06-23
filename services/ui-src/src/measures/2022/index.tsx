@@ -30,13 +30,14 @@ import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
 import { FUACH } from "./FUACH";
+import { FUHAD } from "./FUHAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
 import { FUMCH } from "./FUMCH";
 import { FVAAD } from "./FVAAD";
-import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
+import { HVLAD } from "./HVLAD";
 import { IETAD } from "./IETAD";
 import { IMACH } from "./IMACH";
 import { LBWCH } from "./LBWCH";
@@ -51,7 +52,6 @@ import { PPCAD } from "./PPCAD";
 import { PPCCH } from "./PPCCH";
 import { PQI01AD } from "./PQI01AD";
 import { PQI05AD } from "./PQI05AD";
-import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
@@ -98,9 +98,9 @@ const twentyTwentyTwoMeasures = {
   "FUM-AD": FUMAD,
   "FUM-CH": FUMCH,
   "FVA-AD": FVAAD,
-  "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
+  "HVL-AD": HVLAD,
   "IET-AD": IETAD,
   "IMA-CH": IMACH,
   "LBW-CH": LBWCH,
