@@ -30,6 +30,7 @@ export interface MeasureData<DataType = any> {
   coreSet: CoreSetAbbr;
   createdAt: number;
   description: string;
+  detailedDescription?: string;
   lastAltered: number;
   autoCompleted?: boolean;
   measure: string;

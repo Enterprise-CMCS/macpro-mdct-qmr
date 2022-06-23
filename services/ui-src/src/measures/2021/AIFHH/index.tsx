@@ -74,7 +74,7 @@ export const AIFHH = ({
               calcTotal={true}
               customMask={xNumbersYDecimals(12, 1)}
               AIFHHPerformanceMeasureArray={performanceMeasureArray}
-              compFlag={"AIF"}
+              componentFlag={"AIF"}
             />
           )}
         </>

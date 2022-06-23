@@ -385,6 +385,10 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "AAB-AD",
+    },
+    {
+      type: "A",
       measure: "AMM-AD",
     },
     {

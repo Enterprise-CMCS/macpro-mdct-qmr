@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2022/globalValidations";
+import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 const ndrForumlas = [
   {
@@ -98,7 +98,8 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
       [rateData?.["pcr-rate"] ?? []],
       rates ?? [],
       PMD.qualifiers,
-      `Optional Measure Stratification: ${locationDictionary(label)}`
+      `Optional Measure Stratification: ${locationDictionary(label)}`,
+      true
     ),
   ];
 };
