@@ -177,8 +177,8 @@ export const StateHome = () => {
     return <QMR.LoadingWave />;
   }
 
-  const filteredSpas = SPA.filter((s) => s.state === state);
-  const spaIds = filteredSpas.map((s) => s.id);
+  const filteredSpas = SPA[year!].filter((s: any) => s.state === state);
+  const spaIds = filteredSpas.map((s: any) => s.id);
 
   const formattedTableItems = formatTableItems({
     items: data.Items,
@@ -200,7 +200,7 @@ export const StateHome = () => {
   );
   const allPossibleHealthHomeCoreSetsExist = !!(
     filteredHealthHomeCoreSets.length &&
-    spaIds.every((s) =>
+    spaIds.every((s: any) =>
       filteredHealthHomeCoreSets.some((v) => !!v?.coreSet?.includes(s))
     )
   );
