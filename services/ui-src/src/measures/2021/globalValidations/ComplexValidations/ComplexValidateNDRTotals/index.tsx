@@ -72,12 +72,14 @@ export const ComplexValidateNDRTotals = (
     // Sum all fields for each qualifier
     let categorySums: any[] = [];
     for (const qualifier of category.slice(0, -1)) {
-      qualifier?.fields?.forEach((field: Field, x: number) => {
-        if (field?.value) {
-          categorySums[x] ??= 0;
-          categorySums[x] += parseFloat(field.value);
-        }
-      });
+      if (qualifier?.fields?.every((f: Field) => !!f?.value)) {
+        qualifier?.fields?.forEach((field: Field, x: number) => {
+          if (field?.value) {
+            categorySums[x] ??= 0;
+            categorySums[x] += parseFloat(field.value);
+          }
+        });
+      }
     }
 
     // Compare calculated sums to values in Total qualifier

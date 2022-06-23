@@ -62,7 +62,7 @@ export const PCRHH = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               adultMeasure={false}
-              compFlag={"PCR"}
+              componentFlag={"PCR"}
             />
           )}
         </>

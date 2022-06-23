@@ -3,10 +3,7 @@ import {
   locationDictionaryFunction,
   RateData,
 } from "../types";
-import {
-  OmsNodes as OMS,
-  DefaultFormData,
-} from "measures/2022/CommonQuestions/types";
+import { OmsNodes as OMS, DefaultFormData } from "../../CommonQuestions/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
 import { cleanString } from "utils/cleanString";
 
@@ -132,20 +129,20 @@ const validateNDRs = (
     }
     if (checkIsFilled) {
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
-      errorArray.push(
-        ...validatePartialRateCompletionOMS({
-          rateData,
-          categories,
-          qualifiers,
-          label,
-          locationDictionary,
-          isOPM,
-          customTotalLabel,
-          dataSource,
-        })
-      );
+      if (!rateData?.["pcr-rate"])
+        errorArray.push(
+          ...validatePartialRateCompletionOMS(!!rateData?.["iuhh-rate"])({
+            rateData,
+            categories,
+            qualifiers,
+            label,
+            locationDictionary,
+            isOPM,
+            customTotalLabel,
+            dataSource,
+          })
+        );
     }
-
     const locationReduced = label.reduce(
       (prev, curr, i) => `${prev}${i ? "-" : ""}${curr}`,
       ""
@@ -171,7 +168,6 @@ const validateNDRs = (
       }
       return false;
     }
-
     // pcr-ad check
     if (rateData?.["pcr-rate"]) {
       return rateData["pcr-rate"].every((o) => !!o?.value);

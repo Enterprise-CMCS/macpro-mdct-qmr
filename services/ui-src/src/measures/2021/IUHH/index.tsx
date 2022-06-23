@@ -74,7 +74,7 @@ export const IUHH = ({
               calcTotal={true}
               customMask={xNumbersYDecimals(12, 1)}
               IUHHPerformanceMeasureArray={performanceMeasureArray}
-              compFlag={"IU"}
+              componentFlag={"IU"}
             />
           )}
         </>

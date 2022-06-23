@@ -1,20 +1,22 @@
+import { validatePartialRateCompletionPM } from "../../validatePartialRateCompletion";
+
 /* At least one NDR set must be complete (OPM or PM) */
 export const PCRatLeastOneRateComplete = (
   performanceMeasureArray: any,
   OPM: any,
   ageGroups: string[],
-  errorLocation: string = "Performance Measure/Other Performance Measure"
+  errorLocation: string = "Performance Measure/Other Performance Measure",
+  omsFlag = false
 ) => {
   let error = true;
-  let errorArray: any[] = [];
+  let errorArray: FormError[] = [];
 
   // Check OPM first
-  OPM &&
-    OPM.forEach((measure: any) => {
-      if (measure?.rate && measure?.rate?.[0]?.rate) {
-        error = false;
-      }
-    });
+  if (OPM) {
+    error = !OPM.some(
+      (measure: any) => !!(measure?.rate && measure?.rate?.[0]?.rate)
+    );
+  }
 
   // Check regular Performance Measures if cannot validate OPM
   // For each Performance Measure
@@ -40,5 +42,10 @@ export const PCRatLeastOneRateComplete = (
       errorMessage: "All data fields must be completed.",
     });
   }
-  return error ? errorArray : [];
+
+  if (OPM && !omsFlag) {
+    errorArray.push(...validatePartialRateCompletionPM([], OPM, ageGroups));
+  }
+
+  return errorArray;
 };

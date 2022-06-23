@@ -1,8 +1,8 @@
-import * as CMQ from "measures/2022/CommonQuestions";
+import * as CMQ from "measures/2021/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { FormData } from "./types";
-import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
+import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
@@ -60,7 +60,7 @@ export const PCRAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              compFlag={"PCR"}
+              componentFlag={"PCR"}
               adultMeasure
             />
           )}
