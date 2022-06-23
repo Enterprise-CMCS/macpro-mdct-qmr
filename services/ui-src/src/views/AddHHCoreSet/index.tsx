@@ -49,20 +49,20 @@ export const AddHHCoreSet = () => {
   }
 
   const sortedSPAs: QMR.SelectOption[] = SPA[year!]
-    .filter((spa: any) => spa.state === state)
+    .filter((spa) => spa.state === state)
     .filter(
-      (spa: any) =>
+      (spa) =>
         !data?.Items.some((coreset: any) =>
           coreset.compoundKey.includes(spa.id)
         )
     )
-    .map((spa: any) => {
+    .map((spa) => {
       return {
         displayValue: `${spa.state} ${spa.id} - ${spa.name}`,
         value: spa.id,
       };
     })
-    .sort((a: any, b: any) => (a.displayValue > b.displayValue && 1) || -1);
+    .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
 
   const handleSubmit = (data: HealthHome) => {
     if (data["HealthHomeCoreSet-SPA"]) {

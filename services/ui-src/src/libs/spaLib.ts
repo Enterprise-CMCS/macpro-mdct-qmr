@@ -4,7 +4,7 @@ export interface SPAi {
   name: string;
 }
 
-export const SPA: any = {
+export const SPA: { [year: string]: SPAi[] } = {
   "2021": [
     {
       id: "19-0037",

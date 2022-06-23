@@ -99,7 +99,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   const tempSpa =
     coreSetInfo.length > 1
       ? SPA[year!].filter(
-          (s: any) => s.id === coreSetInfo[1] && s.state === state
+          (s) => s.id === coreSetInfo[1] && s.state === state
         )[0]
       : "";
   const spaName =
@@ -283,9 +283,7 @@ export const CoreSet = () => {
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
     coreSet.length > 1
-      ? SPA[year].filter(
-          (s: any) => s.id === coreSet[1] && s.state === state
-        )[0]
+      ? SPA[year].filter((s) => s.id === coreSet[1] && s.state === state)[0]
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
