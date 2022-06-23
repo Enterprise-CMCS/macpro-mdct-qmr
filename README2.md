@@ -4,7 +4,25 @@
 
 ## link to the quickstart it was forked from
 
-## how to set up to dev
+# Getting Started
+
+## Eua
+
+## IDM
+
+## Github
+
+## AWS
+
+### security hub
+
+### Installing AWS Command Line Locally
+
+### where aws resources can be found
+
+### how to request access to these environments
+
+## how to set up dev
 
 ### required package
 
@@ -25,6 +43,8 @@
 ## prettier
 
 ### How to set it up on VS code to work on save
+
+# Deployment
 
 ## github actions
 
@@ -49,10 +69,6 @@
 ### how to name branches
 
 ### how to do pr
-
-## where aws resources can be found
-
-### how to request access to these environments
 
 ## authentication
 
@@ -79,8 +95,6 @@
 #### config
 
 ### table name env vars
-
-## security hub
 
 # Services
 
@@ -135,3 +149,7 @@
 #### S3 buckets
 
 #### Endpoints associated with integration
+
+# Year End Transition Documenation
+
+# Debugging Problems and Solutions
