@@ -1,3 +1,7 @@
+# Quality Measure Reporting (QMR)
+
+## High Level Overview of the application's purpose
+
 ## link to the quickstart it was forked from
 
 ## how to set up to dev
@@ -74,19 +78,35 @@
 
 #### config
 
-## dynamoDB
+### table name env vars
+
+## security hub
+
+# Services
+
+## App API
+
+### rest api
+
+### What are the endpoints and what do they accept
+
+## Database
+
+### dynamoDB
 
 ### details
 
 ### How to set up Dynamo endpoint to view local Db: copy from SEDS
 
-### table name env vars
+## Stream Functions
 
-## rest api
+### Kafka and what it's used for
 
-### What are the endpoints and what do they accept
+## UI
 
-## ui-src
+## UI Auth
+
+## ui src
 
 ### general stack details
 
@@ -108,4 +128,10 @@
 
 ### react-query
 
-## security hub
+## Uploads
+
+### Integrations with Mathematica
+
+#### S3 buckets
+
+#### Endpoints associated with integration
