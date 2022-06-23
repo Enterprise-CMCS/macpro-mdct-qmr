@@ -25,6 +25,7 @@ interface CalcOmsTotalProp {
   qualifiers: string[];
   rateMultiplicationValue?: number;
   numberOfDecimals: number;
+  componentFlag?: any;
 }
 
 export const cleanString = (s: string) => s && s.replace(/[^\w]/g, "");
@@ -95,7 +96,7 @@ const checkNewOmsValuesChanged = (
   );
 };
 
-interface IUHHTempRate {
+interface complexTempRate {
   label: string;
   fields: { label: string; value: any }[];
   isTotal: true;
@@ -125,19 +126,44 @@ const IUHHndrForumlas = [
   },
 ];
 
+const AIFHHndrFormulas = [
+  // short term
+  {
+    num: 1,
+    denom: 0,
+    rate: 2,
+    mult: 1000,
+  },
+  // medium term
+  {
+    num: 3,
+    denom: 0,
+    rate: 4,
+    mult: 1000,
+  },
+  // long term
+  {
+    num: 5,
+    denom: 0,
+    rate: 6,
+    mult: 1000,
+  },
+];
+
 /** (IU-HH Specific) Process all OMS rate values pertaining to set category and calculate new rate object */
-const calculateIUHHOMSTotal = ({
+const calculateComplexOMSTotal = ({
   cleanedCategory,
   qualifiers,
   watchOMS,
+  componentFlag,
 }: CalcOmsTotalProp): complexRateFields => {
   const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
-  const fieldNames = watchOMS?.[cleanedQualifiers[0]]?.[
-    cleanedCategory
-  ]?.[0]?.fields.map((field: any) => field.label);
+  const fieldNames = watchOMS?.["Total"]?.[cleanedCategory]?.[0]?.fields.map(
+    (field: any) => field.label
+  );
 
   // Create empty temp obj
-  const tempRate: IUHHTempRate = {
+  const tempRate: complexTempRate = {
     label: cleanedCategory,
     fields: fieldNames?.map((f: string) => {
       return {
@@ -151,16 +177,26 @@ const calculateIUHHOMSTotal = ({
   // Store sums in temp
   for (const qual of cleanedQualifiers) {
     const fields = watchOMS?.[qual]?.[cleanedCategory]?.[0]?.fields;
-    fields?.forEach((field: { value: string }, i: number) => {
-      if (field.value && tempRate.fields[i]) {
-        tempRate.fields[i].value ??= 0;
-        tempRate.fields[i].value += parseFloat(field.value);
-      }
-    });
+    if (fields?.every((f: { value?: string }) => !!f?.value)) {
+      fields?.forEach((field: { value: string }, i: number) => {
+        if (field?.value && tempRate?.fields?.[i]) {
+          tempRate.fields[i].value ??= 0;
+          tempRate.fields[i].value += parseFloat(field.value);
+        }
+      });
+    }
   }
-
+  let formulaSet: any;
+  switch (componentFlag) {
+    case "AIF":
+      formulaSet = AIFHHndrFormulas;
+      break;
+    case "IU":
+      formulaSet = IUHHndrForumlas;
+      break;
+  }
   // Calculate rates for totals
-  for (const f of IUHHndrForumlas) {
+  for (const f of formulaSet!) {
     const numerator = tempRate.fields?.[f.num]?.value;
     const denominator = tempRate.fields?.[f.denom]?.value;
     if (numerator && denominator) {
@@ -192,6 +228,25 @@ const checkNewIUHHOmsValuesChanged = (
       v.fields?.[3]?.value === prev?.[i]?.fields?.[3]?.value &&
       v.fields?.[4]?.value === prev?.[i]?.fields?.[4]?.value &&
       v.fields?.[5]?.value === prev?.[i]?.fields?.[5]?.value
+    );
+  });
+};
+
+/** (AIF-HH Specific) Checks if previous non-undefined OMS values have changed */
+const checkNewAIFHHOmsValuesChanged = (
+  next: complexRateFields[],
+  prev?: complexRateFields[]
+): boolean => {
+  if (!prev) return false;
+  return !next.every((v, i) => {
+    return (
+      v.fields?.[0]?.value === prev?.[i]?.fields?.[0]?.value &&
+      v.fields?.[1]?.value === prev?.[i]?.fields?.[1]?.value &&
+      v.fields?.[2]?.value === prev?.[i]?.fields?.[2]?.value &&
+      v.fields?.[3]?.value === prev?.[i]?.fields?.[3]?.value &&
+      v.fields?.[4]?.value === prev?.[i]?.fields?.[4]?.value &&
+      v.fields?.[5]?.value === prev?.[i]?.fields?.[5]?.value &&
+      v.fields?.[6]?.value === prev?.[i]?.fields?.[6]?.value
     );
   });
 };
@@ -230,40 +285,78 @@ export const useTotalAutoCalculation = ({
 
     const subscription = watch((values, { name: fieldName, type }) => {
       if (fieldName && values) {
-        const omsFields =
-          componentFlag === "IU"
-            ? ([] as complexRateFields[])
-            : ([] as RateFields[]);
+        let omsFields;
+        switch (componentFlag) {
+          case "IU":
+            omsFields = [] as complexRateFields[];
+            break;
+          case "AIF":
+            omsFields = [] as complexRateFields[];
+            break;
+          default:
+            omsFields = [] as RateFields[];
+            break;
+        }
         const watchOMS = objectPath.get(values, `${name}.rates`);
         for (const q of nonTotalQualifiers) {
           omsFields.push(watchOMS?.[q]?.[cleanedCategory]?.[0] ?? {});
         }
 
-        const OMSValuesChanged: boolean =
-          componentFlag === "IU"
-            ? checkNewIUHHOmsValuesChanged(omsFields, previousOMS)
-            : checkNewOmsValuesChanged(omsFields, previousOMS);
+        let OMSValuesChanged: boolean;
+        switch (componentFlag) {
+          case "IU":
+            OMSValuesChanged = checkNewIUHHOmsValuesChanged(
+              omsFields,
+              previousOMS
+            );
+            break;
+          case "AIF":
+            OMSValuesChanged = checkNewAIFHHOmsValuesChanged(
+              omsFields,
+              previousOMS
+            );
+            break;
+          default:
+            OMSValuesChanged = checkNewOmsValuesChanged(omsFields, previousOMS);
+            break;
+        }
         if (
           type === "change" &&
           includedNames.includes(fieldName) &&
           OMSValuesChanged
         ) {
-          const newFieldValue =
-            componentFlag === "IU"
-              ? calculateIUHHOMSTotal({
-                  cleanedCategory,
-                  qualifiers,
-                  numberOfDecimals,
-                  rateMultiplicationValue,
-                  watchOMS,
-                })
-              : calculateOMSTotal({
-                  cleanedCategory,
-                  qualifiers,
-                  numberOfDecimals,
-                  rateMultiplicationValue,
-                  watchOMS,
-                });
+          let newFieldValue;
+          switch (componentFlag) {
+            case "IU":
+              newFieldValue = calculateComplexOMSTotal({
+                cleanedCategory,
+                qualifiers,
+                numberOfDecimals,
+                rateMultiplicationValue,
+                watchOMS,
+                componentFlag,
+              });
+              break;
+            case "AIF":
+              newFieldValue = calculateComplexOMSTotal({
+                cleanedCategory,
+                qualifiers,
+                numberOfDecimals,
+                rateMultiplicationValue,
+                watchOMS,
+                componentFlag,
+              });
+              break;
+            default:
+              newFieldValue = calculateOMSTotal({
+                cleanedCategory,
+                qualifiers,
+                numberOfDecimals,
+                rateMultiplicationValue,
+                watchOMS,
+              });
+              break;
+          }
           setValue(totalFieldName, [newFieldValue]);
         }
         if (values) {

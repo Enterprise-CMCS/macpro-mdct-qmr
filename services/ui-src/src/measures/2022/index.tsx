@@ -4,6 +4,7 @@ the key should be the measure id as a string (with '-XX' included)
 */
 import { AABAD } from "./AABAD";
 import { ADDCH } from "./ADDCH";
+import { AIFHH } from "./AIFHH";
 import { AMBCH } from "./AMBCH";
 import { AMMAD } from "./AMMAD";
 import { AMRAD } from "./AMRAD";
@@ -67,6 +68,7 @@ import { Data, Qualifier } from "./Qualifiers";
 const twentyTwentyTwoMeasures = {
   "AAB-AD": AABAD,
   "ADD-CH": ADDCH,
+  "AIF-HH": AIFHH,
   "AMB-CH": AMBCH,
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,

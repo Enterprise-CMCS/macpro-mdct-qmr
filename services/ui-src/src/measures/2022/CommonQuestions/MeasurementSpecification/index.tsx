@@ -20,16 +20,16 @@ const HEDISChildren = () => {
         placeholder="Select option"
         options={[
           {
-            displayValue: "HEDIS MY 2021 (FFY 2022 Core Set Reporting)",
-            value: DC.HEDIS_MY_2021,
-          },
-          {
             displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
             value: DC.HEDIS_MY_2020,
           },
           {
             displayValue: "HEDIS 2020 (FFY 2020 Core Set Reporting)",
             value: DC.HEDIS_2020,
+          },
+          {
+            displayValue: "HEDIS 2019 (FFY 2019 Core Set Reporting)",
+            value: DC.HEDIS_2019,
           },
         ]}
       />

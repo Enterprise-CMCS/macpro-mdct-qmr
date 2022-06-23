@@ -3,7 +3,10 @@ import {
   locationDictionaryFunction,
   RateData,
 } from "../types";
-import { OmsNodes as OMS, DefaultFormData } from "../../CommonQuestions/types";
+import {
+  OmsNodes as OMS,
+  DefaultFormData,
+} from "measures/2022/CommonQuestions/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
 import { cleanString } from "utils/cleanString";
 
@@ -129,9 +132,17 @@ const validateNDRs = (
     }
     if (checkIsFilled) {
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
+
+      // check for complex rate type and assign appropriate tag
+      const rateType = !!rateData?.["iuhh-rate"]
+        ? "iuhh-rate"
+        : !!rateData?.["aifhh-rate"]
+        ? "aifhh-rate"
+        : undefined;
+
       if (!rateData?.["pcr-rate"])
         errorArray.push(
-          ...validatePartialRateCompletionOMS(!!rateData?.["iuhh-rate"])({
+          ...validatePartialRateCompletionOMS(rateType)({
             rateData,
             categories,
             qualifiers,
@@ -154,6 +165,23 @@ const validateNDRs = (
     // iu-hh check
     if (rateData?.["iuhh-rate"]) {
       const section = rateData["iuhh-rate"]?.rates ?? {};
+      for (const category in section) {
+        for (const qual in section[category]) {
+          const fields = section[category][qual][0].fields;
+          if (
+            fields.every(
+              (field: { label: string; value?: string }) => !!field?.value
+            )
+          ) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    // aif-hh check
+    if (rateData?.["aifhh-rate"]) {
+      const section = rateData["aifhh-rate"]?.rates ?? {};
       for (const category in section) {
         for (const qual in section[category]) {
           const fields = section[category][qual][0].fields;

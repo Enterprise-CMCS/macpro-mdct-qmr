@@ -3,12 +3,12 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { FormData } from "./types";
 import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
-import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
-import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
+import { xNumbersYDecimals } from "utils/numberInputMasks";
 
-export const PCRAD = ({
+export const AIFHH = ({
   name,
   year,
   measureId,
@@ -35,33 +35,46 @@ export const PCRAD = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        healthHomeMeasure
       />
 
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" />
+          <CMQ.MeasurementSpecification type="CMS" />
           <CMQ.DataSource />
-          <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <CMQ.DateRange type="health" />
+          <CMQ.DefinitionOfPopulation healthHomeMeasure={true} />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRADPerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                RateComponent={QMR.AIFHHRate}
+                calcTotal={true}
+              />
               <CMQ.DeviationFromMeasureSpec
-                categories={PMD.qualifiers}
+                categories={PMD.categories}
                 measureName={measureId}
               />
             </>
           )}
-          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
-          <CMQ.CombinedRates />
+          {isOtherMeasureSpecSelected && (
+            <CMQ.OtherPerformanceMeasure
+              allowNumeratorGreaterThanDenominator
+              customMask={xNumbersYDecimals(12, 1)}
+            />
+          )}
+          <CMQ.CombinedRates healthHomeMeasure={true} />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              performanceMeasureArray={performanceMeasureArray}
-              qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              componentFlag={"PCR"}
-              adultMeasure
+              qualifiers={PMD.qualifiers}
+              allowNumeratorGreaterThanDenominator
+              adultMeasure={false}
+              calcTotal={true}
+              customMask={xNumbersYDecimals(12, 1)}
+              AIFHHPerformanceMeasureArray={performanceMeasureArray}
+              componentFlag={"AIF"}
             />
           )}
         </>

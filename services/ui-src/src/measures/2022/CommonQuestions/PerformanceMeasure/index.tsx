@@ -35,7 +35,6 @@ interface NdrSetProps {
   customNumeratorLabel?: string;
   customDenominatorLabel?: string;
   customRateLabel?: string;
-  rateCalc?: RateFormula;
 }
 
 /** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
