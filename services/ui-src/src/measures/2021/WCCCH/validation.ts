@@ -23,15 +23,20 @@ const WCCHValidation = (data: FormData) => {
     return errorArray;
   }
 
+  const validateTotalNDRErrorMessage = (label: string, fieldType: string) => {
+    return `${fieldType} for the ${label} Total rate is not equal to the sum of the ${label} age-specific ${fieldType.toLowerCase()}s.`;
+  };
+
   errorArray = [
-    ...errorArray,
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
       PMD.categories
     ),
-    ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
@@ -43,14 +48,22 @@ const WCCHValidation = (data: FormData) => {
       PMD.qualifiers,
       data
     ),
-    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateEqualQualifierDenominatorsPM(
+      performanceMeasureArray,
+      PMD.qualifiers
+    ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
+    ...GV.validateTotalNDR(
+      performanceMeasureArray,
+      undefined,
+      PMD.categories,
+      validateTotalNDRErrorMessage
+    ),
 
     // OMS Validations
     ...GV.omsValidations({
@@ -71,12 +84,6 @@ const WCCHValidation = (data: FormData) => {
         GV.validateRateZeroOMS,
       ],
     }),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
-    ...GV.validateEqualQualifierDenominatorsPM(
-      performanceMeasureArray,
-      PMD.qualifiers
-    ),
   ];
 
   return errorArray;

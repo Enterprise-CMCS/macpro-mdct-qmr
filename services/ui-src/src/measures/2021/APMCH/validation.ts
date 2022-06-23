@@ -22,6 +22,10 @@ const APMCHValidation = (data: FormData) => {
     return errorArray;
   }
 
+  const validateTotalNDRErrorMessage = (label: string, fieldType: string) => {
+    return `${fieldType} for the ${label} Total rate is not equal to the sum of the ${label} age-specific ${fieldType.toLowerCase()}s.`;
+  };
+
   errorArray = [
     // Performance Measure and OPM Validations
     ...GV.validateAtLeastOneRateComplete(
@@ -50,7 +54,12 @@ const APMCHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
+    ...GV.validateTotalNDR(
+      performanceMeasureArray,
+      undefined,
+      PMD.categories,
+      validateTotalNDRErrorMessage
+    ),
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
       PMD.qualifiers
