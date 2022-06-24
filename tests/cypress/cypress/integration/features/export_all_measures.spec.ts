@@ -14,29 +14,38 @@ describe("Export All Measures", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Export"]').click();
 
-    // Check all measures present
+    // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2021.ADULT) {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
+    cy.get("#CSQ").should("be.visible");
   });
 
-  // it("Test Child Core Set", () => {
-  //   cy.get('[data-cy="child-kebab-menu"]').first().click();
-  //   cy.get('[data-cy="Export"]').click();
+  it("Test Child Core Set", () => {
+    cy.contains("tr", "Child").within(() => {
+      cy.get('[data-cy="child-kebab-menu"]').click();
+      // currently, Child coreset uses "Export All" – this may change
+      cy.contains("Export").click();
+    });
 
-  //   // Check all measures present
-  //   for (const measureAbbr of measureAbbrList2021.CHILD) {
-  //     cy.get(`#${measureAbbr}`).should("be.visible")
-  //   }
-  // })
+    // Check all measures + CSQ present
+    for (const measureAbbr of measureAbbrList2021.CHILD) {
+      cy.get(`#${measureAbbr}`).should("be.visible");
+    }
+    cy.get("#CSQ").should("be.visible");
+  });
 
-  // it("Test Health Home Core Set", () => {
-  //   cy.get('[data-cy="adult-kebab-menu"]').click();
-  //   cy.get('[data-cy="Export"]').click();
+  it("Test Health Home Core Set", () => {
+    cy.contains("tr", "Health Home").within(() => {
+      cy.get('[data-cy="health home-kebab-menu"]').click();
+      // currently, Health Home coreset uses "Export All" – this may change
+      cy.contains("Export").click();
+    });
 
-  //   // Check all measures present
-  //   for (const measureAbbr of measureAbbrList2021.HEALTH_HOME) {
-  //     cy.get(`#${measureAbbr}`).should("be.visible")
-  //   }
-  // })
+    // Check all measures + CSQ present
+    for (const measureAbbr of measureAbbrList2021.HEALTH_HOME) {
+      cy.get(`#${measureAbbr}`).should("be.visible");
+    }
+    cy.get("#CSQ").should("be.visible");
+  });
 });
