@@ -62,7 +62,6 @@ export const AIFHH = ({
             <CMQ.OtherPerformanceMeasure
               allowNumeratorGreaterThanDenominator
               customMask={xNumbersYDecimals(12, 1)}
-              rateMultiplicationValue={1000}
             />
           )}
           <CMQ.CombinedRates healthHomeMeasure={true} />
@@ -74,7 +73,6 @@ export const AIFHH = ({
               adultMeasure={false}
               calcTotal={true}
               customMask={xNumbersYDecimals(12, 1)}
-              rateMultiplicationValue={1000}
               AIFHHPerformanceMeasureArray={performanceMeasureArray}
               componentFlag={"AIF"}
             />

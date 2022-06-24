@@ -32,16 +32,30 @@ export const ComplexValidateNDRTotalsOMS = (
   // build performanceMeasureArray
   let performanceMeasureArray = [];
   const cleanedCategories = categories.map((cat) => cleanString(cat));
-  for (const cat of cleanedCategories) {
+  if (cleanedCategories.length !== 0) {
+    for (const cat of cleanedCategories) {
+      let row = [];
+      for (const q in qualifierObj) {
+        const qual = qualifierObj[q]?.[cat]?.[0] ?? {};
+        if (qual) {
+          row.push(qual);
+        }
+      }
+      if (row) {
+        row.push(totalData[cat][0]);
+        performanceMeasureArray.push(row);
+      }
+    }
+  } else {
     let row = [];
     for (const q in qualifierObj) {
-      const qual = qualifierObj[q]?.[cat]?.[0] ?? {};
+      const qual = qualifierObj[q]?.["singleCategory"]?.[0] ?? {};
       if (qual) {
         row.push(qual);
       }
     }
     if (row) {
-      row.push(totalData[cat][0]);
+      row.push(totalData["singleCategory"][0]);
       performanceMeasureArray.push(row);
     }
   }
