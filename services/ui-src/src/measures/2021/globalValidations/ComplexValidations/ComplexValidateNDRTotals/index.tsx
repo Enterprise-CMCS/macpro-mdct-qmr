@@ -105,9 +105,9 @@ export const ComplexValidateNDRTotals = (
       )
     ) {
       errorArray.push({
-        errorLocation: `${errorLocation} -  ${
+        errorLocation: `${errorLocation} - ${
           categories[i] ? categories[i] : ""
-        } `,
+        }`,
         errorMessage: `Total ${
           categories[i] ? categories[i] : ""
         } must contain values if other fields are filled.`,
