@@ -40,7 +40,7 @@ export const FUMHH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource />
           <CMQ.DateRange type="health" />
           <CMQ.DefinitionOfPopulation healthHomeMeasure />
           {isPrimaryMeasureSpecSelected && (
