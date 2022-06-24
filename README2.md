@@ -119,7 +119,7 @@ EUA is the first step to getting started with the application. Access to everyth
 
 ### rest api
 
-### What are the endpoints and what do they accept
+### List of Endpoints, their associated operations and able to bring in
 
 ## Database
 
