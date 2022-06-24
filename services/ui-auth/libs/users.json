@@ -765,5 +765,34 @@
         "Value": "WI"
       }
     ]
+  },
+  {
+    "username": "multiroleuser@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "multiroleuser@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Jimmy"
+      },
+      {
+        "Name": "family_name",
+        "Value": "Multirole"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "false"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "MACPRO_STATE_USER,mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "MO"
+      }
+    ]
   }
 ]
