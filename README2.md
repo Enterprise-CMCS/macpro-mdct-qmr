@@ -101,6 +101,10 @@ EUA is the first step to getting started with the application. Access to everyth
 
 # Deployment
 
+The short version of the CICD Pipeline is `Pull Request → Github Actions → Cloudformation Stacks → Accessible Application`
+
+All of the deployments start with new code on a branch. A branch environment is created and this is where automated and manual testing occurs. Once all of the checks have been passed on a branch, it is pulled into the Master branch where more testing is done and all functionality is verified. Then it is pushed to the Val Branch, where a selection of business users test the new functionality and provide a further round of feedback. Once this feedback has been addressed a final push to the Production branch is done where live users have access to the new features.
+
 ## github actions
 
 ### Where they run, how to tell if they have failed
@@ -236,9 +240,19 @@ The Endpoints created by a branch are random and can be found in the output of t
 
 ## UI Auth
 
-### Adding new users to cognito
+The UI Auth service creates and manages the Authentication of the UI.
 
-### How IDM users are synced to cognito
+User data is synced from IDM to Cognito to allow for login to the application and the IDM roles are used to determine what a user has access to in the UI.
+
+### Okta
+
+Okta is the Federated Identity Provider being used to allow users to use their IDM credentials with our application.
+
+### Automating Test User Creation
+
+There is one lambda function in the UI-Auth Service, this is to create test users that can login to the branch environments, dev, and Val, for testing, but not production.
+
+To add new users with new attributes, you can edit the `users.json`
 
 ## UI-SRC
 
