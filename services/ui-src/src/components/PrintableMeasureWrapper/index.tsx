@@ -119,9 +119,10 @@ export const PrintableMeasureWrapper = ({
 
   useEffect(() => {
     // reset core set qualifier data to use the default values for table rendering
+    console.log("measureData", measureData);
     if (
       !methods.formState.isDirty &&
-      !measureData?.Item?.data &&
+      !measureData?.data &&
       measureId === "CSQ"
     ) {
       methods.reset(
@@ -134,7 +135,7 @@ export const PrintableMeasureWrapper = ({
       );
     }
     // default loaded data reset
-    else if (!methods.formState.isDirty) methods.reset(measureData?.Item?.data);
+    else if (!methods.formState.isDirty) methods.reset(measureData?.data);
   }, [measureData, methods, defaultData, params, measureId]);
 
   if (!params.coreSetId || !params.state) {
