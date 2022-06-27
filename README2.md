@@ -128,10 +128,6 @@ npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 
 ### What needs to be in the local ENV table
 
-## prettier
-
-### How to set it up on VS code to work on save
-
 # Deployment
 
 ## github actions
