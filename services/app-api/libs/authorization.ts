@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import { UserRoles, RequestMethods } from "../types";
 
 interface DecodedToken {
-  "custom:cms_roles": UserRoles;
+  "custom:cms_roles": string;
   "custom:cms_state"?: string;
   given_name?: string;
   family_name?: string;
@@ -21,11 +21,11 @@ export const isAuthorized = (event: APIGatewayProxyEvent) => {
   const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
 
   // get the role / state from the decoded token
-  const userRole = decoded["custom:cms_roles"];
+  const userRoles = decoded["custom:cms_roles"].split(","); // an array of user roles
   const userState = decoded["custom:cms_state"];
 
   // if user is a state user - check they are requesting a resource from their state
-  if (userState && requestState && userRole === UserRoles.STATE) {
+  if (userState && requestState && userRoles.includes(UserRoles.STATE)) {
     return userState.toLowerCase() === requestState.toLowerCase();
   }
 
