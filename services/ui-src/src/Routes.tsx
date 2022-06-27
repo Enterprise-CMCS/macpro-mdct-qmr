@@ -1,4 +1,4 @@
-import { ReactElement, Fragment } from "react";
+import { ReactElement, Fragment, lazy } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import * as Views from "views";
@@ -17,6 +17,43 @@ import { measureDescriptions } from "measures/measureDescriptions";
 //   s3LocalGetURL,
 // } from "libs/awsLib";
 // import config from "config";
+
+const Home = lazy(() =>
+  import("views/Home").then(({ Home }) => ({ default: Home }))
+);
+const FAQ = lazy(() =>
+  import("views/FAQ").then(({ FAQ }) => ({ default: FAQ }))
+);
+const StateHome = lazy(() =>
+  import("views/StateHome").then(({ StateHome }) => ({ default: StateHome }))
+);
+const AdminHome = lazy(() =>
+  import("views/AdminHome").then(({ AdminHome }) => ({ default: AdminHome }))
+);
+const AddHHCoreSet = lazy(() =>
+  import("views/AddHHCoreSet").then(({ AddHHCoreSet }) => ({
+    default: AddHHCoreSet,
+  }))
+);
+const CoreSet = lazy(() =>
+  import("views/CoreSet").then(({ CoreSet }) => ({ default: CoreSet }))
+);
+const AddChildCoreSet = lazy(() =>
+  import("views/AddChildCoreSet").then(({ AddChildCoreSet }) => ({
+    default: AddChildCoreSet,
+  }))
+);
+const AddStateSpecificMeasure = lazy(() =>
+  import("views/AddStateSpecificMeasure").then(
+    ({ AddStateSpecificMeasure }) => ({ default: AddStateSpecificMeasure })
+  )
+);
+const ApiTester = lazy(() =>
+  import("views/ApiTester").then(({ ApiTester }) => ({ default: ApiTester }))
+);
+const NotFound = lazy(() =>
+  import("views/NotFound").then(({ NotFound }) => ({ default: NotFound }))
+);
 
 interface MeasureRoute {
   path: string;
@@ -98,25 +135,22 @@ export function AppRoutes() {
   return (
     <main id="main-wrapper">
       <Routes>
-        <Route path="/" element={<Views.Home />} />
-        <Route path="/faq" element={<Views.FAQ />} />
-        <Route path=":state/:year" element={<Views.StateHome />} />
-        <Route path="admin" element={<Views.AdminHome />} />
-        <Route
-          path=":state/:year/add-child"
-          element={<Views.AddChildCoreSet />}
-        />
-        <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
-        <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path=":state/:year" element={<StateHome />} />
+        <Route path="admin" element={<AdminHome />} />
+        <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
+        <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
+        <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
         <Route
           path=":state/:year/:coreSetId/add-ssm"
-          element={<Views.AddStateSpecificMeasure />}
+          element={<AddStateSpecificMeasure />}
         />
-        <Route path="api-test" element={<Views.ApiTester />} />
+        <Route path="api-test" element={<ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route {...m} />
         ))}
-        <Route path="*" element={<Views.NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
   );
