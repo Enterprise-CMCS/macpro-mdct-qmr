@@ -28,18 +28,24 @@ The following are pre-requesites for local development.
 1. Install [Node](https://nodejs.org/en/download/)
 1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
    - A specific version of Node is enforced and specified in the file `.nvmrc`. This version matches the Lambda runtime.
-1. Install [Yarn](https://classic.yarnpkg.com)
+1. Install the correct version of node
+   ```bash
+   cat .nvmrc  # print node version being used
+   nvm install {node_version}
+   nvm use  # will use version defined in .nvmrc
    ```
+1. Install [Yarn](https://classic.yarnpkg.com)
+   ```bash
    npm install --global yarn
    ```
 1. Install [Serverless](https://www.serverless.com/framework/docs/getting-started)
-   ```
+   ```bash
    yarn global add serverless
    yarn upgrade serverless
    ```
 1. Install the following Serverless plugins
 
-   ```
+   ```bash
    yarn add serverless-offline
    yarn add serverless-dynamodb-local
    yarn add serverless-s3-local
@@ -49,13 +55,14 @@ The following are pre-requesites for local development.
    ```
 
 1. Install all other node packages.
-   ```
+   ```bash
    yarn install  # can be skipped, will run automatically in dev script
    ```
 1. Run the application.
-   ```
+   ```bash
    ./dev local
    ```
+   A number of test users are defined in `users.json`. See the [AWS section](#AWS) for more specific instructions and test user passwords.
 
 ### Prettier
 
@@ -76,12 +83,6 @@ This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.h
 ### how to request access to these environments
 
 ## how to set up dev
-
-### required package
-
-### nvm
-
-### node version and .nvmrc file
 
 ### What needs to be in the local ENV table
 
