@@ -219,11 +219,18 @@ The stream functions fire deltas when updates to its table happens. These change
 
 ## UI
 
-### cloudfront endpoints
+The UI Service creates the URL's associated with the application and the cloudfront logs that monitor traffic.
+For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with `.com`
 
 ### Dev/Impl/Prod endpoints
 
-### How cloudfront endpoints are associated to specific URL's
+Dev: https://mdctqmrdev.cms.gov/
+Val: https://mdctqmrval.cms.gov/
+Prod: https://mdctqmr.cms.gov/
+
+### Branch Endpoints
+
+The Endpoints created by a branch are random and can be found in the output of the cloudformation stack for the UI, it can also be found as an output of the deploy step of our github actions.
 
 ## UI Auth
 
