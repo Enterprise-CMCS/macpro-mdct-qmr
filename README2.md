@@ -66,7 +66,24 @@ The following are pre-requesites for local development.
 
 ### Prettier
 
-This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.html).
+This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.html). The package is downloaded during `yarn install` and is run automatically in a pre-commit hook. Additionally, the Prettier formatter can be run on file save in many IDEs or run ad hoc from the command line.
+
+#### VS Code
+
+The Prettier extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
+Once installed, open VS Code's Preferences. Search for "format on save". Clicking the checkbox should engage the Prettier formatter on file save.
+
+VS Code is used almost ubiquitously across the current development team, but similar instructions are available for other IDEs.
+
+#### CLI
+
+Using this command, or a variant of it, will format all matching files in the codebase and write the changes. Prettier has complete [CLI documentation](https://prettier.io/docs/en/cli.html) on their website.
+
+```bash
+npx prettier --write . # format everything relative to the pwd
+npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
+```
 
 ## IDM
 
