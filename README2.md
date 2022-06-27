@@ -75,7 +75,7 @@ EUA is the first step to getting started with the application. Access to everyth
 
 ## Update Node modules
 
-## Generate ENV with AWS Credentials
+## Generate ENV file with AWS Credentials
 
 ## runners used
 
@@ -95,9 +95,7 @@ EUA is the first step to getting started with the application. Access to everyth
 
 ### config
 
-#### How to add new files to be included in the config
-
-## table name env vars
+#### How to add new files to be included in the code climate config
 
 # Deployment
 
@@ -106,6 +104,14 @@ The short version of the CICD Pipeline is `Pull Request → Github Actions → C
 All of the deployments start with new code on a branch. A branch environment is created and this is where automated and manual testing occurs. Once all of the checks have been passed on a branch, it is pulled into the Master branch where more testing is done and all functionality is verified. Then it is pushed to the Val Branch, where a selection of business users test the new functionality and provide a further round of feedback. Once this feedback has been addressed a final push to the Production branch is done where live users have access to the new features.
 
 ## github actions
+
+`precommit/prettier`
+
+`codeclimate`
+
+`Deploy`
+
+`Automation Deploy`
 
 ### Where they run, how to tell if they have failed
 
@@ -128,16 +134,6 @@ All of the deployments start with new code on a branch. A branch environment is 
 ### how to name branches
 
 ### how to do pr
-
-## authentication
-
-### how user authentication is handled
-
-### idm resource locations
-
-### how to register/approve new user
-
-### user pools / cognito
 
 # Services
 
@@ -193,6 +189,8 @@ The Kafka Queues we link to are in the BigMac account and are currently not bein
 
 `convertToDynamoExpressionVars`: Dynamo requires very specific variable naming conventions which are unwieldly to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
 
+A known issue with this utility is that right now it only `ands` arguments, so if you have a list or get query that needs to exclude characteristics, this utility will need to be updated
+
 `createCompoundKey`: creates the dynamo key for the coreset or measure based on the passed in parameters.
 
 `measureList`: A list of all of the measures and the type of coreset they belong to. This is used when a new coreset is created to create new measures for that coreset.
@@ -243,6 +241,8 @@ The Endpoints created by a branch are random and can be found in the output of t
 The UI Auth service creates and manages the Authentication of the UI.
 
 User data is synced from IDM to Cognito to allow for login to the application and the IDM roles are used to determine what a user has access to in the UI.
+
+### user pools / cognito
 
 ### Okta
 
