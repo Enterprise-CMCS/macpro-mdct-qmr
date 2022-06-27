@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import * as Types from "../types";
 
-export type ComponentFlagType = "DEFAULT" | "AIF" | "IU" | "PCR" | "AAB";
+export type ComponentFlagType = "DEFAULT" | "AIF" | "IU" | "PCR";
 
 interface ContextProps {
   OPM?: Types.OtherRatesFields[];

@@ -15,7 +15,7 @@ interface ValProps extends UVFP {
   hybridData?: boolean;
 }
 
-export const _validationRateNotZero = ({ location, rateData }: UVFP) => {
+const _validationRateNotZero = ({ location, rateData }: UVFP) => {
   const errorArray: FormError[] = [];
 
   for (const ratefields of rateData) {
@@ -39,11 +39,7 @@ export const _validationRateNotZero = ({ location, rateData }: UVFP) => {
   return errorArray;
 };
 
-export const _validationRateZero = ({
-  location,
-  rateData,
-  hybridData,
-}: ValProps) => {
+const _validationRateZero = ({ location, rateData, hybridData }: ValProps) => {
   const errorArray: FormError[] = [];
 
   for (const ratefields of rateData) {
