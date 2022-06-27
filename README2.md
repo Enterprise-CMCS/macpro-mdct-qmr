@@ -45,12 +45,12 @@ Job codes needed may vary by contract and job role. Consult with your team for a
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | SLACK_P_USER              | Gets you access to CMS Slack. Many of the manual processes are initiated through contacting a specific team through Slack, in addition to being a primary means of communication.                                        |
 | Github_Editor             | Required for managing CMS GitHub repos. Your GitHub user will still need to be added to the CMS orgs and relevant repos through GitHub. In order to accept those invitations, you will be prompted to sign into CMS EUA. |
-| CMS_CLOUD_ACCESS          | Allows you to sign into CMS AWS with your EUA credentials. You will still need to be added to your project's AWS environments. See [AWS section](#AWS) of this document for more information.                            |
+| CMS_CLOUD_ACCESS          | Allows you to sign into CMS AWS with your EUA credentials. You will still need to be added to your project's AWS environments. See [AWS section](#aws) of this document for more information.                            |
 | JIRA_Users                | Access to issue tracking repository on [CMS Jira](jira.cms.gov).                                                                                                                                                         |
 | ENT_AGILE_TOOLS           | For Contractors and other NON-CMS employee users access to the CMS Enterprise Agile Tools                                                                                                                                |
 | AWS_Splunk_User           | User Level Access for AWS Splunk Application                                                                                                                                                                             |
-| CTR_VPN_3ZWINMF_Exception | One of 2 codes required for VPN access. Has a 90 day auto-expire. Needed while getting approved for a PIV. See [VPN section](#VPN) for more information.                                                                 |
-| CTR_VPN_PIV_3ZWINMF       | Contractor VPN_PIV access to 3-Zone URL's, Windows servers & Mainframes. See [VPN section](#VPN) for more information.                                                                                                   |
+| CTR_VPN_3ZWINMF_Exception | One of 2 codes required for VPN access. Has a 90 day auto-expire. Needed while getting approved for a PIV. See [VPN section](#vpn) for more information.                                                                 |
+| CTR_VPN_PIV_3ZWINMF       | Contractor VPN_PIV access to 3-Zone URL's, Windows servers & Mainframes. See [VPN section](#vpn) for more information.                                                                                                   |
 | CARTS_D_User              | CARTS-SCHIP Annual Report Template System Development Access                                                                                                                                                             |
 | CARTS_P_User              | CARTS-SCHIP Annual Report Template System Production Access                                                                                                                                                              |
 | CARTS_V_User              | The CHIP Annual Report Template System (SARTS) application tracks and reports                                                                                                                                            |
@@ -103,7 +103,7 @@ The following are prerequisites for local development.
    ```bash
    ./dev local
    ```
-   A number of test users are defined in `users.json`. See the [AWS section](#AWS) for more specific instructions and test user passwords.
+   A number of test users are defined in `users.json`. See the [AWS section](#aws) for more specific instructions and test user passwords.
 
 ### Prettier
 
@@ -157,13 +157,25 @@ Users can log into QMR's non-development environments using IDM.
 
 ## AWS
 
-### security hub
+_You must have an EUA account and your request for the appropriate job codes must be approved before you will be able to access AWS. See [Register an EUA Account section](#register-an-eua-account) of this document for more information._
 
-### Installing AWS Command Line Locally
+### Request Access to QMR AWS Environments
+
+You must be manually added to the appropriate AWS environments by CMS personnel. That request can be made in Jira or Slack.
+
+1. Have an existing team member add you to the CMS Slack channel `#macpro-devsecops-techsupport`
+   - Not recommended alternative, but possibly effective action: yell loudly in another channel and see if a stranger will help you.
+1. Make a post requesting the following:
+   - application admin for Dev and val accounts
+   - read-only for production
+1. Someone from the DevSecOps team should give you a link to a Jira ticket, or may ask you to make the ticket.
+1. Follow along with the status of the ticket and provide any additional information needed. Most likely you will be asked to comment on the ticket confirming you can access AWS resources and the work is complete.
+
+### security hub
 
 ### where aws resources can be found
 
-### how to request access to these environments
+### Installing AWS CLI
 
 ## how to set up dev
 
