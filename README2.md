@@ -1,5 +1,17 @@
 # Quality Measure Reporting (QMR)
 
+# cms-mdct-qmr ![Build](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master) [![latest release](https://img.shields.io/github/release/cmsgov/cms-mdct-qmr.svg)](https://github.com/cmsgov/cms-mdct-qmr/releases/latest) [![Maintainability](https://api.codeclimate.com/v1/badges/1449ad929006f559756b/maintainability)](https://codeclimate.com/github/CMSgov/cms-mdct-qmr/maintainability) [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5b10ae50ca1effedcd3/test_coverage)](https://codeclimate.com/repos/60fae00673444f5bad001bf9/test_coverage)
+
+## Release
+
+Our product is promoted through branches. Master is merged to val to affect a master release, and val is merged to production to affect a production release. Please use the buttons below to promote/release code to higher environments.<br />
+
+| branch     | status                                                                                       | release                                                                                                                                                                                                                       |
+| ---------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| master     | ![master](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master)   | [![release to master](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare?quick_pull=1)                                                                                       |
+| val        | ![val](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=val)         | [![release to val](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare/val...master?quick_pull=1&template=PULL_REQUEST_TEMPLATE.val.md&title=Release%20to%20Val)              |
+| production | ![production](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=prod) | [![release to production](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare/prod...val?quick_pull=1&template=PULL_REQUEST_TEMPLATE.production.md&title=Release%20to%20Prod) |
+
 ## High Level Overview of the application's purpose
 
 The new Quality Measure Reporting (QMR) application will house all the state required measures for reporting on Adult, Child, and Health Home core sets. The new application is replacing the time intensive SDF files previously used for submission. Data collected within the QMR application will be sent to the CMS partner MPR for analytics and reporting via the CollabraLink owned BigMAC application.
@@ -125,6 +137,10 @@ EUA is the first step to getting started with the application. Access to everyth
 
 # Services
 
+## Architecture
+
+![Architecture Diagram](./.images/architecture.svg?raw=true)
+
 ## App API
 
 ### Overview
@@ -163,6 +179,8 @@ The only endpoints that need a body is `update`
 
 ### Kafka
 
+The Kafka Queues we link to are in the BigMac account and are currently not being used for any downstream purposes
+
 `postKafkaData`: Fires when any of the coreset or measure endpoints is hit to update the corresponding kafka queue in the AWS BigMac account to reflect the delta from the API call
 
 `forceKafkaSync`: This can be manually triggered to force kafka to reflect the current state of the database.
@@ -177,21 +195,41 @@ The only endpoints that need a body is `update`
 
 ## Database
 
-### dynamoDB
+We are using DynamoDb for our database solution for QMR. When looking for the databases in AWS search for `branchName-tableName` to find the tables for your branch.
 
-### details
+### Tables
 
-### How to set up Dynamo endpoint to view local Db: copy from SEDS
+`coresets`: Takes a compound key containing a unique combination of state, year, and coreset ID.
 
-## Stream Functions
+`measures`: Takes a compound key containing a unique combination of state, year, coreset ID, and Measure ID.
 
-### Kafka and what it's used for
+### How to set up Dynamo endpoint to view local Db
+
+In order to run dynamodb locally you will need to have java installed on your system. If not currently installed go here: https://java.com/en/download/ to download the latest version.
+
+If you want to a visual view of your dynamodb after the application is up and running you can install the dynamodb-admin tool from here: https://www.npmjs.com/package/dynamodb-admin
+
+To run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window
+
+From here you can view the tables and perform operations on the local tables.
+
+### Stream Functions
 
 ## UI
 
+### cloudfront endpoints
+
+### Dev/Impl/Prod endpoints
+
+### How cloudfront endpoints are associated to specific URL's
+
 ## UI Auth
 
-## ui src
+### Adding new users to cognito
+
+### How IDM users are synced to cognito
+
+## UI-SRC
 
 ### general stack details
 
@@ -223,4 +261,59 @@ The only endpoints that need a body is `update`
 
 # Year End Transition Documenation
 
+Go into the services/ui-src/src/measures directory and one should see past years as
+folders (2021,2022,etc.). Ideally changes to measures would be made from the previous
+year to the next so one would make a copy the folder of the most recent year and rename
+it to the next year (2021->2022 for example). Then go into the folder and make any additions or removals of measures as needed per requirements.
+
+Once the directory for the new year has been made there are a couple of changes one needs
+to make in order to get that year working.
+
+1. Go into the index.tsx file for the directory you just created
+   (services/ui-src/src/measures/2022/index.tsx) and update the name of the export
+   (twentyTwentyOneMeasures -> twentyTwentyTwoMeasures)
+
+2. Go to the services/ui-src/src/measures/index.tsx file and add that new export
+   (before and after shown below)
+
+   Before
+
+   ![Before](./.images/beforeCode.png?raw=true)
+
+   After
+
+   ![After](./.images/afterCode.png?raw=true)
+
+3. Go to the services/app-api/handlers/dynamoUtils/measureList.ts and copy the array of
+   measures from the previous year and copy them into the new year. Make any additions or
+   removals of measures as needed per requirements.
+
 # Debugging Problems and Solutions
+
+# Contributing / To-Do
+
+See current open [issues](https://github.com/mdial89f/quickstart-serverless/issues) or check out the [project board](https://github.com/mdial89f/quickstart-serverless/projects/1)
+
+Please feel free to open new issues for defects or enhancements.
+
+To contribute:
+
+- Fork this repository
+- Make changes in your fork
+- Open a pull request targetting this repository
+
+Pull requests are being accepted.
+
+# License
+
+[![License](https://img.shields.io/badge/License-CC0--1.0--Universal-blue.svg)](https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+See [LICENSE](LICENSE.md) for full details.
+
+```text
+As a work of the United States Government, this project is
+in the public domain within the United States.
+
+Additionally, we waive copyright and related rights in the
+work worldwide through the CC0 1.0 Universal public domain dedication.
+```
