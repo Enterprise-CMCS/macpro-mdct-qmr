@@ -516,7 +516,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
           >
             {customPrompt ??
               `Enter a number for the numerator and the denominator. Rate will
-            auto-calculate`}
+            auto-calculate:`}
           </CUI.Heading>,
           <CUI.Heading
             pt="1"
