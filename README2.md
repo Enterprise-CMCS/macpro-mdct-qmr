@@ -189,6 +189,8 @@ The Kafka Queues we link to are in the BigMac account and are currently not bein
 
 `convertToDynamoExpressionVars`: Dynamo requires very specific variable naming conventions which are unwieldly to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
 
+A known issue with this utility is that right now it only `ands` arguments, so if you have a list or get query that needs to exclude characteristics, this utility will need to be updated
+
 `createCompoundKey`: creates the dynamo key for the coreset or measure based on the passed in parameters.
 
 `measureList`: A list of all of the measures and the type of coreset they belong to. This is used when a new coreset is created to create new measures for that coreset.
