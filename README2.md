@@ -75,7 +75,7 @@ EUA is the first step to getting started with the application. Access to everyth
 
 ## Update Node modules
 
-## Generate ENV with AWS Credentials
+## Generate ENV file with AWS Credentials
 
 ## runners used
 
@@ -96,8 +96,6 @@ EUA is the first step to getting started with the application. Access to everyth
 ### config
 
 #### How to add new files to be included in the code climate config
-
-## table name env vars
 
 # Deployment
 
