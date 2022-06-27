@@ -1,7 +1,6 @@
-import { ReactElement, Fragment, lazy, Suspense } from "react";
+import { ReactElement, Fragment, lazy } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
-import * as Views from "views";
 import * as QMR from "components";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
@@ -30,6 +29,7 @@ const AddStateSpecificMeasure = lazy(
 );
 const ApiTester = lazy(() => import("views/ApiTester"));
 const NotFound = lazy(() => import("views/NotFound"));
+const MeasuresLoading = lazy(() => import("views/MeasuresLoading"));
 
 interface MeasureRoute {
   path: string;
@@ -99,7 +99,7 @@ function useMeasureRoutes(): MeasureRoute[] {
         {
           key: ":state/:year/:coreSetId/:measure",
           path: ":state/:year/:coreSetId/:measure",
-          element: <Views.MeasuresLoading />,
+          element: <MeasuresLoading />,
         },
         ...measureRoutes,
       ];
@@ -110,26 +110,24 @@ export function AppRoutes() {
 
   return (
     <main id="main-wrapper">
-      <Suspense fallback={<div></div>}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path=":state/:year" element={<StateHome />} />
-          <Route path="admin" element={<AdminHome />} />
-          <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
-          <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
-          <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
-          <Route
-            path=":state/:year/:coreSetId/add-ssm"
-            element={<AddStateSpecificMeasure />}
-          />
-          <Route path="api-test" element={<ApiTester />} />
-          {measureRoutes.map((m: MeasureRoute) => (
-            <Route {...m} />
-          ))}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path=":state/:year" element={<StateHome />} />
+        <Route path="admin" element={<AdminHome />} />
+        <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
+        <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
+        <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
+        <Route
+          path=":state/:year/:coreSetId/add-ssm"
+          element={<AddStateSpecificMeasure />}
+        />
+        <Route path="api-test" element={<ApiTester />} />
+        {measureRoutes.map((m: MeasureRoute) => (
+          <Route {...m} />
+        ))}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </main>
   );
 }
