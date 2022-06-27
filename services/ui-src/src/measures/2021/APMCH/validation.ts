@@ -25,7 +25,10 @@ const APMCHValidation = (data: FormData) => {
   const validateEqualQualifierDenominatorsErrorMessage = (
     qualifier: string
   ) => {
-    return `The ${qualifier} denominator must be the same for each indicator.`;
+    const isTotal = qualifier.split(" ")[0] === "Total";
+    return `${
+      isTotal ? "" : "The "
+    }${qualifier} denominator must be the same for each indicator.`;
   };
 
   const validateTotalNDRErrorMessage = (
