@@ -101,6 +101,10 @@ EUA is the first step to getting started with the application. Access to everyth
 
 # Deployment
 
+The short version of the CICD Pipeline is `Pull Request → Github Actions → Cloudformation Stacks → Accessible Application`
+
+All of the deployments start with new code on a branch. A branch environment is created and this is where automated and manual testing occurs. Once all of the checks have been passed on a branch, it is pulled into the Master branch where more testing is done and all functionality is verified. Then it is pushed to the Val Branch, where a selection of business users test the new functionality and provide a further round of feedback. Once this feedback has been addressed a final push to the Production branch is done where live users have access to the new features.
+
 ## github actions
 
 ### Where they run, how to tell if they have failed
