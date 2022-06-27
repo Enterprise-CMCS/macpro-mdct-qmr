@@ -65,15 +65,19 @@ The following are prerequisites for local development.
 1. Install [Node](https://nodejs.org/en/download/)
 1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
    - A specific version of Node is enforced and specified in the file `.nvmrc`. This version matches the Lambda runtime.
-1. Install the correct version of node
+1. Install the correct version of Node
    ```bash
-   cat .nvmrc  # print node version being used
-   nvm install {node_version}
-   nvm use  # will use version defined in .nvmrc
+   # nvm commands will default to Node version defined in .nvmrc
+   nvm install
+   nvm use
+   ```
+1. Install [Homebrew](https://brew.sh)
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
 1. Install [Yarn](https://classic.yarnpkg.com)
    ```bash
-   npm install --global yarn
+   brew install yarn
    ```
 1. Install [Serverless](https://www.serverless.com/framework/docs/getting-started)
    ```bash
@@ -144,8 +148,8 @@ Users can log into QMR's non-development environments using IDM.
    - Note: An account can only be associated with one role. If you need to have multiple roles (Ex: state user and admin) you will need to create multiple accounts.
 1. Watch for an email confirming your role request submission
 1. View and agree to the terms of service. Click the "Next" button.
-1. Complete the RIDP form. Click the "Next" button.
-1. Answer the RIDP proofing questions as applicable. Click "Verify".
+1. Complete the Remote Identity Proofing (RIDP) form. Click the "Next" button.
+1. Answer the RIDP questions as applicable. Click "Verify".
 1. Select the applicable role attributes via the drop-down lists. Then click "Review Request".
 1. Enter a reason for the request in the provided text box. Click "Submit Role Request".
 
