@@ -10,7 +10,8 @@ const FUMHHValidation = (data: FormData) => {
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
-    data.Deviations
+    data.Deviations,
+    true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const OPM = data[DC.OPM_RATES];
