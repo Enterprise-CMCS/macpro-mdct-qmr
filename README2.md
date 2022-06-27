@@ -107,6 +107,14 @@ All of the deployments start with new code on a branch. A branch environment is 
 
 ## github actions
 
+`precommit/prettier`
+
+`codeclimate`
+
+`Deploy`
+
+`Automation Deploy`
+
 ### Where they run, how to tell if they have failed
 
 ## master → val → prod
@@ -128,16 +136,6 @@ All of the deployments start with new code on a branch. A branch environment is 
 ### how to name branches
 
 ### how to do pr
-
-## authentication
-
-### how user authentication is handled
-
-### idm resource locations
-
-### how to register/approve new user
-
-### user pools / cognito
 
 # Services
 
@@ -243,6 +241,8 @@ The Endpoints created by a branch are random and can be found in the output of t
 The UI Auth service creates and manages the Authentication of the UI.
 
 User data is synced from IDM to Cognito to allow for login to the application and the IDM roles are used to determine what a user has access to in the UI.
+
+### user pools / cognito
 
 ### Okta
 
