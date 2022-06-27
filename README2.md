@@ -181,7 +181,7 @@ The only endpoints that need a body is `update`
 
 The Kafka Queues we link to are in the BigMac account and are currently not being used for any downstream purposes
 
-`postKafkaData`: Fires when any of the coreset or measure endpoints is hit to update the corresponding kafka queue in the AWS BigMac account to reflect the delta from the API call
+`postKafkaData`: Fires when an update to the database happens and syncs kafka to reflect the current state of the database.
 
 `forceKafkaSync`: This can be manually triggered to force kafka to reflect the current state of the database.
 
@@ -214,6 +214,8 @@ To run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-adm
 From here you can view the tables and perform operations on the local tables.
 
 ### Stream Functions
+
+The stream functions fire deltas when updates to its table happens. These changes are picked up in the API where these changes are communicated to the kafka streams for the application.
 
 ## UI
 
