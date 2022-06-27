@@ -95,7 +95,7 @@ EUA is the first step to getting started with the application. Access to everyth
 
 ### config
 
-#### How to add new files to be included in the config
+#### How to add new files to be included in the code climate config
 
 ## table name env vars
 
