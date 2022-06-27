@@ -105,7 +105,7 @@ The following are prerequisites for local development.
 
 This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.html). The package is downloaded during `yarn install` and is run automatically in a pre-commit hook. Additionally, the Prettier formatter can be run on file save in many IDEs or run ad hoc from the command line.
 
-#### VS Code
+#### Prettier with VS Code
 
 The Prettier extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
@@ -113,7 +113,7 @@ Once installed, open VS Code's Preferences. Search for "format on save". Clickin
 
 VS Code is used almost ubiquitously across the current development team, but similar instructions are available for other IDEs.
 
-#### CLI
+#### Prettier CLI
 
 Using this command, or a variant of it, will format all matching files in the codebase and write the changes. Prettier has complete [CLI documentation](https://prettier.io/docs/en/cli.html) on their website.
 
@@ -123,6 +123,31 @@ npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 ```
 
 ## IDM
+
+Users can log into QMR's non-development environments using IDM.
+
+> [CMS' Identity Management (IDM) system](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/EnterpriseIdentityManagement/EIDM-Overview) is an established, enterprise-wide, identity management solution. IDM is leveraged by CMS business applications across the agency. End users of all business applications that integrate with this solution can use a single set of user credentials to access any integrated application.
+
+### Creating an IDM Account
+
+1. Access QMR at https://mdctqmr.cms.gov and select "Register"
+1. Select the New User Registration button on the IDM sign-in screen
+1. Provide requested information on the following screens and accept terms of service.
+1. Enter a user ID and password, select a security question, and submit.
+
+### Initiate Role Request for QMR Access via IDM
+
+1. Sign in to IDM at https://home.idm.cms.gov
+1. Select the "Role Request" tile
+1. Select "Medicaid Data Collection Tool (MDCT) Quality Measures Reporting (QMR)" from the "Select an Application" drop-down list
+1. Select the appropriate user role
+   - Note: An account can only be associated with one role. If you need to have multiple roles (Ex: state user and admin) you will need to create multiple accounts.
+1. Watch for an email confirming your role request submission
+1. View and agree to the terms of service. Click the "Next" button.
+1. Complete the RIDP form. Click the "Next" button.
+1. Answer the RIDP proofing questions as applicable. Click "Verify".
+1. Select the applicable role attributes via the drop-down lists. Then click "Review Request".
+1. Enter a reason for the request in the provided text box. Click "Submit Role Request".
 
 ## Github
 
