@@ -15,13 +15,51 @@ The new web-based QMR application will allow CMS to access data submitted by the
 
 # Getting Started
 
-If you haven't already, you need to first create an EUA user ID by visiting this site: https://eua.cms.gov/iam/im/pri/
+## Register an EUA Account
 
-## Eua
+In order to make changes against this repo and interact with associated services, you will need an EUA account with appropriate job codes. Create an EUA user ID here: [https://eua.cms.gov/iam/im/pri/](https://eua.cms.gov/iam/im/pri/).
 
-EUA is the first step to getting started with the application. Access to everything else starts here and can take days to weeks to process so it's best to request access as early as possible.
+EUA access requests may take days or weeks to process, but local development setup can continue.
 
-### List of EUA access codes needed for QMR and MacPRO projects in general
+## Local Development Setup
+
+The following are pre-requesites for local development.
+
+1. Install [Node](https://nodejs.org/en/download/)
+1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
+   - A specific version of Node is enforced and specified in the file `.nvmrc`. This version matches the Lambda runtime.
+1. Install [Yarn](https://classic.yarnpkg.com)
+   ```
+   npm install --global yarn
+   ```
+1. Install [Serverless](https://www.serverless.com/framework/docs/getting-started)
+   ```
+   yarn global add serverless
+   yarn upgrade serverless
+   ```
+1. Install the following Serverless plugins
+
+   ```
+   yarn add serverless-offline
+   yarn add serverless-dynamodb-local
+   yarn add serverless-s3-local
+
+   # or install simultaneously
+   yarn add serverless-offline && yarn add serverless-dynamodb-local && yarn add serverless-s3-local
+   ```
+
+1. Install all other node packages.
+   ```
+   yarn install  # can be skipped, will run automatically in dev script
+   ```
+1. Run the application.
+   ```
+   ./dev local
+   ```
+
+### Prettier
+
+This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.html).
 
 ## IDM
 
@@ -45,15 +83,7 @@ EUA is the first step to getting started with the application. Access to everyth
 
 ### node version and .nvmrc file
 
-### serverless
-
-### use yarn
-
-### how to install packages
-
 ### What needs to be in the local ENV table
-
-### how to start
 
 ## prettier
 
