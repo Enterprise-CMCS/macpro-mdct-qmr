@@ -316,9 +316,25 @@ to make in order to get that year working.
 
 4. Update any import names from the past year to the latest year (e.g. 2021 -> 2022)
 
+   Before
+
+   ![Before](./.images/beforeImportUpdate.png?raw=true)
+
+   After
+
+   ![After](./.images/afterImportUpdate.png?raw=true)
+
 5. Copy over the `/globalValidations`, `/CommonQuestions`, and `/Qualifiers` directories to the latest year
 
 6. Similar to Step 4, update import names from the previous year to the most recent year
+
+   Before
+
+   ![Before](./.images/beforeCommonComponentUpdate.png?raw=true)
+
+   After
+
+   ![After](./.images/afterCommonComponentUpdate.png?raw=true)
 
 ## Things to Look Out For (Gotchas)
 
