@@ -225,7 +225,9 @@ For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with 
 ### Dev/Impl/Prod endpoints
 
 Dev: https://mdctqmrdev.cms.gov/
+
 Val: https://mdctqmrval.cms.gov/
+
 Prod: https://mdctqmr.cms.gov/
 
 ### Branch Endpoints
