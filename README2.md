@@ -127,9 +127,49 @@ EUA is the first step to getting started with the application. Access to everyth
 
 ## App API
 
-### rest api
+### Parameters
 
-### List of Endpoints, their associated operations and able to bring in
+Parameters are passed in by the URL in this order `state/year/coreset` for coreset endpoints and `state/year/coreset/measure` for measures and are used to determine the unique id of the dynamo record.
+
+The only endpoints that need a body is `update`
+
+### CoreSet
+
+`create`: Creates the identified coreset, and then creates all child measures corresponding to the Adult, Child, or Health Home coreset.
+
+`delete`: Deletes the identified coreset, and then deletes all child measures to that coreset.
+
+`get`: Returns the identified coreset.
+
+`list`: Given with parameters: `state/year` to return all the coresets for a given state and year.
+
+`update`: The body can contain `submitted` or `status` to change the status of the coreset
+
+### Measures
+
+`create`: Creates the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the create coreset endpoint.
+
+`delete`: Deletes the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the delete coreset endpoint.
+
+`get`: Returns the identified measure
+
+`list`: Given with parameters: `state/year/coreset` to return all measures corresponding to a given coreset.
+
+`update`: The body can contain `data`, `status`, `reporting`, `description`, `detailedDescription`
+
+### Kafka
+
+`postKafkaData`: Fires when any of the coreset or measure endpoints is hit to update the corresponding kafka queue in the AWS BigMac account to reflect the delta from the API call
+
+`forceKafkaSync`: This can be manually triggered to force kafka to reflect the current state of the database.
+
+### Utilities
+
+`convertToDynamoExpressionVars`: Dynamo requires very specific variable naming conventions which are unwieldly to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
+
+`createCompoundKey`: creates the dynamo key for the coreset or measure based on the passed in parameters.
+
+`measureList`: A list of all of the measures and the type of coreset they belong to. This is used when a new coreset is created to create new measures for that coreset.
 
 ## Database
 
