@@ -236,9 +236,19 @@ The Endpoints created by a branch are random and can be found in the output of t
 
 ## UI Auth
 
-### Adding new users to cognito
+The UI Auth service creates and manages the Authentication of the UI.
 
-### How IDM users are synced to cognito
+User data is synced from IDM to Cognito to allow for login to the application and the IDM roles are used to determine what a user has access to in the UI.
+
+### Okta
+
+Okta is the Federated Identity Provider being used to allow users to use their IDM credentials with our application.
+
+### Automating Test User Creation
+
+There is one lambda function in the UI-Auth Service, this is to create test users that can login to the branch environments, dev, and Val, for testing, but not production.
+
+To add new users with new attributes, you can edit the `users.json`
 
 ## UI-SRC
 
