@@ -1,7 +1,6 @@
 import { ReactElement, Fragment, lazy } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
-import * as QMR from "components";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { measureDescriptions } from "measures/measureDescriptions";
@@ -30,6 +29,7 @@ const AddStateSpecificMeasure = lazy(
 const ApiTester = lazy(() => import("views/ApiTester"));
 const NotFound = lazy(() => import("views/NotFound"));
 const MeasuresLoading = lazy(() => import("views/MeasuresLoading"));
+const MeasureWrapper = lazy(() => import("components/MeasureWrapper"));
 
 interface MeasureRoute {
   path: string;
@@ -52,7 +52,7 @@ function useMeasureRoutes(): MeasureRoute[] {
       key: `:state/${qualYear.year}/:coreSetId/CSQ`,
       path: `:state/${qualYear.year}/:coreSetId/CSQ`,
       element: (
-        <QMR.MeasureWrapper
+        <MeasureWrapper
           name={""}
           year={qualYear.year}
           measureId={"CSQ"}
@@ -78,7 +78,7 @@ function useMeasureRoutes(): MeasureRoute[] {
               key: `:state/${year}/:coreSetId/${measure}`,
               path: `:state/${year}/:coreSetId/${measure}`,
               element: (
-                <QMR.MeasureWrapper
+                <MeasureWrapper
                   name={foundMeasureDescription}
                   year={year}
                   measureId={measure}

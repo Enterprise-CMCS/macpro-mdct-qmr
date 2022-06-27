@@ -491,3 +491,5 @@ export const MeasureWrapper = ({
     </FormProvider>
   );
 };
+
+export default MeasureWrapper;
