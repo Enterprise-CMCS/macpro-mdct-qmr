@@ -1,4 +1,4 @@
-import { ReactElement, Fragment, lazy } from "react";
+import { ReactElement, Fragment, lazy, Suspense } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import * as Views from "views";
@@ -18,42 +18,18 @@ import { measureDescriptions } from "measures/measureDescriptions";
 // } from "libs/awsLib";
 // import config from "config";
 
-const Home = lazy(() =>
-  import("views/Home").then(({ Home }) => ({ default: Home }))
+const Home = lazy(() => import("views/Home"));
+const FAQ = lazy(() => import("views/FAQ"));
+const StateHome = lazy(() => import("views/StateHome"));
+const AdminHome = lazy(() => import("views/AdminHome"));
+const AddHHCoreSet = lazy(() => import("views/AddHHCoreSet"));
+const CoreSet = lazy(() => import("views/CoreSet"));
+const AddChildCoreSet = lazy(() => import("views/AddChildCoreSet"));
+const AddStateSpecificMeasure = lazy(
+  () => import("views/AddStateSpecificMeasure")
 );
-const FAQ = lazy(() =>
-  import("views/FAQ").then(({ FAQ }) => ({ default: FAQ }))
-);
-const StateHome = lazy(() =>
-  import("views/StateHome").then(({ StateHome }) => ({ default: StateHome }))
-);
-const AdminHome = lazy(() =>
-  import("views/AdminHome").then(({ AdminHome }) => ({ default: AdminHome }))
-);
-const AddHHCoreSet = lazy(() =>
-  import("views/AddHHCoreSet").then(({ AddHHCoreSet }) => ({
-    default: AddHHCoreSet,
-  }))
-);
-const CoreSet = lazy(() =>
-  import("views/CoreSet").then(({ CoreSet }) => ({ default: CoreSet }))
-);
-const AddChildCoreSet = lazy(() =>
-  import("views/AddChildCoreSet").then(({ AddChildCoreSet }) => ({
-    default: AddChildCoreSet,
-  }))
-);
-const AddStateSpecificMeasure = lazy(() =>
-  import("views/AddStateSpecificMeasure").then(
-    ({ AddStateSpecificMeasure }) => ({ default: AddStateSpecificMeasure })
-  )
-);
-const ApiTester = lazy(() =>
-  import("views/ApiTester").then(({ ApiTester }) => ({ default: ApiTester }))
-);
-const NotFound = lazy(() =>
-  import("views/NotFound").then(({ NotFound }) => ({ default: NotFound }))
-);
+const ApiTester = lazy(() => import("views/ApiTester"));
+const NotFound = lazy(() => import("views/NotFound"));
 
 interface MeasureRoute {
   path: string;
@@ -134,24 +110,26 @@ export function AppRoutes() {
 
   return (
     <main id="main-wrapper">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path=":state/:year" element={<StateHome />} />
-        <Route path="admin" element={<AdminHome />} />
-        <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
-        <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
-        <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
-        <Route
-          path=":state/:year/:coreSetId/add-ssm"
-          element={<AddStateSpecificMeasure />}
-        />
-        <Route path="api-test" element={<ApiTester />} />
-        {measureRoutes.map((m: MeasureRoute) => (
-          <Route {...m} />
-        ))}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense fallback={<div></div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path=":state/:year" element={<StateHome />} />
+          <Route path="admin" element={<AdminHome />} />
+          <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
+          <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
+          <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
+          <Route
+            path=":state/:year/:coreSetId/add-ssm"
+            element={<AddStateSpecificMeasure />}
+          />
+          <Route path="api-test" element={<ApiTester />} />
+          {measureRoutes.map((m: MeasureRoute) => (
+            <Route {...m} />
+          ))}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </main>
   );
 }

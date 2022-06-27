@@ -231,3 +231,5 @@ export const StateHome = () => {
     </QMR.StateLayout>
   );
 };
+
+export default StateHome;

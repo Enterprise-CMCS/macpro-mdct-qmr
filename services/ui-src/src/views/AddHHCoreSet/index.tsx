@@ -152,3 +152,5 @@ export const AddHHCoreSet = () => {
     </QMR.StateLayout>
   );
 };
+
+export default AddHHCoreSet;

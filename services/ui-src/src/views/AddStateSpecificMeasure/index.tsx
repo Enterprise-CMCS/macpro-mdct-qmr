@@ -166,3 +166,5 @@ export const AddStateSpecificMeasure = () => {
     </QMR.StateLayout>
   );
 };
+
+export default AddStateSpecificMeasure;

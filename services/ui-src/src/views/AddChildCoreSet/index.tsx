@@ -134,3 +134,5 @@ export const AddChildCoreSet = () => {
     </QMR.StateLayout>
   );
 };
+
+export default AddChildCoreSet;
