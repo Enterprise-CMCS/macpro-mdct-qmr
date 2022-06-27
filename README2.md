@@ -59,6 +59,34 @@ EUA is the first step to getting started with the application. Access to everyth
 
 ### How to set it up on VS code to work on save
 
+# testing
+
+## Update Node modules
+
+## Generate ENV with AWS Credentials
+
+## runners used
+
+## assertion libs used
+
+## how to run tests
+
+### Cypress
+
+### Unit
+
+#### How to see code coverage
+
+## codeclimate
+
+### location
+
+### config
+
+#### How to add new files to be included in the config
+
+## table name env vars
+
 # Deployment
 
 ## github actions
@@ -94,24 +122,6 @@ EUA is the first step to getting started with the application. Access to everyth
 ### how to register/approve new user
 
 ### user pools / cognito
-
-## testing
-
-### Generate ENV with AWS Credentials
-
-### runners used
-
-### assertion libs used
-
-### how to run tests
-
-### codeclimate
-
-#### location
-
-#### config
-
-### table name env vars
 
 # Services
 
