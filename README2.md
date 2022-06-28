@@ -217,12 +217,7 @@ cd tests/
 yarn test
 ```
 
-Then, follow these steps in the Cypress UI:
-
-1. Log in as `stateuser4@test.com` (for example)
-2. Click **Create Child Core Set**
-3. Click **Create Health Home Core Set**
-4. Run the tests on the UI
+The `Cypress` application will kick off, you can select a test and run it.
 
 ### Unit
 
