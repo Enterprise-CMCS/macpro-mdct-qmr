@@ -183,7 +183,7 @@ You must be manually added to the appropriate AWS environments by CMS personnel.
 
 ### how to start
 
-# testing
+# Testing
 
 ## Update Node modules
 
@@ -193,9 +193,46 @@ You must be manually added to the appropriate AWS environments by CMS personnel.
 
 ## assertion libs used
 
-## how to run tests
+## How to Run Tests
 
-### Cypress
+### Cypress Setup
+
+Once your local environment is up and running, these steps need to be taken to set up `Cypress`:
+
+```
+cd tests/
+yarn install
+cd cypress/
+yarn install
+```
+
+This environment file (**.env**) must be populated under `tests/cypress.env.json`:
+
+```json
+{
+  "TEST_USER_1": "stateuser1@test.com",
+  "TEST_USER_2": "stateuser2@test.com",
+  "TEST_USER_3": "stateuser3@test.com",
+  "TEST_USER_4": "stateuserDC@test.com",
+  "TEST_PASSWORD_1": "p@55W0rd!"
+}
+```
+
+### Running Cypress Tests
+
+To run the end-to-end `Cypress` tests:
+
+```
+cd tests/
+yarn test
+```
+
+Then, follow these steps in the Cypress UI:
+
+1. Log in as `stateuser4@test.com` (for example)
+2. Click **Create Child Core Set**
+3. Click **Create Health Home Core Set**
+4. Run the tests on the UI
 
 ### Unit
 
