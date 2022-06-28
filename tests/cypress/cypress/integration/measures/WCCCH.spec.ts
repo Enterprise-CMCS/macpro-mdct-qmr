@@ -83,7 +83,7 @@ describe("Measure: WCC-CH", () => {
       '[data-cy="The Ages 3 to 11 denominator must be the same for each indicator."] > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="The Total (Ages 3 to 17) denominator must be the same for each indicator."] > .chakra-text'
+      '[data-cy="Total (Ages 3 to 17) denominator must be the same for each indicator."] > .chakra-text'
     ).should("be.visible");
 
     // Clear PM Validations
@@ -97,7 +97,7 @@ describe("Measure: WCC-CH", () => {
       '[data-cy="The Ages 3 to 11 denominator must be the same for each indicator."] > .chakra-text'
     ).should("not.exist");
     cy.get(
-      '[data-cy="The Total (Ages 3 to 17) denominator must be the same for each indicator."] > .chakra-text'
+      '[data-cy="Total (Ages 3 to 17) denominator must be the same for each indicator."] > .chakra-text'
     ).should("not.exist");
 
     // OMS

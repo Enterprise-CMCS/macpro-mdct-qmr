@@ -145,7 +145,7 @@ describe("Measure: APM-CH", () => {
       '[data-cy="The Ages 1 to 11 denominator must be the same for each indicator."] > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="The Total (Ages 1 to 17) denominator must be the same for each indicator."] > .chakra-text'
+      '[data-cy="Total (Ages 1 to 17) denominator must be the same for each indicator."] > .chakra-text'
     ).should("be.visible");
 
     // Clear PM Validations
@@ -157,7 +157,7 @@ describe("Measure: APM-CH", () => {
       '[data-cy="The Ages 1 to 11 denominator must be the same for each indicator."] > .chakra-text'
     ).should("not.exist");
     cy.get(
-      '[data-cy="The Total (Ages 1 to 17) denominator must be the same for each indicator."] > .chakra-text'
+      '[data-cy="Total (Ages 1 to 17) denominator must be the same for each indicator."] > .chakra-text'
     ).should("not.exist");
 
     // OMS
