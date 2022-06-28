@@ -636,6 +636,10 @@ export const measures: Measure = {
     },
     {
       type: "H",
+      measure: "COL-HH",
+    },
+    {
+      type: "H",
       measure: "FUA-HH",
     },
     {
