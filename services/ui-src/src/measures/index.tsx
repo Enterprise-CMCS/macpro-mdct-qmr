@@ -1,11 +1,10 @@
-import { ResolverResult } from "react-hook-form";
 import twentyTwentyOneMeasures, { QualifierData as data2021 } from "./2021";
 import twentyTwentyTwoMeasures, { QualifierData as data2022 } from "./2022";
-export type CustomValidator = (res: ResolverResult) => ResolverResult;
+import * as QMR from "components";
 
 interface MeasuresByYear {
   [year: string]: {
-    [measure: string]: any;
+    [measure: string]: (props: QMR.MeasureWrapperProps) => JSX.Element | null;
   };
 }
 
