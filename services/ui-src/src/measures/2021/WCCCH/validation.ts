@@ -23,15 +23,32 @@ const WCCHValidation = (data: FormData) => {
     return errorArray;
   }
 
+  const validateEqualQualifierDenominatorsErrorMessage = (
+    qualifier: string
+  ) => {
+    const isTotal = qualifier.split(" ")[0] === "Total";
+    return `${
+      isTotal ? "" : "The "
+    }${qualifier} denominator must be the same for each indicator.`;
+  };
+
+  const validateTotalNDRErrorMessage = (
+    qualifier: string,
+    fieldType: string
+  ) => {
+    return `${fieldType} for the ${qualifier} Total rate is not equal to the sum of the ${qualifier} age-specific ${fieldType.toLowerCase()}s.`;
+  };
+
   errorArray = [
-    ...errorArray,
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
       PMD.categories
     ),
-    ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
@@ -43,14 +60,24 @@ const WCCHValidation = (data: FormData) => {
       PMD.qualifiers,
       data
     ),
-    ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateEqualQualifierDenominatorsPM(
+      performanceMeasureArray,
+      PMD.qualifiers,
+      undefined,
+      validateEqualQualifierDenominatorsErrorMessage
+    ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
+    ...GV.validateTotalNDR(
+      performanceMeasureArray,
+      undefined,
+      PMD.categories,
+      validateTotalNDRErrorMessage
+    ),
 
     // OMS Validations
     ...GV.omsValidations({
@@ -71,12 +98,6 @@ const WCCHValidation = (data: FormData) => {
         GV.validateRateZeroOMS,
       ],
     }),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
-    ...GV.validateEqualQualifierDenominatorsPM(
-      performanceMeasureArray,
-      PMD.qualifiers
-    ),
   ];
 
   return errorArray;

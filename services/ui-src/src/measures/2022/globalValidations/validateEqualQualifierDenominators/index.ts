@@ -7,7 +7,12 @@ import { convertOmsDataToRateArray } from "../dataDrivenTools";
 
 interface ValProps extends UVFP {
   locationFunc?: (qualifier: string) => string;
+  errorMessageFunc?: (qualifier: string) => string;
 }
+
+const validateEqualQualifierDenominatorsErrorMessage = (qualifier: string) => {
+  return `Denominators must be the same for each category of performance measures for ${qualifier}`;
+};
 
 const _validation = ({
   rateData,
@@ -15,6 +20,7 @@ const _validation = ({
   location,
   errorMessage,
   locationFunc,
+  errorMessageFunc = validateEqualQualifierDenominatorsErrorMessage,
 }: ValProps): FormError[] => {
   const errorArray: FormError[] = [];
 
@@ -30,9 +36,7 @@ const _validation = ({
     if (error) {
       errorArray.push({
         errorLocation: locationFunc ? locationFunc(qual) : location,
-        errorMessage:
-          errorMessage ??
-          `Denominators must be the same for each category of performance measures for ${qual}`,
+        errorMessage: errorMessage ?? errorMessageFunc(qual),
       });
     }
   }
@@ -71,12 +75,14 @@ export const validateEqualQualifierDenominatorsOMS: OmsValidationCallback = ({
 export const validateEqualQualifierDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   qualifiers: string[],
-  explicitErrorMessage?: string
+  explicitErrorMessage?: string,
+  errorMessageFunc?: (qualifier: string) => string
 ) => {
   return _validation({
     location: "Performance Measure",
     errorMessage: explicitErrorMessage,
     qualifiers,
     rateData: performanceMeasureArray,
+    errorMessageFunc,
   });
 };
