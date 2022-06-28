@@ -65,3 +65,5 @@ export const ADDCH = ({
     </>
   );
 };
+
+export default ADDCH;
