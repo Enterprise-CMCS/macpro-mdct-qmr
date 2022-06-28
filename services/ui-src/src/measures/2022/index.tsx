@@ -24,19 +24,22 @@ import { CHLAD } from "./CHLAD";
 import { CHLCH } from "./CHLCH";
 import { CISCH } from "./CISCH";
 import { COBAD } from "./COBAD";
+import { COLHH } from "./COLHH";
 import { COLAD } from "./COLAD";
 import { CPAAD } from "./CPAAD";
 import { CPCCH } from "./CPCCH";
 import { DEVCH } from "./DEVCH";
 import { FUAAD } from "./FUAAD";
 import { FUACH } from "./FUACH";
+import { FUHAD } from "./FUHAD";
 import { FUHCH } from "./FUHCH";
 import { FUMAD } from "./FUMAD";
 import { FUMCH } from "./FUMCH";
+import { FUMHH } from "./FUMHH";
 import { FVAAD } from "./FVAAD";
-import { HVLAD } from "./HVLAD";
 import { HPCAD } from "./HPCAD";
 import { HPCMIAD } from "./HPCMIAD";
+import { HVLAD } from "./HVLAD";
 import { IETAD } from "./IETAD";
 import { IMACH } from "./IMACH";
 import { LBWCH } from "./LBWCH";
@@ -51,7 +54,6 @@ import { PPCAD } from "./PPCAD";
 import { PPCCH } from "./PPCCH";
 import { PQI01AD } from "./PQI01AD";
 import { PQI05AD } from "./PQI05AD";
-import { FUHAD } from "./FUHAD";
 import { PQI08AD } from "./PQI08AD";
 import { PQI15AD } from "./PQI15AD";
 import { SAAAD } from "./SAAAD";
@@ -88,6 +90,7 @@ const twentyTwentyTwoMeasures = {
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
   "COL-AD": COLAD,
+  "COL-HH": COLHH,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "DEV-CH": DEVCH,
@@ -97,10 +100,11 @@ const twentyTwentyTwoMeasures = {
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
   "FUM-CH": FUMCH,
+  "FUM-HH": FUMHH,
   "FVA-AD": FVAAD,
-  "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
+  "HVL-AD": HVLAD,
   "IET-AD": IETAD,
   "IMA-CH": IMACH,
   "LBW-CH": LBWCH,

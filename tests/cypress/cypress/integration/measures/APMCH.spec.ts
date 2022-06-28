@@ -107,4 +107,95 @@ describe("Measure: APM-CH", () => {
       "63.6"
     );
   });
+
+  it("Validate Equal Qualifier Denominators", () => {
+    cy.get("#MeasurementSpecification-NCQAHEDIS").click();
+    cy.get('[data-cy="DataSource1"]').click();
+
+    // PM
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.BloodGlucose.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.BloodGlucose.0.denominator"]'
+    ).type("2");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.BloodGlucose.1.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.BloodGlucose.1.denominator"]'
+    ).type("3");
+
+    cy.get('[data-cy="PerformanceMeasure.rates.Cholesterol.0.numerator"]').type(
+      "1"
+    );
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.Cholesterol.0.denominator"]'
+    ).type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.Cholesterol.1.numerator"]').type(
+      "1"
+    );
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.Cholesterol.1.denominator"]'
+    ).type("3");
+
+    // PM Validations
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get(
+      '[data-cy="The Ages 1 to 11 denominator must be the same for each indicator."] > .chakra-text'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Total (Ages 1 to 17) denominator must be the same for each indicator."] > .chakra-text'
+    ).should("be.visible");
+
+    // Clear PM Validations
+    cy.get('[data-cy="PerformanceMeasure.rates.Cholesterol.0.denominator"]')
+      .clear()
+      .type("2");
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get(
+      '[data-cy="The Ages 1 to 11 denominator must be the same for each indicator."] > .chakra-text'
+    ).should("not.exist");
+    cy.get(
+      '[data-cy="Total (Ages 1 to 17) denominator must be the same for each indicator."] > .chakra-text'
+    ).should("not.exist");
+
+    // OMS
+    cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
+    ).click();
+
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to11.BloodGlucose.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to11.BloodGlucose.0.denominator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to11.Cholesterol.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to11.Cholesterol.0.denominator"]'
+    ).type("2");
+
+    // OMS Validations
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.contains(
+      ".chakra-alert",
+      "Optional Measure Stratification: Race (Non-Hispanic) - White - Ages 1 to 11 Error"
+    ).within(() => {
+      cy.get(
+        '[data-cy="Denominators must be the same for each category."] > .chakra-text'
+      ).should("be.visible");
+    });
+
+    cy.get('[data-cy="Clear Data"]').click();
+  });
 });
