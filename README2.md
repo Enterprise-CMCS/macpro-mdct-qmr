@@ -206,17 +206,7 @@ cd cypress/
 yarn install
 ```
 
-This environment file (**.env**) must be populated under `tests/cypress.env.json`:
-
-```json
-{
-  "TEST_USER_1": "stateuser1@test.com",
-  "TEST_USER_2": "stateuser2@test.com",
-  "TEST_USER_3": "stateuser3@test.com",
-  "TEST_USER_4": "stateuserDC@test.com",
-  "TEST_PASSWORD_1": "p@55W0rd!"
-}
-```
+This environment file (**.env**) must be populated under `tests/cypress.env.json`, for details on that file refer to the [AWS](#aws) section.
 
 ### Running Cypress Tests
 
