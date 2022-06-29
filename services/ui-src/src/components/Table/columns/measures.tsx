@@ -48,79 +48,84 @@ const MeasureStatusText = ({
 };
 
 // Measure table columns with cell formatting
-export const measuresColumns: TableColumn<MeasureTableItem.Data>[] = [
-  {
-    header: "Abbreviation",
-    id: "aabr_column_header",
-    styleProps: { textAlign: "center" },
-    cell: (data: MeasureTableItem.Data) => {
-      return (
-        <Link to={data.path}>
-          <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.abbr}>
-            {data.abbr}
+export const measuresColumns = (
+  year: string
+): TableColumn<MeasureTableItem.Data>[] => {
+  return [
+    {
+      header: "Abbreviation",
+      id: "aabr_column_header",
+      styleProps: { textAlign: "center" },
+      cell: (data: MeasureTableItem.Data) => {
+        return (
+          <Link to={data.path}>
+            <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.abbr}>
+              {data.abbr}
+            </CUI.Text>
+          </Link>
+        );
+      },
+    },
+    {
+      header: "Measure",
+      id: "title_column_header",
+      cell: (data: MeasureTableItem.Data) => {
+        return (
+          <Link to={data.path}>
+            <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.path}>
+              {data.title}
+            </CUI.Text>
+          </Link>
+        );
+      },
+    },
+    {
+      header: "Reporting FFY " + year,
+      id: "reporting_column_header",
+      styleProps: { textAlign: "center" },
+      cell: (data: MeasureTableItem.Data) => {
+        let reportingText = "--";
+        if (data.reporting) reportingText = data.reporting;
+        if (!!data?.autoCompleted) reportingText = "N/A";
+        return (
+          <CUI.Text fontSize="xs" textTransform="capitalize">
+            {reportingText}
           </CUI.Text>
-        </Link>
-      );
+        );
+      },
     },
-  },
-  {
-    header: "Measure",
-    id: "title_column_header",
-    cell: (data: MeasureTableItem.Data) => {
-      return (
-        <Link to={data.path}>
-          <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.path}>
-            {data.title}
-          </CUI.Text>
-        </Link>
-      );
+    {
+      header: "Status",
+      id: "status_column_header",
+      cell: (data: MeasureTableItem.Data) => {
+        const status = getStatus(data);
+        const date: string | null = formatDate(data);
+        const isComplete =
+          status === MeasureTableItem.Status.COMPLETED && !!date;
+        const isInProgress = status === MeasureTableItem.Status.IN_PROGRESS;
+        return (
+          <CUI.Flex ml={isComplete ? -6 : "inherit"}>
+            {isComplete && <CompleteCheck />}
+            <MeasureStatusText
+              isComplete={isComplete}
+              isInProgress={isInProgress}
+              date={date}
+              rateComplete={data.rateComplete}
+              status={status}
+            />
+          </CUI.Flex>
+        );
+      },
     },
-  },
-  {
-    header: "Reporting FFY 2021",
-    id: "reporting_column_header",
-    styleProps: { textAlign: "center" },
-    cell: (data: MeasureTableItem.Data) => {
-      let reportingText = "--";
-      if (data.reporting) reportingText = data.reporting;
-      if (!!data?.autoCompleted) reportingText = "N/A";
-      return (
-        <CUI.Text fontSize="xs" textTransform="capitalize">
-          {reportingText}
-        </CUI.Text>
-      );
+    {
+      header: "Measure Actions",
+      id: "actions_column_header",
+      styleProps: { textAlign: "center" },
+      cell: (data: MeasureTableItem.Data) => (
+        <CUI.Box textAlign="center">
+          <QMR.KebabMenu menuItems={data.actions} headerText="Delete Measure" />
+        </CUI.Box>
+      ),
     },
-  },
-  {
-    header: "Status",
-    id: "status_column_header",
-    cell: (data: MeasureTableItem.Data) => {
-      const status = getStatus(data);
-      const date: string | null = formatDate(data);
-      const isComplete = status === MeasureTableItem.Status.COMPLETED && !!date;
-      const isInProgress = status === MeasureTableItem.Status.IN_PROGRESS;
-      return (
-        <CUI.Flex ml={isComplete ? -6 : "inherit"}>
-          {isComplete && <CompleteCheck />}
-          <MeasureStatusText
-            isComplete={isComplete}
-            isInProgress={isInProgress}
-            date={date}
-            rateComplete={data.rateComplete}
-            status={status}
-          />
-        </CUI.Flex>
-      );
-    },
-  },
-  {
-    header: "Measure Actions",
-    id: "actions_column_header",
-    styleProps: { textAlign: "center" },
-    cell: (data: MeasureTableItem.Data) => (
-      <CUI.Box textAlign="center">
-        <QMR.KebabMenu menuItems={data.actions} headerText="Delete Measure" />
-      </CUI.Box>
-    ),
-  },
-];
+  ];
+};

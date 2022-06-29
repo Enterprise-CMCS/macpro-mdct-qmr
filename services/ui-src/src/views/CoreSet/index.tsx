@@ -93,12 +93,14 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
     coreSet: coreSetId,
     measure: "CSQ",
   });
-  let { state } = useParams();
+  let { state, year } = useParams();
 
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
     coreSetInfo.length > 1
-      ? SPA.filter((s) => s.id === coreSetInfo[1] && s.state === state)[0]
+      ? SPA[year!].filter(
+          (s) => s.id === coreSetInfo[1] && s.state === state
+        )[0]
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
@@ -281,7 +283,7 @@ export const CoreSet = () => {
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
     coreSet.length > 1
-      ? SPA.filter((s) => s.id === coreSet[1] && s.state === state)[0]
+      ? SPA[year].filter((s) => s.id === coreSet[1] && s.state === state)[0]
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
@@ -418,7 +420,7 @@ export const CoreSet = () => {
       <CUI.Box mt="4">
         <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (
-            <QMR.Table data={measures} columns={QMR.measuresColumns} />
+            <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
           )}
           {isError && (
             <QMR.Notification
