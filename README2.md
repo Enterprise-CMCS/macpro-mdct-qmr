@@ -291,7 +291,22 @@ The short version of the CICD Pipeline is `Pull Request → Github Actions → C
 
 All of the deployments start with new code on a branch. A branch environment is created and this is where automated and manual testing occurs. Once all of the checks have been passed on a branch, it is pulled into the Master branch where more testing is done and all functionality is verified. Then it is pushed to the Val Branch, where a selection of business users test the new functionality and provide a further round of feedback. Once this feedback has been addressed a final push to the Production branch is done where live users have access to the new features.
 
+## Branch Strategy and Naming
+
+In general we do one branch for each Jira Ticket with either the ticket number or a brief description of the functionality as the branch name.
+Our application uses the serverless stack to deploy resources to AWS, but because of that we need to be careful about how we name the branches so here are a few rules of thumb.
+
+1. No Capital letters or special characters other than `-`
+1. No Spaces
+1. Keep the name under 30 characters
+
 ## Pull Requests
+
+In order for a PR to get merged into Master it needs 2 approvals, and 1 of the approvals must be from an admin on the project. The same rules apply for Val and Prod.
+
+When merging to Master always choose the option to `Squash and Merge` This helps to keep the master branch clean and you can track back individual PR's to a piece of work in Jira.
+
+When Merging to Val or Prod, always use a merge commit.
 
 ## GitHub Actions
 
@@ -311,25 +326,22 @@ Github Actions are defined in the `.github/workflows` folder.
 
 Right now the automation step does not run on the Val or Prod branches due to security restrictions around test users altering real data.
 
-### deployment process
+## Live URLS
 
-## live env urls
+| Environment | URL                                    |
+| ----------- | -------------------------------------- |
+| Branch      | Found in the output of the Deploy step |
+| Master      | https://mdctqmrdev.cms.gov/            |
+| Val         | https://mdctqmrval.cms.gov/            |
+| Prod        | https://mdctqmr.cms.gov/               |
 
-### Dev
+## Deploy from Local
 
-### Val
+As you are developing you may want to debug and not wait for the 12-20 minutes it takes for changes to go through GitHub actions. You can deploy individual services using serverless. You must first [set up local AWS credentials](###setting-up-aws-credentials-locally)
 
-### Prod
+`sls deploy --stage branchname`
 
-## branch deployments
-
-### how to name branches
-
-### how to do pr
-
-## Local Deploy
-
-## Local Destroy
+## Destroy from Local
 
 # Services
 
