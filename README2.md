@@ -455,11 +455,7 @@ For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with 
 
 ### Dev/Impl/Prod endpoints
 
-Dev: https://mdctqmrdev.cms.gov/
-
-Val: https://mdctqmrval.cms.gov/
-
-Prod: https://mdctqmr.cms.gov/
+[Live URL's](#live-urls)
 
 ### Branch Endpoints
 
@@ -470,8 +466,6 @@ The Endpoints created by a branch are random and can be found in the output of t
 The UI Auth service creates and manages the Authentication of the UI.
 
 User data is synced from IDM to Cognito to allow for login to the application and the IDM roles are used to determine what a user has access to in the UI.
-
-### user pools / cognito
 
 ### Okta
 
@@ -507,11 +501,16 @@ To add new users with new attributes, you can edit the `users.json`
 
 ## Uploads
 
+The Uploads service consists of a few S3 buckets and some integration functions. It is the only point where the downstream applications owned by Mathematica interact with our application. This is in two buckets.
+
+1. Uploads: This is where attachment files are stored
+1. DynamoSnapshotBucket: This is where snapshots of our dynamo database are stored as JSON objects for Mathematica to download.
+
+Any uploads are first stored in an inaccessible folder until they are scanned by the anti-virus scanner. Antivirus definitions are updated daily. This is to prevent anyone from uploading malicious files.
+
 ### Integrations with Mathematica
 
-#### S3 buckets
-
-#### Endpoints associated with integration
+The IAM roles that we receive from Mathematica are stored as SSM parameters and can be accessed and changed in the corresponding AWS account.
 
 # Year End Transition Documentation
 
