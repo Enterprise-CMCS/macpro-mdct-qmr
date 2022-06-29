@@ -54,99 +54,6 @@ Job codes needed may vary by contract and job role. Consult with your team for a
 | CHIP_P_User               | CHIP-State Childrens Health Ins Prog Enrollmnt Data Sys Prod Access                                                                                                                                                      |
 | CHIP_V_User               | The CHIP Enrollment Data System is the electronic media system for the states                                                                                                                                            |
 
-## Local Development Setup
-
-The following are prerequisites for local development.
-
-1. Install [Node](https://nodejs.org/en/download/)
-1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
-   - A specific version of Node is enforced and specified in the file `.nvmrc`. This version matches the Lambda runtime.
-1. Install the correct version of Node
-   ```bash
-   # nvm commands will default to Node version defined in .nvmrc
-   nvm install
-   nvm use
-   ```
-1. Install [Homebrew](https://brew.sh)
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-1. Install [Yarn](https://classic.yarnpkg.com)
-   ```bash
-   brew install yarn
-   ```
-1. Install [Serverless](https://www.serverless.com/framework/docs/getting-started)
-   ```bash
-   yarn global add serverless
-   yarn upgrade serverless
-   ```
-1. Install the following Serverless plugins
-
-   ```bash
-   yarn add serverless-offline
-   yarn add serverless-dynamodb-local
-   yarn add serverless-s3-local
-
-   # or install simultaneously
-   yarn add serverless-offline && yarn add serverless-dynamodb-local && yarn add serverless-s3-local
-   ```
-
-1. Install all other node packages.
-   ```bash
-   yarn install  # can be skipped, will run automatically in dev script
-   ```
-1. Set up your local ENV. There is no protected information for the local env. The name should be `.env` and it will be at the top of the project:
-
-   ```
-   SKIP_PREFLIGHT_CHECK=true
-   LOCAL_LOGIN=true
-   MEASURE_TABLE_NAME=local-measures
-   MEASURE_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
-   coreSetTableName=local-coreSets
-   measureTableName=local-measures
-   CORESET_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
-   DYNAMODB_URL=http://localhost:8000
-   API_URL=http://localhost:3030/local
-   S3_LOCAL_ENDPOINT=http://localhost:4569
-   S3_ATTACHMENTS_BUCKET_NAME=local-uploads
-   URL=http://localhost/3000
-   SLS_INTERACTIVE_SETUP_ENABLE=1
-   ```
-
-1. Set up the UI-SRC ENV.
-
-   1. Navigate to `/services/ui-src/`.
-   1. Make a new file: `.env`
-   1. Copy the contents of `.env_example` into `.env`
-      1. If you want to connect to real resources for the branch you can tweak these values with the resource values found in AWS.
-
-1. Run the application.
-   ```bash
-   ./dev local
-   ```
-   A number of test users are defined in `users.json`. See the [AWS section](#aws) for more specific instructions and test user passwords.
-
-### Prettier
-
-This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.html). The package is downloaded during `yarn install` and is run automatically in a pre-commit hook. Additionally, the Prettier formatter can be run on file save in many IDEs or run ad hoc from the command line.
-
-#### Prettier with VS Code
-
-The Prettier extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
-
-Once installed, open VS Code's Preferences. Search for "format on save". Clicking the checkbox should engage the Prettier formatter on file save.
-
-VS Code is used almost ubiquitously across the current development team, but similar instructions are available for other IDEs.
-
-#### Prettier CLI
-
-Using this command, or a variant of it, will format all matching files in the codebase and write the changes. Prettier has complete [CLI documentation](https://prettier.io/docs/en/cli.html) on their website.
-
-```bash
-npx prettier --write . # format everything relative to the pwd
-npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
-```
-
 ## IDM
 
 Users can log into QMR's non-development environments using IDM.
@@ -254,6 +161,99 @@ Critical and High threats will be posted as issues in the GitHub repository.
 Any AWS issues that are outside the capability or access level of the team needs to either go through the Devsecops team or through a service desk ticket.
 
 SNOW is the ticketing service used by CMS and new tickets can be created [here](https://jiraent.cms.gov/plugins/servlet/desk/portal/22). You will need to be on the VPN to access SNOW. The majority of tickets will be IAM related and the turnaround time is usually about 12-24 hours between the time of filing the ticket and the first response from a human. With that in mind it's good to set aside extra time for tickets that you know will touch on IAM or new Cloud Services.
+
+## Local Development Setup
+
+The following are prerequisites for local development.
+
+1. Install [Node](https://nodejs.org/en/download/)
+1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
+   - A specific version of Node is enforced and specified in the file `.nvmrc`. This version matches the Lambda runtime.
+1. Install the correct version of Node
+   ```bash
+   # nvm commands will default to Node version defined in .nvmrc
+   nvm install
+   nvm use
+   ```
+1. Install [Homebrew](https://brew.sh)
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+1. Install [Yarn](https://classic.yarnpkg.com)
+   ```bash
+   brew install yarn
+   ```
+1. Install [Serverless](https://www.serverless.com/framework/docs/getting-started)
+   ```bash
+   yarn global add serverless
+   yarn upgrade serverless
+   ```
+1. Install the following Serverless plugins
+
+   ```bash
+   yarn add serverless-offline
+   yarn add serverless-dynamodb-local
+   yarn add serverless-s3-local
+
+   # or install simultaneously
+   yarn add serverless-offline && yarn add serverless-dynamodb-local && yarn add serverless-s3-local
+   ```
+
+1. Install all other node packages.
+   ```bash
+   yarn install  # can be skipped, will run automatically in dev script
+   ```
+1. Set up your local ENV. There is no protected information for the local env. The name should be `.env` and it will be at the top of the project:
+
+   ```
+   SKIP_PREFLIGHT_CHECK=true
+   LOCAL_LOGIN=true
+   MEASURE_TABLE_NAME=local-measures
+   MEASURE_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
+   coreSetTableName=local-coreSets
+   measureTableName=local-measures
+   CORESET_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
+   DYNAMODB_URL=http://localhost:8000
+   API_URL=http://localhost:3030/local
+   S3_LOCAL_ENDPOINT=http://localhost:4569
+   S3_ATTACHMENTS_BUCKET_NAME=local-uploads
+   URL=http://localhost/3000
+   SLS_INTERACTIVE_SETUP_ENABLE=1
+   ```
+
+1. Set up the UI-SRC ENV.
+
+   1. Navigate to `/services/ui-src/`.
+   1. Make a new file: `.env`
+   1. Copy the contents of `.env_example` into `.env`
+      1. If you want to connect to real resources for the branch you can tweak these values with the resource values found in AWS.
+
+1. Run the application.
+   ```bash
+   ./dev local
+   ```
+   A number of test users are defined in `users.json`. See the [AWS section](#aws) for more specific instructions and test user passwords.
+
+### Prettier
+
+This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.html). The package is downloaded during `yarn install` and is run automatically in a pre-commit hook. Additionally, the Prettier formatter can be run on file save in many IDEs or run ad hoc from the command line.
+
+#### Prettier with VS Code
+
+The Prettier extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
+Once installed, open VS Code's Preferences. Search for "format on save". Clicking the checkbox should engage the Prettier formatter on file save.
+
+VS Code is used almost ubiquitously across the current development team, but similar instructions are available for other IDEs.
+
+#### Prettier CLI
+
+Using this command, or a variant of it, will format all matching files in the codebase and write the changes. Prettier has complete [CLI documentation](https://prettier.io/docs/en/cli.html) on their website.
+
+```bash
+npx prettier --write . # format everything relative to the pwd
+npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
+```
 
 # testing
 
