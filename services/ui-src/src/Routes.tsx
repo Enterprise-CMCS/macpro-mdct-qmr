@@ -22,9 +22,7 @@ const Home = lazy(() =>
 const FAQ = lazy(() =>
   import("views/FAQ").then((module) => ({ default: module.FAQ }))
 );
-const StateHome = lazy(() =>
-  import("views/StateHome").then((module) => ({ default: module.StateHome }))
-);
+const StateHome = lazy(() => import("views/StateHome"));
 const AdminHome = lazy(() =>
   import("views/AdminHome").then((module) => ({ default: module.AdminHome }))
 );

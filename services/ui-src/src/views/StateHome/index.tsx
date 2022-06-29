@@ -92,7 +92,7 @@ const Heading = () => {
   );
 };
 
-export const StateHome = () => {
+const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
@@ -231,3 +231,5 @@ export const StateHome = () => {
     </QMR.StateLayout>
   );
 };
+
+export default StateHome;
