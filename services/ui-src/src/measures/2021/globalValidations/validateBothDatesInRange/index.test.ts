@@ -115,4 +115,6 @@ describe("ensureBothDatesCompletedInRange", () => {
     formData[DC.DATE_RANGE][DC.END_DATE][DC.SELECTED_YEAR] = undefined;
     check_errors(formData, 1);
   });
+
+  // TODO: Test for custom errorMessage
 });

@@ -115,3 +115,5 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
     });
   });
 });
+
+// TODO: Test for custom errorMessage

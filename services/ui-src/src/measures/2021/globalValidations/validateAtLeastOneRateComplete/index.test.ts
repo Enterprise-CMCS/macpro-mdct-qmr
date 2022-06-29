@@ -77,4 +77,6 @@ describe("atLeastOneRateComplete", () => {
 
     check_errors(formData, 1);
   });
+
+  // TODO: Test for custom errorMessage
 });
