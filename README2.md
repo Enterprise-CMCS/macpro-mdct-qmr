@@ -311,7 +311,64 @@ npx prettier --write . # format everything relative to the pwd
 npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 ```
 
-# testing
+## IDM
+
+Users can log into QMR's non-development environments using IDM.
+
+> [CMS' Identity Management (IDM) system](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/EnterpriseIdentityManagement/EIDM-Overview) is an established, enterprise-wide, identity management solution. IDM is leveraged by CMS business applications across the agency. End users of all business applications that integrate with this solution can use a single set of user credentials to access any integrated application.
+
+### Creating an IDM Account
+
+1. Access QMR at https://mdctqmr.cms.gov and select "Register"
+1. Select the New User Registration button on the IDM sign-in screen
+1. Provide requested information on the following screens and accept terms of service.
+1. Enter a user ID and password, select a security question, and submit.
+
+### Initiate Role Request for QMR Access via IDM
+
+1. Sign in to IDM at https://home.idm.cms.gov
+1. Select the "Role Request" tile
+1. Select "Medicaid Data Collection Tool (MDCT) Quality Measures Reporting (QMR)" from the "Select an Application" drop-down list
+1. Select the appropriate user role
+   - Note: An account can only be associated with one role. If you need to have multiple roles (Ex: state user and admin) you will need to create multiple accounts.
+1. Watch for an email confirming your role request submission
+1. View and agree to the terms of service. Click the "Next" button.
+1. Complete the Remote Identity Proofing (RIDP) form. Click the "Next" button.
+1. Answer the RIDP questions as applicable. Click "Verify".
+1. Select the applicable role attributes via the drop-down lists. Then click "Review Request".
+1. Enter a reason for the request in the provided text box. Click "Submit Role Request".
+
+## Github
+
+## AWS
+
+_You must have an EUA account and your request for the appropriate job codes must be approved before you will be able to access AWS. See [Register an EUA Account section](#register-an-eua-account) of this document for more information._
+
+### Request Access to QMR AWS Environments
+
+You must be manually added to the appropriate AWS environments by CMS personnel. That request can be made in Jira or Slack.
+
+1. Have an existing team member add you to the CMS Slack channel `#macpro-devsecops-techsupport`
+   - Not recommended alternative, but possibly effective action: yell loudly in another channel and see if a stranger will help you.
+1. Make a post requesting the following:
+   - application admin for Dev and val accounts
+   - read-only for production
+1. Someone from the DevSecOps team should give you a link to a Jira ticket, or may ask you to make the ticket.
+1. Follow along with the status of the ticket and provide any additional information needed. Most likely you will be asked to comment on the ticket confirming you can access AWS resources and the work is complete.
+
+### security hub
+
+### where aws resources can be found
+
+### Installing AWS CLI
+
+## how to set up dev
+
+### What needs to be in the local ENV table
+
+### how to start
+
+# Testing
 
 ## Update Node modules
 
@@ -321,9 +378,31 @@ npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 
 ## assertion libs used
 
-## how to run tests
+## How to Run Tests
 
-### Cypress
+### Cypress Setup
+
+Once your local environment is up and running, these steps need to be taken to set up `Cypress`:
+
+```
+cd tests/
+yarn install
+cd cypress/
+yarn install
+```
+
+This environment file (**.env**) must be populated under `tests/cypress.env.json`, for details on that file refer to the [AWS](#aws) section.
+
+### Running Cypress Tests
+
+To run the end-to-end `Cypress` tests:
+
+```
+cd tests/
+yarn test
+```
+
+The `Cypress` application will kick off, you can select a test and run it.
 
 ### Unit
 
