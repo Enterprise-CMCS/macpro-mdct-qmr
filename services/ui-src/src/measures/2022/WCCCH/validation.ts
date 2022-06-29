@@ -91,9 +91,9 @@ const WCCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateRateNotZeroOMS(),
         GV.validateOMSTotalNDR,
         GV.validateRateZeroOMS,
       ],

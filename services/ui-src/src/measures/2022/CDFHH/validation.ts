@@ -77,9 +77,9 @@ const CDFHHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateRateNotZeroOMS(),
         GV.validateOMSTotalNDR,
       ],
     }),

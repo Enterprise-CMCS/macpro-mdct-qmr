@@ -47,24 +47,18 @@ const _validation: UVF = ({
 };
 
 /** Checks all rates have the same denominator for both categories and qualifiers. NOTE: only use qualifiers if category is empty */
-export const validateEqualCategoryDenominatorsOMS: OmsValidationCallback = ({
-  rateData,
-  categories,
-  qualifiers,
-  label,
-  locationDictionary,
-  isOPM,
-  errorMessage,
-}) => {
-  if (isOPM) return [];
-  return _validation({
-    categories,
-    qualifiers,
-    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-    location: `Optional Measure Stratification: ${locationDictionary(label)}`,
-    errorMessage,
-  });
-};
+export const validateEqualCategoryDenominatorsOMS =
+  (errorMessage?: string): OmsValidationCallback =>
+  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
+    if (isOPM) return [];
+    return _validation({
+      categories,
+      qualifiers,
+      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      location: `Optional Measure Stratification: ${locationDictionary(label)}`,
+      errorMessage,
+    });
+  };
 
 /** Checks all rates have the same denominator for both categories and qualifiers. NOTE: only pass qualifiers if category is empty */
 export const validateEqualCategoryDenominatorsPM = (

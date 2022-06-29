@@ -72,8 +72,8 @@ const AMBHHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
         GV.validateOMSTotalNDR,
       ],
     }),

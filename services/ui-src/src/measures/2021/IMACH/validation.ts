@@ -35,12 +35,12 @@ const DEVCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateEqualCategoryDenominatorsOMS(),
       ],
     }),
     ...GV.validateAtLeastOneRateComplete(

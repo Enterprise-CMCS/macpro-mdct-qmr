@@ -14,7 +14,7 @@ interface ValProps extends UVFP {
   hybridData?: boolean;
 }
 
-const _validationRateNotZero = ({ location, rateData }: UVFP) => {
+const _validationRateNotZero = ({ location, rateData, errorMessage }: UVFP) => {
   const errorArray: FormError[] = [];
 
   for (const ratefields of rateData) {
@@ -28,6 +28,7 @@ const _validationRateNotZero = ({ location, rateData }: UVFP) => {
           errorArray.push({
             errorLocation: location,
             errorMessage:
+              errorMessage ??
               "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
           });
         }
@@ -38,7 +39,12 @@ const _validationRateNotZero = ({ location, rateData }: UVFP) => {
   return errorArray;
 };
 
-const _validationRateZero = ({ location, rateData, hybridData }: ValProps) => {
+const _validationRateZero = ({
+  location,
+  rateData,
+  hybridData,
+  errorMessage,
+}: ValProps) => {
   const errorArray: FormError[] = [];
 
   for (const ratefields of rateData) {
@@ -52,7 +58,9 @@ const _validationRateZero = ({ location, rateData, hybridData }: ValProps) => {
         ) {
           errorArray.push({
             errorLocation: location,
-            errorMessage: "Manually entered rate should be 0 if numerator is 0",
+            errorMessage:
+              errorMessage ??
+              "Manually entered rate should be 0 if numerator is 0",
           });
         }
       }
@@ -82,20 +90,17 @@ export const validateRateZeroOMS: OmsValidationCallback = ({
   }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
 };
 
-export const validateRateNotZeroOMS: OmsValidationCallback = ({
-  categories,
-  qualifiers,
-  rateData,
-  label,
-  locationDictionary,
-}) => {
-  return _validationRateNotZero({
-    categories,
-    qualifiers,
-    location: `Optional Measure Stratification: ${locationDictionary(label)}`,
-    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-  }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
-};
+export const validateRateNotZeroOMS =
+  (errorMessage?: string): OmsValidationCallback =>
+  ({ categories, qualifiers, rateData, label, locationDictionary }) => {
+    return _validationRateNotZero({
+      categories,
+      qualifiers,
+      location: `Optional Measure Stratification: ${locationDictionary(label)}`,
+      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      errorMessage,
+    }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
+  };
 
 // If a user manually over-rides a rate it must not violate two rules:
 // It must be zero if the numerator is zero or
@@ -104,7 +109,11 @@ export const validateNoNonZeroNumOrDenomPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   _qualifiers: string[],
-  data: Types.DefaultFormData
+  data: Types.DefaultFormData,
+
+  // TODO: If this were 2 seperate function calls we could have 1 errorMessage
+  errorMessageRateNotZero?: string,
+  errorMessageRateZero?: string
 ) => {
   const errorArray: FormError[] = [];
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(
@@ -114,16 +123,30 @@ export const validateNoNonZeroNumOrDenomPM = (
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
 
   const nonZeroErrors = [
-    ..._validationRateNotZero({ location, rateData: performanceMeasureArray }),
-    ..._validationRateNotZero({ location, rateData: rateDataOPM }),
+    ..._validationRateNotZero({
+      location,
+      rateData: performanceMeasureArray,
+      errorMessage: errorMessageRateNotZero,
+    }),
+    ..._validationRateNotZero({
+      location,
+      rateData: rateDataOPM,
+      errorMessage: errorMessageRateNotZero,
+    }),
   ];
   const zeroErrors = [
     ..._validationRateZero({
       location,
       rateData: performanceMeasureArray,
       hybridData,
+      errorMessage: errorMessageRateZero,
     }),
-    ..._validationRateZero({ location, rateData: rateDataOPM, hybridData }),
+    ..._validationRateZero({
+      location,
+      rateData: rateDataOPM,
+      hybridData,
+      errorMessage: errorMessageRateZero,
+    }),
   ];
 
   if (!!nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);

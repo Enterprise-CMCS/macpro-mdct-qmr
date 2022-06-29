@@ -83,9 +83,9 @@ const SFMCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateOneQualRateHigherThanOtherQualOMS(),
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
       ],
     }),
   ];

@@ -66,9 +66,9 @@ const OEVCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOMSTotalNDR,
-        GV.validateRateNotZeroOMS,
+        GV.validateRateNotZeroOMS(),
         GV.validateRateZeroOMS,
       ],
     }),

@@ -81,11 +81,11 @@ const FUMADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateEqualQualifierDenominatorsOMS,
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateRateNotZeroOMS(),
       ],
     }),
   ];

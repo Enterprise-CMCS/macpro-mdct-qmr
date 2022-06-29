@@ -202,7 +202,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
         manualZeroRate,
         manualZeroRate,
       ]);
-      const errors = validateRateNotZeroOMS({
+      const errors = validateRateNotZeroOMS()({
         ...baseOMSInfo,
         rateData: data,
       });
@@ -217,3 +217,5 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
   });
 });
+
+// TODO: Test for custom errorMessage

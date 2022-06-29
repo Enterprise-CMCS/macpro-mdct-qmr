@@ -90,7 +90,7 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
         simpleRate,
         simpleRate,
       ]);
-      const errors = validateEqualCategoryDenominatorsOMS({
+      const errors = validateEqualCategoryDenominatorsOMS()({
         ...baseOMSInfo,
         rateData: data,
       });
@@ -103,7 +103,7 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
         simpleRate,
         simpleRate,
       ]);
-      const errors = validateEqualCategoryDenominatorsOMS({
+      const errors = validateEqualCategoryDenominatorsOMS()({
         ...baseOMSInfo,
         rateData: data,
         isOPM: true,
@@ -118,7 +118,7 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
         simpleRate,
         doubleRate,
       ]);
-      const errors = validateEqualCategoryDenominatorsOMS({
+      const errors = validateEqualCategoryDenominatorsOMS()({
         ...baseOMSInfo,
         locationDictionary: locationDictionaryJestFunc,
         rateData: data,

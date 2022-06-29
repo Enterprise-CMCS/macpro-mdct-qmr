@@ -90,9 +90,9 @@ const FUHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateRateNotZeroOMS(),
         GV.validateEqualQualifierDenominatorsOMS,
       ],
     }),

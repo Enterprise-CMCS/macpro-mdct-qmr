@@ -86,10 +86,10 @@ const FUMHHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOMSTotalNDR,
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateNotZeroOMS,
+        GV.validateRateNotZeroOMS(),
         GV.validateRateZeroOMS,
       ],
     }),

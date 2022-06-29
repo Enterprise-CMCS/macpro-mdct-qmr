@@ -163,3 +163,5 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
     });
   });
 });
+
+// TODO: Test for custom errorMessage

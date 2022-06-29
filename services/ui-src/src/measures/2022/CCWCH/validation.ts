@@ -54,10 +54,10 @@ const CCWCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateRateNotZeroOMS(),
+        GV.validateEqualCategoryDenominatorsOMS(),
         GV.validateOneQualRateHigherThanOtherQualOMS(),
       ],
     }),

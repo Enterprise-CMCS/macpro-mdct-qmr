@@ -79,9 +79,9 @@ const TFLCHValidation = (data: FormData) => {
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         // Oral Health Services rate cannot be larger than the Dental or Oral Health Services rate
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 2),
-        GV.validateNumeratorLessThanDenominatorOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateRateNotZeroOMS(),
         GV.validateOMSTotalNDR,
         GV.validateEqualQualifierDenominatorsOMS,
       ],
