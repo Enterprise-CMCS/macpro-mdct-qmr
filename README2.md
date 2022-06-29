@@ -180,6 +180,8 @@ Users can log into QMR's non-development environments using IDM.
 
 ## Github
 
+## VPN
+
 ## AWS
 
 _You must have an EUA account and your request for the appropriate job codes must be approved before you will be able to access AWS. See [Register an EUA Account section](#register-an-eua-account) of this document for more information._
@@ -196,17 +198,36 @@ You must be manually added to the appropriate AWS environments by CMS personnel.
 1. Someone from the DevSecOps team should give you a link to a Jira ticket, or may ask you to make the ticket.
 1. Follow along with the status of the ticket and provide any additional information needed. Most likely you will be asked to comment on the ticket confirming you can access AWS resources and the work is complete.
 
-### security hub
-
-### where aws resources can be found
-
 ### Installing AWS CLI
 
-## how to set up dev
+Information on installing the AWS CLI for your machine can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
-### What needs to be in the local ENV table
+### Kion
 
-### how to start
+[Kion](https://cloudtamer.cms.gov/portal/project) is the application where one can reach the different AWS accounts that they have access to. It requires For the QMR application the relevant accounts are.
+
+1. MDCT-QMR-DEV: The development account that contains all branch resources and the dev resources
+1. MDCT-QMR-IMPL: The account that contains our val environment.
+1. MDCT-QMR-PROD: The account that contains our production environment.
+
+They can be found in the Projects tab of Kion.
+
+### Setting up AWS Credentials locally
+
+Once you have configured the AWS CLI on your personal machine, if you want to access a given account locally you will.
+
+1. Navigate to Kion
+1. Navigate to Projects
+1. Click Cloud Access
+1. Select the Account
+1. Select role for credentials
+1. Select Short term Access Keys
+1. Click the first option
+1. Paste the selected credentials into the development console being used.
+
+Once this process is completed you will be able to access and deploy resources from the account and also do local deployments and destroys of serverless infrastructure.
+
+### security hub
 
 # testing
 
@@ -271,6 +292,10 @@ All of the deployments start with new code on a branch. A branch environment is 
 ### how to name branches
 
 ### how to do pr
+
+## Local Deploy
+
+## Local Destroy
 
 # Services
 
