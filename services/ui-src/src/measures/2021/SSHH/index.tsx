@@ -18,7 +18,12 @@ export const SSHH = ({
 
   return (
     <>
-      <CUI.Text fontSize="xl" my="6" fontWeight={400}>
+      <CUI.Text
+        fontSize="xl"
+        my="6"
+        fontWeight={400}
+        data-cy="detailed-description"
+      >
         {detailedDescription}
       </CUI.Text>
       <CMQ.StatusOfData />
