@@ -35,6 +35,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
     - [Installing AWS CLI](#installing-aws-cli)
     - [Kion](#kion)
     - [Installing Aws Credentials Locally](#setting-up-aws-credentials-locally)
+    - [Accessing SSM Parameters](#accessing-ssm-parameters)
     - [Security Hub](#security-hub)
     - [Service Now (SNOW)](#service-now-snow)
   - [Local Development Setup](#local-development-setup)
@@ -197,6 +198,15 @@ Once you have configured the AWS CLI on your personal machine, if you want to ac
 
 Once this process is completed you will be able to access and deploy resources from the account and also do local deployments and destroys of serverless infrastructure.
 
+### Accessing SSM Parameters
+
+Any Secure or sensitive values used by the application are stored in AWS's Parameter Store. To access these you will need to
+
+1. Login to the specific account
+1. Go to AWS System Manager
+1. On the right hand side go to Parameter Store
+1. Find the Parameter you are looking for. For example the test user credentials are stored in `/configuration/testPassword1`
+
 ### Security Hub
 
 Security Hub is an AWS service that identifies security issues in an account and requests remediation within a certain time period.
@@ -286,7 +296,7 @@ The following are prerequisites for local development.
    ```bash
    ./dev local
    ```
-   A number of test users are defined in `users.json`. See the [AWS section](#aws) for more specific instructions and test user passwords.
+   A number of test users are defined in `users.json`. See the [AWS section](#accessing-ssm-parameters) for more specific instructions and test user passwords.
 
 ### Prettier
 
