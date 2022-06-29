@@ -227,7 +227,18 @@ Once you have configured the AWS CLI on your personal machine, if you want to ac
 
 Once this process is completed you will be able to access and deploy resources from the account and also do local deployments and destroys of serverless infrastructure.
 
-### security hub
+### Security Hub
+
+Security Hub is an AWS service that identifies security issues in an account and requests remediation within a certain time period.
+
+| Threat Level | Remediation Period |
+| ------------ | ------------------ |
+| CRITICAL     | Within 14 days     |
+| HIGH         | Within 30 days     |
+| MEDIUM       | Within 90 days     |
+| LOW          | Within 120 days    |
+
+Critical and High threats will be posted as issues in the GitHub repository.
 
 # testing
 
