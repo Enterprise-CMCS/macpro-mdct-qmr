@@ -75,6 +75,9 @@ const COBAD = lazy(() =>
 const COLAD = lazy(() =>
   import("./COLAD").then((module) => ({ default: module.COLAD }))
 );
+const COLHH = lazy(() =>
+  import("./COLHH").then((module) => ({ default: module.COLHH }))
+);
 const CPAAD = lazy(() =>
   import("./CPAAD").then((module) => ({ default: module.CPAAD }))
 );
@@ -98,6 +101,9 @@ const FUMAD = lazy(() =>
 );
 const FUMCH = lazy(() =>
   import("./FUMCH").then((module) => ({ default: module.FUMCH }))
+);
+const FUMHH = lazy(() =>
+  import("./FUMHH").then((module) => ({ default: module.FUMHH }))
 );
 const FVAAD = lazy(() =>
   import("./FVAAD").then((module) => ({ default: module.FVAAD }))
@@ -208,6 +214,7 @@ const twentyTwentyTwoMeasures = {
   "CIS-CH": CISCH,
   "COB-AD": COBAD,
   "COL-AD": COLAD,
+  "COL-HH": COLHH,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "DEV-CH": DEVCH,
@@ -217,10 +224,11 @@ const twentyTwentyTwoMeasures = {
   "FUH-CH": FUHCH,
   "FUM-AD": FUMAD,
   "FUM-CH": FUMCH,
+  "FUM-HH": FUMHH,
   "FVA-AD": FVAAD,
-  "HVL-AD": HVLAD,
   "HPC-AD": HPCAD,
   "HPCMI-AD": HPCMIAD,
+  "HVL-AD": HVLAD,
   "IET-AD": IETAD,
   "IMA-CH": IMACH,
   "LBW-CH": LBWCH,
