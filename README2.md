@@ -209,7 +209,7 @@ VPN access will be given in the process of requesting AWS access.
 1. With this information you can set up MFA through your phone or email.
 1. After you have MFA you can use whatever VPN Client you prefer to connect to the CMS VPN
 
-VPN access is needed to login to Kion and access your list of AWS accounts.
+VPN access is needed to login to Kion and access your list of AWS accounts. It is also needed to access the ticketing system SNOW.
 
 ### Installing AWS CLI
 
@@ -252,6 +252,12 @@ Security Hub is an AWS service that identifies security issues in an account and
 | LOW          | Within 120 days    |
 
 Critical and High threats will be posted as issues in the GitHub repository.
+
+### Service Now (SNOW)
+
+Any AWS issues that are outside the capability or access level of the team needs to either go through the Devsecops team or through a service desk ticket.
+
+SNOW is the ticketing service used by CMS and new tickets can be created [here](https://jiraent.cms.gov/plugins/servlet/desk/portal/22). You will need to be on the VPN to access SNOW. The majority of tickets will be IAM related and the turnaround time is usually about 12-24 hours between the time of filing the ticket and the first response from a human. With that in mind it's good to set aside extra time for tickets that you know will touch on IAM or new Cloud Services.
 
 # testing
 
