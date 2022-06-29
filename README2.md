@@ -8,17 +8,13 @@ SHIFT + CMD/CTRL + V
 
 # cms-mdct-qmr ![Build](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master) [![latest release](https://img.shields.io/github/release/cmsgov/cms-mdct-qmr.svg)](https://github.com/cmsgov/cms-mdct-qmr/releases/latest) [![Maintainability](https://api.codeclimate.com/v1/badges/1449ad929006f559756b/maintainability)](https://codeclimate.com/github/CMSgov/cms-mdct-qmr/maintainability) [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5b10ae50ca1effedcd3/test_coverage)](https://codeclimate.com/repos/60fae00673444f5bad001bf9/test_coverage)
 
-## Release
-
-Our product is promoted through branches. Master is merged to val to affect a master release, and val is merged to production to affect a production release. Please use the buttons below to promote/release code to higher environments.<br />
-
 | branch     | status                                                                                       | release                                                                                                                                                                                                                       |
 | ---------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | master     | ![master](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master)   | [![release to master](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare?quick_pull=1)                                                                                       |
 | val        | ![val](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=val)         | [![release to val](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare/val...master?quick_pull=1&template=PULL_REQUEST_TEMPLATE.val.md&title=Release%20to%20Val)              |
 | production | ![production](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=prod) | [![release to production](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare/prod...val?quick_pull=1&template=PULL_REQUEST_TEMPLATE.production.md&title=Release%20to%20Prod) |
 
-## High Level Overview of the application's purpose
+## What is QMR
 
 The new Quality Measure Reporting (QMR) application will house all the state required measures for reporting on Adult, Child, and Health Home core sets. The new application is replacing the time intensive SDF files previously used for submission. Data collected within the QMR application will be sent to the CMS partner MPR for analytics and reporting via the CollabraLink owned BigMAC application.
 This application measures the quality of care and programs offered by states related to their Adult, Child and Health Home offerings.
@@ -29,7 +25,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
 
 ## Quickstart
 
-### link to the quickstart it was forked from
+This application was forked from the [Quickstart Repository](https://github.com/cmsgov/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
 
 # Getting Started
 
@@ -246,10 +242,10 @@ Security Hub is an AWS service that identifies security issues in an account and
 
 | Threat Level | Remediation Period |
 | ------------ | ------------------ |
-| CRITICAL     | Within 14 days     |
+| CRITICAL     | Within 15 days     |
 | HIGH         | Within 30 days     |
 | MEDIUM       | Within 90 days     |
-| LOW          | Within 120 days    |
+| LOW          | Within 365 days    |
 
 Critical and High threats will be posted as issues in the GitHub repository.
 
@@ -479,25 +475,27 @@ To add new users with new attributes, you can edit the `users.json`
 
 ## UI-SRC
 
+The ui-src service contains all of our frontend code and is therefore the largest service in the project. Our project uses the React Web Framework, Typescript, Chakra-UI for components, react-icons for various icons in the application, and react-query
+
 ### general stack details
 
-#### typescript
+| Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                           |
+| ----------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| React       | Library for writing UI Components and Application Organization | We went with React because the majority of the team was comfortable with it, and the quickstart from which this application was forked came with a good React Skeleton                                                                                           |
+| Typescript  | Maintaining and enforcing types throughout the application     | JavaScript does not throw compile-time errors for types which can lead to extremely difficult debugging. It also helps enforce code quality. Typscript's plugins with IDE's also make local development faster and easier by autofilling pieces for known types. |
+| Chakra_UI   | Rendering UI components and page Layout                        | We went with Chakra over material because we did a test. We chose one simple component and created it first with Material and then with Chakra. We found that chakra was far easier to develop with so we went with chakra                                       |
+| React-Icons | Simple Icons throughout the application                        | It was free, easy to use, and had all of the icons we needed                                                                                                                                                                                                     |
+| React-Query | State management                                               | It was the more lightweight option and was more simple to plugin to the application compared to its competetors                                                                                                                                                  |
 
-#### react
+### Component Library
 
-### design system
+At it's core QMR consists of several small simple components in `/services/ui-src/src/components`
 
-#### guided by USWDS 2.0
+These are then used to create more complex components in `/services/ui-src/src/measures/year/CommonQuestions`
 
-#### chakra-ui
+These complex components are then used along with some of the simple components to create the forms for the application in `/services/ui-src/src/measures/year/CommonQuestions`
 
-#### use chakra for all layout
-
-#### component library
-
-### use react-icons
-
-### react-query
+When creating a new form it's best to find an existing form that is as close to what you are trying to make as possible, then modifying it with complex components if necessary, or creating a new complex component and modifying it with simple components if necessary etc...
 
 ## Uploads
 
