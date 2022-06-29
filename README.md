@@ -336,24 +336,6 @@ Users can log into QMR's non-development environments using IDM.
 1. Select the applicable role attributes via the drop-down lists. Then click "Review Request".
 1. Enter a reason for the request in the provided text box. Click "Submit Role Request".
 
-## Github
-
-## AWS
-
-_You must have an EUA account and your request for the appropriate job codes must be approved before you will be able to access AWS. See [Register an EUA Account section](#register-an-eua-account) of this document for more information._
-
-### Request Access to QMR AWS Environments
-
-You must be manually added to the appropriate AWS environments by CMS personnel. That request can be made in Jira or Slack.
-
-1. Have an existing team member add you to the CMS Slack channel `#macpro-devsecops-techsupport`
-   - Not recommended alternative, but possibly effective action: yell loudly in another channel and see if a stranger will help you.
-1. Make a post requesting the following:
-   - application admin for Dev and val accounts
-   - read-only for production
-1. Someone from the DevSecOps team should give you a link to a Jira ticket, or may ask you to make the ticket.
-1. Follow along with the status of the ticket and provide any additional information needed. Most likely you will be asked to comment on the ticket confirming you can access AWS resources and the work is complete.
-
 ### security hub
 
 ### where aws resources can be found
