@@ -91,10 +91,15 @@ export const UpdateInfoModal = ({
                   watchedDetailedDescription === detailedDescription)
               }
               onClick={updateMeasureInfo}
+              data-cy="update-measure-yes"
             >
               Yes
             </CUI.Button>
-            <CUI.Button variant="ghost" onClick={closeModal}>
+            <CUI.Button
+              variant="ghost"
+              onClick={closeModal}
+              data-cy="update-measure-no"
+            >
               No
             </CUI.Button>
           </CUI.ModalFooter>
