@@ -231,7 +231,10 @@ SNOW is the ticketing service used by CMS and new tickets can be created [here](
 The following are prerequisites for local development.
 
 1. [Create an SSH Key and link it to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-1. Clone this repository locally using `git clone git@github.com:CMSgov/cms-mdct-qmr.git`
+1. Clone this repository locally
+   ```bash
+   git clone git@github.com:CMSgov/cms-mdct-qmr.git
+   ```
 1. Install [Node](https://nodejs.org/en/download/)
 1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
    - A specific version of Node is enforced and specified in the file `.nvmrc`. This version matches the Lambda runtime.
