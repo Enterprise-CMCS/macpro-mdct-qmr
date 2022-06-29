@@ -48,7 +48,8 @@ This application was forked from the [Quickstart Repository](https://github.com/
 - [Testing](#testing)
 - [Deployment](#deployment)
   - [Branch Strategy and Naming](#branch-strategy-and-naming)
-  - [Pull Requests](#pull-requests)
+    - [Pull Requests](#pull-requests)
+    - [Create New Branches and PRs for Tests](#create-new-branches-and-prs-for-tests)
   - [GitHub Actions](#github-actions)
   - [Live URLS](#live-urls)
   - [Deploy Single Service from Local](#deploy-single-service-from-local)
@@ -430,6 +431,12 @@ Our application uses the serverless stack to deploy resources to AWS, but becaus
 1. No Capital letters or special characters other than `-`
 1. No Spaces
 1. Keep the name under 30 characters
+
+## Create New Branches and PRs for Tests
+
+When writing Cypress tests for an existing branch, create a new branch and write the tests there. For example, if the branch that needs tests is called oy2-1234, create a new branch called oy2-1234test.
+
+When the tests have been written, create a new PR for oy2-1234test and set its base to oy2-1234. Submit this PR for review.
 
 ## Pull Requests
 
