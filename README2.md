@@ -8,17 +8,13 @@ SHIFT + CMD/CTRL + V
 
 # cms-mdct-qmr ![Build](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master) [![latest release](https://img.shields.io/github/release/cmsgov/cms-mdct-qmr.svg)](https://github.com/cmsgov/cms-mdct-qmr/releases/latest) [![Maintainability](https://api.codeclimate.com/v1/badges/1449ad929006f559756b/maintainability)](https://codeclimate.com/github/CMSgov/cms-mdct-qmr/maintainability) [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5b10ae50ca1effedcd3/test_coverage)](https://codeclimate.com/repos/60fae00673444f5bad001bf9/test_coverage)
 
-## Release
-
-Our product is promoted through branches. Master is merged to val to affect a master release, and val is merged to production to affect a production release. Please use the buttons below to promote/release code to higher environments.<br />
-
 | branch     | status                                                                                       | release                                                                                                                                                                                                                       |
 | ---------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | master     | ![master](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master)   | [![release to master](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare?quick_pull=1)                                                                                       |
 | val        | ![val](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=val)         | [![release to val](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare/val...master?quick_pull=1&template=PULL_REQUEST_TEMPLATE.val.md&title=Release%20to%20Val)              |
 | production | ![production](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=prod) | [![release to production](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare/prod...val?quick_pull=1&template=PULL_REQUEST_TEMPLATE.production.md&title=Release%20to%20Prod) |
 
-## High Level Overview of the application's purpose
+## What is QMR
 
 The new Quality Measure Reporting (QMR) application will house all the state required measures for reporting on Adult, Child, and Health Home core sets. The new application is replacing the time intensive SDF files previously used for submission. Data collected within the QMR application will be sent to the CMS partner MPR for analytics and reporting via the CollabraLink owned BigMAC application.
 This application measures the quality of care and programs offered by states related to their Adult, Child and Health Home offerings.
@@ -29,7 +25,63 @@ The new web-based QMR application will allow CMS to access data submitted by the
 
 ## Quickstart
 
-### link to the quickstart it was forked from
+This application was forked from the [Quickstart Repository](https://github.com/cmsgov/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
+
+# Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Register an EUA Account](#register-an-eua-account)
+  - [IDM](#idm)
+  - [GitHub](#github)
+  - [AWS](#aws)
+    - [Request Access to an AWS Account](#request-access-to-qmr-aws-environments)
+    - [VPN](#vpn)
+    - [Installing AWS CLI](#installing-aws-cli)
+    - [Kion](#kion)
+    - [Installing Aws Credentials Locally](#setting-up-aws-credentials-locally)
+    - [Security Hub](#security-hub)
+    - [Service Now (SNOW)](#service-now-snow)
+  - [Local Development Setup](#local-development-setup)
+    - [Prettier](#prettier)
+    - [Prettier with VS Code](#prettier-with-vs-code)
+    - [Prettier CLI](#prettier-cli)
+- [Testing](#testing)
+- [Deployment](#deployment)
+  - [Branch Strategy and Naming](#branch-strategy-and-naming)
+  - [Pull Requests](#pull-requests)
+  - [GitHub Actions](#github-actions)
+  - [Live URLS](#live-urls)
+  - [Deploy Single Service from Local](#deploy-single-service-from-local)
+  - [Destroy Single service from local](#destroy-single-service-from-local)
+  - [Destroy Entire Branch from Local](#destroy-entire-branch-from-local)
+- [Services](#services)
+  - [Architecture Diagram](#architecture-diagram)
+  - [Serverless](#serverless)
+  - [App API](#app-api)
+    - [Overview](#overview)
+    - [Parameters](#parameters)
+    - [CoreSet](#coreset)
+    - [Measures](#measures)
+    - [Kafka](#kafka)
+    - [Utilities](#utilities)
+  - [Database](#database)
+    - [Tables](#tables)
+    - [How to set up Dynamo endpoint to view local Db](#how-to-set-up-dynamo-endpoint-to-view-local-db)
+    - [Stream Functions](#stream-functions)
+  - [UI](#ui)
+  - [UI-AUTH](#ui-auth)
+    - [Okta](#Okta)
+    - [Automating Test User Creation](#automating-test-user-creation)
+  - [UI-SRC](#ui-src)
+    - [General Stack Details](#general-stack-details)
+    - [Component Library](#component-library)
+  - [Uploads](#uploads)
+    - [Integrations with Mathematica](#integrations-with-mathematica)
+- [Year End Transition Documentation](#year-end-transition-documentation)
+  - [Things to Look Out For (Gotchas)](#things-to-look-out-for-gotchas)
+- [Debugging Problems and Solutions](#debugging-problems-and-solutions)
+- [Contributing / To-D](#contributing--to-do)
+- [License](#license)
 
 # Getting Started
 
@@ -57,6 +109,114 @@ Job codes needed may vary by contract and job role. Consult with your team for a
 | CHIP_D_User               | CHIP-State Childrens Health Ins Prog Enrollmnt Data Sys Dev Access                                                                                                                                                       |
 | CHIP_P_User               | CHIP-State Childrens Health Ins Prog Enrollmnt Data Sys Prod Access                                                                                                                                                      |
 | CHIP_V_User               | The CHIP Enrollment Data System is the electronic media system for the states                                                                                                                                            |
+
+## IDM
+
+Users can log into QMR's non-development environments using IDM.
+
+> [CMS' Identity Management (IDM) system](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/EnterpriseIdentityManagement/EIDM-Overview) is an established, enterprise-wide, identity management solution. IDM is leveraged by CMS business applications across the agency. End users of all business applications that integrate with this solution can use a single set of user credentials to access any integrated application.
+
+### Creating an IDM Account
+
+1. Access QMR at https://mdctqmr.cms.gov and select "Register"
+1. Select the New User Registration button on the IDM sign-in screen
+1. Provide requested information on the following screens and accept terms of service.
+1. Enter a user ID and password, select a security question, and submit.
+
+### Initiate Role Request for QMR Access via IDM
+
+1. Sign in to IDM at https://home.idm.cms.gov
+1. Select the "Role Request" tile
+1. Select "Medicaid Data Collection Tool (MDCT) Quality Measures Reporting (QMR)" from the "Select an Application" drop-down list
+1. Select the appropriate user role
+   - Note: An account can only be associated with one role. If you need to have multiple roles (Ex: state user and admin) you will need to create multiple accounts.
+1. Watch for an email confirming your role request submission
+1. View and agree to the terms of service. Click the "Next" button.
+1. Complete the Remote Identity Proofing (RIDP) form. Click the "Next" button.
+1. Answer the RIDP questions as applicable. Click "Verify".
+1. Select the applicable role attributes via the drop-down lists. Then click "Review Request".
+1. Enter a reason for the request in the provided text box. Click "Submit Role Request".
+
+## Github
+
+GitHub access can be granted by any Admin on the Repo, but you will need to request it first, either through Slack or through GitHub's interface.
+
+## AWS
+
+_You must have an EUA account and your request for the appropriate job codes must be approved before you will be able to access AWS. See [Register an EUA Account section](#register-an-eua-account) of this document for more information._
+
+### Request Access to QMR AWS Environments
+
+You must be manually added to the appropriate AWS environments by CMS personnel. That request can be made in Jira or Slack.
+
+1. Have an existing team member add you to the CMS Slack channel `#macpro-devsecops-techsupport`
+   - Not recommended alternative, but possibly effective action: yell loudly in another channel and see if a stranger will help you.
+1. Make a post requesting the following:
+   - application admin for Dev and val accounts
+   - read-only for production
+1. Someone from the DevSecOps team should give you a link to a Jira ticket, or may ask you to make the ticket.
+1. Follow along with the status of the ticket and provide any additional information needed. Most likely you will be asked to comment on the ticket confirming you can access AWS resources and the work is complete.
+
+### VPN
+
+VPN access will be given in the process of requesting AWS access.
+
+1. A ticket will be created with CMS to request VPN access be granted.
+1. An email will be sent to the account associated with your EUA ID containing
+   1. Login credentials for getting Multifactor Authentication and
+   1. A temporary password
+1. With this information you can set up MFA through your phone or email.
+1. After you have MFA you can use whatever VPN Client you prefer to connect to the CMS VPN
+
+VPN access is needed to login to Kion and access your list of AWS accounts. It is also needed to access the ticketing system SNOW.
+
+### Installing AWS CLI
+
+Information on installing the AWS CLI for your machine can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+
+### Kion
+
+[Kion](https://cloudtamer.cms.gov/portal/project) is the application where one can reach the different AWS accounts that they have access to. It requires For the QMR application the relevant accounts are.
+
+1. MDCT-QMR-DEV: The development account that contains all branch resources and the dev resources
+1. MDCT-QMR-IMPL: The account that contains our val environment.
+1. MDCT-QMR-PROD: The account that contains our production environment.
+
+They can be found in the Projects tab of Kion.
+
+### Setting up AWS Credentials locally
+
+Once you have configured the AWS CLI on your personal machine, if you want to access a given account locally you will.
+
+1. Navigate to Kion
+1. Navigate to Projects
+1. Click Cloud Access
+1. Select the Account
+1. Select role for credentials
+1. Select Short term Access Keys
+1. Click the first option
+1. Paste the selected credentials into the development console being used.
+
+Once this process is completed you will be able to access and deploy resources from the account and also do local deployments and destroys of serverless infrastructure.
+
+### Security Hub
+
+Security Hub is an AWS service that identifies security issues in an account and requests remediation within a certain time period.
+
+| Threat Level | Remediation Period |
+| ------------ | ------------------ |
+| CRITICAL     | Within 15 days     |
+| HIGH         | Within 30 days     |
+| MEDIUM       | Within 90 days     |
+| LOW          | Within 365 days    |
+
+Critical and High threats will be posted as issues in the GitHub repository.
+
+### Service Now (SNOW)
+
+Any AWS issues that are outside the capability or access level of the team needs to either go through the Devsecops team or through a service desk ticket.
+
+SNOW is the ticketing service used by CMS and new tickets can be created [here](https://jiraent.cms.gov/plugins/servlet/desk/portal/22). You will need to be on the VPN to access SNOW. The majority of tickets will be IAM related and the turnaround time is usually about 12-24 hours between the time of filing the ticket and the first response from a human. With that in mind it's good to set aside extra time for tickets that you know will touch on IAM or new Cloud Services.
 
 ## Local Development Setup
 
@@ -99,6 +259,31 @@ The following are prerequisites for local development.
    ```bash
    yarn install  # can be skipped, will run automatically in dev script
    ```
+1. Set up your local ENV. There is no protected information for the local env. The name should be `.env` and it will be at the top of the project:
+
+   ```
+   SKIP_PREFLIGHT_CHECK=true
+   LOCAL_LOGIN=true
+   MEASURE_TABLE_NAME=local-measures
+   MEASURE_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
+   coreSetTableName=local-coreSets
+   measureTableName=local-measures
+   CORESET_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
+   DYNAMODB_URL=http://localhost:8000
+   API_URL=http://localhost:3030/local
+   S3_LOCAL_ENDPOINT=http://localhost:4569
+   S3_ATTACHMENTS_BUCKET_NAME=local-uploads
+   URL=http://localhost/3000
+   SLS_INTERACTIVE_SETUP_ENABLE=1
+   ```
+
+1. Set up the UI-SRC ENV.
+
+   1. Navigate to `/services/ui-src/`.
+   1. Make a new file: `.env`
+   1. Copy the contents of `.env_example` into `.env`
+      1. If you want to connect to real resources for the branch you can tweak these values with the resource values found in AWS.
+
 1. Run the application.
    ```bash
    ./dev local
@@ -237,43 +422,86 @@ The short version of the CICD Pipeline is `Pull Request → Github Actions → C
 
 All of the deployments start with new code on a branch. A branch environment is created and this is where automated and manual testing occurs. Once all of the checks have been passed on a branch, it is pulled into the Master branch where more testing is done and all functionality is verified. Then it is pushed to the Val Branch, where a selection of business users test the new functionality and provide a further round of feedback. Once this feedback has been addressed a final push to the Production branch is done where live users have access to the new features.
 
-## github actions
+## Branch Strategy and Naming
 
-`precommit/prettier`
+In general we do one branch for each Jira Ticket with either the ticket number or a brief description of the functionality as the branch name.
+Our application uses the serverless stack to deploy resources to AWS, but because of that we need to be careful about how we name the branches so here are a few rules of thumb.
 
-`codeclimate`
+1. No Capital letters or special characters other than `-`
+1. No Spaces
+1. Keep the name under 30 characters
 
-`Deploy`
+## Pull Requests
 
-`Automation Deploy`
+In order for a PR to get merged into Master it needs 2 approvals, and 1 of the approvals must be from an admin on the project. The same rules apply for Val and Prod.
 
-### Where they run, how to tell if they have failed
+When merging to Master always choose the option to `Squash and Merge` This helps to keep the master branch clean and you can track back individual PR's to a piece of work in Jira.
 
-## master → val → prod
+When Merging to Val or Prod, always use a merge commit.
 
-### deployment process
+## GitHub Actions
 
-## live env urls
+Github Actions are defined in the `.github/workflows` folder.
 
-### Where the branch URL can be found (in the github build action)
+1. `precommit/prettier`: This runs prettier checks on the application and fixes minor issues if found. Any major issues that can't be corrected by `prettier fix` makes this step fail, and thus the whole pipeline will fail
 
-### Dev
+1. `codeclimate`: This checks several code metrics including test coverage of the PR vs the existing code. If test coverage decreases or if different criteria are violated, this step will fail and require remediation in the code climate application.
 
-### Val
+1. `Deploy`: First runs unit tests, if any fail the deploy fails. Then goes through each service and deploys the cloudformation stack for it. The actions can also be monitored in AWS in the Cloudformation application. The Stack name will be `branch-name-service-name`. That information can also be useful for debugging if your stack fails to deploy.
 
-### Prod
+   At the end of the deploy step the cloudfront URL will be output in the logs. This is one of the ways to retrieve the url for testing on a branch.
 
-## branch deployments
+1. `Deploy Support`: Deploys the connection between the Security Hub and GitHub to create new GitHub issues in the repo if any security violations are found.
 
-### how to name branches
+1. `Automation Deploy`: Runs all of the automation tests.
 
-### how to do pr
+Right now the automation step does not run on the Val or Prod branches due to security restrictions around test users altering real data.
+
+## Live URLS
+
+| Environment | URL                                    |
+| ----------- | -------------------------------------- |
+| Local       | http://localhost:3000/                 |
+| Branch      | Found in the output of the Deploy step |
+| Master      | https://mdctqmrdev.cms.gov/            |
+| Val         | https://mdctqmrval.cms.gov/            |
+| Prod        | https://mdctqmr.cms.gov/               |
+
+## Deploy Single Service from Local
+
+As you are developing you may want to debug and not wait for the 12-20 minutes it takes for changes to go through GitHub actions. You can deploy individual services using serverless.
+
+1. Ensure all stages of the branch have deployed once through github actions
+1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
+1. Navigate to the service you are trying to deploy ie: `/services/app-api`
+1. Run `sls deploy --stage branchname`, where branchname is the name of your branch.
+
+## Destroy single service from Local
+
+Destroying is largely the same process as deploying.
+
+1. Ensure all stages of the branch have deployed once through github actions
+1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
+1. Navigate to the service you are trying to deploy ie: `/services/app-api`
+1. Run `sls destroy --stage branchname`, where branchname is the name of your branch.
+
+Some known issues with this process of destroying is that S3 buckets will not be deleted properly, so I would recommend destroying through GithubActions or destroying the entire branch.
+
+## Destroy Entire Branch from Local
+
+In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
+
+1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
+1. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
+1. `sh destroy.sh name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
 # Services
 
-## Architecture
+## Architecture Diagram
 
 ![Architecture Diagram](./.images/architecture.svg?raw=true)
+
+## Serverless
 
 ## App API
 
@@ -360,11 +588,7 @@ For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with 
 
 ### Dev/Impl/Prod endpoints
 
-Dev: https://mdctqmrdev.cms.gov/
-
-Val: https://mdctqmrval.cms.gov/
-
-Prod: https://mdctqmr.cms.gov/
+[Live URL's](#live-urls)
 
 ### Branch Endpoints
 
@@ -375,8 +599,6 @@ The Endpoints created by a branch are random and can be found in the output of t
 The UI Auth service creates and manages the Authentication of the UI.
 
 User data is synced from IDM to Cognito to allow for login to the application and the IDM roles are used to determine what a user has access to in the UI.
-
-### user pools / cognito
 
 ### Okta
 
@@ -390,33 +612,40 @@ To add new users with new attributes, you can edit the `users.json`
 
 ## UI-SRC
 
-### general stack details
+The ui-src service contains all of our frontend code and is therefore the largest service in the project. Our project uses the React Web Framework, Typescript, Chakra-UI for components, react-icons for various icons in the application, and react-query
 
-#### typescript
+### General Stack Details
 
-#### react
+| Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                           |
+| ----------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| React       | Library for writing UI Components and Application Organization | We went with React because the majority of the team was comfortable with it, and the quickstart from which this application was forked came with a good React Skeleton                                                                                           |
+| Typescript  | Maintaining and enforcing types throughout the application     | JavaScript does not throw compile-time errors for types which can lead to extremely difficult debugging. It also helps enforce code quality. Typscript's plugins with IDE's also make local development faster and easier by autofilling pieces for known types. |
+| Chakra_UI   | Rendering UI components and page Layout                        | We went with Chakra over material because we did a test. We chose one simple component and created it first with Material and then with Chakra. We found that chakra was far easier to develop with so we went with chakra                                       |
+| React-Icons | Simple Icons throughout the application                        | It was free, easy to use, and had all of the icons we needed                                                                                                                                                                                                     |
+| React-Query | State management                                               | It was the more lightweight option and was more simple to plugin to the application compared to its competetors                                                                                                                                                  |
 
-### design system
+### Component Library
 
-#### guided by USWDS 2.0
+At it's core QMR consists of several small simple components in `/services/ui-src/src/components`
 
-#### chakra-ui
+These are then used to create more complex components in `/services/ui-src/src/measures/year/CommonQuestions`
 
-#### use chakra for all layout
+These complex components are then used along with some of the simple components to create the forms for the application in `/services/ui-src/src/measures/year/CommonQuestions`
 
-#### component library
-
-### use react-icons
-
-### react-query
+When creating a new form it's best to find an existing form that is as close to what you are trying to make as possible, then modifying it with complex components if necessary, or creating a new complex component and modifying it with simple components if necessary etc...
 
 ## Uploads
 
+The Uploads service consists of a few S3 buckets and some integration functions. It is the only point where the downstream applications owned by Mathematica interact with our application. This is in two buckets.
+
+1. Uploads: This is where attachment files are stored
+1. DynamoSnapshotBucket: This is where snapshots of our dynamo database are stored as JSON objects for Mathematica to download.
+
+Any uploads are first stored in an inaccessible folder until they are scanned by the anti-virus scanner. Antivirus definitions are updated daily. This is to prevent anyone from uploading malicious files.
+
 ### Integrations with Mathematica
 
-#### S3 buckets
-
-#### Endpoints associated with integration
+The IAM roles that we receive from Mathematica are stored as SSM parameters and can be accessed and changed in the corresponding AWS account.
 
 # Year End Transition Documentation
 
