@@ -120,6 +120,7 @@ export const measureDescriptions: MeasureList = {
       "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
     "FUM-AD":
       "Follow-Up after Emergency Department Visit for Mental Illness: Age 18 and Older",
+    "FUM-HH": "Follow-Up after Emergency Department Visit for Mental Illness",
     "FVA-AD": "Flu Vaccinations for Adults Ages 18 to 64",
     "HPC-AD":
       "Comprehensive Diabetes Care: Hemoglobin A1c (HbA1c) Poor Control (> 9.0%)",

@@ -22,6 +22,22 @@ const APMCHValidation = (data: FormData) => {
     return errorArray;
   }
 
+  const validateEqualQualifierDenominatorsErrorMessage = (
+    qualifier: string
+  ) => {
+    const isTotal = qualifier.split(" ")[0] === "Total";
+    return `${
+      isTotal ? "" : "The "
+    }${qualifier} denominator must be the same for each indicator.`;
+  };
+
+  const validateTotalNDRErrorMessage = (
+    qualifier: string,
+    fieldType: string
+  ) => {
+    return `${fieldType} for the ${qualifier} Total rate is not equal to the sum of the ${qualifier} age-specific ${fieldType.toLowerCase()}s.`;
+  };
+
   errorArray = [
     // Performance Measure and OPM Validations
     ...GV.validateAtLeastOneRateComplete(
@@ -50,10 +66,17 @@ const APMCHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, PMD.categories),
+    ...GV.validateTotalNDR(
+      performanceMeasureArray,
+      undefined,
+      PMD.categories,
+      validateTotalNDRErrorMessage
+    ),
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
-      PMD.qualifiers
+      PMD.qualifiers,
+      undefined,
+      validateEqualQualifierDenominatorsErrorMessage
     ),
 
     // OMS Validations
