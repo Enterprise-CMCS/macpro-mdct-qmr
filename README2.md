@@ -330,18 +330,39 @@ Right now the automation step does not run on the Val or Prod branches due to se
 
 | Environment | URL                                    |
 | ----------- | -------------------------------------- |
+| Local       | http://localhost:3000/                 |
 | Branch      | Found in the output of the Deploy step |
 | Master      | https://mdctqmrdev.cms.gov/            |
 | Val         | https://mdctqmrval.cms.gov/            |
 | Prod        | https://mdctqmr.cms.gov/               |
 
-## Deploy from Local
+## Deploy Single Service from Local
 
-As you are developing you may want to debug and not wait for the 12-20 minutes it takes for changes to go through GitHub actions. You can deploy individual services using serverless. You must first [set up local AWS credentials](###setting-up-aws-credentials-locally)
+As you are developing you may want to debug and not wait for the 12-20 minutes it takes for changes to go through GitHub actions. You can deploy individual services using serverless.
 
-`sls deploy --stage branchname`
+1. Ensure all stages of the branch have deployed once through github actions
+1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
+1. Navigate to the service you are trying to deploy ie: `/services/app-api`
+1. Run `sls deploy --stage branchname`, where branchname is the name of your branch.
 
-## Destroy from Local
+## Destroy single service from Local
+
+Destroying is largely the same process as deploying.
+
+1. Ensure all stages of the branch have deployed once through github actions
+1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
+1. Navigate to the service you are trying to deploy ie: `/services/app-api`
+1. Run `sls destroy --stage branchname`, where branchname is the name of your branch.
+
+Some known issues with this process of destroying is that S3 buckets will not be deleted properly, so I would recommend destroying through GithubActions or destroying the entire branch.
+
+## Destroy entire Branch from Local
+
+In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
+
+1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
+1. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
+1. `sh destroy.sh name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
 # Services
 
