@@ -23,10 +23,6 @@ This application measures the quality of care and programs offered by states rel
 
 The new web-based QMR application will allow CMS to access data submitted by the states in real time and with more accuracy. QMR has also been designed with HCD best practices in mind and has incorporated conditional logic and validation to ensure moving through each measure provides a better user experience and ease in understanding of what is being asked.
 
-## Quickstart
-
-This application was forked from the [Quickstart Repository](https://github.com/cmsgov/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
-
 # Table of Contents
 
 - [Getting Started](#getting-started)
@@ -82,6 +78,7 @@ This application was forked from the [Quickstart Repository](https://github.com/
   - [Things to Look Out For (Gotchas)](#things-to-look-out-for-gotchas)
 - [Debugging Problems and Solutions](#debugging-problems-and-solutions)
 - [Contributing / To-D](#contributing--to-do)
+- [Quickstart](#quickstart)
 - [License](#license)
 
 # Getting Started
@@ -725,6 +722,10 @@ To contribute:
 - Open a pull request targetting this repository
 
 Pull requests are being accepted.
+
+# Quickstart
+
+This application was forked from the [Quickstart Repository](https://github.com/cmsgov/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
 
 # License
 
