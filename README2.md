@@ -99,6 +99,24 @@ The following are prerequisites for local development.
    ```bash
    yarn install  # can be skipped, will run automatically in dev script
    ```
+1. Set up your local ENV. There is no protected information for the local env. The name should be `.env` and it will be at the top of the project:
+
+   ```
+   SKIP_PREFLIGHT_CHECK=true
+   LOCAL_LOGIN=true
+   MEASURE_TABLE_NAME=local-measures
+   MEASURE_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
+   coreSetTableName=local-coreSets
+   measureTableName=local-measures
+   CORESET_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
+   DYNAMODB_URL=http://localhost:8000
+   API_URL=http://localhost:3030/local
+   S3_LOCAL_ENDPOINT=http://localhost:4569
+   S3_ATTACHMENTS_BUCKET_NAME=local-uploads
+   URL=http://localhost/3000
+   SLS_INTERACTIVE_SETUP_ENABLE=1
+   ```
+
 1. Run the application.
    ```bash
    ./dev local
