@@ -27,6 +27,62 @@ The new web-based QMR application will allow CMS to access data submitted by the
 
 This application was forked from the [Quickstart Repository](https://github.com/cmsgov/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
 
+# Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Register an EUA Account](#register-an-eua-account)
+  - [IDM](#idm)
+  - [GitHub](#github)
+  - [AWS](#aws)
+    - [Request Access to an AWS Account](#request-access-to-qmr-aws-environments)
+    - [VPN](#vpn)
+    - [Installing AWS CLI](#installing-aws-cli)
+    - [Kion](#kion)
+    - [Installing Aws Credentials Locally](#setting-up-aws-credentials-locally)
+    - [Security Hub](#security-hub)
+    - [Service Now (SNOW)](#service-now-snow)
+  - [Local Development Setup](#local-development-setup)
+    - [Prettier](#prettier)
+    - [Prettier with VS Code](#prettier-with-vs-code)
+    - [Prettier CLI](#prettier-cli)
+- [Testing](#testing)
+- [Deployment](#deployment)
+  - [Branch Strategy and Naming](#branch-strategy-and-naming)
+  - [Pull Requests](#pull-requests)
+  - [GitHub Actions](#github-actions)
+  - [Live URLS](#live-urls)
+  - [Deploy Single Service from Local](#deploy-single-service-from-local)
+  - [Destroy Single service from local](#destroy-single-service-from-local)
+  - [Destroy Entire Branch from Local](#destroy-entire-branch-from-local)
+- [Services](#services)
+  - [Architecture Diagram](#architecture-diagram)
+  - [Serverless](#serverless)
+  - [App API](#app-api)
+    - [Overview](#overview)
+    - [Parameters](#parameters)
+    - [CoreSet](#coreset)
+    - [Measures](#measures)
+    - [Kafka](#kafka)
+    - [Utilities](#utilities)
+  - [Database](#database)
+    - [Tables](#tables)
+    - [How to set up Dynamo endpoint to view local Db](#how-to-set-up-dynamo-endpoint-to-view-local-db)
+    - [Stream Functions](#stream-functions)
+  - [UI](#ui)
+  - [UI-AUTH](#ui-auth)
+    - [Okta](#Okta)
+    - [Automating Test User Creation](#automating-test-user-creation)
+  - [UI-SRC](#ui-src)
+    - [General Stack Details](#general-stack-details)
+    - [Component Library](#component-library)
+  - [Uploads](#uploads)
+    - [Integrations with Mathematica](#integrations-with-mathematica)
+- [Year End Transition Documentation](#year-end-transition-documentation)
+  - [Things to Look Out For (Gotchas)](#things-to-look-out-for-gotchas)
+- [Debugging Problems and Solutions](#debugging-problems-and-solutions)
+- [Contributing / To-D](#contributing--to-do)
+- [License](#license)
+
 # Getting Started
 
 ## Register an EUA Account
@@ -352,7 +408,7 @@ Destroying is largely the same process as deploying.
 
 Some known issues with this process of destroying is that S3 buckets will not be deleted properly, so I would recommend destroying through GithubActions or destroying the entire branch.
 
-## Destroy entire Branch from Local
+## Destroy Entire Branch from Local
 
 In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
 
@@ -362,9 +418,11 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 
 # Services
 
-## Architecture
+## Architecture Diagram
 
 ![Architecture Diagram](./.images/architecture.svg?raw=true)
+
+## Serverless
 
 ## App API
 
@@ -477,7 +535,7 @@ To add new users with new attributes, you can edit the `users.json`
 
 The ui-src service contains all of our frontend code and is therefore the largest service in the project. Our project uses the React Web Framework, Typescript, Chakra-UI for components, react-icons for various icons in the application, and react-query
 
-### general stack details
+### General Stack Details
 
 | Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                           |
 | ----------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
