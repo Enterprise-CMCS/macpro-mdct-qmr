@@ -180,7 +180,7 @@ Users can log into QMR's non-development environments using IDM.
 
 ## Github
 
-## VPN
+GitHub access can be granted by any Admin on the Repo, but you will need to request it first, either through Slack or through GitHub's interface.
 
 ## AWS
 
@@ -197,6 +197,19 @@ You must be manually added to the appropriate AWS environments by CMS personnel.
    - read-only for production
 1. Someone from the DevSecOps team should give you a link to a Jira ticket, or may ask you to make the ticket.
 1. Follow along with the status of the ticket and provide any additional information needed. Most likely you will be asked to comment on the ticket confirming you can access AWS resources and the work is complete.
+
+### VPN
+
+VPN access will be given in the process of requesting AWS access.
+
+1. A ticket will be created with CMS to request VPN access be granted.
+1. An email will be sent to the account associated with your EUA ID containing
+   1. Login credentials for getting Multifactor Authentication and
+   1. A temporary password
+1. With this information you can set up MFA through your phone or email.
+1. After you have MFA you can use whatever VPN Client you prefer to connect to the CMS VPN
+
+VPN access is needed to login to Kion and access your list of AWS accounts.
 
 ### Installing AWS CLI
 
@@ -272,25 +285,29 @@ The short version of the CICD Pipeline is `Pull Request → Github Actions → C
 
 All of the deployments start with new code on a branch. A branch environment is created and this is where automated and manual testing occurs. Once all of the checks have been passed on a branch, it is pulled into the Master branch where more testing is done and all functionality is verified. Then it is pushed to the Val Branch, where a selection of business users test the new functionality and provide a further round of feedback. Once this feedback has been addressed a final push to the Production branch is done where live users have access to the new features.
 
-## github actions
+## Pull Requests
 
-`precommit/prettier`
+## GitHub Actions
 
-`codeclimate`
+Github Actions are defined in the `.github/workflows` folder.
 
-`Deploy`
+1. `precommit/prettier`: This runs prettier checks on the application and fixes minor issues if found. Any major issues that can't be corrected by `prettier fix` makes this step fail, and thus the whole pipeline will fail
 
-`Automation Deploy`
+1. `codeclimate`: This checks several code metrics including test coverage of the PR vs the existing code. If test coverage decreases or if different criteria are violated, this step will fail and require remediation in the code climate application.
 
-### Where they run, how to tell if they have failed
+1. `Deploy`: First runs unit tests, if any fail the deploy fails. Then goes through each service and deploys the cloudformation stack for it. The actions can also be monitored in AWS in the Cloudformation application. The Stack name will be `branch-name-service-name`. That information can also be useful for debugging if your stack fails to deploy.
 
-## master → val → prod
+   At the end of the deploy step the cloudfront URL will be output in the logs. This is one of the ways to retrieve the url for testing on a branch.
+
+1. `Deploy Support`: Deploys the connection between the Security Hub and GitHub to create new GitHub issues in the repo if any security violations are found.
+
+1. `Automation Deploy`: Runs all of the automation tests.
+
+Right now the automation step does not run on the Val or Prod branches due to security restrictions around test users altering real data.
 
 ### deployment process
 
 ## live env urls
-
-### Where the branch URL can be found (in the github build action)
 
 ### Dev
 
