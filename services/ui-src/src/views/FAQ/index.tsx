@@ -7,5 +7,3 @@ export const FAQ = () => {
     </QMR.StateLayout>
   );
 };
-
-export default FAQ;

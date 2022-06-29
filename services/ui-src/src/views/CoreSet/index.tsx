@@ -445,5 +445,3 @@ export const CoreSet = () => {
     </QMR.StateLayout>
   );
 };
-
-export default CoreSet;

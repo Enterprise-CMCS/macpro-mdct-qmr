@@ -7,4 +7,3 @@ export function NotFound(): JSX.Element {
     </CUI.Flex>
   );
 }
-export default NotFound;

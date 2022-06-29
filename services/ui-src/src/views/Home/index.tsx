@@ -29,4 +29,3 @@ export function Home() {
   }
   return <Navigate to={`/${userState}/${config.currentReportingYear}`} />;
 }
-export default Home;

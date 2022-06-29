@@ -240,5 +240,3 @@ export const ApiTester = () => {
     </>
   );
 };
-
-export default ApiTester;

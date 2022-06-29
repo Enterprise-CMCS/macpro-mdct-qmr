@@ -38,5 +38,3 @@ export const AdminHome = () => {
     </CUI.Container>
   );
 };
-
-export default AdminHome;

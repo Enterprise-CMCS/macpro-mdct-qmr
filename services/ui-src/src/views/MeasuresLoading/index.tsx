@@ -13,4 +13,3 @@ export function MeasuresLoading(): JSX.Element {
     </CUI.Flex>
   );
 }
-export default MeasuresLoading;

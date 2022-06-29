@@ -16,20 +16,52 @@ import { measureDescriptions } from "measures/measureDescriptions";
 // } from "libs/awsLib";
 // import config from "config";
 
-const Home = lazy(() => import("views/Home"));
-const FAQ = lazy(() => import("views/FAQ"));
-const StateHome = lazy(() => import("views/StateHome"));
-const AdminHome = lazy(() => import("views/AdminHome"));
-const AddHHCoreSet = lazy(() => import("views/AddHHCoreSet"));
-const CoreSet = lazy(() => import("views/CoreSet"));
-const AddChildCoreSet = lazy(() => import("views/AddChildCoreSet"));
-const AddStateSpecificMeasure = lazy(
-  () => import("views/AddStateSpecificMeasure")
+const Home = lazy(() =>
+  import("views/Home").then((module) => ({ default: module.Home }))
 );
-const ApiTester = lazy(() => import("views/ApiTester"));
-const NotFound = lazy(() => import("views/NotFound"));
-const MeasuresLoading = lazy(() => import("views/MeasuresLoading"));
-const MeasureWrapper = lazy(() => import("components/MeasureWrapper"));
+const FAQ = lazy(() =>
+  import("views/FAQ").then((module) => ({ default: module.FAQ }))
+);
+const StateHome = lazy(() =>
+  import("views/StateHome").then((module) => ({ default: module.StateHome }))
+);
+const AdminHome = lazy(() =>
+  import("views/AdminHome").then((module) => ({ default: module.AdminHome }))
+);
+const AddHHCoreSet = lazy(() =>
+  import("views/AddHHCoreSet").then((module) => ({
+    default: module.AddHHCoreSet,
+  }))
+);
+const CoreSet = lazy(() =>
+  import("views/CoreSet").then((module) => ({ default: module.CoreSet }))
+);
+const AddChildCoreSet = lazy(() =>
+  import("views/AddChildCoreSet").then((module) => ({
+    default: module.AddChildCoreSet,
+  }))
+);
+const AddStateSpecificMeasure = lazy(() =>
+  import("views/AddStateSpecificMeasure").then((module) => ({
+    default: module.AddStateSpecificMeasure,
+  }))
+);
+const ApiTester = lazy(() =>
+  import("views/ApiTester").then((module) => ({ default: module.ApiTester }))
+);
+const NotFound = lazy(() =>
+  import("views/NotFound").then((module) => ({ default: module.NotFound }))
+);
+const MeasuresLoading = lazy(() =>
+  import("views/MeasuresLoading").then((module) => ({
+    default: module.MeasuresLoading,
+  }))
+);
+const MeasureWrapper = lazy(() =>
+  import("components/MeasureWrapper").then((module) => ({
+    default: module.MeasureWrapper,
+  }))
+);
 
 interface MeasureRoute {
   path: string;
