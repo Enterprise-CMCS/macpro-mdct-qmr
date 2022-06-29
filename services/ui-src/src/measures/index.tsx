@@ -4,6 +4,7 @@ import twentyTwentyTwoMeasures, { QualifierData as data2022 } from "./2022";
 import * as QMR from "components";
 
 export type CustomValidator = (res: ResolverResult) => ResolverResult;
+
 interface MeasuresByYear {
   [year: string]: {
     [measure: string]: (props: QMR.MeasureWrapperProps) => JSX.Element | null;
