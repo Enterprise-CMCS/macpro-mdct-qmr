@@ -117,6 +117,13 @@ The following are prerequisites for local development.
    SLS_INTERACTIVE_SETUP_ENABLE=1
    ```
 
+1. Set up the UI-SRC ENV.
+
+   1. Navigate to `/services/ui-src/`.
+   1. Make a new file: `.env`
+   1. Copy the contents of `.env_example` into `.env`
+      1. If you want to connect to real resources for the branch you can tweak these values with the resource values found in AWS.
+
 1. Run the application.
    ```bash
    ./dev local
