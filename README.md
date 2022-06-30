@@ -53,7 +53,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
       - [Prettier CLI](#prettier-cli)
 - [Testing](#testing)
   - [Update Node modules](#update-node-modules)
-  - [Generate ENV file with AWS Credentials](#generate-env-file-with-aws-credentials)
+  - [Generate .env file with AWS Credentials](#generate-env-file-with-aws-credentials)
   - [runners used](#runners-used)
   - [assertion libs used](#assertion-libs-used)
   - [How to Run Tests](#how-to-run-tests)
@@ -399,7 +399,18 @@ npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 
 ## Update Node modules
 
-## Generate ENV file with AWS Credentials
+## Generate .env file with AWS Credentials
+
+1. Connect to your **CloudVPN**
+2. Navigate and log into [CloudTamer](https://cloudtamer.cms.gov/)
+3. Under `mdct-qmr-dev`, click the **"Cloud Access"** button
+4. Select **"Generate Short-Term Access Keys"**
+5. Copy the AWS access keys
+6. On your local QMR environment, navigate to `cd tests/cypress`
+7. Paste the AWS access keys from Step #5
+8. Run `./configureLocal.sh master`
+
+The `Cypress` environment (**.env**) file will be generated and populated under `tests/cypress.env.json`.
 
 ## runners used
 
@@ -418,18 +429,20 @@ cd cypress/
 yarn install
 ```
 
-This environment file (**.env**) must be populated under `tests/cypress.env.json`, for details on that file refer to the [AWS](#setting-up-aws-credentials-locally) section.
-
 ### Running Cypress Tests
 
-To run the end-to-end `Cypress` tests:
+To run the end-to-end (E2E) `Cypress` tests:
 
 ```
 cd tests/
 yarn test
 ```
 
-The `Cypress` application will kick off, you can select a test and run it.
+The `Cypress` application will kick off, where you can find a list of all the available E2E tests.
+
+To run an invidiual Child Measure test, you first need to create these measures by running the `create_delete_child.spec.ts` test.
+
+Similarly, to run an individual Health Home Measure test, you first need to create these measures by running the `create_delete_healthhome.spec.ts` test.
 
 ### Running Unit Tests
 
