@@ -74,7 +74,7 @@ const PQI92Validation = (data: FormData) => {
       validationCallbacks: [
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateOMSTotalNDR,
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];

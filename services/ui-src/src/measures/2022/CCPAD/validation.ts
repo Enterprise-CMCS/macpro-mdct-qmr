@@ -71,7 +71,7 @@ const CCPADValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];

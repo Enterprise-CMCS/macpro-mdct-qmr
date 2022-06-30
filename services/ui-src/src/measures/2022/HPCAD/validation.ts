@@ -41,7 +41,7 @@ const HPCADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
       ],
     }),
     ...GV.validateDualPopInformationPM(

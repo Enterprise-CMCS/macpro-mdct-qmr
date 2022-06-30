@@ -68,9 +68,9 @@ const FUACHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
       ],
     }),

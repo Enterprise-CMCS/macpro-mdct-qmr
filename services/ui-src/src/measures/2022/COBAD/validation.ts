@@ -68,8 +68,8 @@ const COBADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateRateZeroOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateRateZeroOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(

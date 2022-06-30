@@ -92,9 +92,9 @@ const WCCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateOMSTotalNDR,
+        GV.validateOMSTotalNDR(),
         GV.validateRateZeroOMS(),
       ],
     }),

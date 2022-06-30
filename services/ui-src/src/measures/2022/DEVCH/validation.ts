@@ -38,8 +38,8 @@ const DEVCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateOMSTotalNDR,
-        GV.validateRateZeroOMS,
+        GV.validateOMSTotalNDR(),
+        GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
       ],
     }),

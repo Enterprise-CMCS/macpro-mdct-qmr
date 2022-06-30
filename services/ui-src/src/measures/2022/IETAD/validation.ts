@@ -131,7 +131,7 @@ const IETValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
         sameDenominatorSets,
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),

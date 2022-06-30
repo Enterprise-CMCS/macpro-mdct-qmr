@@ -165,11 +165,11 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
         simpleRate,
       ]);
       const errors = [
-        ...validateRateZeroOMS({
+        ...validateRateZeroOMS()({
           ...baseOMSInfo,
           rateData: data,
         }),
-        ...validateRateZeroOMS({
+        ...validateRateZeroOMS()({
           ...baseOMSInfo,
           rateData: data,
         }),
@@ -183,7 +183,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
         manualNonZeroRate,
         manualNonZeroRate,
       ]);
-      const errors = validateRateZeroOMS({
+      const errors = validateRateZeroOMS()({
         ...baseOMSInfo,
         rateData: data,
       });

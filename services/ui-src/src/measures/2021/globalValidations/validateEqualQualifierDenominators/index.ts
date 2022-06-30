@@ -47,27 +47,23 @@ const _validation = ({
 /**
  * All qualifiers need to have the same denominator
  */
-export const validateEqualQualifierDenominatorsOMS: OmsValidationCallback = ({
-  rateData,
-  categories,
-  qualifiers,
-  label,
-  locationDictionary,
-  isOPM,
-}) => {
-  if (isOPM) return [];
-  return _validation({
-    qualifiers,
-    location: "Optional Measure Stratification",
-    locationFunc: (qual) =>
-      `Optional Measure Stratification: ${locationDictionary([
-        ...label,
-        qual,
-      ])}`,
-    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-    errorMessage: "Denominators must be the same for each category.",
-  });
-};
+export const validateEqualQualifierDenominatorsOMS =
+  (errorMessage?: string): OmsValidationCallback =>
+  ({ rateData, categories, qualifiers, label, locationDictionary, isOPM }) => {
+    if (isOPM) return [];
+    return _validation({
+      qualifiers,
+      location: "Optional Measure Stratification",
+      locationFunc: (qual) =>
+        `Optional Measure Stratification: ${locationDictionary([
+          ...label,
+          qual,
+        ])}`,
+      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      errorMessage:
+        errorMessage ?? "Denominators must be the same for each category.",
+    });
+  };
 
 /**
  * All qualifiers need to have the same denominator

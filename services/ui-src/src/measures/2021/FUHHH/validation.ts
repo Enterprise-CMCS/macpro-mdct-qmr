@@ -84,11 +84,11 @@ const FUHHHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateOMSTotalNDR,
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];

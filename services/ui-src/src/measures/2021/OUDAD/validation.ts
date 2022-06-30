@@ -61,7 +61,7 @@ const OUDValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
         GV.validateEqualCategoryDenominatorsOMS(),

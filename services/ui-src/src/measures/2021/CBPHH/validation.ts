@@ -67,7 +67,7 @@ const CBPValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateNotZeroOMS(),
         GV.validateRateZeroOMS(),
-        GV.validateOMSTotalNDR,
+        GV.validateOMSTotalNDR(),
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(

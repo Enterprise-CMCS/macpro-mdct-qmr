@@ -62,9 +62,9 @@ const AMRCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateOMSTotalNDR,
+        GV.validateOMSTotalNDR(),
         GV.validateRateNotZeroOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];

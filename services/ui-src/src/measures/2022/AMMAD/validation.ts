@@ -134,7 +134,7 @@ const AMMADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
         sameDenominatorSets,
       ],

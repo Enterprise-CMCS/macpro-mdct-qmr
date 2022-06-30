@@ -71,7 +71,7 @@ const FUAADValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),

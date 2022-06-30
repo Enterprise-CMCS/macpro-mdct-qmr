@@ -83,8 +83,8 @@ const FUMCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateRateZeroOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
       ],
     }),

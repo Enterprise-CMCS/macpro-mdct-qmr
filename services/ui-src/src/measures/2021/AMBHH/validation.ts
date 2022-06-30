@@ -74,7 +74,7 @@ const AMBHHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateOMSTotalNDR,
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];

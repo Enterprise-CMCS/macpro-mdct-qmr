@@ -85,12 +85,12 @@ const FUMHHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateOMSTotalNDR,
+        GV.validateOMSTotalNDR(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];

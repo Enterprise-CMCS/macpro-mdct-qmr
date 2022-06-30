@@ -71,7 +71,7 @@ const CCWADValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateEqualCategoryDenominatorsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
       ],
     }),

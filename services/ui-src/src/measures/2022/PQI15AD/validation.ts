@@ -54,7 +54,7 @@ const PQI15Validation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateRateZeroOMS,
+        GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
       ],
     }),

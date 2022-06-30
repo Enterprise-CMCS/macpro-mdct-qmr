@@ -38,8 +38,8 @@ const WCVCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateOMSTotalNDR,
-        GV.validateRateZeroOMS,
+        GV.validateOMSTotalNDR(),
+        GV.validateRateZeroOMS(),
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(

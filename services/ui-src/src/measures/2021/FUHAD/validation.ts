@@ -93,7 +93,7 @@ const FUHValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateEqualQualifierDenominatorsOMS(),
       ],
     }),
   ];

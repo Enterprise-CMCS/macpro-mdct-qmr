@@ -178,3 +178,5 @@ describe("Testing Partial Rate Validation", () => {
     });
   });
 });
+
+// TODO: Test for custom errorMessage
