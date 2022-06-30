@@ -16,10 +16,14 @@ SHIFT + CMD/CTRL + V
 
 ## What is QMR
 
+---
+
 The new Quality Measure Reporting (QMR) application will house all the state required measures for reporting on Adult, Child, and Health Home core sets. The new application is replacing the time intensive SDF files previously used for submission. Data collected within the QMR application will be sent to the CMS partner MPR for analytics and reporting via the CollabraLink owned BigMAC application.
 This application measures the quality of care and programs offered by states related to their Adult, Child and Health Home offerings.
 
 ## Value
+
+---
 
 The new web-based QMR application will allow CMS to access data submitted by the states in real time and with more accuracy. QMR has also been designed with HCD best practices in mind and has incorporated conditional logic and validation to ensure moving through each measure provides a better user experience and ease in understanding of what is being asked.
 
@@ -49,12 +53,13 @@ The new web-based QMR application will allow CMS to access data submitted by the
     - [Create New Branches and PRs for Tests](#create-new-branches-and-prs-for-tests)
   - [GitHub Actions](#github-actions)
   - [Live URLS](#live-urls)
-  - [Deploy Single Service from Local](#deploy-single-service-from-local)
-  - [Destroy Single service from local](#destroy-single-service-from-local)
-  - [Destroy Entire Branch from Local](#destroy-entire-branch-from-local)
 - [Services](#services)
   - [Architecture Diagram](#architecture-diagram)
   - [Serverless](#serverless)
+    - [Configuration - AWS Systems Manager Parameter Store (SSM)](#configuration---aws-systems-manager-parameter-store-ssm)
+    - [Deploy Single Service from Local](#deploy-single-service-from-local)
+    - [Destroy Single service from local](#destroy-single-service-from-local)
+    - [Destroy Entire Branch from Local](#destroy-entire-branch-from-local)
   - [App API](#app-api)
     - [Overview](#overview)
     - [Parameters](#parameters)
@@ -86,6 +91,8 @@ The new web-based QMR application will allow CMS to access data submitted by the
 
 ## Register an EUA Account
 
+---
+
 In order to make changes against this repo and interact with associated services, you will need an EUA account with appropriate job codes. Create an EUA user ID here: [https://eua.cms.gov/iam/im/pri/](https://eua.cms.gov/iam/im/pri/).
 
 EUA access requests may take days or weeks to process, but local development setup can continue. It is highly recommended you make your EUA requests before continuing.
@@ -111,11 +118,15 @@ Job codes needed may vary by contract and job role. Consult with your team for a
 
 ## IDM
 
+---
+
 Users can log into QMR's non-development environments using IDM.
 
 > [CMS' Identity Management (IDM) system](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/EnterpriseIdentityManagement/EIDM-Overview) is an established, enterprise-wide, identity management solution. IDM is leveraged by CMS business applications across the agency. End users of all business applications that integrate with this solution can use a single set of user credentials to access any integrated application.
 
 ### Creating an IDM Account
+
+---
 
 1. Access QMR at https://mdctqmr.cms.gov and select "Register"
 1. Select the New User Registration button on the IDM sign-in screen
@@ -123,6 +134,8 @@ Users can log into QMR's non-development environments using IDM.
 1. Enter a user ID and password, select a security question, and submit.
 
 ### Initiate Role Request for QMR Access via IDM
+
+---
 
 1. Sign in to IDM at https://home.idm.cms.gov
 1. Select the "Role Request" tile
@@ -138,13 +151,19 @@ Users can log into QMR's non-development environments using IDM.
 
 ## Github
 
+---
+
 GitHub access can be granted by any Admin on the Repo, but you will need to request it first, either through Slack or through GitHub's interface.
 
 ## AWS
 
+---
+
 _You must have an EUA account and your request for the appropriate job codes must be approved before you will be able to access AWS. See [Register an EUA Account section](#register-an-eua-account) of this document for more information._
 
 ### Request Access to QMR AWS Environments
+
+---
 
 You must be manually added to the appropriate AWS environments by CMS personnel. That request can be made in Jira or Slack.
 
@@ -157,6 +176,8 @@ You must be manually added to the appropriate AWS environments by CMS personnel.
 1. Follow along with the status of the ticket and provide any additional information needed. Most likely you will be asked to comment on the ticket confirming you can access AWS resources and the work is complete.
 
 ### VPN
+
+---
 
 VPN access will be given in the process of requesting AWS access.
 
@@ -171,9 +192,13 @@ VPN access is needed to login to Kion and access your list of AWS accounts. It i
 
 ### Installing AWS CLI
 
+---
+
 Information on installing the AWS CLI for your machine can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
 ### Kion
+
+---
 
 [Kion](https://cloudtamer.cms.gov/portal/project) is the application where one can reach the different AWS accounts that they have access to. It requires For the QMR application the relevant accounts are.
 
@@ -184,6 +209,8 @@ Information on installing the AWS CLI for your machine can be found [here](https
 They can be found in the Projects tab of Kion.
 
 ### Setting up AWS Credentials locally
+
+---
 
 Once you have configured the AWS CLI on your personal machine, if you want to access a given account locally you will.
 
@@ -200,6 +227,8 @@ Once this process is completed you will be able to access and deploy resources f
 
 ### Accessing SSM Parameters
 
+---
+
 Any Secure or sensitive values used by the application are stored in AWS's Parameter Store. To access these you will need to
 
 1. Login to the specific account
@@ -208,6 +237,8 @@ Any Secure or sensitive values used by the application are stored in AWS's Param
 1. Find the Parameter you are looking for. For example the test user credentials are stored in `/configuration/testPassword1`
 
 ### Security Hub
+
+---
 
 Security Hub is an AWS service that identifies security issues in an account and requests remediation within a certain time period.
 
@@ -222,11 +253,15 @@ Critical and High threats will be posted as issues in the GitHub repository.
 
 ### Service Now (SNOW)
 
+---
+
 Any AWS issues that are outside the capability or access level of the team needs to either go through the Devsecops team or through a service desk ticket.
 
 SNOW is the ticketing service used by CMS and new tickets can be created [here](https://jiraent.cms.gov/plugins/servlet/desk/portal/22). You will need to be on the VPN to access SNOW. The majority of tickets will be IAM related and the turnaround time is usually about 12-24 hours between the time of filing the ticket and the first response from a human. With that in mind it's good to set aside extra time for tickets that you know will touch on IAM or new Cloud Services.
 
 ## Local Development Setup
+
+---
 
 The following are prerequisites for local development.
 
@@ -305,9 +340,13 @@ The following are prerequisites for local development.
 
 ### Prettier
 
+---
+
 This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.html). The package is downloaded during `yarn install` and is run automatically in a pre-commit hook. Additionally, the Prettier formatter can be run on file save in many IDEs or run ad hoc from the command line.
 
 #### Prettier with VS Code
+
+---
 
 The Prettier extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
@@ -317,51 +356,14 @@ VS Code is used almost ubiquitously across the current development team, but sim
 
 #### Prettier CLI
 
+---
+
 Using this command, or a variant of it, will format all matching files in the codebase and write the changes. Prettier has complete [CLI documentation](https://prettier.io/docs/en/cli.html) on their website.
 
 ```bash
 npx prettier --write . # format everything relative to the pwd
 npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 ```
-
-## IDM
-
-Users can log into QMR's non-development environments using IDM.
-
-> [CMS' Identity Management (IDM) system](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/EnterpriseIdentityManagement/EIDM-Overview) is an established, enterprise-wide, identity management solution. IDM is leveraged by CMS business applications across the agency. End users of all business applications that integrate with this solution can use a single set of user credentials to access any integrated application.
-
-### Creating an IDM Account
-
-1. Access QMR at https://mdctqmr.cms.gov and select "Register"
-1. Select the New User Registration button on the IDM sign-in screen
-1. Provide requested information on the following screens and accept terms of service.
-1. Enter a user ID and password, select a security question, and submit.
-
-### Initiate Role Request for QMR Access via IDM
-
-1. Sign in to IDM at https://home.idm.cms.gov
-1. Select the "Role Request" tile
-1. Select "Medicaid Data Collection Tool (MDCT) Quality Measures Reporting (QMR)" from the "Select an Application" drop-down list
-1. Select the appropriate user role
-   - Note: An account can only be associated with one role. If you need to have multiple roles (Ex: state user and admin) you will need to create multiple accounts.
-1. Watch for an email confirming your role request submission
-1. View and agree to the terms of service. Click the "Next" button.
-1. Complete the Remote Identity Proofing (RIDP) form. Click the "Next" button.
-1. Answer the RIDP questions as applicable. Click "Verify".
-1. Select the applicable role attributes via the drop-down lists. Then click "Review Request".
-1. Enter a reason for the request in the provided text box. Click "Submit Role Request".
-
-### security hub
-
-### where aws resources can be found
-
-### Installing AWS CLI
-
-## how to set up dev
-
-### What needs to be in the local ENV table
-
-### how to start
 
 # Testing
 
@@ -419,6 +421,8 @@ All of the deployments start with new code on a branch. A branch environment is 
 
 ## Branch Strategy and Naming
 
+---
+
 In general we do one branch for each Jira Ticket with either the ticket number or a brief description of the functionality as the branch name.
 Our application uses the serverless stack to deploy resources to AWS, but because of that we need to be careful about how we name the branches so here are a few rules of thumb.
 
@@ -428,11 +432,15 @@ Our application uses the serverless stack to deploy resources to AWS, but becaus
 
 ## Create New Branches and PRs for Tests
 
+---
+
 When writing Cypress tests for an existing branch, create a new branch and write the tests there. For example, if the branch that needs tests is called oy2-1234, create a new branch called oy2-1234test.
 
 When the tests have been written, create a new PR for oy2-1234test and set its base to oy2-1234. Submit this PR for review.
 
 ## Pull Requests
+
+---
 
 In order for a PR to get merged into Master it needs 2 approvals, and 1 of the approvals must be from an admin on the project. The same rules apply for Val and Prod.
 
@@ -441,6 +449,8 @@ When merging to Master always choose the option to `Squash and Merge` This helps
 When Merging to Val or Prod, always use a merge commit.
 
 ## GitHub Actions
+
+---
 
 Github Actions are defined in the `.github/workflows` folder.
 
@@ -460,6 +470,8 @@ Right now the automation step does not run on the Val or Prod branches due to se
 
 ## Live URLS
 
+---
+
 | Environment | URL                                    |
 | ----------- | -------------------------------------- |
 | Local       | http://localhost:3000/                 |
@@ -468,7 +480,52 @@ Right now the automation step does not run on the Val or Prod branches due to se
 | Val         | https://mdctqmrval.cms.gov/            |
 | Prod        | https://mdctqmr.cms.gov/               |
 
-## Deploy Single Service from Local
+# Services
+
+## Architecture Diagram
+
+---
+
+![Architecture Diagram](./.images/architecture.svg?raw=true)
+
+## Serverless
+
+---
+
+This project is built as a series of micro-services using the [Serverless Framework](https://www.serverless.com/framework/docs). Serverless looks and feels like a more useful version of CloudFormation Templates, and you can even write Cloudformation inside serverless files.
+
+Every microservice in this project has a corresponding serverless file that deploys everything in the service to a cloudformation stack in AWS. Check out [The Docs](https://www.serverless.com/framework/docs) to learn more about it. But we'll cover a few things here.
+
+### Configuration - AWS Systems Manager Parameter Store (SSM)
+
+---
+
+The following values are used to configure the deployment of every service (see below for more background and context).
+| Parameter | Required? | Accepts a default? | Accepts a branch override? | Purpose |
+| --- | :---: | :---: | :---: | --- |
+| .../iam/path | N | Y | Y | Specifies the [IAM Path](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names) at which all IAM objects should be created. The default value is "/". The path variable in IAM is used for grouping related users and groups in a unique namespace, usually for organizational purposes.|
+| .../iam/permissionsBoundaryPolicy | N | Y | Y | Specifies the [IAM Permissions Boundary](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) that should be attached to all IAM objects. A permissions boundary is an advanced feature for using a managed policy to set the maximum permissions that an identity-based policy can grant to an IAM entity. If set, this parmeter should contain the full ARN to the policy.|
+
+This project uses [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html), often referred to as simply SSM, to inject environment specific, project specific, and/or sensitive information into the deployment.
+In short, SSM is an AWS service that allows users to store (optionally) encrypted strings in a directory like hierarchy. For example, "/my/first/ssm/param" is a valid path for a parameter. Access to this service and even individual paramters is granted via AWS IAM.
+
+An example of environment specific information is the id of a VPC into which we want to deploy. This VPC id should not be checked in to git, as it may vary from environment to environment, so we would use SSM to store the id information and use the [Serverless Framework's SSM lookup capability](https://www.serverless.com/framework/docs/providers/aws/guide/variables/#reference-variables-using-the-ssm-parameter-store) to fetcn the information at deploy time.
+
+This project has also implemented a pattern for specifying defaults for variables, while allowing for branch (environment specific overrides). That pattern looks like this:
+
+```
+sesSourceEmailAddress: ${ssm:/configuration/${self:custom.stage}/sesSourceEmailAddress, ssm:/configuration/default/sesSourceEmailAddress}
+```
+
+The above syntax says "look for an ssm parameter at /configuration/<branch name>/sesSourceEmailAddress; if there isn't one, look for a parameter at /configuration/default/sesSourceEmailAddress". With this logic, we can specify a generic value for this variable that would apply to all environments deployed to a given account, but if we wish to set a different value for a specific environment (branch), we can create a parameter at the branch specific path and it will take precedence.
+
+In the above tabular documentation, you will see columns for "Accepts default?" and "Accepts a branch override?". These columns relate to the above convention of searching for a branch specific override but falling back to a default parameter. It's important to note if a parameter can accept a default or can accept an override, because not all can do both. For example, a parameter used to specify Okta App information cannot be set as a default, because Okta can only support one environment (branch) at a time; so, okta_metadata_url is a good example of a parameter that can only be specified on a branch by branch basis, and never as a default.
+
+In the above documentation, you will also see the Parameter value denoted as ".../iam/path", for example. This notation is meant to represent the core of the parameter's expected path. The "..." prefix is meant to be a placeholder for either "/configuration/default" (in the case of a default value) or "/configuration/myfavoritebranch" (in the case of specifying a branch specific override for the myfavoritebranch branch.
+
+### Deploy Single Service from Local
+
+---
 
 As you are developing you may want to debug and not wait for the 12-20 minutes it takes for changes to go through GitHub actions. You can deploy individual services using serverless.
 
@@ -477,7 +534,9 @@ As you are developing you may want to debug and not wait for the 12-20 minutes i
 1. Navigate to the service you are trying to deploy ie: `/services/app-api`
 1. Run `sls deploy --stage branchname`, where branchname is the name of your branch.
 
-## Destroy single service from Local
+### Destroy single service from Local
+
+---
 
 Destroying is largely the same process as deploying.
 
@@ -488,7 +547,9 @@ Destroying is largely the same process as deploying.
 
 Some known issues with this process of destroying is that S3 buckets will not be deleted properly, so I would recommend destroying through GithubActions or destroying the entire branch.
 
-## Destroy Entire Branch from Local
+### Destroy Entire Branch from Local
+
+---
 
 In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
 
@@ -496,27 +557,27 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 1. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
 1. `sh destroy.sh name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
-# Services
-
-## Architecture Diagram
-
-![Architecture Diagram](./.images/architecture.svg?raw=true)
-
-## Serverless
-
 ## App API
 
+---
+
 ### Overview
+
+---
 
 The API service contains all of the API calls for the application. It is deployed with serverless and depends on the database service to exist first. It can be updated independently from the rest of the application as long as the inital infrastructure for the application has been created. This is to help speed up local deployment and debugging of branch resources and not for updates of any of the higher environments.
 
 ### Parameters
+
+---
 
 Parameters are passed in by the URL in this order `state/year/coreset` for coreset endpoints and `state/year/coreset/measure` for measures and are used to determine the unique id of the dynamo record.
 
 The only endpoints that need a body is `update`
 
 ### CoreSet
+
+---
 
 `create`: Creates the identified coreset, and then creates all child measures corresponding to the Adult, Child, or Health Home coreset.
 
@@ -530,6 +591,8 @@ The only endpoints that need a body is `update`
 
 ### Measures
 
+---
+
 `create`: Creates the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the create coreset endpoint.
 
 `delete`: Deletes the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the delete coreset endpoint.
@@ -542,6 +605,8 @@ The only endpoints that need a body is `update`
 
 ### Kafka
 
+---
+
 The Kafka Queues we link to are in the BigMac account and are currently not being used for any downstream purposes
 
 `postKafkaData`: Fires when an update to the database happens and syncs kafka to reflect the current state of the database.
@@ -549,6 +614,8 @@ The Kafka Queues we link to are in the BigMac account and are currently not bein
 `forceKafkaSync`: This can be manually triggered to force kafka to reflect the current state of the database.
 
 ### Utilities
+
+---
 
 `convertToDynamoExpressionVars`: Dynamo requires very specific variable naming conventions which are unwieldly to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
 
@@ -560,15 +627,21 @@ A known issue with this utility is that right now it only `ands` arguments, so i
 
 ## Database
 
+---
+
 We are using DynamoDb for our database solution for QMR. When looking for the databases in AWS search for `branchName-tableName` to find the tables for your branch.
 
 ### Tables
+
+---
 
 `coresets`: Takes a compound key containing a unique combination of state, year, and coreset ID.
 
 `measures`: Takes a compound key containing a unique combination of state, year, coreset ID, and Measure ID.
 
 ### How to set up Dynamo endpoint to view local Db
+
+---
 
 In order to run dynamodb locally you will need to have java installed on your system. If not currently installed go here: https://java.com/en/download/ to download the latest version.
 
@@ -580,22 +653,32 @@ From here you can view the tables and perform operations on the local tables.
 
 ### Stream Functions
 
+---
+
 The stream functions fire deltas when updates to its table happens. These changes are picked up in the API where these changes are communicated to the kafka streams for the application.
 
 ## UI
+
+---
 
 The UI Service creates the URL's associated with the application and the cloudfront logs that monitor traffic.
 For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with `.com`
 
 ### Dev/Impl/Prod endpoints
 
+---
+
 [Live URL's](#live-urls)
 
 ### Branch Endpoints
 
+---
+
 The Endpoints created by a branch are random and can be found in the output of the cloudformation stack for the UI, it can also be found as an output of the deploy step of our github actions.
 
 ## UI Auth
+
+---
 
 The UI Auth service creates and manages the Authentication of the UI.
 
@@ -603,9 +686,13 @@ User data is synced from IDM to Cognito to allow for login to the application an
 
 ### Okta
 
+---
+
 Okta is the Federated Identity Provider being used to allow users to use their IDM credentials with our application.
 
 ### Automating Test User Creation
+
+---
 
 There is one lambda function in the UI-Auth Service, this is to create test users that can login to the branch environments, dev, and Val, for testing, but not production.
 
@@ -613,9 +700,13 @@ To add new users with new attributes, you can edit the `users.json`
 
 ## UI-SRC
 
+---
+
 The ui-src service contains all of our frontend code and is therefore the largest service in the project. Our project uses the React Web Framework, Typescript, Chakra-UI for components, react-icons for various icons in the application, and react-query
 
 ### General Stack Details
+
+---
 
 | Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                           |
 | ----------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -627,6 +718,8 @@ The ui-src service contains all of our frontend code and is therefore the larges
 
 ### Component Library
 
+---
+
 At it's core QMR consists of several small simple components in `/services/ui-src/src/components`
 
 These are then used to create more complex components in `/services/ui-src/src/measures/year/CommonQuestions`
@@ -637,6 +730,8 @@ When creating a new form it's best to find an existing form that is as close to 
 
 ## Uploads
 
+---
+
 The Uploads service consists of a few S3 buckets and some integration functions. It is the only point where the downstream applications owned by Mathematica interact with our application. This is in two buckets.
 
 1. Uploads: This is where attachment files are stored
@@ -645,6 +740,8 @@ The Uploads service consists of a few S3 buckets and some integration functions.
 Any uploads are first stored in an inaccessible folder until they are scanned by the anti-virus scanner. Antivirus definitions are updated daily. This is to prevent anyone from uploading malicious files.
 
 ### Integrations with Mathematica
+
+---
 
 The IAM roles that we receive from Mathematica are stored as SSM parameters and can be accessed and changed in the corresponding AWS account.
 
@@ -701,6 +798,8 @@ to make in order to get that year working.
    ![After](./.images/afterCommonComponentUpdate.png?raw=true)
 
 ## Things to Look Out For (Gotchas)
+
+---
 
 If you are creating a new shared component (e.g. files under `/globalValidations`) while editing the previous year's files, it is possible that merge conflicts will arise. Make sure these concurrent changes are not overwriting or removing necessary code.
 
