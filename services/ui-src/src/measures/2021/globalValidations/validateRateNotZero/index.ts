@@ -50,7 +50,6 @@ export const validateRateNotZeroOMS =
   };
 
 // If a user manually over-rides a rate it must not violate two rules:
-// It must be zero if the numerator is zero or
 // It Must be greater than zero if the Num and Denom are greater than zero
 export const validateRateNotZeroPM = (
   performanceMeasureArray: FormRateField[][],
@@ -58,10 +57,11 @@ export const validateRateNotZeroPM = (
   _qualifiers: string[],
   errorMessage?: string
 ) => {
+  const errorArray: FormError[] = [];
   const location = `Performance Measure/Other Performance Measure`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
 
-  return [
+  const errors = [
     ..._validationRateNotZero({
       location,
       rateData: performanceMeasureArray,
@@ -73,4 +73,7 @@ export const validateRateNotZeroPM = (
       errorMessage,
     }),
   ];
+
+  if (!!errors.length) errorArray.push(errors[0]);
+  return errorArray;
 };

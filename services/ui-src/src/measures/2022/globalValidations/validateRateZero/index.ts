@@ -69,7 +69,7 @@ export const validateRateZeroOMS =
   };
 
 // If a user manually over-rides a rate it must not violate two rules:
-// It must be zero if the numerator is zero or
+// It must be zero if the numerator is zero
 export const validateRateZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
@@ -77,13 +77,14 @@ export const validateRateZeroPM = (
   data: Types.DefaultFormData,
   errorMessage?: string
 ): FormError[] => {
+  const errorArray: FormError[] = [];
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(
     DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
   );
   const location = `Performance Measure/Other Performance Measure`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
 
-  return [
+  const errors = [
     ..._validationRateZero({
       location,
       rateData: performanceMeasureArray,
@@ -97,4 +98,7 @@ export const validateRateZeroPM = (
       errorMessage,
     }),
   ];
+
+  if (!!errors.length) errorArray.push(errors[0]);
+  return errorArray;
 };

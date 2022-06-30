@@ -6,7 +6,6 @@ import { testFormData } from "../testHelpers/_testFormData";
 import {
   generateOmsQualifierRateData,
   locationDictionary,
-  manualZeroRate,
   manualNonZeroRate,
   simpleRate,
   partialRate,
@@ -95,47 +94,6 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
       );
 
       expect(errors).toHaveLength(0);
-    });
-
-    it("should have error for zero rate but numerator non-zero", () => {
-      const errors = validateRateZeroPM(
-        [
-          [manualZeroRate, manualZeroRate],
-          [manualZeroRate, manualZeroRate],
-        ],
-        undefined,
-        qualifiers,
-        { ...testFormData }
-      );
-
-      expect(errors).toHaveLength(1);
-      expect(errors[0].errorLocation).toBe(
-        `Performance Measure/Other Performance Measure`
-      );
-      expect(errors[0].errorMessage).toBe(
-        "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
-      );
-    });
-
-    it("should have error for zero rate but numerator non-zero - OPM", () => {
-      const errors = validateRateZeroPM(
-        [],
-        generateOtherPerformanceMeasureData([
-          manualZeroRate,
-          manualZeroRate,
-          manualZeroRate,
-        ]),
-        qualifiers,
-        { ...testFormData }
-      );
-
-      expect(errors).toHaveLength(1);
-      expect(errors[0].errorLocation).toBe(
-        `Performance Measure/Other Performance Measure`
-      );
-      expect(errors[0].errorMessage).toBe(
-        "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
-      );
     });
 
     it("should NOT have error from empty rate value", () => {

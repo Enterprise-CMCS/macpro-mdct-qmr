@@ -33,45 +33,6 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
       expect(errors).toHaveLength(0);
     });
 
-    it("should have error for zero numerator but rate non-zero", () => {
-      const errors = validateRateNotZeroPM(
-        [
-          [manualNonZeroRate, manualNonZeroRate],
-          [manualNonZeroRate, manualNonZeroRate],
-        ],
-        undefined,
-        qualifiers
-      );
-
-      expect(errors).toHaveLength(1);
-      expect(errors[0].errorLocation).toBe(
-        `Performance Measure/Other Performance Measure`
-      );
-      expect(errors[0].errorMessage).toBe(
-        "Manually entered rate should be 0 if numerator is 0"
-      );
-    });
-
-    it("should have error for zero numerator but rate non-zero - OPM", () => {
-      const errors = validateRateNotZeroPM(
-        [],
-        generateOtherPerformanceMeasureData([
-          manualNonZeroRate,
-          manualNonZeroRate,
-          manualNonZeroRate,
-        ]),
-        qualifiers
-      );
-
-      expect(errors).toHaveLength(1);
-      expect(errors[0].errorLocation).toBe(
-        `Performance Measure/Other Performance Measure`
-      );
-      expect(errors[0].errorMessage).toBe(
-        "Manually entered rate should be 0 if numerator is 0"
-      );
-    });
-
     it("should have NO error for zero numerator but rate non-zero - Hybrid", () => {
       const errors = validateRateNotZeroPM(
         [],
