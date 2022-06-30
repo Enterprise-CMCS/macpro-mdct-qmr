@@ -6,7 +6,7 @@ export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of beneficiaries ages 12 to 17 screened for depression on the date of the encounter or 14 days prior to the date of the encounter using an age appropriate standardized depression screening tool, and if positive, a follow-up plan is documented on the date of the eligible encounter.",
+    "Percentage of beneficiaries ages 12 to 17 screened for depression on the date of the encounter or 14 days prior to the date of the encounter using an age-appropriate standardized depression screening tool, and if positive, a follow-up plan is documented on the date of the eligible encounter.",
   ],
   questionListItems: [],
   categories,
