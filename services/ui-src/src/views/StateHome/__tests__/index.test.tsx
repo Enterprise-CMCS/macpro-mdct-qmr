@@ -1,4 +1,4 @@
-import { StateHome } from "../index";
+import StateHome from "../index";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { QueryClient, QueryClientProvider } from "react-query";
