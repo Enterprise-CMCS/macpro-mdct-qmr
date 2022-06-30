@@ -25,28 +25,50 @@ The new web-based QMR application will allow CMS to access data submitted by the
 
 # Table of Contents
 
+- [Quality Measure Reporting (QMR)](#quality-measure-reporting-qmr)
+- [cms-mdct-qmr !Build [![latest release](https://img.shields.io/github/release/cmsgov/cms-mdct-qmr.svg)](https://github.com/cmsgov/cms-mdct-qmr/releases/latest) [![Maintainability](https://api.codeclimate.com/v1/badges/1449ad929006f559756b/maintainability)](https://codeclimate.com/github/CMSgov/cms-mdct-qmr/maintainability) [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5b10ae50ca1effedcd3/test_coverage)](https://codeclimate.com/repos/60fae00673444f5bad001bf9/test_coverage)](#cms-mdct-qmr------)
+  - [What is QMR](#what-is-qmr)
+  - [Value](#value)
+- [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
   - [Register an EUA Account](#register-an-eua-account)
   - [IDM](#idm)
-  - [GitHub](#github)
+    - [Creating an IDM Account](#creating-an-idm-account)
+    - [Initiate Role Request for QMR Access via IDM](#initiate-role-request-for-qmr-access-via-idm)
+  - [Github](#github)
   - [AWS](#aws)
-    - [Request Access to an AWS Account](#request-access-to-qmr-aws-environments)
+    - [Request Access to QMR AWS Environments](#request-access-to-qmr-aws-environments)
     - [VPN](#vpn)
+      - [Steps for Installing Cisco AnyConnect client (if not already installed)](#steps-for-installing-cisco-anyconnect-client-if-not-already-installed)
+      - [Steps for logging into Cisco AnyConnect client](#steps-for-logging-into-cisco-anyconnect-client)
     - [Installing AWS CLI](#installing-aws-cli)
     - [Kion](#kion)
-    - [Installing Aws Credentials Locally](#setting-up-aws-credentials-locally)
+    - [Setting up AWS Credentials locally](#setting-up-aws-credentials-locally)
     - [Accessing SSM Parameters](#accessing-ssm-parameters)
     - [Security Hub](#security-hub)
     - [Service Now (SNOW)](#service-now-snow)
   - [Local Development Setup](#local-development-setup)
     - [Prettier](#prettier)
-    - [Prettier with VS Code](#prettier-with-vs-code)
-    - [Prettier CLI](#prettier-cli)
+      - [Prettier with VS Code](#prettier-with-vs-code)
+      - [Prettier CLI](#prettier-cli)
 - [Testing](#testing)
+  - [Update Node modules](#update-node-modules)
+  - [Generate ENV file with AWS Credentials](#generate-env-file-with-aws-credentials)
+  - [runners used](#runners-used)
+  - [assertion libs used](#assertion-libs-used)
+  - [How to Run Tests](#how-to-run-tests)
+    - [Cypress Setup](#cypress-setup)
+    - [Running Cypress Tests](#running-cypress-tests)
+    - [Running Unit Tests](#running-unit-tests)
+      - [Code Coverage Report](#code-coverage-report)
+  - [codeclimate](#codeclimate)
+    - [location](#location)
+    - [config](#config)
+      - [How to add new files to be included in the code climate config](#how-to-add-new-files-to-be-included-in-the-code-climate-config)
 - [Deployment](#deployment)
   - [Branch Strategy and Naming](#branch-strategy-and-naming)
-    - [Pull Requests](#pull-requests)
-    - [Create New Branches and PRs for Tests](#create-new-branches-and-prs-for-tests)
+  - [Create New Branches and PRs for Tests](#create-new-branches-and-prs-for-tests)
+  - [Pull Requests](#pull-requests)
   - [GitHub Actions](#github-actions)
   - [Live URLS](#live-urls)
 - [Services](#services)
@@ -54,7 +76,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
   - [Serverless](#serverless)
     - [Configuration - AWS Systems Manager Parameter Store (SSM)](#configuration---aws-systems-manager-parameter-store-ssm)
     - [Deploy Single Service from Local](#deploy-single-service-from-local)
-    - [Destroy Single service from local](#destroy-single-service-from-local)
+    - [Destroy single service from Local](#destroy-single-service-from-local)
     - [Destroy Entire Branch from Local](#destroy-entire-branch-from-local)
   - [App API](#app-api)
     - [Overview](#overview)
@@ -68,8 +90,10 @@ The new web-based QMR application will allow CMS to access data submitted by the
     - [How to set up Dynamo endpoint to view local Db](#how-to-set-up-dynamo-endpoint-to-view-local-db)
     - [Stream Functions](#stream-functions)
   - [UI](#ui)
-  - [UI-AUTH](#ui-auth)
-    - [Okta](#Okta)
+    - [Dev/Impl/Prod endpoints](#devimplprod-endpoints)
+    - [Branch Endpoints](#branch-endpoints)
+  - [UI Auth](#ui-auth)
+    - [Okta](#okta)
     - [Automating Test User Creation](#automating-test-user-creation)
   - [UI-SRC](#ui-src)
     - [General Stack Details](#general-stack-details)
@@ -407,9 +431,47 @@ yarn test
 
 The `Cypress` application will kick off, you can select a test and run it.
 
-### Unit
+### Running Unit Tests
 
-#### How to see code coverage
+To run the `Jest` unit tests on the React components:
+
+```
+cd services/ui-src/
+yarn test
+```
+
+To run the `Jest` unit tests on the API endpoints:
+
+```
+cd services/app-api/
+yarn test
+```
+
+On the terminal, you will see the unit test results.
+
+For example:
+
+![Jest Results](./.images/jestResults.png?raw=true)
+
+#### Code Coverage Report
+
+To view a unit test code coverage report on the React components:
+
+```
+cd services/ui-src/
+yarn test --coverage
+```
+
+To view a unit test code coverage report on the API endpoints:
+
+```
+cd services/app-api/
+yarn test --coverage
+```
+
+On the terminal, there will be a detailed coverage report followed by a coverage summary similar to this one:
+
+![Code Coverage Report](./.images/codeCoverageReport.png?raw=true)
 
 ## codeclimate
 
