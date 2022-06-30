@@ -52,7 +52,8 @@ const APMCHValidation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,

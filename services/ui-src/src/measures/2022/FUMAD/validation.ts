@@ -55,12 +55,8 @@ const FUMADValidation = (data: FormData) => {
       ageGroups
     ),
     ...sameDenominatorError,
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),

@@ -66,12 +66,8 @@ const OUDValidation = (data: FormData) => {
         GV.validateEqualCategoryDenominatorsOMS(),
       ],
     }),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
   ];
 
   return errorArray;

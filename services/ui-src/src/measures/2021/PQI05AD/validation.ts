@@ -33,7 +33,8 @@ const PQI05Validation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     ...GV.validateBothDatesCompleted(dateRange),
-    ...GV.validateNoNonZeroNumOrDenomPM(
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,

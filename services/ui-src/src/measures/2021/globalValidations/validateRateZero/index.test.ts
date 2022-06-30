@@ -1,9 +1,5 @@
 import * as DC from "dataConstants";
-import {
-  validateRateZeroOMS,
-  validateRateNotZeroOMS,
-  validateNoNonZeroNumOrDenomPM,
-} from "./index";
+import { validateRateZeroOMS, validateRateZeroPM } from "./index";
 
 import { testFormData } from "../testHelpers/_testFormData";
 
@@ -32,7 +28,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
   // PM
   describe("PM/OPM Validation", () => {
     it("should return NO errors", () => {
-      const errors = validateNoNonZeroNumOrDenomPM(
+      const errors = validateRateZeroPM(
         [[simpleRate, simpleRate]],
         undefined,
         qualifiers,
@@ -43,7 +39,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
 
     it("should have error for zero numerator but rate non-zero", () => {
-      const errors = validateNoNonZeroNumOrDenomPM(
+      const errors = validateRateZeroPM(
         [
           [manualNonZeroRate, manualNonZeroRate],
           [manualNonZeroRate, manualNonZeroRate],
@@ -63,7 +59,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
 
     it("should have error for zero numerator but rate non-zero - OPM", () => {
-      const errors = validateNoNonZeroNumOrDenomPM(
+      const errors = validateRateZeroPM(
         [],
         generateOtherPerformanceMeasureData([
           manualNonZeroRate,
@@ -84,7 +80,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
 
     it("should have NO error for zero numerator but rate non-zero - Hybrid", () => {
-      const errors = validateNoNonZeroNumOrDenomPM(
+      const errors = validateRateZeroPM(
         [],
         generateOtherPerformanceMeasureData([
           manualNonZeroRate,
@@ -102,7 +98,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
 
     it("should have error for zero rate but numerator non-zero", () => {
-      const errors = validateNoNonZeroNumOrDenomPM(
+      const errors = validateRateZeroPM(
         [
           [manualZeroRate, manualZeroRate],
           [manualZeroRate, manualZeroRate],
@@ -122,7 +118,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
 
     it("should have error for zero rate but numerator non-zero - OPM", () => {
-      const errors = validateNoNonZeroNumOrDenomPM(
+      const errors = validateRateZeroPM(
         [],
         generateOtherPerformanceMeasureData([
           manualZeroRate,
@@ -143,7 +139,7 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
 
     it("should NOT have error from empty rate value", () => {
-      const errors = validateNoNonZeroNumOrDenomPM(
+      const errors = validateRateZeroPM(
         [
           [partialRate, partialRate],
           [partialRate, partialRate],
@@ -194,25 +190,6 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
       );
       expect(errors[0].errorMessage).toBe(
         "Manually entered rate should be 0 if numerator is 0"
-      );
-    });
-
-    it("should have error for zero numerator but rate non-zero", () => {
-      const data = generateOmsQualifierRateData(categories, qualifiers, [
-        manualZeroRate,
-        manualZeroRate,
-      ]);
-      const errors = validateRateNotZeroOMS()({
-        ...baseOMSInfo,
-        rateData: data,
-      });
-
-      expect(errors).toHaveLength(1);
-      expect(errors[0].errorLocation).toContain(
-        "Optional Measure Stratification: TestLabel"
-      );
-      expect(errors[0].errorMessage).toBe(
-        "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."
       );
     });
   });

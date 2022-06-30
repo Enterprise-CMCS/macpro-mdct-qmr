@@ -64,12 +64,8 @@ const FUAHHValidation = (data: FormData) => {
       ageGroups
     ),
     ...sameDenominatorError,
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
 
