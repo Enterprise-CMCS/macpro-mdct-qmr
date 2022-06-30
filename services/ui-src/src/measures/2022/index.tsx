@@ -69,6 +69,7 @@ import { PQI92HH } from "./PQI92HH";
 import { SAAAD } from "./SAAAD";
 import { SFMCH } from "./SFMCH";
 import { SSDAD } from "./SSDAD";
+import { SSHH } from "./SSHH";
 import { TFLCH } from "./TFLCH";
 import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
@@ -144,6 +145,11 @@ const twentyTwentyTwoMeasures = {
   "SAA-AD": SAAAD,
   "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
+  "SS-1-HH": SSHH,
+  "SS-2-HH": SSHH,
+  "SS-3-HH": SSHH,
+  "SS-4-HH": SSHH,
+  "SS-5-HH": SSHH,
   "TFL-CH": TFLCH,
   "W30-CH": W30CH,
   "WCC-CH": WCCCH,
