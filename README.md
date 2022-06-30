@@ -167,7 +167,9 @@ You must be manually added to the appropriate AWS environments by CMS personnel.
 
 ---
 
-Steps for Installing Cisco AnyConnect client (if not already installed)
+#### Steps for Installing Cisco AnyConnect client (if not already installed)
+
+---
 
 1. Open a browser and connect to https://cloudvpn.cms.gov
 1. Enter the following credentials:
@@ -186,7 +188,9 @@ Steps for Installing Cisco AnyConnect client (if not already installed)
    1. Allow your computer to make changes if prompted.
    1. Click 'Finish' complete the installation.
 
-Steps for logging into Cisco AnyConnect client
+#### Steps for logging into Cisco AnyConnect client
+
+---
 
 1. Open the Cisco AnyConnect client .
 2. Type or select 'cloudvpn.cms.gov' in the VPN field and click 'Connect'.
@@ -220,6 +224,7 @@ They can be found in the Projects tab of Kion.
 
 Once you have configured the AWS CLI on your personal machine, if you want to access a given account locally you will.
 
+1. [Log into the VPN](#steps-for-logging-into-cisco-anyconnect-client)
 1. Navigate to Kion
 1. Navigate to Projects
 1. Click Cloud Access
