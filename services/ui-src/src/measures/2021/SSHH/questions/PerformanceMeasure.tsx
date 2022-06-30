@@ -47,7 +47,7 @@ export const PerformanceMeasure = ({
         ],
       });
     }
-  }, [reset]);
+  }, [fields, reset]);
 
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
 
