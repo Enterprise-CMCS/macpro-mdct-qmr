@@ -16,14 +16,10 @@ SHIFT + CMD/CTRL + V
 
 ## What is QMR
 
----
-
 The new Quality Measure Reporting (QMR) application will house all the state required measures for reporting on Adult, Child, and Health Home core sets. The new application is replacing the time intensive SDF files previously used for submission. Data collected within the QMR application will be sent to the CMS partner MPR for analytics and reporting via the CollabraLink owned BigMAC application.
 This application measures the quality of care and programs offered by states related to their Adult, Child and Health Home offerings.
 
 ## Value
-
----
 
 The new web-based QMR application will allow CMS to access data submitted by the states in real time and with more accuracy. QMR has also been designed with HCD best practices in mind and has incorporated conditional logic and validation to ensure moving through each measure provides a better user experience and ease in understanding of what is being asked.
 
@@ -91,8 +87,6 @@ The new web-based QMR application will allow CMS to access data submitted by the
 
 ## Register an EUA Account
 
----
-
 In order to make changes against this repo and interact with associated services, you will need an EUA account with appropriate job codes. Create an EUA user ID here: [https://eua.cms.gov/iam/im/pri/](https://eua.cms.gov/iam/im/pri/).
 
 EUA access requests may take days or weeks to process, but local development setup can continue. It is highly recommended you make your EUA requests before continuing.
@@ -117,8 +111,6 @@ Job codes needed may vary by contract and job role. Consult with your team for a
 | CHIP_V_User               | The CHIP Enrollment Data System is the electronic media system for the states                                                                                                                                            |
 
 ## IDM
-
----
 
 Users can log into QMR's non-development environments using IDM.
 
@@ -151,13 +143,9 @@ Users can log into QMR's non-development environments using IDM.
 
 ## Github
 
----
-
 GitHub access can be granted by any Admin on the Repo, but you will need to request it first, either through Slack or through GitHub's interface.
 
 ## AWS
-
----
 
 _You must have an EUA account and your request for the appropriate job codes must be approved before you will be able to access AWS. See [Register an EUA Account section](#register-an-eua-account) of this document for more information._
 
@@ -179,16 +167,34 @@ You must be manually added to the appropriate AWS environments by CMS personnel.
 
 ---
 
-VPN access will be given in the process of requesting AWS access.
+Steps for Installing Cisco AnyConnect client (if not already installed)
 
-1. A ticket will be created with CMS to request VPN access be granted.
-1. An email will be sent to the account associated with your EUA ID containing
-   1. Login credentials for getting Multifactor Authentication and
-   1. A temporary password
-1. With this information you can set up MFA through your phone or email.
-1. After you have MFA you can use whatever VPN Client you prefer to connect to the CMS VPN
+1. Open a browser and connect to https://cloudvpn.cms.gov
+1. Enter the following credentials:
+   1. Username = EUA username
+   1. Password = EUA Password
+   1. Second Password = 6-digit Google Authenticator passcode
+1. Click 'Continue' on the Security Banner.
+1. Click the 'AnyConnectVPN' link.
+1. Click 'Save File' from the dialogue box.
+1. Go to the saved file location and run anyconnect-xxx-4.5.05030 executable file
+   1. Click 'Next' from the Welcome dialogue box.
+   1. In the EULA dialogue box:
+      1. Click the 'I accept the terms of the License Agreement' radio button.
+      1. Click 'Next'.
+   1. Click 'Install' in the Ready to Install dialogue box.
+   1. Allow your computer to make changes if prompted.
+   1. Click 'Finish' complete the installation.
 
-VPN access is needed to login to Kion and access your list of AWS accounts. It is also needed to access the ticketing system SNOW.
+Steps for logging into Cisco AnyConnect client
+
+1. Open the Cisco AnyConnect client .
+2. Type or select 'cloudvpn.cms.gov' in the VPN field and click 'Connect'.
+3. Enter the following:
+   1. Username = EUA username
+   1. Password = EUA Password
+   1. Second Password = 6-digit Google Authenticator passcode
+4. Click 'Accept' on the Security Banner.
 
 ### Installing AWS CLI
 
@@ -260,8 +266,6 @@ Any AWS issues that are outside the capability or access level of the team needs
 SNOW is the ticketing service used by CMS and new tickets can be created [here](https://jiraent.cms.gov/plugins/servlet/desk/portal/22). You will need to be on the VPN to access SNOW. The majority of tickets will be IAM related and the turnaround time is usually about 12-24 hours between the time of filing the ticket and the first response from a human. With that in mind it's good to set aside extra time for tickets that you know will touch on IAM or new Cloud Services.
 
 ## Local Development Setup
-
----
 
 The following are prerequisites for local development.
 
@@ -421,8 +425,6 @@ All of the deployments start with new code on a branch. A branch environment is 
 
 ## Branch Strategy and Naming
 
----
-
 In general we do one branch for each Jira Ticket with either the ticket number or a brief description of the functionality as the branch name.
 Our application uses the serverless stack to deploy resources to AWS, but because of that we need to be careful about how we name the branches so here are a few rules of thumb.
 
@@ -432,15 +434,11 @@ Our application uses the serverless stack to deploy resources to AWS, but becaus
 
 ## Create New Branches and PRs for Tests
 
----
-
 When writing Cypress tests for an existing branch, create a new branch and write the tests there. For example, if the branch that needs tests is called oy2-1234, create a new branch called oy2-1234test.
 
 When the tests have been written, create a new PR for oy2-1234test and set its base to oy2-1234. Submit this PR for review.
 
 ## Pull Requests
-
----
 
 In order for a PR to get merged into Master it needs 2 approvals, and 1 of the approvals must be from an admin on the project. The same rules apply for Val and Prod.
 
@@ -449,8 +447,6 @@ When merging to Master always choose the option to `Squash and Merge` This helps
 When Merging to Val or Prod, always use a merge commit.
 
 ## GitHub Actions
-
----
 
 Github Actions are defined in the `.github/workflows` folder.
 
@@ -470,8 +466,6 @@ Right now the automation step does not run on the Val or Prod branches due to se
 
 ## Live URLS
 
----
-
 | Environment | URL                                    |
 | ----------- | -------------------------------------- |
 | Local       | http://localhost:3000/                 |
@@ -484,13 +478,9 @@ Right now the automation step does not run on the Val or Prod branches due to se
 
 ## Architecture Diagram
 
----
-
 ![Architecture Diagram](./.images/architecture.svg?raw=true)
 
 ## Serverless
-
----
 
 This project is built as a series of micro-services using the [Serverless Framework](https://www.serverless.com/framework/docs). Serverless looks and feels like a more useful version of CloudFormation Templates, and you can even write Cloudformation inside serverless files.
 
@@ -559,8 +549,6 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 
 ## App API
 
----
-
 ### Overview
 
 ---
@@ -627,8 +615,6 @@ A known issue with this utility is that right now it only `ands` arguments, so i
 
 ## Database
 
----
-
 We are using DynamoDb for our database solution for QMR. When looking for the databases in AWS search for `branchName-tableName` to find the tables for your branch.
 
 ### Tables
@@ -659,8 +645,6 @@ The stream functions fire deltas when updates to its table happens. These change
 
 ## UI
 
----
-
 The UI Service creates the URL's associated with the application and the cloudfront logs that monitor traffic.
 For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with `.com`
 
@@ -677,8 +661,6 @@ For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with 
 The Endpoints created by a branch are random and can be found in the output of the cloudformation stack for the UI, it can also be found as an output of the deploy step of our github actions.
 
 ## UI Auth
-
----
 
 The UI Auth service creates and manages the Authentication of the UI.
 
@@ -699,8 +681,6 @@ There is one lambda function in the UI-Auth Service, this is to create test user
 To add new users with new attributes, you can edit the `users.json`
 
 ## UI-SRC
-
----
 
 The ui-src service contains all of our frontend code and is therefore the largest service in the project. Our project uses the React Web Framework, Typescript, Chakra-UI for components, react-icons for various icons in the application, and react-query
 
@@ -729,8 +709,6 @@ These complex components are then used along with some of the simple components 
 When creating a new form it's best to find an existing form that is as close to what you are trying to make as possible, then modifying it with complex components if necessary, or creating a new complex component and modifying it with simple components if necessary etc...
 
 ## Uploads
-
----
 
 The Uploads service consists of a few S3 buckets and some integration functions. It is the only point where the downstream applications owned by Mathematica interact with our application. This is in two buckets.
 
@@ -798,8 +776,6 @@ to make in order to get that year working.
    ![After](./.images/afterCommonComponentUpdate.png?raw=true)
 
 ## Things to Look Out For (Gotchas)
-
----
 
 If you are creating a new shared component (e.g. files under `/globalValidations`) while editing the previous year's files, it is possible that merge conflicts will arise. Make sure these concurrent changes are not overwriting or removing necessary code.
 
