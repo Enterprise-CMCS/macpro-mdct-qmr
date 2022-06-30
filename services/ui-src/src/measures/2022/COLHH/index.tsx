@@ -1,14 +1,13 @@
-import * as CMQ from "measures/2022/CommonQuestions";
-import * as DC from "dataConstants";
-import * as PMD from "./data";
-import * as QMR from "components";
-import { FormData } from "./types";
-import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import * as CMQ from "measures/2022/CommonQuestions";
+import * as PMD from "./data";
 import { validationFunctions } from "./validation";
+import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
+import * as QMR from "components";
+import { FormData } from "./types";
 
-export const OEVCH = ({
+export const COLHH = ({
   name,
   year,
   measureId,
@@ -20,7 +19,6 @@ export const OEVCH = ({
 }: QMR.MeasureWrapperProps) => {
   const { watch } = useFormContext<FormData>();
   const data = watch();
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   useEffect(() => {
     if (setValidationFunctions) {
@@ -28,39 +26,38 @@ export const OEVCH = ({
     }
   }, [setValidationFunctions]);
 
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+
   return (
     <>
       <CMQ.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        healthHomeMeasure
       />
 
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type={DC.ADA_DQA} />
-          <CMQ.DataSource />
-          <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.MeasurementSpecification type="HEDIS" />
+          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DateRange type="health" />
+          <CMQ.DefinitionOfPopulation healthHomeMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
-              <CMQ.DeviationFromMeasureSpec
-                categories={PMD.categories}
-                customTotalLabel={PMD.qualifiers.slice(-1)[0]} // use the actual Total label
-              />
+              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
-          <CMQ.CombinedRates />
+          <CMQ.CombinedRates healthHomeMeasure />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              adultMeasure={false}
-              calcTotal
-              categories={PMD.categories}
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
+              categories={PMD.categories}
+              adultMeasure={false}
             />
           )}
         </>

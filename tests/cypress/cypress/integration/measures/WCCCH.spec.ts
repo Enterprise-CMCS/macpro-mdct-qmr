@@ -46,6 +46,99 @@ describe("Measure: WCC-CH", () => {
     );
   });
 
+  it("Validate Equal Qualifier Denominators", () => {
+    cy.get("#MeasurementSpecification-NCQAHEDIS").click();
+    cy.get('[data-cy="DataSource3"]').click();
+
+    // PM
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.0.denominator"]'
+    ).type("2");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.1.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.BodymassindexBMIpercentiledocumentation.1.denominator"]'
+    ).type("3");
+
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.CounselingforNutrition.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.CounselingforNutrition.0.denominator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.CounselingforNutrition.1.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.CounselingforNutrition.1.denominator"]'
+    ).type("3");
+
+    // PM Validations
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get(
+      '[data-cy="The Ages 3 to 11 denominator must be the same for each indicator."] > .chakra-text'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="Total (Ages 3 to 17) denominator must be the same for each indicator."] > .chakra-text'
+    ).should("be.visible");
+
+    // Clear PM Validations
+    cy.get(
+      '[data-cy="PerformanceMeasure.rates.CounselingforNutrition.0.denominator"]'
+    )
+      .clear()
+      .type("2");
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.get(
+      '[data-cy="The Ages 3 to 11 denominator must be the same for each indicator."] > .chakra-text'
+    ).should("not.exist");
+    cy.get(
+      '[data-cy="Total (Ages 3 to 17) denominator must be the same for each indicator."] > .chakra-text'
+    ).should("not.exist");
+
+    // OMS
+    cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
+    ).click();
+
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.BodymassindexBMIpercentiledocumentation.0.denominator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.CounselingforNutrition.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.CounselingforNutrition.0.denominator"]'
+    ).type("2");
+
+    // OMS Validations
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.contains(
+      ".chakra-alert",
+      "Optional Measure Stratification: Race (Non-Hispanic) - White - Ages 3 to 11 Error"
+    ).within(() => {
+      cy.get(
+        '[data-cy="Denominators must be the same for each category."] > .chakra-text'
+      ).should("be.visible");
+    });
+
+    cy.get('[data-cy="Clear Data"]').click();
+  });
+
   it("Fill out the WCC-CH form and verify NDR section in PM OMS", function () {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="DataStatus0"]').click();
@@ -490,10 +583,10 @@ describe("Measure: WCC-CH", () => {
       ':nth-child(3) > div.css-0 > [data-cy="Denominators must be the same for each category."] > .chakra-text'
     ).should("have.text", "Denominators must be the same for each category.");
     cy.get(
-      '[data-cy="Denominators must be the same for each category of performance measures for Ages 3 to 11"] > .chakra-text'
+      '[data-cy="The Ages 3 to 11 denominator must be the same for each indicator."] > .chakra-text'
     ).should(
       "have.text",
-      "Denominators must be the same for each category of performance measures for Ages 3 to 11"
+      "The Ages 3 to 11 denominator must be the same for each indicator."
     );
     /* ==== End Cypress Studio ==== */
   });
