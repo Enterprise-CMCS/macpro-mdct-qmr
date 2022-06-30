@@ -79,7 +79,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
 - [Year End Transition Documentation](#year-end-transition-documentation)
   - [Things to Look Out For (Gotchas)](#things-to-look-out-for-gotchas)
 - [Debugging Problems and Solutions](#debugging-problems-and-solutions)
-- [Contributing / To-D](#contributing--to-do)
+- [Contributing / To-Do](#contributing--to-do)
 - [Quickstart](#quickstart)
 - [License](#license)
 
@@ -706,7 +706,7 @@ At it's core QMR consists of several small simple components in `/services/ui-sr
 
 These are then used to create more complex components in `/services/ui-src/src/measures/year/CommonQuestions`
 
-These complex components are then used along with some of the simple components to create the forms for the application in `/services/ui-src/src/measures/year/CommonQuestions`
+These complex components are then used along with some of the simple components to create the forms for the application in `/services/ui-src/src/measures/year`
 
 When creating a new form it's best to find an existing form that is as close to what you are trying to make as possible, then modifying it with complex components if necessary, or creating a new complex component and modifying it with simple components if necessary etc...
 
