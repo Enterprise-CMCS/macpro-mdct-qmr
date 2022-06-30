@@ -52,7 +52,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
       - [Prettier with VS Code](#prettier-with-vs-code)
       - [Prettier CLI](#prettier-cli)
 - [Testing](#testing)
-  - [Update Node modules](#update-node-modules)
+  - [Update Node Modules](#update-node-modules)
   - [Generate .env file with AWS Credentials](#generate-env-file-with-aws-credentials)
   - [runners used](#runners-used)
   - [assertion libs used](#assertion-libs-used)
@@ -397,7 +397,13 @@ npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 
 # Testing
 
-## Update Node modules
+## Update Node Modules
+
+First, make sure your `node_modules` are up to date:
+
+```
+yarn install
+```
 
 ## Generate .env file with AWS Credentials
 
