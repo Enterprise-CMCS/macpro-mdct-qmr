@@ -11,7 +11,7 @@ export const qualifiers = [
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of Health Home enrollees age 12 and older screened for depression on the date of the encounter or 14 days prior to the date of the encounter using an age appropriate standardized depression screening tool, and if positive, a follow-up plan is documented on the date of the eligible encounter.",
+    "Percentage of Health Home enrollees age 12 and older screened for depression on the date of the encounter or 14 days prior to the date of the encounter using an age-appropriate standardized depression screening tool, and if positive, a follow-up plan is documented on the date of the eligible encounter.",
   ],
   categories,
   qualifiers,
