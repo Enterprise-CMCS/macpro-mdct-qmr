@@ -17,7 +17,8 @@ SHIFT + CMD/CTRL + V
 ## What is QMR
 
 The new Quality Measure Reporting (QMR) application will house all the state required measures for reporting on Adult, Child, and Health Home core sets. The new application is replacing the time intensive SDF files previously used for submission. Data collected within the QMR application will be sent to the CMS partner MPR for analytics and reporting via the CollabraLink owned BigMAC application.
-This application measures the quality of care and programs offered by states related to their Adult, Child and Health Home offerings.
+
+This application measures the quality of care and programs offered by states related to their Adult, Child, and Health Home offerings.
 
 ## Value
 
@@ -40,10 +41,10 @@ The new web-based QMR application will allow CMS to access data submitted by the
     - [Request Access to QMR AWS Environments](#request-access-to-qmr-aws-environments)
     - [VPN](#vpn)
       - [Steps for Installing Cisco AnyConnect client (if not already installed)](#steps-for-installing-cisco-anyconnect-client-if-not-already-installed)
-      - [Steps for logging into Cisco AnyConnect client](#steps-for-logging-into-cisco-anyconnect-client)
+      - [Steps for Logging into Cisco AnyConnect client](#steps-for-logging-into-cisco-anyconnect-client)
     - [Installing AWS CLI](#installing-aws-cli)
     - [Kion](#kion)
-    - [Setting up AWS Credentials locally](#setting-up-aws-credentials-locally)
+    - [Setting up AWS Credentials Locally](#setting-up-aws-credentials-locally)
     - [Accessing SSM Parameters](#accessing-ssm-parameters)
     - [Security Hub](#security-hub)
     - [Service Now (SNOW)](#service-now-snow)
@@ -52,6 +53,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
       - [Prettier with VS Code](#prettier-with-vs-code)
       - [Prettier CLI](#prettier-cli)
 - [Testing](#testing)
+  - [Runners and Assertion Libraries](#runners-and-assertion-libraries)
   - [Update Node Modules](#update-node-modules)
   - [Generate .env file with AWS Credentials](#generate-env-file-with-aws-credentials)
   - [How to Run Tests](#how-to-run-tests)
@@ -59,9 +61,8 @@ The new web-based QMR application will allow CMS to access data submitted by the
     - [Running Cypress Tests](#running-cypress-tests)
     - [Running Unit Tests](#running-unit-tests)
       - [Code Coverage Report](#code-coverage-report)
-  - [codeclimate](#codeclimate)
-    - [location](#location)
-    - [config](#config)
+  - [Code Climate](#code-climate)
+    - [Configuration](#configuration)
 - [Deployment](#deployment)
   - [Branch Strategy and Naming](#branch-strategy-and-naming)
   - [Create New Branches and PRs for Tests](#create-new-branches-and-prs-for-tests)
@@ -100,8 +101,8 @@ The new web-based QMR application will allow CMS to access data submitted by the
 - [Year End Transition Documentation](#year-end-transition-documentation)
   - [Things to Look Out For (Gotchas)](#things-to-look-out-for-gotchas)
 - [Debugging Problems and Solutions](#debugging-problems-and-solutions)
-- [Slack Channel](#slack-channel)
 - [Contributing / To-Do](#contributing--to-do)
+- [Slack channel](#slack-channel)
 - [Quickstart](#quickstart)
 - [License](#license)
 
@@ -152,9 +153,9 @@ Users can log into QMR's non-development environments using IDM.
 1. Select the "Role Request" tile
 1. Select "Medicaid Data Collection Tool (MDCT) Quality Measures Reporting (QMR)" from the "Select an Application" drop-down list
 1. Select the appropriate user role
-   - Note: An account can only be associated with one role. If you need to have multiple roles (Ex: state user and admin) you will need to create multiple accounts.
+   - **Note:** An account can only be associated with one role. If you need to have multiple roles (i.e., State User and Admin User) you will need to create multiple accounts.
 1. Watch for an email confirming your role request submission
-1. View and agree to the terms of service. Click the "Next" button.
+1. View and agree to the Terms of Service. Click the "Next" button.
 1. Complete the Remote Identity Proofing (RIDP) form. Click the "Next" button.
 1. Answer the RIDP questions as applicable. Click "Verify".
 1. Select the applicable role attributes via the drop-down lists. Then click "Review Request".
@@ -162,7 +163,7 @@ Users can log into QMR's non-development environments using IDM.
 
 ## Github
 
-GitHub access can be granted by any Admin on the Repo, but you will need to request it first, either through Slack or through GitHub's interface.
+GitHub access can be granted by any admin on the repository, but you will need to request it first, either through Slack or through GitHub's interface.
 
 ## AWS
 
@@ -207,7 +208,7 @@ You must be manually added to the appropriate AWS environments by CMS personnel.
    1. Allow your computer to make changes if prompted.
    1. Click 'Finish' complete the installation.
 
-#### Steps for logging into Cisco AnyConnect client
+#### Steps for Logging into Cisco AnyConnect client
 
 ---
 
@@ -235,13 +236,13 @@ Information on installing the AWS CLI for your machine can be found [here](https
 1. MDCT-QMR-IMPL: The account that contains our val environment.
 1. MDCT-QMR-PROD: The account that contains our production environment.
 
-They can be found in the Projects tab of Kion.
+They can be found in the **Projects** tab of Kion.
 
-### Setting up AWS Credentials locally
+### Setting up AWS Credentials Locally
 
 ---
 
-Once you have configured the AWS CLI on your personal machine, if you want to access a given account locally you will.
+Once you have configured the AWS CLI on your personal machine, if you want to access a given account locally, you will be able to.
 
 1. [Log into the VPN](#steps-for-logging-into-cisco-anyconnect-client)
 1. Navigate to Kion
@@ -259,7 +260,7 @@ Once this process is completed you will be able to access and deploy resources f
 
 ---
 
-Any Secure or sensitive values used by the application are stored in AWS's Parameter Store. To access these you will need to
+Any secure or sensitive values used by the application are stored in the AWS Parameter Store. To access these you will need to
 
 1. Login to the specific account
 1. Go to AWS System Manager
@@ -285,7 +286,7 @@ Critical and High threats will be posted as issues in the GitHub repository.
 
 ---
 
-Any AWS issues that are outside the capability or access level of the team needs to either go through the Devsecops team or through a service desk ticket.
+Any AWS issues that are outside the capability or access level of the team needs to either go through the DevSecOps team or through a service desk ticket.
 
 SNOW is the ticketing service used by CMS and new tickets can be created [here](https://jiraent.cms.gov/plugins/servlet/desk/portal/22). You will need to be on the VPN to access SNOW. The majority of tickets will be IAM related and the turnaround time is usually about 12-24 hours between the time of filing the ticket and the first response from a human. With that in mind it's good to set aside extra time for tickets that you know will touch on IAM or new Cloud Services.
 
@@ -378,7 +379,7 @@ This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.h
 
 The Prettier extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
-Once installed, open VS Code's Preferences. Search for "format on save". Clicking the checkbox should engage the Prettier formatter on file save.
+Once installed, open VS Code's Preferences. Search for "Format on Save". Clicking the checkbox should engage the Prettier formatter on file save.
 
 VS Code is used almost ubiquitously across the current development team, but similar instructions are available for other IDEs.
 
@@ -394,6 +395,10 @@ npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 ```
 
 # Testing
+
+## Runners and Assertion Libraries
+
+The JavaScript unit testing framework being used is [Jest](https://jestjs.io/), and the React component testing library being used is the [React Testing Library](https://testing-library.com/docs/react-testing-library/intro).
 
 ## Update Node Modules
 
@@ -489,15 +494,16 @@ On the terminal, there will be a detailed coverage report followed by a coverage
 ## Code Climate
 
 Code Climate is a code analytics tool that measures unit test coverage, code complexity, and code readability.
+
 It is connected to the repository and can be reached [here](https://codeclimate.com/dashboard)
 
 When logging in, choose "Login with GitHub" to connect to the appropriate repos.
 
-### config
+### Configuration
 
 The Code Climate config file is at the top level of the project and called `.codeclimate.yml`. This is similar to a gitignore file but it determines what parts of the repo to measure for code coverage.
 
-Right now we are only measuring test coverage on the pieces of the app-api and ui-src that we have worked on. This excludes node modules and testing files.
+Right now we are only measuring test coverage on the pieces of the `app-api` and `ui-src` that we have worked on. This excludes node modules and testing files.
 
 # Deployment
 
@@ -516,9 +522,11 @@ Our application uses the serverless stack to deploy resources to AWS, but becaus
 
 ## Create New Branches and PRs for Tests
 
-When writing Cypress tests for an existing branch, create a new branch and write the tests there. For example, if the branch that needs tests is called oy2-1234, create a new branch called oy2-1234test.
+When writing Cypress tests for an existing branch, create a new branch and write the tests there.
 
-When the tests have been written, create a new PR for oy2-1234test and set its base to oy2-1234. Submit this PR for review.
+For example, if the branch that needs tests is called `oy2-1234`, create a new branch called `oy2-1234test`.
+
+When the tests have been written, create a new PR for `oy2-1234test` and set its base to `oy2-1234`. Submit this PR for review.
 
 ## Pull Requests
 
