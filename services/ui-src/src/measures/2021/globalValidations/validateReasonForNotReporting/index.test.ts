@@ -31,6 +31,15 @@ describe("validateReasonForNotReporting", () => {
   test("Reason for not reporting not selected (collecting)", () => {
     _check_errors(formData, 1, true);
   });
-});
 
-// TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match provided errorMessage", () => {
+    const errorMessageFunc = (collecting?: boolean) => {
+      return `Another ${collecting} bites the dust`;
+    };
+    errorArray = [
+      ...validateReasonForNotReporting(formData, true, errorMessageFunc),
+    ];
+    expect(errorArray[0].errorMessage).toBe(errorMessageFunc(true));
+  });
+});

@@ -35,6 +35,14 @@ describe("validateRequiredRadioButtonForCombinedRates", () => {
     delete formData[DC.COMBINED_RATES_COMBINED_RATES];
     _check_errors(formData, 1);
   });
-});
 
-// TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match provided errorMessage", () => {
+    const errorMessage = "Another one bites the dust";
+    delete formData[DC.COMBINED_RATES_COMBINED_RATES];
+    errorArray = [
+      ...validateRequiredRadioButtonForCombinedRates(formData, errorMessage),
+    ];
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
+  });
+});

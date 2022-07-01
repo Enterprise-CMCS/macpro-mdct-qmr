@@ -265,6 +265,34 @@ describe("Testing PM/OMS Total Validations", () => {
       expect(multiResults.length).toBe(0);
     });
   });
-});
 
-// TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match provided errorMessage", () => {
+    const errorMessageFunc = (qualifier: string, fieldType: string) => {
+      return `Another ${qualifier} bites the ${fieldType}.`;
+    };
+
+    const basePM = [VH.simpleRate, VH.simpleRate, VH.incorrectDenominatorRate];
+    const singleResults = validateTotalNDR(
+      [basePM],
+      undefined,
+      undefined,
+      errorMessageFunc
+    );
+    const multiResults = validateTotalNDR(
+      [basePM, basePM, basePM],
+      undefined,
+      undefined,
+      errorMessageFunc
+    );
+
+    expect(singleResults.length).toBe(1);
+    expect(multiResults.length).toBe(3);
+    for (const result of [...singleResults, ...multiResults]) {
+      expect(result.errorLocation).toBe("Performance Measure");
+      expect(result.errorMessage).toBe(
+        errorMessageFunc(VH.incorrectDenominatorRate.label!, "Denominator")
+      );
+    }
+  });
+});

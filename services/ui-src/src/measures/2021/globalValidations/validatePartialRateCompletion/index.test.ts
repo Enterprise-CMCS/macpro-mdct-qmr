@@ -177,6 +177,33 @@ describe("Testing Partial Rate Validation", () => {
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
   });
-});
 
-// TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match provided errorMessage", () => {
+    const errorMessageFunc = (
+      multipleQuals: boolean,
+      qualifier: string,
+      multipleCats: boolean,
+      category: string
+    ) => {
+      return `Another${multipleQuals} bites the ${qualifier}... dun dun dun... Another ${multipleCats} bites the ${category}`;
+    };
+
+    const errors = validatePartialRateCompletionPM(
+      [
+        [partialRate, partialRate],
+        [partialRate, partialRate],
+      ],
+      undefined,
+      qualifiers,
+      categories,
+      errorMessageFunc
+    );
+
+    expect(errors).toHaveLength(4);
+    expect(errors[0].errorLocation).toBe("Performance Measure");
+    expect(errors[0].errorMessage).toBe(
+      errorMessageFunc(true, qualifiers[0], true, categories[0])
+    );
+  });
+});
