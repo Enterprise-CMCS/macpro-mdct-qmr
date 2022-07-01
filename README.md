@@ -888,8 +888,7 @@ To set the SLACK_WEBHOOK_URL:
 - Add features and funtionality----Incoming webhooks--- activative incoming webooks--- Add new webhook to workspace.
 - copy new webhook url and set it as SLACK_WEBHOOK_URL in github actions secret.
 
-Please join the cms-mdct-qmr slack channel to get all build status and also contribute to any ongoing discussions.
-Join here: https://join.slack.com/t/macproquickst-ugp3045/shared_invite/zt-mdxpbtkk-SrLRi_yzJrXX3uYgvrbjlg
+Please [join the cms-mdct-qmr slack channel](https://join.slack.com/t/macproquickst-ugp3045/shared_invite/zt-mdxpbtkk-SrLRi_yzJrXX3uYgvrbjlg) to get all build status and also contribute to any ongoing discussions.
 
 # Quickstart
 
