@@ -22,16 +22,25 @@ import { testFormData } from "../testHelpers/_testFormData";
 describe("atLeastOneRateComplete", () => {
   let formData: DefaultFormData;
 
-  // Check that the provided Form Data returns a certain number of validation errors.
-  const check_errors = (data: DefaultFormData, numErrors: number) => {
+  const _run_validation = (
+    data: DefaultFormData,
+    errorMessage?: string
+  ): FormError[] => {
     const { ageGroups, performanceMeasureArray, OPM } = HELP.test_setup(data);
-    const errorArray: FormError[] = [
+    return [
       ...validateAtLeastOneRateComplete(
         performanceMeasureArray,
         OPM,
-        ageGroups
+        ageGroups,
+        undefined,
+        errorMessage
       ),
     ];
+  };
+
+  // Check that the provided Form Data returns a certain number of validation errors.
+  const check_errors = (data: DefaultFormData, numErrors: number) => {
+    const errorArray = _run_validation(data);
     expect(errorArray.length).toBe(numErrors);
   };
 
@@ -78,5 +87,23 @@ describe("atLeastOneRateComplete", () => {
     check_errors(formData, 1);
   });
 
-  // TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match default errorMessage", () => {
+    formData[DC.PERFORMANCE_MEASURE] = {};
+    HELP.zero_OPM(formData);
+    const errorArray = _run_validation(formData);
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(
+      "At least one Performance Measure Numerator, Denominator, and Rate must be completed"
+    );
+  });
+
+  test("Error message text should match provided errorMessage", () => {
+    formData[DC.PERFORMANCE_MEASURE] = {};
+    HELP.zero_OPM(formData);
+    const errorMessage = "Another one bites the dust.";
+    const errorArray = _run_validation(formData, errorMessage);
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
+  });
 });

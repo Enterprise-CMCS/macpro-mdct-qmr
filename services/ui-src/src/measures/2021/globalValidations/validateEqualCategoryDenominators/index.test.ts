@@ -136,6 +136,35 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
   });
-});
 
-// TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match default errorMessage", () => {
+    const errorArray = validateEqualCategoryDenominatorsPM(
+      generatePmQualifierRateData({ qualifiers, categories: noCat }, [
+        simpleRate,
+        doubleRate,
+      ]),
+      noCat,
+      qualifiers
+    );
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(
+      "The following categories must have the same denominator:"
+    );
+  });
+
+  test("Error message text should match provided errorMessage", () => {
+    const errorMessage = "Another one bites the dust.";
+    const errorArray = validateEqualCategoryDenominatorsPM(
+      generatePmQualifierRateData({ qualifiers, categories: noCat }, [
+        simpleRate,
+        doubleRate,
+      ]),
+      noCat,
+      qualifiers,
+      errorMessage
+    );
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
+  });
+});

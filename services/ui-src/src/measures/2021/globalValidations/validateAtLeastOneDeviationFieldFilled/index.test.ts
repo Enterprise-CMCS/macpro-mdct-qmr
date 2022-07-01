@@ -10,24 +10,31 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   let formData: any = {};
   let errorArray: FormError[];
 
-  const _check_errors = (data: any, numErrors: number, noPM?: boolean) => {
+  const _run_validation = (
+    data: any,
+    noPM?: boolean,
+    errorMessage?: string
+  ): FormError[] => {
     const { ageGroups, performanceMeasureArray } = test_setup(data);
-
     const deviationArray = getDeviationNDRArray(
       data.DeviationOptions,
       data.Deviations,
       true
     );
     const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-
-    errorArray = [
+    return [
       ...validateAtLeastOneDeviationFieldFilled(
         noPM ? [[]] : performanceMeasureArray,
         ageGroups,
         deviationArray,
-        didCalculationsDeviate
+        didCalculationsDeviate,
+        errorMessage
       ),
     ];
+  };
+
+  const _check_errors = (data: any, numErrors: number, noPM?: boolean) => {
+    errorArray = _run_validation(data, noPM);
     expect(errorArray.length).toBe(numErrors);
   };
 
@@ -111,5 +118,21 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 0);
   });
 
-  // TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match default errorMessage", () => {
+    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
+    errorArray = _run_validation(formData);
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(
+      "At least one item must be selected and completed (Numerator, Denominator, or Other)"
+    );
+  });
+
+  test("Error message text should match provided errorMessage", () => {
+    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
+    const errorMessage = "Another one bites the dust.";
+    errorArray = _run_validation(formData, undefined, errorMessage);
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
+  });
 });

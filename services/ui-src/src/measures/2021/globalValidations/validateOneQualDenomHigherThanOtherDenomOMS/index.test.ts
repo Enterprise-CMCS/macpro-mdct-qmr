@@ -131,6 +131,32 @@ describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
       );
     });
   });
-});
 
-// TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match provided errorMessage", () => {
+    const errorMessageFunc = (lowerQual: string, higherQual: string) => {
+      return `Another ${lowerQual} bites the ${higherQual}.`;
+    };
+
+    const data = generatePmQualifierRateData(
+      { categories: noCat, qualifiers },
+      [simpleRate, doubleRate]
+    );
+    const errors = validateOneQualDenomHigherThanOtherDenomPM(
+      data,
+      {
+        categories: noCat,
+        qualifiers,
+      },
+      undefined,
+      undefined,
+      errorMessageFunc
+    );
+
+    expect(errors).toHaveLength(1);
+    expect(errors[0].errorLocation).toBe("Performance Measure");
+    expect(errors[0].errorMessage).toBe(
+      errorMessageFunc(qualifiers[1], qualifiers[0])
+    );
+  });
+});

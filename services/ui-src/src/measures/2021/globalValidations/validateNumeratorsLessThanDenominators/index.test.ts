@@ -129,6 +129,18 @@ describe("Testing Numerator Less Than Denominator", () => {
       ]);
     });
   });
-});
 
-// TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match provided errorMessage", () => {
+    const errorMessage = "Another one bites the dust.";
+    const errorArray = validateNumeratorsLessThanDenominatorsPM(
+      [[badNumeratorRate, badNumeratorRate]],
+      undefined,
+      qualifiers,
+      errorMessage
+    );
+
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
+  });
+});

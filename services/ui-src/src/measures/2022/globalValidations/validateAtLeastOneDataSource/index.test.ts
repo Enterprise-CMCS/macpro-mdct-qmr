@@ -32,5 +32,21 @@ describe("validateOneDataSource", () => {
     _check_errors(formData, 1);
   });
 
-  // TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match default errorMessage", () => {
+    formData[DC.DATA_SOURCE] = [];
+    errorArray = [...validateAtLeastOneDataSource(formData)];
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(
+      "You must select at least one Data Source option"
+    );
+  });
+
+  test("Error message text should match provided errorMessage", () => {
+    formData[DC.DATA_SOURCE] = [];
+    const errorMessage = "Another one bites the dust.";
+    errorArray = [...validateAtLeastOneDataSource(formData, errorMessage)];
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
+  });
 });

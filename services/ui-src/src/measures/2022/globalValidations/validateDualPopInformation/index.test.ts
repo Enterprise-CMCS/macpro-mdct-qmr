@@ -101,4 +101,38 @@ describe("Testing Dual Population Selection Validation", () => {
   });
 });
 
-// TODO: Test for custom errorMessage
+// custom errorMessage
+test("Error message text should match default errorMessage", () => {
+  const errorArray = validateDualPopInformationPM(
+    [[simpleRate, simpleRate]],
+    undefined,
+    0,
+    undefined
+  );
+  expect(errorArray.length).toBe(1);
+  expect(errorArray[0].errorMessage).toBe(
+    "Information has been included in the Age 65 and Older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing"
+  );
+});
+
+test("Error message text should match provided errorMessage", () => {
+  const errorMessageFunc = (
+    _dualEligible: boolean,
+    errorReplacementText: string
+  ) => {
+    return `Another ${errorReplacementText} bites the dust`;
+  };
+
+  const errorArray = validateDualPopInformationPM(
+    [[simpleRate, simpleRate]],
+    undefined,
+    0,
+    undefined,
+    undefined,
+    errorMessageFunc
+  );
+  expect(errorArray.length).toBe(1);
+  expect(errorArray[0].errorMessage).toBe(
+    "Another Age 65 and Older bites the dust"
+  );
+});

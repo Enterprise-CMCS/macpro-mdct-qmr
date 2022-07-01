@@ -71,12 +71,12 @@ export const validateEqualQualifierDenominatorsOMS =
 export const validateEqualQualifierDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   qualifiers: string[],
-  explicitErrorMessage?: string,
+  errorMessage?: string,
   errorMessageFunc?: (qualifier: string) => string
 ) => {
   return _validation({
     location: "Performance Measure",
-    errorMessage: explicitErrorMessage,
+    errorMessage,
     qualifiers,
     rateData: performanceMeasureArray,
     errorMessageFunc,

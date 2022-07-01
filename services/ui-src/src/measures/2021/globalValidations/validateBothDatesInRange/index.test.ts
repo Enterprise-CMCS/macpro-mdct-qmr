@@ -24,9 +24,13 @@ Test Cases:
 describe("ensureBothDatesCompletedInRange", () => {
   let formData: any;
 
-  const check_errors = (data: any, numErrors: number) => {
+  const run_validation = (data: any, errorMessage?: string): FormError[] => {
     const dateRange = data[DC.DATE_RANGE];
-    const errorArray: FormError[] = [...validateBothDatesCompleted(dateRange)];
+    return [...validateBothDatesCompleted(dateRange, errorMessage)];
+  };
+
+  const check_errors = (data: any, numErrors: number) => {
+    const errorArray: FormError[] = run_validation(data);
     expect(errorArray.length).toBe(numErrors);
   };
 
@@ -116,5 +120,21 @@ describe("ensureBothDatesCompletedInRange", () => {
     check_errors(formData, 1);
   });
 
-  // TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match default errorMessage", () => {
+    formData[DC.DATE_RANGE][DC.START_DATE] = {};
+    formData[DC.DATE_RANGE][DC.END_DATE] = {};
+    const errorArray = run_validation(formData);
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe("Date Range must be completed");
+  });
+
+  test("Error message text should match provided errorMessage", () => {
+    formData[DC.DATE_RANGE][DC.START_DATE] = {};
+    formData[DC.DATE_RANGE][DC.END_DATE] = {};
+    const errorMessage = "Another one bites the dust.";
+    const errorArray = run_validation(formData, errorMessage);
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
+  });
 });

@@ -114,6 +114,41 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
       ]);
     });
   });
-});
 
-// TODO: Test for custom errorMessage
+  // custom errorMessage
+  test("Error message text should match provided errorMessage", () => {
+    const errorMessage = "Another one bites the dust";
+    const errorArray = validateEqualQualifierDenominatorsPM(
+      [
+        [simpleRate, simpleRate],
+        [doubleRate, doubleRate],
+      ],
+      qualifiers,
+      errorMessage
+    );
+
+    expect(errorArray).toHaveLength(2);
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
+    expect(errorArray[1].errorMessage).toBe(errorMessage);
+  });
+
+  // custom errorMessageFunc
+  test("Error message text should match provided errorMessageFunc", () => {
+    const errorMessageFunc = (qualifier: string) => {
+      return `Another ${qualifier} bites the dust.`;
+    };
+    const errorArray = validateEqualQualifierDenominatorsPM(
+      [
+        [simpleRate, simpleRate],
+        [doubleRate, doubleRate],
+      ],
+      qualifiers,
+      undefined,
+      errorMessageFunc
+    );
+
+    expect(errorArray).toHaveLength(2);
+    expect(errorArray[0].errorMessage).toBe(errorMessageFunc(qualifiers[0]));
+    expect(errorArray[1].errorMessage).toBe(errorMessageFunc(qualifiers[1]));
+  });
+});
