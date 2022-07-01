@@ -100,6 +100,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
 - [Year End Transition Documentation](#year-end-transition-documentation)
   - [Things to Look Out For (Gotchas)](#things-to-look-out-for-gotchas)
 - [Debugging Problems and Solutions](#debugging-problems-and-solutions)
+- [Slack Channel](#slack-channel)
 - [Contributing / To-Do](#contributing--to-do)
 - [Quickstart](#quickstart)
 - [License](#license)
@@ -875,6 +876,20 @@ To contribute:
 - Open a pull request targetting this repository
 
 Pull requests are being accepted.
+
+# Slack channel
+
+To enable slack integration, set a value for SLACK_WEBHOOK_URL in github actions secret.
+
+To set the SLACK_WEBHOOK_URL:
+
+- Go to https://api.slack.com/apps
+- Create new app : fill in the information
+- Add features and funtionality----Incoming webhooks--- activative incoming webooks--- Add new webhook to workspace.
+- copy new webhook url and set it as SLACK_WEBHOOK_URL in github actions secret.
+
+Please join the cms-mdct-qmr slack channel to get all build status and also contribute to any ongoing discussions.
+Join here: https://join.slack.com/t/macproquickst-ugp3045/shared_invite/zt-mdxpbtkk-SrLRi_yzJrXX3uYgvrbjlg
 
 # Quickstart
 
