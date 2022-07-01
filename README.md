@@ -54,8 +54,6 @@ The new web-based QMR application will allow CMS to access data submitted by the
 - [Testing](#testing)
   - [Update Node Modules](#update-node-modules)
   - [Generate .env file with AWS Credentials](#generate-env-file-with-aws-credentials)
-  - [runners used](#runners-used)
-  - [assertion libs used](#assertion-libs-used)
   - [How to Run Tests](#how-to-run-tests)
     - [Cypress Setup](#cypress-setup)
     - [Running Cypress Tests](#running-cypress-tests)
@@ -64,7 +62,6 @@ The new web-based QMR application will allow CMS to access data submitted by the
   - [codeclimate](#codeclimate)
     - [location](#location)
     - [config](#config)
-      - [How to add new files to be included in the code climate config](#how-to-add-new-files-to-be-included-in-the-code-climate-config)
 - [Deployment](#deployment)
   - [Branch Strategy and Naming](#branch-strategy-and-naming)
   - [Create New Branches and PRs for Tests](#create-new-branches-and-prs-for-tests)
@@ -401,26 +398,22 @@ npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
 
 First, make sure your `node_modules` are up to date:
 
-```
-yarn install
-```
+1. Navigate to tests and run
+   ```bash
+   yarn install
+   ```
+1. Navigate to tests/cypress and run
+   ```bash
+   yarn install
+   ```
 
 ## Generate .env file with AWS Credentials
 
-1. Connect to your **CloudVPN**
-2. Navigate and log into [CloudTamer](https://cloudtamer.cms.gov/)
-3. Under `mdct-qmr-dev`, click the **"Cloud Access"** button
-4. Select **"Generate Short-Term Access Keys"**
-5. Copy the AWS access keys
-6. On your local QMR environment, navigate to `cd tests/cypress`
-7. Paste the AWS access keys from Step #5
-8. Run `./configureLocal.sh master`
+1. [Set Up AWS Credentials Locally](#setting-up-aws-credentials-locally)
+1. On your local QMR environment, navigate to `cd tests/cypress`
+1. Run `./configureLocal.sh master`
 
 The `Cypress` environment (**.env**) file will be generated and populated under `tests/cypress.env.json`.
-
-## runners used
-
-## assertion libs used
 
 ## How to Run Tests
 
@@ -492,13 +485,18 @@ On the terminal, there will be a detailed coverage report followed by a coverage
 
 ![Code Coverage Report](./.images/codeCoverageReport.png?raw=true)
 
-## codeclimate
+## Code Climate
 
-### location
+Code Climate is a code analytics tool that measures unit test coverage, code complexity, and code readability.
+It is connected to the repository and can be reached [here](https://codeclimate.com/dashboard)
+
+When logging in, choose "Login with GitHub" to connect to the appropriate repos.
 
 ### config
 
-#### How to add new files to be included in the code climate config
+The Code Climate config file is at the top level of the project and called `.codeclimate.yml`. This is similar to a gitignore file but it determines what parts of the repo to measure for code coverage.
+
+Right now we are only measuring test coverage on the pieces of the app-api and ui-src that we have worked on. This excludes node modules and testing files.
 
 # Deployment
 
