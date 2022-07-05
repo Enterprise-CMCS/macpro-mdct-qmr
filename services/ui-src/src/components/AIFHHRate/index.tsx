@@ -273,6 +273,7 @@ export const AIFHHRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
                     ) : (
                       <CUI.Input
                         key={`input-field-${fieldIndex}`}
+                        type="text"
                         value={
                           field.value?.[qualIndex]?.fields?.[fieldIndex]
                             ?.value ?? ""

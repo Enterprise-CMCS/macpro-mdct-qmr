@@ -138,6 +138,7 @@ const DeleteMenuItemAlertDialog = ({
               {alertBodyText}
               <CUI.Input
                 mt="4"
+                type="text"
                 value={userInput}
                 placeholder="Enter 'DELETE' to confirm"
                 onChange={(e) => setUserInput(e.target.value)}

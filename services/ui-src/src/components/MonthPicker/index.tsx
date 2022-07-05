@@ -44,6 +44,7 @@ export const MonthPicker = ({
               data-cy={`${name}-month`}
               width="4rem"
               label="Month"
+              type="text"
               aria-label="Month Input Field"
               name={`${name}.month`}
               value={field.value?.selectedMonth ?? ""}
@@ -67,6 +68,7 @@ export const MonthPicker = ({
             <CUI.Input
               width="6rem"
               label="Year"
+              type="text"
               aria-label="Year Input Field"
               name={`${name}.year`}
               data-cy={`${name}-year`}

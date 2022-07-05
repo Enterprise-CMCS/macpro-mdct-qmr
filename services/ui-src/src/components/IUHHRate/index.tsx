@@ -279,6 +279,7 @@ export const IUHHRate = ({
                             ?.value ?? ""
                         }
                         data-cy={`${name}.${fieldIndex}.value`}
+                        type="text"
                         onChange={(e) =>
                           changeRate(
                             qualIndex,

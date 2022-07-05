@@ -150,6 +150,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
                   <CUI.InputGroup>
                     <CUI.Input
                       isReadOnly
+                      type="text"
                       value={total?.toFixed(1) ?? ""}
                       border="none"
                       textAlign="right"

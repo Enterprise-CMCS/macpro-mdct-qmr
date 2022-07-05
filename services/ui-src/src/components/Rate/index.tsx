@@ -245,6 +245,7 @@ export const Rate = ({
                 {...rest}
               >
                 <CUI.Input
+                  type="text"
                   value={field.value[index]?.numerator ?? ""}
                   data-cy={`${name}.${index}.numerator`}
                   onChange={(e) =>
@@ -266,6 +267,7 @@ export const Rate = ({
               >
                 <CUI.Input
                   value={field.value[index]?.denominator ?? ""}
+                  type="text"
                   data-cy={`${name}.${index}.denominator`}
                   onChange={(e) =>
                     changeRate(index, "denominator", e.target.value, isTotal)
@@ -284,6 +286,7 @@ export const Rate = ({
               >
                 <CUI.Input
                   value={field.value[index]?.rate ?? ""}
+                  type="text"
                   data-cy={`${name}.${index}.rate`}
                   onChange={(e) =>
                     changeRate(index, "rate", e.target.value, isTotal)

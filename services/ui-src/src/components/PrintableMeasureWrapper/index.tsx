@@ -119,7 +119,6 @@ export const PrintableMeasureWrapper = ({
 
   useEffect(() => {
     // reset core set qualifier data to use the default values for table rendering
-    console.log("measureData", measureData);
     if (
       !methods.formState.isDirty &&
       !measureData?.data &&
@@ -143,7 +142,7 @@ export const PrintableMeasureWrapper = ({
   }
 
   return (
-    <CUI.VStack padding={10}>
+    <CUI.VStack padding={10} my="2rem">
       <CUI.HStack>
         <CUI.Text id={measureData?.measure} fontSize={"2xl"} fontWeight="bold">
           ({measureData?.measure}) {measureData?.description}
@@ -167,7 +166,6 @@ export const PrintableMeasureWrapper = ({
               </CUI.Container>
             </fieldset>
           </form>
-          <a href="#top-of-page">Back to top</a>
         </>
       </FormProvider>
     </CUI.VStack>
