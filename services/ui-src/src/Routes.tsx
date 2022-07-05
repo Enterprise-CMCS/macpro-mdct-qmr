@@ -1,8 +1,6 @@
-import { ReactElement, Fragment } from "react";
+import { ReactElement, Fragment, lazy } from "react";
 import { createElement } from "react";
 import { Route, Routes } from "react-router-dom";
-import * as Views from "views";
-import * as QMR from "components";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { measureDescriptions } from "measures/measureDescriptions";
@@ -17,6 +15,51 @@ import { measureDescriptions } from "measures/measureDescriptions";
 //   s3LocalGetURL,
 // } from "libs/awsLib";
 // import config from "config";
+
+const Home = lazy(() =>
+  import("views/Home").then((module) => ({ default: module.Home }))
+);
+const FAQ = lazy(() =>
+  import("views/FAQ").then((module) => ({ default: module.FAQ }))
+);
+const StateHome = lazy(() => import("views/StateHome"));
+const AdminHome = lazy(() =>
+  import("views/AdminHome").then((module) => ({ default: module.AdminHome }))
+);
+const AddHHCoreSet = lazy(() =>
+  import("views/AddHHCoreSet").then((module) => ({
+    default: module.AddHHCoreSet,
+  }))
+);
+const CoreSet = lazy(() =>
+  import("views/CoreSet").then((module) => ({ default: module.CoreSet }))
+);
+const AddChildCoreSet = lazy(() =>
+  import("views/AddChildCoreSet").then((module) => ({
+    default: module.AddChildCoreSet,
+  }))
+);
+const AddStateSpecificMeasure = lazy(() =>
+  import("views/AddStateSpecificMeasure").then((module) => ({
+    default: module.AddStateSpecificMeasure,
+  }))
+);
+const ApiTester = lazy(() =>
+  import("views/ApiTester").then((module) => ({ default: module.ApiTester }))
+);
+const NotFound = lazy(() =>
+  import("views/NotFound").then((module) => ({ default: module.NotFound }))
+);
+const MeasuresLoading = lazy(() =>
+  import("views/MeasuresLoading").then((module) => ({
+    default: module.MeasuresLoading,
+  }))
+);
+const MeasureWrapper = lazy(() =>
+  import("components/MeasureWrapper").then((module) => ({
+    default: module.MeasureWrapper,
+  }))
+);
 
 interface MeasureRoute {
   path: string;
@@ -39,7 +82,7 @@ function useMeasureRoutes(): MeasureRoute[] {
       key: `:state/${qualYear.year}/:coreSetId/CSQ`,
       path: `:state/${qualYear.year}/:coreSetId/CSQ`,
       element: (
-        <QMR.MeasureWrapper
+        <MeasureWrapper
           name={""}
           year={qualYear.year}
           measureId={"CSQ"}
@@ -65,7 +108,7 @@ function useMeasureRoutes(): MeasureRoute[] {
               key: `:state/${year}/:coreSetId/${measure}`,
               path: `:state/${year}/:coreSetId/${measure}`,
               element: (
-                <QMR.MeasureWrapper
+                <MeasureWrapper
                   name={foundMeasureDescription}
                   year={year}
                   measureId={measure}
@@ -86,7 +129,7 @@ function useMeasureRoutes(): MeasureRoute[] {
         {
           key: ":state/:year/:coreSetId/:measure",
           path: ":state/:year/:coreSetId/:measure",
-          element: <Views.MeasuresLoading />,
+          element: <MeasuresLoading />,
         },
         ...measureRoutes,
       ];
@@ -98,25 +141,22 @@ export function AppRoutes() {
   return (
     <main id="main-wrapper">
       <Routes>
-        <Route path="/" element={<Views.Home />} />
-        <Route path="/faq" element={<Views.FAQ />} />
-        <Route path=":state/:year" element={<Views.StateHome />} />
-        <Route path="admin" element={<Views.AdminHome />} />
-        <Route
-          path=":state/:year/add-child"
-          element={<Views.AddChildCoreSet />}
-        />
-        <Route path=":state/:year/add-hh" element={<Views.AddHHCoreSet />} />
-        <Route path=":state/:year/:coreSetId" element={<Views.CoreSet />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path=":state/:year" element={<StateHome />} />
+        <Route path="admin" element={<AdminHome />} />
+        <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
+        <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
+        <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
         <Route
           path=":state/:year/:coreSetId/add-ssm"
-          element={<Views.AddStateSpecificMeasure />}
+          element={<AddStateSpecificMeasure />}
         />
-        <Route path="api-test" element={<Views.ApiTester />} />
+        <Route path="api-test" element={<ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route {...m} />
         ))}
-        <Route path="*" element={<Views.NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
   );
