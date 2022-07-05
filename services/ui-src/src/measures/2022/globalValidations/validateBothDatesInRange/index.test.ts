@@ -1,26 +1,8 @@
 import * as DC from "dataConstants";
-import { validateBothDatesCompleted } from "./index";
 import { testFormData } from "../testHelpers/_testFormData";
+import { validateBothDatesCompleted } from ".";
 
-/* This validation checks that both date fields have been completed.
-
-Test Cases:
-  1    DATE_RANGE is undefined
-     ┌────────────┬───────────┐
-     │ Start Date │ End Date  │
-     ├────────────┼───────────┤
-  2  │ Complete   │ Complete  │
-  3  │ Undefined  │ Undefined │
-  4  │ Empty      │ Empty     │
-  5  │ Empty      │ Undefined │
-  6  │ Undefined  │ Empty     │
-  7  │ 0          │ 0         │
-  8  │ Complete   │ Empty     │
-  9  │ Empty      │ Complete  │
-  10 │ Month      │ Year      │
-  11 │ Year       │ Month     │
-     └────────────┴───────────┘  
-*/
+/* This validation checks that both date fields have been completed. */
 describe("ensureBothDatesCompletedInRange", () => {
   let formData: any;
 
@@ -38,28 +20,28 @@ describe("ensureBothDatesCompletedInRange", () => {
     formData = JSON.parse(JSON.stringify(testFormData)); // reset data
   });
 
-  test("when DATE_RANGE is undefined", () => {
+  it("when DATE_RANGE is undefined", () => {
     delete formData[DC.DATE_RANGE];
     check_errors(formData, 0);
   });
 
-  test("when START_DATE is complete and END_DATE is complete", () => {
+  it("when START_DATE is complete and END_DATE is complete", () => {
     check_errors(formData, 0);
   });
 
-  test("when START_DATE is undefined and END_DATE is undefined", () => {
+  it("when START_DATE is undefined and END_DATE is undefined", () => {
     delete formData[DC.DATE_RANGE][DC.START_DATE];
     delete formData[DC.DATE_RANGE][DC.END_DATE];
     check_errors(formData, 1);
   });
 
-  test("when START_DATE is empty and END_DATE is empty", () => {
+  it("when START_DATE is empty and END_DATE is empty", () => {
     formData[DC.DATE_RANGE][DC.START_DATE] = {};
     formData[DC.DATE_RANGE][DC.END_DATE] = {};
     check_errors(formData, 1);
   });
 
-  test("when START_DATE is empty and END_DATE is undefined", () => {
+  it("when START_DATE is empty and END_DATE is undefined", () => {
     // Start Date
     formData[DC.DATE_RANGE][DC.START_DATE][DC.SELECTED_MONTH] = undefined;
     formData[DC.DATE_RANGE][DC.START_DATE][DC.SELECTED_YEAR] = undefined;
@@ -69,7 +51,7 @@ describe("ensureBothDatesCompletedInRange", () => {
     check_errors(formData, 1);
   });
 
-  test("when START_DATE is undefined and END_DATE is empty", () => {
+  it("when START_DATE is undefined and END_DATE is empty", () => {
     // Start Date
     delete formData[DC.DATE_RANGE][DC.START_DATE];
 
@@ -79,7 +61,7 @@ describe("ensureBothDatesCompletedInRange", () => {
     check_errors(formData, 1);
   });
 
-  test("when START_DATE and END_DATE have '0' values", () => {
+  it("when START_DATE and END_DATE have '0' values", () => {
     // Start Date
     formData[DC.DATE_RANGE][DC.START_DATE][DC.SELECTED_MONTH] = 0;
     formData[DC.DATE_RANGE][DC.START_DATE][DC.SELECTED_YEAR] = 0;
@@ -90,19 +72,19 @@ describe("ensureBothDatesCompletedInRange", () => {
     check_errors(formData, 1);
   });
 
-  test("when START_DATE is complete and END_DATE is empty", () => {
+  it("when START_DATE is complete and END_DATE is empty", () => {
     formData[DC.DATE_RANGE][DC.END_DATE][DC.SELECTED_MONTH] = undefined;
     formData[DC.DATE_RANGE][DC.END_DATE][DC.SELECTED_YEAR] = undefined;
     check_errors(formData, 1);
   });
 
-  test("when START_DATE is empty and END_DATE is complete", () => {
+  it("when START_DATE is empty and END_DATE is complete", () => {
     formData[DC.DATE_RANGE][DC.START_DATE][DC.SELECTED_MONTH] = undefined;
     formData[DC.DATE_RANGE][DC.START_DATE][DC.SELECTED_YEAR] = undefined;
     check_errors(formData, 1);
   });
 
-  test("when START_DATE has a month and END_DATE has a year", () => {
+  it("when START_DATE has a month and END_DATE has a year", () => {
     // Start Date
     formData[DC.DATE_RANGE][DC.START_DATE][DC.SELECTED_YEAR] = undefined;
 
@@ -111,7 +93,7 @@ describe("ensureBothDatesCompletedInRange", () => {
     check_errors(formData, 1);
   });
 
-  test("when START_DATE has a year and END_DATE has a month", () => {
+  it("when START_DATE has a year and END_DATE has a month", () => {
     // Start Date
     formData[DC.DATE_RANGE][DC.START_DATE][DC.SELECTED_MONTH] = undefined;
 
@@ -120,8 +102,7 @@ describe("ensureBothDatesCompletedInRange", () => {
     check_errors(formData, 1);
   });
 
-  // custom errorMessage
-  test("Error message text should match default errorMessage", () => {
+  it("Error message text should match default errorMessage", () => {
     formData[DC.DATE_RANGE][DC.START_DATE] = {};
     formData[DC.DATE_RANGE][DC.END_DATE] = {};
     const errorArray = run_validation(formData);
@@ -129,7 +110,7 @@ describe("ensureBothDatesCompletedInRange", () => {
     expect(errorArray[0].errorMessage).toBe("Date Range must be completed");
   });
 
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     formData[DC.DATE_RANGE][DC.START_DATE] = {};
     formData[DC.DATE_RANGE][DC.END_DATE] = {};
     const errorMessage = "Another one bites the dust.";

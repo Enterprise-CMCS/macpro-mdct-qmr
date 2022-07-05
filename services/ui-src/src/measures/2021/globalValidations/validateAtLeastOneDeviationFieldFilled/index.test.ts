@@ -1,10 +1,8 @@
 import * as DC from "dataConstants";
-import { testFormData } from "../testHelpers/_testFormData";
-import {
-  validateAtLeastOneDeviationFieldFilled,
-  getDeviationNDRArray,
-} from "measures/2021/globalValidations";
 import { test_setup } from "../testHelpers/_helper";
+import { testFormData } from "../testHelpers/_testFormData";
+import { getDeviationNDRArray } from "measures/2021/globalValidations";
+import { validateAtLeastOneDeviationFieldFilled } from ".";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   let formData: any = {};
@@ -43,21 +41,21 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     errorArray = [];
   });
 
-  test("Default Form Data", () => {
+  it("Default Form Data", () => {
     _check_errors(formData, 0);
   });
 
-  test("Calculations deviated, but somehow no performance measure data", () => {
+  it("Calculations deviated, but somehow no performance measure data", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     _check_errors(formData, 0, true);
   });
 
-  test("Calculations deviated, but no answer given", () => {
+  it("Calculations deviated, but no answer given", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     _check_errors(formData, 1);
   });
 
-  test("Calculations deviated, but partial answer given", () => {
+  it("Calculations deviated, but partial answer given", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -68,7 +66,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 1);
   });
 
-  test("Calculations deviated, only numerator filled", () => {
+  it("Calculations deviated, only numerator filled", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -80,7 +78,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 0);
   });
 
-  test("Calculations deviated, only denominator filled", () => {
+  it("Calculations deviated, only denominator filled", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -92,7 +90,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 0);
   });
 
-  test("Calculations deviated, only other filled", () => {
+  it("Calculations deviated, only other filled", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -104,7 +102,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 0);
   });
 
-  test("Calculations deviated all fields filled", () => {
+  it("Calculations deviated all fields filled", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -118,8 +116,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 0);
   });
 
-  // custom errorMessage
-  test("Error message text should match default errorMessage", () => {
+  it("Error message text should match default errorMessage", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     errorArray = _run_validation(formData);
     expect(errorArray.length).toBe(1);
@@ -128,7 +125,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     );
   });
 
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     const errorMessage = "Another one bites the dust.";
     errorArray = _run_validation(formData, undefined, errorMessage);

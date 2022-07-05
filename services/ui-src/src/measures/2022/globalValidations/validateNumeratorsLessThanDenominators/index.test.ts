@@ -1,7 +1,7 @@
 import {
   validateNumeratorLessThanDenominatorOMS,
   validateNumeratorsLessThanDenominatorsPM,
-} from "./index";
+} from ".";
 
 import {
   generateOmsCategoryRateData,
@@ -90,6 +90,19 @@ describe("Testing Numerator Less Than Denominator", () => {
         `Numerators must be less than Denominators for all applicable performance measures`
       );
     });
+
+    it("Error message text should match provided errorMessage", () => {
+      const errorMessage = "Another one bites the dust.";
+      const errorArray = validateNumeratorsLessThanDenominatorsPM(
+        [[badNumeratorRate, badNumeratorRate]],
+        undefined,
+        qualifiers,
+        errorMessage
+      );
+
+      expect(errorArray.length).toBe(1);
+      expect(errorArray[0].errorMessage).toBe(errorMessage);
+    });
   });
 
   // OMS
@@ -130,17 +143,27 @@ describe("Testing Numerator Less Than Denominator", () => {
     });
   });
 
-  // custom errorMessage
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     const errorMessage = "Another one bites the dust.";
-    const errorArray = validateNumeratorsLessThanDenominatorsPM(
-      [[badNumeratorRate, badNumeratorRate]],
-      undefined,
-      qualifiers,
-      errorMessage
-    );
+    const locationDictionaryJestFunc = jest.fn();
+    const data = generateOmsCategoryRateData(categories, qualifiers, [
+      badNumeratorRate,
+      badNumeratorRate,
+    ]);
+    const errors = validateNumeratorLessThanDenominatorOMS(errorMessage)({
+      ...baseOMSInfo,
+      locationDictionary: locationDictionaryJestFunc,
+      rateData: data,
+    });
 
-    expect(errorArray.length).toBe(1);
-    expect(errorArray[0].errorMessage).toBe(errorMessage);
+    expect(errors).toHaveLength(4);
+    expect(errors[0].errorLocation).toContain(
+      "Optional Measure Stratification:"
+    );
+    expect(locationDictionaryJestFunc).toHaveBeenCalledWith([
+      "TestLabel",
+      qualifiers[0],
+    ]);
+    expect(errors[0].errorMessage).toBe(errorMessage);
   });
 });

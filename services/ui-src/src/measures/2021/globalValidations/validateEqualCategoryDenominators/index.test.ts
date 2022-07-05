@@ -1,7 +1,7 @@
 import {
   validateEqualCategoryDenominatorsOMS,
   validateEqualCategoryDenominatorsPM,
-} from "./index";
+} from ".";
 
 import {
   generateOmsCategoryRateData,
@@ -81,6 +81,21 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
 
       expect(errors).toHaveLength(0);
     });
+
+    it("Error message text should match provided errorMessage", () => {
+      const errorMessage = "Another one bites the dust.";
+      const errorArray = validateEqualCategoryDenominatorsPM(
+        generatePmQualifierRateData({ qualifiers, categories: noCat }, [
+          simpleRate,
+          doubleRate,
+        ]),
+        noCat,
+        qualifiers,
+        errorMessage
+      );
+      expect(errorArray.length).toBe(1);
+      expect(errorArray[0].errorMessage).toBe(errorMessage);
+    });
   });
 
   // OMS
@@ -137,34 +152,23 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
     });
   });
 
-  // custom errorMessage
-  test("Error message text should match default errorMessage", () => {
-    const errorArray = validateEqualCategoryDenominatorsPM(
-      generatePmQualifierRateData({ qualifiers, categories: noCat }, [
-        simpleRate,
-        doubleRate,
-      ]),
-      noCat,
-      qualifiers
-    );
-    expect(errorArray.length).toBe(1);
-    expect(errorArray[0].errorMessage).toBe(
-      "The following categories must have the same denominator:"
-    );
-  });
-
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     const errorMessage = "Another one bites the dust.";
-    const errorArray = validateEqualCategoryDenominatorsPM(
-      generatePmQualifierRateData({ qualifiers, categories: noCat }, [
-        simpleRate,
-        doubleRate,
-      ]),
-      noCat,
-      qualifiers,
-      errorMessage
+    const locationDictionaryJestFunc = jest.fn();
+    const data = generateOmsCategoryRateData(categories, qualifiers, [
+      simpleRate,
+      doubleRate,
+    ]);
+    const errors = validateEqualCategoryDenominatorsOMS(errorMessage)({
+      ...baseOMSInfo,
+      locationDictionary: locationDictionaryJestFunc,
+      rateData: data,
+    });
+
+    expect(errors).toHaveLength(1);
+    expect(errors[0].errorLocation).toContain(
+      "Optional Measure Stratification:"
     );
-    expect(errorArray.length).toBe(1);
-    expect(errorArray[0].errorMessage).toBe(errorMessage);
+    expect(errors[0].errorMessage).toBe(errorMessage);
   });
 });

@@ -1,7 +1,7 @@
 import {
   validateEqualQualifierDenominatorsOMS,
   validateEqualQualifierDenominatorsPM,
-} from "./index";
+} from ".";
 
 import {
   generateOmsCategoryRateData,
@@ -61,6 +61,41 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
 
       expect(errors).toHaveLength(0);
     });
+
+    it("Error message text should match provided errorMessage", () => {
+      const errorMessage = "Another one bites the dust";
+      const errorArray = validateEqualQualifierDenominatorsPM(
+        [
+          [simpleRate, simpleRate],
+          [doubleRate, doubleRate],
+        ],
+        qualifiers,
+        errorMessage
+      );
+
+      expect(errorArray).toHaveLength(2);
+      expect(errorArray[0].errorMessage).toBe(errorMessage);
+      expect(errorArray[1].errorMessage).toBe(errorMessage);
+    });
+
+    it("Error message text should match provided errorMessageFunc", () => {
+      const errorMessageFunc = (qualifier: string) => {
+        return `Another ${qualifier} bites the dust.`;
+      };
+      const errorArray = validateEqualQualifierDenominatorsPM(
+        [
+          [simpleRate, simpleRate],
+          [doubleRate, doubleRate],
+        ],
+        qualifiers,
+        undefined,
+        errorMessageFunc
+      );
+
+      expect(errorArray).toHaveLength(2);
+      expect(errorArray[0].errorMessage).toBe(errorMessageFunc(qualifiers[0]));
+      expect(errorArray[1].errorMessage).toBe(errorMessageFunc(qualifiers[1]));
+    });
   });
 
   // OMS
@@ -115,40 +150,23 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
     });
   });
 
-  // custom errorMessage
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
+    const locationDictionaryJestFunc = jest.fn();
     const errorMessage = "Another one bites the dust";
-    const errorArray = validateEqualQualifierDenominatorsPM(
-      [
-        [simpleRate, simpleRate],
-        [doubleRate, doubleRate],
-      ],
-      qualifiers,
-      errorMessage
+    const data = generateOmsCategoryRateData(categories, qualifiers, [
+      simpleRate,
+      doubleRate,
+    ]);
+    const errors = validateEqualQualifierDenominatorsOMS(errorMessage)({
+      ...baseOMSInfo,
+      locationDictionary: locationDictionaryJestFunc,
+      rateData: data,
+    });
+
+    expect(errors).toHaveLength(2);
+    expect(errors[0].errorLocation).toContain(
+      "Optional Measure Stratification:"
     );
-
-    expect(errorArray).toHaveLength(2);
-    expect(errorArray[0].errorMessage).toBe(errorMessage);
-    expect(errorArray[1].errorMessage).toBe(errorMessage);
-  });
-
-  // custom errorMessageFunc
-  test("Error message text should match provided errorMessageFunc", () => {
-    const errorMessageFunc = (qualifier: string) => {
-      return `Another ${qualifier} bites the dust.`;
-    };
-    const errorArray = validateEqualQualifierDenominatorsPM(
-      [
-        [simpleRate, simpleRate],
-        [doubleRate, doubleRate],
-      ],
-      qualifiers,
-      undefined,
-      errorMessageFunc
-    );
-
-    expect(errorArray).toHaveLength(2);
-    expect(errorArray[0].errorMessage).toBe(errorMessageFunc(qualifiers[0]));
-    expect(errorArray[1].errorMessage).toBe(errorMessageFunc(qualifiers[1]));
+    expect(errors[0].errorMessage).toBe(errorMessage);
   });
 });

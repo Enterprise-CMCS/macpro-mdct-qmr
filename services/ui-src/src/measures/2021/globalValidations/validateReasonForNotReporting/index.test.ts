@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import { testFormData } from "../testHelpers/_testFormData";
-import { validateReasonForNotReporting } from "measures/2021/globalValidations";
+import { validateReasonForNotReporting } from ".";
 
 describe("validateReasonForNotReporting", () => {
   let formData: string[];
@@ -20,20 +20,19 @@ describe("validateReasonForNotReporting", () => {
     errorArray = [];
   });
 
-  test("Default form data", () => {
+  it("Default form data", () => {
     _check_errors(["Sample Error Reason"], 0, false);
   });
 
-  test("Reason for not reporting not selected (reporting)", () => {
+  it("Reason for not reporting not selected (reporting)", () => {
     _check_errors(formData, 1);
   });
 
-  test("Reason for not reporting not selected (collecting)", () => {
+  it("Reason for not reporting not selected (collecting)", () => {
     _check_errors(formData, 1, true);
   });
 
-  // custom errorMessage
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     const errorMessageFunc = (collecting?: boolean) => {
       return `Another ${collecting} bites the dust`;
     };

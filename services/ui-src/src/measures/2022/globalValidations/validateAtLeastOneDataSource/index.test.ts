@@ -1,6 +1,6 @@
 import { testFormData } from "../testHelpers/_testFormData";
 import * as DC from "dataConstants";
-import { validateAtLeastOneDataSource } from "./index";
+import { validateAtLeastOneDataSource } from ".";
 
 describe("validateOneDataSource", () => {
   let formData: any;
@@ -16,24 +16,23 @@ describe("validateOneDataSource", () => {
     errorArray = [];
   });
 
-  test("When no Data Source is Selected a validation warning shows", () => {
+  it("When no Data Source is Selected a validation warning shows", () => {
     formData[DC.DATA_SOURCE] = [];
     formData[DC.DATA_SOURCE_SELECTIONS] = {};
     _check_errors(formData, 1);
   });
 
-  test("When a Data Source is Selected no validation warning shows", () => {
+  it("When a Data Source is Selected no validation warning shows", () => {
     formData[DC.DATA_SOURCE_SELECTIONS] = {};
     _check_errors(formData, 0);
   });
   //This scenario below is actually impossible from a ui perspective I believe
-  test("When no Data Source but Data Source Selections are Selected a validation warning shows", () => {
+  it("When no Data Source but Data Source Selections are Selected a validation warning shows", () => {
     formData[DC.DATA_SOURCE] = [];
     _check_errors(formData, 1);
   });
 
-  // custom errorMessage
-  test("Error message text should match default errorMessage", () => {
+  it("Error message text should match default errorMessage", () => {
     formData[DC.DATA_SOURCE] = [];
     errorArray = [...validateAtLeastOneDataSource(formData)];
     expect(errorArray.length).toBe(1);
@@ -42,7 +41,7 @@ describe("validateOneDataSource", () => {
     );
   });
 
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     formData[DC.DATA_SOURCE] = [];
     const errorMessage = "Another one bites the dust.";
     errorArray = [...validateAtLeastOneDataSource(formData, errorMessage)];

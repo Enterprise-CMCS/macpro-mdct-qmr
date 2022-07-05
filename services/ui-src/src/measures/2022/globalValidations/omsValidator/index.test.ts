@@ -1,18 +1,18 @@
-import { omsValidations } from "./index";
+import { omsValidations } from ".";
 import {
   locationDictionary,
   generateOmsQualifierRateData,
   simpleRate,
   generateOmsFormData,
 } from "utils/testUtils/validationHelpers";
-import { DefaultFormData } from "measures/2021/CommonQuestions/types";
-import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
+import { DefaultFormData } from "measures/2022/CommonQuestions/types";
+import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
 
 describe("Testing OMS validation processor", () => {
   const categories = ["Test Cat 1", "Test Cat 2"];
   const qualifiers = ["Test Qual 1", "Test Qual 2"];
 
-  test("should have no errors for basic data", () => {
+  it("should have no errors for basic data", () => {
     const errors = omsValidations({
       categories,
       qualifiers,
@@ -30,7 +30,7 @@ describe("Testing OMS validation processor", () => {
     expect(errors.length).toBe(0);
   });
 
-  test("should have no errors for basic data - no ACA", () => {
+  it("should have no errors for basic data - no ACA", () => {
     const errors = omsValidations({
       categories,
       qualifiers,
@@ -50,7 +50,7 @@ describe("Testing OMS validation processor", () => {
     expect(errors.length).toBe(0);
   });
 
-  test("should have no errors for no data", () => {
+  it("should have no errors for no data", () => {
     const errors = omsValidations({
       categories,
       qualifiers,
@@ -69,7 +69,7 @@ describe("Testing OMS validation processor", () => {
     expect(errors.length).toBe(0);
   });
 
-  test("should have errors for not filling data into selected checkboxes", () => {
+  it("should have errors for not filling data into selected checkboxes", () => {
     const errors = omsValidations({
       categories,
       qualifiers,
@@ -98,7 +98,7 @@ describe("Testing OMS validation processor", () => {
     );
   });
 
-  test("should have errors from callbacks for every node", () => {
+  it("should have errors from callbacks for every node", () => {
     const errors = omsValidations({
       categories,
       qualifiers,

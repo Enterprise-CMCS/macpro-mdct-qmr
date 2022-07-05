@@ -1,7 +1,4 @@
-import {
-  validateTotalNDR,
-  validateOMSTotalNDR,
-} from "measures/2022/globalValidations";
+import { validateTotalNDR, validateOMSTotalNDR } from ".";
 
 import * as VH from "utils/testUtils/validationHelpers";
 
@@ -74,6 +71,39 @@ describe("Testing PM/OMS Total Validations", () => {
 
       expect(singleResult.length).toBe(0);
       expect(multiResults.length).toBe(0);
+    });
+
+    it("Error message text should match provided errorMessageFunc", () => {
+      const errorMessageFunc = (qualifier: string, fieldType: string) => {
+        return `Another ${qualifier} bites the ${fieldType}.`;
+      };
+
+      const basePM = [
+        VH.simpleRate,
+        VH.simpleRate,
+        VH.incorrectDenominatorRate,
+      ];
+      const singleResults = validateTotalNDR(
+        [basePM],
+        undefined,
+        undefined,
+        errorMessageFunc
+      );
+      const multiResults = validateTotalNDR(
+        [basePM, basePM, basePM],
+        undefined,
+        undefined,
+        errorMessageFunc
+      );
+
+      expect(singleResults.length).toBe(1);
+      expect(multiResults.length).toBe(3);
+      for (const result of [...singleResults, ...multiResults]) {
+        expect(result.errorLocation).toBe("Performance Measure");
+        expect(result.errorMessage).toBe(
+          errorMessageFunc(VH.incorrectDenominatorRate.label!, "Denominator")
+        );
+      }
     });
   });
 
@@ -264,35 +294,53 @@ describe("Testing PM/OMS Total Validations", () => {
       expect(singleResult.length).toBe(0);
       expect(multiResults.length).toBe(0);
     });
-  });
 
-  // custom errorMessage
-  test("Error message text should match provided errorMessage", () => {
-    const errorMessageFunc = (qualifier: string, fieldType: string) => {
-      return `Another ${qualifier} bites the ${fieldType}.`;
-    };
+    it("Error message text should match provided errorMessageFunc", () => {
+      const errorMessageFunc = (fieldType: string, totalLabel?: string) => {
+        return `Another ${fieldType} bites the ${totalLabel ?? ""}.`;
+      };
 
-    const basePM = [VH.simpleRate, VH.simpleRate, VH.incorrectDenominatorRate];
-    const singleResults = validateTotalNDR(
-      [basePM],
-      undefined,
-      undefined,
-      errorMessageFunc
-    );
-    const multiResults = validateTotalNDR(
-      [basePM, basePM, basePM],
-      undefined,
-      undefined,
-      errorMessageFunc
-    );
+      const basePMData = [
+        VH.simpleRate,
+        VH.simpleRate,
+        VH.incorrectNumeratorRate,
+      ];
 
-    expect(singleResults.length).toBe(1);
-    expect(multiResults.length).toBe(3);
-    for (const result of [...singleResults, ...multiResults]) {
-      expect(result.errorLocation).toBe("Performance Measure");
-      expect(result.errorMessage).toBe(
-        errorMessageFunc(VH.incorrectDenominatorRate.label!, "Denominator")
-      );
-    }
+      const singleResults = validateOMSTotalNDR(errorMessageFunc)({
+        ...baseSingleFunctionInfo,
+        rateData: VH.generateOmsQualifierRateData(
+          noCategories,
+          qualifiers,
+          basePMData
+        ),
+      });
+      const multiResults = validateOMSTotalNDR(errorMessageFunc)({
+        ...baseMultiFunctionInfo,
+        rateData: VH.generateOmsQualifierRateData(
+          categories,
+          qualifiers,
+          basePMData
+        ),
+      });
+
+      expect(singleResults.length).toBe(1);
+      expect(multiResults.length).toBe(3);
+      for (const error of [...singleResults, ...multiResults]) {
+        expect(error.errorLocation).toBe(
+          "Optional Measure Stratification: TestLabel"
+        );
+        expect(error.errorMessage).toBe(
+          errorMessageFunc("numerator", undefined)
+        );
+      }
+      for (const result of [...singleResults, ...multiResults]) {
+        expect(result.errorLocation).toBe(
+          "Optional Measure Stratification: TestLabel"
+        );
+        expect(result.errorMessage).toBe(
+          errorMessageFunc("numerator", undefined)
+        );
+      }
+    });
   });
 });

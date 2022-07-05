@@ -22,22 +22,21 @@ describe("validateRequiredRadioButtonForCombinedRates", () => {
     errorArray = [];
   });
 
-  test("Default form data", () => {
+  it("Default form data", () => {
     _check_errors(formData, 0);
   });
 
-  test("No error if combined rate not checked", () => {
+  it("No error if combined rate not checked", () => {
     delete formData[DC.COMBINED_RATES];
     _check_errors(formData, 0);
   });
 
-  test("Should throw error for missing field", () => {
+  it("Should throw error for missing field", () => {
     delete formData[DC.COMBINED_RATES_COMBINED_RATES];
     _check_errors(formData, 1);
   });
 
-  // custom errorMessage
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     const errorMessage = "Another one bites the dust";
     delete formData[DC.COMBINED_RATES_COMBINED_RATES];
     errorArray = [

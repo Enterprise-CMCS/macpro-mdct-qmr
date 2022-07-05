@@ -1,15 +1,15 @@
 import * as DC from "dataConstants";
-import { validateDualPopInformationPM } from "./index";
 import { simpleRate, partialRate } from "utils/testUtils/validationHelpers";
+import { validateDualPopInformationPM } from ".";
 
 describe("Testing Dual Population Selection Validation", () => {
-  test("should be no errors", () => {
+  it("should be no errors", () => {
     const errors = validateDualPopInformationPM([], undefined, 0, []);
 
     expect(errors.length).toBe(0);
   });
 
-  test("should be no errors - partial data", () => {
+  it("should be no errors - partial data", () => {
     const errors = validateDualPopInformationPM(
       [[partialRate, partialRate]],
       undefined,
@@ -20,13 +20,13 @@ describe("Testing Dual Population Selection Validation", () => {
     expect(errors.length).toBe(0);
   });
 
-  test("should be no errors - OPM", () => {
+  it("should be no errors - OPM", () => {
     const errors = validateDualPopInformationPM([], [], 0, []);
 
     expect(errors.length).toBe(0);
   });
 
-  test("should be errors for no checkbox selections", () => {
+  it("should be errors for no checkbox selections", () => {
     const errors = validateDualPopInformationPM(
       [[simpleRate, simpleRate]],
       undefined,
@@ -41,7 +41,7 @@ describe("Testing Dual Population Selection Validation", () => {
     );
   });
 
-  test("should be errors for no matching checkbox selection", () => {
+  it("should be errors for no matching checkbox selection", () => {
     const errors = validateDualPopInformationPM(
       [[simpleRate, simpleRate]],
       undefined,
@@ -56,7 +56,7 @@ describe("Testing Dual Population Selection Validation", () => {
     );
   });
 
-  test("should be errors for no matching checkbox selection - specified string", () => {
+  it("should be errors for no matching checkbox selection - specified string", () => {
     const errors = validateDualPopInformationPM(
       [[simpleRate, simpleRate]],
       undefined,
@@ -72,7 +72,7 @@ describe("Testing Dual Population Selection Validation", () => {
     );
   });
 
-  test("should be errors for no data", () => {
+  it("should be errors for no data", () => {
     const errors = validateDualPopInformationPM([], undefined, 0, [
       DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
     ]);
@@ -84,7 +84,7 @@ describe("Testing Dual Population Selection Validation", () => {
     );
   });
 
-  test("should be errors for no data - specified string", () => {
+  it("should be errors for no data - specified string", () => {
     const errors = validateDualPopInformationPM(
       [],
       undefined,
@@ -100,8 +100,7 @@ describe("Testing Dual Population Selection Validation", () => {
     );
   });
 
-  // custom errorMessage
-  test("Error message text should match default errorMessage", () => {
+  it("Error message text should match default errorMessage", () => {
     const errorArray = validateDualPopInformationPM(
       [[simpleRate, simpleRate]],
       undefined,
@@ -114,7 +113,7 @@ describe("Testing Dual Population Selection Validation", () => {
     );
   });
 
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     const errorMessageFunc = (
       _dualEligible: boolean,
       errorReplacementText: string
@@ -132,7 +131,7 @@ describe("Testing Dual Population Selection Validation", () => {
     );
     expect(errorArray.length).toBe(1);
     expect(errorArray[0].errorMessage).toBe(
-      "Another Age 65 and Older bites the dust"
+      errorMessageFunc(true, "Age 65 and Older")
     );
   });
 });

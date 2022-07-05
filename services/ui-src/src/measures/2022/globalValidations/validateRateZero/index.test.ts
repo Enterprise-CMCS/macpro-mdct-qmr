@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { validateRateZeroOMS, validateRateZeroPM } from "./index";
+import { validateRateZeroOMS, validateRateZeroPM } from ".";
 
 import { testFormData } from "../testHelpers/_testFormData";
 
@@ -109,6 +109,26 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
 
       expect(errors).toHaveLength(0);
     });
+
+    it("Error message text should match provided errorMessage", () => {
+      const errorMessage = "Another one bites the dust.";
+      const errors = validateRateZeroPM(
+        [
+          [manualNonZeroRate, manualNonZeroRate],
+          [manualNonZeroRate, manualNonZeroRate],
+        ],
+        undefined,
+        qualifiers,
+        { ...testFormData },
+        errorMessage
+      );
+
+      expect(errors).toHaveLength(1);
+      expect(errors[0].errorLocation).toBe(
+        `Performance Measure/Other Performance Measure`
+      );
+      expect(errors[0].errorMessage).toBe(errorMessage);
+    });
   });
 
   // OMS
@@ -152,23 +172,20 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
   });
 
-  // custom errorMessage
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     const errorMessage = "Another one bites the dust.";
-    const errors = validateRateZeroPM(
-      [
-        [manualNonZeroRate, manualNonZeroRate],
-        [manualNonZeroRate, manualNonZeroRate],
-      ],
-      undefined,
-      qualifiers,
-      { ...testFormData },
-      errorMessage
-    );
+    const data = generateOmsQualifierRateData(categories, qualifiers, [
+      manualNonZeroRate,
+      manualNonZeroRate,
+    ]);
+    const errors = validateRateZeroOMS(errorMessage)({
+      ...baseOMSInfo,
+      rateData: data,
+    });
 
     expect(errors).toHaveLength(1);
-    expect(errors[0].errorLocation).toBe(
-      `Performance Measure/Other Performance Measure`
+    expect(errors[0].errorLocation).toContain(
+      "Optional Measure Stratification: TestLabel"
     );
     expect(errors[0].errorMessage).toBe(errorMessage);
   });

@@ -1,4 +1,4 @@
-import { validateRateNotZeroOMS, validateRateNotZeroPM } from "./index";
+import { validateRateNotZeroOMS, validateRateNotZeroPM } from ".";
 import {
   generateOmsQualifierRateData,
   locationDictionary,
@@ -98,6 +98,25 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
 
       expect(errors).toHaveLength(0);
     });
+
+    it("Error message text should match provided errorMessage", () => {
+      const errorMessage = "Another one bites the dust.";
+      const errors = validateRateNotZeroPM(
+        [
+          [manualZeroRate, manualZeroRate],
+          [manualZeroRate, manualZeroRate],
+        ],
+        undefined,
+        qualifiers,
+        errorMessage
+      );
+
+      expect(errors).toHaveLength(1);
+      expect(errors[0].errorLocation).toBe(
+        `Performance Measure/Other Performance Measure`
+      );
+      expect(errors[0].errorMessage).toBe(errorMessage);
+    });
   });
 
   // OMS
@@ -122,22 +141,20 @@ describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
     });
   });
 
-  // custom errorMessage
-  test("Error message text should match provided errorMessage", () => {
+  it("Error message text should match provided errorMessage", () => {
     const errorMessage = "Another one bites the dust.";
-    const errors = validateRateNotZeroPM(
-      [
-        [manualZeroRate, manualZeroRate],
-        [manualZeroRate, manualZeroRate],
-      ],
-      undefined,
-      qualifiers,
-      errorMessage
-    );
+    const data = generateOmsQualifierRateData(categories, qualifiers, [
+      manualZeroRate,
+      manualZeroRate,
+    ]);
+    const errors = validateRateNotZeroOMS(errorMessage)({
+      ...baseOMSInfo,
+      rateData: data,
+    });
 
     expect(errors).toHaveLength(1);
-    expect(errors[0].errorLocation).toBe(
-      `Performance Measure/Other Performance Measure`
+    expect(errors[0].errorLocation).toContain(
+      "Optional Measure Stratification: TestLabel"
     );
     expect(errors[0].errorMessage).toBe(errorMessage);
   });
