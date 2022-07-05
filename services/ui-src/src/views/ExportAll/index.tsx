@@ -40,20 +40,33 @@ export const ExportAll = () => {
       }
     }
 
-    //@ts-ignore
-    const styleString = [...document.querySelectorAll("[data-emotion]")]
-      .flatMap(({ sheet }) => [...sheet.cssRules].map((rules) => rules.cssText))
-      .join("\n");
+    const styleString = [
+      //@ts-ignore
+      ...document.querySelectorAll("[data-emotion]"),
+    ].flatMap(({ sheet }) =>
+      [...sheet.cssRules].map((rules) => {
+        return rules.cssText.replace(
+          /text\-align\: right/g,
+          "text-align: center"
+        );
+        // return rules.cssText;
+      })
+    );
 
-    const styleTag = document.createElement("style");
-    document.head.appendChild(styleTag);
-    styleTag.appendChild(document.createTextNode(styleString));
+    for (const style of styleString) {
+      const styleTag = document.createElement("style");
+      document.body.appendChild(styleTag);
+      styleTag.appendChild(document.createTextNode(style));
+    }
 
     const html = document.querySelector("html")!;
+    document
+      .querySelectorAll('[data-cy="surfaceLinkTag"]')
+      .forEach((v) => v.remove());
     html.querySelector("noscript")?.remove();
 
     const htmlString = html
-      .innerHTML!.replaceAll(
+      .outerHTML!.replaceAll(
         '<link href="',
         `<link href="https://${window.location.host}`
       )
@@ -64,6 +77,7 @@ export const ExportAll = () => {
       .replaceAll("\u2013", "-")
       .replaceAll("\u2014", "-");
 
+    console.log(htmlString);
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
     const pdf = await getPDF({
@@ -111,13 +125,7 @@ export const ExportAll = () => {
           PRINT PDF
         </CUI.Button>
       </CUI.Container>
-      <CUI.UnorderedList
-        display={"grid"}
-        gridTemplateRows={"1fr"}
-        gridTemplateColumns="repeat(auto-fill, minmax(200px, 1fr));"
-        listStyleType={"none"}
-        placeItems={"center"}
-      >
+      <CUI.Center>
         <CUI.Text
           gridColumn={"1 / -1"}
           fontSize={"xl"}
@@ -130,16 +138,27 @@ export const ExportAll = () => {
         >
           Click on one of the measures below to navigate to it.
         </CUI.Text>
-        {sortedData?.map((measure: any) => {
-          return (
-            <CUI.ListItem my="2">
-              <CUI.Button as="a" width={"28"} href={`#${measure?.measure}`}>
+      </CUI.Center>
+      <CUI.Center>
+        <CUI.SimpleGrid
+          columns={{ sm: 2, md: 4, lg: 6, xl: 8 }}
+          spacingX={5}
+          spacingY={10}
+        >
+          {sortedData?.map((measure: any) => {
+            return (
+              <CUI.Button
+                as="a"
+                width={"28"}
+                href={`#${measure?.measure}`}
+                key={`buttonLink.${measure?.measure}`}
+              >
                 {measure?.measure}
               </CUI.Button>
-            </CUI.ListItem>
-          );
-        })}
-      </CUI.UnorderedList>
+            );
+          })}
+        </CUI.SimpleGrid>
+      </CUI.Center>
       {sortedData?.map((measure: any) => {
         const Comp =
           measure.measure === "CSQ"
@@ -152,15 +171,22 @@ export const ExportAll = () => {
             : undefined;
 
         return (
-          <QMR.PrintableMeasureWrapper
-            measure={createElement(Comp)}
-            measureData={measure}
-            measureId={measure.measure}
-            name={measure.description}
-            year={measure.year}
-            key={measure.compoundKey}
-            defaultData={defaultData}
-          />
+          <>
+            <QMR.PrintableMeasureWrapper
+              measure={createElement(Comp)}
+              measureData={measure}
+              measureId={measure.measure}
+              name={measure.description}
+              year={measure.year}
+              key={measure.compoundKey}
+              defaultData={defaultData}
+            />
+            <CUI.Center key={`returnButton.${measure.measure}`} mt="2">
+              <a data-cy="surfaceLinkTag" href="#top-of-page">
+                Back to top
+              </a>
+            </CUI.Center>
+          </>
         );
       })}
     </>
