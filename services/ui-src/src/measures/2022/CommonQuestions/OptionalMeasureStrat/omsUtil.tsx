@@ -1,4 +1,5 @@
 import objectPath from "object-path";
+import { cleanString } from "utils/cleanString";
 import { complexRateFields, RateFields } from "../types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -26,8 +27,6 @@ interface CalcOmsTotalProp {
   rateMultiplicationValue?: number;
   numberOfDecimals: number;
 }
-
-export const cleanString = (s: string) => s && s.replace(/[^\w]/g, "");
 
 /** Process all OMS rate values pertaining to set category and calculate new rate object */
 const calculateOMSTotal = ({

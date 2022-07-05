@@ -5,6 +5,7 @@ import * as Types from "../types";
 import { DataSourceData, defaultData, OptionNode } from "./data";
 import { useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
+import { cleanString } from "utils/cleanString";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -52,7 +53,7 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
 const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   for (const node of data) {
-    const cleanedNodeValue = node.value.replace(/[^\w]/g, "");
+    const cleanedNodeValue = cleanString(node.value);
     const adjustedParentName = parentName
       ? `${parentName}-${cleanedNodeValue}`
       : cleanedNodeValue;

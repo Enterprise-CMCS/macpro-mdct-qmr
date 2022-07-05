@@ -1,7 +1,8 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../../CommonQuestions/types";
+import { cleanString } from "utils/cleanString";
+import { useCustomRegister } from "hooks/useCustomRegister";
 import { PerformanceMeasureData } from "../../CommonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
 import { PCRRate } from "components/PCRRate";
@@ -43,7 +44,7 @@ const CategoryNdrSets = ({
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = item.replace(/[^\w]/g, "");
+        const cleanedName = cleanString(item);
 
         return (
           <>

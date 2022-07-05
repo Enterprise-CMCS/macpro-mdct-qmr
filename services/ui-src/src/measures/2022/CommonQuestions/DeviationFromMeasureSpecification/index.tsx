@@ -3,6 +3,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { cleanString } from "utils/cleanString";
 
 interface GetTopLvlDeviationOptions {
   categories: string[];
@@ -25,12 +26,6 @@ interface OptionProps {
   name: string;
   qualifiers?: Types.RateFields[];
 }
-
-/**
- * It removes all non-word characters from a string.
- * @param {string} [s] - The string to be cleaned.
- */
-const cleanString = (s?: string) => s?.replace(/[^\w]/g, "");
 
 /**
  * Check if the rate has both a numerator and a denominator.
@@ -97,7 +92,7 @@ export const getLowLvlDeviationOptions = ({
   return qualifiers
     .sort((a, b) => (a.label!! < b.label!! ? 1 : 1))
     .map((item) => {
-      const value = `${cleanString(item.label)}`;
+      const value = `${item.label && cleanString(item.label)}`;
       return {
         displayValue: item.label!,
         value,
@@ -164,7 +159,7 @@ export const DeviationFromMeasureSpec = ({
         });
       } else {
         categories.forEach((cat) => {
-          const key = cat.replace(/[^\w]/g, "");
+          const key = cleanString(cat);
           // if some of the rates have both num and den
 
           const deviations =

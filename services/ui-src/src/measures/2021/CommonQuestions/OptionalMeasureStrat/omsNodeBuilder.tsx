@@ -6,6 +6,7 @@ import { OmsNode } from "./data";
 import { AddAnotherSection } from "./additionalCategory";
 import { SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./ndrSets";
+import { cleanString } from "utils/cleanString";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -65,7 +66,7 @@ const renderRadioButtonOptions = ({
               return buildChildCheckboxOption({
                 omsNode: node,
                 name: `${name}.selections.${
-                  node.id?.replace(/[^\w]/g, "") ?? "ID_NOT_SET"
+                  cleanString(node.id) ?? "ID_NOT_SET"
                 }`,
               });
             }) || []
@@ -85,7 +86,7 @@ const buildChildCheckboxOption = ({
   name,
 }: ChildCheckBoxOptionProps) => {
   let children = [];
-  const cleanedName = omsNode?.id?.replace(/[^\w]/g, "") ?? "ID_NOT_SET";
+  const cleanedName = (omsNode?.id && cleanString(omsNode.id)) ?? "ID_NOT_SET";
 
   if (!omsNode?.options) {
     children = [
@@ -129,7 +130,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
         options={[
           ...props.options.map((lvlTwoOption) => {
             const cleanedId =
-              lvlTwoOption?.id?.replace(/[^\w]/g, "") ?? "LVL_TWO_ID_NOT_SET";
+              cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
 
             return buildChildCheckboxOption({
               omsNode: lvlTwoOption,
