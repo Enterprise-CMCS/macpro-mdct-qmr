@@ -670,5 +670,30 @@ export const measures: Measure = {
       type: "H",
       measure: "PQI92-HH",
     },
+    {
+      type: "H",
+      measure: "SS-1-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-2-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-3-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-4-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-5-HH",
+      placeholder: true,
+    },
   ],
 };

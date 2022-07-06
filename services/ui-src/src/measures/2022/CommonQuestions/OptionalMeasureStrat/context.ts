@@ -1,12 +1,13 @@
 import { createContext, useContext } from "react";
 import * as Types from "../types";
 
-export type ComponentFlagType = "DEFAULT" | "IU" | "PCR" | "AAB";
+export type ComponentFlagType = "DEFAULT" | "AIF" | "IU" | "PCR";
 
 interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
   IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
+  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
   categories: string[];
@@ -38,6 +39,7 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   customNumeratorLabel: "Numerator",
   customDenominatorLabel: "Denominator",
   customRateLabel: "Rate",
+  customPrompt: undefined,
 });
 
 export const usePerformanceMeasureContext = () =>

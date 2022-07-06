@@ -1,4 +1,4 @@
-import * as Types from "../../../CommonQuestions/types";
+import * as Types from "measures/2022/CommonQuestions/types";
 
 interface NDRforumla {
   numerator: number;
