@@ -105,9 +105,10 @@ describe("Measure: OHD-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.additionalCategoriesButton"]'
     ).click();
-    cy.get(
-      ":nth-child(4) > :nth-child(1) > :nth-child(1) > :nth-child(2) > :nth-child(1) > :nth-child(1) > :nth-child(2) > :nth-child(1) > .css-9515vv"
-    ).should("have.text", "Additional Race (Non-Hispanic)");
+    cy.get("p.chakra-text.css-9515vv").should(
+      "have.text",
+      "Additional Race (Non-Hispanic)"
+    );
 
     cy.get(".css-ipuaqi").should(
       "have.text",
