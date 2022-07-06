@@ -6,7 +6,7 @@ SHIFT + CMD/CTRL + V
 
 # Quality Measure Reporting (QMR)
 
-# cms-mdct-qmr ![Build](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master) [![latest release](https://img.shields.io/github/release/cmsgov/cms-mdct-qmr.svg)](https://github.com/cmsgov/cms-mdct-qmr/releases/latest) [![Maintainability](https://api.codeclimate.com/v1/badges/1449ad929006f559756b/maintainability)](https://codeclimate.com/github/CMSgov/cms-mdct-qmr/maintainability) [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5b10ae50ca1effedcd3/test_coverage)](https://codeclimate.com/repos/60fae00673444f5bad001bf9/test_coverage)
+# cms-mdct-qmr ![Build](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master) [![latest release](https://img.shields.io/github/release/cmsgov/cms-mdct-qmr.svg)](https://github.com/cmsgov/cms-mdct-qmr/releases/latest) [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5b10ae50ca1effedcd3/test_coverage)](https://codeclimate.com/repos/60fae00673444f5bad001bf9/test_coverage)
 
 | branch     | status                                                                                       | release                                                                                                                                                                                                                       |
 | ---------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -27,7 +27,6 @@ The new web-based QMR application will allow CMS to access data submitted by the
 # Table of Contents
 
 - [Quality Measure Reporting (QMR)](#quality-measure-reporting-qmr)
-- [cms-mdct-qmr !Build [![latest release](https://img.shields.io/github/release/cmsgov/cms-mdct-qmr.svg)](https://github.com/cmsgov/cms-mdct-qmr/releases/latest) [![Maintainability](https://api.codeclimate.com/v1/badges/1449ad929006f559756b/maintainability)](https://codeclimate.com/github/CMSgov/cms-mdct-qmr/maintainability) [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5b10ae50ca1effedcd3/test_coverage)](https://codeclimate.com/repos/60fae00673444f5bad001bf9/test_coverage)](#cms-mdct-qmr------)
   - [What is QMR](#what-is-qmr)
   - [Value](#value)
 - [Table of Contents](#table-of-contents)
@@ -501,9 +500,9 @@ When logging in, choose "Login with GitHub" to connect to the appropriate repos.
 
 ### Configuration
 
-The Code Climate config file is at the top level of the project and called `.codeclimate.yml`. This is similar to a gitignore file but it determines what parts of the repo to measure for code coverage.
+The Code Climate config file is at the top level of the project and called `.codeclimate.yml`. This is similar to a gitignore file in that you specify file patterns to ignore for code smell and maintainability.
 
-Right now we are only measuring test coverage on the pieces of the `app-api` and `ui-src` that we have worked on. This excludes node modules and testing files.
+Right now we are only looking at the pieces of the `app-api` and `ui-src` that we have worked on.
 
 # Deployment
 
