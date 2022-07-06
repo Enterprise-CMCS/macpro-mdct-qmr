@@ -221,7 +221,7 @@ describe("Measure: oy2-8979 CDF-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.singleCategory.0.rate"]'
     ).should("have.value", "0.0");
-    cy.get(":nth-child(12) > :nth-child(3)").click();
+    //cy.get(":nth-child(12) > :nth-child(3)").click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.singleCategory.0.rate"]'
     ).click();
@@ -234,7 +234,7 @@ describe("Measure: oy2-8979 CDF-CH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.singleCategory.0.rate"]'
     ).should("have.value", "12.3");
-    cy.get(":nth-child(12) > :nth-child(3)").click();
+    //cy.get(":nth-child(12) > :nth-child(3)").click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Ethnicity");
