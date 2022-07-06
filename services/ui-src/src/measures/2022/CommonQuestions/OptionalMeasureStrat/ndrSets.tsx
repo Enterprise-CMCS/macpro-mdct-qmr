@@ -59,6 +59,15 @@ const TotalNDR = ({
         categoryName={""}
       />
     );
+  } else if (componentFlag === "AIF") {
+    return (
+      <QMR.AIFHHRate
+        key={cleanedName}
+        name={cleanedName}
+        readOnly={rateReadOnly}
+        rates={[{ label: label, id: 0 }]}
+      />
+    );
   } else {
     return (
       <QMR.Rate
@@ -141,12 +150,12 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     customMask,
     performanceMeasureArray,
     IUHHPerformanceMeasureArray,
-    rateCalculation,
     rateMultiplicationValue,
     rateReadOnly,
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
+    rateCalculation,
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
@@ -155,13 +164,19 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     const ndrSets: React.ReactElement[] = [];
 
     if (IUHHPerformanceMeasureArray) {
-      IUHHPerformanceMeasureArray?.forEach((measure, idx) => {
-        const cleanedName = `${name}.rates.${cleanString(
-          singleQual
-        )}.${cleanString(categories[idx])}`;
-        const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
-        const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
-        const rate3 = measure?.[qualIndex]?.fields?.[5]?.value ? true : false;
+      IUHHPerformanceMeasureArray?.forEach((category, idx) => {
+        // The shape of Maternity is different than all other Categories
+        if (idx === 1) {
+          category = [{}, category[0], {}, category[1], category[2]];
+        }
+        const cleanQual = cleanString(singleQual);
+        const cleanCat = cleanString(categories[idx]);
+        const cleanedName = `${name}.rates.${cleanQual}.${cleanCat}`;
+
+        // Confirm that there is at least 1 rate complete
+        const rate1 = category?.[qualIndex]?.fields?.[2]?.value ? true : false;
+        const rate2 = category?.[qualIndex]?.fields?.[4]?.value ? true : false;
+        const rate3 = category?.[qualIndex]?.fields?.[5]?.value ? true : false;
         if (rate1 || rate2 || rate3) {
           ndrSets.push(
             <QMR.IUHHRate
@@ -213,7 +228,6 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     }
     rateArrays.push(ndrSets);
   });
-
   return rateArrays;
 };
 
@@ -224,13 +238,14 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     calcTotal,
     allowNumeratorGreaterThanDenominator,
     customMask,
-    rateCalculation,
     performanceMeasureArray,
     rateMultiplicationValue,
+    AIFHHPerformanceMeasureArray,
     rateReadOnly,
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
+    rateCalculation,
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
@@ -258,6 +273,32 @@ const useQualRateArray: RateArrayBuilder = (name) => {
           rates={[{ id: 0 }]}
         />,
       ]);
+    } else if (AIFHHPerformanceMeasureArray) {
+      AIFHHPerformanceMeasureArray?.forEach((measure) => {
+        const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
+          DC.SINGLE_CATEGORY
+        }`;
+        //Confirm that there is at least 1 rate complete
+        const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
+        const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
+        const rate3 = measure?.[qualIndex]?.fields?.[6]?.value ? true : false;
+        if (rate1 || rate2 || rate3) {
+          rateArrays.push([
+            <QMR.AIFHHRate
+              readOnly={rateReadOnly}
+              name={cleanedName}
+              key={cleanedName}
+              rates={[
+                {
+                  id: 0,
+                },
+              ]}
+            />,
+          ]);
+        } else {
+          rateArrays.push([]);
+        }
+      });
     } else {
       rateArrays.push([]);
     }
@@ -295,7 +336,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
           <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
             {customPrompt ??
               `Enter a number for the numerator and the denominator. Rate will
-auto-calculate:`}
+            auto-calculate:`}
           </CUI.Heading>,
           <CUI.Heading
             pt="1"
@@ -358,6 +399,28 @@ const IUHHNDRSets = ({ name }: NdrProps) => {
   );
 };
 
+const AIFHHNDRSets = ({ name }: NdrProps) => {
+  const { calcTotal } = usePerformanceMeasureContext();
+
+  const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.aifhh-rate`);
+  return (
+    <>
+      <QMR.Checkbox
+        name={`${name}.aifhh-rate.options`}
+        key={`${name}.aifhh-rate.options`}
+        options={ageGroupsOptions}
+      />
+      {calcTotal && (
+        <TotalNDRSets
+          componentFlag={"AIF"}
+          name={`${name}.aifhh-rate`}
+          key={`${name}.aifhh-rate.totalWrapper`}
+        />
+      )}
+    </>
+  );
+};
+
 const PCRNDRSets = ({ name }: NdrProps) => {
   const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
@@ -404,10 +467,10 @@ const useRenderOPMCheckboxOptions = (name: string) => {
     rateMultiplicationValue,
     customMask,
     allowNumeratorGreaterThanDenominator,
-    rateCalculation,
     customDenominatorLabel,
     customNumeratorLabel,
     customRateLabel,
+    rateCalculation,
     customPrompt,
   } = usePerformanceMeasureContext();
 
@@ -453,7 +516,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
           >
             {customPrompt ??
               `Enter a number for the numerator and the denominator. Rate will
-auto-calculate:`}
+            auto-calculate:`}
           </CUI.Heading>,
           <CUI.Heading
             pt="1"
@@ -464,6 +527,24 @@ auto-calculate:`}
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
           RateComponent,
+          <QMR.Rate
+            rates={[
+              {
+                id: 0,
+              },
+            ]}
+            name={`${name}.rates.${cleanedFieldName}.OPM`}
+            key={`${name}.rates.${cleanedFieldName}.OPM`}
+            readOnly={rateReadOnly}
+            rateMultiplicationValue={rateMultiplicationValue}
+            customMask={customMask}
+            allowNumeratorGreaterThanDenominator={
+              allowNumeratorGreaterThanDenominator
+            }
+            customNumeratorLabel={customNumeratorLabel}
+            customDenominatorLabel={customDenominatorLabel}
+            customRateLabel={customRateLabel}
+          />,
         ],
       });
     }
@@ -500,14 +581,14 @@ export const NDRSets = ({ name }: NdrProps) => {
         children.push(<AgeGroupNDRSets name={name} key={name} />);
       }
       break;
-    case "AAB":
-      if (!OPM) {
-        children.push(<AgeGroupNDRSets name={name} key={name} />);
-      }
-      break;
     case "IU":
       if (!OPM) {
         children.push(<IUHHNDRSets name={name} key={name} />);
+      }
+      break;
+    case "AIF":
+      if (!OPM) {
+        children.push(<AIFHHNDRSets name={name} key={name} />);
       }
       break;
     case "PCR":
