@@ -288,7 +288,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
           clearFile(index);
         }}
       >
-        x
+        Delete
       </CUI.Button>
     </CUI.HStack>
   );
