@@ -84,7 +84,7 @@ describe("Measure: OHD-AD", () => {
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("1");
 
-    cy.get(":nth-child(12) > :nth-child(2)").should(
+    cy.get("fieldset p.chakra-text.css-15hzea").should(
       "have.text",
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, language, disability status, or geography, complete the following as applicable. If your state reported for classifications/sub-categories other than those listed below, or reported for different rate sets, please click on “Add Another” to add Additional/Alternative Classification/Sub-categories as needed."
     );
