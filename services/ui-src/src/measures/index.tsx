@@ -7,7 +7,7 @@ export type CustomValidator = (res: ResolverResult) => ResolverResult;
 
 interface MeasuresByYear {
   [year: string]: {
-    [measure: string]: (props: QMR.MeasureWrapperProps) => JSX.Element;
+    [measure: string]: (props: QMR.MeasureWrapperProps) => JSX.Element | null;
   };
 }
 

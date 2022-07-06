@@ -1,22 +1,14 @@
-import { useFormContext, useForm, useFieldArray } from "react-hook-form";
+import { useFormContext, useFieldArray } from "react-hook-form";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "measures/2021/CommonQuestions/types";
+import { useEffect } from "react";
 
 interface Props {
   hybridMeasure?: boolean;
   rateAlwaysEditable?: boolean;
-}
-
-interface ListProps {
-  [DC.DESCRIPTION]: string;
-}
-
-interface FormProps {
-  name: string;
-  [DC.OPM_RATES]: ListProps[];
 }
 
 const stringIsReadOnly = (dataSource: string) => {
@@ -36,22 +28,26 @@ export const PerformanceMeasure = ({
   hybridMeasure,
   rateAlwaysEditable,
 }: Props) => {
-  const { control } = useForm<FormProps>({
-    defaultValues: {
-      name: DC.OPM_RATES,
-      [DC.OPM_RATES]: [
-        {
-          [DC.DESCRIPTION]: "",
-        },
-      ],
-    },
-  });
+  const { control, reset } = useFormContext();
 
   const { fields, remove, append } = useFieldArray({
     name: DC.OPM_RATES,
     control,
     shouldUnregister: true,
   });
+
+  useEffect(() => {
+    if (fields.length === 0) {
+      reset({
+        name: DC.OPM_RATES,
+        [DC.OPM_RATES]: [
+          {
+            [DC.DESCRIPTION]: "",
+          },
+        ],
+      });
+    }
+  }, [fields, reset]);
 
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
 
@@ -110,6 +106,7 @@ export const PerformanceMeasure = ({
                 <QMR.TextInput
                   label="For example, specify the age groups and whether you are reporting on a certain indicator:"
                   name={`${DC.OPM_RATES}.${index}.${DC.DESCRIPTION}`}
+                  key={`${DC.OPM_RATES}.${index}.${DC.DESCRIPTION}`}
                 />
                 <CUI.Text fontWeight="bold">
                   Enter a number for the numerator and the denominator. Rate
@@ -128,6 +125,7 @@ export const PerformanceMeasure = ({
                     },
                   ]}
                   name={`${DC.OPM_RATES}.${index}.${DC.RATE}`}
+                  key={`${DC.OPM_RATES}.${index}.${DC.RATE}`}
                   readOnly={rateReadOnly}
                 />
               </CUI.Stack>

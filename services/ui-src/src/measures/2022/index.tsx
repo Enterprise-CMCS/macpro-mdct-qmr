@@ -1,3 +1,6 @@
+import { lazy } from "react";
+import { Data, Qualifier } from "./Qualifiers";
+
 /*
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
 the key should be the measure id as a string (with '-XX' included) 
@@ -75,7 +78,189 @@ import { W30CH } from "./W30CH";
 import { WCCCH } from "./WCCCH";
 import { WCVCH } from "./WCVCH";
 
-import { Data, Qualifier } from "./Qualifiers";
+const AABAD = lazy(() =>
+  import("./AABAD").then((module) => ({ default: module.AABAD }))
+);
+const ADDCH = lazy(() =>
+  import("./ADDCH").then((module) => ({ default: module.ADDCH }))
+);
+const AMBCH = lazy(() =>
+  import("./AMBCH").then((module) => ({ default: module.AMBCH }))
+);
+const AMMAD = lazy(() =>
+  import("./AMMAD").then((module) => ({ default: module.AMMAD }))
+);
+const AMRAD = lazy(() =>
+  import("./AMRAD").then((module) => ({ default: module.AMRAD }))
+);
+const AMRCH = lazy(() =>
+  import("./AMRCH").then((module) => ({ default: module.AMRCH }))
+);
+const APMCH = lazy(() =>
+  import("./APMCH").then((module) => ({ default: module.APMCH }))
+);
+const APPCH = lazy(() =>
+  import("./APPCH").then((module) => ({ default: module.APPCH }))
+);
+const BCSAD = lazy(() =>
+  import("./BCSAD").then((module) => ({ default: module.BCSAD }))
+);
+const CBPAD = lazy(() =>
+  import("./CBPAD").then((module) => ({ default: module.CBPAD }))
+);
+const CCPAD = lazy(() =>
+  import("./CCPAD").then((module) => ({ default: module.CCPAD }))
+);
+const CCPCH = lazy(() =>
+  import("./CCPCH").then((module) => ({ default: module.CCPCH }))
+);
+const CCSAD = lazy(() =>
+  import("./CCSAD").then((module) => ({ default: module.CCSAD }))
+);
+const CCWAD = lazy(() =>
+  import("./CCWAD").then((module) => ({ default: module.CCWAD }))
+);
+const CCWCH = lazy(() =>
+  import("./CCWCH").then((module) => ({ default: module.CCWCH }))
+);
+const CDFAD = lazy(() =>
+  import("./CDFAD").then((module) => ({ default: module.CDFAD }))
+);
+const CDFCH = lazy(() =>
+  import("./CDFCH").then((module) => ({ default: module.CDFCH }))
+);
+const CDFHH = lazy(() =>
+  import("./CDFHH").then((module) => ({ default: module.CDFHH }))
+);
+const CHLAD = lazy(() =>
+  import("./CHLAD").then((module) => ({ default: module.CHLAD }))
+);
+const CHLCH = lazy(() =>
+  import("./CHLCH").then((module) => ({ default: module.CHLCH }))
+);
+const CISCH = lazy(() =>
+  import("./CISCH").then((module) => ({ default: module.CISCH }))
+);
+const COBAD = lazy(() =>
+  import("./COBAD").then((module) => ({ default: module.COBAD }))
+);
+const COLAD = lazy(() =>
+  import("./COLAD").then((module) => ({ default: module.COLAD }))
+);
+const COLHH = lazy(() =>
+  import("./COLHH").then((module) => ({ default: module.COLHH }))
+);
+const CPAAD = lazy(() =>
+  import("./CPAAD").then((module) => ({ default: module.CPAAD }))
+);
+const CPCCH = lazy(() =>
+  import("./CPCCH").then((module) => ({ default: module.CPCCH }))
+);
+const DEVCH = lazy(() =>
+  import("./DEVCH").then((module) => ({ default: module.DEVCH }))
+);
+const FUAAD = lazy(() =>
+  import("./FUAAD").then((module) => ({ default: module.FUAAD }))
+);
+const FUACH = lazy(() =>
+  import("./FUACH").then((module) => ({ default: module.FUACH }))
+);
+const FUHCH = lazy(() =>
+  import("./FUHCH").then((module) => ({ default: module.FUHCH }))
+);
+const FUMAD = lazy(() =>
+  import("./FUMAD").then((module) => ({ default: module.FUMAD }))
+);
+const FUMCH = lazy(() =>
+  import("./FUMCH").then((module) => ({ default: module.FUMCH }))
+);
+const FUMHH = lazy(() =>
+  import("./FUMHH").then((module) => ({ default: module.FUMHH }))
+);
+const FVAAD = lazy(() =>
+  import("./FVAAD").then((module) => ({ default: module.FVAAD }))
+);
+const HVLAD = lazy(() =>
+  import("./HVLAD").then((module) => ({ default: module.HVLAD }))
+);
+const HPCAD = lazy(() =>
+  import("./HPCAD").then((module) => ({ default: module.HPCAD }))
+);
+const HPCMIAD = lazy(() =>
+  import("./HPCMIAD").then((module) => ({ default: module.HPCMIAD }))
+);
+const IETAD = lazy(() =>
+  import("./IETAD").then((module) => ({ default: module.IETAD }))
+);
+const IMACH = lazy(() =>
+  import("./IMACH").then((module) => ({ default: module.IMACH }))
+);
+const LBWCH = lazy(() =>
+  import("./LBWCH").then((module) => ({ default: module.LBWCH }))
+);
+const LRCDCH = lazy(() =>
+  import("./LRCDCH").then((module) => ({ default: module.LRCDCH }))
+);
+const MSCAD = lazy(() =>
+  import("./MSCAD").then((module) => ({ default: module.MSCAD }))
+);
+const NCIDDSAD = lazy(() =>
+  import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
+);
+const OEVCH = lazy(() =>
+  import("./OEVCH").then((module) => ({ default: module.OEVCH }))
+);
+const OHDAD = lazy(() =>
+  import("./OHDAD").then((module) => ({ default: module.OHDAD }))
+);
+const OUDAD = lazy(() =>
+  import("./OUDAD").then((module) => ({ default: module.OUDAD }))
+);
+const PCRAD = lazy(() =>
+  import("./PCRAD").then((module) => ({ default: module.PCRAD }))
+);
+const PPCAD = lazy(() =>
+  import("./PPCAD").then((module) => ({ default: module.PPCAD }))
+);
+const PPCCH = lazy(() =>
+  import("./PPCCH").then((module) => ({ default: module.PPCCH }))
+);
+const PQI01AD = lazy(() =>
+  import("./PQI01AD").then((module) => ({ default: module.PQI01AD }))
+);
+const PQI05AD = lazy(() =>
+  import("./PQI05AD").then((module) => ({ default: module.PQI05AD }))
+);
+const FUHAD = lazy(() =>
+  import("./FUHAD").then((module) => ({ default: module.FUHAD }))
+);
+const PQI08AD = lazy(() =>
+  import("./PQI08AD").then((module) => ({ default: module.PQI08AD }))
+);
+const PQI15AD = lazy(() =>
+  import("./PQI15AD").then((module) => ({ default: module.PQI15AD }))
+);
+const SAAAD = lazy(() =>
+  import("./SAAAD").then((module) => ({ default: module.SAAAD }))
+);
+const SFMCH = lazy(() =>
+  import("./SFMCH").then((module) => ({ default: module.SFMCH }))
+);
+const SSDAD = lazy(() =>
+  import("./SSDAD").then((module) => ({ default: module.SSDAD }))
+);
+const TFLCH = lazy(() =>
+  import("./TFLCH").then((module) => ({ default: module.TFLCH }))
+);
+const W30CH = lazy(() =>
+  import("./W30CH").then((module) => ({ default: module.W30CH }))
+);
+const WCCCH = lazy(() =>
+  import("./WCCCH").then((module) => ({ default: module.WCCCH }))
+);
+const WCVCH = lazy(() =>
+  import("./WCVCH").then((module) => ({ default: module.WCVCH }))
+);
 
 const twentyTwentyTwoMeasures = {
   "AAB-AD": AABAD,
