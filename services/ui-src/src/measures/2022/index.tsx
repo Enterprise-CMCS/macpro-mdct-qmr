@@ -5,78 +5,6 @@ import { Data, Qualifier } from "./Qualifiers";
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
 the key should be the measure id as a string (with '-XX' included) 
 */
-import { AABAD } from "./AABAD";
-import { ADDCH } from "./ADDCH";
-import { AIFHH } from "./AIFHH";
-import { AMBCH } from "./AMBCH";
-import { AMBHH } from "./AMBHH";
-import { AMMAD } from "./AMMAD";
-import { AMRAD } from "./AMRAD";
-import { AMRCH } from "./AMRCH";
-import { APMCH } from "./APMCH";
-import { APPCH } from "./APPCH";
-import { BCSAD } from "./BCSAD";
-import { CBPAD } from "./CBPAD";
-import { CBPHH } from "./CBPHH";
-import { CCPAD } from "./CCPAD";
-import { CCPCH } from "./CCPCH";
-import { CCSAD } from "./CCSAD";
-import { CCWAD } from "./CCWAD";
-import { CCWCH } from "./CCWCH";
-import { CDFAD } from "./CDFAD";
-import { CDFCH } from "./CDFCH";
-import { CDFHH } from "./CDFHH";
-import { CHLAD } from "./CHLAD";
-import { CHLCH } from "./CHLCH";
-import { CISCH } from "./CISCH";
-import { COBAD } from "./COBAD";
-import { COLHH } from "./COLHH";
-import { COLAD } from "./COLAD";
-import { CPAAD } from "./CPAAD";
-import { CPCCH } from "./CPCCH";
-import { DEVCH } from "./DEVCH";
-import { FUAAD } from "./FUAAD";
-import { FUACH } from "./FUACH";
-import { FUAHH } from "./FUAHH";
-import { FUHAD } from "./FUHAD";
-import { FUHCH } from "./FUHCH";
-import { FUHHH } from "./FUHHH";
-import { FUMAD } from "./FUMAD";
-import { FUMCH } from "./FUMCH";
-import { FUMHH } from "./FUMHH";
-import { FVAAD } from "./FVAAD";
-import { HPCAD } from "./HPCAD";
-import { HPCMIAD } from "./HPCMIAD";
-import { HVLAD } from "./HVLAD";
-import { IETAD } from "./IETAD";
-import { IETHH } from "./IETHH";
-import { IMACH } from "./IMACH";
-import { IUHH } from "./IUHH";
-import { LBWCH } from "./LBWCH";
-import { LRCDCH } from "./LRCDCH";
-import { MSCAD } from "./MSCAD";
-import { NCIDDSAD } from "./NCIDDSAD";
-import { OEVCH } from "./OEVCH";
-import { OHDAD } from "./OHDAD";
-import { OUDAD } from "./OUDAD";
-import { OUDHH } from "./OUDHH";
-import { PCRAD } from "./PCRAD";
-import { PCRHH } from "./PCRHH";
-import { PPCAD } from "./PPCAD";
-import { PPCCH } from "./PPCCH";
-import { PQI01AD } from "./PQI01AD";
-import { PQI05AD } from "./PQI05AD";
-import { PQI08AD } from "./PQI08AD";
-import { PQI15AD } from "./PQI15AD";
-import { PQI92HH } from "./PQI92HH";
-import { SAAAD } from "./SAAAD";
-import { SFMCH } from "./SFMCH";
-import { SSDAD } from "./SSDAD";
-import { SSHH } from "./SSHH";
-import { TFLCH } from "./TFLCH";
-import { W30CH } from "./W30CH";
-import { WCCCH } from "./WCCCH";
-import { WCVCH } from "./WCVCH";
 
 const AABAD = lazy(() =>
   import("./AABAD").then((module) => ({ default: module.AABAD }))
@@ -84,8 +12,14 @@ const AABAD = lazy(() =>
 const ADDCH = lazy(() =>
   import("./ADDCH").then((module) => ({ default: module.ADDCH }))
 );
+const AIFHH = lazy(() =>
+  import("./AIFHH").then((module) => ({ default: module.AIFHH }))
+);
 const AMBCH = lazy(() =>
   import("./AMBCH").then((module) => ({ default: module.AMBCH }))
+);
+const AMBHH = lazy(() =>
+  import("./AMBHH").then((module) => ({ default: module.AMBHH }))
 );
 const AMMAD = lazy(() =>
   import("./AMMAD").then((module) => ({ default: module.AMMAD }))
@@ -107,6 +41,9 @@ const BCSAD = lazy(() =>
 );
 const CBPAD = lazy(() =>
   import("./CBPAD").then((module) => ({ default: module.CBPAD }))
+);
+const CBPHH = lazy(() =>
+  import("./CBPHH").then((module) => ({ default: module.CBPHH }))
 );
 const CCPAD = lazy(() =>
   import("./CCPAD").then((module) => ({ default: module.CCPAD }))
@@ -165,8 +102,17 @@ const FUAAD = lazy(() =>
 const FUACH = lazy(() =>
   import("./FUACH").then((module) => ({ default: module.FUACH }))
 );
+const FUAHH = lazy(() =>
+  import("./FUAHH").then((module) => ({ default: module.FUAHH }))
+);
+const FUHAD = lazy(() =>
+  import("./FUHAD").then((module) => ({ default: module.FUHAD }))
+);
 const FUHCH = lazy(() =>
   import("./FUHCH").then((module) => ({ default: module.FUHCH }))
+);
+const FUHHH = lazy(() =>
+  import("./FUHHH").then((module) => ({ default: module.FUHHH }))
 );
 const FUMAD = lazy(() =>
   import("./FUMAD").then((module) => ({ default: module.FUMAD }))
@@ -192,8 +138,14 @@ const HPCMIAD = lazy(() =>
 const IETAD = lazy(() =>
   import("./IETAD").then((module) => ({ default: module.IETAD }))
 );
+const IETHH = lazy(() =>
+  import("./IETHH").then((module) => ({ default: module.IETHH }))
+);
 const IMACH = lazy(() =>
   import("./IMACH").then((module) => ({ default: module.IMACH }))
+);
+const IUHH = lazy(() =>
+  import("./IUHH").then((module) => ({ default: module.IUHH }))
 );
 const LBWCH = lazy(() =>
   import("./LBWCH").then((module) => ({ default: module.LBWCH }))
@@ -216,8 +168,14 @@ const OHDAD = lazy(() =>
 const OUDAD = lazy(() =>
   import("./OUDAD").then((module) => ({ default: module.OUDAD }))
 );
+const OUDHH = lazy(() =>
+  import("./OUDHH").then((module) => ({ default: module.OUDHH }))
+);
 const PCRAD = lazy(() =>
   import("./PCRAD").then((module) => ({ default: module.PCRAD }))
+);
+const PCRHH = lazy(() =>
+  import("./PCRHH").then((module) => ({ default: module.PCRHH }))
 );
 const PPCAD = lazy(() =>
   import("./PPCAD").then((module) => ({ default: module.PPCAD }))
@@ -231,8 +189,8 @@ const PQI01AD = lazy(() =>
 const PQI05AD = lazy(() =>
   import("./PQI05AD").then((module) => ({ default: module.PQI05AD }))
 );
-const FUHAD = lazy(() =>
-  import("./FUHAD").then((module) => ({ default: module.FUHAD }))
+const PQI92HH = lazy(() =>
+  import("./PQI92HH").then((module) => ({ default: module.PQI92HH }))
 );
 const PQI08AD = lazy(() =>
   import("./PQI08AD").then((module) => ({ default: module.PQI08AD }))
@@ -248,6 +206,9 @@ const SFMCH = lazy(() =>
 );
 const SSDAD = lazy(() =>
   import("./SSDAD").then((module) => ({ default: module.SSDAD }))
+);
+const SSHH = lazy(() =>
+  import("./SSHH").then((module) => ({ default: module.SSHH }))
 );
 const TFLCH = lazy(() =>
   import("./TFLCH").then((module) => ({ default: module.TFLCH }))
