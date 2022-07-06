@@ -43,7 +43,7 @@ const numDenExistInRate = (el: Types.RateFields) =>
  * Check if the rates within a qualifier have both a numerator and a denominator.
  * @param qualifier - The qualifier that we're checking.
  */
-const IUHHnumDenExistInRate = (qualifier: any) => {
+const complexNumDenExistInRate = (qualifier: any) => {
   return qualifier.fields.some(
     (field: any) => field?.value && field?.value !== ""
   );
@@ -155,25 +155,26 @@ export const DeviationFromMeasureSpec = ({
             customTotalLabel ? `${customTotalLabel} ` : "Total"
           }`;
         }
-
         /* This is checking if the rates object has a singleCategory key.
         If it does, then it will return the low level deviation options. */
         return getLowLvlDeviationOptions({
-          qualifiers: rates.singleCategory.filter(numDenExistInRate),
+          qualifiers:
+            measureName === "AIF-HH"
+              ? rates.singleCategory.filter(complexNumDenExistInRate)
+              : rates.singleCategory.filter(numDenExistInRate),
           name: DC.DEVIATIONS,
         });
       } else {
         categories.forEach((cat) => {
           const key = cat.replace(/[^\w]/g, "");
           // if some of the rates have both num and den
-
           const deviations =
             measureName === "IU-HH"
-              ? rates[key]?.some(IUHHnumDenExistInRate)
+              ? rates[key]?.some(complexNumDenExistInRate)
               : rates[key]?.some(numDenExistInRate);
           const deviationRates =
             measureName === "IU-HH"
-              ? rates[key]?.filter(IUHHnumDenExistInRate)
+              ? rates[key]?.filter(complexNumDenExistInRate)
               : rates[key]?.filter(numDenExistInRate);
 
           if (deviations) {
