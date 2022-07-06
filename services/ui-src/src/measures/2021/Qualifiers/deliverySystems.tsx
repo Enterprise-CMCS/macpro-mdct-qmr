@@ -99,6 +99,11 @@ export const DeliverySystems = ({ data, year }: Props) => {
                           name={`PercentageEnrolledInEachDeliverySystem.${index}.${fieldValue}`}
                           numberInputProps={{ textAlign: "right" }}
                           mask={percentageAllowOneDecimalMax}
+                          ariaLabel={`Percentage enrolled in each delivery system - ${
+                            values?.[index]?.label
+                              ? `${values?.[index]?.label} - `
+                              : ""
+                          }${data.textTable[idx]}`}
                         />
                       </QMR.DeleteWrapper>
                     )}
