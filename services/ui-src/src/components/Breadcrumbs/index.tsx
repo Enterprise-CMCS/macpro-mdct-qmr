@@ -33,9 +33,9 @@ export const Breadcrumbs = ({ items, color }: Props) => {
             minW={idx === 0 ? "max-content" : "none"}
             as={idx === items.length - 1 ? "h1" : Link}
             // @ts-ignore
-            to={window.location.pathname === item.path ? null : item.path}
+            to={window?.location?.pathname === item?.path ? null : item.path}
             aria-label={
-              window.location.pathname === item.path
+              window?.location?.pathname === item?.path
                 ? `${item.name}`
                 : `Return to ${item.name}`
             }
