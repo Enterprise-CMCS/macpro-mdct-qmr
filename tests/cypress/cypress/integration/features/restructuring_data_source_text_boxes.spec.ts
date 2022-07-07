@@ -47,7 +47,7 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
   });
 
   it("Verify that no description text box displayed under Data Source section if only one alternative data source is selected", () => {
-    cy.xpath('[data-cy="Data Source"]').should("be.visible");
+    cy.get('[data-cy="Data Source"]').should("be.visible");
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
