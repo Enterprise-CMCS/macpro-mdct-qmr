@@ -2,6 +2,8 @@ import { AppRoutes } from "./Routes";
 import * as QMR from "components";
 import { LocalLogins } from "components";
 import { useUser } from "hooks/authHooks";
+import { Suspense } from "react";
+import { MeasuresLoading } from "views";
 
 const App = () => {
   const { logout, user, showLocalLogins, loginWithIDM } = useUser();
@@ -12,7 +14,9 @@ const App = () => {
         <>
           <QMR.ScrollToTop />
           <QMR.Header handleLogout={logout} />
-          <AppRoutes />
+          <Suspense fallback={MeasuresLoading()}>
+            <AppRoutes />
+          </Suspense>
           <QMR.Footer />
         </>
       )}
