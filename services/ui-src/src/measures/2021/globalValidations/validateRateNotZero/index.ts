@@ -8,7 +8,7 @@ import {
   getOtherPerformanceMeasureRateArray,
 } from "../dataDrivenTools";
 
-export const _validationRateNotZero = ({
+export const validationRateNotZero = ({
   location,
   rateData,
   errorMessage,
@@ -40,7 +40,7 @@ export const _validationRateNotZero = ({
 export const validateRateNotZeroOMS =
   (errorMessage?: string): OmsValidationCallback =>
   ({ categories, qualifiers, rateData, label, locationDictionary }) => {
-    return _validationRateNotZero({
+    return validationRateNotZero({
       categories,
       qualifiers,
       location: `Optional Measure Stratification: ${locationDictionary(label)}`,
@@ -62,12 +62,12 @@ export const validateRateNotZeroPM = (
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
 
   const errors = [
-    ..._validationRateNotZero({
+    ...validationRateNotZero({
       location,
       rateData: performanceMeasureArray,
       errorMessage,
     }),
-    ..._validationRateNotZero({
+    ...validationRateNotZero({
       location,
       rateData: rateDataOPM,
       errorMessage,

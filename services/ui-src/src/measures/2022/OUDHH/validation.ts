@@ -49,6 +49,8 @@ const OUDValidation = (data: FormData) => {
       PMD.categories,
       PMD.qualifiers
     ),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -59,19 +61,13 @@ const OUDValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateEqualCategoryDenominatorsOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateEqualCategoryDenominatorsOMS(),
       ],
     }),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
   ];
 
   return errorArray;

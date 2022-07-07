@@ -14,7 +14,7 @@ interface ValProps extends UVFP {
   hybridData?: boolean;
 }
 
-export const _validationRateZero = ({
+export const validationRateZero = ({
   location,
   rateData,
   hybridData,
@@ -58,7 +58,7 @@ export const validateRateZeroOMS =
     const hybridData = dataSource?.includes(
       DC.HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA
     );
-    return _validationRateZero({
+    return validationRateZero({
       categories,
       qualifiers,
       hybridData,
@@ -85,13 +85,13 @@ export const validateRateZeroPM = (
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
 
   const errors = [
-    ..._validationRateZero({
+    ...validationRateZero({
       location,
       rateData: performanceMeasureArray,
       hybridData,
       errorMessage,
     }),
-    ..._validationRateZero({
+    ...validationRateZero({
       location,
       rateData: rateDataOPM,
       hybridData,
