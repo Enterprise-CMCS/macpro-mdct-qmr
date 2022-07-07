@@ -153,7 +153,6 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "0"
     );
-    cy.get(":nth-child(9) > .css-1bpnzr3 > .css-0").click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').should(
       "have.value",
       "0.0"
@@ -164,8 +163,6 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "5"
     );
-    cy.get(":nth-child(9) > .css-1bpnzr3 > .css-0").click();
-    cy.get(":nth-child(9) > .css-1bpnzr3 > .css-0").click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').type("0");
     cy.get(":nth-child(9) > .css-1bpnzr3").click();
@@ -374,7 +371,6 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "0"
     );
-    cy.get(":nth-child(9) > .css-1bpnzr3 > .css-0").click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').should(
       "have.value",
       "0.0"
@@ -385,12 +381,9 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "2"
     );
-    cy.get(":nth-child(9) > .css-1bpnzr3 > .css-0").click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.rate"]').type("0");
-    cy.get(":nth-child(9) > .css-1bpnzr3 > .css-0").click();
-    cy.get(":nth-child(9) > .css-1bpnzr3 > .css-0").click();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
