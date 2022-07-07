@@ -70,6 +70,11 @@ export const DeliverySystems = ({ data, year }: Props) => {
                   <QMR.TextInput
                     rules={{ required: true }}
                     name={`PercentageEnrolledInEachDeliverySystem.${index}.label`}
+                    ariaLabel={`Percentage enrolled in each delivery system - ${
+                      values?.[index]?.label
+                        ? `${values?.[index]?.label}`
+                        : "Enter Custom Label"
+                    }`}
                   />
                 ) : (
                   <QMR.TextInput
@@ -81,6 +86,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
                       tabIndex: -1,
                     }}
                     name={`PercentageEnrolledInEachDeliverySystem.${index}.label`}
+                    ariaLabel={`Percentage enrolled in each delivery system - ${values?.[index]?.label}`}
                   />
                 )}
               </CUI.Td>
