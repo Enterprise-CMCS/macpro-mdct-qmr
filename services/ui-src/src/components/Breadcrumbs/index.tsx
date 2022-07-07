@@ -14,7 +14,7 @@ interface Props {
 
 export const Breadcrumbs = ({ items, color }: Props) => {
   const isMultipleItems = items.length > 1;
-  const location = useLocation();
+  const { pathname } = useLocation();
   return (
     <CUI.Flex>
       {isMultipleItems && (
@@ -36,9 +36,7 @@ export const Breadcrumbs = ({ items, color }: Props) => {
             // @ts-ignore
             to={item.path}
             aria-label={
-              item.path === location.pathname
-                ? `${item.name}`
-                : `Return to ${item.name}`
+              item.path === pathname ? `${item.name}` : `Return to ${item.name}`
             }
             color={color}
             _visited={{ color }}
