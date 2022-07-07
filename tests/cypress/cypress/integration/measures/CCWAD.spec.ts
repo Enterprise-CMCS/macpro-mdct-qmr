@@ -20,7 +20,7 @@ describe("CCW-AD", () => {
       "MeasurementSpecification-OPA"
     );
     cy.get("#MeasurementSpecification-OPA").click();
-    cy.xpath('[data-cy="Data Source"]').should("be.visible");
+    cy.get('[data-cy="Data Source"]').should("be.visible");
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
@@ -112,7 +112,7 @@ describe("CCW-AD", () => {
     cy.get(
       '[data-cy="MeasurementSpecification-OtherMeasurementSpecificationDescription"]'
     ).type("Test");
-    cy.xpath('[data-cy="Data Source"]').should("be.visible");
+    cy.get('[data-cy="Data Source"]').should("be.visible");
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
