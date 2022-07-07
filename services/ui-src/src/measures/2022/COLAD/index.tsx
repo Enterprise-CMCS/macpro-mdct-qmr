@@ -46,7 +46,7 @@ export const COLAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.qualifiers} />
+              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
