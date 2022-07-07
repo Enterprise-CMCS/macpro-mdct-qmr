@@ -15,7 +15,7 @@ describe("Test the global DataSource component", () => {
 
       expect(screen.getByText("Data Source")).toBeVisible();
 
-      // check that there should be only 2 options
+      // there should be only 2 options
       expect(container.getElementsByClassName("chakra-checkbox").length).toBe(
         2
       );
@@ -41,6 +41,10 @@ describe("Test the global DataSource component", () => {
       fireEvent.click(
         screen.getByLabelText(DC.MEDICAID_MANAGEMENT_INFO_SYSTEM)
       );
+
+      expect(
+        screen.queryAllByLabelText("Describe the data source:").length
+      ).toBe(0);
 
       // should reveal text area
       fireEvent.click(screen.getByLabelText(DC.ADMINISTRATIVE_DATA_OTHER));
@@ -131,6 +135,10 @@ describe("Test the global DataSource component", () => {
 
       // should do nothing
       fireEvent.click(screen.getByLabelText("I'm not telling"));
+
+      expect(
+        screen.queryAllByLabelText("Describe the data source:").length
+      ).toBe(0);
 
       // should reveal text area
       fireEvent.click(screen.getByLabelText("You'll have to kill me first"));
