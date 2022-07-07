@@ -118,7 +118,6 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
                     display={item.isVisible ? "block" : "none"}
                     key={item.label + item.value + index}
                     mt="15px"
-                    // aria-label="Which measures did they audit or validate?"
                   >
                     <CUI.Checkbox
                       size="lg"
