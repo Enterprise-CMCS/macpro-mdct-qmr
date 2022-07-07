@@ -10,7 +10,6 @@ export const validateAtLeastOneRateComplete = (
 ) => {
   const errorArray: FormError[] = [];
   let rateCompletionError = true;
-
   // Check OPM first
   OPM &&
     OPM.forEach((measure: any) => {
