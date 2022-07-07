@@ -51,6 +51,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
   IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
+  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
@@ -60,6 +61,9 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   rateAlwaysEditable?: boolean;
   numberOfDecimals?: number;
   componentFlag?: ComponentFlagType;
+  customNumeratorLabel?: string;
+  customDenominatorLabel?: string;
+  customRateLabel?: string;
   customPrompt?: string;
   rateCalc?: RateFormula;
 }
@@ -108,6 +112,7 @@ const arrayIsReadOnly = (dataSource: string[]) => {
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
   IUHHPerformanceMeasureArray,
+  AIFHHPerformanceMeasureArray,
   qualifiers = [],
   categories = [],
   data,
@@ -120,6 +125,9 @@ export const OptionalMeasureStrat = ({
   rateAlwaysEditable,
   numberOfDecimals = 1,
   componentFlag = "DEFAULT",
+  customNumeratorLabel = "Numerator",
+  customDenominatorLabel = "Denominator",
+  customRateLabel = "Rate",
   customPrompt,
   rateCalc,
 }: Props) => {
@@ -155,7 +163,6 @@ export const OptionalMeasureStrat = ({
       unregister("OptionalMeasureStratification");
     };
   }, [watchDataSourceSwitch, unregister]);
-
   return (
     <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
       <PerformanceMeasureProvider
@@ -163,6 +170,7 @@ export const OptionalMeasureStrat = ({
           OPM,
           performanceMeasureArray,
           IUHHPerformanceMeasureArray,
+          AIFHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
           qualifiers,
@@ -172,6 +180,9 @@ export const OptionalMeasureStrat = ({
           allowNumeratorGreaterThanDenominator,
           numberOfDecimals,
           componentFlag,
+          customDenominatorLabel,
+          customNumeratorLabel,
+          customRateLabel,
           customPrompt,
           rateCalculation: rateCalc,
         }}
