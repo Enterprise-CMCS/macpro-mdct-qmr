@@ -123,6 +123,7 @@ describe("OY2 9940 COB-AD", () => {
     ).type("2");
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').type("0");
+    cy.get(":nth-child(9) > .css-1bpnzr3").click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').should(
       "have.value",
       "0"

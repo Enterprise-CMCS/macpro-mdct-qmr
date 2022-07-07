@@ -14,7 +14,7 @@ describe("CCW-AD", () => {
       force: true,
     });
     cy.xpath("//p[@id='MeasurementSpecification-OPA']").click({ force: true });
-    cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
+    cy.get(":nth-child(4) > .chakra-form__label").should("be.visible");
     cy.get("#MeasurementSpecification-OPA").should(
       "have.id",
       "MeasurementSpecification-OPA"
@@ -215,6 +215,7 @@ describe("CCW-AD", () => {
     ).type("2");
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').type("0");
+    cy.get(":nth-child(9) > .css-1bpnzr3").click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').should(
       "have.value",
       "0"

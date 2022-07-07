@@ -145,7 +145,7 @@ describe("PCR-HH", () => {
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').type(
       "123"
     );
-    // cy.get(":nth-child(9) > :nth-child(8)").click();
+    cy.get(":nth-child(9) > :nth-child(8)").click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]'
     ).should("have.value", "100.0000");
