@@ -179,7 +179,8 @@ const ComplexRate = ({
                     }}
                     {...rest}
                   >
-                    {readOnly && rateLocations.includes(fieldIndex) ? (
+                    {(readOnly && rateLocations.includes(fieldIndex)) ||
+                    field.value?.[qualIndex]?.label === "Total" ? (
                       <CUI.Text
                         paddingTop="2"
                         key={`input-field-${fieldIndex}`}
