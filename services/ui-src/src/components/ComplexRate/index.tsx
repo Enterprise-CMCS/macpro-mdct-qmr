@@ -29,6 +29,124 @@ interface Props extends QMR.InputWrapperProps {
   ndrFormulas: ndrFormula[];
 }
 
+// Calculate Rates for a row of data using the ndrFormulas as a guide
+const calculateRates = (
+  fieldRow: { name: string; value: string }[],
+  ndrFormulasSubset: any
+) => {
+  for (const formula of ndrFormulasSubset) {
+    let x;
+    const num = !isNaN((x = parseFloat(fieldRow[formula.num].value)))
+      ? x
+      : null;
+    const denom = !isNaN((x = parseFloat(fieldRow[formula.denom].value)))
+      ? x
+      : null;
+
+    if (num !== null && denom !== null) {
+      fieldRow[formula.rate].value =
+        num !== 0 && denom !== 0
+          ? defaultRateCalculation(
+              num.toString(),
+              denom.toString(),
+              formula.mult,
+              1
+            )
+          : "0";
+    } else {
+      fieldRow[formula.rate].value = "";
+    }
+  }
+  return fieldRow;
+};
+
+const calculateIUHHTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
+  let dischargeSum: any = null;
+  let daySum: any = null;
+  let numEnrolleeSum: any = null;
+  let x;
+
+  // sum all field values - we assume last row is total
+  prevRate.slice(0, -1).forEach((item) => {
+    if (item !== undefined && item !== null && !item["isTotal"]) {
+      if (item?.fields?.every((f: { value: string }) => !!f?.value)) {
+        if (!isNaN((x = parseFloat(item.fields[0].value)))) {
+          numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item.fields[1].value)))) {
+          dischargeSum = dischargeSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item.fields[3].value)))) {
+          daySum = daySum + x; // += syntax does not work if default value is null
+        }
+      }
+    }
+  });
+
+  // Set total values and calculate total rate
+  let totalIndex = prevRate.length - 1;
+  let totals = prevRate[totalIndex];
+
+  let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
+  totals.fields[0].value = newValue;
+
+  newValue = dischargeSum !== null ? dischargeSum.toString() : "";
+  totals.fields[1].value = newValue;
+
+  newValue = daySum !== null ? daySum.toString() : "";
+  totals.fields[3].value = newValue;
+
+  totals.fields = calculateRates(totals.fields, ndrFormulas);
+  prevRate[totalIndex] = totals;
+};
+
+const calculateAIFHHTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
+  let numEnrolleeSum: any = null;
+  let shortSum: any = null;
+  let medSum: any = null;
+  let longSum: any = null;
+  let x;
+
+  // sum all field values - we assume last row is total
+  prevRate.slice(0, -1).forEach((item) => {
+    if (item !== undefined && item !== null && !item["isTotal"]) {
+      if (item?.fields?.every((f: { value?: string }) => !!f?.value)) {
+        if (!isNaN((x = parseFloat(item.fields[0].value)))) {
+          numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item.fields[1].value)))) {
+          shortSum = shortSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item.fields[3].value)))) {
+          medSum = medSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item.fields[5].value)))) {
+          longSum = longSum + x; // += syntax does not work if default value is null
+        }
+      }
+    }
+  });
+
+  // Set total values and calculate total rate
+  let totalIndex = prevRate.length - 1;
+  let totals = prevRate[totalIndex];
+
+  let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
+  totals.fields[0].value = newValue;
+
+  newValue = shortSum !== null ? shortSum.toString() : "";
+  totals.fields[1].value = newValue;
+
+  newValue = medSum !== null ? medSum.toString() : "";
+  totals.fields[3].value = newValue;
+
+  newValue = longSum !== null ? longSum.toString() : "";
+  totals.fields[5].value = newValue;
+
+  totals.fields = calculateRates(totals.fields, ndrFormulas);
+  prevRate[totalIndex] = totals;
+};
+
 const ComplexRate = ({
   rates,
   name,
@@ -176,37 +294,26 @@ const ComplexRate = ({
                     label={inputFieldName}
                     formLabelProps={{
                       minH: "50px",
+                      h: "100px",
                     }}
                     {...rest}
                   >
-                    {(readOnly && rateLocations.includes(fieldIndex)) ||
-                    field.value?.[qualIndex]?.label === "Total" ? (
-                      <CUI.Text
-                        paddingTop="2"
-                        key={`input-field-${fieldIndex}`}
-                        data-cy={`${name}.${fieldIndex}.value`}
-                      >
-                        {field.value?.[qualIndex]?.fields?.[fieldIndex]
-                          ?.value ?? ""}
-                      </CUI.Text>
-                    ) : (
-                      <CUI.Input
-                        key={`input-field-${fieldIndex}`}
-                        value={
-                          field.value?.[qualIndex]?.fields?.[fieldIndex]
-                            ?.value ?? ""
-                        }
-                        data-cy={`${name}.${fieldIndex}.value`}
-                        onChange={(e) =>
-                          changeRate(
-                            qualIndex,
-                            fieldIndex,
-                            e.target.value,
-                            field.value[qualIndex].isTotal ?? false
-                          )
-                        }
-                      />
-                    )}
+                    <CUI.Input
+                      key={`input-field-${fieldIndex}`}
+                      value={
+                        field.value?.[qualIndex]?.fields?.[fieldIndex]?.value ??
+                        ""
+                      }
+                      data-cy={`${name}.${fieldIndex}.value`}
+                      onChange={(e) =>
+                        changeRate(
+                          qualIndex,
+                          fieldIndex,
+                          e.target.value,
+                          field.value[qualIndex].isTotal ?? false
+                        )
+                      }
+                    />
                   </QMR.InputWrapper>
                 );
               })}
@@ -216,124 +323,6 @@ const ComplexRate = ({
       })}
     </>
   );
-};
-
-// Calculate Rates for a row of data using the ndrFormulas as a guide
-const calculateRates = (
-  fieldRow: { name: string; value: string }[],
-  ndrFormulasSubset: any
-) => {
-  for (const formula of ndrFormulasSubset) {
-    let x;
-    const num = !isNaN((x = parseFloat(fieldRow[formula.num].value)))
-      ? x
-      : null;
-    const denom = !isNaN((x = parseFloat(fieldRow[formula.denom].value)))
-      ? x
-      : null;
-
-    if (num !== null && denom !== null) {
-      fieldRow[formula.rate].value =
-        num !== 0 && denom !== 0
-          ? defaultRateCalculation(
-              num.toString(),
-              denom.toString(),
-              formula.mult,
-              1
-            )
-          : "0";
-    } else {
-      fieldRow[formula.rate].value = "";
-    }
-  }
-  return fieldRow;
-};
-
-const calculateIUHHTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
-  let dischargeSum: any = null;
-  let daySum: any = null;
-  let numEnrolleeSum: any = null;
-  let x;
-
-  // sum all field values - we assume last row is total
-  prevRate.slice(0, -1).forEach((item) => {
-    if (item !== undefined && item !== null && !item["isTotal"]) {
-      if (item?.fields?.every((f: { value: string }) => !!f?.value)) {
-        if (!isNaN((x = parseFloat(item.fields[0].value)))) {
-          numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[1].value)))) {
-          dischargeSum = dischargeSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[3].value)))) {
-          daySum = daySum + x; // += syntax does not work if default value is null
-        }
-      }
-    }
-  });
-
-  // Set total values and calculate total rate
-  let totalIndex = prevRate.length - 1;
-  let totals = prevRate[totalIndex];
-
-  let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
-  totals.fields[0].value = newValue;
-
-  newValue = dischargeSum !== null ? dischargeSum.toString() : "";
-  totals.fields[1].value = newValue;
-
-  newValue = daySum !== null ? daySum.toString() : "";
-  totals.fields[3].value = newValue;
-
-  totals.fields = calculateRates(totals.fields, ndrFormulas);
-  prevRate[totalIndex] = totals;
-};
-
-const calculateAIFHHTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
-  let numEnrolleeSum: any = null;
-  let shortSum: any = null;
-  let medSum: any = null;
-  let longSum: any = null;
-  let x;
-
-  // sum all field values - we assume last row is total
-  prevRate.slice(0, -1).forEach((item) => {
-    if (item !== undefined && item !== null && !item["isTotal"]) {
-      if (item?.fields?.every((f: { value?: string }) => !!f?.value)) {
-        if (!isNaN((x = parseFloat(item.fields[0].value)))) {
-          numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[1].value)))) {
-          shortSum = shortSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[3].value)))) {
-          medSum = medSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[5].value)))) {
-          longSum = longSum + x; // += syntax does not work if default value is null
-        }
-      }
-    }
-  });
-
-  // Set total values and calculate total rate
-  let totalIndex = prevRate.length - 1;
-  let totals = prevRate[totalIndex];
-
-  let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
-  totals.fields[0].value = newValue;
-
-  newValue = shortSum !== null ? shortSum.toString() : "";
-  totals.fields[1].value = newValue;
-
-  newValue = medSum !== null ? medSum.toString() : "";
-  totals.fields[3].value = newValue;
-
-  newValue = longSum !== null ? longSum.toString() : "";
-  totals.fields[5].value = newValue;
-
-  totals.fields = calculateRates(totals.fields, ndrFormulas);
-  prevRate[totalIndex] = totals;
 };
 
 interface IUHHProps extends QMR.InputWrapperProps {
