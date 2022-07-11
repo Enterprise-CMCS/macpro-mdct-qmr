@@ -2,7 +2,7 @@ import { SINGLE_CATEGORY } from "dataConstants";
 import {
   validateOneQualDenomHigherThanOtherDenomOMS,
   validateOneQualDenomHigherThanOtherDenomPM,
-} from "./index";
+} from ".";
 
 import {
   generatePmQualifierRateData,
@@ -88,6 +88,33 @@ describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
 
       expect(errors).toHaveLength(0);
     });
+
+    it("Error message text should match provided errorMessageFunc", () => {
+      const errorMessageFunc = (lowerQual: string, higherQual: string) => {
+        return `Another ${lowerQual} bites the ${higherQual}.`;
+      };
+
+      const data = generatePmQualifierRateData(
+        { categories: noCat, qualifiers },
+        [simpleRate, doubleRate]
+      );
+      const errors = validateOneQualDenomHigherThanOtherDenomPM(
+        data,
+        {
+          categories: noCat,
+          qualifiers,
+        },
+        undefined,
+        undefined,
+        errorMessageFunc
+      );
+
+      expect(errors).toHaveLength(1);
+      expect(errors[0].errorLocation).toBe("Performance Measure");
+      expect(errors[0].errorMessage).toBe(
+        errorMessageFunc(qualifiers[1], qualifiers[0])
+      );
+    });
   });
 
   // OMS
@@ -130,5 +157,29 @@ describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
         `${qualifiers?.[1]} denominator must be less than or equal to ${qualifiers?.[0]} denominator.`
       );
     });
+  });
+
+  it("Error message text should match provided errorMessageFunc", () => {
+    const errorMessageFunc = (lowerQual: string, higherQual: string) => {
+      return `Another ${lowerQual} bites the ${higherQual}.`;
+    };
+    const data = generateOmsQualifierRateData(singleCat, qualifiers, [
+      simpleRate,
+      doubleRate,
+    ]);
+    const errors = validateOneQualDenomHigherThanOtherDenomOMS(
+      undefined,
+      undefined,
+      errorMessageFunc
+    )({
+      ...baseOMSInfo,
+      categories: singleCat,
+      rateData: data,
+    });
+
+    expect(errors).toHaveLength(1);
+    expect(errors[0].errorMessage).toBe(
+      errorMessageFunc(qualifiers?.[1], qualifiers?.[0])
+    );
   });
 });

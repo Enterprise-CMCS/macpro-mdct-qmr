@@ -42,12 +42,8 @@ const PQI92Validation = (data: FormData) => {
       ageGroups,
       PMD.categories
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
@@ -72,9 +68,9 @@ const PQI92Validation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];
