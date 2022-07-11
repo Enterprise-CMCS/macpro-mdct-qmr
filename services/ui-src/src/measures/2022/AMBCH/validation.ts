@@ -39,12 +39,8 @@ const AMBCHValidation = (data: FormData) => {
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
@@ -64,12 +60,12 @@ const AMBCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];

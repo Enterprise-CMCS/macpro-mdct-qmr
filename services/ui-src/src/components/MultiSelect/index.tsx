@@ -104,7 +104,11 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
                 name="selectAll"
                 value="selectAll"
               >
-                <CUI.Text fontWeight="normal" fontSize="normal">
+                <CUI.Text
+                  fontWeight="normal"
+                  fontSize="normal"
+                  aria-label="Which measures did they audit or validate? - Select All"
+                >
                   Select All
                 </CUI.Text>
               </CUI.Checkbox>
@@ -123,6 +127,7 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
                       <CUI.Text
                         fontWeight="normal"
                         fontSize="normal"
+                        aria-label={`Which measures did they audit or validate? - ${item.label}`}
                         data-cy={name + "-" + item.label}
                       >
                         {item.label}

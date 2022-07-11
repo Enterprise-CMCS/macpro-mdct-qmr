@@ -43,12 +43,8 @@ const TFLCHValidation = (data: FormData) => {
       ageGroups,
       PMD.categories
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
@@ -79,11 +75,11 @@ const TFLCHValidation = (data: FormData) => {
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         // Oral Health Services rate cannot be larger than the Dental or Oral Health Services rate
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 2),
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
-        GV.validateEqualQualifierDenominatorsOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
+        GV.validateEqualQualifierDenominatorsOMS(),
       ],
     }),
   ];

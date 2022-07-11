@@ -46,12 +46,8 @@ const CDFHHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
@@ -77,10 +73,10 @@ const CDFHHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];

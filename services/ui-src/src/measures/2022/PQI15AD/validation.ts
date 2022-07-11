@@ -31,12 +31,8 @@ const PQI15Validation = (data: FormData) => {
       PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
@@ -53,7 +49,10 @@ const PQI15Validation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [GV.validateRateZeroOMS, GV.validateRateNotZeroOMS],
+      validationCallbacks: [
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+      ],
     }),
   ];
 
