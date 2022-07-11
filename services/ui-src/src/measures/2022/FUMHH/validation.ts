@@ -60,12 +60,8 @@ const FUMHHValidation = (data: FormData) => {
       performanceMeasureArray,
       PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
@@ -85,12 +81,12 @@ const FUMHHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateOMSTotalNDR,
+        GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateOMSTotalNDR(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];

@@ -2,7 +2,7 @@ import { SINGLE_CATEGORY } from "dataConstants";
 import {
   validateOneQualRateHigherThanOtherQualOMS,
   validateOneQualRateHigherThanOtherQualPM,
-} from "./index";
+} from ".";
 
 import {
   generatePmQualifierRateData,
@@ -88,6 +88,38 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
 
       expect(errors).toHaveLength(0);
     });
+
+    it("Error message text should match provided errorMessageFunc", () => {
+      const errorMessageFunc = (
+        lowQual: string,
+        highQual: string,
+        _notSingleCategory: boolean,
+        category: string
+      ) => {
+        return `Another ${lowQual} bites the ${highQual} and the ${category}.`;
+      };
+
+      const data = generatePmQualifierRateData({ categories, qualifiers }, [
+        lowerRate,
+        higherRate,
+      ]);
+      const errors = validateOneQualRateHigherThanOtherQualPM(
+        data,
+        {
+          categories,
+          qualifiers,
+        },
+        undefined,
+        undefined,
+        errorMessageFunc
+      );
+
+      expect(errors).toHaveLength(2);
+      expect(errors[0].errorLocation).toBe("Performance Measure");
+      expect(errors[0].errorMessage).toBe(
+        errorMessageFunc(qualifiers[1], qualifiers[0], false, categories[0])
+      );
+    });
   });
 
   // OMS
@@ -130,5 +162,35 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
         `${qualifiers?.[1]} rate must be less than or equal to ${qualifiers?.[0]} rate.`
       );
     });
+  });
+
+  it("Error message text should match provided errorMessageFunc", () => {
+    const errorMessageFunc = (
+      lowQual: string,
+      highQual: string,
+      _notSingleCategory: boolean,
+      category: string
+    ) => {
+      return `Another ${lowQual} bites the ${highQual} and the ${category}.`;
+    };
+
+    const data = generateOmsQualifierRateData(singleCat, qualifiers, [
+      lowerRate,
+      higherRate,
+    ]);
+    const errors = validateOneQualRateHigherThanOtherQualOMS(
+      undefined,
+      undefined,
+      errorMessageFunc
+    )({
+      ...baseOMSInfo,
+      categories: singleCat,
+      rateData: data,
+    });
+
+    expect(errors).toHaveLength(1);
+    expect(errors[0].errorMessage).toBe(
+      errorMessageFunc(qualifiers[1], qualifiers[0], false, singleCat[0])
+    );
   });
 });
