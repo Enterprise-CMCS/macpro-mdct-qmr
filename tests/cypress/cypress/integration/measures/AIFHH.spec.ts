@@ -115,36 +115,36 @@ describe("Measure: AIF-HH", () => {
 
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]')
       .first()
-      .should("has.value", "2333.3");
+      .should("have.value", "2333.3");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.4.value"]')
       .first()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.6.value"]')
       .first()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
 
     // PM 1st Category Totals
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.value"]')
       .last()
-      .should("has.value", "3");
+      .should("have.value", "3");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.value"]')
       .last()
-      .should("has.value", "7");
+      .should("have.value", "7");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]')
       .last()
-      .should("has.value", "2333.3");
+      .should("have.value", "2333.3");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]')
       .last()
-      .should("has.value", "1");
+      .should("have.value", "1");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.4.value"]')
       .last()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.5.value"]')
       .last()
-      .should("has.value", "1");
+      .should("have.value", "1");
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.6.value"]')
       .last()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
 
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
@@ -184,40 +184,40 @@ describe("Measure: AIF-HH", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Ages18to64.singleCategory.2.value"]'
     )
       .first()
-      .should("has.value", "2333.3");
+      .should("have.value", "2333.3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Ages18to64.singleCategory.4.value"]'
     )
       .first()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Ages18to64.singleCategory.6.value"]'
     )
       .first()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
 
     // OMS 1st Category Totals
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Total.singleCategory.0.value"]'
-    ).should("has.value", "3");
+    ).should("have.value", "3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Total.singleCategory.1.value"]'
-    ).should("has.value", "7");
+    ).should("have.value", "7");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Total.singleCategory.2.value"]'
-    ).should("has.value", "2333.3");
+    ).should("have.value", "2333.3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Total.singleCategory.3.value"]'
-    ).should("has.value", "1");
+    ).should("have.value", "1");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Total.singleCategory.4.value"]'
-    ).should("has.value", "333.3");
+    ).should("have.value", "333.3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Total.singleCategory.5.value"]'
-    ).should("has.value", "1");
+    ).should("have.value", "1");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.aifhh-rate.rates.Total.singleCategory.6.value"]'
-    ).should("has.value", "333.3");
+    ).should("have.value", "333.3");
 
     // validation errors
     cy.get('[data-cy="Validate Measure"]').click();

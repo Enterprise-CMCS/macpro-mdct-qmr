@@ -111,33 +111,33 @@ describe("Measure: IU-HH", () => {
 
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.2.value"]')
       .first()
-      .should("has.value", "2333.3");
+      .should("have.value", "2333.3");
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.4.value"]')
       .first()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.5.value"]')
       .first()
-      .should("has.value", "0.1");
+      .should("have.value", "0.1");
 
     // PM 1st Category Totals
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.0.value"]')
       .last()
-      .should("has.value", "3");
+      .should("have.value", "3");
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.1.value"]')
       .last()
-      .should("has.value", "7");
+      .should("have.value", "7");
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.2.value"]')
       .last()
-      .should("has.value", "2333.3");
+      .should("have.value", "2333.3");
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.3.value"]')
       .last()
-      .should("has.value", "1");
+      .should("have.value", "1");
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.4.value"]')
       .last()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
     cy.get('[data-cy="PerformanceMeasure.rates.Inpatient.5.value"]')
       .last()
-      .should("has.value", "0.1");
+      .should("have.value", "0.1");
 
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
@@ -171,37 +171,37 @@ describe("Measure: IU-HH", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Ages0to17.Inpatient.2.value"]'
     )
       .first()
-      .should("has.value", "2333.3");
+      .should("have.value", "2333.3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Ages0to17.Inpatient.4.value"]'
     )
       .first()
-      .should("has.value", "333.3");
+      .should("have.value", "333.3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Ages0to17.Inpatient.5.value"]'
     )
       .first()
-      .should("has.value", "0.1");
+      .should("have.value", "0.1");
 
     // OMS 1st Category Totals
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Total.Inpatient.0.value"]'
-    ).should("has.value", "3");
+    ).should("have.value", "3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Total.Inpatient.1.value"]'
-    ).should("has.value", "7");
+    ).should("have.value", "7");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Total.Inpatient.2.value"]'
-    ).should("has.value", "2333.3");
+    ).should("have.value", "2333.3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Total.Inpatient.3.value"]'
-    ).should("has.value", "1");
+    ).should("have.value", "1");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Total.Inpatient.4.value"]'
-    ).should("has.value", "333.3");
+    ).should("have.value", "333.3");
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.iuhh-rate.rates.Total.Inpatient.5.value"]'
-    ).should("has.value", "0.1");
+    ).should("have.value", "0.1");
 
     // validation errors
     cy.get('[data-cy="Validate Measure"]').click();

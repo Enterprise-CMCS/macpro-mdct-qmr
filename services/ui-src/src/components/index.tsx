@@ -11,8 +11,6 @@ export * from "./DeleteWrapper";
 export * from "./Footer";
 export * from "./Header";
 export * from "./Inputs";
-// export * from "./IUHHRate";
-// export * from "./AIFHHRate";
 export * from "./ComplexRate";
 export * from "./InputWrapper";
 export * from "./KebabMenu";
