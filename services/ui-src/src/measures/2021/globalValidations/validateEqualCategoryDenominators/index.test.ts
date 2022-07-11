@@ -1,7 +1,7 @@
 import {
   validateEqualCategoryDenominatorsOMS,
   validateEqualCategoryDenominatorsPM,
-} from "./index";
+} from ".";
 
 import {
   generateOmsCategoryRateData,
@@ -81,6 +81,21 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
 
       expect(errors).toHaveLength(0);
     });
+
+    it("Error message text should match provided errorMessage", () => {
+      const errorMessage = "Another one bites the dust.";
+      const errorArray = validateEqualCategoryDenominatorsPM(
+        generatePmQualifierRateData({ qualifiers, categories: noCat }, [
+          simpleRate,
+          doubleRate,
+        ]),
+        noCat,
+        qualifiers,
+        errorMessage
+      );
+      expect(errorArray.length).toBe(1);
+      expect(errorArray[0].errorMessage).toBe(errorMessage);
+    });
   });
 
   // OMS
@@ -90,7 +105,7 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
         simpleRate,
         simpleRate,
       ]);
-      const errors = validateEqualCategoryDenominatorsOMS({
+      const errors = validateEqualCategoryDenominatorsOMS()({
         ...baseOMSInfo,
         rateData: data,
       });
@@ -103,7 +118,7 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
         simpleRate,
         simpleRate,
       ]);
-      const errors = validateEqualCategoryDenominatorsOMS({
+      const errors = validateEqualCategoryDenominatorsOMS()({
         ...baseOMSInfo,
         rateData: data,
         isOPM: true,
@@ -118,7 +133,7 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
         simpleRate,
         doubleRate,
       ]);
-      const errors = validateEqualCategoryDenominatorsOMS({
+      const errors = validateEqualCategoryDenominatorsOMS()({
         ...baseOMSInfo,
         locationDictionary: locationDictionaryJestFunc,
         rateData: data,
@@ -135,5 +150,25 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
       expect(errors[0].errorList).toContain(categories[1]);
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
+  });
+
+  it("Error message text should match provided errorMessage", () => {
+    const errorMessage = "Another one bites the dust.";
+    const locationDictionaryJestFunc = jest.fn();
+    const data = generateOmsCategoryRateData(categories, qualifiers, [
+      simpleRate,
+      doubleRate,
+    ]);
+    const errors = validateEqualCategoryDenominatorsOMS(errorMessage)({
+      ...baseOMSInfo,
+      locationDictionary: locationDictionaryJestFunc,
+      rateData: data,
+    });
+
+    expect(errors).toHaveLength(1);
+    expect(errors[0].errorLocation).toContain(
+      "Optional Measure Stratification:"
+    );
+    expect(errors[0].errorMessage).toBe(errorMessage);
   });
 });
