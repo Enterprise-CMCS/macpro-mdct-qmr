@@ -1,11 +1,12 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
+import {
+  getCategoriesFromRateLabels,
+  getQualifiersFromRateLabels,
+} from "../rateLabels";
 
-export const qualifiers = [
-  "Initiation Phase",
-  "Continuation and Maintenance (C&M) Phase",
-];
-export const categories = [];
+export const qualifiers = getQualifiersFromRateLabels("ADD-CH");
+export const categories = getCategoriesFromRateLabels("ADD-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

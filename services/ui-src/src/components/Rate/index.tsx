@@ -15,8 +15,10 @@ import {
 } from "utils/numberInputMasks";
 export interface IRate {
   label?: string;
+  rateId?: string;
   id: number;
   isTotal?: boolean;
+  categoryId?: string;
 }
 
 interface Props extends QMR.InputWrapperProps {
@@ -75,7 +77,7 @@ export const Rate = ({
       if (prevRate[index] === undefined) {
         prevRate[index] = {};
       }
-      prevRate[index]["label"] = rate.label ?? undefined;
+      prevRate[index]["label"] = rate.rateId ?? undefined;
     });
 
     if (calcTotal) {
@@ -117,7 +119,8 @@ export const Rate = ({
           : editRate[type];
 
       prevRate[index] = {
-        label: rates[index].label,
+        label: rates[index].rateId,
+        categoryId: rates[index].categoryId,
         ...editRate,
       };
 
@@ -146,7 +149,8 @@ export const Rate = ({
     }
 
     prevRate[index] = {
-      label: rates[index].label,
+      label: rates[index].rateId,
+      categoryId: rates[index].categoryId,
       ...editRate,
     };
 

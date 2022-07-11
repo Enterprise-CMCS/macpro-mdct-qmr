@@ -5,7 +5,8 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { cleanString } from "utils/cleanString";
+import { rateLabels, getRateIdFromLabel } from "../../rateLabels";
+import { useMeasureId } from "hooks/useMeasureId";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -51,18 +52,26 @@ const CategoryNdrSets = ({
   customRateLabel,
 }: NdrSetProps) => {
   const register = useCustomRegister();
+  const measureId = useMeasureId() as keyof typeof rateLabels;
 
   return (
     <>
       {categories.map((item) => {
-        let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat,
-          id: idx,
-        }));
+        const categoryId = getRateIdFromLabel(item, measureId);
+
+        let rates: QMR.IRate[] | undefined = qualifiers?.map(
+          (qualifier, idx) => {
+            const rateId = getRateIdFromLabel(qualifier, measureId);
+            return {
+              label: qualifier,
+              rateId,
+              categoryId,
+              id: idx,
+            };
+          }
+        );
 
         rates = rates?.length ? rates : [{ id: 0 }];
-
-        const cleanedName = cleanString(item);
 
         return (
           <CUI.Box key={item}>
@@ -80,7 +89,7 @@ const CategoryNdrSets = ({
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               {...register(
-                `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
+                `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryId}`
               )}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator

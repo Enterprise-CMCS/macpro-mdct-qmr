@@ -4,6 +4,8 @@ import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { cleanString, useTotalAutoCalculation } from "./omsUtil";
+import { rateLabels, getRateIdFromLabel } from "../../rateLabels";
+import { useMeasureId } from "hooks/useMeasureId";
 import * as Types from "../types";
 
 interface NdrProps {
@@ -314,6 +316,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
+  const measureId = useMeasureId() as keyof typeof rateLabels;
 
   const shouldDisplay =
     dataSourceWatch?.[0] !== "AdministrativeData" ||
@@ -321,18 +324,19 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
 
   quals?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
-      const cleanedLabel = cleanString(value);
+      const labelId = getRateIdFromLabel(value, measureId) as string;
+
       const ageGroupCheckBox = {
-        value: cleanedLabel,
+        value: labelId,
         displayValue: value,
         children: [
-          <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
+          <CUI.Heading key={`${name}.rates.${labelId}Header`} size={"sm"}>
             Enter a number for the numerator and the denominator. Rate will
             auto-calculate
           </CUI.Heading>,
           <CUI.Heading
             pt="1"
-            key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+            key={`${name}.rates.${labelId}HeaderHelper`}
             size={"sm"}
             hidden={!shouldDisplay}
           >

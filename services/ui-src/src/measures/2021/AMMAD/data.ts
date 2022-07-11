@@ -1,10 +1,11 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import {
+  getCategoriesFromRateLabels,
+  getQualifiersFromRateLabels,
+} from "../rateLabels";
 
-export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
-export const categories = [
-  "Effective Acute Phase Treatment",
-  "Effective Continuation Phase Treatment",
-];
+export const qualifiers = getQualifiersFromRateLabels("AMM-AD");
+export const categories = getCategoriesFromRateLabels("AMM-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
