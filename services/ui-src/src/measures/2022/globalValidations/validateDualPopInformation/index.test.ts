@@ -37,7 +37,7 @@ describe("Testing Dual Population Selection Validation", () => {
     expect(errors.length).toBe(1);
     expect(errors[0].errorLocation).toBe("Performance Measure");
     expect(errors[0].errorMessage).toBe(
-      `Information has been included in the Age 65 to 75 Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`
+      `Information has been included in the Age 65 and Older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`
     );
   });
 
@@ -52,7 +52,7 @@ describe("Testing Dual Population Selection Validation", () => {
     expect(errors.length).toBe(1);
     expect(errors[0].errorLocation).toBe("Performance Measure");
     expect(errors[0].errorMessage).toBe(
-      `Information has been included in the Age 65 to 75 Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`
+      `Information has been included in the Age 65 and Older Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`
     );
   });
 
