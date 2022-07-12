@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import fireEvent from "@testing-library/user-event";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { AIFHHRate, IUHHRate } from "../ComplexRate";
+import { ComplexRate } from "../ComplexRate";
 import { usePathParams } from "hooks/api/usePathParams";
 
 jest.mock("hooks/api/usePathParams");
@@ -56,7 +56,7 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
       measureId: "AIF-HH",
     });
     renderWithHookForm(
-      <AIFHHRate rates={aifhhRates} name="test-component" readOnly={false} />
+      <ComplexRate rates={aifhhRates} name="test-component" readOnly={false} />
     );
   });
 
@@ -136,7 +136,7 @@ describe("Test the IUHHRate component when readOnly is false", () => {
       measureId: "IU-HH",
     });
     renderWithHookForm(
-      <IUHHRate
+      <ComplexRate
         rates={aifhhRates}
         name="test-component"
         readOnly={false}

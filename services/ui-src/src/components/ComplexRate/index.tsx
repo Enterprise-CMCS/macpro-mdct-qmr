@@ -6,13 +6,7 @@ import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
 import { IRate } from "components";
 import { defaultRateCalculation } from "utils/rateFormulas";
-
-interface ndrFormula {
-  num: number;
-  denom: number;
-  rate: number;
-  mult: number;
-}
+import { ndrFormula } from "types";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -24,9 +18,9 @@ interface Props extends QMR.InputWrapperProps {
   calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
   categoryName?: string;
-  inputFieldNames: string[];
-  measureName: "AIFHH" | "IUHH";
-  ndrFormulas: ndrFormula[];
+  inputFieldNames?: string[];
+  measureName?: string;
+  ndrFormulas?: ndrFormula[];
 }
 
 // Calculate Rates for a row of data using the ndrFormulas as a guide
@@ -60,25 +54,34 @@ const calculateRates = (
   return fieldRow;
 };
 
-const calculateIUHHTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
-  let dischargeSum: any = null;
-  let daySum: any = null;
+const calculateTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
   let numEnrolleeSum: any = null;
+  let valueArray: any[];
   let x;
+
+  let numeratorPositions: number[] = [];
+  ndrFormulas.forEach((formula) => {
+    numeratorPositions.push(formula.num);
+  });
+  let numberOfNumerators = numeratorPositions.length;
+  valueArray = new Array(numberOfNumerators).fill(0);
+  let i: number;
 
   // sum all field values - we assume last row is total
   prevRate.slice(0, -1).forEach((item) => {
-    if (item !== undefined && item !== null && !item["isTotal"]) {
-      if (item?.fields?.every((f: { value: string }) => !!f?.value)) {
+    if (!!item && !item["isTotal"]) {
+      if (item.fields?.every((f: { value?: string }) => !!f?.value)) {
         if (!isNaN((x = parseFloat(item.fields[0].value)))) {
           numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
         }
-        if (!isNaN((x = parseFloat(item.fields[1].value)))) {
-          dischargeSum = dischargeSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[3].value)))) {
-          daySum = daySum + x; // += syntax does not work if default value is null
-        }
+        i = numberOfNumerators;
+        numeratorPositions.forEach((position) => {
+          if (!isNaN((x = parseFloat(item.fields[position].value)))) {
+            valueArray[numberOfNumerators - i] =
+              valueArray[numberOfNumerators - i] + x;
+          }
+          i -= 1;
+        });
       }
     }
   });
@@ -90,71 +93,22 @@ const calculateIUHHTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
   let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
   totals.fields[0].value = newValue;
 
-  newValue = dischargeSum !== null ? dischargeSum.toString() : "";
-  totals.fields[1].value = newValue;
-
-  newValue = daySum !== null ? daySum.toString() : "";
-  totals.fields[3].value = newValue;
-
-  totals.fields = calculateRates(totals.fields, ndrFormulas);
-  prevRate[totalIndex] = totals;
-};
-
-const calculateAIFHHTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
-  let numEnrolleeSum: any = null;
-  let shortSum: any = null;
-  let medSum: any = null;
-  let longSum: any = null;
-  let x;
-
-  // sum all field values - we assume last row is total
-  prevRate.slice(0, -1).forEach((item) => {
-    if (item !== undefined && item !== null && !item["isTotal"]) {
-      if (item?.fields?.every((f: { value?: string }) => !!f?.value)) {
-        if (!isNaN((x = parseFloat(item.fields[0].value)))) {
-          numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[1].value)))) {
-          shortSum = shortSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[3].value)))) {
-          medSum = medSum + x; // += syntax does not work if default value is null
-        }
-        if (!isNaN((x = parseFloat(item.fields[5].value)))) {
-          longSum = longSum + x; // += syntax does not work if default value is null
-        }
-      }
-    }
+  numeratorPositions.forEach((position) => {
+    totals.fields[position].value = valueArray.shift();
   });
 
-  // Set total values and calculate total rate
-  let totalIndex = prevRate.length - 1;
-  let totals = prevRate[totalIndex];
-
-  let newValue = numEnrolleeSum !== null ? numEnrolleeSum.toString() : "";
-  totals.fields[0].value = newValue;
-
-  newValue = shortSum !== null ? shortSum.toString() : "";
-  totals.fields[1].value = newValue;
-
-  newValue = medSum !== null ? medSum.toString() : "";
-  totals.fields[3].value = newValue;
-
-  newValue = longSum !== null ? longSum.toString() : "";
-  totals.fields[5].value = newValue;
-
   totals.fields = calculateRates(totals.fields, ndrFormulas);
   prevRate[totalIndex] = totals;
 };
 
-const ComplexRate = ({
+export const ComplexRate = ({
   rates,
   name,
   readOnly = true,
   categoryName,
-  inputFieldNames,
-  measureName,
-  ndrFormulas,
+  inputFieldNames = [],
+  measureName = "",
+  ndrFormulas = [],
   ...rest
 }: Props) => {
   const {
@@ -232,11 +186,7 @@ const ComplexRate = ({
 
     // Totals should be independently editable
     if (!isTotal) {
-      if (measureName === "IUHH") {
-        calculateIUHHTotals(prevRate, ndrFormulas);
-      } else if (measureName === "AIFHH") {
-        calculateAIFHHTotals(prevRate, ndrFormulas);
-      }
+      calculateTotals(prevRate, ndrFormulas);
     }
 
     field.onChange([...prevRate]);
@@ -323,134 +273,4 @@ const ComplexRate = ({
       })}
     </>
   );
-};
-
-interface IUHHProps extends QMR.InputWrapperProps {
-  rates: IRate[];
-  name: string;
-  readOnly?: boolean;
-  allowMultiple?: boolean;
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-  calcTotal?: boolean;
-  allowNumeratorGreaterThanDenominator?: boolean;
-  categoryName: string;
-}
-
-export const IUHHRate = ({
-  rates,
-  name,
-  readOnly = true,
-  categoryName,
-  ...rest
-}: IUHHProps) => {
-  const measureName = "IUHH";
-
-  const inputFieldNames = [
-    "Number of Enrollee Months",
-    "Discharges",
-    "Discharges per 1,000 Enrollee Months",
-    "Days",
-    "Days per 1,000 Enrollee Months",
-    "Average Length of Stay",
-  ];
-
-  // Rate structure by index in row
-  const ndrFormulas = [
-    // Discharges per 1,000 Enrollee Months
-    {
-      num: 1,
-      denom: 0,
-      rate: 2,
-      mult: 1000,
-    },
-    // Days per 1,000 Enrollee Months
-    {
-      num: 3,
-      denom: 0,
-      rate: 4,
-      mult: 1000,
-    },
-    // Average Length of Stay
-    {
-      num: 3,
-      denom: 1,
-      rate: 5,
-      mult: 1,
-    },
-  ];
-
-  return ComplexRate({
-    rates: rates,
-    name: name,
-    categoryName: categoryName,
-    inputFieldNames: inputFieldNames,
-    measureName: measureName,
-    ndrFormulas: ndrFormulas,
-    ...rest,
-  });
-};
-
-interface AIFHHProps extends QMR.InputWrapperProps {
-  rates: IRate[];
-  name: string;
-  readOnly?: boolean;
-  allowMultiple?: boolean;
-  rateMultiplicationValue?: number;
-  customMask?: RegExp;
-  calcTotal?: boolean;
-  allowNumeratorGreaterThanDenominator?: boolean;
-}
-
-export const AIFHHRate = ({
-  rates,
-  name,
-  readOnly = true,
-  ...rest
-}: AIFHHProps) => {
-  const measureName = "AIFHH";
-
-  const inputFieldNames = [
-    "Number of Enrollee Months",
-    "Number of Short-Term Admissions",
-    "Short-Term Admissions per 1,000 Enrollee Months",
-    "Number of Medium-Term Admissions",
-    "Medium-Term Admissions per 1,000 Enrollee Months",
-    "Number of Long-Term Admissions",
-    "Long-Term Admissions per 1,000 Enrollee Months",
-  ];
-
-  // Rate structure by index in row
-  const ndrFormulas = [
-    // Short-Term Admissions per 1,000 Enrollee Months
-    {
-      num: 1,
-      denom: 0,
-      rate: 2,
-      mult: 1000,
-    },
-    // Medium-Term Admissions per 1,000 Enrollee Months
-    {
-      num: 3,
-      denom: 0,
-      rate: 4,
-      mult: 1000,
-    },
-    // Long-Term Admissions per 1,000 Enrollee Months
-    {
-      num: 5,
-      denom: 0,
-      rate: 6,
-      mult: 1000,
-    },
-  ];
-
-  return ComplexRate({
-    rates: rates,
-    name: name,
-    inputFieldNames: inputFieldNames,
-    measureName: measureName,
-    ndrFormulas: ndrFormulas,
-    ...rest,
-  });
 };

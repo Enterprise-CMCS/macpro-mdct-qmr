@@ -49,7 +49,7 @@ export const AIFHH = ({
             <>
               <CMQ.PerformanceMeasure
                 data={PMD.data}
-                RateComponent={QMR.AIFHHRate}
+                RateComponent={QMR.ComplexRate}
                 calcTotal={true}
               />
               <CMQ.DeviationFromMeasureSpec
