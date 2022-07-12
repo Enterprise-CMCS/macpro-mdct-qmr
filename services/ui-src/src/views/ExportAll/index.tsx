@@ -26,6 +26,7 @@ export const ExportAll = () => {
   };
 
   const makePrinceRequest = async () => {
+    // gather chakra css variables and make available for the body
     for (let i = 0; i < document.styleSheets.length - 1; i++) {
       if (
         !document.styleSheets[i].href &&
@@ -45,39 +46,56 @@ export const ExportAll = () => {
       ...document.querySelectorAll("[data-emotion]"),
     ].flatMap(({ sheet }) =>
       [...sheet.cssRules].map((rules) => {
+        // any mass changes to chakra-css rules should go here
         return rules.cssText.replace(
-          /text\-align\: right/g,
+          /text-align: right/g,
           "text-align: center"
         );
-        // return rules.cssText;
       })
     );
 
+    // emotion tags put into the body
     for (const style of styleString) {
       const styleTag = document.createElement("style");
       document.body.appendChild(styleTag);
       styleTag.appendChild(document.createTextNode(style));
     }
 
+    // any additional css to adjust page
+    const styleTag = document.createElement("style");
+    document.body.appendChild(styleTag);
+    styleTag.appendChild(
+      document.createTextNode(
+        `@page {}\n` +
+          ` * { box-decoration-break: slice !important; }\n` +
+          ` extra-left-margin-print { padding: 20px 10px 10px 60px !important; }\n` +
+          ` print-padding-box { margin: 20px 10px 50px 10px !important; }\n` +
+          ` h1 { margin: auto !important; align-text: center !important; width: auto !important; }\n`
+      )
+    );
+
+    // remove to top links and no script tag
     const html = document.querySelector("html")!;
     document
       .querySelectorAll('[data-cy="surfaceLinkTag"]')
       .forEach((v) => v.remove());
     html.querySelector("noscript")?.remove();
 
+    // fixing non standard characters
     const htmlString = html
       .outerHTML!.replaceAll(
         '<link href="',
         `<link href="https://${window.location.host}`
       )
+      .replaceAll(`src="/assets`, `src="https://${window.location.host}/assets`)
       .replaceAll(`’`, `'`)
       .replaceAll(`‘`, `'`)
       .replaceAll(`”`, `"`)
       .replaceAll(`“`, `"`)
       .replaceAll("\u2013", "-")
-      .replaceAll("\u2014", "-");
+      .replaceAll("\u2014", "-")
+      .replaceAll(" flex;", " block;");
 
-    console.log(htmlString);
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
     const pdf = await getPDF({
