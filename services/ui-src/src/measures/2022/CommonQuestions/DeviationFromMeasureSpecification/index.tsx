@@ -95,7 +95,7 @@ export const getLowLvlDeviationOptions = ({
   }
 
   return qualifiers
-    .sort((a, b) => (a.label!! < b.label!! ? 1 : 1))
+    .sort((a, b) => (a.label!! < b.label!! ? 0 : 1))
     .map((item) => {
       const value = `${cleanString(item.label)}`;
       return {
