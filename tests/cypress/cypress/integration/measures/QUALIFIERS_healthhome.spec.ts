@@ -212,16 +212,16 @@ describe("Health Home Measure Qualifier: HH", () => {
       "CDF-HH - Screening for Depression and Follow-Up Plan"
     );
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUA-HH - Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUA-HH - Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence"]'
     ).should(
       "contain.text",
-      "FUA-HH - Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence"
+      "FUA-HH - Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence"
     );
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-HH - Follow-Up after Hospitalization for Mental Illness"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-HH - Follow-Up After Hospitalization for Mental Illness"]'
     ).should(
       "contain.text",
-      "FUH-HH - Follow-Up after Hospitalization for Mental Illness"
+      "FUH-HH - Follow-Up After Hospitalization for Mental Illness"
     );
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IET-HH - Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment"]'
