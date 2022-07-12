@@ -52,7 +52,7 @@ const TotalNDR = ({
 
   useTotalAutoCalculation({ name, cleanedCategory, componentFlag });
 
-  if (componentFlag === "IU" || "AIF") {
+  if (componentFlag === "IU" || componentFlag === "AIF") {
     return (
       <QMR.ComplexRate
         key={cleanedName}

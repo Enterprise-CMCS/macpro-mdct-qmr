@@ -21,22 +21,22 @@ export const aifhhQualifiers = [
 const aifhhNdrFormulas = [
   // Short-Term Admissions per 1,000 Enrollee Months
   {
-    numerator: 1,
-    denominator: 0,
+    num: 1,
+    denom: 0,
     rate: 2,
     mult: 1000,
   },
   // Medium-Term Admissions per 1,000 Enrollee Months
   {
-    numerator: 3,
-    denominator: 0,
+    num: 3,
+    denom: 0,
     rate: 4,
     mult: 1000,
   },
   // Long-Term Admissions per 1,000 Enrollee Months
   {
-    numerator: 5,
-    denominator: 0,
+    num: 5,
+    denom: 0,
     rate: 6,
     mult: 1000,
   },
@@ -56,7 +56,14 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
       measureId: "AIF-HH",
     });
     renderWithHookForm(
-      <ComplexRate rates={aifhhRates} name="test-component" readOnly={false} />
+      <ComplexRate
+        rates={aifhhRates}
+        name="test-component"
+        readOnly={false}
+        inputFieldNames={aifhhQualifiers}
+        measureName="AIFHH"
+        ndrFormulas={aifhhNdrFormulas}
+      />
     );
   });
 
@@ -75,11 +82,9 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
     ];
 
     aifhhNdrFormulas.forEach((ndr, i) => {
-      const numerator = screen.getAllByLabelText(
-        aifhhQualifiers[ndr.numerator]
-      )[0];
+      const numerator = screen.getAllByLabelText(aifhhQualifiers[ndr.num])[0];
       const denominator = screen.getAllByLabelText(
-        aifhhQualifiers[ndr.denominator]
+        aifhhQualifiers[ndr.denom]
       )[0];
       const rate = screen.getAllByLabelText(aifhhQualifiers[ndr.rate])[0];
 
@@ -106,22 +111,22 @@ const iuhhQualifiers = [
 const iuhhNdrFormulas = [
   // Discharges per 1,000 Enrollee Months
   {
-    numerator: 1,
-    denominator: 0,
+    num: 1,
+    denom: 0,
     rate: 2,
     mult: 1000,
   },
   // Days per 1,000 Enrollee Months
   {
-    numerator: 3,
-    denominator: 0,
+    num: 3,
+    denom: 0,
     rate: 4,
     mult: 1000,
   },
   // Average Length of Stay
   {
-    numerator: 3,
-    denominator: 1,
+    num: 3,
+    denom: 1,
     rate: 5,
     mult: 1,
   },
@@ -141,6 +146,9 @@ describe("Test the IUHHRate component when readOnly is false", () => {
         name="test-component"
         readOnly={false}
         categoryName="test-category"
+        inputFieldNames={iuhhQualifiers}
+        measureName="IUHH"
+        ndrFormulas={iuhhNdrFormulas}
       />
     );
   });
@@ -159,11 +167,9 @@ describe("Test the IUHHRate component when readOnly is false", () => {
     ];
 
     iuhhNdrFormulas.forEach((ndr, i) => {
-      const numerator = screen.getAllByLabelText(
-        iuhhQualifiers[ndr.numerator]
-      )[0];
+      const numerator = screen.getAllByLabelText(iuhhQualifiers[ndr.num])[0];
       const denominator = screen.getAllByLabelText(
-        iuhhQualifiers[ndr.denominator]
+        iuhhQualifiers[ndr.denom]
       )[0];
       const rate = screen.getAllByLabelText(iuhhQualifiers[ndr.rate])[0];
 

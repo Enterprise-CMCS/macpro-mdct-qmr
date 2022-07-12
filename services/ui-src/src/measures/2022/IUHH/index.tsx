@@ -69,6 +69,9 @@ export const IUHH = ({
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
+              measureName={PMD.data.measureName}
+              inputFieldNames={PMD.data.inputFieldNames}
+              ndrFormulas={PMD.data.ndrFormulas}
               allowNumeratorGreaterThanDenominator
               adultMeasure={false}
               calcTotal={true}
