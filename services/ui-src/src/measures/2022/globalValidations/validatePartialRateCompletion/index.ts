@@ -4,12 +4,40 @@ import {
   getOtherPerformanceMeasureRateArray,
 } from "../dataDrivenTools";
 import {
-  UnifiedValidationFunction as UVF,
+  UnifiedValFuncProps as UVFP,
   FormRateField,
   OmsValidationCallback,
 } from "../types";
 
-const _validation: UVF = ({ location, rateData, categories, qualifiers }) => {
+type ErrorMessageFunc = (
+  multipleQuals: boolean,
+  qualifier: string,
+  multipleCats: boolean,
+  category: string
+) => string;
+
+interface ValProps extends UVFP {
+  errorMessageFunc?: ErrorMessageFunc;
+}
+
+const validatePartialRateCompletionErrorMessage: ErrorMessageFunc = (
+  multipleQuals,
+  qualifier,
+  multipleCats,
+  category
+) => {
+  return `Should not have partially filled NDR sets${
+    multipleQuals ? ` at ${qualifier}` : ""
+  }${multipleCats ? `, ${category}` : ""}.`;
+};
+
+const _validation = ({
+  location,
+  rateData,
+  categories,
+  qualifiers,
+  errorMessageFunc = validatePartialRateCompletionErrorMessage,
+}: ValProps) => {
   const errors: FormError[] = [];
 
   for (const [i, rateSet] of rateData.entries()) {
@@ -19,11 +47,16 @@ const _validation: UVF = ({ location, rateData, categories, qualifiers }) => {
         (rate.numerator || rate.denominator || rate.rate) &&
         (!rate.denominator || !rate.numerator || !rate.rate)
       ) {
+        const multipleQuals: boolean = !!qualifiers?.length;
+        const multipleCats: boolean = !!categories?.length;
         errors.push({
           errorLocation: location,
-          errorMessage: `Should not have partially filled NDR sets${
-            !!qualifiers?.length ? ` at ${qualifiers[j]}` : ""
-          }${!!categories?.length ? `, ${categories[i]}` : ""}.`,
+          errorMessage: errorMessageFunc(
+            multipleQuals,
+            qualifiers?.[j]!,
+            multipleCats,
+            categories?.[i]!
+          ),
         });
       }
     }
@@ -38,6 +71,7 @@ interface SVVProps {
   categories?: string[];
   qualifiers?: string[];
   locationDictionary: (s: string[]) => string;
+  errorMessageFunc?: ErrorMessageFunc;
 }
 
 const _singleValueValidation = ({
@@ -46,6 +80,7 @@ const _singleValueValidation = ({
   categories,
   qualifiers,
   locationDictionary,
+  errorMessageFunc = validatePartialRateCompletionErrorMessage,
 }: SVVProps): FormError[] => {
   const errors: FormError[] = [];
 
@@ -53,15 +88,25 @@ const _singleValueValidation = ({
     for (const catKey of Object.keys(rateData?.rates?.[qualKey] ?? {})) {
       if (
         !!rateData?.rates?.[qualKey]?.[catKey]?.[0]?.fields &&
-        rateData.rates[qualKey][catKey][0].fields.every(
-          (field: any) => !!field.value
+        // check some fields are empty
+        rateData.rates[qualKey][catKey][0].fields.some(
+          (field: any) => !field.value
+        ) &&
+        // check not all fields are empty
+        !rateData.rates[qualKey][catKey][0].fields.every(
+          (field: any) => !field.value
         )
       ) {
+        const multipleQuals: boolean = !!qualifiers?.length;
+        const multipleCats: boolean = !!categories?.length;
         errors.push({
           errorLocation: location,
-          errorMessage: `Should not have partially filled NDR sets${
-            !!qualifiers?.length ? ` at ${locationDictionary([qualKey])}` : ""
-          }${!!categories?.length ? `, ${locationDictionary([catKey])}` : ""}.`,
+          errorMessage: errorMessageFunc(
+            multipleQuals,
+            locationDictionary([qualKey]),
+            multipleCats,
+            locationDictionary([catKey])
+          ),
         });
       }
     }
@@ -71,20 +116,24 @@ const _singleValueValidation = ({
 };
 
 export const validatePartialRateCompletionOMS =
-  (singleValueFieldFlag = false): OmsValidationCallback =>
+  (
+    singleValueFieldFlag?: "iuhh-rate" | "aifhh-rate",
+    errorMessageFunc?: ErrorMessageFunc
+  ): OmsValidationCallback =>
   ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
     return [
-      ...(singleValueFieldFlag
+      ...(!!singleValueFieldFlag
         ? _singleValueValidation({
             location: `Optional Measure Stratification: ${locationDictionary([
               ...label,
             ])}`,
-            rateData: rateData["iuhh-rate"],
+            rateData: rateData?.[singleValueFieldFlag],
             categories: !!(isOPM || categories[0] === SINGLE_CATEGORY)
               ? undefined
               : categories,
             qualifiers: !!isOPM ? undefined : qualifiers,
             locationDictionary,
+            errorMessageFunc,
           })
         : _validation({
             location: `Optional Measure Stratification: ${locationDictionary([
@@ -99,6 +148,7 @@ export const validatePartialRateCompletionOMS =
               ? undefined
               : categories,
             qualifiers: !!isOPM ? undefined : qualifiers,
+            errorMessageFunc,
           })),
     ];
   };
@@ -115,7 +165,8 @@ export const validatePartialRateCompletionPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   qualifiers: string[],
-  categories?: string[]
+  categories?: string[],
+  errorMessageFunc?: ErrorMessageFunc
 ) => {
   return [
     ..._validation({
@@ -123,10 +174,12 @@ export const validatePartialRateCompletionPM = (
       rateData: performanceMeasureArray,
       categories,
       qualifiers,
+      errorMessageFunc,
     }),
     ..._validation({
       location: "Other Performance Measure",
       rateData: getOtherPerformanceMeasureRateArray(OPM),
+      errorMessageFunc,
     }),
   ];
 };

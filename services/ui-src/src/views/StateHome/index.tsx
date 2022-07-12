@@ -91,7 +91,7 @@ const Heading = () => {
   );
 };
 
-export const StateHome = () => {
+const StateHome = () => {
   const { state, year } = useParams();
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
@@ -179,7 +179,7 @@ export const StateHome = () => {
     return <QMR.LoadingWave />;
   }
 
-  const filteredSpas = SPA.filter((s) => s.state === state);
+  const filteredSpas = SPA[year!].filter((s) => s.state === state);
   const spaIds = filteredSpas.map((s) => s.id);
 
   const formattedTableItems = formatTableItems({
@@ -234,3 +234,5 @@ export const StateHome = () => {
     </QMR.StateLayout>
   );
 };
+
+export default StateHome;

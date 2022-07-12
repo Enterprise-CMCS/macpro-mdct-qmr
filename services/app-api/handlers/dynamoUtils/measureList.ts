@@ -636,11 +636,19 @@ export const measures: Measure = {
     },
     {
       type: "H",
+      measure: "COL-HH",
+    },
+    {
+      type: "H",
       measure: "FUA-HH",
     },
     {
       type: "H",
       measure: "FUH-HH",
+    },
+    {
+      type: "H",
+      measure: "FUM-HH",
     },
     {
       type: "H",
@@ -661,6 +669,31 @@ export const measures: Measure = {
     {
       type: "H",
       measure: "PQI92-HH",
+    },
+    {
+      type: "H",
+      measure: "SS-1-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-2-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-3-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-4-HH",
+      placeholder: true,
+    },
+    {
+      type: "H",
+      measure: "SS-5-HH",
+      placeholder: true,
     },
   ],
 };

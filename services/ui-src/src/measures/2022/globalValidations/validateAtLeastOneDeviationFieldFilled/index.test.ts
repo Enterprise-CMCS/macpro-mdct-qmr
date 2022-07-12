@@ -1,33 +1,38 @@
 import * as DC from "dataConstants";
-import { testFormData } from "../testHelpers/_testFormData";
-import {
-  validateAtLeastOneDeviationFieldFilled,
-  getDeviationNDRArray,
-} from "measures/2022/globalValidations";
 import { test_setup } from "../testHelpers/_helper";
+import { testFormData } from "../testHelpers/_testFormData";
+import { getDeviationNDRArray } from "measures/2022/globalValidations";
+import { validateAtLeastOneDeviationFieldFilled } from ".";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   let formData: any = {};
   let errorArray: FormError[];
 
-  const _check_errors = (data: any, numErrors: number, noPM?: boolean) => {
+  const _run_validation = (
+    data: any,
+    noPM?: boolean,
+    errorMessage?: string
+  ): FormError[] => {
     const { ageGroups, performanceMeasureArray } = test_setup(data);
-
     const deviationArray = getDeviationNDRArray(
       data.DeviationOptions,
       data.Deviations,
       true
     );
     const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-
-    errorArray = [
+    return [
       ...validateAtLeastOneDeviationFieldFilled(
         noPM ? [[]] : performanceMeasureArray,
         ageGroups,
         deviationArray,
-        didCalculationsDeviate
+        didCalculationsDeviate,
+        errorMessage
       ),
     ];
+  };
+
+  const _check_errors = (data: any, numErrors: number, noPM?: boolean) => {
+    errorArray = _run_validation(data, noPM);
     expect(errorArray.length).toBe(numErrors);
   };
 
@@ -36,21 +41,21 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     errorArray = [];
   });
 
-  test("Default Form Data", () => {
+  it("Default Form Data", () => {
     _check_errors(formData, 0);
   });
 
-  test("Calculations deviated, but somehow no performance measure data", () => {
+  it("Calculations deviated, but somehow no performance measure data", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     _check_errors(formData, 0, true);
   });
 
-  test("Calculations deviated, but no answer given", () => {
+  it("Calculations deviated, but no answer given", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     _check_errors(formData, 1);
   });
 
-  test("Calculations deviated, but partial answer given", () => {
+  it("Calculations deviated, but partial answer given", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -61,7 +66,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 1);
   });
 
-  test("Calculations deviated, only numerator filled", () => {
+  it("Calculations deviated, only numerator filled", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -73,7 +78,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 0);
   });
 
-  test("Calculations deviated, only denominator filled", () => {
+  it("Calculations deviated, only denominator filled", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -85,7 +90,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 0);
   });
 
-  test("Calculations deviated, only other filled", () => {
+  it("Calculations deviated, only other filled", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -97,7 +102,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 0);
   });
 
-  test("Calculations deviated all fields filled", () => {
+  it("Calculations deviated all fields filled", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
     formData[DC.DEVIATIONS] = {
@@ -109,5 +114,22 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
       },
     };
     _check_errors(formData, 0);
+  });
+
+  it("Error message text should match default errorMessage", () => {
+    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
+    errorArray = _run_validation(formData);
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(
+      "At least one item must be selected and completed (Numerator, Denominator, or Other)"
+    );
+  });
+
+  it("Error message text should match provided errorMessage", () => {
+    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
+    const errorMessage = "Another one bites the dust.";
+    errorArray = _run_validation(formData, undefined, errorMessage);
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(errorMessage);
   });
 });

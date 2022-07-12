@@ -794,5 +794,63 @@
         "Value": "MO"
       }
     ]
+  },
+  {
+    "username": "stateuserMI@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserMI@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Michelle"
+      },
+      {
+        "Name": "family_name",
+        "Value": "MI"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "MI"
+      }
+    ]
+  },
+  {
+    "username": "stateuserGU@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserGU@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Gus"
+      },
+      {
+        "Name": "family_name",
+        "Value": "GU"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "GU"
+      }
+    ]
   }
 ]

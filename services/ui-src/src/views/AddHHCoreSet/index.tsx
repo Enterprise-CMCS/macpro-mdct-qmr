@@ -48,9 +48,8 @@ export const AddHHCoreSet = () => {
     );
   }
 
-  const sortedSPAs: QMR.SelectOption[] = SPA.filter(
-    (spa) => spa.state === state
-  )
+  const sortedSPAs: QMR.SelectOption[] = SPA[year!]
+    .filter((spa) => spa.state === state)
     .filter(
       (spa) =>
         !data?.Items.some((coreset: any) =>

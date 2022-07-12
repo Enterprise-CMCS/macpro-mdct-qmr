@@ -65,7 +65,7 @@ const AABADValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [GV.validateNumeratorLessThanDenominatorOMS],
+      validationCallbacks: [GV.validateNumeratorLessThanDenominatorOMS()],
     }),
   ];
 
