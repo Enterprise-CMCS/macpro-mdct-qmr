@@ -45,12 +45,8 @@ const CBPValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.omsValidations({
@@ -64,9 +60,9 @@ const CBPValidation = (data: FormData) => {
       ),
       dataSource: data[DC.DATA_SOURCE],
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateRateZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(

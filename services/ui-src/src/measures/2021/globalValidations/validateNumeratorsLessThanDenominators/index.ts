@@ -42,24 +42,21 @@ const _validation = ({
 /**
  * Validated OMS sections for numerator being less than denominator
  */
-export const validateNumeratorLessThanDenominatorOMS: OmsValidationCallback = ({
-  categories,
-  qualifiers,
-  rateData,
-  label,
-  locationDictionary,
-}) => {
-  return _validation({
-    location: "Optional Measure Stratification",
-    categories,
-    qualifiers,
-    rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-    locationFunc: (q) =>
-      `Optional Measure Stratification: ${locationDictionary([...label, q])}`,
-    errorMessage:
-      "Numerator cannot be greater than the Denominator for NDR sets.",
-  });
-};
+export const validateNumeratorLessThanDenominatorOMS =
+  (errorMessage?: string): OmsValidationCallback =>
+  ({ categories, qualifiers, rateData, label, locationDictionary }) => {
+    return _validation({
+      location: "Optional Measure Stratification",
+      categories,
+      qualifiers,
+      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      locationFunc: (q) =>
+        `Optional Measure Stratification: ${locationDictionary([...label, q])}`,
+      errorMessage:
+        errorMessage ??
+        "Numerator cannot be greater than the Denominator for NDR sets.",
+    });
+  };
 
 /**
  * Checks both performance measure and other performance measure for numerator greater than denominator errors
@@ -67,11 +64,14 @@ export const validateNumeratorLessThanDenominatorOMS: OmsValidationCallback = ({
 export const validateNumeratorsLessThanDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  qualifiers: string[]
+  qualifiers: string[],
+  errorMessage?: string
 ) => {
   const location = `Performance Measure/Other Performance Measure`;
-  const errorMessage = `Numerators must be less than Denominators for all applicable performance measures`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
+  errorMessage =
+    errorMessage ??
+    `Numerators must be less than Denominators for all applicable performance measures`;
   const errorArray: FormError[] = [
     ..._validation({
       location,

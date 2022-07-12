@@ -1,7 +1,7 @@
 import {
   validateOneCatRateHigherThanOtherCatOMS,
   validateOneCatRateHigherThanOtherCatPM,
-} from "./index";
+} from ".";
 
 import {
   generatePmCategoryRateData,
@@ -97,6 +97,38 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
         `${categories[1]} Rate should not be higher than ${categories[0]} Rate for ${qualifiers[0]} Rates.`
       );
     });
+
+    it("Error message text should match provided errorMessage", () => {
+      const errorMessageFunc = (
+        highCat: string,
+        lowCat: string,
+        qualifier: string
+      ) => {
+        return `Another ${lowCat} bites the ${highCat} and the ${qualifier}.`;
+      };
+
+      const data = generatePmCategoryRateData(
+        { categories: expandedCategories, qualifiers },
+        [lowerRate, higherRate, lowerRate, higherRate]
+      );
+      const errors = validateOneCatRateHigherThanOtherCatPM(
+        data,
+        {
+          categories: expandedCategories,
+          qualifiers,
+        },
+        0,
+        1,
+        2,
+        errorMessageFunc
+      );
+
+      expect(errors).toHaveLength(4);
+      expect(errors[0].errorLocation).toBe("Performance Measure");
+      expect(errors[0].errorMessage).toBe(
+        errorMessageFunc(categories[0], categories[1], qualifiers[0])
+      );
+    });
   });
 
   // OMS
@@ -161,5 +193,29 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
         `${categories[1]} Rate should not be higher than ${categories[0]} Rates.`
       );
     });
+  });
+
+  it("Error message text should match provided errorMessage", () => {
+    const errorMessageFunc = (highCat: string, lowCat: string) => {
+      return `Another ${lowCat} bites the ${highCat}.`;
+    };
+    const data = generateOmsCategoryRateData(categories, qualifiers, [
+      lowerRate,
+      higherRate,
+    ]);
+    const errors = validateOneCatRateHigherThanOtherCatOMS(
+      undefined,
+      undefined,
+      undefined,
+      errorMessageFunc
+    )({
+      ...baseOMSInfo,
+      rateData: data,
+    });
+
+    expect(errors).toHaveLength(2);
+    expect(errors[0].errorMessage).toBe(
+      errorMessageFunc(categories[0], categories[1])
+    );
   });
 });

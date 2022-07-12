@@ -43,10 +43,10 @@ const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
   const rateDataOPM = GV.getOtherPerformanceMeasureRateArray(OPM);
 
   const nonZeroErrors = [
-    ...GV._validationRateNotZero({ location, rateData: rateDataOPM }),
+    ...GV.validationRateNotZero({ location, rateData: rateDataOPM }),
   ];
   const zeroErrors = [
-    ...GV._validationRateZero({ location, rateData: rateDataOPM, hybridData }),
+    ...GV.validationRateZero({ location, rateData: rateDataOPM, hybridData }),
   ];
 
   if (!!nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);
