@@ -104,6 +104,9 @@ const FUACH = lazy(() =>
 const FUAHH = lazy(() =>
   import("./FUAHH").then((module) => ({ default: module.FUAHH }))
 );
+const FUHAD = lazy(() =>
+  import("./FUHAD").then((module) => ({ default: module.FUHAD }))
+);
 const FUHCH = lazy(() =>
   import("./FUHCH").then((module) => ({ default: module.FUHCH }))
 );
@@ -187,9 +190,6 @@ const PQI05AD = lazy(() =>
 );
 const PQI92HH = lazy(() =>
   import("./PQI92HH").then((module) => ({ default: module.PQI92HH }))
-);
-const FUHAD = lazy(() =>
-  import("./FUHAD").then((module) => ({ default: module.FUHAD }))
 );
 const PQI08AD = lazy(() =>
   import("./PQI08AD").then((module) => ({ default: module.PQI08AD }))

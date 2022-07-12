@@ -21,7 +21,7 @@ export const measureDescriptions: MeasureList = {
       "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
     "FUH-AD":
       "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
-    "FUM-AD": "Follow-Up after Emergency Department Visit for Mental Illness",
+    "FUM-AD": "Follow-Up After Emergency Department Visit for Mental Illness",
     "FVA-AD": "Flu Vaccinations for Adults Ages 18 to 64",
     "HPC-AD":
       "Comprehensive Diabetes Care: Hemoglobin A1c (HbA1c) Poor Control (> 9.0%)",
@@ -31,7 +31,7 @@ export const measureDescriptions: MeasureList = {
     "IET-AD":
       "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
     "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
-    "NCIDDS-AD": "National Core Indicators Survey",
+    "NCIDDS-AD": "National Core Indicators (NCI)",
     "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PC01-AD": "PC-01: Elective Delivery",
@@ -85,8 +85,8 @@ export const measureDescriptions: MeasureList = {
     "CBP-HH": "Controlling High Blood Pressure",
     "CDF-HH": "Screening for Depression and Follow-Up Plan",
     "FUA-HH":
-      "Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
-    "FUH-HH": "Follow-Up after Hospitalization for Mental Illness",
+      "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+    "FUH-HH": "Follow-Up After Hospitalization for Mental Illness",
     "IET-HH":
       "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
     "IU-HH": "Inpatient Utilization",
@@ -187,8 +187,8 @@ export const measureDescriptions: MeasureList = {
     "CDF-HH": "Screening for Depression and Follow-Up Plan",
     "COL-HH": "Colorectal Cancer Screening",
     "FUA-HH":
-      "Follow-Up after Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
-    "FUH-HH": "Follow-Up after Hospitalization for Mental Illness",
+      "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+    "FUH-HH": "Follow-Up After Hospitalization for Mental Illness",
     "IET-HH":
       "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
     "IU-HH": "Inpatient Utilization",
