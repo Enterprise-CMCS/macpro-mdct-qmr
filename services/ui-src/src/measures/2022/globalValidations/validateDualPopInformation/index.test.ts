@@ -80,7 +80,7 @@ describe("Testing Dual Population Selection Validation", () => {
     expect(errors.length).toBe(1);
     expect(errors[0].errorLocation).toBe("Performance Measure");
     expect(errors[0].errorMessage).toBe(
-      `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for Age 65 to 75`
+      `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for Age 65 and Older`
     );
   });
 
