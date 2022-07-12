@@ -54,7 +54,8 @@ const WCCHValidation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
@@ -91,11 +92,11 @@ const WCCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateEqualQualifierDenominatorsOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
-        GV.validateRateZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];
