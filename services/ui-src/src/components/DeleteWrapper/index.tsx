@@ -26,6 +26,7 @@ export const DeleteWrapper = ({
 
   return (
     <CUI.Box position="relative" {...childWrapperProps}>
+      {children}
       {allowDeletion && (
         <CUI.HStack
           top={0}
@@ -46,7 +47,6 @@ export const DeleteWrapper = ({
             onDelete && onDelete();
             setRender(false);
           }}
-          tabIndex={-1}
         >
           {isHovered && showText && (
             <CUI.Text size={"sm"} color={textColor}>
@@ -56,7 +56,6 @@ export const DeleteWrapper = ({
           <CUI.Icon color={textColor} fontSize={"xl"} as={BsTrash} />
         </CUI.HStack>
       )}
-      {children}
     </CUI.Box>
   );
 };
