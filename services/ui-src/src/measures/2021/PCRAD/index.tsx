@@ -35,6 +35,7 @@ export const PCRAD = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        removeLessThan30={true}
       />
 
       {!isNotReportingData && (

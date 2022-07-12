@@ -36,6 +36,7 @@ export const PCRHH = ({
         measureName={name}
         measureAbbreviation={measureId}
         healthHomeMeasure
+        removeLessThan30={true}
       />
 
       {!isNotReportingData && (

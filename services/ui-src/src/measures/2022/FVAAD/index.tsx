@@ -34,6 +34,7 @@ export const FVAAD = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        removeLessThan30={true}
       />
 
       {!isNotReportingData && (
