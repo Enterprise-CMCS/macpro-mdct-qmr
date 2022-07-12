@@ -70,7 +70,7 @@ export const ExportAll = () => {
           ` * { box-decoration-break: slice !important; }\n` +
           ` extra-left-margin-print { padding: 20px 10px 10px 60px !important; }\n` +
           ` print-padding-box { margin: 20px 10px 50px 10px !important; }\n` +
-          ` h1 { margin: auto !important; align-text: center !important; width: auto !important; }\n`
+          ` h1 { margin: auto !important; align-text: center !important; width: fitcontent !important; }\n`
       )
     );
 
