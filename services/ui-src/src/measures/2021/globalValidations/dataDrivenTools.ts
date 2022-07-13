@@ -90,8 +90,8 @@ export const performanceMeasureErrorLocationDicitonary = (
  */
 export const omsLocationDictionary = (
   renderData: DDT.OptionalMeasureStrat,
-  qualifiers?: string[],
-  categories?: string[]
+  qualifiers: Types.QualIdsAndLabels,
+  categories: Types.CatIdsAndLabels
 ) => {
   const dictionary: { [cleanedLabel: string]: string } = {};
   const checkNode = (node: DDT.SingleOmsNode) => {
@@ -99,7 +99,7 @@ export const omsLocationDictionary = (
     for (const option of node.options ?? []) {
       checkNode(option);
     }
-    dictionary[node.id.replace(/[^\w]/g, "")] = node.id;
+    dictionary[cleanString(node.id)] = node.id;
   };
 
   for (const node of renderData) {
@@ -107,11 +107,11 @@ export const omsLocationDictionary = (
   }
 
   for (const qual of qualifiers ?? []) {
-    dictionary[qual.replace(/[^\w]/g, "")] = qual;
+    dictionary[cleanString(qual.id)] = qual.label;
   }
 
   for (const cat of categories ?? []) {
-    dictionary[cat.replace(/[^\w]/g, "")] = cat;
+    dictionary[cat.id] = cat.label;
   }
 
   return (labels: string[]) =>

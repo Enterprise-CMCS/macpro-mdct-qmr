@@ -1326,19 +1326,15 @@ export const rateLabels = {
   },
 };
 
-export const getCategoriesFromRateLabels = (
+export const getRateLabelCatsAndQuals = (
   measureId: keyof typeof rateLabels
 ) => {
-  const { categories } = rateLabels[measureId];
-  if (categories.length === 0) return [];
-  return categories.map((c) => c.label);
-};
-
-export const getQualifiersFromRateLabels = (
-  measureId: keyof typeof rateLabels
-) => {
-  const { qualifiers } = rateLabels[measureId];
-  return qualifiers.map((q) => q.label);
+  return {
+    catIdsAndLabels: rateLabels[measureId].categories,
+    qualIdsAndLabels: rateLabels[measureId].qualifiers,
+    categories: rateLabels[measureId].categories.map((c) => c.label),
+    qualifiers: rateLabels[measureId].qualifiers.map((q) => q.label),
+  };
 };
 
 export const getRateIdFromLabel = (

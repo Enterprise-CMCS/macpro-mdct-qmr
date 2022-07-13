@@ -3,6 +3,7 @@ import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
+import * as Types from "measures/2021/CommonQuestions/types";
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
@@ -124,8 +125,8 @@ const AMMADValidation = (data: FormData) => {
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
         OMSData(true),
-        PMD.qualifiers,
-        PMD.categories
+        PMD.qualIdsAndLabels as Types.QualIdsAndLabels,
+        PMD.catIdsAndLabels as Types.CatIdsAndLabels
       ),
       validationCallbacks: [
         GV.validateOneCatRateHigherThanOtherCatOMS(),

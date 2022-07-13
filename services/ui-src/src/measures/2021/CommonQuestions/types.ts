@@ -294,6 +294,9 @@ export type DeviationKeys =
   | "Other"
   | "RateDeviationsSelected";
 
+export type CatIdsAndLabels = { id: string; label: string }[] | [];
+export type QualIdsAndLabels = { id: string; label: string }[];
+
 export type DefaultFormData = AdditionalNotes &
   DidCollect &
   StatusOfData &

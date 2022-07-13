@@ -158,8 +158,25 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
   } = usePerformanceMeasureContext();
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
+  const measureId = useMeasureId() as keyof typeof rateLabels;
 
-  quals?.forEach((singleQual, qualIndex) => {
+  const getCleanRateName = ({
+    singleCatLabel,
+    singleQualLabel,
+    measureId,
+  }: {
+    singleCatLabel: string;
+    singleQualLabel: string;
+    measureId: keyof typeof rateLabels;
+  }) => {
+    const qualId = getRateIdFromLabel(singleQualLabel, measureId);
+    const catId = getRateIdFromLabel(singleCatLabel, measureId);
+    const cleanQual = cleanString(qualId as string);
+    const cleanedName = `${name}.rates.${cleanQual}.${catId}`;
+    return cleanedName;
+  };
+
+  quals?.forEach((singleQualLabel, qualIndex) => {
     const ndrSets: React.ReactElement[] = [];
 
     if (IUHHPerformanceMeasureArray) {
@@ -168,9 +185,12 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
         if (idx === 1) {
           category = [{}, category[0], {}, category[1], category[2]];
         }
-        const cleanQual = cleanString(singleQual);
-        const cleanCat = cleanString(categories[idx]);
-        const cleanedName = `${name}.rates.${cleanQual}.${cleanCat}`;
+        const singleCatLabel = categories[idx];
+        const cleanedName = getCleanRateName({
+          singleCatLabel,
+          singleQualLabel,
+          measureId,
+        });
 
         // Confirm that there is at least 1 rate complete
         const rate1 = category?.[qualIndex]?.fields?.[2]?.value ? true : false;
@@ -185,7 +205,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx],
+                  label: singleCatLabel,
                 },
               ]}
               categoryName={""}
@@ -196,15 +216,18 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     } else if (performanceMeasureArray) {
       performanceMeasureArray?.forEach((measure, idx) => {
         if (measure?.[qualIndex]?.rate) {
-          const adjustedName = `${name}.rates.${cleanString(
-            singleQual
-          )}.${cleanString(categories[idx])}`;
+          const singleCatLabel = categories[idx];
+          const cleanedName = getCleanRateName({
+            singleCatLabel,
+            singleQualLabel,
+            measureId,
+          });
 
           ndrSets.push(
             <QMR.Rate
               readOnly={rateReadOnly}
-              name={adjustedName}
-              key={adjustedName}
+              name={cleanedName}
+              key={cleanedName}
               rateMultiplicationValue={rateMultiplicationValue}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
@@ -216,7 +239,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx],
+                  label: singleCatLabel,
                 },
               ]}
             />

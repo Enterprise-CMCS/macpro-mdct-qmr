@@ -1,11 +1,10 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
-import {
-  getCategoriesFromRateLabels,
-  getQualifiersFromRateLabels,
-} from "../rateLabels";
+import { getRateLabelCatsAndQuals } from "../rateLabels";
 
-export const qualifiers = getQualifiersFromRateLabels("AMM-AD");
-export const categories = getCategoriesFromRateLabels("AMM-AD");
+export const { qualIdsAndLabels, catIdsAndLabels } =
+  getRateLabelCatsAndQuals("AMM-AD");
+export const categories = catIdsAndLabels.map((c) => c.label);
+export const qualifiers = qualIdsAndLabels.map((q) => q.label);
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
