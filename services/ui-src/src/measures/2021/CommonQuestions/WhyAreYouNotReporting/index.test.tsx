@@ -8,18 +8,18 @@ describe("WhyAreYouNotReporting component initial appearance", () => {
     renderWithHookForm(<WhyAreYouNotReporting />);
   });
 
-  it("renders description text properly", () => {
+  it("displays description text properly", () => {
     expect(
       screen.getByText("Why are you not reporting on this measure?")
     ).toBeInTheDocument();
     expect(screen.getByText("Select all that apply:")).toBeInTheDocument();
   });
 
-  it("renders label text properly", () => {
+  it("displays label text properly", () => {
     verifyOptions();
   });
 
-  it("does not show Health Homes option by default", () => {
+  it("does not display Health Homes option by default", () => {
     expect(
       screen.queryByLabelText(
         "Continuous enrollment requirement not met due to start date of SPA"
@@ -28,60 +28,164 @@ describe("WhyAreYouNotReporting component initial appearance", () => {
   });
 });
 
-describe(`Subselections`, () => {
+describe(`Options`, () => {
   beforeEach(() => {
     renderWithHookForm(<WhyAreYouNotReporting />);
   });
 
-  test("Population not covered", () => {
-    fireEvent.click(screen.getByLabelText("Population not covered"));
+  describe("Population not covered", () => {
+    beforeEach(() => {
+      fireEvent.click(screen.getByLabelText("Population not covered"));
+    });
 
-    expect(
-      screen.getByLabelText("Entire population not covered")
-    ).toBeInTheDocument();
+    it("displays sub-options", () => {
+      expect(
+        screen.getByLabelText("Entire population not covered")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Partial population not covered")
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByLabelText("Explain the partial population not covered:")
+      ).not.toBeInTheDocument();
+    });
 
-    expect(
-      screen.getByLabelText("Partial population not covered")
-    ).toBeInTheDocument();
+    describe("sub-options", () => {
+      it("Partial population not covered", () => {
+        fireEvent.click(
+          screen.getByLabelText("Partial population not covered")
+        );
 
-    expect(
-      screen.queryByLabelText("Explain the partial population not covered:")
-    ).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByLabelText("Partial population not covered"));
-
-    expect(
-      screen.getByLabelText("Explain the partial population not covered:")
-    ).toBeInTheDocument();
+        expect(
+          screen.getByLabelText("Explain the partial population not covered:")
+        ).toBeInTheDocument();
+      });
+    });
   });
 
-  test("Data not available", () => {
-    expect(
-      screen.queryByText("Why is data not available?")
-    ).not.toBeInTheDocument();
+  describe("Data not available", () => {
+    beforeEach(() => {
+      fireEvent.click(screen.getByLabelText("Data not available"));
+    });
 
-    expect(screen.queryAllByText("Select all that apply:")).toHaveLength(1);
+    it("displays sub-options", () => {
+      expect(
+        screen.getByText("Why is data not available?")
+      ).toBeInTheDocument();
 
-    fireEvent.click(screen.getByLabelText("Data not available"));
+      // Verify expected subselections
+      expect(screen.getByLabelText("Budget constraints")).toBeInTheDocument();
+      expect(screen.getByLabelText("Staff Constraints")).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Data inconsistencies/Accuracy")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Data source not easily accessible")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Information not collected")
+      ).toBeInTheDocument();
 
-    expect(screen.getByText("Why is data not available?")).toBeInTheDocument();
-    expect(screen.queryAllByText("Select all that apply:")).toHaveLength(2);
+      // There should now be 2 "Other" selections (one parent, one child)
+      // in the component
+      expect(screen.queryAllByLabelText("Other")).toHaveLength(2);
+    });
 
-    expect(screen.getByLabelText("Budget constraints")).toBeInTheDocument();
-    expect(screen.getByLabelText("Staff Constraints")).toBeInTheDocument();
-    expect(
-      screen.getByLabelText("Data inconsistencies/Accuracy")
-    ).toBeInTheDocument();
+    describe("sub-options", () => {
+      test("Data inconsistencies/Accuracy", () => {
+        // Open option
+        fireEvent.click(screen.getByLabelText("Data inconsistencies/Accuracy"));
 
-    fireEvent.click(screen.getByLabelText("Data inconsistencies/Accuracy"));
+        const textArea = screen.getByLabelText(
+          "Explain the Data inconsistencies/Accuracy issues:"
+        );
+        expect(textArea).toBeInTheDocument();
+        fireEvent.type(textArea, "This is the test text");
+        expect(textArea).toHaveDisplayValue("This is the test text");
+      });
 
-    const textArea = screen.getByLabelText(
-      "Explain the Data inconsistencies/Accuracy issues:"
-    );
-    expect(textArea).toBeInTheDocument();
+      test("Data source not easily accessible", () => {
+        // Open option
+        fireEvent.click(
+          screen.getByLabelText("Data source not easily accessible")
+        );
 
-    fireEvent.type(textArea, "This is the test text");
-    expect(textArea).toHaveDisplayValue("This is the test text");
+        // Verify sub-options
+        expect(
+          screen.getByLabelText("Requires medical record review")
+        ).toBeInTheDocument();
+        expect(
+          screen.getByLabelText(
+            "Requires data linkage which does not currently exist"
+          )
+        ).toBeInTheDocument();
+        expect(screen.queryAllByLabelText("Other")).toHaveLength(3);
+
+        // "Other"
+        fireEvent.click(screen.queryAllByLabelText("Other")[0]);
+        const textArea = screen.getByLabelText("Explain:");
+        expect(textArea).toBeInTheDocument();
+        fireEvent.type(textArea, "This is the test text");
+        expect(textArea).toHaveDisplayValue("This is the test text");
+      });
+
+      test("Information not collected", () => {
+        // Open Option
+        fireEvent.click(screen.getByLabelText("Information not collected"));
+      });
+
+      test("Other", () => {
+        // Open Option
+        fireEvent.click(screen.queryAllByLabelText("Other")[0]);
+        const textArea = screen.getByLabelText("Explain:");
+        expect(textArea).toBeInTheDocument();
+        fireEvent.type(textArea, "This is the test text");
+        expect(textArea).toHaveDisplayValue("This is the test text");
+      });
+    });
+  });
+
+  describe("Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic", () => {
+    it("renders textBox correctly", () => {
+      fireEvent.click(
+        screen.getByLabelText(
+          "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic"
+        )
+      );
+
+      const textArea = screen.getByLabelText(
+        "Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
+      );
+      expect(textArea).toBeInTheDocument();
+      fireEvent.type(textArea, "This is the test text");
+      expect(textArea).toHaveDisplayValue("This is the test text");
+    });
+  });
+
+  describe("Small sample size (less than 30)", () => {
+    it("renders textBox correctly with max value 29", () => {
+      fireEvent.click(
+        screen.getByLabelText("Small sample size (less than 30)")
+      );
+
+      const numberInput = screen.getByTestId("test-number-input");
+      expect(numberInput).toBeInTheDocument();
+      fireEvent.type(numberInput, "29");
+      expect(numberInput).toHaveDisplayValue("29");
+      fireEvent.type(numberInput, "30");
+      expect(numberInput).toHaveDisplayValue("3");
+    });
+  });
+
+  describe("Other", () => {
+    it("renders textBox correctly", () => {
+      fireEvent.click(screen.getByLabelText("Other"));
+
+      const textArea = screen.getByLabelText("Explain:");
+      expect(textArea).toBeInTheDocument();
+      fireEvent.type(textArea, "This is the test text");
+      expect(textArea).toHaveDisplayValue("This is the test text");
+    });
   });
 });
 
@@ -120,4 +224,9 @@ function verifyOptions() {
     screen.getByLabelText("Small sample size (less than 30)")
   ).toBeInTheDocument();
   expect(screen.getByLabelText("Other")).toBeInTheDocument();
+
+  // Expect suboptions to not be open by default
+  expect(
+    screen.queryByText("Why is data not available?")
+  ).not.toBeInTheDocument();
 }
