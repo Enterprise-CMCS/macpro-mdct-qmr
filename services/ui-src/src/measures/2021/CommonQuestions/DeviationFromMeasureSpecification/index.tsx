@@ -93,9 +93,8 @@ export const getLowLvlDeviationOptions = ({
   if (!qualifiers.some((el) => el.label)) {
     return getRateTextAreaOptions(name);
   }
-
   return qualifiers
-    .sort((a, b) => (a.label!! < b.label!! ? 0 : 1))
+    .sort((a: any, b: any) => b.label! - a.label!)
     .map((item) => {
       const value = `${cleanString(item.label)}`;
       return {
@@ -178,6 +177,7 @@ export const DeviationFromMeasureSpec = ({
               : rates[key]?.filter(numDenExistInRate);
 
           if (deviations) {
+            console.log(deviationRates);
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
               rates: deviationRates,
