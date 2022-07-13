@@ -6,10 +6,20 @@ import {
   getPerfMeasureRateArray,
 } from "../dataDrivenTools";
 
+type ErrorMessageFunc = (lowerQual: string, higherQual: string) => string;
+
 interface ValProps extends UVFP {
   lowerIndex: number;
   higherIndex: number;
+  errorMessageFunc?: ErrorMessageFunc;
 }
+
+const validateOneQualDenomHigherThanOtherDenomErrorMessage = (
+  lowerQual: string,
+  higherQual: string
+) => {
+  return `${lowerQual} denominator must be less than or equal to ${higherQual} denominator.`;
+};
 
 const _validation = ({
   location,
@@ -17,6 +27,7 @@ const _validation = ({
   rateData,
   higherIndex,
   lowerIndex,
+  errorMessageFunc = validateOneQualDenomHigherThanOtherDenomErrorMessage,
 }: ValProps) => {
   const errorArray: FormError[] = [];
 
@@ -35,7 +46,10 @@ const _validation = ({
       ) {
         errorArray.push({
           errorLocation: location,
-          errorMessage: `${qualifiers?.[lowerIndex]} denominator must be less than or equal to ${qualifiers?.[higherIndex]} denominator.`,
+          errorMessage: errorMessageFunc(
+            qualifiers?.[lowerIndex]!,
+            qualifiers?.[higherIndex]!
+          ),
         });
       }
     }
@@ -54,7 +68,8 @@ const _validation = ({
  */
 export const validateOneQualDenomHigherThanOtherDenomOMS = (
   higherIndex = 0,
-  lowerIndex = 1
+  lowerIndex = 1,
+  errorMessageFunc?: ErrorMessageFunc
 ): OmsValidationCallback => {
   return ({
     rateData,
@@ -72,6 +87,7 @@ export const validateOneQualDenomHigherThanOtherDenomOMS = (
       lowerIndex,
       location: `Optional Measure Stratification: ${locationDictionary(label)}`,
       rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      errorMessageFunc,
     });
   };
 };
@@ -88,7 +104,8 @@ export const validateOneQualDenomHigherThanOtherDenomPM = (
   data: Types.PerformanceMeasure,
   pmData: Types.DataDrivenTypes.PerformanceMeasure,
   higherIndex = 0,
-  lowerIndex = 1
+  lowerIndex = 1,
+  errorMessageFunc?: ErrorMessageFunc
 ) => {
   return _validation({
     higherIndex,
@@ -97,5 +114,6 @@ export const validateOneQualDenomHigherThanOtherDenomPM = (
     rateData: getPerfMeasureRateArray(data, pmData),
     categories: pmData.categories,
     qualifiers: pmData.qualifiers,
+    errorMessageFunc,
   });
 };

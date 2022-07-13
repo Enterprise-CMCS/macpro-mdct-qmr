@@ -15,6 +15,7 @@ export const TextInput = ({
   placeholder,
   rules,
   textInputProps,
+  ariaLabel = name,
   ...rest
 }: TextInputProps) => {
   const {
@@ -48,6 +49,7 @@ export const TextInput = ({
         onBlur={field.onBlur}
         ref={field.ref}
         data-cy={name}
+        aria-label={ariaLabel}
         {...textInputProps}
       />
     </QMR.InputWrapper>
