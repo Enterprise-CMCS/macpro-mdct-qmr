@@ -177,7 +177,6 @@ export const DeviationFromMeasureSpec = ({
               : rates[key]?.filter(numDenExistInRate);
 
           if (deviations) {
-            console.log(deviationRates);
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
               rates: deviationRates,
