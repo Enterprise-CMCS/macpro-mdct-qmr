@@ -54,7 +54,7 @@ describe("Test DefinitionOfPopulation componnent", () => {
       }
     );
     cleanAttributes(container);
-    expect(container.firstChild).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it("(CCS) Component renders with correct content", () => {
@@ -65,7 +65,7 @@ describe("Test DefinitionOfPopulation componnent", () => {
       }
     );
     cleanAttributes(container);
-    expect(container.firstChild).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it("(CCS Hybrid) Component renders with correct content", () => {
@@ -76,7 +76,7 @@ describe("Test DefinitionOfPopulation componnent", () => {
       }
     );
     cleanAttributes(container);
-    expect(container.firstChild).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it("(HHS) Component renders with correct content", () => {
@@ -87,7 +87,7 @@ describe("Test DefinitionOfPopulation componnent", () => {
       }
     );
     cleanAttributes(container);
-    expect(container.firstChild).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it("(HHS Hybrid) Component renders with correct content", () => {
@@ -98,7 +98,7 @@ describe("Test DefinitionOfPopulation componnent", () => {
       }
     );
     cleanAttributes(container);
-    expect(container.firstChild).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });
 
