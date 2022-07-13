@@ -1,10 +1,19 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 
-export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
-export const categories = [
-  "Effective Acute Phase Treatment",
-  "Effective Continuation Phase Treatment",
-];
+export const qualifierLabelsAndText = {
+  "Ages 18 to 64": "Ages 18 to 64 - here is the text i would like displayed",
+  "Age 65 and older": "Age 65 and older",
+};
+
+export const categoryLabelsAndText = {
+  "Effective Acute Phase Treatment":
+    "Effective Acute Phase Treatment - here is some custom text for a category",
+  "Effective Continuation Phase Treatment":
+    "Effective Continuation Phase Treatment",
+};
+
+export const qualifiers = Object.keys(qualifierLabelsAndText);
+export const categories = Object.keys(categoryLabelsAndText);
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

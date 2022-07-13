@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { cleanString, useTotalAutoCalculation } from "./omsUtil";
 import * as Types from "../types";
+import { useLabelText } from "hooks/useLabelText";
 
 interface NdrProps {
   name: string;
@@ -307,6 +308,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
 const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
   const { categories, qualifiers, calcTotal } = usePerformanceMeasureContext();
+  const labelText = useLabelText();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
@@ -324,7 +326,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
       const cleanedLabel = cleanString(value);
       const ageGroupCheckBox = {
         value: cleanedLabel,
-        displayValue: value,
+        displayValue: labelText[value] ?? value,
         children: [
           <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
             Enter a number for the numerator and the denominator. Rate will
