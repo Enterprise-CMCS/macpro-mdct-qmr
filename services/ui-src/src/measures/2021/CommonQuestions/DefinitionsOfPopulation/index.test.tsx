@@ -1,104 +1,37 @@
 import { DefinitionOfPopulation } from ".";
-import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-
-/*
-Turn this:
-  for="field-1379718737-40"
-  id="field-1379718737-40-label"
-
-Into this:
-  for="field-40"
-  id="field-40-label"
-
-So that the snapshot doesn't confuse dynamicaly generated attributes. Otherwise snapshot comparisons will fail.
-*/
-const cleanAttributes = (container: HTMLElement) => {
-  const attributes = ["id", "for", "aria-describedby"];
-  const prefixes = ["field", "radio"];
-  const clean = (attr: string) => {
-    let attrList = attr.split("-");
-    if (prefixes.includes(attrList[0])) {
-      attrList.splice(1, 1);
-      return attrList.join("-");
-    } else {
-      return attr;
-    }
-  };
-
-  attributes.forEach((attr) => {
-    if (container.hasAttribute(attr)) {
-      const value = clean(container.getAttribute(attr)!);
-      container.setAttribute(attr, value);
-    }
-  });
-
-  Array.from(container.children).forEach((child) => {
-    cleanAttributes(child as HTMLElement);
-  });
-};
+import { testSnapshot } from "utils/testUtils/testSnapshot";
 
 describe("Test DefinitionOfPopulation componnent", () => {
   it("(ACS) Component renders with correct content", () => {
-    const { container } = renderWithHookForm(<DefinitionOfPopulation />, {
-      defaultValues: adult,
-    });
-    cleanAttributes(container);
-    expect(container).toMatchSnapshot();
+    const component = <DefinitionOfPopulation />;
+    testSnapshot(component, { defaultValues: adult });
   });
 
   it("(ACS Hybrid) Component renders with correct content", () => {
-    const { container } = renderWithHookForm(
-      <DefinitionOfPopulation hybridMeasure />,
-      {
-        defaultValues: adultHybrid,
-      }
-    );
-    cleanAttributes(container);
-    expect(container).toMatchSnapshot();
+    const component = <DefinitionOfPopulation hybridMeasure />;
+    testSnapshot(component, { defaultValues: adultHybrid });
   });
 
   it("(CCS) Component renders with correct content", () => {
-    const { container } = renderWithHookForm(
-      <DefinitionOfPopulation childMeasure />,
-      {
-        defaultValues: child,
-      }
-    );
-    cleanAttributes(container);
-    expect(container).toMatchSnapshot();
+    const component = <DefinitionOfPopulation childMeasure />;
+    testSnapshot(component, { defaultValues: child });
   });
 
   it("(CCS Hybrid) Component renders with correct content", () => {
-    const { container } = renderWithHookForm(
-      <DefinitionOfPopulation childMeasure hybridMeasure />,
-      {
-        defaultValues: childHybrid,
-      }
-    );
-    cleanAttributes(container);
-    expect(container).toMatchSnapshot();
+    const component = <DefinitionOfPopulation childMeasure hybridMeasure />;
+    testSnapshot(component, { defaultValues: childHybrid });
   });
 
   it("(HHS) Component renders with correct content", () => {
-    const { container } = renderWithHookForm(
-      <DefinitionOfPopulation healthHomeMeasure />,
-      {
-        defaultValues: healthHome,
-      }
-    );
-    cleanAttributes(container);
-    expect(container).toMatchSnapshot();
+    const component = <DefinitionOfPopulation healthHomeMeasure />;
+    testSnapshot(component, { defaultValues: healthHome });
   });
 
   it("(HHS Hybrid) Component renders with correct content", () => {
-    const { container } = renderWithHookForm(
-      <DefinitionOfPopulation healthHomeMeasure hybridMeasure />,
-      {
-        defaultValues: healthHomeHybrid,
-      }
+    const component = (
+      <DefinitionOfPopulation healthHomeMeasure hybridMeasure />
     );
-    cleanAttributes(container);
-    expect(container).toMatchSnapshot();
+    testSnapshot(component, { defaultValues: healthHomeHybrid });
   });
 });
 
