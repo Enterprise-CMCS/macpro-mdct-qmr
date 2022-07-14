@@ -70,16 +70,18 @@ const IETValidation = (data: FormData) => {
 
   let unfilteredSameDenominatorErrors: any[] = [];
   for (let i = 0; i < performanceMeasureArray.length; i += 2) {
-    unfilteredSameDenominatorErrors = [
-      ...unfilteredSameDenominatorErrors,
-      ...GV.validateEqualQualifierDenominatorsPM(
-        [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
-        ageGroups,
-        `Denominators must be the same for ${PMD.categories[i]} and ${
-          PMD.categories[i + 1]
-        }.`
-      ),
-    ];
+    for (let j = 0; j < PMD.qualifiers.length; j += 1) {
+      unfilteredSameDenominatorErrors = [
+        ...unfilteredSameDenominatorErrors,
+        ...GV.validateEqualQualifierDenominatorsPM(
+          [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
+          ageGroups,
+          `Denominators must be the same for ${PMD.qualifiers[j]} for ${
+            PMD.categories[i]
+          } and ${PMD.categories[i + 1]}.`
+        ),
+      ];
+    }
   }
 
   let filteredSameDenominatorErrors: any = [];
