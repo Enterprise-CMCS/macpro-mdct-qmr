@@ -34,7 +34,7 @@ export const MSCAD = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        removeLessThan30={true}
+        removeLessThan30
       />
 
       {!isNotReportingData && (
