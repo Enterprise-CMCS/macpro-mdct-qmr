@@ -106,12 +106,8 @@ const AMMADValidation = (data: FormData) => {
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
@@ -133,9 +129,9 @@ const AMMADValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateOneCatRateHigherThanOtherCatOMS(),
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
         sameDenominatorSets,
       ],
     }),

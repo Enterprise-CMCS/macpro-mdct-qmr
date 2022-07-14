@@ -12,8 +12,14 @@ const AABAD = lazy(() =>
 const ADDCH = lazy(() =>
   import("./ADDCH").then((module) => ({ default: module.ADDCH }))
 );
+const AIFHH = lazy(() =>
+  import("./AIFHH").then((module) => ({ default: module.AIFHH }))
+);
 const AMBCH = lazy(() =>
   import("./AMBCH").then((module) => ({ default: module.AMBCH }))
+);
+const AMBHH = lazy(() =>
+  import("./AMBHH").then((module) => ({ default: module.AMBHH }))
 );
 const AMMAD = lazy(() =>
   import("./AMMAD").then((module) => ({ default: module.AMMAD }))
@@ -35,6 +41,9 @@ const BCSAD = lazy(() =>
 );
 const CBPAD = lazy(() =>
   import("./CBPAD").then((module) => ({ default: module.CBPAD }))
+);
+const CBPHH = lazy(() =>
+  import("./CBPHH").then((module) => ({ default: module.CBPHH }))
 );
 const CCPAD = lazy(() =>
   import("./CCPAD").then((module) => ({ default: module.CCPAD }))
@@ -93,8 +102,17 @@ const FUAAD = lazy(() =>
 const FUACH = lazy(() =>
   import("./FUACH").then((module) => ({ default: module.FUACH }))
 );
+const FUAHH = lazy(() =>
+  import("./FUAHH").then((module) => ({ default: module.FUAHH }))
+);
+const FUHAD = lazy(() =>
+  import("./FUHAD").then((module) => ({ default: module.FUHAD }))
+);
 const FUHCH = lazy(() =>
   import("./FUHCH").then((module) => ({ default: module.FUHCH }))
+);
+const FUHHH = lazy(() =>
+  import("./FUHHH").then((module) => ({ default: module.FUHHH }))
 );
 const FUMAD = lazy(() =>
   import("./FUMAD").then((module) => ({ default: module.FUMAD }))
@@ -120,8 +138,14 @@ const HPCMIAD = lazy(() =>
 const IETAD = lazy(() =>
   import("./IETAD").then((module) => ({ default: module.IETAD }))
 );
+const IETHH = lazy(() =>
+  import("./IETHH").then((module) => ({ default: module.IETHH }))
+);
 const IMACH = lazy(() =>
   import("./IMACH").then((module) => ({ default: module.IMACH }))
+);
+const IUHH = lazy(() =>
+  import("./IUHH").then((module) => ({ default: module.IUHH }))
 );
 const LBWCH = lazy(() =>
   import("./LBWCH").then((module) => ({ default: module.LBWCH }))
@@ -144,8 +168,14 @@ const OHDAD = lazy(() =>
 const OUDAD = lazy(() =>
   import("./OUDAD").then((module) => ({ default: module.OUDAD }))
 );
+const OUDHH = lazy(() =>
+  import("./OUDHH").then((module) => ({ default: module.OUDHH }))
+);
 const PCRAD = lazy(() =>
   import("./PCRAD").then((module) => ({ default: module.PCRAD }))
+);
+const PCRHH = lazy(() =>
+  import("./PCRHH").then((module) => ({ default: module.PCRHH }))
 );
 const PPCAD = lazy(() =>
   import("./PPCAD").then((module) => ({ default: module.PPCAD }))
@@ -159,8 +189,8 @@ const PQI01AD = lazy(() =>
 const PQI05AD = lazy(() =>
   import("./PQI05AD").then((module) => ({ default: module.PQI05AD }))
 );
-const FUHAD = lazy(() =>
-  import("./FUHAD").then((module) => ({ default: module.FUHAD }))
+const PQI92HH = lazy(() =>
+  import("./PQI92HH").then((module) => ({ default: module.PQI92HH }))
 );
 const PQI08AD = lazy(() =>
   import("./PQI08AD").then((module) => ({ default: module.PQI08AD }))
@@ -176,6 +206,9 @@ const SFMCH = lazy(() =>
 );
 const SSDAD = lazy(() =>
   import("./SSDAD").then((module) => ({ default: module.SSDAD }))
+);
+const SSHH = lazy(() =>
+  import("./SSHH").then((module) => ({ default: module.SSHH }))
 );
 const TFLCH = lazy(() =>
   import("./TFLCH").then((module) => ({ default: module.TFLCH }))
@@ -193,7 +226,9 @@ const WCVCH = lazy(() =>
 const twentyTwentyTwoMeasures = {
   "AAB-AD": AABAD,
   "ADD-CH": ADDCH,
+  "AIF-HH": AIFHH,
   "AMB-CH": AMBCH,
+  "AMB-HH": AMBHH,
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
@@ -201,6 +236,7 @@ const twentyTwentyTwoMeasures = {
   "APP-CH": APPCH,
   "BCS-AD": BCSAD,
   "CBP-AD": CBPAD,
+  "CBP-HH": CBPHH,
   "CCP-AD": CCPAD,
   "CCP-CH": CCPCH,
   "CCS-AD": CCSAD,
@@ -220,8 +256,10 @@ const twentyTwentyTwoMeasures = {
   "DEV-CH": DEVCH,
   "FUA-AD": FUAAD,
   "FUA-CH": FUACH,
+  "FUA-HH": FUAHH,
   "FUH-AD": FUHAD,
   "FUH-CH": FUHCH,
+  "FUH-HH": FUHHH,
   "FUM-AD": FUMAD,
   "FUM-CH": FUMCH,
   "FUM-HH": FUMHH,
@@ -230,7 +268,9 @@ const twentyTwentyTwoMeasures = {
   "HPCMI-AD": HPCMIAD,
   "HVL-AD": HVLAD,
   "IET-AD": IETAD,
+  "IET-HH": IETHH,
   "IMA-CH": IMACH,
+  "IU-HH": IUHH,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
@@ -238,16 +278,24 @@ const twentyTwentyTwoMeasures = {
   "OEV-CH": OEVCH,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
+  "OUD-HH": OUDHH,
   "PCR-AD": PCRAD,
+  "PCR-HH": PCRHH,
   "PPC-AD": PPCAD,
   "PPC-CH": PPCCH,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
+  "PQI92-HH": PQI92HH,
   "SAA-AD": SAAAD,
   "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,
+  "SS-1-HH": SSHH,
+  "SS-2-HH": SSHH,
+  "SS-3-HH": SSHH,
+  "SS-4-HH": SSHH,
+  "SS-5-HH": SSHH,
   "TFL-CH": TFLCH,
   "W30-CH": W30CH,
   "WCC-CH": WCCCH,

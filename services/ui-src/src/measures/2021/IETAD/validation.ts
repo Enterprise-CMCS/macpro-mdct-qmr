@@ -112,12 +112,8 @@ const IETValidation = (data: FormData) => {
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
-    ...GV.validateNoNonZeroNumOrDenomPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      data
-    ),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
     // OMS Validations
     ...GV.omsValidations({
@@ -130,9 +126,9 @@ const IETValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
         sameDenominatorSets,
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],

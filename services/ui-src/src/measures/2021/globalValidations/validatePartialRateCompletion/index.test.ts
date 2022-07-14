@@ -2,7 +2,7 @@ import { SINGLE_CATEGORY } from "dataConstants";
 import {
   validatePartialRateCompletionOMS,
   validatePartialRateCompletionPM,
-} from "./index";
+} from ".";
 import {
   generateOmsCategoryRateData,
   generateOtherPerformanceMeasureData,
@@ -77,6 +77,34 @@ describe("Testing Partial Rate Validation", () => {
       expect(errors[0].errorLocation).toBe("Other Performance Measure");
       expect(errors[0].errorMessage).toBe(
         `Should not have partially filled NDR sets.`
+      );
+    });
+
+    it("Error message text should match provided errorMessageFunc", () => {
+      const errorMessageFunc = (
+        multipleQuals: boolean,
+        qualifier: string,
+        multipleCats: boolean,
+        category: string
+      ) => {
+        return `Another${multipleQuals} bites the ${qualifier}... dun dun dun... Another ${multipleCats} bites the ${category}`;
+      };
+
+      const errors = validatePartialRateCompletionPM(
+        [
+          [partialRate, partialRate],
+          [partialRate, partialRate],
+        ],
+        undefined,
+        qualifiers,
+        categories,
+        errorMessageFunc
+      );
+
+      expect(errors).toHaveLength(4);
+      expect(errors[0].errorLocation).toBe("Performance Measure");
+      expect(errors[0].errorMessage).toBe(
+        errorMessageFunc(true, qualifiers[0], true, categories[0])
       );
     });
   });
@@ -176,5 +204,39 @@ describe("Testing Partial Rate Validation", () => {
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
+  });
+
+  it("Error message text should match provided errorMessage", () => {
+    const errorMessageFunc = (
+      multipleQuals: boolean,
+      qualifier: string,
+      multipleCats: boolean,
+      category: string
+    ) => {
+      return `Another${multipleQuals} bites the ${qualifier}... dun dun dun... Another ${multipleCats} bites the ${category}`;
+    };
+
+    const locationDictionaryJestFunc = jest.fn();
+    const data = generateOmsCategoryRateData(categories, qualifiers, [
+      partialRate,
+      partialRate,
+    ]);
+    const errors = validatePartialRateCompletionOMS(
+      undefined,
+      errorMessageFunc
+    )({
+      ...baseOMSInfo,
+      locationDictionary: locationDictionaryJestFunc,
+      rateData: data,
+    });
+
+    expect(errors).toHaveLength(4);
+    expect(errors[0].errorLocation).toContain(
+      "Optional Measure Stratification:"
+    );
+    expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
+    expect(errors[0].errorMessage).toBe(
+      errorMessageFunc(true, qualifiers[0], true, categories[0])
+    );
   });
 });

@@ -1,7 +1,4 @@
-import {
-  validateTotalNDR,
-  validateOMSTotalNDR,
-} from "measures/2021/globalValidations";
+import { validateTotalNDR, validateOMSTotalNDR } from ".";
 
 import * as VH from "utils/testUtils/validationHelpers";
 
@@ -75,6 +72,39 @@ describe("Testing PM/OMS Total Validations", () => {
       expect(singleResult.length).toBe(0);
       expect(multiResults.length).toBe(0);
     });
+
+    it("Error message text should match provided errorMessageFunc", () => {
+      const errorMessageFunc = (qualifier: string, fieldType: string) => {
+        return `Another ${qualifier} bites the ${fieldType}.`;
+      };
+
+      const basePM = [
+        VH.simpleRate,
+        VH.simpleRate,
+        VH.incorrectDenominatorRate,
+      ];
+      const singleResults = validateTotalNDR(
+        [basePM],
+        undefined,
+        undefined,
+        errorMessageFunc
+      );
+      const multiResults = validateTotalNDR(
+        [basePM, basePM, basePM],
+        undefined,
+        undefined,
+        errorMessageFunc
+      );
+
+      expect(singleResults.length).toBe(1);
+      expect(multiResults.length).toBe(3);
+      for (const result of [...singleResults, ...multiResults]) {
+        expect(result.errorLocation).toBe("Performance Measure");
+        expect(result.errorMessage).toBe(
+          errorMessageFunc(VH.incorrectDenominatorRate.label!, "Denominator")
+        );
+      }
+    });
   });
 
   describe("OMS validation", () => {
@@ -105,7 +135,7 @@ describe("Testing PM/OMS Total Validations", () => {
     };
 
     it("should stop if this is OPM", () => {
-      const results = validateOMSTotalNDR({
+      const results = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         isOPM: true,
       });
@@ -116,7 +146,7 @@ describe("Testing PM/OMS Total Validations", () => {
     it("should return no errors", () => {
       const basePMData = [VH.simpleRate, VH.simpleRate, VH.doubleRate];
 
-      const singleResult = validateOMSTotalNDR({
+      const singleResult = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -124,7 +154,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -144,7 +174,7 @@ describe("Testing PM/OMS Total Validations", () => {
         VH.incorrectNumeratorRate,
       ];
 
-      const singleResults = validateOMSTotalNDR({
+      const singleResults = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -152,7 +182,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -180,7 +210,7 @@ describe("Testing PM/OMS Total Validations", () => {
         VH.incorrectDenominatorRate,
       ];
 
-      const singleResults = validateOMSTotalNDR({
+      const singleResults = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -188,7 +218,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -212,7 +242,7 @@ describe("Testing PM/OMS Total Validations", () => {
     it("should return field empty error", () => {
       const basePMData = [VH.simpleRate, VH.simpleRate, VH.emptyRate];
 
-      const singleResults = validateOMSTotalNDR({
+      const singleResults = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -220,7 +250,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -244,7 +274,7 @@ describe("Testing PM/OMS Total Validations", () => {
     it("should return no errors for a partial state", () => {
       const basePMData = [VH.partialRate, VH.simpleRate, VH.simpleRate];
 
-      const singleResult = validateOMSTotalNDR({
+      const singleResult = validateOMSTotalNDR()({
         ...baseSingleFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           noCategories,
@@ -252,7 +282,7 @@ describe("Testing PM/OMS Total Validations", () => {
           basePMData
         ),
       });
-      const multiResults = validateOMSTotalNDR({
+      const multiResults = validateOMSTotalNDR()({
         ...baseMultiFunctionInfo,
         rateData: VH.generateOmsQualifierRateData(
           categories,
@@ -263,6 +293,54 @@ describe("Testing PM/OMS Total Validations", () => {
 
       expect(singleResult.length).toBe(0);
       expect(multiResults.length).toBe(0);
+    });
+
+    it("Error message text should match provided errorMessageFunc", () => {
+      const errorMessageFunc = (fieldType: string, totalLabel?: string) => {
+        return `Another ${fieldType} bites the ${totalLabel ?? ""}.`;
+      };
+
+      const basePMData = [
+        VH.simpleRate,
+        VH.simpleRate,
+        VH.incorrectNumeratorRate,
+      ];
+
+      const singleResults = validateOMSTotalNDR(errorMessageFunc)({
+        ...baseSingleFunctionInfo,
+        rateData: VH.generateOmsQualifierRateData(
+          noCategories,
+          qualifiers,
+          basePMData
+        ),
+      });
+      const multiResults = validateOMSTotalNDR(errorMessageFunc)({
+        ...baseMultiFunctionInfo,
+        rateData: VH.generateOmsQualifierRateData(
+          categories,
+          qualifiers,
+          basePMData
+        ),
+      });
+
+      expect(singleResults.length).toBe(1);
+      expect(multiResults.length).toBe(3);
+      for (const error of [...singleResults, ...multiResults]) {
+        expect(error.errorLocation).toBe(
+          "Optional Measure Stratification: TestLabel"
+        );
+        expect(error.errorMessage).toBe(
+          errorMessageFunc("numerator", undefined)
+        );
+      }
+      for (const result of [...singleResults, ...multiResults]) {
+        expect(result.errorLocation).toBe(
+          "Optional Measure Stratification: TestLabel"
+        );
+        expect(result.errorMessage).toBe(
+          errorMessageFunc("numerator", undefined)
+        );
+      }
     });
   });
 });

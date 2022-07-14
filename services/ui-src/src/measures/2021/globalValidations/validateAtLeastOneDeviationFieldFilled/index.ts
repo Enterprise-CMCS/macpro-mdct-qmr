@@ -7,7 +7,8 @@ export const validateAtLeastOneDeviationFieldFilled = (
   performanceMeasureArray: FormRateField[][],
   ageGroups: string[],
   deviationArray: Types.DeviationFields[] | any,
-  didCalculationsDeviate: boolean
+  didCalculationsDeviate: boolean,
+  errorMessage?: string
 ) => {
   let errorArray: FormError[] = [];
   let ndrCount = 0;
@@ -42,6 +43,7 @@ export const validateAtLeastOneDeviationFieldFilled = (
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
           errorMessage:
+            errorMessage ??
             "At least one item must be selected and completed (Numerator, Denominator, or Other)",
         });
       }
