@@ -4,7 +4,7 @@ import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
-import { getLabelText } from "utils";
+import { getRateInfo } from "utils";
 
 import { defaultRateCalculation } from "utils/rateFormulas";
 import {
@@ -55,7 +55,7 @@ export const Rate = ({
     formState: { errors },
     unregister,
   } = useFormContext();
-  const labelText = getLabelText();
+  const { labelText } = getRateInfo();
   const { field } = useController({
     name,
     control,

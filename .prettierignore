@@ -1,2 +1,2 @@
-# Ignore artifacts:
-services/ui-src/src/utils/getLabelText.tsx
+# Ignore
+services/ui-src/src/measures/*/rateLabelText.ts

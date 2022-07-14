@@ -1,23 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
-/**
- * Attention
- * Changing the keys of these objects will change how the measure data is shaped and should not be done unless that is the desired result.
- * Changing the values of these objects will change the text that is displayed to the user.
- */
-export const qualifierLabelsAndText = {
-  "Ages 18 to 64": "Ages 18 to 64 - here is the text i would like displayed",
-  "Age 65 and older": "Age 65 and older",
-};
-export const categoryLabelsAndText = {
-  "Effective Acute Phase Treatment":
-    "Effective Acute Phase Treatment - here is some custom text for a category",
-  "Effective Continuation Phase Treatment":
-    "Effective Continuation Phase Treatment",
-};
-
-export const qualifiers = Object.keys(qualifierLabelsAndText);
-export const categories = Object.keys(categoryLabelsAndText);
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

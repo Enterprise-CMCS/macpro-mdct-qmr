@@ -3,7 +3,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { getLabelText } from "utils";
+import { getRateInfo } from "utils";
 
 interface GetTopLvlDeviationOptions {
   categories: string[];
@@ -132,7 +132,7 @@ export const DeviationFromMeasureSpec = ({
   const watchPerformanceMeasure = useWatch({
     name: DC.PERFORMANCE_MEASURE,
   });
-  const labelText = getLabelText();
+  const { labelText } = getRateInfo();
 
   const getTopLvlDeviationOptions = ({
     categories,
