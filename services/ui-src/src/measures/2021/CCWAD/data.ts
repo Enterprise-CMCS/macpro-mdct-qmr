@@ -1,10 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
-export const qualifiers = ["All Women Ages 21 to 44"];
-export const categories = [
-  "Most effective or moderately effective method of contraception",
-  "Long-acting reversible method of contraception (LARC)",
-];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

@@ -1,10 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
-export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
-export const categories = [
-  "Follow-Up within 30 days after discharge",
-  "Follow-Up within 7 days after discharge",
-];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

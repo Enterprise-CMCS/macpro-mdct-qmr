@@ -1,4 +1,5 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
 const measureName = "AIFHH";
 
@@ -37,14 +38,7 @@ const ndrFormulas = [
   },
 ];
 
-export const categories = [];
-export const qualifiers = [
-  "Ages 18 to 64",
-  "Ages 65 to 74",
-  "Ages 75 to 84",
-  "Age 85 and older",
-  "Total",
-];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

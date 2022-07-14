@@ -1,4 +1,5 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
 const measureName = "IUHH";
 
@@ -36,20 +37,7 @@ const ndrFormulas = [
   },
 ];
 
-export const categories = [
-  "Inpatient",
-  "Maternity",
-  "Mental and Behavioral Disorders",
-  "Surgery",
-  "Medicine",
-];
-export const qualifiers = [
-  "Ages 0 to 17",
-  "Ages 18 to 64",
-  "Age 65 and older",
-  "Ages unknown",
-  "Total",
-];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   customPrompt:

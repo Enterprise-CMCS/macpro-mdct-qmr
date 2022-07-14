@@ -1,10 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
-export const categories = [
-  "30-day follow-up after ED visit for mental illness",
-  "7-day follow-up after ED visit for mental illness",
-];
-export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

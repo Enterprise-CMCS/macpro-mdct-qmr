@@ -1,14 +1,8 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getRateInfo } from "utils";
 
-export const qualifiers = [
-  "Meningococcal",
-  "Tdap",
-  "Human Papillomavirus (HPV)",
-  "Combination 1 (Meningococcal, Tdap)",
-  "Combination 2 (Meningococcal, Tdap, HPV)",
-];
-export const categories = [];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

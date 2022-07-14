@@ -1,16 +1,8 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getRateInfo } from "utils";
 
-export const categories = [
-  "Body mass index (BMI) percentile documentation",
-  "Counseling for Nutrition",
-  "Counseling for Physical Activity",
-];
-export const qualifiers = [
-  "Ages 3 to 11",
-  "Ages 12 to 17",
-  "Total (Ages 3 to 17)",
-];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

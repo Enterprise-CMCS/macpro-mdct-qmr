@@ -1,9 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
-export const qualifiers = [
-  "Most effective or moderately effective method of contraception",
-  "Long-acting reversible method of contraception (LARC)",
-];
-export const categories = [];
+import { getRateInfo } from "utils";
+
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

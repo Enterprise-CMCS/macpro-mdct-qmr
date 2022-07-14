@@ -1,10 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
-export const qualifiers = [
-  "Rate 1 - At Least One Sealant",
-  "Rate 2 - All Four Molars Sealed",
-];
-export const categories = [];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

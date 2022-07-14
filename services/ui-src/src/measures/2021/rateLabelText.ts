@@ -46,11 +46,11 @@ export const data = {
     },
     "AMM-AD": {
         "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64 - here is some custom text for YOU",
+            "Ages 18 to 64": "Ages 18 to 64",
             "Age 65 and older": "Age 65 and older"
         },
         "categories": {
-            "Effective Acute Phase Treatment": "Effective Acute Phase Treatment - as the beer guy said... WHASUUUUP?!",
+            "Effective Acute Phase Treatment": "Effective Acute Phase Treatment",
             "Effective Continuation Phase Treatment": "Effective Continuation Phase Treatment"
         }
     },

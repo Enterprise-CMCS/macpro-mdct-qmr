@@ -1,13 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
-export const qualifiers = [
-  "Total Rate",
-  "Buprenorphine",
-  "Oral naltrexone",
-  "Long-acting, injectable naltrexone",
-  "Methadone",
-];
-export const categories: string[] = [];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

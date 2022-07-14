@@ -1,11 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getRateInfo } from "utils";
 
-export const categories = [];
-export const qualifiers = [
-  "Ages 1 to 11",
-  "Ages 12 to 17",
-  "Total (Ages 1 to 17)",
-];
+export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
