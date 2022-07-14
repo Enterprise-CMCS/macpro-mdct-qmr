@@ -1,6 +1,11 @@
+import { ndrFormula } from "types";
+
 export interface PerformanceMeasureData {
   qualifiers?: string[]; // age ranges, etc
   categories?: string[]; //performance measure descriptions
+  measureName?: string;
+  inputFieldNames?: string[];
+  ndrFormulas?: ndrFormula[];
   customPrompt?: string; // Default: "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
   questionText?: string[];
   questionListItems?: string[];

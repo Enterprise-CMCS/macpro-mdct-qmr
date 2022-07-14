@@ -49,7 +49,7 @@ export const AIFHH = ({
             <>
               <CMQ.PerformanceMeasure
                 data={PMD.data}
-                RateComponent={QMR.AIFHHRate}
+                RateComponent={QMR.ComplexRate}
                 calcTotal={true}
               />
               <CMQ.DeviationFromMeasureSpec
@@ -69,6 +69,9 @@ export const AIFHH = ({
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
+              measureName={PMD.data.measureName}
+              inputFieldNames={PMD.data.inputFieldNames}
+              ndrFormulas={PMD.data.ndrFormulas}
               allowNumeratorGreaterThanDenominator
               adultMeasure={false}
               calcTotal={true}
