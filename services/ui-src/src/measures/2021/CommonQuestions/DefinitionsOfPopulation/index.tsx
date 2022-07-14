@@ -22,10 +22,7 @@ export const DefinitionOfPopulation = ({
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
 
   return (
-    <QMR.CoreQuestionWrapper
-      label="Definition of Population Included in the Measure"
-      id="definition-of-population"
-    >
+    <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
       <CUI.Heading size="sm" as="h2">
         Definition of denominator
       </CUI.Heading>
