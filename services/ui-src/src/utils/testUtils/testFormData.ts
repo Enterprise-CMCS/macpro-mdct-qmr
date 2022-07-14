@@ -1,3 +1,43 @@
+export const DataSourceData = {
+  default: {
+    DataSourceSelections: {
+      AdministrativeData0: {
+        selected: [
+          "AdministrativeDataOther",
+          "MedicaidManagementInformationSystemMMIS",
+        ],
+      },
+      OtherDataSource: {
+        description: "dun dun dun",
+      },
+      "AdministrativeData0-AdministrativeDataOther": {
+        description: "Another one bites the dust",
+      },
+    },
+    DataSourceDescription: "Another one bites the dust",
+    DataSource: ["AdministrativeData", "OtherDataSource"],
+  },
+  custom: {
+    DataSourceSelections: {
+      Option10: {
+        selected: ["Imnottelling", "Youllhavetokillmefirst"],
+      },
+      "Option10-Youllhavetokillmefirst": {
+        description: "Another one bites the dust",
+      },
+      ABetterOption: {
+        description: "dun dun dun",
+      },
+    },
+    DataSourceDescription: "Another one bites the dust",
+    DataSource: [
+      "Option1",
+      "ABetterOption",
+      "SomethingEvenCrazierThanTheFirst2",
+    ],
+  },
+};
+
 export const DefinitionOfPopulationData = {
   adult: {
     "DenominatorDefineTotalTechSpec-No-Explanation":
