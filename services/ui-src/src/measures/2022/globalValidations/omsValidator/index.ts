@@ -8,7 +8,7 @@ import {
   DefaultFormData,
 } from "measures/2022/CommonQuestions/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
-import { cleanString } from "utils/cleanString";
+import { cleanString } from "utils";
 
 interface OmsValidationProps {
   data: DefaultFormData;

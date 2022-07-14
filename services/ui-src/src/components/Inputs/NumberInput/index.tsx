@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
-import { allNumbers } from "utils/numberInputMasks";
+import { allNumbers } from "utils";
 import { BsPercent } from "react-icons/bs";
 
 interface NumberInputProps extends QMR.InputWrapperProps {

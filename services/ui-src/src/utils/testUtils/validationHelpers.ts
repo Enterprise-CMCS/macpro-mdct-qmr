@@ -4,7 +4,7 @@ import {
   OMSData,
   OmsNode,
 } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
-import { cleanString } from "utils/cleanString";
+import { cleanString } from "utils";
 import {
   RateFields,
   OmsNodes as OMS,

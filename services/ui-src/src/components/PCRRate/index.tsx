@@ -4,7 +4,7 @@ import {
   allNumbers,
   sixteenNumbersFourDecimal,
   allPositiveIntegersWith10Digits,
-} from "utils/numberInputMasks";
+} from "utils";
 import * as QMR from "components";
 import objectPath from "object-path";
 import { IRate } from "components";

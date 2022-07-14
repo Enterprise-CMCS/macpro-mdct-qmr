@@ -1,4 +1,4 @@
-import { cleanString } from "utils/cleanString";
+import { cleanString } from "utils";
 
 export const ComplexValueSameCrossCategoryOMS = (
   rateData: any,

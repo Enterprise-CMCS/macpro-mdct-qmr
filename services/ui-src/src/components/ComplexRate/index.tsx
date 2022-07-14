@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
-import { allNumbers, xNumbersYDecimals } from "utils/numberInputMasks";
+import { allNumbers, xNumbersYDecimals } from "utils";
 import * as QMR from "components";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
