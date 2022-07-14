@@ -11,7 +11,7 @@ export const qualifiers = [
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "The number of admissions to an institutional facility among Health Home enrollees age 18 and older residing in the community for at least one month. The number of short-, medium-, or long-term admissions is reported per 1,000 enrollee months. Enrollee months reflect the total number of months each enrollee is enrolled in the program and residing in the community for at least one day of the month.",
+    "The number of admissions to an institututional facility among health home enrollees age 18 and older residing in the community for at least one month. The number of short-, medium-, or long-term admissions is reported per 1,000 enrollee months. Enrollee months reflect the total number of months each enrollee is enrolled in the program and residing in the community for at least one day of the month.",
   ],
   questionListItems: [
     " The rate of admissions resulting in a short-term stay (1 to 20 days) per 1,000 enrollee months.",
