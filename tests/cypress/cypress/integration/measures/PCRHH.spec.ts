@@ -504,7 +504,7 @@ describe("PCR-HH", () => {
     );
     cy.get(
       '[data-cy="WhyAreYouNotReporting4"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Small sample size (less than 30)");
+    ).should("have.text", "Small sample size ");
     cy.get(
       '[data-cy="WhyAreYouNotReporting4"] > .chakra-checkbox__control'
     ).click();
