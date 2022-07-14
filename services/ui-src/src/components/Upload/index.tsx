@@ -271,10 +271,12 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       py="6px"
     >
       <CUI.Button
+        as="a"
         onClick={handleSave}
         variant="xl"
         data-cy={`file-upload-${file.filename}`}
         zIndex={3}
+        tabIndex={0}
       >
         {file.filename}
       </CUI.Button>
