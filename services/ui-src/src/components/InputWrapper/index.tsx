@@ -8,6 +8,7 @@ type Inputs =
   | ReactElement<CUI.InputProps>;
 
 export interface InputWrapperProps {
+  title?: string;
   label?: string | ReactElement;
   helperText?: string;
   formControlProps?: CUI.FormControlProps;
@@ -19,6 +20,7 @@ export interface InputWrapperProps {
 }
 
 export const InputWrapper = ({
+  title,
   label,
   helperText,
   formControlProps,
@@ -30,9 +32,9 @@ export const InputWrapper = ({
 }: InputWrapperProps) => {
   return (
     <CUI.FormControl {...formControlProps} isInvalid={isInvalid}>
-      {label && (
+      {title && (
         <CUI.FormLabel {...formLabelProps} data-cy={label}>
-          {label}
+          {title}
         </CUI.FormLabel>
       )}
       {helperText && renderHelperTextAbove && (

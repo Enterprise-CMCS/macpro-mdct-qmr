@@ -234,7 +234,8 @@ export const Rate = ({
             )}
             <CUI.HStack spacing={16}>
               <QMR.InputWrapper
-                label={customNumeratorLabel || "Numerator"}
+                label={`${name}.${index}.numerator`}
+                title={customNumeratorLabel || "Numerator"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.numerator`)
                     ?.message
@@ -253,7 +254,8 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
               <QMR.InputWrapper
-                label={customDenominatorLabel || "Denominator"}
+                label={`${name}.${index}.denominator`}
+                title={customDenominatorLabel || "Denominator"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.denominator`)
                     ?.message
@@ -273,7 +275,8 @@ export const Rate = ({
                 />
               </QMR.InputWrapper>
               <QMR.InputWrapper
-                label={customRateLabel || "Rate"}
+                label={`${name}.${index}.rate`}
+                title={customRateLabel || "Rate"}
                 isInvalid={
                   !!objectPath.get(errors, `${name}.${index}.rate`)?.message
                 }

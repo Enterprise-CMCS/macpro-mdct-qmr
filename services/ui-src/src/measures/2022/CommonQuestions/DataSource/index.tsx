@@ -115,6 +115,7 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             py="2"
             fontWeight="bold"
             key="If the data source differed across"
+            label="Data Source Explanation"
           >
             For each data source selected above, describe which reporting
             entities used each data source (e.g., health plans, FFS). If the
