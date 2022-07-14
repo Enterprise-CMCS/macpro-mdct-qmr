@@ -6,6 +6,7 @@ import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
 import { cleanString } from "utils/cleanString";
+import { ndrFormula } from "types";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -25,6 +26,9 @@ interface Props {
 interface NdrSetProps {
   categories?: string[];
   qualifiers?: string[];
+  measureName?: string;
+  inputFieldNames?: string[];
+  ndrFormulas?: ndrFormula[];
   rateReadOnly: boolean;
   calcTotal: boolean;
   rateScale?: number;
@@ -41,6 +45,9 @@ const CategoryNdrSets = ({
   rateReadOnly,
   categories = [],
   qualifiers,
+  measureName,
+  inputFieldNames,
+  ndrFormulas,
   rateScale,
   customMask,
   allowNumeratorGreaterThanDenominator,
@@ -72,6 +79,9 @@ const CategoryNdrSets = ({
             <RateComponent
               readOnly={rateReadOnly}
               rates={rates}
+              measureName={measureName}
+              inputFieldNames={inputFieldNames}
+              ndrFormulas={ndrFormulas}
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
               categoryName={item}
@@ -97,6 +107,9 @@ const CategoryNdrSets = ({
 const QualifierNdrSets = ({
   rateReadOnly,
   qualifiers = [],
+  measureName,
+  inputFieldNames,
+  ndrFormulas,
   rateScale,
   customMask,
   calcTotal,
@@ -117,6 +130,9 @@ const QualifierNdrSets = ({
       <RateComponent
         rates={rates}
         readOnly={rateReadOnly}
+        measureName={measureName}
+        inputFieldNames={inputFieldNames}
+        ndrFormulas={ndrFormulas}
         rateMultiplicationValue={rateScale}
         customMask={customMask}
         calcTotal={calcTotal}
@@ -274,6 +290,9 @@ export const PerformanceMeasure = ({
         RateComponent={RateComponent}
         categories={data.categories}
         qualifiers={data.qualifiers}
+        measureName={data.measureName}
+        inputFieldNames={data.inputFieldNames}
+        ndrFormulas={data.ndrFormulas}
         rateReadOnly={readOnly}
         calcTotal={calcTotal}
         rateScale={rateScale}

@@ -49,3 +49,10 @@ export enum AutoCompletedMeasures {
   "PDENT-CH" = "PDENT-CH",
   "NCIDDS-AD" = "NCIDDS-AD",
 }
+
+export interface ndrFormula {
+  num: number;
+  denom: number;
+  rate: number;
+  mult: number;
+}

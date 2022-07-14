@@ -13,7 +13,7 @@ export const qualifiers = [
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of emergency department (ED) visits for Health Home enrollees age 13 and older with a principal diagnosis of alcohol or other drug (AOD) abuse or dependence who had a follow-up visit for AOD abuse or dependence.  Two rates are reported:",
+    "Percentage of emergency department (ED) visits for health home enrollees age 13 and older with a principal diagnosis of alcohol or other drug (AOD) abuse or dependence who had a follow-up visit for AOD abuse or dependence.  Two rates are reported:",
   ],
   questionListItems: [
     "Percentage of ED visits for which the enrollee received follow-up within 30 days of the ED visit (31 total days)",
