@@ -61,7 +61,7 @@ describe("Testing Partial Rate Validation", () => {
       expect(errors).toHaveLength(4);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `Should not have partially filled NDR sets${` at ${qualifiers[0]}`}${`, ${categories[0]}`}.`
+        `Should not have partially filled NDR sets${` for ${qualifiers[0]}`}${`, ${categories[0]}`}.`
       );
     });
 
@@ -155,7 +155,7 @@ describe("Testing Partial Rate Validation", () => {
         "Optional Measure Stratification:"
       );
       expect(errors[0].errorMessage).toBe(
-        `Should not have partially filled NDR sets${` at ${qualifiers[0]}`}${`, ${categories[0]}`}.`
+        `Should not have partially filled NDR sets${` for ${qualifiers[0]}`}${`, ${categories[0]}`}.`
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
@@ -177,7 +177,7 @@ describe("Testing Partial Rate Validation", () => {
         "Optional Measure Stratification:"
       );
       expect(errors[0].errorMessage).toBe(
-        `Should not have partially filled NDR sets${` at ${qualifiers[0]}`}.`
+        `Should not have partially filled NDR sets${` for ${qualifiers[0]}`}.`
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
