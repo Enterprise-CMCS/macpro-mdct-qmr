@@ -6,10 +6,29 @@ import {
   convertOmsDataToRateArray,
 } from "../dataDrivenTools";
 
+type ErrorMessageFunc = (
+  lowQual: string,
+  highQual: string,
+  singleCategoryCheck: boolean,
+  category: string
+) => string;
+
 interface ValProps extends UVFP {
   lowerIndex: number;
   higherIndex: number;
+  errorMessageFunc?: ErrorMessageFunc;
 }
+
+const validateOneQualRateHigherThanOtherQualErrorMessage: ErrorMessageFunc = (
+  lowQual: string,
+  highQual: string,
+  notSingleCategory: boolean,
+  category: string
+) => {
+  return `${lowQual} rate must be less than or equal to ${highQual} rate${
+    notSingleCategory ? ` within ${category}` : ""
+  }.`;
+};
 
 const _validation = ({
   categories,
@@ -18,6 +37,7 @@ const _validation = ({
   rateData,
   higherIndex,
   lowerIndex,
+  errorMessageFunc = validateOneQualRateHigherThanOtherQualErrorMessage,
 }: ValProps) => {
   const errorArray: FormError[] = [];
 
@@ -27,15 +47,18 @@ const _validation = ({
       parseFloat(ratefields[lowerIndex]?.rate ?? "") >
         parseFloat(ratefields[higherIndex]?.rate ?? "")
     ) {
+      const notSingleCategory: boolean =
+        categories?.length && categories[0] !== DC.SINGLE_CATEGORY
+          ? true
+          : false;
       errorArray.push({
         errorLocation: location,
-        errorMessage: `${
-          qualifiers?.[lowerIndex]
-        } rate must be less than or equal to ${qualifiers?.[higherIndex]} rate${
-          categories?.length && categories[0] !== DC.SINGLE_CATEGORY
-            ? ` within ${categories?.[i]}`
-            : ""
-        }.`,
+        errorMessage: errorMessageFunc(
+          qualifiers?.[lowerIndex]!,
+          qualifiers?.[higherIndex]!,
+          notSingleCategory,
+          categories?.[i]!
+        ),
       });
     }
   }
@@ -52,7 +75,8 @@ const _validation = ({
  */
 export const validateOneQualRateHigherThanOtherQualOMS = (
   higherIndex = 0,
-  lowerIndex = 1
+  lowerIndex = 1,
+  errorMessageFunc?: ErrorMessageFunc
 ): OmsValidationCallback => {
   return ({
     rateData,
@@ -70,6 +94,7 @@ export const validateOneQualRateHigherThanOtherQualOMS = (
       higherIndex,
       lowerIndex,
       rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      errorMessageFunc,
     });
   };
 };
@@ -86,7 +111,8 @@ export const validateOneQualRateHigherThanOtherQualPM = (
   data: Types.PerformanceMeasure,
   performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure,
   higherIndex = 0,
-  lowerIndex = 1
+  lowerIndex = 1,
+  errorMessageFunc?: ErrorMessageFunc
 ) => {
   const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
   return _validation({
@@ -96,5 +122,6 @@ export const validateOneQualRateHigherThanOtherQualPM = (
     lowerIndex,
     rateData: perfMeasure,
     location: "Performance Measure",
+    errorMessageFunc,
   });
 };

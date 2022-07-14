@@ -37,7 +37,8 @@ const APPCHValidation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
@@ -62,10 +63,10 @@ const APPCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS,
-        GV.validateRateZeroOMS,
-        GV.validateRateNotZeroOMS,
-        GV.validateOMSTotalNDR,
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
       ],
     }),
   ];
