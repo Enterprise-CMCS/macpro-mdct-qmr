@@ -16,6 +16,7 @@ export interface InputWrapperProps {
   isInvalid?: boolean;
   renderHelperTextAbove?: boolean;
   children?: Inputs;
+  ariaLabel?: string;
 }
 
 export const InputWrapper = ({

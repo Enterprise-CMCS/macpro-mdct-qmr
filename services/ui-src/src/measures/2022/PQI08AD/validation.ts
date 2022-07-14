@@ -44,7 +44,8 @@ const PQI08Validation = (data: FormData) => {
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...GV.validateNoNonZeroNumOrDenomPM(
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
       performanceMeasureArray,
       OPM,
       PMD.qualifiers,
@@ -66,7 +67,10 @@ const PQI08Validation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [GV.validateRateZeroOMS, GV.validateRateNotZeroOMS],
+      validationCallbacks: [
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+      ],
     }),
   ];
 

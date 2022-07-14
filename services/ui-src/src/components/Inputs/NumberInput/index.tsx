@@ -22,6 +22,7 @@ export const NumberInput = ({
   formControlProps,
   readonly,
   mask = allNumbers,
+  ariaLabel = name,
   ...rest
 }: NumberInputProps) => {
   const {
@@ -57,7 +58,7 @@ export const NumberInput = ({
           onBlur={field.onBlur}
           ref={field.ref}
           type="text"
-          aria-label={name}
+          aria-label={ariaLabel}
           {...numberInputProps}
         />
         {displayPercent && (
