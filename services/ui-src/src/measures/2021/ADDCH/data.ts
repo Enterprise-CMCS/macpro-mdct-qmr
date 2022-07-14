@@ -1,11 +1,20 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
 
-export const qualifiers = [
-  "Initiation Phase",
-  "Continuation and Maintenance (C&M) Phase",
-];
-export const categories = [];
+/**
+ * Attention
+ * Changing the keys of these objects will change how the measure data is shaped and should not be done unless that is the desired result.
+ * Changing the values of these objects will change the text that is displayed to the user.
+ */
+export const qualifierLabelsAndText = {
+  "Initiation Phase": "Initiation Phase",
+  "Continuation and Maintenance (C&M) Phase":
+    "Continuation and Maintenance (C&M) Phase",
+};
+export const categoryLabelsAndText = {};
+
+export const qualifiers = Object.keys(qualifierLabelsAndText);
+export const categories = Object.keys(categoryLabelsAndText);
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

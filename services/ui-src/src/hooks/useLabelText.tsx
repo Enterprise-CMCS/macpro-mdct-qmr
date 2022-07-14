@@ -13,3 +13,13 @@ export const useLabelText = () => {
     ...data.categoryLabelsAndText,
   };
 };
+
+/**
+ *
+ * qualifiers: [{
+ * id: 'somestring',
+ * label: 'some string',
+ *
+ *
+ * }]
+ */
