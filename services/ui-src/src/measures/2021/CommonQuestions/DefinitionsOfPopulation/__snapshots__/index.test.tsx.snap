@@ -4,7 +4,6 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
 <body>
   <div
     class="css-pb69ky"
-    id="definition-of-population"
   >
     <label
       class="chakra-form__label css-e3y4kl"
@@ -605,7 +604,6 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
 <body>
   <div
     class="css-pb69ky"
-    id="definition-of-population"
   >
     <label
       class="chakra-form__label css-e3y4kl"
@@ -1127,7 +1125,6 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
 <body>
   <div
     class="css-pb69ky"
-    id="definition-of-population"
   >
     <label
       class="chakra-form__label css-e3y4kl"
@@ -1692,7 +1689,6 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
 <body>
   <div
     class="css-pb69ky"
-    id="definition-of-population"
   >
     <label
       class="chakra-form__label css-e3y4kl"
@@ -2178,7 +2174,6 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
 <body>
   <div
     class="css-pb69ky"
-    id="definition-of-population"
   >
     <label
       class="chakra-form__label css-e3y4kl"
@@ -2850,7 +2845,6 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
 <body>
   <div
     class="css-pb69ky"
-    id="definition-of-population"
   >
     <label
       class="chakra-form__label css-e3y4kl"
