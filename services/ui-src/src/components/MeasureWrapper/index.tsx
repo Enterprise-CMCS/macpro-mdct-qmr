@@ -17,7 +17,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
-import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
+import { CoreSetAbbr, MeasureStatus } from "types";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
@@ -164,8 +164,6 @@ export const MeasureWrapper = ({
       duration: 4000,
     });
   };
-  const autoCompletedMeasure =
-    !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
 
   /*
   this is where we put all the high level stuff for measures
@@ -402,14 +400,12 @@ export const MeasureWrapper = ({
           },
         ]}
         buttons={
-          !autoCompletedMeasure ? (
-            <QMR.MeasureButtons
-              isLoading={mutationRunning}
-              handleSave={methods.handleSubmit(handleSave)}
-              lastAltered={measureData?.data && measureData?.lastAltered}
-              isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
-            />
-          ) : undefined
+          <QMR.MeasureButtons
+            isLoading={mutationRunning}
+            handleSave={methods.handleSubmit(handleSave)}
+            lastAltered={measureData?.data && measureData?.lastAltered}
+            isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
+          />
         }
       >
         <CUI.Skeleton isLoaded={!loadingData}>
