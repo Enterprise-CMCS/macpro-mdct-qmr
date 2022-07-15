@@ -41,7 +41,6 @@ export const TextArea = ({
       <CUI.Textarea
         as={ResizeTextarea}
         data-cy={name}
-        className="expanded-text-area"
         name={name}
         onBlur={field.onBlur}
         onChange={field.onChange}

@@ -25,7 +25,11 @@ export const DeleteWrapper = ({
   if (!render) return null;
 
   return (
-    <CUI.Box position="relative" {...childWrapperProps}>
+    <CUI.Box
+      position="relative"
+      {...childWrapperProps}
+      className="prince-option-label-wrapper"
+    >
       {children}
       {allowDeletion && (
         <CUI.HStack

@@ -148,10 +148,15 @@ export const PrintableMeasureWrapper = ({
     measureData?.description;
 
   return (
-    <CUI.VStack padding={10} my="2rem">
+    <CUI.VStack padding={10}>
       <CUI.Box textAlign={"center"} mb="2">
         <CUI.Text id={measureData?.measure} fontSize={"2xl"} fontWeight="bold">
-          [{measureData?.measure}] {foundMeasureDescription}
+          ({measureData?.measure})
+        </CUI.Text>
+      </CUI.Box>
+      <CUI.Box textAlign={"center"} mb="2">
+        <CUI.Text id={measureData?.measure} fontSize={"2xl"} fontWeight="bold">
+          {foundMeasureDescription}
         </CUI.Text>
       </CUI.Box>
       {!!(spaName && measureData?.measure === "CSQ") && (

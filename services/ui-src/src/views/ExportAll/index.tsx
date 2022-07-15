@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 export const ExportAll = () => {
   const { state, coreSetId, year } = useParams();
   const [isLoadingPDF, setIsLoadingPDF] = useState(false);
+  const [stylesApplied, setStylesApplied] = useState(false);
 
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
@@ -39,76 +40,95 @@ export const ExportAll = () => {
   };
 
   const makePrinceRequest = async () => {
-    // gather chakra css variables and make available for the body
-    for (let i = 0; i < document.styleSheets.length - 1; i++) {
-      if (
-        !document.styleSheets[i].href &&
-        document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
-        document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
-      ) {
-        const chakraVars = document.styleSheets[i];
-        document.body.setAttribute(
-          "style",
-          chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
-        );
+    // only apply the styles once, in case page is persisted and button re-clicked
+    if (!stylesApplied) {
+      setStylesApplied(true);
+
+      // gather chakra css variables and make available for the body
+      for (let i = 0; i < document.styleSheets.length - 1; i++) {
+        if (
+          !document.styleSheets[i].href &&
+          document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
+          document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
+        ) {
+          const chakraVars = document.styleSheets[i];
+          document.body.setAttribute(
+            "style",
+            chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
+          );
+        }
       }
-    }
 
-    const styleString = [
-      //@ts-ignore
-      ...document.querySelectorAll("[data-emotion]"),
-    ].flatMap(({ sheet }) =>
-      [...sheet.cssRules].map((rules) => {
-        // any mass changes to chakra-css rules should go here
-        return rules.cssText.replace(
-          /text-align: right/g,
-          "text-align: center"
-        );
-      })
-    );
+      const styleString = [
+        //@ts-ignore
+        ...document.querySelectorAll("[data-emotion]"),
+      ].flatMap(({ sheet }) =>
+        [...sheet.cssRules].map((rules) => {
+          // any mass changes to chakra-css rules should go here
+          return rules.cssText.replace(
+            /text-align: right/g,
+            "text-align: center"
+          );
+        })
+      );
 
-    // emotion tags put into the body
-    for (const style of styleString) {
+      // emotion tags put into the body
+      for (const style of styleString) {
+        const styleTag = document.createElement("style");
+        document.body.appendChild(styleTag);
+        styleTag.appendChild(document.createTextNode(style));
+      }
+
+      // any additional css to adjust page
       const styleTag = document.createElement("style");
       document.body.appendChild(styleTag);
-      styleTag.appendChild(document.createTextNode(style));
+      styleTag.appendChild(
+        document.createTextNode(
+          `@page {}\n` +
+            ` * { box-decoration-break: slice !important; }\n` +
+            ` .prince-footer-block { text-align: left !important; }\n` +
+            ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
+            ` .prince-option-label-text { margin-left: 20px !important; }\n` +
+            ` .prince-upload-wrapper { text-align: center; margin: auto; }\n` +
+            ` .prince-option-label-wrapper { margin-top: 10px; margin-bottom: 10px !important; }\n` +
+            ` .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }\n` +
+            ` h1 { margin: auto !important; align-text: center !important; width: fitcontent !important; }\n` +
+            ` .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box;}\n`
+        )
+      );
+
+      // remove to top links
+      document
+        .querySelectorAll('[data-cy="surfaceLinkTag"]')
+        .forEach((v) => v.remove());
     }
 
-    // any additional css to adjust page
-    const styleTag = document.createElement("style");
-    document.body.appendChild(styleTag);
-    styleTag.appendChild(
-      document.createTextNode(
-        `@page {}\n` +
-          ` * { box-decoration-break: slice !important; }\n` +
-          ` extra-left-margin-print { padding: 20px 10px 10px 60px !important; }\n` +
-          ` print-padding-box { margin: 20px 10px 50px 10px !important; }\n` +
-          ` h1 { margin: auto !important; align-text: center !important; width: fitcontent !important; }\n`
-      )
-    );
-
-    // remove to top links and no script tag
+    // get html element and remove noscript tag
     const html = document.querySelector("html")!;
-    document
-      .querySelectorAll('[data-cy="surfaceLinkTag"]')
-      .forEach((v) => v.remove());
     html.querySelector("noscript")?.remove();
 
     // fixing non standard characters
     const htmlString = html
-      .outerHTML!.replaceAll(
-        '<link href="',
-        `<link href="https://${window.location.host}`
-      )
+      .outerHTML! // fix broken assets and links
+      .replaceAll('<link href="', `<link href="https://${window.location.host}`)
       .replaceAll(`src="/`, `src="https://${window.location.host}/`)
+      // non standard character fixing
       .replaceAll(`’`, `'`)
       .replaceAll(`‘`, `'`)
       .replaceAll(`”`, `"`)
       .replaceAll(`“`, `"`)
       .replaceAll("\u2013", "-")
       .replaceAll("\u2014", "-")
+      // can't have flex/inline be sub-children of block components
       .replaceAll(" flex;", " block;")
-      .replaceAll(" inline;", " block;");
+      .replaceAll(" inline;", " block;")
+      // fix text ares whose sizing will not match
+      .replace(
+        /<textarea[^>]*tabindex="-1"[^<]*>/g,
+        '<p class="hidden-print-items">'
+      )
+      .replace(/<textarea[^>]*>/g, '<p class="chakra-text replaced-text-area">')
+      .replace(/<\/textarea>/g, "</p>");
 
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
@@ -167,17 +187,16 @@ export const ExportAll = () => {
         <CUI.Text
           gridColumn={"1 / -1"}
           fontSize={"xl"}
-          style={
-            { fontWeight: "bold", "--testing": "red" } as React.CSSProperties
-          }
           id="top-of-page"
           as="h2"
-          my="4"
+          my="6"
+          textAlign={"center"}
+          fontWeight="bold"
         >
           Click on one of the measures below to navigate to it.
         </CUI.Text>
       </CUI.Center>
-      <CUI.Center key="buttonGridWrapper">
+      <CUI.Center key="buttonGridWrapper" mb="1rem">
         <CUI.SimpleGrid
           columns={{ sm: 2, md: 4, lg: 6, xl: 8 }}
           spacingX={5}
@@ -209,7 +228,10 @@ export const ExportAll = () => {
             : undefined;
 
         return (
-          <CUI.Box key={`measure-${measure.measure}-wrapper`}>
+          <CUI.Box
+            key={`measure-${measure.measure}-wrapper`}
+            className="prince-measure-wrapper-box"
+          >
             <QMR.PrintableMeasureWrapper
               measure={createElement(Comp)}
               measureData={measure}

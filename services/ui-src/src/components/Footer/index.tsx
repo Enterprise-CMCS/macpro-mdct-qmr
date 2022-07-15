@@ -44,7 +44,10 @@ export function Footer(): JSX.Element {
               className="medicaid-logo"
             />
             <CUI.Spacer />
-            <CUI.Flex maxW={{ base: "none", md: "md" }}>
+            <CUI.Flex
+              maxW={{ base: "none", md: "md" }}
+              className="prince-footer-block"
+            >
               <img
                 className="logos"
                 src="/footer/depthealthhumanservices_usa.svg"

@@ -189,7 +189,7 @@ export const Upload = ({
         boxSizing="border-box"
         cursor="pointer"
         position="relative"
-        className=".hidden-print-items"
+        className="prince-upload-wrapper"
       >
         {!isStateUser && <QMR.ComponentMask />}
         <FolderIcon />
