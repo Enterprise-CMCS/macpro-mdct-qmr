@@ -2,12 +2,10 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "../types";
 import * as QMR from "components";
-import { cleanString } from "utils/cleanString";
+import { cleanString, getLabelText } from "utils";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
-import { cleanString, useTotalAutoCalculation } from "./omsUtil";
-import * as Types from "../types";
-import { getLabelText } from "utils";
+import { useTotalAutoCalculation } from "./omsUtil";
 
 interface NdrProps {
   name: string;

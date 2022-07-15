@@ -618,3 +618,14 @@ export const data = {
         "categories": {}
     }
 }
+
+export const getCatQualLabels = (measure: keyof typeof data) => {
+  
+    const qualifiers = Object.keys(data[measure].qualifiers);
+    const categories = Object.keys(data[measure].categories);
+  
+    return {
+      qualifiers,
+      categories,
+    };
+  };
