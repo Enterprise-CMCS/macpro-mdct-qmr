@@ -5,9 +5,13 @@ import * as DC from "dataConstants";
 
 interface Props {
   healthHomeMeasure?: boolean;
+  removeLessThan30?: boolean;
 }
 
-export const WhyAreYouNotReporting = ({ healthHomeMeasure }: Props) => {
+export const WhyAreYouNotReporting = ({
+  healthHomeMeasure,
+  removeLessThan30,
+}: Props) => {
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
   return (
     <QMR.CoreQuestionWrapper label="Why are you not reporting on this measure?">
@@ -168,13 +172,15 @@ export const WhyAreYouNotReporting = ({ healthHomeMeasure }: Props) => {
             ],
           },
           {
-            displayValue: "Small sample size (less than 30)",
+            displayValue: `Small sample size ${
+              removeLessThan30 ? "" : "(less than 30)"
+            }`,
             value: DC.SMALL_SAMPLE_SIZE,
             children: [
               <QMR.NumberInput
                 {...register(DC.SMALL_SAMPLE_SIZE)}
                 label="Enter specific sample size:"
-                mask={/^([1-2]?\d)?$/i}
+                mask={removeLessThan30 ? /^[0-9]*$/i : /^([1-2]?\d)?$/i}
               />,
             ],
           },
