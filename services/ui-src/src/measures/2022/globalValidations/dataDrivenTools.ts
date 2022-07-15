@@ -18,7 +18,7 @@ export const getPerfMeasureRateArray = (
   if (renderData.categories?.length) {
     for (const cat of renderData.categories) {
       performanceMeasureData.push(
-        formData.PerformanceMeasure?.rates?.[cat.replace(/[^\w]/g, "")] ?? []
+        formData.PerformanceMeasure?.rates?.[cleanString(cat)] ?? []
       );
     }
   } else if (renderData.qualifiers?.length) {
@@ -77,7 +77,7 @@ export const performanceMeasureErrorLocationDicitonary = (
   const errorDict: PMErrorDictionary = {};
 
   for (const cat of renderData?.categories ?? []) {
-    errorDict[cat.replace(/[^\w]/g, "")] = cat;
+    errorDict[cleanString(cat)] = cat;
   }
 
   errorDict[DC.SINGLE_CATEGORY] = DC.PERFORMANCE_MEASURE;
@@ -99,7 +99,7 @@ export const omsLocationDictionary = (
     for (const option of node.options ?? []) {
       checkNode(option);
     }
-    dictionary[node.id.replace(/[^\w]/g, "")] = node.id;
+    dictionary[cleanString(node.id)] = node.id;
   };
 
   for (const node of renderData) {
@@ -107,11 +107,11 @@ export const omsLocationDictionary = (
   }
 
   for (const qual of qualifiers ?? []) {
-    dictionary[qual.replace(/[^\w]/g, "")] = qual;
+    dictionary[cleanString(qual)] = qual;
   }
 
   for (const cat of categories ?? []) {
-    dictionary[cat.replace(/[^\w]/g, "")] = cat;
+    dictionary[cleanString(cat)] = cat;
   }
 
   return (labels: string[]) =>

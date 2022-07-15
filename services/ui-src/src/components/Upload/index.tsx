@@ -270,15 +270,16 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       zIndex={3}
       py="6px"
     >
-      <CUI.Text
+      <CUI.Button
         as="a"
         onClick={handleSave}
         variant="xl"
         data-cy={`file-upload-${file.filename}`}
         zIndex={3}
+        tabIndex={0}
       >
         {file.filename}
-      </CUI.Text>
+      </CUI.Button>
       <CUI.Button
         data-testid={`test-delete-btn-${index}`}
         data-cy={`upload-delete-btn-${index}`}
@@ -288,7 +289,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
           clearFile(index);
         }}
       >
-        x
+        Delete
       </CUI.Button>
     </CUI.HStack>
   );
