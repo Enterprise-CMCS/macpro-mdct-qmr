@@ -367,7 +367,7 @@ describe("Measure 19: AMB-HH", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.numerator"]'
     ).type("6");
-    cy.get(":nth-child(2) > .css-0 > .css-1wlqfwj > .chakra-stack").click();
+    //cy.get(":nth-child(2) > .css-0 > .css-1wlqfwj > .chakra-stack").click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.denominator"]'
     ).clear();
@@ -489,7 +489,9 @@ describe("Measure 19: AMB-HH", () => {
     ).type("4");
     cy.get(
       ':nth-child(2) > .css-0 > .css-1wlqfwj > [data-cy="Total (All Ages)"]'
-    ).should("have.text", "Total (All Ages)");
+    )
+      .first()
+      .should("have.text", "Total (All Ages)");
 
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAllAges.singleCategory.0.numerator"]'
