@@ -6,7 +6,6 @@ import { useGetMeasures } from "hooks/api";
 import { SPA } from "libs/spaLib";
 import { createElement } from "react";
 import "index.scss";
-import "./export.scss";
 import { getPDF } from "libs/api";
 import { useParams } from "react-router-dom";
 
@@ -108,7 +107,10 @@ export const ExportAll = () => {
       .replaceAll(`“`, `"`)
       .replaceAll("\u2013", "-")
       .replaceAll("\u2014", "-")
-      .replaceAll(" flex;", " block;");
+      .replaceAll(" flex;", " block;")
+      .replaceAll(" inline;", " block;")
+      .replaceAll(" inline-flex;", " block;")
+      .replaceAll(" inline-block;", " block;");
 
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
@@ -136,6 +138,9 @@ export const ExportAll = () => {
 
   return (
     <>
+      <style>
+        {`.disabled-print-preview-items { display: none !important; }\n`}
+      </style>
       <CUI.Container maxW={"xs"}>
         <CUI.Button
           disabled={isLoadingPDF}

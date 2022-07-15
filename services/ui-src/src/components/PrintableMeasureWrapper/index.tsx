@@ -149,26 +149,30 @@ export const PrintableMeasureWrapper = ({
 
   return (
     <CUI.VStack padding={10} my="2rem">
-      <CUI.HStack>
+      <CUI.Box textAlign={"center"} mb="2">
         <CUI.Text id={measureData?.measure} fontSize={"2xl"} fontWeight="bold">
           [{measureData?.measure}] {foundMeasureDescription}
         </CUI.Text>
-      </CUI.HStack>
+      </CUI.Box>
       {!!(spaName && measureData?.measure === "CSQ") && (
-        <CUI.Text id={spaName} fontSize={"xl"}>
-          {spaName}
-        </CUI.Text>
+        <CUI.Box textAlign={"center"} mb="2">
+          <CUI.Text id={spaName} fontSize={"xl"}>
+            {spaName}
+          </CUI.Text>
+        </CUI.Box>
       )}
       <LastModifiedBy user={measureData?.lastAlteredBy} />
       {!!measureData?.detailedDescription && (
-        <CUI.Text
-          fontSize="xl"
-          my="6"
-          fontWeight={400}
-          data-cy="detailed-description"
-        >
-          {measureData.detailedDescription}
-        </CUI.Text>
+        <CUI.Box textAlign={"center"} mb="2">
+          <CUI.Text
+            fontSize="xl"
+            my="6"
+            fontWeight={400}
+            data-cy="detailed-description"
+          >
+            {measureData.detailedDescription}
+          </CUI.Text>
+        </CUI.Box>
       )}
       <FormProvider {...methods}>
         <>
