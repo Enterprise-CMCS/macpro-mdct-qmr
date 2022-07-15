@@ -93,9 +93,8 @@ export const getLowLvlDeviationOptions = ({
   if (!qualifiers.some((el) => el.label)) {
     return getRateTextAreaOptions(name);
   }
-
   return qualifiers
-    .sort((a, b) => (a.label!! < b.label!! ? 1 : 1))
+    .sort((a: any, b: any) => b.label! - a.label!)
     .map((item) => {
       const value = `${cleanString(item.label)}`;
       return {
