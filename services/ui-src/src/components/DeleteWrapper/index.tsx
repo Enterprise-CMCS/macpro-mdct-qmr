@@ -35,6 +35,7 @@ export const DeleteWrapper = ({
           position={"absolute"}
           padding={2}
           as={"button"}
+          className="hidden-print-items disabled-print-preview-items"
           borderColor={isHovered ? "red.700" : color}
           alignItems={"center"}
           data-testid="delete-wrapper"

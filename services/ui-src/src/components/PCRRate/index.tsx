@@ -154,6 +154,7 @@ export const PCRRate = ({
         ) : (
           <CUI.Input
             key={`input-field-${index}`}
+            type="text"
             value={field.value[index]?.value ?? ""}
             data-cy={`${name}.${index}.value`}
             bgColor={"#FFF"}

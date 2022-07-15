@@ -42,7 +42,8 @@ export const Select = ({
       <CUI.Select
         ref={field.ref}
         className={name}
-        value={field.value}
+        value={field?.value}
+        defaultValue={field?.value ?? placeholder}
         onBlur={field.onBlur}
         borderRadius="sm"
         onChange={(newValue) => {
