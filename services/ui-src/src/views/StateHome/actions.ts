@@ -31,7 +31,7 @@ export const getCoreSetActions = ({
     actionsList.push(
       ...[
         {
-          itemText: "Export All",
+          itemText: "Export",
           handleSelect: exportAll,
           type: type,
         },
@@ -44,8 +44,8 @@ export const getCoreSetActions = ({
     );
   } else {
     actionsList.push({
-      itemText: "Export All",
-      handleSelect: () => console.log("Export All"),
+      itemText: "Export",
+      handleSelect: () => console.log("Export"),
       type: type,
     });
   }

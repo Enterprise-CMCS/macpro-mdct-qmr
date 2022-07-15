@@ -101,7 +101,7 @@ export const ExportAll = () => {
         '<link href="',
         `<link href="https://${window.location.host}`
       )
-      .replaceAll(`src="/assets`, `src="https://${window.location.host}/assets`)
+      .replaceAll(`src="/`, `src="https://${window.location.host}/`)
       .replaceAll(`’`, `'`)
       .replaceAll(`‘`, `'`)
       .replaceAll(`”`, `"`)
