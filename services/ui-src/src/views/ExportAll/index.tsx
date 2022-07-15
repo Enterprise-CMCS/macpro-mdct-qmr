@@ -108,9 +108,7 @@ export const ExportAll = () => {
       .replaceAll("\u2013", "-")
       .replaceAll("\u2014", "-")
       .replaceAll(" flex;", " block;")
-      .replaceAll(" inline;", " block;")
-      .replaceAll(" inline-flex;", " block;")
-      .replaceAll(" inline-block;", " block;");
+      .replaceAll(" inline;", " block;");
 
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
@@ -138,10 +136,12 @@ export const ExportAll = () => {
 
   return (
     <>
-      <style>
-        {`.disabled-print-preview-items { display: none !important; }\n`}
+      <style key="printerPreviewStyles">
+        {`.disabled-print-preview-items { display: none !important; }\n` +
+          `select option { display: none }` +
+          `select option[selected] { display: table-row; }\n`}
       </style>
-      <CUI.Container maxW={"xs"}>
+      <CUI.Container maxW={"xs"} key="printPageButtonWrapper">
         <CUI.Button
           disabled={isLoadingPDF}
           isFullWidth={true}
@@ -163,7 +163,7 @@ export const ExportAll = () => {
           PRINT PDF
         </CUI.Button>
       </CUI.Container>
-      <CUI.Center>
+      <CUI.Center key="buttonGridLabel">
         <CUI.Text
           gridColumn={"1 / -1"}
           fontSize={"xl"}
@@ -177,7 +177,7 @@ export const ExportAll = () => {
           Click on one of the measures below to navigate to it.
         </CUI.Text>
       </CUI.Center>
-      <CUI.Center>
+      <CUI.Center key="buttonGridWrapper">
         <CUI.SimpleGrid
           columns={{ sm: 2, md: 4, lg: 6, xl: 8 }}
           spacingX={5}
@@ -209,7 +209,7 @@ export const ExportAll = () => {
             : undefined;
 
         return (
-          <>
+          <CUI.Box key={`measure-${measure.measure}-wrapper`}>
             <QMR.PrintableMeasureWrapper
               measure={createElement(Comp)}
               measureData={measure}
@@ -225,7 +225,7 @@ export const ExportAll = () => {
                 Back to top
               </a>
             </CUI.Center>
-          </>
+          </CUI.Box>
         );
       })}
     </>
