@@ -86,7 +86,7 @@ const buildChildCheckboxOption = ({
   name,
 }: ChildCheckBoxOptionProps) => {
   let children = [];
-  const cleanedName = (omsNode?.id && cleanString(omsNode.id)) ?? "ID_NOT_SET";
+  const cleanedName = omsNode?.id ? cleanString(omsNode.id) : "ID_NOT_SET";
 
   if (!omsNode?.options) {
     children = [

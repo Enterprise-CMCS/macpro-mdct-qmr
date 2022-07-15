@@ -160,7 +160,7 @@ export const DeviationFromMeasureSpec = ({
         });
       } else {
         categories.forEach((cat) => {
-          const key = cleanString(cat) ?? cat;
+          const key = cleanString(cat);
           // if some of the rates have both num and den
           const deviations =
             measureName === "IU-HH"
