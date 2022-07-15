@@ -3,14 +3,28 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasures } from "hooks/api";
+import { SPA } from "libs/spaLib";
 import { createElement } from "react";
 import "index.scss";
+import "./export.scss";
 import { getPDF } from "libs/api";
 import { useParams } from "react-router-dom";
 
 export const ExportAll = () => {
   const { state, coreSetId, year } = useParams();
   const [isLoadingPDF, setIsLoadingPDF] = useState(false);
+
+  const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
+  const tempSpa =
+    coreSetInfo.length > 1
+      ? SPA[year!].filter(
+          (s) => s.id === coreSetInfo[1] && s.state === state
+        )[0]
+      : undefined;
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : undefined;
 
   const openPdf = (basePdf: string) => {
     let byteCharacters = atob(basePdf);
@@ -114,9 +128,10 @@ export const ExportAll = () => {
   }
 
   const csqMeasure = data?.Items?.find((d: any) => d.measure === "CSQ");
-  const regMeasures = data?.Items?.filter((d: any) => d.measure !== "CSQ").sort(
-    (a: any, b: any) => a?.measure?.localeCompare(b?.measure)
-  );
+  const regMeasures = data?.Items?.filter((d: any) => d.measure !== "CSQ")
+    // filter out non-created State Specific measures
+    ?.filter((m: any) => !/SS-\d-HH/g.test(m.measure) || m?.userCreated)
+    .sort((a: any, b: any) => a?.measure?.localeCompare(b?.measure));
   const sortedData = [csqMeasure, ...regMeasures];
 
   return (
@@ -198,6 +213,7 @@ export const ExportAll = () => {
               year={measure.year}
               key={measure.compoundKey}
               defaultData={defaultData}
+              spaName={spaName}
             />
             <CUI.Center key={`returnButton.${measure.measure}`} mt="2">
               <a data-cy="surfaceLinkTag" href="#top-of-page">

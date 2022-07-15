@@ -21,6 +21,7 @@ export const CloseButton = ({ onClick }: { onClick: () => void }) => (
     icon={<HiX />}
     aria-label="Remove Audit Item"
     onClick={onClick}
+    className="disabled-print-preview-items hidden-print-items"
   />
 );
 
