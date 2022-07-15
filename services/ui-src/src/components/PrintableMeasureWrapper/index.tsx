@@ -13,10 +13,10 @@ import {
   useWatch,
   useFormContext,
 } from "react-hook-form";
-import * as QMR from "components";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetAbbr } from "types";
+import { measureDescriptions } from "measures/measureDescriptions";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -94,6 +94,7 @@ interface Props {
   name: string;
   year: string;
   measureId: string;
+  spaName?: string;
   autocompleteOnCreation?: boolean;
   measureData: any;
   defaultData?: { [type: string]: { formData: any; title: string } };
@@ -103,6 +104,7 @@ export const PrintableMeasureWrapper = ({
   measure,
   name,
   year,
+  spaName,
   measureId,
   measureData,
   defaultData,
@@ -141,17 +143,35 @@ export const PrintableMeasureWrapper = ({
     return null;
   }
 
+  const foundMeasureDescription =
+    measureDescriptions[measureData?.year]?.[measureData?.measure] ||
+    measureData?.description;
+
   return (
     <CUI.VStack padding={10} my="2rem">
       <CUI.HStack>
         <CUI.Text id={measureData?.measure} fontSize={"2xl"} fontWeight="bold">
-          ({measureData?.measure}) {measureData?.description}
+          [{measureData?.measure}] {foundMeasureDescription}
         </CUI.Text>
       </CUI.HStack>
+      {!!(spaName && measureData?.measure === "CSQ") && (
+        <CUI.Text id={spaName} fontSize={"xl"}>
+          {spaName}
+        </CUI.Text>
+      )}
       <LastModifiedBy user={measureData?.lastAlteredBy} />
+      {!!measureData?.detailedDescription && (
+        <CUI.Text
+          fontSize="xl"
+          my="6"
+          fontWeight={400}
+          data-cy="detailed-description"
+        >
+          {measureData.detailedDescription}
+        </CUI.Text>
+      )}
       <FormProvider {...methods}>
         <>
-          <QMR.AdminMask />
           <form data-testid="measure-wrapper-form">
             <fieldset data-testid="fieldset" disabled>
               <CUI.Container maxW="7xl" as="section" px="0">
