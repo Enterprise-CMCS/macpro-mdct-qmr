@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { cleanString, useTotalAutoCalculation } from "./omsUtil";
 import * as Types from "../types";
-import { getRateInfo } from "utils";
+import { getLabelText } from "utils";
 
 interface NdrProps {
   name: string;
@@ -317,7 +317,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
 const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
   const { categories, qualifiers, calcTotal } = usePerformanceMeasureContext();
-  const { labelText } = getRateInfo();
+  const labelText = getLabelText();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);

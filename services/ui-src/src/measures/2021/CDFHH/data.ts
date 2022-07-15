@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
-import { getRateInfo } from "utils";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const { categories, qualifiers } = getRateInfo();
+export const { categories, qualifiers } = getCatQualLabels("CDF-HH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

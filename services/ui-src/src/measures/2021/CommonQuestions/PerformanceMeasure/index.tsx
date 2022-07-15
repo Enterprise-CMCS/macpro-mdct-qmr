@@ -5,7 +5,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { cleanString, getRateInfo } from "utils";
+import { cleanString, getLabelText } from "utils";
 import { ndrFormula } from "types";
 
 interface Props {
@@ -58,7 +58,7 @@ const CategoryNdrSets = ({
   customRateLabel,
 }: NdrSetProps) => {
   const register = useCustomRegister();
-  const { labelText } = getRateInfo();
+  const labelText = getLabelText();
 
   return (
     <>

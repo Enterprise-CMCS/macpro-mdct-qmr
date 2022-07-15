@@ -1,5 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
-import { getRateInfo } from "utils";
+import { getCatQualLabels } from "../rateLabelText";
+
+export const { categories, qualifiers } = getCatQualLabels("IU-HH");
 
 const measureName = "IUHH";
 
@@ -36,8 +38,6 @@ const ndrFormulas = [
     mult: 1,
   },
 ];
-
-export const { categories, qualifiers } = getRateInfo();
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   customPrompt:
