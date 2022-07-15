@@ -84,10 +84,12 @@ describe("Measure: OHD-AD", () => {
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
     ).type("1");
 
-    cy.get(":nth-child(12) > :nth-child(2)").should(
-      "have.text",
-      "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, language, disability status, or geography, complete the following as applicable. If your state reported for classifications/sub-categories other than those listed below, or reported for different rate sets, please click on “Add Another” to add Additional/Alternative Classification/Sub-categories as needed."
-    );
+    cy.get("fieldset p.chakra-text.css-15hzea")
+      .first()
+      .should(
+        "have.text",
+        "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, language, disability status, or geography, complete the following as applicable. If your state reported for classifications/sub-categories other than those listed below, or reported for different rate sets, please click on “Add Another” to add Additional/Alternative Classification/Sub-categories as needed."
+      );
     cy.get(
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
@@ -103,9 +105,9 @@ describe("Measure: OHD-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.additionalCategoriesButton"]'
     ).click();
-    cy.get(
-      ":nth-child(4) > :nth-child(1) > :nth-child(1) > :nth-child(2) > :nth-child(1) > :nth-child(1) > :nth-child(2) > :nth-child(1) > .css-9515vv"
-    ).should("have.text", "Additional Race (Non-Hispanic)");
+    cy.get("p.chakra-text.css-9515vv")
+      .last()
+      .should("have.text", "Additional Race (Non-Hispanic)");
 
     cy.get(".css-ipuaqi").should(
       "have.text",
