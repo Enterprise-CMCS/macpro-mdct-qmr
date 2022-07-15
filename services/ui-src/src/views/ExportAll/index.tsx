@@ -51,6 +51,11 @@ export const ExportAll = () => {
           document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
           document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
         ) {
+          console.log(
+            "chakraStylesheets",
+            i,
+            document.styleSheets[i]?.cssRules[0]?.cssText
+          );
           const chakraVars = document.styleSheets[i];
           document.body.setAttribute(
             "style",
@@ -58,11 +63,6 @@ export const ExportAll = () => {
           );
         }
       }
-
-      // attempt to fix issues in function branch
-      document.head.childNodes.forEach((n) =>
-        document.body.appendChild(n.cloneNode(true))
-      );
 
       const styleString = [
         //@ts-ignore
