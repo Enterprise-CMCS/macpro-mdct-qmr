@@ -57,7 +57,7 @@ export const MonthPicker = ({
                   : null
               }
             />
-            <CUI.Text>{"/"}</CUI.Text>
+            <CUI.Text className="disabled-print-preview-items">{"/"}</CUI.Text>
           </CUI.HStack>
         </CUI.FormControl>
       </CUI.Stack>
