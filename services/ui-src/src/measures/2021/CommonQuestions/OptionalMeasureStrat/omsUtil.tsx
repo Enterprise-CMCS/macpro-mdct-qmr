@@ -3,6 +3,7 @@ import { complexRateFields, RateFields } from "../types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
+import { cleanString } from "utils/cleanString";
 
 interface TempRate {
   numerator?: number;
@@ -27,8 +28,6 @@ interface CalcOmsTotalProp {
   numberOfDecimals: number;
   componentFlag?: any;
 }
-
-export const cleanString = (s: string) => s && s.replace(/[^\w]/g, "");
 
 /** Process all OMS rate values pertaining to set category and calculate new rate object */
 const calculateOMSTotal = ({
