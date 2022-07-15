@@ -59,6 +59,11 @@ export const ExportAll = () => {
         }
       }
 
+      // attempt to fix issues in function branch
+      document.head.childNodes.forEach((n) =>
+        document.body.appendChild(n.cloneNode(true))
+      );
+
       const styleString = [
         //@ts-ignore
         ...document.querySelectorAll("[data-emotion]"),
