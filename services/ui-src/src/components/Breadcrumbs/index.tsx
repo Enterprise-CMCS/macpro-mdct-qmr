@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { HiOutlineChevronLeft } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export type BreadCrumbItems = {
   path: string;
@@ -14,6 +14,7 @@ interface Props {
 
 export const Breadcrumbs = ({ items, color }: Props) => {
   const isMultipleItems = items.length > 1;
+  const { pathname } = useLocation();
   return (
     <CUI.Flex>
       {isMultipleItems && (
@@ -34,7 +35,9 @@ export const Breadcrumbs = ({ items, color }: Props) => {
             as={idx === items.length - 1 ? "h1" : Link}
             // @ts-ignore
             to={item.path}
-            aria-label={`Return to ${item.name}`}
+            aria-label={
+              item.path === pathname ? `${item.name}` : `Return to ${item.name}`
+            }
             color={color}
             _visited={{ color }}
             key={`${idx}-${item.path}`}

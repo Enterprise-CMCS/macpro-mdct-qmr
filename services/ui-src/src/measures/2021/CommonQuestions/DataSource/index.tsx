@@ -121,7 +121,10 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             data source differed across health plans or delivery systems,
             identify the number of plans that used each data source:
           </CUI.Text>
-          <QMR.TextArea {...register(DC.DATA_SOURCE_DESCRIPTION)} />
+          <QMR.TextArea
+            label="Data Source Description"
+            {...register(DC.DATA_SOURCE_DESCRIPTION)}
+          />
         </CUI.VStack>
       )}
     </QMR.CoreQuestionWrapper>
