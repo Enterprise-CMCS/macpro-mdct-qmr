@@ -1,10 +1,11 @@
-import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
+import * as Types from "../types";
+import * as QMR from "components";
+import { cleanString } from "utils/cleanString";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
-import { cleanString, useTotalAutoCalculation } from "./omsUtil";
-import * as Types from "../types";
+import { useTotalAutoCalculation } from "./omsUtil";
 
 interface NdrProps {
   name: string;
@@ -31,6 +32,9 @@ const TotalNDR = ({
 }: TotalProps) => {
   const {
     qualifiers,
+    measureName,
+    inputFieldNames,
+    ndrFormulas,
     customMask,
     rateMultiplicationValue,
     rateReadOnly,
@@ -49,23 +53,17 @@ const TotalNDR = ({
 
   useTotalAutoCalculation({ name, cleanedCategory, componentFlag });
 
-  if (componentFlag === "IU") {
+  if (componentFlag === "IU" || componentFlag === "AIF") {
     return (
-      <QMR.IUHHRate
+      <QMR.ComplexRate
         key={cleanedName}
         name={cleanedName}
         readOnly={rateReadOnly}
+        measureName={measureName}
+        inputFieldNames={inputFieldNames}
+        ndrFormulas={ndrFormulas}
         rates={[{ label: label, id: 0 }]}
         categoryName={""}
-      />
-    );
-  } else if (componentFlag === "AIF") {
-    return (
-      <QMR.AIFHHRate
-        key={cleanedName}
-        name={cleanedName}
-        readOnly={rateReadOnly}
-        rates={[{ label: label, id: 0 }]}
       />
     );
   } else {
@@ -145,6 +143,9 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
   const {
     categories,
     qualifiers,
+    measureName,
+    inputFieldNames,
+    ndrFormulas,
     calcTotal,
     allowNumeratorGreaterThanDenominator,
     customMask,
@@ -179,10 +180,13 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
         const rate3 = category?.[qualIndex]?.fields?.[5]?.value ? true : false;
         if (rate1 || rate2 || rate3) {
           ndrSets.push(
-            <QMR.IUHHRate
+            <QMR.ComplexRate
               readOnly={rateReadOnly}
               name={cleanedName}
               key={cleanedName}
+              measureName={measureName}
+              inputFieldNames={inputFieldNames}
+              ndrFormulas={ndrFormulas}
               rates={[
                 {
                   id: 0,
@@ -235,6 +239,9 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
 const useQualRateArray: RateArrayBuilder = (name) => {
   const {
     qualifiers,
+    measureName,
+    inputFieldNames,
+    ndrFormulas,
     calcTotal,
     allowNumeratorGreaterThanDenominator,
     customMask,
@@ -284,10 +291,13 @@ const useQualRateArray: RateArrayBuilder = (name) => {
         const rate3 = measure?.[qualIndex]?.fields?.[6]?.value ? true : false;
         if (rate1 || rate2 || rate3) {
           rateArrays.push([
-            <QMR.AIFHHRate
+            <QMR.ComplexRate
               readOnly={rateReadOnly}
               name={cleanedName}
               key={cleanedName}
+              measureName={measureName}
+              inputFieldNames={inputFieldNames}
+              ndrFormulas={ndrFormulas}
               rates={[
                 {
                   id: 0,

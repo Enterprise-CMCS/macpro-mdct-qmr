@@ -53,6 +53,7 @@
     "collectCoverageFrom": [
       "src/components/**/*.{ts,tsx}",
       "src/views/**/*.{ts,tsx}",
+      "src/measures/2022/**/*.tsx",
       "src/measures/globalValidations/**/*.{ts,tsx}",
       "!src/components/CoreQuestions/index.tsx",
       "!src/components/ScrollToTop/index.tsx",
@@ -79,10 +80,7 @@
       "!src/components/Upload/index.tsx",
       "!src/views/Qualifiers/**/*.{ts,tsx}",
       "!src/measures/2021/**/*.{ts,tsx}",
-      "!src/measures/2021/CommonQuestions/**/*.{ts,tsx}",
-      "!src/measures/globalValidations/testHelpers/*.{ts,tsx}",
-      "!src/measures/globalValidations/index.ts",
-      "!src/measures/globalValidations/types.ts"
+      "!src/measures/globalValidations/testHelpers/*.{ts,tsx}"
     ],
     "moduleDirectories": [
       "node_modules",

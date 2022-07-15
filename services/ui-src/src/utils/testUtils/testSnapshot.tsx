@@ -32,7 +32,7 @@ export const testSnapshot = (
  *
  * @param {HTMLElement} container The component to clean up.
  */
-export const cleanAttributes = (container: HTMLElement) => {
+const cleanAttributes = (container: HTMLElement) => {
   const attributes = ["id", "for", "aria-describedby"];
   const prefixes = ["field", "radio"];
 

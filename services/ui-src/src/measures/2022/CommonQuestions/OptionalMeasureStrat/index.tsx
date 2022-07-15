@@ -7,6 +7,8 @@ import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import { cleanString } from "utils/cleanString";
+import { ndrFormula } from "types";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -29,7 +31,7 @@ export const buildOmsCheckboxes = ({
     .filter((d) => !isSingleSex || d.id !== "Sex") // remove sex as a top level option if isSingleSex
     .map((lvlOneOption) => {
       const displayValue = lvlOneOption.id;
-      const value = lvlOneOption.id.replace(/[^\w]/g, "");
+      const value = cleanString(lvlOneOption.id);
 
       const children = [
         <TopLevelOmsChildren
@@ -48,6 +50,9 @@ export const buildOmsCheckboxes = ({
 };
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
+  measureName?: string;
+  inputFieldNames?: string[];
+  ndrFormulas?: ndrFormula[];
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
   IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
@@ -115,6 +120,9 @@ export const OptionalMeasureStrat = ({
   AIFHHPerformanceMeasureArray,
   qualifiers = [],
   categories = [],
+  measureName,
+  inputFieldNames,
+  ndrFormulas,
   data,
   calcTotal = false,
   adultMeasure,
@@ -174,6 +182,9 @@ export const OptionalMeasureStrat = ({
           rateReadOnly,
           calcTotal,
           qualifiers,
+          measureName,
+          inputFieldNames,
+          ndrFormulas,
           categories,
           rateMultiplicationValue,
           customMask,
