@@ -101,6 +101,12 @@ export const ExportAll = () => {
       document
         .querySelectorAll('[data-cy="surfaceLinkTag"]')
         .forEach((v) => v.remove());
+
+      // add style links to body
+      const links = document.head.getElementsByTagName("link");
+      for (let l = links.length - 1; l >= 0; --l) {
+        document.body.appendChild(links[l].cloneNode(true));
+      }
     }
 
     // get html element and remove noscript tag
