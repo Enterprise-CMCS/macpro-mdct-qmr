@@ -51,11 +51,6 @@ export const ExportAll = () => {
           document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
           document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
         ) {
-          console.log(
-            "chakraStylesheets",
-            i,
-            document.styleSheets[i]?.cssRules[0]?.cssText
-          );
           const chakraVars = document.styleSheets[i];
           document.body.setAttribute(
             "style",
@@ -91,7 +86,7 @@ export const ExportAll = () => {
         document.createTextNode(
           `@page {}\n` +
             ` * { box-decoration-break: slice !important; }\n` +
-            ` .prince-footer-block { text-align: left !important; }\n` +
+            ` .prince-flex-overwrite { display: flex !important; }\n` +
             ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
             ` .prince-option-label-text { margin-left: 20px !important; }\n` +
             ` .prince-upload-wrapper { text-align: center; margin: auto; }\n` +
@@ -115,8 +110,8 @@ export const ExportAll = () => {
     // fixing non standard characters
     const htmlString = html
       .outerHTML! // fix broken assets and links
-      .replaceAll('<link href="', `<link href="https://${window.location.host}`)
-      .replaceAll(`src="/`, `src="https://${window.location.host}/`)
+      .replace(/href="\//g, `href="https://${window.location.host}/`)
+      .replace(/src="\//g, `src="https://${window.location.host}/`)
       // non standard character fixing
       .replaceAll(`’`, `'`)
       .replaceAll(`‘`, `'`)

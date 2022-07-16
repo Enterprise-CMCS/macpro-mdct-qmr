@@ -27,7 +27,7 @@ export function Footer(): JSX.Element {
       <CUI.Box bg="blue.50" py="2">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
           <CUI.Box
-            className="logo-footer"
+            className="logo-footer prince-flex-overwrite"
             display={{ base: "block", md: "flex" }}
             alignItems={{ base: "none", md: "center" }}
           >
@@ -46,7 +46,7 @@ export function Footer(): JSX.Element {
             <CUI.Spacer />
             <CUI.Flex
               maxW={{ base: "none", md: "md" }}
-              className="prince-footer-block"
+              className="prince-flex-overwrite"
             >
               <img
                 className="logos"
@@ -64,7 +64,10 @@ export function Footer(): JSX.Element {
       </CUI.Box>
       <CUI.Box bg="#0071bc" color="white" py="2">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
-          <CUI.Box display={{ base: "block", md: "flex" }}>
+          <CUI.Box
+            display={{ base: "block", md: "flex" }}
+            className="prince-flex-overwrite"
+          >
             <CUI.Text>
               Email{" "}
               <CUI.Link
