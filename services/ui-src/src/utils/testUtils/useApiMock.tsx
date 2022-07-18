@@ -12,6 +12,8 @@ import {
   useGetReportingYears,
 } from "hooks/api";
 
+// TODO: Create interfaces for each of the hooks
+
 export const defaultMockValues = {
   useAddCoreSetValues: {
     useMutation: () => {
@@ -51,6 +53,7 @@ export const defaultMockValues = {
   useGetMeasureValues: {
     data: {
       Item: {
+        data: {},
         compoundKey: "AL2021ACSAIF-HH",
         coreSet: "ACS",
         createdAt: 1642517935305,
