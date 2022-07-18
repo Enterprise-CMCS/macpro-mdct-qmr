@@ -61,18 +61,11 @@ export const ExportAll = () => {
           for (let s = 0; s < numberOfRules; s++) {
             ruleString =
               ruleString +
-              rules[s].cssText
-                .replace(/text-align: right/g, "text-align: center") // non standard character fixing
-                .replaceAll(`’`, `'`)
-                .replaceAll(`‘`, `'`)
-                .replaceAll(`”`, `"`)
-                .replaceAll(`“`, `"`)
-                .replaceAll("\u2013", "-")
-                .replaceAll("\u2014", "-")
-                // can't have flex/inline be sub-children of block components
-                .replace(/display:\s*flex;/g, "display: block !important;")
-                .replace(/display:\s*inline;/g, "display: block !important;") +
-              "\n";
+              rules[s].cssText.replace(
+                /text-align: right/g,
+                "text-align: center"
+              );
+            ("\n");
           }
           cssRules.push(ruleString);
         }
@@ -152,6 +145,16 @@ export const ExportAll = () => {
       .innerHTML! // fix broken assets and links
       .replace(/href="\//g, `href="https://${window.location.host}/`)
       .replace(/src="\//g, `src="https://${window.location.host}/`)
+      // non standard character fixing
+      .replaceAll(`’`, `'`)
+      .replaceAll(`‘`, `'`)
+      .replaceAll(`”`, `"`)
+      .replaceAll(`“`, `"`)
+      .replaceAll("\u2013", "-")
+      .replaceAll("\u2014", "-")
+      // can't have flex/inline be sub-children of block components
+      .replaceAll(" flex;", " block;")
+      .replaceAll(" inline;", " block;")
       // fix text ares whose sizing will not match
       .replace(
         /<textarea[^>]*tabindex="-1"[^<]*>/g,
