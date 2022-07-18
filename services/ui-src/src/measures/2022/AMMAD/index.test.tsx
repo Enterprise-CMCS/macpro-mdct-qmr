@@ -92,6 +92,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     await waitFor(() => {
       apiData.useGetMeasureValues.data.Item.data = notReportingData;
       testSnapshot({ component, apiData });
+      expect(screen.getByText("This is a test of the emergency alert system"));
     });
   });
 
@@ -99,6 +100,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     await waitFor(() => {
       apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
       testSnapshot({ component, apiData });
+      expect(screen.getByText("This is a test of the emergency alert system"));
+      expect(screen.getAllByText("Take me out to the ballgame").length).toBe(4);
     });
   });
 
