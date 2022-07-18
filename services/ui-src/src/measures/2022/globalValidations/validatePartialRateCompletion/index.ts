@@ -27,7 +27,7 @@ const validatePartialRateCompletionErrorMessage: ErrorMessageFunc = (
   category
 ) => {
   return `Should not have partially filled NDR sets${
-    multipleQuals ? ` at ${qualifier}` : ""
+    multipleQuals ? ` for ${qualifier}` : ""
   }${multipleCats ? `, ${category}` : ""}.`;
 };
 
