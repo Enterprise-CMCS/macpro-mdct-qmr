@@ -70,8 +70,8 @@ export const ExportAll = () => {
                 .replaceAll("\u2013", "-")
                 .replaceAll("\u2014", "-")
                 // can't have flex/inline be sub-children of block components
-                .replace(/display:\s*flex;/g, " block !important;")
-                .replace(/display:\s*inline;/g, " block !important;") +
+                .replace(/display:\s*flex;/g, "display: block !important;")
+                .replace(/display:\s*inline;/g, "display: block !important;") +
               "\n";
           }
           cssRules.push(ruleString);
