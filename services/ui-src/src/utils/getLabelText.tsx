@@ -7,8 +7,8 @@ export const getLabelText = () => {
     const { data } = require(`../measures/${year}/rateLabelText`);
 
     return {
-      ...data[measure].qualifiers,
-      ...data[measure].categories,
+      ...data[measure]?.qualifiers,
+      ...data[measure]?.categories,
     };
   }
   return {};
