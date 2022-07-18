@@ -15,7 +15,6 @@ export const QuestionChild = ({ show, children }: Props) => {
       borderColor="blue.500"
       py={3}
       boxSizing="border-box"
-      background={"red"}
     >
       {children}
     </CUI.Box>

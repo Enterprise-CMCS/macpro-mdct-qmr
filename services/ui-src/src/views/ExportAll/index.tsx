@@ -64,8 +64,8 @@ export const ExportAll = () => {
               rules[s].cssText.replace(
                 /text-align: right/g,
                 "text-align: center"
-              );
-            ("\n");
+              ) +
+              "\n";
           }
           cssRules.push(ruleString);
         }
@@ -143,8 +143,8 @@ export const ExportAll = () => {
     // fixing non standard characters
     const htmlString = html
       .innerHTML! // fix broken assets and links
-      .replace(/href="\//g, `href="https://${window.location.host}/`)
-      .replace(/src="\//g, `src="https://${window.location.host}/`)
+      // .replace(/href="\//g, `href="https://${window.location.host}/`)
+      // .replace("src=/assets", `src="https://${window.location.host}/assets`)
       // non standard character fixing
       .replaceAll(`’`, `'`)
       .replaceAll(`‘`, `'`)
