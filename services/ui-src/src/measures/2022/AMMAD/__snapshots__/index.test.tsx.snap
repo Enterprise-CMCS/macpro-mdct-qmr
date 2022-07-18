@@ -1,0 +1,1996 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test FFY 2022 AMM-AD rendered measure should match snapshot 1`] = `
+<body>
+  <div
+    class="state-layout-container css-190cj3i"
+    data-cy="state-layout-container"
+    data-testid="state-layout-container"
+  >
+    <div
+      class="css-3l07no"
+    >
+      <div
+        class="css-1jqgdft"
+      >
+        <div
+          class="css-k008qs"
+        >
+          <div
+            class="css-1jilizk"
+          >
+            <a
+              aria-label="Return to measures list"
+              href="/OH/2022/ACS"
+            >
+              <svg
+                class="hidden-print-items"
+                fill="none"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 19l-7-7 7-7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+            </a>
+          </div>
+          <div
+            class="chakra-stack css-84zodg"
+          >
+            <a
+              aria-label="Return to FFY 2022"
+              class="chakra-heading css-7eveis"
+              href="/OH/2022"
+            >
+              FFY 2022
+            </a>
+            <a
+              aria-label="Return to "
+              class="chakra-heading css-7qun81"
+              href="/OH/2022/ACS"
+            />
+            <h1
+              aria-label="Return to AMM-AD - Antidepressant Medication Management"
+              class="chakra-heading css-7qun81"
+              to="/OH/2022/ACS/AMM-AD"
+            >
+              AMM-AD - Antidepressant Medication Management
+            </h1>
+          </div>
+        </div>
+        <div
+          class="hidden-print-items css-17xejub"
+        />
+        <div
+          class="chakra-stack css-n21gh5"
+        >
+          <div
+            class="chakra-stack hidden-print-items css-84zodg"
+          >
+            <div
+              class="css-0"
+            >
+              <button
+                class="chakra-button css-1absqf1"
+                data-cy="Save"
+                disabled=""
+                type="button"
+              >
+                Save
+              </button>
+            </div>
+            <div
+              class="css-0"
+            >
+              <button
+                class="chakra-button css-1absqf1"
+                data-cy="Print"
+                type="button"
+              >
+                <span
+                  class="chakra-button__icon css-1wh2kri"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    stroke="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+                    />
+                  </svg>
+                </span>
+                Print
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="chakra-container css-1bkm5ku"
+  >
+    <div
+      class="chakra-skeleton css-cdkrf0"
+    >
+      <div
+        class="css-1fl6g85"
+      />
+      <form
+        data-testid="measure-wrapper-form"
+      >
+        <fieldset
+          data-testid="fieldset"
+          disabled=""
+        >
+          <section
+            class="chakra-container css-1bx1h0t"
+          >
+            <div
+              class="css-kysrx5"
+            >
+              <p
+                class="chakra-text css-18phcgj"
+              >
+                Last modified by: undefined
+              </p>
+            </div>
+            <p
+              class="chakra-text css-g5hezf"
+            >
+              For technical questions regarding use of this application, please reach out to MDCT_Help@cms.hhs.gov. For content-related questions about measure specifications, or what information to enter in each field, please reach out to MACQualityTA@cms.hhs.gov.
+            </p>
+            <div
+              class="css-pb69ky"
+            >
+              <h2
+                class="chakra-form__label css-e3y4kl"
+                data-cy="Are you reporting on this measure?"
+              >
+                Are you reporting on this measure?
+              </h2>
+              <fieldset>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <div
+                    class="chakra-radio-group css-0"
+                    id="DidReport_radiogroup"
+                    role="radiogroup"
+                  >
+                    <div
+                      class="chakra-stack css-n21gh5"
+                    >
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-radio css-1pw4d56"
+                        >
+                          <input
+                            class="chakra-radio__input"
+                            id="radio-7"
+                            name="DidReport"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="radio"
+                            value="yes"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-radio__control css-ssalds"
+                            data-cy="DidReport0"
+                          />
+                          <span
+                            class="chakra-radio__label css-1y8kf23"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                              id="DidReport-yes"
+                            >
+                              Yes, I am reporting Antidepressant Medication Management (AMM-AD) for FFY 2022 quality measure reporting.
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-radio css-1pw4d56"
+                        >
+                          <input
+                            class="chakra-radio__input"
+                            id="radio-8"
+                            name="DidReport"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="radio"
+                            value="no"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-radio__control css-ssalds"
+                            data-cy="DidReport1"
+                          />
+                          <span
+                            class="chakra-radio__label css-1y8kf23"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                              id="DidReport-no"
+                            >
+                              No, I am not reporting Antidepressant Medication Management (AMM-AD) for FFY 2022 quality measure reporting.
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="css-pb69ky"
+            >
+              <h2
+                class="chakra-form__label css-e3y4kl"
+                data-cy="Status of Data Reported"
+              >
+                Status of Data Reported
+              </h2>
+              <fieldset>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-i1y83u"
+                    data-cy="What is the status of the data being reported?"
+                    for="field-9"
+                    id="field-9-label"
+                  >
+                    What is the status of the data being reported?
+                  </label>
+                  <div
+                    class="chakra-radio-group css-0"
+                    id="DataStatus_radiogroup"
+                    role="radiogroup"
+                  >
+                    <div
+                      class="chakra-stack css-n21gh5"
+                    >
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-radio css-1pw4d56"
+                        >
+                          <input
+                            class="chakra-radio__input"
+                            id="radio-11"
+                            name="DataStatus"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="radio"
+                            value="ReportingProvisionalData"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-radio__control css-ssalds"
+                            data-cy="DataStatus0"
+                          />
+                          <span
+                            class="chakra-radio__label css-1y8kf23"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                              id="DataStatus-ReportingProvisionalData"
+                            >
+                              I am reporting provisional data.
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-radio css-1pw4d56"
+                        >
+                          <input
+                            class="chakra-radio__input"
+                            id="radio-12"
+                            name="DataStatus"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="radio"
+                            value="ReportingFinalData"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-radio__control css-ssalds"
+                            data-cy="DataStatus1"
+                          />
+                          <span
+                            class="chakra-radio__label css-1y8kf23"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                              id="DataStatus-ReportingFinalData"
+                            >
+                              I am reporting final data.
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="css-pb69ky"
+            >
+              <h2
+                class="chakra-form__label css-e3y4kl"
+                data-cy="Measurement Specification"
+              >
+                Measurement Specification
+              </h2>
+              <fieldset>
+                <div
+                  data-cy="measurement-specification-options"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <div
+                      class="chakra-radio-group css-0"
+                      id="MeasurementSpecification_radiogroup"
+                      role="radiogroup"
+                    >
+                      <div
+                        class="chakra-stack css-n21gh5"
+                      >
+                        <div
+                          class="css-79elbk"
+                        >
+                          <label
+                            class="chakra-radio css-1pw4d56"
+                          >
+                            <input
+                              class="chakra-radio__input"
+                              id="radio-15"
+                              name="MeasurementSpecification"
+                              style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                              type="radio"
+                              value="NCQA/HEDIS"
+                            />
+                            <span
+                              aria-hidden="true"
+                              class="chakra-radio__control css-ssalds"
+                              data-cy="MeasurementSpecification0"
+                            />
+                            <span
+                              class="chakra-radio__label css-1y8kf23"
+                            >
+                              <p
+                                class="chakra-text css-vjer7o"
+                                id="MeasurementSpecification-NCQAHEDIS"
+                              >
+                                National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)
+                              </p>
+                            </span>
+                          </label>
+                          <div
+                            class="chakra-collapse"
+                            style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                          />
+                        </div>
+                        <div
+                          class="css-79elbk"
+                        >
+                          <label
+                            class="chakra-radio css-1pw4d56"
+                          >
+                            <input
+                              class="chakra-radio__input"
+                              id="radio-16"
+                              name="MeasurementSpecification"
+                              style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                              type="radio"
+                              value="Other"
+                            />
+                            <span
+                              aria-hidden="true"
+                              class="chakra-radio__control css-ssalds"
+                              data-cy="MeasurementSpecification1"
+                            />
+                            <span
+                              class="chakra-radio__label css-1y8kf23"
+                            >
+                              <p
+                                class="chakra-text css-vjer7o"
+                                id="MeasurementSpecification-Other"
+                              >
+                                Other
+                              </p>
+                            </span>
+                          </label>
+                          <div
+                            class="chakra-collapse"
+                            style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="css-pb69ky"
+            >
+              <h2
+                class="chakra-form__label css-e3y4kl"
+                data-cy="Data Source"
+              >
+                Data Source
+              </h2>
+              <fieldset>
+                <div
+                  data-cy="data-source-options"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <label
+                      class="chakra-form__label css-uvho5g"
+                      data-cy="If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below."
+                      for="field-17"
+                      id="field-17-label"
+                    >
+                      If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.
+                    </label>
+                    <div
+                      class="chakra-stack css-n21gh5"
+                    >
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DataSource0"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DataSource0-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="AdministrativeData"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Administrative Data
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DataSource1"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DataSource1-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="ElectronicHealthRecords"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Electronic Health Records
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DataSource2"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DataSource2-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="OtherDataSource"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Other Data Source
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="css-pb69ky"
+            >
+              <h2
+                class="chakra-form__label css-e3y4kl"
+                data-cy="Date Range"
+              >
+                Date Range
+              </h2>
+              <fieldset>
+                <div
+                  class="chakra-stack css-1177p1x"
+                >
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    For all measures, states should report start and end dates to calculate the denominator. For some measures, the specifications require a “look-back period” before or after the measurement period to determine eligibility or utilization. The measurement period entered in the Start and End Date fields should not include the “look-back period.”
+                  </p>
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    More information about the Start and End Date for each measure is available in the
+                     
+                    <a
+                      class="chakra-link css-14ksm7b"
+                      href="https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/adult-core-set/index.html"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Measurement Period Table
+                    </a>
+                     
+                    resource.
+                  </p>
+                </div>
+                <div
+                  class="chakra-stack css-n21gh5"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <label
+                      class="chakra-form__label css-5em81k"
+                      for="field-18"
+                      id="DateRange.startDate-label"
+                    >
+                      Start Date
+                    </label>
+                    <div
+                      class="chakra-stack css-84zodg"
+                    >
+                      <div
+                        class="chakra-stack css-n21gh5"
+                      >
+                        <div
+                          class="chakra-form-control css-0"
+                          label="Month:"
+                          role="group"
+                        >
+                          <label
+                            class="chakra-form__label css-1y26tvt"
+                            for="field-19"
+                            id="field-19-label"
+                          >
+                            Month:
+                          </label>
+                          <div
+                            class="chakra-stack css-84zodg"
+                          >
+                            <input
+                              aria-label="Month Input Field"
+                              class="chakra-input css-1yq544w"
+                              data-cy="DateRange.startDate-month"
+                              id="field-19"
+                              label="Month"
+                              name="DateRange.startDate.month"
+                              value=""
+                            />
+                            <p
+                              class="chakra-text css-0"
+                            >
+                              /
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="chakra-stack css-n21gh5"
+                      >
+                        <div
+                          class="chakra-form-control css-0"
+                          label="Year (yyyy):"
+                          role="group"
+                        >
+                          <label
+                            class="chakra-form__label css-1y26tvt"
+                            for="field-20"
+                            id="field-20-label"
+                          >
+                            Year (yyyy):
+                          </label>
+                          <div
+                            class="chakra-stack css-84zodg"
+                          >
+                            <input
+                              aria-label="Year Input Field"
+                              class="chakra-input css-1g4ri0h"
+                              data-cy="DateRange.startDate-year"
+                              id="field-20"
+                              label="Year"
+                              name="DateRange.startDate.year"
+                              value=""
+                            />
+                            <button
+                              aria-controls="popover-content-22"
+                              aria-expanded="false"
+                              aria-haspopup="dialog"
+                              aria-label="Month Picker"
+                              class="chakra-button css-1e62r2l"
+                              id="popover-trigger-22"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-width="0"
+                                viewBox="0 0 16 16"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.402 10.246c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2z"
+                                />
+                                <path
+                                  d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5zm-4.118 9.79c1.258 0 2-1.067 2-2.872 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684c.047.64.594 1.406 1.703 1.406zm-2.89-5.435h-.633A12.6 12.6 0 0 0 4.5 8.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675V7.354z"
+                                />
+                              </svg>
+                            </button>
+                            <div
+                              class="chakra-popover__popper css-0"
+                              style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+                            >
+                              <section
+                                class="chakra-popover__content css-1ab1jlb"
+                                data-testid="monthpicker-popover-content"
+                                id="popover-content-22"
+                                role="dialog"
+                                style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.95) translateZ(0);"
+                                tabindex="-1"
+                              >
+                                <header
+                                  class="chakra-popover__header css-0"
+                                  id="popover-header-22"
+                                >
+                                  <div
+                                    class="chakra-stack css-1oeb4ru"
+                                  >
+                                    <button
+                                      aria-label="Previous Year"
+                                      class="chakra-button css-198bfjk"
+                                      type="button"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        stroke="currentColor"
+                                        stroke-width="0"
+                                        viewBox="0 0 16 16"
+                                        width="1em"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </button>
+                                    <p
+                                      class="chakra-text css-0"
+                                    >
+                                      2021
+                                    </p>
+                                    <button
+                                      aria-label="Next Year"
+                                      class="chakra-button css-198bfjk"
+                                      disabled=""
+                                      type="button"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        stroke="currentColor"
+                                        stroke-width="0"
+                                        viewBox="0 0 16 16"
+                                        width="1em"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </header>
+                                <div
+                                  class="chakra-popover__body css-0"
+                                  id="popover-body-22"
+                                >
+                                  <div
+                                    class="css-1isix7b"
+                                  >
+                                    <button
+                                      aria-label="January"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Jan
+                                    </button>
+                                    <button
+                                      aria-label="February"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Feb
+                                    </button>
+                                    <button
+                                      aria-label="March"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Mar
+                                    </button>
+                                    <button
+                                      aria-label="April"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Apr
+                                    </button>
+                                    <button
+                                      aria-label="May"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      May
+                                    </button>
+                                    <button
+                                      aria-label="June"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Jun
+                                    </button>
+                                    <button
+                                      aria-label="July"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Jul
+                                    </button>
+                                    <button
+                                      aria-label="August"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Aug
+                                    </button>
+                                    <button
+                                      aria-label="September"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Sep
+                                    </button>
+                                    <button
+                                      aria-label="October"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Oct
+                                    </button>
+                                    <button
+                                      aria-label="November"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Nov
+                                    </button>
+                                    <button
+                                      aria-label="December"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Dec
+                                    </button>
+                                  </div>
+                                </div>
+                              </section>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <label
+                      class="chakra-form__label css-dy41jw"
+                      for="field-18"
+                      id="field-18-label"
+                    >
+                      End Date
+                    </label>
+                    <div
+                      class="chakra-stack css-84zodg"
+                    >
+                      <div
+                        class="chakra-stack css-n21gh5"
+                      >
+                        <div
+                          class="chakra-form-control css-0"
+                          label="Month:"
+                          role="group"
+                        >
+                          <label
+                            class="chakra-form__label css-1y26tvt"
+                            for="field-23"
+                            id="field-23-label"
+                          >
+                            Month:
+                          </label>
+                          <div
+                            class="chakra-stack css-84zodg"
+                          >
+                            <input
+                              aria-label="Month Input Field"
+                              class="chakra-input css-1yq544w"
+                              data-cy="DateRange.endDate-month"
+                              id="field-23"
+                              label="Month"
+                              name="DateRange.endDate.month"
+                              value=""
+                            />
+                            <p
+                              class="chakra-text css-0"
+                            >
+                              /
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="chakra-stack css-n21gh5"
+                      >
+                        <div
+                          class="chakra-form-control css-0"
+                          label="Year (yyyy):"
+                          role="group"
+                        >
+                          <label
+                            class="chakra-form__label css-1y26tvt"
+                            for="field-24"
+                            id="field-24-label"
+                          >
+                            Year (yyyy):
+                          </label>
+                          <div
+                            class="chakra-stack css-84zodg"
+                          >
+                            <input
+                              aria-label="Year Input Field"
+                              class="chakra-input css-1g4ri0h"
+                              data-cy="DateRange.endDate-year"
+                              id="field-24"
+                              label="Year"
+                              name="DateRange.endDate.year"
+                              value=""
+                            />
+                            <button
+                              aria-controls="popover-content-26"
+                              aria-expanded="false"
+                              aria-haspopup="dialog"
+                              aria-label="Month Picker"
+                              class="chakra-button css-1e62r2l"
+                              id="popover-trigger-26"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                stroke="currentColor"
+                                stroke-width="0"
+                                viewBox="0 0 16 16"
+                                width="1em"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M9.402 10.246c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2z"
+                                />
+                                <path
+                                  d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5zm-4.118 9.79c1.258 0 2-1.067 2-2.872 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684c.047.64.594 1.406 1.703 1.406zm-2.89-5.435h-.633A12.6 12.6 0 0 0 4.5 8.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675V7.354z"
+                                />
+                              </svg>
+                            </button>
+                            <div
+                              class="chakra-popover__popper css-0"
+                              style="visibility: hidden; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+                            >
+                              <section
+                                class="chakra-popover__content css-1ab1jlb"
+                                data-testid="monthpicker-popover-content"
+                                id="popover-content-26"
+                                role="dialog"
+                                style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.95) translateZ(0);"
+                                tabindex="-1"
+                              >
+                                <header
+                                  class="chakra-popover__header css-0"
+                                  id="popover-header-26"
+                                >
+                                  <div
+                                    class="chakra-stack css-1oeb4ru"
+                                  >
+                                    <button
+                                      aria-label="Previous Year"
+                                      class="chakra-button css-198bfjk"
+                                      type="button"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        stroke="currentColor"
+                                        stroke-width="0"
+                                        viewBox="0 0 16 16"
+                                        width="1em"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </button>
+                                    <p
+                                      class="chakra-text css-0"
+                                    >
+                                      2021
+                                    </p>
+                                    <button
+                                      aria-label="Next Year"
+                                      class="chakra-button css-198bfjk"
+                                      disabled=""
+                                      type="button"
+                                    >
+                                      <svg
+                                        aria-hidden="true"
+                                        fill="currentColor"
+                                        focusable="false"
+                                        height="1em"
+                                        stroke="currentColor"
+                                        stroke-width="0"
+                                        viewBox="0 0 16 16"
+                                        width="1em"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </header>
+                                <div
+                                  class="chakra-popover__body css-0"
+                                  id="popover-body-26"
+                                >
+                                  <div
+                                    class="css-1isix7b"
+                                  >
+                                    <button
+                                      aria-label="January"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Jan
+                                    </button>
+                                    <button
+                                      aria-label="February"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Feb
+                                    </button>
+                                    <button
+                                      aria-label="March"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Mar
+                                    </button>
+                                    <button
+                                      aria-label="April"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Apr
+                                    </button>
+                                    <button
+                                      aria-label="May"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      May
+                                    </button>
+                                    <button
+                                      aria-label="June"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Jun
+                                    </button>
+                                    <button
+                                      aria-label="July"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Jul
+                                    </button>
+                                    <button
+                                      aria-label="August"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Aug
+                                    </button>
+                                    <button
+                                      aria-label="September"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Sep
+                                    </button>
+                                    <button
+                                      aria-label="October"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Oct
+                                    </button>
+                                    <button
+                                      aria-label="November"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Nov
+                                    </button>
+                                    <button
+                                      aria-label="December"
+                                      class="chakra-button css-5c2176"
+                                      type="button"
+                                    >
+                                      Dec
+                                    </button>
+                                  </div>
+                                </div>
+                              </section>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="css-pb69ky"
+            >
+              <h2
+                class="chakra-form__label css-e3y4kl"
+                data-cy="Definition of Population Included in the Measure"
+              >
+                Definition of Population Included in the Measure
+              </h2>
+              <fieldset>
+                <h2
+                  class="chakra-heading css-0"
+                >
+                  Definition of denominator
+                </h2>
+                <div
+                  class="css-0"
+                >
+                  <p
+                    class="chakra-text css-o7rt0f"
+                  >
+                    Please select all populations that are included. For example, if your data include both non-dual Medicaid beneficiaries and Medicare and Medicaid Dual Eligibles, select both:
+                  </p>
+                  <ul
+                    class="css-71ufky"
+                    role="list"
+                  >
+                    <li
+                      class="css-0"
+                    >
+                      Denominator includes Medicaid population
+                    </li>
+                    <li
+                      class="css-0"
+                    >
+                      Denominator includes Medicare and Medicaid Dually-Eligible population
+                    </li>
+                  </ul>
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <div
+                      class="chakra-stack css-n21gh5"
+                    >
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DefinitionOfDenominator0"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DefinitionOfDenominator0-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="DenominatorIncMedicaidPop"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Denominator includes Medicaid population
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DefinitionOfDenominator1"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DefinitionOfDenominator1-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="DenominatorIncCHIP"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Denominator includes CHIP population (e.g. pregnant women)
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DefinitionOfDenominator2"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DefinitionOfDenominator2-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="DenominatorIncMedicareMedicaidDualEligible"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Denominator includes Medicare and Medicaid Dually-Eligible population
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DefinitionOfDenominator3"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DefinitionOfDenominator3-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="DenominatorIncOther"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Other
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="css-s98few"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <label
+                      class="chakra-form__label css-8iwwwg"
+                      data-cy="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
+                      for="field-28"
+                      id="field-28-label"
+                    >
+                      If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:
+                    </label>
+                    <textarea
+                      class="chakra-textarea css-0"
+                      data-cy="ChangeInPopulationExplanation"
+                      id="field-28"
+                      name="ChangeInPopulationExplanation"
+                    />
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="css-s98few"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <label
+                      class="chakra-form__label css-9vgk4i"
+                      data-cy="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
+                      for="field-29"
+                      id="field-29-label"
+                    >
+                      Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?
+                    </label>
+                    <div
+                      class="chakra-radio-group css-0"
+                      id="DenominatorDefineTotalTechSpec_radiogroup"
+                      role="radiogroup"
+                    >
+                      <div
+                        class="chakra-stack css-n21gh5"
+                      >
+                        <div
+                          class="css-79elbk"
+                        >
+                          <label
+                            class="chakra-radio css-1pw4d56"
+                          >
+                            <input
+                              class="chakra-radio__input"
+                              id="radio-31"
+                              name="DenominatorDefineTotalTechSpec"
+                              style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                              type="radio"
+                              value="yes"
+                            />
+                            <span
+                              aria-hidden="true"
+                              class="chakra-radio__control css-ssalds"
+                              data-cy="DenominatorDefineTotalTechSpec0"
+                            />
+                            <span
+                              class="chakra-radio__label css-1y8kf23"
+                            >
+                              <p
+                                class="chakra-text css-vjer7o"
+                                id="DenominatorDefineTotalTechSpec-yes"
+                              >
+                                Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.
+                              </p>
+                            </span>
+                          </label>
+                          <div
+                            class="chakra-collapse"
+                            style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                          />
+                        </div>
+                        <div
+                          class="css-79elbk"
+                        >
+                          <label
+                            class="chakra-radio css-1pw4d56"
+                          >
+                            <input
+                              class="chakra-radio__input"
+                              id="radio-32"
+                              name="DenominatorDefineTotalTechSpec"
+                              style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                              type="radio"
+                              value="no"
+                            />
+                            <span
+                              aria-hidden="true"
+                              class="chakra-radio__control css-ssalds"
+                              data-cy="DenominatorDefineTotalTechSpec1"
+                            />
+                            <span
+                              class="chakra-radio__label css-1y8kf23"
+                            >
+                              <p
+                                class="chakra-text css-vjer7o"
+                                id="DenominatorDefineTotalTechSpec-no"
+                              >
+                                No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.
+                              </p>
+                            </span>
+                          </label>
+                          <div
+                            class="chakra-collapse"
+                            style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="css-odz94x"
+                >
+                  <h2
+                    class="chakra-heading css-1j9oeic"
+                  >
+                    Which delivery systems are represented in the denominator?
+                  </h2>
+                  <p
+                    class="chakra-text css-1drbkg9"
+                  >
+                    Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system.
+                  </p>
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <div
+                      class="chakra-stack css-n21gh5"
+                    >
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DeliverySysRepresentationDenominator0"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DeliverySysRepresentationDenominator0-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="FFS"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Fee-for-Service (FFS)
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DeliverySysRepresentationDenominator1"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DeliverySysRepresentationDenominator1-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="PCCM"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Primary Care Case Management (PCCM)
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DeliverySysRepresentationDenominator2"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DeliverySysRepresentationDenominator2-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="MCO-PIHP"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DeliverySysRepresentationDenominator3"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DeliverySysRepresentationDenominator3-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="ICM"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Integrated Care Models (ICM)
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-cy="DeliverySysRepresentationDenominator4"
+                        >
+                          <input
+                            class="chakra-checkbox__input"
+                            id="DeliverySysRepresentationDenominator4-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="Other"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                          />
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Other
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="css-pb69ky"
+            >
+              <h2
+                class="chakra-form__label css-e3y4kl"
+                data-cy="Combined Rate(s) from Multiple Reporting Units"
+              >
+                Combined Rate(s) from Multiple Reporting Units
+              </h2>
+              <fieldset>
+                <p
+                  class="chakra-text css-35ezg3"
+                >
+                  Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate?
+                </p>
+                <p
+                  class="chakra-text css-wlea3r"
+                >
+                  For additional information refer to the
+                   
+                  <a
+                    aria-label="Additional state level brief information"
+                    class="chakra-link css-14ksm7b"
+                    href="https://www.medicaid.gov/medicaid/quality-of-care/downloads/state-level-rates-brief.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    State-Level Rate Brief
+                  </a>
+                  .
+                </p>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <div
+                    class="chakra-radio-group css-0"
+                    id="CombinedRates_radiogroup"
+                    role="radiogroup"
+                  >
+                    <div
+                      class="chakra-stack css-n21gh5"
+                    >
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-radio css-1pw4d56"
+                        >
+                          <input
+                            class="chakra-radio__input"
+                            id="radio-36"
+                            name="CombinedRates"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="radio"
+                            value="yes"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-radio__control css-ssalds"
+                            data-cy="CombinedRates0"
+                          />
+                          <span
+                            class="chakra-radio__label css-1y8kf23"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                              id="CombinedRates-yes"
+                            >
+                              Yes, we combined rates from multiple reporting units to create a State-Level rate.
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-radio css-1pw4d56"
+                        >
+                          <input
+                            class="chakra-radio__input"
+                            id="radio-37"
+                            name="CombinedRates"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="radio"
+                            value="no"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-radio__control css-ssalds"
+                            data-cy="CombinedRates1"
+                          />
+                          <span
+                            class="chakra-radio__label css-1y8kf23"
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                              id="CombinedRates-no"
+                            >
+                              No, we did not combine rates from multiple reporting units to create a State-Level rate.
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: hidden; display: none; opacity: 0; height: 0px;"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="css-pb69ky"
+            >
+              <h2
+                class="chakra-form__label css-e3y4kl"
+                data-cy="Additional Notes/Comments on the measure (optional)"
+              >
+                Additional Notes/Comments on the measure (optional)
+              </h2>
+              <fieldset>
+                <div
+                  class="chakra-form-control css-0"
+                  role="group"
+                >
+                  <label
+                    class="chakra-form__label css-uvho5g"
+                    data-cy="Please add any additional notes or comments on the measure not otherwise captured above:"
+                    for="field-38"
+                    id="field-38-label"
+                  >
+                    Please add any additional notes or comments on the measure not otherwise captured above:
+                  </label>
+                  <textarea
+                    class="chakra-textarea css-0"
+                    data-cy="AdditionalNotes-AdditionalNotes"
+                    id="field-38"
+                    name="AdditionalNotes-AdditionalNotes"
+                  />
+                  <div
+                    class="css-k008qs"
+                  >
+                    <div
+                      class="css-17xejub"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-1q7njkh"
+                >
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    If you need additional space to include comments or supplemental information, please attach further documentation below.
+                  </p>
+                  <div
+                    class="chakra-stack css-7k53p3"
+                    tabindex="0"
+                  >
+                    <div
+                      class="css-1eljh4a"
+                      data-testid="component-mask"
+                    />
+                    <img
+                      alt="file upload icon"
+                      src="/assets/folder.svg"
+                    />
+                    <input
+                      accept=".pdf,.doc,.docx,.xlsx,.jpg,.jpeg,.png"
+                      autocomplete="off"
+                      multiple=""
+                      style="display: none;"
+                      tabindex="-1"
+                      type="file"
+                    />
+                    <p
+                      class="chakra-text css-1ezsviu"
+                    >
+                      Drag & drop or
+                       
+                      <button
+                        type="button"
+                      >
+                        <u
+                          class="chakra-text css-14ksm7b"
+                        >
+                          browse
+                        </u>
+                      </button>
+                    </p>
+                    <p
+                      class="chakra-text css-1h9sx9"
+                    >
+                      Maximum file size of 
+                      80MB
+                      .
+                    </p>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div
+              class="chakra-stack hidden-print-items css-1h4ws66"
+              data-testid="complete-measure-footer"
+            >
+              <h2
+                class="chakra-heading css-1asey76"
+              >
+                Complete the Measure
+              </h2>
+              <p
+                class="chakra-text css-0"
+                data-cy="complete measure sub-1"
+              >
+                Please select "Validate Measure" to check any error present on the measure prior to completion
+              </p>
+              <p
+                class="chakra-text css-14ih5ig"
+                data-cy="complete measure sub-2"
+              >
+                Complete the measure and mark it for submission to CMS for review
+              </p>
+              <div
+                class="chakra-stack css-1bx5rct"
+              >
+                <div
+                  class="css-0"
+                >
+                  <button
+                    class="chakra-button css-12qnfwb"
+                    data-cy="Validate Measure"
+                    disabled=""
+                    type="button"
+                  >
+                    Validate Measure
+                  </button>
+                </div>
+                <div
+                  class="css-0"
+                >
+                  <button
+                    class="chakra-button css-12qnfwb"
+                    data-cy="Complete Measure"
+                    disabled=""
+                    type="button"
+                  >
+                    Complete Measure
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</body>
+`;
