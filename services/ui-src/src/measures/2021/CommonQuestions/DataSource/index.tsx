@@ -1,10 +1,11 @@
-import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
-import { DataSourceData, defaultData, OptionNode } from "./data";
-import { useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
+import * as QMR from "components";
+import * as Types from "../types";
+import { cleanString } from "utils/cleanString";
+import { DataSourceData, defaultData, OptionNode } from "./data";
+import { useCustomRegister } from "hooks/useCustomRegister";
+import { useWatch } from "react-hook-form";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -52,7 +53,7 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
 const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   for (const node of data) {
-    const cleanedNodeValue = node.value.replace(/[^\w]/g, "");
+    const cleanedNodeValue = cleanString(node.value);
     const adjustedParentName = parentName
       ? `${parentName}-${cleanedNodeValue}`
       : cleanedNodeValue;
@@ -121,7 +122,10 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             data source differed across health plans or delivery systems,
             identify the number of plans that used each data source:
           </CUI.Text>
-          <QMR.TextArea {...register(DC.DATA_SOURCE_DESCRIPTION)} />
+          <QMR.TextArea
+            label="Data Source Description"
+            {...register(DC.DATA_SOURCE_DESCRIPTION)}
+          />
         </CUI.VStack>
       )}
     </QMR.CoreQuestionWrapper>

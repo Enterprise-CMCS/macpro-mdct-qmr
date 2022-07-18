@@ -10,7 +10,7 @@ export const categories = [];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of Health Home enrollees ages 18 to 85 who had a diagnosis of hypertension and whose blood pressure (BP) was adequately controlled (< 140/90 mm Hg) during the measurement year.",
+    "Percentage of health home enrollees ages 18 to 85 who had a diagnosis of hypertension and whose blood pressure (BP) was adequately controlled (< 140/90 mm Hg) during the measurement year.",
   ],
   questionListItems: [],
   categories,

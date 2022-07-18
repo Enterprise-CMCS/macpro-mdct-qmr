@@ -59,6 +59,7 @@ The new web-based QMR application will allow CMS to access data submitted by the
     - [Cypress Setup](#cypress-setup)
     - [Running Cypress Tests](#running-cypress-tests)
     - [Running Unit Tests](#running-unit-tests)
+      - [Snapshot Tests](#snapshot-tests)
       - [Code Coverage Report](#code-coverage-report)
   - [Code Climate](#code-climate)
     - [Configuration](#configuration)
@@ -469,6 +470,12 @@ On the terminal, you will see the unit test results.
 For example:
 
 ![Jest Results](./.images/jestResults.png?raw=true)
+
+#### Snapshot Tests
+
+Many of commonly used components and common question components are tested with snapshot tests. [Jest's documentation](https://jestjs.io/docs/snapshot-testing) describes what snapshot testing is and how to interact with their tooling.
+
+If a change is made that affects the way a component renders, and that component is covered by snapshot testing, the snapshot tests will fail. This is expected behavior. Output logs should highlight clearly the discrepancies between the rendered component and the stored snapshot. Assuming the changes are anticipated the snapshot should be updated to match the component so tests will pass going forward. See the ["Updating Snapshots"](https://jestjs.io/docs/snapshot-testing#updating-snapshots) section of the Jest docs for specific instructions on overwriting the snapshots. Alternatively, the old snapshot file can be deleted and will be re-generated on the next run of the test.
 
 #### Code Coverage Report
 
