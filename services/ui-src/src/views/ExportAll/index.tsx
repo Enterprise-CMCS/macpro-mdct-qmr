@@ -44,15 +44,13 @@ export const ExportAll = () => {
     if (!stylesApplied) {
       setStylesApplied(true);
 
-      // // gather all styles
+      // gather all styles
       const cssRules = [];
-      console.group("Approach 1");
       for (let i = 0; i < document.styleSheets.length - 1; i++) {
         if (!document.styleSheets[i].href) {
           let ruleString = "";
           const rules = document.styleSheets[i]?.cssRules ?? [];
           const numberOfRules = rules.length;
-          console.log("rules", i, rules);
           for (let s = 0; s < numberOfRules; s++) {
             ruleString =
               ruleString +
@@ -65,7 +63,6 @@ export const ExportAll = () => {
           cssRules.push(ruleString);
         }
       }
-      console.groupEnd();
 
       // gather chakra css variables and make available for the body
       for (let i = 0; i < document.styleSheets.length - 1; i++) {
@@ -83,38 +80,34 @@ export const ExportAll = () => {
       }
 
       // apply styles to style tags within body
-      // for (const rule of cssRules) {
-      //   const styleTag = document.createElement("style");
-      //   document.head.appendChild(styleTag);
-      //   styleTag.appendChild(document.createTextNode(rule));
-      // }
-
-      console.group("Approach 2");
-      const styleString = [
-        //@ts-ignore
-        ...document.querySelectorAll("[data-emotion]"),
-      ].flatMap(({ sheet }) =>
-        [...sheet.cssRules].map((rules) => {
-          // any mass changes to chakra-css rules should go here
-          console.log("rules", rules);
-          return rules.cssText.replace(
-            /text-align: right/g,
-            "text-align: center"
-          );
-        })
-      );
-      console.groupEnd();
-
-      // emotion tags put into the body
-      for (const style of styleString) {
+      for (const rule of cssRules) {
         const styleTag = document.createElement("style");
         document.body.appendChild(styleTag);
-        styleTag.appendChild(document.createTextNode(style));
+        styleTag.appendChild(document.createTextNode(rule));
       }
+      // const styleString = [
+      //   //@ts-ignore
+      //   ...document.querySelectorAll("[data-emotion]"),
+      // ].flatMap(({ sheet }) =>
+      //   [...sheet.cssRules].map((rules) => {
+      //     // any mass changes to chakra-css rules should go here
+      // return rules.cssText.replace(
+      //   /text-align: right/g,
+      //   "text-align: center"
+      // );
+      //   })
+      // );
+
+      // // emotion tags put into the body
+      // for (const style of styleString) {
+      //   const styleTag = document.createElement("style");
+      //   document.body.appendChild(styleTag);
+      //   styleTag.appendChild(document.createTextNode(style));
+      // }
 
       // any additional css to adjust page
       const styleTag = document.createElement("style");
-      document.head.appendChild(styleTag);
+      document.body.appendChild(styleTag);
       styleTag.appendChild(
         document.createTextNode(
           `@page {}\n` +
@@ -142,12 +135,9 @@ export const ExportAll = () => {
 
     // fixing non standard characters
     const htmlString = html
-      .innerHTML! // fix broken assets and links
-      .replaceAll(
-        `href="/static`,
-        `href="https://${window.location.host}/static`
-      )
-      .replaceAll("src=/assets", `src="https://${window.location.host}/assets`)
+      .outerHTML! // fix broken assets and links
+      .replace(/href="\//g, `href="https://${window.location.host}/`)
+      .replace(/src="\//g, `src="https://${window.location.host}/`)
       // non standard character fixing
       .replaceAll(`’`, `'`)
       .replaceAll(`‘`, `'`)
