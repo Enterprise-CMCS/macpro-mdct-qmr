@@ -13,6 +13,7 @@ export const ExportAll = () => {
   const { state, coreSetId, year } = useParams();
   const [isLoadingPDF, setIsLoadingPDF] = useState(false);
   const [stylesApplied, setStylesApplied] = useState(false);
+  console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
