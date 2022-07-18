@@ -45,24 +45,27 @@ export const ExportAll = () => {
       setStylesApplied(true);
 
       // // gather all styles
-      // const cssRules = [];
-      // for (let i = 0; i < document.styleSheets.length - 1; i++) {
-      //   if (!document.styleSheets[i].href) {
-      //     let ruleString = "";
-      //     const rules = document.styleSheets[i]?.cssRules ?? [];
-      //     const numberOfRules = rules.length;
-      //     for (let s = 0; s < numberOfRules; s++) {
-      //       ruleString =
-      //         ruleString +
-      //         rules[s].cssText.replace(
-      //           /text-align: right/g,
-      //           "text-align: center"
-      //         ) +
-      //         "\n";
-      //     }
-      //     cssRules.push(ruleString);
-      //   }
-      // }
+      const cssRules = [];
+      console.group("Approach 1");
+      for (let i = 0; i < document.styleSheets.length - 1; i++) {
+        if (!document.styleSheets[i].href) {
+          let ruleString = "";
+          const rules = document.styleSheets[i]?.cssRules ?? [];
+          const numberOfRules = rules.length;
+          console.log("rules", i, rules);
+          for (let s = 0; s < numberOfRules; s++) {
+            ruleString =
+              ruleString +
+              rules[s].cssText.replace(
+                /text-align: right/g,
+                "text-align: center"
+              ) +
+              "\n";
+          }
+          cssRules.push(ruleString);
+        }
+      }
+      console.groupEnd();
 
       // gather chakra css variables and make available for the body
       for (let i = 0; i < document.styleSheets.length - 1; i++) {
@@ -85,18 +88,22 @@ export const ExportAll = () => {
       //   document.head.appendChild(styleTag);
       //   styleTag.appendChild(document.createTextNode(rule));
       // }
+
+      console.group("Approach 2");
       const styleString = [
         //@ts-ignore
         ...document.querySelectorAll("[data-emotion]"),
       ].flatMap(({ sheet }) =>
         [...sheet.cssRules].map((rules) => {
           // any mass changes to chakra-css rules should go here
+          console.log("rules", rules);
           return rules.cssText.replace(
             /text-align: right/g,
             "text-align: center"
           );
         })
       );
+      console.groupEnd();
 
       // emotion tags put into the body
       for (const style of styleString) {
