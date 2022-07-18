@@ -119,7 +119,7 @@ export const ExportAll = () => {
             ` .prince-upload-wrapper { text-align: center; margin: auto; }\n` +
             ` .prince-option-label-wrapper { margin-top: 10px; margin-bottom: 10px !important; }\n` +
             ` .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }\n` +
-            ` h1 { margin: auto !important; align-text: center !important; width: fitcontent !important; }\n` +
+            ` h1 { margin: auto !important; text-align: center !important; width: fitcontent !important; }\n` +
             ` .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box;}\n`
         )
       );
