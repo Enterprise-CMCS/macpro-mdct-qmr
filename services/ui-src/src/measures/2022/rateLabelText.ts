@@ -1,628 +1,1349 @@
 /**
  * Attention
- * Changing the keys of these objects will change how the measure data is shaped and should not be done unless that is the desired result.
- * Changing the values of these objects will change the text that is displayed to the user.
- * 
- * These are the categories and qualifier rate labels and corresponding text to display to users.
+ * Changing the labels or id's will change how the measure data is shaped and should not be done unless that is the desired result.
+ * Changing the text property of these objects will change the text that is displayed to the user.
  */
+
+import { LabelData } from "utils";
 
 export const data = {
     "AAB-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and Older": "Age 65 and Older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and Older",
+                "id": "Age65andOlder",
+                "text": "Age 65 and Older"
+            }
+        ]
     },
     "ADD-CH": {
-        "qualifiers": {
-            "Initiation Phase": "Initiation Phase",
-            "Continuation and Maintenance (C&M) Phase": "Continuation and Maintenance (C&M) Phase"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Initiation Phase",
+                "id": "InitiationPhase",
+                "text": "Initiation Phase somthing"
+            },
+            {
+                "label": "Continuation and Maintenance (C&M) Phase",
+                "id": "ContinuationandMaintenanceCMPhase",
+                "text": "Continuation and Maintenance (C&M) Phase"
+            }
+        ]
     },
     "AIF-HH": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Ages 65 to 74": "Ages 65 to 74",
-            "Ages 75 to 84": "Ages 75 to 84",
-            "Age 85 and older": "Age 85 and older",
-            "Total": "Total"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Ages 65 to 74",
+                "id": "Ages65to74",
+                "text": "Ages 65 to 74"
+            },
+            {
+                "label": "Ages 75 to 84",
+                "id": "Ages75to84",
+                "text": "Ages 75 to 84"
+            },
+            {
+                "label": "Age 85 and older",
+                "id": "Age85andolder",
+                "text": "Age 85 and older"
+            },
+            {
+                "label": "Total",
+                "id": "Total",
+                "text": "Total"
+            }
+        ]
     },
     "AMB-CH": {
-        "qualifiers": {
-            "< Age 1": "< Age 1",
-            "Ages 1 to 9": "Ages 1 to 9",
-            "Ages 10 to 19": "Ages 10 to 19",
-            "Ages unknown": "Ages unknown",
-            "Total (Ages <1 to 19)": "Total (Ages <1 to 19)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "< Age 1",
+                "id": "Age1",
+                "text": "< Age 1"
+            },
+            {
+                "label": "Ages 1 to 9",
+                "id": "Ages1to9",
+                "text": "Ages 1 to 9"
+            },
+            {
+                "label": "Ages 10 to 19",
+                "id": "Ages10to19",
+                "text": "Ages 10 to 19"
+            },
+            {
+                "label": "Ages unknown",
+                "id": "Agesunknown",
+                "text": "Ages unknown"
+            },
+            {
+                "label": "Total (Ages <1 to 19)",
+                "id": "TotalAges1to19",
+                "text": "Total (Ages <1 to 19)"
+            }
+        ]
     },
     "AMB-HH": {
-        "qualifiers": {
-            "Ages 0 to 17": "Ages 0 to 17",
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older",
-            "Ages unknown": "Ages unknown",
-            "Total (All Ages)": "Total (All Ages)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 0 to 17",
+                "id": "Ages0to17",
+                "text": "Ages 0 to 17"
+            },
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            },
+            {
+                "label": "Ages unknown",
+                "id": "Agesunknown",
+                "text": "Ages unknown"
+            },
+            {
+                "label": "Total (All Ages)",
+                "id": "TotalAllAges",
+                "text": "Total (All Ages)"
+            }
+        ]
     },
     "AMM-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {
-            "Effective Acute Phase Treatment": "Effective Acute Phase Treatment",
-            "Effective Continuation Phase Treatment": "Effective Continuation Phase Treatment"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "AMR-AD": {
-        "qualifiers": {
-            "Ages 19 to 50": "Ages 19 to 50",
-            "Ages 51 to 64": "Ages 51 to 64",
-            "Total (Ages 19 to 64)": "Total (Ages 19 to 64)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 19 to 50",
+                "id": "Ages19to50",
+                "text": "Ages 19 to 50"
+            },
+            {
+                "label": "Ages 51 to 64",
+                "id": "Ages51to64",
+                "text": "Ages 51 to 64"
+            },
+            {
+                "label": "Total (Ages 19 to 64)",
+                "id": "TotalAges19to64",
+                "text": "Total (Ages 19 to 64)"
+            }
+        ]
     },
     "AMR-CH": {
-        "qualifiers": {
-            "Ages 5 to 11": "Ages 5 to 11",
-            "Ages 12 to 18": "Ages 12 to 18",
-            "Total (Ages 5 to 18)": "Total (Ages 5 to 18)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 5 to 11",
+                "id": "Ages5to11",
+                "text": "Ages 5 to 11"
+            },
+            {
+                "label": "Ages 12 to 18",
+                "id": "Ages12to18",
+                "text": "Ages 12 to 18"
+            },
+            {
+                "label": "Total (Ages 5 to 18)",
+                "id": "TotalAges5to18",
+                "text": "Total (Ages 5 to 18)"
+            }
+        ]
     },
     "APM-CH": {
-        "qualifiers": {
-            "Ages 1 to 11": "Ages 1 to 11",
-            "Ages 12 to 17": "Ages 12 to 17",
-            "Total (Ages 1 to 17)": "Total (Ages 1 to 17)"
-        },
-        "categories": {
-            "Blood Glucose": "Blood Glucose",
-            "Cholesterol": "Cholesterol",
-            "Blood Glucose and Cholesterol": "Blood Glucose and Cholesterol"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 1 to 11",
+                "id": "Ages1to11",
+                "text": "Ages 1 to 11"
+            },
+            {
+                "label": "Ages 12 to 17",
+                "id": "Ages12to17",
+                "text": "Ages 12 to 17"
+            },
+            {
+                "label": "Total (Ages 1 to 17)",
+                "id": "TotalAges1to17",
+                "text": "Total (Ages 1 to 17)"
+            }
+        ]
     },
     "APP-CH": {
-        "qualifiers": {
-            "Ages 1 to 11": "Ages 1 to 11",
-            "Ages 12 to 17": "Ages 12 to 17",
-            "Total (Ages 1 to 17)": "Total (Ages 1 to 17)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 1 to 11",
+                "id": "Ages1to11",
+                "text": "Ages 1 to 11"
+            },
+            {
+                "label": "Ages 12 to 17",
+                "id": "Ages12to17",
+                "text": "Ages 12 to 17"
+            },
+            {
+                "label": "Total (Ages 1 to 17)",
+                "id": "TotalAges1to17",
+                "text": "Total (Ages 1 to 17)"
+            }
+        ]
     },
     "BCS-AD": {
-        "qualifiers": {
-            "Ages 50 to 64": "Ages 50 to 64",
-            "Ages 65 to 74": "Ages 65 to 74"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 50 to 64",
+                "id": "Ages50to64",
+                "text": "Ages 50 to 64"
+            },
+            {
+                "label": "Ages 65 to 74",
+                "id": "Ages65to74",
+                "text": "Ages 65 to 74"
+            }
+        ]
     },
     "CBP-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Ages 65 to 85": "Ages 65 to 85"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Ages 65 to 85",
+                "id": "Ages65to85",
+                "text": "Ages 65 to 85"
+            }
+        ]
     },
     "CBP-HH": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Ages 65 to 85": "Ages 65 to 85",
-            "Total (Ages 18 to 85)": "Total (Ages 18 to 85)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Ages 65 to 85",
+                "id": "Ages65to85",
+                "text": "Ages 65 to 85"
+            },
+            {
+                "label": "Total (Ages 18 to 85)",
+                "id": "TotalAges18to85",
+                "text": "Total (Ages 18 to 85)"
+            }
+        ]
     },
     "CCP-AD": {
-        "qualifiers": {
-            "Three Days Postpartum Rate": "Three Days Postpartum Rate",
-            "Sixty Days Postpartum Rate": "Sixty Days Postpartum Rate"
-        },
-        "categories": {
-            "Most effective or moderately effective method of contraception": "Most effective or moderately effective method of contraception",
-            "Long-acting reversible method of contraception (LARC)": "Long-acting reversible method of contraception (LARC)"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Three Days Postpartum Rate",
+                "id": "ThreeDaysPostpartumRate",
+                "text": "Three Days Postpartum Rate"
+            },
+            {
+                "label": "Sixty Days Postpartum Rate",
+                "id": "SixtyDaysPostpartumRate",
+                "text": "Sixty Days Postpartum Rate"
+            }
+        ]
     },
     "CCP-CH": {
-        "qualifiers": {
-            "Three Days Postpartum Rate": "Three Days Postpartum Rate",
-            "Sixty Days Postpartum Rate": "Sixty Days Postpartum Rate"
-        },
-        "categories": {
-            "Most effective or moderately effective method of contraception": "Most effective or moderately effective method of contraception",
-            "Long-acting reversible method of contraception (LARC)": "Long-acting reversible method of contraception (LARC)"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Three Days Postpartum Rate",
+                "id": "ThreeDaysPostpartumRate",
+                "text": "Three Days Postpartum Rate"
+            },
+            {
+                "label": "Sixty Days Postpartum Rate",
+                "id": "SixtyDaysPostpartumRate",
+                "text": "Sixty Days Postpartum Rate"
+            }
+        ]
     },
     "CCS-AD": {
-        "qualifiers": {
-            "Percentage of women ages 21 to 64 screened": "Percentage of women ages 21 to 64 screened"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Percentage of women ages 21 to 64 screened",
+                "id": "Percentageofwomenages21to64screened",
+                "text": "Percentage of women ages 21 to 64 screened"
+            }
+        ]
     },
     "CCW-AD": {
-        "qualifiers": {
-            "All Women Ages 21 to 44": "All Women Ages 21 to 44"
-        },
-        "categories": {
-            "Most effective or moderately effective method of contraception": "Most effective or moderately effective method of contraception",
-            "Long-acting reversible method of contraception (LARC)": "Long-acting reversible method of contraception (LARC)"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "All Women Ages 21 to 44",
+                "id": "AllWomenAges21to44",
+                "text": "All Women Ages 21 to 44"
+            }
+        ]
     },
     "CCW-CH": {
-        "qualifiers": {
-            "Most effective or moderately effective method of contraception": "Most effective or moderately effective method of contraception",
-            "Long-acting reversible method of contraception (LARC)": "Long-acting reversible method of contraception (LARC)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Most effective or moderately effective method of contraception",
+                "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception",
+                "text": "Most effective or moderately effective method of contraception"
+            },
+            {
+                "label": "Long-acting reversible method of contraception (LARC)",
+                "id": "LongactingreversiblemethodofcontraceptionLARC",
+                "text": "Long-acting reversible method of contraception (LARC)"
+            }
+        ]
     },
     "CDF-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "CDF-CH": {
-        "qualifiers": {
-            "Ages 12 to 17": "Ages 12 to 17"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 12 to 17",
+                "id": "Ages12to17",
+                "text": "Ages 12 to 17"
+            }
+        ]
     },
     "CDF-HH": {
-        "qualifiers": {
-            "Ages 12 to 17": "Ages 12 to 17",
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older",
-            "Total (Age 12 and older)": "Total (Age 12 and older)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 12 to 17",
+                "id": "Ages12to17",
+                "text": "Ages 12 to 17"
+            },
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            },
+            {
+                "label": "Total (Age 12 and older)",
+                "id": "TotalAge12andolder",
+                "text": "Total (Age 12 and older)"
+            }
+        ]
     },
     "CHL-AD": {
-        "qualifiers": {
-            "Ages 21 to 24": "Ages 21 to 24"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 21 to 24",
+                "id": "Ages21to24",
+                "text": "Ages 21 to 24"
+            }
+        ]
     },
     "CHL-CH": {
-        "qualifiers": {
-            "Ages 16 to 20": "Ages 16 to 20"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 16 to 20",
+                "id": "Ages16to20",
+                "text": "Ages 16 to 20"
+            }
+        ]
     },
     "CIS-CH": {
-        "qualifiers": {
-            "DTaP": "DTaP",
-            "IPV": "IPV",
-            "MMR": "MMR",
-            "HiB": "HiB",
-            "Hep B": "Hep B",
-            "VZV": "VZV",
-            "PCV": "PCV",
-            "Hep A": "Hep A",
-            "RV": "RV",
-            "Flu": "Flu",
-            "Combo 3": "Combo 3",
-            "Combo 7": "Combo 7",
-            "Combo 10": "Combo 10"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "DTaP",
+                "id": "DTaP",
+                "text": "DTaP"
+            },
+            {
+                "label": "IPV",
+                "id": "IPV",
+                "text": "IPV"
+            },
+            {
+                "label": "MMR",
+                "id": "MMR",
+                "text": "MMR"
+            },
+            {
+                "label": "HiB",
+                "id": "HiB",
+                "text": "HiB"
+            },
+            {
+                "label": "Hep B",
+                "id": "HepB",
+                "text": "Hep B"
+            },
+            {
+                "label": "VZV",
+                "id": "VZV",
+                "text": "VZV"
+            },
+            {
+                "label": "PCV",
+                "id": "PCV",
+                "text": "PCV"
+            },
+            {
+                "label": "Hep A",
+                "id": "HepA",
+                "text": "Hep A"
+            },
+            {
+                "label": "RV",
+                "id": "RV",
+                "text": "RV"
+            },
+            {
+                "label": "Flu",
+                "id": "Flu",
+                "text": "Flu"
+            },
+            {
+                "label": "Combo 3",
+                "id": "Combo3",
+                "text": "Combo 3"
+            },
+            {
+                "label": "Combo 7",
+                "id": "Combo7",
+                "text": "Combo 7"
+            },
+            {
+                "label": "Combo 10",
+                "id": "Combo10",
+                "text": "Combo 10"
+            }
+        ]
     },
     "COB-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "COL-AD": {
-        "qualifiers": {
-            "Ages 50 to 64": "Ages 50 to 64",
-            "Ages 65 to 75": "Ages 65 to 75"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 50 to 64",
+                "id": "Ages50to64",
+                "text": "Ages 50 to 64"
+            },
+            {
+                "label": "Ages 65 to 75",
+                "id": "Ages65to75",
+                "text": "Ages 65 to 75"
+            }
+        ]
     },
     "COL-HH": {
-        "qualifiers": {
-            "Ages 50 to 64": "Ages 50 to 64",
-            "Ages 65 to 75": "Ages 65 to 75"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 50 to 64",
+                "id": "Ages50to64",
+                "text": "Ages 50 to 64"
+            },
+            {
+                "label": "Ages 65 to 75",
+                "id": "Ages65to75",
+                "text": "Ages 65 to 75"
+            }
+        ]
     },
     "DEV-CH": {
-        "qualifiers": {
-            "Children screened by 12 months of age": "Children screened by 12 months of age",
-            "Children screened by 24 months of age": "Children screened by 24 months of age",
-            "Children screened by 36 months of age": "Children screened by 36 months of age",
-            "Children Total": "Children Total"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Children screened by 12 months of age",
+                "id": "Childrenscreenedby12monthsofage",
+                "text": "Children screened by 12 months of age"
+            },
+            {
+                "label": "Children screened by 24 months of age",
+                "id": "Childrenscreenedby24monthsofage",
+                "text": "Children screened by 24 months of age"
+            },
+            {
+                "label": "Children screened by 36 months of age",
+                "id": "Childrenscreenedby36monthsofage",
+                "text": "Children screened by 36 months of age"
+            },
+            {
+                "label": "Children Total",
+                "id": "ChildrenTotal",
+                "text": "Children Total"
+            }
+        ]
     },
     "FUA-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {
-            "Follow-up within 30 days of ED visit": "Follow-up within 30 days of ED visit",
-            "Follow-up within 7 days of ED visit": "Follow-up within 7 days of ED visit"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "FUA-CH": {
-        "qualifiers": {
-            "Ages 13 to 17": "Ages 13 to 17"
-        },
-        "categories": {
-            "Follow-up within 30 days of ED visit": "Follow-up within 30 days of ED visit",
-            "Follow-up within 7 days of ED visit": "Follow-up within 7 days of ED visit"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 13 to 17",
+                "id": "Ages13to17",
+                "text": "Ages 13 to 17"
+            }
+        ]
     },
     "FUA-HH": {
-        "qualifiers": {
-            "Ages 13 to 17": "Ages 13 to 17",
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older",
-            "Total": "Total"
-        },
-        "categories": {
-            "Follow-up within 30 days of ED visit": "Follow-up within 30 days of ED visit",
-            "Follow-up within 7 days of ED visit": "Follow-up within 7 days of ED visit"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 13 to 17",
+                "id": "Ages13to17",
+                "text": "Ages 13 to 17"
+            },
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            },
+            {
+                "label": "Total",
+                "id": "Total",
+                "text": "Total"
+            }
+        ]
     },
     "FUH-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {
-            "Follow-Up within 30 days after discharge": "Follow-Up within 30 days after discharge",
-            "Follow-Up within 7 days after discharge": "Follow-Up within 7 days after discharge"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "FUH-CH": {
-        "qualifiers": {
-            "Ages 6 to 17": "Ages 6 to 17"
-        },
-        "categories": {
-            "Follow-Up within 30 days after discharge": "Follow-Up within 30 days after discharge",
-            "Follow-Up within 7 days after discharge": "Follow-Up within 7 days after discharge"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 6 to 17",
+                "id": "Ages6to17",
+                "text": "Ages 6 to 17"
+            }
+        ]
     },
     "FUH-HH": {
-        "qualifiers": {
-            "Ages 6 to 17": "Ages 6 to 17",
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older",
-            "Total (Age 6 and older)": "Total (Age 6 and older)"
-        },
-        "categories": {
-            "Follow-up within 30 days after discharge": "Follow-up within 30 days after discharge",
-            "Follow-up within 7 days after discharge": "Follow-up within 7 days after discharge"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 6 to 17",
+                "id": "Ages6to17",
+                "text": "Ages 6 to 17"
+            },
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            },
+            {
+                "label": "Total (Age 6 and older)",
+                "id": "TotalAge6andolder",
+                "text": "Total (Age 6 and older)"
+            }
+        ]
     },
     "FUM-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {
-            "30-day follow-up after ED visit for mental illness": "30-day follow-up after ED visit for mental illness",
-            "7-day follow-up after ED visit for mental illness": "7-day follow-up after ED visit for mental illness"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "FUM-CH": {
-        "qualifiers": {
-            "Ages 6 to 17": "Ages 6 to 17"
-        },
-        "categories": {
-            "30-day follow-up after ED visit for mental illness": "30-day follow-up after ED visit for mental illness",
-            "7-day follow-up after ED visit for mental illness": "7-day follow-up after ED visit for mental illness"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 6 to 17",
+                "id": "Ages6to17",
+                "text": "Ages 6 to 17"
+            }
+        ]
     },
     "FUM-HH": {
-        "qualifiers": {
-            "Ages 6 to 17": "Ages 6 to 17",
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older",
-            "Total (Age 6 and older)": "Total (Age 6 and older)"
-        },
-        "categories": {
-            "30-day follow-up after ED visit for mental illness": "30-day follow-up after ED visit for mental illness",
-            "7-day follow-up after ED visit for mental illness": "7-day follow-up after ED visit for mental illness"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 6 to 17",
+                "id": "Ages6to17",
+                "text": "Ages 6 to 17"
+            },
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            },
+            {
+                "label": "Total (Age 6 and older)",
+                "id": "TotalAge6andolder",
+                "text": "Total (Age 6 and older)"
+            }
+        ]
     },
     "FVA-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            }
+        ]
     },
     "HPC-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Ages 65 to 75": "Ages 65 to 75"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Ages 65 to 75",
+                "id": "Ages65to75",
+                "text": "Ages 65 to 75"
+            }
+        ]
     },
     "HPCMI-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Ages 65 to 75": "Ages 65 to 75"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Ages 65 to 75",
+                "id": "Ages65to75",
+                "text": "Ages 65 to 75"
+            }
+        ]
     },
     "HVL-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "IET-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {
-            "Initiation of AOD Treatment: Alcohol Abuse or Dependence": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-            "Engagement of AOD Treatment: Alcohol Abuse or Dependence": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-            "Initiation of AOD Treatment: Opioid Abuse or Dependence": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-            "Engagement of AOD Treatment: Opioid Abuse or Dependence": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-            "Initiation of AOD Treatment: Other Drug Abuse or Dependence": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-            "Engagement of AOD Treatment: Other Drug Abuse or Dependence": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-            "Initiation of AOD Treatment: Total AOD Abuse or Dependence": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-            "Engagement of AOD Treatment: Total AOD Abuse or Dependence": "Engagement of AOD Treatment: Total AOD Abuse or Dependence"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "IET-HH": {
-        "qualifiers": {
-            "Ages 13 to 17": "Ages 13 to 17",
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older",
-            "Total (age 13 and older)": "Total (age 13 and older)"
-        },
-        "categories": {
-            "Initiation of AOD Treatment: Alcohol Abuse or Dependence": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-            "Engagement of AOD Treatment: Alcohol Abuse or Dependence": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-            "Initiation of AOD Treatment: Opioid Abuse or Dependence": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-            "Engagement of AOD Treatment: Opioid Abuse or Dependence": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-            "Initiation of AOD Treatment: Other Drug Abuse or Dependence": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-            "Engagement of AOD Treatment: Other Drug Abuse or Dependence": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-            "Initiation of AOD Treatment: Total AOD Abuse or Dependence": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-            "Engagement of AOD Treatment: Total AOD Abuse or Dependence": "Engagement of AOD Treatment: Total AOD Abuse or Dependence"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 13 to 17",
+                "id": "Ages13to17",
+                "text": "Ages 13 to 17"
+            },
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            },
+            {
+                "label": "Total (age 13 and older)",
+                "id": "Totalage13andolder",
+                "text": "Total (age 13 and older)"
+            }
+        ]
     },
     "IMA-CH": {
-        "qualifiers": {
-            "Meningococcal": "Meningococcal",
-            "Tdap": "Tdap",
-            "Human Papillomavirus (HPV)": "Human Papillomavirus (HPV)",
-            "Combination 1 (Meningococcal, Tdap)": "Combination 1 (Meningococcal, Tdap)",
-            "Combination 2 (Meningococcal, Tdap, HPV)": "Combination 2 (Meningococcal, Tdap, HPV)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Meningococcal",
+                "id": "Meningococcal",
+                "text": "Meningococcal"
+            },
+            {
+                "label": "Tdap",
+                "id": "Tdap",
+                "text": "Tdap"
+            },
+            {
+                "label": "Human Papillomavirus (HPV)",
+                "id": "HumanPapillomavirusHPV",
+                "text": "Human Papillomavirus (HPV)"
+            },
+            {
+                "label": "Combination 1 (Meningococcal, Tdap)",
+                "id": "Combination1MeningococcalTdap",
+                "text": "Combination 1 (Meningococcal, Tdap)"
+            },
+            {
+                "label": "Combination 2 (Meningococcal, Tdap, HPV)",
+                "id": "Combination2MeningococcalTdapHPV",
+                "text": "Combination 2 (Meningococcal, Tdap, HPV)"
+            }
+        ]
     },
     "IU-HH": {
-        "qualifiers": {
-            "Ages 0 to 17": "Ages 0 to 17",
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older",
-            "Ages unknown": "Ages unknown",
-            "Total": "Total"
-        },
-        "categories": {
-            "Inpatient": "Inpatient",
-            "Maternity": "Maternity",
-            "Mental and Behavioral Disorders": "Mental and Behavioral Disorders",
-            "Surgery": "Surgery",
-            "Medicine": "Medicine"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 0 to 17",
+                "id": "Ages0to17",
+                "text": "Ages 0 to 17"
+            },
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            },
+            {
+                "label": "Ages unknown",
+                "id": "Agesunknown",
+                "text": "Ages unknown"
+            },
+            {
+                "label": "Total",
+                "id": "Total",
+                "text": "Total"
+            }
+        ]
     },
     "MSC-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {
-            "Advising Smokers and Tobacco Users to Quit": "Advising Smokers and Tobacco Users to Quit",
-            "Discussing Cessation Medications": "Discussing Cessation Medications",
-            "Discussing Cessation Strategies": "Discussing Cessation Strategies",
-            "Percentage of Current Smokers and Tobacco Users": "Percentage of Current Smokers and Tobacco Users"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "OEV-CH": {
-        "qualifiers": {
-            "Age <1": "Age <1",
-            "Ages 1 to 2": "Ages 1 to 2",
-            "Ages 3 to 5": "Ages 3 to 5",
-            "Ages 6 to 7": "Ages 6 to 7",
-            "Ages 8 to 9": "Ages 8 to 9",
-            "Ages 10 to 11": "Ages 10 to 11",
-            "Ages 12 to 14": "Ages 12 to 14",
-            "Ages 15 to 18": "Ages 15 to 18",
-            "Ages 19 to 20": "Ages 19 to 20",
-            "Total ages <1 to 20": "Total ages <1 to 20"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Age <1",
+                "id": "Age1",
+                "text": "Age <1"
+            },
+            {
+                "label": "Ages 1 to 2",
+                "id": "Ages1to2",
+                "text": "Ages 1 to 2"
+            },
+            {
+                "label": "Ages 3 to 5",
+                "id": "Ages3to5",
+                "text": "Ages 3 to 5"
+            },
+            {
+                "label": "Ages 6 to 7",
+                "id": "Ages6to7",
+                "text": "Ages 6 to 7"
+            },
+            {
+                "label": "Ages 8 to 9",
+                "id": "Ages8to9",
+                "text": "Ages 8 to 9"
+            },
+            {
+                "label": "Ages 10 to 11",
+                "id": "Ages10to11",
+                "text": "Ages 10 to 11"
+            },
+            {
+                "label": "Ages 12 to 14",
+                "id": "Ages12to14",
+                "text": "Ages 12 to 14"
+            },
+            {
+                "label": "Ages 15 to 18",
+                "id": "Ages15to18",
+                "text": "Ages 15 to 18"
+            },
+            {
+                "label": "Ages 19 to 20",
+                "id": "Ages19to20",
+                "text": "Ages 19 to 20"
+            },
+            {
+                "label": "Total ages <1 to 20",
+                "id": "Totalages1to20",
+                "text": "Total ages <1 to 20"
+            }
+        ]
     },
     "OHD-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "OUD-AD": {
-        "qualifiers": {
-            "Total Rate": "Total Rate",
-            "Buprenorphine": "Buprenorphine",
-            "Oral naltrexone": "Oral naltrexone",
-            "Long-acting, injectable naltrexone": "Long-acting, injectable naltrexone",
-            "Methadone": "Methadone"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Total Rate",
+                "id": "TotalRate",
+                "text": "Total Rate"
+            },
+            {
+                "label": "Buprenorphine",
+                "id": "Buprenorphine",
+                "text": "Buprenorphine"
+            },
+            {
+                "label": "Oral naltrexone",
+                "id": "Oralnaltrexone",
+                "text": "Oral naltrexone"
+            },
+            {
+                "label": "Long-acting, injectable naltrexone",
+                "id": "Longactinginjectablenaltrexone",
+                "text": "Long-acting, injectable naltrexone"
+            },
+            {
+                "label": "Methadone",
+                "id": "Methadone",
+                "text": "Methadone"
+            }
+        ]
     },
     "OUD-HH": {
-        "qualifiers": {
-            "Total Rate": "Total Rate",
-            "Buprenorphine": "Buprenorphine",
-            "Oral naltrexone": "Oral naltrexone",
-            "Long-acting, injectable naltrexone": "Long-acting, injectable naltrexone",
-            "Methadone": "Methadone"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Total Rate",
+                "id": "TotalRate",
+                "text": "Total Rate"
+            },
+            {
+                "label": "Buprenorphine",
+                "id": "Buprenorphine",
+                "text": "Buprenorphine"
+            },
+            {
+                "label": "Oral naltrexone",
+                "id": "Oralnaltrexone",
+                "text": "Oral naltrexone"
+            },
+            {
+                "label": "Long-acting, injectable naltrexone",
+                "id": "Longactinginjectablenaltrexone",
+                "text": "Long-acting, injectable naltrexone"
+            },
+            {
+                "label": "Methadone",
+                "id": "Methadone",
+                "text": "Methadone"
+            }
+        ]
     },
     "PCR-AD": {
-        "qualifiers": {
-            "Count of Index Hospital Stays": "Count of Index Hospital Stays",
-            "Count of Observed 30-Day Readmissions": "Count of Observed 30-Day Readmissions",
-            "Observed Readmission Rate": "Observed Readmission Rate",
-            "Count of Expected 30-Day Readmissions": "Count of Expected 30-Day Readmissions",
-            "Expected Readmission Rate": "Expected Readmission Rate",
-            "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
-            "Count of Beneficiaries in Medicaid Population": "Count of Beneficiaries in Medicaid Population",
-            "Number of Outliers": "Number of Outliers",
-            "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000": "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Count of Index Hospital Stays",
+                "id": "CountofIndexHospitalStays",
+                "text": "Count of Index Hospital Stays"
+            },
+            {
+                "label": "Count of Observed 30-Day Readmissions",
+                "id": "CountofObserved30DayReadmissions",
+                "text": "Count of Observed 30-Day Readmissions"
+            },
+            {
+                "label": "Observed Readmission Rate",
+                "id": "ObservedReadmissionRate",
+                "text": "Observed Readmission Rate"
+            },
+            {
+                "label": "Count of Expected 30-Day Readmissions",
+                "id": "CountofExpected30DayReadmissions",
+                "text": "Count of Expected 30-Day Readmissions"
+            },
+            {
+                "label": "Expected Readmission Rate",
+                "id": "ExpectedReadmissionRate",
+                "text": "Expected Readmission Rate"
+            },
+            {
+                "label": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
+                "id": "OERatioCountofObserved30DayReadmissionsCountofExpected30DayReadmissions",
+                "text": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)"
+            },
+            {
+                "label": "Count of Beneficiaries in Medicaid Population",
+                "id": "CountofBeneficiariesinMedicaidPopulation",
+                "text": "Count of Beneficiaries in Medicaid Population"
+            },
+            {
+                "label": "Number of Outliers",
+                "id": "NumberofOutliers",
+                "text": "Number of Outliers"
+            },
+            {
+                "label": "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000",
+                "id": "OutlierRateNumberofOutliersCountofBeneficiariesinMedicaidPopulationx1000",
+                "text": "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000"
+            }
+        ]
     },
     "PCR-HH": {
-        "qualifiers": {
-            "Count of Index Hospital Stays": "Count of Index Hospital Stays",
-            "Count of Observed 30-Day Readmissions": "Count of Observed 30-Day Readmissions",
-            "Observed Readmission Rate": "Observed Readmission Rate",
-            "Count of Expected 30-Day Readmissions": "Count of Expected 30-Day Readmissions",
-            "Expected Readmission Rate": "Expected Readmission Rate",
-            "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
-            "Count of Enrollees in Health Home Population": "Count of Enrollees in Health Home Population",
-            "Number of Outliers": "Number of Outliers",
-            "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000": "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Count of Index Hospital Stays",
+                "id": "CountofIndexHospitalStays",
+                "text": "Count of Index Hospital Stays"
+            },
+            {
+                "label": "Count of Observed 30-Day Readmissions",
+                "id": "CountofObserved30DayReadmissions",
+                "text": "Count of Observed 30-Day Readmissions"
+            },
+            {
+                "label": "Observed Readmission Rate",
+                "id": "ObservedReadmissionRate",
+                "text": "Observed Readmission Rate"
+            },
+            {
+                "label": "Count of Expected 30-Day Readmissions",
+                "id": "CountofExpected30DayReadmissions",
+                "text": "Count of Expected 30-Day Readmissions"
+            },
+            {
+                "label": "Expected Readmission Rate",
+                "id": "ExpectedReadmissionRate",
+                "text": "Expected Readmission Rate"
+            },
+            {
+                "label": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
+                "id": "OERatioCountofObserved30DayReadmissionsCountofExpected30DayReadmissions",
+                "text": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)"
+            },
+            {
+                "label": "Count of Enrollees in Health Home Population",
+                "id": "CountofEnrolleesinHealthHomePopulation",
+                "text": "Count of Enrollees in Health Home Population"
+            },
+            {
+                "label": "Number of Outliers",
+                "id": "NumberofOutliers",
+                "text": "Number of Outliers"
+            },
+            {
+                "label": "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000",
+                "id": "OutlierRateNumberofOutliersCountofEnrolleesinHealthHomePopulationx1000",
+                "text": "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000"
+            }
+        ]
     },
     "PPC-AD": {
-        "qualifiers": {
-            "Postpartum visit between 7 and 84 days": "Postpartum visit between 7 and 84 days"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Postpartum visit between 7 and 84 days",
+                "id": "Postpartumvisitbetween7and84days",
+                "text": "Postpartum visit between 7 and 84 days"
+            }
+        ]
     },
     "PPC-CH": {
-        "qualifiers": {
-            "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
+                "id": "Prenatalcarevisitinthefirsttrimesteronorbeforetheenrollmentstartdateorwithin42daysofenrollmentinMedicaidCHIP",
+                "text": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
+            }
+        ]
     },
     "PQI01-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "PQI05-AD": {
-        "qualifiers": {
-            "Ages 40 to 64": "Ages 40 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 40 to 64",
+                "id": "Ages40to64",
+                "text": "Ages 40 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "PQI08-AD": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            }
+        ]
     },
     "PQI15-AD": {
-        "qualifiers": {
-            "Ages 18 to 39": "Ages 18 to 39"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 39",
+                "id": "Ages18to39",
+                "text": "Ages 18 to 39"
+            }
+        ]
     },
     "PQI92-HH": {
-        "qualifiers": {
-            "Ages 18 to 64": "Ages 18 to 64",
-            "Age 65 and older": "Age 65 and older",
-            "Total (Age 18 and older)": "Total (Age 18 and older)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "id": "Ages18to64",
+                "text": "Ages 18 to 64"
+            },
+            {
+                "label": "Age 65 and older",
+                "id": "Age65andolder",
+                "text": "Age 65 and older"
+            },
+            {
+                "label": "Total (Age 18 and older)",
+                "id": "TotalAge18andolder",
+                "text": "Total (Age 18 and older)"
+            }
+        ]
     },
     "SAA-AD": {
-        "qualifiers": {
-            "Beneficiaries Age 18 and Older": "Beneficiaries Age 18 and Older"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Beneficiaries Age 18 and Older",
+                "id": "BeneficiariesAge18andOlder",
+                "text": "Beneficiaries Age 18 and Older"
+            }
+        ]
     },
     "SFM-CH": {
-        "qualifiers": {
-            "Rate 1 - At Least One Sealant": "Rate 1 - At Least One Sealant",
-            "Rate 2 - All Four Molars Sealed": "Rate 2 - All Four Molars Sealed"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Rate 1 - At Least One Sealant",
+                "id": "Rate1AtLeastOneSealant",
+                "text": "Rate 1 - At Least One Sealant"
+            },
+            {
+                "label": "Rate 2 - All Four Molars Sealed",
+                "id": "Rate2AllFourMolarsSealed",
+                "text": "Rate 2 - All Four Molars Sealed"
+            }
+        ]
     },
     "SSD-AD": {
-        "qualifiers": {
-            "Percentage of Beneficiaries Ages 18 to 64": "Percentage of Beneficiaries Ages 18 to 64"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Percentage of Beneficiaries Ages 18 to 64",
+                "id": "PercentageofBeneficiariesAges18to64",
+                "text": "Percentage of Beneficiaries Ages 18 to 64"
+            }
+        ]
     },
     "TFL-CH": {
-        "qualifiers": {
-            "Ages 1 to 2": "Ages 1 to 2",
-            "Ages 3 to 5": "Ages 3 to 5",
-            "Ages 6 to 7": "Ages 6 to 7",
-            "Ages 8 to 9": "Ages 8 to 9",
-            "Ages 10 to 11": "Ages 10 to 11",
-            "Ages 12 to 14": "Ages 12 to 14",
-            "Ages 15 to 18": "Ages 15 to 18",
-            "Ages 19 to 20": "Ages 19 to 20",
-            "Total Ages 1 through 20": "Total Ages 1 through 20"
-        },
-        "categories": {
-            "Dental or oral health services": "Dental or oral health services",
-            "Dental services": "Dental services",
-            "Oral health services": "Oral health services"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 1 to 2",
+                "id": "Ages1to2",
+                "text": "Ages 1 to 2"
+            },
+            {
+                "label": "Ages 3 to 5",
+                "id": "Ages3to5",
+                "text": "Ages 3 to 5"
+            },
+            {
+                "label": "Ages 6 to 7",
+                "id": "Ages6to7",
+                "text": "Ages 6 to 7"
+            },
+            {
+                "label": "Ages 8 to 9",
+                "id": "Ages8to9",
+                "text": "Ages 8 to 9"
+            },
+            {
+                "label": "Ages 10 to 11",
+                "id": "Ages10to11",
+                "text": "Ages 10 to 11"
+            },
+            {
+                "label": "Ages 12 to 14",
+                "id": "Ages12to14",
+                "text": "Ages 12 to 14"
+            },
+            {
+                "label": "Ages 15 to 18",
+                "id": "Ages15to18",
+                "text": "Ages 15 to 18"
+            },
+            {
+                "label": "Ages 19 to 20",
+                "id": "Ages19to20",
+                "text": "Ages 19 to 20"
+            },
+            {
+                "label": "Total Ages 1 through 20",
+                "id": "TotalAges1through20",
+                "text": "Total Ages 1 through 20"
+            }
+        ]
     },
     "W30-CH": {
-        "qualifiers": {
-            "Rate 1 - Six or more well-child visits in the first 15 months ": "Rate 1 - Six or more well-child visits in the first 15 months ",
-            "Rate 2 - Two or more well-child visits for ages 15 months to 30 months": "Rate 2 - Two or more well-child visits for ages 15 months to 30 months"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Rate 1 - Six or more well-child visits in the first 15 months ",
+                "id": "Rate1Sixormorewellchildvisitsinthefirst15months",
+                "text": "Rate 1 - Six or more well-child visits in the first 15 months "
+            },
+            {
+                "label": "Rate 2 - Two or more well-child visits for ages 15 months to 30 months",
+                "id": "Rate2Twoormorewellchildvisitsforages15monthsto30months",
+                "text": "Rate 2 - Two or more well-child visits for ages 15 months to 30 months"
+            }
+        ]
     },
     "WCC-CH": {
-        "qualifiers": {
-            "Ages 3 to 11": "Ages 3 to 11",
-            "Ages 12 to 17": "Ages 12 to 17",
-            "Total (Ages 3 to 17)": "Total (Ages 3 to 17)"
-        },
-        "categories": {
-            "Body mass index (BMI) percentile documentation": "Body mass index (BMI) percentile documentation",
-            "Counseling for Nutrition": "Counseling for Nutrition",
-            "Counseling for Physical Activity": "Counseling for Physical Activity"
-        }
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 3 to 11",
+                "id": "Ages3to11",
+                "text": "Ages 3 to 11"
+            },
+            {
+                "label": "Ages 12 to 17",
+                "id": "Ages12to17",
+                "text": "Ages 12 to 17"
+            },
+            {
+                "label": "Total (Ages 3 to 17)",
+                "id": "TotalAges3to17",
+                "text": "Total (Ages 3 to 17)"
+            }
+        ]
     },
     "WCV-CH": {
-        "qualifiers": {
-            "Ages 3 to 11": "Ages 3 to 11",
-            "Ages 12 to 17": "Ages 12 to 17",
-            "Ages 18 to 21": "Ages 18 to 21",
-            "Total (Ages 3 to 21)": "Total (Ages 3 to 21)"
-        },
-        "categories": {}
+        "categories": [],
+        "qualifiers": [
+            {
+                "label": "Ages 3 to 11",
+                "id": "Ages3to11",
+                "text": "Ages 3 to 11"
+            },
+            {
+                "label": "Ages 12 to 17",
+                "id": "Ages12to17",
+                "text": "Ages 12 to 17"
+            },
+            {
+                "label": "Ages 18 to 21",
+                "id": "Ages18to21",
+                "text": "Ages 18 to 21"
+            },
+            {
+                "label": "Total (Ages 3 to 21)",
+                "id": "TotalAges3to21",
+                "text": "Total (Ages 3 to 21)"
+            }
+        ]
     }
 }
 
 export const getCatQualLabels = (measure: keyof typeof data) => {
-  
-    const qualifiers = Object.keys(data[measure].qualifiers);
-    const categories = Object.keys(data[measure].categories);
+    const getLabels = (q: LabelData) => q.label
+
+    const qualifiers = data[measure].qualifiers.map(getLabels);
+    const categories = data[measure].categories.map(getLabels);
   
     return {
       qualifiers,

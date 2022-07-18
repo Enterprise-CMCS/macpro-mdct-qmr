@@ -1,3 +1,14 @@
+type LabelText = { [key: string]: string };
+export interface LabelData {
+  label: string;
+  text: string;
+  id: string;
+}
+const addLabelTextData = (acc: LabelText, data: LabelData) => {
+  acc[data.label] = data.text;
+  return acc;
+};
+
 export const getLabelText = () => {
   const { pathname } = window.location;
   const params = pathname.split("/");
@@ -7,8 +18,8 @@ export const getLabelText = () => {
     const { data } = require(`../measures/${year}/rateLabelText`);
 
     return {
-      ...data[measure]?.qualifiers,
-      ...data[measure]?.categories,
+      ...data[measure]?.qualifiers.reduce(addLabelTextData, {}),
+      ...data[measure]?.categories.reduce(addLabelTextData, {}),
     };
   }
   return {};
