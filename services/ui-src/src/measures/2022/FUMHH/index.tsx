@@ -69,6 +69,7 @@ export const FUMHH = ({
           )}
         </>
       )}
+      <CMQ.AdditionalNotes />
     </>
   );
 };
