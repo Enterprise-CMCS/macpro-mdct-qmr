@@ -402,14 +402,13 @@ export const MeasureWrapper = ({
           },
         ]}
         buttons={
-          !autoCompletedMeasure ? (
-            <QMR.MeasureButtons
-              isLoading={mutationRunning}
-              handleSave={methods.handleSubmit(handleSave)}
-              lastAltered={measureData?.data && measureData?.lastAltered}
-              isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
-            />
-          ) : undefined
+          <QMR.MeasureButtons
+            isLoading={mutationRunning}
+            handleSave={methods.handleSubmit(handleSave)}
+            lastAltered={measureData?.data && measureData?.lastAltered}
+            isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
+            isAutoCompletedMeasure={autoCompletedMeasure}
+          />
         }
       >
         <CUI.Skeleton isLoaded={!loadingData}>
