@@ -47,14 +47,7 @@ export const ExportAll = () => {
       // gather all styles
       const cssRules = [];
       for (let i = 0; i < document.styleSheets.length - 1; i++) {
-        if (
-          !document.styleSheets[i].href &&
-          !(
-            document.styleSheets[i]?.cssRules[0]?.cssText.includes(
-              "--chakra"
-            ) && document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
-          )
-        ) {
+        if (!document.styleSheets[i].href) {
           let ruleString = "";
           const rules = document.styleSheets[i]?.cssRules ?? [];
           const numberOfRules = rules.length;
@@ -143,8 +136,11 @@ export const ExportAll = () => {
     // fixing non standard characters
     const htmlString = html
       .innerHTML! // fix broken assets and links
-      // .replace(/href="\//g, `href="https://${window.location.host}/`)
-      // .replace("src=/assets", `src="https://${window.location.host}/assets`)
+      .replaceAll(
+        `href="/static`,
+        `href="https://${window.location.host}/static`
+      )
+      .replaceAll("src=/assets", `src="https://${window.location.host}/assets`)
       // non standard character fixing
       .replaceAll(`’`, `'`)
       .replaceAll(`‘`, `'`)
