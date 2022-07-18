@@ -147,8 +147,8 @@ export const ExportAll = () => {
       .replaceAll("\u2013", "-")
       .replaceAll("\u2014", "-")
       // can't have flex/inline be sub-children of block components
-      .replaceAll(" flex;", " block;")
-      .replaceAll(" inline;", " block;")
+      .replace(/display:\s*flex;/g, " block;")
+      .replace(/display:\s*inline;/g, " block;")
       // fix text ares whose sizing will not match
       .replace(
         /<textarea[^>]*tabindex="-1"[^<]*>/g,
