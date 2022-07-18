@@ -1,10 +1,9 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
+import { cleanString } from "utils/cleanString";
 import { FormData } from "./types";
 import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
-
-const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 
 /** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
