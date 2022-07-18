@@ -47,17 +47,31 @@ export const ExportAll = () => {
       // gather all styles
       const cssRules = [];
       for (let i = 0; i < document.styleSheets.length - 1; i++) {
-        if (!document.styleSheets[i].href) {
+        if (
+          !document.styleSheets[i].href &&
+          !(
+            document.styleSheets[i]?.cssRules[0]?.cssText.includes(
+              "--chakra"
+            ) && document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
+          )
+        ) {
           let ruleString = "";
           const rules = document.styleSheets[i]?.cssRules ?? [];
           const numberOfRules = rules.length;
           for (let s = 0; s < numberOfRules; s++) {
             ruleString =
               ruleString +
-              rules[s].cssText.replace(
-                /text-align: right/g,
-                "text-align: center"
-              ) +
+              rules[s].cssText
+                .replace(/text-align: right/g, "text-align: center") // non standard character fixing
+                .replaceAll(`’`, `'`)
+                .replaceAll(`‘`, `'`)
+                .replaceAll(`”`, `"`)
+                .replaceAll(`“`, `"`)
+                .replaceAll("\u2013", "-")
+                .replaceAll("\u2014", "-")
+                // can't have flex/inline be sub-children of block components
+                .replace(/display:\s*flex;/g, " block !important;")
+                .replace(/display:\s*inline;/g, " block !important;") +
               "\n";
           }
           cssRules.push(ruleString);
@@ -82,7 +96,7 @@ export const ExportAll = () => {
       // apply styles to style tags within body
       for (const rule of cssRules) {
         const styleTag = document.createElement("style");
-        document.head.prepend(styleTag);
+        document.head.appendChild(styleTag);
         styleTag.appendChild(document.createTextNode(rule));
       }
       // const styleString = [
@@ -107,7 +121,7 @@ export const ExportAll = () => {
 
       // any additional css to adjust page
       const styleTag = document.createElement("style");
-      document.body.appendChild(styleTag);
+      document.head.appendChild(styleTag);
       styleTag.appendChild(
         document.createTextNode(
           `@page {}\n` +
@@ -135,19 +149,9 @@ export const ExportAll = () => {
 
     // fixing non standard characters
     const htmlString = html
-      .outerHTML! // fix broken assets and links
+      .innerHTML! // fix broken assets and links
       .replace(/href="\//g, `href="https://${window.location.host}/`)
       .replace(/src="\//g, `src="https://${window.location.host}/`)
-      // non standard character fixing
-      .replaceAll(`’`, `'`)
-      .replaceAll(`‘`, `'`)
-      .replaceAll(`”`, `"`)
-      .replaceAll(`“`, `"`)
-      .replaceAll("\u2013", "-")
-      .replaceAll("\u2014", "-")
-      // can't have flex/inline be sub-children of block components
-      .replace(/display:\s*flex;/g, " block !important;")
-      .replace(/display:\s*inline;/g, " block !important;")
       // fix text ares whose sizing will not match
       .replace(
         /<textarea[^>]*tabindex="-1"[^<]*>/g,
