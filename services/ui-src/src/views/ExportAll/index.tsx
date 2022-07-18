@@ -13,7 +13,6 @@ export const ExportAll = () => {
   const { state, coreSetId, year } = useParams();
   const [isLoadingPDF, setIsLoadingPDF] = useState(false);
   const [stylesApplied, setStylesApplied] = useState(false);
-  console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
@@ -83,7 +82,7 @@ export const ExportAll = () => {
       // apply styles to style tags within body
       for (const rule of cssRules) {
         const styleTag = document.createElement("style");
-        document.body.appendChild(styleTag);
+        document.head.prepend(styleTag);
         styleTag.appendChild(document.createTextNode(rule));
       }
       // const styleString = [
@@ -147,8 +146,8 @@ export const ExportAll = () => {
       .replaceAll("\u2013", "-")
       .replaceAll("\u2014", "-")
       // can't have flex/inline be sub-children of block components
-      .replace(/display:\s*flex;/g, " block;")
-      .replace(/display:\s*inline;/g, " block;")
+      .replace(/display:\s*flex;/g, " block !important;")
+      .replace(/display:\s*inline;/g, " block !important;")
       // fix text ares whose sizing will not match
       .replace(
         /<textarea[^>]*tabindex="-1"[^<]*>/g,
