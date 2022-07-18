@@ -51,8 +51,8 @@ export const CDFHH = ({
                 calcTotal
               />
               <CMQ.DeviationFromMeasureSpec
-                customTotalLabel="Total (Age 12 and older)"
                 categories={PMD.categories}
+                customTotalLabel={PMD.qualifiers[3]}
               />
             </>
           )}

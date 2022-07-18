@@ -54,7 +54,10 @@ export const AMBCH = ({
                 rateScale={rateScale}
                 allowNumeratorGreaterThanDenominator
               />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpec
+                categories={PMD.categories}
+                customTotalLabel={PMD.qualifiers[4]}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && (
