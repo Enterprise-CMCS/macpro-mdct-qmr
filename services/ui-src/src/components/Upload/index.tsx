@@ -270,6 +270,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       justifyContent="space-between"
       zIndex={3}
       py="6px"
+      className="prince-file-item"
     >
       <CUI.Text
         as="a"

@@ -43,26 +43,6 @@ export const ExportAll = () => {
     // only apply the styles once, in case page is persisted and button re-clicked
     if (!stylesApplied) {
       setStylesApplied(true);
-
-      // gather all styles
-      const cssRules = [];
-      for (let i = 0; i < document.styleSheets.length - 1; i++) {
-        if (!document.styleSheets[i].href) {
-          let ruleString = "";
-          const rules = document.styleSheets[i]?.cssRules ?? [];
-          const numberOfRules = rules.length;
-          for (let s = 0; s < numberOfRules; s++) {
-            ruleString =
-              ruleString +
-              rules[s].cssText
-                .replace(/text-align: right/g, "text-align: center")
-                .replace(/display:\s*flex;/g, "display: block !important;") +
-              "\n";
-          }
-          cssRules.push(ruleString);
-        }
-      }
-
       // gather chakra css variables and make available for the body
       for (let i = 0; i < document.styleSheets.length - 1; i++) {
         if (
@@ -77,32 +57,68 @@ export const ExportAll = () => {
           );
         }
       }
-
-      // apply styles to style tags within body
-      for (const rule of cssRules) {
-        const styleTag = document.createElement("style");
-        document.body.appendChild(styleTag);
-        styleTag.appendChild(document.createTextNode(rule));
-      }
-
-      // any additional css to adjust page
-      const styleTag = document.createElement("style");
-      document.body.prepend(styleTag);
-      styleTag.appendChild(
-        document.createTextNode(
-          `@page {}\n` +
-            ` * { box-decoration-break: slice !important; box-sizing: border-box !important; }\n` +
-            ` .prince-flex-overwrite { display: flex !important; }\n` +
-            ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
-            ` .prince-option-label-text { margin: 0 0 0 20px !important; }\n` +
-            ` .prince-upload-wrapper { text-align: center; margin: auto; }\n` +
-            ` .prince-option-label-wrapper { margin-top: 10px; margin: 0 0 10px 0 !important; }\n` +
-            ` .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }\n` +
-            ` h1, .prince-top-link { margin: auto !important; text-align: center !important; width: fitcontent !important; }\n` +
-            ` .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box;}\n`
-        )
-      );
     }
+
+    // gather all styles
+    const cssRules = [];
+    for (let i = 0; i < document.styleSheets.length - 1; i++) {
+      if (!document.styleSheets[i].href) {
+        let ruleString = "";
+        const rules = document.styleSheets[i]?.cssRules ?? [];
+        const numberOfRules = rules.length;
+        for (let s = 0; s < numberOfRules; s++) {
+          ruleString =
+            ruleString +
+            rules[s].cssText
+              .replace(/text-align: right/g, "text-align: center")
+              .replace(/display:\s*flex;/g, "display: block;") +
+            "\n";
+        }
+        if (!ruleString.includes(":root")) {
+          cssRules.push(ruleString);
+        }
+      }
+    }
+
+    // apply styles to style tags within body
+    const tagsToDelete = [];
+    for (const rule of cssRules) {
+      const styleTag = document.createElement("style");
+      document.body.appendChild(styleTag);
+      styleTag.appendChild(document.createTextNode(rule));
+      tagsToDelete.push(styleTag);
+    }
+
+    // any additional css to adjust page
+    const styleTag = document.createElement("style");
+    document.body.prepend(styleTag);
+    styleTag.appendChild(
+      document.createTextNode(
+        `@page {}\n` + // any page definition edits for prince can be placed here
+          ` html, body, #root { height: 100%; font-size: 16px; }\n` +
+          ` * { box-decoration-break: slice !important; box-sizing: border-box !important; }\n` +
+          ` .logos { width: 90px; }\n` +
+          ` .medicaid-logo { width: 170px; }\n` +
+          ` ..prince-supp-text { margin-bottom: 15px !important; }\n` +
+          ` .prince-logo-smaller-sizing { width: 60px; }\n` +
+          ` .prince-flex-overwrite { display: flex !important; }\n` +
+          ` .prince-file-item { margin: 10px 0 0 0; padding: 6px 0; }\n` +
+          ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
+          ` .prince-option-label-text { margin: 0 0 0 20px !important; }\n` +
+          ` .prince-input-bottom-spacer { margin-bottom: 10px !important; }\n` +
+          ` .hidden-print-items { visibility: hidden; display: none !important; }\n` +
+          ` .prince-option-label-wrapper { margin-top: 10px; margin: 0 0 10px 0 !important; }\n` +
+          ` .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }\n` +
+          ` .prince-logo-footer { flex-wrap: nowrap; align-content: flex-start; align-items: flex-start; }\n` +
+          ` .prince-footer-smaller-text { font-size: var(--chakra-fontSizes-xs); text-align: left; max-width: 100% }\n` +
+          ` .prince-flex-row-overwrite { display: flex; flex-direction: row; flex-wrap: nowrap; max-width: 100% !important; margin: 0 0 0 10px }\n` +
+          ` .prince-upload-wrapper { text-align: center; display: flex !important; align-content: center; align-items: center; page-break-inside: avoid; }\n` +
+          ` h1, .prince-top-link, .prince-supp-text { margin: auto !important; text-align: center !important; width: fitcontent !important; margin: 10px 0 !important; }\n` +
+          ` .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box;}\n` +
+          ` .prince-upload-wrapper, .prince-file-item { border: 3px; border-style: dotted; background-color: var(--chakra-colors-blue-100); border-radius: var(--chakra-radii-md) }\n`
+      )
+    );
+    tagsToDelete.push(styleTag);
 
     // get html element and remove noscript tag
     const html = document.querySelector("html")!;
@@ -111,8 +127,8 @@ export const ExportAll = () => {
     // fixing non standard characters
     const htmlString = html
       .outerHTML! // fix broken assets and links
-      .replace(/href="\//g, `href="https://${window.location.host}/`)
-      .replace(/src="\//g, `src="https://${window.location.host}/`)
+      .replace(/src="\/assets/g, `src="https://${window.location.host}/assets`)
+      .replace(/src="\/footer/g, `src="https://${window.location.host}/footer`)
       // non standard character fixing
       .replaceAll(`’`, `'`)
       .replaceAll(`‘`, `'`)
@@ -132,9 +148,12 @@ export const ExportAll = () => {
       .replace(/<textarea[^>]*>/g, '<p class="chakra-text replaced-text-area">')
       .replace(/<\/textarea>/g, "</p>");
 
-    console.log("htmlString", htmlString);
-
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
+
+    // clean up of styles to not break page layout
+    for (const tag of tagsToDelete) {
+      document.body.removeChild(tag);
+    }
 
     const pdf = await getPDF({
       body: base64String,
@@ -246,7 +265,11 @@ export const ExportAll = () => {
               defaultData={defaultData}
               spaName={spaName}
             />
-            <CUI.Center key={`returnButton.${measure.measure}`} mt="2">
+            <CUI.Center
+              key={`returnButton.${measure.measure}`}
+              mt="2"
+              className="prince-top-link"
+            >
               <a
                 data-cy="surfaceLinkTag"
                 href="#top-of-page"
