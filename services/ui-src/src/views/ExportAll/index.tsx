@@ -54,10 +54,10 @@ export const ExportAll = () => {
           for (let s = 0; s < numberOfRules; s++) {
             ruleString =
               ruleString +
-              rules[s].cssText.replace(
-                /text-align: right/g,
-                "text-align: center"
-              ) +
+              rules[s].cssText
+                .replace(/text-align: right/g, "text-align: center")
+                .replace(/display:\s*flex;/g, "display: block !important;")
+                .replace(/display:\s*inline;/g, "display: block !important;") +
               "\n";
           }
           cssRules.push(ruleString);
@@ -111,13 +111,12 @@ export const ExportAll = () => {
       styleTag.appendChild(
         document.createTextNode(
           `@page {}\n` +
-            ` * { box-decoration-break: slice !important; box-sizing: border-box; }\n` +
-            ` .prince-border-backup { border-left: 4px }\n` +
+            ` * { box-decoration-break: slice !important; box-sizing: border-box !important; }\n` +
             ` .prince-flex-overwrite { display: flex !important; }\n` +
             ` .prince-measure-wrapper-box { page-break-before: always !important; }\n` +
-            ` .prince-option-label-text { margin-left: 20px !important; }\n` +
+            ` .prince-option-label-text { margin: 0 0 0 20px !important; }\n` +
             ` .prince-upload-wrapper { text-align: center; margin: auto; }\n` +
-            ` .prince-option-label-wrapper { margin-top: 10px; margin-bottom: 10px !important; }\n` +
+            ` .prince-option-label-wrapper { margin-top: 10px; margin: 0 0 10px 0 !important; }\n` +
             ` .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }\n` +
             ` h1 { margin: auto !important; text-align: center !important; width: fitcontent !important; }\n` +
             ` .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box;}\n`
@@ -157,6 +156,8 @@ export const ExportAll = () => {
       )
       .replace(/<textarea[^>]*>/g, '<p class="chakra-text replaced-text-area">')
       .replace(/<\/textarea>/g, "</p>");
+
+    console.log("htmlString", htmlString);
 
     const base64String = btoa(unescape(encodeURIComponent(htmlString)));
 
