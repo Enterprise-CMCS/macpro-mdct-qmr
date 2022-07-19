@@ -10,7 +10,6 @@ import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
 import { UserProvider, ApiProvider } from "hooks/authHooks";
-import { sheet } from "@emotion/css";
 
 Amplify.configure({
   Storage: {
@@ -19,7 +18,6 @@ Amplify.configure({
     identityPoolId: config.cognito.IDENTITY_POOL_ID,
   },
 });
-sheet.speedy(false);
 
 ReactDOM.render(
   <Router>
