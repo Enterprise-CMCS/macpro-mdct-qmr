@@ -17,7 +17,6 @@ interface OmsValidationProps {
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
-  customTotalLabel?: string;
   dataSource?: string[];
 }
 export const omsValidations = ({
@@ -27,7 +26,6 @@ export const omsValidations = ({
   locationDictionary,
   qualifiers,
   validationCallbacks,
-  customTotalLabel,
   dataSource,
 }: OmsValidationProps) => {
   const opmCats: string[] = ["OPM"];
@@ -53,7 +51,6 @@ export const omsValidations = ({
     locationDictionary,
     checkIsFilled,
     isOPM,
-    customTotalLabel,
     dataSource
   );
 };
@@ -66,7 +63,6 @@ const validateNDRs = (
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,
-  customTotalLabel?: string,
   dataSource?: string[]
 ) => {
   const isFilled: { [key: string]: boolean } = {};
@@ -125,7 +121,6 @@ const validateNDRs = (
           label,
           locationDictionary,
           isOPM,
-          customTotalLabel,
           dataSource,
         })
       );
@@ -149,7 +144,6 @@ const validateNDRs = (
             label,
             locationDictionary,
             isOPM,
-            customTotalLabel,
             dataSource,
           })
         );
