@@ -7,7 +7,6 @@ import { cleanString } from "utils/cleanString";
 
 interface GetTopLvlDeviationOptions {
   categories: string[];
-  customTotalLabel?: string;
 }
 
 type TopLevelOptions = {
@@ -18,7 +17,6 @@ type TopLevelOptions = {
 
 interface Props {
   categories: string[];
-  customTotalLabel?: string;
   measureName?: string;
 }
 
@@ -118,7 +116,6 @@ export const PCRADgetLowLvlDeviationOptions = ({
 export const DeviationFromMeasureSpec = ({
   categories,
   measureName = "",
-  customTotalLabel,
 }: Props) => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
   const watchPerformanceMeasure = useWatch({
@@ -127,7 +124,6 @@ export const DeviationFromMeasureSpec = ({
 
   const getTopLvlDeviationOptions = ({
     categories,
-    customTotalLabel,
   }: GetTopLvlDeviationOptions) => {
     if (watchPerformanceMeasure?.rates) {
       const topLvlOptions: TopLevelOptions = [];
@@ -140,15 +136,6 @@ export const DeviationFromMeasureSpec = ({
           if (quals.length > 0) {
             return getRateTextAreaOptions(DC.DEVIATIONS);
           }
-        }
-        // A total category should have the label "Total", per the Figma design.
-        const totalIndex = rates.singleCategory.findIndex(
-          (cat: any) => cat.isTotal === true
-        );
-        if (totalIndex >= 0) {
-          rates.singleCategory[totalIndex].label = `${
-            customTotalLabel ? `${customTotalLabel} ` : "Total"
-          }`;
         }
         /* This is checking if the rates object has a singleCategory key.
         If it does, then it will return the low level deviation options. */
@@ -227,7 +214,6 @@ export const DeviationFromMeasureSpec = ({
                 label="Select and explain the deviation(s):"
                 options={getTopLvlDeviationOptions({
                   categories,
-                  customTotalLabel,
                 })}
               />,
             ],

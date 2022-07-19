@@ -50,10 +50,7 @@ export const CDFHH = ({
                 rateScale={100}
                 calcTotal
               />
-              <CMQ.DeviationFromMeasureSpec
-                customTotalLabel={PMD.qualifiers[3]}
-                categories={PMD.categories}
-              />
+              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>
           )}
           {isOtherMeasureSpecSelected && (
