@@ -17,16 +17,10 @@ const validateOMSTotalNDRErrorMessage = (
 
 export const validateOMSTotalNDR =
   (errorMessageFunc = validateOMSTotalNDRErrorMessage): OmsValidationCallback =>
-  ({
-    categories,
-    qualifiers,
-    rateData,
-    label,
-    locationDictionary,
-    isOPM,
-    customTotalLabel,
-  }) => {
+  ({ categories, qualifiers, rateData, label, locationDictionary, isOPM }) => {
     if (isOPM) return [];
+
+    const customTotalLabel = qualifiers.slice(-1)[0];
 
     const error: FormError[] = [];
 
