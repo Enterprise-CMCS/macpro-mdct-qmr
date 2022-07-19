@@ -20,6 +20,6 @@ export const renderWithHookForm = (
   };
 
   return {
-    ...render(ui, { wrapper: Wrapper }),
+    ...render(ui, { wrapper: Wrapper, container: document.body }),
   };
 };

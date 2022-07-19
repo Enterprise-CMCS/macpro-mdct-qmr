@@ -61,30 +61,30 @@ describe("PCR-AD", () => {
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control'
     ).click();
-    cy.get(":nth-child(9) > :nth-child(3) > :nth-child(1)").should(
-      "have.text",
-      "Count of Index Hospital Stays (IHS)"
-    );
-    cy.get(":nth-child(9) > :nth-child(3) > :nth-child(2)").should(
-      "have.text",
-      "Count of Observed 30-Day Readmissions"
-    );
-    cy.get(":nth-child(9) > :nth-child(3) > :nth-child(3)").should(
-      "have.text",
-      "Count of Expected 30-Day Readmissions"
-    );
-    cy.get(":nth-child(9) > :nth-child(4)").should(
-      "have.text",
-      "For beneficiaries ages 18 to 64, states should also report the rate of beneficiaries who are identified as outliers based on high rates of inpatient and observation stays during the measurement year. Data are reported in the following categories:"
-    );
-    cy.get(":nth-child(9) > :nth-child(5) > :nth-child(1)").should(
-      "have.text",
-      "Count of Beneficiaries in Medicaid Population"
-    );
-    cy.get(":nth-child(9) > :nth-child(5) > :nth-child(2)").should(
-      "have.text",
-      "Number of Outliers"
-    );
+    // cy.get(":nth-child(9) > :nth-child(3) > :nth-child(1)").should(
+    //   "have.text",
+    //   "Count of Index Hospital Stays (IHS)"
+    // );
+    // cy.get(":nth-child(9) > :nth-child(3) > :nth-child(2)").should(
+    //   "have.text",
+    //   "Count of Observed 30-Day Readmissions"
+    // );
+    // cy.get(":nth-child(9) > :nth-child(3) > :nth-child(3)").should(
+    //   "have.text",
+    //   "Count of Expected 30-Day Readmissions"
+    // );
+    // cy.get(":nth-child(9) > :nth-child(4)").should(
+    //   "have.text",
+    //   "For beneficiaries ages 18 to 64, states should also report the rate of beneficiaries who are identified as outliers based on high rates of inpatient and observation stays during the measurement year. Data are reported in the following categories:"
+    // );
+    // cy.get(":nth-child(9) > :nth-child(5) > :nth-child(1)").should(
+    //   "have.text",
+    //   "Count of Beneficiaries in Medicaid Population"
+    // );
+    // cy.get(":nth-child(9) > :nth-child(5) > :nth-child(2)").should(
+    //   "have.text",
+    //   "Number of Outliers"
+    // );
     cy.get(
       '[data-cy="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"]'
     ).should(
@@ -204,7 +204,7 @@ describe("PCR-AD", () => {
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').type(
       "123"
     );
-    cy.get(":nth-child(9) > :nth-child(8)").click();
+    //cy.get(":nth-child(9) > :nth-child(8)").click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]'
     ).should("have.value", "100.0000");

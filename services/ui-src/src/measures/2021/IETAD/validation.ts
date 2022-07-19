@@ -1,10 +1,9 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
+import { cleanString } from "utils/cleanString";
 import { FormData } from "./types";
 import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
-
-const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 
 /** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
@@ -64,6 +63,12 @@ const IETValidation = (data: FormData) => {
 
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
+  const locationDictionary = GV.omsLocationDictionary(
+    OMSData(true),
+    PMD.qualifiers,
+    PMD.categories
+  );
+
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
@@ -77,9 +82,11 @@ const IETValidation = (data: FormData) => {
       ...GV.validateEqualQualifierDenominatorsPM(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
         ageGroups,
-        `Denominators must be the same for ${PMD.categories[i]} and ${
-          PMD.categories[i + 1]
-        }.`
+        undefined,
+        (qual) =>
+          `Denominators must be the same for ${locationDictionary([
+            qual,
+          ])} for ${PMD.categories[i]} and ${PMD.categories[i + 1]}.`
       ),
     ];
   }
@@ -116,16 +123,13 @@ const IETValidation = (data: FormData) => {
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
+
     // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
-        PMD.qualifiers,
-        PMD.categories
-      ),
+      locationDictionary,
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS(),

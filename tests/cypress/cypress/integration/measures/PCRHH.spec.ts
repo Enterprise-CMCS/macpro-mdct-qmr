@@ -145,7 +145,6 @@ describe("PCR-HH", () => {
     cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.value"]').type(
       "123"
     );
-    cy.get(":nth-child(9) > :nth-child(8)").click();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.2.value"]'
     ).should("have.value", "100.0000");
@@ -505,7 +504,7 @@ describe("PCR-HH", () => {
     );
     cy.get(
       '[data-cy="WhyAreYouNotReporting4"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Small sample size (less than 30)");
+    ).should("have.text", "Small sample size ");
     cy.get(
       '[data-cy="WhyAreYouNotReporting4"] > .chakra-checkbox__control'
     ).click();
