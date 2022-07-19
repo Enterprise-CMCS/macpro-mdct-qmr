@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
 import * as Types from "../types";
+import { ndrFormula } from "types";
 
 export type ComponentFlagType = "DEFAULT" | "AIF" | "IU" | "PCR";
 
@@ -12,6 +13,9 @@ interface ContextProps {
   calcTotal?: boolean;
   categories: string[];
   qualifiers: string[];
+  measureName?: string;
+  inputFieldNames?: string[];
+  ndrFormulas?: ndrFormula[];
   rateMultiplicationValue?: number;
   customMask?: RegExp;
   allowNumeratorGreaterThanDenominator?: boolean;
@@ -29,6 +33,9 @@ const PerformanceMeasureContext = createContext<ContextProps>({
   calcTotal: false,
   categories: [],
   qualifiers: [],
+  measureName: "",
+  inputFieldNames: [],
+  ndrFormulas: [],
   rateMultiplicationValue: undefined,
   customMask: undefined,
   allowNumeratorGreaterThanDenominator: false,

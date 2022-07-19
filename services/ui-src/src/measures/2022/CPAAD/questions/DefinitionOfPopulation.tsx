@@ -12,10 +12,9 @@ export const DefinitionOfPopulation = () => {
         Definition of population included in the survey sample
       </CUI.Heading>
       <CUI.Text mt="3">
-        Please select all populations that are included. At least one population
-        must be selected. For example, if your data include both non-dual
-        Medicaid and beneficiaries and Medicare and Medicaid Dual Eligibles,
-        select both:
+        Please select all populations that are included. For example, if your
+        data include both non-dual Medicaid beneficiaries and Medicare and
+        Medicaid Dual Eligibles, select both:
       </CUI.Text>
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>Survey sample includes Medicaid population</CUI.ListItem>

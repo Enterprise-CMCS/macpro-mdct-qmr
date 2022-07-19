@@ -16,7 +16,7 @@ describe("OY2 9940 COB-AD", () => {
     cy.get(
       '[data-cy="MeasurementSpecification-OtherMeasurementSpecificationDescription"]'
     ).type("Test");
-    cy.xpath("//label[contains(text(),'Data Source')]").should("be.visible");
+    cy.get('[data-cy="Data Source"]').should("be.visible");
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
@@ -123,7 +123,6 @@ describe("OY2 9940 COB-AD", () => {
     ).type("2");
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').clear();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').type("0");
-    cy.get(":nth-child(9) > .css-1bpnzr3").click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.rate.0.rate"]').should(
       "have.value",
       "0"
