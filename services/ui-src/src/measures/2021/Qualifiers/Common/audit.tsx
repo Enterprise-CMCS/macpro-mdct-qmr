@@ -93,12 +93,12 @@ export const Audit = ({ type, year }: Props) => {
                     {fields?.map((field, index: number) => {
                       return (
                         <CUI.Box
-                          border="1px"
+                          borderWidth="1px"
                           borderColor="gray.200"
                           borderRadius="md"
                           key={field.id}
                         >
-                          <CUI.Flex>
+                          <CUI.Flex className="prince-audit-padding">
                             <QMR.TextInput
                               rules={{ required: true }}
                               formLabelProps={{ fontWeight: "400" }}

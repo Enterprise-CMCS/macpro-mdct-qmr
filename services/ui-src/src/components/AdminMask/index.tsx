@@ -1,13 +1,9 @@
 import { useUser } from "hooks/authHooks";
 import * as CUI from "@chakra-ui/react";
 
-interface Props {
-  force?: boolean;
-}
-
-export const AdminMask = ({ force = false }: Props) => {
+export const AdminMask = () => {
   const { isStateUser } = useUser();
-  if (!isStateUser || !!force) {
+  if (!isStateUser) {
     return (
       <CUI.Box
         top={0}
@@ -18,7 +14,6 @@ export const AdminMask = ({ force = false }: Props) => {
         zIndex={2}
         backgroundColor="gray.100"
         opacity={0.2}
-        className="hidden-print-items"
       />
     );
   }

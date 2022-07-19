@@ -94,28 +94,41 @@ export const ExportAll = () => {
     document.body.prepend(styleTag);
     styleTag.appendChild(
       document.createTextNode(
-        `@page {}\n` + // any page definition edits for prince can be placed here
-          ` html, body, #root { height: 100%; font-size: 16px; }\n` +
-          ` * { box-decoration-break: slice !important; box-sizing: border-box !important; }\n` +
-          ` .logos { width: 90px; }\n` +
-          ` .medicaid-logo { width: 170px; }\n` +
-          ` ..prince-supp-text { margin-bottom: 15px !important; }\n` +
-          ` .prince-logo-smaller-sizing { width: 60px; }\n` +
-          ` .prince-flex-overwrite { display: flex !important; }\n` +
-          ` .prince-file-item { margin: 10px 0 0 0; padding: 6px 0; }\n` +
-          ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
-          ` .prince-option-label-text { margin: 0 0 0 20px !important; }\n` +
-          ` .prince-input-bottom-spacer { margin-bottom: 10px !important; }\n` +
-          ` .hidden-print-items { visibility: hidden; display: none !important; }\n` +
-          ` .prince-option-label-wrapper { margin-top: 10px; margin: 0 0 10px 0 !important; }\n` +
-          ` .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }\n` +
-          ` .prince-logo-footer { flex-wrap: nowrap; align-content: flex-start; align-items: flex-start; }\n` +
-          ` .prince-footer-smaller-text { font-size: var(--chakra-fontSizes-xs); text-align: left; max-width: 100% }\n` +
-          ` .prince-flex-row-overwrite { display: flex; flex-direction: row; flex-wrap: nowrap; max-width: 100% !important; margin: 0 0 0 10px }\n` +
-          ` .prince-upload-wrapper { text-align: center; display: flex !important; align-content: center; align-items: center; page-break-inside: avoid; }\n` +
-          ` h1, .prince-top-link, .prince-supp-text { margin: auto !important; text-align: center !important; width: fitcontent !important; margin: 10px 0 !important; }\n` +
-          ` .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box;}\n` +
-          ` .prince-upload-wrapper, .prince-file-item { border: 3px; border-style: dotted; background-color: var(--chakra-colors-blue-100); border-radius: var(--chakra-radii-md) }\n`
+        // any page definition edits for prince can be placed here
+        // or misc prince css that only applies in the pdf
+        `
+          ${/* Globaly applied tag css */ ""}
+          @page {}
+          table { table-layout:fixed; width: 100%}
+          html, body, #root { height: 100%; font-size: 16px; }
+          button { display: none !important; visiblity: hidden; }
+          td { overflow-wrap: break-word; word-wrap:break-word; white-space: normal; }
+          * { box-decoration-break: slice !important; box-sizing: border-box !important; }
+          input { padding: 10px 10px 10px 10px !important; min-width: fit-content; word-wrap:break-word; white-space: normal; }
+          
+          ${/* Adjusted specific component css */ ""}
+          .logos { width: 90px; }
+          .medicaid-logo { width: 170px; }
+          .prince-full-width { width: 100% }
+          .prince-logo-smaller-sizing { width: 60px; }
+          .prince-flex-overwrite { display: flex !important; }
+          .prince-supp-text { margin-bottom: 15px !important; }
+          .prince-audit-padding { padding: var(--chakra-space-5); }
+          .prince-file-item { margin: 10px 0 0 0; padding: 6px 0; }
+          .prince-measure-wrapper-box { page-break-before: always; }
+          .prince-option-label-text { margin: 0 0 0 20px !important; }
+          .prince-input-bottom-spacer { margin-bottom: 10px !important; }
+          .hidden-print-items { visibility: hidden; display: none !important; }
+          .prince-option-label-wrapper { margin-top: 10px; margin: 0 0 10px 0 !important; }
+          .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }
+          .prince-logo-footer { flex-wrap: nowrap; align-content: flex-start; align-items: flex-start; }
+          .prince-footer-smaller-text { font-size: var(--chakra-fontSizes-xs); text-align: left; max-width: 100% }
+          .prince-flex-row-overwrite { display: flex; flex-direction: row; flex-wrap: nowrap; max-width: 100% !important; margin: 0 0 0 10px }
+          .prince-upload-wrapper { text-align: center; display: flex !important; align-content: center; align-items: center; page-break-inside: avoid; }
+          .prince-top-link, .prince-supp-text, h1 { margin: auto !important; text-align: center !important; width: fitcontent !important; margin: 10px 0 !important; }
+          .prince-upload-wrapper, .prince-file-item { border: 3px !important; border-style: dotted; background-color: var(--chakra-colors-blue-100); border-radius: var(--chakra-radii-md) }
+          .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box; white-space: pre-wrap;}
+        `
       )
     );
     tagsToDelete.push(styleTag);
@@ -139,7 +152,6 @@ export const ExportAll = () => {
       // can't have flex/inline be sub-children of block components
       .replaceAll(" flex;", " block;")
       .replaceAll(" inline;", " block;")
-      // .replaceAll(" inline-flex;", " block;")
       // fix text ares whose sizing will not match
       .replace(
         /<textarea[^>]*tabindex="-1"[^>]*>/g,
