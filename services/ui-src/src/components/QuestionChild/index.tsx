@@ -11,7 +11,8 @@ export const QuestionChild = ({ show, children }: Props) => {
       display={show ? "block" : "none"}
       pl={6}
       ml={2}
-      borderLeft="4px"
+      // borderLeft="4px"
+      borderWidth={"0px 0px 0px 4px"}
       borderColor="blue.500"
       py={3}
       boxSizing="border-box"

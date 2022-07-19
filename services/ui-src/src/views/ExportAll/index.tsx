@@ -82,7 +82,7 @@ export const ExportAll = () => {
       // apply styles to style tags within body
       for (const rule of cssRules) {
         const styleTag = document.createElement("style");
-        document.body.appendChild(styleTag);
+        document.head.appendChild(styleTag);
         styleTag.appendChild(document.createTextNode(rule));
       }
       // const styleString = [
@@ -107,11 +107,11 @@ export const ExportAll = () => {
 
       // any additional css to adjust page
       const styleTag = document.createElement("style");
-      document.body.appendChild(styleTag);
+      document.head.appendChild(styleTag);
       styleTag.appendChild(
         document.createTextNode(
           `@page {}\n` +
-            ` * { box-decoration-break: slice !important; }\n` +
+            ` * { box-decoration-break: slice !important; box-sizing: border-box; }\n` +
             ` .prince-flex-overwrite { display: flex !important; }\n` +
             ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
             ` .prince-option-label-text { margin-left: 20px !important; }\n` +
@@ -148,9 +148,10 @@ export const ExportAll = () => {
       // can't have flex/inline be sub-children of block components
       .replaceAll(" flex;", " block;")
       .replaceAll(" inline;", " block;")
+      // .replaceAll(" inline-flex;", " block;")
       // fix text ares whose sizing will not match
       .replace(
-        /<textarea[^>]*tabindex="-1"[^<]*>/g,
+        /<textarea[^>]*tabindex="-1"[^>]*>/g,
         '<p class="hidden-print-items">'
       )
       .replace(/<textarea[^>]*>/g, '<p class="chakra-text replaced-text-area">')
