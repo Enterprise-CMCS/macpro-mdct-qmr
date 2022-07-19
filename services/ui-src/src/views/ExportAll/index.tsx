@@ -82,7 +82,7 @@ export const ExportAll = () => {
       // apply styles to style tags within body
       for (const rule of cssRules) {
         const styleTag = document.createElement("style");
-        document.head.appendChild(styleTag);
+        document.body.appendChild(styleTag);
         styleTag.appendChild(document.createTextNode(rule));
       }
       // const styleString = [
@@ -107,14 +107,14 @@ export const ExportAll = () => {
 
       // any additional css to adjust page
       const styleTag = document.createElement("style");
-      document.head.appendChild(styleTag);
+      document.body.appendChild(styleTag);
       styleTag.appendChild(
         document.createTextNode(
           `@page {}\n` +
             ` * { box-decoration-break: slice !important; box-sizing: border-box; }\n` +
             ` .prince-border-backup { border-left: 4px }\n` +
             ` .prince-flex-overwrite { display: flex !important; }\n` +
-            ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
+            ` .prince-measure-wrapper-box { page-break-before: always !important; }\n` +
             ` .prince-option-label-text { margin-left: 20px !important; }\n` +
             ` .prince-upload-wrapper { text-align: center; margin: auto; }\n` +
             ` .prince-option-label-wrapper { margin-top: 10px; margin-bottom: 10px !important; }\n` +
