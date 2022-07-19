@@ -56,8 +56,7 @@ export const ExportAll = () => {
               ruleString +
               rules[s].cssText
                 .replace(/text-align: right/g, "text-align: center")
-                .replace(/display:\s*flex;/g, "display: block !important;")
-                .replace(/display:\s*inline;/g, "display: block !important;") +
+                .replace(/display:\s*flex;/g, "display: block !important;") +
               "\n";
           }
           cssRules.push(ruleString);
@@ -85,48 +84,24 @@ export const ExportAll = () => {
         document.body.appendChild(styleTag);
         styleTag.appendChild(document.createTextNode(rule));
       }
-      // const styleString = [
-      //   //@ts-ignore
-      //   ...document.querySelectorAll("[data-emotion]"),
-      // ].flatMap(({ sheet }) =>
-      //   [...sheet.cssRules].map((rules) => {
-      //     // any mass changes to chakra-css rules should go here
-      // return rules.cssText.replace(
-      //   /text-align: right/g,
-      //   "text-align: center"
-      // );
-      //   })
-      // );
-
-      // // emotion tags put into the body
-      // for (const style of styleString) {
-      //   const styleTag = document.createElement("style");
-      //   document.body.appendChild(styleTag);
-      //   styleTag.appendChild(document.createTextNode(style));
-      // }
 
       // any additional css to adjust page
       const styleTag = document.createElement("style");
-      document.body.appendChild(styleTag);
+      document.body.prepend(styleTag);
       styleTag.appendChild(
         document.createTextNode(
           `@page {}\n` +
             ` * { box-decoration-break: slice !important; box-sizing: border-box !important; }\n` +
             ` .prince-flex-overwrite { display: flex !important; }\n` +
-            ` .prince-measure-wrapper-box { page-break-before: always !important; }\n` +
+            ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
             ` .prince-option-label-text { margin: 0 0 0 20px !important; }\n` +
             ` .prince-upload-wrapper { text-align: center; margin: auto; }\n` +
             ` .prince-option-label-wrapper { margin-top: 10px; margin: 0 0 10px 0 !important; }\n` +
             ` .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }\n` +
-            ` h1 { margin: auto !important; text-align: center !important; width: fitcontent !important; }\n` +
+            ` h1, .prince-top-link { margin: auto !important; text-align: center !important; width: fitcontent !important; }\n` +
             ` .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box;}\n`
         )
       );
-
-      // remove to top links
-      document
-        .querySelectorAll('[data-cy="surfaceLinkTag"]')
-        .forEach((v) => v.remove());
     }
 
     // get html element and remove noscript tag
@@ -272,7 +247,11 @@ export const ExportAll = () => {
               spaName={spaName}
             />
             <CUI.Center key={`returnButton.${measure.measure}`} mt="2">
-              <a data-cy="surfaceLinkTag" href="#top-of-page">
+              <a
+                data-cy="surfaceLinkTag"
+                href="#top-of-page"
+                className="prince-top-link"
+              >
                 Back to top
               </a>
             </CUI.Center>
