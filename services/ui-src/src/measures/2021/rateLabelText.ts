@@ -48,7 +48,7 @@ export const data = {
             {
                 "label": "Total",
                 "id": "Total",
-                "text": "Total"
+                "text": "Total (Age 18 and older)"
             }
         ]
     },
@@ -660,7 +660,7 @@ export const data = {
             {
                 "label": "Total",
                 "id": "Total",
-                "text": "Total"
+                "text": "Total (Age 13 and older)"
             }
         ]
     },
