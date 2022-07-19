@@ -112,6 +112,7 @@ export const ExportAll = () => {
         document.createTextNode(
           `@page {}\n` +
             ` * { box-decoration-break: slice !important; box-sizing: border-box; }\n` +
+            ` .prince-border-backup { border-left: 4px }\n` +
             ` .prince-flex-overwrite { display: flex !important; }\n` +
             ` .prince-measure-wrapper-box { page-break-before: always; }\n` +
             ` .prince-option-label-text { margin-left: 20px !important; }\n` +
