@@ -1,26 +1,17 @@
 import { OmsValidationCallback, FormRateField } from "../types";
 import { cleanString } from "utils/cleanString";
 
-const validateOMSTotalNDRErrorMessage = (
-  fieldType: string,
-  totalLabel?: string
-) => {
+const validateOMSTotalNDRErrorMessage = (fieldType: string) => {
   if (fieldType === "Total") {
-    return `${
-      totalLabel ? `${totalLabel} ` : ""
-    }Total must contain values if other fields are filled.`;
+    return `Total must contain values if other fields are filled.`;
   }
-  return `${
-    totalLabel ? `${totalLabel} ` : ""
-  }Total ${fieldType} field is not equal to the sum of other ${fieldType}s.`;
+  return `Total ${fieldType} field is not equal to the sum of other ${fieldType}s.`;
 };
 
 export const validateOMSTotalNDR =
   (errorMessageFunc = validateOMSTotalNDRErrorMessage): OmsValidationCallback =>
   ({ categories, qualifiers, rateData, label, locationDictionary, isOPM }) => {
     if (isOPM) return [];
-
-    const customTotalLabel = qualifiers.slice(-1)[0];
 
     const error: FormError[] = [];
 
@@ -54,7 +45,7 @@ export const validateOMSTotalNDR =
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
               [...label, qualifiers.slice(-1)[0]]
             )}`,
-            errorMessage: errorMessageFunc("numerator", customTotalLabel),
+            errorMessage: errorMessageFunc("numerator"),
           });
         }
         if (
@@ -66,7 +57,7 @@ export const validateOMSTotalNDR =
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
               [...label, qualifiers.slice(-1)[0]]
             )}`,
-            errorMessage: errorMessageFunc("denominator", customTotalLabel),
+            errorMessage: errorMessageFunc("denominator"),
           });
         }
       } else if (numeratorSum && denominatorSum) {
@@ -74,7 +65,7 @@ export const validateOMSTotalNDR =
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
             [...label, qualifiers.slice(-1)[0]]
           )}`,
-          errorMessage: errorMessageFunc("Total", customTotalLabel),
+          errorMessage: errorMessageFunc("Total"),
         });
       }
     }
