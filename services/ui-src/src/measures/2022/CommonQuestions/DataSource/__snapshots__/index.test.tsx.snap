@@ -16,7 +16,7 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
         data-cy="data-source-options"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -31,7 +31,7 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -52,7 +52,7 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Option 1
                   </p>
@@ -64,7 +64,7 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -85,7 +85,7 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     A Better Option
                   </p>
@@ -97,7 +97,7 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -118,7 +118,7 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Something Even Crazier Than The First 2
                   </p>
@@ -160,7 +160,7 @@ exports[`Test the global DataSource component (Default) Component renders with c
         data-cy="data-source-options"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -175,7 +175,7 @@ exports[`Test the global DataSource component (Default) Component renders with c
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -196,7 +196,7 @@ exports[`Test the global DataSource component (Default) Component renders with c
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Administrative Data
                   </p>
@@ -208,7 +208,7 @@ exports[`Test the global DataSource component (Default) Component renders with c
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -229,7 +229,7 @@ exports[`Test the global DataSource component (Default) Component renders with c
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other Data Source
                   </p>
