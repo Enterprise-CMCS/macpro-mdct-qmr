@@ -24,19 +24,6 @@ export const AutocompletedMeasureTemplate = ({
         <CUI.Heading fontSize="xl" fontWeight="700">
           Measure Details
         </CUI.Heading>
-        <QMR.ContainedButton
-          buttonProps={{
-            paddingX: "12",
-            colorScheme: "blue",
-            variant: "outline",
-            className: "hidden-print-items",
-            color: "blue.500",
-          }}
-          zIndex={3}
-          icon="print"
-          buttonText="Print"
-          onClick={() => window.print()}
-        />
       </CUI.HStack>
       <CUI.Stack spacing={2}>
         <CUI.Box>

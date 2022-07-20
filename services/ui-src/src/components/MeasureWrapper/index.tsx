@@ -157,6 +157,13 @@ export const MeasureWrapper = ({
       duration: 4000,
     });
   };
+  const toastSaved = () => {
+    return toast({
+      status: "success",
+      description: "Successfully saved measure data.",
+      duration: 4000,
+    });
+  };
   const autoCompletedMeasure =
     !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
 
@@ -242,6 +249,7 @@ export const MeasureWrapper = ({
                 userState: userInfo.userState,
               },
             });
+            toastSaved();
           },
           onError: () => {
             toastFailtoSave();
@@ -398,14 +406,13 @@ export const MeasureWrapper = ({
           },
         ]}
         buttons={
-          !autoCompletedMeasure ? (
-            <QMR.MeasureButtons
-              isLoading={mutationRunning}
-              handleSave={methods.handleSubmit(handleSave)}
-              lastAltered={measureData?.data && measureData?.lastAltered}
-              isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
-            />
-          ) : undefined
+          <QMR.MeasureButtons
+            isLoading={mutationRunning}
+            handleSave={methods.handleSubmit(handleSave)}
+            lastAltered={measureData?.data && measureData?.lastAltered}
+            isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
+            isAutoCompletedMeasure={autoCompletedMeasure}
+          />
         }
       >
         <CUI.Skeleton isLoaded={!loadingData}>

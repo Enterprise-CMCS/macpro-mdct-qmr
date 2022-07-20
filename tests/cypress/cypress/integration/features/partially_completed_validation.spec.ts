@@ -15,7 +15,7 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(`[data-cy="Validate Measure"]`).click();
     cy.get(`[data-cy="Performance Measure Error"]`).should("exist");
     cy.get(
-      `[data-cy="Should not have partially filled NDR sets at Ages 21 to 24."]`
+      `[data-cy="Should not have partially filled NDR sets for Ages 21 to 24."]`
     ).should("exist");
 
     // OMS
@@ -39,7 +39,7 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       `[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White Error"]`
     ).should("exist");
     cy.get(
-      `[data-cy="Should not have partially filled NDR sets at Ages 21 to 24."]`
+      `[data-cy="Should not have partially filled NDR sets for Ages 21 to 24."]`
     ).should("exist");
   });
 
@@ -57,7 +57,7 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(`[data-cy="Validate Measure"]`).click();
     cy.get(`[data-cy="Performance Measure Error"]`).should("exist");
     cy.get(
-      `[data-cy="Should not have partially filled NDR sets at Ages 18 to 64, Follow-Up within 30 days after discharge."]`
+      `[data-cy="Should not have partially filled NDR sets for Ages 18 to 64, Follow-Up within 30 days after discharge."]`
     ).should("exist");
 
     // OMS
@@ -83,7 +83,7 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       `[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White Error"]`
     ).should("exist");
     cy.get(
-      `[data-cy="Should not have partially filled NDR sets at Ages 18 to 64, Follow-Up within 30 days after discharge."]`
+      `[data-cy="Should not have partially filled NDR sets for Ages 18 to 64, Follow-Up within 30 days after discharge."]`
     ).should("exist");
   });
 });
