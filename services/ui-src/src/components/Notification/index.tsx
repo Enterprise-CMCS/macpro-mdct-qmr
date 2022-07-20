@@ -27,7 +27,7 @@ export const Notification = ({
   return (
     <CUI.Alert
       borderLeft="8px"
-      className="hidden-print-items"
+      className="hidden-print-items disabled-print-preview-items"
       borderColor={BorderColor[alertStatus]}
       py={3}
       status={alertStatus}
