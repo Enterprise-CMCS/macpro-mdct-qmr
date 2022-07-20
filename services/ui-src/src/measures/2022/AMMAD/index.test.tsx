@@ -11,6 +11,12 @@ import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { testSnapshot } from "utils/testUtils/testSnapshot";
+import { validationFunctions } from "./validation";
+import {
+  mockValidateAndSetErrors,
+  clearMocks,
+  validationsMockObj as V,
+} from "utils/testUtils/validationsMock";
 
 // Test Setup
 const measureAbbr = "AMM-AD";
@@ -26,6 +32,7 @@ const mockUseUser = useUser as jest.Mock;
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
   let component: JSX.Element;
   beforeEach(() => {
+    clearMocks();
     apiData.useGetMeasureValues = {
       data: {
         Item: {
@@ -82,7 +89,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
    * Render the measure and confirm that all expected components exist.
    * */
   it("rendered measure should match snapshot - no data", async () => {
-    // no data
     await waitFor(() => {
       testSnapshot({ component, apiData });
     });
@@ -110,12 +116,54 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
    * Confirm that correct functions are called. Comprehensive testing of the validations is done in specific test files
    * for each validation function. See globalValidations directory.
    */
-  it("", () => {});
+  it("(Not Reporting) validationFunctions should call all expected validation functions", async () => {
+    mockValidateAndSetErrors(validationFunctions, notReportingData); // trigger validations
+    expect(V.validateReasonForNotReporting).toHaveBeenCalled();
+
+    expect(V.validateAtLeastOneRateComplete).not.toHaveBeenCalled();
+    expect(V.validateDualPopInformationPM).not.toHaveBeenCalled();
+    expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
+    expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
+    expect(V.validateRateZeroPM).not.toHaveBeenCalled();
+    expect(
+      V.validateRequiredRadioButtonForCombinedRates
+    ).not.toHaveBeenCalled();
+    expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
+    expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
+    expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
+    expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+  });
+
+  it("(Completed) validationFunctions should call all expected validation functions", async () => {
+    mockValidateAndSetErrors(validationFunctions, completedMeasureData); // trigger validations
+    expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
+
+    expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
+    expect(V.validateDualPopInformationPM).toHaveBeenCalled();
+    expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
+    expect(V.validateRateNotZeroPM).toHaveBeenCalled();
+    expect(V.validateRateZeroPM).toHaveBeenCalled();
+    expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
+    expect(V.validateBothDatesCompleted).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatPM).toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
+    expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
+    expect(V.validateRateZeroOMS).toHaveBeenCalled();
+    expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
+  });
 
   // include a11y test
   // when validate is clicked - expect the correct validation functions are called
   // behavior for non state user
+  // - say 403
   // upload function get called correctly when uploading a file
+  // - say it works
   // print button should be able to click for all users
 });
 
