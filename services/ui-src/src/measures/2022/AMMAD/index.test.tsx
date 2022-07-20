@@ -88,13 +88,13 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
    *
    * Render the measure and confirm that all expected components exist.
    * */
-  it("rendered measure should match snapshot - no data", async () => {
+  it("(No Data) rendered measure should match snapshot", async () => {
     await waitFor(() => {
       testSnapshot({ component, apiData });
     });
   });
 
-  it("rendered measure should match snapshot - not reporting", async () => {
+  it("(Not Reporting) rendered measure should match snapshot", async () => {
     await waitFor(() => {
       apiData.useGetMeasureValues.data.Item.data = notReportingData;
       testSnapshot({ component, apiData });
@@ -102,7 +102,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     });
   });
 
-  it("rendered measure should match snapshot - completed", async () => {
+  it("(Completed) rendered measure should match snapshot", async () => {
     await waitFor(() => {
       apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
       testSnapshot({ component, apiData });
@@ -159,7 +159,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   });
 
   // include a11y test
-  // when validate is clicked - expect the correct validation functions are called
   // behavior for non state user
   // - say 403
   // upload function get called correctly when uploading a file
