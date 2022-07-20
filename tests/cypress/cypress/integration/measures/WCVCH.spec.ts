@@ -247,7 +247,7 @@ describe("Measure: oy2-9916 WCV-CH", () => {
     ).clear();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Total must contain values if other fields are filled."]'
+      '[data-cy="Total (Ages 3 to 21) must contain values if other fields are filled."]'
     ).should("be.visible");
   });
 
@@ -312,10 +312,10 @@ describe("Measure: oy2-9916 WCV-CH", () => {
     ).type("6");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Total numerator field is not equal to the sum of other numerators."]'
+      '[data-cy="Total (Ages 3 to 21) numerator field is not equal to the sum of other numerators."]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Total denominator field is not equal to the sum of other denominators."]'
+      '[data-cy="Total (Ages 3 to 21) denominator field is not equal to the sum of other denominators."]'
     ).should("be.visible");
   });
 
