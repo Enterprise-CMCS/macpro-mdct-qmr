@@ -6,6 +6,7 @@ interface Props {
   lastAltered?: number;
   isLoading?: boolean;
   isSubmitted?: boolean;
+  isAutoCompletedMeasure?: boolean;
 }
 
 export const MeasureButtons = ({
@@ -13,22 +14,26 @@ export const MeasureButtons = ({
   lastAltered,
   isLoading,
   isSubmitted,
+  isAutoCompletedMeasure,
 }: Props) => {
   const { isStateUser } = useUser();
 
   return (
     <CUI.Stack>
       <CUI.HStack className="hidden-print-items">
-        <QMR.ContainedButton
-          disabledStatus={!isStateUser || isLoading}
-          buttonText={isLoading ? "Saving" : "Save"}
-          buttonProps={{
-            minWidth: "10rem",
-            colorScheme: "blue",
-            isFullWidth: true,
-          }}
-          onClick={handleSave}
-        />
+        {!isAutoCompletedMeasure && (
+          <QMR.ContainedButton
+            disabledStatus={!isStateUser || isLoading}
+            buttonText={isLoading ? "Saving" : "Save"}
+            buttonProps={{
+              minWidth: "10rem",
+              colorScheme: "blue",
+              isFullWidth: true,
+            }}
+            onClick={handleSave}
+          />
+        )}
+
         <QMR.ContainedButton
           disabledStatus={isLoading}
           icon="print"
