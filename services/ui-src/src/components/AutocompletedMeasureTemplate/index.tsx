@@ -57,7 +57,7 @@ export const AutocompletedMeasureTemplate = ({
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "blue",
-              className: "hidden-print-items",
+              className: "hidden-print-items disabled-print-preview-items",
               variant: "outline",
               color: "blue.500",
             }}
