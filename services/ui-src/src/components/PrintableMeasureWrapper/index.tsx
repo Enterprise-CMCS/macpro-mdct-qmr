@@ -186,7 +186,7 @@ export const PrintableMeasureWrapper = ({
               <CUI.Container maxW="7xl" as="section" px="0">
                 <Measure
                   measure={measure}
-                  name={name}
+                  name={foundMeasureDescription || name}
                   year={year}
                   measureId={measureId}
                   setValidationFunctions={() => {}}
