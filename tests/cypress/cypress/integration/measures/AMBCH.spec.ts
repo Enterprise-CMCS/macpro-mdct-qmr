@@ -267,7 +267,7 @@ describe("Measure 20: AMB-CH", () => {
       '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White - Total (Ages <1 to 19) Error"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Total (Ages <1 to 19) must contain values if other fields are filled."]'
+      '[data-cy="Total must contain values if other fields are filled."]'
     ).should("be.visible");
   });
 
