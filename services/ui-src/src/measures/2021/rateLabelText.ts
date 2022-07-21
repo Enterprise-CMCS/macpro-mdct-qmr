@@ -658,8 +658,8 @@ export const data = {
                 "text": "Age 65 and older"
             },
             {
-                "label": "Total (Age 13 and older)",
-                "id": "TotalAge13andolder",
+                "label": "Total",
+                "id": "Total",
                 "text": "Total (Age 13 and older)"
             }
         ]
