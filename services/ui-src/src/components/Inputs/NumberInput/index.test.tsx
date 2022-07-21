@@ -2,7 +2,7 @@ import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NumberInput } from "components/Inputs/NumberInput";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { integersWithMaxDecimalPlaces } from "utils/numberInputMasks";
+import { integersWithMaxDecimalPlaces } from "utils";
 
 describe("Test the NumberInput component", () => {
   test("Check that component renders", async () => {

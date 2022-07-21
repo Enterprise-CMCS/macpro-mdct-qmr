@@ -1,7 +1,7 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = ["Ages 18 to 64", "Age 65 and Older"];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("AAB-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   customPrompt:

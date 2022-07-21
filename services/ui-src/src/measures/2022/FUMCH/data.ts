@@ -1,10 +1,7 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = ["Ages 6 to 17"];
-export const categories = [
-  "30-day follow-up after ED visit for mental illness",
-  "7-day follow-up after ED visit for mental illness",
-];
+export const { categories, qualifiers } = getCatQualLabels("FUM-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

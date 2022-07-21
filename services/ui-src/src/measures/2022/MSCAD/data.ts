@@ -1,12 +1,7 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const categories = [
-  "Advising Smokers and Tobacco Users to Quit",
-  "Discussing Cessation Medications",
-  "Discussing Cessation Strategies",
-  "Percentage of Current Smokers and Tobacco Users",
-];
-export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
+export const { categories, qualifiers } = getCatQualLabels("MSC-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
