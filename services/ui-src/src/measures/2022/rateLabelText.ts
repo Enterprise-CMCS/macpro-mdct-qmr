@@ -673,7 +673,7 @@ export const data = {
             },
             {
                 "label": "Total",
-                "text": "Total",
+                "text": "Total (Age 13 and older)",
                 "id": "Total"
             }
         ],
