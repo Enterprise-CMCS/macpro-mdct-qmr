@@ -7,6 +7,7 @@ async function requestOptions(): Promise<any> {
 
     try {
       token = await session.getIdToken().getJwtToken();
+      console.log("token", token);
     } catch (e) {
       console.log("Error getting token");
       console.log({ e });
@@ -15,6 +16,8 @@ async function requestOptions(): Promise<any> {
     const options = {
       headers: { "x-api-key": token },
     };
+
+    console.log("return text", options);
 
     return options;
   } catch (e) {
@@ -143,7 +146,9 @@ async function deleteCoreSet(inputObj: any) {
 async function getPDF(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
-  return API.post(
+
+  console.log("opts", opts);
+  return API.get(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/getPDF`,
     opts

@@ -11,6 +11,7 @@ interface DecodedToken {
 }
 
 export const isAuthorized = (event: APIGatewayProxyEvent) => {
+  console.log("event", event?.headers);
   if (!event.headers["x-api-key"]) return false;
 
   // get state and method from the event

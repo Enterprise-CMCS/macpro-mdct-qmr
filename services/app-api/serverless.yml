@@ -203,12 +203,13 @@ functions:
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   getPDF:
     handler: handlers/prince/pdf.getPDF
+    timeout: 60
     events:
       - http:
           path: coreset/{state}/{year}/{coreSet}/getPDF
-          method: post
+          method: get
           cors: true
-          timeout: 60
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
   ForceKafkaSync:
     handler: handlers/kafka/get/forceKafkaSync.main
     timeout: 900
