@@ -175,7 +175,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     });
   });
 
-  it("should demonstrate this matcher`s usage", async () => {
+  it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     const results = await axe(screen.getByTestId("measure-wrapper-form"));
