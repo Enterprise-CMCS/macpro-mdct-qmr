@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "../types";
 import * as QMR from "components";
-import { cleanString } from "utils/cleanString";
+import { cleanString, getLabelText } from "utils";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { useTotalAutoCalculation } from "./omsUtil";
@@ -324,6 +324,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();
+  const labelText = getLabelText();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
@@ -341,7 +342,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
       const cleanedLabel = cleanString(value);
       const ageGroupCheckBox = {
         value: cleanedLabel,
-        displayValue: value,
+        displayValue: labelText[value] ?? value,
         children: [
           <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
             {customPrompt ??

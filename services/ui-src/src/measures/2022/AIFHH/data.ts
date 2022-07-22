@@ -1,4 +1,7 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
+
+export const { categories, qualifiers } = getCatQualLabels("AIF-HH");
 
 const measureName = "AIFHH";
 
@@ -35,15 +38,6 @@ const ndrFormulas = [
     rate: 6,
     mult: 1000,
   },
-];
-
-export const categories = [];
-export const qualifiers = [
-  "Ages 18 to 64",
-  "Ages 65 to 74",
-  "Ages 75 to 84",
-  "Age 85 and older",
-  "Total",
 ];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {

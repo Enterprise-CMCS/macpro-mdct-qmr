@@ -1,8 +1,8 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = ["Postpartum visit between 7 and 84 days"];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("PPC-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

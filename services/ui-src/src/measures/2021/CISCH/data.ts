@@ -1,28 +1,8 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "DTaP",
-  "IPV",
-  "MMR",
-  "HiB",
-  "Hep B",
-  "VZV",
-  "PCV",
-  "Hep A",
-  "RV",
-  "Flu",
-  "Combo 2",
-  "Combo 3",
-  "Combo 4",
-  "Combo 5",
-  "Combo 6",
-  "Combo 7",
-  "Combo 8",
-  "Combo 9",
-  "Combo 10",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("CIS-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

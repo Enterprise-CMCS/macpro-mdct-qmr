@@ -26,8 +26,6 @@ describe("Test AutocompletedMeasureTemplate.tsx", () => {
       )
     ).toBeInTheDocument();
 
-    expect(screen.getByText(/Print/i)).toBeInTheDocument();
-
     expect(screen.getByText(/Back to Core Set Measures/i)).toBeInTheDocument();
   });
 });

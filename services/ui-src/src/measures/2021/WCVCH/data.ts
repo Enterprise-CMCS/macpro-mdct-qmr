@@ -1,12 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Ages 3 to 11",
-  "Ages 12 to 17",
-  "Ages 18 to 21",
-  "Total (Ages 3 to 21)",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("WCV-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
