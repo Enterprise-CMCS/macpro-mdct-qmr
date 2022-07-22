@@ -183,15 +183,20 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(results).toHaveNoViolations();
   });
 
+  it("should not pass a11y tests", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    const badhtml = screen.getByTestId("measure-wrapper-form");
+    badhtml.append(document.createElement("button"));
+    const results = await axe(badhtml);
+
+    expect(results).not.toHaveNoViolations();
+  });
+
   // behavior for non state user
   // - say 403
   // upload function get called correctly when uploading a file
-  // - say it works
-  // print button should be able to click for all users
 });
-
-// Use axe to run a11y tests - pair up with Daniel for this
-// include a11y test
 
 // These can be programatically generated
 const notReportingData = {
