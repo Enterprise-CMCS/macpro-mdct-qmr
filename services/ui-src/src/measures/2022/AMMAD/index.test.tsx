@@ -17,6 +17,7 @@ import {
   clearMocks,
   validationsMockObj as V,
 } from "utils/testUtils/validationsMock";
+import fireEvent from "@testing-library/user-event";
 
 // Test Setup
 const measureAbbr = "AMM-AD";
@@ -158,13 +159,28 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
   });
 
-  // include a11y test
+  it("Print button renders on page correctly", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("AMM-AD - Antidepressant Medication Management"));
+    }).then(() => {
+      let windowSpy = jest.spyOn(window, "window", "get");
+      fireEvent.click(screen.getByText("Print"));
+      expect(windowSpy).toHaveBeenCalled();
+    });
+  });
+
   // behavior for non state user
   // - say 403
   // upload function get called correctly when uploading a file
   // - say it works
   // print button should be able to click for all users
 });
+
+// Use axe to run a11y tests - pair up with Daniel for this
+// include a11y test
 
 // These can be programatically generated
 const notReportingData = {
