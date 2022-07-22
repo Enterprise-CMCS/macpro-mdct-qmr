@@ -18,6 +18,9 @@ import {
   validationsMockObj as V,
 } from "utils/testUtils/validationsMock";
 import fireEvent from "@testing-library/user-event";
+import { axe, toHaveNoViolations } from "jest-axe";
+
+expect.extend(toHaveNoViolations);
 
 // Test Setup
 const measureAbbr = "AMM-AD";
@@ -170,6 +173,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
       fireEvent.click(screen.getByText("Print"));
       expect(windowSpy).toHaveBeenCalled();
     });
+  });
+
+  it("should demonstrate this matcher`s usage", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    const results = await axe(screen.getByTestId("measure-wrapper-form"));
+
+    expect(results).toHaveNoViolations();
   });
 
   // behavior for non state user
