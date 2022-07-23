@@ -1,5 +1,5 @@
 // TODO: Use this file to make a template
-import { screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -17,9 +17,7 @@ import {
   clearMocks,
   validationsMockObj as V,
 } from "utils/testUtils/validationsMock";
-import fireEvent from "@testing-library/user-event";
 import { axe, toHaveNoViolations } from "jest-axe";
-
 expect.extend(toHaveNoViolations);
 
 // Test Setup
@@ -32,6 +30,7 @@ const apiData: any = {};
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
+const wrongStateUser = useUser as jest.Mock;
 
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
   let component: JSX.Element;
@@ -60,7 +59,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     };
 
     mockUseUser.mockImplementation(() => {
-      // TODO: isStateUser: true
+      // TODO: : true
       return { isStateUser: false };
     });
 
@@ -193,9 +192,37 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(results).not.toHaveNoViolations();
   });
 
-  // behavior for non state user
-  // - say 403
-  // upload function get called correctly when uploading a file
+  it("should not allow non state users to edit forms by disabling buttons", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+
+    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
+    const completeButton = screen.getByText("Complete Measure");
+    fireEvent.click(completeButton);
+    expect(completeButton).toHaveAttribute("disabled");
+  });
+
+  it("should allow files to be uploaded", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    //const uploadStack = screen.getByTestId("upload-stack");
+    const uploadComponent = screen.getByTestId("upload-component");
+
+    expect(
+      fireEvent.change(uploadComponent, {
+        target: {
+          files: [
+            new File(["(⌐□_□)"], "chucknorris.png", { type: "image/png" }),
+          ],
+        },
+      })
+    ).toBe(true);
+  });
+
+  it("should not show data on a 403", async () => {
+    useApiMock(apiData);
+    expect(screen.queryByTestId("measure-wrapper-form")).toBeNull();
+  });
 });
 
 // These can be programatically generated
