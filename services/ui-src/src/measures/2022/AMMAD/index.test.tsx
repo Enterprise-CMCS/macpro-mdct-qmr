@@ -160,7 +160,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   });
 
   jest.setTimeout(15000);
-
   it("should not pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -214,8 +213,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     expect(screen.queryByTestId("measure-wrapper-form")).toBeNull();
   });
-  jest.setTimeout(15000);
 
+  jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
