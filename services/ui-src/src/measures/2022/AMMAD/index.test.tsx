@@ -160,8 +160,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
   });
 
+  jest.setTimeout(15000);
+
   it("should not pass a11y tests", async () => {
-    jest.setTimeout(15000);
     useApiMock(apiData);
     renderWithHookForm(component);
     const badhtml = screen.getByTestId("measure-wrapper-form");
@@ -214,9 +215,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     expect(screen.queryByTestId("measure-wrapper-form")).toBeNull();
   });
+  jest.setTimeout(15000);
 
   it("should pass a11y tests", async () => {
-    jest.setTimeout(15000);
     useApiMock(apiData);
     renderWithHookForm(component);
     const results = await axe(screen.getByTestId("measure-wrapper-form"));
