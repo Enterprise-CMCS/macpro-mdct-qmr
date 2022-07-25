@@ -105,7 +105,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     await waitFor(() => {
       apiData.useGetMeasureValues.data.Item.data = notReportingData;
       testSnapshot({ component, apiData });
-      expect(screen.getByText("This is a test of the emergency alert system"));
     });
   });
 
@@ -113,8 +112,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     await waitFor(() => {
       apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
       testSnapshot({ component, apiData });
-      expect(screen.getByText("This is a test of the emergency alert system"));
-      expect(screen.getAllByText("Take me out to the ballgame").length).toBe(4);
     });
   });
 
@@ -125,24 +122,21 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
    */
   it("(Not Reporting) validationFunctions should call all expected validation functions", async () => {
     mockValidateAndSetErrors(validationFunctions, notReportingData); // trigger validations
-    expect(V.validateReasonForNotReporting).toHaveBeenCalled();
-
-    expect(V.validateAtLeastOneRateComplete).not.toHaveBeenCalled();
-    expect(V.validateDualPopInformationPM).not.toHaveBeenCalled();
-    expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
-    expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
-    expect(V.validateRateZeroPM).not.toHaveBeenCalled();
-    expect(
-      V.validateRequiredRadioButtonForCombinedRates
-    ).not.toHaveBeenCalled();
-    expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
-    expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
-    expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
-    expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
-    expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
-    expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+    expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
+    expect(V.validateDualPopInformationPM).toHaveBeenCalled();
+    expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
+    expect(V.validateRateNotZeroPM).toHaveBeenCalled();
+    expect(V.validateRateZeroPM).toHaveBeenCalled();
+    expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
+    expect(V.validateBothDatesCompleted).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatPM).toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
+    expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
+    expect(V.validateRateZeroOMS).toHaveBeenCalled();
+    expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -232,9 +226,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 });
 
 // These can be programatically generated
-const notReportingData = {
-  DidReport: "no",
-};
+const notReportingData = {};
 
 const completedMeasureData = {
   PerformanceMeasure: {
