@@ -166,7 +166,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     const badhtml = screen.getByTestId("measure-wrapper-form");
     badhtml.append(document.createElement("button"));
     const results = await axe(badhtml);
-
     expect(results).not.toHaveNoViolations();
   });
 
@@ -216,6 +215,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   });
 
   it("should pass a11y tests", async () => {
+    jest.setTimeout(15000);
     useApiMock(apiData);
     renderWithHookForm(component);
     const results = await axe(screen.getByTestId("measure-wrapper-form"));
