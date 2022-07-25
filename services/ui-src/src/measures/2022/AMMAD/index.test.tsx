@@ -30,7 +30,6 @@ const apiData: any = {};
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
-const wrongStateUser = useUser as jest.Mock;
 
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
   let component: JSX.Element;
@@ -161,6 +160,16 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
   });
 
+  it("should not pass a11y tests", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    const badhtml = screen.getByTestId("measure-wrapper-form");
+    badhtml.append(document.createElement("button"));
+    const results = await axe(badhtml);
+
+    expect(results).not.toHaveNoViolations();
+  });
+
   it("Print button renders on page correctly", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -172,24 +181,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
       fireEvent.click(screen.getByText("Print"));
       expect(windowSpy).toHaveBeenCalled();
     });
-  });
-
-  it("should pass a11y tests", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    const results = await axe(screen.getByTestId("measure-wrapper-form"));
-
-    expect(results).toHaveNoViolations();
-  });
-
-  it("should not pass a11y tests", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    const badhtml = screen.getByTestId("measure-wrapper-form");
-    badhtml.append(document.createElement("button"));
-    const results = await axe(badhtml);
-
-    expect(results).not.toHaveNoViolations();
   });
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {
@@ -222,6 +213,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("should not show data on a 403", async () => {
     useApiMock(apiData);
     expect(screen.queryByTestId("measure-wrapper-form")).toBeNull();
+  });
+
+  it("should pass a11y tests", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    const results = await axe(screen.getByTestId("measure-wrapper-form"));
+
+    expect(results).toHaveNoViolations();
   });
 });
 
