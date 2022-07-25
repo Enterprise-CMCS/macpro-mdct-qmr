@@ -161,6 +161,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   });
 
   it("should not pass a11y tests", async () => {
+    jest.setTimeout(15000);
     useApiMock(apiData);
     renderWithHookForm(component);
     const badhtml = screen.getByTestId("measure-wrapper-form");
