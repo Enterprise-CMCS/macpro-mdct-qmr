@@ -97,21 +97,21 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
    * */
   it("(No Data) rendered measure should match snapshot", async () => {
     await waitFor(() => {
-      testSnapshot({ component, apiData });
+      testSnapshot({ component: component, apiData: apiData });
     });
   });
 
   it("(Not Reporting) rendered measure should match snapshot", async () => {
     await waitFor(() => {
       apiData.useGetMeasureValues.data.Item.data = notReportingData;
-      testSnapshot({ component, apiData });
+      testSnapshot({ component: component, apiData: apiData });
     });
   });
 
   it("(Completed) rendered measure should match snapshot", async () => {
     await waitFor(() => {
       apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
-      testSnapshot({ component, apiData });
+      testSnapshot({ component: component, apiData: apiData });
     });
   });
 
