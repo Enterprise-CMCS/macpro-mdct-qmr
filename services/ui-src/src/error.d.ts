@@ -1,5 +1,6 @@
 interface FormError {
   errorLocation: string;
+  errorType?: string;
   errorMessage: string;
   errorList?: string[];
 }
