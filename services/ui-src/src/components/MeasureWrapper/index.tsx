@@ -478,7 +478,7 @@ export const MeasureWrapper = ({
                       key={uuidv4()}
                       alertProps={{ my: "3" }}
                       alertStatus={error.errorType ? "warning" : "error"}
-                      alertTitle={` ${error.errorLocation} ${
+                      alertTitle={`${error.errorLocation} ${
                         error.errorType ?? "Error"
                       }`}
                       alertDescription={error.errorMessage}
