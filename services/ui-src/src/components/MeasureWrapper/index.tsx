@@ -479,7 +479,7 @@ export const MeasureWrapper = ({
                       alertProps={{ my: "3" }}
                       alertStatus="error"
                       alertTitle={` ${error.errorLocation} ${
-                        error.errorType ? error.errorType : " Error"
+                        error.errorType ? error.errorType : "Error"
                       }`}
                       alertDescription={error.errorMessage}
                       extendedAlertList={error.errorList}
