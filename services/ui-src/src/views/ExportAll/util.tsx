@@ -212,14 +212,26 @@ export const usePrinceRequest: PrinceHook = () => {
         document.body.removeChild(tag);
       }
 
-      const pdf = await getPDF({
-        body: base64String,
-        state,
-        coreSet: coreSetId,
-        year,
-      });
+      let requestAttempt = 0;
+      let breakCondition = false;
 
-      openPdf(pdf);
+      // set to retry up to 5 times
+      while (!breakCondition && requestAttempt < 5) {
+        try {
+          const pdf = await getPDF({
+            body: base64String,
+            state,
+            coreSet: coreSetId,
+            year,
+          });
+
+          openPdf(pdf);
+          breakCondition = true;
+        } catch (error) {
+          console.error(`attempt ${requestAttempt}`, error);
+          requestAttempt++;
+        }
+      }
     },
     [stylesApplied]
   );
