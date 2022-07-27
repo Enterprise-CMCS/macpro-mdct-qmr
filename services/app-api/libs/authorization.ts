@@ -10,7 +10,10 @@ interface DecodedToken {
   identities?: [{ userId?: string }];
 }
 
-export const isAuthorized = (event: APIGatewayProxyEvent) => {
+export const isAuthorized = (
+  event: APIGatewayProxyEvent,
+  postOverride: boolean
+) => {
   if (!event.headers["x-api-key"]) return false;
 
   // get state and method from the event
@@ -30,7 +33,10 @@ export const isAuthorized = (event: APIGatewayProxyEvent) => {
   }
 
   // if user is an admin - they can only GET resources
-  return requestMethod === RequestMethods.GET;
+  return (
+    requestMethod === RequestMethods.GET ||
+    (requestMethod === RequestMethods.POST && postOverride)
+  );
 };
 
 export const getUserNameFromJwt = (event: APIGatewayProxyEvent) => {
