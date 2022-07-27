@@ -21,6 +21,8 @@ export default function handler(lambda: LambdaFunction, postOverride = false) {
       } catch (e: any) {
         // Print debug messages
         debug.flush(e);
+        debug.flush(event as any);
+        debug.flush(context);
 
         const body = { error: e.message };
         return failure(body);

@@ -143,6 +143,10 @@ async function deleteCoreSet(inputObj: any) {
 async function getPDF(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
+
+  console.log("inputObj", inputObj);
+  console.log(opts);
+
   return API.post(
     "coreSet",
     `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/getPDF`,
