@@ -477,6 +477,7 @@ export const MeasureWrapper = ({
                     <QMR.Notification
                       key={uuidv4()}
                       alertProps={{ my: "3" }}
+                      // If there is an error type, default to Warning
                       alertStatus={error.errorType ? "warning" : "error"}
                       alertTitle={`${error.errorLocation} ${
                         error.errorType ?? "Error"
