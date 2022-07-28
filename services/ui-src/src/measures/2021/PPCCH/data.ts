@@ -1,10 +1,8 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("PPC-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

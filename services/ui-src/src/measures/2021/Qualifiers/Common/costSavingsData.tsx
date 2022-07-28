@@ -4,7 +4,7 @@ import * as DC from "dataConstants";
 import * as Common from "../Common";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
-import { allPositiveIntegersWith10Digits } from "utils/numberInputMasks";
+import { allPositiveIntegersWith10Digits } from "utils";
 
 interface Props {
   year: string;

@@ -6,7 +6,7 @@ import * as Types from "../types";
 import {
   allPositiveIntegersWith10Digits,
   allPositiveIntegersWith3Digits,
-} from "utils/numberInputMasks";
+} from "utils";
 
 export const AdministrativeQuestions = () => {
   const register = useCustomRegister<Types.HHCSQualifierForm>();

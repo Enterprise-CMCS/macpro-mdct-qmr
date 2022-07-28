@@ -4,7 +4,7 @@ import * as Common from "./Common";
 import { useFieldArray, useWatch } from "react-hook-form";
 import { DeliverySystem } from "./types";
 import { BsPercent } from "react-icons/bs";
-import { percentageAllowOneDecimalMax } from "utils/numberInputMasks";
+import { percentageAllowOneDecimalMax } from "utils";
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
 import { DataDriven } from "./data";

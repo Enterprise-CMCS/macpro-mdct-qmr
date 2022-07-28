@@ -1,13 +1,8 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Children screened by 12 months of age",
-  "Children screened by 24 months of age",
-  "Children screened by 36 months of age",
-  "Children Total",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("DEV-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

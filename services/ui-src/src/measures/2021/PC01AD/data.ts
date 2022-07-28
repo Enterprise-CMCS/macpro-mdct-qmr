@@ -1,10 +1,8 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Women with elective vaginal deliveries or elective cesarean sections ≥ 37 and <39 weeks",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("PC01-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

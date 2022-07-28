@@ -1,10 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Rate 1 - Six or more well-child visits in the first 15 months ",
-  "Rate 2 - Two or more well-child visits for ages 15 months to 30 months",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("W30-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
