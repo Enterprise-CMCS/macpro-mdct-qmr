@@ -1,17 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Count of Index Hospital Stays",
-  "Count of Observed 30-Day Readmissions",
-  "Observed Readmission Rate",
-  "Count of Expected 30-Day Readmissions",
-  "Expected Readmission Rate",
-  "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
-  "Count of Enrollees in Health Home Population",
-  "Number of Outliers",
-  "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("PCR-HH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

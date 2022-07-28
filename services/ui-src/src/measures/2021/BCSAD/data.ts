@@ -1,7 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = ["Ages 50 to 64", "Ages 65 to 74"];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("BCS-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

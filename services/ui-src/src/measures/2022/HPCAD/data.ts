@@ -1,8 +1,8 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = ["Ages 18 to 64", "Ages 65 to 75"];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("HPC-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

@@ -1,4 +1,5 @@
 import * as CUI from "@chakra-ui/react";
+import { getLabelText } from "utils";
 
 interface NotificationProps {
   alertStatus: CUI.AlertStatus;
@@ -24,6 +25,17 @@ export const Notification = ({
   extendedAlertList,
   close,
 }: NotificationProps) => {
+  const labelText = getLabelText();
+
+  // If alternate text exists for a given label - display it instead
+  let description = alertDescription;
+  Object.keys(labelText).forEach((label: string) => {
+    if (description?.includes(label) && labelText[label]) {
+      // @ts-ignore
+      description = description.replaceAll(label, labelText[label]);
+    }
+  });
+
   return (
     <CUI.Alert
       borderLeft="8px"
@@ -36,9 +48,9 @@ export const Notification = ({
       <CUI.AlertIcon alignSelf="start" />
       <CUI.Box>
         <CUI.AlertTitle data-cy={alertTitle}>{alertTitle}</CUI.AlertTitle>
-        {alertDescription && (
-          <CUI.AlertDescription data-cy={alertDescription}>
-            <CUI.Text>{alertDescription}</CUI.Text>
+        {description && (
+          <CUI.AlertDescription data-cy={description}>
+            <CUI.Text>{description}</CUI.Text>
             {extendedAlertList?.length && (
               <CUI.UnorderedList ml={10}>
                 {extendedAlertList.map((s, i) => (

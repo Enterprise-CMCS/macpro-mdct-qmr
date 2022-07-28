@@ -15,12 +15,12 @@ import {
 export const defaultMockValues = {
   useAddCoreSetValues: {
     useMutation: () => {
-      mutate: () => {};
+      mutate: () => {}; // eslint-disable-line
     },
   },
   useAddMeasureValues: {
     useMutation: () => {
-      mutate: () => {};
+      mutate: () => {}; // eslint-disable-line
     },
   },
   useDeleteCoreSetValues: { mutate: jest.fn() },
@@ -98,7 +98,7 @@ export const defaultMockValues = {
   },
   useUpdateMeasureValues: {
     useMutation: () => {
-      mutate: () => {};
+      mutate: () => {}; // eslint-disable-line
     },
   },
 };

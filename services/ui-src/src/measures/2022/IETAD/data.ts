@@ -1,17 +1,8 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = ["Ages 18 to 64", "Age 65 and older"];
-export const categories = [
-  "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-  "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-  "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-  "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-  "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-  "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-  "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-  "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
-];
+export const { categories, qualifiers } = getCatQualLabels("IET-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

@@ -1,13 +1,7 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Total Rate",
-  "Buprenorphine",
-  "Oral naltrexone",
-  "Long-acting, injectable naltrexone",
-  "Methadone",
-];
-export const categories: string[] = [];
+export const { categories, qualifiers } = getCatQualLabels("OUD-HH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
