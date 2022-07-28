@@ -115,7 +115,7 @@ resources:
           Statement:
             - Effect: Allow
               Action: "s3:PutObject"
-              Resource: !Sub arn:aws:s3:::${LoggingBucket}/*
+              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}/*
               Principal:
                 AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
         Bucket: !Ref CloudFrontLoggingBucket
