@@ -114,21 +114,10 @@ resources:
           Version: "2012-10-17"
           Statement:
             - Effect: Allow
-              Action: "s3:GetBucketAcl"
-              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}
+              Action: "s3:PutObject"
+              Resource: !Sub arn:aws:s3:::${LoggingBucket}/*
               Principal:
-                CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
-              Condition:
-                Bool:
-                  "aws:SecureTransport": true
-            - Action:
-                - "s3:*"
-              Effect: "Deny"
-              Principal: "*"
-              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}
-              Condition:
-                Bool:
-                  "aws:SecureTransport": false
+                AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
         Bucket: !Ref CloudFrontLoggingBucket
     CloudFrontWebAcl:
       Type: AWS::WAFv2::WebACL
@@ -208,6 +197,9 @@ resources:
               ResponseCode: 403
               ResponsePagePath: /index.html
           WebACLId: !GetAtt CloudFrontWebAcl.Arn
+          Logging:
+            Bucket: !Sub "${CloudFrontLoggingBucket}.s3.amazonaws.com"
+            Prefix: AWSLogs/CLOUDFRONT/${self:custom.stage}/
     Route53DnsRecord:
       Type: AWS::Route53::RecordSet
       Condition: CreateDnsRecord
