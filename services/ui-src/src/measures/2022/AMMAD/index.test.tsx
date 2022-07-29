@@ -1,8 +1,5 @@
 // TODO: Use this file to make a template
 
-// TODO: Move Print test out
-// TODO: Move 403 test out
-
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
@@ -169,19 +166,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(results).not.toHaveNoViolations();
   });
 
-  it("Print button renders on page correctly", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
-    await waitFor(() => {
-      expect(screen.getByText("AMM-AD - Antidepressant Medication Management"));
-    }).then(() => {
-      let windowSpy = jest.spyOn(window, "window", "get");
-      fireEvent.click(screen.getByText("Print"));
-      expect(windowSpy).toHaveBeenCalled();
-    });
-  });
-
   it("should not allow non state users to edit forms by disabling buttons", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -207,11 +191,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
         },
       })
     ).toBe(true);
-  });
-
-  it("should not show data on a 403", async () => {
-    useApiMock(apiData);
-    expect(screen.queryByTestId("measure-wrapper-form")).toBeNull();
   });
 
   jest.setTimeout(15000);
