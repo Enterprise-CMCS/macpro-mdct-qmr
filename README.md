@@ -345,13 +345,12 @@ The following are prerequisites for local development.
    MEASURE_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
    coreSetTableName=local-coreSets
    measureTableName=local-measures
+   DYNAMO_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
    CORESET_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
    DYNAMODB_URL=http://localhost:8000
    API_URL=http://localhost:3030/local
    S3_LOCAL_ENDPOINT=http://localhost:4569
    S3_ATTACHMENTS_BUCKET_NAME=local-uploads
-   URL=http://localhost/3000
-   SLS_INTERACTIVE_SETUP_ENABLE=1
    ```
 
 1. Set up the UI-SRC ENV.
