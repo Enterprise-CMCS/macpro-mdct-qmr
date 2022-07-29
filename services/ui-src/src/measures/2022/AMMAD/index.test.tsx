@@ -176,23 +176,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(completeButton).toHaveAttribute("disabled");
   });
 
-  it("should allow files to be uploaded", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    //const uploadStack = screen.getByTestId("upload-stack");
-    const uploadComponent = screen.getByTestId("upload-component");
-
-    expect(
-      fireEvent.change(uploadComponent, {
-        target: {
-          files: [
-            new File(["(⌐□_□)"], "chucknorris.png", { type: "image/png" }),
-          ],
-        },
-      })
-    ).toBe(true);
-  });
-
   jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
