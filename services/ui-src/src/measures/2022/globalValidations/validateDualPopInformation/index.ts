@@ -55,6 +55,7 @@ export const validateDualPopInformationPM = (
     errorArray.push({
       errorLocation: "Performance Measure",
       errorMessage: errorMessageFunc(dualEligible, errorReplacementText),
+      errorType: "Warning",
     });
   }
   return errorArray;
