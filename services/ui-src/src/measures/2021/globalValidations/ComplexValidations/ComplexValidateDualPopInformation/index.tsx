@@ -46,12 +46,14 @@ export const ComplexValidateDualPopInformation = (
     errorArray.push({
       errorLocation: "Performance Measure",
       errorMessage: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
+      errorType: "Warning",
     });
   }
   if (dualEligible && filledInData.length === 0) {
     errorArray.push({
       errorLocation: "Performance Measure",
       errorMessage: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
+      errorType: "Warning",
     });
   }
   return errorArray;

@@ -495,6 +495,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
   OPM?.forEach(({ description }, idx) => {
     if (description) {
       const cleanedFieldName = cleanString(description);
+
       const RateComponent = (
         <QMR.Rate
           rates={[
@@ -538,24 +539,6 @@ const useRenderOPMCheckboxOptions = (name: string) => {
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
           RateComponent,
-          <QMR.Rate
-            rates={[
-              {
-                id: 0,
-              },
-            ]}
-            name={`${name}.rates.${cleanedFieldName}.OPM`}
-            key={`${name}.rates.${cleanedFieldName}.OPM`}
-            readOnly={rateReadOnly}
-            rateMultiplicationValue={rateMultiplicationValue}
-            customMask={customMask}
-            allowNumeratorGreaterThanDenominator={
-              allowNumeratorGreaterThanDenominator
-            }
-            customNumeratorLabel={customNumeratorLabel}
-            customDenominatorLabel={customDenominatorLabel}
-            customRateLabel={customRateLabel}
-          />,
         ],
       });
     }
