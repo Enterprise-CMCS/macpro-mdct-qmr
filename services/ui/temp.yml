@@ -1,16 +1,16 @@
 # Refer to the README.md file in within this service directory to configure all ssm parameters required for this service.
 service: ui
 
-frameworkVersion: "3"
+frameworkVersion: "2"
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   region: us-east-1
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
-      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
+      path: ${ssm:/configuration/${self:custom.stage}/iam/path~true, ssm:/configuration/default/iam/path~true, "/"}
+      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy~true, ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
 
 plugins:
   - serverless-plugin-scripts
@@ -18,18 +18,23 @@ plugins:
   - serverless-iam-helper
   - serverless-s3-bucket-helper
 
+s3BucketHelper:
+  loggingConfiguration:
+    destinationBucketName: ${ssm:/configuration/${self:custom.stage}/s3/accessLogsBucket~true, ssm:/configuration/default/s3/accessLogsBucket~true}
+    logFilePrefix: ${ssm:/configuration/${self:custom.stage}/s3/accessLogsPrefix~true, ssm:/configuration/default/s3/accessLogsPrefix~true}
+
 custom:
   stage: ${opt:stage, self:provider.stage}
   region: ${opt:region, self:provider.region}
   serverlessTerminationProtection:
     stages:
-      - master
+      - main
       - val
-      - prod
-  route53HostedZoneId: ${ssm:/configuration/${self:custom.stage}/route53/hostedZoneId, ssm:/configuration/default/route53/hostedZoneId, ""}
-  route53DomainName: ${ssm:/configuration/${self:custom.stage}/route53/domainName, ""}
-  cloudfrontCertificateArn: ${ssm:/configuration/${self:custom.stage}/cloudfront/certificateArn, ssm:/configuration/default/cloudfront/certificateArn, ""}
-  cloudfrontDomainName: ${ssm:/configuration/${self:custom.stage}/cloudfront/domainName, ""}
+      - production
+  route53HostedZoneId: ${ssm:/configuration/${self:custom.stage}/route53/hostedZoneId~true, ssm:/configuration/default/route53/hostedZoneId~true, ""}
+  route53DomainName: ${ssm:/configuration/${self:custom.stage}/route53/domainName~true, ""}
+  cloudfrontCertificateArn: ${ssm:/configuration/${self:custom.stage}/cloudfront/certificateArn~true, ssm:/configuration/default/cloudfront/certificateArn~true, ""}
+  cloudfrontDomainName: ${ssm:/configuration/${self:custom.stage}/cloudfront/domainName~true, ""}
   webAclName: ${self:service}-${self:custom.stage}-webacl
   firehoseStreamName: aws-waf-logs-${self:service}-${self:custom.stage}-firehose
   scripts:
@@ -68,22 +73,14 @@ resources:
     S3Bucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: AES256
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
-      DeletionPolicy: Delete
-    CloudFrontLoggingBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: !Sub ${AWS::AccountId}-${self:service}-${self:custom.stage}-cloudfront-logs
         BucketEncryption:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
+      DeletionPolicy: Delete
     BucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -95,41 +92,53 @@ resources:
               Resource: !Sub arn:aws:s3:::${S3Bucket}/*
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
-              Condition:
-                Bool:
-                  "aws:SecureTransport": true
-            - Action:
-                - "s3:*"
-              Effect: "Deny"
+            - Sid: "AllowSSLRequestsOnly"
+              Effect: Deny
+              Action: "s3:*"
               Principal: "*"
-              Resource: !Sub arn:aws:s3:::${S3Bucket}/*
+              Resource:
+                - !Sub arn:aws:s3:::${S3Bucket}/*
+                - !Sub arn:aws:s3:::${S3Bucket}
               Condition:
                 Bool:
-                  "aws:SecureTransport": false
+                  aws:SecureTransport: false
         Bucket: !Ref S3Bucket
-    LogBucketPolicy:
-      Type: AWS::S3::BucketPolicy
+    LoggingBucket:
+      Type: "AWS::S3::Bucket"
+      Properties:
+        BucketName: !Sub ${self:service}-${self:custom.stage}-cloudfront-logs-${AWS::AccountId}
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: "AES256"
+      DeletionPolicy: Delete
+    LoggingBucketPolicy:
+      Type: "AWS::S3::BucketPolicy"
       Properties:
         PolicyDocument:
           Version: "2012-10-17"
           Statement:
             - Effect: Allow
-              Action: "s3:GetBucketAcl"
-              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}
+              Action: "s3:PutObject"
+              Resource: !Sub arn:aws:s3:::${LoggingBucket}/*
               Principal:
-                CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
-              Condition:
-                Bool:
-                  "aws:SecureTransport": true
-            - Action:
-                - "s3:*"
-              Effect: "Deny"
+                AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            - Sid: "AllowSSLRequestsOnly"
+              Effect: Deny
+              Action: "s3:*"
               Principal: "*"
-              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}
+              Resource:
+                - !Sub arn:aws:s3:::${LoggingBucket}/*
+                - !Sub arn:aws:s3:::${LoggingBucket}
               Condition:
                 Bool:
-                  "aws:SecureTransport": false
-        Bucket: !Ref CloudFrontLoggingBucket
+                  aws:SecureTransport: false
+        Bucket: !Ref LoggingBucket
     CloudFrontWebAcl:
       Type: AWS::WAFv2::WebACL
       Properties:
@@ -195,7 +204,7 @@ resources:
             ViewerProtocolPolicy: redirect-to-https
             FunctionAssociations:
               - EventType: viewer-response
-                FunctionARN: !GetAtt HstsCloudfrontFunction.FunctionMetadata.FunctionARN
+                FunctionARN: !GetAtt HeadersCloudfrontFunction.FunctionMetadata.FunctionARN
           ViewerCertificate:
             Fn::If:
               - CreateCustomCloudFrontDomain
@@ -205,9 +214,12 @@ resources:
               - CloudFrontDefaultCertificate: true
           CustomErrorResponses:
             - ErrorCode: 403
-              ResponseCode: 403
+              ResponseCode: 200
               ResponsePagePath: /index.html
           WebACLId: !GetAtt CloudFrontWebAcl.Arn
+          Logging:
+            Bucket: !Sub "${LoggingBucket}.s3.amazonaws.com"
+            Prefix: AWSLogs/CLOUDFRONT/${self:custom.stage}/
     Route53DnsRecord:
       Type: AWS::Route53::RecordSet
       Condition: CreateDnsRecord
@@ -219,7 +231,7 @@ resources:
           HostedZoneId: Z2FDTNDATAQYW2
           EvaluateTargetHealth: false
         Type: A
-    HstsCloudfrontFunction:
+    HeadersCloudfrontFunction:
       Type: AWS::CloudFront::Function
       Properties:
         AutoPublish: true
@@ -228,12 +240,14 @@ resources:
             var response = event.response;
             var headers = response.headers;
             headers['strict-transport-security'] = { value: 'max-age=63072000; includeSubdomains; preload'};
+            headers['x-content-type-options'] = { value: 'nosniff' };
+            headers['x-xss-protection'] = { value: '0' };
             return response;
           }
         FunctionConfig:
-          Comment: This function adds headers to implement HSTS
+          Comment: This function adds headers for security - HSTS, NoSniffContentType, XSS Protection
           Runtime: cloudfront-js-1.0
-        Name: hsts-${self:custom.stage}
+        Name: security-headers-${self:custom.stage}
     ###############This code block enables logging on waf and sends all logs to s3.##################################
     WaflogsUploadBucket:
       Type: AWS::S3::Bucket
@@ -244,19 +258,22 @@ resources:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
     WaflogsUploadBucketPolicy:
-      Type: AWS::S3::BucketPolicy
+      Type: "AWS::S3::BucketPolicy"
       Properties:
-        Bucket: !Ref WaflogsUploadBucket
         PolicyDocument:
+          Version: "2012-10-17"
           Statement:
-            - Action:
-                - "s3:*"
+            - Sid: "AllowSSLRequestsOnly"
               Effect: Deny
+              Action: "s3:*"
               Principal: "*"
-              Resource: !Sub ${WaflogsUploadBucket.Arn}/*
+              Resource:
+                - !Sub arn:aws:s3:::${WaflogsUploadBucket}/*
+                - !Sub arn:aws:s3:::${WaflogsUploadBucket}
               Condition:
                 Bool:
-                  "aws:SecureTransport": false
+                  aws:SecureTransport: false
+        Bucket: !Ref WaflogsUploadBucket
     Firehose:
       Type: AWS::KinesisFirehose::DeliveryStream
       Properties:
@@ -328,15 +345,3 @@ resources:
       Value: !Sub https://${CloudFrontDistribution.DomainName}
     ApplicationEndpointUrl:
       Value: !GetAtt ApplicationEndpointUrl.Value
-    TestUserOne:
-      Value: !Sub ${ssm:/configuration/testUser1, ""}
-    TestUserTwo:
-      Value: !Sub ${ssm:/configuration/testUser2, ""}
-    TestUserThree:
-      Value: !Sub ${ssm:/configuration/testUser3, ""}
-    TestUserFour:
-      Value: !Sub ${ssm:/configuration/testUser4, ""}
-    TestPasswordOne:
-      Value: !Sub ${ssm:/configuration/default/cognito/bootstrapUsers/password, ""}
-    ProdUrl:
-      Value: !Sub ${ssm:/configuration/prodUrl, ""}
