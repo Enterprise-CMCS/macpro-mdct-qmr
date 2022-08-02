@@ -22,8 +22,8 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
           <label
             class="chakra-form__label css-uvho5g"
             data-cy="How do we feel about a label with this text? Does it work?"
-            for="field-2"
-            id="field-2-label"
+            for="field-6"
+            id="field-6-label"
           >
             How do we feel about a label with this text? Does it work?
           </label>
@@ -35,9 +35,11 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
+                data-checked=""
                 data-cy="DataSource0"
               >
                 <input
+                  checked=""
                   class="chakra-checkbox__input"
                   id="DataSource0-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
@@ -47,9 +49,25 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
                 <span
                   aria-hidden="true"
                   class="chakra-checkbox__control css-dnty2r"
-                />
+                  data-checked=""
+                >
+                  <div
+                    style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                  >
+                    <svg
+                      class="css-o8vbdw"
+                      style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                      viewBox="0 0 12 10"
+                    >
+                      <polyline
+                        points="1.5 6 4.5 9 10.5 1"
+                      />
+                    </svg>
+                  </div>
+                </span>
                 <span
                   class="chakra-checkbox__label css-1oeb2oe"
+                  data-checked=""
                 >
                   <p
                     class="chakra-text css-vjer7o"
@@ -60,17 +78,187 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
               </label>
               <div
                 class="chakra-collapse"
-                style="overflow: hidden; display: none; opacity: 0; height: 0px;"
-              />
+                style="overflow: initial; display: block; opacity: 1; height: auto;"
+              >
+                <div
+                  class="css-1s47xlp"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <label
+                      class="chakra-form__label css-uvho5g"
+                      data-cy="What is the Option 1 Data Source?"
+                      for="field-7"
+                      id="field-7-label"
+                    >
+                      What is the Option 1 Data Source?
+                    </label>
+                    <div
+                      class="chakra-stack css-n21gh5"
+                    >
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-checked=""
+                          data-cy="DataSourceSelections.Option10.selected0"
+                        >
+                          <input
+                            checked=""
+                            class="chakra-checkbox__input"
+                            id="DataSourceSelections.Option10.selected0-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="Imnottelling"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                            data-checked=""
+                          >
+                            <div
+                              style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                            >
+                              <svg
+                                class="css-o8vbdw"
+                                style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                                viewBox="0 0 12 10"
+                              >
+                                <polyline
+                                  points="1.5 6 4.5 9 10.5 1"
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                            data-checked=""
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              I'm not telling
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: initial; display: block; opacity: 1; height: auto;"
+                        >
+                          <div
+                            class="css-1ysiprv"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-checked=""
+                          data-cy="DataSourceSelections.Option10.selected1"
+                        >
+                          <input
+                            checked=""
+                            class="chakra-checkbox__input"
+                            id="DataSourceSelections.Option10.selected1-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="Youllhavetokillmefirst"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                            data-checked=""
+                          >
+                            <div
+                              style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                            >
+                              <svg
+                                class="css-o8vbdw"
+                                style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                                viewBox="0 0 12 10"
+                              >
+                                <polyline
+                                  points="1.5 6 4.5 9 10.5 1"
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                            data-checked=""
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              You'll have to kill me first
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: initial; display: block; opacity: 1; height: auto;"
+                        >
+                          <div
+                            class="css-1s47xlp"
+                          >
+                            <div
+                              class="chakra-form-control css-0"
+                              role="group"
+                            >
+                              <label
+                                class="chakra-form__label css-uvho5g"
+                                data-cy="Describe the data source:"
+                                for="field-8"
+                                id="field-8-label"
+                              >
+                                Describe the data source:
+                              </label>
+                              <textarea
+                                class="chakra-textarea css-0"
+                                data-cy="DataSourceSelections.Option10-Youllhavetokillmefirst.description"
+                                id="field-8"
+                                name="DataSourceSelections.Option10-Youllhavetokillmefirst.description"
+                              >
+                                Another one bites the dust
+                              </textarea>
+                              <div
+                                class="css-k008qs"
+                              >
+                                <div
+                                  class="css-17xejub"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               class="css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
+                data-checked=""
                 data-cy="DataSource1"
               >
                 <input
+                  checked=""
                   class="chakra-checkbox__input"
                   id="DataSource1-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
@@ -80,9 +268,25 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
                 <span
                   aria-hidden="true"
                   class="chakra-checkbox__control css-dnty2r"
-                />
+                  data-checked=""
+                >
+                  <div
+                    style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                  >
+                    <svg
+                      class="css-o8vbdw"
+                      style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                      viewBox="0 0 12 10"
+                    >
+                      <polyline
+                        points="1.5 6 4.5 9 10.5 1"
+                      />
+                    </svg>
+                  </div>
+                </span>
                 <span
                   class="chakra-checkbox__label css-1oeb2oe"
+                  data-checked=""
                 >
                   <p
                     class="chakra-text css-vjer7o"
@@ -93,17 +297,52 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
               </label>
               <div
                 class="chakra-collapse"
-                style="overflow: hidden; display: none; opacity: 0; height: 0px;"
-              />
+                style="overflow: initial; display: block; opacity: 1; height: auto;"
+              >
+                <div
+                  class="css-1s47xlp"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <label
+                      class="chakra-form__label css-uvho5g"
+                      data-cy="Describe the data source:"
+                      for="field-9"
+                      id="field-9-label"
+                    >
+                      Describe the data source:
+                    </label>
+                    <textarea
+                      class="chakra-textarea css-0"
+                      data-cy="DataSourceSelections.ABetterOption.description"
+                      id="field-9"
+                      name="DataSourceSelections.ABetterOption.description"
+                    >
+                      dun dun dun
+                    </textarea>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               class="css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
+                data-checked=""
                 data-cy="DataSource2"
               >
                 <input
+                  checked=""
                   class="chakra-checkbox__input"
                   id="DataSource2-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
@@ -113,9 +352,25 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
                 <span
                   aria-hidden="true"
                   class="chakra-checkbox__control css-dnty2r"
-                />
+                  data-checked=""
+                >
+                  <div
+                    style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                  >
+                    <svg
+                      class="css-o8vbdw"
+                      style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                      viewBox="0 0 12 10"
+                    >
+                      <polyline
+                        points="1.5 6 4.5 9 10.5 1"
+                      />
+                    </svg>
+                  </div>
+                </span>
                 <span
                   class="chakra-checkbox__label css-1oeb2oe"
+                  data-checked=""
                 >
                   <p
                     class="chakra-text css-vjer7o"
@@ -126,10 +381,51 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
               </label>
               <div
                 class="chakra-collapse"
-                style="overflow: hidden; display: none; opacity: 0; height: 0px;"
-              />
+                style="overflow: initial; display: block; opacity: 1; height: auto;"
+              >
+                <div
+                  class="css-1ysiprv"
+                />
+              </div>
             </div>
           </div>
+          <div
+            class="css-k008qs"
+          >
+            <div
+              class="css-17xejub"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-stack css-owjkmg"
+      >
+        <p
+          class="chakra-text css-t3k68f"
+        >
+          For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:
+        </p>
+        <div
+          class="chakra-form-control css-0"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            data-cy="Data Source Description"
+            for="field-10"
+            id="field-10-label"
+          >
+            Data Source Description
+          </label>
+          <textarea
+            class="chakra-textarea css-0"
+            data-cy="DataSourceDescription"
+            id="field-10"
+            name="DataSourceDescription"
+          >
+            Another one bites the dust
+          </textarea>
           <div
             class="css-k008qs"
           >
@@ -179,9 +475,11 @@ exports[`Test the global DataSource component (Default) Component renders with c
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
+                data-checked=""
                 data-cy="DataSource0"
               >
                 <input
+                  checked=""
                   class="chakra-checkbox__input"
                   id="DataSource0-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
@@ -191,9 +489,25 @@ exports[`Test the global DataSource component (Default) Component renders with c
                 <span
                   aria-hidden="true"
                   class="chakra-checkbox__control css-dnty2r"
-                />
+                  data-checked=""
+                >
+                  <div
+                    style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                  >
+                    <svg
+                      class="css-o8vbdw"
+                      style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                      viewBox="0 0 12 10"
+                    >
+                      <polyline
+                        points="1.5 6 4.5 9 10.5 1"
+                      />
+                    </svg>
+                  </div>
+                </span>
                 <span
                   class="chakra-checkbox__label css-1oeb2oe"
+                  data-checked=""
                 >
                   <p
                     class="chakra-text css-vjer7o"
@@ -204,17 +518,187 @@ exports[`Test the global DataSource component (Default) Component renders with c
               </label>
               <div
                 class="chakra-collapse"
-                style="overflow: hidden; display: none; opacity: 0; height: 0px;"
-              />
+                style="overflow: initial; display: block; opacity: 1; height: auto;"
+              >
+                <div
+                  class="css-1s47xlp"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <label
+                      class="chakra-form__label css-uvho5g"
+                      data-cy="What is the Administrative Data Source?"
+                      for="field-2"
+                      id="field-2-label"
+                    >
+                      What is the Administrative Data Source?
+                    </label>
+                    <div
+                      class="chakra-stack css-n21gh5"
+                    >
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-checked=""
+                          data-cy="DataSourceSelections.AdministrativeData0.selected0"
+                        >
+                          <input
+                            checked=""
+                            class="chakra-checkbox__input"
+                            id="DataSourceSelections.AdministrativeData0.selected0-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="MedicaidManagementInformationSystemMMIS"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                            data-checked=""
+                          >
+                            <div
+                              style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                            >
+                              <svg
+                                class="css-o8vbdw"
+                                style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                                viewBox="0 0 12 10"
+                              >
+                                <polyline
+                                  points="1.5 6 4.5 9 10.5 1"
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                            data-checked=""
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Medicaid Management Information System (MMIS)
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: initial; display: block; opacity: 1; height: auto;"
+                        >
+                          <div
+                            class="css-1ysiprv"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="css-79elbk"
+                      >
+                        <label
+                          class="chakra-checkbox css-1uiwwan"
+                          data-checked=""
+                          data-cy="DataSourceSelections.AdministrativeData0.selected1"
+                        >
+                          <input
+                            checked=""
+                            class="chakra-checkbox__input"
+                            id="DataSourceSelections.AdministrativeData0.selected1-checkbox"
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+                            type="checkbox"
+                            value="AdministrativeDataOther"
+                          />
+                          <span
+                            aria-hidden="true"
+                            class="chakra-checkbox__control css-dnty2r"
+                            data-checked=""
+                          >
+                            <div
+                              style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                            >
+                              <svg
+                                class="css-o8vbdw"
+                                style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                                viewBox="0 0 12 10"
+                              >
+                                <polyline
+                                  points="1.5 6 4.5 9 10.5 1"
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                          <span
+                            class="chakra-checkbox__label css-1oeb2oe"
+                            data-checked=""
+                          >
+                            <p
+                              class="chakra-text css-vjer7o"
+                            >
+                              Administrative Data Other
+                            </p>
+                          </span>
+                        </label>
+                        <div
+                          class="chakra-collapse"
+                          style="overflow: initial; display: block; opacity: 1; height: auto;"
+                        >
+                          <div
+                            class="css-1s47xlp"
+                          >
+                            <div
+                              class="chakra-form-control css-0"
+                              role="group"
+                            >
+                              <label
+                                class="chakra-form__label css-uvho5g"
+                                data-cy="Describe the data source:"
+                                for="field-3"
+                                id="field-3-label"
+                              >
+                                Describe the data source:
+                              </label>
+                              <textarea
+                                class="chakra-textarea css-0"
+                                data-cy="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"
+                                id="field-3"
+                                name="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"
+                              >
+                                Another one bites the dust
+                              </textarea>
+                              <div
+                                class="css-k008qs"
+                              >
+                                <div
+                                  class="css-17xejub"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               class="css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
+                data-checked=""
                 data-cy="DataSource1"
               >
                 <input
+                  checked=""
                   class="chakra-checkbox__input"
                   id="DataSource1-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
@@ -224,9 +708,25 @@ exports[`Test the global DataSource component (Default) Component renders with c
                 <span
                   aria-hidden="true"
                   class="chakra-checkbox__control css-dnty2r"
-                />
+                  data-checked=""
+                >
+                  <div
+                    style="display: flex; align-items: center; justify-content: center; height: 100%; transform: none;"
+                  >
+                    <svg
+                      class="css-o8vbdw"
+                      style="fill: none; stroke-width: 2; stroke: currentColor; stroke-dasharray: 16; opacity: 1; stroke-dashoffset: 0;"
+                      viewBox="0 0 12 10"
+                    >
+                      <polyline
+                        points="1.5 6 4.5 9 10.5 1"
+                      />
+                    </svg>
+                  </div>
+                </span>
                 <span
                   class="chakra-checkbox__label css-1oeb2oe"
+                  data-checked=""
                 >
                   <p
                     class="chakra-text css-vjer7o"
@@ -237,10 +737,80 @@ exports[`Test the global DataSource component (Default) Component renders with c
               </label>
               <div
                 class="chakra-collapse"
-                style="overflow: hidden; display: none; opacity: 0; height: 0px;"
-              />
+                style="overflow: initial; display: block; opacity: 1; height: auto;"
+              >
+                <div
+                  class="css-1s47xlp"
+                >
+                  <div
+                    class="chakra-form-control css-0"
+                    role="group"
+                  >
+                    <label
+                      class="chakra-form__label css-uvho5g"
+                      data-cy="Describe the data source:"
+                      for="field-4"
+                      id="field-4-label"
+                    >
+                      Describe the data source:
+                    </label>
+                    <textarea
+                      class="chakra-textarea css-0"
+                      data-cy="DataSourceSelections.OtherDataSource.description"
+                      id="field-4"
+                      name="DataSourceSelections.OtherDataSource.description"
+                    >
+                      dun dun dun
+                    </textarea>
+                    <div
+                      class="css-k008qs"
+                    >
+                      <div
+                        class="css-17xejub"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+          <div
+            class="css-k008qs"
+          >
+            <div
+              class="css-17xejub"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="chakra-stack css-owjkmg"
+      >
+        <p
+          class="chakra-text css-t3k68f"
+        >
+          For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:
+        </p>
+        <div
+          class="chakra-form-control css-0"
+          role="group"
+        >
+          <label
+            class="chakra-form__label css-uvho5g"
+            data-cy="Data Source Description"
+            for="field-5"
+            id="field-5-label"
+          >
+            Data Source Description
+          </label>
+          <textarea
+            class="chakra-textarea css-0"
+            data-cy="DataSourceDescription"
+            id="field-5"
+            name="DataSourceDescription"
+          >
+            Another one bites the dust
+          </textarea>
           <div
             class="css-k008qs"
           >
