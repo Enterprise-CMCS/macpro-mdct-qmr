@@ -210,16 +210,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
   });
 
-  jest.setTimeout(15000);
-  it("should not pass a11y tests", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    const badhtml = screen.getByTestId("measure-wrapper-form");
-    badhtml.append(document.createElement("button"));
-    const results = await axe(badhtml);
-    expect(results).not.toHaveNoViolations();
-  });
-
   it("should not allow non state users to edit forms by disabling buttons", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
