@@ -84,7 +84,7 @@ const ChildChipData: DataDriven = {
   title: "Child Core Set Qualifiers",
   questionTitle: "Child Core Set Questions: CHIP",
   qualifierHeader: (year) =>
-    `As of September 30, ${year} what percentage of your Medicaid/CHIP enrollees (above age 21) were enrolled in each delivery system?`,
+    `As of September 30, ${year} what percentage of your CHIP enrollees (under age 21) were enrolled in each delivery system?`,
   textTable: [["CHIP", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
@@ -114,8 +114,8 @@ const ChildMedicaidData: DataDriven = {
   title: "Child Core Set Qualifiers",
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year} what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system (optional)?`,
-  textTable: [["CHIP", "Under Age 21"]],
+    `As of September 30, ${year} what percentage of your Medicaid enrollees (under age 21) were enrolled in each delivery system (optional)?`,
+  textTable: [["Medicaid", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [
