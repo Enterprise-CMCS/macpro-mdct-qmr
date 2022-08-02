@@ -6,7 +6,7 @@ import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { FormData } from "./types";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils/numberInputMasks";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 
 export const AMBHH = ({
   name,

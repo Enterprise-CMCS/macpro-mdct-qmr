@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "../types";
 import * as QMR from "components";
-import { cleanString } from "utils/cleanString";
+import { cleanString, getLabelText } from "utils";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { useTotalAutoCalculation } from "./omsUtil";
@@ -324,6 +324,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();
+  const labelText = getLabelText();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
@@ -341,7 +342,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
       const cleanedLabel = cleanString(value);
       const ageGroupCheckBox = {
         value: cleanedLabel,
-        displayValue: value,
+        displayValue: labelText[value] ?? value,
         children: [
           <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
             {customPrompt ??
@@ -494,6 +495,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
   OPM?.forEach(({ description }, idx) => {
     if (description) {
       const cleanedFieldName = cleanString(description);
+
       const RateComponent = (
         <QMR.Rate
           rates={[
@@ -537,24 +539,6 @@ const useRenderOPMCheckboxOptions = (name: string) => {
             Please review the auto-calculated rate and revise if needed.
           </CUI.Heading>,
           RateComponent,
-          <QMR.Rate
-            rates={[
-              {
-                id: 0,
-              },
-            ]}
-            name={`${name}.rates.${cleanedFieldName}.OPM`}
-            key={`${name}.rates.${cleanedFieldName}.OPM`}
-            readOnly={rateReadOnly}
-            rateMultiplicationValue={rateMultiplicationValue}
-            customMask={customMask}
-            allowNumeratorGreaterThanDenominator={
-              allowNumeratorGreaterThanDenominator
-            }
-            customNumeratorLabel={customNumeratorLabel}
-            customDenominatorLabel={customDenominatorLabel}
-            customRateLabel={customRateLabel}
-          />,
         ],
       });
     }

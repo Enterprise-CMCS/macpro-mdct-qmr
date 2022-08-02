@@ -4,6 +4,7 @@ import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
+import { getLabelText } from "utils";
 
 import { defaultRateCalculation } from "utils/rateFormulas";
 import {
@@ -12,7 +13,7 @@ import {
   rateThatAllowsFourDecimals,
   rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
-} from "utils/numberInputMasks";
+} from "utils";
 export interface IRate {
   label?: string;
   id: number;
@@ -54,7 +55,7 @@ export const Rate = ({
     formState: { errors },
     unregister,
   } = useFormContext();
-
+  const labelText = getLabelText();
   const { field } = useController({
     name,
     control,
@@ -229,7 +230,7 @@ export const Rate = ({
           <CUI.Stack key={rate.id} mt={4} mb={8}>
             {rate.label && (
               <CUI.FormLabel fontWeight={700} data-cy={rate.label}>
-                {rate.label}
+                {labelText[rate.label] ?? rate.label}
               </CUI.FormLabel>
             )}
             <CUI.HStack spacing={16}>

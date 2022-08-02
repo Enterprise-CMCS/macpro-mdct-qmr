@@ -4,6 +4,7 @@ import * as QMR from "components";
 import { cleanString } from "utils/cleanString";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import { getLabelText } from "utils";
 
 interface GetTopLvlDeviationOptions {
   categories: string[];
@@ -23,6 +24,7 @@ interface Props {
 interface OptionProps {
   name: string;
   qualifiers?: Types.RateFields[];
+  labelText?: { [key: string]: string };
 }
 
 /**
@@ -79,6 +81,7 @@ const DeviationsSelectedCheckbox = ({ name }: { name: string }) => (
 export const getLowLvlDeviationOptions = ({
   qualifiers,
   name,
+  labelText,
 }: OptionProps) => {
   if (!qualifiers || qualifiers.length === 0) return [];
 
@@ -91,7 +94,7 @@ export const getLowLvlDeviationOptions = ({
     .map((item) => {
       const value = `${item.label && cleanString(item.label)}`;
       return {
-        displayValue: item.label!,
+        displayValue: labelText?.[item.label!] || item.label,
         value,
         children: [
           <DeviationsSelectedCheckbox
@@ -120,6 +123,7 @@ export const DeviationFromMeasureSpec = ({
   const watchPerformanceMeasure = useWatch({
     name: DC.PERFORMANCE_MEASURE,
   });
+  const labelText = getLabelText();
 
   const getTopLvlDeviationOptions = ({
     categories,
@@ -162,7 +166,7 @@ export const DeviationFromMeasureSpec = ({
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
               rates: deviationRates,
-              displayValue: cat,
+              displayValue: labelText[cat] || cat,
               key,
             });
           }
@@ -173,7 +177,7 @@ export const DeviationFromMeasureSpec = ({
         topLvlOptions?.map((option) => {
           return {
             value: option.key,
-            displayValue: option.displayValue,
+            displayValue: labelText[option.displayValue] || option.displayValue,
             children: [
               <QMR.Checkbox
                 {...register(
@@ -184,6 +188,7 @@ export const DeviationFromMeasureSpec = ({
                 options={getLowLvlDeviationOptions({
                   qualifiers: option.rates,
                   name: `${DC.DEVIATIONS}.${option.key}`,
+                  labelText,
                 })}
               />,
             ],

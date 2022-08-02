@@ -1,13 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Three Days Postpartum Rate",
-  "Sixty Days Postpartum Rate",
-];
-export const categories = [
-  "Most effective or moderately effective method of contraception",
-  "Long-acting reversible method of contraception (LARC)",
-];
+export const { categories, qualifiers } = getCatQualLabels("CCP-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as Types from "measures/2021/CommonQuestions/types";
 import { DataDrivenTypes as DDT } from "measures/2021/CommonQuestions/types";
-import { cleanString } from "utils/cleanString";
+import { cleanString } from "utils";
 import { FormRateField as PM, RateData } from "./types";
 
 /**

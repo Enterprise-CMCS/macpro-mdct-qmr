@@ -1,5 +1,5 @@
 import { OmsValidationCallback, FormRateField } from "../types";
-import { cleanString } from "utils/cleanString";
+import { cleanString } from "utils";
 
 const validateOMSTotalNDRErrorMessage = (fieldType: string) => {
   if (fieldType === "Total") {

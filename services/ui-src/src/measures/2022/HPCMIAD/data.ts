@@ -1,12 +1,12 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = ["Ages 18 to 64", "Ages 65 to 75"];
-export const categories = []; // none
+export const { categories, qualifiers } = getCatQualLabels("HPCMI-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of beneficiaries ages 18 to 75 with serious mental illness and diabetes (type 1 and type 2) who had hemoglobin A1c (HbA1c) in poor control (> 9.0%).",
+    "Percentage of beneficiaries ages 18 to 75 with a serious mental illness and diabetes (type 1 and type 2) who had hemoglobin A1c (HbA1c) in poor control (> 9.0%).",
   ],
   questionListItems: [],
   categories,
