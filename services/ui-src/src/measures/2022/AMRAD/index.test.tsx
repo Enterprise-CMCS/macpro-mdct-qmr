@@ -79,10 +79,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     renderWithHookForm(component);
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
-      // todo: replace this with the data constant for the label instead of manually entered
-      expect(
-        screen.getByText("AMR-AD - Asthma Medication Ratio: Ages 19 to 64")
-      );
+      expect(screen.getByText(measureAbbr + " - " + description));
     });
   });
 

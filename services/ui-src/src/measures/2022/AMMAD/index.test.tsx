@@ -79,8 +79,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     renderWithHookForm(component);
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
-      // todo: replace this with the data constant for the label instead of manually entered
-      expect(screen.getByText("AMM-AD - Antidepressant Medication Management"));
+      expect(screen.getByText(measureAbbr + " - " + description));
     });
   });
 

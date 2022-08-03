@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "BCS-AD";
+const measureAbbr = "CCP-AD";
 const coreSet = "ACS";
 const state = "AL";
 const year = 2022;
@@ -172,7 +172,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     mockValidateAndSetErrors(validationFunctions, notReportingData); // trigger validations
     expect(V.validateReasonForNotReporting).toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).not.toHaveBeenCalled();
-    expect(V.validateDualPopInformationPM).not.toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
     expect(V.validateRateZeroPM).not.toHaveBeenCalled();
@@ -182,6 +181,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
@@ -192,7 +193,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
 
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
-    expect(V.validateDualPopInformationPM).toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).toHaveBeenCalled();
     expect(V.validateRateZeroPM).toHaveBeenCalled();
@@ -200,6 +200,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatPM).toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
@@ -224,19 +226,30 @@ const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
 const completedMeasureData = {
   PerformanceMeasure: {
     rates: {
-      singleCategory: [
+      LongactingreversiblemethodofcontraceptionLARC: [
         {
-          label: "Ages 50 to 64",
+          label: "Three Days Postpartum Rate",
           rate: "100.0",
           numerator: "55",
           denominator: "55",
         },
         {
-          label: "Ages 65 to 74",
+          label: "Sixty Days Postpartum Rate",
+        },
+      ],
+      Mosteffectiveormoderatelyeffectivemethodofcontraception: [
+        {
+          label: "Three Days Postpartum Rate",
+          rate: "100.0",
+          numerator: "55",
+          denominator: "55",
+        },
+        {
+          label: "Sixty Days Postpartum Rate",
         },
       ],
     },
   },
-  MeasurementSpecification: "NCQA/HEDIS",
+  MeasurementSpecification: "OPA",
   DidReport: "yes",
 };
