@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "AMR-AD";
+const measureAbbr = "BCS-AD";
 const coreSet = "ACS";
 const state = "AL";
 const year = 2022;
@@ -80,9 +80,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
       // todo: replace this with the data constant for the label instead of manually entered
-      expect(
-        screen.getByText("AMR-AD - Asthma Medication Ratio: Ages 19 to 64")
-      );
+      expect(screen.getByText("BCS-AD - Breast Cancer Screening"));
     });
   });
 
@@ -188,8 +186,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
-    expect(V.validateTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -197,6 +193,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
 
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
+    expect(V.validateDualPopInformationPM).toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).toHaveBeenCalled();
     expect(V.validateRateZeroPM).toHaveBeenCalled();
@@ -207,8 +204,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
-    expect(V.validateTotalNDR).toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);
@@ -232,23 +227,13 @@ const completedMeasureData = {
     rates: {
       singleCategory: [
         {
-          label: "Ages 19 to 50",
+          label: "Ages 50 to 64",
           rate: "100.0",
           numerator: "55",
           denominator: "55",
         },
         {
-          label: "Ages 51 to 64",
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
-        },
-        {
-          label: "Total",
-          isTotal: true,
-          rate: "100.0",
-          numerator: "110",
-          denominator: "110",
+          label: "Ages 65 to 74",
         },
       ],
     },
