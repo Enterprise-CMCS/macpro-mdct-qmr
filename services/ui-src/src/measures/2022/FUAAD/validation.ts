@@ -10,7 +10,6 @@ const FUAADValidation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
   const dateRange = data[DC.DATE_RANGE];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
@@ -41,7 +40,7 @@ const FUAADValidation = (data: FormData) => {
     ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateDualPopInformationPM(
-      validateDualPopInformationArray,
+      performanceMeasureArray,
       OPM,
       sixtyDaysIndex,
       DefinitionOfDenominator
