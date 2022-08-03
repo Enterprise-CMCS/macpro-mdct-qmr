@@ -82,7 +82,7 @@ describe("Test the SubmitCoreSetButton component", () => {
     renderTestComponent(props);
     expect(
       screen.getByText(
-        /Complete all Child Core Set Questions and Child Core Set Measures to submit FFY 2021/i
+        /Complete all Child Core Set Questions: Medicaid & CHIP and Child Core Set Measures: Medicaid & CHIP to submit FFY 2021/i
       )
     ).toBeVisible();
   });
@@ -91,7 +91,7 @@ describe("Test the SubmitCoreSetButton component", () => {
     renderTestComponent(props);
     expect(
       screen.getByText(
-        /Complete all Child Core Set Questions and Child Core Set Measures to submit FFY 2021/i
+        /Complete all Child Core Set Questions: Medicaid and Child Core Set Measures: Medicaid to submit FFY 2021/i
       )
     ).toBeVisible();
   });
@@ -100,7 +100,7 @@ describe("Test the SubmitCoreSetButton component", () => {
     renderTestComponent(props);
     expect(
       screen.getByText(
-        /Complete all Child Core Set Questions and Child Core Set Measures to submit FFY 2021/i
+        /Complete all Child Core Set Questions: CHIP and Child Core Set Measures: CHIP to submit FFY 2021/i
       )
     ).toBeVisible();
   });
