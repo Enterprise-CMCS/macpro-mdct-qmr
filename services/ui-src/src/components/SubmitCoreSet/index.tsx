@@ -37,7 +37,25 @@ export const SubmitCoreSetButton = ({
         return "";
     }
   };
-  const helperText = `Complete all ${helperTextFiller()}Core Set Questions and ${helperTextFiller()}Core Set Measures to submit FFY ${year}`;
+
+  const subSetTextFiller = () => {
+    const abbr = coreSet?.split("_") ?? [coreSet];
+    switch (abbr[0]) {
+      case CoreSetAbbr.ACS:
+        return " ";
+      case CoreSetAbbr.CCS:
+        return ": Medicaid & CHIP ";
+      case CoreSetAbbr.CCSM:
+        return ": Medicaid ";
+      case CoreSetAbbr.CCSC:
+        return ": CHIP ";
+      case CoreSetAbbr.HHCS:
+        return " ";
+      default:
+        return " ";
+    }
+  };
+  const helperText = `Complete all ${helperTextFiller()}Core Set Questions${subSetTextFiller()}and ${helperTextFiller()}Core Set Measures${subSetTextFiller()}to submit FFY ${year}`;
   const { mutate, isLoading } = useEditCoreSet();
   const queryClient = useQueryClient();
   const userInfo = useUser();

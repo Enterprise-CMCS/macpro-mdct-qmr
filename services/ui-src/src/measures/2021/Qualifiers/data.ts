@@ -44,7 +44,7 @@ const AdultData: DataDriven = {
 };
 
 const ChildData: DataDriven = {
-  title: "Child Core Set Qualifiers",
+  title: "Child Core Set Qualifiers: Medicaid & CHIP",
   questionTitle: "Child Core Set Questions: Medicaid & CHIP",
   qualifierHeader: (year) =>
     `As of September 30, ${year} what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?`,
@@ -81,7 +81,7 @@ const ChildData: DataDriven = {
 };
 
 const ChildChipData: DataDriven = {
-  title: "Child Core Set Qualifiers",
+  title: "Child Core Set Qualifiers: CHIP",
   questionTitle: "Child Core Set Questions: CHIP",
   qualifierHeader: (year) =>
     `As of September 30, ${year} what percentage of your CHIP enrollees (under age 21) were enrolled in each delivery system?`,
@@ -111,7 +111,7 @@ const ChildChipData: DataDriven = {
 };
 
 const ChildMedicaidData: DataDriven = {
-  title: "Child Core Set Qualifiers",
+  title: "Child Core Set Qualifiers: Medicaid",
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
     `As of September 30, ${year} what percentage of your Medicaid enrollees (under age 21) were enrolled in each delivery system (optional)?`,
