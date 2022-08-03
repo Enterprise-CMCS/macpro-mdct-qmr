@@ -6,12 +6,12 @@ import { testSnapshot } from "utils/testUtils/testSnapshot";
 describe("Test the global DataSource component", () => {
   it("(Default) Component renders with correct content", () => {
     const component = <DataSource />;
-    testSnapshot(component, { defaultValues: DS.default });
+    testSnapshot({ component, defaultValues: { defaultValues: DS.default } });
   });
 
   it("(Custom Structure) Component renders with correct content", () => {
     const component = <DataSource data={data} />;
-    testSnapshot(component, { defaultValues: DS.custom });
+    testSnapshot({ component, defaultValues: { defaultValues: DS.custom } });
   });
 });
 
