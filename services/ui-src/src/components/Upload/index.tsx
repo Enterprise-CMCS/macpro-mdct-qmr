@@ -190,10 +190,15 @@ export const Upload = ({
         cursor="pointer"
         position="relative"
         className="prince-upload-wrapper"
+        data-testid="upload-stack"
       >
         {!isStateUser && <QMR.ComponentMask />}
         <FolderIcon />
-        <input {...getInputProps()} style={{ display: "none" }} />
+        <input
+          data-testid="upload-component"
+          {...getInputProps()}
+          style={{ display: "none" }}
+        />
         <CUI.Text fontSize="lg">
           Drag &amp; drop or{" "}
           <button type="button">
