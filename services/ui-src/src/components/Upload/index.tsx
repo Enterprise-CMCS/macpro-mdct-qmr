@@ -189,10 +189,15 @@ export const Upload = ({
         boxSizing="border-box"
         cursor="pointer"
         position="relative"
+        data-testid="upload-stack"
       >
         {!isStateUser && <QMR.ComponentMask />}
         <FolderIcon />
-        <input {...getInputProps()} style={{ display: "none" }} />
+        <input
+          data-testid="upload-component"
+          {...getInputProps()}
+          style={{ display: "none" }}
+        />
         <CUI.Text fontSize="lg">
           Drag &amp; drop or{" "}
           <button type="button">
