@@ -17,7 +17,6 @@ const FUAHHValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const sixtyDaysIndex = 2;
-  const validateDualPopInformationArray = [performanceMeasureArray?.[1]];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
@@ -46,7 +45,7 @@ const FUAHHValidation = (data: FormData) => {
 
     // Performance Measure Validations
     ...GV.validateDualPopInformationPM(
-      validateDualPopInformationArray,
+      performanceMeasureArray,
       OPM,
       sixtyDaysIndex,
       DefinitionOfDenominator
