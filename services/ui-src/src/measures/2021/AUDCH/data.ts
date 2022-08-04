@@ -1,9 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Percentage of newborns who did not pass hearing screening and have an audiological diagnosis no later than 3 months of age",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("AUD-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

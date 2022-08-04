@@ -1,23 +1,34 @@
-import { screen } from "@testing-library/react";
-import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { DataDrivenTypes } from "../types";
 import { DataSource } from "./index";
-import * as DC from "dataConstants";
+import { DataSourceData as DS } from "utils/testUtils/testFormData";
+import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { testSnapshot } from "utils/testUtils/testSnapshot";
 
-const dataSourceData: DataDrivenTypes.DataSource = {
-  optionsLabel: "Anything could go here.",
+describe("Test the global DataSource component", () => {
+  it("(Default) Component renders with correct content", () => {
+    const component = <DataSource />;
+    testSnapshot({ component, defaultValues: DS.default });
+  });
+
+  it("(Custom Structure) Component renders with correct content", () => {
+    const component = <DataSource data={data} />;
+    testSnapshot({ component, defaultValues: DS.custom });
+  });
+});
+
+const data: DataDrivenTypes.DataSource = {
+  optionsLabel: "How do we feel about a label with this text? Does it work?",
   options: [
     {
-      value: DC.ADMINISTRATIVE_DATA,
+      value: "Option 1",
       subOptions: [
         {
-          label: "Anything else could go here.",
+          label: "What is the Option 1 Data Source?",
           options: [
             {
-              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
+              value: "I'm not telling",
             },
             {
-              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              value: "You'll have to kill me first",
               description: true,
             },
           ],
@@ -25,22 +36,12 @@ const dataSourceData: DataDrivenTypes.DataSource = {
       ],
     },
     {
-      value: DC.ELECTRONIC_HEALTH_RECORDS,
+      value: "A Better Option",
       description: true,
+    },
+    {
+      value: "Something Even Crazier Than The First 2",
+      description: false,
     },
   ],
 };
-
-const TestComponent = () => {
-  return <DataSource data={dataSourceData} />;
-};
-
-describe("Test the global DataSource component", () => {
-  beforeEach(() => {
-    renderWithHookForm(<TestComponent />, {});
-  });
-
-  test("Check that the component renders", () => {
-    expect(screen.getByText("Data Source")).toBeVisible();
-  });
-});

@@ -1,8 +1,8 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
 import * as DC from "dataConstants";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = ["Percentage of women ages 21 to 64 screened"];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("CCS-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

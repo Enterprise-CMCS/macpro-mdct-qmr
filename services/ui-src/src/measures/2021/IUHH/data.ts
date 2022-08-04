@@ -1,4 +1,7 @@
 import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
+
+export const { categories, qualifiers } = getCatQualLabels("IU-HH");
 
 const measureName = "IUHH";
 
@@ -34,21 +37,6 @@ const ndrFormulas = [
     rate: 5,
     mult: 1,
   },
-];
-
-export const categories = [
-  "Inpatient",
-  "Maternity",
-  "Mental and Behavioral Disorders",
-  "Surgery",
-  "Medicine",
-];
-export const qualifiers = [
-  "Ages 0 to 17",
-  "Ages 18 to 64",
-  "Age 65 and older",
-  "Ages unknown",
-  "Total",
 ];
 
 export const data: DataDrivenTypes.PerformanceMeasure = {

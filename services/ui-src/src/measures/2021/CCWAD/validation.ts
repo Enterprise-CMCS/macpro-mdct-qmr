@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { cleanString } from "utils/cleanString";
+import { cleanString } from "utils";
 import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
 
 const CCWADValidation = (data: FormData) => {

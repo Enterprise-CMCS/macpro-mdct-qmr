@@ -1,12 +1,12 @@
 import * as DC from "dataConstants";
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const categories = [];
-export const qualifiers = ["Ages 50 to 64", "Ages 65 to 75"];
+export const { categories, qualifiers } = getCatQualLabels("COL-HH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of health home enrollees ages 50 to 75 who had appropriate screening for colorectal cancer",
+    "Percentage of health home enrollees ages 50 to 75 who had appropriate screening for colorectal cancer.",
   ],
   categories,
   qualifiers,

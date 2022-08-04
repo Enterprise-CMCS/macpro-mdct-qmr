@@ -6,7 +6,7 @@ import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
-import { xNumbersYDecimals } from "utils/numberInputMasks";
+import { xNumbersYDecimals } from "utils";
 
 export const IUHH = ({
   name,

@@ -7,7 +7,7 @@ import { useController, useFormContext } from "react-hook-form";
 import { Storage } from "aws-amplify";
 import { saveAs } from "file-saver";
 import { useUser } from "hooks/authHooks";
-import { createSafeS3Key } from "utils/cleanString";
+import { createSafeS3Key } from "utils";
 
 interface IUploadProps {
   maxSize?: number;
@@ -189,10 +189,15 @@ export const Upload = ({
         boxSizing="border-box"
         cursor="pointer"
         position="relative"
+        data-testid="upload-stack"
       >
         {!isStateUser && <QMR.ComponentMask />}
         <FolderIcon />
-        <input {...getInputProps()} style={{ display: "none" }} />
+        <input
+          data-testid="upload-component"
+          {...getInputProps()}
+          style={{ display: "none" }}
+        />
         <CUI.Text fontSize="lg">
           Drag &amp; drop or{" "}
           <button type="button">

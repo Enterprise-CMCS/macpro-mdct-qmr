@@ -2,10 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
-import {
-  allPositiveIntegers,
-  percentageAllowOneDecimalMax,
-} from "utils/numberInputMasks";
+import { allPositiveIntegers, percentageAllowOneDecimalMax } from "utils";
 import * as DC from "dataConstants";
 
 interface Props {

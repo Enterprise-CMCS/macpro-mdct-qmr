@@ -1,10 +1,7 @@
 import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { getCatQualLabels } from "../rateLabelText";
 
-export const qualifiers = [
-  "Rate 1 - At Least One Sealant",
-  "Rate 2 - All Four Molars Sealed",
-];
-export const categories = [];
+export const { categories, qualifiers } = getCatQualLabels("SFM-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [

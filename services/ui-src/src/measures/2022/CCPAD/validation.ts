@@ -32,7 +32,7 @@ const CCPADValidation = (data: FormData) => {
       PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
-    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
@@ -63,7 +63,7 @@ const CCPADValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateEqualCategoryDenominatorsOMS(),
-        GV.validateOneQualRateHigherThanOtherQualOMS(),
+        GV.validateOneQualRateHigherThanOtherQualOMS(1, 0),
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateNotZeroOMS(),
