@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "FUA-AD";
+const measureAbbr = "FUH-AD";
 const coreSet = "ACS";
 const state = "AL";
 const year = 2022;
@@ -228,21 +228,15 @@ const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
 const completedMeasureData = {
   PerformanceMeasure: {
     rates: {
-      Followupwithin7daysofEDvisit: [
+      FollowUpwithin7daysafterdischarge: [
         {
           label: "Ages 18 to 64",
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
         },
         {
           label: "Age 65 and older",
-          rate: "100.0",
-          denominator: "55",
-          numerator: "55",
         },
       ],
-      Followupwithin30daysofEDvisit: [
+      FollowUpwithin30daysafterdischarge: [
         {
           label: "Ages 18 to 64",
           rate: "100.0",
@@ -251,9 +245,6 @@ const completedMeasureData = {
         },
         {
           label: "Age 65 and older",
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
         },
       ],
     },
