@@ -43,7 +43,7 @@ export enum coreSetMeasureTitle {
 
 enum coreSetQuestionsText {
   ACS = "Adult Core Set Questions",
-  CCS = "Child Core Set Questions",
+  CCS = "Child Core Set Questions: Medicaid & CHIP",
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",
   HHCS = "Health Home Core Set Questions: ",

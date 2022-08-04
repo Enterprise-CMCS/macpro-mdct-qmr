@@ -63,7 +63,7 @@ const CCPADValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateEqualCategoryDenominatorsOMS(),
-        GV.validateOneQualRateHigherThanOtherQualOMS(),
+        GV.validateOneQualRateHigherThanOtherQualOMS(1, 0),
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateNotZeroOMS(),
