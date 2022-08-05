@@ -187,6 +187,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
@@ -207,6 +208,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateTotalNDR).toHaveBeenCalled();
+    expect(V.validateEqualQualifierDenominatorsOMS).toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).toHaveBeenCalled();
   });
 

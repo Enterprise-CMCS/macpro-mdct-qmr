@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "CCP-CH";
+const measureAbbr = "CCW-CH";
 const coreSet = "ACS";
 const state = "AL";
 const year = 2022;
@@ -186,8 +186,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
-    expect(V.validateTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -201,15 +201,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatPM).toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
+    expect(V.validateOne);
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
-    expect(V.validateOneQualRateHigherThanOtherQualOMS).toHaveBeenCalled();
-    expect(V.validateOneQualRateHigherThanOtherQualPM).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
-    expect(V.validateTotalNDR).toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualOMS).toHaveBeenCalled();
   });
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {

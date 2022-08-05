@@ -184,6 +184,10 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
+    expect(
+      V.validateOneQualDenomHigherThanOtherDenomOMS
+    ).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
   });
@@ -202,6 +206,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
+    expect(V.validateOneQualDenomHigherThanOtherDenomOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
   });
