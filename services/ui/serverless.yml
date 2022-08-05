@@ -68,27 +68,14 @@ resources:
     S3Bucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: AES256
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
-      DeletionPolicy: Delete
-    CloudFrontLoggingBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: !Sub ${AWS::AccountId}-${self:service}-${self:custom.stage}-cloudfront-logs
-        PublicAccessBlockConfiguration:
-          BlockPublicAcls: true
-          BlockPublicPolicy: true
-          IgnorePublicAcls: true
-          RestrictPublicBuckets: true
         BucketEncryption:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
+      DeletionPolicy: Delete
     BucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -112,6 +99,20 @@ resources:
                 Bool:
                   "aws:SecureTransport": false
         Bucket: !Ref S3Bucket
+    CloudFrontLoggingBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: !Sub ${AWS::AccountId}-${self:service}-${self:custom.stage}-cloudfront-logs
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: AES256
+      DeletionPolicy: Delete
     LogBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:

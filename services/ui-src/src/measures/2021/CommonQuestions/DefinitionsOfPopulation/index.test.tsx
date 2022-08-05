@@ -5,33 +5,45 @@ import { testSnapshot } from "utils/testUtils/testSnapshot";
 describe("Test DefinitionOfPopulation componnent", () => {
   it("(ACS) Component renders with correct content", () => {
     const component = <DefinitionOfPopulation />;
-    testSnapshot(component, { defaultValues: DOP.adult });
+    testSnapshot({ component, defaultValues: { defaultValues: DOP.adult } });
   });
 
   it("(ACS Hybrid) Component renders with correct content", () => {
     const component = <DefinitionOfPopulation hybridMeasure />;
-    testSnapshot(component, { defaultValues: DOP.adultHybrid });
+    testSnapshot({
+      component,
+      defaultValues: { defaultValues: DOP.adultHybrid },
+    });
   });
 
   it("(CCS) Component renders with correct content", () => {
     const component = <DefinitionOfPopulation childMeasure />;
-    testSnapshot(component, { defaultValues: DOP.child });
+    testSnapshot({ component, defaultValues: { defaultValues: DOP.child } });
   });
 
   it("(CCS Hybrid) Component renders with correct content", () => {
     const component = <DefinitionOfPopulation childMeasure hybridMeasure />;
-    testSnapshot(component, { defaultValues: DOP.childHybrid });
+    testSnapshot({
+      component,
+      defaultValues: { defaultValues: DOP.childHybrid },
+    });
   });
 
   it("(HHS) Component renders with correct content", () => {
     const component = <DefinitionOfPopulation healthHomeMeasure />;
-    testSnapshot(component, { defaultValues: DOP.healthHome });
+    testSnapshot({
+      component,
+      defaultValues: { defaultValues: DOP.healthHome },
+    });
   });
 
   it("(HHS Hybrid) Component renders with correct content", () => {
     const component = (
       <DefinitionOfPopulation healthHomeMeasure hybridMeasure />
     );
-    testSnapshot(component, { defaultValues: DOP.healthHomeHybrid });
+    testSnapshot({
+      component,
+      defaultValues: { defaultValues: DOP.healthHomeHybrid },
+    });
   });
 });
