@@ -29,7 +29,7 @@ export const ExportAll = () => {
   return (
     <>
       <style key="printerPreviewStyles">
-        {`.disabled-print-preview-items { display: none !important; }\n` +
+        {`.disabled-print-preview-items { visibility: hidden !important; display: none !important; }\n` +
           `select option { display: none }` +
           `select option[selected] { display: table-row; }\n`}
       </style>
