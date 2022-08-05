@@ -5,7 +5,12 @@ export const validateAtLeastOneDataSource = (
   errorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
-  if (!data.DataSource || data.DataSource.length === 0) {
+  console.log("data: ", data["DataSource-CAHPS-Version"]);
+  console.log("error message: ", errorMessage);
+  if (
+    (!data.DataSource || data.DataSource.length === 0) &&
+    !data?.["DataSource-CAHPS-Version"]
+  ) {
     errorArray.push({
       errorLocation: "Data Source",
       errorMessage:
