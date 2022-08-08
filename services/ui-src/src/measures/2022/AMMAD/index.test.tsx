@@ -179,6 +179,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       V.validateRequiredRadioButtonForCombinedRates
     ).not.toHaveBeenCalled();
+    expect(V.validateEqualQualifierDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
@@ -192,7 +193,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
     mockValidateAndSetErrors(validationFunctions, completedMeasureData); // trigger validations
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
-
+    expect(V.validateEqualQualifierDenominatorsPM).toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
     expect(V.validateDualPopInformationPM).toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
