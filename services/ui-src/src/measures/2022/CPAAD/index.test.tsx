@@ -81,10 +81,57 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   /**
    * Render the measure and confirm that all expected components exist.
    * */
-  it("Always shows Are you reporting question", async () => {
+  it("Always shows Did you collect question", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.getByText("Did you collect this measure?"));
+  });
+
+  it("shows corresponding questions if yes to reporting then ", async () => {
+    apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    expect(
+      screen.getByText("How did you report this measure?")
+    ).toBeInTheDocument();
+    expect(screen.getByText("Measurement Specification")).toBeInTheDocument();
+    expect(screen.getByText("Data Source")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Which Supplemental Item Sets were included in the Survey"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Which administrative protocol was used to administer the survey?"
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("does not show corresponding questions if no to reporting then ", async () => {
+    apiData.useGetMeasureValues.data.Item.data = notReportingData;
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    expect(
+      screen.queryByText("How did you report this measure?")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Measurement Specification")
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Data Source")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Which Supplemental Item Sets were included in the Survey"
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Which administrative protocol was used to administer the survey?"
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByText("Why did you not collect this measure")
+    ).toBeInTheDocument();
   });
 
   jest.setTimeout(15000);
@@ -96,3 +143,12 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(results).toHaveNoViolations();
   });
 });
+
+const notReportingData = {
+  DidCollect: "no",
+};
+
+const completedMeasureData = {
+  MeasurementSpecification: "AHRQ-NCQA",
+  DidCollect: "yes",
+};
