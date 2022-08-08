@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "AMB-CH";
+const measureAbbr = "DEV-CH";
 const coreSet = "CCSC";
 const state = "AL";
 const year = 2022;
@@ -186,8 +186,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
@@ -195,7 +198,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     mockValidateAndSetErrors(validationFunctions, completedMeasureData); // trigger validations
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
-    expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
+    expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).toHaveBeenCalled();
     expect(V.validateRateZeroPM).toHaveBeenCalled();
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
@@ -203,12 +206,15 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
-    expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
+    expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsOMS).toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).toHaveBeenCalled();
   });
 
@@ -233,39 +239,27 @@ const completedMeasureData = {
     rates: {
       singleCategory: [
         {
-          label: "< Age 1",
-          rate: "1000.0",
-          numerator: "1",
-          denominator: "1",
+          label: "Children screened by 12 months of age",
+          rate: "100.0",
+          numerator: "55",
+          denominator: "55",
         },
         {
-          label: "Ages 1 to 9",
-          rate: "1000.0",
-          numerator: "1",
-          denominator: "1",
+          label: "Children screened by 24 months of age",
         },
         {
-          label: "Ages 10 to 19",
-          rate: "1000.0",
-          numerator: "1",
-          denominator: "1",
+          label: "Children screened by 36 months of age",
         },
         {
-          label: "Ages unknown",
-          rate: "1000.0",
-          numerator: "1",
-          denominator: "1",
-        },
-        {
-          label: "Total",
+          label: "Children ",
           isTotal: true,
-          rate: "1000.0",
-          numerator: "4",
-          denominator: "4",
+          rate: "100.0",
+          numerator: "55",
+          denominator: "55",
         },
       ],
     },
   },
-  MeasurementSpecification: "NCQA/HEDIS",
+  MeasurementSpecification: "OHSU",
   DidReport: "yes",
 };

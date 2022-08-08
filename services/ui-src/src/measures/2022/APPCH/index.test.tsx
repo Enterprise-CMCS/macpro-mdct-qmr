@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -208,16 +208,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateTotalNDR).toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).toHaveBeenCalled();
-  });
-
-  it("should not allow non state users to edit forms by disabling buttons", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-
-    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
-    const completeButton = screen.getByText("Complete Measure");
-    fireEvent.click(completeButton);
-    expect(completeButton).toHaveAttribute("disabled");
   });
 
   jest.setTimeout(15000);
