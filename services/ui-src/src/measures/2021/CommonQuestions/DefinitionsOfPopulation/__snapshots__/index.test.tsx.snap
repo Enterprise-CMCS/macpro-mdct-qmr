@@ -98,7 +98,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -153,7 +153,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -208,7 +208,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -263,10 +263,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -435,10 +435,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1s47xlp"
+                    class="prince-border-backup css-192r7rw"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -469,7 +469,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                       class="css-1q7njkh"
                     >
                       <div
-                        class="chakra-form-control css-0"
+                        class="chakra-form-control prince-input-bottom-spacer css-0"
                         role="group"
                       >
                         <label
@@ -668,10 +668,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -691,7 +691,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -713,7 +713,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-yes"
                               >
                                 Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -726,7 +726,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -752,7 +752,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-no"
                               >
                                 No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -764,10 +764,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -892,10 +892,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -915,7 +915,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -937,7 +937,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-yes"
                               >
                                 Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -950,7 +950,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -976,7 +976,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-no"
                               >
                                 No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -988,10 +988,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -1116,13 +1116,13 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -1161,7 +1161,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                     class="css-jj9sx4"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -1181,7 +1181,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                           class="chakra-stack css-n21gh5"
                         >
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -1203,7 +1203,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                                 class="chakra-radio__label css-1y8kf23"
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-yes"
                                 >
                                   Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -1216,7 +1216,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                             />
                           </div>
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -1242,7 +1242,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                                 data-checked=""
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-no"
                                 >
                                   No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -1254,7 +1254,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                               style="overflow: initial; display: block; opacity: 1; height: auto;"
                             >
                               <div
-                                class="css-1s47xlp"
+                                class="prince-border-backup css-192r7rw"
                               >
                                 <p
                                   class="chakra-text css-r7q7qr"
@@ -1268,7 +1268,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                                   in the measure?
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -1331,7 +1331,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -1425,10 +1425,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -1448,7 +1448,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -1470,7 +1470,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-yes"
                               >
                                 Yes, all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -1483,7 +1483,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -1509,7 +1509,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-no"
                               >
                                 No, not all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -1521,7 +1521,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <p
                                 class="chakra-text css-r7q7qr"
@@ -1535,7 +1535,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                                 in the measure?
                               </p>
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <div
@@ -1601,7 +1601,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -1695,13 +1695,13 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-tik1gu"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -1733,7 +1733,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -1796,7 +1796,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -1947,7 +1947,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -2002,7 +2002,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -2057,7 +2057,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -2112,10 +2112,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -2284,10 +2284,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1s47xlp"
+                    class="prince-border-backup css-192r7rw"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -2318,7 +2318,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                       class="css-1q7njkh"
                     >
                       <div
-                        class="chakra-form-control css-0"
+                        class="chakra-form-control prince-input-bottom-spacer css-0"
                         role="group"
                       >
                         <label
@@ -2438,10 +2438,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -2461,7 +2461,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -2483,7 +2483,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-yes"
                               >
                                 Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -2496,7 +2496,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -2522,7 +2522,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-no"
                               >
                                 No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -2534,10 +2534,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -2662,10 +2662,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -2685,7 +2685,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -2707,7 +2707,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-yes"
                               >
                                 Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -2720,7 +2720,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -2746,7 +2746,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-no"
                               >
                                 No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -2758,10 +2758,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -2886,13 +2886,13 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -2931,7 +2931,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                     class="css-jj9sx4"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -2951,7 +2951,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                           class="chakra-stack css-n21gh5"
                         >
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -2973,7 +2973,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                                 class="chakra-radio__label css-1y8kf23"
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-yes"
                                 >
                                   Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -2986,7 +2986,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                             />
                           </div>
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -3012,7 +3012,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                                 data-checked=""
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-no"
                                 >
                                   No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -3024,7 +3024,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                               style="overflow: initial; display: block; opacity: 1; height: auto;"
                             >
                               <div
-                                class="css-1s47xlp"
+                                class="prince-border-backup css-192r7rw"
                               >
                                 <p
                                   class="chakra-text css-r7q7qr"
@@ -3038,7 +3038,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                                   in the measure?
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -3101,7 +3101,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -3195,10 +3195,10 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -3218,7 +3218,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -3240,7 +3240,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-yes"
                               >
                                 Yes, all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -3253,7 +3253,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -3279,7 +3279,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-no"
                               >
                                 No, not all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -3291,7 +3291,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <p
                                 class="chakra-text css-r7q7qr"
@@ -3305,7 +3305,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                                 in the measure?
                               </p>
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <div
@@ -3371,7 +3371,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -3465,13 +3465,13 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-tik1gu"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -3503,7 +3503,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -3566,7 +3566,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -3765,7 +3765,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1ysiprv"
+                    class="prince-border-backup css-h1yx8o"
                   />
                 </div>
               </div>
@@ -3909,10 +3909,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1s47xlp"
+                    class="prince-border-backup css-192r7rw"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -3943,7 +3943,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                       class="css-1q7njkh"
                     >
                       <div
-                        class="chakra-form-control css-0"
+                        class="chakra-form-control prince-input-bottom-spacer css-0"
                         role="group"
                       >
                         <label
@@ -4142,10 +4142,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -4165,7 +4165,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -4187,7 +4187,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-yes"
                               >
                                 Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -4200,7 +4200,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -4226,7 +4226,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-no"
                               >
                                 No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -4238,10 +4238,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -4366,10 +4366,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -4389,7 +4389,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -4411,7 +4411,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-yes"
                               >
                                 Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -4424,7 +4424,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -4450,7 +4450,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-no"
                               >
                                 No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -4462,10 +4462,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -4590,13 +4590,13 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -4635,7 +4635,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                     class="css-jj9sx4"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -4655,7 +4655,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                           class="chakra-stack css-n21gh5"
                         >
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -4677,7 +4677,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                                 class="chakra-radio__label css-1y8kf23"
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-yes"
                                 >
                                   Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -4690,7 +4690,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                             />
                           </div>
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -4716,7 +4716,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                                 data-checked=""
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-no"
                                 >
                                   No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -4728,7 +4728,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                               style="overflow: initial; display: block; opacity: 1; height: auto;"
                             >
                               <div
-                                class="css-1s47xlp"
+                                class="prince-border-backup css-192r7rw"
                               >
                                 <p
                                   class="chakra-text css-r7q7qr"
@@ -4742,7 +4742,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                                   in the measure?
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -4805,7 +4805,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -4899,10 +4899,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -4922,7 +4922,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -4944,7 +4944,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-yes"
                               >
                                 Yes, all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -4957,7 +4957,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -4983,7 +4983,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-no"
                               >
                                 No, not all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -4995,7 +4995,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <p
                                 class="chakra-text css-r7q7qr"
@@ -5009,7 +5009,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                                 in the measure?
                               </p>
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <div
@@ -5075,7 +5075,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -5169,13 +5169,13 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-tik1gu"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -5207,7 +5207,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -5270,7 +5270,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -5469,7 +5469,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1ysiprv"
+                    class="prince-border-backup css-h1yx8o"
                   />
                 </div>
               </div>
@@ -5613,10 +5613,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1s47xlp"
+                    class="prince-border-backup css-192r7rw"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -5647,7 +5647,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                       class="css-1q7njkh"
                     >
                       <div
-                        class="chakra-form-control css-0"
+                        class="chakra-form-control prince-input-bottom-spacer css-0"
                         role="group"
                       >
                         <label
@@ -5767,10 +5767,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -5790,7 +5790,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -5812,7 +5812,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-yes"
                               >
                                 Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -5825,7 +5825,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -5851,7 +5851,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-no"
                               >
                                 No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -5863,10 +5863,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -5991,10 +5991,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -6014,7 +6014,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -6036,7 +6036,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-yes"
                               >
                                 Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -6049,7 +6049,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -6075,7 +6075,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-no"
                               >
                                 No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -6087,10 +6087,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -6215,13 +6215,13 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -6260,7 +6260,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                     class="css-jj9sx4"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -6280,7 +6280,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                           class="chakra-stack css-n21gh5"
                         >
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -6302,7 +6302,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                                 class="chakra-radio__label css-1y8kf23"
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-yes"
                                 >
                                   Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -6315,7 +6315,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                             />
                           </div>
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -6341,7 +6341,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                                 data-checked=""
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-no"
                                 >
                                   No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -6353,7 +6353,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                               style="overflow: initial; display: block; opacity: 1; height: auto;"
                             >
                               <div
-                                class="css-1s47xlp"
+                                class="prince-border-backup css-192r7rw"
                               >
                                 <p
                                   class="chakra-text css-r7q7qr"
@@ -6367,7 +6367,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                                   in the measure?
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -6430,7 +6430,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -6524,10 +6524,10 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -6547,7 +6547,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -6569,7 +6569,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-yes"
                               >
                                 Yes, all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -6582,7 +6582,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -6608,7 +6608,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-no"
                               >
                                 No, not all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -6620,7 +6620,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <p
                                 class="chakra-text css-r7q7qr"
@@ -6634,7 +6634,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                                 in the measure?
                               </p>
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <div
@@ -6700,7 +6700,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -6794,13 +6794,13 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-tik1gu"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -6832,7 +6832,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -6895,7 +6895,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -7046,7 +7046,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -7101,7 +7101,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -7156,10 +7156,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -7328,10 +7328,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1s47xlp"
+                    class="prince-border-backup css-192r7rw"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -7362,7 +7362,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                       class="css-1q7njkh"
                     >
                       <div
-                        class="chakra-form-control css-0"
+                        class="chakra-form-control prince-input-bottom-spacer css-0"
                         role="group"
                       >
                         <label
@@ -7561,10 +7561,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -7584,7 +7584,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -7606,7 +7606,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-yes"
                               >
                                 Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -7619,7 +7619,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -7645,7 +7645,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-no"
                               >
                                 No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -7657,10 +7657,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -7785,10 +7785,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -7808,7 +7808,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -7830,7 +7830,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-yes"
                               >
                                 Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -7843,7 +7843,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -7869,7 +7869,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-no"
                               >
                                 No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -7881,10 +7881,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -8009,13 +8009,13 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -8054,7 +8054,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                     class="css-jj9sx4"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -8074,7 +8074,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                           class="chakra-stack css-n21gh5"
                         >
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -8096,7 +8096,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                                 class="chakra-radio__label css-1y8kf23"
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-yes"
                                 >
                                   Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -8109,7 +8109,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                             />
                           </div>
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -8135,7 +8135,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                                 data-checked=""
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-no"
                                 >
                                   No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -8147,7 +8147,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                               style="overflow: initial; display: block; opacity: 1; height: auto;"
                             >
                               <div
-                                class="css-1s47xlp"
+                                class="prince-border-backup css-192r7rw"
                               >
                                 <p
                                   class="chakra-text css-r7q7qr"
@@ -8161,7 +8161,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                                   in the measure?
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -8224,7 +8224,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -8318,10 +8318,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -8341,7 +8341,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -8363,7 +8363,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-yes"
                               >
                                 Yes, all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -8376,7 +8376,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -8402,7 +8402,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-no"
                               >
                                 No, not all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -8414,7 +8414,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <p
                                 class="chakra-text css-r7q7qr"
@@ -8428,7 +8428,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                                 in the measure?
                               </p>
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <div
@@ -8494,7 +8494,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -8588,13 +8588,13 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-tik1gu"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -8626,7 +8626,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -8689,7 +8689,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -8834,10 +8834,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1s47xlp"
+                    class="prince-border-backup css-192r7rw"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -8981,7 +8981,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -9036,7 +9036,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1ysiprv"
+                  class="prince-border-backup css-h1yx8o"
                 />
               </div>
             </div>
@@ -9091,10 +9091,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -9263,10 +9263,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1s47xlp"
+                    class="prince-border-backup css-192r7rw"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -9297,7 +9297,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                       class="css-1q7njkh"
                     >
                       <div
-                        class="chakra-form-control css-0"
+                        class="chakra-form-control prince-input-bottom-spacer css-0"
                         role="group"
                       >
                         <label
@@ -9417,10 +9417,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -9440,7 +9440,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -9462,7 +9462,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-yes"
                               >
                                 Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -9475,7 +9475,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -9501,7 +9501,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-FeeForService-no"
                               >
                                 No, not all of our measure-eligible Fee-for-Service (FFS) population are included in this measure.
@@ -9513,10 +9513,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -9641,10 +9641,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -9664,7 +9664,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -9686,7 +9686,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-yes"
                               >
                                 Yes, all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -9699,7 +9699,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -9725,7 +9725,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-PrimaryCareManagement-no"
                               >
                                 No, not all of our measure-eligible Primary Care Case Management (PCCM) population are included in this measure.
@@ -9737,10 +9737,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <label
@@ -9865,13 +9865,13 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -9910,7 +9910,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                     class="css-jj9sx4"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -9930,7 +9930,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                           class="chakra-stack css-n21gh5"
                         >
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -9952,7 +9952,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                                 class="chakra-radio__label css-1y8kf23"
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-yes"
                                 >
                                   Yes, all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -9965,7 +9965,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                             />
                           </div>
                           <div
-                            class="css-79elbk"
+                            class="prince-option-label-wrapper css-79elbk"
                           >
                             <label
                               class="chakra-radio css-1pw4d56"
@@ -9991,7 +9991,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                                 data-checked=""
                               >
                                 <p
-                                  class="chakra-text css-vjer7o"
+                                  class="chakra-text prince-option-label-text css-vjer7o"
                                   id="DeliverySys-MCO_PIHP-no"
                                 >
                                   No, not all of our measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population are included in this measure.
@@ -10003,7 +10003,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                               style="overflow: initial; display: block; opacity: 1; height: auto;"
                             >
                               <div
-                                class="css-1s47xlp"
+                                class="prince-border-backup css-192r7rw"
                               >
                                 <p
                                   class="chakra-text css-r7q7qr"
@@ -10017,7 +10017,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                                   in the measure?
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -10080,7 +10080,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -10174,10 +10174,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
-                    class="chakra-form-control css-0"
+                    class="chakra-form-control prince-input-bottom-spacer css-0"
                     role="group"
                   >
                     <label
@@ -10197,7 +10197,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                         class="chakra-stack css-n21gh5"
                       >
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -10219,7 +10219,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                               class="chakra-radio__label css-1y8kf23"
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-yes"
                               >
                                 Yes, all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -10232,7 +10232,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                           />
                         </div>
                         <div
-                          class="css-79elbk"
+                          class="prince-option-label-wrapper css-79elbk"
                         >
                           <label
                             class="chakra-radio css-1pw4d56"
@@ -10258,7 +10258,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                               data-checked=""
                             >
                               <p
-                                class="chakra-text css-vjer7o"
+                                class="chakra-text prince-option-label-text css-vjer7o"
                                 id="DeliverySys-IntegratedCareModel-no"
                               >
                                 No, not all of our measure-eligible Integrated Care Models (ICM) population are included in this measure.
@@ -10270,7 +10270,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                             style="overflow: initial; display: block; opacity: 1; height: auto;"
                           >
                             <div
-                              class="css-1s47xlp"
+                              class="prince-border-backup css-192r7rw"
                             >
                               <p
                                 class="chakra-text css-r7q7qr"
@@ -10284,7 +10284,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                                 in the measure?
                               </p>
                               <div
-                                class="chakra-form-control css-0"
+                                class="chakra-form-control prince-input-bottom-spacer css-0"
                                 role="group"
                               >
                                 <div
@@ -10350,7 +10350,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                                   from the measure? If none are excluded, please enter zero.
                                 </p>
                                 <div
-                                  class="chakra-form-control css-0"
+                                  class="chakra-form-control prince-input-bottom-spacer css-0"
                                   role="group"
                                 >
                                   <div
@@ -10444,13 +10444,13 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 style="overflow: initial; display: block; opacity: 1; height: auto;"
               >
                 <div
-                  class="css-1s47xlp"
+                  class="prince-border-backup css-192r7rw"
                 >
                   <div
                     class="css-tik1gu"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -10482,7 +10482,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -10545,7 +10545,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                     class="css-1lx593h"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
@@ -10690,10 +10690,10 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   style="overflow: initial; display: block; opacity: 1; height: auto;"
                 >
                   <div
-                    class="css-1s47xlp"
+                    class="prince-border-backup css-192r7rw"
                   >
                     <div
-                      class="chakra-form-control css-0"
+                      class="chakra-form-control prince-input-bottom-spacer css-0"
                       role="group"
                     >
                       <label
