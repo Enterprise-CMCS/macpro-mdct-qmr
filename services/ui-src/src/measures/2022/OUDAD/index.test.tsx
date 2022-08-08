@@ -187,6 +187,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
+    expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsOMS).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -206,6 +209,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).toHaveBeenCalled();
+    expect(V.validateEqualQualifierDenominatorsOMS).toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsOMS).toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);

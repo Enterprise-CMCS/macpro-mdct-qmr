@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "FUA-AD";
+const measureAbbr = "HVL-AD";
 const coreSet = "ACS";
 const state = "AL";
 const year = 2022;
@@ -186,8 +186,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+    expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -203,12 +203,12 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatPM).toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
+    expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);
@@ -230,21 +230,15 @@ const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
 const completedMeasureData = {
   PerformanceMeasure: {
     rates: {
-      Followupwithin7daysofEDvisit: [
+      FollowUpwithin7daysafterdischarge: [
         {
           label: "Ages 18 to 64",
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
         },
         {
           label: "Age 65 and older",
-          rate: "100.0",
-          denominator: "55",
-          numerator: "55",
         },
       ],
-      Followupwithin30daysofEDvisit: [
+      FollowUpwithin30daysafterdischarge: [
         {
           label: "Ages 18 to 64",
           rate: "100.0",
@@ -253,9 +247,6 @@ const completedMeasureData = {
         },
         {
           label: "Age 65 and older",
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
         },
       ],
     },
