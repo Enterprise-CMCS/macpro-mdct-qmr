@@ -206,13 +206,13 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
+    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
-    expect(V.validateEqualCategoryDenominatorsPM).toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateEqualCategoryDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).toHaveBeenCalled();
