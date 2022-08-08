@@ -212,7 +212,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateEqualQualifierDenominatorsOMS).toHaveBeenCalled();
   });
 
-  jest.setTimeout(15000);
+  jest.setTimeout(33000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);

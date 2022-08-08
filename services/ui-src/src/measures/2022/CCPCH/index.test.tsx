@@ -208,8 +208,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateOneQualRateHigherThanOtherQualPM).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
-    expect(V.validateTotalNDR).toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).toHaveBeenCalled();
+    expect(V.validateTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);
