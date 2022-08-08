@@ -20,7 +20,7 @@ expect.extend(toHaveNoViolations);
 
 // Test Setup
 const measureAbbr = "W30-CH";
-const coreSet = "ACS";
+const coreSet = "CCSC";
 const state = "AL";
 const year = 2022;
 const description = measureDescriptions[`${year}`][measureAbbr];

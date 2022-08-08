@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "SFM-CH";
+const measureAbbr = "CDF-CH";
 const coreSet = "CCSC";
 const state = "AL";
 const year = 2022;
@@ -186,10 +186,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
-    expect(V.validateTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsPM).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -205,13 +203,12 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
+    expect(V.validateOne);
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
-    expect(V.validateTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsPM).toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
   });
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {
@@ -245,17 +242,14 @@ const completedMeasureData = {
     rates: {
       singleCategory: [
         {
-          label: "Rate 1 - At Least One Sealant",
+          label: "Ages 12 to 17",
           rate: "100.0",
           numerator: "55",
           denominator: "55",
         },
-        {
-          label: "Rate 2 - All Four Molars Sealed",
-        },
       ],
     },
   },
-  MeasurementSpecification: "ADA-DQA",
+  MeasurementSpecification: "CMS",
   DidReport: "yes",
 };
