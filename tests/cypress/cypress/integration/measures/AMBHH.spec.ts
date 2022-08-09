@@ -282,7 +282,7 @@ describe("Measure 19: AMB-HH", () => {
     ).clear();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Total (All Ages)  must contain values if other fields are filled."]'
+      '[data-cy="Total (All Ages) must contain values if other fields are filled."]'
     ).should("be.visible");
   });
 
@@ -406,10 +406,10 @@ describe("Measure 19: AMB-HH", () => {
     ).type("6");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Total (All Ages)  numerator field is not equal to the sum of other numerators."]'
+      '[data-cy="Total (All Ages) numerator field is not equal to the sum of other numerators."]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Total (All Ages)  denominator field is not equal to the sum of other denominators."]'
+      '[data-cy="Total (All Ages) denominator field is not equal to the sum of other denominators."]'
     ).should("be.visible");
   });
 
