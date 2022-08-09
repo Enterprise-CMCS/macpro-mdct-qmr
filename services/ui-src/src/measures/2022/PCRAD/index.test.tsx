@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "AMM-AD";
+const measureAbbr = "PCR-AD";
 const coreSet = "ACS";
 const state = "AL";
 const year = 2022;
@@ -171,7 +171,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("(Not Reporting) validationFunctions should call all expected validation functions", async () => {
     mockValidateAndSetErrors(validationFunctions, notReportingData); // trigger validations
     expect(V.validateReasonForNotReporting).toHaveBeenCalled();
-    expect(V.validateAtLeastOneRateComplete).not.toHaveBeenCalled();
+    expect(V.PCRatLeastOneRateComplete).not.toHaveBeenCalled();
     expect(V.validateDualPopInformationPM).not.toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
@@ -179,45 +179,37 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       V.validateRequiredRadioButtonForCombinedRates
     ).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
-    expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
+    expect(
+      V.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec
+    ).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
-    expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+    expect(V.PCRnoNonZeroNumOrDenom).not.toHaveBeenCalled();
+    expect(V.validateTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
     mockValidateAndSetErrors(validationFunctions, completedMeasureData); // trigger validations
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsPM).toHaveBeenCalled();
-    expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
-    expect(V.validateDualPopInformationPM).toHaveBeenCalled();
-    expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
-    expect(V.validateRateNotZeroPM).toHaveBeenCalled();
-    expect(V.validateRateZeroPM).toHaveBeenCalled();
+
+    expect(V.PCRatLeastOneRateComplete).toHaveBeenCalled();
+    expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
+    expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
+    expect(V.validateRateZeroPM).not.toHaveBeenCalled();
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
-    expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatPM).toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
-    expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
-    expect(V.validateRateZeroOMS).toHaveBeenCalled();
-    expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
-  });
-
-  it("should not allow non state users to edit forms by disabling buttons", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-
-    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
-    const completeButton = screen.getByText("Complete Measure");
-    fireEvent.click(completeButton);
-    expect(completeButton).toHaveAttribute("disabled");
+    expect(
+      V.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec
+    ).toHaveBeenCalled();
+    expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
+    expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
+    expect(V.PCRnoNonZeroNumOrDenom).toHaveBeenCalled();
+    expect(V.validateTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);
@@ -239,15 +231,53 @@ const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
 const completedMeasureData = {
   PerformanceMeasure: {
     rates: {
-      EffectiveAcutePhaseTreatment: [
+      singleCategory: [
         {
-          label: "Ages 18 to 64",
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
+          value: "1",
+          label: "Count of Index Hospital Stays",
+          id: 0,
         },
         {
-          label: "Age 65 and older",
+          value: "1",
+          label: "Count of Observed 30-Day Readmissions",
+          id: 1,
+        },
+        {
+          value: "100.0000",
+          label: "Observed Readmission Rate",
+          id: 2,
+        },
+        {
+          value: "1.3333",
+          label: "Count of Expected 30-Day Readmissions",
+          id: 3,
+        },
+        {
+          value: "133.3300",
+          label: "Expected Readmission Rate",
+          id: 4,
+        },
+        {
+          value: "0.7500",
+          label:
+            "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
+          id: 5,
+        },
+        {
+          value: "1",
+          label: "Count of Beneficiaries in Medicaid Population",
+          id: 6,
+        },
+        {
+          value: "2",
+          label: "Number of Outliers",
+          id: 7,
+        },
+        {
+          value: "2000.0",
+          label:
+            "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000",
+          id: 8,
         },
       ],
     },
