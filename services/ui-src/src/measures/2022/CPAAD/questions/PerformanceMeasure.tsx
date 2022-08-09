@@ -2,7 +2,10 @@ import * as QMR from "components";
 
 export const PerformanceMeasure = () => {
   return (
-    <QMR.CoreQuestionWrapper label="Performance Measure">
+    <QMR.CoreQuestionWrapper
+      testid="performance-measure"
+      label="Performance Measure"
+    >
       This measure provides information on the experiences of beneficiaries with
       their health care and gives a general indication of how well the health
       care meets the beneficiaries’ expectations. Results summarize

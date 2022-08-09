@@ -91,12 +91,10 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
     expect(
       screen.queryByTestId("measurement-specification")
     ).toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).toBeInTheDocument();
-    expect(screen.queryByTestId("date-range")).toBeInTheDocument();
     expect(
       screen.queryByTestId("definition-of-population")
     ).toBeInTheDocument();
@@ -121,7 +119,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
       screen.queryByTestId("measurement-specification")
     ).not.toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("date-range")).not.toBeInTheDocument();
     expect(
       screen.queryByTestId("definition-of-population")
     ).not.toBeInTheDocument();
