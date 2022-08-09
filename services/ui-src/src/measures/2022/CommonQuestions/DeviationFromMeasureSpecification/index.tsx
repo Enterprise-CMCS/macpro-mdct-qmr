@@ -215,8 +215,8 @@ export const DeviationFromMeasureSpec = ({
 
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="deviation-from-measure-specification"
       label="Deviations from Measure Specifications"
+      testid="deviation-from-measure-specification"
     >
       <QMR.RadioButton
         renderHelperTextAbove

@@ -113,7 +113,7 @@ export const MeasurementSpecification = ({ type }: Props) => {
 
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="measure-specification"
+      testid="measurement-specification"
       label="Measurement Specification"
     >
       <div data-cy="measurement-specification-options">

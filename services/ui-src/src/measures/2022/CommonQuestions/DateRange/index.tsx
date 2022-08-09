@@ -22,7 +22,7 @@ export const DateRange = ({ type }: Props) => {
   const link = measurementPeriodTableLinks[type];
 
   return (
-    <QMR.CoreQuestionWrapper data-testid="date-range" label="Date Range">
+    <QMR.CoreQuestionWrapper testid="date-range" label="Date Range">
       <CUI.Stack spacing={4} mb="4">
         <CUI.Text>
           For all measures, states should report start and end dates to

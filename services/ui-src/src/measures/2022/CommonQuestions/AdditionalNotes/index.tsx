@@ -10,7 +10,7 @@ export const AdditionalNotes = () => {
 
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="additional-notes"
+      testid="additional-notes"
       label="Additional Notes/Comments on the measure (optional)"
     >
       <QMR.TextArea

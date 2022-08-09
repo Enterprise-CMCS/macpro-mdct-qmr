@@ -15,7 +15,7 @@ export const WhyAreYouNotReporting = ({
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="why-are-you-not-reporting"
+      testid="why-are-you-not-reporting"
       label="Why are you not reporting on this measure?"
     >
       <QMR.Checkbox

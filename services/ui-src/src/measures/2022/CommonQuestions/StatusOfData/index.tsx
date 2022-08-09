@@ -7,7 +7,7 @@ export const StatusOfData = () => {
   const register = useCustomRegister<Types.StatusOfData>();
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="status-of-data"
+      testid="status-of-data"
       label="Status of Data Reported"
     >
       <QMR.RadioButton

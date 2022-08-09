@@ -215,7 +215,7 @@ export const PerformanceMeasure = ({
 
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="performance-measure"
+      testid="performance-measure"
       label="Performance Measure"
     >
       <CUI.Stack>

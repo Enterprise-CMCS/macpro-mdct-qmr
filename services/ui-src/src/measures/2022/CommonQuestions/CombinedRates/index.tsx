@@ -13,7 +13,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
 
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="combined-rates"
+      testid="combined-rates"
       label="Combined Rate(s) from Multiple Reporting Units"
     >
       <CUI.Text fontWeight={600}>

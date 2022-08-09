@@ -20,7 +20,7 @@ export const DefinitionOfPopulation = ({
 
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="definition-of-population"
+      testid="definition-of-population"
       label="Definition of Population Included in the Measure"
     >
       <CUI.Heading size="sm" as="h2">

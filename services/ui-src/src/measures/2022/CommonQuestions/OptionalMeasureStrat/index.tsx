@@ -173,7 +173,7 @@ export const OptionalMeasureStrat = ({
   }, [watchDataSourceSwitch, unregister]);
   return (
     <QMR.CoreQuestionWrapper
-      data-testid="OMS"
+      testid="OMS"
       label="Optional Measure Stratification"
     >
       <PerformanceMeasureProvider
