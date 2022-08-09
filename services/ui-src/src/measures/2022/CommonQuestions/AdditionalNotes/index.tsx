@@ -9,7 +9,10 @@ export const AdditionalNotes = () => {
   const register = useCustomRegister<Types.AdditionalNotes>();
 
   return (
-    <QMR.CoreQuestionWrapper label="Additional Notes/Comments on the measure (optional)">
+    <QMR.CoreQuestionWrapper
+      data-testid="additional-notes"
+      label="Additional Notes/Comments on the measure (optional)"
+    >
       <QMR.TextArea
         label="Please add any additional notes or comments on the measure not otherwise captured above:"
         {...register(DC.ADDITIONAL_NOTES)}

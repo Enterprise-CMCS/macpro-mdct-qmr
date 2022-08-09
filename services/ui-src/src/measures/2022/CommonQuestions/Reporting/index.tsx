@@ -26,7 +26,10 @@ export const Reporting = ({
 
   return (
     <>
-      <QMR.CoreQuestionWrapper label="Are you reporting on this measure?">
+      <QMR.CoreQuestionWrapper
+        data-testid="reporting"
+        label="Are you reporting on this measure?"
+      >
         <QMR.RadioButton
           {...register(DC.DID_REPORT)}
           options={[

@@ -69,7 +69,10 @@ export const OtherPerformanceMeasure = ({
   }
 
   return (
-    <QMR.CoreQuestionWrapper label="Other Performance Measure">
+    <QMR.CoreQuestionWrapper
+      data-testid="OPM"
+      label="Other Performance Measure"
+    >
       <QMR.TextArea
         label="Describe the other methodology used:"
         formLabelProps={{ fontWeight: 700 }}

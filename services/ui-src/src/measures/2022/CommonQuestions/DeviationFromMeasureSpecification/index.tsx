@@ -214,7 +214,10 @@ export const DeviationFromMeasureSpec = ({
   };
 
   return (
-    <QMR.CoreQuestionWrapper label="Deviations from Measure Specifications">
+    <QMR.CoreQuestionWrapper
+      data-testid="deviation-from-measure-specification"
+      label="Deviations from Measure Specifications"
+    >
       <QMR.RadioButton
         renderHelperTextAbove
         {...register(DC.DID_CALCS_DEVIATE)}

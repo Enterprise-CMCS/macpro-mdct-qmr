@@ -6,7 +6,10 @@ import * as DC from "dataConstants";
 export const StatusOfData = () => {
   const register = useCustomRegister<Types.StatusOfData>();
   return (
-    <QMR.CoreQuestionWrapper label="Status of Data Reported">
+    <QMR.CoreQuestionWrapper
+      data-testid="status-of-data"
+      label="Status of Data Reported"
+    >
       <QMR.RadioButton
         {...register(DC.DATA_STATUS)}
         options={[

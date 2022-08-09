@@ -12,7 +12,10 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
   const register = useCustomRegister<Types.CombinedRates>();
 
   return (
-    <QMR.CoreQuestionWrapper label="Combined Rate(s) from Multiple Reporting Units">
+    <QMR.CoreQuestionWrapper
+      data-testid="combined-rates"
+      label="Combined Rate(s) from Multiple Reporting Units"
+    >
       <CUI.Text fontWeight={600}>
         {!healthHomeMeasure ? (
           <>
