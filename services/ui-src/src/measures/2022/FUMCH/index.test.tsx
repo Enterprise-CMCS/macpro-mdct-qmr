@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -19,8 +19,8 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "AMM-AD";
-const coreSet = "ACS";
+const measureAbbr = "FUM-CH";
+const coreSet = "CCSC";
 const state = "AL";
 const year = 2022;
 const description = measureDescriptions[`${year}`][measureAbbr];
@@ -172,14 +172,12 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     mockValidateAndSetErrors(validationFunctions, notReportingData); // trigger validations
     expect(V.validateReasonForNotReporting).toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).not.toHaveBeenCalled();
-    expect(V.validateDualPopInformationPM).not.toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
     expect(V.validateRateZeroPM).not.toHaveBeenCalled();
     expect(
       V.validateRequiredRadioButtonForCombinedRates
     ).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
@@ -188,14 +186,18 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsOMS).not.toHaveBeenCalled();
+    expect(V.validateTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
     mockValidateAndSetErrors(validationFunctions, completedMeasureData); // trigger validations
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsPM).toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
-    expect(V.validateDualPopInformationPM).toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).toHaveBeenCalled();
     expect(V.validateRateZeroPM).toHaveBeenCalled();
@@ -208,16 +210,12 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
-  });
-
-  it("should not allow non state users to edit forms by disabling buttons", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-
-    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
-    const completeButton = screen.getByText("Complete Measure");
-    fireEvent.click(completeButton);
-    expect(completeButton).toHaveAttribute("disabled");
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsOMS).not.toHaveBeenCalled();
+    expect(V.validateTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
   jest.setTimeout(33000);
@@ -239,15 +237,17 @@ const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
 const completedMeasureData = {
   PerformanceMeasure: {
     rates: {
-      EffectiveAcutePhaseTreatment: [
+      "30dayfollowupafterEDvisitformentalillness": [
         {
-          label: "Ages 18 to 64",
+          label: "Ages 6 to 17",
           rate: "100.0",
           numerator: "55",
           denominator: "55",
         },
+      ],
+      "7dayfollowupafterEDvisitformentalillness": [
         {
-          label: "Age 65 and older",
+          label: "Ages 6 to 17",
         },
       ],
     },
