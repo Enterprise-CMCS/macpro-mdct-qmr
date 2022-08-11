@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -19,9 +19,9 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "AMM-AD";
-const coreSet = "ACS";
-const state = "AL";
+const measureAbbr = "AIF-HH";
+const coreSet = "HHCS";
+const state = "DC";
 const year = 2022;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
@@ -172,55 +172,36 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     mockValidateAndSetErrors(validationFunctions, notReportingData); // trigger validations
     expect(V.validateReasonForNotReporting).toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).not.toHaveBeenCalled();
-    expect(V.validateDualPopInformationPM).not.toHaveBeenCalled();
-    expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
-    expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
+    expect(V.ComplexValidateDualPopInformation).not.toHaveBeenCalled();
+    expect(V.ComplexNoNonZeroNumOrDenom).not.toHaveBeenCalled();
     expect(V.validateRateZeroPM).not.toHaveBeenCalled();
     expect(
       V.validateRequiredRadioButtonForCombinedRates
     ).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+    expect(V.ComplexValidateNDRTotals).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
     mockValidateAndSetErrors(validationFunctions, completedMeasureData); // trigger validations
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
-    expect(V.validateEqualQualifierDenominatorsPM).toHaveBeenCalled();
-    expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
-    expect(V.validateDualPopInformationPM).toHaveBeenCalled();
-    expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
-    expect(V.validateRateNotZeroPM).toHaveBeenCalled();
-    expect(V.validateRateZeroPM).toHaveBeenCalled();
+    expect(V.ComplexAtLeastOneRateComplete).toHaveBeenCalled();
+    expect(V.ComplexNoNonZeroNumOrDenom).toHaveBeenCalled();
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
-    expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatPM).toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();
-    expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
-    expect(V.validateRateZeroOMS).toHaveBeenCalled();
-    expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
+    expect(
+      V.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec
+    ).toHaveBeenCalled();
+    expect(V.ComplexValidateNDRTotals).toHaveBeenCalled();
   });
 
-  it("should not allow non state users to edit forms by disabling buttons", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-
-    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
-    const completeButton = screen.getByText("Complete Measure");
-    fireEvent.click(completeButton);
-    expect(completeButton).toHaveAttribute("disabled");
-  });
-
-  jest.setTimeout(33000);
+  jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -239,19 +220,162 @@ const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
 const completedMeasureData = {
   PerformanceMeasure: {
     rates: {
-      EffectiveAcutePhaseTreatment: [
+      singleCategory: [
         {
+          fields: [
+            {
+              value: "1",
+              label: "Number of Enrollee Months",
+            },
+            {
+              value: "1",
+              label: "Number of Short-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Short-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              value: "1",
+              label: "Number of Medium-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Medium-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              value: "1",
+              label: "Number of Long-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Long-Term Admissions per 1,000 Enrollee Months",
+            },
+          ],
           label: "Ages 18 to 64",
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
         },
         {
-          label: "Age 65 and older",
+          fields: [
+            {
+              value: "1",
+              label: "Number of Enrollee Months",
+            },
+            {
+              value: "1",
+              label: "Number of Short-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Short-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              value: "1",
+              label: "Number of Medium-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Medium-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              value: "1",
+              label: "Number of Long-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Long-Term Admissions per 1,000 Enrollee Months",
+            },
+          ],
+          label: "Ages 65 to 74",
+        },
+        {
+          fields: [
+            {
+              label: "Number of Enrollee Months",
+            },
+            {
+              label: "Number of Short-Term Admissions",
+            },
+            {
+              label: "Short-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              label: "Number of Medium-Term Admissions",
+            },
+            {
+              label: "Medium-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              label: "Number of Long-Term Admissions",
+            },
+            {
+              label: "Long-Term Admissions per 1,000 Enrollee Months",
+            },
+          ],
+          label: "Ages 75 to 84",
+        },
+        {
+          fields: [
+            {
+              label: "Number of Enrollee Months",
+            },
+            {
+              label: "Number of Short-Term Admissions",
+            },
+            {
+              label: "Short-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              label: "Number of Medium-Term Admissions",
+            },
+            {
+              label: "Medium-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              label: "Number of Long-Term Admissions",
+            },
+            {
+              label: "Long-Term Admissions per 1,000 Enrollee Months",
+            },
+          ],
+          label: "Age 85 and older",
+        },
+        {
+          fields: [
+            {
+              value: "2",
+              label: "Number of Enrollee Months",
+            },
+            {
+              value: 2,
+              label: "Number of Short-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Short-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              value: 2,
+              label: "Number of Medium-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Medium-Term Admissions per 1,000 Enrollee Months",
+            },
+            {
+              value: 2,
+              label: "Number of Long-Term Admissions",
+            },
+            {
+              value: "1000.0",
+              label: "Long-Term Admissions per 1,000 Enrollee Months",
+            },
+          ],
+          isTotal: true,
+          label: "Total",
         },
       ],
     },
   },
-  MeasurementSpecification: "NCQA/HEDIS",
+  MeasurementSpecification: "CMS",
   DidReport: "yes",
 };
