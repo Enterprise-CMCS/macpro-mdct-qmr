@@ -15,7 +15,7 @@ export const DataSourceRadio = ({ data = defaultData }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
 
   return (
-    <QMR.CoreQuestionWrapper label="Data Source">
+    <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
       <QMR.RadioButton
         {...register(DC.DATA_SOURCE)}
         label={data.optionsLabel}

@@ -151,7 +151,7 @@ export const DeviationFromMeasureSpec = ({
         );
         if (totalIndex >= 0) {
           rates.singleCategory[totalIndex].label = `${
-            customTotalLabel ? `${customTotalLabel} ` : "Total"
+            customTotalLabel ? `${customTotalLabel}` : "Total"
           }`;
         }
         /* This is checking if the rates object has a singleCategory key.
@@ -214,7 +214,10 @@ export const DeviationFromMeasureSpec = ({
   };
 
   return (
-    <QMR.CoreQuestionWrapper label="Deviations from Measure Specifications">
+    <QMR.CoreQuestionWrapper
+      label="Deviations from Measure Specifications"
+      testid="deviation-from-measure-specification"
+    >
       <QMR.RadioButton
         renderHelperTextAbove
         {...register(DC.DID_CALCS_DEVIATE)}

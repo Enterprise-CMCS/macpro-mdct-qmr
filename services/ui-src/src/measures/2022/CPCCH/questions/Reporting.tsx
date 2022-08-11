@@ -17,7 +17,10 @@ export const Reporting = ({ reportingYear }: Props) => {
 
   return (
     <>
-      <QMR.CoreQuestionWrapper label="Did you collect this measure?">
+      <QMR.CoreQuestionWrapper
+        testid="reporting"
+        label="Did you collect this measure?"
+      >
         <QMR.RadioButton
           {...register("DidCollect")}
           options={[
