@@ -172,7 +172,10 @@ export const OptionalMeasureStrat = ({
     };
   }, [watchDataSourceSwitch, unregister]);
   return (
-    <QMR.CoreQuestionWrapper label="Optional Measure Stratification">
+    <QMR.CoreQuestionWrapper
+      testid="OMS"
+      label="Optional Measure Stratification"
+    >
       <PerformanceMeasureProvider
         value={{
           OPM,

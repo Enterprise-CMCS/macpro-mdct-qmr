@@ -5,7 +5,10 @@ import { FormData } from "../types";
 export const HowDidYouReport = () => {
   const register = useCustomRegister<FormData>();
   return (
-    <QMR.CoreQuestionWrapper label="How did you report this measure?">
+    <QMR.CoreQuestionWrapper
+      testid="how-did-you-report"
+      label="How did you report this measure?"
+    >
       <QMR.RadioButton
         {...register("HowDidYouReport")}
         options={[
