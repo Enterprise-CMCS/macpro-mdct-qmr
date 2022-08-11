@@ -112,7 +112,10 @@ export const MeasurementSpecification = ({ type }: Props) => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
   return (
-    <QMR.CoreQuestionWrapper label="Measurement Specification">
+    <QMR.CoreQuestionWrapper
+      testid="measurement-specification"
+      label="Measurement Specification"
+    >
       <div data-cy="measurement-specification-options">
         <QMR.RadioButton
           {...register(DC.MEASUREMENT_SPECIFICATION)}

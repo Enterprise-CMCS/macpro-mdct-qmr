@@ -5,7 +5,10 @@ import { FormData } from "../types";
 export const WhyDidYouNotCollect = () => {
   const register = useCustomRegister<FormData>();
   return (
-    <QMR.CoreQuestionWrapper label="Why did you not collect this measure">
+    <QMR.CoreQuestionWrapper
+      testid="why-did-you-not-collect"
+      label="Why did you not collect this measure"
+    >
       <QMR.Checkbox
         {...register("WhyDidYouNotCollect")}
         helperText="Select all that apply:"
