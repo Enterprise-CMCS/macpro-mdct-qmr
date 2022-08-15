@@ -6,7 +6,7 @@ export const DataSource = () => {
   const register = useCustomRegister<FormData>();
 
   return (
-    <QMR.CoreQuestionWrapper label="Data Source">
+    <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
       <QMR.RadioButton
         formControlProps={{ paddingBottom: 4 }}
         label="Which version of the CAHPS survey was used for reporting?"

@@ -162,6 +162,35 @@
     ]
   },
   {
+    "username": "alaska@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "alaska@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Albert"
+      },
+      {
+        "Name": "family_name",
+        "Value": "Laska"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "AK"
+      }
+    ]
+  },
+  {
     "username": "stateuser3@test.com",
     "attributes": [
       {

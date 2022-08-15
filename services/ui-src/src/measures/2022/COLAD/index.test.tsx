@@ -77,7 +77,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("measure should render", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
+    expect(screen.queryByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByText(measureAbbr + " - " + description));
     });
@@ -89,19 +89,21 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("Always shows Are you reporting question", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.getByText("Are you reporting on this measure?"));
+    expect(screen.queryByTestId("reporting"));
   });
 
   it("shows corresponding questions if yes to reporting then ", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.getByText("Status of Data Reported")).toBeInTheDocument();
-    expect(screen.getByText("Measurement Specification")).toBeInTheDocument();
-    expect(screen.getByText("Data Source")).toBeInTheDocument();
-    expect(screen.getByText("Date Range")).toBeInTheDocument();
+    expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
     expect(
-      screen.getByText("Definition of Population Included in the Measure")
+      screen.queryByTestId("measurement-specification")
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("data-source")).toBeInTheDocument();
+    expect(screen.queryByTestId("date-range")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("definition-of-population")
     ).toBeInTheDocument();
   });
 
@@ -109,16 +111,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
     renderWithHookForm(component);
+    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(
-      screen.queryByText("Status of Data Reported")
+      screen.queryByTestId("measurement-specification")
     ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("date-range")).not.toBeInTheDocument();
     expect(
-      screen.queryByText("Measurement Specification")
-    ).not.toBeInTheDocument();
-    expect(screen.queryByText("Data Source")).not.toBeInTheDocument();
-    expect(screen.queryByText("Date Range")).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("Definition of Population Included in the Measure")
+      screen.queryByTestId("definition-of-population")
     ).not.toBeInTheDocument();
   });
 
@@ -126,25 +126,21 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.getByText("Performance Measure")).toBeInTheDocument();
+    expect(screen.queryByTestId("performance-measure")).toBeInTheDocument();
     expect(
-      screen.getByText("Deviations from Measure Specifications")
+      screen.queryByTestId("deviation-from-measure-specification")
     ).toBeInTheDocument();
-    expect(
-      screen.queryByText("Other Performance Measure")
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("OPM")).not.toBeInTheDocument();
   });
 
   it("shows corresponding components and hides others when primary measure is NOT selected", async () => {
     apiData.useGetMeasureValues.data.Item.data = OPMData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.getByText("Other Performance Measure"));
+    expect(screen.queryByTestId("OPM"));
+    expect(screen.queryByTestId("performance-measure")).not.toBeInTheDocument();
     expect(
-      screen.queryByLabelText("Performance Measure")
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByLabelText("Deviations from Measure Specifications")
+      screen.queryByTestId("deviation-from-measure-specification")
     ).not.toBeInTheDocument();
   });
 
@@ -152,15 +148,13 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.getByText("Optional Measure Stratification"));
+    expect(screen.queryByTestId("OMS"));
   });
   it("does not show OMS when performance measure data has been entered", async () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(
-      screen.queryByText("Optional Measure Stratification")
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("OMS")).not.toBeInTheDocument();
   });
 
   /** Validations Test

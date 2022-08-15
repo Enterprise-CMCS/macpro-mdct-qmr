@@ -92,10 +92,12 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(
-      screen.getByText("How did you report this measure?")
+      screen.queryByTestId("measurement-specification")
     ).toBeInTheDocument();
-    expect(screen.getByText("Measurement Specification")).toBeInTheDocument();
-    expect(screen.getByText("Data Source")).toBeInTheDocument();
+    expect(screen.queryByTestId("data-source")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("definition-of-population")
+    ).toBeInTheDocument();
     expect(
       screen.getByText(
         "Which Supplemental Item Sets were included in the Survey"
@@ -112,13 +114,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
     renderWithHookForm(component);
+    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(
-      screen.queryByText("How did you report this measure?")
+      screen.queryByTestId("measurement-specification")
     ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
     expect(
-      screen.queryByText("Measurement Specification")
+      screen.queryByTestId("definition-of-population")
     ).not.toBeInTheDocument();
-    expect(screen.queryByText("Data Source")).not.toBeInTheDocument();
     expect(
       screen.queryByText(
         "Which Supplemental Item Sets were included in the Survey"
