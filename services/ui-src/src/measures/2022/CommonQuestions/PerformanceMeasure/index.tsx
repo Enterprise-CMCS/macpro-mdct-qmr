@@ -214,7 +214,10 @@ export const PerformanceMeasure = ({
   data.questionText = data.questionText ?? [];
 
   return (
-    <QMR.CoreQuestionWrapper label="Performance Measure">
+    <QMR.CoreQuestionWrapper
+      testid="performance-measure"
+      label="Performance Measure"
+    >
       <CUI.Stack>
         {data.questionText.map((item, idx) => {
           return (

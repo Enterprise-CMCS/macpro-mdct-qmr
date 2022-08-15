@@ -101,7 +101,7 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
   const showExplanation = watchDataSource && watchDataSource.length >= 2;
 
   return (
-    <QMR.CoreQuestionWrapper label="Data Source">
+    <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
       <div data-cy="data-source-options">
         <QMR.Checkbox
           {...register(DC.DATA_SOURCE)}

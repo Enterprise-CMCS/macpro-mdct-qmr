@@ -3,7 +3,10 @@ import * as CUI from "@chakra-ui/react";
 
 export const PerformanceMeasure = () => {
   return (
-    <QMR.CoreQuestionWrapper label="Performance Measure">
+    <QMR.CoreQuestionWrapper
+      testid="performance-measure"
+      label="Performance Measure"
+    >
       <CUI.Text>
         This measure provides information on parents’ experiences with their
         child’s health care. Results summarize children’s experiences through
