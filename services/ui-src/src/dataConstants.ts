@@ -31,6 +31,8 @@ export const DATA_NOT_AVAILABLE = "DataNotAvailable";
 export const DATA_NOT_SUBMITTED_BY_PROVIDERS_TO_STATE =
   "DataNotSubmittedByProvidersToState";
 export const DATA_SOURCE = "DataSource";
+export const DATA_SOURCE_CAHPS_VERSION = "DataSource-CAHPS-Version";
+export const DATA_SOURCE_CAHPS_VERSION_OTHER = "DataSource-CAHPS-Version-Other";
 export const DATA_SOURCE_DESCRIPTION = "DataSourceDescription";
 export const DATA_SOURCE_NOT_EASILY_ACCESSIBLE =
   "DataSourceNotEasilyAccessible";
