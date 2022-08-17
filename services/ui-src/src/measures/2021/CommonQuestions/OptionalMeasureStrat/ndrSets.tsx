@@ -484,7 +484,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
 
   OPM?.forEach(({ description }, idx) => {
     if (description) {
-      const cleanedFieldName = cleanString(description);
+      const cleanedFieldName = "o_" + cleanString(description);
 
       checkBoxOptions.push({
         value: cleanedFieldName,
