@@ -303,7 +303,7 @@ describe("Measure: PQI08-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.example1.OPM.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.o_example1.OPM.0.numerator"]'
     ).should("be.visible");
   });
 });

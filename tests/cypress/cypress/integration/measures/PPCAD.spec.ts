@@ -357,7 +357,7 @@ describe("Measure: PPC-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.example1.OPM.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.o_example1.OPM.0.numerator"]'
     ).type("3");
   });
 });

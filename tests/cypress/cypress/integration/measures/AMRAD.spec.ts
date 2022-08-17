@@ -264,22 +264,22 @@ describe("Measure: AMR-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.options2"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.test1.OPM.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.o_test1.OPM.0.numerator"]'
     ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.test1.OPM.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.o_test1.OPM.0.denominator"]'
     ).type("2");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.test2.OPM.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.o_test2.OPM.0.numerator"]'
     ).type("3");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.test2.OPM.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.o_test2.OPM.0.denominator"]'
     ).type("4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.test3.OPM.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.o_test3.OPM.0.numerator"]'
     ).type("5");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.test3.OPM.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.BlackorAfricanAmerican.rateData.rates.o_test3.OPM.0.denominator"]'
     ).type("6");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(

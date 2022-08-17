@@ -324,7 +324,7 @@ describe("Measure 10: FUH-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.example1.OPM.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.o_example1.OPM.0.numerator"]'
     ).should("be.visible");
   });
 });
