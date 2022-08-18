@@ -95,7 +95,7 @@ export const generateOmsQualifierRateData = (
   const cats = categories.length ? categories : [DC.SINGLE_CATEGORY];
   rateData.options = qualifiers.map((s) => cleanString(s));
 
-  for (const [i, q] of qualifiers.map((q) => "o_" + cleanString(q)).entries()) {
+  for (const [i, q] of qualifiers.map((q) => cleanString(q)).entries()) {
     for (const c of cats.map((c) => cleanString(c))) {
       rateData.rates ??= {};
       rateData.rates[q] ??= {};
