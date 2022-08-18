@@ -200,7 +200,7 @@ const validateNDRs = (
     if (rateData?.["pcr-rate"]) {
       return rateData["pcr-rate"].every((o) => !!o?.value);
     }
-    for (const qual of qualifiers.map((s) => cleanString(s))) {
+    for (const qual of qualifiers.map((s) => "o_" + cleanString(s))) {
       for (const cat of categories.map((s) => cleanString(s))) {
         if (rateData.rates?.[qual]?.[cat]) {
           const temp = rateData.rates[qual][cat][0];
@@ -225,7 +225,7 @@ const validateNDRs = (
     }
 
     // default check
-    for (const qual of qualifiers.map((s) => cleanString(s))) {
+    for (const qual of qualifiers.map((s) => "o_" + cleanString(s))) {
       for (const cat of categories.map((s) => cleanString(s))) {
         if (rateData.rates?.[qual]?.[cat]) {
           const temp = rateData.rates[qual][cat][0];
@@ -265,7 +265,7 @@ const validateNDRs = (
       if (!isDeepFilled[topLevelKey]) {
         errorArray.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            topLevelKey.split("-")
+            topLevelKey.replace("o_", "").split("-")
           )}`,
           errorMessage:
             "For any category selected, all NDR sets must be filled.",
