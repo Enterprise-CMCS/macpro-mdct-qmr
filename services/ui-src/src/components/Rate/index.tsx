@@ -76,7 +76,8 @@ export const Rate = ({
       if (prevRate[index] === undefined) {
         prevRate[index] = {};
       }
-      prevRate[index]["label"] = rate.label ?? undefined;
+      prevRate[index]["mathematicaCategory"] = rate.label ?? undefined;
+      prevRate[index]["id"] = rate.label?.replace(/ /g, "") ?? undefined;
     });
 
     if (calcTotal) {
@@ -118,7 +119,8 @@ export const Rate = ({
           : editRate[type];
 
       prevRate[index] = {
-        label: rates[index].label,
+        id: rates[index].label?.replace(/ /g, ""),
+        mathematicaCategory: rates[index].label,
         ...editRate,
       };
 
@@ -147,7 +149,8 @@ export const Rate = ({
     }
 
     prevRate[index] = {
-      label: rates[index].label,
+      id: rates[index].label?.replace(/ /g, ""),
+      mathematicaCategory: rates[index].label,
       ...editRate,
     };
 
