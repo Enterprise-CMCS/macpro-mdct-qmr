@@ -270,7 +270,7 @@ const validateNDRs = (
         isOPM && topLevelKey.replace("o_", "");
         errorArray.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            topLevelKey.split("-")
+            topLevelKey.replace("o_", "").split("-")
           )}`,
           errorMessage:
             "For any category selected, all NDR sets must be filled.",
