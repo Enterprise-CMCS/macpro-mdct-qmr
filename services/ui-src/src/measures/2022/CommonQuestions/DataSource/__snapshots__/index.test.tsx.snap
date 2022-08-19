@@ -8,6 +8,7 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
     <h2
       class="chakra-form__label css-e3y4kl"
       data-cy="Data Source"
+      data-testid="data-source"
     >
       Data Source
     </h2>
@@ -152,6 +153,7 @@ exports[`Test the global DataSource component (Default) Component renders with c
     <h2
       class="chakra-form__label css-e3y4kl"
       data-cy="Data Source"
+      data-testid="data-source"
     >
       Data Source
     </h2>

@@ -165,6 +165,8 @@ export interface DataSource {
     };
   };
   [DC.DATA_SOURCE_DESCRIPTION]: string;
+  [DC.DATA_SOURCE_CAHPS_VERSION]?: string;
+  [DC.DATA_SOURCE_CAHPS_VERSION_OTHER]?: string;
 }
 export interface RateFields {
   [DC.LABEL]?: string;

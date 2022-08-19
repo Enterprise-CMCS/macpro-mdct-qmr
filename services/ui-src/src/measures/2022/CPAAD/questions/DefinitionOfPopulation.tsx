@@ -7,7 +7,10 @@ export const DefinitionOfPopulation = () => {
   const register = useCustomRegister<FormData>();
 
   return (
-    <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
+    <QMR.CoreQuestionWrapper
+      testid="definition-of-population"
+      label="Definition of Population Included in the Measure"
+    >
       <CUI.Heading size="sm" as="h3">
         Definition of population included in the survey sample
       </CUI.Heading>

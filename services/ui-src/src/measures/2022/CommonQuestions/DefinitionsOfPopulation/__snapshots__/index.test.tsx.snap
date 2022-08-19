@@ -8,6 +8,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
     <h2
       class="chakra-form__label css-e3y4kl"
       data-cy="Definition of Population Included in the Measure"
+      data-testid="definition-of-population"
     >
       Definition of Population Included in the Measure
     </h2>
@@ -610,6 +611,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
     <h2
       class="chakra-form__label css-e3y4kl"
       data-cy="Definition of Population Included in the Measure"
+      data-testid="definition-of-population"
     >
       Definition of Population Included in the Measure
     </h2>
@@ -1133,6 +1135,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
     <h2
       class="chakra-form__label css-e3y4kl"
       data-cy="Definition of Population Included in the Measure"
+      data-testid="definition-of-population"
     >
       Definition of Population Included in the Measure
     </h2>
@@ -1699,6 +1702,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
     <h2
       class="chakra-form__label css-e3y4kl"
       data-cy="Definition of Population Included in the Measure"
+      data-testid="definition-of-population"
     >
       Definition of Population Included in the Measure
     </h2>
@@ -2186,6 +2190,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
     <h2
       class="chakra-form__label css-e3y4kl"
       data-cy="Definition of Population Included in the Measure"
+      data-testid="definition-of-population"
     >
       Definition of Population Included in the Measure
     </h2>
@@ -2859,6 +2864,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
     <h2
       class="chakra-form__label css-e3y4kl"
       data-cy="Definition of Population Included in the Measure"
+      data-testid="definition-of-population"
     >
       Definition of Population Included in the Measure
     </h2>
