@@ -622,35 +622,6 @@
     ]
   },
   {
-    "username": "stateuserAK@test.com",
-    "attributes": [
-      {
-        "Name": "email",
-        "Value": "stateuserAK@test.com"
-      },
-      {
-        "Name": "given_name",
-        "Value": "Nicholas"
-      },
-      {
-        "Name": "family_name",
-        "Value": "AK"
-      },
-      {
-        "Name": "email_verified",
-        "Value": "true"
-      },
-      {
-        "Name": "custom:cms_roles",
-        "Value": "mdctqmr-state-user"
-      },
-      {
-        "Name": "custom:cms_state",
-        "Value": "AK"
-      }
-    ]
-  },
-  {
     "username": "stateuserNM@test.com",
     "attributes": [
       {
