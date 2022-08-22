@@ -32,6 +32,7 @@ export const validateDualPopInformationPM = (
 
   const errorArray: FormError[] = [];
   const filledInData: FormRateField[] = [];
+  console.log(performanceMeasureArray);
   performanceMeasureArray?.forEach((performanceMeasure) => {
     if (
       performanceMeasure &&

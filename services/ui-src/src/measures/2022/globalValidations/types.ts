@@ -1,6 +1,7 @@
 import { OmsNodes as OMS } from "measures/2022/CommonQuestions/types";
 
 export interface FormRateField {
+  mathematicaCategory?: string;
   denominator?: string;
   numerator?: string;
   label?: string;
