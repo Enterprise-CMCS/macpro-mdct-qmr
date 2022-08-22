@@ -15,7 +15,7 @@ import {
 
 describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
   const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const qualifiers = ["o_Test Qual 1", "o_Test Qual 2"];
   const singleCat = [SINGLE_CATEGORY];
   const noCat: string[] = [];
 

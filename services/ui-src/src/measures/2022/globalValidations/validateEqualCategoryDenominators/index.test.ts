@@ -15,7 +15,7 @@ import {
 describe("Testing Equal Denominators For All Qualifiers Validation", () => {
   const noCat: string[] = [];
   const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const qualifiers = ["o_Test Qual 1", "o_Test Qual 2"];
   const pmd = { categories, qualifiers };
 
   const baseOMSInfo = {

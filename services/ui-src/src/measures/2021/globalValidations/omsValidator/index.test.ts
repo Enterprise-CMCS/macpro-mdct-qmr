@@ -10,7 +10,7 @@ import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data
 
 describe("Testing OMS validation processor", () => {
   const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const qualifiers = ["o_Test Qual 1", "o_Test Qual 2"];
 
   it("should have no errors for basic data", () => {
     const errors = omsValidations({

@@ -15,7 +15,7 @@ import {
 
 describe("Test Data Driven Tools", () => {
   const categories = ["TestCat1", "TestCat2"];
-  const qualifiers = ["TestQual1", "TestQual2"];
+  const qualifiers = ["o_TestQual1", "o_TestQual2"];
 
   describe("convertOmsDataToRateArray", () => {
     it("should take an oms structure and return an array or rate arrays", () => {

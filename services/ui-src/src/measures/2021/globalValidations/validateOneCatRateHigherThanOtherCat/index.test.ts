@@ -20,7 +20,7 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
     "Test Cat 3",
     "Test Cat 4",
   ];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const qualifiers = ["o_Test Qual 1", "o_Test Qual 2"];
 
   const baseOMSInfo = {
     categories,
