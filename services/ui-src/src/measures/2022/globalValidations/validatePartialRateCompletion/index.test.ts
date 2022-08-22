@@ -13,7 +13,7 @@ import {
 
 describe("Testing Partial Rate Validation", () => {
   const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const qualifiers = ["o_Test Qual 1", "o_Test Qual 2"];
 
   const baseOMSInfo = {
     categories,
