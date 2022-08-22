@@ -88,16 +88,19 @@ export const getLowLvlDeviationOptions = ({
   if (!qualifiers || qualifiers.length === 0) return [];
 
   // if there are no labels then there is no need for the additional checkbox
-  if (!qualifiers.some((el) => el.label)) {
+  if (!qualifiers.some((el) => el.mathematicaCategory)) {
     return getRateTextAreaOptions(name);
   }
 
   return qualifiers
-    .sort((a: any, b: any) => b.label! - a.label!)
+    .sort((a: any, b: any) => b.mathematicaCategory! - a.mathematicaCategory!)
     .map((item) => {
-      const value = `${item.label && cleanString(item.label)}`;
+      const value = `${
+        item.mathematicaCategory && cleanString(item.mathematicaCategory)
+      }`;
       return {
-        displayValue: labelText?.[item.label!] || item.label,
+        displayValue:
+          labelText?.[item.mathematicaCategory!] || item.mathematicaCategory,
         value,
         children: [
           <DeviationsSelectedCheckbox
@@ -150,7 +153,7 @@ export const DeviationFromMeasureSpec = ({
           (cat: any) => cat.isTotal === true
         );
         if (totalIndex >= 0) {
-          rates.singleCategory[totalIndex].label = `${
+          rates.singleCategory[totalIndex].mathematicaCategory = `${
             customTotalLabel ? `${customTotalLabel}` : "Total"
           }`;
         }

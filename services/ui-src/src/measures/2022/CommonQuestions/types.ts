@@ -170,6 +170,7 @@ export interface DataSource {
 }
 export interface RateFields {
   [DC.LABEL]?: string;
+  [DC.MATHEMATICA_CATEGROY]?: string;
   [DC.NUMERATOR]?: string;
   [DC.DENOMINATOR]?: string;
   [DC.RATE]?: string;
