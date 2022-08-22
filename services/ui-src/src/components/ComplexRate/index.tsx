@@ -261,7 +261,7 @@ export const ComplexRate = ({
                           qualIndex,
                           fieldIndex,
                           e.target.value,
-                          field.value[qualIndex].isTotal ?? false
+                          field?.value[qualIndex]?.isTotal ?? false
                         )
                       }
                     />

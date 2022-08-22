@@ -145,8 +145,9 @@ export const DeviationFromMeasureSpec = ({
           }
         }
         // A total category should have the label "Total", per the Figma design.
+        console.log("rates: ", rates.singleCategory);
         const totalIndex = rates.singleCategory.findIndex(
-          (cat: any) => cat.isTotal === true
+          (cat: any) => cat?.isTotal === true
         );
         if (totalIndex >= 0) {
           rates.singleCategory[totalIndex].label = `${

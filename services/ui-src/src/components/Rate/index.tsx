@@ -226,7 +226,7 @@ export const Rate = ({
   return (
     <>
       {rates.map((rate, index) => {
-        const isTotal = rate.isTotal ?? undefined;
+        const isTotal = rate?.isTotal ?? undefined;
         return (
           <CUI.Stack key={rate.id} mt={4} mb={8}>
             {rate.label && (
