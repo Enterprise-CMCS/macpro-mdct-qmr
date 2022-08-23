@@ -19,6 +19,7 @@ export interface IRate {
   id: number;
   isTotal?: boolean;
   mathematicaCategory?: string;
+  mathematicaId?: string;
 }
 
 interface Props extends QMR.InputWrapperProps {
@@ -77,8 +78,10 @@ export const Rate = ({
       if (prevRate[index] === undefined) {
         prevRate[index] = {};
       }
-      prevRate[index]["mathematicaCategory"] = rate.label ?? undefined;
-      prevRate[index]["id"] = rate.label?.replace(/ /g, "") ?? undefined;
+      prevRate[index]["mathematicaCategory"] =
+        rate.mathematicaCategory ?? undefined;
+      prevRate[index]["id"] =
+        rate.mathematicaId?.replace(/ /g, "") ?? undefined;
     });
 
     if (calcTotal) {

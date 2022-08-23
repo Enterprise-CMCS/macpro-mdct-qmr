@@ -67,8 +67,10 @@ const CategoryNdrSets = ({
     <>
       {categories.map((item) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
+          mathematicaCategory: cat,
           label: cat,
           id: idx,
+          mathematicaId: cat,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
