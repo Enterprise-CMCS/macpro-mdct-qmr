@@ -125,10 +125,10 @@ export const ComplexValidateNDRTotals = (
               categories[i] ? categories[i] : ""
             }`,
             errorMessage: `Total ${
-              field.mathematicaCategory
-            } is not equal to the sum of other "${
-              field.mathematicaCategory
-            }" fields in ${categories[i] ? categories[i] : ""} section.`,
+              field.label
+            } is not equal to the sum of other "${field.label}" fields in ${
+              categories[i] ? categories[i] : ""
+            } section.`,
           });
         }
       });
