@@ -60,7 +60,7 @@ export const ExportAll = () => {
           gridColumn={"1 / -1"}
           fontSize={"xl"}
           id="top-of-page"
-          as="h2"
+          as="h1"
           my="6"
           textAlign={"center"}
           fontWeight="bold"
