@@ -49,7 +49,8 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      [memeRates, larcRates],
+      //@ts-ignore
+      [...memeRates, ...larcRates],
       [""],
       deviationArray,
       didCalculationsDeviate
