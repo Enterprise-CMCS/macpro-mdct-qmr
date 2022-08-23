@@ -63,8 +63,9 @@ export const Rate = ({
   });
 
   if (calcTotal) {
-    rates?.[rates.length - 1]?.["isTotal"] &&
-      (rates[rates.length - 1]["isTotal"] = true);
+    // rates?.[rates.length - 1]?.["isTotal"] &&
+    //   (rates[rates.length - 1]["isTotal"] = true);
+    rates[rates.length - 1]["isTotal"] = true;
   }
 
   /*
