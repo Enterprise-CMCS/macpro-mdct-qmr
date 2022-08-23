@@ -125,8 +125,10 @@ const QualifierNdrSets = ({
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
+    mathematicaCategory: item,
     label: item,
     id: idx,
+    mathematicaId: item,
   }));
   return (
     <>
