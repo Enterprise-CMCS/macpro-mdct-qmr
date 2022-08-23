@@ -24,7 +24,7 @@ const AMBHHValidation = (data: FormData) => {
   }
   const validateDualPopInformationArray = [
     performanceMeasureArray?.[0].filter((pm) => {
-      return pm?.mathematicaCategory === "Age 65 and older";
+      return pm?.label === "Age 65 and older";
     }),
   ];
 

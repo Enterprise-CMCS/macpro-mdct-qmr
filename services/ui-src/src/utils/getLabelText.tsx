@@ -5,7 +5,7 @@ export interface LabelData {
   label: string;
 }
 const addLabelTextData = (acc: LabelText, data: LabelData) => {
-  acc[data.mathematicaCategory] = data.mathematicaCategory;
+  acc[data.label] = data.label;
   return acc;
 };
 
