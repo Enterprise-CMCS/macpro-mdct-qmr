@@ -77,10 +77,8 @@ export const Rate = ({
       if (prevRate[index] === undefined) {
         prevRate[index] = {};
       }
-      prevRate[index]["mathematicaCategory"] =
-        rate.mathematicaCategory ?? undefined;
-      prevRate[index]["id"] =
-        rate.mathematicaCategory?.replace(/ /g, "") ?? undefined;
+      prevRate[index]["mathematicaCategory"] = rate.label ?? undefined;
+      prevRate[index]["id"] = rate.label?.replace(/ /g, "") ?? undefined;
     });
 
     if (calcTotal) {
@@ -122,8 +120,8 @@ export const Rate = ({
           : editRate[type];
 
       prevRate[index] = {
-        id: rates[index].mathematicaCategory?.replace(/ /g, ""),
-        mathematicaCategory: rates[index].mathematicaCategory,
+        id: rates[index].label?.replace(/ /g, ""),
+        mathematicaCategory: rates[index].label,
         ...editRate,
       };
 
@@ -152,8 +150,8 @@ export const Rate = ({
     }
 
     prevRate[index] = {
-      id: rates[index].mathematicaCategory?.replace(/ /g, ""),
-      mathematicaCategory: rates[index].mathematicaCategory,
+      id: rates[index].label?.replace(/ /g, ""),
+      mathematicaCategory: rates[index].label,
       ...editRate,
     };
 
