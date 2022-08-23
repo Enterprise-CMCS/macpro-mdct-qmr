@@ -165,8 +165,8 @@ export const validateTotalNDR = (
       const fieldLabel: string =
         (categories &&
           categories[idx] &&
-          `${categories[idx]} - ${totalNDR.mathematicaCategory}`) ||
-        totalNDR.mathematicaCategory;
+          `${categories[idx]} - ${totalNDR.label}`) ||
+        totalNDR.label;
       errorArray.push({
         errorLocation: errorLocation,
         errorMessage: errorMessageFunc(fieldLabel, "Total"),
