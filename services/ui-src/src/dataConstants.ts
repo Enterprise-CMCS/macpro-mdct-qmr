@@ -189,4 +189,4 @@ export const WHY_ARE_YOU_NOT_REPORTING_OTHER = "WhyAreYouNotReporting-Other";
 export const WHY_IS_DATA_NOT_AVAILABLE = "WhyIsDataNotAvailable";
 export const WHY_IS_DATA_NOT_AVAILABLE_OTHER = "WhyIsDataNotAvailable-Other";
 export const YES = "yes";
-export const MATHEMATICA_CATEGROY = "mathematicaCategory";
+export const MATHEMATICA_CATEGORY = "mathematicaCategory";

@@ -41,36 +41,42 @@ export const doubleRate: RateFields = {
   denominator: "4",
   rate: "50.0",
   label: "Double Test Label",
+  mathematicaCategory: "Double Test Label",
 };
 export const lowerRate: RateFields = {
   numerator: "1",
   denominator: "4",
   rate: "25.0",
   label: "Lower Rate Label",
+  mathematicaCategory: "Lower Rate Label",
 };
 export const higherRate: RateFields = {
   numerator: "3",
   denominator: "4",
   rate: "75.0",
   label: "Higher Rate Label",
+  mathematicaCategory: "Higher Rate Label",
 };
 export const incorrectNumeratorRate: RateFields = {
   numerator: "3",
   denominator: "4",
   rate: "50.0",
   label: "Numerator Test Label",
+  mathematicaCategory: "Numerator Test Label",
 };
 export const incorrectDenominatorRate: RateFields = {
   numerator: "2",
   denominator: "5",
   rate: "50.0",
   label: "Denominator Test Label",
+  mathematicaCategory: "Denominator Test Label",
 };
 export const emptyRate: RateFields = {
   numerator: "",
   denominator: "",
   rate: "",
   label: "Empty Test Label",
+  mathematicaCategory: "Empty Test Label",
 };
 
 /**
