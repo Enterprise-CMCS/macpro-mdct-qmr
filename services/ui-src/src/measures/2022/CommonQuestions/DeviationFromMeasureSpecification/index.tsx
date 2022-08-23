@@ -99,8 +99,7 @@ export const getLowLvlDeviationOptions = ({
         item.mathematicaCategory && cleanString(item.mathematicaCategory)
       }`;
       return {
-        displayValue:
-          labelText?.[item.mathematicaCategory!] || item.mathematicaCategory,
+        displayValue: labelText?.[item.label!] || item.label,
         value,
         children: [
           <DeviationsSelectedCheckbox
