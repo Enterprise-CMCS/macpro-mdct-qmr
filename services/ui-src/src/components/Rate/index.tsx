@@ -123,8 +123,8 @@ export const Rate = ({
           : editRate[type];
 
       prevRate[index] = {
-        id: rates[index].label?.replace(/ /g, ""),
-        mathematicaCategory: rates[index].label,
+        id: rates[index].mathematicaId?.replace(/ /g, ""),
+        mathematicaCategory: rates[index].mathematicaCategory,
         ...editRate,
       };
 
@@ -153,8 +153,8 @@ export const Rate = ({
     }
 
     prevRate[index] = {
-      id: rates[index].label?.replace(/ /g, ""),
-      mathematicaCategory: rates[index].label,
+      id: rates[index].mathematicaId?.replace(/ /g, ""),
+      mathematicaCategory: rates[index].mathematicaCategory,
       ...editRate,
     };
 
