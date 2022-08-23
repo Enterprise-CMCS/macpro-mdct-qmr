@@ -53,6 +53,7 @@ export const AutocompletedMeasureTemplate = ({
         <Link
           className="hidden-print-items"
           to={`/${state}/${year}/${coreSetId}`}
+          aria-label="Return to Core Set Measures"
         >
           <QMR.ContainedButton
             buttonProps={{
