@@ -26,7 +26,6 @@ export const getPerfMeasureRateArray = (
       formData.PerformanceMeasure?.rates?.[DC.SINGLE_CATEGORY] ?? []
     );
   }
-
   return performanceMeasureData;
 };
 
