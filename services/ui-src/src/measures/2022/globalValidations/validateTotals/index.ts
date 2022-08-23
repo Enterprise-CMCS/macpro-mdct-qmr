@@ -143,7 +143,7 @@ export const validateTotalNDR = (
         !isNaN(parsedNum)
       ) {
         const qualifier: string =
-          (categories && categories[idx]) || totalNDR.mathematicaCategory;
+          (categories && categories[idx]) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage: errorMessageFunc(qualifier, "Numerator"),
@@ -155,7 +155,7 @@ export const validateTotalNDR = (
         !isNaN(parsedDen)
       ) {
         const qualifier: string =
-          (categories && categories[idx]) || totalNDR.mathematicaCategory;
+          (categories && categories[idx]) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage: errorMessageFunc(qualifier, "Denominator"),

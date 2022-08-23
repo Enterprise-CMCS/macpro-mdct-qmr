@@ -1,11 +1,11 @@
 type LabelText = { [key: string]: string };
 export interface LabelData {
   mathematicaCategory: string;
-  text: string;
   id: string;
+  label: string;
 }
 const addLabelTextData = (acc: LabelText, data: LabelData) => {
-  acc[data.mathematicaCategory] = data.text;
+  acc[data.mathematicaCategory] = data.mathematicaCategory;
   return acc;
 };
 

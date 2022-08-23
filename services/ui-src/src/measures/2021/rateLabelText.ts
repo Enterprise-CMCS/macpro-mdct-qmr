@@ -13,12 +13,12 @@ export const data = {
             {
                 "mathematicaCategory": "Initiation Phase",
                 "id": "InitiationPhase",
-                "text": "Initiation Phase"
+                "label": "Initiation Phase"
             },
             {
                 "mathematicaCategory": "Continuation and Maintenance (C&M) Phase",
                 "id": "ContinuationandMaintenanceCMPhase",
-                "text": "Continuation and Maintenance (C&M) Phase"
+                "label": "Continuation and Maintenance (C&M) Phase"
             }
         ]
     },
@@ -28,27 +28,27 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Ages 65 to 74",
                 "id": "Ages65to74",
-                "text": "Ages 65 to 74"
+                "label": "Ages 65 to 74"
             },
             {
                 "mathematicaCategory": "Ages 75 to 84",
                 "id": "Ages75to84",
-                "text": "Ages 75 to 84"
+                "label": "Ages 75 to 84"
             },
             {
                 "mathematicaCategory": "Age 85 and older",
                 "id": "Age85andolder",
-                "text": "Age 85 and older"
+                "label": "Age 85 and older"
             },
             {
                 "mathematicaCategory": "Total",
                 "id": "Total",
-                "text": "Total"
+                "label": "Total"
             }
         ]
     },
@@ -58,27 +58,27 @@ export const data = {
             {
                 "mathematicaCategory": "< Age 1",
                 "id": "Age1",
-                "text": "< Age 1"
+                "label": "< Age 1"
             },
             {
                 "mathematicaCategory": "Ages 1 to 9",
                 "id": "Ages1to9",
-                "text": "Ages 1 to 9"
+                "label": "Ages 1 to 9"
             },
             {
                 "mathematicaCategory": "Ages 10 to 19",
                 "id": "Ages10to19",
-                "text": "Ages 10 to 19"
+                "label": "Ages 10 to 19"
             },
             {
                 "mathematicaCategory": "Ages unknown",
                 "id": "Agesunknown",
-                "text": "Ages unknown"
+                "label": "Ages unknown"
             },
             {
                 "mathematicaCategory": "Total (Ages <1 to 19)",
                 "id": "TotalAges1to19",
-                "text": "Total (Ages <1 to 19)"
+                "label": "Total (Ages <1 to 19)"
             }
         ]
     },
@@ -88,27 +88,27 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 0 to 17",
                 "id": "Ages0to17",
-                "text": "Ages 0 to 17"
+                "label": "Ages 0 to 17"
             },
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             },
             {
                 "mathematicaCategory": "Ages unknown",
                 "id": "Agesunknown",
-                "text": "Ages unknown"
+                "label": "Ages unknown"
             },
             {
                 "mathematicaCategory": "Total (All Ages)",
                 "id": "TotalAllAges",
-                "text": "Total (All Ages)"
+                "label": "Total (All Ages)"
             }
         ]
     },
@@ -117,24 +117,24 @@ export const data = {
             {
                 "mathematicaCategory": "Effective Acute Phase Treatment",
                 "id": "EffectiveAcutePhaseTreatment",
-                "text": "Effective Acute Phase Treatment"
+                "label": "Effective Acute Phase Treatment"
             },
             {
                 "mathematicaCategory": "Effective Continuation Phase Treatment",
                 "id": "EffectiveContinuationPhaseTreatment",
-                "text": "Effective Continuation Phase Treatment"
+                "label": "Effective Continuation Phase Treatment"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -144,17 +144,17 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 19 to 50",
                 "id": "Ages19to50",
-                "text": "Ages 19 to 50"
+                "label": "Ages 19 to 50"
             },
             {
                 "mathematicaCategory": "Ages 51 to 64",
                 "id": "Ages51to64",
-                "text": "Ages 51 to 64"
+                "label": "Ages 51 to 64"
             },
             {
                 "mathematicaCategory": "Total (Ages 19 to 64)",
                 "id": "TotalAges19to64",
-                "text": "Total (Ages 19 to 64)"
+                "label": "Total (Ages 19 to 64)"
             }
         ]
     },
@@ -164,17 +164,17 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 5 to 11",
                 "id": "Ages5to11",
-                "text": "Ages 5 to 11"
+                "label": "Ages 5 to 11"
             },
             {
                 "mathematicaCategory": "Ages 12 to 18",
                 "id": "Ages12to18",
-                "text": "Ages 12 to 18"
+                "label": "Ages 12 to 18"
             },
             {
                 "mathematicaCategory": "Total (Ages 5 to 18)",
                 "id": "TotalAges5to18",
-                "text": "Total (Ages 5 to 18)"
+                "label": "Total (Ages 5 to 18)"
             }
         ]
     },
@@ -183,34 +183,34 @@ export const data = {
             {
                 "mathematicaCategory": "Blood Glucose",
                 "id": "BloodGlucose",
-                "text": "Blood Glucose"
+                "label": "Blood Glucose"
             },
             {
                 "mathematicaCategory": "Cholesterol",
                 "id": "Cholesterol",
-                "text": "Cholesterol"
+                "label": "Cholesterol"
             },
             {
                 "mathematicaCategory": "Blood Glucose and Cholesterol",
                 "id": "BloodGlucoseandCholesterol",
-                "text": "Blood Glucose and Cholesterol"
+                "label": "Blood Glucose and Cholesterol"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 1 to 11",
                 "id": "Ages1to11",
-                "text": "Ages 1 to 11"
+                "label": "Ages 1 to 11"
             },
             {
                 "mathematicaCategory": "Ages 12 to 17",
                 "id": "Ages12to17",
-                "text": "Ages 12 to 17"
+                "label": "Ages 12 to 17"
             },
             {
                 "mathematicaCategory": "Total (Ages 1 to 17)",
                 "id": "TotalAges1to17",
-                "text": "Total (Ages 1 to 17)"
+                "label": "Total (Ages 1 to 17)"
             }
         ]
     },
@@ -220,17 +220,17 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 1 to 11",
                 "id": "Ages1to11",
-                "text": "Ages 1 to 11"
+                "label": "Ages 1 to 11"
             },
             {
                 "mathematicaCategory": "Ages 12 to 17",
                 "id": "Ages12to17",
-                "text": "Ages 12 to 17"
+                "label": "Ages 12 to 17"
             },
             {
                 "mathematicaCategory": "Total (Ages 1 to 17)",
                 "id": "TotalAges1to17",
-                "text": "Total (Ages 1 to 17)"
+                "label": "Total (Ages 1 to 17)"
             }
         ]
     },
@@ -240,7 +240,7 @@ export const data = {
             {
                 "mathematicaCategory": "Percentage of newborns who did not pass hearing screening and have an audiological diagnosis no later than 3 months of age",
                 "id": "Percentageofnewbornswhodidnotpasshearingscreeningandhaveanaudiologicaldiagnosisnolaterthan3monthsofage",
-                "text": "Percentage of newborns who did not pass hearing screening and have an audiological diagnosis no later than 3 months of age"
+                "label": "Percentage of newborns who did not pass hearing screening and have an audiological diagnosis no later than 3 months of age"
             }
         ]
     },
@@ -250,12 +250,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 50 to 64",
                 "id": "Ages50to64",
-                "text": "Ages 50 to 64"
+                "label": "Ages 50 to 64"
             },
             {
                 "mathematicaCategory": "Ages 65 to 74",
                 "id": "Ages65to74",
-                "text": "Ages 65 to 74"
+                "label": "Ages 65 to 74"
             }
         ]
     },
@@ -265,12 +265,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Ages 65 to 85",
                 "id": "Ages65to85",
-                "text": "Ages 65 to 85"
+                "label": "Ages 65 to 85"
             }
         ]
     },
@@ -280,17 +280,17 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Ages 65 to 85",
                 "id": "Ages65to85",
-                "text": "Ages 65 to 85"
+                "label": "Ages 65 to 85"
             },
             {
                 "mathematicaCategory": "Total (Ages 18 to 85)",
                 "id": "TotalAges18to85",
-                "text": "Total (Ages 18 to 85)"
+                "label": "Total (Ages 18 to 85)"
             }
         ]
     },
@@ -299,24 +299,24 @@ export const data = {
             {
                 "mathematicaCategory": "Most effective or moderately effective method of contraception",
                 "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception",
-                "text": "Most effective or moderately effective method of contraception"
+                "label": "Most effective or moderately effective method of contraception"
             },
             {
                 "mathematicaCategory": "Long-acting reversible method of contraception (LARC)",
                 "id": "LongactingreversiblemethodofcontraceptionLARC",
-                "text": "Long-acting reversible method of contraception (LARC)"
+                "label": "Long-acting reversible method of contraception (LARC)"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Three Days Postpartum Rate",
                 "id": "ThreeDaysPostpartumRate",
-                "text": "Three Days Postpartum Rate"
+                "label": "Three Days Postpartum Rate"
             },
             {
                 "mathematicaCategory": "Sixty Days Postpartum Rate",
                 "id": "SixtyDaysPostpartumRate",
-                "text": "Sixty Days Postpartum Rate"
+                "label": "Sixty Days Postpartum Rate"
             }
         ]
     },
@@ -325,24 +325,24 @@ export const data = {
             {
                 "mathematicaCategory": "Most effective or moderately effective method of contraception",
                 "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception",
-                "text": "Most effective or moderately effective method of contraception"
+                "label": "Most effective or moderately effective method of contraception"
             },
             {
                 "mathematicaCategory": "Long-acting reversible method of contraception (LARC)",
                 "id": "LongactingreversiblemethodofcontraceptionLARC",
-                "text": "Long-acting reversible method of contraception (LARC)"
+                "label": "Long-acting reversible method of contraception (LARC)"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Three Days Postpartum Rate",
                 "id": "ThreeDaysPostpartumRate",
-                "text": "Three Days Postpartum Rate"
+                "label": "Three Days Postpartum Rate"
             },
             {
                 "mathematicaCategory": "Sixty Days Postpartum Rate",
                 "id": "SixtyDaysPostpartumRate",
-                "text": "Sixty Days Postpartum Rate"
+                "label": "Sixty Days Postpartum Rate"
             }
         ]
     },
@@ -352,7 +352,7 @@ export const data = {
             {
                 "mathematicaCategory": "Percentage of women ages 21 to 64 screened",
                 "id": "Percentageofwomenages21to64screened",
-                "text": "Percentage of women ages 21 to 64 screened"
+                "label": "Percentage of women ages 21 to 64 screened"
             }
         ]
     },
@@ -361,19 +361,19 @@ export const data = {
             {
                 "mathematicaCategory": "Most effective or moderately effective method of contraception",
                 "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception",
-                "text": "Most effective or moderately effective method of contraception"
+                "label": "Most effective or moderately effective method of contraception"
             },
             {
                 "mathematicaCategory": "Long-acting reversible method of contraception (LARC)",
                 "id": "LongactingreversiblemethodofcontraceptionLARC",
-                "text": "Long-acting reversible method of contraception (LARC)"
+                "label": "Long-acting reversible method of contraception (LARC)"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "All Women Ages 21 to 44",
                 "id": "AllWomenAges21to44",
-                "text": "All Women Ages 21 to 44"
+                "label": "All Women Ages 21 to 44"
             }
         ]
     },
@@ -383,12 +383,12 @@ export const data = {
             {
                 "mathematicaCategory": "Most effective or moderately effective method of contraception",
                 "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception",
-                "text": "Most effective or moderately effective method of contraception"
+                "label": "Most effective or moderately effective method of contraception"
             },
             {
                 "mathematicaCategory": "Long-acting reversible method of contraception (LARC)",
                 "id": "LongactingreversiblemethodofcontraceptionLARC",
-                "text": "Long-acting reversible method of contraception (LARC)"
+                "label": "Long-acting reversible method of contraception (LARC)"
             }
         ]
     },
@@ -398,12 +398,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -413,7 +413,7 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 12 to 17",
                 "id": "Ages12to17",
-                "text": "Ages 12 to 17"
+                "label": "Ages 12 to 17"
             }
         ]
     },
@@ -423,22 +423,22 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 12 to 17",
                 "id": "Ages12to17",
-                "text": "Ages 12 to 17"
+                "label": "Ages 12 to 17"
             },
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             },
             {
                 "mathematicaCategory": "Total (Age 12 and older)",
                 "id": "TotalAge12andolder",
-                "text": "Total (Age 12 and older)"
+                "label": "Total (Age 12 and older)"
             }
         ]
     },
@@ -448,7 +448,7 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 21 to 24",
                 "id": "Ages21to24",
-                "text": "Ages 21 to 24"
+                "label": "Ages 21 to 24"
             }
         ]
     },
@@ -458,7 +458,7 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 16 to 20",
                 "id": "Ages16to20",
-                "text": "Ages 16 to 20"
+                "label": "Ages 16 to 20"
             }
         ]
     },
@@ -468,97 +468,97 @@ export const data = {
             {
                 "mathematicaCategory": "DTaP",
                 "id": "DTaP",
-                "text": "DTaP"
+                "label": "DTaP"
             },
             {
                 "mathematicaCategory": "IPV",
                 "id": "IPV",
-                "text": "IPV"
+                "label": "IPV"
             },
             {
                 "mathematicaCategory": "MMR",
                 "id": "MMR",
-                "text": "MMR"
+                "label": "MMR"
             },
             {
                 "mathematicaCategory": "HiB",
                 "id": "HiB",
-                "text": "HiB"
+                "label": "HiB"
             },
             {
                 "mathematicaCategory": "Hep B",
                 "id": "HepB",
-                "text": "Hep B"
+                "label": "Hep B"
             },
             {
                 "mathematicaCategory": "VZV",
                 "id": "VZV",
-                "text": "VZV"
+                "label": "VZV"
             },
             {
                 "mathematicaCategory": "PCV",
                 "id": "PCV",
-                "text": "PCV"
+                "label": "PCV"
             },
             {
                 "mathematicaCategory": "Hep A",
                 "id": "HepA",
-                "text": "Hep A"
+                "label": "Hep A"
             },
             {
                 "mathematicaCategory": "RV",
                 "id": "RV",
-                "text": "RV"
+                "label": "RV"
             },
             {
                 "mathematicaCategory": "Flu",
                 "id": "Flu",
-                "text": "Flu"
+                "label": "Flu"
             },
             {
                 "mathematicaCategory": "Combo 2",
                 "id": "Combo2",
-                "text": "Combo 2"
+                "label": "Combo 2"
             },
             {
                 "mathematicaCategory": "Combo 3",
                 "id": "Combo3",
-                "text": "Combo 3"
+                "label": "Combo 3"
             },
             {
                 "mathematicaCategory": "Combo 4",
                 "id": "Combo4",
-                "text": "Combo 4"
+                "label": "Combo 4"
             },
             {
                 "mathematicaCategory": "Combo 5",
                 "id": "Combo5",
-                "text": "Combo 5"
+                "label": "Combo 5"
             },
             {
                 "mathematicaCategory": "Combo 6",
                 "id": "Combo6",
-                "text": "Combo 6"
+                "label": "Combo 6"
             },
             {
                 "mathematicaCategory": "Combo 7",
                 "id": "Combo7",
-                "text": "Combo 7"
+                "label": "Combo 7"
             },
             {
                 "mathematicaCategory": "Combo 8",
                 "id": "Combo8",
-                "text": "Combo 8"
+                "label": "Combo 8"
             },
             {
                 "mathematicaCategory": "Combo 9",
                 "id": "Combo9",
-                "text": "Combo 9"
+                "label": "Combo 9"
             },
             {
                 "mathematicaCategory": "Combo 10",
                 "id": "Combo10",
-                "text": "Combo 10"
+                "label": "Combo 10"
             }
         ]
     },
@@ -568,12 +568,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -583,22 +583,22 @@ export const data = {
             {
                 "mathematicaCategory": "Children screened by 12 months of age",
                 "id": "Childrenscreenedby12monthsofage",
-                "text": "Children screened by 12 months of age"
+                "label": "Children screened by 12 months of age"
             },
             {
                 "mathematicaCategory": "Children screened by 24 months of age",
                 "id": "Childrenscreenedby24monthsofage",
-                "text": "Children screened by 24 months of age"
+                "label": "Children screened by 24 months of age"
             },
             {
                 "mathematicaCategory": "Children screened by 36 months of age",
                 "id": "Childrenscreenedby36monthsofage",
-                "text": "Children screened by 36 months of age"
+                "label": "Children screened by 36 months of age"
             },
             {
                 "mathematicaCategory": "Children Total",
                 "id": "ChildrenTotal",
-                "text": "Children Total"
+                "label": "Children Total"
             }
         ]
     },
@@ -607,24 +607,24 @@ export const data = {
             {
                 "mathematicaCategory": "Follow-up within 30 days of ED visit",
                 "id": "Followupwithin30daysofEDvisit",
-                "text": "Follow-up within 30 days of ED visit"
+                "label": "Follow-up within 30 days of ED visit"
             },
             {
                 "mathematicaCategory": "Follow-up within 7 days of ED visit",
                 "id": "Followupwithin7daysofEDvisit",
-                "text": "Follow-up within 7 days of ED visit"
+                "label": "Follow-up within 7 days of ED visit"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -633,34 +633,34 @@ export const data = {
             {
                 "mathematicaCategory": "Follow-up within 30 days of ED visit",
                 "id": "Followupwithin30daysofEDvisit",
-                "text": "Follow-up within 30 days of ED visit"
+                "label": "Follow-up within 30 days of ED visit"
             },
             {
                 "mathematicaCategory": "Follow-up within 7 days of ED visit",
                 "id": "Followupwithin7daysofEDvisit",
-                "text": "Follow-up within 7 days of ED visit"
+                "label": "Follow-up within 7 days of ED visit"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 13 to 17",
                 "id": "Ages13to17",
-                "text": "Ages 13 to 17"
+                "label": "Ages 13 to 17"
             },
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             },
             {
                 "mathematicaCategory": "Total (Age 13 and older)",
                 "id": "Total",
-                "text": "Total (Age 13 and older)"
+                "label": "Total (Age 13 and older)"
             }
         ]
     },
@@ -669,24 +669,24 @@ export const data = {
             {
                 "mathematicaCategory": "Follow-Up within 30 days after discharge",
                 "id": "FollowUpwithin30daysafterdischarge",
-                "text": "Follow-Up within 30 days after discharge"
+                "label": "Follow-Up within 30 days after discharge"
             },
             {
                 "mathematicaCategory": "Follow-Up within 7 days after discharge",
                 "id": "FollowUpwithin7daysafterdischarge",
-                "text": "Follow-Up within 7 days after discharge"
+                "label": "Follow-Up within 7 days after discharge"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -695,19 +695,19 @@ export const data = {
             {
                 "mathematicaCategory": "Follow-Up within 30 days after discharge",
                 "id": "FollowUpwithin30daysafterdischarge",
-                "text": "Follow-Up within 30 days after discharge"
+                "label": "Follow-Up within 30 days after discharge"
             },
             {
                 "mathematicaCategory": "Follow-Up within 7 days after discharge",
                 "id": "FollowUpwithin7daysafterdischarge",
-                "text": "Follow-Up within 7 days after discharge"
+                "label": "Follow-Up within 7 days after discharge"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 6 to 17",
                 "id": "Ages6to17",
-                "text": "Ages 6 to 17"
+                "label": "Ages 6 to 17"
             }
         ]
     },
@@ -716,34 +716,34 @@ export const data = {
             {
                 "mathematicaCategory": "Follow-up within 30 days after discharge",
                 "id": "Followupwithin30daysafterdischarge",
-                "text": "Follow-up within 30 days after discharge"
+                "label": "Follow-up within 30 days after discharge"
             },
             {
                 "mathematicaCategory": "Follow-up within 7 days after discharge",
                 "id": "Followupwithin7daysafterdischarge",
-                "text": "Follow-up within 7 days after discharge"
+                "label": "Follow-up within 7 days after discharge"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 6 to 17",
                 "id": "Ages6to17",
-                "text": "Ages 6 to 17"
+                "label": "Ages 6 to 17"
             },
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             },
             {
                 "mathematicaCategory": "Total (Age 6 and older)",
                 "id": "TotalAge6andolder",
-                "text": "Total (Age 6 and older)"
+                "label": "Total (Age 6 and older)"
             }
         ]
     },
@@ -752,24 +752,24 @@ export const data = {
             {
                 "mathematicaCategory": "30-day follow-up after ED visit for mental illness",
                 "id": "30dayfollowupafterEDvisitformentalillness",
-                "text": "30-day follow-up after ED visit for mental illness"
+                "label": "30-day follow-up after ED visit for mental illness"
             },
             {
                 "mathematicaCategory": "7-day follow-up after ED visit for mental illness",
                 "id": "7dayfollowupafterEDvisitformentalillness",
-                "text": "7-day follow-up after ED visit for mental illness"
+                "label": "7-day follow-up after ED visit for mental illness"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -779,7 +779,7 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             }
         ]
     },
@@ -789,12 +789,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -804,12 +804,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Ages 65 to 75",
                 "id": "Ages65to75",
-                "text": "Ages 65 to 75"
+                "label": "Ages 65 to 75"
             }
         ]
     },
@@ -819,12 +819,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Ages 65 to 75",
                 "id": "Ages65to75",
-                "text": "Ages 65 to 75"
+                "label": "Ages 65 to 75"
             }
         ]
     },
@@ -833,54 +833,54 @@ export const data = {
             {
                 "mathematicaCategory": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
                 "id": "InitiationofAODTreatmentAlcoholAbuseorDependence",
-                "text": "Initiation of AOD Treatment: Alcohol Abuse or Dependence"
+                "label": "Initiation of AOD Treatment: Alcohol Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
                 "id": "EngagementofAODTreatmentAlcoholAbuseorDependence",
-                "text": "Engagement of AOD Treatment: Alcohol Abuse or Dependence"
+                "label": "Engagement of AOD Treatment: Alcohol Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
                 "id": "InitiationofAODTreatmentOpioidAbuseorDependence",
-                "text": "Initiation of AOD Treatment: Opioid Abuse or Dependence"
+                "label": "Initiation of AOD Treatment: Opioid Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
                 "id": "EngagementofAODTreatmentOpioidAbuseorDependence",
-                "text": "Engagement of AOD Treatment: Opioid Abuse or Dependence"
+                "label": "Engagement of AOD Treatment: Opioid Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
                 "id": "InitiationofAODTreatmentOtherDrugAbuseorDependence",
-                "text": "Initiation of AOD Treatment: Other Drug Abuse or Dependence"
+                "label": "Initiation of AOD Treatment: Other Drug Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
                 "id": "EngagementofAODTreatmentOtherDrugAbuseorDependence",
-                "text": "Engagement of AOD Treatment: Other Drug Abuse or Dependence"
+                "label": "Engagement of AOD Treatment: Other Drug Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
                 "id": "InitiationofAODTreatmentTotalAODAbuseorDependence",
-                "text": "Initiation of AOD Treatment: Total AOD Abuse or Dependence"
+                "label": "Initiation of AOD Treatment: Total AOD Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
                 "id": "EngagementofAODTreatmentTotalAODAbuseorDependence",
-                "text": "Engagement of AOD Treatment: Total AOD Abuse or Dependence"
+                "label": "Engagement of AOD Treatment: Total AOD Abuse or Dependence"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -889,64 +889,64 @@ export const data = {
             {
                 "mathematicaCategory": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
                 "id": "InitiationofAODTreatmentAlcoholAbuseorDependence",
-                "text": "Initiation of AOD Treatment: Alcohol Abuse or Dependence"
+                "label": "Initiation of AOD Treatment: Alcohol Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
                 "id": "EngagementofAODTreatmentAlcoholAbuseorDependence",
-                "text": "Engagement of AOD Treatment: Alcohol Abuse or Dependence"
+                "label": "Engagement of AOD Treatment: Alcohol Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
                 "id": "InitiationofAODTreatmentOpioidAbuseorDependence",
-                "text": "Initiation of AOD Treatment: Opioid Abuse or Dependence"
+                "label": "Initiation of AOD Treatment: Opioid Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
                 "id": "EngagementofAODTreatmentOpioidAbuseorDependence",
-                "text": "Engagement of AOD Treatment: Opioid Abuse or Dependence"
+                "label": "Engagement of AOD Treatment: Opioid Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
                 "id": "InitiationofAODTreatmentOtherDrugAbuseorDependence",
-                "text": "Initiation of AOD Treatment: Other Drug Abuse or Dependence"
+                "label": "Initiation of AOD Treatment: Other Drug Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
                 "id": "EngagementofAODTreatmentOtherDrugAbuseorDependence",
-                "text": "Engagement of AOD Treatment: Other Drug Abuse or Dependence"
+                "label": "Engagement of AOD Treatment: Other Drug Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
                 "id": "InitiationofAODTreatmentTotalAODAbuseorDependence",
-                "text": "Initiation of AOD Treatment: Total AOD Abuse or Dependence"
+                "label": "Initiation of AOD Treatment: Total AOD Abuse or Dependence"
             },
             {
                 "mathematicaCategory": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
                 "id": "EngagementofAODTreatmentTotalAODAbuseorDependence",
-                "text": "Engagement of AOD Treatment: Total AOD Abuse or Dependence"
+                "label": "Engagement of AOD Treatment: Total AOD Abuse or Dependence"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 13 to 17",
                 "id": "Ages13to17",
-                "text": "Ages 13 to 17"
+                "label": "Ages 13 to 17"
             },
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             },
             {
                 "mathematicaCategory": "Total (age 13 and older)",
                 "id": "Totalage13andolder",
-                "text": "Total (age 13 and older)"
+                "label": "Total (age 13 and older)"
             }
         ]
     },
@@ -956,27 +956,27 @@ export const data = {
             {
                 "mathematicaCategory": "Meningococcal",
                 "id": "Meningococcal",
-                "text": "Meningococcal"
+                "label": "Meningococcal"
             },
             {
                 "mathematicaCategory": "Tdap",
                 "id": "Tdap",
-                "text": "Tdap"
+                "label": "Tdap"
             },
             {
                 "mathematicaCategory": "Human Papillomavirus (HPV)",
                 "id": "HumanPapillomavirusHPV",
-                "text": "Human Papillomavirus (HPV)"
+                "label": "Human Papillomavirus (HPV)"
             },
             {
                 "mathematicaCategory": "Combination 1 (Meningococcal, Tdap)",
                 "id": "Combination1MeningococcalTdap",
-                "text": "Combination 1 (Meningococcal, Tdap)"
+                "label": "Combination 1 (Meningococcal, Tdap)"
             },
             {
                 "mathematicaCategory": "Combination 2 (Meningococcal, Tdap, HPV)",
                 "id": "Combination2MeningococcalTdapHPV",
-                "text": "Combination 2 (Meningococcal, Tdap, HPV)"
+                "label": "Combination 2 (Meningococcal, Tdap, HPV)"
             }
         ]
     },
@@ -985,54 +985,54 @@ export const data = {
             {
                 "mathematicaCategory": "Inpatient",
                 "id": "Inpatient",
-                "text": "Inpatient"
+                "label": "Inpatient"
             },
             {
                 "mathematicaCategory": "Maternity",
                 "id": "Maternity",
-                "text": "Maternity"
+                "label": "Maternity"
             },
             {
                 "mathematicaCategory": "Mental and Behavioral Disorders",
                 "id": "MentalandBehavioralDisorders",
-                "text": "Mental and Behavioral Disorders"
+                "label": "Mental and Behavioral Disorders"
             },
             {
                 "mathematicaCategory": "Surgery",
                 "id": "Surgery",
-                "text": "Surgery"
+                "label": "Surgery"
             },
             {
                 "mathematicaCategory": "Medicine",
                 "id": "Medicine",
-                "text": "Medicine"
+                "label": "Medicine"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 0 to 17",
                 "id": "Ages0to17",
-                "text": "Ages 0 to 17"
+                "label": "Ages 0 to 17"
             },
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             },
             {
                 "mathematicaCategory": "Ages unknown",
                 "id": "Agesunknown",
-                "text": "Ages unknown"
+                "label": "Ages unknown"
             },
             {
                 "mathematicaCategory": "Total",
                 "id": "Total",
-                "text": "Total"
+                "label": "Total"
             }
         ]
     },
@@ -1041,34 +1041,34 @@ export const data = {
             {
                 "mathematicaCategory": "Advising Smokers and Tobacco Users to Quit",
                 "id": "AdvisingSmokersandTobaccoUserstoQuit",
-                "text": "Advising Smokers and Tobacco Users to Quit"
+                "label": "Advising Smokers and Tobacco Users to Quit"
             },
             {
                 "mathematicaCategory": "Discussing Cessation Medications",
                 "id": "DiscussingCessationMedications",
-                "text": "Discussing Cessation Medications"
+                "label": "Discussing Cessation Medications"
             },
             {
                 "mathematicaCategory": "Discussing Cessation Strategies",
                 "id": "DiscussingCessationStrategies",
-                "text": "Discussing Cessation Strategies"
+                "label": "Discussing Cessation Strategies"
             },
             {
                 "mathematicaCategory": "Percentage of Current Smokers and Tobacco Users",
                 "id": "PercentageofCurrentSmokersandTobaccoUsers",
-                "text": "Percentage of Current Smokers and Tobacco Users"
+                "label": "Percentage of Current Smokers and Tobacco Users"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -1078,12 +1078,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -1093,27 +1093,27 @@ export const data = {
             {
                 "mathematicaCategory": "Total Rate",
                 "id": "TotalRate",
-                "text": "Total Rate"
+                "label": "Total Rate"
             },
             {
                 "mathematicaCategory": "Buprenorphine",
                 "id": "Buprenorphine",
-                "text": "Buprenorphine"
+                "label": "Buprenorphine"
             },
             {
                 "mathematicaCategory": "Oral naltrexone",
                 "id": "Oralnaltrexone",
-                "text": "Oral naltrexone"
+                "label": "Oral naltrexone"
             },
             {
                 "mathematicaCategory": "Long-acting, injectable naltrexone",
                 "id": "Longactinginjectablenaltrexone",
-                "text": "Long-acting, injectable naltrexone"
+                "label": "Long-acting, injectable naltrexone"
             },
             {
                 "mathematicaCategory": "Methadone",
                 "id": "Methadone",
-                "text": "Methadone"
+                "label": "Methadone"
             }
         ]
     },
@@ -1123,27 +1123,27 @@ export const data = {
             {
                 "mathematicaCategory": "Total Rate",
                 "id": "TotalRate",
-                "text": "Total Rate"
+                "label": "Total Rate"
             },
             {
                 "mathematicaCategory": "Buprenorphine",
                 "id": "Buprenorphine",
-                "text": "Buprenorphine"
+                "label": "Buprenorphine"
             },
             {
                 "mathematicaCategory": "Oral naltrexone",
                 "id": "Oralnaltrexone",
-                "text": "Oral naltrexone"
+                "label": "Oral naltrexone"
             },
             {
                 "mathematicaCategory": "Long-acting, injectable naltrexone",
                 "id": "Longactinginjectablenaltrexone",
-                "text": "Long-acting, injectable naltrexone"
+                "label": "Long-acting, injectable naltrexone"
             },
             {
                 "mathematicaCategory": "Methadone",
                 "id": "Methadone",
-                "text": "Methadone"
+                "label": "Methadone"
             }
         ]
     },
@@ -1153,7 +1153,7 @@ export const data = {
             {
                 "mathematicaCategory": "Women with elective vaginal deliveries or elective cesarean sections ≥ 37 and <39 weeks",
                 "id": "Womenwithelectivevaginaldeliveriesorelectivecesareansections37and39weeks",
-                "text": "Women with elective vaginal deliveries or elective cesarean sections ≥ 37 and <39 weeks"
+                "label": "Women with elective vaginal deliveries or elective cesarean sections ≥ 37 and <39 weeks"
             }
         ]
     },
@@ -1163,47 +1163,47 @@ export const data = {
             {
                 "mathematicaCategory": "Count of Index Hospital Stays",
                 "id": "CountofIndexHospitalStays",
-                "text": "Count of Index Hospital Stays"
+                "label": "Count of Index Hospital Stays"
             },
             {
                 "mathematicaCategory": "Count of Observed 30-Day Readmissions",
                 "id": "CountofObserved30DayReadmissions",
-                "text": "Count of Observed 30-Day Readmissions"
+                "label": "Count of Observed 30-Day Readmissions"
             },
             {
                 "mathematicaCategory": "Observed Readmission Rate",
                 "id": "ObservedReadmissionRate",
-                "text": "Observed Readmission Rate"
+                "label": "Observed Readmission Rate"
             },
             {
                 "mathematicaCategory": "Count of Expected 30-Day Readmissions",
                 "id": "CountofExpected30DayReadmissions",
-                "text": "Count of Expected 30-Day Readmissions"
+                "label": "Count of Expected 30-Day Readmissions"
             },
             {
                 "mathematicaCategory": "Expected Readmission Rate",
                 "id": "ExpectedReadmissionRate",
-                "text": "Expected Readmission Rate"
+                "label": "Expected Readmission Rate"
             },
             {
                 "mathematicaCategory": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
                 "id": "OERatioCountofObserved30DayReadmissionsCountofExpected30DayReadmissions",
-                "text": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)"
+                "label": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)"
             },
             {
                 "mathematicaCategory": "Count of Beneficiaries in Medicaid Population",
                 "id": "CountofBeneficiariesinMedicaidPopulation",
-                "text": "Count of Beneficiaries in Medicaid Population"
+                "label": "Count of Beneficiaries in Medicaid Population"
             },
             {
                 "mathematicaCategory": "Number of Outliers",
                 "id": "NumberofOutliers",
-                "text": "Number of Outliers"
+                "label": "Number of Outliers"
             },
             {
                 "mathematicaCategory": "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000",
                 "id": "OutlierRateNumberofOutliersCountofBeneficiariesinMedicaidPopulationx1000",
-                "text": "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000"
+                "label": "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000"
             }
         ]
     },
@@ -1213,47 +1213,47 @@ export const data = {
             {
                 "mathematicaCategory": "Count of Index Hospital Stays",
                 "id": "CountofIndexHospitalStays",
-                "text": "Count of Index Hospital Stays"
+                "label": "Count of Index Hospital Stays"
             },
             {
                 "mathematicaCategory": "Count of Observed 30-Day Readmissions",
                 "id": "CountofObserved30DayReadmissions",
-                "text": "Count of Observed 30-Day Readmissions"
+                "label": "Count of Observed 30-Day Readmissions"
             },
             {
                 "mathematicaCategory": "Observed Readmission Rate",
                 "id": "ObservedReadmissionRate",
-                "text": "Observed Readmission Rate"
+                "label": "Observed Readmission Rate"
             },
             {
                 "mathematicaCategory": "Count of Expected 30-Day Readmissions",
                 "id": "CountofExpected30DayReadmissions",
-                "text": "Count of Expected 30-Day Readmissions"
+                "label": "Count of Expected 30-Day Readmissions"
             },
             {
                 "mathematicaCategory": "Expected Readmission Rate",
                 "id": "ExpectedReadmissionRate",
-                "text": "Expected Readmission Rate"
+                "label": "Expected Readmission Rate"
             },
             {
                 "mathematicaCategory": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
                 "id": "OERatioCountofObserved30DayReadmissionsCountofExpected30DayReadmissions",
-                "text": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)"
+                "label": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)"
             },
             {
                 "mathematicaCategory": "Count of Enrollees in Health Home Population",
                 "id": "CountofEnrolleesinHealthHomePopulation",
-                "text": "Count of Enrollees in Health Home Population"
+                "label": "Count of Enrollees in Health Home Population"
             },
             {
                 "mathematicaCategory": "Number of Outliers",
                 "id": "NumberofOutliers",
-                "text": "Number of Outliers"
+                "label": "Number of Outliers"
             },
             {
                 "mathematicaCategory": "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000",
                 "id": "OutlierRateNumberofOutliersCountofEnrolleesinHealthHomePopulationx1000",
-                "text": "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000"
+                "label": "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000"
             }
         ]
     },
@@ -1263,7 +1263,7 @@ export const data = {
             {
                 "mathematicaCategory": "Postpartum visit between 7 and 84 days",
                 "id": "Postpartumvisitbetween7and84days",
-                "text": "Postpartum visit between 7 and 84 days"
+                "label": "Postpartum visit between 7 and 84 days"
             }
         ]
     },
@@ -1273,7 +1273,7 @@ export const data = {
             {
                 "mathematicaCategory": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
                 "id": "Prenatalcarevisitinthefirsttrimesteronorbeforetheenrollmentstartdateorwithin42daysofenrollmentinMedicaidCHIP",
-                "text": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
+                "label": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
             }
         ]
     },
@@ -1283,12 +1283,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -1298,12 +1298,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 40 to 64",
                 "id": "Ages40to64",
-                "text": "Ages 40 to 64"
+                "label": "Ages 40 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -1313,12 +1313,12 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             }
         ]
     },
@@ -1328,7 +1328,7 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 39",
                 "id": "Ages18to39",
-                "text": "Ages 18 to 39"
+                "label": "Ages 18 to 39"
             }
         ]
     },
@@ -1338,17 +1338,17 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 18 to 64",
                 "id": "Ages18to64",
-                "text": "Ages 18 to 64"
+                "label": "Ages 18 to 64"
             },
             {
                 "mathematicaCategory": "Age 65 and older",
                 "id": "Age65andolder",
-                "text": "Age 65 and older"
+                "label": "Age 65 and older"
             },
             {
                 "mathematicaCategory": "Total (Age 18 and older)",
                 "id": "TotalAge18andolder",
-                "text": "Total (Age 18 and older)"
+                "label": "Total (Age 18 and older)"
             }
         ]
     },
@@ -1358,7 +1358,7 @@ export const data = {
             {
                 "mathematicaCategory": "Beneficiaries Age 18 and Older",
                 "id": "BeneficiariesAge18andOlder",
-                "text": "Beneficiaries Age 18 and Older"
+                "label": "Beneficiaries Age 18 and Older"
             }
         ]
     },
@@ -1368,12 +1368,12 @@ export const data = {
             {
                 "mathematicaCategory": "Rate 1 - At Least One Sealant",
                 "id": "Rate1AtLeastOneSealant",
-                "text": "Rate 1 - At Least One Sealant"
+                "label": "Rate 1 - At Least One Sealant"
             },
             {
                 "mathematicaCategory": "Rate 2 - All Four Molars Sealed",
                 "id": "Rate2AllFourMolarsSealed",
-                "text": "Rate 2 - All Four Molars Sealed"
+                "label": "Rate 2 - All Four Molars Sealed"
             }
         ]
     },
@@ -1383,7 +1383,7 @@ export const data = {
             {
                 "mathematicaCategory": "Percentage of Beneficiaries Ages 18 to 64",
                 "id": "PercentageofBeneficiariesAges18to64",
-                "text": "Percentage of Beneficiaries Ages 18 to 64"
+                "label": "Percentage of Beneficiaries Ages 18 to 64"
             }
         ]
     },
@@ -1393,12 +1393,12 @@ export const data = {
             {
                 "mathematicaCategory": "Rate 1 - Six or more well-child visits in the first 15 months ",
                 "id": "Rate1Sixormorewellchildvisitsinthefirst15months",
-                "text": "Rate 1 - Six or more well-child visits in the first 15 months "
+                "label": "Rate 1 - Six or more well-child visits in the first 15 months "
             },
             {
                 "mathematicaCategory": "Rate 2 - Two or more well-child visits for ages 15 months to 30 months",
                 "id": "Rate2Twoormorewellchildvisitsforages15monthsto30months",
-                "text": "Rate 2 - Two or more well-child visits for ages 15 months to 30 months"
+                "label": "Rate 2 - Two or more well-child visits for ages 15 months to 30 months"
             }
         ]
     },
@@ -1407,34 +1407,34 @@ export const data = {
             {
                 "mathematicaCategory": "Body mass index (BMI) percentile documentation",
                 "id": "BodymassindexBMIpercentiledocumentation",
-                "text": "Body mass index (BMI) percentile documentation"
+                "label": "Body mass index (BMI) percentile documentation"
             },
             {
                 "mathematicaCategory": "Counseling for Nutrition",
                 "id": "CounselingforNutrition",
-                "text": "Counseling for Nutrition"
+                "label": "Counseling for Nutrition"
             },
             {
                 "mathematicaCategory": "Counseling for Physical Activity",
                 "id": "CounselingforPhysicalActivity",
-                "text": "Counseling for Physical Activity"
+                "label": "Counseling for Physical Activity"
             }
         ],
         "qualifiers": [
             {
                 "mathematicaCategory": "Ages 3 to 11",
                 "id": "Ages3to11",
-                "text": "Ages 3 to 11"
+                "label": "Ages 3 to 11"
             },
             {
                 "mathematicaCategory": "Ages 12 to 17",
                 "id": "Ages12to17",
-                "text": "Ages 12 to 17"
+                "label": "Ages 12 to 17"
             },
             {
                 "mathematicaCategory": "Total (Ages 3 to 17)",
                 "id": "TotalAges3to17",
-                "text": "Total (Ages 3 to 17)"
+                "label": "Total (Ages 3 to 17)"
             }
         ]
     },
@@ -1444,29 +1444,29 @@ export const data = {
             {
                 "mathematicaCategory": "Ages 3 to 11",
                 "id": "Ages3to11",
-                "text": "Ages 3 to 11"
+                "label": "Ages 3 to 11"
             },
             {
                 "mathematicaCategory": "Ages 12 to 17",
                 "id": "Ages12to17",
-                "text": "Ages 12 to 17"
+                "label": "Ages 12 to 17"
             },
             {
                 "mathematicaCategory": "Ages 18 to 21",
                 "id": "Ages18to21",
-                "text": "Ages 18 to 21"
+                "label": "Ages 18 to 21"
             },
             {
                 "mathematicaCategory": "Total (Ages 3 to 21)",
                 "id": "TotalAges3to21",
-                "text": "Total (Ages 3 to 21)"
+                "label": "Total (Ages 3 to 21)"
             }
         ]
     }
 }
 
 export const getCatQualLabels = (measure: keyof typeof data) => {
-    const getLabels = (q: LabelData) => q.mathematicaCategory
+    const getLabels = (q: LabelData) => q.label
 
     const qualifiers = data[measure].qualifiers.map(getLabels);
     const categories = data[measure].categories.map(getLabels);
