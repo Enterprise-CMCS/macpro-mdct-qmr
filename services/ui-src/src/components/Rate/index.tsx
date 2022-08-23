@@ -18,6 +18,7 @@ export interface IRate {
   label?: string;
   id: number;
   isTotal?: boolean;
+  mathematicaCategory?: string;
 }
 
 interface Props extends QMR.InputWrapperProps {
@@ -76,8 +77,10 @@ export const Rate = ({
       if (prevRate[index] === undefined) {
         prevRate[index] = {};
       }
-      prevRate[index]["mathematicaCategory"] = rate.label ?? undefined;
-      prevRate[index]["id"] = rate.label?.replace(/ /g, "") ?? undefined;
+      prevRate[index]["mathematicaCategory"] =
+        rate.mathematicaCategory ?? undefined;
+      prevRate[index]["id"] =
+        rate.mathematicaCategory?.replace(/ /g, "") ?? undefined;
     });
 
     if (calcTotal) {
@@ -119,8 +122,8 @@ export const Rate = ({
           : editRate[type];
 
       prevRate[index] = {
-        id: rates[index].label?.replace(/ /g, ""),
-        mathematicaCategory: rates[index].label,
+        id: rates[index].mathematicaCategory?.replace(/ /g, ""),
+        mathematicaCategory: rates[index].mathematicaCategory,
         ...editRate,
       };
 
@@ -149,8 +152,8 @@ export const Rate = ({
     }
 
     prevRate[index] = {
-      id: rates[index].label?.replace(/ /g, ""),
-      mathematicaCategory: rates[index].label,
+      id: rates[index].mathematicaCategory?.replace(/ /g, ""),
+      mathematicaCategory: rates[index].mathematicaCategory,
       ...editRate,
     };
 
