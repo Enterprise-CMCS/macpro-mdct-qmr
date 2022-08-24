@@ -77,7 +77,7 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
 
   return (
     <CUI.Box
-      border="1px"
+      borderWidth="1px"
       borderColor={errorMessage ? "red.500" : "gray.200"}
       borderRadius="md"
       p="5"
@@ -89,6 +89,7 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
             pr="4.5rem"
             placeholder="Search by Measure..."
             onChange={handleFilterChange}
+            className="prince-full-width"
           />
           <CUI.InputRightElement color="blue.500">
             <BsSearch fontSize="18px" />
@@ -107,6 +108,7 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
                 <CUI.Text
                   fontWeight="normal"
                   fontSize="normal"
+                  className="prince-option-label-text"
                   aria-label="Which measures did they audit or validate? - Select All"
                 >
                   Select All
@@ -127,6 +129,7 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
                       <CUI.Text
                         fontWeight="normal"
                         fontSize="normal"
+                        className="prince-option-label-text"
                         aria-label={`Which measures did they audit or validate? - ${item.label}`}
                         data-cy={name + "-" + item.label}
                       >
