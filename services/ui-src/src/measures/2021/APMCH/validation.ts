@@ -60,6 +60,7 @@ const APMCHValidation = (data: FormData) => {
       data
     ),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateYearFormat(dateRange),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
