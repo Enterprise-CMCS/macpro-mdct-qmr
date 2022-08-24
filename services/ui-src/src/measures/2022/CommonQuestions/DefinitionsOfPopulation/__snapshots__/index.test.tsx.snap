@@ -42,14 +42,14 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
           </li>
         </ul>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -70,7 +70,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes Medicaid population
                   </p>
@@ -82,7 +82,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -103,7 +103,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes CHIP population (e.g. pregnant women)
                   </p>
@@ -115,7 +115,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -136,7 +136,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes Medicare and Medicaid Dually-Eligible population
                   </p>
@@ -148,7 +148,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -169,7 +169,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -194,7 +194,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -224,7 +224,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -244,7 +244,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -266,7 +266,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-yes"
                     >
                       Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -279,7 +279,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -301,7 +301,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-no"
                     >
                       No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -333,7 +333,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
           If you are reporting as a hybrid measure, provide the measure eligible population and sample size.
         </h2>
         <div
-          class="chakra-form-control css-pb69ky"
+          class="chakra-form-control prince-input-bottom-spacer css-pb69ky"
           role="group"
         >
           <label
@@ -368,7 +368,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
           </div>
         </div>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -417,14 +417,14 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
           Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system.
         </p>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -445,7 +445,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Fee-for-Service (FFS)
                   </p>
@@ -457,7 +457,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -478,7 +478,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Primary Care Case Management (PCCM)
                   </p>
@@ -490,7 +490,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -511,7 +511,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)
                   </p>
@@ -523,7 +523,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -544,7 +544,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Integrated Care Models (ICM)
                   </p>
@@ -556,7 +556,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -577,7 +577,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -645,14 +645,14 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
           </li>
         </ul>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -673,7 +673,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes Medicaid population
                   </p>
@@ -685,7 +685,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -706,7 +706,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes CHIP population (e.g. pregnant women)
                   </p>
@@ -718,7 +718,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -739,7 +739,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes Medicare and Medicaid Dually-Eligible population
                   </p>
@@ -751,7 +751,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -772,7 +772,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -797,7 +797,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -827,7 +827,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -847,7 +847,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -869,7 +869,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-yes"
                     >
                       Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -882,7 +882,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -904,7 +904,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-no"
                     >
                       No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -941,14 +941,14 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
           Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system.
         </p>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -969,7 +969,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Fee-for-Service (FFS)
                   </p>
@@ -981,7 +981,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1002,7 +1002,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Primary Care Case Management (PCCM)
                   </p>
@@ -1014,7 +1014,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1035,7 +1035,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)
                   </p>
@@ -1047,7 +1047,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1068,7 +1068,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Integrated Care Models (ICM)
                   </p>
@@ -1080,7 +1080,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1101,7 +1101,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -1154,7 +1154,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
           Please select all populations that are included.
         </p>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
@@ -1166,7 +1166,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1188,7 +1188,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DefinitionOfDenominator-DenominatorIncCHIPPop"
                     >
                       Denominator includes CHIP (Title XXI) population only
@@ -1201,7 +1201,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1223,7 +1223,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DefinitionOfDenominator-DenominatorIncMedicaidPop"
                     >
                       Denominator includes Medicaid (Title XIX) population only
@@ -1236,7 +1236,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1258,7 +1258,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DefinitionOfDenominator-DenominatorIncMedicaidAndCHIPPop"
                     >
                       Denominator includes CHIP and Medicaid (Title XIX)
@@ -1285,7 +1285,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -1315,7 +1315,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -1335,7 +1335,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1357,7 +1357,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-yes"
                     >
                       Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -1370,7 +1370,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1392,7 +1392,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-no"
                     >
                       No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -1424,7 +1424,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
           If you are reporting as a hybrid measure, provide the measure eligible population and sample size.
         </h2>
         <div
-          class="chakra-form-control css-pb69ky"
+          class="chakra-form-control prince-input-bottom-spacer css-pb69ky"
           role="group"
         >
           <label
@@ -1459,7 +1459,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
           </div>
         </div>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -1508,14 +1508,14 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
           Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system.
         </p>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1536,7 +1536,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Fee-for-Service (FFS)
                   </p>
@@ -1548,7 +1548,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1569,7 +1569,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Primary Care Case Management (PCCM)
                   </p>
@@ -1581,7 +1581,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1602,7 +1602,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)
                   </p>
@@ -1614,7 +1614,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1635,7 +1635,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Integrated Care Models (ICM)
                   </p>
@@ -1647,7 +1647,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -1668,7 +1668,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -1721,7 +1721,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
           Please select all populations that are included.
         </p>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
@@ -1733,7 +1733,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1755,7 +1755,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DefinitionOfDenominator-DenominatorIncCHIPPop"
                     >
                       Denominator includes CHIP (Title XXI) population only
@@ -1768,7 +1768,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1790,7 +1790,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DefinitionOfDenominator-DenominatorIncMedicaidPop"
                     >
                       Denominator includes Medicaid (Title XIX) population only
@@ -1803,7 +1803,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1825,7 +1825,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DefinitionOfDenominator-DenominatorIncMedicaidAndCHIPPop"
                     >
                       Denominator includes CHIP and Medicaid (Title XIX)
@@ -1852,7 +1852,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -1882,7 +1882,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -1902,7 +1902,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1924,7 +1924,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-yes"
                     >
                       Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -1937,7 +1937,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -1959,7 +1959,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-no"
                     >
                       No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -1996,14 +1996,14 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
           Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system.
         </p>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2024,7 +2024,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Fee-for-Service (FFS)
                   </p>
@@ -2036,7 +2036,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2057,7 +2057,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Primary Care Case Management (PCCM)
                   </p>
@@ -2069,7 +2069,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2090,7 +2090,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)
                   </p>
@@ -2102,7 +2102,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2123,7 +2123,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Integrated Care Models (ICM)
                   </p>
@@ -2135,7 +2135,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2156,7 +2156,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -2224,14 +2224,14 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
           </li>
         </ul>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2252,7 +2252,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes Medicaid population
                   </p>
@@ -2264,7 +2264,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2285,7 +2285,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes Medicare and Medicaid Dually-Eligible population
                   </p>
@@ -2297,7 +2297,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2318,7 +2318,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -2343,7 +2343,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -2373,7 +2373,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -2393,7 +2393,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -2415,7 +2415,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-yes"
                     >
                       Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -2428,7 +2428,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -2450,7 +2450,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-no"
                     >
                       No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -2482,7 +2482,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
           If you are reporting as a hybrid measure, provide the measure eligible population and sample size.
         </h2>
         <div
-          class="chakra-form-control css-pb69ky"
+          class="chakra-form-control prince-input-bottom-spacer css-pb69ky"
           role="group"
         >
           <label
@@ -2517,7 +2517,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
           </div>
         </div>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -2566,14 +2566,14 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
           Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system.
         </p>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2594,7 +2594,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Fee-for-Service (FFS)
                   </p>
@@ -2606,7 +2606,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2627,7 +2627,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Primary Care Case Management (PCCM)
                   </p>
@@ -2639,7 +2639,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2660,7 +2660,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)
                   </p>
@@ -2672,7 +2672,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2693,7 +2693,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Integrated Care Models (ICM)
                   </p>
@@ -2705,7 +2705,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2726,7 +2726,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -2751,7 +2751,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -2771,7 +2771,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -2793,7 +2793,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineHealthHome-yes"
                     >
                       Yes, all Health Home Providers are represented in the denominator.
@@ -2806,7 +2806,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -2828,7 +2828,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineHealthHome-no"
                     >
                       No, not all Health Home Providers are represented in the denominator.
@@ -2898,14 +2898,14 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
           </li>
         </ul>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2926,7 +2926,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes Medicaid population
                   </p>
@@ -2938,7 +2938,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2959,7 +2959,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Denominator includes Medicare and Medicaid Dually-Eligible population
                   </p>
@@ -2971,7 +2971,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -2992,7 +2992,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -3017,7 +3017,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -3047,7 +3047,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -3067,7 +3067,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -3089,7 +3089,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-yes"
                     >
                       Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -3102,7 +3102,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -3124,7 +3124,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineTotalTechSpec-no"
                     >
                       No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.
@@ -3161,14 +3161,14 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
           Select all delivery systems that apply in your state (must select at least one); for each delivery system selected, enter the percentage of the measure-eligible population represented by that service delivery system.
         </p>
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <div
             class="chakra-stack css-n21gh5"
           >
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -3189,7 +3189,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Fee-for-Service (FFS)
                   </p>
@@ -3201,7 +3201,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -3222,7 +3222,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Primary Care Case Management (PCCM)
                   </p>
@@ -3234,7 +3234,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -3255,7 +3255,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)
                   </p>
@@ -3267,7 +3267,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -3288,7 +3288,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Integrated Care Models (ICM)
                   </p>
@@ -3300,7 +3300,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
               />
             </div>
             <div
-              class="css-79elbk"
+              class="prince-option-label-wrapper css-79elbk"
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
@@ -3321,7 +3321,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                   class="chakra-checkbox__label css-1oeb2oe"
                 >
                   <p
-                    class="chakra-text css-vjer7o"
+                    class="chakra-text prince-option-label-text css-vjer7o"
                   >
                     Other
                   </p>
@@ -3346,7 +3346,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
         class="css-s98few"
       >
         <div
-          class="chakra-form-control css-0"
+          class="chakra-form-control prince-input-bottom-spacer css-0"
           role="group"
         >
           <label
@@ -3366,7 +3366,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
               class="chakra-stack css-n21gh5"
             >
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -3388,7 +3388,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineHealthHome-yes"
                     >
                       Yes, all Health Home Providers are represented in the denominator.
@@ -3401,7 +3401,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                 />
               </div>
               <div
-                class="css-79elbk"
+                class="prince-option-label-wrapper css-79elbk"
               >
                 <label
                   class="chakra-radio css-1pw4d56"
@@ -3423,7 +3423,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
                     class="chakra-radio__label css-1y8kf23"
                   >
                     <p
-                      class="chakra-text css-vjer7o"
+                      class="chakra-text prince-option-label-text css-vjer7o"
                       id="DenominatorDefineHealthHome-no"
                     >
                       No, not all Health Home Providers are represented in the denominator.

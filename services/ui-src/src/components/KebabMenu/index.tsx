@@ -7,7 +7,7 @@ import { useUser } from "hooks/authHooks";
 
 export interface IKebabMenuItem {
   itemText: string;
-  handleSelect: () => void;
+  handleSelect: (data?: any) => void;
   type?: CoreSetTableItem.Type;
   headerText?: string;
 }
@@ -138,6 +138,7 @@ const DeleteMenuItemAlertDialog = ({
               {alertBodyText}
               <CUI.Input
                 mt="4"
+                type="text"
                 value={userInput}
                 placeholder="Enter 'DELETE' to confirm"
                 onChange={(e) => setUserInput(e.target.value)}
