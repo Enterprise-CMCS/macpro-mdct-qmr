@@ -1467,12 +1467,15 @@ export const data = {
 
 export const getCatQualLabels = (measure: keyof typeof data) => {
     const getLabels = (q: LabelData) => q.label
+    const getIds = (q: LabelData) => q.id
 
     const qualifiers = data[measure].qualifiers.map(getLabels);
-    const categories = data[measure].categories.map(getLabels);
-  
+    const ids = data[measure].qualifiers.map(getIds);
+    const categories = data[measure].categories.map(getLabels);  
+    
     return {
       qualifiers,
       categories,
+      ids
     };
   };
