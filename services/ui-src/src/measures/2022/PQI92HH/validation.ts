@@ -34,6 +34,7 @@ const PQI92Validation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateYearFormat(dateRange),
 
     // Performance Measure Validations
     ...GV.validateAtLeastOneRateComplete(
