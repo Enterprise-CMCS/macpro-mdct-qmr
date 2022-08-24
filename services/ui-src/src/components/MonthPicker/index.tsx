@@ -35,15 +35,16 @@ export const MonthPicker = ({
   const yearRegex = /^((19|20)?\d{0,2})$/;
 
   return (
-    <CUI.HStack>
-      <CUI.Stack>
+    <CUI.HStack className="prince-flex-overwrite">
+      <CUI.Stack className="prince-flex-overwrite">
         <CUI.FormControl label="Month:" isInvalid={isInvalid}>
           <CUI.FormLabel my={0}>{"Month:"}</CUI.FormLabel>
-          <CUI.HStack>
+          <CUI.HStack className="prince-flex-overwrite">
             <CUI.Input
               data-cy={`${name}-month`}
               width="4rem"
               label="Month"
+              type="text"
               aria-label="Month Input Field"
               name={`${name}.month`}
               value={field.value?.selectedMonth ?? ""}
@@ -60,13 +61,14 @@ export const MonthPicker = ({
           </CUI.HStack>
         </CUI.FormControl>
       </CUI.Stack>
-      <CUI.Stack>
+      <CUI.Stack className="prince-flex-overwrite">
         <CUI.FormControl label="Year (yyyy):" isInvalid={isInvalid}>
           <CUI.FormLabel my={0}>{"Year (yyyy):"}</CUI.FormLabel>
-          <CUI.HStack>
+          <CUI.HStack className="prince-flex-overwrite">
             <CUI.Input
               width="6rem"
               label="Year"
+              type="text"
               aria-label="Year Input Field"
               name={`${name}.year`}
               data-cy={`${name}-year`}

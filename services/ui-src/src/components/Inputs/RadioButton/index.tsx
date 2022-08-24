@@ -82,6 +82,7 @@ export const RadioButton = ({
                     onClick={option.onClick}
                     fontWeight="normal"
                     fontSize="normal"
+                    className="prince-option-label-text"
                     id={field.name + "-" + (option.value + "").replace("/", "")}
                   >
                     {option.displayValue}

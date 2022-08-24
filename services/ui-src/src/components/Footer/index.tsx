@@ -9,6 +9,7 @@ export function Footer(): JSX.Element {
       fontSize={{ base: "sm", md: "md" }}
       textAlign={{ base: "center", md: "left" }}
       data-testid="footer"
+      className="prince-measure-wrapper-box"
     >
       <CUI.Container
         data-testid="help-section"
@@ -16,10 +17,10 @@ export function Footer(): JSX.Element {
         maxW="7xl"
       >
         <CUI.Box maxW="4xl">
-          <CUI.Text as="h3" fontSize="2xl" mb="3">
+          <CUI.Text as="h3" fontSize="2xl" mb="3" className="prince-supp-text">
             Do you have questions or need support?
           </CUI.Text>
-          <CUI.Box fontSize="sm" mb="4">
+          <CUI.Box fontSize="sm" mb="4" className="prince-supp-text">
             <QMR.SupportInfo />
           </CUI.Box>
         </CUI.Box>
@@ -27,7 +28,7 @@ export function Footer(): JSX.Element {
       <CUI.Box bg="blue.50" py="2">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
           <CUI.Box
-            className="logo-footer"
+            className="logo-footer prince-flex-overwrite prince-logo-footer"
             display={{ base: "block", md: "flex" }}
             alignItems={{ base: "none", md: "center" }}
           >
@@ -44,24 +45,30 @@ export function Footer(): JSX.Element {
               className="medicaid-logo"
             />
             <CUI.Spacer />
-            <CUI.Flex maxW={{ base: "none", md: "md" }}>
+            <CUI.Flex
+              maxW={{ base: "none", md: "md" }}
+              className="prince-flex-overwrite prince-flex-row-overwrite"
+            >
               <img
-                className="logos"
+                className="logos prince-logo-smaller-sizing"
                 src="/footer/depthealthhumanservices_usa.svg"
                 alt="Department of Health and Human Services logo"
               />
-              <CUI.Box>
+              <CUI.Text className="prince-footer-smaller-text">
                 A federal government website managed and paid for by the U.S.
                 Centers for Medicare and Medicaid Services and part of the
                 MACPro suite.
-              </CUI.Box>
+              </CUI.Text>
             </CUI.Flex>
           </CUI.Box>
         </CUI.Container>
       </CUI.Box>
       <CUI.Box bg="#0071bc" color="white" py="2">
         <CUI.Container maxW="7xl" textAlign={{ base: "center", md: "left" }}>
-          <CUI.Box display={{ base: "block", md: "flex" }}>
+          <CUI.Box
+            display={{ base: "block", md: "flex" }}
+            className="prince-flex-overwrite"
+          >
             <CUI.Text>
               Email{" "}
               <CUI.Link
