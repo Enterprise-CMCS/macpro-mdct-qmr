@@ -31,6 +31,7 @@ const AMRADValidation = (data: FormData) => {
       PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,

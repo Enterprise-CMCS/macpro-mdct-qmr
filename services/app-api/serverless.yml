@@ -32,6 +32,7 @@ custom:
       - master
       - val
       - prod
+  princeUrl: ${ssm:/configuration/default/princeurl~true, "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf"}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls~true, ssm:/configuration/default/qmr/bootstrapBrokerStringTls~true}
   coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
   coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
@@ -73,6 +74,9 @@ provider:
       permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy~true, ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
       statements:
         - Effect: "Allow"
+          Action: "execute-api:Invoke"
+          Resource: "*"
+        - Effect: "Allow"
           Action:
             - dynamodb:DescribeTable
             - dynamodb:Query
@@ -98,6 +102,7 @@ provider:
     uploadS3BucketName: ${cf:uploads-${self:custom.stage}.AttachmentsBucketName, ""}
     dynamoSnapshotS3BucketName: ${cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, ""}
     stage: ${opt:stage, self:provider.stage}
+    princeUrl: ${self:custom.princeUrl}
 
 functions:
   listMeasures:
@@ -196,6 +201,14 @@ functions:
           method: delete
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  getPDF:
+    handler: handlers/prince/pdf.getPDF
+    events:
+      - http:
+          path: coreset/{state}/{year}/{coreSet}/getPDF
+          method: post
+          cors: true
+          timeout: 60
   ForceKafkaSync:
     handler: handlers/kafka/get/forceKafkaSync.main
     timeout: 900
