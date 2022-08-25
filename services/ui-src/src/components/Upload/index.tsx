@@ -180,15 +180,16 @@ export const Upload = ({
       {label && <CUI.Text>{label}</CUI.Text>}
       <CUI.VStack
         {...getRootProps()}
-        border="3px"
+        borderWidth="3px"
         borderStyle="dotted"
         borderColor={isDragActive ? "blue.100" : "rgba(255,255,255,0)"}
-        background="blue.50"
+        backgroundColor="blue.50"
         py="1.5rem"
         borderRadius="10"
         boxSizing="border-box"
         cursor="pointer"
         position="relative"
+        className="prince-upload-wrapper"
         data-testid="upload-stack"
       >
         {!isStateUser && <QMR.ComponentMask />}
@@ -267,13 +268,14 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
 
   return (
     <CUI.HStack
-      background="blue.50"
+      backgroundColor="blue.50"
       pl="1rem"
       mt="2"
       borderRadius="10"
       justifyContent="space-between"
       zIndex={3}
       py="6px"
+      className="prince-file-item"
     >
       <CUI.Button
         as="a"

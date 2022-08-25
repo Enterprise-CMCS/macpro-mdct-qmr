@@ -43,7 +43,7 @@ export const Qualifier = ({
 
   return (
     <>
-      <CUI.Box maxW="5xl" as="section">
+      <CUI.VStack maxW="5xl" as="section" justifyContent={"space-between"}>
         <CUI.Box mb="7" mt="3">
           <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
             {data?.title}
@@ -59,10 +59,11 @@ export const Qualifier = ({
             </>
           )}
           <DeliverySystems data={data} year={year} />
+          <CUI.Spacer flex={2} />
           <Common.Audit type={type} year={year} />
           {type !== "HH" && <Common.ExternalContractor />}
         </CUI.OrderedList>
-      </CUI.Box>
+      </CUI.VStack>
     </>
   );
 };

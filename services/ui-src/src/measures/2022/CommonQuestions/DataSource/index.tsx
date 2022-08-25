@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import { DataSourceData, defaultData, OptionNode } from "./data";
-import { useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
 
@@ -94,8 +94,10 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
  */
 export const DataSource = ({ data = defaultData }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
+  const { getValues } = useFormContext<Types.DataSource>();
   const watchDataSource = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
+    defaultValue: getValues().DataSource,
   }) as string[] | undefined;
 
   const showExplanation = watchDataSource && watchDataSource.length >= 2;
