@@ -12,6 +12,9 @@ export const validateAtLeastOneDeviationFieldFilled = (
 ) => {
   let errorArray: FormError[] = [];
   let ndrCount = 0;
+  let atLeastOneDevNDR: boolean = false;
+  let isCCWAD: boolean = false;
+
   if (didCalculationsDeviate) {
     ageGroups.forEach((_ageGroup, i) => {
       performanceMeasureArray?.forEach((_performanceObj, index) => {
@@ -27,16 +30,38 @@ export const validateAtLeastOneDeviationFieldFilled = (
       });
     });
 
+    // CCW-AD
+    if (performanceMeasureArray[0][0].label === "All Women Ages 21 to 44") {
+      isCCWAD = true;
+    }
+
     if (ndrCount > 0) {
-      const atLeastOneDevNDR = deviationArray.some((deviationNDR: any) => {
-        if (
-          deviationNDR?.denominator ||
-          deviationNDR?.numerator ||
-          deviationNDR?.other
-        ) {
-          return true;
+      deviationArray.forEach((deviationNDR: any) => {
+        // CCW-AD validation
+        let selectedOptions;
+        if (isCCWAD) {
+          selectedOptions = deviationNDR.SelectedOptions[0];
+          if (
+            deviationNDR[selectedOptions].denominator ||
+            deviationNDR[selectedOptions].numerator ||
+            deviationNDR[selectedOptions].other
+          ) {
+            atLeastOneDevNDR = true;
+          } else {
+            atLeastOneDevNDR = false;
+          }
+        } else {
+          if (
+            deviationNDR.denominator ||
+            deviationNDR.numerator ||
+            deviationNDR.other
+          ) {
+            atLeastOneDevNDR = true;
+          } else {
+            atLeastOneDevNDR = false;
+          }
         }
-        return false;
+        return atLeastOneDevNDR;
       });
 
       if (!atLeastOneDevNDR) {
