@@ -25,15 +25,17 @@ export const validateAtLeastOneDeviationFieldFilled = (
           performanceMeasureArray[index][i].numerator &&
           performanceMeasureArray[index][i].rate
         ) {
+          // CCW-AD
+          if (
+            performanceMeasureArray[index][i].label ===
+            "All Women Ages 21 to 44"
+          ) {
+            isCCWAD = true;
+          }
           ndrCount++;
         }
       });
     });
-
-    // CCW-AD
-    if (performanceMeasureArray[0][0].label === "All Women Ages 21 to 44") {
-      isCCWAD = true;
-    }
 
     if (ndrCount > 0) {
       deviationArray.forEach((deviationNDR: any) => {
