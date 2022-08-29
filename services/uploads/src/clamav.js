@@ -192,7 +192,7 @@ async function uploadAVDefinitions() {
  * @param pathToFile Path in the filesystem where the file is stored.
  */
 function scanLocalFile(pathToFile) {
-  let downloadDir = constants.TMP_DOWNLOAD_PATH;
+  let downloadDir = constants.DOWNLOAD_DIR;
   try {
     let avResult = spawnSync(constants.PATH_TO_CLAMAV, [
       "--stdout",
