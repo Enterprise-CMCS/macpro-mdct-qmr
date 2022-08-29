@@ -51,7 +51,7 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       [memeRates, larcRates],
-      [""],
+      ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
