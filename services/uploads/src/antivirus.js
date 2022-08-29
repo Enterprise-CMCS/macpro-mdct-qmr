@@ -17,15 +17,8 @@ const constants = require("./constants");
  * @return {int} Length of S3 object in bytes.
  */
 async function sizeOf(key, bucket) {
-  console.log("key: " + key);
-  console.log("bucket: " + bucket);
-
-  try {
-    let res = await s3.headObject({ Key: key, Bucket: bucket }).promise();
-    return res.ContentLength;
-  } catch (err) {
-    console.log("sizeOf error:" + err);
-  }
+  let res = await s3.headObject({ Key: key, Bucket: bucket }).promise();
+  return res.ContentLength;
 }
 
 /**
@@ -35,21 +28,30 @@ async function sizeOf(key, bucket) {
  * @return {boolean} True if S3 object is larger then MAX_FILE_SIZE
  */
 async function isS3FileTooBig(s3ObjectKey, s3ObjectBucket) {
-  try {
-    let fileSize = await sizeOf(s3ObjectKey, s3ObjectBucket);
-    return fileSize > constants.MAX_FILE_SIZE;
-  } catch (err) {
-    console.log("isS3FileTooBig error:" + err);
-  }
+  let fileSize = await sizeOf(s3ObjectKey, s3ObjectBucket);
+  return fileSize > constants.MAX_FILE_SIZE;
+}
+
+const downloadDir = constants.DOWNLOAD_DIR;
+
+/**
+ * Returns the /tmp local path from an s3ObjectKey
+ * @param {string} s3ObjectKey Key of the s3 object
+ * @return {string} Path of the s3 object on the local fs
+ *
+ */
+function pathFromObjectKey(s3ObjectKey) {
+  // remove problematic characters from filename
+  let sanitizedFilename = s3ObjectKey.replace(/[^a-zA-Z0-9]/g, "");
+  return `${downloadDir}/${path.basename(sanitizedFilename)}`;
 }
 
 function downloadFileFromS3(s3ObjectKey, s3ObjectBucket) {
-  const downloadDir = `/tmp/download`;
   if (!fs.existsSync(downloadDir)) {
     fs.mkdirSync(downloadDir);
   }
-  let localPath = `${downloadDir}/${path.basename(s3ObjectKey)}`;
 
+  let localPath = pathFromObjectKey(s3ObjectKey);
   let writeStream = fs.createWriteStream(localPath);
 
   utils.generateSystemMessage(
@@ -71,14 +73,14 @@ function downloadFileFromS3(s3ObjectKey, s3ObjectBucket) {
         resolve();
       })
       .on("error", function (err) {
-        console.log(err);
+        console.log(err); // eslint-disable-line no-console
         reject();
       })
       .pipe(writeStream);
   });
 }
 
-async function lambdaHandleEvent(event, context) {
+async function lambdaHandleEvent(event, _context) {
   utils.generateSystemMessage("Start Antivirus Lambda function");
 
   let s3ObjectKey = utils.extractKeyFromS3Event(event);
@@ -90,27 +92,10 @@ async function lambdaHandleEvent(event, context) {
 
   let virusScanStatus;
 
-  try {
-    await s3
-      .putObjectTagging({
-        Bucket: s3ObjectBucket,
-        Key: s3ObjectKey,
-        Tagging: {
-          TagSet: [
-            {
-              Key: constants.VIRUS_STATUS_STATUS_KEY,
-              Value: "PENDING",
-            },
-          ],
-        },
-      })
-      .promise();
-  } catch (e) {
-    console.log(e);
-  }
-
-  //You need to verify that you are not getting too large a file
-  //currently lambdas max out at 500MB storage.
+  /*
+   * You need to verify that you are not getting too large a file
+   * currently lambdas max out at 500MB storage.
+   */
   if (await isS3FileTooBig(s3ObjectKey, s3ObjectBucket)) {
     virusScanStatus = constants.STATUS_SKIPPED_FILE;
     utils.generateSystemMessage(
@@ -126,7 +111,8 @@ async function lambdaHandleEvent(event, context) {
     utils.generateSystemMessage("Download File from S3");
     await downloadFileFromS3(s3ObjectKey, s3ObjectBucket);
     utils.generateSystemMessage("Set virusScanStatus");
-    virusScanStatus = clamav.scanLocalFile(path.basename(s3ObjectKey));
+    let filePath = pathFromObjectKey(s3ObjectKey);
+    virusScanStatus = clamav.scanLocalFile(filePath);
     utils.generateSystemMessage(`virusScanStatus=${virusScanStatus}`);
   }
 
@@ -140,9 +126,9 @@ async function lambdaHandleEvent(event, context) {
     await s3.putObjectTagging(taggingParams).promise();
     utils.generateSystemMessage("Tagging successful");
   } catch (err) {
-    console.log(err);
+    console.log(err); // eslint-disable-line no-console
   } finally {
-    return virusScanStatus;
+    return virusScanStatus; // eslint-disable-line no-unsafe-finally
   }
 }
 
@@ -166,9 +152,9 @@ async function scanS3Object(s3ObjectKey, s3ObjectBucket) {
     await s3.putObjectTagging(taggingParams).promise();
     utils.generateSystemMessage("Tagging successful");
   } catch (err) {
-    console.log(err);
+    console.log(err); // eslint-disable-line no-console
   } finally {
-    return virusScanStatus;
+    return virusScanStatus; // eslint-disable-line no-unsafe-finally
   }
 }
 
