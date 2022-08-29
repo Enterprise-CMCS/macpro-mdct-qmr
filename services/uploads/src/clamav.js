@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 const fs = require("fs");
-const execSync = require("child_process").execSync;
+const spawnSync = require("child_process").spawnSync;
 const path = require("path");
 const constants = require("./constants");
 const utils = require("./utils");
@@ -34,7 +34,7 @@ async function listBucketFiles(bucketName) {
  */
 function updateAVDefinitonsWithFreshclam() {
   try {
-    let executionResult = execSync(
+    let executionResult = spawnSync(
       `${constants.PATH_TO_FRESHCLAM} --config-file=${constants.FRESHCLAM_CONFIG} --datadir=${constants.FRESHCLAM_WORK_DIR}`
     );
 
@@ -192,10 +192,15 @@ async function uploadAVDefinitions() {
  * @param pathToFile Path in the filesystem where the file is stored.
  */
 function scanLocalFile(pathToFile) {
+  let downloadDir = constants.TMP_DOWNLOAD_PATH;
   try {
-    let avResult = execSync(
-      `${constants.PATH_TO_CLAMAV} -v -a --stdout -d /tmp/download/${pathToFile}`
-    );
+    let avResult = spawnSync(constants.PATH_TO_CLAMAV, [
+      "--stdout",
+      "-v",
+      "-a",
+      "-d",
+      `${downloadDir}${pathToFile}`,
+    ]);
 
     utils.generateSystemMessage("SUCCESSFUL SCAN, FILE CLEAN");
     console.log(avResult.toString());
