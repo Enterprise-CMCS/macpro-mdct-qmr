@@ -60,8 +60,6 @@ export const SubmitCoreSetButton = ({
   const queryClient = useQueryClient();
   const userInfo = useUser();
 
-  console.log(coreSetStatus);
-
   const toast = useToast();
 
   const urlParams = useParams();
