@@ -30,7 +30,11 @@ export const InputWrapper = ({
   renderHelperTextAbove,
 }: InputWrapperProps) => {
   return (
-    <CUI.FormControl {...formControlProps} isInvalid={isInvalid}>
+    <CUI.FormControl
+      {...formControlProps}
+      isInvalid={isInvalid}
+      className="prince-input-bottom-spacer"
+    >
       {label && (
         <CUI.FormLabel {...formLabelProps} data-cy={label}>
           {label}

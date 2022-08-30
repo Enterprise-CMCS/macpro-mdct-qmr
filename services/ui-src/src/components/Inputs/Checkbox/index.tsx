@@ -69,7 +69,11 @@ export const Checkbox = ({
                   id={name + idx + "-checkbox"}
                   data-cy={name + idx}
                 >
-                  <CUI.Text fontWeight="normal" fontSize="normal">
+                  <CUI.Text
+                    fontWeight="normal"
+                    fontSize="normal"
+                    className="prince-option-label-text"
+                  >
                     {option.displayValue}
                   </CUI.Text>
                 </CUI.Checkbox>
