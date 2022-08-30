@@ -169,21 +169,11 @@ const useMeasureTableDataBuilder = () => {
         });
       };
 
-      let numCompleteItems = 0;
-      // include qualifier in core set status check
-      for (const m of data.Items as MeasureData[]) {
-        if (m.status === "complete") numCompleteItems++;
-      }
-      const coreSetStatus =
-        data.Items.length === numCompleteItems
-          ? CoreSetTableItem.Status.COMPLETED
-          : CoreSetTableItem.Status.IN_PROGRESS;
-      setCoreSetStatus(coreSetStatus);
-
       const filteredItems = (data.Items as MeasureData[]).filter(
         // filter out the coreset qualifiers
         (item) => item.measure && item.measure !== "CSQ"
       );
+
       const measureTableData = (filteredItems as MeasureData[])
         .filter(
           (item) =>
@@ -240,7 +230,22 @@ const useMeasureTableDataBuilder = () => {
         });
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
       mounted && setMeasures(measureTableData);
+
+      let numCompleteItems = 0;
+      // include qualifier in core set status check
+      for (const m of data.Items as MeasureData[]) {
+        if (m.status === "complete") {
+          numCompleteItems++;
+        }
+      }
+
+      const coreSetStatus =
+        measureTableData.length === numCompleteItems
+          ? CoreSetTableItem.Status.COMPLETED
+          : CoreSetTableItem.Status.IN_PROGRESS;
+      setCoreSetStatus(coreSetStatus);
     }
+
     return () => {
       mounted = false;
     };
