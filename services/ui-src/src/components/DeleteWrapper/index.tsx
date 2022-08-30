@@ -25,7 +25,11 @@ export const DeleteWrapper = ({
   if (!render) return null;
 
   return (
-    <CUI.Box position="relative" {...childWrapperProps}>
+    <CUI.Box
+      position="relative"
+      {...childWrapperProps}
+      className="prince-option-label-wrapper"
+    >
       {children}
       {allowDeletion && (
         <CUI.HStack
@@ -35,6 +39,7 @@ export const DeleteWrapper = ({
           position={"absolute"}
           padding={2}
           as={"button"}
+          className="hidden-print-items disabled-print-preview-items"
           borderColor={isHovered ? "red.700" : color}
           alignItems={"center"}
           data-testid="delete-wrapper"

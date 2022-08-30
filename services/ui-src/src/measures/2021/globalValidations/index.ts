@@ -18,6 +18,7 @@ export * from "./validateOneQualRateHigherThanOtherQual";
 export * from "./validateReasonForNotReporting";
 export * from "./validateRequiredRadioButtonForCombinedRates";
 export * from "./validateTotals";
+export * from "./validateYearFormat";
 
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "./PCRValidations/PCRatLeastOneRateComplete";

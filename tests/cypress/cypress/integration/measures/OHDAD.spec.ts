@@ -343,9 +343,6 @@ describe("Measure: OHD-AD", () => {
         '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
       cy.get(
-        ".css-zhlq69 > :nth-child(1) > .chakra-form-control > .chakra-stack > :nth-child(1)"
-      ).click();
-      cy.get(
         '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__label > .chakra-text'
       ).click();
 

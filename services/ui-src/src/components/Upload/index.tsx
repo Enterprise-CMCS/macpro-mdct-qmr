@@ -146,11 +146,24 @@ export const Upload = ({
     field.onChange(filteredArray);
   };
 
+  function fileNameValidator(file: any) {
+    const fileNameRegex = new RegExp("^[0-9a-zA-z-_.()*]*$");
+
+    if (!fileNameRegex.test(file.name)) {
+      return {
+        code: "Invalid file name",
+        message: `The file name contains invalid characters. Only the following characters are allowed: A-Z, a-z, 0-9, -, _, (, ), *, and .`,
+      };
+    }
+    return null;
+  }
+
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
     useDropzone({
       onDrop,
       accept: acceptedFileTypes,
       maxSize,
+      validator: fileNameValidator,
     });
 
   function ensureLowerCaseFileExtension(file: any) {
@@ -180,15 +193,16 @@ export const Upload = ({
       {label && <CUI.Text>{label}</CUI.Text>}
       <CUI.VStack
         {...getRootProps()}
-        border="3px"
+        borderWidth="3px"
         borderStyle="dotted"
         borderColor={isDragActive ? "blue.100" : "rgba(255,255,255,0)"}
-        background="blue.50"
+        backgroundColor="blue.50"
         py="1.5rem"
         borderRadius="10"
         boxSizing="border-box"
         cursor="pointer"
         position="relative"
+        className="prince-upload-wrapper"
         data-testid="upload-stack"
       >
         {!isStateUser && <QMR.ComponentMask />}
@@ -267,13 +281,14 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
 
   return (
     <CUI.HStack
-      background="blue.50"
+      backgroundColor="blue.50"
       pl="1rem"
       mt="2"
       borderRadius="10"
       justifyContent="space-between"
       zIndex={3}
       py="6px"
+      className="prince-file-item"
     >
       <CUI.Button
         as="a"
