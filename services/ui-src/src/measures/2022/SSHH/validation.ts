@@ -123,6 +123,7 @@ const SSHHValidation = (data: FormData) => {
     ...validatePartialRateCompletion(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateYearFormat(dateRange),
   ];
 
   return errorArray;

@@ -7,15 +7,12 @@ describe("Child Measure Qualifier: CH", () => {
     cy.goToChildCoreSetMeasures();
     cy.get('[data-cy="core-set-qualifiers-link"]').click();
     cy.get(".css-1wb0lb9 > .css-0").should(
-      "contain.text",
+      "include.text",
       "For technical questions regarding use of this application, please reach out to MDCT_help@cms.hhs.gov. For content-related questions, such as about measure specifications or what information to enter into each field, please reach out to MACQualityTA@cms.hhs.gov."
     );
-    cy.get(".css-2lzsxm > .chakra-stack > .css-722v25").should(
-      "contain.text",
-      "Delivery System"
-    );
-    cy.get(".css-2lzsxm > .chakra-stack > .css-0").should(
-      "contain.text",
+    cy.get("body").should("include.text", "Delivery System");
+    cy.get("body").should(
+      "include.text",
       "As of September 30, 2020 what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?"
     );
     cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.label"]').should(
@@ -34,35 +31,32 @@ describe("Child Measure Qualifier: CH", () => {
       "have.value",
       "Integrated Care Model (ICM)"
     );
-    cy.get('[data-cy="labelRow.0.0"]').should("contain.text", "Medicaid");
-    cy.get('[data-cy="labelRow.1.0"]').should("contain.text", "CHIP");
+    cy.get('[data-cy="labelRow.0.0"]').should("include.text", "Medicaid");
+    cy.get('[data-cy="labelRow.1.0"]').should("include.text", "CHIP");
     cy.get('[data-cy="+ Add Another"]').should("be.enabled");
     //testing section 2 with fields inside it including yes option
-    cy.get(":nth-child(2) > .css-1vvfi3 > .css-722v25").should(
-      "contain.text",
-      "Audit or Validation of Measures"
-    );
-    cy.get(":nth-child(2) > .css-1vvfi3 > .css-0").should(
-      "contain.text",
+    cy.get("body").should("include.text", "Audit or Validation of Measures");
+    cy.get("body").should(
+      "include.text",
       "Were any of the Core Set measures audited or validated?"
     );
     cy.get(
       "#CoreSetMeasuresAuditedOrValidated-Yes\\,\\ some\\ of\\ the\\ Core\\ Set\\ measures\\ have\\ been\\ audited\\ or\\ validated"
     ).should(
-      "contain.text",
+      "include.text",
       "Yes, some of the Core Set measures have been audited or validated"
     );
     cy.get(
       "#CoreSetMeasuresAuditedOrValidated-No\\,\\ none\\ of\\ the\\ Core\\ Set\\ measures\\ have\\ been\\ audited\\ or\\ validated"
     ).should(
-      "contain.text",
+      "include.text",
       "No, none of the Core Set measures have been audited or validated"
     );
     cy.get(
       "#CoreSetMeasuresAuditedOrValidated-Yes\\,\\ some\\ of\\ the\\ Core\\ Set\\ measures\\ have\\ been\\ audited\\ or\\ validated"
     ).click({ force: true });
     cy.get('[data-cy="which-measures-did-they-audit-0"]').should(
-      "contain.text",
+      "include.text",
       "Which measures did they audit or validate?"
     );
 
@@ -130,53 +124,48 @@ describe("Child Measure Qualifier: CH", () => {
     ).should("be.visible");
     // end of checking multiselect for values
 
-    cy.get('.css-zhlq69 > .css-0 > [data-cy="+ Add Another"]').should(
-      "be.enabled"
-    );
+    cy.get('[data-cy="+ Add Another"]').should("be.enabled");
     //testing section 3 with fields inside it
-    cy.get(":nth-child(3) > .css-1vvfi3 > .css-722v25").should(
-      "contain.text",
-      "External Contractor"
-    );
-    cy.get(":nth-child(3) > .css-1vvfi3 > .css-0").should(
-      "contain.text",
+    cy.get("body").should("include.text", "External Contractor");
+    cy.get("body").should(
+      "include.text",
       "Please indicate whether your state obtained assistance from one or more external contractors in collecting, calculating, and/or reporting Core Set data (optional)."
     );
     cy.get("#WasExternalContractorUsed-yes").should(
-      "contain.text",
+      "include.text",
       "Yes, we did obtain assistance from one or more external contractors in collecting, calculating, and/or reporting Core Set data."
     );
     cy.get("#WasExternalContractorUsed-no").should(
-      "contain.text",
+      "include.text",
       "No, we calculated all the measures internally."
     );
     cy.get("#WasExternalContractorUsed-yes").click({ force: true });
     cy.get(
       '[data-cy="ExternalContractorsUsed0"] > .chakra-checkbox__label > .chakra-text'
-    ).should("contain.text", "External Quality Review Organization (EQRO)");
+    ).should("include.text", "External Quality Review Organization (EQRO)");
     cy.get(
       '[data-cy="ExternalContractorsUsed1"] > .chakra-checkbox__label > .chakra-text'
-    ).should("contain.text", "MMIS Contractor");
+    ).should("include.text", "MMIS Contractor");
     cy.get(
       '[data-cy="ExternalContractorsUsed2"] > .chakra-checkbox__label > .chakra-text'
-    ).should("contain.text", "Data Analytics Contractor");
+    ).should("include.text", "Data Analytics Contractor");
     cy.get(
       '[data-cy="ExternalContractorsUsed3"] > .chakra-checkbox__label > .chakra-text'
-    ).should("contain.text", "Other");
+    ).should("include.text", "Other");
     //testing sections 4 and rest of page
     cy.get('[data-cy="complete-CoreSet"]').should(
-      "contain.text",
+      "include.text",
       "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS"
     );
     cy.get("[data-cy='qualifier-header-description']").should(
-      "contain.text",
+      "include.text",
       "Complete all Child Core Set Questions and Child Core Set Measures to submit to CMS for review."
     );
     cy.get('[data-cy="complete-core-set-questions-button"]').should(
       "be.enabled"
     );
-    cy.get(".css-nejllv").should(
-      "contain.text",
+    cy.get("body").should(
+      "include.text",
       "Do you have questions or need support?"
     );
   });

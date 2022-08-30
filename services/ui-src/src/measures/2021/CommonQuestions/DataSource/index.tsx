@@ -5,7 +5,7 @@ import * as Types from "../types";
 import { cleanString } from "utils/cleanString";
 import { DataSourceData, defaultData, OptionNode } from "./data";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useWatch } from "react-hook-form";
+import { useWatch, useFormContext } from "react-hook-form";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -94,8 +94,10 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
  */
 export const DataSource = ({ data = defaultData }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
+  const { getValues } = useFormContext<Types.DataSource>();
   const watchDataSource = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
+    defaultValue: getValues().DataSource,
   }) as string[] | undefined;
 
   const showExplanation = watchDataSource && watchDataSource.length >= 2;

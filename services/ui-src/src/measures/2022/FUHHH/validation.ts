@@ -35,6 +35,7 @@ const FUHHHValidation = (data: FormData) => {
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   errorArray = [
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
