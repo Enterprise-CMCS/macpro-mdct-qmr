@@ -150,7 +150,7 @@ describe("Testing Partial Rate Validation", () => {
         rateData: data,
       });
 
-      expect(errors).toHaveLength(4);
+      expect(errors).toHaveLength(8);
       expect(errors[0].errorLocation).toContain(
         "Optional Measure Stratification:"
       );
@@ -195,7 +195,7 @@ describe("Testing Partial Rate Validation", () => {
         isOPM: true,
       });
 
-      expect(errors).toHaveLength(4);
+      expect(errors).toHaveLength(8);
       expect(errors[0].errorLocation).toContain(
         "Optional Measure Stratification:"
       );
@@ -230,7 +230,7 @@ describe("Testing Partial Rate Validation", () => {
       rateData: data,
     });
 
-    expect(errors).toHaveLength(4);
+    expect(errors).toHaveLength(8);
     expect(errors[0].errorLocation).toContain(
       "Optional Measure Stratification:"
     );

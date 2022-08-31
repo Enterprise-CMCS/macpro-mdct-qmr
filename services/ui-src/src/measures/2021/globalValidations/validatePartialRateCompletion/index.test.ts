@@ -58,7 +58,7 @@ describe("Testing Partial Rate Validation", () => {
         categories
       );
 
-      expect(errors).toHaveLength(4);
+      expect(errors).toHaveLength(8);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
         `Should not have partially filled NDR sets${` for ${qualifiers[0]}`}${`, ${categories[0]}`}.`
@@ -101,7 +101,7 @@ describe("Testing Partial Rate Validation", () => {
         errorMessageFunc
       );
 
-      expect(errors).toHaveLength(4);
+      expect(errors).toHaveLength(8);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
         errorMessageFunc(true, qualifiers[0], true, categories[0])
@@ -150,7 +150,7 @@ describe("Testing Partial Rate Validation", () => {
         rateData: data,
       });
 
-      expect(errors).toHaveLength(4);
+      expect(errors).toHaveLength(8);
       expect(errors[0].errorLocation).toContain(
         "Optional Measure Stratification:"
       );
@@ -230,7 +230,7 @@ describe("Testing Partial Rate Validation", () => {
       rateData: data,
     });
 
-    expect(errors).toHaveLength(4);
+    expect(errors).toHaveLength(8);
     expect(errors[0].errorLocation).toContain(
       "Optional Measure Stratification:"
     );
