@@ -17,7 +17,7 @@ interface Props {
 
 export const SubmitCoreSetButton = ({
   coreSet,
-  coreSetStatus = CoreSetTableItem.Status.IN_PROGRESS,
+  coreSetStatus,
   isSubmitted = false,
   year,
   styleProps,
@@ -59,6 +59,7 @@ export const SubmitCoreSetButton = ({
   const { mutate, isLoading } = useEditCoreSet();
   const queryClient = useQueryClient();
   const userInfo = useUser();
+
   const toast = useToast();
 
   const urlParams = useParams();
