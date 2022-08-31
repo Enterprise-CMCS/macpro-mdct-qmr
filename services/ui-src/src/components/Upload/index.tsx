@@ -146,11 +146,24 @@ export const Upload = ({
     field.onChange(filteredArray);
   };
 
+  function fileNameValidator(file: any) {
+    const fileNameRegex = new RegExp("^[0-9a-zA-z-_.()*]*$");
+
+    if (!fileNameRegex.test(file.name)) {
+      return {
+        code: "Invalid file name",
+        message: `The file name contains invalid characters. Only the following characters are allowed: A-Z, a-z, 0-9, -, _, (, ), *, and .`,
+      };
+    }
+    return null;
+  }
+
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
     useDropzone({
       onDrop,
       accept: acceptedFileTypes,
       maxSize,
+      validator: fileNameValidator,
     });
 
   function ensureLowerCaseFileExtension(file: any) {
