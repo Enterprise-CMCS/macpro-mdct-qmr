@@ -132,7 +132,7 @@ describe("Testing Numerator Less Than Denominator", () => {
         rateData: data,
       });
 
-      expect(errors).toHaveLength(4);
+      expect(errors).toHaveLength(8);
       expect(errors[0].errorLocation).toContain(
         "Optional Measure Stratification:"
       );
@@ -156,7 +156,7 @@ describe("Testing Numerator Less Than Denominator", () => {
       rateData: data,
     });
 
-    expect(errors).toHaveLength(4);
+    expect(errors).toHaveLength(8);
     expect(errors[0].errorLocation).toContain(
       "Optional Measure Stratification:"
     );
