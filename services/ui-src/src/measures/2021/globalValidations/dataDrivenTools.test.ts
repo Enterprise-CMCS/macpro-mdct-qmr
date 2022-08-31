@@ -25,14 +25,14 @@ describe("Test Data Driven Tools", () => {
       ]);
       const arr = convertOmsDataToRateArray(categories, qualifiers, rateData);
       expect(arr.length).toBe(2);
-      expect(arr[0].length).toBe(2);
+      expect(arr[0].length).toBe(4);
       expect(arr[0][0]).toBe(simpleRate);
     });
 
     it("should return an empty array if no data", () => {
       const arr = convertOmsDataToRateArray(categories, qualifiers, {});
       expect(arr.length).toBe(2);
-      expect(arr[0].length).toBe(2);
+      expect(arr[0].length).toBe(4);
       expect(JSON.stringify(arr[0][0])).toBe("{}");
     });
   });

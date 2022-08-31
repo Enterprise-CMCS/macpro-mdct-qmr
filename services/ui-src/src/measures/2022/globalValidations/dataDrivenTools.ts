@@ -54,10 +54,9 @@ export const convertOmsDataToRateArray = (
   rateData: RateData
 ) => {
   const rateArray: PM[][] = [];
-
+  const tempArr: PM[] = [];
   for (const cat of categories.map((c) => cleanString(c))) {
-    const tempArr: PM[] = [];
-    for (const qual of qualifiers.map((q) => "o_" + cleanString(q))) {
+    for (const qual of qualifiers.map((q) => cleanString(q))) {
       tempArr.push(rateData.rates?.[qual]?.[cat]?.[0] ?? {});
     }
     rateArray.push(tempArr);
