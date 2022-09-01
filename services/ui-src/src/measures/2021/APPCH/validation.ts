@@ -45,6 +45,7 @@ const APPCHValidation = (data: FormData) => {
       data
     ),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,

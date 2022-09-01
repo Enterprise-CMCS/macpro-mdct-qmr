@@ -881,5 +881,34 @@
         "Value": "GU"
       }
     ]
+  },
+  {
+    "username": "stateuserNY@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserNY@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Doug"
+      },
+      {
+        "Name": "family_name",
+        "Value": "DG"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "NY"
+      }
+    ]
   }
 ]

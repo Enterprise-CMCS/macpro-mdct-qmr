@@ -256,12 +256,13 @@ export const ComplexRate = ({
                         ""
                       }
                       data-cy={`${name}.${fieldIndex}.value`}
+                      type="text"
                       onChange={(e) =>
                         changeRate(
                           qualIndex,
                           fieldIndex,
                           e.target.value,
-                          field.value[qualIndex].isTotal ?? false
+                          field?.value[qualIndex]?.isTotal ?? false
                         )
                       }
                     />

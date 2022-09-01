@@ -47,10 +47,11 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateYearFormat(dateRange),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       [memeRates, larcRates],
-      [""],
+      ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
