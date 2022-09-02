@@ -75,8 +75,8 @@ export const PCRRate = ({
   // Conditionally perform rate calculation
   const calculateRates = (prevRate: any) => {
     ndrForumlas.forEach((ndr) => {
-      const parsedNum = parseInt(prevRate[ndr.numerator]?.value);
-      const parsedDenom = parseInt(prevRate[ndr.denominator]?.value);
+      const parsedNum = parseFloat(prevRate[ndr.numerator]?.value);
+      const parsedDenom = parseFloat(prevRate[ndr.denominator]?.value);
 
       // Values empty or divide by 0
       if (
