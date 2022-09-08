@@ -208,7 +208,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/getPDF
           method: post
           cors: true
-          timeout: 60
+    timeout: 60
   ForceKafkaSync:
     handler: handlers/kafka/get/forceKafkaSync.main
     timeout: 900
