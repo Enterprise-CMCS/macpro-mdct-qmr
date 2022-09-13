@@ -883,6 +883,238 @@
     ]
   },
   {
+    "username": "stateuserIL@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserIL@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Illi"
+      },
+      {
+        "Name": "family_name",
+        "Value": "IL"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "IL"
+      }
+    ]
+  },
+  {
+    "username": "stateuserFL@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserFL@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Gator"
+      },
+      {
+        "Name": "family_name",
+        "Value": "FL"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "FL"
+      }
+    ]
+  },
+  {
+    "username": "stateuserAZ@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserAZ@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Cardinal"
+      },
+      {
+        "Name": "family_name",
+        "Value": "AZ"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "AZ"
+      }
+    ]
+  },
+  {
+    "username": "stateuserID@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserID@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Potato"
+      },
+      {
+        "Name": "family_name",
+        "Value": "ID"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "ID"
+      }
+    ]
+  },
+  {
+    "username": "stateuserKY@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserKY@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Blue"
+      },
+      {
+        "Name": "family_name",
+        "Value": "KY"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "KY"
+      }
+    ]
+  },
+  {
+    "username": "stateuserVT@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserVT@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Vermon"
+      },
+      {
+        "Name": "family_name",
+        "Value": "VT"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "VT"
+      }
+    ]
+  },
+  {
+    "username": "stateuserWA@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserWA@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "George"
+      },
+      {
+        "Name": "family_name",
+        "Value": "WA"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "WA"
+      }
+    ]
+  },
+  {
+    "username": "stateuserWV@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserWV@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Geno"
+      },
+      {
+        "Name": "family_name",
+        "Value": "WV"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "WV"
+      }
+    ]
+  },
+  {
     "username": "stateuserNY@test.com",
     "attributes": [
       {
