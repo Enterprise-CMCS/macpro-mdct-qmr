@@ -6,9 +6,9 @@ import * as DC from "dataConstants";
 
 const measurementPeriodTableLinks = {
   adult:
-    "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/adult-core-set/index.html",
+    "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/adult-and-child-health-care-quality-measures/adult-core-set-reporting-resources/index.html",
   child:
-    "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/child-core-set/index.html",
+    "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/adult-and-child-health-care-quality-measures/child-core-set-reporting-resources/index.html",
   health:
     "https://www.medicaid.gov/state-resource-center/medicaid-state-technical-assistance/health-home-information-resource-center/quality-reporting/index.html",
 };
