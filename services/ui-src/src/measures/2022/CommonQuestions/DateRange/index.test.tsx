@@ -21,7 +21,7 @@ describe("DateRange component, adult", () => {
   it("renders adult Measurement Period Table link properly", () => {
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
-      "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/adult-core-set/index.html"
+      "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/adult-and-child-health-care-quality-measures/adult-core-set-reporting-resources/index.html"
     );
 
     expect(
@@ -38,7 +38,7 @@ describe("DateRange component, child", () => {
 
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
-      "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/child-core-set/index.html"
+      "https://www.medicaid.gov/medicaid/quality-of-care/performance-measurement/adult-and-child-health-care-quality-measures/child-core-set-reporting-resources/index.html"
     );
   });
 });
