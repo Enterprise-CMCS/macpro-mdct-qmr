@@ -161,7 +161,10 @@ describe("Measure: APM-CH", () => {
     ).should("not.exist");
 
     // OMS
-    cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
+    cy.get('[data-cy="OptionalMeasureStratification.options0"]')
+      .click()
+      .click()
+      .click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
     ).click();
