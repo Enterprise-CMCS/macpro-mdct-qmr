@@ -97,8 +97,5 @@ describe("AdultMeasure Qualifiers", () => {
     cy.get(
       ':nth-child(2) > div.css-0 > [data-cy="Delivery System Error"]'
     ).should("not.exist");
-    cy.get(
-      ':nth-child(3) > div.css-0 > [data-cy="Delivery System Error"]'
-    ).should("not.exist");
   });
 });
