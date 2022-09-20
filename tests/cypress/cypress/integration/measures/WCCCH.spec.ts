@@ -101,7 +101,10 @@ describe("Measure: WCC-CH", () => {
       .click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
-    ).click();
+    )
+      .click()
+      .click()
+      .click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
     ).click();
