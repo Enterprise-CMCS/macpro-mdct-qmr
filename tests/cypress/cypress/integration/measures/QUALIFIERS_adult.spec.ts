@@ -94,8 +94,5 @@ describe("AdultMeasure Qualifiers", () => {
       '[data-cy="PercentageEnrolledInEachDeliverySystem.3.GreaterThanSixtyFour"]'
     ).type("79");
     cy.get('[data-cy="validate-core-set-questions-button"]').click();
-    cy.get(
-      ':nth-child(2) > div.css-0 > [data-cy="Delivery System Error"]'
-    ).should("not.exist");
   });
 });
