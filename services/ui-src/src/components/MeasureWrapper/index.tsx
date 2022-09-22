@@ -214,7 +214,9 @@ export const MeasureWrapper = ({
       );
     }
     // default loaded data reset
-    else if (!methods.formState.isDirty) methods.reset(apiData?.Item?.data);
+    else {
+      methods.reset(apiData?.Item?.data);
+    }
   }, [apiData, methods, defaultData, params]);
 
   const handleValidation = (data: any) => {
