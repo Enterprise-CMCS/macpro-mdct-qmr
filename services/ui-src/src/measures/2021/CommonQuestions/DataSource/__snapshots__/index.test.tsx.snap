@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test the global DataSource component (Custom Structure) Component renders with correct content 1`] = `
-<body>
+<div>
   <div
     class="css-pb69ky"
   >
@@ -437,11 +437,11 @@ exports[`Test the global DataSource component (Custom Structure) Component rende
       </div>
     </fieldset>
   </div>
-</body>
+</div>
 `;
 
 exports[`Test the global DataSource component (Default) Component renders with correct content 1`] = `
-<body>
+<div>
   <div
     class="css-pb69ky"
   >
@@ -822,5 +822,5 @@ exports[`Test the global DataSource component (Default) Component renders with c
       </div>
     </fieldset>
   </div>
-</body>
+</div>
 `;
