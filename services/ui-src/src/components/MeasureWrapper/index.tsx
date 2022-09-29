@@ -213,7 +213,7 @@ export const MeasureWrapper = ({
       );
     }
     // default loaded data reset
-    else if (!methods.formState.isDirty) {
+    else {
       methods.reset(apiData?.Item?.data);
     }
   }, [apiData, methods, defaultData, coreSetId]);
