@@ -92,7 +92,7 @@
       "^.+\\.(css|less|scss)$": "identity-obj-proxy"
     },
     "setupFilesAfterEnv": [
-      "<rootDir>/setupJest.ts"
+      "<rootDir>/setupJest.tsx"
     ],
     "globals": {
       "_env_": {}
