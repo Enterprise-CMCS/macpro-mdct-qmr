@@ -153,12 +153,15 @@ describe("Measure: APM-CH", () => {
       .clear()
       .type("2");
     cy.get('[data-cy="Validate Measure"]').click();
+    cy.get(
+      '[data-cy="The Ages 1 to 11 denominator must be the same for each indicator."] > .chakra-text'
+    ).should("not.exist");
+    cy.get(
+      '[data-cy="Total (Ages 1 to 17) denominator must be the same for each indicator."] > .chakra-text'
+    ).should("not.exist");
 
     // OMS
-    cy.get('[data-cy="OptionalMeasureStratification.options0"]')
-      .click()
-      .click()
-      .click();
+    cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
     ).click();

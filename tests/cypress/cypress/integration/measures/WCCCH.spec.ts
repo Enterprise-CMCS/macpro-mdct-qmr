@@ -93,11 +93,50 @@ describe("Measure: WCC-CH", () => {
       .clear()
       .type("2");
     cy.get('[data-cy="Validate Measure"]').click();
+    cy.get(
+      '[data-cy="The Ages 3 to 11 denominator must be the same for each indicator."] > .chakra-text'
+    ).should("not.exist");
+    cy.get(
+      '[data-cy="Total (Ages 3 to 17) denominator must be the same for each indicator."] > .chakra-text'
+    ).should("not.exist");
 
     // OMS
-    // TODO: test OMS validations
+    cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
+    ).click();
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
+    ).click();
+
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.BodymassindexBMIpercentiledocumentation.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.BodymassindexBMIpercentiledocumentation.0.denominator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.CounselingforNutrition.0.numerator"]'
+    ).type("1");
+    cy.get(
+      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages3to11.CounselingforNutrition.0.denominator"]'
+    ).type("2");
 
     // OMS Validations
+    cy.get('[data-cy="Validate Measure"]').click();
+    cy.contains(
+      ".chakra-alert",
+      "Optional Measure Stratification: Race (Non-Hispanic) - White - Ages 3 to 11 Error"
+    ).within(() => {
+      cy.get(
+        '[data-cy="Denominators must be the same for each category."] > .chakra-text'
+      ).should("be.visible");
+    });
+
+    cy.get('[data-cy="Clear Data"]').click();
   });
 
   it("Fill out the WCC-CH form and verify NDR section in PM OMS", function () {
