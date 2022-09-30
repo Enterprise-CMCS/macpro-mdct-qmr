@@ -205,10 +205,9 @@ export const MeasureWrapper = ({
       apiData?.Item?.measure === "CSQ"
     ) {
       methods.reset(
-        params.coreSetId
+        coreSetId
           ? defaultData?.[
-              (params.coreSetId?.split("_")?.[0] ??
-                params.coreSetId) as CoreSetAbbr
+              (coreSetId?.split("_")?.[0] ?? coreSetId) as CoreSetAbbr
             ]?.formData
           : undefined
       );
@@ -217,7 +216,7 @@ export const MeasureWrapper = ({
     else {
       methods.reset(apiData?.Item?.data);
     }
-  }, [apiData, methods, defaultData, params]);
+  }, [apiData, methods, defaultData, coreSetId]);
 
   const handleValidation = (data: any) => {
     handleSave(data);
