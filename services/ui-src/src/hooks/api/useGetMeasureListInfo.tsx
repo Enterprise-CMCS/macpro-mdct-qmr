@@ -6,5 +6,7 @@ const getList = async () => {
 };
 
 export const useGetMeasureListInfo = () => {
-  return useQuery(["measureListInfo"], () => getList());
+  return useQuery(["measureListInfo"], () => getList(), {
+    refetchOnWindowFocus: false,
+  });
 };

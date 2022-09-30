@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders with correct content 1`] = `
-<body>
+<div>
   <div
     class="css-pb69ky"
   >
@@ -600,11 +600,11 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
       </div>
     </fieldset>
   </div>
-</body>
+</div>
 `;
 
 exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with correct content 1`] = `
-<body>
+<div>
   <div
     class="css-pb69ky"
   >
@@ -1124,11 +1124,11 @@ exports[`Test DefinitionOfPopulation componnent (ACS) Component renders with cor
       </div>
     </fieldset>
   </div>
-</body>
+</div>
 `;
 
 exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders with correct content 1`] = `
-<body>
+<div>
   <div
     class="css-pb69ky"
   >
@@ -1691,11 +1691,11 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
       </div>
     </fieldset>
   </div>
-</body>
+</div>
 `;
 
 exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with correct content 1`] = `
-<body>
+<div>
   <div
     class="css-pb69ky"
   >
@@ -2179,11 +2179,11 @@ exports[`Test DefinitionOfPopulation componnent (CCS) Component renders with cor
       </div>
     </fieldset>
   </div>
-</body>
+</div>
 `;
 
 exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders with correct content 1`] = `
-<body>
+<div>
   <div
     class="css-pb69ky"
   >
@@ -2853,11 +2853,11 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
       </div>
     </fieldset>
   </div>
-</body>
+</div>
 `;
 
 exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with correct content 1`] = `
-<body>
+<div>
   <div
     class="css-pb69ky"
   >
@@ -3448,5 +3448,5 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
       </div>
     </fieldset>
   </div>
-</body>
+</div>
 `;
