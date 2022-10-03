@@ -1,7 +1,7 @@
 [
   {
     "ParameterKey": "SubjectClaimFilters",
-    "ParameterValue": "repo:CMSgov/YOUR_GITHUB_REPO:ref:refs/heads/val"
+    "ParameterValue": "repo:CMSgov/cms-mdct-qmr:ref:refs/heads/val"
   },
   {
     "ParameterKey": "Path",
@@ -9,10 +9,10 @@
   },
   {
     "ParameterKey": "PermissionsBoundaryARN",
-    "ParameterValue": "arn:aws:iam::AWS_ACCOUNT_ID:policy/cms-cloud-admin/ct-ado-poweruser-permissions-boundary-policy"
+    "ParameterValue": "arn:aws:iam::674529720001:policy/cms-cloud-admin/ct-ado-poweruser-permissions-boundary-policy"
   },
   {
     "ParameterKey": "ManagedPolicyARNs",
-    "ParameterValue": "arn:aws:iam::AWS_ACCOUNT_ID:policy/ADO-Restriction-Policy,arn:aws:iam::AWS_ACCOUNT_ID:policy/CMSApprovedAWSServices,arn:aws:iam::aws:policy/AdministratorAccess"
+    "ParameterValue": "arn:aws:iam::674529720001:policy/ADO-Restriction-Policy,arn:aws:iam::674529720001:policy/CMSApprovedAWSServices,arn:aws:iam::aws:policy/AdministratorAccess"
   }
 ]
