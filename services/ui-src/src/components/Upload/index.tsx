@@ -147,12 +147,12 @@ export const Upload = ({
   };
 
   function fileNameValidator(file: any) {
-    const fileNameRegex = new RegExp("^[0-9a-zA-z-_.()*]*$");
+    const fileNameRegex = new RegExp("^[0-9a-zA-z-_.()* ]*$");
 
     if (!fileNameRegex.test(file.name)) {
       return {
         code: "Invalid file name",
-        message: `The file name contains invalid characters. Only the following characters are allowed: A-Z, a-z, 0-9, -, _, (, ), *, and .`,
+        message: `The file name contains invalid characters. Only the following characters are allowed: A-Z, a-z, 0-9, -, _, (, ), *, ., and space`,
       };
     }
     return null;
