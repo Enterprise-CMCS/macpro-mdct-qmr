@@ -56,3 +56,59 @@ export interface ndrFormula {
   rate: number;
   mult: number;
 }
+
+// BANNER
+
+export interface BannerData {
+  title: string;
+  description: string;
+  link?: string;
+  [key: string]: any;
+}
+
+export interface AdminBannerData extends BannerData {
+  key: string;
+  startDate: number;
+  endDate: number;
+  isActive?: boolean;
+}
+
+export interface AdminBannerMethods {
+  fetchAdminBanner: Function;
+  writeAdminBanner: Function;
+  deleteAdminBanner: Function;
+}
+
+export interface AdminBannerShape extends AdminBannerMethods {
+  bannerData?: AdminBannerData;
+  isLoading: boolean;
+  errorMessage?: string;
+}
+
+// ALERTS
+
+export enum AlertTypes {
+  ERROR = "error",
+  INFO = "info",
+  SUCCESS = "success",
+  WARNING = "warning",
+}
+
+// OTHER
+export interface AnyObject {
+  [key: string]: any;
+}
+
+// TIME
+
+export interface DateShape {
+  year: number;
+  month: number;
+  day: number;
+}
+
+export interface TimeShape {
+  hour: number;
+  minute: number;
+  second: number;
+}

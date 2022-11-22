@@ -1,4 +1,5 @@
 import { API, Auth } from "aws-amplify";
+import { AdminBannerData } from "types";
 
 async function requestOptions(): Promise<any> {
   try {
@@ -150,6 +151,39 @@ async function getPDF(inputObj: any) {
   );
 }
 
+//BANNER
+async function getBanner<BannerData>(bannerKey: string) {
+  const opts = await requestOptions();
+  if (false) console.log(opts, bannerKey);
+  const response = {
+    title: "Hard Coded Test Banner",
+    description: "TODO FIX ME",
+  } as unknown;
+  return response as BannerData;
+  // const response = await API.get("banners", `/banners/${bannerKey}`, opts);
+  // return response;
+}
+
+async function writeBanner(bannerData: AdminBannerData) {
+  const opts = await requestOptions();
+  opts.body = bannerData;
+  console.log(opts);
+  return;
+  // return API.post(
+  //   "banners",
+  //   `/banners/${bannerData.key}`,
+  //   opts
+  // );
+}
+
+async function deleteBanner(bannerKey: string) {
+  const opts = await requestOptions();
+  console.log(opts, bannerKey);
+  return;
+  // const response = await API.del("banners", `/banners/${bannerKey}`, request);
+  // return response;
+}
+
 export {
   createCoreSet,
   createMeasure,
@@ -164,4 +198,7 @@ export {
   getPDF,
   getReportingYears,
   listMeasures,
+  writeBanner,
+  getBanner,
+  deleteBanner,
 };

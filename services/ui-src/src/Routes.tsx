@@ -26,6 +26,12 @@ const StateHome = lazy(() => import("views/StateHome"));
 const AdminHome = lazy(() =>
   import("views/AdminHome").then((module) => ({ default: module.AdminHome }))
 );
+const AdminBannerView = lazy(() =>
+  import("views/AdminHome/AdminBannerView").then((module) => ({
+    default: module.AdminBannerView,
+  }))
+);
+
 const AddHHCoreSet = lazy(() =>
   import("views/AddHHCoreSet").then((module) => ({
     default: module.AddHHCoreSet,
@@ -150,6 +156,7 @@ export function AppRoutes() {
         <Route path="/faq" element={<FAQ />} />
         <Route path=":state/:year" element={<StateHome />} />
         <Route path="admin" element={<AdminHome />} />
+        <Route path="admin/banner" element={<AdminBannerView />} />
         <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
         <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
