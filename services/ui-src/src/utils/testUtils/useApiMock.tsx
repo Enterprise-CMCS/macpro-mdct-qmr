@@ -10,6 +10,7 @@ import {
   useGetMeasures,
   useUpdateMeasure,
   useGetReportingYears,
+  useGetBanner,
 } from "hooks/api";
 
 // TODO: Create interfaces for each of the hooks
@@ -99,6 +100,7 @@ export const defaultMockValues = {
     isError: undefined,
     data: ["2021"],
   },
+  useGetBannerValues: { mutate: jest.fn() },
   useUpdateMeasureValues: {
     useMutation: () => {
       mutate: () => {}; // eslint-disable-line
@@ -107,6 +109,7 @@ export const defaultMockValues = {
 };
 
 export const useApiMock = ({
+  useGetBannerValues = defaultMockValues.useGetBannerValues,
   useAddCoreSetValues = defaultMockValues.useAddCoreSetValues,
   useAddMeasureValues = defaultMockValues.useAddMeasureValues,
   useDeleteCoreSetValues = defaultMockValues.useDeleteCoreSetValues,
@@ -150,5 +153,8 @@ export const useApiMock = ({
   });
   (useGetReportingYears as jest.Mock).mockReturnValue({
     ...useGetReportingYearsValues,
+  });
+  (useGetBanner as jest.Mock).mockReturnValue({
+    ...useGetBannerValues,
   });
 };

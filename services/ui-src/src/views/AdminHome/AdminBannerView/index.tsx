@@ -1,49 +1,142 @@
-//import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
+import { Notification } from "components";
 import { CreateBanner } from "components/Banner/CreateBanner";
 import { CurrentBanner } from "components/Banner/CurrentBanner";
+import { useEffect, useState } from "react";
+import { AdminBannerData, BannerData } from "types";
+import { bannerId } from "utils";
+import { useGetBanner, useWriteBanner, useDeleteBanner } from "hooks/api";
 
+export const BANNER_ERRORS = {
+  GET_BANNER_FAILED: "Banner could not be fetched. Please contact support.",
+  DELETE_BANNER_FAILED:
+    "Current banner could not be deleted. Please contact support.",
+  REPLACE_BANNER_FAILED:
+    "Current banner could not be replaced. Please contact support.",
+};
 export const AdminBannerView = () => {
+  const [error, setError] = useState<string | undefined>();
+  const [banner, setBanner] = useState<BannerData>();
+
+  const getMutation = useGetBanner();
+  const writeMutation = useWriteBanner();
+  const deleteMutation = useDeleteBanner();
+
+  const onSubmitHandler = (formData: any) => {
+    const bannerData: AdminBannerData = {
+      key: bannerId,
+      title: formData.bannerTitle,
+      description: formData.bannerDescription,
+      link: formData.bannerLink,
+      startDate: formData.startDateInMS,
+      endDate: formData.endDateInMS,
+    };
+    writeMutation.mutate(bannerData, {
+      onSuccess: () => {
+        setBanner(bannerData);
+      },
+      onError: () => {
+        setError(BANNER_ERRORS.REPLACE_BANNER_FAILED);
+      },
+    });
+  };
+
+  const onDeleteHandler = () => {
+    deleteMutation.mutate(bannerId, {
+      onSuccess: () => {
+        setBanner(undefined);
+      },
+      onError: () => {
+        setError(BANNER_ERRORS.DELETE_BANNER_FAILED);
+      },
+    });
+  };
+
+  const getBanner = () => {
+    getMutation.mutate(bannerId, {
+      onSuccess: async (response) => {
+        if (/20\d/.test(response?.status)) {
+          const bannerData = response.body?.Item as BannerData;
+          setBanner(bannerData);
+        } else if (/404/.test(response?.status)) {
+          //DO NOTHING
+        } else {
+          setError(BANNER_ERRORS.GET_BANNER_FAILED);
+        }
+      },
+      onError: (error) => {
+        console.error("Unable to load banner", error);
+      },
+    });
+  };
+
+  const onErrorHandler = (errorMessage: string) => {
+    setError(errorMessage);
+  };
+
+  useEffect(() => {
+    getBanner();
+  }, []);
+
   return (
-    <CUI.Box sx={{ ...sx.contentBox, ...sx.layout }} className="standard">
-      <CUI.Flex sx={sx.contentFlex} className="contentFlex standard">
-        TODO ERROR
+    <CUI.Box sx={{ ...sx.pageBox, ...sx.pageFlex }} className="standard">
+      <CUI.Flex sx={sx.contentFlex} className={`contentFlex standard`}>
+        {error && (
+          <Notification
+            alertTitle="Banner Error"
+            alertDescription={error}
+            alertStatus="error"
+          />
+        )}
         <CUI.Box sx={sx.introTextBox}>
-          <CUI.Heading
-            as="h1"
-            id="AdminHeader"
-            tabIndex={-1}
-            sx={sx.headerText}
-          >
-            Banner Admin
-          </CUI.Heading>
+          <CUI.Text sx={sx.headerText}>Banner Admin</CUI.Text>
           <CUI.Text>Manage the announcement banner below.</CUI.Text>
-          <CUI.Flex sx={sx.contentFlex}></CUI.Flex>
         </CUI.Box>
+        <CUI.Box sx={sx.currentBannerSectionBox}>
+          <CUI.Text sx={sx.sectionHeader}>Current Banner</CUI.Text>
+          <CurrentBanner
+            bannerData={banner}
+            sx={sx}
+            onError={onErrorHandler}
+            onDelete={onDeleteHandler}
+          />
+        </CUI.Box>
+        <CreateBanner
+          sx={sx}
+          onSubmit={onSubmitHandler}
+          onError={onErrorHandler}
+        />
       </CUI.Flex>
-      <CurrentBanner />
-      <CreateBanner sx={sx} />
     </CUI.Box>
   );
 };
 
 const sx = {
+  pageBox: {
+    "&.standard": {
+      flexShrink: "0",
+      paddingTop: "2rem",
+    },
+  },
+  pageFlex: {
+    flexDirection: "column",
+    "&.standard": {
+      maxWidth: "46rem",
+      margin: "5.5rem auto 0",
+      width: "100%",
+    },
+  },
+
   contentBox: {
     "&.standard": {
       flexShrink: "0",
-    },
-    "&.report": {
-      height: "100%",
     },
   },
   contentFlex: {
     flexDirection: "column",
     "&.standard": {
-      maxWidth: "basicPageWidth",
+      maxWidth: "46rem",
       margin: "5.5rem auto 0",
-    },
-    "&.report": {
-      height: "100%",
     },
     padding: "0 2rem",
   },
@@ -82,10 +175,10 @@ const sx = {
     span: {
       marginLeft: "0.5rem",
       "&.active": {
-        color: "palette.success",
+        color: "green",
       },
       "&.inactive": {
-        color: "palette.error",
+        color: "red",
       },
     },
   },
@@ -101,10 +194,10 @@ const sx = {
     marginTop: "0.5rem",
     ".ds-c-spinner": {
       "&:before": {
-        borderColor: "palette.black",
+        borderColor: "black",
       },
       "&:after": {
-        borderLeftColor: "palette.black",
+        borderLeftColor: "black",
       },
     },
   },

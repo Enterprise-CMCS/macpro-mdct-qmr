@@ -7,7 +7,7 @@ import config from "config";
 export const AdminHome = () => {
   const [locality, setLocality] = useState("AL");
   const navigate = useNavigate();
-  const adminBannerFlag = true; //TODO LaunchDarkly
+  const bannerFlag = true; //TODO LaunchDarkly
   return (
     <CUI.Container maxW="7xl" py="4">
       <CUI.Stack spacing="4" maxW="lg">
@@ -36,7 +36,7 @@ export const AdminHome = () => {
           Go To State Home
         </CUI.Button>
       </CUI.Stack>
-      {adminBannerFlag && (
+      {bannerFlag && (
         <CUI.Stack spacing="4" maxW="xl" py="4">
           <CUI.Divider />
           <CUI.Heading size="sm">Banner Admin</CUI.Heading>

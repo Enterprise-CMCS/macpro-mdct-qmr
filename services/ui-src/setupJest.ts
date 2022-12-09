@@ -15,4 +15,5 @@ jest.mock("hooks/api", () => ({
   useGetMeasures: jest.fn(),
   useUpdateMeasure: jest.fn(),
   useGetReportingYears: jest.fn(),
+  useGetBanner: jest.fn(),
 }));
