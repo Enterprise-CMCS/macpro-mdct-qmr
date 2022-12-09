@@ -100,7 +100,16 @@ export const defaultMockValues = {
     isError: undefined,
     data: ["2021"],
   },
-  useGetBannerValues: { mutate: jest.fn() },
+  useGetBannerValues: {
+    data: {
+      Item: {
+        bannerData: {
+          title: "Banner Title",
+          description: "Banner Description",
+        },
+      },
+    },
+  },
   useUpdateMeasureValues: {
     useMutation: () => {
       mutate: () => {}; // eslint-disable-line

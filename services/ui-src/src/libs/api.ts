@@ -154,8 +154,6 @@ async function getPDF(inputObj: any) {
 //BANNER
 async function getBanner(bannerKey: string) {
   const opts = await requestOptions();
-  console.log(opts, bannerKey);
-
   const response = await API.get("coreSet", `/banners/${bannerKey}`, opts);
   return response;
 }

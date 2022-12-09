@@ -77,5 +77,15 @@ describe("Authorization Lib Function", () => {
       event.httpMethod = "POST";
       expect(isAuthorized(event, true)).toBeTruthy();
     });
+
+    test("authorization should fail from unauthorized http method", () => {
+      event.httpMethod = "DELETE";
+      expect(isAuthorized(event, false)).toBeFalsy();
+    });
+
+    test("authorization should pass with DELETE override", () => {
+      event.httpMethod = "DELETE";
+      expect(isAuthorized(event, true)).toBeTruthy();
+    });
   });
 });

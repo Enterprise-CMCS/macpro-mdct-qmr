@@ -48,4 +48,8 @@ describe("Test StateHome", () => {
     });
     expect(mockedNavigate).toHaveBeenCalledWith("/OH/2021");
   });
+
+  test.skip("Check that the banner is displayed when active", () => {
+    //TODO IMPLEMENT ME WHEN BannerCard IS SORTED
+  });
 });

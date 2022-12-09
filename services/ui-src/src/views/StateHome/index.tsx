@@ -209,19 +209,15 @@ const StateHome = () => {
     )
   );
 
-  const bannerFlag = true; //TODO LaunchDarkly
-
   return (
     <QMR.StateLayout
       breadcrumbItems={[
         { path: `/${state}/${year}`, name: "Core Set Measures" },
       ]}
     >
-      {bannerFlag && (
-        <CUI.Container maxW="5xl" py="4">
-          <BannerCard />
-        </CUI.Container>
-      )}
+      <CUI.Container maxW="5xl" py="4">
+        <BannerCard />
+      </CUI.Container>
       {data.Items && data.Items.length === 0 && (
         <CUI.Box data-testid="no-state-data">
           <QMR.Notification

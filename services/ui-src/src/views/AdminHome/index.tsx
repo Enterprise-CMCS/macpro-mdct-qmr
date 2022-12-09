@@ -7,7 +7,6 @@ import config from "config";
 export const AdminHome = () => {
   const [locality, setLocality] = useState("AL");
   const navigate = useNavigate();
-  const bannerFlag = true; //TODO LaunchDarkly
   return (
     <CUI.Container maxW="7xl" py="4">
       <CUI.Stack spacing="4" maxW="lg">
@@ -36,24 +35,22 @@ export const AdminHome = () => {
           Go To State Home
         </CUI.Button>
       </CUI.Stack>
-      {bannerFlag && (
-        <CUI.Stack spacing="4" maxW="xl" py="4">
-          <CUI.Divider />
-          <CUI.Heading size="sm">Banner Admin</CUI.Heading>
-          <CUI.Text fontSize="sm">
-            Click here to manage the announcement banner.
-          </CUI.Text>
-          <CUI.Button
-            colorScheme="blue"
-            onClick={() => navigate(`/admin/banner`)}
-            isFullWidth
-            data-cy="Banner Editor"
-            maxW="xs"
-          >
-            Banner Editor
-          </CUI.Button>
-        </CUI.Stack>
-      )}
+      <CUI.Stack spacing="4" maxW="xl" py="4">
+        <CUI.Divider />
+        <CUI.Heading size="sm">Banner Admin</CUI.Heading>
+        <CUI.Text fontSize="sm">
+          Click here to manage the announcement banner.
+        </CUI.Text>
+        <CUI.Button
+          colorScheme="blue"
+          onClick={() => navigate(`/admin/banner`)}
+          isFullWidth
+          data-cy="Banner Editor"
+          maxW="xs"
+        >
+          Banner Editor
+        </CUI.Button>
+      </CUI.Stack>
     </CUI.Container>
   );
 };
