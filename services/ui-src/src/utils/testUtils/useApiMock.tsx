@@ -101,13 +101,8 @@ export const defaultMockValues = {
     data: ["2021"],
   },
   useGetBannerValues: {
-    data: {
-      Item: {
-        bannerData: {
-          title: "Banner Title",
-          description: "Banner Description",
-        },
-      },
+    useMutation: () => {
+      mutate: () => {}; // eslint-disable-line
     },
   },
   useUpdateMeasureValues: {

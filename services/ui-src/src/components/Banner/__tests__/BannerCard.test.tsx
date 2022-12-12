@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { BannerData } from "types";
 import { BannerCard } from "../BannerCard";
 import { useGetBanner } from "hooks/api";
+import { useApiMock } from "utils/testUtils/useApiMock";
 
 const apiData: any = {};
 const bannerData: BannerData = {
@@ -9,28 +10,31 @@ const bannerData: BannerData = {
   description: "Banner Description",
 };
 
+// jest.mock("hooks/api/useBanner", () => {
+//   useGetBanner: {
+//     mutate: jest.fn().mockReturnValue(bannerData);
+//   }
+// });
+
+jest.mock("hooks/api/useBanner");
+const mockedUseGetBanner = useGetBanner as jest.MockedFunction<
+  typeof useGetBanner
+>;
+
 const renderTestComponent = () => {
-  (useGetBanner as jest.Mock).mockReturnValue({
-    ...apiData.useGetBannerValues,
-  });
   render(<BannerCard data-testid="test-banner-card" />);
 };
 
 describe("Test BannerCard", () => {
   beforeEach(() => {
-    apiData.useGetBannerValues = {
-      data: {
-        Item: { bannerData },
-      },
-      isLoading: false,
-      refetch: jest.fn(),
-      isError: false,
-      error: undefined,
-    };
+    //useApiMock({...apiData.useGetBannerValues});
+    mockedUseGetBanner.mockReturnValue();
+
     renderTestComponent();
   });
-  it.skip("Check that a Banner Card can be rendered", () => {
+  test("Check that a Banner Card can be rendered", () => {
     //TODO Figure out how to mock mutations
+
     expect(screen.getByTestId("test-banner-card")).toBeVisible();
   });
 });

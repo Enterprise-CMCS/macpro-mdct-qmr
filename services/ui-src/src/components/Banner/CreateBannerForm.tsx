@@ -63,7 +63,7 @@ export const CreateBannerForm = (props: any) => {
   };
 
   return (
-    <form id={bannerId} onSubmit={handleSubmit(onSubmit)}>
+    <form id={bannerId} onSubmit={handleSubmit(onSubmit)} {...props}>
       <CUI.Stack spacing="4" maxW="lg" py="4">
         <CUI.Stack spacing="1">
           <CUI.Text fontSize="sm" as="b">

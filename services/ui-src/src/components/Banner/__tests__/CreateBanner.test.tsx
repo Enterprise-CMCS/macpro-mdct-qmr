@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 
 import { CreateBanner } from "../CreateBanner";
 
@@ -25,7 +25,9 @@ describe("Test Banner Item", () => {
   });
 
   test("Create Banner is visible", () => {
-    //TODO data-testid would make this cleaner but isn't getting passed
-    expect(screen.getByText("Create a New Banner")).toBeInTheDocument();
+    let element = screen.getByTestId("test-banner");
+    expect(
+      within(element).getByText("Create a New Banner")
+    ).toBeInTheDocument();
   });
 });
