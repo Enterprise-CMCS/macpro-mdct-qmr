@@ -19,7 +19,7 @@ export const createBanner = handler(async (event, _context) => {
       },
     };
 
-    const result = await dynamoDb.put(params);
-    return { statusCode: StatusCodes.CREATED, body: params };
+    await dynamoDb.put(params);
+    return { status: StatusCodes.CREATED };
   }
 }, true);

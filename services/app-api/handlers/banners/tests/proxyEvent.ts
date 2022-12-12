@@ -1,17 +1,25 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 
+export const testBanner = {
+  title: "test banner",
+  description: "test description",
+  link: "https://www.mocklink.com",
+  startDate: 1000,
+  endDate: 2000,
+};
+
 export const proxyEvent: APIGatewayProxyEvent = {
   body: "{}",
-  headers: {},
+  headers: { "x-api-key": "test" },
   httpMethod: "GET",
   isBase64Encoded: false,
   multiValueHeaders: {},
   multiValueQueryStringParameters: {},
   path: "",
-  pathParameters: {},
+  pathParameters: { bannerId: "admin-banner-id" },
   resource: "",
   stageVariables: null,
-  queryStringParameters: {},
+  queryStringParameters: { bannerId: "testKey" },
   requestContext: {
     accountId: "",
     apiId: "",

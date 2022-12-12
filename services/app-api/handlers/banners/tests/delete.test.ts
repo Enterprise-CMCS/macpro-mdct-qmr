@@ -1,38 +1,38 @@
 import { deleteBanner } from "../delete";
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { proxyEvent } from "./proxyEvent";
-import { StatusCodes } from "../../../utils/types/types";
-import error from "../../../utils/constants/constants";
+import { testBanner, proxyEvent } from "./proxyEvent";
+import dynamoDb from "../../../libs/dynamodb-lib";
+import { Errors, StatusCodes } from "../../../utils/constants/constants";
+import { mockDocumentClient } from "../../../utils/testing/setupJest";
 
-jest.mock("../../utils/auth/authorization", () => ({
+jest.mock("../../../libs/authorization", () => ({
   isAuthorized: jest.fn().mockReturnValue(true),
-  hasPermissions: jest.fn().mockReturnValueOnce(false).mockReturnValue(true),
+  hasPermissions: jest.fn().mockReturnValue(true),
 }));
 
-jest.mock("../../utils/debugging/debug-lib", () => ({
+jest.mock("../../../libs/debug-lib", () => ({
   init: jest.fn(),
   flush: jest.fn(),
 }));
 
 const testEvent: APIGatewayProxyEvent = {
   ...proxyEvent,
-  headers: { "cognito-identity-id": "test" },
-  pathParameters: { bannerId: "testKey" },
+  httpMethod: "DEL",
 };
 
+jest.spyOn(dynamoDb, "delete").mockImplementation(
+  mockDocumentClient.delete.promise.mockReturnValue({
+    Item: {
+      ...testBanner,
+    },
+  })
+);
+
 describe("Test deleteBanner API method", () => {
-  test("Test not authorized to delete banner throws 403 error", async () => {
-    const res = await deleteBanner(testEvent, null);
-
-    expect(res.statusCode).toBe(403);
-    expect(res.body).toContain(error.UNAUTHORIZED);
-  });
-
   test("Test Successful Banner Deletion", async () => {
     const res = await deleteBanner(testEvent, null);
-
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("testKey");
+    expect(JSON.parse(res.body).status).toBe(StatusCodes.SUCCESS);
   });
 
   test("Test bannerKey not provided throws 500 error", async () => {
@@ -42,8 +42,8 @@ describe("Test deleteBanner API method", () => {
     };
     const res = await deleteBanner(noKeyEvent, null);
 
-    expect(res.statusCode).toBe(500);
-    expect(res.body).toContain(error.NO_KEY);
+    expect(res.statusCode).toBe(StatusCodes.SERVER_ERROR);
+    expect(res.body).toContain(Errors.NO_KEY);
   });
 
   test("Test bannerKey empty throws 500 error", async () => {
@@ -53,7 +53,7 @@ describe("Test deleteBanner API method", () => {
     };
     const res = await deleteBanner(noKeyEvent, null);
 
-    expect(res.statusCode).toBe(500);
-    expect(res.body).toContain(error.NO_KEY);
+    expect(res.statusCode).toBe(StatusCodes.SERVER_ERROR);
+    expect(res.body).toContain(Errors.NO_KEY);
   });
 });
