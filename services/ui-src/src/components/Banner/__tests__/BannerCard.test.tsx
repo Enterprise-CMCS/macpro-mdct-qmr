@@ -1,40 +1,30 @@
 import { render, screen } from "@testing-library/react";
-import { BannerData } from "types";
 import { BannerCard } from "../BannerCard";
-import { useGetBanner } from "hooks/api";
-import { useApiMock } from "utils/testUtils/useApiMock";
+import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
+import { axe, toHaveNoViolations } from "jest-axe";
+expect.extend(toHaveNoViolations);
 
-const apiData: any = {};
-const bannerData: BannerData = {
-  title: "Banner Title",
-  description: "Banner Description",
-};
+const testComponent = <BannerCard />;
 
-// jest.mock("hooks/api/useBanner", () => {
-//   useGetBanner: {
-//     mutate: jest.fn().mockReturnValue(bannerData);
-//   }
-// });
-
-jest.mock("hooks/api/useBanner");
-const mockedUseGetBanner = useGetBanner as jest.MockedFunction<
-  typeof useGetBanner
->;
-
-const renderTestComponent = () => {
-  render(<BannerCard data-testid="test-banner-card" />);
-};
-
+beforeEach(() => {
+  useApiMock({});
+});
 describe("Test BannerCard", () => {
-  beforeEach(() => {
-    //useApiMock({...apiData.useGetBannerValues});
-    mockedUseGetBanner.mockReturnValue();
-
-    renderTestComponent();
-  });
   test("Check that a Banner Card can be rendered", () => {
-    //TODO Figure out how to mock mutations
+    render(testComponent);
+    expect(
+      screen.getByText(defaultMockValues.useGetBannerValues.data.title)
+    ).toBeVisible();
+    expect(
+      screen.getByText(defaultMockValues.useGetBannerValues.data.description)
+    ).toBeVisible();
+  });
+});
 
-    expect(screen.getByTestId("test-banner-card")).toBeVisible();
+describe("Test BannerCard accessibility", () => {
+  test("Should not have basic accessibility issues", async () => {
+    const { container } = render(testComponent);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

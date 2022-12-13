@@ -2,7 +2,10 @@ import StateHome from "../index";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { useApiMock } from "utils/testUtils/useApiMock";
+import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
+import { axe, toHaveNoViolations } from "jest-axe";
+expect.extend(toHaveNoViolations);
+
 const queryClient = new QueryClient();
 
 const mockedNavigate = jest.fn();
@@ -16,18 +19,24 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
+const testComponent = (
+  <QueryClientProvider client={queryClient}>
+    <RouterWrappedComp>
+      <StateHome />
+    </RouterWrappedComp>
+  </QueryClientProvider>
+);
+
 beforeEach(() => {
   useApiMock({});
-  render(
-    <QueryClientProvider client={queryClient}>
-      <RouterWrappedComp>
-        <StateHome />
-      </RouterWrappedComp>
-    </QueryClientProvider>
-  );
+  render(testComponent);
 });
 
 describe("Test StateHome", () => {
+  beforeEach(() => {
+    useApiMock({});
+    render(testComponent);
+  });
   test("Check that the Heading renders", () => {
     expect(
       screen.getByText(/Core Set Measures Reporting/i)
@@ -49,7 +58,23 @@ describe("Test StateHome", () => {
     expect(mockedNavigate).toHaveBeenCalledWith("/OH/2021");
   });
 
-  test.skip("Check that the banner is displayed when active", () => {
-    //TODO IMPLEMENT ME WHEN BannerCard IS SORTED
+  test("Check that the banner is displayed when active", () => {
+    expect(
+      screen.getByText(defaultMockValues.useGetBannerValues.data.title)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(defaultMockValues.useGetBannerValues.data.description)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(defaultMockValues.useGetBannerValues.data.link)
+    ).toBeInTheDocument();
+  });
+});
+describe("Test StateHome accessibility", () => {
+  test("Should not have basic accessibility issues", async () => {
+    useApiMock({});
+    const { container } = render(testComponent);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

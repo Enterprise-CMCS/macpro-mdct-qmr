@@ -1,11 +1,10 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import { PreviewBanner } from "../PreviewBanner";
-
+import { axe, toHaveNoViolations } from "jest-axe";
+expect.extend(toHaveNoViolations);
 const watched = ["My Title", "My Description"];
-const testComponent = (
-  <PreviewBanner watched={watched} data-testid="preview-banner-test" />
-);
+const testComponent = <PreviewBanner watched={watched} />;
 
 describe("Test Preview Banner Item", () => {
   beforeEach(() => {
@@ -13,9 +12,15 @@ describe("Test Preview Banner Item", () => {
   });
 
   test("Preview Banner is visible", () => {
-    let element = screen.getByTestId("preview-banner-test");
-    expect(element).toBeVisible();
-    expect(within(element).getByText(watched[0])).toBeInTheDocument();
-    expect(within(element).getByText(watched[1])).toBeInTheDocument();
+    expect(screen.getByText(watched[0])).toBeInTheDocument();
+    expect(screen.getByText(watched[1])).toBeInTheDocument();
+  });
+});
+
+describe("Test PreviewBanner accessibility", () => {
+  test("Should not have basic accessibility issues", async () => {
+    const { container } = render(testComponent);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

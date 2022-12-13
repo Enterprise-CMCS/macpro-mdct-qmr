@@ -7,19 +7,13 @@ import { Banner } from "./Banner";
 export const BannerCard = () => {
   const [banner, setBanner] = useState<BannerData>();
 
-  const getMutation = useGetBanner();
+  const { data } = useGetBanner(bannerId);
   const getBanner = () => {
-    getMutation.mutate(bannerId, {
-      onSuccess: async (response) => {
-        if (/20\d/.test(response?.status)) {
-          const bannerData = response.body?.Item as BannerData;
-          if (checkDateRangeStatus(bannerData?.startDate, bannerData?.endDate))
-            setBanner(bannerData);
-        } else {
-          //DO NOTHING
-        }
-      },
-    });
+    if (data) {
+      const bannerData = data as unknown as BannerData;
+      if (checkDateRangeStatus(bannerData?.startDate, bannerData?.endDate))
+        setBanner(bannerData);
+    }
   };
   useEffect(() => {
     getBanner();

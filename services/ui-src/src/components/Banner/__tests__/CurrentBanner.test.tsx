@@ -1,37 +1,74 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { BannerData } from "types";
 import { CurrentBanner } from "../CurrentBanner";
+import { axe, toHaveNoViolations } from "jest-axe";
+import { convertDateUtcToEt } from "utils";
+expect.extend(toHaveNoViolations);
 
-const bannerData: BannerData = {
-  title: "Banner Title",
-  description: "Banner Description",
-  startDate: new Date().getTime(),
-  endDate: new Date().getTime(),
-};
+const dayInMS = 1000 * 60 * 60 * 24;
 
-const testComponent = (
+const testComponent = (bannerData: BannerData | undefined) => (
   <CurrentBanner
     bannerData={bannerData}
     sx={{ sx: {} }}
     onDelete={jest.fn()}
     onError={jest.fn()}
-    data-testid="test-current-banner"
   />
 );
 
 describe("Test Current Banner", () => {
-  beforeEach(() => {
-    render(testComponent);
+  test("Current Banner is visible and active", () => {
+    const bannerData: BannerData = {
+      title: "Banner Title",
+      description: "Banner Description",
+      startDate: new Date().getTime() - dayInMS,
+      endDate: new Date().getTime() + dayInMS,
+    };
+
+    render(testComponent(bannerData));
+    expect(screen.getByText(bannerData.title)).toBeInTheDocument();
+    expect(screen.getByText(bannerData.description)).toBeInTheDocument();
+    expect(screen.getByText(convertDateUtcToEt(bannerData.startDate)));
+    expect(screen.getByText(convertDateUtcToEt(bannerData.endDate)));
+    expect(screen.getByText("Active")).toBeInTheDocument();
+    expect(screen.getByText("Delete Current Banner")).toBeInTheDocument();
   });
 
-  test("Current Banner is visible", () => {
-    let element = screen.getByTestId("test-current-banner");
-    expect(element).toBeVisible();
-    expect(within(element).getByText(bannerData.title)).toBeInTheDocument();
-    expect(
-      within(element).getByText(bannerData.description)
-    ).toBeInTheDocument();
+  test("Current Banner is Visible and inactive", () => {
+    const bannerData: BannerData = {
+      title: "Banner Title",
+      description: "Banner Description",
+      startDate: new Date().getTime() - dayInMS * 2,
+      endDate: new Date().getTime() - dayInMS,
+    };
+
+    render(testComponent(bannerData));
+
+    expect(screen.getByText(bannerData.title)).toBeInTheDocument();
+    expect(screen.getByText(bannerData.description)).toBeInTheDocument();
+    expect(screen.getByText(convertDateUtcToEt(bannerData.startDate)));
+    expect(screen.getByText(convertDateUtcToEt(bannerData.endDate)));
     expect(screen.getByText("Inactive")).toBeInTheDocument();
     expect(screen.getByText("Delete Current Banner")).toBeInTheDocument();
+  });
+
+  test("No Current Banner", () => {
+    render(testComponent(undefined));
+    expect(screen.getByText("There is no current banner")).toBeInTheDocument();
+  });
+});
+
+describe("Test CurrentBanner accessibility", () => {
+  test("Should not have basic accessibility issues", async () => {
+    const bannerData: BannerData = {
+      title: "Banner Title",
+      description: "Banner Description",
+      startDate: new Date().getTime() - dayInMS,
+      endDate: new Date().getTime() + dayInMS,
+    };
+
+    const { container } = render(testComponent(bannerData));
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

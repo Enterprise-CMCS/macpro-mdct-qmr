@@ -1,15 +1,15 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { BannerData } from "types";
 import { Banner } from "../Banner";
+import { axe, toHaveNoViolations } from "jest-axe";
+expect.extend(toHaveNoViolations);
 
 const bannerData: BannerData = {
   title: "Banner Title",
   description: "Banner Description",
 };
 
-const testComponent = (
-  <Banner bannerData={bannerData} data-testid="test-banner" />
-);
+const testComponent = <Banner bannerData={bannerData} />;
 
 describe("Test Banner Item", () => {
   beforeEach(() => {
@@ -17,11 +17,15 @@ describe("Test Banner Item", () => {
   });
 
   test("Banner is visible", () => {
-    let element = screen.getByTestId("test-banner");
-    expect(element).toBeVisible();
-    expect(within(element).getByText(bannerData.title)).toBeInTheDocument();
-    expect(
-      within(element).getByText(bannerData.description)
-    ).toBeInTheDocument();
+    expect(screen.getByText(bannerData.title)).toBeInTheDocument();
+    expect(screen.getByText(bannerData.description)).toBeInTheDocument();
+  });
+});
+
+describe("Test Banner accessibility", () => {
+  test("Should not have basic accessibility issues", async () => {
+    const { container } = render(testComponent);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

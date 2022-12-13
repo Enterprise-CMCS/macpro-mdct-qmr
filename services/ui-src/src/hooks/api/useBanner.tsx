@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { AdminBannerData } from "types";
 import { getBanner, writeBanner, deleteBanner } from "libs/api";
 
@@ -10,6 +10,10 @@ export const useWriteBanner = () => {
   return useMutation((bannerData: AdminBannerData) => writeBanner(bannerData));
 };
 
-export const useGetBanner = () => {
-  return useMutation((bannerKey: string) => getBanner(bannerKey));
+const _getBanner = async (bannerKey: string) => {
+  return await getBanner(bannerKey);
+};
+
+export const useGetBanner = (bannerKey: string) => {
+  return useQuery(bannerKey, () => _getBanner(bannerKey));
 };

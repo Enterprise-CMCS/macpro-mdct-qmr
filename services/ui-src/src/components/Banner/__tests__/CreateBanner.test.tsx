@@ -1,6 +1,7 @@
-import { render, screen, within } from "@testing-library/react";
-
+import { render, screen } from "@testing-library/react";
 import { CreateBanner } from "../CreateBanner";
+import { axe, toHaveNoViolations } from "jest-axe";
+expect.extend(toHaveNoViolations);
 
 const sx = {
   sectionHeader: {
@@ -11,23 +12,23 @@ const sx = {
 const onSubmitHandler = jest.fn();
 const onErrorHandler = jest.fn();
 const testComponent = (
-  <CreateBanner
-    sx={sx}
-    onSubmit={onSubmitHandler}
-    onError={onErrorHandler}
-    data-testid="test-banner"
-  />
+  <CreateBanner sx={sx} onSubmit={onSubmitHandler} onError={onErrorHandler} />
 );
 
-describe("Test Banner Item", () => {
+describe("Test CreateBanner", () => {
   beforeEach(() => {
     render(testComponent);
   });
 
   test("Create Banner is visible", () => {
-    let element = screen.getByTestId("test-banner");
-    expect(
-      within(element).getByText("Create a New Banner")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Create a New Banner")).toBeInTheDocument();
+  });
+});
+
+describe("Test CreateBanner accessibility", () => {
+  test("Should not have basic accessibility issues", async () => {
+    const { container } = render(testComponent);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

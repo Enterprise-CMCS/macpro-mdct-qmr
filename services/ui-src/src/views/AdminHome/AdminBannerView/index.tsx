@@ -18,7 +18,7 @@ export const AdminBannerView = () => {
   const [error, setError] = useState<string | undefined>();
   const [banner, setBanner] = useState<BannerData>();
 
-  const getMutation = useGetBanner();
+  const { data: getBannerBody } = useGetBanner(bannerId);
   const writeMutation = useWriteBanner();
   const deleteMutation = useDeleteBanner();
 
@@ -52,22 +52,8 @@ export const AdminBannerView = () => {
     });
   };
 
-  const getBanner = () => {
-    getMutation.mutate(bannerId, {
-      onSuccess: async (response) => {
-        if (/20\d/.test(response?.status)) {
-          const bannerData = response.body?.Item as BannerData;
-          setBanner(bannerData);
-        } else if (/404/.test(response?.status)) {
-          //DO NOTHING
-        } else {
-          setError(BANNER_ERRORS.GET_BANNER_FAILED);
-        }
-      },
-      onError: (error) => {
-        console.error("Unable to load banner", error);
-      },
-    });
+  const loadBanner = () => {
+    setBanner(getBannerBody as BannerData);
   };
 
   const onErrorHandler = (errorMessage: string) => {
@@ -75,7 +61,7 @@ export const AdminBannerView = () => {
   };
 
   useEffect(() => {
-    getBanner();
+    loadBanner();
   }, []);
 
   return (

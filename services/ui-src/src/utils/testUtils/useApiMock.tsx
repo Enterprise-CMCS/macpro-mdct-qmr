@@ -11,6 +11,8 @@ import {
   useUpdateMeasure,
   useGetReportingYears,
   useGetBanner,
+  useWriteBanner,
+  useDeleteBanner,
 } from "hooks/api";
 
 // TODO: Create interfaces for each of the hooks
@@ -101,6 +103,23 @@ export const defaultMockValues = {
     data: ["2021"],
   },
   useGetBannerValues: {
+    isLoading: false,
+    error: undefined,
+    isError: undefined,
+    data: {
+      title: "test banner",
+      description: "test description",
+      link: "https://www.mocklink.com",
+      startDate: new Date().getTime(),
+      endDate: new Date().getTime() + 60000,
+    },
+  },
+  useDeleteBannerValues: {
+    useMutation: () => {
+      mutate: () => {}; // eslint-disable-line
+    },
+  },
+  useWriteBannerValues: {
     useMutation: () => {
       mutate: () => {}; // eslint-disable-line
     },
@@ -114,6 +133,8 @@ export const defaultMockValues = {
 
 export const useApiMock = ({
   useGetBannerValues = defaultMockValues.useGetBannerValues,
+  useDeleteBannerValues = defaultMockValues.useDeleteBannerValues,
+  useWriteBannerValues = defaultMockValues.useWriteBannerValues,
   useAddCoreSetValues = defaultMockValues.useAddCoreSetValues,
   useAddMeasureValues = defaultMockValues.useAddMeasureValues,
   useDeleteCoreSetValues = defaultMockValues.useDeleteCoreSetValues,
@@ -160,5 +181,11 @@ export const useApiMock = ({
   });
   (useGetBanner as jest.Mock).mockReturnValue({
     ...useGetBannerValues,
+  });
+  (useWriteBanner as jest.Mock).mockReturnValue({
+    ...useWriteBannerValues,
+  });
+  (useDeleteBanner as jest.Mock).mockReturnValue({
+    ...useDeleteBannerValues,
   });
 };
