@@ -65,79 +65,76 @@ export const CreateBannerForm = (props: any) => {
   return (
     <form id={bannerId} onSubmit={handleSubmit(onSubmit)}>
       <CUI.Stack spacing="4" maxW="lg" py="4">
-        <CUI.Stack spacing="1">
-          <CUI.Text fontSize="sm" as="b">
-            Title text
-          </CUI.Text>
+        <CUI.FormControl spacing="1" isRequired>
+          <CUI.FormLabel>
+            <CUI.Text fontSize="sm" as="b">
+              Title text
+            </CUI.Text>
+          </CUI.FormLabel>
           <CUI.Input
             {...register("bannerTitle")}
             placeholder="New banner title"
-            isRequired
           />
-        </CUI.Stack>
-        <CUI.Stack spacing="1">
-          <CUI.Text fontSize="sm" as="b">
-            Description text
-          </CUI.Text>
+        </CUI.FormControl>
+        <CUI.FormControl spacing="1" isRequired>
+          <CUI.FormLabel>
+            <CUI.Text fontSize="sm" as="b">
+              Description text
+            </CUI.Text>
+          </CUI.FormLabel>
           <CUI.Textarea
             {...register("bannerDescription")}
             placeholder="New banner description"
-            isRequired
           />
-          <CUI.Text fontSize="sm" as="b">
-            Link
-          </CUI.Text>
-          <CUI.Text fontSize="sm" as="i">
-            Optional
-          </CUI.Text>
+        </CUI.FormControl>
+        <CUI.FormControl>
+          <CUI.FormLabel>
+            <CUI.Text fontSize="sm" as="b">
+              Link
+            </CUI.Text>
+          </CUI.FormLabel>
           <CUI.Input {...register("bannerLink")} />
-          <CUI.FormControl isInvalid={startDateError !== ""}>
+        </CUI.FormControl>
+        <CUI.FormControl isInvalid={startDateError !== ""} isRequired>
+          <CUI.FormLabel>
             <CUI.Text fontSize="sm" as="b">
               Start Date
             </CUI.Text>
-            <CUI.Text fontSize="sm">MM/DD/YYYY</CUI.Text>
-            <CUI.Input
-              {...register("bannerStartDate")}
-              maxW="3xs"
-              isRequired
-              onBlur={validateStartDate}
-            />
-            <CUI.FormErrorMessage>{startDateError}</CUI.FormErrorMessage>
-          </CUI.FormControl>
-          <CUI.FormControl isInvalid={endDateError !== ""}>
+          </CUI.FormLabel>
+          <CUI.Text fontSize="sm">MM/DD/YYYY</CUI.Text>
+          <CUI.Input
+            {...register("bannerStartDate")}
+            maxW="3xs"
+            onBlur={validateStartDate}
+          />
+          <CUI.FormErrorMessage>{startDateError}</CUI.FormErrorMessage>
+        </CUI.FormControl>
+        <CUI.FormControl isInvalid={endDateError !== ""} isRequired>
+          <CUI.FormLabel>
             <CUI.Text fontSize="sm" as="b">
               End Date
             </CUI.Text>
-            <CUI.Text fontSize="sm">MM/DD/YYYY</CUI.Text>
-            <CUI.Input
-              {...register("bannerEndDate")}
-              maxW="3xs"
-              isRequired
-              onBlur={validateEndDate}
-            />
-            <CUI.FormErrorMessage>{endDateError}</CUI.FormErrorMessage>
-          </CUI.FormControl>
-          <CUI.Flex sx={sx.previewFlex}>
-            <PreviewBanner
-              watched={watch([
-                "bannerTitle",
-                "bannerDescription",
-                "bannerLink",
-              ])}
-            />
-            <CUI.Button
-              form={bannerId}
-              type="submit"
-              sx={sx.replaceBannerButton}
-            >
-              {submitting ? (
-                <CUI.Spinner size="small" />
-              ) : (
-                "Replace Current Banner"
-              )}
-            </CUI.Button>
-          </CUI.Flex>
-        </CUI.Stack>
+          </CUI.FormLabel>
+          <CUI.Text fontSize="sm">MM/DD/YYYY</CUI.Text>
+          <CUI.Input
+            {...register("bannerEndDate")}
+            maxW="3xs"
+            onBlur={validateEndDate}
+          />
+          <CUI.FormErrorMessage>{endDateError}</CUI.FormErrorMessage>
+        </CUI.FormControl>
+        <CUI.Flex sx={sx.previewFlex}>
+          <PreviewBanner
+            watched={watch(["bannerTitle", "bannerDescription", "bannerLink"])}
+          />
+          <CUI.Button form={bannerId} type="submit" sx={sx.replaceBannerButton}>
+            {submitting ? (
+              <CUI.Spinner size="small" />
+            ) : (
+              "Replace Current Banner"
+            )}
+          </CUI.Button>
+        </CUI.Flex>
       </CUI.Stack>
     </form>
   );

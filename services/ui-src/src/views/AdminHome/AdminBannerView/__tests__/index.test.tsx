@@ -12,17 +12,8 @@ beforeEach(() => {
 
 describe("Test AdminBannerView", () => {
   test("Check basic page rendering", () => {
-    screen.debug();
     render(testComponent);
-    // expect(
-    //   screen.getByRole("button", { name: "Go To State Home" })
-    // ).toBeInTheDocument();
-    // expect(
-    //   screen.getByRole("heading", { name: "Banner Admin" })
-    // ).toBeInTheDocument();
-    // expect(
-    //   screen.getByRole("button", { name: "Banner Editor" })
-    // ).toBeInTheDocument();
+    expect(screen.getByText("Banner Admin")).toBeInTheDocument();
   });
 });
 
