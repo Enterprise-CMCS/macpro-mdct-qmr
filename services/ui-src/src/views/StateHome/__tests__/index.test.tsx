@@ -27,11 +27,6 @@ const testComponent = (
   </QueryClientProvider>
 );
 
-beforeEach(() => {
-  useApiMock({});
-  render(testComponent);
-});
-
 describe("Test StateHome", () => {
   beforeEach(() => {
     useApiMock({});

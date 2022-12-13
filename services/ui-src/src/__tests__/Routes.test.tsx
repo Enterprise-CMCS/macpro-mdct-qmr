@@ -18,7 +18,7 @@ const appRoutesComponent = (history: any) => (
 let history: any;
 const tempScroll = window.HTMLElement.prototype.scrollIntoView;
 
-describe("Test AppRoutes for admin-specific routes", () => {
+describe.skip("Test AppRoutes for admin-specific routes", () => {
   beforeEach(async () => {
     window.HTMLElement.prototype.scrollIntoView = function () {};
     history = createMemoryHistory();
