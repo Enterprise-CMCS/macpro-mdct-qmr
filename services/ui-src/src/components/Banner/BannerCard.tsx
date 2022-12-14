@@ -10,7 +10,7 @@ export const BannerCard = () => {
   const { data } = useGetBanner(bannerId);
   const getBanner = () => {
     if (data) {
-      const bannerData = data as unknown as BannerData;
+      const bannerData = data.body?.Item as unknown as BannerData;
       if (checkDateRangeStatus(bannerData?.startDate, bannerData?.endDate))
         setBanner(bannerData);
     }
