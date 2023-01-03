@@ -1,14 +1,19 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 
-import { CreateBannerForm } from "../CreateBannerFormOld";
+import { CreateBannerForm } from "../CreateBannerForm";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 const onErrorHandler = jest.fn();
 const onSubmitHandler = jest.fn();
+const writeBanner = jest.fn();
 
 const testComponent = (
-  <CreateBannerForm onError={onErrorHandler} onSubmit={onSubmitHandler} />
+  <CreateBannerForm
+    onError={onErrorHandler}
+    onSubmit={onSubmitHandler}
+    writeAdminBanner={writeBanner}
+  />
 );
 
 describe("Test Create Banner Form", () => {
