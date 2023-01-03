@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { PreviewBanner } from "../PreviewBanner";
+import { PreviewBanner } from "../PreviewBannerOld";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 const watched = ["My Title", "My Description"];

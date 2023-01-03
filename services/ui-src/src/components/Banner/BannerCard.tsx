@@ -6,18 +6,16 @@ import { Banner } from "./Banner";
 
 export const BannerCard = () => {
   const [banner, setBanner] = useState<BannerData>();
+  const bannerData = useGetBanner(bannerId);
 
-  const { data } = useGetBanner(bannerId);
-  const getBanner = () => {
-    if (data) {
-      const bannerData = data.body?.Item as unknown as BannerData;
-      if (checkDateRangeStatus(bannerData?.startDate, bannerData?.endDate))
-        setBanner(bannerData);
-    }
-  };
   useEffect(() => {
-    getBanner();
-  }, []);
+    if (bannerData?.isFetched) {
+      if (
+        checkDateRangeStatus(bannerData.data.startDate, bannerData.data.endDate)
+      )
+        setBanner(bannerData.data);
+    }
+  }, [bannerData]);
 
   return <Banner bannerData={banner} />;
 };

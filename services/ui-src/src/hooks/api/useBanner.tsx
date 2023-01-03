@@ -11,7 +11,8 @@ export const useWriteBanner = () => {
 };
 
 const _getBanner = async (bannerKey: string) => {
-  return await getBanner(bannerKey);
+  const banner = await getBanner(bannerKey);
+  return await banner?.body.Item;
 };
 
 export const useGetBanner = (bannerKey: string) => {

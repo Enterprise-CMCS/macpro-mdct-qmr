@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 
-import { CreateBannerForm } from "../CreateBannerForm";
+import { CreateBannerForm } from "../CreateBannerFormOld";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 

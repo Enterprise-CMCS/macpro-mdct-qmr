@@ -1,154 +1,105 @@
-import { useForm } from "react-hook-form";
-import * as CUI from "@chakra-ui/react";
-import { bannerId } from "utils/constants";
-import { PreviewBanner } from "./PreviewBanner";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { convertDatetimeStringToNumber } from "utils";
+import { bannerId } from "utils/constants";
+import { Spinner, Button, Alert } from "@cmsgov/design-system";
+import { TextField } from "./FormElements/TextField";
+import { PreviewBanner } from "./PreviewBanner";
+import { DateField } from "./FormElements/DateField";
+
+const BANNER_FIELDS = {
+  title: "bannerTitle",
+  description: "bannerDescription",
+  link: "bannerLink",
+  startDate: "bannerStartDate",
+  endDate: "bannerEndDate",
+};
 
 const FORM_ERRORS = {
   INVALID_START_DATE: "Invalid Start Date",
   INVALID_END_DATE: "Invalid End Date",
   DATE_MISMATCH: "End Date cannot be before Start Date",
 };
-
-export const CreateBannerForm = (props: any) => {
-  const { register, handleSubmit, watch, reset } = useForm();
-
+export const CreateBannerForm = ({ writeAdminBanner, ...props }: Props) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [startDateError, setStartDateError] = useState<string>("");
-  const [endDateError, setEndDateError] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  const form = useForm({
+    shouldFocusError: false,
+    mode: "onChange",
+  });
 
   const onSubmit = (formData: any) => {
     setSubmitting(true);
     let startDateInMS = convertDatetimeStringToNumber(
-      formData["bannerStartDate"],
+      formData[BANNER_FIELDS.startDate],
       "startDate"
     );
     if (!startDateInMS) {
-      setStartDateError(FORM_ERRORS.INVALID_START_DATE);
+      setError(FORM_ERRORS.INVALID_START_DATE);
     } else {
       let endDateInMS = convertDatetimeStringToNumber(
-        formData["bannerEndDate"],
+        formData[BANNER_FIELDS.endDate],
         "endDate"
       );
       if (!endDateInMS) {
-        setEndDateError(FORM_ERRORS.INVALID_END_DATE);
-        return;
+        setError(FORM_ERRORS.INVALID_END_DATE);
       } else if (startDateInMS > endDateInMS) {
-        setEndDateError(FORM_ERRORS.DATE_MISMATCH);
-        return;
+        setError(FORM_ERRORS.DATE_MISMATCH);
       } else {
-        props.onSubmit({ ...formData, startDateInMS, endDateInMS });
-        reset();
+        setError("");
+        writeAdminBanner({ ...formData, startDateInMS, endDateInMS });
       }
     }
     setSubmitting(false);
   };
-
-  const validateStartDate = (event: any) => {
-    setStartDateError(
-      event.target.value === "" ||
-        /[01][0-9]\/[0-3][0-9]\/20\d\d/.test(event.target.value)
-        ? ""
-        : FORM_ERRORS.INVALID_START_DATE
-    );
-  };
-  const validateEndDate = (event: any) => {
-    setEndDateError(
-      event.target.value === "" ||
-        /[01][0-9]\/[0-3][0-9]\/20\d\d/.test(event.target.value)
-        ? ""
-        : FORM_ERRORS.INVALID_END_DATE
-    );
-  };
-
   return (
-    <form id={bannerId} onSubmit={handleSubmit(onSubmit)}>
-      <CUI.Stack spacing="4" maxW="lg" py="4">
-        <CUI.FormControl spacing="1" isRequired>
-          <CUI.FormLabel>
-            <CUI.Text fontSize="sm" as="b">
-              Title text
-            </CUI.Text>
-          </CUI.FormLabel>
-          <CUI.Input
-            {...register("bannerTitle")}
+    <>
+      {error && (
+        <Alert heading="Banner Creation Error" variation="error">
+          <p className="ds-c-alert__text">{error}</p>
+        </Alert>
+      )}
+      <FormProvider {...form}>
+        <form id={bannerId} onSubmit={form.handleSubmit(onSubmit)} {...props}>
+          <TextField
+            label="Title Text"
+            name={BANNER_FIELDS.title}
             placeholder="New banner title"
           />
-        </CUI.FormControl>
-        <CUI.FormControl spacing="1" isRequired>
-          <CUI.FormLabel>
-            <CUI.Text fontSize="sm" as="b">
-              Description text
-            </CUI.Text>
-          </CUI.FormLabel>
-          <CUI.Textarea
-            {...register("bannerDescription")}
+          <TextField
+            label="Description text"
+            name={BANNER_FIELDS.description}
             placeholder="New banner description"
+            multiline
           />
-        </CUI.FormControl>
-        <CUI.FormControl>
-          <CUI.FormLabel>
-            <CUI.Text fontSize="sm" as="b">
-              Link
-            </CUI.Text>
-          </CUI.FormLabel>
-          <CUI.Input {...register("bannerLink")} />
-        </CUI.FormControl>
-        <CUI.FormControl isInvalid={startDateError !== ""} isRequired>
-          <CUI.FormLabel>
-            <CUI.Text fontSize="sm" as="b">
-              Start Date
-            </CUI.Text>
-          </CUI.FormLabel>
-          <CUI.Text fontSize="sm">MM/DD/YYYY</CUI.Text>
-          <CUI.Input
-            {...register("bannerStartDate")}
-            maxW="3xs"
-            onBlur={validateStartDate}
+          <TextField
+            label="Link"
+            name={BANNER_FIELDS.link}
+            requirementLabel="Optional"
           />
-          <CUI.FormErrorMessage>{startDateError}</CUI.FormErrorMessage>
-        </CUI.FormControl>
-        <CUI.FormControl isInvalid={endDateError !== ""} isRequired>
-          <CUI.FormLabel>
-            <CUI.Text fontSize="sm" as="b">
-              End Date
-            </CUI.Text>
-          </CUI.FormLabel>
-          <CUI.Text fontSize="sm">MM/DD/YYYY</CUI.Text>
-          <CUI.Input
-            {...register("bannerEndDate")}
-            maxW="3xs"
-            onBlur={validateEndDate}
+          <DateField
+            label="Start Date"
+            name={BANNER_FIELDS.startDate}
+            errorMessageOverride={FORM_ERRORS.INVALID_START_DATE}
           />
-          <CUI.FormErrorMessage>{endDateError}</CUI.FormErrorMessage>
-        </CUI.FormControl>
-        <CUI.Flex sx={sx.previewFlex}>
-          <PreviewBanner
-            watched={watch(["bannerTitle", "bannerDescription", "bannerLink"])}
+          <DateField
+            label="End Date"
+            name={BANNER_FIELDS.endDate}
+            errorMessageOverride={FORM_ERRORS.INVALID_END_DATE}
           />
-          <CUI.Button form={bannerId} type="submit" sx={sx.replaceBannerButton}>
-            {submitting ? (
-              <CUI.Spinner size="small" />
-            ) : (
-              "Replace Current Banner"
-            )}
-          </CUI.Button>
-        </CUI.Flex>
-      </CUI.Stack>
-    </form>
+        </form>
+        <PreviewBanner />
+      </FormProvider>
+      <div className="ds-u-padding-top--2 .ds-u-float--right">
+        <Button form={bannerId} type="submit">
+          {submitting ? <Spinner size="small" /> : "Replace Current Banner"}
+        </Button>
+      </div>
+    </>
   );
 };
-const sx = {
-  errorAlert: {
-    maxWidth: "40rem",
-  },
-  previewFlex: {
-    flexDirection: "column",
-  },
-  replaceBannerButton: {
-    width: "14rem",
-    marginTop: "1rem !important",
-    alignSelf: "end",
-  },
-};
+interface Props {
+  writeAdminBanner: Function;
+  [key: string]: any;
+}

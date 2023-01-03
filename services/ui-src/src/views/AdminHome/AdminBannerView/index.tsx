@@ -1,11 +1,12 @@
-import * as CUI from "@chakra-ui/react";
-import { Notification } from "components";
-import { CreateBanner } from "components/Banner/CreateBanner";
+import { Text } from "@chakra-ui/react";
 import { CurrentBanner } from "components/Banner/CurrentBanner";
+import { CreateBannerForm } from "components/Banner/CreateBannerForm";
 import { useEffect, useState } from "react";
 import { AdminBannerData, BannerData } from "types";
 import { bannerId } from "utils";
 import { useGetBanner, useWriteBanner, useDeleteBanner } from "hooks/api";
+import { Alert } from "@cmsgov/design-system";
+import "@cmsgov/design-system/dist/css/index.css";
 
 export const BANNER_ERRORS = {
   GET_BANNER_FAILED: "Banner could not be fetched. Please contact support.",
@@ -18,7 +19,7 @@ export const AdminBannerView = () => {
   const [error, setError] = useState<string | undefined>();
   const [banner, setBanner] = useState<BannerData>();
 
-  const { data: getBannerBody } = useGetBanner(bannerId);
+  const bannerData = useGetBanner(bannerId);
   const writeMutation = useWriteBanner();
   const deleteMutation = useDeleteBanner();
 
@@ -52,149 +53,35 @@ export const AdminBannerView = () => {
     });
   };
 
-  const loadBanner = () => {
-    setBanner(getBannerBody as BannerData);
-  };
-
   const onErrorHandler = (errorMessage: string) => {
     setError(errorMessage);
   };
 
   useEffect(() => {
-    loadBanner();
-  }, []);
+    if (!banner && bannerData.isFetched) {
+      setBanner(bannerData.data as BannerData);
+    }
+  }, [banner, bannerData]);
 
   return (
-    <CUI.Box sx={{ ...sx.pageBox, ...sx.pageFlex }} className="standard">
-      <CUI.Flex sx={sx.contentFlex} className={`contentFlex standard`}>
+    <div className="ds-u-border--1 ds-u-padding--6">
+      <div className="ds-l-container">
         {error && (
-          <Notification
-            alertTitle="Banner Error"
-            alertDescription={error}
-            alertStatus="error"
-          />
+          <Alert heading="Banner Error" variation="error">
+            <p className="ds-c-alert__text">{error}</p>
+          </Alert>
         )}
-        <CUI.Box sx={sx.introTextBox}>
-          <CUI.Text sx={sx.headerText}>Banner Admin</CUI.Text>
-          <CUI.Text>Manage the announcement banner below.</CUI.Text>
-        </CUI.Box>
-        <CUI.Box sx={sx.currentBannerSectionBox}>
-          <CUI.Text sx={sx.sectionHeader}>Current Banner</CUI.Text>
-          <CurrentBanner
-            bannerData={banner}
-            sx={sx}
-            onError={onErrorHandler}
-            onDelete={onDeleteHandler}
-          />
-        </CUI.Box>
-        <CreateBanner
-          sx={sx}
-          onSubmit={onSubmitHandler}
+        <Text className="ds-text-heading--3xl">Banner Admin</Text>
+        <Text>Manage the announcement banner below.</Text>
+        <Text className="ds-text-heading--2xl">Current Banner</Text>
+        <CurrentBanner
+          bannerData={banner}
           onError={onErrorHandler}
+          onDelete={onDeleteHandler}
         />
-      </CUI.Flex>
-    </CUI.Box>
+        <Text className="ds-text-heading--2xl">Create a New Banner</Text>
+        <CreateBannerForm writeAdminBanner={onSubmitHandler}></CreateBannerForm>
+      </div>
+    </div>
   );
-};
-
-const sx = {
-  pageBox: {
-    "&.standard": {
-      flexShrink: "0",
-      paddingTop: "2rem",
-    },
-  },
-  pageFlex: {
-    flexDirection: "column",
-    "&.standard": {
-      maxWidth: "46rem",
-      margin: "5.5rem auto 0",
-      width: "100%",
-    },
-  },
-
-  contentBox: {
-    "&.standard": {
-      flexShrink: "0",
-    },
-  },
-  contentFlex: {
-    flexDirection: "column",
-    "&.standard": {
-      maxWidth: "46rem",
-      margin: "5.5rem auto 0",
-    },
-    padding: "0 2rem",
-  },
-  layout: {
-    ".contentFlex": {
-      marginTop: "3.5rem",
-    },
-  },
-  errorAlert: {
-    width: "100% !important",
-    marginTop: "-4rem",
-    marginBottom: "2rem",
-  },
-  introTextBox: {
-    width: "100%",
-    marginBottom: "2.25rem",
-  },
-  headerText: {
-    marginBottom: "1rem",
-    fontSize: "2rem",
-    fontWeight: "normal",
-  },
-  currentBannerSectionBox: {
-    width: "100%",
-    marginBottom: "2.25rem",
-  },
-  sectionHeader: {
-    fontSize: "1.5rem",
-    fontWeight: "bold",
-  },
-  currentBannerInfo: {
-    flexDirection: "column",
-    marginBottom: "0.5rem !important",
-  },
-  currentBannerStatus: {
-    span: {
-      marginLeft: "0.5rem",
-      "&.active": {
-        color: "green",
-      },
-      "&.inactive": {
-        color: "red",
-      },
-    },
-  },
-  currentBannerDate: {
-    span: {
-      marginLeft: "0.5rem",
-    },
-  },
-  currentBannerFlex: {
-    flexDirection: "column",
-  },
-  spinnerContainer: {
-    marginTop: "0.5rem",
-    ".ds-c-spinner": {
-      "&:before": {
-        borderColor: "black",
-      },
-      "&:after": {
-        borderLeftColor: "black",
-      },
-    },
-  },
-  deleteBannerButton: {
-    width: "13.3rem",
-    alignSelf: "end",
-    marginTop: "1rem !important",
-  },
-  newBannerBox: {
-    width: "100%",
-    flexDirection: "column",
-    marginBottom: "2.25rem",
-  },
 };
