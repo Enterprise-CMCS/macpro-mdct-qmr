@@ -3595,7 +3595,7 @@
   dependencies:
     "@chakra-ui/utils" "1.9.1"
 
-"@cmsgov/design-system@5.0.2":
+"@cmsgov/design-system@^5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@cmsgov/design-system/-/design-system-5.0.2.tgz#5548343d22b0eff2d5bfbbddd6baa3c980640df2"
   integrity sha512-+UJjsxtM6iSqD/SYZKsH4+/oUZpTDLk439Fd4vf94cGUxLnwmPdTXfHX10lj0SfJNeKDVKhJH7A6Xyf18xTwKQ==

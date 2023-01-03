@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@chakra-ui/react": "^1.7.0",
-    "@cmsgov/design-system": "5.0.2",
+    "@cmsgov/design-system": "^5.0.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@hookform/resolvers": "^2.8.4",
