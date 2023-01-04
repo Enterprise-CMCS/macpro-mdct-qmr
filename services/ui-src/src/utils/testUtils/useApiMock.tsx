@@ -106,6 +106,7 @@ export const defaultMockValues = {
     isLoading: false,
     error: undefined,
     isError: undefined,
+    isFetched: true,
     data: {
       title: "test banner",
       description: "test description",

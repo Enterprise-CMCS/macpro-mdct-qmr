@@ -16,6 +16,16 @@ const testComponent = (bannerData: BannerData | undefined) => (
   />
 );
 
+jest.mock("react-hook-form", () => ({
+  useFormContext: () => ({
+    getValues: jest.fn().mockReturnValue({
+      bannerTitle: "Banner Title",
+      bannerDescription: "Banner Description",
+      bannerLink: "",
+    }),
+  }),
+}));
+
 describe("Test Current Banner", () => {
   test("Current Banner is visible and active", () => {
     const bannerData: BannerData = {

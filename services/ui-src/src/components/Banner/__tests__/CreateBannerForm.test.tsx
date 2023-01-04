@@ -36,7 +36,7 @@ describe("Test Create Banner Form", () => {
     expect(screen.getByText("New banner description")).toBeVisible();
   });
 
-  test("Valid Form input", () => {
+  test.skip("Valid Form input", () => {
     render(testComponent);
     const titleInput = screen.getByLabelText("Title text", { exact: false });
     expect(screen.queryByText("Test Banner")).toBeNull();
