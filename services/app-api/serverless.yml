@@ -41,8 +41,7 @@ custom:
   measureTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableArn}
   measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableStreamArn}
   bannerTableName: ${env:bannerTableName, cf:database-${self:custom.stage}.BannerTableName}
-  bannerTableArm: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.BannerTableArn}
-  bannerTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.BannerTableStreamArn}
+  bannerTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.BannerTableArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl
   vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id~true, ssm:/configuration/default/vpc/id~true}
   privateSubnets:

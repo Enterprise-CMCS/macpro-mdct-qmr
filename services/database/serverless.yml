@@ -78,8 +78,6 @@ resources:
         TableName: ${self:custom.bannerTableName}
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
         AttributeDefinitions:
           - AttributeName: key
             AttributeType: S
@@ -104,7 +102,5 @@ resources:
       Value: !Ref BannerTable
     BannerTableArn:
       Value: !GetAtt BannerTable.Arn
-    BannerTableStreamArn:
-      Value: !GetAtt BannerTable.StreamArn
     Region:
       Value: !Sub ${AWS::Region}
