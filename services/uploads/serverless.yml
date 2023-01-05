@@ -75,6 +75,8 @@ layers:
 functions:
   dynamoSync:
     handler: src/dynamoSync/handler.syncDynamoToS3
+    memorySize: 4096
+    timeout: 120
     events:
       - schedule: cron(30 * * * ? *)
     environment:
