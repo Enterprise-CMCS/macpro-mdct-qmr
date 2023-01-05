@@ -36,6 +36,7 @@ describe("Test Create Banner Form", () => {
     expect(screen.getByText("New banner description")).toBeVisible();
   });
 
+  //Skipping this test, need to resolve the mocking of forms in this component.
   test.skip("Valid Form input", () => {
     render(testComponent);
     const titleInput = screen.getByLabelText("Title text", { exact: false });
