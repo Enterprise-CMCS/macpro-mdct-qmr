@@ -20,8 +20,8 @@ install_deps() {
 unit_test() {
   service=$1
   pushd services/$service
-  install_deps
-  yarn run coverage --maxWorkers=25%
+  install_deps 
+  yarn run coverage
   popd
 }
 
