@@ -98,8 +98,6 @@ provider:
           Resource:
             - ${self:custom.coreSetTableStreamArn}
             - ${self:custom.measureTableStreamArn}
-            - ${self:custom.bannerTableStreamArn}
-
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
