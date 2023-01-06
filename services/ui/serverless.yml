@@ -120,7 +120,7 @@ resources:
           Statement:
             - Effect: Allow
               Action: "s3:PutObject"
-              Resource: !Sub arn:aws:s3:::${LoggingBucket}/*
+              Resource: !Sub arn:aws:s3:::${CloudFrontLoggingBucket}/*
               Principal:
                 AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
             - Sid: "AllowSSLRequestsOnly"
@@ -128,8 +128,8 @@ resources:
               Action: "s3:*"
               Principal: "*"
               Resource:
-                - !Sub arn:aws:s3:::${LoggingBucket}/*
-                - !Sub arn:aws:s3:::${LoggingBucket}
+                - !Sub arn:aws:s3:::${CloudFrontLoggingBucket}/*
+                - !Sub arn:aws:s3:::${CloudFrontLoggingBucket}
               Condition:
                 Bool:
                   aws:SecureTransport: false
