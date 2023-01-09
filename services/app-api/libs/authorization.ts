@@ -35,7 +35,8 @@ export const isAuthorized = (
   // if user is an admin - they can only GET resources
   return (
     requestMethod === RequestMethods.GET ||
-    (requestMethod === RequestMethods.POST && postOverride)
+    (requestMethod === RequestMethods.POST && postOverride) ||
+    (requestMethod === RequestMethods.DELETE && postOverride)
   );
 };
 

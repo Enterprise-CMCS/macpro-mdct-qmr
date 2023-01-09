@@ -60,3 +60,6 @@ export const stateAbbreviations = [
   "WI",
   "WY",
 ];
+
+// BANNERS
+export const bannerId = "admin-banner-id";
