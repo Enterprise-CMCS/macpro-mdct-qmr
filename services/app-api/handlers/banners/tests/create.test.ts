@@ -18,7 +18,13 @@ jest.mock("../../../libs/debug-lib", () => ({
 const testEvent: APIGatewayProxyEvent = {
   ...proxyEvent,
   httpMethod: "PUT",
-  body: JSON.stringify({ testBanner }),
+  body: JSON.stringify(testBanner),
+};
+
+const testEventNoTitle: APIGatewayProxyEvent = {
+  ...proxyEvent,
+  httpMethod: "PUT",
+  body: JSON.stringify({ ...testBanner, title: "" }),
 };
 
 jest.spyOn(dynamoDb, "put").mockImplementation(
@@ -36,6 +42,12 @@ describe("Test createBanner API method", () => {
     const res = await createBanner(testEvent, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(JSON.parse(res.body).status).toBe(StatusCodes.CREATED);
+  });
+
+  test("Test invalid banner data", async () => {
+    const res = await createBanner(testEventNoTitle, null);
+    expect(res.statusCode).toBe(StatusCodes.SERVER_ERROR);
+    expect(res.body).toContain(Errors.INVALID_DATA);
   });
 
   test("Test bannerKey not provided throws 500 error", async () => {
