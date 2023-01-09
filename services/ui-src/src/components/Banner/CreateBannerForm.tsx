@@ -66,12 +66,14 @@ export const CreateBannerForm = ({ writeAdminBanner, ...props }: Props) => {
             label="Title Text"
             name={BANNER_FIELDS.title}
             placeholder="New banner title"
+            required
           />
           <TextField
             label="Description text"
             name={BANNER_FIELDS.description}
             placeholder="New banner description"
             multiline
+            required
           />
           <TextField
             label="Link"
@@ -82,11 +84,13 @@ export const CreateBannerForm = ({ writeAdminBanner, ...props }: Props) => {
             label="Start Date"
             name={BANNER_FIELDS.startDate}
             errorMessageOverride={FORM_ERRORS.INVALID_START_DATE}
+            required
           />
           <DateField
             label="End Date"
             name={BANNER_FIELDS.endDate}
             errorMessageOverride={FORM_ERRORS.INVALID_END_DATE}
+            required
           />
         </form>
         <PreviewBanner />
