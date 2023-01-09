@@ -1,6 +1,6 @@
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence
-* @karla-vm @TheDanMiller @BearHanded @braxex @gmrabian @ntsummers1 @juliuscaesar @scwambach @britt-mo
+* @karla-vm @TheDanMiller @BearHanded @braxex @ntsummers1 @juliuscaesar @scwambach @britt-mo @tblackwe
 
 # This further restricts files where labels change to only have super approval
 services/ui-src/src/measures/2021/rateLabelText.ts

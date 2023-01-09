@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@chakra-ui/react": "^1.7.0",
-    "@cmsgov/design-system": "^2.9.0",
+    "@cmsgov/design-system": "^5.0.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@hookform/resolvers": "^2.8.4",
@@ -15,6 +15,8 @@
     "date-fns-tz": "^1.2.2",
     "file-saver": "^2.0.5",
     "framer-motion": "^4",
+    "jest-launchdarkly-mock": "^2.0.0",
+    "launchdarkly-react-client-sdk": "^3.0.0",
     "object-path": "^0.11.8",
     "react": "^17.0.1",
     "react-bootstrap": "^2.0.1",
