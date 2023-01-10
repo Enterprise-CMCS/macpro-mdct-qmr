@@ -282,23 +282,41 @@ resources:
             - Effect: Allow
               Principal:
                 AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
-              Action: "kms:*"
+              Action:
+                [
+                  "kms:Create*",
+                  "kms:Describe*",
+                  "kms:Enable*",
+                  "kms:List*",
+                  "kms:Put*",
+                  "kms:Update*",
+                  "kms:Revoke*",
+                  "kms:Disable*",
+                  "kms:Get*",
+                  "kms:Delete*",
+                  "kms:TagResource",
+                  "kms:UntagResource",
+                  "kms:ScheduleKeyDeletion",
+                  "kms:CancelKeyDeletion",
+                ]
               Resource: "*"
             - Effect: Allow
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole}
-              Action: "kms:*"
+                AWS: [
+                  ${ssm:/configuration/mpriamrole},
+                  ${ssm:/configuration/mprdeviam},
+                  !GetAtt IamRoleLambdaExecution.Arn
+                  ]
+              Action:
+                [
+                  "kms:Encrypt",
+                  "kms:Decrypt",
+                  "kms:ReEncrypt*",
+                  "kms:GenerateDataKey*",
+                  "kms:DescribeKey",
+                ]
               Resource: "*"
-            - Effect: Allow
-              Principal:
-                AWS: ${ssm:/configuration/mprdeviam}
-              Action: "kms:*"
-              Resource: "*"
-            - Effect: Allow
-              Principal:
-                AWS: !GetAtt IamRoleLambdaExecution.Arn
-              Action: "kms:*"
-              Resource: "*"
+
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
@@ -519,3 +537,4 @@ resources:
       Value: !GetAtt DynamoSnapshotBucket.Arn
     Region:
       Value: !Sub ${AWS::Region}
+
