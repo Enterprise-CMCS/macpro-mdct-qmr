@@ -302,11 +302,10 @@ resources:
               Resource: "*"
             - Effect: Allow
               Principal:
-                AWS: [
-                  ${ssm:/configuration/mpriamrole},
-                  ${ssm:/configuration/mprdeviam},
-                  !GetAtt IamRoleLambdaExecution.Arn
-                  ]
+                AWS:
+                  - ${ssm:/configuration/mpriamrole}
+                  - ${ssm:/configuration/mprdeviam}
+                  - !GetAtt IamRoleLambdaExecution.Arn
               Action:
                 [
                   "kms:Encrypt",
@@ -537,4 +536,3 @@ resources:
       Value: !GetAtt DynamoSnapshotBucket.Arn
     Region:
       Value: !Sub ${AWS::Region}
-
