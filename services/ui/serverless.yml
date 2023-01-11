@@ -87,17 +87,16 @@ resources:
               Resource: !Sub arn:aws:s3:::${S3Bucket}/*
               Principal:
                 CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
-              Condition:
-                Bool:
-                  "aws:SecureTransport": true
-            - Action:
-                - "s3:*"
-              Effect: "Deny"
+            - Sid: "AllowSSLRequestsOnly"
+              Effect: Deny
+              Action: "s3:*"
               Principal: "*"
-              Resource: !Sub arn:aws:s3:::${S3Bucket}/*
+              Resource:
+                - !Sub arn:aws:s3:::${S3Bucket}/*
+                - !Sub arn:aws:s3:::${S3Bucket}
               Condition:
                 Bool:
-                  "aws:SecureTransport": false
+                  aws:SecureTransport: false
         Bucket: !Ref S3Bucket
     CloudFrontLoggingBucket:
       Type: AWS::S3::Bucket
@@ -114,7 +113,7 @@ resources:
                 SSEAlgorithm: AES256
       DeletionPolicy: Delete
     LogBucketPolicy:
-      Type: AWS::S3::BucketPolicy
+      Type: "AWS::S3::BucketPolicy"
       Properties:
         PolicyDocument:
           Version: "2012-10-17"
@@ -205,7 +204,7 @@ resources:
             Fn::If:
               - CreateCustomCloudFrontDomain
               - AcmCertificateArn: ${self:custom.cloudfrontCertificateArn}
-                MinimumProtocolVersion: TLSv1
+                MinimumProtocolVersion: TLSv1.2_2021
                 SslSupportMethod: sni-only
               - CloudFrontDefaultCertificate: true
           CustomErrorResponses:
@@ -252,19 +251,22 @@ resources:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
     WaflogsUploadBucketPolicy:
-      Type: AWS::S3::BucketPolicy
+      Type: "AWS::S3::BucketPolicy"
       Properties:
-        Bucket: !Ref WaflogsUploadBucket
         PolicyDocument:
+          Version: "2012-10-17"
           Statement:
-            - Action:
-                - "s3:*"
+            - Sid: "AllowSSLRequestsOnly"
               Effect: Deny
+              Action: "s3:*"
               Principal: "*"
-              Resource: !Sub ${WaflogsUploadBucket.Arn}/*
+              Resource:
+                - !Sub arn:aws:s3:::${WaflogsUploadBucket}/*
+                - !Sub arn:aws:s3:::${WaflogsUploadBucket}
               Condition:
                 Bool:
-                  "aws:SecureTransport": false
+                  aws:SecureTransport: false
+        Bucket: !Ref WaflogsUploadBucket
     Firehose:
       Type: AWS::KinesisFirehose::DeliveryStream
       Properties:

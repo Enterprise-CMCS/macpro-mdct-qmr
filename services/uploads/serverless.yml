@@ -161,11 +161,13 @@ resources:
               Resource: !Sub ${ClamDefsBucket.Arn}/*
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
-            - Action:
-                - "s3:*"
+            - Sid: "AllowSSLRequestsOnly"
               Effect: Deny
+              Action: "s3:*"
               Principal: "*"
-              Resource: !Sub ${ClamDefsBucket.Arn}/*
+              Resource:
+                - !Sub arn:aws:s3:::${ClamDefsBucket}/*
+                - !Sub arn:aws:s3:::${ClamDefsBucket}
               Condition:
                 Bool:
                   "aws:SecureTransport": false
@@ -214,11 +216,13 @@ resources:
               Resource: !Sub ${AttachmentsBucket.Arn}
               Principal:
                 AWS: !GetAtt IamRoleLambdaExecution.Arn
-            - Action:
-                - "s3:*"
-              Effect: "Deny"
+            - Sid: "AllowSSLRequestsOnly"
+              Effect: Deny
+              Action: "s3:*"
               Principal: "*"
-              Resource: !Sub ${AttachmentsBucket.Arn}/*
+              Resource:
+                - !Sub arn:aws:s3:::${AttachmentsBucket}/*
+                - !Sub arn:aws:s3:::${AttachmentsBucket}
               Condition:
                 Bool:
                   "aws:SecureTransport": false
@@ -278,23 +282,39 @@ resources:
             - Effect: Allow
               Principal:
                 AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
-              Action: "kms:*"
+              Action:
+                - "kms:Create*"
+                - "kms:Describe*"
+                - "kms:Enable*"
+                - "kms:List*"
+                - "kms:Put*"
+                - "kms:Update*"
+                - "kms:Revoke*"
+                - "kms:Disable*"
+                - "kms:Get*"
+                - "kms:Delete*"
+                - "kms:TagResource"
+                - "kms:UntagResource"
+                - "kms:ScheduleKeyDeletion"
+                - "kms:CancelKeyDeletion"
+                - "kms:Encrypt"
+                - "kms:GenerateDataKey*"
+                - "kms:DescribeKey"
               Resource: "*"
             - Effect: Allow
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole}
-              Action: "kms:*"
+                AWS:
+                  - ${ssm:/configuration/mpriamrole}
+                  - ${ssm:/configuration/mprdeviam}
+                  - !GetAtt IamRoleLambdaExecution.Arn
+              Action:
+                - "kms:Encrypt"
+                - "kms:Decrypt"
+                - "kms:ReEncrypt*"
+                - "kms:GenerateDataKey*"
+                - "kms:DescribeKey"
               Resource: "*"
-            - Effect: Allow
-              Principal:
-                AWS: ${ssm:/configuration/mprdeviam}
-              Action: "kms:*"
-              Resource: "*"
-            - Effect: Allow
-              Principal:
-                AWS: !GetAtt IamRoleLambdaExecution.Arn
-              Action: "kms:*"
-              Resource: "*"
+
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
       Properties:
@@ -365,11 +385,13 @@ resources:
               NotResource:
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.csv
                 - !Sub ${DynamoSnapshotBucket.Arn}/*.json
-            - Action:
-                - "s3:*"
+            - Sid: "AllowSSLRequestsOnly"
               Effect: Deny
+              Action: "s3:*"
               Principal: "*"
-              Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
+              Resource:
+                - !Sub arn:aws:s3:::${DynamoSnapshotBucket}/*
+                - !Sub arn:aws:s3:::${DynamoSnapshotBucket}
               Condition:
                 Bool:
                   "aws:SecureTransport": false

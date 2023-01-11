@@ -40,6 +40,8 @@ custom:
   measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
   measureTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableArn}
   measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableStreamArn}
+  bannerTableName: ${env:bannerTableName, cf:database-${self:custom.stage}.BannerTableName}
+  bannerTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.BannerTableArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl
   vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id~true, ssm:/configuration/default/vpc/id~true}
   privateSubnets:
@@ -99,6 +101,7 @@ provider:
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
+    bannerTableName: ${self:custom.bannerTableName}
     uploadS3BucketName: ${cf:uploads-${self:custom.stage}.AttachmentsBucketName, ""}
     dynamoSnapshotS3BucketName: ${cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, ""}
     stage: ${opt:stage, self:provider.stage}
@@ -201,6 +204,42 @@ functions:
           method: delete
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+  fetchBanner:
+    handler: handlers/banners/fetch.fetchBanner
+    events:
+      - http:
+          path: banners/{bannerId}
+          method: get
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          request:
+            parameters:
+              paths:
+                bannerId: true
+  createBanner:
+    handler: handlers/banners/create.createBanner
+    events:
+      - http:
+          path: banners/{bannerId}
+          method: post
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          request:
+            parameters:
+              paths:
+                bannerId: true
+  deleteBanner:
+    handler: handlers/banners/delete.deleteBanner
+    events:
+      - http:
+          path: banners/{bannerId}
+          method: delete
+          cors: true
+          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          request:
+            parameters:
+              paths:
+                bannerId: true
   getPDF:
     handler: handlers/prince/pdf.getPDF
     events:
@@ -238,7 +277,6 @@ functions:
       securityGroupIds:
         - Ref: KafkaSecurityGroup
       subnetIds: ${self:custom.privateSubnets}
-
 resources:
   Resources:
     KafkaSecurityGroup:

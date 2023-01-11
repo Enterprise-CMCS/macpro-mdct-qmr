@@ -9,3 +9,4 @@ export * from "./useGetMeasure";
 export * from "./useGetMeasures";
 export * from "./useGetReportingYears";
 export * from "./useUpdateMeasure";
+export * from "./useBanner";

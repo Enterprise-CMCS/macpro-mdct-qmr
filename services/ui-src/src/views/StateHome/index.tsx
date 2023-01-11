@@ -15,6 +15,7 @@ import { useUser } from "hooks/authHooks";
 import { useGetReportingYears } from "hooks/api";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
+import { BannerCard } from "components/Banner/BannerCard";
 interface HandleDeleteData {
   state: string;
   year: string;
@@ -214,6 +215,9 @@ const StateHome = () => {
         { path: `/${state}/${year}`, name: "Core Set Measures" },
       ]}
     >
+      <CUI.Container maxW="5xl" py="4">
+        <BannerCard />
+      </CUI.Container>
       {data.Items && data.Items.length === 0 && (
         <CUI.Box data-testid="no-state-data">
           <QMR.Notification
