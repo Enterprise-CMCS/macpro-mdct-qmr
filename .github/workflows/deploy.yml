@@ -42,7 +42,7 @@ jobs:
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: run unit tests
-        run: ./services/ui-src/yarn test --shard=${{ matrix.shard }}/${{ strategy.job-total }} --coverage
+        run: yarn --cwd ./services/ui-src test --shard=${{ matrix.shard }}/${{ strategy.job-total }} --coverage
       - name: publish test coverage to code climate
         if: env.CODE_CLIMATE_ID != ''
         uses: paambaati/codeclimate-action@v2.7.5
