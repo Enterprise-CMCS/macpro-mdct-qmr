@@ -21,10 +21,7 @@ unit_test() {
   service=$1
   pushd services/$service
   install_deps 
-  yarn run coverage --shard=1/4
-  yarn run coverage --shard=2/4
-  yarn run coverage --shard=3/4
-  yarn run coverage --shard=4/4
+  yarn run coverage --runInBand
   popd
 }
 
