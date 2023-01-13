@@ -36,7 +36,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "coverage": "jest --coverage",
-    "ci": "jest --shard=[1,2,3,4]/4 --coverage",
     "test": "jest --setupFiles dotenv/config",
     "watchTest": "jest --setupFiles dotenv/config --watch",
     "eject": "react-scripts eject",
