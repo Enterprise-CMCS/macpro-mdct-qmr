@@ -21,7 +21,7 @@ unit_test() {
   service=$1
   pushd services/$service
   install_deps 
-  yarn run --shard=[1,2,3,4]/4 coverage 
+  yarn run ci 
   popd
 }
 
