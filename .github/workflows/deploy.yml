@@ -93,7 +93,12 @@ jobs:
         containers: [create_delete_child]
     steps:
       - name: set branch_name
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v1
       - name: set branch specific variable names
         run: ./.github/build_vars.sh set_names
@@ -183,7 +188,12 @@ jobs:
         containers: [create_delete_healthhome]
     steps:
       - name: set branch_name
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v1
       - name: set branch specific variable names
         run: ./.github/build_vars.sh set_names
@@ -307,7 +317,12 @@ jobs:
           ]
     steps:
       - name: set branch_name
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v1
       - name: set branch specific variable names
         run: ./.github/build_vars.sh set_names
@@ -421,7 +436,12 @@ jobs:
           ]
     steps:
       - name: set branch_name
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v1
       - name: set branch specific variable names
         run: ./.github/build_vars.sh set_names
@@ -527,7 +547,12 @@ jobs:
           ]
     steps:
       - name: set branch_name
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v1
       - name: set branch specific variable names
         run: ./.github/build_vars.sh set_names
@@ -636,7 +661,12 @@ jobs:
           ]
     steps:
       - name: set branch_name
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v1
       - name: set branch specific variable names
         run: ./.github/build_vars.sh set_names
@@ -781,7 +811,12 @@ jobs:
           ]
     steps:
       - name: set branch_name
-        run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: |
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
+            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@v1
       - name: set branch specific variable names
         run: ./.github/build_vars.sh set_names
