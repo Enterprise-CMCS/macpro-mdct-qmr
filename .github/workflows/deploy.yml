@@ -193,15 +193,15 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-  e2e-tests-features:
-    name: End To End Feature Tests
-    needs: e2e-tests-init
+  e2e-tests:
+    name: End To End Tests
+    needs: [deploy, e2e-tests-init]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2, 3, 4, 5]
+        containers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     steps:
       - uses: actions/checkout@v1
       - name: set branch specific variable names
@@ -246,7 +246,9 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/features/*.spec.ts
+          spec: |
+            cypress/integration/measures/*.spec.ts
+            cypress/integration/features/*.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
