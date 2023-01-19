@@ -3,7 +3,7 @@
 set -e
 
 services=(
-  'ui-src'
+  # 'ui-src'
   'app-api'
 )
 
