@@ -282,7 +282,7 @@ jobs:
 
   a11y-tests:
     name: Test Ally
-    needs: [e2e-tests-features]
+    needs: [deploy, e2e-tests]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
