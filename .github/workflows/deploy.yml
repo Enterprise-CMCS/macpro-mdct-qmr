@@ -195,7 +195,7 @@ jobs:
 
   e2e-tests-features:
     name: End To End Tests
-    needs: deploy
+    needs: e2e-tests-init
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
@@ -252,7 +252,6 @@ jobs:
           config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
           wait-on: ${{ needs.deploy.outputs.application_endpoint }}
           env: true
-          record: true
           parallel: true
           group: "QMR Features"
         env:
@@ -345,7 +344,6 @@ jobs:
           config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
           wait-on: ${{ needs.deploy.outputs.application_endpoint }}
           env: true
-          record: true
           parallel: true
           group: "QMR Accessibility"
         env:
