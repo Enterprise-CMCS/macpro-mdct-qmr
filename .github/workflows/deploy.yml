@@ -192,7 +192,9 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       - id: set-test-matrix
-        run: echo "::set-output name=feature-matrix::$(ls ./cypress/integration/features/*.spec.js | jq -R -s -c 'split("\n")[:-1]')"
+        run: |
+          pwd
+          echo "::set-output name=feature-matrix::$(ls ./tests/cypress/integration/features/*.spec.js | jq -R -s -c 'split("\n")[:-1]')"
 
   e2e-tests:
     name: End To End Tests
