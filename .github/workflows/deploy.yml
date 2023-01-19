@@ -91,7 +91,7 @@ jobs:
           role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
       - name: read .nvmrc
-        id: node_versionß
+        id: node_version
         run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
       - uses: actions/setup-node@v1
         with:
