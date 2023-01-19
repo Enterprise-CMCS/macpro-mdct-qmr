@@ -115,7 +115,7 @@ jobs:
       application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
 
   e2e-tests-init:
-    name: End To End Tests
+    name: Initialize End To End Tests
     needs: deploy
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
@@ -194,7 +194,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   e2e-tests-features:
-    name: End To End Tests
+    name: End To End Feature Tests
     needs: e2e-tests-init
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
