@@ -193,7 +193,9 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       - id: set-test-matrix
         run: |
-          echo "::set-output name=feature-matrix::$(ls -1 tests/cypress/cypress/integration/features/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')"
+          echo "feature-matrix=$(ls -1 tests/cypress/cypress/integration/features/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+    outputs:
+      feature-matrix: ${{ steps.set-test-matrix.outputs.feature-matrix}}
 
   e2e-tests:
     name: End To End Tests
