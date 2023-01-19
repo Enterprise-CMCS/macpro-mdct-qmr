@@ -254,8 +254,6 @@ jobs:
           config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
           wait-on: ${{ needs.deploy.outputs.application_endpoint }}
           env: true
-          parallel: true
-          group: "QMR Features"
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
           CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
@@ -346,8 +344,6 @@ jobs:
           config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
           wait-on: ${{ needs.deploy.outputs.application_endpoint }}
           env: true
-          parallel: true
-          group: "QMR Accessibility"
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
           CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
