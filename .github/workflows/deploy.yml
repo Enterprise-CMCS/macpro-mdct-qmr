@@ -159,13 +159,6 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      # - name: Endpoint
-      #   run: |
-      #     pushd services
-      #     export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
-      #     echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
-      #     echo "Application endpoint: $APPLICATION_ENDPOINT"
-      #     popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -205,7 +198,7 @@ jobs:
 
   a11y-tests:
     name: Test Ally
-    needs: [test-adult-measures, test-child-measures, test-healthhome-measures]
+    needs: e2e-tests
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     steps:
