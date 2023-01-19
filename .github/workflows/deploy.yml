@@ -170,7 +170,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/features/create_delete_child.spec.ts
+          spec: cypress/integration/features/*.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
