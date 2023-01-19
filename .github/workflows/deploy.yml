@@ -183,7 +183,6 @@ jobs:
           path: |
             tests/cypress/screenshots/
             tests/cypress/videos/
-
       - name: Slack Notification
         if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
         uses: 8398a7/action-slack@v3
@@ -192,6 +191,8 @@ jobs:
           fields: repo,message,commit,ref # selectable (default: repo,message)
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - id: set-test-matrix
+        run: echo "::set-output name=feature-matrix::$(ls ./cypress/integration/features/*.spec.js | jq -R -s -c 'split("\n")[:-1]')"
 
   e2e-tests:
     name: End To End Tests
@@ -201,7 +202,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+        containers: ${{ fromJson(needs.e2e-tests-init.outputs.feature-matrix) }}
     steps:
       - uses: actions/checkout@v1
       - name: set branch specific variable names
@@ -246,9 +247,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: |
-            cypress/integration/measures/*.spec.ts
-            cypress/integration/features/*.spec.ts
+          spec: cypress/integration/features/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
@@ -268,7 +267,6 @@ jobs:
           path: |
             tests/cypress/screenshots/
             tests/cypress/videos/
-
       - name: Slack Notification
         if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
         uses: 8398a7/action-slack@v3
