@@ -194,11 +194,15 @@ jobs:
       - id: set-test-matrix
         run: |
           echo "feature-matrix=$(ls -1 tests/cypress/cypress/integration/features/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
-          echo "measure-matrix=$(ls -1 tests/cypress/cypress/integration/measures/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+          echo "child-measure-matrix=$(ls -1 tests/cypress/cypress/integration/measures/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+          echo "adult-measure-matrix=$(ls -1 tests/cypress/cypress/integration/measures/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+          echo "home-health-measure-matrix=$(ls -1 tests/cypress/cypress/integration/measures/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
           echo "a11y-matrix=$(ls -1 tests/cypress/cypress/integration/a11y/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
     outputs:
       feature-matrix: ${{ steps.set-test-matrix.outputs.feature-matrix}}
-      measure-matrix: ${{ steps.set-test-matrix.outputs.measure-matrix}}
+      child-measure-matrix: ${{ steps.set-test-matrix.outputs.child-measure-matrix}}
+      adult-measure-matrix: ${{ steps.set-test-matrix.outputs.adult-measure-matrix}}
+      home-health-measure-matrix: ${{ steps.set-test-matrix.outputs.home-health-measure-matrix}}
       a11y-matrix: ${{ steps.set-test-matrix.outputs.a11y-matrix}}
 
   e2e-measure-tests:

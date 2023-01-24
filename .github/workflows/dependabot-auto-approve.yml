@@ -1,5 +1,5 @@
 # Adapted from https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions
-name: Dependabot auto-merge
+name: Dependabot auto-approve
 on:
   pull_request:
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
-      - name: Dependabotbot Gather Metadata
+      - name: Dependabot Gather Metadata
         id: metadata
         uses: dependabot/fetch-metadata@v1.3.0
       - name: Approve a PR
@@ -21,9 +21,9 @@ jobs:
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - name: Enable auto-merge for Dependabot PRs
-        if: ${{ steps.metadata.outputs.update-type != 'version-update:semver-major'}}
-        run: gh pr merge --auto --merge "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      # - name: Enable auto-merge for Dependabot PRs #Uncomment when auto-merge is enabled for branch.
+      #   if: ${{ steps.metadata.outputs.update-type != 'version-update:semver-major'}}
+      #   run: gh pr merge --auto --merge "$PR_URL"
+      #   env:
+      #     PR_URL: ${{github.event.pull_request.html_url}}
+      #     GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
