@@ -9,3 +9,7 @@ echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
+
+# Run unit tests prior to committing
+yarn --cwd ./services/app-api test
+yarn --cwd ./services/ui-src test
