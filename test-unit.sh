@@ -32,3 +32,5 @@ for i in "${services[@]}"
 do
 	unit_test $i
 done
+echo "test failed"
+exit 1
