@@ -16,7 +16,6 @@ jobs:
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
-    if: contains(fromJson('["master"]'), env.branch_name)
     steps:
       - uses: actions/checkout@v2
       - name: set variable values
@@ -41,8 +40,9 @@ jobs:
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: run unit tests
         run: ./test-unit.sh
+        if: contains(fromJson('["master"]'), env.branch_name)
       - name: publish test coverage to code climate
-        if: env.CODE_CLIMATE_ID != ''
+        if: env.CODE_CLIMATE_ID != '' && contains(fromJson('["master"]'), env.branch_name)
         uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
@@ -51,6 +51,7 @@ jobs:
             ${{github.workspace}}/services/app-api/coverage/lcov.info:lcov
             ${{github.workspace}}/services/ui-src/coverage/lcov.info:lcov
       - name: Store unit test reults
+        if: contains(fromJson('["master"]'), env.branch_name)
         uses: actions/upload-artifact@v2
         with:
           name: unit_test_results
