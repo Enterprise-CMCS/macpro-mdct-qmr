@@ -37,6 +37,7 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
       - name: set path
         run: |
+          export PATH=$(pwd)/node_modules/.bin/:$PATH
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - id: endpoint
         run: echo "application_endpoint=$(./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name)" >> $GITHUB_OUTPUT
