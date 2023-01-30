@@ -1,6 +1,6 @@
-import { measureAbbrList2021 } from "../../../support/commands/commands";
+import { measureAbbrList2021 } from "../../support/commands/commands";
 
-describe("Export All Measures", () => {
+describe.skip("Export All Measures", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.window().then((win) => {

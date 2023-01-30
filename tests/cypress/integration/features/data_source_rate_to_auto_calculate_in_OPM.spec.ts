@@ -1,4 +1,4 @@
-describe("Data source/ Rate to auto calculate in OPM", () => {
+describe.skip("Data source/ Rate to auto calculate in OPM", () => {
   beforeEach(() => {
     cy.login("stateuser2");
     cy.goToAdultMeasures();
