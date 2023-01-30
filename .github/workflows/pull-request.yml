@@ -38,12 +38,10 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: Serverless config
-        uses: serverless/github-action@master@v2
-        with:
-          args: -c "cd ./services/ui && serverless info --stage $STAGE_PREFIX$branch_name --verbose"
       - id: endpoint
-        run: echo "application_endpoint=$(./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name)" >> $GITHUB_OUTPUT
+        run: |
+          export PATH=$(pwd)/node_modules/.bin/:$PATH
+          echo "application_endpoint=$(./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name)" >> $GITHUB_OUTPUT
         working-directory: services
     outputs:
       application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
