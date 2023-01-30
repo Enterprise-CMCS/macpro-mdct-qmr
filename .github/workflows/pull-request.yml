@@ -112,8 +112,8 @@ jobs:
           spec: cypress/integration/init/*.spec.ts
           browser: chrome
           headless: true
-          config: baseUrl=${{ APPLICATION_ENDPOINT }}
-          wait-on: ${{ APPLICATION_ENDPOINT }}
+          config: baseUrl=$APPLICATION_ENDPOINT
+          wait-on: $APPLICATION_ENDPOINT
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
