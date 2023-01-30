@@ -103,6 +103,7 @@ jobs:
           pushd services
           export APPLICATION_ENDPOINT=https://d3e781gibwpv2q.cloudfront.net
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
+          echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Run Cypress Tests
@@ -112,8 +113,8 @@ jobs:
           spec: cypress/integration/init/*.spec.ts
           browser: chrome
           headless: true
-          config: baseUrl=$APPLICATION_ENDPOINT
-          wait-on: $APPLICATION_ENDPOINT
+          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
