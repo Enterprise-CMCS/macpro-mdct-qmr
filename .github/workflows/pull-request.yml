@@ -99,6 +99,7 @@ jobs:
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: Endpoint
+        id: endpoint
         run: |
           pushd services
           export APPLICATION_ENDPOINT=https://d3e781gibwpv2q.cloudfront.net
