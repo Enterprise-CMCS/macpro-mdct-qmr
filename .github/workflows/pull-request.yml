@@ -101,9 +101,9 @@ jobs:
       - name: Endpoint
         run: |
           pushd services
-          export application_endpoint=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
-          echo "application_endpoint=$application_endpoint" >> $GITHUB_OUTPUT
-          echo "Application endpoint: $application_endpoint"
+          export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
+          echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
+          echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
@@ -112,7 +112,8 @@ jobs:
           spec: cypress/integration/init/*.spec.ts
           browser: chrome
           headless: true
-          config: baseUrl=$application_endpoint
+          config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
+          wait-on: ${{ env.APPLICATION_ENDPOINT }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -149,7 +150,7 @@ jobs:
       adult-measure-matrix: ${{ steps.set-test-matrix.outputs.adult-measure-matrix}}
       home-health-measure-matrix: ${{ steps.set-test-matrix.outputs.home-health-measure-matrix}}
       a11y-matrix: ${{ steps.set-test-matrix.outputs.a11y-matrix}}
-      application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
+      APPLICATION_ENDPOINT: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT}}
 
   e2e-measure-tests:
     name: End To End Measure Tests
@@ -207,8 +208,8 @@ jobs:
           spec: cypress/integration/measures/${{ matrix.containers }}
           browser: chrome
           headless: true
-          config: baseUrl=${{ needs.e2e-tests-init.outputs.application_endpoint }}
-          wait-on: ${{ needs.e2e-tests-init.outputs.application_endpoint }}
+          config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
+          wait-on: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -288,8 +289,8 @@ jobs:
           spec: cypress/integration/features/${{ matrix.containers }}
           browser: chrome
           headless: true
-          config: baseUrl=${{ needs.e2e-tests-init.outputs.application_endpoint }}
-          wait-on: ${{ needs.e2e-tests-init.outputs.application_endpoint }}
+          config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
+          wait-on: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -370,8 +371,8 @@ jobs:
           spec: cypress/integration/a11y/${{ matrix.containers }}
           browser: chrome
           headless: true
-          config: baseUrl=${{ needs.e2e-tests-init.outputs.application_endpoint }}
-          wait-on: ${{ needs.e2e-tests-init.outputs.application_endpoint }}
+          config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
+          wait-on: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
