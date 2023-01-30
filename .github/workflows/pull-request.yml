@@ -156,7 +156,7 @@ jobs:
 
   e2e-measure-tests:
     name: End To End Measure Tests
-    needs: [e2e-tests-init]
+    needs: e2e-tests-init
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
@@ -237,7 +237,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   e2e-feature-tests:
     name: End To End Feature Tests
-    needs: [e2e-tests-init]
+    needs: e2e-tests-init
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
