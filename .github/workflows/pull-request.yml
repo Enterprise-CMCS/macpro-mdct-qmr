@@ -13,39 +13,6 @@ permissions:
   actions: read
 
 jobs:
-  init:
-    name: Initialize
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: set variable values
-        run: ./.github/build_vars.sh set_values
-        env:
-          CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-          CODE_CLIMATE_CMS_ID: ${{ secrets.CODE_CLIMATE_CMS_ID }}
-      - name: read .nvmrc
-        id: node_version
-        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
-      - uses: actions/cache@v2
-        with:
-          path: |
-            **/node_modules
-            ~/.cache/Cypress
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
-      - name: set path
-        run: |
-          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - id: endpoint
-        run: |
-          export PATH=$(pwd)/node_modules/.bin/:$PATH
-          echo "application_endpoint=$(./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name)" >> $GITHUB_OUTPUT
-        working-directory: services
-    outputs:
-      application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
-
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
@@ -89,7 +56,6 @@ jobs:
 
   e2e-tests-init:
     name: Initialize End To End Tests
-    needs: init
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     steps:
@@ -132,6 +98,13 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Endpoint
+        run: |
+          pushd services
+          export application_endpoint=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
+          echo "application_endpoint=$application_endpoint" >> $GITHUB_OUTPUT
+          echo "Application endpoint: $application_endpoint"
+          popd
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
@@ -139,8 +112,7 @@ jobs:
           spec: cypress/integration/init/*.spec.ts
           browser: chrome
           headless: true
-          config: baseUrl=${{ needs.init.outputs.application_endpoint }}
-          wait-on: ${{ needs.init.outputs.application_endpoint }}
+          config: baseUrl=$application_endpoint
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -177,10 +149,11 @@ jobs:
       adult-measure-matrix: ${{ steps.set-test-matrix.outputs.adult-measure-matrix}}
       home-health-measure-matrix: ${{ steps.set-test-matrix.outputs.home-health-measure-matrix}}
       a11y-matrix: ${{ steps.set-test-matrix.outputs.a11y-matrix}}
+      application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
 
   e2e-measure-tests:
     name: End To End Measure Tests
-    needs: [init, e2e-tests-init]
+    needs: [e2e-tests-init]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
@@ -234,8 +207,8 @@ jobs:
           spec: cypress/integration/measures/${{ matrix.containers }}
           browser: chrome
           headless: true
-          config: baseUrl=${{ needs.init.outputs.application_endpoint }}
-          wait-on: ${{ needs.init.outputs.application_endpoint }}
+          config: baseUrl=${{ needs.e2e-tests-init.outputs.application_endpoint }}
+          wait-on: ${{ needs.e2e-tests-init.outputs.application_endpoint }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -261,7 +234,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   e2e-feature-tests:
     name: End To End Feature Tests
-    needs: [init, e2e-tests-init]
+    needs: [e2e-tests-init]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
@@ -315,8 +288,8 @@ jobs:
           spec: cypress/integration/features/${{ matrix.containers }}
           browser: chrome
           headless: true
-          config: baseUrl=${{ needs.init.outputs.application_endpoint }}
-          wait-on: ${{ needs.init.outputs.application_endpoint }}
+          config: baseUrl=${{ needs.e2e-tests-init.outputs.application_endpoint }}
+          wait-on: ${{ needs.e2e-tests-init.outputs.application_endpoint }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -343,7 +316,7 @@ jobs:
 
   a11y-tests:
     name: Accessibility Tests
-    needs: [init, e2e-tests-init, e2e-feature-tests, e2e-measure-tests]
+    needs: [e2e-tests-init, e2e-feature-tests, e2e-measure-tests]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
@@ -397,8 +370,8 @@ jobs:
           spec: cypress/integration/a11y/${{ matrix.containers }}
           browser: chrome
           headless: true
-          config: baseUrl=${{ needs.init.outputs.application_endpoint }}
-          wait-on: ${{ needs.init.outputs.application_endpoint }}
+          config: baseUrl=${{ needs.e2e-tests-init.outputs.application_endpoint }}
+          wait-on: ${{ needs.e2e-tests-init.outputs.application_endpoint }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
