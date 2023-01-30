@@ -207,7 +207,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/child/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
@@ -289,7 +289,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/adult/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
@@ -370,7 +370,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/healthhome/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
