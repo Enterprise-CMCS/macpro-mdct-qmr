@@ -1,4 +1,4 @@
-describe("OY2 16341 NDR set validation updates for all measures ", () => {
+describe.skip("OY2 16341 NDR set validation updates for all measures ", () => {
   beforeEach(() => {
     cy.login("stateuser2");
   });

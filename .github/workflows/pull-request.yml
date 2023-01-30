@@ -317,7 +317,7 @@ jobs:
           fields: repo,message,commit,ref # selectable (default: repo,message)
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-  healthhome-e2e-measure-tests:
+  health-home-e2e-measure-tests:
     name: Health Home End To End Measure Tests
     needs: e2e-tests-init
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
@@ -325,7 +325,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: ${{ fromJson(needs.e2e-tests-init.outputs.healthhome-measure-matrix) }}
+        containers: ${{ fromJson(needs.e2e-tests-init.outputs.home-health-measure-matrix) }}
     steps:
       - uses: actions/checkout@v1
       - name: set branch specific variable names
@@ -482,7 +482,7 @@ jobs:
 
   a11y-tests:
     name: Accessibility Tests
-    needs: [e2e-tests-init, e2e-feature-tests, child-e2e-measure-tests,adult-e2e-measure-tests, healthhome-e2e-measure-tests]
+    needs: [e2e-tests-init, e2e-feature-tests, child-e2e-measure-tests,adult-e2e-measure-tests, health-home-e2e-measure-tests]
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
