@@ -317,7 +317,7 @@ jobs:
           fields: repo,message,commit,ref # selectable (default: repo,message)
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          adult-e2e-measure-tests:
+  adult-e2e-measure-tests:
     name: Health Home End To End Measure Tests
     needs: e2e-tests-init
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
