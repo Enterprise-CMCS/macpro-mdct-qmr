@@ -1,6 +1,6 @@
 const browseBtn = "//u[contains(text(),'browse')]";
 
-describe.skip("File upload Functionality", () => {
+describe("File upload Functionality", () => {
   beforeEach(() => {
     cy.login("stateuser2");
     cy.goToAdultMeasures();

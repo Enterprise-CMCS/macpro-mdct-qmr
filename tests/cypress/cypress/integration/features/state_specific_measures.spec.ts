@@ -1,4 +1,4 @@
-describe.skip("Add state specific measure testing", () => {
+describe("Add state specific measure testing", () => {
   before(() => {
     cy.loginHealthHome();
     cy.get('[data-cy="add-hhbutton"]').click(); // clicking on adding child core set measures

@@ -111,7 +111,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: integration/init/*.spec.ts
+          spec: cypress/integration/init/*.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ env.APPLICATION_ENDPOINT }}
@@ -207,7 +207,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: integration/measures/${{ matrix.containers }}
+          spec: cypress/integration/measures/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
@@ -288,7 +288,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: integration/features/${{ matrix.containers }}
+          spec: cypress/integration/features/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
@@ -370,7 +370,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: integration/a11y/${{ matrix.containers }}
+          spec: cypress/integration/a11y/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}

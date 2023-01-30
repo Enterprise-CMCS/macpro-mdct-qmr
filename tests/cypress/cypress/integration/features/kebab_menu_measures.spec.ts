@@ -1,4 +1,4 @@
-describe.skip("Measure kebab menus", () => {
+describe("Measure kebab menus", () => {
   beforeEach(() => {
     cy.login("stateuser2");
   });
@@ -26,7 +26,7 @@ describe.skip("Measure kebab menus", () => {
   });
 });
 
-describe.skip("Edit state specific measure name and description", () => {
+describe.only("Edit state specific measure name and description", () => {
   it('displays the "Edit" option', () => {
     cy.loginHealthHome();
     cy.goToHealthHomeSetMeasures();
