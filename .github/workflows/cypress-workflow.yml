@@ -3,36 +3,35 @@ on:
   workflow_call:
     inputs:
       test-path:
-        description: 'Path to the test files'
+        description: "Path to the test files"
         required: true
         type: string
       test-endpoint:
-        description: 'Endpoint to run tests against'
+        description: "Endpoint to run tests against"
         required: true
         type: string
     secrets:
       slack-url:
-        description: 'Slack Webhook URL'
+        description: "Slack Webhook URL"
         required: true
       cypress-user1:
-        description: 'Cypress User 1'
+        description: "Cypress User 1"
         required: true
       cypress-user2:
-        description: 'Cypress User 2'
+        description: "Cypress User 2"
         required: true
       cypress-user3:
-        description: 'Cypress User 3'
-        required: true      
+        description: "Cypress User 3"
+        required: true
       cypress-user4:
-        description: 'Cypress User 4'
+        description: "Cypress User 4"
         required: true
       cypress-password:
-        description: 'Cypress Password'
+        description: "Cypress Password"
         required: true
-      
 
 jobs:
-  setup: 
+  setup:
     name: Setup Cypress Test Matrix
     runs-on: ubuntu-latest
     steps:
@@ -42,7 +41,7 @@ jobs:
           echo "test-matrix=$(ls -1 tests/cypress/cypress/integration/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
     outputs:
       test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix}}
-  e2e-tests: 
+  e2e-tests:
     name: Execute Cypress Tests
     runs-on: ubuntu-latest
     needs: setup
@@ -88,5 +87,3 @@ jobs:
           fields: repo,message,commit,ref # selectable (default: repo,message)
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.slack-url }}
-
-

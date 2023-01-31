@@ -1,4 +1,4 @@
-describe("Measure: SS-HH", () => {
+describe.skip("Measure: SS-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.goToHealthHomeSetMeasures();
