@@ -129,7 +129,7 @@ jobs:
     uses: ./.github/workflows/cypress-workflow.yml
     needs: e2e-tests-init
     with:
-      test-matrix: "${{ needs.e2e-tests-init.outputs.setup-matrix }}"
+      test-matrix: ${{ needs.e2e-tests-init.outputs.setup-matrix }}
       test-path: init
       test-id: "Setup End To End Tests"
       test-endpoint: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
