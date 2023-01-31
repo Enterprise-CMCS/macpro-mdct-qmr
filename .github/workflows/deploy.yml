@@ -17,7 +17,7 @@ jobs:
     name: Unit Tests
     uses: ./.github/workflows/unittest-workflow.yml
     if: github.ref == 'refs/heads/master'
-    secrets:  
+    secrets:
       CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
       CODE_CLIMATE_CMS_ID: ${{ secrets.CODE_CLIMATE_CMS_ID }}
   deploy:
@@ -45,10 +45,10 @@ jobs:
           STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-      # - name: lock this branch to prevent concurrent builds
-      #   run: ./.github/github-lock.sh $branch_name
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: lock this branch to prevent concurrent builds
+        run: ./.github/github-lock.sh $branch_name
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Configure AWS credentials for GitHub Actions
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -75,8 +75,8 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
-      # - name: deploy
-      #   run: |
-      #     # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
-      #     # This can optionally be set as an GitHub Actions Secret
-      #     ./deploy.sh $STAGE_PREFIX$branch_name
+      - name: deploy
+        run: |
+          # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
+          # This can optionally be set as an GitHub Actions Secret
+          ./deploy.sh $STAGE_PREFIX$branch_name
