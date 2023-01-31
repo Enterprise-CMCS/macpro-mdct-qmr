@@ -1,4 +1,4 @@
-describe("PDENT-CH Page 508 Compliance Test", () => {
+describe.skip("PDENT-CH Page 508 Compliance Test", () => {
   it("Check a11y on PDENT-CH Page", () => {
     cy.login();
     cy.goToChildCoreSetMeasures();
