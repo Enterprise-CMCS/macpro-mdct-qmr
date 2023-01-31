@@ -71,7 +71,7 @@ jobs:
         id: endpoint
         run: |
           pushd services
-          export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
+          export APPLICATION_ENDPOINT=$(./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name)
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
