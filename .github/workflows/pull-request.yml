@@ -63,12 +63,12 @@ jobs:
       - name: Endpoint
         id: endpoint
         run: |
-          pushd services
+
           export APPLICATION_ENDPOINT=https://d3e781gibwpv2q.cloudfront.net
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
-          popd
+          
       - id: set-test-matrix
         run: |
           echo "setup-matrix=$(ls -1 tests/cypress/cypress/integration/init/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
