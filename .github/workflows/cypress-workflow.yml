@@ -24,6 +24,21 @@ on:
       slack-url:
         description: 'Slack Webhook URL'
         required: true
+      cypress-user1:
+        description: 'Cypress User 1'
+        required: true
+      cypress-user2:
+        description: 'Cypress User 2'
+        required: true
+      cypress-user3:
+        description: 'Cypress User 3'
+        required: true      
+      cypress-user4:
+        description: 'Cypress User 4'
+        required: true
+      cypress-password:
+        description: 'Cypress Password'
+        required: true
       
 
 jobs:
@@ -93,8 +108,7 @@ jobs:
           spec: cypress/integration/${{ inputs.test-path }}/${{ matrix.containers }}
           browser: chrome
           headless: true
-          config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
-          wait-on: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
+          config: baseUrl=${{ inputs.test-endpoint }}
           env: true
         env:
           CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -111,12 +125,12 @@ jobs:
             tests/cypress/screenshots/
             tests/cypress/videos/
       - name: Slack Notification
-        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
+        if: env.slack-url != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,ref # selectable (default: repo,message)
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.slack-url }}
 
 

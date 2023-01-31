@@ -137,6 +137,11 @@ jobs:
       aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       aws-oidc: ${{ secrets.AWS_OIDC_ROLE_TO_ASSUME }}
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+      cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+      cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+      cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+      cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
   
   # child-e2e-measure-tests:
   #   uses: ./.github/workflows/cypress-workflow.yml
