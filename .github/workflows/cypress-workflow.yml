@@ -35,7 +35,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: ${{ needs.setup.outputs.test-matrix }}
+        containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
     steps:
       - uses: actions/checkout@v1
       - name: set branch specific variable names
@@ -80,7 +80,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/${{ github.event.inputs.test-path }}/${{ matrix.containers }}
+          spec: cypress/integration/${{ inputs.test-path }}/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
