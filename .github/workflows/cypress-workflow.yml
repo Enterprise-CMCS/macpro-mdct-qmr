@@ -79,8 +79,8 @@ jobs:
       - name: Configure AWS credentials for GitHub Actions
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.aws_oidc }}
-          aws-region: ${{ secrets.aws_region }}
+          role-to-assume: ${{ secrets.aws-oidc }}
+          aws-region: ${{ secrets.aws-region }}
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: set path
