@@ -111,6 +111,7 @@ jobs:
       - id: set-test-matrix
         run: |
           echo "setup-matrix=$(ls -1 tests/cypress/cypress/integration/init/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+          echo "setup-matrix=$(ls -1 tests/cypress/cypress/integration/init/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')"
           echo "feature-matrix=$(ls -1 tests/cypress/cypress/integration/features/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
           echo "child-measure-matrix=$(ls -1 tests/cypress/cypress/integration/measures/child* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
           echo "adult-measure-matrix=$(ls -1 tests/cypress/cypress/integration/measures/adult* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
