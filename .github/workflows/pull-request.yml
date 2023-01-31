@@ -60,15 +60,54 @@ jobs:
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
+      - name: set branch specific variable names
+        run: ./.github/build_vars.sh set_names
+      - name: set variable values
+        run: ./.github/build_vars.sh set_values
+        env:
+          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+          AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
+          INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
+          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+          COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Combine yarn.lock files to single file
+        run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
+      - name: cache service dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            services/app-api/node_modules
+            services/uploads/node_modules
+            services/stream-functions/node_modules
+            services/ui/node_modules
+            services/ui-auth/node_modules
+            services/ui-src/node_modules
+            node_modules
+          key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
+      - name: Configure AWS credentials for GitHub Actions
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: set path
+        run: |
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: Endpoint
         id: endpoint
         run: |
-
+          pushd services
           export APPLICATION_ENDPOINT=https://d3e781gibwpv2q.cloudfront.net
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
-          
+          popd
       - id: set-test-matrix
         run: |
           echo "setup-matrix=$(ls -1 tests/cypress/cypress/integration/init/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
