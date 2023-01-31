@@ -157,7 +157,7 @@ jobs:
   child-e2e-measure-tests:
     uses: ./.github/workflows/cypress-workflow.yml
     with:
-      test-matrix: ${{ fromJson(needs.e2e-tests-init.outputs.child-measure-matrix) }}
+      test-matrix: ${{ needs.e2e-tests-init.outputs.child-measure-matrix }}
       test-path: cypress/integration/measures/child/
       test-id: "Child End To End Measure Tests"
       test-endpoint: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}

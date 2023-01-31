@@ -5,15 +5,19 @@ on:
       test-matrix:
         description: 'Array of files to test'
         required: true
+        type: string
       test-path:
         description: 'Path to the test files'
         required: true
+        type: string
       test-id:
         description: 'Identifier for test run'
         required: true
+        type: string
       test-endpoint:
         description: 'Endpoint to run tests against'
         required: true
+        type: string
 
 jobs:
   e2e-tests: 
@@ -22,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: ${{ github.event.inputs.test-matrix }}
+        containers: ${{ fromJson(github.event.inputs.test-matrix) }}
     steps:
       - uses: actions/checkout@v1
       - name: set branch specific variable names
