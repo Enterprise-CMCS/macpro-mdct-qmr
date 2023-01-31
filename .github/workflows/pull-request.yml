@@ -53,8 +53,6 @@ jobs:
         with:
           name: unit_test_results
           path: ${{github.workspace}}/services/ui-src/coverage/lcov.info
-
-  
   e2e-tests-init:
     name: Initialize End To End Tests
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
@@ -108,6 +106,7 @@ jobs:
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_ENV
           echo "Application endpoint: $APPLICATION_ENDPOINT"
           popd
+    outputs:
       APPLICATION_ENDPOINT: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT}}
   
   setup-tests:
