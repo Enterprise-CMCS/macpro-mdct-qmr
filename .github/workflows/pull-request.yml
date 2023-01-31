@@ -126,6 +126,7 @@ jobs:
       APPLICATION_ENDPOINT: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT}}
   
   setup-tests:
+    name: "Setup End To End Tests" 
     uses: ./.github/workflows/cypress-workflow.yml
     needs: e2e-tests-init
     with:
