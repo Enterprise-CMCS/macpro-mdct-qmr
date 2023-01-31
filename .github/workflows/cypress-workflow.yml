@@ -71,7 +71,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: ${{ github.event.inputs.test-path }}/${{ matrix.containers }}
+          spec: cypress/integration/${{ github.event.inputs.test-path }}/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
