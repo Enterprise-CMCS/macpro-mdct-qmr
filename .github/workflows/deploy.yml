@@ -16,7 +16,7 @@ jobs:
   unit-tests:
     name: Unit Tests
     uses: ./.github/workflows/unittest-workflow.yml
-    if: contains(fromJson('["master"]'), env.branch_name
+    if: github.ref == 'refs/heads/master'
     secrets:  
       CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
       CODE_CLIMATE_CMS_ID: ${{ secrets.CODE_CLIMATE_CMS_ID }}
