@@ -110,7 +110,7 @@ jobs:
           popd
       - id: set-test-matrix
         run: |
-          echo "setup-matrix=$(ls -1 tests/cypress/cypress/integration/init/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+          echo "setup-matrix=$(ls -1 tests/cypress/cypress/integration/init/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" | awk '{gsub("\042","\047")}1'>> $GITHUB_OUTPUT
           echo "feature-matrix=$(ls -1 tests/cypress/cypress/integration/features/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
           echo "child-measure-matrix=$(ls -1 tests/cypress/cypress/integration/measures/child* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
           echo "adult-measure-matrix=$(ls -1 tests/cypress/cypress/integration/measures/adult* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
@@ -129,7 +129,7 @@ jobs:
     uses: ./.github/workflows/cypress-workflow.yml
     needs: e2e-tests-init
     with:
-      test-matrix: '${{ needs.e2e-tests-init.outputs.setup-matrix }}'
+      test-matrix: "${{ needs.e2e-tests-init.outputs.setup-matrix }}"
       test-path: init
       test-id: "Setup End To End Tests"
       test-endpoint: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
