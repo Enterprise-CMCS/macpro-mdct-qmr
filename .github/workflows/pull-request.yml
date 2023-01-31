@@ -130,9 +130,9 @@ jobs:
     uses: ./.github/workflows/cypress-workflow.yml
     needs: e2e-tests-init
     with:
-      test-path: init
+      test-path: "init"
       test-id: "Setup End To End Tests"
-      test-endpoint: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
+      test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
   
   # child-e2e-measure-tests:
   #   uses: ./.github/workflows/cypress-workflow.yml
