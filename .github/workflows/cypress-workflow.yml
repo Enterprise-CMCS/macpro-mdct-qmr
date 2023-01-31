@@ -20,6 +20,7 @@ jobs:
     name: Setup Cypress Tests
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
       - id: set-test-matrix
         run: |
           pwd
