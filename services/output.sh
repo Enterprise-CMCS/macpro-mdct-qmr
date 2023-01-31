@@ -19,6 +19,6 @@ if [ $output = "url" ]; then
 fi
 
 cd $service
-echo "serverless info --stage $stage --verbose"
-serverless info --stage $stage --verbose
+echo "serverless info --stage $stage --verbose | sed -n -e $output: && cd .."
+# serverless info --stage $stage --verbose
 serverless info --stage $stage --verbose | sed -e '1,/^Stack Outputs/d' -e '$d' | sed -n -e "s/^.*$output: //p" && cd ..
