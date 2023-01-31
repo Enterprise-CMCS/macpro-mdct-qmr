@@ -22,6 +22,7 @@ jobs:
     steps:
       - id: set-test-matrix
         run: |
+          pwd
           echo "Path: ${{ inputs.test-path }}"
           echo "test-matrix=$(ls -1 tests/cypress/cypress/integration/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
     outputs:
