@@ -21,6 +21,7 @@ on:
 
 jobs:
   echo-config:
+    name: "Echo Config"
     runs-on: ubuntu-latest
     steps:
       run: |
