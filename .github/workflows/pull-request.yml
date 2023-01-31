@@ -134,8 +134,8 @@ jobs:
       test-id: "Setup End To End Tests"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
     secrets:  
-      aws-region: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
-      aws-oidc: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
+      aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      aws-oidc: ${{ secrets.AWS_OIDC_ROLE_TO_ASSUME }}
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
   
   # child-e2e-measure-tests:
