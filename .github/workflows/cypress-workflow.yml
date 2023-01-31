@@ -21,11 +21,13 @@ on:
 
 jobs:
   echo-config:
-    run: |
-      echo ${{ fromJson(github.event.inputs.test-matrix) }}
-      echo ${{ fromJson(github.event.inputs.test-path) }}
-      echo ${{ fromJson(github.event.inputs.test-id) }}
-      echo ${{ fromJson(github.event.inputs.test-endpoint) }}
+    runs-on: ubuntu-latest
+    steps:
+      run: |
+        echo ${{ fromJson(github.event.inputs.test-matrix) }}
+        echo ${{ fromJson(github.event.inputs.test-path) }}
+        echo ${{ fromJson(github.event.inputs.test-id) }}
+        echo ${{ fromJson(github.event.inputs.test-endpoint) }}
   e2e-tests: 
     name: '${{ github.event.inputs.test-id }}'
     runs-on: ubuntu-latest
