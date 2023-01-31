@@ -54,6 +54,7 @@ jobs:
           name: unit_test_results
           path: ${{github.workspace}}/services/ui-src/coverage/lcov.info
 
+  
   e2e-tests-init:
     name: Initialize End To End Tests
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
@@ -153,88 +154,94 @@ jobs:
       home-health-measure-matrix: ${{ steps.set-test-matrix.outputs.home-health-measure-matrix}}
       a11y-matrix: ${{ steps.set-test-matrix.outputs.a11y-matrix}}
       APPLICATION_ENDPOINT: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT}}
-
   child-e2e-measure-tests:
-    name: Child End To End Measure Tests
-    needs: e2e-tests-init
-    if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: ${{ fromJson(needs.e2e-tests-init.outputs.child-measure-matrix) }}
-    steps:
-      - uses: actions/checkout@v1
-      - name: set branch specific variable names
-        run: ./.github/build_vars.sh set_names
-      - name: set variable values
-        run: ./.github/build_vars.sh set_values
-        env:
-          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
-          AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
-          INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
-          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
-          COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-      - name: Combine yarn.lock files to single file
-        run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
-      - name: cache service dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            services/app-api/node_modules
-            services/uploads/node_modules
-            services/stream-functions/node_modules
-            services/ui/node_modules
-            services/ui-auth/node_modules
-            services/ui-src/node_modules
-            node_modules
-          key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
-      - name: Configure AWS credentials for GitHub Actions
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: set path
-        run: |
-          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: Run Cypress Tests
-        uses: cypress-io/github-action@v2.11.7
-        with:
-          working-directory: tests/cypress
-          spec: cypress/integration/measures/child/${{ matrix.containers }}
-          browser: chrome
-          headless: true
-          config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
-          wait-on: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
-          env: true
-        env:
-          CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
-          CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
-          CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
-          CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
-          CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: |
-            tests/cypress/screenshots/
-            tests/cypress/videos/
-      - name: Slack Notification
-        if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,ref # selectable (default: repo,message)
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    uses: ./.github/workflows/cypress-workflow.yml
+    with:
+      test-matrix: ${{ fromJson(needs.e2e-tests-init.outputs.child-measure-matrix) }}
+      test-path: cypress/integration/measures/child/
+      test-id: "Child End To End Measure Tests"
+      test-endpoint: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
+  # child-e2e-measure-tests:
+  #   name: Child End To End Measure Tests
+  #   needs: e2e-tests-init
+  #   if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       containers: ${{ fromJson(needs.e2e-tests-init.outputs.child-measure-matrix) }}
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - name: set branch specific variable names
+  #       run: ./.github/build_vars.sh set_names
+  #     - name: set variable values
+  #       run: ./.github/build_vars.sh set_values
+  #       env:
+  #         AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+  #         AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
+  #         INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
+  #         STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+  #         COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: "12.x"
+  #     - name: Combine yarn.lock files to single file
+  #       run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
+  #     - name: cache service dependencies
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: |
+  #           services/app-api/node_modules
+  #           services/uploads/node_modules
+  #           services/stream-functions/node_modules
+  #           services/ui/node_modules
+  #           services/ui-auth/node_modules
+  #           services/ui-src/node_modules
+  #           node_modules
+  #         key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
+  #     - name: Configure AWS credentials for GitHub Actions
+  #       uses: aws-actions/configure-aws-credentials@v1
+  #       with:
+  #         role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
+  #         aws-region: ${{ env.AWS_DEFAULT_REGION }}
+  #     - name: Install dependencies
+  #       run: yarn install --frozen-lockfile
+  #     - name: set path
+  #       run: |
+  #         echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+  #     - name: Run Cypress Tests
+  #       uses: cypress-io/github-action@v2.11.7
+  #       with:
+  #         working-directory: tests/cypress
+  #         spec: cypress/integration/measures/child/${{ matrix.containers }}
+  #         browser: chrome
+  #         headless: true
+  #         config: baseUrl=${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
+  #         wait-on: ${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}
+  #         env: true
+  #       env:
+  #         CYPRESS_TEST_USER_1: ${{ secrets.CYPRESS_TEST_USER_1 }}
+  #         CYPRESS_TEST_USER_2: ${{ secrets.CYPRESS_TEST_USER_2 }}
+  #         CYPRESS_TEST_USER_3: ${{ secrets.CYPRESS_TEST_USER_3 }}
+  #         CYPRESS_TEST_USER_4: ${{ secrets.CYPRESS_TEST_USER_4 }}
+  #         CYPRESS_TEST_PASSWORD_1: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
+  #     - name: Upload screenshots
+  #       uses: actions/upload-artifact@v2
+  #       if: failure()
+  #       with:
+  #         name: cypress-screenshots
+  #         path: |
+  #           tests/cypress/screenshots/
+  #           tests/cypress/videos/
+  #     - name: Slack Notification
+  #       if: env.SLACK_WEBHOOK_URL != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
+  #       uses: 8398a7/action-slack@v3
+  #       with:
+  #         status: ${{ job.status }}
+  #         fields: repo,message,commit,ref # selectable (default: repo,message)
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   adult-e2e-measure-tests:
     name: Adult End To End Measure Tests
