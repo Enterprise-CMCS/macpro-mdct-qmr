@@ -14,19 +14,6 @@ on:
         description: 'Endpoint to run tests against'
         required: true
         type: string
-    secrets:
-      aws-region:
-        description: 'AWS Region'
-        required: true
-        type: string
-      aws-oidc:
-        description: 'AWS Role to Assume'
-        required: true
-        type: string
-      slack-url:
-        description: 'Slack Webhook URL'
-        required: true
-        type: string
 
 jobs:
   setup: 
