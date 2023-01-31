@@ -14,6 +14,7 @@ on:
         description: 'Endpoint to run tests against'
         required: true
         type: string
+    secrets:
       aws-region:
         description: 'AWS Region'
         required: true
@@ -53,13 +54,13 @@ jobs:
       - name: set variable values
         run: ./.github/build_vars.sh set_values
         env:
-          AWS_DEFAULT_REGION: ${{ inputs.aws_region }}
-          AWS_OIDC_ROLE_TO_ASSUME: ${{ inputs.aws_oidc }}
+          AWS_DEFAULT_REGION: ${{ secrets.aws_region }}
+          AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets.aws_oidc }}
 
           # INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
           # STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
           # COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
-          SLACK_WEBHOOK_URL: ${{ inputs.slack-url }}
+          SLACK_WEBHOOK_URL: ${{ secrets.slack-url }}
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
