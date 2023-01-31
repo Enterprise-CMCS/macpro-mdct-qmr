@@ -1,6 +1,6 @@
 name: Cypress Tests
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       test-matrix:
         description: 'Array of files to test'
