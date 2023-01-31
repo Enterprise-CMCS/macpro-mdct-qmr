@@ -482,7 +482,12 @@ jobs:
 
   a11y-tests:
     name: Accessibility Tests
-    needs: [e2e-tests-init, e2e-feature-tests, child-e2e-measure-tests,adult-e2e-measure-tests, health-home-e2e-measure-tests]
+    needs: 
+      - e2e-tests-init
+      - e2e-feature-tests
+      - child-e2e-measure-tests
+      - adult-e2e-measure-tests
+      - health-home-e2e-measure-tests
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     strategy:
