@@ -133,6 +133,9 @@ jobs:
       test-path: "init"
       test-id: "Setup End To End Tests"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
+      aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      aws-oidc: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
+      slack-url: ${{ env.SLACK_WEBHOOK_URL }}
   
   # child-e2e-measure-tests:
   #   uses: ./.github/workflows/cypress-workflow.yml
