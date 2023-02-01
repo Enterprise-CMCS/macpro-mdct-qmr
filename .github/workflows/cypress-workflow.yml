@@ -48,7 +48,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2, 3, 4]
+        containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
@@ -60,7 +60,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/${{ inputs.test-path }}/*.spec.ts
+          spec: cypress/integration/${{ inputs.test-path }}/${{ matrix.containers }}
           browser: chrome
           headless: true
           config: baseUrl=${{ inputs.test-endpoint }}
