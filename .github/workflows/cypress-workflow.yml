@@ -45,10 +45,10 @@ jobs:
     name: Execute Cypress Tests
     runs-on: ubuntu-latest
     needs: setup
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
@@ -60,7 +60,7 @@ jobs:
         uses: cypress-io/github-action@v2.11.7
         with:
           working-directory: tests/cypress
-          spec: cypress/integration/${{ inputs.test-path }}/${{ matrix.containers }}
+          spec: cypress/integration/${{ inputs.test-path }}/*.spec.ts
           browser: chrome
           headless: true
           config: baseUrl=${{ inputs.test-endpoint }}
