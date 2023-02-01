@@ -1,12 +1,12 @@
 name: Unit Tests
 on:
   workflow_call:
-   secrets:
+    secrets:
       CODE_CLIMATE_ID:
-        description: 'Default Code Climate ID'
+        description: "Default Code Climate ID"
         required: false
       CODE_CLIMATE_CMS_ID:
-        description: 'CMS Code Climate ID'
+        description: "CMS Code Climate ID"
         required: false
 
 jobs:
