@@ -429,7 +429,7 @@ yarn test
 
 The `Cypress` application will kick off, where you can find a list of all the available E2E tests.
 
-To run an invidiual Child Measure test, you first need to create these measures by running the `create_delete_child.spec.ts` test.
+To run an individual Child Measure test, you first need to create these measures by running the `create_delete_child.spec.ts` test.
 
 Similarly, to run an individual Health Home Measure test, you first need to create these measures by running the `create_delete_healthhome.spec.ts` test.
 
