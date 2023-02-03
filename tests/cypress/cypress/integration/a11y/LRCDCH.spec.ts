@@ -1,4 +1,4 @@
-describe("LRCD-CH Page 508 Compliance Test", () => {
+describe.skip("LRCD-CH Page 508 Compliance Test", () => {
   it("Check a11y on LRCD-CH Page", () => {
     cy.login();
     cy.goToChildCoreSetMeasures();

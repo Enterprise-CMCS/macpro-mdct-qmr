@@ -19,9 +19,5 @@ export const renderWithHookForm = (
     return <FormProvider {...methods}>{children}</FormProvider>;
   };
 
-  return {
-    ...render(ui, {
-      wrapper: Wrapper,
-    }),
-  };
+  return render(ui, { wrapper: Wrapper });
 };

@@ -1,0 +1,89 @@
+name: Cypress Tests
+on:
+  workflow_call:
+    inputs:
+      test-path:
+        description: "Path to the test files"
+        required: true
+        type: string
+      test-endpoint:
+        description: "Endpoint to run tests against"
+        required: true
+        type: string
+    secrets:
+      slack-url:
+        description: "Slack Webhook URL"
+        required: true
+      cypress-user1:
+        description: "Cypress User 1"
+        required: true
+      cypress-user2:
+        description: "Cypress User 2"
+        required: true
+      cypress-user3:
+        description: "Cypress User 3"
+        required: true
+      cypress-user4:
+        description: "Cypress User 4"
+        required: true
+      cypress-password:
+        description: "Cypress Password"
+        required: true
+
+jobs:
+  setup:
+    name: Setup Cypress Test Matrix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - id: set-test-matrix
+        run: |
+          echo "test-matrix=$(ls -1 tests/cypress/cypress/integration/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+    outputs:
+      test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix}}
+  e2e-tests:
+    name: Execute Cypress Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: set path
+        run: |
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v2.11.7
+        with:
+          working-directory: tests/cypress
+          spec: cypress/integration/${{ inputs.test-path }}/${{ matrix.containers }}
+          browser: chrome
+          headless: true
+          config: baseUrl=${{ inputs.test-endpoint }}
+          env: true
+        env:
+          CYPRESS_TEST_USER_1: ${{ secrets.cypress-user1 }}
+          CYPRESS_TEST_USER_2: ${{ secrets.cypress-user2 }}
+          CYPRESS_TEST_USER_3: ${{ secrets.cypress-user3 }}
+          CYPRESS_TEST_USER_4: ${{ secrets.cypress-user4 }}
+          CYPRESS_TEST_PASSWORD_1: ${{ secrets.cypress-password }}
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: |
+            tests/cypress/screenshots/
+            tests/cypress/videos/
+      - name: Slack Notification
+        if: env.slack-url != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,ref # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.slack-url }}

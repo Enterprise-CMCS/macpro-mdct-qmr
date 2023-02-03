@@ -1,0 +1,52 @@
+name: Unit Tests
+on:
+  workflow_call:
+    secrets:
+      CODE_CLIMATE_ID:
+        description: "Default Code Climate ID"
+        required: false
+      CODE_CLIMATE_CMS_ID:
+        description: "CMS Code Climate ID"
+        required: false
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: set variable values
+        run: ./.github/build_vars.sh set_values
+        env:
+          CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
+          CODE_CLIMATE_CMS_ID: ${{ secrets.CODE_CLIMATE_CMS_ID }}
+      - name: read .nvmrc
+        id: node_version
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
+      - uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
+      - name: set path
+        run: |
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: run unit tests
+        run: ./test-unit.sh
+      - name: publish test coverage to code climate
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
+        with:
+          coverageLocations: |
+            ${{github.workspace}}/services/app-api/coverage/lcov.info:lcov
+            ${{github.workspace}}/services/ui-src/coverage/lcov.info:lcov
+      - name: Store unit test reults
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_test_results
+          path: ${{github.workspace}}/services/ui-src/coverage/lcov.info
