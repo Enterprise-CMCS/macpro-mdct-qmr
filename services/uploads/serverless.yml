@@ -298,6 +298,8 @@ resources:
                 - "kms:ScheduleKeyDeletion"
                 - "kms:CancelKeyDeletion"
                 - "kms:Encrypt"
+                - "kms:Decrypt"
+                - "kms:ReEncrypt*"
                 - "kms:GenerateDataKey*"
                 - "kms:DescribeKey"
               Resource: "*"

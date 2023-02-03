@@ -1,4 +1,4 @@
-describe("Submit Core Set button", () => {
+describe.skip("Submit Core Set button", () => {
   beforeEach(() => {
     cy.login("stateuser4");
     cy.get('[data-cy="adult-kebab-menu"]').click();

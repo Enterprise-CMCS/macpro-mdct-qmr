@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor, act } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -218,9 +218,10 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
-    const results = await axe(screen.getByTestId("measure-wrapper-form"));
-
-    expect(results).toHaveNoViolations();
+    await act(async () => {
+      const results = await axe(screen.getByTestId("measure-wrapper-form"));
+      expect(results).toHaveNoViolations();
+    });
   });
 });
 
