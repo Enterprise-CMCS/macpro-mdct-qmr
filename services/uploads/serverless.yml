@@ -104,7 +104,16 @@ functions:
     environment:
       CLAMAV_BUCKET_NAME: !Ref ClamDefsBucket
       PATH_TO_AV_DEFINITIONS: "lambda/s3-antivirus/av-definitions"
-
+  avAuditUploads:
+    handler: src/auditUploads.auditUploadsLambda
+    timeout: 600 # 600 seconds = 10 minutes
+    memorySize: 1024
+    layers:
+      - !Ref ClamDefsLambdaLayer
+    environment:
+      AUDIT_BUCKET_NAME: !Ref AttachmentsBucket
+      CLAMAV_BUCKET_NAME: !Ref ClamDefsBucket
+      PATH_TO_AV_DEFINITIONS: "lambda/s3-antivirus/av-definitions"
 resources:
   Resources:
     AttachmentsBucket:
