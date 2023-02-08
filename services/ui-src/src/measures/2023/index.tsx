@@ -222,7 +222,7 @@ const WCVCH = lazy(() =>
   import("./WCVCH").then((module) => ({ default: module.WCVCH }))
 );
 
-const twentyTwentyTwoMeasures = {
+const twentyTwentyThreeMeasures = {
   "AAB-AD": AABAD,
   "ADD-CH": ADDCH,
   "AIF-HH": AIFHH,
@@ -303,4 +303,4 @@ const twentyTwentyTwoMeasures = {
 };
 
 export const QualifierData = Data;
-export default twentyTwentyTwoMeasures;
+export default twentyTwentyThreeMeasures;

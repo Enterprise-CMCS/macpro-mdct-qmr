@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 import * as PMD from "./data";
 import { useFormContext } from "react-hook-form";
-import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
+import { getPerfMeasureRateArray } from "measures/2023/globalValidations";
 
 export const CCPAD = ({
   name,

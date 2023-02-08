@@ -1,4 +1,4 @@
-import { OmsNodes as OMS } from "measures/2022/CommonQuestions/types";
+import { OmsNodes as OMS } from "measures/2023/CommonQuestions/types";
 
 export interface FormRateField {
   denominator?: string;

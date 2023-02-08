@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/2022/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2023/CommonQuestions/types";
 import { getCatQualLabels } from "../rateLabelText";
 
 export const { categories, qualifiers } = getCatQualLabels("AMR-CH");

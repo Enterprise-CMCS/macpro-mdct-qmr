@@ -6,7 +6,7 @@ import {
 import {
   OmsNodes as OMS,
   DefaultFormData,
-} from "measures/2022/CommonQuestions/types";
+} from "measures/2023/CommonQuestions/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
 import { cleanString } from "utils";
 

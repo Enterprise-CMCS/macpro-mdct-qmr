@@ -1,4 +1,4 @@
-import { DateRange } from "measures/2022/CommonQuestions/types";
+import { DateRange } from "measures/2023/CommonQuestions/types";
 
 export const validateYearFormat = (
   dateRange: DateRange["DateRange"],

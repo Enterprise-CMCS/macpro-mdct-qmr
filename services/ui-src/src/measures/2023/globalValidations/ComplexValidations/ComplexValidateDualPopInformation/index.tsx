@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { FormRateField } from "measures/2022/globalValidations/types";
+import { FormRateField } from "measures/2023/globalValidations/types";
 
 export const ComplexValidateDualPopInformation = (
   performanceMeasureArray: any,

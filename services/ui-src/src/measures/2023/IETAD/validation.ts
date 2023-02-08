@@ -1,9 +1,9 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2022/globalValidations";
+import * as GV from "measures/2023/globalValidations";
 import * as PMD from "./data";
 import { cleanString } from "utils/cleanString";
 import { FormData } from "./types";
-import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2023/CommonQuestions/OptionalMeasureStrat/data";
 
 /** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({

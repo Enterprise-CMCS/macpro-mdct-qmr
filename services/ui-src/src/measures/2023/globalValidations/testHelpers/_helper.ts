@@ -2,9 +2,9 @@ import * as DC from "dataConstants";
 import {
   DefaultFormData,
   RateFields,
-} from "measures/2022/CommonQuestions/types";
-import { exampleData } from "measures/2022/CommonQuestions/PerformanceMeasure/data";
-import { getPerfMeasureRateArray } from "measures/2022/globalValidations";
+} from "measures/2023/CommonQuestions/types";
+import { exampleData } from "measures/2023/CommonQuestions/PerformanceMeasure/data";
+import { getPerfMeasureRateArray } from "measures/2023/globalValidations";
 
 export const test_setup = (data: DefaultFormData) => {
   return {

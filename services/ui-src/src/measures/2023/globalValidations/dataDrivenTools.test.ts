@@ -1,5 +1,5 @@
 import { SINGLE_CATEGORY, PERFORMANCE_MEASURE } from "dataConstants";
-import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2023/CommonQuestions/OptionalMeasureStrat/data";
 import {
   generateOmsQualifierRateData,
   generatePmQualifierRateData,

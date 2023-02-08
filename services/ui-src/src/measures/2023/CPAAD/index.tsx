@@ -1,5 +1,5 @@
 import * as Q from "./questions";
-import * as CMQ from "measures/2022/CommonQuestions";
+import * as CMQ from "measures/2023/CommonQuestions";
 import { useParams } from "react-router-dom";
 import * as QMR from "components";
 import { useFormContext } from "react-hook-form";

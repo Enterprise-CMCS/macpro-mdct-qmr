@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2022/globalValidations";
+import * as GV from "measures/2023/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2023/CommonQuestions/OptionalMeasureStrat/data";
 
 const PQI01Validation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
