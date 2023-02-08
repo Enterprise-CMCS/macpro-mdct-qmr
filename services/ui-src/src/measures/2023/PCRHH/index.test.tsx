@@ -14,7 +14,7 @@ import {
   mockValidateAndSetErrors,
   clearMocks,
   validationsMockObj as V,
-} from "utils/testUtils/validationsMock";
+} from "measures/2023/shared/util/validationsMock";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
@@ -22,7 +22,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "PCR-HH";
 const coreSet = "HHCS";
 const state = "DC";
-const year = 2022;
+const year = 2023;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 

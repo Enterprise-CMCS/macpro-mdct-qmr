@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/2023/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2023/shared/CommonQuestions/types";
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
 

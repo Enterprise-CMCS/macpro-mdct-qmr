@@ -1,9 +1,9 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2023/globalValidations";
+import * as GV from "measures/2023/shared/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
 import { cleanString } from "utils";
-import { OMSData } from "measures/2023/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
 
 const CCWADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;

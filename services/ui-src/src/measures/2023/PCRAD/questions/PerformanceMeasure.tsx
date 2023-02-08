@@ -1,8 +1,8 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../../CommonQuestions/types";
-import { PerformanceMeasureData } from "../../CommonQuestions/PerformanceMeasure/data";
+import * as Types from "../../shared/CommonQuestions/types";
+import { PerformanceMeasureData } from "../../shared/CommonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
 import { PCRRate } from "components/PCRRate";
 import { cleanString } from "utils/cleanString";

@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import * as GV from "../globalValidations";
+import * as GV from "../shared/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "../CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "../shared/CommonQuestions/OptionalMeasureStrat/data";
 
 const cleanString = (s: string) => s.replace(/[^\w]/g, "");
 

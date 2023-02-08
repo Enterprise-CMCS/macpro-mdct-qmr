@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
-import * as CMQ from "measures/2023/CommonQuestions";
+import * as CMQ from "measures/2023/shared/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { getPerfMeasureRateArray } from "measures/2023/globalValidations";
+import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
 import { validationFunctions } from "./validation";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { FormData } from "./types";

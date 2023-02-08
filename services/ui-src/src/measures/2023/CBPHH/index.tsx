@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import * as QMR from "components";
-import * as CMQ from "measures/2023/CommonQuestions";
+import * as CMQ from "measures/2023/shared/CommonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
-import { getPerfMeasureRateArray } from "measures/2023/globalValidations";
+import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
 import { FormData } from "./types";
 
 export const CBPHH = ({

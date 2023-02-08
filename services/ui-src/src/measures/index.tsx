@@ -28,5 +28,5 @@ export default measuresByYear;
 export const QualifierData: IQualifierData[] = [
   { year: "2021", data: data2021 },
   { year: "2022", data: data2022 },
-  { year: "2022", data: data2023 },
+  { year: "2023", data: data2023 },
 ];
