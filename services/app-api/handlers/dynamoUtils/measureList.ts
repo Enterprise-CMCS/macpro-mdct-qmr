@@ -62,7 +62,6 @@ export interface MeasureMetaData {
   placeholder?: boolean;
 }
 
-// TODO: FF 2023
 export const measures: Measure = {
   2021: [
     {

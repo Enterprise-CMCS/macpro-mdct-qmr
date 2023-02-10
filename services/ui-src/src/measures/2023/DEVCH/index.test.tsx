@@ -22,7 +22,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "DEV-CH";
 const coreSet = "CCSC";
 const state = "AL";
-const year = 2022;
+const year = 2023;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 
