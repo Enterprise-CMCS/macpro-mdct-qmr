@@ -855,6 +855,10 @@ to make in order to get that year working.
 
    ![After](./.images/afterCommonComponentUpdate.png?raw=true)
 
+7. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
+
+8. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
+
 ## Things to Look Out For (Gotchas)
 
 If you are creating a new shared component (e.g. files under `/globalValidations`) while editing the previous year's files, it is possible that merge conflicts will arise. Make sure these concurrent changes are not overwriting or removing necessary code.

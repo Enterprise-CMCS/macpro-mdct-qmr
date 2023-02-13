@@ -1,4 +1,4 @@
-import * as Types from "measures/2022/CommonQuestions/types";
+import * as Types from "measures/2022/shared/CommonQuestions/types";
 
 export interface FormData
   extends Types.AdditionalNotes,

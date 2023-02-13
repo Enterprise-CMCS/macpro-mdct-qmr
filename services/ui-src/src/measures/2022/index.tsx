@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Data, Qualifier } from "./Qualifiers";
+import { Data, Qualifier } from "./shared/Qualifiers";
 
 /*
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
