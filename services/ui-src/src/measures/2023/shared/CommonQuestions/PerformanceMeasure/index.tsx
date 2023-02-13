@@ -285,12 +285,14 @@ export const PerformanceMeasure = ({
       <CUI.Text
         fontWeight="bold"
         mt={5}
+        dangerouslySetInnerHTML={{
+          __html:
+            data.customPrompt ??
+            `Enter a number for the numerator and the denominator. Rate will
+          auto-calculate:`,
+        }}
         data-cy="Enter a number for the numerator and the denominator"
-      >
-        {data.customPrompt ??
-          `Enter a number for the numerator and the denominator. Rate will
-        auto-calculate:`}
-      </CUI.Text>
+      />
       {(dataSourceWatch?.[0] !== "AdministrativeData" ||
         dataSourceWatch?.length !== 1) && (
         <CUI.Heading pt="5" size={"sm"}>
