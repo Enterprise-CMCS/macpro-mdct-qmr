@@ -57,6 +57,7 @@
       "src/components/**/*.{ts,tsx}",
       "src/views/**/*.{ts,tsx}",
       "src/measures/2022/**/*.tsx",
+      "src/measures/2023/**/*.tsx",
       "src/measures/globalValidations/**/*.{ts,tsx}",
       "!src/components/CoreQuestions/index.tsx",
       "!src/components/ScrollToTop/index.tsx",
