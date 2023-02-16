@@ -7,7 +7,6 @@ import { mockLDFlags } from "../../../../../../setupJest";
 mockLDFlags.setDefault({ periodOfHealthEmergency2023: true });
 
 describe("WhyAreYouNotReporting component initial appearance", () => {
-  mockLDFlags.set({ periodOfHealthEmergency2023: true });
   beforeEach(() => {
     renderWithHookForm(<WhyAreYouNotReporting />);
   });
@@ -33,8 +32,6 @@ describe("WhyAreYouNotReporting component initial appearance", () => {
 });
 
 describe(`Options`, () => {
-  mockLDFlags.set({ periodOfHealthEmergency2023: true });
-
   beforeEach(() => {
     renderWithHookForm(<WhyAreYouNotReporting />);
   });
@@ -196,8 +193,6 @@ describe(`Options`, () => {
 });
 
 describe("WhyAreYouNotReporting component, Health Homes", () => {
-  mockLDFlags.set({ periodOfHealthEmergency2023: true });
-
   beforeEach(() => {
     renderWithHookForm(<WhyAreYouNotReporting healthHomeMeasure />);
   });
@@ -220,7 +215,6 @@ describe("WhyAreYouNotReporting component, Health Homes", () => {
 });
 
 function verifyOptions() {
-  mockLDFlags.set({ periodOfHealthEmergency2023: true });
   expect(screen.getByLabelText("Service not covered")).toBeInTheDocument();
   expect(screen.getByLabelText("Population not covered")).toBeInTheDocument();
   expect(screen.getByLabelText("Data not available")).toBeInTheDocument();
