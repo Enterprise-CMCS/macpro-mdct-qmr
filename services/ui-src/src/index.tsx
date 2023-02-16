@@ -21,7 +21,7 @@ Amplify.configure({
 });
 
 // LaunchDarkly Configuration
-const ldClientId = process.env.REACT_APP_LD_SDK_CLIENT;
+const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
 (async () => {
   const LDProvider = await asyncWithLDProvider({
     clientSideID: ldClientId!,
