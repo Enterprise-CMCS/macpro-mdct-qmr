@@ -4,7 +4,7 @@ import { FormData } from "../types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
 export const WhyDidYouNotCollect = () => {
-  const pheIsCurrent = useFlags()["periodOfHealthEmergency2023"];
+  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2023"];
   const register = useCustomRegister<FormData>();
   return (
     <QMR.CoreQuestionWrapper

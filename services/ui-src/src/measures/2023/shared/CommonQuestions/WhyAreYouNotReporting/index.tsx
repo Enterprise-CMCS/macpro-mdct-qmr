@@ -13,7 +13,7 @@ export const WhyAreYouNotReporting = ({
   healthHomeMeasure,
   removeLessThan30,
 }: Props) => {
-  const pheIsCurrent = useFlags()["periodOfHealthEmergency2023"];
+  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2023"];
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
   return (
     <QMR.CoreQuestionWrapper
