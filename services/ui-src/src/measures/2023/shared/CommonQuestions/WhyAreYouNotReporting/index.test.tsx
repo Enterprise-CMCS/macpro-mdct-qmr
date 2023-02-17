@@ -4,11 +4,13 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { WhyAreYouNotReporting } from ".";
 import { mockLDFlags } from "../../../../../../setupJest";
 
-mockLDFlags.setDefault({ periodOfHealthEmergency2023: true });
-
 describe("WhyAreYouNotReporting component initial appearance", () => {
   beforeEach(() => {
+    mockLDFlags.set({ periodOfHealthEmergency2023: true });
     renderWithHookForm(<WhyAreYouNotReporting />);
+  });
+  afterAll(() => {
+    mockLDFlags.clear();
   });
 
   it("displays description text properly", () => {
@@ -33,7 +35,11 @@ describe("WhyAreYouNotReporting component initial appearance", () => {
 
 describe(`Options`, () => {
   beforeEach(() => {
+    mockLDFlags.set({ periodOfHealthEmergency2023: true });
     renderWithHookForm(<WhyAreYouNotReporting />);
+  });
+  afterAll(() => {
+    mockLDFlags.clear();
   });
 
   describe("Population not covered", () => {
@@ -194,7 +200,11 @@ describe(`Options`, () => {
 
 describe("WhyAreYouNotReporting component, Health Homes", () => {
   beforeEach(() => {
+    mockLDFlags.set({ periodOfHealthEmergency2023: true });
     renderWithHookForm(<WhyAreYouNotReporting healthHomeMeasure />);
+  });
+  afterAll(() => {
+    mockLDFlags.clear();
   });
 
   it("renders the Health Homes version of the component", () => {
@@ -211,6 +221,19 @@ describe("WhyAreYouNotReporting component, Health Homes", () => {
     expect(
       screen.getByLabelText("Data not submitted by Providers to State")
     ).toBeInTheDocument();
+  });
+});
+
+describe("WhyAreYouNotReporting component -- PHE ended", () => {
+  it("displays the correct Health Homes sub-options", () => {
+    mockLDFlags.set({ periodOfHealthEmergency2023: false });
+    renderWithHookForm(<WhyAreYouNotReporting />);
+    expect(
+      screen.queryByText(
+        "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic"
+      )
+    ).not.toBeInTheDocument();
+    mockLDFlags.clear();
   });
 });
 
