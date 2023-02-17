@@ -39,7 +39,7 @@ const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
-  const releasedTwentyTwentyThree = useFlags()["release2023"];
+  const releasedTwentyTwentyThree = useFlags()?.["release2023"];
 
   let reportingyearOptions: IRepYear[] =
     reportingYears && reportingYears.length
@@ -104,7 +104,7 @@ const StateHome = () => {
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
   const resetCoreSetMutation = useResetCoreSet();
-  const releasedTwentyTwentyThree = useFlags()["release2023"];
+  const releasedTwentyTwentyThree = useFlags()?.["release2023"];
   const { data, error, isLoading } = Api.useGetCoreSets(
     releasedTwentyTwentyThree
   );

@@ -2,6 +2,7 @@ import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import * as DC from "dataConstants";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 interface Props {
   healthHomeMeasure?: boolean;
@@ -12,6 +13,7 @@ export const WhyAreYouNotReporting = ({
   healthHomeMeasure,
   removeLessThan30,
 }: Props) => {
+  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2023"];
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
   return (
     <QMR.CoreQuestionWrapper
@@ -163,17 +165,21 @@ export const WhyAreYouNotReporting = ({
               />,
             ],
           },
-          {
-            displayValue:
-              "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
-            value: DC.LIMITATION_WITH_DATA_COLLECTION,
-            children: [
-              <QMR.TextArea
-                label="Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
-                {...register(DC.LIMITATION_WITH_DATA_COLLECTION)}
-              />,
-            ],
-          },
+          ...(pheIsCurrent
+            ? [
+                {
+                  displayValue:
+                    "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
+                  value: DC.LIMITATION_WITH_DATA_COLLECTION,
+                  children: [
+                    <QMR.TextArea
+                      label="Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
+                      {...register(DC.LIMITATION_WITH_DATA_COLLECTION)}
+                    />,
+                  ],
+                },
+              ]
+            : []),
           {
             displayValue: `Small sample size ${
               removeLessThan30 ? "" : "(less than 30)"

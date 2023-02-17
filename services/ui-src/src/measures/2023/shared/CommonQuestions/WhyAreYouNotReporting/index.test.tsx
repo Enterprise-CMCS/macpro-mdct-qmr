@@ -2,6 +2,9 @@ import fireEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { WhyAreYouNotReporting } from ".";
+import { mockLDFlags } from "../../../../../../setupJest";
+
+mockLDFlags.setDefault({ periodOfHealthEmergency2023: true });
 
 describe("WhyAreYouNotReporting component initial appearance", () => {
   beforeEach(() => {
