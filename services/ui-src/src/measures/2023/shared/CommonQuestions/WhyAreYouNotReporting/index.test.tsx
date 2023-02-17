@@ -4,13 +4,11 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { WhyAreYouNotReporting } from ".";
 import { mockLDFlags } from "../../../../../../setupJest";
 
+mockLDFlags.setDefault({ periodOfHealthEmergency2023: false });
+
 describe("WhyAreYouNotReporting component initial appearance", () => {
   beforeEach(() => {
-    mockLDFlags.set({ periodOfHealthEmergency2023: true });
     renderWithHookForm(<WhyAreYouNotReporting />);
-  });
-  afterAll(() => {
-    mockLDFlags.clear();
   });
 
   it("displays description text properly", () => {
@@ -35,11 +33,7 @@ describe("WhyAreYouNotReporting component initial appearance", () => {
 
 describe(`Options`, () => {
   beforeEach(() => {
-    mockLDFlags.set({ periodOfHealthEmergency2023: true });
     renderWithHookForm(<WhyAreYouNotReporting />);
-  });
-  afterAll(() => {
-    mockLDFlags.clear();
   });
 
   describe("Population not covered", () => {
@@ -154,23 +148,6 @@ describe(`Options`, () => {
     });
   });
 
-  describe("Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic", () => {
-    it("renders textBox correctly", () => {
-      fireEvent.click(
-        screen.getByLabelText(
-          "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic"
-        )
-      );
-
-      const textArea = screen.getByLabelText(
-        "Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
-      );
-      expect(textArea).toBeInTheDocument();
-      fireEvent.type(textArea, "This is the test text");
-      expect(textArea).toHaveDisplayValue("This is the test text");
-    });
-  });
-
   describe("Small sample size (less than 30)", () => {
     it("renders textBox correctly with max value 29", () => {
       fireEvent.click(
@@ -200,11 +177,7 @@ describe(`Options`, () => {
 
 describe("WhyAreYouNotReporting component, Health Homes", () => {
   beforeEach(() => {
-    mockLDFlags.set({ periodOfHealthEmergency2023: true });
     renderWithHookForm(<WhyAreYouNotReporting healthHomeMeasure />);
-  });
-  afterAll(() => {
-    mockLDFlags.clear();
   });
 
   it("renders the Health Homes version of the component", () => {
@@ -224,16 +197,21 @@ describe("WhyAreYouNotReporting component, Health Homes", () => {
   });
 });
 
-describe("WhyAreYouNotReporting component -- PHE ended", () => {
-  it("displays the correct Health Homes sub-options", () => {
-    mockLDFlags.set({ periodOfHealthEmergency2023: false });
+describe("Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic (PHE active)", () => {
+  it("renders textBox correctly", () => {
+    mockLDFlags.set({ periodOfHealthEmergency2023: true });
     renderWithHookForm(<WhyAreYouNotReporting />);
-    expect(
-      screen.queryByText(
+    fireEvent.click(
+      screen.getByLabelText(
         "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic"
       )
-    ).not.toBeInTheDocument();
-    mockLDFlags.clear();
+    );
+    const textArea = screen.getByLabelText(
+      "Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
+    );
+    expect(textArea).toBeInTheDocument();
+    fireEvent.type(textArea, "This is the test text");
+    expect(textArea).toHaveDisplayValue("This is the test text");
   });
 });
 
@@ -242,10 +220,10 @@ function verifyOptions() {
   expect(screen.getByLabelText("Population not covered")).toBeInTheDocument();
   expect(screen.getByLabelText("Data not available")).toBeInTheDocument();
   expect(
-    screen.getByLabelText(
+    screen.queryByText(
       "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic"
     )
-  ).toBeInTheDocument();
+  ).not.toBeInTheDocument();
   expect(
     screen.getByLabelText("Small sample size (less than 30)")
   ).toBeInTheDocument();
