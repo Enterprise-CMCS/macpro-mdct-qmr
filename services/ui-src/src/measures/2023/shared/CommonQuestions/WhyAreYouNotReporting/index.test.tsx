@@ -1,8 +1,8 @@
-import fireEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { WhyAreYouNotReporting } from ".";
 import { mockLDFlags } from "../../../../../../setupJest";
+import userEvent from "@testing-library/user-event";
 
 mockLDFlags.setDefault({ periodOfHealthEmergency2023: false });
 
@@ -38,7 +38,7 @@ describe(`Options`, () => {
 
   describe("Population not covered", () => {
     beforeEach(() => {
-      fireEvent.click(screen.getByLabelText("Population not covered"));
+      userEvent.click(screen.getByLabelText("Population not covered"));
     });
 
     it("displays sub-options", () => {
@@ -55,7 +55,7 @@ describe(`Options`, () => {
 
     describe("sub-options", () => {
       it("Partial population not covered", () => {
-        fireEvent.click(
+        userEvent.click(
           screen.getByLabelText("Partial population not covered")
         );
 
@@ -68,7 +68,7 @@ describe(`Options`, () => {
 
   describe("Data not available", () => {
     beforeEach(() => {
-      fireEvent.click(screen.getByLabelText("Data not available"));
+      userEvent.click(screen.getByLabelText("Data not available"));
     });
 
     it("displays sub-options", () => {
@@ -97,19 +97,19 @@ describe(`Options`, () => {
     describe("sub-options", () => {
       test("Data inconsistencies/Accuracy", () => {
         // Open option
-        fireEvent.click(screen.getByLabelText("Data inconsistencies/Accuracy"));
+        userEvent.click(screen.getByLabelText("Data inconsistencies/Accuracy"));
 
         const textArea = screen.getByLabelText(
           "Explain the Data inconsistencies/Accuracy issues:"
         );
         expect(textArea).toBeInTheDocument();
-        fireEvent.type(textArea, "This is the test text");
+        userEvent.type(textArea, "This is the test text");
         expect(textArea).toHaveDisplayValue("This is the test text");
       });
 
       test("Data source not easily accessible", () => {
         // Open option
-        fireEvent.click(
+        userEvent.click(
           screen.getByLabelText("Data source not easily accessible")
         );
 
@@ -125,24 +125,24 @@ describe(`Options`, () => {
         expect(screen.queryAllByLabelText("Other")).toHaveLength(3);
 
         // "Other"
-        fireEvent.click(screen.queryAllByLabelText("Other")[0]);
+        userEvent.click(screen.queryAllByLabelText("Other")[0]);
         const textArea = screen.getByLabelText("Explain:");
         expect(textArea).toBeInTheDocument();
-        fireEvent.type(textArea, "This is the test text");
+        userEvent.type(textArea, "This is the test text");
         expect(textArea).toHaveDisplayValue("This is the test text");
       });
 
       test("Information not collected", () => {
         // Open Option
-        fireEvent.click(screen.getByLabelText("Information not collected"));
+        userEvent.click(screen.getByLabelText("Information not collected"));
       });
 
       test("Other", () => {
         // Open Option
-        fireEvent.click(screen.queryAllByLabelText("Other")[0]);
+        userEvent.click(screen.queryAllByLabelText("Other")[0]);
         const textArea = screen.getByLabelText("Explain:");
         expect(textArea).toBeInTheDocument();
-        fireEvent.type(textArea, "This is the test text");
+        userEvent.type(textArea, "This is the test text");
         expect(textArea).toHaveDisplayValue("This is the test text");
       });
     });
@@ -150,26 +150,26 @@ describe(`Options`, () => {
 
   describe("Small sample size (less than 30)", () => {
     it("renders textBox correctly with max value 29", () => {
-      fireEvent.click(
+      userEvent.click(
         screen.getByLabelText("Small sample size (less than 30)")
       );
 
       const numberInput = screen.getByTestId("test-number-input");
       expect(numberInput).toBeInTheDocument();
-      fireEvent.type(numberInput, "29");
+      userEvent.type(numberInput, "29");
       expect(numberInput).toHaveDisplayValue("29");
-      fireEvent.type(numberInput, "30");
+      userEvent.type(numberInput, "30");
       expect(numberInput).toHaveDisplayValue("3");
     });
   });
 
   describe("Other", () => {
     it("renders textBox correctly", () => {
-      fireEvent.click(screen.getByLabelText("Other"));
+      userEvent.click(screen.getByLabelText("Other"));
 
       const textArea = screen.getByLabelText("Explain:");
       expect(textArea).toBeInTheDocument();
-      fireEvent.type(textArea, "This is the test text");
+      userEvent.type(textArea, "This is the test text");
       expect(textArea).toHaveDisplayValue("This is the test text");
     });
   });
@@ -190,7 +190,7 @@ describe("WhyAreYouNotReporting component, Health Homes", () => {
   });
 
   it("displays the correct Health Homes sub-options", () => {
-    fireEvent.click(screen.getByLabelText("Data not available"));
+    userEvent.click(screen.getByLabelText("Data not available"));
     expect(
       screen.getByLabelText("Data not submitted by Providers to State")
     ).toBeInTheDocument();
@@ -201,7 +201,7 @@ describe("Limitations with data collection, reporting, or accuracy due to the CO
   it("renders textBox correctly", () => {
     mockLDFlags.set({ periodOfHealthEmergency2023: true });
     renderWithHookForm(<WhyAreYouNotReporting />);
-    fireEvent.click(
+    userEvent.click(
       screen.getByLabelText(
         "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic"
       )
@@ -210,7 +210,7 @@ describe("Limitations with data collection, reporting, or accuracy due to the CO
       "Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
     );
     expect(textArea).toBeInTheDocument();
-    fireEvent.type(textArea, "This is the test text");
+    userEvent.type(textArea, "This is the test text");
     expect(textArea).toHaveDisplayValue("This is the test text");
   });
 });
