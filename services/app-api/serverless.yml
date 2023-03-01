@@ -2,16 +2,16 @@
 service: app-api
 useDotenv: true
 
-frameworkVersion: "2"
+frameworkVersion: "3"
 
 package:
   individually: true
 
 plugins:
   - serverless-plugin-typescript
-  - serverless-dotenv-plugin
   - serverless-plugin-warmup
   - serverless-associate-waf
+  - serverless-offline-ssm
   - serverless-offline
   - serverless-stack-termination-protection
   - serverless-idempotency-helper
@@ -20,6 +20,12 @@ plugins:
   - serverless-api-client-certificate
 
 custom:
+  serverless-offline-ssm:
+    stages:
+      - local
+    ssm:
+      "/s3bucket/uploads": "local-uploads"
+      "/s3bucket/snapshots": "local-dynamo-snapshots"
   serverlessApiClientCertificate:
     rotateCerts: true
     daysLeft: 30
@@ -32,8 +38,8 @@ custom:
       - master
       - val
       - prod
-  princeUrl: ${ssm:/configuration/default/princeurl~true, "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf"}
-  bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls~true, ssm:/configuration/default/qmr/bootstrapBrokerStringTls~true}
+  princeUrl: ${ssm:/configuration/default/princeurl, "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf"}
+  bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
   coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
   coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
   coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableStreamArn}
@@ -43,11 +49,11 @@ custom:
   bannerTableName: ${env:bannerTableName, cf:database-${self:custom.stage}.BannerTableName}
   bannerTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.BannerTableArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl
-  vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id~true, ssm:/configuration/default/vpc/id~true}
+  vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
   privateSubnets:
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/a/id~true, ssm:/configuration/default/vpc/subnets/private/a/id~true}
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/b/id~true, ssm:/configuration/default/vpc/subnets/private/b/id~true}
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/c/id~true, ssm:/configuration/default/vpc/subnets/private/c/id~true}
+    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/a/id, ssm:/configuration/default/vpc/subnets/private/a/id, ''}
+    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/b/id, ssm:/configuration/default/vpc/subnets/private/b/id, ''}
+    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/c/id, ssm:/configuration/default/vpc/subnets/private/c/id, ''}
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
@@ -56,15 +62,15 @@ custom:
       enabled: true
       prewarm: true
       events:
-        - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule, ssm:/configuration/default/warmup/schedule~true, "60 minutes"})
-      concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency, ssm:/configuration/default/warmup/concurrency~true, 5}
+        - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule, ssm:/configuration/default/warmup/schedule, "60 minutes"})
+      concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency, ssm:/configuration/default/warmup/concurrency, 5}
   authValue:
     master: aws_iam
     val: aws_iam
     prod: aws_iam
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs18.x
   region: us-east-1
   tracing:
     apiGateway: true
@@ -72,8 +78,8 @@ provider:
     restApi: true
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path~true, ssm:/configuration/default/iam/path~true, "/"}
-      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy~true, ssm:/configuration/default/iam/permissionsBoundaryPolicy~true, ""}
+      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
+      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
       statements:
         - Effect: "Allow"
           Action: "execute-api:Invoke"
@@ -102,8 +108,8 @@ provider:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
     bannerTableName: ${self:custom.bannerTableName}
-    uploadS3BucketName: ${cf:uploads-${self:custom.stage}.AttachmentsBucketName, ""}
-    dynamoSnapshotS3BucketName: ${cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, ""}
+    uploadS3BucketName: ${ssm:/s3bucket/uploads, cf:uploads-${self:custom.stage}.AttachmentsBucketName, "local-uploads"}
+    dynamoSnapshotS3BucketName: ${ssm:/s3bucket/snapshots, cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, "local-dynamo-snapshots"}
     stage: ${opt:stage, self:provider.stage}
     princeUrl: ${self:custom.princeUrl}
 
