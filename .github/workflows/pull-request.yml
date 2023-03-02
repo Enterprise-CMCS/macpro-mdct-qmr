@@ -63,6 +63,8 @@ jobs:
         with:
           role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      - name: Set Node Version
+        run: nvm use
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: set path
