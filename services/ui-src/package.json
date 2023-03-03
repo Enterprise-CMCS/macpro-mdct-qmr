@@ -125,7 +125,7 @@
     "@babel/preset-typescript": "^7.16.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^12.1.0",
-    "@testing-library/user-event": "^14.0.0",
+    "@testing-library/user-event": "^7.2.1",
     "@types/base-64": "^1.0.0",
     "@types/file-saver": "^2.0.5",
     "@types/jest": "^27.0.2",
