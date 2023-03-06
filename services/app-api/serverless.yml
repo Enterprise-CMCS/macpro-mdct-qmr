@@ -18,6 +18,7 @@ plugins:
   - serverless-iam-helper
   - serverless-s3-bucket-helper
   - serverless-api-client-certificate
+  - serverless-dotenv-plugin
 
 custom:
   serverless-offline-ssm:
@@ -38,6 +39,8 @@ custom:
       - master
       - val
       - prod
+  dotenv:
+    path: ../../.env
   princeUrl: ${ssm:/configuration/default/princeurl, "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf"}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
   coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
