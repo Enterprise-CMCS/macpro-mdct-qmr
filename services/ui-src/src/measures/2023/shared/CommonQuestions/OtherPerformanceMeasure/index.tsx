@@ -98,12 +98,12 @@ export const OtherPerformanceMeasure = ({
       <CUI.Box marginTop={10}>
         {showRates.map((_item, index) => {
           return (
-            <CUI.Stack key={index} my={10}>
-              <QMR.DeleteWrapper
-                allowDeletion={index !== 0}
-                onDelete={() => remove(index)}
-                key={index}
-              >
+            <QMR.DeleteWrapper
+              allowDeletion={index !== 0}
+              onDelete={() => remove(index)}
+              key={index}
+            >
+              <CUI.Stack key={index} my={10}>
                 <CUI.Heading fontSize="lg" fontWeight="600">
                   Describe the Rate:
                 </CUI.Heading>
@@ -141,8 +141,8 @@ export const OtherPerformanceMeasure = ({
                   }
                   rateCalc={rateCalc}
                 />
-              </QMR.DeleteWrapper>
-            </CUI.Stack>
+              </CUI.Stack>
+            </QMR.DeleteWrapper>
           );
         })}
 
