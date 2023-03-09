@@ -1,9 +1,9 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2022/globalValidations";
+import * as GV from "measures/2022/shared/globalValidations";
 import * as PMD from "./data";
 import { cleanString } from "utils/cleanString";
 import { FormData } from "./types";
-import { OMSData } from "measures/2022/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "measures/2022/shared/CommonQuestions/OptionalMeasureStrat/data";
 
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,

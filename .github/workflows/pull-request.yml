@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - "master"
-      - "val"
-      - "prod"
 
 permissions:
   id-token: write
@@ -43,9 +41,12 @@ jobs:
           STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
           COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: read .nvmrc
+        id: node_version
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
       - uses: actions/setup-node@v1
         with:
-          node-version: "12.x"
+          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
       - name: Combine yarn.lock files to single file
         run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
       - name: cache service dependencies

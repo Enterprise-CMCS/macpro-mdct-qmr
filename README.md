@@ -1,35 +1,13 @@
-<!--
-Render Markdown in VS Code
+# MDCT QMR (Quality Measure Reporting)
 
-SHIFT + CMD/CTRL + V
--->
+[![CodeQL](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/083b18b2ce64bd653fe9/maintainability)](https://codeclimate.com/repos/6403e46c0252f128457cf09a/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/083b18b2ce64bd653fe9/test_coverage)](https://codeclimate.com/repos/6403e46c0252f128457cf09a/test_coverage)
 
-# Quality Measure Reporting (QMR)
-
-# cms-mdct-qmr ![Build](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master) [![latest release](https://img.shields.io/github/release/cmsgov/cms-mdct-qmr.svg)](https://github.com/cmsgov/cms-mdct-qmr/releases/latest) [![CodeQL](https://github.com/CMSgov/cms-mdct-qmr/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/CMSgov/cms-mdct-qmr/actions/workflows/codeql-analysis.yml) [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Test Coverage](https://api.codeclimate.com/v1/badges/f5b10ae50ca1effedcd3/test_coverage)](https://codeclimate.com/repos/60fae00673444f5bad001bf9/test_coverage)
-
-| branch     | status                                                                                       | release                                                                                                                                                                                                                       |
-| ---------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| master     | ![master](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=master)   | [![release to master](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare?quick_pull=1)                                                                                       |
-| val        | ![val](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=val)         | [![release to val](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare/val...master?quick_pull=1&template=PULL_REQUEST_TEMPLATE.val.md&title=Release%20to%20Val)              |
-| production | ![production](https://github.com/CMSgov/cms-mdct-qmr/workflows/Deploy/badge.svg?branch=prod) | [![release to production](https://img.shields.io/badge/-Create%20PR-blue.svg)](https://github.com/CMSgov/cms-mdct-qmr/compare/prod...val?quick_pull=1&template=PULL_REQUEST_TEMPLATE.production.md&title=Release%20to%20Prod) |
-
-## What is QMR
-
-The new Quality Measure Reporting (QMR) application will house all the state required measures for reporting on Adult, Child, and Health Home core sets. The new application is replacing the time intensive SDF files previously used for submission. Data collected within the QMR application will be sent to the CMS partner MPR for analytics and reporting via the CollabraLink owned BigMAC application.
-
-This application measures the quality of care and programs offered by states related to their Adult, Child, and Health Home offerings.
-
-## Value
-
-The new web-based QMR application will allow CMS to access data submitted by the states in real time and with more accuracy. QMR has also been designed with HCD best practices in mind and has incorporated conditional logic and validation to ensure moving through each measure provides a better user experience and ease in understanding of what is being asked.
+QMR is the CMCS MDCT application for collecting state data for related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
 # Table of Contents
 
-- [Quality Measure Reporting (QMR)](#quality-measure-reporting-qmr)
-  - [What is QMR](#what-is-qmr)
-  - [Value](#value)
-- [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
   - [Register an EUA Account](#register-an-eua-account)
   - [IDM](#idm)
@@ -854,6 +832,10 @@ to make in order to get that year working.
    After
 
    ![After](./.images/afterCommonComponentUpdate.png?raw=true)
+
+7. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
+
+8. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
 
 ## Things to Look Out For (Gotchas)
 

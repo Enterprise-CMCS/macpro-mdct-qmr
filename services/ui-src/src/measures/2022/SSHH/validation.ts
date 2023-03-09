@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2022/globalValidations";
+import * as GV from "measures/2022/shared/globalValidations";
 import { FormData } from "./types";
 
 export interface FormRateField {

@@ -8,6 +8,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 import { CoreSetAbbr, UserRoles } from "types";
+import { useFlags } from "launchdarkly-react-client-sdk";
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
   "HealthHomeCoreSet-ShareSSM": string;
@@ -26,7 +27,8 @@ export const AddHHCoreSet = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { userState, userRole } = useUser();
-  const { isLoading, data } = Api.useGetCoreSets();
+  const releasedTwentyTwentyThree = useFlags()?.["release2023"];
+  const { data, isLoading } = Api.useGetCoreSets(releasedTwentyTwentyThree);
   const { state, year } = useParams();
 
   const methods = useForm<HealthHome>({

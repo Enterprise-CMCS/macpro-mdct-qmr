@@ -35,14 +35,14 @@ async function run_api_locally(runner: LabeledProcessRunner) {
     "api",
     [
       "serverless",
+      "offline",
+      "start",
       "--stage",
       "local",
       "--region",
       "us-east-1",
-      "offline",
       "--httpPort",
       "3030",
-      "start",
     ],
     "services/app-api"
   );
