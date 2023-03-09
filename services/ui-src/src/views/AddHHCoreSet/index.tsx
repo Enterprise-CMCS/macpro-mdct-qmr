@@ -27,7 +27,7 @@ export const AddHHCoreSet = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { userState, userRole } = useUser();
-  const releasedTwentyTwentyThree = useFlags()["release2023"];
+  const releasedTwentyTwentyThree = useFlags()?.["release2023"];
   const { data, isLoading } = Api.useGetCoreSets(releasedTwentyTwentyThree);
   const { state, year } = useParams();
 

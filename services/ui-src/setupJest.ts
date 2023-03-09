@@ -1,5 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
+import { mockFlags, resetLDMocks } from "jest-launchdarkly-mock";
 
 global.React = React;
 
@@ -19,3 +20,10 @@ jest.mock("hooks/api", () => ({
   useDeleteBanner: jest.fn(),
   useWriteBanner: jest.fn(),
 }));
+
+/* Mock LaunchDarkly (see https://bit.ly/3QAeS7j) */
+export const mockLDFlags = {
+  setDefault: (baseline: any) => mockFlags(baseline),
+  clear: resetLDMocks,
+  set: mockFlags,
+};
