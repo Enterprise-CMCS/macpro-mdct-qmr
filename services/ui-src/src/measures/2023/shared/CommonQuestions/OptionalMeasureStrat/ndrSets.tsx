@@ -344,11 +344,16 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
         value: cleanedLabel,
         displayValue: labelText[value] ?? value,
         children: [
-          <CUI.Heading key={`${name}.rates.${cleanedLabel}Header`} size={"sm"}>
-            {customPrompt ??
-              `Enter a number for the numerator and the denominator. Rate will
-            auto-calculate:`}
-          </CUI.Heading>,
+          <CUI.Heading
+            key={`${name}.rates.${cleanedLabel}Header`}
+            size={"sm"}
+            dangerouslySetInnerHTML={{
+              __html:
+                customPrompt ??
+                `Enter a number for the numerator and the denominator. Rate will
+            auto-calculate:`,
+            }}
+          />,
           <CUI.Heading
             pt="1"
             key={`${name}.rates.${cleanedLabel}HeaderHelper`}
@@ -525,11 +530,13 @@ const useRenderOPMCheckboxOptions = (name: string) => {
           <CUI.Heading
             key={`${name}.rates.${cleanedFieldName}Header`}
             size={"sm"}
-          >
-            {customPrompt ??
-              `Enter a number for the numerator and the denominator. Rate will
-            auto-calculate:`}
-          </CUI.Heading>,
+            dangerouslySetInnerHTML={{
+              __html:
+                customPrompt ??
+                `Enter a number for the numerator and the denominator. Rate will
+              auto-calculate:`,
+            }}
+          />,
           <CUI.Heading
             pt="1"
             size={"sm"}
