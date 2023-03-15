@@ -32,7 +32,7 @@ export const ComplexValidateNDRTotalsOMS = (
   // build performanceMeasureArray
   let performanceMeasureArray = [];
   const cleanedCategories = categories.map((cat) => cleanString(cat));
-  if (cleanedCategories.length !== 0) {
+  if (cleanedCategories.length > 0) {
     for (const cat of cleanedCategories) {
       let row = [];
       for (const q in qualifierObj) {
@@ -116,8 +116,8 @@ export const ComplexValidateNDRTotals = (
       categoryTotal?.fields?.forEach((field: Field, x: number) => {
         if (
           !rateLocations.includes(x) &&
-          ((!field?.value && categorySums[x] !== undefined) ||
-            (field?.value && categorySums[x] !== parseFloat(field.value)))
+          field?.value &&
+          categorySums[x] !== parseFloat(field.value)
         ) {
           errorArray.push({
             errorLocation: `${errorLocation} - ${
