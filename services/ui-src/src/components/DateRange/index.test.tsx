@@ -28,4 +28,16 @@ describe("Test DateRange", () => {
     );
     expect(errorMessage).toBeInTheDocument();
   });
+
+  test("Check that error disapears when user inputs correct date", () => {
+    const screen = renderWithHookForm(<DateRange name="testComponent" />);
+
+    const monthLabel = screen.getAllByLabelText(/month/i)[0];
+    const yearLabel = screen.getAllByLabelText(/year/i)[0];
+    userEvent.type(monthLabel, "01");
+    userEvent.type(yearLabel, "2022");
+    expect(
+      screen.queryByText("Please enter start date year in YYYY-format")
+    ).not.toBeInTheDocument();
+  });
 });
