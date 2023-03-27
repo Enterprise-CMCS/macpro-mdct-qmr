@@ -3,8 +3,8 @@
 
 # This further restricts files where labels change to only have super approval
 services/ui-src/src/measures/2021/rateLabelText.ts
-@StephanieCoppel @davidkoger
+@StephanieCoppel
 
 # This further restricts files where labels change to only have super approval
 services/ui-src/src/measures/2022/rateLabelText.ts
-@StephanieCoppel @davidkoger
+@StephanieCoppel
