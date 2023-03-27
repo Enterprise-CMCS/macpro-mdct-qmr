@@ -7,6 +7,7 @@ import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
 import { cleanString, getLabelText } from "utils";
 import { ndrFormula } from "types";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -199,6 +200,7 @@ export const PerformanceMeasure = ({
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
+  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2023"];
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
@@ -275,11 +277,13 @@ export const PerformanceMeasure = ({
             voluntary, CMS encourages states that can collect information safely
             to continue reporting the measures they have reported in the past.
           </CUI.Text>
-          <QMR.TextArea
-            formLabelProps={{ mt: 5 }}
-            {...register("PerformanceMeasure.hybridExplanation")}
-            label="Describe any COVID-related difficulties encountered while collecting this data:"
-          />
+          {pheIsCurrent && (
+            <QMR.TextArea
+              formLabelProps={{ mt: 5 }}
+              {...register("PerformanceMeasure.hybridExplanation")}
+              label="Describe any COVID-related difficulties encountered while collecting this data:"
+            />
+          )}
         </CUI.Box>
       )}
       <CUI.Text
