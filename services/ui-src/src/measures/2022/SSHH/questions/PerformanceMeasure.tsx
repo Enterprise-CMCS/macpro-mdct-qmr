@@ -5,7 +5,6 @@ import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "measures/2022/shared/CommonQuestions/types";
 import { useEffect } from "react";
-import { useFlags } from "launchdarkly-react-client-sdk";
 
 interface Props {
   hybridMeasure?: boolean;
@@ -30,7 +29,6 @@ export const PerformanceMeasure = ({
   rateAlwaysEditable,
 }: Props) => {
   const { control, reset } = useFormContext();
-  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2023"];
 
   const { fields, remove, append } = useFieldArray({
     name: DC.OPM_RATES,
@@ -85,13 +83,11 @@ export const PerformanceMeasure = ({
             voluntary, CMS encourages states that can collect information safely
             to continue reporting the measures they have reported in the past.
           </CUI.Text>
-          {pheIsCurrent && (
-            <QMR.TextArea
-              formLabelProps={{ mt: 5 }}
-              {...register(DC.OPM_HYBRID_EXPLANATION)}
-              label="Describe any COVID-related difficulties encountered while collecting this data:"
-            />
-          )}
+          <QMR.TextArea
+            formLabelProps={{ mt: 5 }}
+            {...register(DC.OPM_HYBRID_EXPLANATION)}
+            label="Describe any COVID-related difficulties encountered while collecting this data:"
+          />
         </CUI.Box>
       )}
 
