@@ -4,7 +4,6 @@ import { MonthPicker } from "components/MonthPicker";
 import { useFormContext } from "react-hook-form";
 import { format } from "date-fns";
 import { useEffect } from "react";
-
 interface Props {
   name: string;
   initStartMonth?: string;
@@ -66,6 +65,20 @@ export const DateRangeError = ({ name }: { name: string }) => {
     (endMonth > currentMonth && endYear === currentYear)
   ) {
     return <RangeNotification text="End date cannot be a future date" />;
+  }
+
+  /* If start date is not in correct YYYY format */
+  if (!!startYear && startYear.toString().length !== 4) {
+    return (
+      <RangeNotification text="Please enter start date year in YYYY-format" />
+    );
+  }
+
+  /* If end date is not in correct YYYY format */
+  if (!!endYear && endYear.toString().length !== 4) {
+    return (
+      <RangeNotification text="Please enter end date year in YYYY-format" />
+    );
   }
 
   return null;

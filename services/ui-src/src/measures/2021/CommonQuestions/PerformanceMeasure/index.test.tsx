@@ -50,7 +50,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
         exampleData.categories!.length
       );
     for (const label of exampleData.categories!)
-      expect(screen.getByText(label)).toBeVisible;
+      expect(screen.getByText(label)).toBeVisible();
 
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
