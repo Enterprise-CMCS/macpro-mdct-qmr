@@ -6,11 +6,11 @@ export const { categories, qualifiers } = getCatQualLabels("IET-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "The percentage of beneficiaries age 18 and older with a new episode of alcohol or other drug (AOD) abuse or dependence who received the following:",
+    "Percentage of new substance use disorder (SUD) episodes that result in treatment initiation and engagement. Two rates are reported:",
   ],
   questionListItems: [
-    "Initiation of AOD Treatment. Percentage of beneficiaries who initiate treatment through an inpatient AOD admission, outpatient visit, intensive outpatient encounter or partial hospitalization, telehealth, or medication treatment within 14 days of the diagnosis.",
-    "Engagement of AOD Treatment. Percentage of beneficiaries who initiated treatment and who were engaged in ongoing AOD treatment within 34 days of the initiation visit.",
+    "Initiation of SUD Treatment. The percentage of new SUD episodes that result in treatment initiation through an inpatient SUD admission, outpatient visit, intensive outpatient, partial hospitalization, telehealth visit, or medication treatment within 14 days.",
+    "Engagement of SUD Treatment. The percentage of new SUD episodes that have evidence of treatment engagement within 34 days of initiation.",
   ],
   categories,
   qualifiers,
