@@ -2,7 +2,7 @@ import { DataDrivenTypes } from "measures/2023/shared/CommonQuestions/types";
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
 
-export const { categories, qualifiers } = getCatQualLabels("HPC-AD");
+export const { categories, qualifiers } = getCatQualLabels("HBD-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
