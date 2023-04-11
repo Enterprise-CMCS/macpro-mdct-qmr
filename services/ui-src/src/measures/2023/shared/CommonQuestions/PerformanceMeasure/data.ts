@@ -10,6 +10,7 @@ export interface PerformanceMeasureData {
   questionText?: string[];
   questionListItems?: string[];
   questionListTitles?: string[];
+  questionNote?: string[];
   questionSubtext?: string[];
   questionSubtextTitles?: string[];
 }

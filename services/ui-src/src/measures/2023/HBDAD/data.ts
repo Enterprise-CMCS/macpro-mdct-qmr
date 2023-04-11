@@ -6,9 +6,12 @@ export const { categories, qualifiers } = getCatQualLabels("HBD-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of beneficiaries ages 18 to 75 with diabetes (type 1 and type 2) who had hemoglobin A1c (HbA1c) in poor control (> 9.0%).",
+    "Percentage of beneficiaries ages 18 to 75 with diabetes (type 1 and type 2) whose hemoglobin A1c (HbA1c) was at the following levels during the measurement year:",
   ],
-  questionListItems: [],
+  questionListItems: ["HbA1c control (<8.0%)", "HbA1c poor control (>9.0%)"],
+  questionNote: [
+    "Note: States must use the same data collection method (Administrative or hybrid) to report these indicators",
+  ],
   categories,
   qualifiers,
 };
