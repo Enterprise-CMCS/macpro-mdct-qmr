@@ -9,7 +9,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
     "Percentage of new substance use disorder (SUD) episodes that result in treatment initiation and engagement. Two rates are reported:",
   ],
   questionListItems: [
-    "Initiation of SUD Treatment. The percentage of new SUD episodes that result in treatment initiation through an inpatient SUD admission, outpatient visit, intensive outpatient, partial hospitalization, telehealth visit, or medication treatment within 14 days.",
+    "Initiation of SUD Treatment. The percentage of new SUD episodes that result in treatment initiation through an inpatient SUD admission, outpatient visit, intensive outpatient encounter, partial hospitalization, telehealth visit, or medication treatment within 14 days.",
     "Engagement of SUD Treatment. The percentage of new SUD episodes that have evidence of treatment engagement within 34 days of initiation.",
   ],
   categories,
