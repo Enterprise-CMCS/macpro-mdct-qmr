@@ -879,7 +879,18 @@ export const data = {
                 "id": "Ages65to75"
             }
         ],
-        "categories": []
+        "categories": [
+            {
+                "label": "HbA1c control (<8.0%)",
+                "text": "HbA1c control (<8.0%)",
+                "id":"HbA1ccontrol8"
+            },
+            {
+                "label": "HbA1c control (>9.0%)",
+                "text": "HbA1c control (>9.0%)",
+                "id":"HbA1ccontrol9"
+            }
+        ]
     },
     "HPCMI-AD": {
         "qualifiers": [
