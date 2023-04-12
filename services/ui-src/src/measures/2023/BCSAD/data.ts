@@ -1,5 +1,6 @@
 import { DataDrivenTypes } from "measures/2023/shared/CommonQuestions/types";
 import { getCatQualLabels } from "../rateLabelText";
+import * as DC from "dataConstants";
 
 export const { categories, qualifiers } = getCatQualLabels("BCS-AD");
 
@@ -17,16 +18,16 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
   options: [
     {
-      value: "Administrative Data",
+      value: DC.ADMINISTRATIVE_DATA,
       subOptions: [
         {
           label: "What is the Administrative Data Source?",
           options: [
             {
-              value: "Medicaid Management Information System (MMIS)",
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
             {
-              value: "Administrative Data Other",
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
               description: true,
             },
           ],
@@ -34,11 +35,15 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
       ],
     },
     {
-      value: "Electronic Health Records",
+      value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
       description: true,
     },
     {
-      value: "Other Data Source",
+      value: DC.ELECTRONIC_HEALTH_RECORDS,
+      description: true,
+    },
+    {
+      value: DC.OTHER_DATA_SOURCE,
       description: true,
     },
   ],
