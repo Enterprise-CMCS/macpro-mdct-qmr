@@ -137,7 +137,7 @@ export const DefinitionOfPopulation = ({
                   <QMR.NumberInput
                     mask={allPositiveIntegers}
                     {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE)}
-                    label="Specify the size of the population excluded (optional):"
+                    label="Specify the size of the population excluded:"
                   />
                 </CUI.Box>,
               ],

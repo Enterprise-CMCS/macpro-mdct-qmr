@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
-import React, { useEffect } from "react";
+import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { DataDrivenTypes } from "../types";
 
@@ -42,7 +42,7 @@ export const OtherPerformanceMeasure = ({
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
   const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
   const savedRates = getValues(DC.OPM_RATES);
-  const { control, reset } = useFormContext();
+  const { control } = useFormContext();
   const [showRates, setRates] = React.useState<Types.OtherRatesFields[]>(
     savedRates ?? [
       {
@@ -52,24 +52,11 @@ export const OtherPerformanceMeasure = ({
     ]
   );
 
-  const { fields, remove } = useFieldArray({
+  const { remove } = useFieldArray({
     name: DC.OPM_RATES,
     control,
     shouldUnregister: true,
   });
-
-  useEffect(() => {
-    if (fields.length === 0) {
-      reset({
-        name: DC.OPM_RATES,
-        [DC.OPM_RATES]: [
-          {
-            [DC.DESCRIPTION]: "",
-          },
-        ],
-      });
-    }
-  }, [fields, reset]);
 
   // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();

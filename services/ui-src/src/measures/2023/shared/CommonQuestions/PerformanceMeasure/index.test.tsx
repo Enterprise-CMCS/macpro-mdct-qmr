@@ -3,26 +3,38 @@ import {
   PerformanceMeasureData,
 } from "measures/2023/shared/CommonQuestions/PerformanceMeasure/data";
 import { data as PCRData } from "measures/2023/PCRAD/data";
+import { data as CBPdata } from "measures/2023/CBPAD/data";
 import fireEvent from "@testing-library/user-event";
 import { PerformanceMeasure } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { PCRRate } from "components";
+import { mockLDFlags } from "../../../../../../setupJest";
 
 interface Props {
   component?: RateComp | undefined;
   calcTotal: boolean;
   data: PerformanceMeasureData;
   rateReadOnly: undefined | boolean;
+  hybridMeasure: undefined | boolean;
 }
 
-const renderComponet = ({ component, calcTotal, data, rateReadOnly }: Props) =>
+mockLDFlags.setDefault({ periodOfHealthEmergency2023: false });
+
+const renderComponet = ({
+  component,
+  calcTotal,
+  data,
+  rateReadOnly,
+  hybridMeasure,
+}: Props) =>
   renderWithHookForm(
     <PerformanceMeasure
       data={data}
       calcTotal={calcTotal}
       RateComponent={component}
       rateReadOnly={rateReadOnly}
+      hybridMeasure={hybridMeasure}
     />
   );
 
@@ -35,6 +47,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
       calcTotal: false,
       data: exampleData,
       rateReadOnly: undefined,
+      hybridMeasure: undefined,
     };
   });
 
@@ -160,5 +173,26 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(denominatorTextBox).toHaveDisplayValue("123");
     expect(rateTextBox?.textContent).toEqual("100.0000");
     expect(rateTextBox?.nodeName).toBe("P");
+  });
+
+  test("periodOfHealthEmergency2023 flag is set to false, covid text and textbox should not render", () => {
+    props.data = CBPdata;
+    props.hybridMeasure = true;
+    renderComponet(props);
+    const covidText = screen.queryByLabelText(
+      "Describe any COVID-related difficulties encountered while collecting this data:"
+    );
+    expect(covidText).toBeNull();
+  });
+
+  test("periodOfHealthEmergency2023 flag is set to true, covid text and textbox should render", () => {
+    mockLDFlags.set({ periodOfHealthEmergency2023: true });
+    props.data = CBPdata;
+    props.hybridMeasure = true;
+    renderComponet(props);
+    const covidText = screen.getByLabelText(
+      "Describe any COVID-related difficulties encountered while collecting this data:"
+    );
+    expect(covidText).toBeInTheDocument();
   });
 });
