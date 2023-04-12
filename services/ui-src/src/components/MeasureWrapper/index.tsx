@@ -354,9 +354,9 @@ export const MeasureWrapper = ({
 
   const handleValidationModalResponse = (continueWithErrors: boolean) => {
     setShowModal(false);
+    if (!continueWithErrors) return;
 
-    if (continueWithErrors) {
-      const data = methods.getValues();
+    const manualSubmit = (data: any) => {
       submitDataToServer({
         data,
         reporting: handleReportingResponse(data),
@@ -365,7 +365,8 @@ export const MeasureWrapper = ({
         },
       });
       setErrors(undefined);
-    }
+    };
+    methods.handleSubmit(manualSubmit)();
   };
 
   if (!params.coreSetId || !params.state) {
