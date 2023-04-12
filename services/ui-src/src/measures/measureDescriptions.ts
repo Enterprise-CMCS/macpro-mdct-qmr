@@ -223,7 +223,7 @@ export const measureDescriptions: MeasureList = {
       "Follow-Up After Emergency Department Visit for Mental Illness: Age 18 and Older",
     "FUM-HH": "Follow-Up After Emergency Department Visit for Mental Illness",
     "FVA-AD": "Flu Vaccinations for Adults Ages 18 to 64",
-    "HBD-AD": "Hemoglobin A1c Control for Patients with Diabetes (HBD-AD)",
+    "HBD-AD": "Hemoglobin A1c Control for Patients with Diabetes",
     "HPCMI-AD":
       "Diabetes Care for People with Serious Mental Illness: Hemoglobin A1C (HbA1c) Poor Control (>9.0%)",
     "HVL-AD": "HIV Viral Load Suppression",

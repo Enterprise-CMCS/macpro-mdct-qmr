@@ -265,9 +265,9 @@ export const PerformanceMeasure = ({
         <CUI.Stack my="5" spacing={5}>
           {data.questionNote.map((item, idx) => {
             return (
-              <CUI.Text key={`questionNote.${idx}`}>
-                {data.questionListItems?.[idx] && <CUI.Text>{item}</CUI.Text>}
-              </CUI.Text>
+              data.questionNote?.[idx] && (
+                <CUI.Text key={`questionNote.${idx}`}>{item}</CUI.Text>
+              )
             );
           })}
         </CUI.Stack>
