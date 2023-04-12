@@ -9,7 +9,6 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 # Table of Contents
 
 - [Getting Started](#getting-started)
-  - [Register an EUA Account](#register-an-eua-account)
   - [IDM](#idm)
     - [Creating an IDM Account](#creating-an-idm-account)
     - [Initiate Role Request for QMR Access via IDM](#initiate-role-request-for-qmr-access-via-idm)
@@ -84,29 +83,7 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 - [Quickstart](#quickstart)
 - [License](#license)
 
-# Getting Started
-
-## Register an EUA Account
-
-In order to make changes against this repo and interact with associated services, you will need an EUA account with appropriate job codes. Create an EUA user ID here: [https://eua.cms.gov/iam/im/pri/](https://eua.cms.gov/iam/im/pri/).
-
-EUA access requests may take days or weeks to process, but local development setup can continue. It is highly recommended you make your EUA requests before continuing.
-
-Job codes needed may vary by contract and job role. Consult with your team for a complete list. The following are commonly required software development job codes.
-
-| Job Code                  | Description                                                                                                                                                                                                              |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| SLACK_P_USER              | Gets you access to CMS Slack. Many of the manual processes are initiated through contacting a specific team through Slack, in addition to being a primary means of communication.                                        |
-| Github_Editor             | Required for managing CMS GitHub repos. Your GitHub user will still need to be added to the CMS orgs and relevant repos through GitHub. In order to accept those invitations, you will be prompted to sign into CMS EUA. |
-| CMS_CLOUD_ACCESS          | Allows you to sign into CMS AWS with your EUA credentials. You will still need to be added to your project's AWS environments. See [AWS section](#aws) of this document for more information.                            |
-| JIRA_Users                | Access to issue tracking repository on [CMS Jira](jira.cms.gov).                                                                                                                                                         |
-| ENT_AGILE_TOOLS           | For Contractors and other NON-CMS employee users access to the CMS Enterprise Agile Tools                                                                                                                                |
-| AWS_Splunk_User           | User Level Access for AWS Splunk Application                                                                                                                                                                             |
-| CTR_VPN_3ZWINMF_Exception | One of 2 codes required for VPN access. Has a 90 day auto-expire. Needed while getting approved for a PIV. See [VPN section](#vpn) for more information.                                                                 |
-| CTR_VPN_PIV_3ZWINMF       | Contractor VPN_PIV access to 3-Zone URL's, Windows servers & Mainframes. See [VPN section](#vpn) for more information.                                                                                                   |
-| CHIP_D_User               | CHIP-State Childrens Health Ins Prog Enrollmnt Data Sys Dev Access                                                                                                                                                       |
-| CHIP_P_User               | CHIP-State Childrens Health Ins Prog Enrollmnt Data Sys Prod Access                                                                                                                                                      |
-| CHIP_V_User               | The CHIP Enrollment Data System is the electronic media system for the states                                                                                                                                            |
+# Getting Started                                                                                                                                     |
 
 ## IDM
 
