@@ -201,7 +201,7 @@ export const measureDescriptions: MeasureList = {
   "2023": {
     // Adult
     "AAB-AD":
-      "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis",
+      "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older",
     "AMM-AD": "Antidepressant Medication Management",
     "AMR-AD": "Asthma Medication Ratio: Ages 19 to 64",
     "BCS-AD": "Breast Cancer Screening",
@@ -216,7 +216,7 @@ export const measureDescriptions: MeasureList = {
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
     "FUA-AD":
-      "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence: Age 18 and Older",
+      "Follow-up After Emergency Department Visit for Substance Use: Age 18 and Older",
     "FUH-AD":
       "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
     "FUM-AD":
@@ -228,10 +228,10 @@ export const measureDescriptions: MeasureList = {
     "HPCMI-AD":
       "Diabetes Care for People with Serious Mental Illness: Hemoglobin A1C (HbA1c) Poor Control (>9.0%)",
     "HVL-AD": "HIV Viral Load Suppression",
-    "IET-AD":
-      "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
+    "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
     "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
-    "NCIDDS-AD": "National Core Indicators Survey",
+    "NCIDDS-AD":
+      "National Core Indicators Survey-Intellectual and Developmental Disabilities",
     "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
