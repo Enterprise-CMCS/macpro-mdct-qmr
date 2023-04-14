@@ -57,6 +57,11 @@ Cypress.Commands.add(
   }
 );
 
+// Select the year
+Cypress.Commands.add("selectYear", (year) => {
+  cy.get('[data-cy="year-select"]').select(year);
+});
+
 // Visit Adult Core Set Measures
 Cypress.Commands.add("goToAdultMeasures", () => {
   cy.get('[data-cy="ACS"]').click();
