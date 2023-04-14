@@ -886,9 +886,9 @@ export const data = {
                 "id":"HbA1ccontrol8"
             },
             {
-                "label": "HbA1c control (>9.0%)",
-                "text": "HbA1c control (>9.0%)",
-                "id":"HbA1ccontrol9"
+                "label": "HbA1c poor control (>9.0%)",
+                "text": "HbA1c poor control (>9.0%)",
+                "id":"HbA1cpoorcontrol9"
             }
         ]
     },
