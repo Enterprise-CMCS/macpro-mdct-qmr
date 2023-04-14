@@ -333,9 +333,9 @@ export const data = {
                 "id": "ThreeDaysPostpartumRate"
             },
             {
-                "label": "Sixty Days Postpartum Rate",
-                "text": "Sixty Days Postpartum Rate",
-                "id": "SixtyDaysPostpartumRate"
+                "label": "Ninety Days Postpartum Rate",
+                "text": "Ninety Days Postpartum Rate",
+                "id": "NinetyDaysPostpartumRate"
             }
         ],
         "categories": [
