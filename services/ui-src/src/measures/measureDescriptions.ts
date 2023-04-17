@@ -264,7 +264,7 @@ export const measureDescriptions: MeasureList = {
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items",
     "DEV-CH": "Developmental Screening in the First Three Years of Life",
     "FUA-CH":
-      "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence: Ages 13 to 17",
+      "Follow-Up After Emergency Department Visit for Substance Use: Ages 13 to 17",
     "FUH-CH":
       "Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17",
     "FUM-CH":

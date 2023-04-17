@@ -333,9 +333,9 @@ export const data = {
                 "id": "ThreeDaysPostpartumRate"
             },
             {
-                "label": "Sixty Days Postpartum Rate",
-                "text": "Sixty Days Postpartum Rate",
-                "id": "SixtyDaysPostpartumRate"
+                "label": "Ninety Days Postpartum Rate",
+                "text": "Ninety Days Postpartum Rate",
+                "id": "NinetyDaysPostpartumRate"
             }
         ],
         "categories": [
@@ -1403,8 +1403,8 @@ export const data = {
     "PPC-CH": {
         "qualifiers": [
             {
-                "label": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
-                "text": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
+                "label": "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
+                "text": "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
                 "id": "Prenatalcarevisitinthefirsttrimesteronorbeforetheenrollmentstartdateorwithin42daysofenrollmentinMedicaidCHIP"
             }
         ],
