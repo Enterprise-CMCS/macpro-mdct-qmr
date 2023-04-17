@@ -15,7 +15,7 @@ export interface MeasurementSpecification {
     | typeof DC.HRSA
     | typeof DC.PQA;
   [DC.MEASUREMENT_SPECIFICATION_HEDIS]: // if Measure Spec is NCQA/HEDIS -> which version are they using
-  typeof DC.HEDIS_MY_2021 | typeof DC.HEDIS_MY_2020 | typeof DC.HEDIS_2020;
+  typeof DC.HEDIS_MY_2022 | typeof DC.HEDIS_MY_2021 | typeof DC.HEDIS_MY_2020;
   [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION]: string; // If user selects OTHER in MEASUREMENT_SPECIFICATION -> this is the description
   [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD]: File; // If user selects OTHER in MEASUREMENT_SPECIFICATION -> this is optional file upload
 }
