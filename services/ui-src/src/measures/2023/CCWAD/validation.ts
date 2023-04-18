@@ -18,9 +18,11 @@ const CCWADValidation = (data: FormData) => {
   );
 
   const memeRates =
-    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[0])] ?? [];
+    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[0].label)] ??
+    [];
   const larcRates =
-    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[1])] ?? [];
+    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[1].label)] ??
+    [];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -51,7 +53,7 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       [memeRates, larcRates],
-      [""],
+      [{ id: "", label: "", text: "" }],
       deviationArray,
       didCalculationsDeviate
     ),

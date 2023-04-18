@@ -1,3 +1,4 @@
+import { LabelData } from "utils";
 import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
@@ -253,11 +254,11 @@ export namespace OmsNodes {
 }
 
 export interface Qualifiers {
-  [DC.QUALIFIERS]?: string[];
+  [DC.QUALIFIERS]?: Array<LabelData>;
 }
 
 export interface Categories {
-  [DC.CATEGORIES]?: string[];
+  [DC.CATEGORIES]?: Array<LabelData>;
 }
 
 export interface OptionalMeasureStratification {

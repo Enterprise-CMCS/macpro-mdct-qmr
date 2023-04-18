@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import * as Types from "../types";
 import { ndrFormula } from "types";
+import { LabelData } from "utils";
 
 export type ComponentFlagType = "DEFAULT" | "AIF" | "IU" | "PCR";
 
@@ -11,8 +12,8 @@ interface ContextProps {
   AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
-  categories: string[];
-  qualifiers: string[];
+  categories: Array<LabelData>;
+  qualifiers: Array<LabelData>;
   measureName?: string;
   inputFieldNames?: string[];
   ndrFormulas?: ndrFormula[];

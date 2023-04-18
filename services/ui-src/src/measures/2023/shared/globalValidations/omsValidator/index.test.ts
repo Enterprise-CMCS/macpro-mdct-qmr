@@ -4,13 +4,19 @@ import {
   generateOmsQualifierRateData,
   simpleRate,
   generateOmsFormData,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/validationHelpers-2023";
 import { DefaultFormData } from "measures/2023/shared/CommonQuestions/types";
 import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
 
 describe("Testing OMS validation processor", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const categories = [
+    { id: "TestCat1", text: "TestCat1", label: "TestCat1" },
+    { id: "TestCat2", text: "TestCat2", label: "TestCat2" },
+  ];
+  const qualifiers = [
+    { id: "TestQual1", text: "TestQual1", label: "TestQual1" },
+    { id: "TestQual2", text: "TestQual2", label: "TestQual2" },
+  ];
 
   it("should have no errors for basic data", () => {
     const errors = omsValidations({

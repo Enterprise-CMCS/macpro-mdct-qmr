@@ -10,11 +10,17 @@ import {
   simpleRate,
   partialRate,
   generateOtherPerformanceMeasureData,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/validationHelpers-2023";
 
 describe("Testing Numerator Less Than Denominator", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const categories = [
+    { label: "TestCat1", text: "TestCat1", id: "TestCat1" },
+    { label: "TestCat2", text: "TestCat2", id: "TestCat2" },
+  ];
+  const qualifiers = [
+    { label: "TestQual1", text: "TestQual1", id: "TestQual1" },
+    { label: "TestQual2", text: "TestQual2", id: "TestQual2" },
+  ];
 
   const baseOMSInfo = {
     categories,
@@ -138,7 +144,7 @@ describe("Testing Numerator Less Than Denominator", () => {
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith([
         "TestLabel",
-        qualifiers[0],
+        qualifiers[0].label,
       ]);
     });
   });
@@ -162,7 +168,7 @@ describe("Testing Numerator Less Than Denominator", () => {
     );
     expect(locationDictionaryJestFunc).toHaveBeenCalledWith([
       "TestLabel",
-      qualifiers[0],
+      qualifiers[0].label,
     ]);
     expect(errors[0].errorMessage).toBe(errorMessage);
   });

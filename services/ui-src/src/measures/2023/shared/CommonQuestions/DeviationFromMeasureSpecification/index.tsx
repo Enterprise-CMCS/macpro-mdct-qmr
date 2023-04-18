@@ -4,10 +4,10 @@ import * as DC from "dataConstants";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { cleanString } from "utils/cleanString";
-import { getLabelText } from "utils";
+import { LabelData, getLabelText } from "utils";
 
 interface GetTopLvlDeviationOptions {
-  categories: string[];
+  categories: Array<LabelData>;
   customTotalLabel?: string;
 }
 
@@ -18,7 +18,7 @@ type TopLevelOptions = {
 }[];
 
 interface Props {
-  categories: string[];
+  categories: Array<LabelData>;
   customTotalLabel?: string;
   measureName?: string;
 }
@@ -165,7 +165,7 @@ export const DeviationFromMeasureSpec = ({
         });
       } else {
         categories.forEach((cat) => {
-          const key = cleanString(cat);
+          const key = cat.id;
           // if some of the rates have both num and den
           const deviations =
             measureName === "IU-HH"
@@ -180,7 +180,7 @@ export const DeviationFromMeasureSpec = ({
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
               rates: deviationRates,
-              displayValue: labelText[cat] || cat,
+              displayValue: labelText[cat.label] || cat,
               key,
             });
           }

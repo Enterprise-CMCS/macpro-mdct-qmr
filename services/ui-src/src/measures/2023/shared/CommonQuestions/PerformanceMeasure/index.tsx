@@ -5,7 +5,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { cleanString, getLabelText } from "utils";
+import { LabelData, getLabelText } from "utils";
 import { ndrFormula } from "types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
@@ -26,8 +26,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: string[];
-  qualifiers?: string[];
+  categories?: Array<LabelData>;
+  qualifiers?: Array<LabelData>;
   measureName?: string;
   inputFieldNames?: string[];
   ndrFormulas?: ndrFormula[];
@@ -68,18 +68,16 @@ const CategoryNdrSets = ({
     <>
       {categories.map((item) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat,
+          label: cat.label,
           id: idx,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = cleanString(item);
-
         return (
-          <CUI.Box key={item}>
+          <CUI.Box key={item.id}>
             <CUI.Text fontWeight="bold" my="5">
-              {labelText[item] ?? item}
+              {labelText[item.label] ?? item.label}
             </CUI.Text>
             <RateComponent
               readOnly={rateReadOnly}
@@ -95,9 +93,7 @@ const CategoryNdrSets = ({
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               rateCalc={rateCalc}
-              {...register(
-                `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
-              )}
+              {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${item.id}`)}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }
@@ -129,7 +125,7 @@ const QualifierNdrSets = ({
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
-    label: item,
+    label: item.label,
     id: idx,
   }));
   return (

@@ -1,5 +1,5 @@
 import { OmsValidationCallback, FormRateField } from "../types";
-import { cleanString } from "utils";
+import { LabelData } from "utils";
 
 const validateOMSTotalNDRErrorMessage = (
   fieldType: string,
@@ -30,11 +30,11 @@ export const validateOMSTotalNDR =
 
     const error: FormError[] = [];
 
-    for (const cat of categories.map((s) => cleanString(s))) {
+    for (const cat of categories.map((s) => s.id)) {
       const ndrSets = [];
       let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
       let denominatorSum: any = null;
-      for (const qual of qualifiers.map((s) => cleanString(s))) {
+      for (const qual of qualifiers.map((s) => s.id)) {
         ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
       }
 
@@ -58,7 +58,7 @@ export const validateOMSTotalNDR =
         ) {
           error.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              [...label, qualifiers.slice(-1)[0]]
+              [...label, qualifiers.slice(-1)[0].label]
             )}`,
             errorMessage: errorMessageFunc("numerator", customTotalLabel),
           });
@@ -70,7 +70,7 @@ export const validateOMSTotalNDR =
         ) {
           error.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              [...label, qualifiers.slice(-1)[0]]
+              [...label, qualifiers.slice(-1)[0].label]
             )}`,
             errorMessage: errorMessageFunc("denominator", customTotalLabel),
           });
@@ -78,7 +78,7 @@ export const validateOMSTotalNDR =
       } else if (numeratorSum && denominatorSum) {
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qualifiers.slice(-1)[0]]
+            [...label, qualifiers.slice(-1)[0].label]
           )}`,
           errorMessage: errorMessageFunc("Total", customTotalLabel),
         });
@@ -105,7 +105,7 @@ Default assumption is that this is run for Performance Measure unless specified.
 export const validateTotalNDR = (
   performanceMeasureArray: FormRateField[][],
   errorLocation = "Performance Measure",
-  categories?: string[],
+  categories?: Array<LabelData>,
   errorMessageFunc = validateTotalNDRErrorMessage
 ): FormError[] => {
   let errorArray: FormError[] = [];

@@ -45,7 +45,7 @@ const TotalNDR = ({
     rateCalculation,
   } = usePerformanceMeasureContext();
 
-  const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
+  const lastQualifier = qualifier ?? qualifiers.slice(-1)[0].label;
   const cleanedQualifier = cleanString(lastQualifier);
   const cleanedCategory = cleanString(category);
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
@@ -106,9 +106,9 @@ const TotalNDRSets = ({
         <CUI.Box key={`${name}.${idx}.totalWrapper`}>
           <TotalNDR
             name={name}
-            category={cat}
+            category={cat.label}
             componentFlag={componentFlag}
-            qualifier={totalQual}
+            qualifier={totalQual.label}
           />
         </CUI.Box>
       );
@@ -170,8 +170,8 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
         if (idx === 1) {
           category = [{}, category[0], {}, category[1], category[2]];
         }
-        const cleanQual = cleanString(singleQual);
-        const cleanCat = cleanString(categories[idx]);
+        const cleanQual = singleQual.id;
+        const cleanCat = categories[idx].id;
         const cleanedName = `${name}.rates.${cleanQual}.${cleanCat}`;
 
         // Confirm that there is at least 1 rate complete
@@ -190,7 +190,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx],
+                  label: categories[idx].label,
                 },
               ]}
               categoryName={""}
@@ -201,9 +201,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     } else if (performanceMeasureArray) {
       performanceMeasureArray?.forEach((measure, idx) => {
         if (measure?.[qualIndex]?.rate) {
-          const adjustedName = `${name}.rates.${cleanString(
-            singleQual
-          )}.${cleanString(categories[idx])}`;
+          const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx].id}`;
 
           ndrSets.push(
             <QMR.Rate
@@ -222,7 +220,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx],
+                  label: categories[idx].label,
                 },
               ]}
             />
@@ -259,9 +257,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
 
   quals?.forEach((singleQual, qualIndex) => {
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
-      const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
-        DC.SINGLE_CATEGORY
-      }`;
+      const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
 
       rateArrays.push([
         <QMR.Rate
@@ -282,9 +278,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
       ]);
     } else if (AIFHHPerformanceMeasureArray) {
       AIFHHPerformanceMeasureArray?.forEach((measure) => {
-        const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
-          DC.SINGLE_CATEGORY
-        }`;
+        const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
         //Confirm that there is at least 1 rate complete
         const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
         const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
@@ -339,13 +333,12 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
 
   quals?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
-      const cleanedLabel = cleanString(value);
       const ageGroupCheckBox = {
-        value: cleanedLabel,
-        displayValue: labelText[value] ?? value,
+        value: value.id,
+        displayValue: labelText[value.label] ?? value,
         children: [
           <CUI.Heading
-            key={`${name}.rates.${cleanedLabel}Header`}
+            key={`${name}.rates.${value.id}Header`}
             size={"sm"}
             dangerouslySetInnerHTML={{
               __html:
@@ -356,7 +349,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
           />,
           <CUI.Heading
             pt="1"
-            key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+            key={`${name}.rates.${value.id}HeaderHelper`}
             size={"sm"}
             hidden={!shouldDisplay}
           >
@@ -441,7 +434,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
   const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
   const rates = qualifiers.map((qual, i) => {
-    return { label: qual, id: i };
+    return { label: qual.label, id: i };
   });
   // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();

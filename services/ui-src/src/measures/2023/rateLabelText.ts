@@ -4,8 +4,6 @@
  * Changing the text property of these objects will change the text that is displayed to the user.
  */
 
-import { LabelData } from "utils";
-
 export const data = {
     "AAB-AD": {
         "qualifiers": [
@@ -1665,10 +1663,8 @@ export const data = {
 }
 
 export const getCatQualLabels = (measure: keyof typeof data) => {
-    const getLabels = (q: LabelData) => q.label
-
-    const qualifiers = data[measure].qualifiers.map(getLabels);
-    const categories = data[measure].categories.map(getLabels);
+    const qualifiers = data[measure].qualifiers;
+    const categories = data[measure].categories;
   
     return {
       qualifiers,

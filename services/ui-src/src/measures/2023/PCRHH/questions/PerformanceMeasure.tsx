@@ -5,6 +5,7 @@ import { PerformanceMeasureData } from "measures/2023/shared/CommonQuestions/Per
 import { PCRRate } from "components/PCRRate";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useWatch } from "react-hook-form";
+import { LabelData } from "utils";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -15,8 +16,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: string[];
-  qualifiers?: string[];
+  categories?: Array<LabelData>;
+  qualifiers?: Array<LabelData>;
   rateReadOnly: boolean;
   calcTotal: boolean;
   rateScale?: number;
@@ -37,25 +38,23 @@ const CategoryNdrSets = ({
     <>
       {categories.map((item) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat,
+          label: cat.label,
           id: idx,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = item.replace(/[^\w]/g, "");
-
         return (
           <>
-            <CUI.Text key={item} fontWeight="bold" my="5">
-              {item}
+            <CUI.Text key={item.id} fontWeight="bold" my="5">
+              {item.label}
             </CUI.Text>
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
-              {...register(`PerformanceMeasure.rates.${cleanedName}`)}
+              {...register(`PerformanceMeasure.rates.${item.id}`)}
             />
           </>
         );
@@ -73,7 +72,7 @@ const QualifierNdrSets = ({
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
-    label: item,
+    label: item.label,
     id: idx,
   }));
 

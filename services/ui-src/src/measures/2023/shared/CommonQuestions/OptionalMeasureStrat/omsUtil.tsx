@@ -1,9 +1,9 @@
 import objectPath from "object-path";
-import { cleanString } from "utils/cleanString";
 import { complexRateFields, RateFields } from "../types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
+import { LabelData } from "utils";
 
 interface TempRate {
   numerator?: number;
@@ -23,7 +23,7 @@ interface TotalCalcHookProps {
 interface CalcOmsTotalProp {
   watchOMS: any;
   cleanedCategory: string;
-  qualifiers: string[];
+  qualifiers: Array<LabelData>;
   rateMultiplicationValue?: number;
   numberOfDecimals: number;
   componentFlag?: any;
@@ -43,19 +43,19 @@ const calculateOMSTotal = ({
     rate: undefined,
   };
 
-  for (const qual of qualifiers.slice(0, -1).map((s) => cleanString(s))) {
+  for (const qual of qualifiers.slice(0, -1)) {
     if (
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.numerator &&
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.denominator &&
-      watchOMS?.[qual]?.[cleanedCategory]?.[0]?.rate
+      watchOMS?.[qual.id]?.[cleanedCategory]?.[0]?.numerator &&
+      watchOMS?.[qual.id]?.[cleanedCategory]?.[0]?.denominator &&
+      watchOMS?.[qual.id]?.[cleanedCategory]?.[0]?.rate
     ) {
       tempRate.numerator ??= 0;
       tempRate.denominator ??= 0;
       tempRate.numerator += parseFloat(
-        watchOMS[qual][cleanedCategory][0].numerator
+        watchOMS[qual.id][cleanedCategory][0].numerator
       );
       tempRate.denominator += parseFloat(
-        watchOMS[qual][cleanedCategory][0].denominator
+        watchOMS[qual.id][cleanedCategory][0].denominator
       );
     }
   }
@@ -156,7 +156,7 @@ const calculateComplexOMSTotal = ({
   watchOMS,
   componentFlag,
 }: CalcOmsTotalProp): complexRateFields => {
-  const cleanedQualifiers = qualifiers.slice(0, -1).map((s) => cleanString(s));
+  const cleanedQualifiers = qualifiers.slice(0, -1);
   const fieldNames = watchOMS?.["Total"]?.[cleanedCategory]?.[0]?.fields.map(
     (field: any) => field.label
   );
@@ -175,7 +175,7 @@ const calculateComplexOMSTotal = ({
 
   // Store sums in temp
   for (const qual of cleanedQualifiers) {
-    const fields = watchOMS?.[qual]?.[cleanedCategory]?.[0]?.fields;
+    const fields = watchOMS?.[qual.id]?.[cleanedCategory]?.[0]?.fields;
     if (fields?.every((f: { value?: string }) => !!f?.value)) {
       fields?.forEach((field: { value: string }, i: number) => {
         if (field?.value && tempRate?.fields?.[i]) {
@@ -272,12 +272,10 @@ export const useTotalAutoCalculation = ({
   >();
 
   useEffect(() => {
-    const totalFieldName = `${name}.rates.${cleanString(
-      qualifiers.slice(-1)[0]
-    )}.${cleanedCategory}`;
-    const nonTotalQualifiers = qualifiers
-      .slice(0, -1)
-      .map((s) => cleanString(s));
+    const totalFieldName = `${name}.rates.${
+      qualifiers.slice(-1)[0].id
+    }.${cleanedCategory}`;
+    const nonTotalQualifiers = qualifiers.slice(0, -1);
     const includedNames = nonTotalQualifiers.map(
       (s) => `${name}.rates.${s}.${cleanedCategory}`
     );
@@ -298,7 +296,7 @@ export const useTotalAutoCalculation = ({
         }
         const watchOMS = objectPath.get(values, `${name}.rates`);
         for (const q of nonTotalQualifiers) {
-          omsFields.push(watchOMS?.[q]?.[cleanedCategory]?.[0] ?? {});
+          omsFields.push(watchOMS?.[q.id]?.[cleanedCategory]?.[0] ?? {});
         }
 
         let OMSValuesChanged: boolean;

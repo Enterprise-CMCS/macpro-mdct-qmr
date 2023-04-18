@@ -1,4 +1,4 @@
-import { cleanString } from "utils";
+import { LabelData } from "utils";
 
 interface NDRforumla {
   numerator: number;
@@ -19,7 +19,7 @@ interface Field {
 /* At least one NDR set must be complete (OMS) */
 export const ComplexValidateNDRTotalsOMS = (
   rateData: any,
-  categories: string[],
+  categories: Array<LabelData>,
   ndrFormulas: NDRforumla[],
   errorLocation: string
 ) => {
@@ -31,18 +31,18 @@ export const ComplexValidateNDRTotalsOMS = (
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];
-  const cleanedCategories = categories.map((cat) => cleanString(cat));
+  const cleanedCategories = categories;
   if (cleanedCategories.length > 0) {
     for (const cat of cleanedCategories) {
       let row = [];
       for (const q in qualifierObj) {
-        const qual = qualifierObj[q]?.[cat]?.[0] ?? {};
+        const qual = qualifierObj[q]?.[cat.id]?.[0] ?? {};
         if (qual) {
           row.push(qual);
         }
       }
       if (row) {
-        row.push(totalData[cat][0]);
+        row.push(totalData[cat.id][0]);
         performanceMeasureArray.push(row);
       }
     }
@@ -75,7 +75,7 @@ export const ComplexValidateNDRTotalsOMS = (
  */
 export const ComplexValidateNDRTotals = (
   performanceMeasureArray: any,
-  categories: string[],
+  categories: Array<LabelData>,
   ndrFormulas: NDRforumla[],
   errorLocation: string = "Performance Measure Total"
 ) => {
