@@ -368,7 +368,7 @@ const completedMeasureData = {
             },
           ],
           isTotal: true,
-          label: "Total",
+          label: "Total (Age 18 and older)",
         },
       ],
     },
