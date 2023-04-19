@@ -244,7 +244,7 @@ const completedMeasureData = {
           denominator: "55",
         },
         {
-          label: "Sixty Days Postpartum Rate",
+          label: "Ninety Days Postpartum Rate",
         },
       ],
     },
