@@ -60,9 +60,9 @@ export const data = {
                 "id": "Age85andolder"
             },
             {
-                "label": "Total",
-                "text": "Total",
-                "id": "Total"
+                "label": "Total (Age 18 and older)",
+                "text": "Total (Age 18 and older)",
+                "id": "Total (Age 18 and older)"
             }
         ],
         "categories": []
