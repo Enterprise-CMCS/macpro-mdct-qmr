@@ -128,8 +128,8 @@ const FVAAD = lazy(() =>
 const HVLAD = lazy(() =>
   import("./HVLAD").then((module) => ({ default: module.HVLAD }))
 );
-const HPCAD = lazy(() =>
-  import("./HPCAD").then((module) => ({ default: module.HPCAD }))
+const HBDAD = lazy(() =>
+  import("./HBDAD").then((module) => ({ default: module.HBDAD }))
 );
 const HPCMIAD = lazy(() =>
   import("./HPCMIAD").then((module) => ({ default: module.HPCMIAD }))
@@ -263,7 +263,7 @@ const twentyTwentyThreeMeasures = {
   "FUM-CH": FUMCH,
   "FUM-HH": FUMHH,
   "FVA-AD": FVAAD,
-  "HPC-AD": HPCAD,
+  "HBD-AD": HBDAD,
   "HPCMI-AD": HPCMIAD,
   "HVL-AD": HVLAD,
   "IET-AD": IETAD,
