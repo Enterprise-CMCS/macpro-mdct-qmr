@@ -174,6 +174,7 @@ export interface RateFields {
   [DC.NUMERATOR]?: string;
   [DC.DENOMINATOR]?: string;
   [DC.RATE]?: string;
+  [DC.UID]?: string;
 }
 
 export interface complexRateFields {

@@ -201,7 +201,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     } else if (performanceMeasureArray) {
       performanceMeasureArray?.forEach((measure, idx) => {
         if (measure?.[qualIndex]?.rate) {
-          const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx].id}`;
+          const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx]?.id}`;
 
           ndrSets.push(
             <QMR.Rate
@@ -220,7 +220,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx].label,
+                  label: categories[idx]?.label,
                 },
               ]}
             />

@@ -314,12 +314,12 @@ export const data = {
             {
                 "label": "Most effective or moderately effective method of contraception",
                 "text": "Most effective or moderately effective method of contraception",
-                "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception"
+                "id": "EffectiveContraception"
             },
             {
                 "label": "Long-acting reversible method of contraception (LARC)",
                 "text": "Long-acting reversible method of contraception (LARC)",
-                "id": "LongactingreversiblemethodofcontraceptionLARC"
+                "id": "ReversibleContraception"
             }
         ]
     },

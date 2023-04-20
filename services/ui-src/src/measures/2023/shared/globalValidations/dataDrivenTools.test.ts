@@ -2,12 +2,12 @@ import { SINGLE_CATEGORY, PERFORMANCE_MEASURE } from "dataConstants";
 import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
 import {
   generateOmsQualifierRateData,
-  generatePmQualifierRateData, //REVISIT
+  generatePmQualifierRateData,
   simpleRate,
 } from "utils/testUtils/validationHelpers-2023";
 import {
   convertOmsDataToRateArray,
-  getPerfMeasureRateArray, //REVISIT
+  getPerfMeasureRateArray,
   omsLocationDictionary,
   performanceMeasureErrorLocationDicitonary,
   getDeviationNDRArray,

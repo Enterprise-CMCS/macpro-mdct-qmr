@@ -69,6 +69,7 @@ const CategoryNdrSets = ({
       {categories.map((item) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
           label: cat.label,
+          uid: item.id + "." + cat.id,
           id: idx,
         }));
 
@@ -126,6 +127,7 @@ const QualifierNdrSets = ({
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
     label: item.label,
+    uid: item.id, //this uid is used to map to the N/D/R data's id key in the database
     id: idx,
   }));
   return (
