@@ -261,17 +261,6 @@ export const PerformanceMeasure = ({
           })}
         </CUI.UnorderedList>
       )}
-      {data.questionNote && (
-        <CUI.Stack my="5" spacing={5}>
-          {data.questionNote.map((item, idx) => {
-            return (
-              data.questionNote?.[idx] && (
-                <CUI.Text key={`questionNote.${idx}`}>{item}</CUI.Text>
-              )
-            );
-          })}
-        </CUI.Stack>
-      )}
       {showtextbox && (
         <QMR.TextArea
           label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
