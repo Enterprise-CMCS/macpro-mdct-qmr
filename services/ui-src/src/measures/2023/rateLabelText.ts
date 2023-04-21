@@ -58,9 +58,9 @@ export const data = {
                 "id": "Age85andolder"
             },
             {
-                "label": "Total",
-                "text": "Total",
-                "id": "Total"
+                "label": "Total (Age 18 and older)",
+                "text": "Total (Age 18 and older)",
+                "id": "Total (Age 18 and older)"
             }
         ],
         "categories": []
@@ -305,9 +305,9 @@ export const data = {
                 "id": "ThreeDaysPostpartumRate"
             },
             {
-                "label": "Sixty Days Postpartum Rate",
-                "text": "Sixty Days Postpartum Rate",
-                "id": "SixtyDaysPostpartumRate"
+                "label": "Ninety Days Postpartum Rate",
+                "text": "Ninety Days Postpartum Rate",
+                "id": "NinetyDaysPostpartumRate"
             }
         ],
         "categories": [
@@ -331,9 +331,9 @@ export const data = {
                 "id": "ThreeDaysPostpartumRate"
             },
             {
-                "label": "Sixty Days Postpartum Rate",
-                "text": "Sixty Days Postpartum Rate",
-                "id": "SixtyDaysPostpartumRate"
+                "label": "Ninety Days Postpartum Rate",
+                "text": "Ninety Days Postpartum Rate",
+                "id": "NinetyDaysPostpartumRate"
             }
         ],
         "categories": [
@@ -869,7 +869,7 @@ export const data = {
         ],
         "categories": []
     },
-    "HPC-AD": {
+    "HBD-AD": {
         "qualifiers": [
             {
                 "label": "Ages 18 to 64",
@@ -882,7 +882,18 @@ export const data = {
                 "id": "Ages65to75"
             }
         ],
-        "categories": []
+        "categories": [
+            {
+                "label": "HbA1c control (<8.0%)",
+                "text": "HbA1c control (<8.0%)",
+                "id":"HbA1ccontrol8"
+            },
+            {
+                "label": "HbA1c poor control (>9.0%)",
+                "text": "HbA1c poor control (>9.0%)",
+                "id":"HbA1cpoorcontrol9"
+            }
+        ]
     },
     "HPCMI-AD": {
         "qualifiers": [
@@ -929,44 +940,44 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                "id": "InitiationofAODTreatmentAlcoholAbuseorDependence"
+                "label": "Initiation of SUD Treatment: Alcohol Use Disorder",
+                "text": "Initiation of SUD Treatment: Alcohol Use Disorder",
+                "id": "InitiationofSUDTreatmentAlcoholUseDisorder"
             },
             {
-                "label": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                "id": "EngagementofAODTreatmentAlcoholAbuseorDependence"
+                "label": "Engagement of SUD Treatment: Alcohol Use Disorder",
+                "text": "Engagement of SUD Treatment: Alcohol Use Disorder",
+                "id": "EngagementofSUDTreatmentAlcoholUseDisorder"
             },
             {
-                "label": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-                "id": "InitiationofAODTreatmentOpioidAbuseorDependence"
+                "label": "Initiation of SUD Treatment: Opioid Use Disorder",
+                "text": "Initiation of SUD Treatment: Opioid Use Disorder",
+                "id": "InitiationofSUDTreatmentOpioidUseDisorder"
             },
             {
-                "label": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-                "id": "EngagementofAODTreatmentOpioidAbuseorDependence"
+                "label": "Engagement of SUD Treatment: Opioid Use Disorder",
+                "text": "Engagement of SUD Treatment: Opioid Use Disorder",
+                "id": "EngagementofSUDTreatmentOpioidUseDisorder"
             },
             {
-                "label": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-                "id": "InitiationofAODTreatmentOtherDrugAbuseorDependence"
+                "label": "Initiation of SUD Treatment: Other Substance Use Disorder",
+                "text": "Initiation of SUD Treatment: Other Substance Use Disorder",
+                "id": "InitiationofSUDTreatmentOtherDrugAbuseorDependence"
             },
             {
-                "label": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-                "id": "EngagementofAODTreatmentOtherDrugAbuseorDependence"
+                "label": "Engagement of SUD Treatment: Other Substance Use Disorder",
+                "text": "Engagement of SUD Treatment: Other Substance Use Disorder",
+                "id": "EngagementofSUDTreatmentOtherSubstanceUseDisorder"
             },
             {
-                "label": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-                "id": "InitiationofAODTreatmentTotalAODAbuseorDependence"
+                "label": "Initiation of SUD Treatment: Total",
+                "text": "Initiation of SUD Treatment: Total",
+                "id": "InitiationofSUDTreatmentTotal"
             },
             {
-                "label": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
-                "id": "EngagementofAODTreatmentTotalAODAbuseorDependence"
+                "label": "Engagement of SUD Treatment: Total",
+                "text": "Engagement of SUD Treatment: Total",
+                "id": "EngagementofSUDTreatmentTotal"
             }
         ]
     },
@@ -1401,8 +1412,8 @@ export const data = {
     "PPC-CH": {
         "qualifiers": [
             {
-                "label": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
-                "text": "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
+                "label": "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
+                "text": "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
                 "id": "Prenatalcarevisitinthefirsttrimesteronorbeforetheenrollmentstartdateorwithin42daysofenrollmentinMedicaidCHIP"
             }
         ],

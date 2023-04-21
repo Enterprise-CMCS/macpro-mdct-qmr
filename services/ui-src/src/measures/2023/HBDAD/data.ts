@@ -2,13 +2,13 @@ import { DataDrivenTypes } from "measures/2023/shared/CommonQuestions/types";
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
 
-export const { categories, qualifiers } = getCatQualLabels("HPC-AD");
+export const { categories, qualifiers } = getCatQualLabels("HBD-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of beneficiaries ages 18 to 75 with diabetes (type 1 and type 2) who had hemoglobin A1c (HbA1c) in poor control (> 9.0%).",
+    "Percentage of beneficiaries ages 18 to 75 with diabetes (type 1 and type 2) whose hemoglobin A1c (HbA1c) was at the following levels during the measurement year:",
   ],
-  questionListItems: [],
+  questionListItems: ["HbA1c control (<8.0%)", "HbA1c poor control (>9.0%)"],
   categories,
   qualifiers,
 };

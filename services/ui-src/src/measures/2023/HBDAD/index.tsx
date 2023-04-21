@@ -7,7 +7,7 @@ import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
 import { FormData } from "./types";
 
-export const HPCAD = ({
+export const HBDAD = ({
   name,
   year,
   measureId,
